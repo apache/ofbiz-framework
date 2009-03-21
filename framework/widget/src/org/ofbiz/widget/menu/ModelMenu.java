@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -100,10 +100,10 @@ public class ModelMenu extends ModelWidget {
      * with conditions is not possible.
      */
     protected Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
-    
+ 
     protected List<ModelMenuAction> actions;
 
-    
+ 
    // ===== CONSTRUCTORS =====
     /** Default Constructor */
     public ModelMenu() {}
@@ -222,7 +222,7 @@ public class ModelMenu extends ModelWidget {
                 //Debug.logInfo("in ModelMenu, hideIfSelected, val:" + val, module);
             if (val != null && val.equalsIgnoreCase("true"))
                 defaultHideIfSelected = Boolean.TRUE;
-            else 
+            else
                 defaultHideIfSelected = Boolean.FALSE;
         }
         if (this.defaultDisabledTitleStyle == null || menuElement.hasAttribute("default-disabled-title-style"))
@@ -350,7 +350,7 @@ public class ModelMenu extends ModelWidget {
                 List <GenericValue> portalPages = null;
                 try {
                     // first get public pages
-                    EntityCondition cond = 
+                    EntityCondition cond =
                         EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_"),
                             EntityCondition.makeCondition(UtilMisc.toList(
@@ -371,7 +371,7 @@ public class ModelMenu extends ModelWidget {
                             portalPages.remove(portalPage);
                             portalPages.add(privatePortalPages.get(0));
                         }
-                    } 
+                    }
                     // add any other created private pages
                         cond = EntityCondition.makeCondition(UtilMisc.toList(
                                    EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
@@ -385,8 +385,8 @@ public class ModelMenu extends ModelWidget {
                 }
                 for (GenericValue portalPage : portalPages) {
                     if (UtilValidate.isNotEmpty(portalPage.getString("portalPageName"))) {
-                        item.setName(portalPage.getString("portalPageId"));                    
-                        item.setTitle(portalPage.getString("portalPageName"));                    
+                        item.setName(portalPage.getString("portalPageId"));
+                        item.setTitle(portalPage.getString("portalPageName"));
                         item.link = new Link(item);
                         item.link.setTarget("showPortalPage?portalPageId=" + portalPage.getString("portalPageId") + "&parentPortalPageId=" + parentPortalPageId);
                         item.renderMenuItemString(writer, context, menuStringRenderer);
@@ -484,7 +484,7 @@ public class ModelMenu extends ModelWidget {
     public String getBoundaryCommentName() {
         return menuLocation + "#" + name;
     }
-    
+ 
     public Interpreter getBshInterpreter(Map<String, Object> context) throws EvalError {
         Interpreter bsh = (Interpreter) context.get("bshInterpreter");
         if (bsh == null) {

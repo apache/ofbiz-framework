@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -47,11 +47,11 @@ public class WidgetWorker {
 
     public WidgetWorker () {}
 
-    public static void buildHyperlinkUrl(Appendable externalWriter, String target, String targetType, List<WidgetWorker.Parameter> parameterList, 
+    public static void buildHyperlinkUrl(Appendable externalWriter, String target, String targetType, List<WidgetWorker.Parameter> parameterList,
             String prefix, boolean fullPath, boolean secure, boolean encode, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         String localRequestName = UtilHttp.encodeAmpersands(target);
         Appendable localWriter = new StringWriter();
-        
+ 
         if ("intra-app".equals(targetType)) {
             if (request != null && response != null) {
                 ServletContext servletContext = (ServletContext) request.getSession().getServletContext();
@@ -83,7 +83,7 @@ public class WidgetWorker {
         } else {
             localWriter.append(localRequestName);
         }
-        
+ 
         if (parameterList != null && parameterList.size() > 0) {
             String localUrl = localWriter.toString();
             externalWriter.append(localUrl);
@@ -92,7 +92,7 @@ public class WidgetWorker {
                 externalWriter.append('?');
                 needsAmp = false;
             }
-            
+ 
             for (WidgetWorker.Parameter parameter: parameterList) {
                 if (needsAmp) {
                     externalWriter.append("&amp;");
@@ -120,8 +120,8 @@ public class WidgetWorker {
         writer.append(location);
     }
 
-    public static void makeHyperlinkByType(Appendable writer, String linkType, String linkStyle, String targetType, String target, 
-            List<WidgetWorker.Parameter> parameterList, String description, String targetWindow, ModelFormField modelFormField, 
+    public static void makeHyperlinkByType(Appendable writer, String linkType, String linkStyle, String targetType, String target,
+            List<WidgetWorker.Parameter> parameterList, String description, String targetWindow, ModelFormField modelFormField,
             HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         String realLinkType = WidgetWorker.determineAutoLinkType(linkType, target, targetType, request);
         if ("hidden-form".equals(realLinkType)) {
@@ -143,11 +143,11 @@ public class WidgetWorker {
         } else {
             WidgetWorker.makeHyperlinkString(writer, linkStyle, targetType, target, parameterList, description, modelFormField, request, response, context, targetWindow);
         }
-        
+ 
     }
-    
-    public static void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, List<WidgetWorker.Parameter> parameterList, 
-            String description, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow) 
+ 
+    public static void makeHyperlinkString(Appendable writer, String linkStyle, String targetType, String target, List<WidgetWorker.Parameter> parameterList,
+            String description, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context, String targetWindow)
             throws IOException {
         if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             writer.append("<a");
@@ -163,7 +163,7 @@ public class WidgetWorker {
             buildHyperlinkUrl(writer, target, targetType, parameterList, null, false, false, true, request, response, context);
 
             writer.append("\"");
-            
+ 
             if (UtilValidate.isNotEmpty(targetWindow)) {
                 writer.append(" target=\"");
                 writer.append(targetWindow);
@@ -179,7 +179,7 @@ public class WidgetWorker {
             }
 
             writer.append('>');
-            
+ 
             if (UtilValidate.isNotEmpty(request.getAttribute("image"))){
                 writer.append("<img src=\"");
                 writer.append(request.getAttribute("image").toString());
@@ -190,7 +190,7 @@ public class WidgetWorker {
             writer.append("</a>");
         }
     }
-    
+ 
     public static void makeHiddenFormLinkAnchor(Appendable writer, String linkStyle, String description, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         if (UtilValidate.isNotEmpty(description) || UtilValidate.isNotEmpty(request.getAttribute("image"))) {
             writer.append("<a");
@@ -204,7 +204,7 @@ public class WidgetWorker {
             writer.append(" href=\"javascript:document.");
             writer.append(makeLinkHiddenFormName(context, modelFormField));
             writer.append(".submit()\"");
-            
+ 
             if (UtilValidate.isNotEmpty(modelFormField.getEvent()) && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
                 writer.append(" ");
                 writer.append(modelFormField.getEvent());
@@ -214,7 +214,7 @@ public class WidgetWorker {
             }
 
             writer.append('>');
-            
+ 
             if (UtilValidate.isNotEmpty(request.getAttribute("image"))){
                 writer.append("<img src=\"");
                 writer.append(request.getAttribute("image").toString());
@@ -225,7 +225,7 @@ public class WidgetWorker {
             writer.append("</a>");
         }
     }
-    
+ 
     public static void makeHiddenFormLinkForm(Appendable writer, String target, String targetType, String targetWindow, List<WidgetWorker.Parameter> parameterList, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         writer.append("<form method=\"post\"");
         writer.append(" action=\"");
@@ -252,10 +252,10 @@ public class WidgetWorker {
             writer.append(parameter.getValue(context));
             writer.append("\" type=\"hidden\"/>");
         }
-        
+ 
         writer.append("</form>");
     }
-    
+ 
     public static String makeLinkHiddenFormName(Map<String, Object> context, ModelFormField modelFormField) {
         ModelForm modelForm = modelFormField.getModelForm();
         Integer itemIndex = (Integer) context.get("itemIndex");
@@ -303,12 +303,12 @@ public class WidgetWorker {
             }
         }
     }
-    
+ 
     public static String determineAutoLinkType(String linkType, String target, String targetType, HttpServletRequest request) {
         Debug.logInfo("determineAutoLinkType: linkType=" + linkType + ", target=[" + target + "], targetType=" + targetType, module);
         if ("auto".equals(linkType)) {
             if ("intra-app".equals(targetType)) {
-                String requestUri = (target.indexOf('?') > -1) ? target.substring(0, target.indexOf('?')) : target; 
+                String requestUri = (target.indexOf('?') > -1) ? target.substring(0, target.indexOf('?')) : target;
                 ServletContext servletContext = (ServletContext) request.getSession().getServletContext();
                 RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
                 ConfigXMLReader.RequestMap requestMap = rh.getControllerConfig().requestMapMap.get(requestUri);

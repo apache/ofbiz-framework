@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -32,9 +32,9 @@ import javolution.util.FastSet;
 public class WidgetContextCacheKey {
 
     public static final String module = WidgetContextCacheKey.class.getName();
-    
+ 
     private static Set<String> fieldNamesToSkip;
-    
+ 
     static {
         fieldNamesToSkip = FastSet.newInstance();
         fieldNamesToSkip.add("globalContext");
@@ -78,7 +78,7 @@ public class WidgetContextCacheKey {
         fieldNamesToSkip.add("visit");
         fieldNamesToSkip.add("visitor");
     }
-            
+ 
     protected Map<String, Object> context;
 
     public WidgetContextCacheKey(Map<String, Object> context) {
@@ -133,7 +133,7 @@ public class WidgetContextCacheKey {
         }
         return true;
     }
-    
+ 
     public String toString() {
         Map<String, Object> printableMap = FastMap.newInstance();
         Iterator fieldNameIt = this.context.keySet().iterator();

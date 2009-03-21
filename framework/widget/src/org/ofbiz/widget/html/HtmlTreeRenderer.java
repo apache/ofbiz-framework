@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,7 +43,7 @@ import org.ofbiz.widget.tree.TreeStringRenderer;
 public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRenderer {
 
     ScreenStringRenderer screenStringRenderer = null;
-    public static final String module = HtmlTreeRenderer.class.getName(); 
+    public static final String module = HtmlTreeRenderer.class.getName();
 
     public HtmlTreeRenderer() {}
 
@@ -77,7 +77,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             if (depth < targetNodeTrail.size()) {
                 targetEntityId = (String)targetNodeTrail.get(depth);
             }
-    
+ 
             int openDepth = node.getModelTree().getOpenDepth();
             if (depth >= openDepth && (targetEntityId == null || !targetEntityId.equals(entityId))) {
                 // Not on the trail
@@ -151,7 +151,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             writer.append("<ul class=\"basic-tree\">");
         }
     }
-    
+ 
     public void renderLabel(Appendable writer, Map<String, Object> context, ModelTree.ModelNode.Label label) throws IOException {
         // open tag
         writer.append("<span");
@@ -168,13 +168,13 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             writer.append("\"");
         }
         writer.append(">");
-        
+ 
         // the text
         writer.append(label.getText(context));
-        
+ 
         // close tag
         writer.append("</span>");
-        
+ 
         appendWhitespace(writer);
     }
 
@@ -205,7 +205,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             writer.append(" title=\"");
             writer.append(title);
             writer.append("\"");
-        }        
+        }
         String targetWindow = link.getTargetWindow(context);
         if (UtilValidate.isNotEmpty(targetWindow)) {
             writer.append(" target=\"");
@@ -254,7 +254,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             writer.append("\"");
         }
         writer.append(">");
-        
+ 
         // the text
         ModelTree.ModelNode.Image img = link.getImage();
         if (img == null) {
@@ -330,11 +330,11 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             writer.append("\"");
         }
         writer.append("/>");
-        
+ 
     }
 
     public ScreenStringRenderer getScreenStringRenderer(Map<String, Object> context) {
-        ScreenRenderer screenRenderer = (ScreenRenderer)context.get("screens"); 
+        ScreenRenderer screenRenderer = (ScreenRenderer)context.get("screens");
         if (screenRenderer != null) {
             screenStringRenderer = screenRenderer.getScreenStringRenderer();
         } else {

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -52,7 +52,7 @@ public class ModelScreen extends ModelWidget implements Serializable {
     protected FlexibleStringExpander transactionTimeoutExdr;
     protected Map<String, ModelScreen> modelScreenMap;
     protected boolean useCache;
-    
+ 
     protected ModelScreenWidget.Section section;
 
     // ===== CONSTRUCTORS =====
@@ -75,7 +75,7 @@ public class ModelScreen extends ModelWidget implements Serializable {
         this.section = new ModelScreenWidget.Section(this, sectionElement);
         this.section.isMainSection = true;
     }
-    
+ 
     public String getSourceLocation() {
         return sourceLocation;
     }
@@ -263,7 +263,7 @@ public class ModelScreen extends ModelWidget implements Serializable {
             }
         }
     }
-    
+ 
     public Set<String> getAllRequestsLocationAndUri() throws GeneralException {
         Set<String> allRequestNamesIncluded = FastSet.newInstance();
         findRequestNamesLinkedtoInWidget(this.section, allRequestNamesIncluded);
@@ -275,7 +275,7 @@ public class ModelScreen extends ModelWidget implements Serializable {
             String target = link.getTarget(null);
             String urlMode = link.getUrlMode();
             // Debug.logInfo("In findRequestNamesLinkedtoInWidget found link [" + link.rawString() + "] with target [" + target + "]", module);
-            
+ 
             Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target, urlMode);
             if (controllerLocAndRequestSet == null) return;
             allRequestNamesIncluded.addAll(controllerLocAndRequestSet);
@@ -322,7 +322,7 @@ public class ModelScreen extends ModelWidget implements Serializable {
             }
         }
     }
-    
+ 
 
     /**
      * Renders this screen to a String, i.e. in a text format, as defined with the
@@ -335,10 +335,10 @@ public class ModelScreen extends ModelWidget implements Serializable {
      *    - userLogin (if a user is logged in)
      *    - autoUserLogin (if a user is automatically logged in, ie no password has been entered)
      *    - formStringRenderer
-     *    - request, response, session, application (special case, only in HTML contexts, etc) 
+     *    - request, response, session, application (special case, only in HTML contexts, etc)
      *    - delegator, dispatcher, security
      *    - null (represents a null field value for entity operations)
-     *    - sections (used for decorators to reference the sections to be decorated and render them) 
+     *    - sections (used for decorators to reference the sections to be decorated and render them)
      * @param screenStringRenderer An implementation of the ScreenStringRenderer
      *   interface that is responsible for the actual text generation for
      *   different screen elements; implementing your own makes it possible to
@@ -365,7 +365,7 @@ public class ModelScreen extends ModelWidget implements Serializable {
                 }
             }
         }
-        
+ 
         if (transactionTimeout < 0 && !transactionTimeoutExdr.isEmpty()) {
             // no TRANSACTION_TIMEOUT parameter, check screen attribute
             String transactionTimeoutStr = transactionTimeoutExdr.expandString(context);
@@ -377,7 +377,7 @@ public class ModelScreen extends ModelWidget implements Serializable {
                 }
             }
         }
-        
+ 
         try {
             // If transaction timeout is not present (i.e. is equal to -1), the default transaction timeout is used
             // If transaction timeout is present, use it to start the transaction
@@ -413,9 +413,9 @@ public class ModelScreen extends ModelWidget implements Serializable {
             } catch (GenericEntityException e2) {
                 Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
             }
-            
+ 
             // throw nested exception, don't need to log details here: Debug.logError(e, errMsg, module);
-            
+ 
             // after rolling back, rethrow the exception
             throw new ScreenRenderException(errMsg, e);
         } finally {

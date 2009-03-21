@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -49,7 +49,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.utility.StandardCompress;
 
 public class MacroScreenViewHandler extends AbstractViewHandler {
-    
+ 
     public static final String module = MacroScreenViewHandler.class.getName();
 
     protected ServletContext servletContext = null;
@@ -79,14 +79,14 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
             }
             boolean compressOutput = "compressed".equals(encoding);
             if (!compressOutput && this.servletContext != null) {
-                compressOutput = "true".equals((String) this.servletContext.getAttribute("compressHTML")); 
+                compressOutput = "true".equals((String) this.servletContext.getAttribute("compressHTML"));
             }
             if (compressOutput) {
                 // StandardCompress defaults to a 2k buffer. That could be increased
                 // to speed up output.
                 writer = new StandardCompress().getWriter(writer, null);
             }
-            
+ 
             ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(UtilProperties.getPropertyValue("widget", getName() + ".screenrenderer"), writer);
             FormStringRenderer formStringRenderer = new MacroFormRenderer(UtilProperties.getPropertyValue("widget", getName() + ".formrenderer"), writer);
 

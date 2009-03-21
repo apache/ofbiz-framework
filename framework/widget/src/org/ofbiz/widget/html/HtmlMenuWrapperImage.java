@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -40,12 +40,12 @@ import org.xml.sax.SAXException;
  * Widget Library - HTML Menu Wrapper class - makes it easy to do the setup and render of a menu
  */
 public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
-    
+ 
     public static final String module = HtmlMenuWrapperImage.class.getName();
 
     protected HtmlMenuWrapperImage() {}
 
-    public HtmlMenuWrapperImage(String resourceName, String menuName, HttpServletRequest request, HttpServletResponse response) 
+    public HtmlMenuWrapperImage(String resourceName, String menuName, HttpServletRequest request, HttpServletResponse response)
             throws IOException, SAXException, ParserConfigurationException {
         super(resourceName, menuName, request, response);
     }
@@ -53,10 +53,10 @@ public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
     public MenuStringRenderer getMenuRenderer() {
         return new HtmlMenuRendererImage(request, response);
     }
-    
-    public void init(String resourceName, String menuName, HttpServletRequest request, HttpServletResponse response)  
+ 
+    public void init(String resourceName, String menuName, HttpServletRequest request, HttpServletResponse response)
             throws IOException, SAXException, ParserConfigurationException {
-        
+ 
         super.init(resourceName, menuName, request, response);
         //String pubPt = (String)request.getAttribute("pubPt");
         //if (Debug.infoOn()) Debug.logInfo("in init, pubPt:" + pubPt, module);

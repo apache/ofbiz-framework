@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -66,21 +66,21 @@ import freemarker.ext.servlet.HttpSessionHashModel;
 public class ScreenRenderer {
 
     public static final String module = ScreenRenderer.class.getName();
-    
+ 
     protected Appendable writer;
     protected MapStack<String> context;
     protected ScreenStringRenderer screenStringRenderer;
-    
+ 
     public ScreenRenderer(Appendable writer, MapStack<String> context, ScreenStringRenderer screenStringRenderer) {
         this.writer = writer;
         this.context = context;
         if (this.context == null) this.context = MapStack.create();
         this.screenStringRenderer = screenStringRenderer;
     }
-    
+ 
     /**
      * Renders the named screen using the render environment configured when this ScreenRenderer was created.
-     * 
+     *
      * @param combinedName A combination of the resource name/location for the screen XML file and the name of the screen within that file, separated by a pound sign ("#"). This is the same format that is used in the view-map elements on the controller.xml file.
      * @throws IOException
      * @throws SAXException
@@ -95,7 +95,7 @@ public class ScreenRenderer {
 
     /**
      * Renders the named screen using the render environment configured when this ScreenRenderer was created.
-     * 
+     *
      * @param resourceName The name/location of the resource to use, can use "component://[component-name]/" and "ofbiz://" and other special OFBiz style URLs
      * @param screenName The name of the screen within the XML file specified by the resourceName.
      * @throws IOException
@@ -109,7 +109,7 @@ public class ScreenRenderer {
             // then try to get an already built screen output from the cache:
             // 1) if we find it then we get it and attach it to the passed in writer
             // 2) if we can't find one, we create a new StringWriter,
-            //    and pass it to the renderScreenString; 
+            //    and pass it to the renderScreenString;
             //    then we wrap its content and put it in the cache;
             //    and we attach it to the passed in writer
             WidgetContextCacheKey wcck = new WidgetContextCacheKey(context);
@@ -158,11 +158,11 @@ public class ScreenRenderer {
         context.put("userLogin", userLogin);
         context.put("nowTimestamp", UtilDateTime.nowTimestamp());
     }
-    
+ 
     /**
      * This method populates the context for this ScreenRenderer based on the HTTP Request and Response objects and the ServletContext.
      * It leverages various conventions used in other places, namely the ControlServlet and so on, of OFBiz to get the different resources needed.
-     * 
+     *
      * @param request
      * @param response
      * @param servletContext
@@ -176,12 +176,12 @@ public class ScreenRenderer {
 
         // attribute names to skip for session and application attributes; these are all handled as special cases, duplicating results and causing undesired messages
         Set<String> attrNamesToSkip = UtilMisc.toSet("delegator", "dispatcher", "security", "webSiteId");
-        Map<String, Object> parameterMap = UtilHttp.getCombinedMap(request, attrNamesToSkip);      
+        Map<String, Object> parameterMap = UtilHttp.getCombinedMap(request, attrNamesToSkip);
 
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        
+ 
         populateBasicContext(context, screens, parameterMap, (GenericDelegator) request.getAttribute("delegator"),
-                (LocalDispatcher) request.getAttribute("dispatcher"), (Security) request.getAttribute("security"), 
+                (LocalDispatcher) request.getAttribute("dispatcher"), (Security) request.getAttribute("security"),
                 UtilHttp.getLocale(request), userLogin);
 
         context.put("autoUserLogin", session.getAttribute("autoUserLogin"));
@@ -193,7 +193,7 @@ public class ScreenRenderer {
 
         // set up the user's time zone
         context.put("timeZone", UtilHttp.getTimeZone(request));
-        
+ 
         // ========== setup values that are specific to OFBiz webapps
 
         context.put("request", request);

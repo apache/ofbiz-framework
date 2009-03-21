@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -41,7 +41,7 @@ public class ModelWidget implements Serializable {
      * &lt;context-param&gt;<br/>
      * &nbsp;&nbsp;&lt;param-name&gt;widgetVerbose&lt;/param-name&gt;<br/>
      * &nbsp;&nbsp;&lt;param-value&gt;true&lt;/param-value&gt;<br/>
-     * &lt;/context-param&gt;  
+     * &lt;/context-param&gt;
      * </code><br/><br/>
      * Screen widget example:<br/><br/>
      * <code>
@@ -53,11 +53,11 @@ public class ModelWidget implements Serializable {
     public static final String enableBoundaryCommentsParam = "widgetVerbose";
     protected String name;
     protected boolean enableWidgetBoundaryComments = false;
-    
+ 
     protected ModelWidget() {}
 
     /**
-     * Derived classes must call this constructor. 
+     * Derived classes must call this constructor.
      * @param widgetElement The XML Element for the widget
      */
     public ModelWidget(Element widgetElement) {
@@ -71,7 +71,7 @@ public class ModelWidget implements Serializable {
     public String getName() {
         return name;
     }
-    
+ 
     /**
      * Returns the widget's name to be used in boundary comments. The default action
      * is to return the widget's name. Derived classes can override this method to
@@ -81,7 +81,7 @@ public class ModelWidget implements Serializable {
     public String getBoundaryCommentName() {
         return name;
     }
-    
+ 
     /**
      * Returns true if boundary comments are enabled for this widget, otherwise
      * returns false.
@@ -115,20 +115,20 @@ public class ModelWidget implements Serializable {
     }
 
     public int getPaginatorNumber(Map<String, Object> context) {
-        int paginator_number = 0; 
-        Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));      
+        int paginator_number = 0;
+        Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
         if (globalCtx != null) {
             Integer paginateNumberInt= (Integer)globalCtx.get("PAGINATOR_NUMBER");
-            if (paginateNumberInt == null) {    
+            if (paginateNumberInt == null) {
                 paginateNumberInt = Integer.valueOf(0);
                 globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
             }
             paginator_number = paginateNumberInt.intValue();
-        }    
+        }
         return paginator_number;
-    }      
-    
-    public void incrementPaginatorNumber(Map<String, Object> context) {    
+    }
+ 
+    public void incrementPaginatorNumber(Map<String, Object> context) {
         Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
         if (globalCtx != null) {
             Boolean NO_PAGINATOR = (Boolean) globalCtx.get("NO_PAGINATOR");
@@ -138,7 +138,7 @@ public class ModelWidget implements Serializable {
                 Integer paginateNumberInt = Integer.valueOf(getPaginatorNumber(context) + 1);
                 globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
             }
-        }     
+        }
     }
-    
+ 
 }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -62,20 +62,20 @@ public abstract class ModelTreeAction {
         this.modelNode = modelNode;
         this.modelTree = modelNode.getModelTree();
     }
-    
+ 
     public ModelTreeAction(ModelTree.ModelNode.ModelSubNode modelSubNode, Element actionElement) {
         if (Debug.verboseOn()) Debug.logVerbose("Reading Tree action with name: " + actionElement.getNodeName(), module);
         this.modelSubNode = modelSubNode;
         this.modelNode = this.modelSubNode.getNode();
         this.modelTree = this.modelNode.getModelTree();
     }
-    
+ 
     public abstract void runAction(Map<String, Object> context);
-    
+ 
 /*
     public static List readSubActions(ModelTree.ModelNode modelNode, Element parentElement) {
         List actions = new LinkedList();
-        
+ 
         List actionElementList = UtilXml.childElementList(parentElement);
         Iterator actionElementIter = actionElementList.iterator();
         while (actionElementIter.hasNext()) {
@@ -96,25 +96,25 @@ public abstract class ModelTreeAction {
                 throw new IllegalArgumentException("Action element not supported with name: " + actionElement.getNodeName());
             }
         }
-        
+ 
         return actions;
     }
     */
-    
+ 
     public static void runSubActions(List<ModelTreeAction> actions, Map<String, Object> context) {
         for (ModelTreeAction action: actions) {
             if (Debug.verboseOn()) Debug.logVerbose("Running tree action " + action.getClass().getName(), module);
             action.runAction(context);
         }
     }
-    
+ 
     public static class SetField extends ModelTreeAction {
         protected FlexibleMapAccessor<Object> field;
         protected FlexibleMapAccessor<Object> fromField;
         protected FlexibleStringExpander valueExdr;
         protected FlexibleStringExpander globalExdr;
         protected String type;
-        
+ 
         public SetField(ModelTree.ModelNode modelNode, Element setElement) {
             super (modelNode, setElement);
             this.field = FlexibleMapAccessor.getInstance(setElement.getAttribute("field"));
@@ -126,12 +126,12 @@ public abstract class ModelTreeAction {
                 throw new IllegalArgumentException("Cannot specify a from-field [" + setElement.getAttribute("from-field") + "] and a value [" + setElement.getAttribute("value") + "] on the set action in a tree widget");
             }
         }
-        
+ 
         public void runAction(Map<String, Object> context) {
             String globalStr = this.globalExdr.expandString(context);
             // default to false
             boolean global = "true".equals(globalStr);
-            
+ 
             Object newValue = null;
             if (!this.fromField.isEmpty()) {
                 newValue = this.fromField.get(context);
@@ -146,17 +146,17 @@ public abstract class ModelTreeAction {
                     Debug.logError(e, errMsg, module);
                     throw new IllegalArgumentException(errMsg);
                 }
-         
+ 
             }
             this.field.put(context, newValue);
-            
+ 
             if (global) {
                 Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
                 if (globalCtx != null) {
                     this.field.put(globalCtx, newValue);
                 }
             }
-            
+ 
             // this is a hack for backward compatibility with the JPublish page object
             Map<String, Object> page = UtilGenerics.checkMap(context.get("page"));
             if (page != null) {
@@ -164,20 +164,20 @@ public abstract class ModelTreeAction {
             }
         }
     }
-    
+ 
     public static class Script extends ModelTreeAction {
         protected String location;
-        
+ 
         public Script(ModelTree.ModelNode modelNode, Element scriptElement) {
             super (modelNode, scriptElement);
             this.location = scriptElement.getAttribute("location");
         }
-        
+ 
         public Script(ModelTree.ModelNode.ModelSubNode modelSubNode, Element scriptElement) {
             super (modelSubNode, scriptElement);
             this.location = scriptElement.getAttribute("location");
         }
-        
+ 
         public void runAction(Map<String, Object> context) {
             if (location.endsWith(".bsh")) {
                 try {
@@ -214,19 +214,19 @@ public abstract class ModelTreeAction {
         protected FlexibleStringExpander resultMapValueNameExdr;
         protected FlexibleStringExpander valueNameExdr;
         protected Map<FlexibleMapAccessor<Object>, Object> fieldMap;
-        
+ 
         public Service(ModelTree.ModelNode modelNode, Element serviceElement) {
             super (modelNode, serviceElement);
             initService(serviceElement);
         }
-        
+ 
         public Service(ModelTree.ModelNode.ModelSubNode modelSubNode, Element serviceElement) {
             super (modelSubNode, serviceElement);
             initService(serviceElement);
         }
-        
+ 
         public void initService( Element serviceElement ) {
-            
+ 
             this.serviceNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("service-name"));
             this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map"));
             if (this.resultMapNameAcsr.isEmpty()) this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map-name"));
@@ -240,16 +240,16 @@ public abstract class ModelTreeAction {
             if (this.valueNameExdr.isEmpty()) this.valueNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("value-name"));
             this.fieldMap = EntityFinderUtil.makeFieldMap(serviceElement);
         }
-        
+ 
         public void runAction(Map<String, Object> context) {
             String serviceNameExpanded = this.serviceNameExdr.expandString(context);
             if (UtilValidate.isEmpty(serviceNameExpanded)) {
                 throw new IllegalArgumentException("Service name was empty, expanded from: " + this.serviceNameExdr.getOriginal());
             }
-            
+ 
             String autoFieldMapString = this.autoFieldMapExdr.expandString(context);
             boolean autoFieldMapBool = !"false".equals(autoFieldMapString);
-            
+ 
             try {
                 Map<String, Object> serviceContext = null;
                 if (autoFieldMapBool) {
@@ -257,13 +257,13 @@ public abstract class ModelTreeAction {
                 } else {
                     serviceContext = FastMap.newInstance();
                 }
-                
+ 
                 if (this.fieldMap != null) {
                     EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, serviceContext);
                 }
-                
+ 
                 Map<String, Object> result = this.modelTree.getDispatcher().runSync(serviceNameExpanded, serviceContext);
-                
+ 
                 if (!this.resultMapNameAcsr.isEmpty()) {
                     this.resultMapNameAcsr.put(context, result);
                     String queryString = (String)result.get("queryString");
@@ -274,7 +274,7 @@ public abstract class ModelTreeAction {
                             String queryStringEncoded = queryString.replaceAll("&", "%26");
                             context.put("queryStringEncoded", queryStringEncoded);
                         } catch (PatternSyntaxException e) {
-                            
+ 
                         }
                     }
                 } else {
@@ -284,7 +284,7 @@ public abstract class ModelTreeAction {
                 //String resultMapListIteratorName = resultMapListIteratorNameExdr.expandString(context);
                 String resultMapValueName = resultMapValueNameExdr.expandString(context);
                 String valueName = valueNameExdr.expandString(context);
-                
+ 
                 if (this.modelSubNode != null) {
                     //ListIterator iter = null;
                     if (UtilValidate.isNotEmpty(resultMapListName)) {
@@ -318,17 +318,17 @@ public abstract class ModelTreeAction {
     public static class EntityOne extends ModelTreeAction {
         protected PrimaryKeyFinder finder;
         String valueName;
-        
+ 
         public EntityOne(ModelTree.ModelNode modelNode, Element entityOneElement) {
             super (modelNode, entityOneElement);
-            
+ 
             this.valueName = UtilFormatOut.checkEmpty(entityOneElement.getAttribute("value"), entityOneElement.getAttribute("value-name"));
             if (UtilValidate.isEmpty(this.valueName)) this.valueName = null;
             entityOneElement.setAttribute("value", this.valueName);
-            
+ 
             finder = new PrimaryKeyFinder(entityOneElement);
         }
-        
+ 
         public void runAction(Map<String, Object> context) {
             try {
                 finder.runFind(context, this.modelTree.getDelegator());
@@ -343,20 +343,20 @@ public abstract class ModelTreeAction {
     public static class EntityAnd extends ModelTreeAction {
         protected ByAndFinder finder;
         String listName;
-        
+ 
         public EntityAnd(ModelTree.ModelNode.ModelSubNode modelSubNode, Element entityAndElement) {
             super (modelSubNode, entityAndElement);
             boolean useCache = "true".equalsIgnoreCase(entityAndElement.getAttribute("use-cache"));
             Document ownerDoc = entityAndElement.getOwnerDocument();
             if (!useCache) UtilXml.addChildElement(entityAndElement, "use-iterator", ownerDoc);
-            
-            this.listName = UtilFormatOut.checkEmpty(entityAndElement.getAttribute("list"), entityAndElement.getAttribute("list-name")); 
+ 
+            this.listName = UtilFormatOut.checkEmpty(entityAndElement.getAttribute("list"), entityAndElement.getAttribute("list-name"));
             if (UtilValidate.isEmpty(this.listName)) this.listName = "_LIST_ITERATOR_";
             entityAndElement.setAttribute( "list-name", this.listName);
-            
+ 
             finder = new ByAndFinder(entityAndElement);
         }
-        
+ 
         public void runAction(Map<String, Object> context) {
             try {
                 context.put(this.listName, null);
@@ -382,20 +382,20 @@ public abstract class ModelTreeAction {
     public static class EntityCondition extends ModelTreeAction {
         ByConditionFinder finder;
         String listName;
-        
+ 
         public EntityCondition(ModelTree.ModelNode.ModelSubNode modelSubNode, Element entityConditionElement) {
             super (modelSubNode, entityConditionElement);
             Document ownerDoc = entityConditionElement.getOwnerDocument();
             boolean useCache = "true".equalsIgnoreCase(entityConditionElement.getAttribute("use-cache"));
             if (!useCache) UtilXml.addChildElement(entityConditionElement, "use-iterator", ownerDoc);
-               
-            this.listName = UtilFormatOut.checkEmpty(entityConditionElement.getAttribute("list"), entityConditionElement.getAttribute("list-name")); 
+ 
+            this.listName = UtilFormatOut.checkEmpty(entityConditionElement.getAttribute("list"), entityConditionElement.getAttribute("list-name"));
             if (UtilValidate.isEmpty(this.listName)) this.listName = "_LIST_ITERATOR_";
             entityConditionElement.setAttribute( "list-name", this.listName);
 
             finder = new ByConditionFinder(entityConditionElement);
         }
-        
+ 
         public void runAction(Map<String, Object> context) {
             try {
                 context.put(this.listName, null);

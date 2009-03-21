@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -79,13 +79,13 @@ public class ModelTree extends ModelWidget {
     protected String defaultEntityName;
     protected String defaultPkName;
     protected boolean forceChildCheck;
-    
+ 
 // ===== CONSTRUCTORS =====
     /** Default Constructor */
 
     /** XML Constructor */
     public ModelTree() {}
-    
+ 
     public ModelTree(Element treeElement, GenericDelegator delegator, LocalDispatcher dispatcher) {
         super(treeElement);
         this.rootNodeName = treeElement.getAttribute("root-node-name");
@@ -124,13 +124,13 @@ public class ModelTree extends ModelWidget {
             nodeList.add(node);
             nodeMap.put(nodeName,node);
         }
-    
+ 
         if (nodeList.size() == 0) {
             throw new IllegalArgumentException("No node elements found for the tree definition with name: " + this.name);
         }
 
     }
-    
+ 
     public void setDefaultEntityName(String name) {
         String nm = name;
         if (UtilValidate.isEmpty(nm)) {
@@ -143,15 +143,15 @@ public class ModelTree extends ModelWidget {
             this.defaultPkName = modelField.getName();
         }
     }
-    
+ 
     public String getDefaultEntityName() {
         return this.defaultEntityName;
     }
-    
+ 
     public String getDefaultPkName() {
         return this.defaultPkName;
     }
-    
+ 
     public String getRootNodeName() {
         return rootNodeName;
     }
@@ -159,15 +159,15 @@ public class ModelTree extends ModelWidget {
     public String getWrapStyle(Map<String, Object> context) {
         return this.defaultWrapStyleExdr.expandString(context);
     }
-    
+ 
     public int getOpenDepth() {
         return openDepth;
     }
-    
+ 
     public int getPostTrailOpenDepth() {
         return postTrailOpenDepth;
     }
-    
+ 
     public String getExpandCollapseRequest(Map<String, Object> context) {
         String expColReq = this.expandCollapseRequestExdr.expandString(context);
         if (UtilValidate.isEmpty(expColReq)) {
@@ -176,24 +176,24 @@ public class ModelTree extends ModelWidget {
             int pos = s1.lastIndexOf("/");
             if (pos >= 0)
                 expColReq = s1.substring(pos + 1);
-            else 
+            else
                 expColReq = s1;
         }
         return expColReq;
     }
-    
+ 
     public String getTrailName(Map<String, Object> context) {
         return this.trailNameExdr.expandString(context);
     }
-    
+ 
     public String getBoundaryCommentName() {
         return treeLocation + "#" + name;
     }
-    
+ 
     public void setTreeLocation(String treeLocation) {
         this.treeLocation = treeLocation;
     }
-    
+ 
     /**
      * Renders this tree to a String, i.e. in a text format, as defined with the
      * TreeStringRenderer implementation.
@@ -225,7 +225,7 @@ public class ModelTree extends ModelWidget {
             trail = StringUtil.split(treeString, "|");
             if (trail == null || trail.size() == 0)
                 throw new RuntimeException("Tree 'trail' value is empty.");
-            
+ 
             context.put("rootEntityId", trail.get(0));
             context.put(defaultPkName, trail.get(0));
         } else {
@@ -255,7 +255,7 @@ public class ModelTree extends ModelWidget {
     public String getRenderStyle() {
         return this.defaultRenderStyle;
     }
-    
+ 
 
     public static class ModelNode {
 
@@ -287,48 +287,48 @@ public class ModelTree extends ModelWidget {
             this.expandCollapseStyle = nodeElement.getAttribute("expand-collapse-style");
             this.wrapStyleExdr = FlexibleStringExpander.getInstance(nodeElement.getAttribute("wrap-style"));
             this.renderStyle = nodeElement.getAttribute("render-style");
-            this.entryName = UtilFormatOut.checkEmpty(nodeElement.getAttribute("entry-name"), null); 
+            this.entryName = UtilFormatOut.checkEmpty(nodeElement.getAttribute("entry-name"), null);
             setEntityName(nodeElement.getAttribute("entity-name"));
             if (this.pkName == null || nodeElement.hasAttribute("join-field-name"))
                 this.pkName = nodeElement.getAttribute("join-field-name");
-    
+ 
             Element actionElement = UtilXml.firstChildElement(nodeElement, "entity-one");
             if (actionElement != null) {
                actions.add(new ModelTreeAction.EntityOne(this, actionElement));
             }
-            
+ 
             actionElement = UtilXml.firstChildElement(nodeElement, "service");
             if (actionElement != null) {
                 actions.add(new ModelTreeAction.Service(this, actionElement));
             }
-            
+ 
             actionElement = UtilXml.firstChildElement(nodeElement, "script");
             if (actionElement != null) {
                 actions.add(new ModelTreeAction.Script(this, actionElement));
             }
-        
+ 
             Element screenElement = UtilXml.firstChildElement(nodeElement, "include-screen");
             if (screenElement != null) {
                 this.screenNameExdr =  FlexibleStringExpander.getInstance(screenElement.getAttribute("name"));
                 this.screenLocationExdr =  FlexibleStringExpander.getInstance(screenElement.getAttribute("location"));
                 this.shareScope =  screenElement.getAttribute("share-scope");
             }
-            
+ 
             Element labelElement = UtilXml.firstChildElement(nodeElement, "label");
             if (labelElement != null) {
                 this.label = new Label(labelElement);
             }
-    
+ 
             Element linkElement = UtilXml.firstChildElement(nodeElement, "link");
             if (linkElement != null) {
                 this.link = new Link(linkElement);
             }
-            
+ 
             Element imageElement = UtilXml.firstChildElement(nodeElement, "image");
             if (imageElement != null) {
                 this.image = new Image(imageElement);
             }
-    
+ 
             /* there are situations in which nothing should be displayed
             if (screenElement == null && labelElement == null && linkElement == null) {
                 throw new IllegalArgumentException("Neither 'screen' nor 'label' nor 'link' found for the node definition with name: " + this.name);
@@ -346,10 +346,10 @@ public class ModelTree extends ModelWidget {
                 ModelSubNode subNode = new ModelSubNode(subNodeElementEntry, this);
                 subNodeList.add(subNode);
             }
-    
-            
+ 
+ 
         }
-    
+ 
         public void renderNodeString(Appendable writer, Map<String, Object> context,
                 TreeStringRenderer treeStringRenderer, int depth)
                 throws IOException, GeneralException {
@@ -415,7 +415,7 @@ public class ModelTree extends ModelWidget {
                             newContext.push();
                             String nodeEntryName = node.getEntryName();
                             if (UtilValidate.isNotEmpty(nodeEntryName)) {
-                                newContext.put(nodeEntryName, val);                        
+                                newContext.put(nodeEntryName, val);
                             } else {
                                 newContext.putAll(val);
                             }
@@ -433,7 +433,7 @@ public class ModelTree extends ModelWidget {
                     String errMsg = "Error rendering included label with name ["
                             + name + "] : " + e.toString();
                     Debug.logError(e, errMsg, module);
-                    throw new RuntimeException(errMsg);                    
+                    throw new RuntimeException(errMsg);
                 } catch (SAXException e) {
                     String errMsg = "Error rendering included label with name ["
                             + name + "] : " + e.toString();
@@ -494,7 +494,7 @@ public class ModelTree extends ModelWidget {
                        if (obj != null)
                            nodeCount = (Long)obj;
                     } catch (GenericEntityException e) {
-                        Debug.logError(e, module); 
+                        Debug.logError(e, module);
                        throw new RuntimeException(e.getMessage());
                     }
                 }
@@ -581,37 +581,37 @@ public class ModelTree extends ModelWidget {
                 rStyle = modelTree.getRenderStyle();
             return rStyle;
         }
-    
+ 
         public boolean isExpandCollapse() {
             boolean isExpCollapse = false;
             String rStyle = getRenderStyle();
             if (rStyle != null && rStyle.equals("expand-collapse"))
                 isExpCollapse = true;
-            
+ 
             return isExpCollapse;
         }
-        
+ 
         public boolean isFollowTrail() {
             boolean isFollowTrail = false;
             String rStyle = getRenderStyle();
             if (rStyle != null && (rStyle.equals("follow-trail") || rStyle.equals("show-peers") || rStyle.equals("follow-trail"))) {
                 isFollowTrail = true;
             }
-            
+ 
             return isFollowTrail;
         }
-    
+ 
         public boolean isRootNode() {
             return name.equals(modelTree.getRootNodeName());
         }
-        
+ 
         public boolean showPeers(int currentDepth, Map<String, Object> context) {
             int trailSize = 0;
             List trail = UtilGenerics.checkList(context.get("targetNodeTrail"));
             int openDepth = modelTree.getOpenDepth();
             int postTrailOpenDepth = modelTree.getPostTrailOpenDepth();
             if (trail != null) trailSize = trail.size();
-                
+ 
             boolean showPeers = false;
             String rStyle = getRenderStyle();
             if (rStyle == null) {
@@ -626,10 +626,10 @@ public class ModelTree extends ModelWidget {
                 int depthAfterTrail = currentDepth - trailSize;
                 if (depthAfterTrail >= 0 && depthAfterTrail <= postTrailOpenDepth) showPeers = true;
             }
-            
+ 
             return showPeers;
         }
-    
+ 
         public String getExpandCollapseStyle() {
             return expandCollapseStyle;
         }
@@ -641,11 +641,11 @@ public class ModelTree extends ModelWidget {
             }
             return val;
         }
-    
+ 
         public ModelTree getModelTree() {
             return this.modelTree;
         }
-        
+ 
         public void setEntityName(String name) {
             this.entityName = name;
             if (UtilValidate.isNotEmpty(this.entityName)) {
@@ -658,7 +658,7 @@ public class ModelTree extends ModelWidget {
                 }
             }
         }
-        
+ 
         public String getEntityName() {
             if (UtilValidate.isNotEmpty(this.entityName)) {
                 return this.entityName;
@@ -666,7 +666,7 @@ public class ModelTree extends ModelWidget {
                 return this.modelTree.getDefaultEntityName();
             }
         }
-    
+ 
         public String getPkName() {
             if (UtilValidate.isNotEmpty(this.pkName)) {
                 return this.pkName;
@@ -674,85 +674,85 @@ public class ModelTree extends ModelWidget {
                 return this.modelTree.getDefaultPkName();
             }
         }
-    
+ 
         public void setPkName(String pkName) {
             this.pkName = pkName;
         }
-        
+ 
         public static class ModelSubNode {
-    
+ 
             protected ModelNode rootNode;
             protected FlexibleStringExpander nodeNameExdr;
             protected List<ModelTreeAction> actions = FastList.newInstance();
             protected ListIterator<? extends Map<String, ? extends Object>> listIterator;
-    
+ 
             public ModelSubNode() {}
-    
+ 
             public ModelSubNode(Element nodeElement, ModelNode modelNode) {
-    
+ 
                 this.rootNode = modelNode;
                 this.nodeNameExdr = FlexibleStringExpander.getInstance(nodeElement.getAttribute("node-name"));
-        
+ 
                 Element actionElement = UtilXml.firstChildElement(nodeElement, "entity-and");
                 if (actionElement != null) {
                    actions.add(new ModelTreeAction.EntityAnd(this, actionElement));
                 }
-                
+ 
                 actionElement = UtilXml.firstChildElement(nodeElement, "service");
                 if (actionElement != null) {
                     actions.add(new ModelTreeAction.Service(this, actionElement));
                 }
-                
+ 
                 actionElement = UtilXml.firstChildElement(nodeElement, "entity-condition");
                 if (actionElement != null) {
                     actions.add(new ModelTreeAction.EntityCondition(this, actionElement));
                 }
-                
+ 
                 actionElement = UtilXml.firstChildElement(nodeElement, "script");
                 if (actionElement != null) {
                     actions.add(new ModelTreeAction.Script(this, actionElement));
                 }
-        
+ 
             }
-            
+ 
             public ModelTree.ModelNode getNode() {
                 return this.rootNode;
             }
-        
+ 
             public String getNodeName(Map<String, Object> context) {
                 return this.nodeNameExdr.expandString(context);
             }
-    
+ 
             public List<ModelTreeAction> getActions() {
                 return actions;
             }
-            
+ 
             public void setListIterator(ListIterator<? extends Map<String, ? extends Object>> iter) {
                 listIterator = iter;
             }
-        
+ 
             public ListIterator<? extends Map<String, ? extends Object>> getListIterator() {
                 return listIterator;
             }
         }
-    
+ 
         public static class Label {
             protected FlexibleStringExpander textExdr;
-            
+ 
             protected FlexibleStringExpander idExdr;
             protected FlexibleStringExpander styleExdr;
-            
+ 
             public Label(Element labelElement) {
-    
+ 
                 // put the text attribute first, then the pcdata under the element, if both are there of course
                 String textAttr = UtilFormatOut.checkNull(labelElement.getAttribute("text"));
                 String pcdata = UtilFormatOut.checkNull(UtilXml.elementValue(labelElement));
                 this.textExdr = FlexibleStringExpander.getInstance(textAttr + pcdata);
-    
+ 
                 this.idExdr = FlexibleStringExpander.getInstance(labelElement.getAttribute("id"));
                 this.styleExdr = FlexibleStringExpander.getInstance(labelElement.getAttribute("style"));
             }
-    
+ 
             public void renderLabelString(Appendable writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
                 try {
                     treeStringRenderer.renderLabel(writer, context, this);
@@ -762,7 +762,7 @@ public class ModelTree extends ModelWidget {
                     throw new RuntimeException(errMsg);
                 }
             }
-            
+ 
             public String getText(Map<String, Object> context) {
                 String text = this.textExdr.expandString(context);
                 StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
@@ -771,17 +771,17 @@ public class ModelTree extends ModelWidget {
                 }
                 return text;
             }
-            
+ 
             public String getId(Map<String, Object> context) {
                 return this.idExdr.expandString(context);
             }
-            
+ 
             public String getStyle(Map<String, Object> context) {
                 return this.styleExdr.expandString(context);
             }
         }
 
-    
+ 
         public static class Link {
             protected FlexibleStringExpander textExdr;
             protected FlexibleStringExpander idExdr;
@@ -796,7 +796,7 @@ public class ModelTree extends ModelWidget {
             protected boolean fullPath = false;
             protected boolean secure = false;
             protected boolean encode = false;
-            
+ 
             public Link() {
                 setText(null);
                 setId(null);
@@ -813,7 +813,7 @@ public class ModelTree extends ModelWidget {
             }
 
             public Link(Element linkElement) {
-    
+ 
                 setText(linkElement.getAttribute("text"));
                 setId(linkElement.getAttribute("id"));
                 setStyle(linkElement.getAttribute("style"));
@@ -830,9 +830,9 @@ public class ModelTree extends ModelWidget {
                 if (imageElement != null) {
                     this.image = new Image(imageElement);
                 }
-    
+ 
             }
-    
+ 
             public void renderLinkString(Appendable writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
                 try {
                     treeStringRenderer.renderLink(writer, context, this);
@@ -842,7 +842,7 @@ public class ModelTree extends ModelWidget {
                     throw new RuntimeException(errMsg);
                 }
             }
-            
+ 
             public String getText(Map<String, Object> context) {
                 String text = this.textExdr.expandString(context);
                 StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
@@ -851,15 +851,15 @@ public class ModelTree extends ModelWidget {
                 }
                 return text;
             }
-            
+ 
             public String getId(Map<String, Object> context) {
                 return this.idExdr.expandString(context);
             }
-            
+ 
             public String getStyle(Map<String, Object> context) {
                 return this.styleExdr.expandString(context);
             }
-            
+ 
             public String getName(Map<String, Object> context) {
                 return this.nameExdr.expandString(context);
             }
@@ -871,7 +871,7 @@ public class ModelTree extends ModelWidget {
                 }
                 return title;
             }
-        
+ 
             public String getTarget(Map<String, Object> context) {
                 StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
@@ -880,31 +880,31 @@ public class ModelTree extends ModelWidget {
                     return this.targetExdr.expandString(context);
                 }
             }
-            
+ 
             public String getTargetWindow(Map<String, Object> context) {
                 return this.targetWindowExdr.expandString(context);
             }
-            
+ 
             public String getUrlMode() {
                 return this.urlMode;
             }
-            
+ 
             public String getPrefix(Map<String, Object> context) {
                 return this.prefixExdr.expandString(context);
             }
-            
+ 
             public boolean getFullPath() {
                 return this.fullPath;
             }
-            
+ 
             public boolean getSecure() {
                 return this.secure;
             }
-            
+ 
             public boolean getEncode() {
                 return this.encode;
             }
-            
+ 
             public Image getImage() {
                 return this.image;
             }
@@ -964,7 +964,7 @@ public class ModelTree extends ModelWidget {
             public void setImage(Image img) {
                 this.image = img;
             }
-                
+ 
         }
 
         public static class Image {
@@ -976,7 +976,7 @@ public class ModelTree extends ModelWidget {
             protected FlexibleStringExpander heightExdr;
             protected FlexibleStringExpander borderExdr;
             protected String urlMode;
-            
+ 
             public Image() {
 
                 setSrc(null);
@@ -989,7 +989,7 @@ public class ModelTree extends ModelWidget {
             }
 
             public Image(Element imageElement) {
-    
+ 
                 setSrc(imageElement.getAttribute("src"));
                 setId(imageElement.getAttribute("id"));
                 setStyle(imageElement.getAttribute("style"));
@@ -997,9 +997,9 @@ public class ModelTree extends ModelWidget {
                 setHeight(imageElement.getAttribute("height"));
                 setBorder(UtilFormatOut.checkEmpty(imageElement.getAttribute("border"), "0"));
                 setUrlMode(UtilFormatOut.checkEmpty(imageElement.getAttribute("url-mode"), "content"));
-    
+ 
             }
-    
+ 
             public void renderImageString(Appendable writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
                 try {
                     treeStringRenderer.renderImage(writer, context, this);
@@ -1009,15 +1009,15 @@ public class ModelTree extends ModelWidget {
                     throw new RuntimeException(errMsg);
                 }
             }
-            
+ 
             public String getSrc(Map<String, Object> context) {
                 return this.srcExdr.expandString(context);
             }
-            
+ 
             public String getId(Map<String, Object> context) {
                 return this.idExdr.expandString(context);
             }
-            
+ 
             public String getStyle(Map<String, Object> context) {
                 return this.styleExdr.expandString(context);
             }
@@ -1033,11 +1033,11 @@ public class ModelTree extends ModelWidget {
             public String getBorder(Map<String, Object> context) {
                 return this.borderExdr.expandString(context);
             }
-            
+ 
             public String getUrlMode() {
                 return this.urlMode;
             }
-            
+ 
             public void setSrc(String val) {
                 String textAttr = UtilFormatOut.checkNull(val);
                 this.srcExdr = FlexibleStringExpander.getInstance(textAttr);
