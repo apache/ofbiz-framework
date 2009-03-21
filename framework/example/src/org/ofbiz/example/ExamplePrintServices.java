@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -64,7 +64,7 @@ public class ExamplePrintServices {
         String reportScreenName = "ExampleReport";
         Map<String, Object> workContext = FastMap.newInstance();
         workContext.putAll(context);
-        
+ 
         // render a screen to get the XML document
         Writer reportWriter = new StringWriter();
         ScreenRenderer reportScreenRenderer = new ScreenRenderer(reportWriter, null, htmlScreenRenderer);
@@ -72,7 +72,7 @@ public class ExamplePrintServices {
 
         // put the exampleId in the screen context, is a parameter coming into the service
         //reportScreenRenderer.getContext().put("exampleId", context.get("exampleId"));
-        
+ 
         try {
             reportScreenRenderer.render(screenLocation, reportScreenName);
         } catch (GeneralException e) {
@@ -106,40 +106,40 @@ public class ExamplePrintServices {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-       
-        
+ 
+ 
         /*
-        // set the content type and length                    
-        response.setContentType("application/pdf");        
+        // set the content type and length
+        response.setContentType("application/pdf");
         response.setContentLength(out.size());
-        
+ 
         // write to the browser
         try {
             out.writeTo(response.getOutputStream());
             response.getOutputStream().flush();
         } catch (IOException e) {
-            throw new ViewHandlerException("Unable write to browser OutputStream", e);            
+            throw new ViewHandlerException("Unable write to browser OutputStream", e);
         }
-        */                             
-        
+        */
+ 
         DocFlavor docFlavor = DocFlavor.BYTE_ARRAY.PDF;
         Doc myDoc = new SimpleDoc(out.toByteArray(), docFlavor, null);
         PrintRequestAttributeSet aset = new HashPrintRequestAttributeSet();
         aset.add(new Copies(1));
         //aset.add(MediaSize.A4);
         aset.add(Sides.ONE_SIDED);
-        
+ 
         PrintService[] services = PrintServiceLookup.lookupPrintServices(docFlavor, aset);
-        if (services.length > 0) { 
-            DocPrintJob job = services[0].createPrintJob(); 
+        if (services.length > 0) {
+            DocPrintJob job = services[0].createPrintJob();
             try {
-                job.print(myDoc, aset); 
+                job.print(myDoc, aset);
             } catch (PrintException pe) {
                 String errMsg = "Unable to print PDF from XSL-FO: " + pe.toString();
                 Debug.logError(pe, errMsg, module);
                 return ServiceUtil.returnError(errMsg);
-            } 
-        } 
+            }
+        }
 
         return ServiceUtil.returnSuccess();
     }
