@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,18 +38,18 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
 
     protected URL controllerXmlUrl;
     protected String viewUri;
-    
+ 
     protected ConfigXMLReader.ViewMap viewInfoMap;
-    
+ 
     protected ScreenWidgetArtifactInfo screenCalledByThisView = null;
-    
+ 
     public ControllerViewArtifactInfo(URL controllerXmlUrl, String viewUri, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
         this.controllerXmlUrl = controllerXmlUrl;
         this.viewUri = viewUri;
-        
+ 
         this.viewInfoMap = aif.getControllerViewMap(controllerXmlUrl, viewUri);
-        
+ 
         if (this.viewInfoMap == null) {
             throw new GeneralException("Could not find Controller View [" + viewUri + "] at URL [" + controllerXmlUrl.toExternalForm() + "]");
         }
@@ -75,15 +75,15 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
             }
         }
     }
-    
+ 
     public URL getControllerXmlUrl() {
         return this.controllerXmlUrl;
     }
-    
+ 
     public String getViewUri() {
         return this.viewUri;
     }
-    
+ 
     public String getDisplayName() {
         String location = UtilURL.getOfbizHomeRelativeLocation(this.controllerXmlUrl);
         if (location.endsWith("/WEB-INF/controller.xml")) {
@@ -91,23 +91,23 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
         }
         return this.viewUri + " (" + location + ")";
     }
-    
+ 
     public String getDisplayType() {
         return "Controller View";
     }
-    
+ 
     public String getType() {
         return ArtifactInfoFactory.ControllerViewInfoTypeId;
     }
-    
+ 
     public String getUniqueId() {
         return this.controllerXmlUrl.toExternalForm() + "#" + this.viewUri;
     }
-    
+ 
     public URL getLocationURL() throws MalformedURLException {
         return this.controllerXmlUrl;
     }
-    
+ 
     public boolean equals(Object obj) {
         if (obj instanceof ControllerViewArtifactInfo) {
             ControllerViewArtifactInfo that = (ControllerViewArtifactInfo) obj;
@@ -117,11 +117,11 @@ public class ControllerViewArtifactInfo extends ArtifactInfoBase {
             return false;
         }
     }
-    
+ 
     public Set<ControllerRequestArtifactInfo> getRequestsThatThisViewIsResponseTo() {
         return this.aif.allRequestInfosReferringToView.get(this.getUniqueId());
     }
-    
+ 
     public ScreenWidgetArtifactInfo getScreenCalledByThisView() {
         return screenCalledByThisView;
     }

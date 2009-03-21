@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -44,16 +44,16 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     public static final String module = FormWidgetArtifactInfo.class.getName();
 
     protected ModelForm modelForm;
-    
+ 
     protected String formName;
     protected String formLocation;
-    
+ 
     protected Set<EntityArtifactInfo> entitiesUsedInThisForm = new TreeSet<EntityArtifactInfo>();
     protected Set<ServiceArtifactInfo> servicesUsedInThisForm = new TreeSet<ServiceArtifactInfo>();
     protected FormWidgetArtifactInfo formThisFormExtends = null;
     protected Set<ControllerRequestArtifactInfo> requestsLinkedToInForm = new TreeSet<ControllerRequestArtifactInfo>();
     protected Set<ControllerRequestArtifactInfo> requestsTargetedByInForm = new TreeSet<ControllerRequestArtifactInfo>();
-    
+ 
     public FormWidgetArtifactInfo(String formName, String formLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
         this.formName = formName;
@@ -68,7 +68,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             throw new GeneralException(e);
         }
     }
-    
+ 
     /** note this is mean to be called after the object is created and added to the ArtifactInfoFactory.allFormInfos in ArtifactInfoFactory.getFormWidgetArtifactInfo */
     public void populateAll() throws GeneralException {
         // populate entitiesUsedInThisForm, servicesUsedInThisForm, formThisFormExtends (and reverse in aif.allFormInfosExtendingForm)
@@ -78,7 +78,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
         this.populateLinkedRequests();
         this.populateTargetedRequests();
     }
-    
+ 
     protected void populateFormExtended() throws GeneralException {
         // populate formThisFormExtends and the reverse-associate cache in the aif
         if (this.modelForm.getParentFormName() != null) {
@@ -93,7 +93,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
                 Debug.logWarning("Form [" + formName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", module);
                 return;
             }
-            
+ 
             // the forward reference
             this.formThisFormExtends = aif.getFormWidgetArtifactInfo(formName);
             // the reverse reference
@@ -114,7 +114,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
                 Debug.logWarning("Entity [" + entityName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", module);
                 continue;
             }
-            
+ 
             // the forward reference
             this.entitiesUsedInThisForm.add(aif.getEntityArtifactInfo(entityName));
             // the reverse reference
@@ -137,7 +137,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
                 Debug.logWarning("Service [" + serviceName + "] reference in form [" + this.formName + "] in resource [" + this.formLocation + "] does not exist!", module);
                 continue;
             }
-            
+ 
             // the forward reference
             this.servicesUsedInThisForm.add(aif.getServiceArtifactInfo(serviceName));
             // the reverse reference
@@ -147,12 +147,12 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
 
     protected void populateLinkedRequests() throws GeneralException{
         Set<String> allRequestUniqueId = this.modelForm.getLinkedRequestsLocationAndUri();
-        
+ 
         for (String requestUniqueId: allRequestUniqueId) {
             if (requestUniqueId.contains("${")) {
                 continue;
             }
-            
+ 
             if (requestUniqueId.indexOf("#") > -1) {
                 String controllerXmlUrl = requestUniqueId.substring(0, requestUniqueId.indexOf("#"));
                 String requestUri = requestUniqueId.substring(requestUniqueId.indexOf("#") + 1);
@@ -165,12 +165,12 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     }
     protected void populateTargetedRequests() throws GeneralException{
         Set<String> allRequestUniqueId = this.modelForm.getTargetedRequestsLocationAndUri();
-        
+ 
         for (String requestUniqueId: allRequestUniqueId) {
             if (requestUniqueId.contains("${")) {
                 continue;
             }
-            
+ 
             if (requestUniqueId.indexOf("#") > -1) {
                 String controllerXmlUrl = requestUniqueId.substring(0, requestUniqueId.indexOf("#"));
                 String requestUri = requestUniqueId.substring(requestUniqueId.indexOf("#") + 1);
@@ -181,31 +181,31 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             }
         }
     }
-    
+ 
     public String getDisplayName() {
         // remove the component:// from the location
         return this.formName + " (" + this.formLocation.substring(12) + ")";
     }
-    
+ 
     public String getDisplayType() {
         return "Form Widget";
     }
-    
+ 
     public String getType() {
         return ArtifactInfoFactory.FormWidgetInfoTypeId;
     }
-    
+ 
     public String getUniqueId() {
         return this.formLocation + "#" + this.formName;
     }
-    
+ 
     public URL getLocationURL() throws MalformedURLException {
         return FlexibleLocation.resolveLocation(this.formLocation, null);
     }
-    
+ 
     public boolean equals(Object obj) {
         if (obj instanceof FormWidgetArtifactInfo) {
-            return (this.modelForm.getName().equals(((FormWidgetArtifactInfo) obj).modelForm.getName()) && 
+            return (this.modelForm.getName().equals(((FormWidgetArtifactInfo) obj).modelForm.getName()) &&
                     this.modelForm.getFormLocation().equals(((FormWidgetArtifactInfo) obj).modelForm.getFormLocation()));
         } else {
             return false;
@@ -215,27 +215,27 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     public Set<EntityArtifactInfo> getEntitiesUsedInForm() {
         return this.entitiesUsedInThisForm;
     }
-    
+ 
     public Set<ServiceArtifactInfo> getServicesUsedInForm() {
         return this.servicesUsedInThisForm;
     }
-    
+ 
     public FormWidgetArtifactInfo getFormThisFormExtends() {
         return this.formThisFormExtends;
     }
-    
+ 
     public Set<FormWidgetArtifactInfo> getFormsExtendingThisForm() {
         return this.aif.allFormInfosExtendingForm.get(this.getUniqueId());
     }
-    
+ 
     public Set<ScreenWidgetArtifactInfo> getScreensIncludingThisForm() {
         return this.aif.allScreenInfosReferringToForm.get(this.getUniqueId());
     }
-    
+ 
     public Set<ControllerRequestArtifactInfo> getRequestsLinkedToInForm() {
         return this.requestsLinkedToInForm;
     }
-    
+ 
     public Set<ControllerRequestArtifactInfo> getRequestsTargetedByForm() {
         return this.requestsTargetedByInForm;
     }

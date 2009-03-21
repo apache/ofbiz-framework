@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -45,15 +45,15 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     public static final String module = ScreenWidgetArtifactInfo.class.getName();
 
     protected ModelScreen modelScreen;
-    
+ 
     protected String screenName;
     protected String screenLocation;
-    
+ 
     protected Set<EntityArtifactInfo> entitiesUsedInThisScreen = new TreeSet<EntityArtifactInfo>();
     protected Set<ServiceArtifactInfo> servicesUsedInThisScreen = new TreeSet<ServiceArtifactInfo>();
     protected Set<FormWidgetArtifactInfo> formsIncludedInThisScreen = new TreeSet<FormWidgetArtifactInfo>();
     protected Set<ControllerRequestArtifactInfo> requestsLinkedToInScreen = new TreeSet<ControllerRequestArtifactInfo>();
-    
+ 
     public ScreenWidgetArtifactInfo(String screenName, String screenLocation, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
         this.screenName = screenName;
@@ -69,7 +69,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
         } catch (IOException e) {
             throw new GeneralException(e);
         }
-        
+ 
     }
 
     public void populateAll() throws GeneralException {
@@ -94,7 +94,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
                 Debug.logWarning("Service [" + serviceName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", module);
                 continue;
             }
-            
+ 
             // the forward reference
             this.servicesUsedInThisScreen.add(aif.getServiceArtifactInfo(serviceName));
             // the reverse reference
@@ -117,7 +117,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
                 Debug.logWarning("Entity [" + entityName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", module);
                 continue;
             }
-            
+ 
             // the forward reference
             this.entitiesUsedInThisScreen.add(aif.getEntityArtifactInfo(entityName));
             // the reverse reference
@@ -141,22 +141,22 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
                 Debug.logWarning("Form [" + formName + "] reference in screen [" + this.screenName + "] in resource [" + this.screenLocation + "] does not exist!", module);
                 continue;
             }
-            
+ 
             // the forward reference
             this.formsIncludedInThisScreen.add(aif.getFormWidgetArtifactInfo(formName));
             // the reverse reference
             UtilMisc.addToSortedSetInMap(this, aif.allScreenInfosReferringToForm, formName);
         }
     }
-    
+ 
     protected void populateLinkedRequests() throws GeneralException{
         Set<String> allRequestUniqueId = this.modelScreen.getAllRequestsLocationAndUri();
-        
+ 
         for (String requestUniqueId: allRequestUniqueId) {
             if (requestUniqueId.contains("${")) {
                 continue;
             }
-            
+ 
             if (requestUniqueId.indexOf("#") > -1) {
                 String controllerXmlUrl = requestUniqueId.substring(0, requestUniqueId.indexOf("#"));
                 String requestUri = requestUniqueId.substring(requestUniqueId.indexOf("#") + 1);
@@ -172,57 +172,57 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
         // remove the component:// from the location
         return this.screenName + " (" + this.screenLocation.substring(12) + ")";
     }
-    
+ 
     public String getDisplayType() {
         return "Screen Widget";
     }
-    
+ 
     public String getType() {
         return ArtifactInfoFactory.ScreenWidgetInfoTypeId;
     }
-    
+ 
     public String getUniqueId() {
         return this.screenLocation + "#" + this.screenName;
     }
-    
+ 
     public URL getLocationURL() throws MalformedURLException {
         return FlexibleLocation.resolveLocation(this.screenLocation, null);
     }
-    
+ 
     public boolean equals(Object obj) {
         if (obj instanceof ScreenWidgetArtifactInfo) {
-            return (this.modelScreen.getName().equals(((ScreenWidgetArtifactInfo) obj).modelScreen.getName()) && 
+            return (this.modelScreen.getName().equals(((ScreenWidgetArtifactInfo) obj).modelScreen.getName()) &&
                     this.modelScreen.getSourceLocation().equals(((ScreenWidgetArtifactInfo) obj).modelScreen.getSourceLocation()));
         } else {
             return false;
         }
     }
-    
+ 
     public Set<ControllerViewArtifactInfo> getViewsReferringToScreen() {
         return this.aif.allViewInfosReferringToScreen.get(this.getUniqueId());
     }
-    
+ 
     public Set<EntityArtifactInfo> getEntitiesUsedInScreen() {
         return this.entitiesUsedInThisScreen;
     }
-    
+ 
     public Set<ServiceArtifactInfo> getServicesUsedInScreen() {
         return this.servicesUsedInThisScreen;
     }
-    
+ 
     public Set<FormWidgetArtifactInfo> getFormsIncludedInScreen() {
         return this.formsIncludedInThisScreen;
     }
-    
+ 
     public Set<ScreenWidgetArtifactInfo> getScreensIncludedInScreen() {
         // TODO: implement this
         return FastSet.newInstance();
     }
-    
+ 
     public Set<ScreenWidgetArtifactInfo> getScreensIncludingThisScreen() {
         return this.aif.allScreenInfosReferringToScreen.get(this.getUniqueId());
     }
-    
+ 
     public Set<ControllerRequestArtifactInfo> getRequestsLinkedToInScreen() {
         return this.requestsLinkedToInScreen;
     }
