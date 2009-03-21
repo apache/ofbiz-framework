@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -129,7 +129,7 @@ public class CheckOutHelper {
         String errMsg = null;
 
         if (UtilValidate.isNotEmpty(this.cart)) {
-            errorMessages.addAll(setCheckOutShippingOptionsInternal(shippingMethod, shippingInstructions, 
+            errorMessages.addAll(setCheckOutShippingOptionsInternal(shippingMethod, shippingInstructions,
                     orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate));
         } else {
             errMsg = UtilProperties.getMessage(resource_error,"checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
@@ -147,7 +147,7 @@ public class CheckOutHelper {
         return result;
     }
 
-    private List setCheckOutShippingOptionsInternal(String shippingMethod, String shippingInstructions, String orderAdditionalEmails, 
+    private List setCheckOutShippingOptionsInternal(String shippingMethod, String shippingInstructions, String orderAdditionalEmails,
             String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate ) {
         List errorMessages = new ArrayList();
         String errMsg = null;
@@ -385,7 +385,7 @@ public class CheckOutHelper {
 
 
     public Map setCheckOutOptions(String shippingMethod, String shippingContactMechId, Map selectedPaymentMethods,
-            List singleUsePayments, String billingAccountId, String shippingInstructions, 
+            List singleUsePayments, String billingAccountId, String shippingInstructions,
             String orderAdditionalEmails, String maySplit, String giftMessage, String isGift, String internalCode, String shipBeforeDate, String shipAfterDate) {
         List errorMessages = new ArrayList();
         Map result = null;
@@ -394,12 +394,12 @@ public class CheckOutHelper {
 
         if (UtilValidate.isNotEmpty(this.cart)) {
             // set the general shipping options and method
-            errorMessages.addAll(setCheckOutShippingOptionsInternal(shippingMethod, shippingInstructions, 
+            errorMessages.addAll(setCheckOutShippingOptionsInternal(shippingMethod, shippingInstructions,
                     orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate));
 
             // set the shipping address
             errorMessages.addAll(setCheckOutShippingAddressInternal(shippingContactMechId));
-            
+ 
             // Recalc shipping costs before setting payment
             Map shipEstimateMap = ShippingEvents.getShipGroupEstimate(dispatcher, delegator, cart, 0);
             BigDecimal shippingTotal = (BigDecimal) shipEstimateMap.get("shippingTotal");
@@ -458,7 +458,7 @@ public class CheckOutHelper {
                     errorMessages.add(errMsg);
                     gcFieldsOkay = false;
                 }
-            } 
+            }
             // See if we should validate gift card code against FinAccount's accountCode
             if (cart.isValidateGCFinAccount(delegator)) {
                 try {
@@ -481,9 +481,9 @@ public class CheckOutHelper {
                 } catch (GenericEntityException ex) {
                     errorMessages.add(ex.getMessage());
                     gcFieldsOkay = false;
-                }   
-            }                
-            
+                }
+            }
+ 
             if (UtilValidate.isNotEmpty(selectedPaymentMethods)) {
                 if (gcAmt == null || gcAmt.length() == 0) {
                     errMsg = UtilProperties.getMessage(resource_error,"checkhelper.enter_amount_to_place_on_gift_card", (cart != null ? cart.getLocale() : Locale.getDefault()));
@@ -630,7 +630,7 @@ public class CheckOutHelper {
             String productId = orderItem.getString("productId");
             if (productId != null) {
                 try {
-                    // do something tricky here: run as the "system" user 
+                    // do something tricky here: run as the "system" user
                     // that can actually create and run a production run
                     GenericValue permUserLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
                     GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
@@ -644,12 +644,12 @@ public class CheckOutHelper {
                         inputMap.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
                         inputMap.put("quantity", orderItem.getBigDecimal("quantity"));
                         inputMap.put("userLogin", permUserLogin);
-                        
+ 
                         Map prunResult = dispatcher.runSync("createProductionRunFromConfiguration", inputMap);
                         if (ServiceUtil.isError(prunResult)) {
                             Debug.logError(ServiceUtil.getErrorMessage(prunResult) + " for input:" + inputMap, module);
                         }
-                    } 
+                    }
                 } catch (Exception e) {
                     String service = e.getMessage();
                     Map messageMap = UtilMisc.toMap("service", service);
@@ -794,22 +794,22 @@ public class CheckOutHelper {
         List shipAmt = new ArrayList(totalItems);
 
         // Debug.logInfo("====== makeTaxContext passed in shipAddress=" + shipAddress, module);
-        
+ 
         Iterator it = csi.shipItemInfo.keySet().iterator();
         for (int i = 0; i < totalItems; i++) {
             ShoppingCartItem cartItem = (ShoppingCartItem) it.next();
             ShoppingCart.CartShipInfo.CartShipItemInfo itemInfo = csi.getShipItemInfo(cartItem);
-            
+ 
             //Debug.logInfo("In makeTaxContext for item [" + i + "] in ship group [" + shipGroup + "] got cartItem: " + cartItem, module);
             //Debug.logInfo("In makeTaxContext for item [" + i + "] in ship group [" + shipGroup + "] got itemInfo: " + itemInfo, module);
-            
+ 
             product.add(i, cartItem.getProduct());
             amount.add(i, cartItem.getItemSubTotal(itemInfo.quantity));
             price.add(i, cartItem.getBasePrice());
             shipAmt.add(i, BigDecimal.ZERO); // no per item shipping yet
             shoppingCartItemIndexMap.put(Integer.valueOf(i), cartItem);
         }
-        
+ 
         //add promotion adjustments
         List allAdjustments = cart.getAdjustments();
         BigDecimal orderPromoAmt = OrderReadHelper.calcOrderPromoAdjustmentsBd(allAdjustments);
@@ -1052,10 +1052,10 @@ public class CheckOutHelper {
                                            EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"));
             List cashCodPcBaPaymentPreferences = EntityUtil.filterByOr(allPaymentPreferences, cashCodPcBaExpr);
 
-            if (UtilValidate.isNotEmpty(cashCodPcBaPaymentPreferences) && 
+            if (UtilValidate.isNotEmpty(cashCodPcBaPaymentPreferences) &&
                     UtilValidate.isNotEmpty(allPaymentPreferences) &&
                     cashCodPcBaPaymentPreferences.size() == allPaymentPreferences.size()) {
-             
+ 
                 //if there are Check type, approve the order only if it is face to face
                 List checkPareferences = EntityUtil.filterByAnd(cashCodPcBaPaymentPreferences, UtilMisc.toMap("paymentMethodTypeId", "PERSONAL_CHECK"));
                 if (UtilValidate.isNotEmpty(checkPareferences)) {
@@ -1064,8 +1064,8 @@ public class CheckOutHelper {
                         if (!ok) {
                             throw new GeneralException("Problem with order change; see above error");
                         }
-                    }                    
-                // approve this as long as there are only CASH, COD and Billing Account types   
+                    }
+                // approve this as long as there are only CASH, COD and Billing Account types 
                 } else {
                     boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
                     if (!ok) {
@@ -1191,7 +1191,7 @@ public class CheckOutHelper {
         String errMsg=null;
         String REJECT_MESSAGE = productStore.getString("authFraudMessage");
         String orderId = this.cart.getOrderId();
-        
+ 
         try {
             if (userLogin != null) {
                 // nuke the userlogin
@@ -1379,7 +1379,7 @@ public class CheckOutHelper {
      *
      * @param checkOutPaymentId The payment ID to be associated with the cart
      * @return A Map conforming to the OFBiz Service conventions containing
-     * any error messages. 
+     * any error messages.
      */
     public Map finalizeOrderEntryPayment(String checkOutPaymentId, BigDecimal amount, boolean singleUse, boolean append) {
         Map result = ServiceUtil.returnSuccess();
@@ -1512,7 +1512,7 @@ public class CheckOutHelper {
                     errMsg = UtilProperties.getMessage(resource_error, "checkhelper.change_returned_cannot_be_greater_than_cash", (cart != null ? cart.getLocale() : Locale.getDefault()));
                     return ServiceUtil.returnError(errMsg);
                 }
-            }            
+            }
         }
         return ServiceUtil.returnSuccess();
     }

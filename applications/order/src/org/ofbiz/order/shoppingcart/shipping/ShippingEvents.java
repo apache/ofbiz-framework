@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -123,7 +123,7 @@ public class ShippingEvents {
         if (shipAddr == null) {
             return UtilMisc.toMap("shippingTotal", BigDecimal.ZERO);
         }
-        
+ 
         String contactMechId = shipAddr.getString("contactMechId");
         String partyId = null;
         GenericValue partyObject = orh.getPlacingParty();
@@ -170,7 +170,7 @@ public class ShippingEvents {
         }
 
 //  ShipmentCostEstimate entity allows null value for geoIdTo field. So if geoIdTo is null we should be using orderFlatPrice for shipping cost.
-//  So now calcShipmentCostEstimate service requires shippingContactMechId only if geoIdTo field has not null value.        
+//  So now calcShipmentCostEstimate service requires shippingContactMechId only if geoIdTo field has not null value.
 //        if (shippingContactMechId == null) {
 //            errorMessageList.add("Please Select Your Shipping Address.");
 //            return ServiceUtil.returnError(errorMessageList);
@@ -214,7 +214,7 @@ public class ShippingEvents {
         serviceFields.put("initialEstimateAmt", shippingTotal);
         serviceFields.put("shippableTotal", shippableTotal);
         serviceFields.put("shippableQuantity", shippableQuantity);
-        serviceFields.put("shippableWeight", shippableWeight);        
+        serviceFields.put("shippableWeight", shippableWeight);
         serviceFields.put("shippableItemInfo", itemInfo);
         serviceFields.put("productStoreId", productStoreId);
         serviceFields.put("carrierRoleTypeId", "CARRIER");
@@ -308,11 +308,11 @@ public class ShippingEvents {
                     throw new GeneralException(e);
                 }
                 if (ServiceUtil.isError(serviceResp)) {
-                    String errMsg = "Error getting external shipment cost estimate: " + ServiceUtil.getErrorMessage(serviceResp); 
+                    String errMsg = "Error getting external shipment cost estimate: " + ServiceUtil.getErrorMessage(serviceResp);
                     Debug.logError(errMsg, module);
                     throw new GeneralException(errMsg);
                 } else if (ServiceUtil.isFailure(serviceResp)) {
-                    String errMsg = "Failure getting external shipment cost estimate: " + ServiceUtil.getErrorMessage(serviceResp); 
+                    String errMsg = "Failure getting external shipment cost estimate: " + ServiceUtil.getErrorMessage(serviceResp);
                     Debug.logError(errMsg, module);
                     // should not throw an Exception here, otherwise getShipGroupEstimate would return an error, causing all sorts of services like add or update order item to abort
                 } else {

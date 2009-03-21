@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -48,13 +48,13 @@ public class CartEventListener implements HttpSessionListener {
     }
 
     public void sessionDestroyed(HttpSessionEvent event) {
-        HttpSession session = event.getSession();        
-        ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");       
+        HttpSession session = event.getSession();
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
         if (cart == null) {
             Debug.logInfo("No cart to save, doing nothing.", module);
             return;
         }
-        
+ 
         String delegatorName = (String) session.getAttribute("delegatorName");
         GenericDelegator delegator = null;
         if (UtilValidate.isNotEmpty(delegatorName)) {
@@ -64,17 +64,17 @@ public class CartEventListener implements HttpSessionListener {
             Debug.logError("Could not find delegator with delegatorName in session, not saving abandoned cart info.", module);
             return;
         }
-        
+ 
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
-        
+ 
             GenericValue visit = VisitHandler.getVisit(session);
             if (visit == null) {
                 Debug.logError("Could not get the current visit, not saving abandoned cart info.", module);
                 return;
             }
-            
+ 
             Debug.logInfo("Saving abandoned cart", module);
             Iterator cartItems = cart.iterator();
             int seqId = 1;

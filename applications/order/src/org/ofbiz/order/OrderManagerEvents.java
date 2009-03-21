@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -83,7 +83,7 @@ public class OrderManagerEvents {
                 Iterator i = paymentPrefs.iterator();
                 while (i.hasNext()) {
                     // update the preference to received
-                    // TODO: updating payment preferences should be done as a service 
+                    // TODO: updating payment preferences should be done as a service
                     GenericValue ppref = (GenericValue) i.next();
                     ppref.set("statusId", "PAYMENT_RECEIVED");
                     ppref.set("authDate", UtilDateTime.nowTimestamp());
@@ -92,7 +92,7 @@ public class OrderManagerEvents {
                     // create a payment record
                     Map results = null;
                     try {
-                        results = dispatcher.runSync("createPaymentFromPreference", UtilMisc.toMap("orderPaymentPreferenceId", ppref.get("orderPaymentPreferenceId"), 
+                        results = dispatcher.runSync("createPaymentFromPreference", UtilMisc.toMap("orderPaymentPreferenceId", ppref.get("orderPaymentPreferenceId"),
                                 "paymentFromId", placingCustomer.getString("partyId"), "comments", "Payment received offline and manually entered."));
                     } catch (GenericServiceException e) {
                         Debug.logError(e, "Failed to execute service createPaymentFromPreference", module);
@@ -101,7 +101,7 @@ public class OrderManagerEvents {
                     }
  
                     if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
-                        Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module); 
+                        Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
                         request.setAttribute("_ERROR_MESSAGE_", (String) results.get(ModelService.ERROR_MESSAGE));
                         return "error";
                     }
@@ -204,7 +204,7 @@ public class OrderManagerEvents {
                     if (userLogin != null) {
                         paymentPreference.set("createdByUserLogin", userLogin.getString("userLoginId"));
                     }
-                    
+ 
                     try {
                         delegator.create(paymentPreference);
                     } catch (GenericEntityException ex) {
@@ -216,15 +216,15 @@ public class OrderManagerEvents {
                     // create a payment record
                     Map results = null;
                     try {
-                        results = dispatcher.runSync("createPaymentFromPreference", UtilMisc.toMap("userLogin", userLogin, 
-                                "orderPaymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"), "paymentRefNum", paymentReference, 
+                        results = dispatcher.runSync("createPaymentFromPreference", UtilMisc.toMap("userLogin", userLogin,
+                                "orderPaymentPreferenceId", paymentPreference.get("orderPaymentPreferenceId"), "paymentRefNum", paymentReference,
                                 "paymentFromId", placingCustomer.getString("partyId"), "comments", "Payment received offline and manually entered."));
                     } catch (GenericServiceException e) {
                         Debug.logError(e, "Failed to execute service createPaymentFromPreference", module);
                         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                         return "error";
                     }
-                     
+ 
                     if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
                         Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
                         request.setAttribute("_ERROR_MESSAGE_", (String) results.get(ModelService.ERROR_MESSAGE));

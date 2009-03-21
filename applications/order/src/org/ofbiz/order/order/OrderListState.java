@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -81,14 +81,14 @@ public class OrderListState {
         map.put("filterAuthProblems", "filterAuthProblems");
         map.put("filterPartiallyReceivedPOs", "filterPartiallyReceivedPOs");
         map.put("filterPOsOpenPastTheirETA", "filterPOsOpenPastTheirETA");
-        map.put("filterPOsWithRejectedItems", "filterPOsWithRejectedItems");        
+        map.put("filterPOsWithRejectedItems", "filterPOsWithRejectedItems");
         parameterToFilterId = map;
     }
 
     //=============   Initialization and Request methods   ===================//
 
     /**
-     * Initializes the order list state with default values. Do not use directly, 
+     * Initializes the order list state with default values. Do not use directly,
      * instead use getInstance().
      */
     protected OrderListState() {
@@ -96,7 +96,7 @@ public class OrderListState {
         viewIndex = 0;
         orderStatusState = FastMap.newInstance();
         orderTypeState = FastMap.newInstance();
-        orderFilterState = FastMap.newInstance();        
+        orderFilterState = FastMap.newInstance();
 
         // defaults (TODO: configuration)
         orderStatusState.put("viewcreated", "Y");
@@ -126,7 +126,7 @@ public class OrderListState {
 
     /**
      * Given a request, decides what state to change.  If a parameter changeStatusAndTypeState
-     * is present with value "Y", the status and type state will be updated.  Otherwise, if the 
+     * is present with value "Y", the status and type state will be updated.  Otherwise, if the
      * viewIndex and viewSize parameters are present, the pagination changes.
      */
     public void update(HttpServletRequest request) {
@@ -187,11 +187,11 @@ public class OrderListState {
     public Map getOrderStatusState() { return orderStatusState; };
     public Map getOrderTypeState() { return orderTypeState; }
     public Map getorderFilterState() { return orderFilterState; }
-    
+ 
     public boolean hasStatus(String param) { return ("Y".equals(orderStatusState.get(param))); }
     public boolean hasType(String param) { return ("Y".equals(orderTypeState.get(param))); }
     public boolean hasFilter(String param) { return ("Y".equals(orderFilterState.get(param))); }
-    
+ 
     public boolean hasAllStatus() {
         for (Iterator iter = orderStatusState.values().iterator(); iter.hasNext(); ) {
             if (!"Y".equals(iter.next())) return false;
@@ -228,7 +228,7 @@ public class OrderListState {
             if (!hasType(type)) continue;
             typeConditions.add( EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, parameterToOrderTypeId.get(type)) );
         }
-                
+ 
         EntityCondition statusConditionsList = EntityCondition.makeCondition(statusConditions,  EntityOperator.OR);
         EntityCondition typeConditionsList = EntityCondition.makeCondition(typeConditions, EntityOperator.OR);
         if ((typeConditions.size() > 0) && (statusConditions.size() > 0)) {

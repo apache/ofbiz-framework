@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -91,7 +91,7 @@ public class ShoppingCartEvents {
         }
         return "success";
     }
-    
+ 
     public static String addItemGroup(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = getCartObject(request);
         Map parameters = UtilHttp.getParameterMap(request);
@@ -101,7 +101,7 @@ public class ShoppingCartEvents {
         request.setAttribute("itemGroupNumber", groupNumber);
         return "success";
     }
-    
+ 
     public static String addCartItemToGroup(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = getCartObject(request);
         Map parameters = UtilHttp.getParameterMap(request);
@@ -112,7 +112,7 @@ public class ShoppingCartEvents {
         cartItem.setItemGroup(itemGroupNumber, cart);
         return "success";
     }
-    
+ 
     /** Event to add an item to the shopping cart. */
     public static String addToCart(HttpServletRequest request, HttpServletResponse response) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
@@ -185,7 +185,7 @@ public class ShoppingCartEvents {
         if (productCategoryId != null && productCategoryId.length() == 0) {
             productCategoryId = null;
         }
-        
+ 
         if (paramMap.containsKey("ADD_ITEM_TYPE")) {
             itemType = (String) paramMap.remove("ADD_ITEM_TYPE");
         } else if (paramMap.containsKey("add_item_type")) {
@@ -230,7 +230,7 @@ public class ShoppingCartEvents {
                 } catch (Exception e) {
                     Debug.logWarning(e,"Could not load configuration", module);
                 }
-            } else { 
+            } else {
             // The choices selected by the user are taken from request and set in the wrapper
             ProductConfigWorker.fillProductConfigWrapper(configWrapper, request);
             }
@@ -244,8 +244,8 @@ public class ShoppingCartEvents {
                 ProductConfigWorker.storeProductConfigWrapper(configWrapper, delegator);
             }
         }
-        
-  
+ 
+ 
         //Check for virtual products
         if (ProductWorker.isVirtual(delegator, productId)) {
 
@@ -259,7 +259,7 @@ public class ShoppingCartEvents {
                         selectedFeatures.add(request.getParameterValues(paramName)[0]);
                     }
                 }
-                
+ 
                 // check if features are selected
                 if (UtilValidate.isEmpty(selectedFeatures)) {
                     request.setAttribute("product_id", productId);
@@ -282,7 +282,7 @@ public class ShoppingCartEvents {
                 return "product";
             }
         }
-        
+ 
         // get the override price
         if (paramMap.containsKey("PRICE")) {
             priceStr = (String) paramMap.remove("PRICE");
@@ -360,7 +360,7 @@ public class ShoppingCartEvents {
                     return "error";
                 }
             }
-            
+ 
             //check for valid rental parameters
             if (UtilValidate.isEmpty(reservStart) && UtilValidate.isEmpty(reservLength) && UtilValidate.isEmpty(reservPersons)) {
                 request.setAttribute("product_id", productId);
@@ -419,14 +419,14 @@ public class ShoppingCartEvents {
                 amount = null;
             }
         }
-        
+ 
         // check for required amount
         if ((ProductWorker.isAmountRequired(delegator, productId)) && (amount == null || amount.doubleValue() == 0.0)) {
             request.setAttribute("product_id", productId);
             request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource_error,"cart.addToCart.enterAmountBeforeAddingToCart",locale));
             return "product";
         }
-                
+ 
         // get the ship before date (handles both yyyy-mm-dd input and full timestamp)
         shipBeforeDateStr = (String) paramMap.remove("shipBeforeDate");
         if (shipBeforeDateStr != null && shipBeforeDateStr.length() > 0) {
@@ -484,8 +484,8 @@ public class ShoppingCartEvents {
         if (surveyResponses != null) {
             paramMap.put("surveyResponses", surveyResponses);
         }
-        
-        GenericValue productStore = ProductStoreWorker.getProductStore(request); 
+ 
+        GenericValue productStore = ProductStoreWorker.getProductStore(request);
         String addToCartRemoveIncompat = productStore.getString("addToCartRemoveIncompat");
         String addToCartReplaceUpsell = productStore.getString("addToCartReplaceUpsell");
         try {
@@ -508,7 +508,7 @@ public class ShoppingCartEvents {
                         productList.add(productAssoc.getString("productId"));
                         continue;
                     }
-                }    
+                }
                 Iterator sciIter = cart.iterator();
                 while (sciIter.hasNext()) {
                     ShoppingCartItem sci = (ShoppingCartItem) sciIter.next();
@@ -544,10 +544,10 @@ public class ShoppingCartEvents {
         } catch (GenericEntityException e) {
             Debug.logError(e.getMessage(), module);
         }
-        
+ 
         // Translate the parameters and add to the cart
         result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId, productCategoryId,
-                itemType, itemDescription, price, amount, quantity, reservStart, reservLength, reservPersons, 
+                itemType, itemDescription, price, amount, quantity, reservStart, reservLength, reservPersons,
                 accommodationMapId, accommodationSpotId,
                 shipBeforeDate, shipAfterDate, configWrapper, itemGroupNumber, paramMap, parentProductId);
         controlDirective = processResult(result, request);
@@ -642,7 +642,7 @@ public class ShoppingCartEvents {
         }
 
         cart.setOrderType("PURCHASE_ORDER");
-        
+ 
         session.setAttribute("shoppingCart", cart);
         session.setAttribute("productStoreId", cart.getProductStoreId());
         session.setAttribute("orderMode", cart.getOrderType());
@@ -784,13 +784,13 @@ public class ShoppingCartEvents {
             // here we want to do a full logout, but not using the normal logout stuff because it saves things in the UserLogin record that we don't want changed for the anonymous user
             session.invalidate();
             session = request.getSession(true);
-            
+ 
             // to allow the display of the order confirmation page put the userLogin in the request, but leave it out of the session
             request.setAttribute("temporaryAnonymousUserLogin", userLogin);
-            
+ 
             Debug.logInfo("Doing clearCart for anonymous user, so logging out but put anonymous userLogin in temporaryAnonymousUserLogin request attribute", module);
         }
-        
+ 
         return "success";
     }
 
@@ -1128,7 +1128,7 @@ public class ShoppingCartEvents {
         }
         return "success";
     }
-    
+ 
     /**
      * set the order name of the cart based on request.  right now will always return "success"
      *
@@ -1292,7 +1292,7 @@ public class ShoppingCartEvents {
                                                 UtilMisc.<String, Object>toMap("orderId", quoteId,
                                                         "skipProductChecks", Boolean.TRUE, // the products have already been checked in the order, no need to check their validity again
                                                         "userLogin", userLogin));
-            
+ 
             cart = (ShoppingCart) outMap.get("shoppingCart");
         } catch (GenericServiceException exc) {
             request.setAttribute("_ERROR_MESSAGE_", exc.getMessage());
@@ -1451,7 +1451,7 @@ public class ShoppingCartEvents {
         // set party info
         String partyId = request.getParameter("supplierPartyId");
         cart.setAttribute("supplierPartyId", partyId);
-        
+ 
         if (!UtilValidate.isEmpty(request.getParameter("partyId"))) {
             partyId = request.getParameter("partyId");
         }
@@ -1634,9 +1634,9 @@ public class ShoppingCartEvents {
                 if (quantity.compareTo(BigDecimal.ZERO) > 0) {
                     Debug.logInfo("Attempting to add to cart with productId = " + productId + ", categoryId = " + productCategoryId +
                             ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, module);
-                    result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId, 
-                                                  productCategoryId, itemType, itemDescription, null, 
-                                                  amount, quantity, null, null, null, null, null, null, 
+                    result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId,
+                                                  productCategoryId, itemType, itemDescription, null,
+                                                  amount, quantity, null, null, null, null, null, null,
                                                   itemGroupNumber, itemAttributes,null);
                     // no values for price and paramMap (a context for adding attributes)
                     controlDirective = processResult(result, request);
@@ -1673,7 +1673,7 @@ public class ShoppingCartEvents {
         // set the agreement if specified otherwise set the currency
         if (UtilValidate.isNotEmpty(agreementId)) {
             result = cartHelper.selectAgreement(agreementId);
-        } else if (UtilValidate.isNotEmpty(currencyUomId)) { 
+        } else if (UtilValidate.isNotEmpty(currencyUomId)) {
             result = cartHelper.setCurrency(currencyUomId);
         }
         if (ServiceUtil.isError(result)) {
@@ -1702,10 +1702,10 @@ public class ShoppingCartEvents {
 
         // set the order name
         cart.setOrderName(orderName);
-        
+ 
         // set the corresponding purchase order id
         cart.setPoNumber(correspondingPoId);
-        
+ 
         // set the default ship before and after dates if supplied
         try {
             if (UtilValidate.isNotEmpty(shipBeforeDateStr)) {
@@ -1726,7 +1726,7 @@ public class ShoppingCartEvents {
         }
         return "success";
     }
-    
+ 
     public static String getConfigDetailsEvent(HttpServletRequest request, HttpServletResponse response) {
  
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
@@ -1738,16 +1738,16 @@ public class ShoppingCartEvents {
             request.setAttribute("_ERROR_MESSAGE_", "configWrapper is null");
             return "error";
         }
-        ProductConfigWorker.fillProductConfigWrapper(configWrapper, request); 
+        ProductConfigWorker.fillProductConfigWrapper(configWrapper, request);
         if (configWrapper.isCompleted()) {
             ProductConfigWorker.storeProductConfigWrapper(configWrapper, delegator);
             request.setAttribute("configId", configWrapper.getConfigId());
-        } 
-        
+        }
+ 
         request.setAttribute("totalPrice", org.ofbiz.base.util.UtilFormatOut.formatCurrency(configWrapper.getTotalPrice(), currencyUomId, UtilHttp.getLocale(request)));
         return "success";
     }
-    
+ 
     public static String bulkAddProductsInApprovedOrder(HttpServletRequest request, HttpServletResponse response) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -1755,29 +1755,29 @@ public class ShoppingCartEvents {
         String productId = null;
         String productCategoryId = null;
         String quantityStr = null;
-        String itemDesiredDeliveryDateStr = null; 
+        String itemDesiredDeliveryDateStr = null;
         BigDecimal quantity = BigDecimal.ZERO;
         String itemType = null;
         String itemDescription = "";
         String orderId = null;
         String shipGroupSeqId = null;
-     
-        Map paramMap = UtilHttp.getParameterMap(request);          
+ 
+        Map paramMap = UtilHttp.getParameterMap(request);
         String itemGroupNumber = request.getParameter("itemGroupNumber");
         int rowCount = UtilHttp.getMultiFormRowCount(paramMap);
         if (rowCount < 1) {
             Debug.logWarning("No rows to process, as rowCount = " + rowCount, module);
         } else {
             for (int i = 0; i < rowCount; i++) {
-                String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;      
+                String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;
                 if (paramMap.containsKey("productId" + thisSuffix)) {
                     productId = (String) paramMap.remove("productId" + thisSuffix);
                 }
                 if (paramMap.containsKey("quantity" + thisSuffix)) {
                     quantityStr = (String) paramMap.remove("quantity" + thisSuffix);
                 }
-                if ((quantityStr == null) || (quantityStr.equals(""))) {    
-                    quantityStr = "0";  
+                if ((quantityStr == null) || (quantityStr.equals(""))) {
+                    quantityStr = "0";
                 }
                 try {
                     quantity = new BigDecimal(quantityStr);
@@ -1810,7 +1810,7 @@ public class ShoppingCartEvents {
                         itemDesiredDeliveryDate = null;
                         request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"shoppingCartEvents.problem_parsing_item_desiredDeliveryDate_string", locale));
                     }
-                }    
+                }
                 if (paramMap.containsKey("itemType" + thisSuffix)) {
                     itemType = (String) paramMap.remove("itemType" + thisSuffix);
                 }
