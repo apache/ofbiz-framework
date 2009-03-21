@@ -36,7 +36,7 @@ public class StringOutputStream extends OutputStream {
     }
 
     public void write(int b) throws IOException {
-        byte[] byteArr = new byte[] { (byte) b };        
+        byte[] byteArr = new byte[] { (byte) b };
         buffer.append(new String(byteArr));
     }
 

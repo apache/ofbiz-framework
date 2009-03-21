@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -68,9 +68,9 @@ import freemarker.template.TemplateModelException;
  *
  */
 public class FreeMarkerWorker {
-    
+ 
     public static final String module = FreeMarkerWorker.class.getName();
-    
+ 
     // use soft references for this so that things from Content records don't kill all of our memory, or maybe not for performance reasons... hmmm, leave to config file...
     public static UtilCache<String, Template> cachedTemplates = new UtilCache<String, Template>("template.ftl.general", 0, 0, false);
     protected static BeansWrapper defaultOfbizWrapper = BeansWrapper.getDefaultInstance();
@@ -78,7 +78,7 @@ public class FreeMarkerWorker {
 
     public static Configuration makeConfiguration(BeansWrapper wrapper) {
         Configuration newConfig = new Configuration();
-        
+ 
         newConfig.setObjectWrapper(wrapper);
         newConfig.setSharedVariable("Static", wrapper.getStaticModels());
         newConfig.setLocalizedLookup(false);
@@ -109,10 +109,10 @@ public class FreeMarkerWorker {
                 loadTransforms(loader, props, newConfig);
             }
         }
-        
+ 
         return newConfig;
     }
-    
+ 
     /**
      * Protected helper method.
      */
@@ -140,7 +140,7 @@ public class FreeMarkerWorker {
     public static void renderTemplateAtLocation(String templateLocation, Map<String, Object> context, Appendable outWriter) throws MalformedURLException, TemplateException, IOException {
         renderTemplate(templateLocation, context, outWriter);
     }
-    
+ 
     /**
      * Renders a template contained in a String.
      * @param templateLocation A unique ID for this template - used for caching
@@ -155,7 +155,7 @@ public class FreeMarkerWorker {
             renderTemplateFromString(templateString, templateLocation, context, outWriter);
         }
     }
-    
+ 
     /**
      * Renders a template from a Reader.
      * @param templateLocation A unique ID for this template - used for caching
@@ -180,7 +180,7 @@ public class FreeMarkerWorker {
                 }
             }
         }
-        
+ 
         return renderTemplate(template, context, outWriter);
     }
  
@@ -205,7 +205,7 @@ public class FreeMarkerWorker {
         env.process();
         return env;
     }
-    
+ 
     /**
      * Apply user settings to an Environment instance.
      * @param env An Environment instance
@@ -228,13 +228,13 @@ public class FreeMarkerWorker {
     public static Configuration getDefaultOfbizConfig() {
         return defaultOfbizConfig;
     }
-    
+ 
     /** Make sure to close the reader when you're done! That's why this method is private, BTW. */
     private static Reader makeReader(String templateLocation) throws IOException {
         if (UtilValidate.isEmpty(templateLocation)) {
             throw new IllegalArgumentException("FreeMarker template location null or empty");
         }
-        
+ 
         URL locationUrl = null;
         try {
             locationUrl = FlexibleLocation.resolveLocation(templateLocation);
@@ -244,10 +244,10 @@ public class FreeMarkerWorker {
         if (locationUrl == null) {
             throw new IllegalArgumentException("FreeMarker file not found at location: " + templateLocation);
         }
-        
+ 
         InputStream locationIs = locationUrl.openStream();
         Reader templateReader = new InputStreamReader(locationIs);
-        
+ 
         String locationProtocol = locationUrl.getProtocol();
         if ("file".equals(locationProtocol) && Debug.verboseOn()) {
             String locationFile = locationUrl.getFile();
@@ -256,7 +256,7 @@ public class FreeMarkerWorker {
             String filename = locationFile.substring(lastSlash + 1);
             Debug.logVerbose("FreeMarker render: filename=" + filename + ", locationDir=" + locationDir, module);
         }
-        
+ 
         return templateReader;
     }
 
@@ -268,7 +268,7 @@ public class FreeMarkerWorker {
     public static Template getTemplate(String templateLocation) throws TemplateException, IOException {
         return getTemplate(templateLocation, cachedTemplates, defaultOfbizConfig);
     }
-    
+ 
     public static Template getTemplate(String templateLocation, UtilCache<String, Template> cache, Configuration config) throws TemplateException, IOException {
         Template template = (Template) cache.get(templateLocation);
         if (template == null) {
@@ -285,7 +285,7 @@ public class FreeMarkerWorker {
         }
         return template;
     }
-    
+ 
     public static String getArg(Map<String, ? extends Object> args, String key, Environment env) {
         Map<String, ? extends Object> templateContext = UtilGenerics.checkMap(FreeMarkerWorker.getWrappedObject("context", env));
         return getArg(args, key, templateContext);
@@ -417,7 +417,7 @@ public class FreeMarkerWorker {
         } else if (o instanceof BeanModel) {
             returnObj = ((BeanModel)o).getWrappedObject();
         }
-    
+ 
         return returnObj;
     }
 
@@ -452,7 +452,7 @@ public class FreeMarkerWorker {
         }
         return templateRoot;
     }
-    
+ 
     public static void saveContextValues(Map<String, Object> context, String [] saveKeyNames, Map<String, Object> saveMap ) {
         //Map saveMap = new HashMap();
         for (String key: saveKeyNames) {
@@ -571,7 +571,7 @@ public class FreeMarkerWorker {
        }
        return templateModelObj;
     }
-    
+ 
     /**
      * OFBiz Template Source. This class is used by FlexibleTemplateLoader.
      */
@@ -583,7 +583,7 @@ public class FreeMarkerWorker {
         public FlexibleTemplateSource(String templateLocation) {
             this.templateLocation = templateLocation;
         }
-        
+ 
         public int hashCode() {
             return templateLocation.hashCode();
         }
@@ -597,7 +597,7 @@ public class FreeMarkerWorker {
             return createdDate.getTime();
         }
     }
-    
+ 
     /**
      * OFBiz Template Loader. This template loader uses the FlexibleLocation
      * class to locate and load Freemarker templates.

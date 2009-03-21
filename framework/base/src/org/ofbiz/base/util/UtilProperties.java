@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -77,7 +77,7 @@ public class UtilProperties implements java.io.Serializable {
     protected static Locale fallbackLocale = null;
     protected static Set<Locale> defaultCandidateLocales = null;
     protected static Set<String> propertiesNotFound = FastSet.newInstance();
-    
+ 
     /** Compares the specified property to the compareString, returns true if they are the same, false otherwise
      * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
      * @param name The name of the property in the properties file
@@ -152,7 +152,7 @@ public class UtilProperties implements java.io.Serializable {
             Debug.log(e.getMessage(), module);
         }
         return value == null ? "" : value.trim();
-    }   
+    }
 
     /** Returns the specified resource/properties file
      * @param resource The name of the resource - can be a file, class, or URL
@@ -323,11 +323,11 @@ public class UtilProperties implements java.io.Serializable {
         }
         return value == null ? "" : value.trim();
     }
-    
+ 
     /** Sets the specified value of the specified property name to the specified resource/properties file
     * @param resource The name of the resource - must be a file
     * @param name The name of the property in the properties file
-    * @param value The value of the property in the properties file */ 
+    * @param value The value of the property in the properties file */
     public static void setPropertyValue(String resource, String name, String value) {
         if (resource == null || resource.length() <= 0) return;
         if (name == null || name.length() <= 0) return;
@@ -340,7 +340,7 @@ public class UtilProperties implements java.io.Serializable {
         try {
             properties.setProperty(name, value);
             FileOutputStream propFile = new FileOutputStream(resource);
-            properties.store(propFile,             
+            properties.store(propFile,
             "##############################################################################\n"
             +"# Licensed to the Apache Software Foundation (ASF) under one                   \n"
             +"# or more contributor license agreements.  See the NOTICE file                 \n"
@@ -361,7 +361,7 @@ public class UtilProperties implements java.io.Serializable {
             +"###############################################################################\n"
             +"#                                                                              \n"
             +"#Dynamically modified by OFBiz Framework (org.ofbiz.base.util : UtilProperties.setPropertyValue)");
-            
+ 
             propFile.close();
         } catch (FileNotFoundException e) {
             Debug.log(e, "Unable to located the resource file.", module);
@@ -659,7 +659,7 @@ public class UtilProperties implements java.io.Serializable {
         }
         return resourceName;
     }
-    
+ 
     public static boolean isPropertiesResourceNotFound(String resource, Locale locale, boolean removeExtension) {
         return propertiesNotFound.contains(UtilProperties.createResourceName(resource, locale, removeExtension));
     }
@@ -681,7 +681,7 @@ public class UtilProperties implements java.io.Serializable {
      * The <code>component://</code> protocol is supported in the
      * <code>resource</code> parameter.
      * </p>
-     * 
+     *
      * @param resource The resource to resolve
      * @param locale The desired locale
      * @return A URL instance or null if not found.
@@ -748,7 +748,7 @@ public class UtilProperties implements java.io.Serializable {
      * &nbsp;...<br />
      * &lt;/resource&gt;<br /><br /></code> where <em>"locale 1", "locale 2"</em> are valid Locale strings.
      * </p>
-     * 
+     *
      * @param in XML file InputStream
      * @param locale The desired locale
      * @param properties Optional Properties object to populate
@@ -817,7 +817,7 @@ public class UtilProperties implements java.io.Serializable {
         protected int hashCode = hashCode();
 
         protected UtilResourceBundle() {}
-        
+ 
         public UtilResourceBundle(Properties properties, Locale locale, UtilResourceBundle parent) {
             this.properties = properties;
             this.locale = locale;
@@ -873,11 +873,11 @@ public class UtilProperties implements java.io.Serializable {
             }
             return bundle;
         }
-        
+ 
         public int hashCode() {
             return this.hashCode;
         }
-        
+ 
         public boolean equals(Object obj) {
             return obj == null ? false : obj.hashCode() == this.hashCode;
         }
@@ -885,11 +885,11 @@ public class UtilProperties implements java.io.Serializable {
         public Locale getLocale() {
             return this.locale;
         }
-        
+ 
         protected Object handleGetObject(String key) {
             return properties.get(key);
         }
-        
+ 
         public Enumeration<String> getKeys() {
             return new Enumeration<String>() {
                 Iterator i = properties.keySet().iterator();

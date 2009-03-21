@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -128,45 +128,45 @@ public class BlowFishCrypt {
         cipher.init(mode, secretKeySpec);
         return cipher.doFinal(bytes);
     }
-    
-    public static byte[] generateKey() throws NoSuchAlgorithmException {        
-        KeyGenerator keyGen = KeyGenerator.getInstance("Blowfish");               
+ 
+    public static byte[] generateKey() throws NoSuchAlgorithmException {
+        KeyGenerator keyGen = KeyGenerator.getInstance("Blowfish");
         keyGen.init(448);
-        
-        SecretKey secretKey = keyGen.generateKey();        
+ 
+        SecretKey secretKey = keyGen.generateKey();
         byte[] keyBytes = secretKey.getEncoded();
-        
+ 
         return keyBytes;
     }
-    
+ 
     public static boolean testKey(byte[] key) {
         String testString = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstufwxyz";
         BlowFishCrypt c = new BlowFishCrypt(key);
         byte[] encryptedBytes = c.encrypt(testString);
         String encryptedMessage = new String(encryptedBytes);
-                                   
+ 
         byte[] decryptedBytes = c.decrypt(encryptedMessage);
         String decryptedMessage = new String(decryptedBytes);
-        
+ 
         if (testString.equals(decryptedMessage)) {
             return true;
         }
-        
+ 
         return false;
-    }            
+    }
 
     public static void main(String args[]) throws Exception {
         if (args[0] == null) {
             args[0] = "ofbkey";
         }
-        
+ 
         byte[] key = generateKey();
-        if (testKey(key)) {            
+        if (testKey(key)) {
             FileOutputStream fos = new FileOutputStream(args[0]);
             ObjectOutputStream os = new ObjectOutputStream(fos);
             String keyString = new String(key);
             os.writeObject(keyString);
-            fos.close();               
-        }                       
-    }    
+            fos.close();
+        }
+    }
 }

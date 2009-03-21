@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -42,7 +42,7 @@ public final class Debug {
 
     public static final boolean useLog4J = true;
     public static final String noModuleModule = "NoModule";  // set to null for previous behavior
-    
+ 
     static DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);
 
     public static final String SYS_DEBUG = System.getProperty("DEBUG");
@@ -61,14 +61,14 @@ public final class Debug {
     public static final Level[] levelObjs = {Level.INFO, Level.DEBUG, Level.INFO, Level.INFO, Level.INFO, Level.WARN, Level.ERROR, Level.FATAL, NotifyLevel.NOTIFY};
 
     protected static Map<String, Integer> levelStringMap = new HashMap<String, Integer>();
-    
+ 
     protected static PrintStream printStream = System.out;
     protected static PrintWriter printWriter = new PrintWriter(printStream);
 
     protected static boolean levelOnCache[] = new boolean[9];
     protected static boolean packException = true;
     protected static final boolean useLevelOnCache = true;
-    
+ 
     protected static Logger root = Logger.getRootLogger();
 
     static {
@@ -81,7 +81,7 @@ public final class Debug {
         levelStringMap.put("fatal", Debug.FATAL);
         levelStringMap.put("always", Debug.ALWAYS);
         levelStringMap.put("notify", Debug.NOTIFY);
-        
+ 
         // initialize Log4J
         if (!UtilProperties.propertyValueEqualsIgnoreCase("debug.properties", "disable.log4j.config", "true")) {
             org.apache.log4j.xml.DOMConfigurator.configure(UtilURL.fromResource("log4j.xml"));
@@ -91,7 +91,7 @@ public final class Debug {
         for (int i = 0; i < 9; i++) {
             levelOnCache[i] = (i == Debug.ALWAYS || UtilProperties.propertyValueEqualsIgnoreCase("debug.properties", levelProps[i], "true"));
         }
-        
+ 
         if (SYS_DEBUG != null) {
             for (int x = 0; x < 8; x++) {
                 levelOnCache[x] = true;
@@ -101,13 +101,13 @@ public final class Debug {
             while (en.hasMoreElements()) {
                 Logger thisLogger = (Logger) en.nextElement();
                 thisLogger.setLevel(Level.DEBUG);
-            }            
+            }
         }
 
         // configure exception packing
         packException = UtilProperties.propertyValueEqualsIgnoreCase("debug.properties", "pack.exception", "true");
     }
-    
+ 
     public static PrintStream getPrintStream() {
         return printStream;
     }
@@ -134,7 +134,7 @@ public final class Debug {
         if (levelName == null) return null;
         return levelStringMap.get(levelName.toLowerCase());
     }
-    
+ 
     /** Gets an int representing the level number from a String representing the level name; if level not found defaults to Debug.INFO */
     public static int getLevelFromStringWithDefault(String levelName) {
         Integer levelInt = getLevelFromString(levelName);
@@ -144,7 +144,7 @@ public final class Debug {
             return levelInt;
         }
     }
-    
+ 
     public static void log(int level, Throwable t, String msg, String module) {
         log(level, t, msg, module, "org.ofbiz.base.util.Debug");
     }
@@ -196,11 +196,11 @@ public final class Debug {
             return (level == Debug.ALWAYS || UtilProperties.propertyValueEqualsIgnoreCase("debug", levelProps[level], "true"));
         }
     }
-    
+ 
     // leaving these here
     public static void log(String msg) {
         log(Debug.ALWAYS, null, msg, noModuleModule);
-    }    
+    }
     public static void log(Throwable t) {
         log(Debug.ALWAYS, t, null, noModuleModule);
     }
@@ -209,7 +209,7 @@ public final class Debug {
         log(Debug.ALWAYS, null, msg, module);
     }
 
-    
+ 
     public static void log(Throwable t, String module) {
         log(Debug.ALWAYS, t, null, module);
     }
@@ -221,11 +221,11 @@ public final class Debug {
     public static boolean verboseOn() {
         return isOn(Debug.VERBOSE);
     }
-    
+ 
     public static void logVerbose(String msg, String module) {
         log(Debug.VERBOSE, null, msg, module);
     }
-   
+ 
     public static void logVerbose(Throwable t, String module) {
         log(Debug.VERBOSE, t, null, module);
     }
@@ -237,7 +237,7 @@ public final class Debug {
     public static boolean timingOn() {
         return isOn(Debug.TIMING);
     }
-   
+ 
     public static void logTiming(String msg, String module) {
         log(Debug.TIMING, null, msg, module);
     }
@@ -253,7 +253,7 @@ public final class Debug {
     public static boolean infoOn() {
         return isOn(Debug.INFO);
     }
-    
+ 
     public static void logInfo(String msg, String module) {
         log(Debug.INFO, null, msg, module);
     }
@@ -339,7 +339,7 @@ public final class Debug {
     }
 
     public static void logNotify(Throwable t, String msg, String module) {
-        log(Debug.NOTIFY, t, msg, module);    
+        log(Debug.NOTIFY, t, msg, module);
     }
 
     public static void set(int level, boolean on) {
@@ -372,7 +372,7 @@ public final class Debug {
             }
             newAppender.setThreshold(Level.DEBUG);
             newAppender.activateOptions();
-            newAppender.setName(name);            
+            newAppender.setName(name);
         }
 
         return newAppender;

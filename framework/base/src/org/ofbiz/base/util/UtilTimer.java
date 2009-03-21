@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -24,13 +24,13 @@ import javolution.util.FastMap;
 
 /**
  * Timer  handling utility
- * Utility class for simple reporting of the progress of a process. 
- * Steps are labelled, and the time between each label (or message) 
+ * Utility class for simple reporting of the progress of a process.
+ * Steps are labelled, and the time between each label (or message)
  * and the time since the start are reported in each call to timerString.
  *
  */
 public class UtilTimer {
-    
+ 
     public static final String module = UtilTimer.class.getName();
     protected static Map<String, UtilTimer> staticTimers = FastMap.newInstance();
 
@@ -42,7 +42,7 @@ public class UtilTimer {
     protected long lastMessageTime;
     protected boolean running = false;
     protected boolean log = false;
-    
+ 
     public static UtilTimer makeTimer() {
         return new UtilTimer();
     }

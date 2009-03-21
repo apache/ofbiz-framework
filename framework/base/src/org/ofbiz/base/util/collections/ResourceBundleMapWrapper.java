@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -35,7 +35,7 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
  *
  */
 public class ResourceBundleMapWrapper implements Map<String, Object>, Serializable {
-    
+ 
     protected MapStack<String> rbmwStack;
     protected ResourceBundle initialResourceBundle;
     protected Map<String, Object> context;
@@ -51,7 +51,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         this.initialResourceBundle = initialInternalRbmWrapper.getResourceBundle();
         this.rbmwStack = MapStack.create(initialInternalRbmWrapper);
     }
-    
+ 
     /** When creating new from a ResourceBundle the one passed to the constructor should be the most specific or local ResourceBundle, with more common ones pushed onto the stack progressively.
      */
     public ResourceBundleMapWrapper(ResourceBundle initialResourceBundle) {
@@ -61,7 +61,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         this.initialResourceBundle = initialResourceBundle;
         this.rbmwStack = MapStack.create(new InternalRbmWrapper(initialResourceBundle));
     }
-    
+ 
     /** When creating new from a ResourceBundle the one passed to the constructor should be the most specific or local ResourceBundle, with more common ones pushed onto the stack progressively.
      */
     public ResourceBundleMapWrapper(ResourceBundle initialResourceBundle, Map<String, Object> context) {
@@ -72,7 +72,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
         this.rbmwStack = MapStack.create(new InternalRbmWrapper(initialResourceBundle));
         this.context = context;
     }
-    
+ 
     /** Puts ResourceBundle on the BOTTOM of the stack (bottom meaning will be overriden by higher layers on the stack, ie everything else already there) */
     public void addBottomResourceBundle(ResourceBundle topResourceBundle) {
         this.rbmwStack.addToBottom(new InternalRbmWrapper(topResourceBundle));
@@ -92,7 +92,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
     }
 
     /** In general we don't want to use this, better to start with the more specific ResourceBundle and add layers of common ones...
-     * Puts ResourceBundle on the top of the stack (top meaning will override lower layers on the stack) 
+     * Puts ResourceBundle on the top of the stack (top meaning will override lower layers on the stack)
      */
     public void pushResourceBundle(ResourceBundle topResourceBundle) {
         this.rbmwStack.push(new InternalRbmWrapper(topResourceBundle));
@@ -149,18 +149,18 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
     public Collection<Object> values() {
         return this.rbmwStack.values();
     }
-    
+ 
     public static class InternalRbmWrapper implements Map<String, Object>, Serializable {
         protected ResourceBundle resourceBundle;
         protected Map<String, Object> topLevelMap;
-        
+ 
         public InternalRbmWrapper(ResourceBundle resourceBundle) {
             if (resourceBundle == null) {
                 throw new IllegalArgumentException("Cannot create InternalRbmWrapper with a null ResourceBundle.");
             }
             this.resourceBundle = resourceBundle;
             topLevelMap = new HashMap<String, Object>();
-            // NOTE: this does NOT return all keys, ie keys from parent ResourceBundles, so we keep the resourceBundle object to look at when the main Map doesn't have a certain value 
+            // NOTE: this does NOT return all keys, ie keys from parent ResourceBundles, so we keep the resourceBundle object to look at when the main Map doesn't have a certain value
             if (resourceBundle != null) {
                 Enumeration<String> keyNum = resourceBundle.getKeys();
                 while (keyNum.hasMoreElements()) {
@@ -172,7 +172,7 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
             }
             topLevelMap.put("_RESOURCE_BUNDLE_", resourceBundle);
         }
-        
+ 
         /* (non-Javadoc)
          * @see java.util.Map#size()
          */
@@ -180,14 +180,14 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
             // this is an approximate size, won't include elements from parent bundles
             return topLevelMap.size() - 1;
         }
-    
+ 
         /* (non-Javadoc)
          * @see java.util.Map#isEmpty()
          */
         public boolean isEmpty() {
             return topLevelMap.isEmpty();
         }
-    
+ 
         /* (non-Javadoc)
          * @see java.util.Map#containsKey(java.lang.Object)
          */
@@ -207,14 +207,14 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
             }
             return false;
         }
-    
+ 
         /* (non-Javadoc)
          * @see java.util.Map#containsValue(java.lang.Object)
          */
         public boolean containsValue(Object arg0) {
             throw new RuntimeException("Not implemented for ResourceBundleMapWrapper");
         }
-    
+ 
         /* (non-Javadoc)
          * @see java.util.Map#get(java.lang.Object)
          */
@@ -243,60 +243,60 @@ public class ResourceBundleMapWrapper implements Map<String, Object>, Serializab
             */
             return value;
         }
-    
+ 
         /* (non-Javadoc)
          * @see java.util.Map#put(java.lang.Object, java.lang.Object)
          */
         public Object put(String arg0, Object arg1) {
             throw new RuntimeException("Not implemented/allowed for ResourceBundleMapWrapper");
         }
-    
+ 
         /* (non-Javadoc)
          * @see java.util.Map#remove(java.lang.Object)
          */
         public Object remove(Object arg0) {
             throw new RuntimeException("Not implemented for ResourceBundleMapWrapper");
         }
-    
+ 
         /* (non-Javadoc)
          * @see java.util.Map#putAll(java.util.Map)
          */
         public void putAll(Map arg0) {
             throw new RuntimeException("Not implemented for ResourceBundleMapWrapper");
         }
-    
+ 
         /* (non-Javadoc)
          * @see java.util.Map#clear()
          */
         public void clear() {
             throw new RuntimeException("Not implemented for ResourceBundleMapWrapper");
         }
-    
+ 
         /* (non-Javadoc)
          * @see java.util.Map#keySet()
          */
         public Set<String> keySet() {
             return this.topLevelMap.keySet();
         }
-    
+ 
         /* (non-Javadoc)
          * @see java.util.Map#values()
          */
         public Collection<Object> values() {
             return this.topLevelMap.values();
         }
-    
+ 
         /* (non-Javadoc)
          * @see java.util.Map#entrySet()
          */
         public Set<Map.Entry<String, Object>> entrySet() {
             return this.topLevelMap.entrySet();
         }
-        
+ 
         public ResourceBundle getResourceBundle() {
             return this.resourceBundle;
         }
-        
+ 
         /*public String toString() {
             return this.topLevelMap.toString();
         }*/

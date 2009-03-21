@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -41,14 +41,14 @@ import org.xml.sax.SAXException;
  *
  */
 public class ContainerConfig {
-    
+ 
     public static final String module = ContainerConfig.class.getName();
-    
+ 
     protected static Map<String, Container> containers = new LinkedHashMap<String, Container>();
-    
+ 
     public static Container getContainer(String containerName, String configFile) throws ContainerException {
         Container container = containers.get(containerName);
-        if (container == null) {            
+        if (container == null) {
             synchronized (ContainerConfig.class) {
                 container = containers.get(containerName);
                 if (container == null) {
@@ -57,28 +57,28 @@ public class ContainerConfig {
                     }
                     new ContainerConfig(configFile);
                     container = (Container) containers.get(containerName);
-                }                
+                }
             }
             if (container == null) {
                 throw new ContainerException("No container found with the name : " + containerName);
-            }            
+            }
         }
         return container;
     }
-    
+ 
     public static Collection<Container> getContainers(String configFile) throws ContainerException {
         if (containers.size() == 0) {
-            synchronized (ContainerConfig.class) {                
+            synchronized (ContainerConfig.class) {
                 if (containers.size() == 0) {
                     if (configFile == null) {
                         throw new ContainerException("Container config file cannot be null");
                     }
-                    new ContainerConfig(configFile);                    
-                }                
+                    new ContainerConfig(configFile);
+                }
             }
             if (containers.size() == 0) {
                 throw new ContainerException("No containers loaded; problem with configuration");
-            }            
+            }
         }
         return containers.values();
     }
@@ -150,14 +150,14 @@ public class ContainerConfig {
     }
 
     protected ContainerConfig() {}
-    
-    protected ContainerConfig(String configFileLocation) throws ContainerException {        
+ 
+    protected ContainerConfig(String configFileLocation) throws ContainerException {
         // load the config file
         URL xmlUrl = UtilURL.fromResource(configFileLocation);
         if (xmlUrl == null) {
             throw new ContainerException("Could not find " + configFileLocation + " master OFBiz container configuration");
         }
-        
+ 
         // read the document
         Document containerDocument = null;
         try {
@@ -168,34 +168,34 @@ public class ContainerConfig {
             throw new ContainerException("Error reading the container config file: " + xmlUrl, e);
         } catch (IOException e) {
             throw new ContainerException("Error reading the container config file: " + xmlUrl, e);
-        } 
-        
+        }
+ 
         // root element
-        Element root = containerDocument.getDocumentElement();        
-          
+        Element root = containerDocument.getDocumentElement();
+ 
         // containers
         for (Element curElement: UtilXml.childElementList(root, "container")) {
             Container container = new Container(curElement);
-            containers.put(container.name, container);    
-        }                          
+            containers.put(container.name, container);
+        }
     }
-    
+ 
     public static class Container {
         public String name;
         public String className;
         public Map<String, Property> properties;
-        
+ 
         public Container(Element element) {
             this.name = element.getAttribute("name");
             this.className = element.getAttribute("class");
-            
+ 
             properties = new LinkedHashMap<String, Property>();
             for (Element curElement: UtilXml.childElementList(element, "property")) {
                 Property property = new Property(curElement);
                 properties.put(property.name, property);
-            }                       
+            }
         }
-        
+ 
         public Property getProperty(String name) {
             return properties.get(name);
         }
@@ -216,21 +216,21 @@ public class ContainerConfig {
             public String name;
             public String value;
             public Map<String, Property> properties;
-            
+ 
             public Property(Element element) {
                 this.name = element.getAttribute("name");
                 this.value = element.getAttribute("value");
                 if (UtilValidate.isEmpty(this.value)) {
-                    this.value = UtilXml.childElementValue(element, "property-value");                    
+                    this.value = UtilXml.childElementValue(element, "property-value");
                 }
 
                 properties = new LinkedHashMap<String, Property>();
                 for (Element curElement: UtilXml.childElementList(element, "property")) {
                     Property property = new Property(curElement);
-                    properties.put(property.name, property);                    
-                }                    
+                    properties.put(property.name, property);
+                }
             }
-            
+ 
             public Property getProperty(String name) {
                 return properties.get(name);
             }
@@ -247,5 +247,5 @@ public class ContainerConfig {
                 return props;
             }
         }
-    }                        
+    }
 }

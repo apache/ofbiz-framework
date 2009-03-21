@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -178,7 +178,7 @@ public class UtilDateTime {
 
     /**
      * Returns currentTimeMillis as String
-     * 
+     *
      * @return String(currentTimeMillis)
      */
     public static String nowAsString() {
@@ -254,7 +254,7 @@ public class UtilDateTime {
         return getYearStart(stamp, daysLater, monthsLater, yearsLater, TimeZone.getDefault(), Locale.getDefault());
     }
     public static java.sql.Timestamp getYearStart(java.sql.Timestamp stamp, Number daysLater, Number monthsLater, Number yearsLater) {
-        return getYearStart(stamp, (daysLater == null ? 0 : daysLater.intValue()), 
+        return getYearStart(stamp, (daysLater == null ? 0 : daysLater.intValue()),
                 (monthsLater == null ? 0 : monthsLater.intValue()), (yearsLater == null ? 0 : yearsLater.intValue()));
     }
 
@@ -297,7 +297,7 @@ public class UtilDateTime {
     public static java.sql.Timestamp getWeekEnd(java.sql.Timestamp stamp) {
         return getWeekEnd(stamp, TimeZone.getDefault(), Locale.getDefault());
     }
-    
+ 
     public static java.util.Calendar toCalendar(java.sql.Timestamp stamp) {
         Calendar cal = Calendar.getInstance();
         if (stamp != null) {
@@ -619,7 +619,7 @@ public class UtilDateTime {
         calendar.setTime(date);
         return dateFormat.format(date);
     }
-    
+ 
     /**
      * Makes a date String in the format MM/DD/YYYY from a Date
      *
@@ -703,7 +703,7 @@ public class UtilDateTime {
         return df.format(timestamp);
     }
 
-    
+ 
     /**
      * Makes a Timestamp for the beginning of the month
      *
@@ -741,23 +741,23 @@ public class UtilDateTime {
         Calendar tempCal = toCalendar(stamp, TimeZone.getDefault(), Locale.getDefault());
         return tempCal.get(Calendar.DAY_OF_WEEK);
     }
-    
+ 
     public static int weekNumber(Timestamp input, int startOfWeek) {
         Calendar calendar = Calendar.getInstance();
         calendar.setFirstDayOfWeek(startOfWeek);
-        
+ 
         if (startOfWeek == Calendar.MONDAY) {
            calendar.setMinimalDaysInFirstWeek(4);
-        } else if (startOfWeek == Calendar.SUNDAY) { 
+        } else if (startOfWeek == Calendar.SUNDAY) {
            calendar.setMinimalDaysInFirstWeek(3);
         }
-        
+ 
         calendar.setTime(new java.util.Date(input.getTime()));
         return calendar.get(Calendar.WEEK_OF_YEAR);
     }
-    
+ 
     // ----- New methods that take a timezone and locale -- //
-    
+ 
     /**
      * Returns a Calendar object initialized to the specified date/time, time zone,
      * and locale.
@@ -855,7 +855,7 @@ public class UtilDateTime {
         retStamp.setNanos(999999999);
         return retStamp;
     }
-    
+ 
     public static Timestamp getMonthStart(Timestamp stamp, TimeZone timeZone, Locale locale) {
         return getMonthStart(stamp, 0, 0, timeZone, locale);
     }
@@ -893,7 +893,7 @@ public class UtilDateTime {
     }
 
     public static Timestamp getYearStart(Timestamp stamp, Number daysLater, Number monthsLater, Number yearsLater, TimeZone timeZone, Locale locale) {
-        return getYearStart(stamp, (daysLater == null ? 0 : daysLater.intValue()), 
+        return getYearStart(stamp, (daysLater == null ? 0 : daysLater.intValue()),
                 (monthsLater == null ? 0 : monthsLater.intValue()), (yearsLater == null ? 0 : yearsLater.intValue()), timeZone, locale);
     }
 
@@ -938,7 +938,7 @@ public class UtilDateTime {
 
     /**
      * Returns a List of month name Strings - suitable for calendar headings.
-     * 
+     *
      * @param locale
      * @return List of month name Strings
      */
@@ -953,10 +953,10 @@ public class UtilDateTime {
         }
         return resultList;
     }
-    
+ 
     /**
      * Returns an initialized DateFormat object.
-     * 
+     *
      * @param dateFormat
      *            optional format string
      * @param tz
@@ -1077,7 +1077,7 @@ public class UtilDateTime {
     public static TimeZone getDefaultTimeZone() {
         return TimeZone.getDefault();
     }
-    
+ 
     /** Returns a TimeZone object based upon a time zone ID. Method defaults to
      * server's time zone if tzID is null or empty.
      * @see java.util.TimeZone
@@ -1095,7 +1095,7 @@ public class UtilDateTime {
      */
     public static TimeZone toTimeZone(int gmtOffset) {
         if (gmtOffset > 12 || gmtOffset < -14) {
-            throw new IllegalArgumentException("Invalid GMT offset"); 
+            throw new IllegalArgumentException("Invalid GMT offset");
         }
         String tzId = gmtOffset > 0 ? "Etc/GMT+" : "Etc/GMT";
         return TimeZone.getTimeZone(tzId + gmtOffset);

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -46,7 +46,7 @@ import javax.xml.transform.stream.StreamSource;
 
 /**
  * XslTransform
- * 
+ *
  * This utility takes an input document and a XSL stylesheet and performs the
  * transform, returning the output document.
  * The input for both the input document and stylesheet can be in one of three forms
@@ -59,7 +59,7 @@ public final class XslTransform {
     public static final String module = XslTransform.class.getName();
     public static UtilCache<String, Templates> xslTemplatesCache = new UtilCache<String, Templates>("XsltTemplates", 0, 0);
 
-    public static Document transform(Map<String, Object> context, Map<String, Object> params) 
+    public static Document transform(Map<String, Object> context, Map<String, Object> params)
         throws GeneralException, IOException, TransformerConfigurationException, TransformerException {
         Document outputDocument = null;
         TransformerFactory tFactory = TransformerFactory.newInstance();
@@ -88,22 +88,22 @@ public final class XslTransform {
                     transformer.setParameter(key, val);
                }
             }
-            
+ 
             DOMResult outputResult = new DOMResult(UtilXml.makeEmptyXmlDocument());
-            
+ 
             String inputUrl = (String)context.get("inputUrl");
             String inputString = (String)context.get("inputString");
             Document inputDocument = (Document)context.get("inputDocument");
             Source inputSource = getSource(inputDocument, inputUrl, inputString);
-            
+ 
             transformer.transform(inputSource, outputResult);
             Node nd = outputResult.getNode();
             outputDocument = (Document)nd;
         }
 
-        return outputDocument; 
+        return outputDocument;
     }
-    
+ 
     private static Source getSource(Document inputDocument, String inputUrl, String inputString) throws GeneralException, IOException {
         Source source = null;
         if (inputDocument != null) {

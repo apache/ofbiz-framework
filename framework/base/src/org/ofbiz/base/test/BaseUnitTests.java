@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -41,20 +41,20 @@ public class BaseUnitTests extends TestCase {
     }
 
     public void testFormatPrintableCreditCard_1() {
-        assertEquals("test 4111111111111111 to ************111", 
-                "************1111", 
+        assertEquals("test 4111111111111111 to ************111",
+                "************1111",
                 UtilFormatOut.formatPrintableCreditCard("4111111111111111"));
     }
 
     public void testFormatPrintableCreditCard_2() {
-        assertEquals("test 4111 to 4111", 
-                "4111", 
+        assertEquals("test 4111 to 4111",
+                "4111",
                 UtilFormatOut.formatPrintableCreditCard("4111"));
     }
 
     public void testFormatPrintableCreditCard_3() {
-        assertEquals("test null to null", 
-                null, 
+        assertEquals("test null to null",
+                null,
                 UtilFormatOut.formatPrintableCreditCard(null));
     }
 }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -255,11 +255,11 @@ public class ComponentConfig {
     public static List getAppBarWebInfos(String serverName) {
         return ComponentConfig.getAppBarWebInfos(serverName, null, null);
     }
-    
+ 
     public static List getAppBarWebInfos(String serverName, String menuName) {
         return ComponentConfig.getAppBarWebInfos(serverName, null, menuName);
     }
-    
+ 
     public static List<WebappInfo> getAppBarWebInfos(String serverName, Comparator<? super String> comp, String menuName) {
         List<WebappInfo> webInfos = serverWebApps.get(serverName + menuName);
         if (webInfos == null) {
@@ -284,7 +284,7 @@ public class ComponentConfig {
                                     }
                                 } else {
                                     tm.put(key, wInfo);
-                                } 
+                                }
                             }
                         }
                     }
@@ -535,7 +535,7 @@ public class ComponentConfig {
     public List<KeystoreInfo> getKeystoreInfos() {
         return this.keystoreInfos;
     }
-    
+ 
     public List<WebappInfo> getWebappInfos() {
         return this.webappInfos;
     }
@@ -616,7 +616,7 @@ public class ComponentConfig {
         }
     }
 
-    public static class KeystoreInfo extends ResourceInfo {        
+    public static class KeystoreInfo extends ResourceInfo {
         public String name;
         public String type;
         public String password;
@@ -647,7 +647,7 @@ public class ComponentConfig {
         public String getName() {
             return name;
         }
-        
+ 
         public String getType() {
             return type;
         }
@@ -672,12 +672,12 @@ public class ComponentConfig {
         public String name;
         public String title;
         public String description;
-        public String menuName;        
+        public String menuName;
         public String server;
         public String mountPoint;
         public String location;
         public String[] basePermission;
-        public String position;        
+        public String position;
         public boolean appBarDisplay;
         public boolean sessionCookieAccepted;
 
@@ -687,7 +687,7 @@ public class ComponentConfig {
             this.componentConfig = componentConfig;
             this.name = element.getAttribute("name");
             this.title = element.getAttribute("title");
-            this.description = element.getAttribute("description");            
+            this.description = element.getAttribute("description");
             this.server = element.getAttribute("server");
             this.mountPoint = element.getAttribute("mount-point");
             this.location = element.getAttribute("location");
@@ -713,18 +713,18 @@ public class ComponentConfig {
             if (UtilValidate.isEmpty(this.title)) {
                 this.title = Character.toUpperCase(name.charAt(0)) + name.substring(1).toLowerCase();
             }
-            
+ 
             if (UtilValidate.isEmpty(this.description)) {
                 this.description = this.title;
             }
-             
+ 
             String menuNameStr = element.getAttribute("menu-name");
             if (UtilValidate.isNotEmpty(menuNameStr)) {
                 this.menuName = menuNameStr;
             } else {
                 this.menuName = "main";
             }
-            
+ 
             this.position = element.getAttribute("position");
  
             // default mount point is name if none specified
@@ -784,7 +784,7 @@ public class ComponentConfig {
         public String getTitle() {
             return title;
         }
-        
+ 
         public String getDescription() {
             return description;
         }
@@ -796,7 +796,7 @@ public class ComponentConfig {
         public Map<String, String> getInitParameters() {
             return initParameters;
         }
-        
+ 
         public boolean isSessionCookieAccepted() {
             return sessionCookieAccepted;
         }
