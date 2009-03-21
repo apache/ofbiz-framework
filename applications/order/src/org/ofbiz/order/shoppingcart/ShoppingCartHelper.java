@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -55,10 +55,10 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 
 /**
- * A facade over the 
+ * A facade over the
  * {@link org.ofbiz.order.shoppingcart.ShoppingCart ShoppingCart}
  * providing catalog and product services to simplify the interaction
- * with the cart directly. 
+ * with the cart directly.
  */
 public class ShoppingCartHelper {
 
@@ -78,7 +78,7 @@ public class ShoppingCartHelper {
     /**
      * Changes will be made to the cart directly, as opposed
      * to a copy of the cart provided.
-     * 
+     *
      * @param cart The cart to manipulate
      */
     public ShoppingCartHelper(GenericDelegator delegator, LocalDispatcher dispatcher, ShoppingCart cart) {
@@ -99,9 +99,9 @@ public class ShoppingCartHelper {
 
     /** Event to add an item to the shopping cart. */
     public Map addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
-            String productCategoryId, String itemType, String itemDescription, 
-            BigDecimal price, BigDecimal amount, BigDecimal quantity, 
-            java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, 
+            String productCategoryId, String itemType, String itemDescription,
+            BigDecimal price, BigDecimal amount, BigDecimal quantity,
+            java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,
             java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
             ProductConfigWrapper configWrapper, String itemGroupNumber, Map context, String parentProductId) {
 
@@ -110,12 +110,12 @@ public class ShoppingCartHelper {
                 reservStart,reservLength,reservPersons,null,null,shipBeforeDate,shipAfterDate,
                 configWrapper,itemGroupNumber,context,parentProductId);
     }
-    
+ 
     /** Event to add an item to the shopping cart with accommodation. */
     public Map addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
-            String productCategoryId, String itemType, String itemDescription, 
-            BigDecimal price, BigDecimal amount, BigDecimal quantity, 
-            java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId,String accommodationSpotId, 
+            String productCategoryId, String itemType, String itemDescription,
+            BigDecimal price, BigDecimal amount, BigDecimal quantity,
+            java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId,String accommodationSpotId,
             java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
             ProductConfigWrapper configWrapper, String itemGroupNumber, Map context, String parentProductId) {
         Map result = null;
@@ -201,7 +201,7 @@ public class ShoppingCartHelper {
             Debug.logInfo("parent productid " + pProductId,module);
             //if (product != null && !"Y".equals(product.getString("isVariant")))
             //    pProductId = null;
-            
+ 
         }
 
         // Get the additional features selected for the product (if any)
@@ -227,16 +227,16 @@ public class ShoppingCartHelper {
                 additionalFeaturesMap.put(selectedFeatureType, productFeatureAndAppl);
             }
         }
-        
-        // add or increase the item to the cart        
+ 
+        // add or increase the item to the cart
         try {
             int itemId = -1;
             if (productId != null) {
-            
-                       itemId = cart.addOrIncreaseItem(productId, amount, quantity, reservStart, reservLength, 
-                                                reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, additionalFeaturesMap, attributes, 
+ 
+                       itemId = cart.addOrIncreaseItem(productId, amount, quantity, reservStart, reservLength,
+                                                reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, additionalFeaturesMap, attributes,
                                                 catalogId, configWrapper, itemType, itemGroupNumber, pProductId, dispatcher);
-            
+ 
             } else {
                 itemId = cart.addNonProductItem(itemType, itemDescription, productCategoryId, price, quantity, attributes, catalogId, itemGroupNumber, dispatcher);
             }
@@ -259,7 +259,7 @@ public class ShoppingCartHelper {
             result = ServiceUtil.returnError(e.getMessage());
             return result;
         }
-        
+ 
         // Indicate there were no critical errors
         result = ServiceUtil.returnSuccess();
         return result;
@@ -290,7 +290,7 @@ public class ShoppingCartHelper {
         if (UtilValidate.isNotEmpty(itemIdList)) {
             itemIter = itemIdList.iterator();
         }
-        
+ 
         String orderItemTypeId = null;
         String productId = null;
         if (itemIter != null && itemIter.hasNext()) {
@@ -306,7 +306,7 @@ public class ShoppingCartHelper {
                 orderItemTypeId = orderItem.getString("orderItemTypeId");
                 productId = orderItem.getString("productId");
                 // do not store rental items
-                if (orderItemTypeId.equals("RENTAL_ORDER_ITEM")) 
+                if (orderItemTypeId.equals("RENTAL_ORDER_ITEM"))
                     continue;
                 // never read: int itemId = -1;
                 if (UtilValidate.isNotEmpty(productId) && orderItem.get("quantity") != null) {
@@ -322,7 +322,7 @@ public class ShoppingCartHelper {
                         } catch (GenericEntityException e) {
                             errorMsgs.add(e.getMessage());
                         }
-                        
+ 
                     }
                     try {
                         this.cart.addOrIncreaseItem(UtilValidate.isNotEmpty(aggregatedProdId) ? aggregatedProdId :  productId, amount, orderItem.getBigDecimal("quantity"),
@@ -354,26 +354,26 @@ public class ShoppingCartHelper {
         return result;
     }
 
-    /** 
+    /**
      * Adds all products in a category according to quantity request parameter
      * for each; if no parameter for a certain product in the category, or if
-     * quantity is 0, do not add. 
+     * quantity is 0, do not add.
      * If a _ign_${itemGroupNumber} is appended to the name it will be put in that group instead of the default in the request parameter in itemGroupNumber
-     * 
+     *
      * There are 2 options for the syntax:
      *  - name="quantity_${productId}" value="${quantity}
      *  - name="product_${whatever}" value="${productId}" (note: quantity is always 1)
      */
     public Map addToCartBulk(String catalogId, String categoryId, Map context) {
         String itemGroupNumber = (String) context.get("itemGroupNumber");
-        // use this prefix for the main structure such as a checkbox or a text input where name="quantity_${productId}" value="${quantity}" 
+        // use this prefix for the main structure such as a checkbox or a text input where name="quantity_${productId}" value="${quantity}"
         String keyPrefix = "quantity_";
-        // use this prefix for a different structure, useful for radio buttons; can have any suffix, name="product_${whatever}" value="${productId}" and quantity is always 1 
+        // use this prefix for a different structure, useful for radio buttons; can have any suffix, name="product_${whatever}" value="${productId}" and quantity is always 1
         String productQuantityKeyPrefix = "product_";
-        
+ 
         // If a _ign_${itemGroupNumber} is appended to the name it will be put in that group instead of the default in the request parameter in itemGroupNumber
         String ignSeparator = "_ign_";
-        
+ 
         // iterate through the context and find all keys that start with "quantity_"
         Iterator entryIter = context.entrySet().iterator();
         while (entryIter.hasNext()) {
@@ -390,7 +390,7 @@ public class ShoppingCartHelper {
                     itemGroupNumberToUse = key.substring(ignIndex + ignSeparator.length());
                     key = key.substring(0, ignIndex);
                 }
-                
+ 
                 if (key.startsWith(keyPrefix)) {
                     productId = key.substring(keyPrefix.length());
                     quantStr = (String) entry.getValue();
@@ -429,20 +429,20 @@ public class ShoppingCartHelper {
         return ServiceUtil.returnSuccess();
     }
 
-    /** 
+    /**
      * Adds a set of requirements to the cart.
      */
     public Map addToCartBulkRequirements(String catalogId, Map context) {
         NumberFormat nf = NumberFormat.getNumberInstance(this.cart.getLocale());
         String itemGroupNumber = (String) context.get("itemGroupNumber");
         // check if we are using per row submit
-        boolean useRowSubmit = (!context.containsKey("_useRowSubmit"))? false : 
+        boolean useRowSubmit = (!context.containsKey("_useRowSubmit"))? false :
                 "Y".equalsIgnoreCase((String)context.get("_useRowSubmit"));
-        
-        // check if we are to also look in a global scope (no delimiter)        
+ 
+        // check if we are to also look in a global scope (no delimiter)
         //boolean checkGlobalScope = (!context.containsKey("_checkGlobalScope"))? false :
         //        "Y".equalsIgnoreCase((String)context.get("_checkGlobalScope"));
-        
+ 
         // The number of multi form rows is retrieved
         int rowCount = UtilHttp.getMultiFormRowCount(context);
 
@@ -451,7 +451,7 @@ public class ShoppingCartHelper {
         if (UtilValidate.isNotEmpty(facilityId)) {
             cart.setFacilityId(facilityId);
         }
-        
+ 
         // now loop throw the rows and prepare/invoke the service for each
         for (int i = 0; i < rowCount; i++) {
             String productId = null;
@@ -460,12 +460,12 @@ public class ShoppingCartHelper {
             String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;
             boolean rowSelected = (!context.containsKey("_rowSubmit" + thisSuffix))? false :
                     "Y".equalsIgnoreCase((String)context.get("_rowSubmit" + thisSuffix));
-            
+ 
             // make sure we are to process this row
-            if (useRowSubmit && !rowSelected) {            
+            if (useRowSubmit && !rowSelected) {
                 continue;
             }
-            
+ 
             // build the context
             if (context.containsKey("productId" + thisSuffix)) {
                 productId = (String) context.get("productId" + thisSuffix);
@@ -564,8 +564,8 @@ public class ShoppingCartHelper {
 
             if (quantity != null && quantity.compareTo(BigDecimal.ZERO) > 0) {
                 try {
-                    this.cart.addOrIncreaseItem(productCategoryMember.getString("productId"), 
-                            null, quantity, null, null, null, null, null, null, null, 
+                    this.cart.addOrIncreaseItem(productCategoryMember.getString("productId"),
+                            null, quantity, null, null, null, null, null, null, null,
                             catalogId, null, null, itemGroupNumber, null, dispatcher);
                     totalQuantity = totalQuantity.add(quantity);
                 } catch (CartItemModifyException e) {
@@ -679,10 +679,10 @@ public class ShoppingCartHelper {
                         itemDescription = quantString;  // the quantString is actually the description if the field name starts with DESCRIPTION
                     } else if (parameterName.startsWith("reservStart")) {
                         if (quantString.length() ==0) {
-                            // should have format: yyyy-mm-dd hh:mm:ss.fffffffff                    
+                            // should have format: yyyy-mm-dd hh:mm:ss.fffffffff
                             quantString += " 00:00:00.000000000";
                         }
-                        if (item != null) {                        
+                        if (item != null) {
                             Timestamp reservStart = Timestamp.valueOf(quantString);
                             item.setReservStart(reservStart);
                         }
@@ -724,7 +724,7 @@ public class ShoppingCartHelper {
                     } else if (parameterName.startsWith("itemType")) {
                         if (item != null && quantString.length() > 0) {
                             item.setItemType(quantString);
-                        }                      
+                        }
                     } else {
                         quantity = new BigDecimal(nf.parse(quantString).doubleValue());
                         if (quantity.compareTo(BigDecimal.ZERO) < 0) {
@@ -802,7 +802,7 @@ public class ShoppingCartHelper {
                             if (security.hasEntityPermission("ORDERMGR", "_CREATE", userLogin)) {
                                 if (item != null) {
                                     item.setBasePrice(quantity); // this is quantity because the parsed number variable is the same as quantity
-                                    item.setDisplayPrice(quantity); // or the amount shown the cart items page won't be right 
+                                    item.setDisplayPrice(quantity); // or the amount shown the cart items page won't be right
                                     item.setIsModifiedPrice(true); // flag as a modified price
                                 }
                             }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -33,7 +33,7 @@ import javolution.util.FastMap;
 import javolution.util.FastList;
 
 public class PurchaseOrderTest extends TestCase {
-    
+ 
     protected LocalDispatcher dispatcher = null;
     protected GenericDelegator delegator = null;
     protected GenericValue userLogin = null;
@@ -43,16 +43,16 @@ public class PurchaseOrderTest extends TestCase {
     public PurchaseOrderTest(String name) {
         super(name);
     }
-    
+ 
     protected void setUp() throws Exception {
         delegator = GenericDelegator.getGenericDelegator("test");
         dispatcher = GenericDispatcher.getLocalDispatcher("test-dispatcher", delegator);
         userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
-    } 
-    
+    }
+ 
     protected void tearDown() throws Exception {
     }
-    
+ 
     public void testCreatePurchaseOrder() throws Exception {
         Map <String, Object> ctx = FastMap.newInstance();
         ctx.put("partyId", "Company");
@@ -68,29 +68,29 @@ public class PurchaseOrderTest extends TestCase {
         List <GenericValue> orderItems = FastList.newInstance();
         orderItems.add(orderItem);
         ctx.put("orderItems", orderItems);
-        
+ 
         GenericValue orderContactMech = delegator.makeValue("OrderContactMech", UtilMisc.toMap("contactMechPurposeTypeId", "SHIPPING_LOCATION", "contactMechId", "9000"));
         List <GenericValue> orderContactMechs = FastList.newInstance();
         orderContactMechs.add(orderContactMech);
         ctx.put("orderContactMechs", orderContactMechs);
-        
+ 
         GenericValue orderItemContactMech = delegator.makeValue("OrderItemContactMech", UtilMisc.toMap("contactMechPurposeTypeId", "SHIPPING_LOCATION", "contactMechId", "9000", "orderItemSeqId", "00001"));
         List <GenericValue> orderItemContactMechs = FastList.newInstance();
         orderItemContactMechs.add(orderItemContactMech);
         ctx.put("orderItemContactMechs", orderItemContactMechs);
-        
+ 
         GenericValue orderItemShipGroup = delegator.makeValue("OrderItemShipGroup", UtilMisc.toMap("carrierPartyId", "UPS", "contactMechId", "9000", "isGift", "N", "maySplit", "N", "shipGroupSeqId", "00001", "shipmentMethodTypeId", "NEXT_DAY"));
         orderItemShipGroup.set("carrierRoleTypeId","CARRIER");
         List <GenericValue> orderItemShipGroupInfo = FastList.newInstance();
         orderItemShipGroupInfo.add(orderItemShipGroup);
         ctx.put("orderItemShipGroupInfo", orderItemShipGroupInfo);
-        
+ 
         List <GenericValue> orderTerms = FastList.newInstance();
         ctx.put("orderTerms", orderTerms);
-        
+ 
         List <GenericValue> orderAdjustments = FastList.newInstance();
         ctx.put("orderAdjustments", orderAdjustments);
-        
+ 
         ctx.put("billToCustomerPartyId", "Company");
         ctx.put("billFromVendorPartyId", "DemoSupplier");
         ctx.put("shipFromVendorPartyId", "Company");

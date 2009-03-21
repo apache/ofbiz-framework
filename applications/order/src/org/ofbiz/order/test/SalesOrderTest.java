@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -52,31 +52,31 @@ public class SalesOrderTest extends TestCase {
 
     public void testCreateSalesOrder() throws Exception {
         Map ctx = UtilMisc.toMap("partyId", "DemoCustomer", "orderTypeId", "SALES_ORDER", "currencyUom", "USD", "productStoreId", "9000");
-        
+ 
         List orderPaymentInfo = new ArrayList();
         GenericValue orderContactMech = delegator.makeValue("OrderContactMech", UtilMisc.toMap("contactMechId", "9015", "contactMechPurposeTypeId", "BILLING_LOCATION"));
         orderPaymentInfo.add(orderContactMech);
-        
+ 
         GenericValue orderPaymentPreference = delegator.makeValue("OrderPaymentPreference", UtilMisc.toMap("paymentMethodId", "9015", "paymentMethodTypeId", "CREDIT_CARD",
                 "statusId", "PAYMENT_NOT_AUTH", "overflowFlag", "N", "maxAmount", new BigDecimal("49.26")));
         orderPaymentInfo.add(orderPaymentPreference);
         ctx.put("orderPaymentInfo", orderPaymentInfo);
-        
+ 
         List orderItemShipGroupInfo = new ArrayList();
         orderContactMech.set("contactMechPurposeTypeId", "SHIPPING_LOCATION");
         orderItemShipGroupInfo.add(orderContactMech);
-       
+ 
         GenericValue orderItemShipGroup = delegator.makeValue("OrderItemShipGroup", UtilMisc.toMap("carrierPartyId", "UPS", "contactMechId", "9015", "isGift", "N",
                 "shipGroupSeqId", "00001", "shipmentMethodTypeId", "NEXT_DAY"));
         orderItemShipGroupInfo.add(orderItemShipGroup);
-        
+ 
         GenericValue orderItemShipGroupAssoc = delegator.makeValue("OrderItemShipGroupAssoc", UtilMisc.toMap("orderItemSeqId", "00001", "quantity", BigDecimal.ONE, "shipGroupSeqId", "00001"));
         orderItemShipGroupInfo.add(orderItemShipGroupAssoc);
-        
+ 
         GenericValue orderAdjustment = null;
         orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SHIPPING_CHARGES", "shipGroupSeqId", "00001", "amount", new BigDecimal("12.45")));
         orderItemShipGroupInfo.add(orderAdjustment);
-        
+ 
         orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX", "orderItemSeqId", "00001", "overrideGlAccountId", "224153",
                 "primaryGeoId", "UT", "shipGroupSeqId", "00001", "sourcePercentage", new BigDecimal(4.7)));
         orderAdjustment.set("taxAuthGeoId", "UT");
@@ -85,7 +85,7 @@ public class SalesOrderTest extends TestCase {
         orderAdjustment.set("amount", new BigDecimal(1.824));
         orderAdjustment.set("comments", "Utah State Sales Tax");
         orderItemShipGroupInfo.add(orderAdjustment);
-        
+ 
         orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "SALES_TAX", "orderItemSeqId", "00001", "overrideGlAccountId", "224153",
                 "primaryGeoId", "UT-UTAH", "shipGroupSeqId", "00001", "sourcePercentage", new BigDecimal(0.1)));
         orderAdjustment.set("taxAuthGeoId", "UT-UTAH");
@@ -103,9 +103,9 @@ public class SalesOrderTest extends TestCase {
         orderAdjustment.set("amount", new BigDecimal(0.384));
         orderAdjustment.set("comments", "1% OFB _NA_ Tax");
         orderItemShipGroupInfo.add(orderAdjustment);
-        
+ 
         ctx.put("orderItemShipGroupInfo", orderItemShipGroupInfo);
-        
+ 
         List orderAdjustments = new ArrayList();
         orderAdjustment = delegator.makeValue("OrderAdjustment", UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT", "productPromoActionSeqId", "01", "productPromoId", "9011", "productPromoRuleId", "01", "amount", new BigDecimal(-3.84)));
         orderAdjustments.add(orderAdjustment);
@@ -118,10 +118,10 @@ public class SalesOrderTest extends TestCase {
         orderItem.set("unitPrice", new BigDecimal("38.4"));
         orderItem.set("unitListPrice", new BigDecimal("48.0"));
         orderItem.set("statusId", "ITEM_CREATED");
-        
+ 
         orderItems.add(orderItem);
         ctx.put("orderItems", orderItems);
-        
+ 
         List orderTerms = new ArrayList();
         ctx.put("orderTerms", orderTerms);
 
@@ -130,13 +130,13 @@ public class SalesOrderTest extends TestCase {
         OrderContactMech.set("contactMechId", "10000");
         List orderContactMechs = new ArrayList();
         orderContactMechs.add(OrderContactMech);
-        
+ 
         ctx.put("placingCustomerPartyId", "DemoCustomer");
         ctx.put("endUserCustomerPartyId", "DemoCustomer");
         ctx.put("shipToCustomerPartyId", "DemoCustomer");
         ctx.put("billToCustomerPartyId", "DemoCustomer");
         ctx.put("billFromVendorPartyId", "Company");
-        
+ 
         ctx.put("userLogin", userLogin);
         Map resp = dispatcher.runSync("storeOrder", ctx);
         String orderId = (String) resp.get("orderId");

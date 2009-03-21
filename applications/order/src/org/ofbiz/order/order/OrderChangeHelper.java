@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -190,7 +190,7 @@ public class OrderChangeHelper {
                         GenericValue orderItem = (GenericValue) oii.next();
                         String orderItemSeqId = orderItem.getString("orderItemSeqId");
                         GenericValue product = null;
-                        
+ 
                         try {
                             product = orderItem.getRelatedOne("Product");
                         } catch (GenericEntityException e) {
@@ -205,7 +205,7 @@ public class OrderChangeHelper {
                             }
                             if (productType != null) {
                                 String isDigital = productType.getString("isDigital");
-                                if (isDigital != null && "Y".equalsIgnoreCase(isDigital)) {                                
+                                if (isDigital != null && "Y".equalsIgnoreCase(isDigital)) {
                                     // update the status
                                     Map digitalStatusFields = UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "statusId", digitalItemStatus, "userLogin", userLogin);
                                     Map digitalStatusChange = dispatcher.runSync("changeOrderItemStatus", digitalStatusFields);
@@ -271,8 +271,8 @@ public class OrderChangeHelper {
                     List payments = orh.getOrderPayments(opp);
                     if (payments == null || payments.size() == 0) {
                         // only do this one time; if we have payment already for this pref ignore.
-                        Map results = dispatcher.runSync("createPaymentFromPreference", 
-                                UtilMisc.<String, Object>toMap("userLogin", userLogin, "orderPaymentPreferenceId", opp.getString("orderPaymentPreferenceId"), 
+                        Map results = dispatcher.runSync("createPaymentFromPreference",
+                                UtilMisc.<String, Object>toMap("userLogin", userLogin, "orderPaymentPreferenceId", opp.getString("orderPaymentPreferenceId"),
                                 "paymentRefNum",  UtilDateTime.nowTimestamp().toString(), "paymentFromId", partyId));
                         if (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) {
                             Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);

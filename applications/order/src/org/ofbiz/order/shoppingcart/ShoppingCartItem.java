@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -119,7 +119,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     private String requirementId = null;
     private String quoteId = null;
     private String quoteItemSeqId = null;
-    // The following three optional fields are used to collect information for the OrderItemAssoc entity 
+    // The following three optional fields are used to collect information for the OrderItemAssoc entity
     private String associatedOrderId = null; // the order Id, if any, to which the given item is associated (typically a sales order item can be associated to a purchase order item, for example in drop shipments)
     private String associatedOrderItemSeqId = null; // the order item Id, if any, to which the given item is associated
     private String orderItemAssocTypeId = "PURCHASE_ORDER"; // the type of association between this item and an external item; by default, for backward compatibility, a PURCHASE association is used (i.e. the extarnal order is a sales order and this item is a purchase order item created to fulfill the sales order item
@@ -133,7 +133,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     private Timestamp shipAfterDate = null;
     private Timestamp EstimatedShipDate = null;
     private Timestamp cancelBackOrderDate = null;
-    
+ 
     private Map contactMechIdsMap = FastMap.newInstance();
     private List orderItemPriceInfos = null;
     private List itemAdjustments = new LinkedList();
@@ -167,9 +167,9 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @return a new ShoppingCartItem object
      * @throws CartItemModifyException
      */
-    public static ShoppingCartItem makePurchaseOrderItem(Integer cartLocation, String productId, BigDecimal selectedAmount, BigDecimal quantity, 
-            Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, 
-            LocalDispatcher dispatcher, ShoppingCart cart, GenericValue supplierProduct, Timestamp shipBeforeDate, Timestamp shipAfterDate, Timestamp cancelBackOrderDate) 
+    public static ShoppingCartItem makePurchaseOrderItem(Integer cartLocation, String productId, BigDecimal selectedAmount, BigDecimal quantity,
+            Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup,
+            LocalDispatcher dispatcher, ShoppingCart cart, GenericValue supplierProduct, Timestamp shipBeforeDate, Timestamp shipAfterDate, Timestamp cancelBackOrderDate)
                 throws CartItemModifyException, ItemNotFoundException {
         GenericDelegator delegator = cart.getDelegator();
         GenericValue product = null;
@@ -194,12 +194,12 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         // check to see if product is virtual
         if ("Y".equals(product.getString("isVirtual"))) {
-            Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
-                                            "productId", product.getString("productId"));            
+            Map messageMap = UtilMisc.toMap("productName", product.getString("productName"),
+                                            "productId", product.getString("productId"));
 
             String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_virtual",
                                           messageMap , cart.getLocale() );
-                
+ 
             Debug.logWarning(excMsg, module);
             throw new CartItemModifyException(excMsg);
         }
@@ -209,12 +209,12 @@ public class ShoppingCartItem implements java.io.Serializable {
         // check to see if the product is fully configured
         if ("AGGREGATED".equals(product.getString("productTypeId"))) {
             if (configWrapper == null || !configWrapper.isCompleted()) {
-                Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
-                                                "productId", product.getString("productId"));            
+                Map messageMap = UtilMisc.toMap("productName", product.getString("productName"),
+                                                "productId", product.getString("productId"));
 
                 String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_not_configured_correctly",
                                               messageMap , cart.getLocale() );
-                
+ 
                 Debug.logWarning(excMsg, module);
                 throw new CartItemModifyException(excMsg);
             }
@@ -230,7 +230,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (selectedAmount != null) {
             newItem.setSelectedAmount(selectedAmount);
         }
-        
+ 
         // set the ship before/after/dates and cancel back order date.  this needs to happen before setQuantity because setQuantity causes the ship group's dates to be
         // checked versus the cart item's
         newItem.setShipBeforeDate(shipBeforeDate != null ? shipBeforeDate : cart.getDefaultShipBeforeDate());
@@ -282,41 +282,41 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @param cart Required. The parent shopping cart object this item will belong to.
      * @param triggerExternalOpsBool Optional. Defaults to true. Trigger external operations (like promotions and such)?
      * @param triggerPriceRulesBool Optional. Defaults to true. Trigger the price rules to calculate the price for this item?
-     * 
+     *
      * @return a new ShoppingCartItem object
      * @throws CartItemModifyException
      */
-    public static ShoppingCartItem makeItem(Integer cartLocation, String productId, BigDecimal selectedAmount, BigDecimal quantity, BigDecimal unitPrice, 
-            Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, Timestamp shipBeforeDate, Timestamp shipAfterDate, 
-            Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, 
-            String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId, Boolean skipInventoryChecks, Boolean skipProductChecks) 
+    public static ShoppingCartItem makeItem(Integer cartLocation, String productId, BigDecimal selectedAmount, BigDecimal quantity, BigDecimal unitPrice,
+            Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, Timestamp shipBeforeDate, Timestamp shipAfterDate,
+            Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper,
+            String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId, Boolean skipInventoryChecks, Boolean skipProductChecks)
             throws CartItemModifyException, ItemNotFoundException {
-        
-        return makeItem(cartLocation,productId,selectedAmount,quantity,unitPrice, 
-                reservStart,reservLength,reservPersons,null,null,shipBeforeDate,shipAfterDate, 
-                additionalProductFeatureAndAppls,attributes,prodCatalogId,configWrapper, 
+ 
+        return makeItem(cartLocation,productId,selectedAmount,quantity,unitPrice,
+                reservStart,reservLength,reservPersons,null,null,shipBeforeDate,shipAfterDate,
+                additionalProductFeatureAndAppls,attributes,prodCatalogId,configWrapper,
                 itemType,itemGroup,dispatcher,cart,triggerExternalOpsBool,triggerPriceRulesBool,
                 parentProductId,skipInventoryChecks,skipProductChecks);
-                
+ 
     }
-    
-    /** 
+ 
+    /**
      * Makes a ShoppingCartItem and adds it to the cart.
      * @param accommodationMapId Optional. reservations add into workeffort
      * @param accommodationSpotId Optional. reservations add into workeffort
      */
-    public static ShoppingCartItem makeItem(Integer cartLocation, String productId, BigDecimal selectedAmount, BigDecimal quantity, BigDecimal unitPrice, 
-            Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,String accommodationMapId,String accommodationSpotId, Timestamp shipBeforeDate, Timestamp shipAfterDate, 
-            Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, 
-            String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId, Boolean skipInventoryChecks, Boolean skipProductChecks) 
+    public static ShoppingCartItem makeItem(Integer cartLocation, String productId, BigDecimal selectedAmount, BigDecimal quantity, BigDecimal unitPrice,
+            Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,String accommodationMapId,String accommodationSpotId, Timestamp shipBeforeDate, Timestamp shipAfterDate,
+            Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper,
+            String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, String parentProductId, Boolean skipInventoryChecks, Boolean skipProductChecks)
             throws CartItemModifyException, ItemNotFoundException {
         GenericDelegator delegator = cart.getDelegator();
         GenericValue product = null;
         GenericValue parentProduct = null;
-        
+ 
         try {
             product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
-    
+ 
             // first see if there is a purchase allow category and if this product is in it or not
             String purchaseProductCategoryId = CatalogWorker.getCatalogPurchaseAllowCategoryId(delegator, prodCatalogId);
             if (product != null && purchaseProductCategoryId != null) {
@@ -330,18 +330,18 @@ public class ShoppingCartItem implements java.io.Serializable {
             Debug.logWarning(e.toString(), module);
             product = null;
         }
-    
+ 
         if (product == null) {
             Map messageMap = UtilMisc.toMap("productId", productId );
             String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_found", messageMap , cart.getLocale() );
-    
+ 
             Debug.logWarning(excMsg, module);
             throw new ItemNotFoundException(excMsg);
         }
 
         if (parentProductId != null)
         {
-            try 
+            try
             {
                 parentProduct = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", parentProductId));
             } catch (GenericEntityException e) {
@@ -349,9 +349,9 @@ public class ShoppingCartItem implements java.io.Serializable {
                 parentProduct = null;
             }
         }
-        return makeItem(cartLocation, product, selectedAmount, quantity, unitPrice, 
-                reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, 
-                additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper, 
+        return makeItem(cartLocation, product, selectedAmount, quantity, unitPrice,
+                reservStart, reservLength, reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate,
+                additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper,
                 itemType, itemGroup, dispatcher, cart, triggerExternalOpsBool, triggerPriceRulesBool, parentProduct, skipInventoryChecks, skipProductChecks);
     }
 
@@ -380,33 +380,33 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @param cart Required. The parent shopping cart object this item will belong to.
      * @param triggerExternalOpsBool Optional. Defaults to true. Trigger external operations (like promotions and such)?
      * @param triggerPriceRulesBool Optional. Defaults to true. Trigger the price rules to calculate the price for this item?
-     * 
+     *
      * @return a new ShoppingCartItem object
      * @throws CartItemModifyException
      */
-    public static ShoppingCartItem makeItem(Integer cartLocation, GenericValue product, BigDecimal selectedAmount, 
-            BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, 
-            Timestamp shipBeforeDate, Timestamp shipAfterDate, Map additionalProductFeatureAndAppls, Map attributes, 
-            String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, 
+    public static ShoppingCartItem makeItem(Integer cartLocation, GenericValue product, BigDecimal selectedAmount,
+            BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,
+            Timestamp shipBeforeDate, Timestamp shipAfterDate, Map additionalProductFeatureAndAppls, Map attributes,
+            String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher,
             ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, GenericValue parentProduct, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException {
 
-        return makeItem(cartLocation,product,selectedAmount, 
-               quantity,unitPrice,reservStart,reservLength,reservPersons, 
-               null,null,shipBeforeDate,shipAfterDate,additionalProductFeatureAndAppls,attributes, 
-               prodCatalogId,configWrapper,itemType,itemGroup,dispatcher,cart, 
+        return makeItem(cartLocation,product,selectedAmount,
+               quantity,unitPrice,reservStart,reservLength,reservPersons,
+               null,null,shipBeforeDate,shipAfterDate,additionalProductFeatureAndAppls,attributes,
+               prodCatalogId,configWrapper,itemType,itemGroup,dispatcher,cart,
                triggerExternalOpsBool,triggerPriceRulesBool,parentProduct,skipInventoryChecks,skipProductChecks);
     }
-    
-    /** 
+ 
+    /**
      * Makes a ShoppingCartItem and adds it to the cart.
      * @param accommodationMapId Optional. reservations add into workeffort
      * @param accommodationSpotId Optional. reservations add into workeffort
     */
-    public static ShoppingCartItem makeItem(Integer cartLocation, GenericValue product, BigDecimal selectedAmount, 
-            BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, 
+    public static ShoppingCartItem makeItem(Integer cartLocation, GenericValue product, BigDecimal selectedAmount,
+            BigDecimal quantity, BigDecimal unitPrice, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,
             String accommodationMapId,String accommodationSpotId,
-            Timestamp shipBeforeDate, Timestamp shipAfterDate, Map additionalProductFeatureAndAppls, Map attributes, 
-            String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher, 
+            Timestamp shipBeforeDate, Timestamp shipAfterDate, Map additionalProductFeatureAndAppls, Map attributes,
+            String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, LocalDispatcher dispatcher,
             ShoppingCart cart, Boolean triggerExternalOpsBool, Boolean triggerPriceRulesBool, GenericValue parentProduct, Boolean skipInventoryChecks, Boolean skipProductChecks) throws CartItemModifyException {
 
         ShoppingCartItem newItem = new ShoppingCartItem(product, additionalProductFeatureAndAppls, attributes, prodCatalogId, configWrapper, cart.getLocale(), itemType, itemGroup, parentProduct);
@@ -417,11 +417,11 @@ public class ShoppingCartItem implements java.io.Serializable {
         reservPersons = reservPersons == null ? BigDecimal.ZERO : reservPersons;
         boolean triggerPriceRules = triggerPriceRulesBool == null ? true : triggerPriceRulesBool.booleanValue();
         boolean triggerExternalOps = triggerExternalOpsBool == null ? true : triggerExternalOpsBool.booleanValue();
-    
+ 
         // check to see if product is virtual
-        if ("Y".equals(product.getString("isVirtual"))) {            
-            Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
-                                            "productId", product.getString("productId"));            
+        if ("Y".equals(product.getString("isVirtual"))) {
+            Map messageMap = UtilMisc.toMap("productName", product.getString("productName"),
+                                            "productId", product.getString("productId"));
 
             String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_virtual",
                                           messageMap , cart.getLocale() );
@@ -431,15 +431,15 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
 
         java.sql.Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        
+ 
         if (!skipProductChecks.booleanValue()) {
             // check to see if introductionDate hasn't passed yet
             if (product.get("introductionDate") != null && nowTimestamp.before(product.getTimestamp("introductionDate"))) {
-                Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
-                                                "productId", product.getString("productId"));            
+                Map messageMap = UtilMisc.toMap("productName", product.getString("productName"),
+                                                "productId", product.getString("productId"));
 
                 String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_not_yet_available",
-                                              messageMap , cart.getLocale() );            
+                                              messageMap , cart.getLocale() );
 
                 Debug.logWarning(excMsg, module);
                 throw new CartItemModifyException(excMsg);
@@ -447,7 +447,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
             // check to see if salesDiscontinuationDate has passed
             if (product.get("salesDiscontinuationDate") != null && nowTimestamp.after(product.getTimestamp("salesDiscontinuationDate"))) {
-                Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
+                Map messageMap = UtilMisc.toMap("productName", product.getString("productName"),
                                                 "productId", product.getString("productId"));
 
                 String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_no_longer_available",
@@ -459,10 +459,10 @@ public class ShoppingCartItem implements java.io.Serializable {
             /*
             if (product.get("salesDiscWhenNotAvail") != null && "Y".equals(product.getString("salesDiscWhenNotAvail"))) {
                 // check atp and if <= 0 then the product is no more available because
-                // all the units in warehouse are reserved by other sales orders and no new purchase orders will be done 
+                // all the units in warehouse are reserved by other sales orders and no new purchase orders will be done
                 // for this product.
                 if (!newItem.isInventoryAvailableOrNotRequired(quantity, cart.getProductStoreId(), dispatcher)) {
-                    Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
+                    Map messageMap = UtilMisc.toMap("productName", product.getString("productName"),
                                                     "productId", product.getString("productId"));
 
                     String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_no_longer_available",
@@ -473,25 +473,25 @@ public class ShoppingCartItem implements java.io.Serializable {
                 }
             }
              */
-            
+ 
             // check to see if the product is fully configured
             if ("AGGREGATED".equals(product.getString("productTypeId"))) {
-                if (configWrapper == null || !configWrapper.isCompleted()) {                
-                    Map messageMap = UtilMisc.toMap("productName", product.getString("productName"), 
+                if (configWrapper == null || !configWrapper.isCompleted()) {
+                    Map messageMap = UtilMisc.toMap("productName", product.getString("productName"),
                                                     "productId", product.getString("productId"));
                     String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_not_configured_correctly",
                                                   messageMap , cart.getLocale() );
                     Debug.logWarning(excMsg, module);
                     throw new CartItemModifyException(excMsg);
                 }
-            }            
+            }
         }
-        
+ 
         // check to see if the product is a rental item
         if ("ASSET_USAGE".equals(product.getString("productTypeId"))) {
             if (reservStart == null)    {
                 String excMsg = UtilProperties.getMessage(resource_error, "item.missing_reservation_starting_date",
-                                              cart.getLocale() );                
+                                              cart.getLocale() );
                 throw new CartItemModifyException(excMsg);
             }
 
@@ -504,19 +504,19 @@ public class ShoppingCartItem implements java.io.Serializable {
 
             if (reservLength.compareTo(BigDecimal.ONE) < 0)    {
                 String excMsg = UtilProperties.getMessage(resource_error, "item.number_of_days",
-                                              cart.getLocale() );                
+                                              cart.getLocale() );
                 throw new CartItemModifyException(excMsg);
             }
             newItem.setReservLength(reservLength);
-            
+ 
             if (product.get("reservMaxPersons") != null) {
                 BigDecimal reservMaxPersons = product.getBigDecimal("reservMaxPersons");
                  if (reservMaxPersons.compareTo(reservPersons) < 0)    {
-                     Map messageMap = UtilMisc.toMap("reservMaxPersons", product.getString("reservMaxPersons"), 
+                     Map messageMap = UtilMisc.toMap("reservMaxPersons", product.getString("reservMaxPersons"),
                                                      "reservPersons", reservPersons);
                      String excMsg = UtilProperties.getMessage(resource_error, "item.maximum_number_of_person_renting",
                                                    messageMap, cart.getLocale() );
-                     
+ 
                      Debug.logInfo(excMsg,module);
                      throw new CartItemModifyException(excMsg);
                  }
@@ -528,27 +528,27 @@ public class ShoppingCartItem implements java.io.Serializable {
 
              if (product.get("reservNthPPPerc") != null)
                  newItem.setReservNthPPPerc(product.getBigDecimal("reservNthPPPerc"));
-             
+ 
              if ((accommodationMapId != null) && (accommodationSpotId != null)) {
                 newItem.setAccommodationId(accommodationMapId,accommodationSpotId);
              }
-            
+ 
             // check to see if the related fixed asset is available for rent
             String isAvailable = checkAvailability(product.getString("productId"), quantity, reservStart, reservLength, cart);
             if (isAvailable.compareTo("OK") != 0) {
-                Map messageMap = UtilMisc.toMap("productId", product.getString("productId"), 
+                Map messageMap = UtilMisc.toMap("productId", product.getString("productId"),
                                                 "availableMessage", isAvailable);
                 String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_available",
-                                              messageMap, cart.getLocale() );                
+                                              messageMap, cart.getLocale() );
                 Debug.logInfo(excMsg, module);
                 throw new CartItemModifyException(isAvailable);
             }
         }
-        
+ 
         // set the ship before and after dates (defaults to cart ship before/after dates)
         newItem.setShipBeforeDate(shipBeforeDate != null ? shipBeforeDate : cart.getDefaultShipBeforeDate());
         newItem.setShipAfterDate(shipAfterDate != null ? shipAfterDate : cart.getDefaultShipAfterDate());
-        
+ 
         // set the product unit price as base price
         // if triggerPriceRules is true this price will be overriden
         newItem.setBasePrice(unitPrice);
@@ -599,8 +599,8 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @return a new ShoppingCartItem object
      * @throws CartItemModifyException
      */
-    public static ShoppingCartItem makeItem(Integer cartLocation, String itemType, String itemDescription, String productCategoryId, 
-            BigDecimal basePrice, BigDecimal selectedAmount, BigDecimal quantity, Map attributes, String prodCatalogId, ShoppingCart.ShoppingCartItemGroup itemGroup, 
+    public static ShoppingCartItem makeItem(Integer cartLocation, String itemType, String itemDescription, String productCategoryId,
+            BigDecimal basePrice, BigDecimal selectedAmount, BigDecimal quantity, Map attributes, String prodCatalogId, ShoppingCart.ShoppingCartItemGroup itemGroup,
             LocalDispatcher dispatcher, ShoppingCart cart, Boolean triggerExternalOpsBool) throws CartItemModifyException {
 
         GenericDelegator delegator = cart.getDelegator();
@@ -612,7 +612,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         } else {
             cart.addItem(cartLocation.intValue(), newItem);
         }
-        
+ 
         boolean triggerExternalOps = triggerExternalOpsBool == null ? true : triggerExternalOpsBool.booleanValue();
 
         try {
@@ -766,7 +766,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     public String getExternalId() {
         return this.externalId;
     }
-    
+ 
     /** Sets the user selected amount */
     public void setSelectedAmount(BigDecimal selectedAmount) {
         this.selectedAmount = selectedAmount;
@@ -858,7 +858,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             selFixedAssetProduct = EntityUtil.filterByDate(allFixedAssetProduct, UtilDateTime.nowTimestamp(), "fromDate", "thruDate", true);
         } catch (GenericEntityException e) {
             Map messageMap = UtilMisc.toMap("productId", productId);
-            String msg = UtilProperties.getMessage(resource_error, "item.cannot_find_Fixed_Asset", messageMap , cart.getLocale());                                       
+            String msg = UtilProperties.getMessage(resource_error, "item.cannot_find_Fixed_Asset", messageMap , cart.getLocale());
             return msg;
         }
         if (UtilValidate.isNotEmpty(selFixedAssetProduct)) {
@@ -882,7 +882,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (fixedAsset == null) {
             Map messageMap = UtilMisc.toMap("fixedAssetId", fixedAssetProduct.getString("fixedAssetId"));
             String msg = UtilProperties.getMessage(resource_error, "item.fixed_Asset_not_found", messageMap , cart.getLocale());
-            return msg;            
+            return msg;
         }
         //Debug.logInfo("Checking availability for product: " + productId.toString() + " and related FixedAsset: " + fixedAssetProduct.getString("fixedAssetId"),module);
 
@@ -894,7 +894,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
         }
-        if (techDataCalendar == null) {            
+        if (techDataCalendar == null) {
             // no calendar ok, when not more that total capacity
             if (fixedAsset.getBigDecimal("productionCapacity").compareTo(quantity) >= 0) {
                 String msg = UtilProperties.getMessage(resource_error, "item.availableOk", cart.getLocale());
@@ -946,14 +946,14 @@ public class ShoppingCartItem implements java.io.Serializable {
                 }
             }
         }
-        if (resultMessage.compareTo("") == 0) {        
+        if (resultMessage.compareTo("") == 0) {
             String msg = UtilProperties.getMessage(resource_error, "item.availableOk", cart.getLocale());
             return msg;
         }
         else {
             Map messageMap = UtilMisc.toMap("resultMessage", resultMessage);
             String msg = UtilProperties.getMessage(resource_error, "item.notAvailable", messageMap, cart.getLocale());
-            return msg;            
+            return msg;
         }
     }
 
@@ -1191,7 +1191,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                             this.setDisplayPrice(configWrapper.getTotalPrice());
                         }
                     }
-                    
+ 
                     // no try to do a recurring price calculation; not all products have recurring prices so may be null
                     Map recurringPriceContext = FastMap.newInstance();
                     recurringPriceContext.putAll(priceContext);
@@ -1246,7 +1246,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     public BigDecimal getReservPersons() {
         return this.reservPersons;
     }
-    
+ 
     /** Returns accommodationMapId */
     public String getAccommodationMapId()    {
         return this.accommodationMapId;
@@ -1255,7 +1255,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     public String getAccommodationSpotId()    {
         return this.accommodationSpotId;
     }
-    
+ 
     public BigDecimal getPromoQuantityUsed() {
         if (this.getIsPromo()) {
             return this.quantity;
@@ -1432,7 +1432,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     /** Sets the date to ship before */
     public void setShipBeforeDate(Timestamp date) {
         this.shipBeforeDate = date;
-        
+ 
     }
 
     /** Returns the date to ship before */
@@ -1449,26 +1449,26 @@ public class ShoppingCartItem implements java.io.Serializable {
     public Timestamp getShipAfterDate() {
         return this.shipAfterDate;
     }
-    
+ 
     /** Sets the cancel back order date */
     public void setCancelBackOrderDate(Timestamp date) {
         this.cancelBackOrderDate = date;
     }
-    
+ 
     /** Returns the cancel back order date */
     public Timestamp getCancelBackOrderDate() {
         return this.cancelBackOrderDate;
     }
-    
+ 
     /** Sets the date to EstimatedShipDate */
     public void setEstimatedShipDate(Timestamp date) {
         this.EstimatedShipDate = date;
-    }  
+    }
 
     /** Returns the date to EstimatedShipDate */
     public Timestamp getEstimatedShipDate() {
         return this.EstimatedShipDate;
-    }    
+    }
 
     /** Sets the item type. */
     public void setItemType(String itemType) {
@@ -1504,7 +1504,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     public ShoppingCart.ShoppingCartItemGroup getItemGroup() {
         return this.itemGroup;
     }
-    
+ 
     public boolean isInItemGroup(String groupNumber) {
         if (this.itemGroup == null) return false;
         if (this.itemGroup.getGroupNumber().equals(groupNumber)) return true;
@@ -1882,7 +1882,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
         return curBasePrice;
     }
-    
+ 
     public BigDecimal getDisplayPrice() {
         BigDecimal curDisplayPrice;
         if (this.displayPrice == null) {
@@ -1896,21 +1896,21 @@ public class ShoppingCartItem implements java.io.Serializable {
         }
         return curDisplayPrice;
     }
-    
+ 
     public BigDecimal getSpecialPromoPrice() {
         return this.specialPromoPrice;
     }
 
     public BigDecimal getRecurringBasePrice() {
         if (this.recurringBasePrice == null) return null;
-        
+ 
         if (selectedAmount.compareTo(BigDecimal.ZERO) > 0) {
             return this.recurringBasePrice.multiply(selectedAmount);
         } else {
             return this.recurringBasePrice;
         }
     }
-    
+ 
     public BigDecimal getRecurringDisplayPrice() {
         if (this.recurringDisplayPrice == null) {
             return this.getRecurringBasePrice();
@@ -1922,7 +1922,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             return this.recurringDisplayPrice;
         }
     }
-    
+ 
     /** Returns the list price. */
     public BigDecimal getListPrice() {
         return listPrice;
@@ -2000,25 +2000,25 @@ public class ShoppingCartItem implements java.io.Serializable {
     public BigDecimal getDisplayItemSubTotal() {
         return this.getDisplayPrice().multiply(this.getQuantity()).multiply(this.getRentalAdjustment()).add(this.getOtherAdjustments());
     }
-    
+ 
     public BigDecimal getDisplayItemSubTotalNoAdj() {
         return this.getDisplayPrice().multiply(this.getQuantity());
     }
 
     public BigDecimal getDisplayItemRecurringSubTotal() {
         BigDecimal curRecurringDisplayPrice = this.getRecurringDisplayPrice();
-        
+ 
         if (curRecurringDisplayPrice == null) {
             return this.getOtherAdjustmentsRecurring();
         }
-        
+ 
         return curRecurringDisplayPrice.multiply(this.getQuantity()).add(this.getOtherAdjustmentsRecurring());
     }
 
     public BigDecimal getDisplayItemRecurringSubTotalNoAdj() {
         BigDecimal curRecurringDisplayPrice = this.getRecurringDisplayPrice();
         if (curRecurringDisplayPrice == null) return BigDecimal.ZERO;
-        
+ 
         return curRecurringDisplayPrice.multiply(this.getQuantity());
     }
 
@@ -2263,7 +2263,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     public boolean equals(String productId, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, BigDecimal selectedAmount) {
         return equals(productId, reservStart, reservLength, reservPersons, null, null, additionalProductFeatureAndAppls, attributes, prodCatalogId, selectedAmount, configWrapper, itemType, itemGroup, false);
     }
-    
+ 
     /** Compares the specified object with this cart item. Defaults isPromo to false. */
     public boolean equals(String productId, Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, BigDecimal selectedAmount, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, boolean isPromo) {
         return equals(productId, null, BigDecimal.ZERO, BigDecimal.ZERO, null, null, additionalProductFeatureAndAppls, attributes, prodCatalogId, selectedAmount, null, itemType, itemGroup, isPromo);
@@ -2271,7 +2271,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
     /** Compares the specified object with this cart item. */
     public boolean equals(String productId, Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId,
-            Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, BigDecimal selectedAmount, 
+            Map additionalProductFeatureAndAppls, Map attributes, String prodCatalogId, BigDecimal selectedAmount,
             ProductConfigWrapper configWrapper, String itemType, ShoppingCart.ShoppingCartItemGroup itemGroup, boolean isPromo) {
         if (this.productId == null || productId == null) {
             // all non-product items are unique
@@ -2333,7 +2333,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (configWrapper != null && !configWrapper.equals(this.configWrapper)) {
             return false;
         }
-        
+ 
         if (itemType != null && !itemType.equals(this.itemType)) {
             return false;
         }

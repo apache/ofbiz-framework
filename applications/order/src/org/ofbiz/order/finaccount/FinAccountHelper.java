@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -45,7 +45,7 @@ import org.ofbiz.entity.util.EntityUtil;
  *
  */
 public class FinAccountHelper {
-    
+ 
      public static final String module = FinAccountHelper.class.getName();
      /**
       * A word on precision: since we're just adding and subtracting, the interim figures should have one more decimal place of precision than the final numbers.
@@ -53,22 +53,22 @@ public class FinAccountHelper {
      public static int decimals = UtilNumber.getBigDecimalScale("finaccount.decimals");
      public static int rounding = UtilNumber.getBigDecimalRoundingMode("finaccount.rounding");
      public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
-     
+ 
      public static final String giftCertFinAccountTypeId = "GIFTCERT_ACCOUNT";
      public static final boolean defaultPinRequired = false;
-     
+ 
      // pool of available characters for account codes, here numbers plus uppercase characters
      static char[] char_pool = new char[10+26];
      static {
          int j = 0;
          for (int i = "0".charAt(0); i <= "9".charAt(0); i++) {
              char_pool[j++] = (char) i;
-         } 
+         }
          for (int i = "A".charAt(0); i <= "Z".charAt(0); i++) {
              char_pool[j++] = (char) i;
          }
      }
-     
+ 
 
      /**
       * A convenience method which adds transactions.get(0).get(fieldName) to initialValue, all done in BigDecimal to decimals and rounding
@@ -123,12 +123,12 @@ public class FinAccountHelper {
              count++;
              if (count > 999999) {
                  throw new GenericEntityException("Unable to locate unique FinAccountCode! Length [" + codeLength + "]");
-             }             
+             }
          }
 
          return newAccountCode.toString();
      }
-     
+ 
      /**
       * Gets the first (and should be only) FinAccount based on finAccountCode, which will be cleaned up to be only uppercase and alphanumeric
       * @param finAccountCode
@@ -141,21 +141,21 @@ public class FinAccountHelper {
          if (finAccountCode == null) {
              return null;
          }
-         
+ 
          Pattern filterRegex = Pattern.compile("[^0-9A-Z]");
          finAccountCode = finAccountCode.toUpperCase().replaceAll(filterRegex.pattern(), "");
-         
+ 
          // now we need to get the encrypted version of the fin account code the user passed in to look up against FinAccount
          // we do this by making a temporary generic entity with same finAccountCode and then doing a match
          ModelEntity finAccountEntity = delegator.getModelEntity("FinAccount");
          GenericEntity encryptedFinAccount = GenericEntity.createGenericEntity(finAccountEntity, UtilMisc.toMap("finAccountCode", finAccountCode));
          delegator.encryptFields(encryptedFinAccount);
          String encryptedFinAccountCode = encryptedFinAccount.getString("finAccountCode");
-         
+ 
          // now look for the account
          List accounts = delegator.findByAnd("FinAccount", UtilMisc.toMap("finAccountCode", encryptedFinAccountCode));
          accounts = EntityUtil.filterByDate(accounts);
-         
+ 
          if ((accounts == null) || (accounts.size() == 0)) {
              // OK to display - not a code anyway
              Debug.logWarning("No fin account found for account code ["  + finAccountCode + "]", module);
@@ -168,11 +168,11 @@ public class FinAccountHelper {
              return (GenericValue) accounts.get(0);
          }
      }
-     
+ 
  
      /**
       * Sum of all DEPOSIT and ADJUSTMENT transactions minus all WITHDRAWAL transactions whose transactionDate is before asOfDateTime
-      * @param finAccountId      
+      * @param finAccountId
       * @param asOfDateTime
       * @param delegator
       * @return
@@ -180,13 +180,13 @@ public class FinAccountHelper {
       */
      public static BigDecimal getBalance(String finAccountId, Timestamp asOfDateTime, GenericDelegator delegator) throws GenericEntityException {
         if (asOfDateTime == null) asOfDateTime = UtilDateTime.nowTimestamp();
-         
+ 
         BigDecimal incrementTotal = ZERO;  // total amount of transactions which increase balance
         BigDecimal decrementTotal = ZERO;  // decrease balance
 
         GenericValue finAccount = delegator.findByPrimaryKeyCache("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
         String currencyUomId = finAccount.getString("currencyUomId");
-         
+ 
         // find the sum of all transactions which increase the value
         EntityConditionList incrementConditions = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId),
@@ -208,7 +208,7 @@ public class FinAccountHelper {
             EntityOperator.AND);
         transSums = delegator.findList("FinAccountTransSum", decrementConditions, UtilMisc.toSet("amount"), null, null, false);
         decrementTotal = addFirstEntryAmount(decrementTotal, transSums, "amount", (decimals+1), rounding);
-        
+ 
         // the net balance is just the incrementTotal minus the decrementTotal
         return incrementTotal.subtract(decrementTotal).setScale(decimals, rounding);
     }
@@ -225,24 +225,24 @@ public class FinAccountHelper {
         if (asOfDateTime == null) asOfDateTime = UtilDateTime.nowTimestamp();
 
         BigDecimal netBalance = getBalance(finAccountId, asOfDateTime, delegator);
-         
+ 
         // find sum of all authorizations which are not expired and which were authorized before as of time
         EntityConditionList authorizationConditions = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId),
                 EntityCondition.makeCondition("authorizationDate", EntityOperator.LESS_THAN_EQUAL_TO, asOfDateTime),
                 EntityUtil.getFilterByDateExpr(asOfDateTime)),
             EntityOperator.AND);
-         
+ 
         List authSums = delegator.findList("FinAccountAuthSum", authorizationConditions, UtilMisc.toSet("amount"), null, null, false);
-         
+ 
         BigDecimal authorizationsTotal = addFirstEntryAmount(ZERO, authSums, "amount", (decimals+1), rounding);
-         
+ 
         // the total available balance is transactions total minus authorizations total
         return netBalance.subtract(authorizationsTotal).setScale(decimals, rounding);
     }
 
     public static boolean validateFinAccount(GenericValue finAccount) {
-        return false;    
+        return false;
     }
 
     /**
@@ -259,7 +259,7 @@ public class FinAccountHelper {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        
+ 
         if (finAccount != null) {
             String dbPin = finAccount.getString("finAccountCode");
             Debug.logInfo("FinAccount Pin Validation: [Sent: " + pinNumber + "] [Actual: " + dbPin + "]", module);
