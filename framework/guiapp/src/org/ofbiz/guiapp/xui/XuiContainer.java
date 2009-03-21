@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -44,7 +44,7 @@ public abstract class XuiContainer implements Container {
     protected String configFile = null;
 
     public void init(String[] args, String configFile) throws ContainerException {
-        this.configFile = configFile;        
+        this.configFile = configFile;
     }
 
     public boolean start() throws ContainerException {
@@ -78,7 +78,7 @@ public abstract class XuiContainer implements Container {
                 UIManager.setLookAndFeel(laf);
             } catch (Exception e) {
                 throw new ContainerException(e);
-            } 
+            }
         }
 
         // create and cache the session
@@ -96,7 +96,7 @@ public abstract class XuiContainer implements Container {
         String classPackageName = ContainerConfig.getPropertyValue(cc, "class-package-name", "net.xoetrope.swing");
  
         JFrame jframe = new JFrame();
-        jframe.setUndecorated(true);   
+        jframe.setUndecorated(true);
         new XuiScreen(
                 new String[] { this.startupDir + this.startupFile,
                 classPackageName}, jframe);
@@ -131,9 +131,9 @@ public abstract class XuiContainer implements Container {
 
     class XuiScreen extends XApplet {
         protected String startupProperties = "";
-        
+ 
         public XuiScreen(String[] args, JFrame frame) {
-            super(args, frame); 
+            super(args, frame);
             if (args.length > 0) {
                 startupProperties = args[0];
             }
@@ -146,10 +146,10 @@ public abstract class XuiContainer implements Container {
             String language = UtilProperties.getPropertyValue(startupProperties, "Language");
             if (language.compareTo("XuiLabels" + suffix ) != 0) {
                 UtilProperties.setPropertyValue(startupProperties, "Language", "XuiLabels" + suffix);
-            }                
+            }
             frame.setVisible(true);
             frame.getContentPane().add(this);
             frame.validate();
-        } 
+        }
     }
 }

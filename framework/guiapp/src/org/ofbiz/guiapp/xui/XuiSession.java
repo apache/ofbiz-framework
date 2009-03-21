@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -60,7 +60,7 @@ public class XuiSession {
     public XuiContainer getContainer() {
         return this.container;
     }
-    
+ 
     public GenericDelegator getDelegator() {
         return this.delegator;
     }
@@ -110,8 +110,8 @@ public class XuiSession {
 
     public void login(String username, String password) throws UserLoginFailure {
         // if already logged in; verify for lock. Depends on SAME_LOGIN, false by default
-        if (this.userLogin != null) {            
-            if (IS_SAME_LOGIN == true && !userLogin.getString("userLoginId").equals(username)) { 
+        if (this.userLogin != null) {
+            if (IS_SAME_LOGIN == true && !userLogin.getString("userLoginId").equals(username)) {
                 throw new UserLoginFailure(UtilProperties.getMessage("XuiUiLabels", "XuiUsernameDoesNotMatchLoggedUser", locale));
             }
         }
