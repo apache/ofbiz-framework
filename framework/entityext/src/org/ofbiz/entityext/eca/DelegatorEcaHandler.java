@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -51,7 +51,7 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
         this.delegatorName = delegator.getDelegatorName();
         this.entityEcaReaderName = EntityEcaUtil.getEntityEcaReaderName(this.delegatorName);
         this.dctx = EntityServiceFactory.getDispatchContext(delegator);
-        
+ 
         //preload the cache
         EntityEcaUtil.getEntityEcaCache(this.entityEcaReaderName);
     }
@@ -72,11 +72,11 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
 
         List<EntityEcaRule> rules = eventMap.get(event);
         //Debug.logInfo("Handler.evalRules for entity " + value.getEntityName() + ", event " + event + ", num rules=" + (rules == null ? 0 : rules.size()), module);
-        
+ 
         if (rules == null || rules.size() == 0) {
             return;
         }
-        
+ 
         if (!rules.isEmpty() && Debug.verboseOn()) Debug.logVerbose("Running ECA (" + event + ").", module);
         Set<String> actionsRun = new TreeSet<String>();
         for (EntityEcaRule eca: rules) {

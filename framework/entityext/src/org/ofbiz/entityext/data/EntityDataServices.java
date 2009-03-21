@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -415,17 +415,17 @@ public class EntityDataServices {
         // step 8 - checkdb
         Debug.logImportant("Running DB check with add missing enabled", module);
         dbUtil.checkDb(modelEntities, messages, true);
-        
+ 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("messages", messages);
         return result;
     }
-    
+ 
     public static Map<String, Object> unwrapByteWrappers(DispatchContext dctx, Map<String, Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         String entityName = (String) context.get("entityName");
         String fieldName = (String) context.get("fieldName");
-        
+ 
         EntityListIterator eli = null;
         try {
             eli = delegator.find(entityName, null, null, null, null, null);
@@ -451,7 +451,7 @@ public class EntityDataServices {
                 }
             }
         }
-       
+ 
         return ServiceUtil.returnSuccess();
     }
 }

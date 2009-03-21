@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -47,7 +47,7 @@ public class EntityWatchServices {
 
     /**
      * This service is meant to be called through an Entity ECA (EECA) to watch an entity
-     * 
+     *
      * @param dctx
      * @param context
      * @return
@@ -55,11 +55,11 @@ public class EntityWatchServices {
     public static Map watchEntity(DispatchContext dctx, Map context) {
         GenericValue newValue = (GenericValue) context.get("newValue");
         String fieldName = (String) context.get("fieldName");
-        
+ 
         if (newValue == null) {
             return ServiceUtil.returnSuccess();
         }
-        
+ 
         GenericValue currentValue = null;
         try {
             currentValue = dctx.getDelegator().findOne(newValue.getEntityName(), newValue.getPrimaryKey(), false);
@@ -67,7 +67,7 @@ public class EntityWatchServices {
             String errMsg = "Error finding currentValue for primary key [" + newValue.getPrimaryKey() + "]: " + e.toString();
             Debug.logError(e, errMsg, module);
         }
-        
+ 
         if (currentValue != null) {
             if (UtilValidate.isNotEmpty(fieldName)) {
                 // just watch the field
@@ -83,7 +83,7 @@ public class EntityWatchServices {
                         changed = true;
                     }
                 }
-                
+ 
                 if (changed) {
                     String errMsg = "Watching entity [" + currentValue.getEntityName() + "] field [" + fieldName + "] value changed from [" + currentFieldValue + "] to [" + newFieldValue + "] for pk [" + newValue.getPrimaryKey() + "]";
                     Debug.log(new Exception(errMsg), errMsg, module);
@@ -107,7 +107,7 @@ public class EntityWatchServices {
                 Debug.log(new Exception(errMsg), errMsg, module);
             }
         }
-        
+ 
         return ServiceUtil.returnSuccess();
     }
 }
