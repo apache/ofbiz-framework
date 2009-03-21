@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -51,7 +51,7 @@ import freemarker.template.TemplateTransformModel;
  * RenderContentAndSubContent - Freemarker Transform for Content rendering
  * This transform cannot be called recursively (at this time).
  */
-public class RenderContentAndSubContent implements TemplateTransformModel { 
+public class RenderContentAndSubContent implements TemplateTransformModel {
 
     public static final String module = RenderContentAndSubContent.class.getName();
 //    public static final String [] upSaveKeyNames = {"globalNodeTrail"};
@@ -73,7 +73,7 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
 
         final Map savedValues = FastMap.newInstance();
-        
+ 
         return new Writer(out) {
 
             public void write(char cbuf[], int off, int len) {
@@ -106,12 +106,12 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
                         String mapKey = (String)templateRoot.get("mapKey");
                         String contentAssocTypeId = (String)templateRoot.get("contentAssocTypeId");
                         if (UtilValidate.isNotEmpty(mapKey) || UtilValidate.isNotEmpty(contentAssocTypeId)) {
-                            String txt = ContentWorker.renderSubContentAsText(dispatcher, delegator, contentId, mapKey, templateRoot, locale, mimeTypeId, true);                    
+                            String txt = ContentWorker.renderSubContentAsText(dispatcher, delegator, contentId, mapKey, templateRoot, locale, mimeTypeId, true);
                             //String txt = ContentWorker.renderSubContentAsTextCache(delegator, thisContentId, thisMapKey, null, templateRoot, locale, mimeTypeId, null, fromDate);
 //                           if ("true".equals(xmlEscape)) {
 //                                txt = UtilFormatOut.encodeXmlValue(txt);
 //                            }
-                            
+ 
                             out.write(txt);
 
 //                            if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", module);
@@ -120,18 +120,18 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
 //                                assocList = UtilMisc.toList(contentAssocTypeId);
 //                            }
 //                            GenericValue content = ContentWorker.getSubContent(delegator, contentId, mapKey, null, null, assocList, null);
-//                            if (content != null) { 
+//                            if (content != null) {
 //                              contentId = content.getString("contentId");
 //                            } else {
 //                              contentId = null;
 //                            }
-                        } else if (contentId != null) { 
+                        } else if (contentId != null) {
                             ContentWorker.renderContentAsText(dispatcher, delegator, contentId, out, templateRoot, locale, mimeTypeId, true);
 //                            ((MapStack)templateRoot).pop();
                         }
                         //FreeMarkerWorker.reloadValues(templateRoot, savedValues, env);
                         //FreeMarkerWorker.reloadValues(templateRoot, savedValuesUp, env);
-                        
+ 
                     } catch (GeneralException e) {
                         String errMsg = "Error rendering thisContentId:" + (String)templateRoot.get("contentId") + " msg:" + e.toString();
                         Debug.logError(e, errMsg, module);

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -44,7 +44,7 @@ import freemarker.template.TemplateTransformModel;
 //import com.clarkware.profiler.Profiler;
 /**
  * WrapSubContentCacheTransform - Freemarker Transform for URLs (links)
- * 
+ *
  * This is an interactive FreeMarker tranform that allows the user to modify the contents that are placed within it.
  */
 public class WrapSubContentCacheTransform implements TemplateTransformModel {
@@ -52,7 +52,7 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
     public static final String module = WrapSubContentCacheTransform.class.getName();
     public static final String [] upSaveKeyNames = {"globalNodeTrail"};
     public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
-    
+ 
     /**
      * A wrapper for the FreeMarkerWorker version.
      */
@@ -149,13 +149,13 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
                 FreeMarkerWorker.reloadValues(templateCtx, savedValues, env);
                 //if (Debug.infoOn()) Debug.logInfo("in Wrap(2), savedValues ." + savedValues , module);
                 String wrappedContent = buf.toString();
-                
+ 
                 //if (view != null && Debug.infoOn()) Debug.logInfo("in WrapSubContent, view(2):" + view.get("contentId"), module);
                 //if (Debug.infoOn()) Debug.logInfo("in WrapSubContent, wrappedContent:" + wrappedContent, module);
                 //if (Debug.infoOn()) Debug.logInfo("in WrapSubContent, wrapTemplateId(2):" + wrapTemplateId, module);
                 if (UtilValidate.isNotEmpty(wrapTemplateId)) {
                     templateCtx.put("wrappedContent", wrappedContent);
-                    
+ 
                     //Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
                     Map templateRoot = null;
                     Map templateRootTemplate = (Map)templateCtx.get("templateRootTemplate");
@@ -166,9 +166,9 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
                     } else {
                         templateRoot = UtilMisc.makeMapWritable(templateRootTemplate);
                     }
-                    
+ 
                     templateRoot.put("context", templateCtx);
-                    
+ 
                     String mimeTypeId = (String)templateCtx.get("mimeTypeId");
                     Locale locale = null;
                     try {
@@ -182,7 +182,7 @@ public class WrapSubContentCacheTransform implements TemplateTransformModel {
                         Debug.logError(e2, "Error rendering content" + e2.getMessage(), module);
                         throw new IOException("Error rendering content" + e2.toString());
                     }
-                        
+ 
                 FreeMarkerWorker.reloadValues(templateCtx, savedValuesUp, env);
                         //if (Debug.infoOn()) Debug.logInfo("in Wrap(2), savedValuesUp ." + savedValuesUp , module);
                 }

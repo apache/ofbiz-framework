@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -414,7 +414,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
     public static String buildRequestPrefix(GenericDelegator delegator, Locale locale, String webSiteId, String https) {
         Map prefixValues = FastMap.newInstance();
         String prefix;
-        
+ 
         NotificationServices.setBaseUrl(delegator, webSiteId, prefixValues);
         if (https != null && https.equalsIgnoreCase("true")) {
             prefix = (String) prefixValues.get("baseSecureUrl");
@@ -687,7 +687,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                     ModelScreen modelScreen = null;
                     ScreenStringRenderer renderer = screens.getScreenStringRenderer();
                     String combinedName = dataResource.getString("objectInfo");
-                    if ("URL_RESOURCE".equals(dataResource.getString("dataResourceTypeId")) && UtilValidate.isNotEmpty(combinedName) && combinedName.startsWith("component://")) { 
+                    if ("URL_RESOURCE".equals(dataResource.getString("dataResourceTypeId")) && UtilValidate.isNotEmpty(combinedName) && combinedName.startsWith("component://")) {
                         modelScreen = ScreenFactory.getScreenFromLocation(combinedName);
                     } else { // stored in  a single file, long or short text
                         Document screenXml = UtilXml.readXmlDocument(getDataResourceText(dataResource, targetMimeTypeId, locale, templateContext, delegator, cache), true);
@@ -766,7 +766,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             if (context != null)
                 https = (String) context.get("https");
         }
-        
+ 
         String rootDir = (String) templateContext.get("rootDir");
         if (UtilValidate.isEmpty(rootDir)) {
             if (context != null)
@@ -804,7 +804,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         } else if (dataResourceTypeId.equals("URL_RESOURCE")) {
             String text = null;
             URL url = FlexibleLocation.resolveLocation(dataResource.getString("objectInfo"));
-            
+ 
             if (url.getHost() != null) { // is absolute
                 InputStream in = url.openStream();
                 int c;
@@ -852,7 +852,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
     /** @deprecated */
     public static void writeDataResourceTextCache(GenericValue dataResource, String mimeTypeId, Locale locale, Map context,
             GenericDelegator delegator, Appendable outWriter) throws IOException, GeneralException {
-        writeDataResourceText(dataResource, mimeTypeId, locale, context, delegator, outWriter, true);       
+        writeDataResourceText(dataResource, mimeTypeId, locale, context, delegator, outWriter, true);
     }
 
     /** @deprecated */
@@ -896,7 +896,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 mimeContext.putAll(context);
                 mimeContext.put("dataResource", dataResource);
                 mimeContext.put("textData", textData);
-                
+ 
                 String mimeString = DataResourceWorker.renderMimeTypeTemplate(mimeTypeTemplate, mimeContext);
                 out.append(mimeString);
             } else {
@@ -1070,7 +1070,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             String objectInfo = dataResource.getString("objectInfo");
             if (UtilValidate.isNotEmpty(objectInfo)) {
                 File file = DataResourceWorker.getContentFile(dataResourceTypeId, objectInfo, contextRoot);
-                return UtilMisc.toMap("stream", new FileInputStream(file), "length", Long.valueOf(file.length()));                 
+                return UtilMisc.toMap("stream", new FileInputStream(file), "length", Long.valueOf(file.length()));
             } else {
                 throw new GeneralException("No objectInfo found for FILE type [" + dataResourceTypeId + "]; cannot stream");
             }
@@ -1090,7 +1090,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 }
 
                 URLConnection con = url.openConnection();
-                return UtilMisc.toMap("stream", con.getInputStream(), "length", Long.valueOf(con.getContentLength()));                
+                return UtilMisc.toMap("stream", con.getInputStream(), "length", Long.valueOf(con.getContentLength()));
             } else {
                 throw new GeneralException("No objectInfo found for URL_RESOURCE type; cannot stream");
             }
@@ -1115,7 +1115,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             if (UtilValidate.isEmpty(mimeTypeId)) {
                 mimeTypeId = "text/html";
             }
-    
+ 
             if (dataResourceTypeId.equals("SHORT_TEXT")) {
                 String text = dataResource.getString("objectInfo");
                 os.write(text.getBytes());
@@ -1164,19 +1164,19 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             throw new GeneralException("Error in streamDataResource", e);
         }
     }
-    
+ 
     public static ByteBuffer getContentAsByteBuffer(GenericDelegator delegator, String dataResourceId, String https, String webSiteId, Locale locale, String rootDir) throws IOException, GeneralException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         streamDataResource(baos, delegator, dataResourceId, https, webSiteId, locale, rootDir);
         ByteBuffer byteBuffer = ByteBuffer.wrap(baos.toByteArray());
         return byteBuffer;
     }
-    
+ 
     public String renderDataResourceAsTextExt(GenericDelegator delegator, String dataResourceId, Map templateContext,
             Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
         return renderDataResourceAsText(delegator, dataResourceId, templateContext, locale, targetMimeTypeId, cache);
     }
-    
+ 
     public void renderDataResourceAsTextExt(GenericDelegator delegator, String dataResourceId, Appendable out, Map templateContext,
             Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
         renderDataResourceAsText(delegator, dataResourceId, out, templateContext, locale, targetMimeTypeId, cache);

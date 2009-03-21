@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -184,9 +184,9 @@ public class RenderContentAsText implements TemplateTransformModel {
                         if ("true".equals(xmlEscape)) {
                             txt = UtilFormatOut.encodeXmlValue(txt);
                         }
-                        
+ 
                         out.write(txt);
-                        
+ 
                         // if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", module);
                     } catch (GeneralException e) {
                         String errMsg = "Error rendering thisContentId:" + thisContentId + " msg:" + e.toString();
@@ -219,7 +219,7 @@ public class RenderContentAsText implements TemplateTransformModel {
                     fullRequest += delim + "contentId=" + contentId;
                     delim = "&";
                 }
-              
+ 
                 out.write("<a href=\"");
                 ServletContext servletContext = (ServletContext) request.getSession().getServletContext();
                 RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
@@ -236,7 +236,7 @@ public class RenderContentAsText implements TemplateTransformModel {
                 if (UtilValidate.isEmpty(editStyle)) {
                     editStyle = "buttontext";
                 }
-                return editStyle; 
+                return editStyle;
             }
         };
     }

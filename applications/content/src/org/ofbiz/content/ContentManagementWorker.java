@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -82,7 +82,7 @@ public class ContentManagementWorker {
         if (lookupCaches == null) {
             lookupCaches = FastMap.newInstance();
             session.setAttribute("lookupCaches", lookupCaches);
-        }    
+        }
         String entityName = pk.getEntityName();
 
         mruAddByEntityName( entityName, pk, lookupCaches);
@@ -92,7 +92,7 @@ public class ContentManagementWorker {
     * Makes an entry in the "most recently used" cache. It picks the cache
     * by the entity name and builds a signature from the primary key values.
     *
-    * @param entityName 
+    * @param entityName
     * @param lookupCaches
     * @param pk either a GenericValue or GenericPK - populated
     */
@@ -103,8 +103,8 @@ public class ContentManagementWorker {
         if (lkupCache == null) {
             lkupCache    = new LifoSet();
             lookupCaches.put(cacheEntityName, lkupCache);
-        }    
-        
+        }
+ 
         lkupCache.add(pk.getPrimaryKey());
         if (Debug.infoOn()) Debug.logInfo("in mruAddByEntityName, entityName:" + entityName + " lifoSet.size()" + lkupCache.size(), module);
     }
@@ -116,8 +116,8 @@ public class ContentManagementWorker {
         if (lkupCache == null) {
             lkupCache    = new LifoSet();
             lookupCaches.put(cacheEntityName, lkupCache);
-        }    
-        
+        }
+ 
         Iterator mrvIterator = lkupCache.iterator();
         return mrvIterator;
     }
@@ -153,7 +153,7 @@ public class ContentManagementWorker {
 
 
     public static void setCurrentEntityMap(HttpServletRequest request, GenericEntity ent) {
-     
+ 
         String entityName = ent.getEntityName();
         setCurrentEntityMap(request, entityName, ent);
     }
@@ -306,7 +306,7 @@ public class ContentManagementWorker {
             request.setAttribute("currentPK", currentPK);
             GenericValue currentValue = null;
             try {
-                currentValue = delegator.findOne(currentPK.getEntityName(), currentPK, false); 
+                currentValue = delegator.findOne(currentPK.getEntityName(), currentPK, false);
             } catch (GenericEntityException e) {
             }
             request.setAttribute("currentValue", currentValue);
@@ -317,7 +317,7 @@ public class ContentManagementWorker {
     public static List getPermittedPublishPoints(GenericDelegator delegator, List allPublishPoints, GenericValue userLogin, Security security, String permittedAction, String permittedOperations, String passedRoles) throws GeneralException {
 
         List permittedPublishPointList = FastList.newInstance();
-        
+ 
         // Check that user has permission to admin sites
         Iterator it = allPublishPoints.iterator();
         while (it.hasNext()) {
@@ -515,12 +515,12 @@ public class ContentManagementWorker {
 
     public static String getParentWebSitePublishPointId(GenericDelegator delegator, String  contentId) throws GenericEntityException {
 
-        
+ 
         String contentIdTo = null;
         List contentAssocList = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentAssocTypeId", "SUBSITE"));
         List filteredContentAssocList = EntityUtil.filterByDate(contentAssocList);
         if (filteredContentAssocList.size() > 0) {
-            GenericValue contentAssoc = (GenericValue)filteredContentAssocList.get(0); 
+            GenericValue contentAssoc = (GenericValue)filteredContentAssocList.get(0);
             if (contentAssoc != null)
                 contentIdTo = contentAssoc.getString("contentIdTo");
         }
@@ -663,7 +663,7 @@ public class ContentManagementWorker {
     public static List getPermittedDepartmentPoints(GenericDelegator delegator, List allDepartmentPoints, GenericValue userLogin, Security security, String permittedAction, String permittedOperations, String passedRoles) throws GeneralException {
 
         List permittedDepartmentPointList = FastList.newInstance();
-        
+ 
         // Check that user has permission to admin sites
         Iterator it = allDepartmentPoints.iterator();
         while (it.hasNext()) {
@@ -695,7 +695,7 @@ public class ContentManagementWorker {
     }
 
     /**
-     Returns a list of "department" (having ContentAssoc of type "DEPARTMENT") 
+     Returns a list of "department" (having ContentAssoc of type "DEPARTMENT")
      Content entities that are children of parentPubPt
 
      @param parentPubPt The parent publish point.
@@ -740,7 +740,7 @@ public class ContentManagementWorker {
         GenericValue thisContent = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
         if (thisContent == null)
             throw new RuntimeException("No entity found for id=" + contentId);
-        
+ 
        EntityCondition conditionMain = null;
        if (typeList.size() > 0 ) {
            EntityCondition conditionType = EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList);
@@ -756,22 +756,22 @@ public class ContentManagementWorker {
             String subContentId = contentAssoc.getString("contentId");
             subLeafCount += updateStatsTopDown(delegator, subContentId, typeList);
         }
-        
+ 
         // If no children, count this as a leaf
         if (subLeafCount == 0)
             subLeafCount = 1;
         thisContent.put("childBranchCount", Long.valueOf(listFiltered.size()));
         thisContent.put("childLeafCount", Long.valueOf(subLeafCount));
         thisContent.store();
-        
+ 
         return subLeafCount;
     }
-    
+ 
     public static void updateStatsBottomUp(GenericDelegator delegator, String contentId, List typeList, int branchChangeAmount, int leafChangeAmount) throws GenericEntityException {
         GenericValue thisContent = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
         if (thisContent == null)
             throw new RuntimeException("No entity found for id=" + contentId);
-        
+ 
        EntityCondition conditionType = EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList);
        EntityCondition conditionMain = EntityCondition.makeCondition(UtilMisc.toList( EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId), conditionType), EntityOperator.AND);
             List listAll = delegator.findList("ContentAssoc", conditionMain, null, null, null, true);
@@ -786,21 +786,21 @@ public class ContentManagementWorker {
                 if (leafCount != null) {
                     intLeafCount = leafCount.intValue();
                 }
-                contentTo.set("childLeafCount", Long.valueOf(intLeafCount + leafChangeAmount)); 
-                
+                contentTo.set("childLeafCount", Long.valueOf(intLeafCount + leafChangeAmount));
+ 
                 if (branchChangeAmount != 0) {
                     int intBranchCount = 0;
                     Long branchCount = (Long)contentTo.get("childBranchCount");
                     if (branchCount != null) {
                         intBranchCount = branchCount.intValue();
                     }
-                    contentTo.set("childBranchCount", Long.valueOf(intBranchCount + branchChangeAmount)); 
+                    contentTo.set("childBranchCount", Long.valueOf(intBranchCount + branchChangeAmount));
                 }
                 contentTo.store();
                 updateStatsBottomUp(delegator, contentIdTo, typeList, 0, leafChangeAmount);
             }
-            
-        
+ 
+ 
     }
-    
+ 
 }

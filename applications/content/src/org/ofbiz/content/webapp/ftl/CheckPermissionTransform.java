@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -104,7 +104,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                     //Debug.logInfo("in CheckPermission, trailCsv(2):" + trailCsv,"");
                     //Debug.logInfo("in CheckPermission, contentId(2):" + templateCtx.get("contentId"),"");
                     //Debug.logInfo("in CheckPermission, subContentId(2):" + templateCtx.get("subContentId"),"");
-             
+ 
                 GenericValue currentContent = null;
         String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
                 String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");
@@ -126,12 +126,12 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                     currentContent.put("ownerContentId", templateCtx.get("ownerContentId"));
                 }
                     //Debug.logInfo("in CheckPermission, currentContent(1):" + currentContent.get("contentId"),"");
-        
+ 
                 Security security = null;
                 if (request != null) {
                     security = (Security) request.getAttribute("security");
                 }
-             
+ 
                 String statusId = (String)currentContent.get("statusId");
                 String passedStatusId = (String)templateCtx.get("statusId");
                 List statusList = StringUtil.split(passedStatusId, "|");
@@ -139,7 +139,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                     statusList = FastList.newInstance();
                 if (UtilValidate.isNotEmpty(statusId) && !statusList.contains(statusId)) {
                     statusList.add(statusId);
-                } 
+                }
                 String targetPurpose = (String)templateCtx.get("contentPurposeList");
                 List purposeList = StringUtil.split(targetPurpose, "|");
                 String entityOperation = (String)templateCtx.get("entityOperation");
@@ -155,9 +155,9 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                     throw new IOException("targetOperationList has zero size.");
                 }
                 List roleList = FastList.newInstance();
-        
+ 
                 String privilegeEnumId = (String)currentContent.get("privilegeEnumId");
-                Map results = EntityPermissionChecker.checkPermission(currentContent, statusList, userLogin, purposeList, targetOperationList, roleList, delegator, security, entityOperation, privilegeEnumId, quickCheckContentId); 
+                Map results = EntityPermissionChecker.checkPermission(currentContent, statusList, userLogin, purposeList, targetOperationList, roleList, delegator, security, entityOperation, privilegeEnumId, quickCheckContentId);
 
                 boolean isError = ModelService.RESPOND_ERROR.equals(results.get(ModelService.RESPONSE_MESSAGE));
                 if (isError) {
@@ -167,7 +167,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                 String permissionStatus = (String) results.get("permissionStatus");
 
                 if (UtilValidate.isEmpty(permissionStatus) || !permissionStatus.equals("granted")) {
-                
+ 
                     String errorMessage = "Permission to add response is denied (2)";
                     PermissionRecorder recorder = (PermissionRecorder)results.get("permissionRecorder");
                         //Debug.logInfo("recorder(0):" + recorder, "");

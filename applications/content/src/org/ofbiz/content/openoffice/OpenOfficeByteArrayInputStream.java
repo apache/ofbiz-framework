@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -31,44 +31,44 @@ import com.sun.star.io.NotConnectedException;
  */
 
 public class OpenOfficeByteArrayInputStream extends ByteArrayInputStream implements XInputStream, XSeekable {
-    
+ 
     public static final String module = OpenOfficeByteArrayInputStream.class.getName();
-    
+ 
     public OpenOfficeByteArrayInputStream(byte [] bytes) {
         super(bytes);
     }
-    
-    
+ 
+ 
     public long getPosition() throws com.sun.star.io.IOException {
         return this.pos;
     }
-    
+ 
     public long getLength() throws com.sun.star.io.IOException {
         return this.count;
     }
-    
+ 
     public void seek(long pos1) throws com.sun.star.io.IOException, IllegalArgumentException {
         this.pos = (int)pos1;
     }
 
-    public void skipBytes(int pos1) throws BufferSizeExceededException, 
+    public void skipBytes(int pos1) throws BufferSizeExceededException,
                                              NotConnectedException, com.sun.star.io.IOException {
         skip(pos1);
     }
 
     public void closeInput() throws NotConnectedException, com.sun.star.io.IOException {
-        
+ 
         try {
             close();
         } catch ( IOException e) {
             String errMsg = e.getMessage();
             throw new com.sun.star.io.IOException( errMsg, this );
         }
-        
+ 
     }
-    
+ 
     public int readBytes(byte [][]buf, int pos2) throws BufferSizeExceededException, NotConnectedException, com.sun.star.io.IOException {
-        
+ 
         int bytesRead = 0;
         byte [] buf2 = new byte[pos2];
         try {
@@ -77,7 +77,7 @@ public class OpenOfficeByteArrayInputStream extends ByteArrayInputStream impleme
             String errMsg = e.getMessage();
             throw new com.sun.star.io.IOException( errMsg, this );
         }
-        
+ 
         if (bytesRead > 0) {
             if (bytesRead < pos2) {
                 byte [] buf3 = new byte[bytesRead];

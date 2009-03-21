@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -203,7 +203,7 @@ public class DataEvents {
             length = (Long) resourceData.get("length");
         }
         Debug.log("Got resource data stream: " + length + " bytes", module);
-        
+ 
         // stream the content to the browser
         if (stream != null && length != null) {
             try {
@@ -231,7 +231,7 @@ public class DataEvents {
 
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Map parameters = UtilHttp.getParameterMap(request);
-        
+ 
         Debug.log("Img UserAgent - " + request.getHeader("User-Agent"), module);
 
         String dataResourceId = (String) parameters.get("imgId");
@@ -253,10 +253,10 @@ public class DataEvents {
                     request.setAttribute("_ERROR_MESSAGE_", errorMsg);
                     return "error";
                 }
-                
+ 
                 // make sure the logged in user can download this content; otherwise is a pretty big security hole for DataResource records...
                 // TODO: should we restrict the roleTypeId?
-                List contentAndRoleList = delegator.findByAnd("ContentAndRole", 
+                List contentAndRoleList = delegator.findByAnd("ContentAndRole",
                         UtilMisc.toMap("partyId", userLogin.get("partyId"), "dataResourceId", dataResourceId));
                 if (contentAndRoleList.size() == 0) {
                     String errorMsg = "You do not have permission to download the Data Resource with ID [" + dataResourceId + "], ie you are not associated with it.";
@@ -265,7 +265,7 @@ public class DataEvents {
                     return "error";
                 }
             }
-            
+ 
             String mimeType = DataResourceWorker.getMimeType(dataResource);
             //if (Debug.infoOn()) Debug.logInfo("in serveImage, imageType:" + imageType, module);
 
@@ -303,8 +303,8 @@ public class DataEvents {
     }
 
 
-    /** Dual create and edit event. 
-     *  Needed to make permission criteria available to services. 
+    /** Dual create and edit event.
+     *  Needed to make permission criteria available to services.
      */
     public static String persistDataResource(HttpServletRequest request, HttpServletResponse response) {
         Map result = null;
@@ -316,7 +316,7 @@ public class DataEvents {
         GenericValue dataResource = delegator.makeValue("DataResource");
         dataResource.setPKFields(paramMap);
         dataResource.setNonPKFields(paramMap);
-        Map serviceInMap = UtilMisc.makeMapWritable(dataResource); 
+        Map serviceInMap = UtilMisc.makeMapWritable(dataResource);
         serviceInMap.put("userLogin", userLogin);
         String mode = (String)paramMap.get("mode");
         Locale locale = UtilHttp.getLocale(request);
@@ -336,7 +336,7 @@ public class DataEvents {
             try {
                 result = dispatcher.runSync("createDataResource", serviceInMap);
             } catch (GenericServiceException e) {
-                String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_create_service", locale);                                                                    
+                String errMsg = UtilProperties.getMessage(DataEvents.err_resource, "dataEvents.error_call_create_service", locale);
                 String errorMsg = "Error calling the createDataResource service." + e.toString();
                 Debug.logError(e, errorMsg, module);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg + e.toString());
@@ -345,8 +345,8 @@ public class DataEvents {
             dataResourceId = (String)result.get("dataResourceId");
             dataResource.set("dataResourceId", dataResourceId);
         }
-        
-   
+ 
+ 
         // Save the primary key so that it can be used in a "quick pick" list later
         GenericPK pk = dataResource.getPrimaryKey();
         HttpSession session = request.getSession();

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -49,10 +49,10 @@ import org.ofbiz.webapp.view.ViewHandlerException;
  * This handler will use JPublish to generate the XSL-FO
  */
 public class SimpleContentViewHandler extends AbstractViewHandler {
-    
+ 
     public static final String module = SimpleContentViewHandler.class.getName();
     protected ServletContext servletContext = null;
-    
+ 
     public void init(ServletContext context) throws ViewHandlerException {
         this.servletContext = context;
     }
@@ -60,7 +60,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
      * @see org.ofbiz.webapp.view.ViewHandler#render(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
-        
+ 
         String contentId = request.getParameter("contentId");
         String rootContentId = request.getParameter("rootContentId");
         String mapKey = request.getParameter("mapKey");
@@ -73,7 +73,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
         String rootDir = null;
         String webSiteId = null;
         String https = null;
-        
+ 
         if (UtilValidate.isEmpty(rootDir)) {
             rootDir = servletContext.getRealPath("/");
         }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -94,7 +94,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
             contentAssocTypeId = "SUB_CONTENT";
             templateRoot.put("contentAssocTypeId ", contentAssocTypeId);
         }
-        
+ 
         final Map pickedEntityIds = FastMap.newInstance();
         List assocTypes = StringUtil.split(contentAssocTypeId, "|");
 
@@ -123,7 +123,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
             fromDate = UtilDateTime.nowTimestamp();
 
         String limitSize = (String) templateRoot.get("limitSize");
-        final int returnLimit = Integer.parseInt(limitSize); 
+        final int returnLimit = Integer.parseInt(limitSize);
         // limitMode will be "random" to begin with
         String limitMode = (String) templateRoot.get("limitMode");
         final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
@@ -131,7 +131,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         String strNullThruDatesOnly = (String) templateRoot.get("nullThruDatesOnly");
         String orderBy = (String) templateRoot.get("orderBy");
         Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE : Boolean.FALSE;
-        
+ 
         // NOTE this was looking for subContentId, but that doesn't make ANY sense, so changed to contentId
         String contentId = (String) templateRoot.get("contentId");
 
@@ -190,7 +190,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                 List subList = list.subList(0, list.size() - 1);
                 templateRoot.put("globalNodeTrail", subList);
                 env.setVariable("globalNodeTrail", FreeMarkerWorker.autoWrap(subList, env));
-                
+ 
                 //if (Debug.infoOn()) Debug.logInfo("highIndex(2):" + highIndexInteger , "");
                 //if (Debug.infoOn()) Debug.logInfo("in limited, returnLimit(2):" + returnLimit , "");
                 //if (Debug.verboseOn()) Debug.logVerbose("in limited, pickedEntityIds(2):" + pickedEntityIds , "");

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -63,13 +63,13 @@ import com.lowagie.text.pdf.PdfReader;
 
 public class CompDocServices {
     public static final String module = CompDocServices.class.getName();
-    
-    /** 
-     * 
+ 
+    /**
+     *
      * @param request
      * @param response
      * @return
-     * 
+     *
      * Creates the topmost Content entity of a Composite Document tree.
      * Also creates an "empty" Composite Document Instance Content entity.
      * Creates ContentRevision/Item records for each, as well.
@@ -83,7 +83,7 @@ public class CompDocServices {
         GenericValue userLogin = (GenericValue)context.get("userLogin");
         String contentId = (String)context.get("contentId");
         //String instanceContentId = null;
-        
+ 
         boolean contentExists = true;
         if (UtilValidate.isEmpty(contentId)) {
             contentExists = false;
@@ -97,7 +97,7 @@ public class CompDocServices {
                 return ServiceUtil.returnError(errMsg);
            }
         }
-        
+ 
         ModelService modelService = null;
         try {
             modelService = dispatcher.getDispatchContext().getModelService("persistContentAndAssoc");
@@ -142,21 +142,21 @@ public class CompDocServices {
 
     public static Map<String, Object> renderCompDocPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        
+ 
         Locale locale = (Locale) context.get("locale");
         String rootDir = (String) context.get("rootDir");
         String webSiteId = (String) context.get("webSiteId");
         String https = (String) context.get("https");
-        
+ 
         GenericDelegator delegator = dctx.getDelegator();
-        
+ 
         String contentId = (String) context.get("contentId");
         String contentRevisionSeqId = (String) context.get("contentRevisionSeqId");
         String oooHost = (String) context.get("oooHost");
         String oooPort = (String) context.get("oooPort");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        
-        try {   
+ 
+        try {
             Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
             List exprList = FastList.newInstance();
             exprList.add(EntityCondition.makeCondition("contentIdTo", EntityOperator.EQUALS, contentId));
@@ -173,15 +173,15 @@ public class CompDocServices {
             exprList.add(EntityCondition.makeCondition(thruList, EntityOperator.OR));
 
             EntityConditionList conditionList = EntityCondition.makeCondition(exprList, EntityOperator.AND);
-            
+ 
             String [] fields = {"rootRevisionContentId", "itemContentId", "maxRevisionSeqId", "contentId", "dataResourceId", "contentIdTo", "contentAssocTypeId", "fromDate", "sequenceNum"};
             Set selectFields = UtilMisc.toSetArray(fields);
             List orderByFields = UtilMisc.toList("sequenceNum");
             List compDocParts = delegator.findList("ContentAssocRevisionItemView", conditionList, selectFields, orderByFields, null, false);
-            
+ 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             Document document = new Document();
-            document.setPageSize(PageSize.LETTER);    
+            document.setPageSize(PageSize.LETTER);
             //Rectangle rect = document.getPageSize();
             //PdfWriter writer = PdfWriter.getInstance(document, baos);
             PdfCopy writer = new PdfCopy(document, baos);
@@ -261,7 +261,7 @@ public class CompDocServices {
                     if (UtilValidate.isNotEmpty(oooPort)) convertInMap.put("oooPort", oooPort);
 
                     Map convertResult = dispatcher.runSync("convertDocumentByteBuffer", convertInMap);
-                    
+ 
                     if (ServiceUtil.isError(convertResult)) {
                         return ServiceUtil.returnError("Error in Open", null, null, convertResult);
                     }
@@ -301,25 +301,25 @@ public class CompDocServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map results = ServiceUtil.returnSuccess();
         String dataResourceId = null;
-        
+ 
         Locale locale = (Locale) context.get("locale");
         String rootDir = (String) context.get("rootDir");
         String webSiteId = (String) context.get("webSiteId");
         String https = (String) context.get("https");
-        
+ 
         GenericDelegator delegator = dctx.getDelegator();
-        
+ 
         String contentId = (String) context.get("contentId");
         String contentRevisionSeqId = (String) context.get("contentRevisionSeqId");
         String oooHost = (String) context.get("oooHost");
         String oooPort = (String) context.get("oooPort");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        
-        try {   
+ 
+        try {
             //Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
             //ByteArrayOutputStream baos = new ByteArrayOutputStream();
             Document document = new Document();
-            document.setPageSize(PageSize.LETTER);    
+            document.setPageSize(PageSize.LETTER);
             //Rectangle rect = document.getPageSize();
             //PdfCopy writer = new PdfCopy(document, baos);
             document.open();
@@ -376,7 +376,7 @@ public class CompDocServices {
                         }
                     }
                 }
-            
+ 
                 if (surveyResponse != null) {
                     if (UtilValidate.isEmpty(acroFormContentId)) {
                         // Create AcroForm PDF
@@ -400,14 +400,14 @@ public class CompDocServices {
                 }
             } else {
                 ByteBuffer inByteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
-                
-                Map convertInMap = UtilMisc.toMap("userLogin", userLogin, "inByteBuffer", inByteBuffer, 
+ 
+                Map convertInMap = UtilMisc.toMap("userLogin", userLogin, "inByteBuffer", inByteBuffer,
                         "inputMimeType", inputMimeType, "outputMimeType", "application/pdf");
                 if (UtilValidate.isNotEmpty(oooHost)) convertInMap.put("oooHost", oooHost);
                 if (UtilValidate.isNotEmpty(oooPort)) convertInMap.put("oooPort", oooPort);
 
                 Map convertResult = dispatcher.runSync("convertDocumentByteBuffer", convertInMap);
-                
+ 
                 if (ServiceUtil.isError(convertResult)) {
                     return ServiceUtil.returnError("Error in Open", null, null, convertResult);
                 }
@@ -415,7 +415,7 @@ public class CompDocServices {
                 ByteBuffer outByteBuffer = (ByteBuffer) convertResult.get("outByteBuffer");
                 inputByteArray = outByteBuffer.array();
             }
-            
+ 
             ByteBuffer outByteBuffer = ByteBuffer.wrap(inputByteArray);
             results.put("outByteBuffer", outByteBuffer);
         } catch (GenericEntityException e) {
