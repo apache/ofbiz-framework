@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -50,7 +50,7 @@ public class BOMNode {
     protected LocalDispatcher dispatcher = null;
     protected GenericDelegator delegator = null;
     protected GenericValue userLogin = null;
-    
+ 
     private BOMTree tree; // the tree to which this node belongs
     private BOMNode parentNode; // the parent node (null if it's not present)
     private BOMNode substitutedNode; // The virtual node (if any) that this instance substitutes
@@ -66,7 +66,7 @@ public class BOMNode {
     private int depth; // the depth of this node in the current tree
     private BigDecimal quantity; // the quantity of this node in the current tree
     private String bomTypeId; // the type of the current tree
-   
+ 
     public BOMNode(GenericValue product, LocalDispatcher dispatcher, GenericValue userLogin) {
         this.product = product;
         this.delegator = product.getDelegator();
@@ -96,16 +96,16 @@ public class BOMNode {
         if (inDate == null) inDate = new Date();
         bomTypeId = partBomTypeId;
 //        GenericDelegator delegator = product.getDelegator();
-        List rows = delegator.findByAnd("ProductAssoc", 
-                                            UtilMisc.toMap("productId", product.get("productId"), 
+        List rows = delegator.findByAnd("ProductAssoc",
+                                            UtilMisc.toMap("productId", product.get("productId"),
                                                        "productAssocTypeId", partBomTypeId),
                                             UtilMisc.toList("sequenceNum","productIdTo ASC"));
         rows = EntityUtil.filterByDate(rows, inDate);
         if ((UtilValidate.isEmpty(rows)) && substitutedNode != null) {
             // If no child is found and this is a substituted node
             // we try to search for substituted node's children.
-            rows = delegator.findByAnd("ProductAssoc", 
-                                        UtilMisc.toMap("productId", substitutedNode.getProduct().get("productId"), 
+            rows = delegator.findByAnd("ProductAssoc",
+                                        UtilMisc.toMap("productId", substitutedNode.getProduct().get("productId"),
                                                        "productAssocTypeId", partBomTypeId),
                                         UtilMisc.toList("sequenceNum"));
             rows = EntityUtil.filterByDate(rows, inDate);
@@ -127,7 +127,7 @@ public class BOMNode {
                         oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, BOMTree.EXPLOSION);
                     break;
                     case BOMTree.EXPLOSION_MANUFACTURING:
-                        // for manufacturing trees, do not look through and create production runs for children unless there is no warehouse stocking of this node item 
+                        // for manufacturing trees, do not look through and create production runs for children unless there is no warehouse stocking of this node item
                         if (!oneChildNode.isWarehouseManaged(null)) { // FIXME: we will need to pass a facilityId here
                             oneChildNode.loadChildren(partBomTypeId, inDate, productFeatures, type);
                         }
@@ -190,11 +190,11 @@ public class BOMNode {
                 }
                 // FIXME: AND operator still not implemented
             } // end of for
-            
+ 
         }
         return oneChildNode;
     }
-    
+ 
     private BOMNode configurator(GenericValue node, List productFeatures, String productIdForRules, Date inDate) throws GenericEntityException {
         BOMNode oneChildNode = new BOMNode((String)node.get("productIdTo"), delegator, dispatcher, userLogin);
         oneChildNode.setTree(tree);
@@ -323,16 +323,16 @@ public class BOMNode {
 
         bomTypeId = partBomTypeId;
 //        GenericDelegator delegator = product.getDelegator();
-        List rows = delegator.findByAnd("ProductAssoc", 
-                                            UtilMisc.toMap("productIdTo", product.get("productId"), 
+        List rows = delegator.findByAnd("ProductAssoc",
+                                            UtilMisc.toMap("productIdTo", product.get("productId"),
                                                        "productAssocTypeId", partBomTypeId),
                                             UtilMisc.toList("sequenceNum"));
         rows = EntityUtil.filterByDate(rows, inDate);
         if ((UtilValidate.isEmpty(rows)) && substitutedNode != null) {
             // If no parent is found and this is a substituted node
             // we try to search for substituted node's parents.
-            rows = delegator.findByAnd("ProductAssoc", 
-                                        UtilMisc.toMap("productIdTo", substitutedNode.getProduct().get("productId"), 
+            rows = delegator.findByAnd("ProductAssoc",
+                                        UtilMisc.toMap("productIdTo", substitutedNode.getProduct().get("productId"),
                                                        "productAssocTypeId", partBomTypeId),
                                         UtilMisc.toList("sequenceNum"));
             rows = EntityUtil.filterByDate(rows, inDate);
@@ -357,7 +357,7 @@ public class BOMNode {
         }
     }
 
-    
+ 
     /** Getter for property parentNode.
      * @return Value of property parentNode.
      *
@@ -555,7 +555,7 @@ public class BOMNode {
             if (!UtilValidate.isEmpty(shipmentId) && UtilValidate.isEmpty(workEffortName)) {
                 serviceContext.put("workEffortName", "SP_" + shipmentId + "_" + serviceContext.get("productId"));
             }
-            
+ 
             serviceContext.put("pRQuantity", getQuantity());
             if (UtilValidate.isNotEmpty(maxEndDate)) {
                 serviceContext.put("startDate", maxEndDate);
@@ -670,7 +670,7 @@ public class BOMNode {
     public boolean isManufactured() {
         return isManufactured(false);
     }
-    
+ 
     public boolean isVirtual() {
         return (product.get("isVirtual") != null? product.get("isVirtual").equals("Y"): false);
     }
@@ -691,7 +691,7 @@ public class BOMNode {
             }
         }
     }
-   
+ 
 
     /** Getter for property quantity.
      * @return Value of property quantity.
@@ -713,11 +713,11 @@ public class BOMNode {
     public int getDepth() {
         return depth;
     }
-  
+ 
     public GenericValue getProduct() {
         return product;
     }
-    
+ 
     /** Getter for property substitutedNode.
      * @return Value of property substitutedNode.
      *
@@ -725,7 +725,7 @@ public class BOMNode {
     public BOMNode getSubstitutedNode() {
         return substitutedNode;
     }
-  
+ 
     /** Setter for property substitutedNode.
      * @param substitutedNode New value of property substitutedNode.
      *
@@ -737,7 +737,7 @@ public class BOMNode {
     public String getRootProductForRules() {
         return getParentNode().getProductForRules();
     }
-    
+ 
     /** Getter for property productForRules.
      * @return Value of property productForRules.
      *
@@ -745,7 +745,7 @@ public class BOMNode {
     public String getProductForRules() {
         return productForRules;
     }
-    
+ 
     /** Setter for property productForRules.
      * @param productForRules New value of property productForRules.
      *
@@ -753,7 +753,7 @@ public class BOMNode {
     public void setProductForRules(String productForRules) {
         this.productForRules = productForRules;
     }
-    
+ 
     /** Getter for property bomTypeId.
      * @return Value of property bomTypeId.
      *
@@ -761,15 +761,15 @@ public class BOMNode {
     public java.lang.String getBomTypeId() {
         return bomTypeId;
     }
-    
+ 
     /** Getter for property quantityMultiplier.
      * @return Value of property quantityMultiplier.
      *
      */
     public BigDecimal getQuantityMultiplier() {
         return quantityMultiplier;
-    }    
-    
+    }
+ 
     /** Setter for property quantityMultiplier.
      * @param quantityMultiplier New value of property quantityMultiplier.
      *
@@ -777,7 +777,7 @@ public class BOMNode {
     public void setQuantityMultiplier(BigDecimal quantityMultiplier) {
         this.quantityMultiplier = quantityMultiplier;
     }
-    
+ 
     /** Getter for property ruleApplied.
      * @return Value of property ruleApplied.
      *
@@ -785,7 +785,7 @@ public class BOMNode {
     public org.ofbiz.entity.GenericValue getRuleApplied() {
         return ruleApplied;
     }
-    
+ 
     /** Setter for property ruleApplied.
      * @param ruleApplied New value of property ruleApplied.
      *
@@ -793,7 +793,7 @@ public class BOMNode {
     public void setRuleApplied(org.ofbiz.entity.GenericValue ruleApplied) {
         this.ruleApplied = ruleApplied;
     }
-    
+ 
     /** Getter for property scrapFactor.
      * @return Value of property scrapFactor.
      *
@@ -801,7 +801,7 @@ public class BOMNode {
     public BigDecimal getScrapFactor() {
         return scrapFactor;
     }
-    
+ 
     /** Setter for property scrapFactor.
      * @param scrapFactor New value of property scrapFactor.
      *
@@ -809,7 +809,7 @@ public class BOMNode {
     public void setScrapFactor(BigDecimal scrapFactor) {
         this.scrapFactor = scrapFactor;
     }
-    
+ 
     /** Getter for property childrenNodes.
      * @return Value of property childrenNodes.
      *
@@ -817,7 +817,7 @@ public class BOMNode {
     public java.util.ArrayList getChildrenNodes() {
         return childrenNodes;
     }
-    
+ 
     /** Setter for property childrenNodes.
      * @param childrenNodes New value of property childrenNodes.
      *
@@ -825,7 +825,7 @@ public class BOMNode {
     public void setChildrenNodes(java.util.ArrayList childrenNodes) {
         this.childrenNodes = childrenNodes;
     }
-    
+ 
     /** Getter for property productAssoc.
      * @return Value of property productAssoc.
      *
@@ -833,7 +833,7 @@ public class BOMNode {
     public org.ofbiz.entity.GenericValue getProductAssoc() {
         return productAssoc;
     }
-    
+ 
     /** Setter for property productAssoc.
      * @param productAssoc New value of property productAssoc.
      *
@@ -845,7 +845,7 @@ public class BOMNode {
     public void setTree(BOMTree tree) {
         this.tree = tree;
     }
-    
+ 
     public BOMTree getTree() {
         return tree;
     }

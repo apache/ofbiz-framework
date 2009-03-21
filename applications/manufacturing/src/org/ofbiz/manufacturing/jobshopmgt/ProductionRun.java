@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,15 +43,15 @@ import org.ofbiz.manufacturing.techdata.TechDataServices;
  *
  */
 public class ProductionRun {
-    
+ 
     public static final String module = ProductionRun.class.getName();
     public static final String resource = "ManufacturingUiLabels";
-    
+ 
     protected GenericValue productionRun; // WorkEffort (PROD_ORDER_HEADER)
     protected GenericValue productionRunProduct; // WorkEffortGoodStandard (type: PRUN_PROD_DELIV)
     protected GenericValue productProduced; // Product (from WorkEffortGoodStandard of type: PRUN_PROD_DELIV)
     protected BigDecimal quantity; // the estimatedQuantity
-    
+ 
     protected Timestamp estimatedStartDate;
     protected Timestamp estimatedCompletionDate;
     protected String productionRunName;
@@ -60,7 +60,7 @@ public class ProductionRun {
     protected List productionRunComponents;
     protected List productionRunRoutingTasks;
     protected LocalDispatcher dispatcher;
-    
+ 
     /**
      * indicate if quantity or estimatedStartDate has been modified and
      *  estimatedCompletionDate not yet recalculated with recalculateEstimatedCompletionDate() methode.
@@ -70,7 +70,7 @@ public class ProductionRun {
      * indicate if quantity  has been modified, used for store() method to update appropriate entity.
      */
     private boolean quantityIsUpdated = false;
-    
+ 
     public ProductionRun(String productionRunId, GenericDelegator delegator, LocalDispatcher dispatcher) {
         try {
             if (! UtilValidate.isEmpty(productionRunId)) {
@@ -94,7 +94,7 @@ public class ProductionRun {
             Debug.logWarning(e.getMessage(), module);
         }
     }
-    
+ 
     /**
      * test if the productionRun exist.
      * @return true if it exist false otherwise.
@@ -102,7 +102,7 @@ public class ProductionRun {
     public boolean exist() {
         return productionRun != null;
     }
-    
+ 
     /**
      * get the ProductionRun GenericValue .
      * @return the ProductionRun GenericValue
@@ -154,7 +154,7 @@ public class ProductionRun {
         }
         return false;
     }
-    
+ 
     /**
      * get the Product GenericValue corresponding to the productProduced.
      *     In the same time this method read the quantity property from SGBD
@@ -176,7 +176,7 @@ public class ProductionRun {
         }
         return null;
     }
-    
+ 
     /**
      * get the quantity property.
      * @return the quantity property
@@ -359,7 +359,7 @@ public class ProductionRun {
         }
         return null;
     }
-    
+ 
     /**
      * get the list of all the productionRunRoutingTasks as a list of GenericValue.
      * @return the productionRunRoutingTasks related object
@@ -386,7 +386,7 @@ public class ProductionRun {
     public void clearRoutingTasksList() {
         this.productionRunRoutingTasks = null;
     }
-    
+ 
     /*
      * FIXME: the two getEstimatedTaskTime(...) methods will be removed and
      * implemented in the "getEstimatedTaskTime" service.
@@ -428,7 +428,7 @@ public class ProductionRun {
                 Debug.logError(exc, "Problem calling the customMethod service " + serviceName);
             }
         }
-        
+ 
         return (long) totalTaskTime;
     }
 

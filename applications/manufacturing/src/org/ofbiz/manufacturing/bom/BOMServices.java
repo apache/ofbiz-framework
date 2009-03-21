@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -51,7 +51,7 @@ public class BOMServices {
 
     public static final String module = BOMServices.class.getName();
     public static final String resource = "ManufacturingUiLabels";
-    
+ 
     /** Returns the product's low level code (llc) i.e. the maximum depth
      * in which the productId can be found in any of the
      * bills of materials of bomType type.
@@ -59,7 +59,7 @@ public class BOMServices {
      * @param dctx
      * @param context
      * @return
-     */    
+     */
     public static Map getMaxDepth(DispatchContext dctx, Map context) {
 
         Map result = new HashMap();
@@ -67,7 +67,7 @@ public class BOMServices {
         String productId = (String) context.get("productId");
         String fromDateStr = (String) context.get("fromDate");
         String bomType = (String) context.get("bomType");
-        
+ 
         Date fromDate = null;
         if (UtilValidate.isNotEmpty(fromDateStr)) {
             try {
@@ -92,7 +92,7 @@ public class BOMServices {
         } else {
             bomTypes.add(bomType);
         }
-        
+ 
         int depth = 0;
         int maxDepth = 0;
         Iterator bomTypesIt = bomTypes.iterator();
@@ -112,14 +112,14 @@ public class BOMServices {
         return result;
     }
 
-    /** Updates the product's low level code (llc) 
+    /** Updates the product's low level code (llc)
      * Given a product id, computes and updates the product's low level code (field billOfMaterialLevel in Product entity).
      * It also updates the llc of all the product's descendants.
      * For the llc only the manufacturing bom ("MANUF_COMPONENT") is considered.
      * @param dctx
      * @param context
      * @return
-     */    
+     */
     public static Map updateLowLevelCode(DispatchContext dctx, Map context) {
         Map result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
@@ -139,7 +139,7 @@ public class BOMServices {
             GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
             Map depthResult = dispatcher.runSync("getMaxDepth", UtilMisc.toMap("productId", productId, "bomType", "MANUF_COMPONENT"));
             llc = (Long)depthResult.get("depth");
-            // If the product is a variant of a virtual, then the billOfMaterialLevel cannot be 
+            // If the product is a variant of a virtual, then the billOfMaterialLevel cannot be
             // lower than the billOfMaterialLevel of the virtual product.
             List virtualProducts = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", "PRODUCT_VARIANT"));
             virtualProducts = EntityUtil.filterByDate(virtualProducts);
@@ -204,7 +204,7 @@ public class BOMServices {
      * @param dctx
      * @param context
      * @return
-     */    
+     */
     public static Map initLowLevelCode(DispatchContext dctx, Map context) {
         Map result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
@@ -247,13 +247,13 @@ public class BOMServices {
      * @param dctx
      * @param context
      * @return
-     */    
+     */
     public static Map searchDuplicatedAncestor(DispatchContext dctx, Map context) {
         Map result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
-        
+ 
         String productId = (String) context.get("productId");
         String productIdKey = (String) context.get("productIdTo");
         Timestamp fromDate = (Timestamp) context.get("fromDate");
@@ -280,7 +280,7 @@ public class BOMServices {
      * @param dctx
      * @param context
      * @return
-     */    
+     */
     public static Map getBOMTree(DispatchContext dctx, Map context) {
 
         Map result = new HashMap();
@@ -296,7 +296,7 @@ public class BOMServices {
         if (type == null) {
             type = new Integer(0);
         }
-        
+ 
         Date fromDate = null;
         if (UtilValidate.isNotEmpty(fromDateStr)) {
             try {
@@ -307,7 +307,7 @@ public class BOMServices {
         if (fromDate == null) {
             fromDate = new Date();
         }
-        
+ 
         BOMTree tree = null;
         try {
             tree = new BOMTree(productId, bomType, fromDate, type.intValue(), delegator, dispatcher, userLogin);
@@ -331,7 +331,7 @@ public class BOMServices {
      * @param dctx
      * @param context
      * @return
-     */    
+     */
     public static Map getManufacturingComponents(DispatchContext dctx, Map context) {
 
         Map result = new HashMap();
@@ -344,7 +344,7 @@ public class BOMServices {
         BigDecimal amount = (BigDecimal) context.get("amount");
         String fromDateStr = (String) context.get("fromDate");
         Boolean excludeWIPs = (Boolean) context.get("excludeWIPs");
-        
+ 
         if (quantity == null) {
             quantity = BigDecimal.ONE;
         }
@@ -365,7 +365,7 @@ public class BOMServices {
         if (excludeWIPs == null) {
             excludeWIPs = Boolean.TRUE;
         }
-        
+ 
         //
         // Components
         //
@@ -446,7 +446,7 @@ public class BOMServices {
         if (fromDate == null) {
             fromDate = new Date();
         }
-        
+ 
         BOMTree tree = null;
         ArrayList components = new ArrayList();
         ArrayList notAssembledComponents = new ArrayList();
@@ -468,7 +468,7 @@ public class BOMServices {
         result.put("notAssembledComponents" , notAssembledComponents);
         return result;
     }
-    
+ 
     // ---------------------------------------------
     // Service for the Product (Shipment) component
     //
@@ -681,10 +681,10 @@ public class BOMServices {
                     if (productDepth == null) {
                         productDepth = BigDecimal.ONE;
                     }
-                    
+ 
                     BigDecimal firstMaxNumOfProducts = boxWidth.subtract(totalWidth).divide(productDepth, 0, BigDecimal.ROUND_FLOOR);
                     if (firstMaxNumOfProducts.compareTo(BigDecimal.ZERO) == 0) firstMaxNumOfProducts = BigDecimal.ONE;
-                    // 
+                    //
                     BigDecimal maxNumOfProducts = boxWidth.divide(productDepth, 0, BigDecimal.ROUND_FLOOR);
                     if (maxNumOfProducts.compareTo(BigDecimal.ZERO) == 0) maxNumOfProducts = BigDecimal.ONE;
 
@@ -745,18 +745,18 @@ public class BOMServices {
      * @param dctx
      * @param context
      * @return
-     */    
+     */
     public static Map getProductsInPackages(DispatchContext dctx, Map context) {
 
         Map result = new HashMap();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
-        
+ 
         String productId = (String) context.get("productId");
         BigDecimal quantity = (BigDecimal) context.get("quantity");
         String fromDateStr = (String) context.get("fromDate");
-        
+ 
         if (quantity == null) {
             quantity = BigDecimal.ONE;
         }
@@ -770,7 +770,7 @@ public class BOMServices {
         if (fromDate == null) {
             fromDate = new Date();
         }
-       
+ 
         //
         // Components
         //
@@ -783,7 +783,7 @@ public class BOMServices {
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
         }
-        
+ 
         result.put("productsInPackages", components);
 
         return result;

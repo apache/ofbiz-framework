@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -36,11 +36,11 @@ import org.ofbiz.service.LocalDispatcher;
  *
  */
 public class ProductionRunHelper {
-    
+ 
     public static final String module = ProductionRunHelper.class.getName();
     public static final String resource = "ManufacturingUiLabels";
-    
-    
+ 
+ 
     /**
      * Get a Production Run.
      *  <li> check if routing - product link exist
@@ -53,7 +53,7 @@ public class ProductionRunHelper {
     public static Map getProductionRun(GenericDelegator delegator, String productionRunId) {
         Map result = new HashMap();
         //        Timestamp now = UtilDateTime.nowTimestamp();
-        
+ 
         try {
             if (productionRunId != null ) {
                 GenericValue productionRun = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", productionRunId));
@@ -63,7 +63,7 @@ public class ProductionRunHelper {
                     GenericValue productProduced = productionRunProduct.getRelatedOneCache("Product");
                     List productionRunComponents = productionRun.getRelated("WorkEffortGoodStandard", UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"),null);
                     List productionRunRoutingTasks = productionRun.getRelated("FromWorkEffortAssoc",UtilMisc.toMap("workEffortTypeId","PROD_ORDER_TASK"),null);
-                    
+ 
                 }
             }
         } catch (GenericEntityException e) {
@@ -73,7 +73,7 @@ public class ProductionRunHelper {
     }
 
     public static boolean hasTask(GenericDelegator delegator, String taskName, String workEffortId) throws GenericEntityException {
-        List tasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortParentId", workEffortId, 
+        List tasks = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortParentId", workEffortId,
                                                          "workEffortTypeId", "PROD_ORDER_TASK",
                                                          "workEffortName", taskName));
         return (tasks != null && tasks.size() > 0);

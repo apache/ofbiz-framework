@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,10 +37,10 @@ import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
  *
  */
 public class RoutingServices {
-    
+ 
     public static final String module = RoutingServices.class.getName();
     public static final String resource = "ManufacturingUiLabels";
-    
+ 
     /**
      * Computes the estimated time needed to perform the task.
      * @param ctx The DispatchContext that this service is operating in.
@@ -51,14 +51,14 @@ public class RoutingServices {
         Map result = new HashMap();
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        
+ 
         // The mandatory IN parameters
         String taskId = (String) context.get("taskId");
         BigDecimal quantity = (BigDecimal) context.get("quantity");
         // The optional IN parameters
         String productId = (String) context.get("productId");
         String routingId = (String) context.get("routingId");
-        
+ 
         if (quantity == null) {
             quantity = BigDecimal.ONE;
         }
