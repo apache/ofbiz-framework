@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -48,7 +48,7 @@ import org.w3c.dom.Element;
 
 /**
  * The abstract Authentication Handler.
- * 
+ *
  * The ACL of a user is still controlled by OFBiz.<p>
  *
  */
@@ -58,9 +58,9 @@ public abstract class AbstractOFBizAuthenticationHandler implements InterfaceOFB
      * Public constructor, initializes some required member variables.<p>
      */
     public AbstractOFBizAuthenticationHandler() {
-        
+ 
     }
-    
+ 
     public Object getPartyId(Element rootElement, SearchResult result) {
         Object partyId = UtilXml.childElementValue(rootElement, "AutoPartyId", "admin");
         return partyId;
@@ -75,14 +75,14 @@ public abstract class AbstractOFBizAuthenticationHandler implements InterfaceOFB
 
         String username = request.getParameter("USERNAME");
         String password = request.getParameter("PASSWORD");
-        
+ 
         SearchResult result = getLdapSearchResult(username, password, rootElement, true);
         if (result != null) {
             return login(request, response, username, password, rootElement, result);
         }
         return "error";
     }
-    
+ 
     public String logout(HttpServletRequest request, HttpServletResponse response, Element rootElement) {
         return "success";
     }
@@ -91,7 +91,7 @@ public abstract class AbstractOFBizAuthenticationHandler implements InterfaceOFB
 
     public String login(HttpServletRequest request, HttpServletResponse response, String username, String password, Element rootElement, SearchResult result) throws Exception {
         HttpSession session = request.getSession();
-        
+ 
         // get the visit id to pass to the userLogin for history
         String visitId = VisitHandler.getVisitId(session);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -111,7 +111,7 @@ public abstract class AbstractOFBizAuthenticationHandler implements InterfaceOFB
             } catch (GenericEntityException e) {
                 throw new GenericEntityException(e.getLocalizedMessage());
             }
-            
+ 
             GenericValue userLoginSecurityGroup = delegator.makeValue("UserLoginSecurityGroup", UtilMisc.toMap("userLoginId", username, "groupId", getSecurityGroup(rootElement, result), "fromDate", UtilDateTime.nowTimestamp()));
             try {
                 userLoginSecurityGroup.create();
@@ -122,7 +122,7 @@ public abstract class AbstractOFBizAuthenticationHandler implements InterfaceOFB
             userTryToLogin.setString("currentPassword", useEncryption ? HashCrypt.getDigestHash(password, LoginServices.getHashType()) : password);
             userTryToLogin.store();
         }
-        
+ 
         Map<String, Object> loginResult = null;
 
         try {

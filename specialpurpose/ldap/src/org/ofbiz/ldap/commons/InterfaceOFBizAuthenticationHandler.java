@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,64 +28,64 @@ import org.w3c.dom.Element;
 
 /**
  * The OFBiz LDAP Authentication Handler interface.<p>
- * 
+ *
  */
 public interface InterfaceOFBizAuthenticationHandler {
 
     /**
      * Login a user.
-     * 
+     *
      * @param request HttpServletRequest
      * @param response HttpServletResponse
      * @param rootElement Element root element of ldap config file
-     *  
+     *
      * @return success if the user can login successfully; otherwise, error.
-     * @throws Exception 
+     * @throws Exception
      */
     String login(HttpServletRequest request, HttpServletResponse response, Element rootElement) throws Exception;
-    
+ 
     /**
      * Get the security group of a user.
-     *  
+     *
      * @param rootElement Element root element of ldap config file
      * @param result SearchResult
-     * 
+     *
      * @return the SecurityGroup object.
      */
     Object getSecurityGroup(Element rootElement, SearchResult result);
-    
+ 
     /**
      * Get the party id of a user.
-     * 
+     *
      * @param rootElement Element root element of ldap config file
      * @param result SearchResult
-     * 
+     *
      * @return the PartyId object.
      */
     Object getPartyId(Element rootElement, SearchResult result);
 
     /**
      * Logout a user.
-     * 
+     *
      * @param request HttpServletRequest
      * @param response HttpServletResponse
      * @param rootElement Element root element of ldap config file
-     *  
+     *
      * @return success if the user can login successfully; otherwise, error.
-     * @throws Exception 
+     * @throws Exception
      */
     String logout(HttpServletRequest request, HttpServletResponse response, Element rootElement);
-    
+ 
     /**
      * Get LDAP search result from a username, password and configuration.
-     * 
+     *
      * @param username String
      * @param password String
      * @param rootElement Element root element of ldap config file
      * @param bindRequired boolean if true, bind; false, just search the user in LDAP
-     *  
+     *
      * @return result SearchResult if ldap search successfully; otherwise, null.
-     * @throws Exception 
+     * @throws Exception
      */
     SearchResult getLdapSearchResult(String username, String password, Element rootElement, boolean bindRequired) throws NamingException;
 
