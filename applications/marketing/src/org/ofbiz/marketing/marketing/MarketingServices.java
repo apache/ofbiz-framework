@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -81,7 +81,7 @@ public class MarketingServices {
             String contactMechId = (String) serviceResults.get("contactMechId");
 
             // create a new association at this fromDate to the anonymous party with status accepted
-            input = UtilMisc.toMap("userLogin", userLogin, "contactListId", contactList.get("contactListId"), 
+            input = UtilMisc.toMap("userLogin", userLogin, "contactListId", contactList.get("contactListId"),
                     "partyId", "_NA_", "fromDate", fromDate, "statusId", "CLPT_ACCEPTED", "preferredContactMechId", contactMechId);
             serviceResults = dispatcher.runSync("createContactListParty", input);
             if (ServiceUtil.isError(serviceResults)) {
