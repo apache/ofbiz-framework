@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -45,18 +45,18 @@ import org.ofbiz.product.store.ProductStoreWorker;
  * CatalogWorker - Worker class for catalog related functionality
  */
 public class CatalogWorker {
-    
+ 
     public static final String module = CatalogWorker.class.getName();
 
     public static String getWebSiteId(ServletRequest request) {
         return WebSiteWorker.getWebSiteId(request);
     }
-    
+ 
     public static GenericValue getWebSite(ServletRequest request) {
         return WebSiteWorker.getWebSite(request);
     }
 
-    public static List<String> getAllCatalogIds(ServletRequest request) {        
+    public static List<String> getAllCatalogIds(ServletRequest request) {
         List<String> catalogIds = FastList.newInstance();
         List<GenericValue> catalogs = null;
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
@@ -72,7 +72,7 @@ public class CatalogWorker {
         }
         return catalogIds;
     }
-    
+ 
     public static List<GenericValue> getStoreCatalogs(ServletRequest request) {
         String productStoreId = ProductStoreWorker.getProductStoreId(request);
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
@@ -111,7 +111,7 @@ public class CatalogWorker {
         }
         return null;
     }
-    
+ 
     public static List<GenericValue> getProdCatalogCategories(ServletRequest request, String prodCatalogId, String prodCatalogCategoryTypeId) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         return getProdCatalogCategories(delegator, prodCatalogId, prodCatalogCategoryTypeId);
@@ -137,7 +137,7 @@ public class CatalogWorker {
     /**
      * Retrieves the current prodCatalogId.  First it will attempt to find it from a special
      * request parameter or session attribute named CURRENT_CATALOG_ID.  Failing that, it will
-     * get the first catalog from the database as specified in getCatalogIdsAvailable().  
+     * get the first catalog from the database as specified in getCatalogIdsAvailable().
      * If this behavior is undesired, give the user a selectable list of catalogs.
      */
     public static String getCurrentCatalogId(ServletRequest request) {
@@ -166,7 +166,7 @@ public class CatalogWorker {
         }
         return prodCatalogId;
     }
-    
+ 
     public static List<String> getCatalogIdsAvailable(ServletRequest request) {
         List<GenericValue> partyCatalogs = getPartyCatalogs(request);
         List<GenericValue> storeCatalogs = getStoreCatalogs(request);
@@ -178,13 +178,13 @@ public class CatalogWorker {
         List<GenericValue> partyCatalogs = getPartyCatalogs(delegator, partyId);
         return getCatalogIdsAvailable(partyCatalogs, storeCatalogs);
     }
-    
+ 
     public static List<String> getCatalogIdsAvailable(List<GenericValue> partyCatalogs, List<GenericValue> storeCatalogs) {
         List<String> categoryIds = FastList.newInstance();
         List<GenericValue> allCatalogLinks = FastList.newInstance();
         if (partyCatalogs != null) allCatalogLinks.addAll(partyCatalogs);
         if (storeCatalogs != null) allCatalogLinks.addAll(storeCatalogs);
-        
+ 
         if (allCatalogLinks.size() > 0) {
             for (GenericValue catalogLink: allCatalogLinks) {
                 categoryIds.add(catalogLink.getString("prodCatalogId"));
@@ -192,7 +192,7 @@ public class CatalogWorker {
         }
         return categoryIds;
     }
-    
+ 
     public static String getCatalogName(ServletRequest request) {
         return getCatalogName(request, getCurrentCatalogId(request));
     }
@@ -222,7 +222,7 @@ public class CatalogWorker {
 
         return StringUtil.cleanUpPathPrefix(contentPathPrefix);
     }
-        
+ 
     public static String getTemplatePathPrefix(ServletRequest request) {
         GenericValue prodCatalog = getProdCatalog(request, getCurrentCatalogId(request));
 
@@ -247,11 +247,11 @@ public class CatalogWorker {
             return null;
         }
     }
-    
+ 
     public static String getCatalogTopCategoryId(ServletRequest request) {
         return getCatalogTopCategoryId(request, getCurrentCatalogId(request));
     }
-        
+ 
     public static String getCatalogTopCategoryId(ServletRequest request, String prodCatalogId) {
         if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
 
@@ -265,11 +265,11 @@ public class CatalogWorker {
             return null;
         }
     }
-    
+ 
     public static String getCatalogSearchCategoryId(ServletRequest request) {
         return getCatalogSearchCategoryId(request, getCurrentCatalogId(request));
     }
-        
+ 
     public static String getCatalogSearchCategoryId(ServletRequest request, String prodCatalogId) {
         return getCatalogSearchCategoryId((GenericDelegator) request.getAttribute("delegator"), prodCatalogId);
     }
@@ -312,7 +312,7 @@ public class CatalogWorker {
     public static String getCatalogPromotionsCategoryId(ServletRequest request) {
         return getCatalogPromotionsCategoryId(request, getCurrentCatalogId(request));
     }
-         
+ 
     public static String getCatalogPromotionsCategoryId(ServletRequest request, String prodCatalogId) {
         if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
 
@@ -346,11 +346,11 @@ public class CatalogWorker {
         }
         return false;
     }
-               
+ 
     public static String getCatalogQuickaddCategoryPrimary(ServletRequest request) {
         return getCatalogQuickaddCategoryPrimary(request, getCurrentCatalogId(request));
     }
-                   
+ 
     public static String getCatalogQuickaddCategoryPrimary(ServletRequest request, String prodCatalogId) {
         if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
 
@@ -364,11 +364,11 @@ public class CatalogWorker {
             return null;
         }
     }
-          
+ 
     public static Collection<String> getCatalogQuickaddCategories(ServletRequest request) {
         return getCatalogQuickaddCategories(request, getCurrentCatalogId(request));
     }
-                
+ 
     public static Collection<String> getCatalogQuickaddCategories(ServletRequest request, String prodCatalogId) {
         if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
 
@@ -383,5 +383,5 @@ public class CatalogWorker {
         }
 
         return categoryIds;
-    }                        
+    }
 }

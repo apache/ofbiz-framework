@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -72,7 +72,7 @@ public class UspsServices {
     public final static String errorResource = "ProductErrorUiLabels";
 
     public static final MathContext generalRounding = new MathContext(10);
-    
+ 
     public static Map<String, Object> uspsRateInquire(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         GenericDelegator delegator = dctx.getDelegator();
@@ -208,7 +208,7 @@ public class UspsServices {
         if (responseDocument == null) {
             return ServiceUtil.returnError("No rate available at this time");
         }
-        
+ 
         List<? extends Element> rates = UtilXml.childElementList(responseDocument.getDocumentElement(), "Package");
         if (UtilValidate.isEmpty(rates)) {
             return ServiceUtil.returnError("No rate available at this time");
@@ -295,7 +295,7 @@ public class UspsServices {
             Debug.logWarning("No shipment.default.weight.uom set in shipment.properties, setting it to WT_oz for USPS", module);
             defaultWeightUomId = "WT_oz";
         }
-        
+ 
         for (Map.Entry<String, BigDecimal> entry: packageMap.entrySet()) {
             String productId = entry.getKey();
             Map<String, Object> productInfo = getProductItemInfo(shippableItemInfo, productId);
@@ -308,7 +308,7 @@ public class UspsServices {
             Debug.logInfo("Product Id : " + productId.toString() + " Product Weight : " + String.valueOf(productWeight) + " Product UomId : " + weightUomId + " assuming " + defaultWeightUomId + " if null. Quantity : " + String.valueOf(quantity), module);
 
             if (UtilValidate.isEmpty(weightUomId)) {
-                weightUomId = defaultWeightUomId; 
+                weightUomId = defaultWeightUomId;
                 //  Most shipping modules assume pounds while ProductEvents.java assumes WT_oz. - Line 720 for example.
             }
             if (!"WT_lb".equals(weightUomId)) {
@@ -319,13 +319,13 @@ public class UspsServices {
                 } catch (GenericServiceException ex) {
                     Debug.logError(ex, module);
                 }
-                    
+ 
                 if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && result.get("convertedValue") != null) {
                     productWeight = (BigDecimal) result.get("convertedValue");
                 } else {
                     Debug.logError("Unsupported weightUom [" + weightUomId + "] for calcPackageWeight running productId " + productId + ", could not find a conversion factor to WT_lb",module);
                 }
-                    
+ 
             }
 
             totalWeight = totalWeight.add(productWeight.multiply(quantity));
@@ -929,14 +929,14 @@ public class UspsServices {
                     } catch (GenericServiceException ex) {
                         return ServiceUtil.returnError(ex.getMessage());
                     }
-                    
+ 
                     if (result.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS) && result.get("convertedValue") != null) {
                         weight = weight.multiply((BigDecimal) result.get("convertedValue"));
                     } else {
                         return ServiceUtil.returnError("Unsupported weightUom [" + weightUomId + "] for ShipmentPackage " +
                                 spKeyString + ", could not find a conversion factor for WT_lb");
                     }
-                    
+ 
                 }
 
                 BigDecimal weightPounds = weight.setScale(0, BigDecimal.ROUND_FLOOR);
@@ -1366,7 +1366,7 @@ public class UspsServices {
         }
 
         Debug.logInfo("USPS response: " + responseString, module);
-        
+ 
         if (UtilValidate.isEmpty(responseString)) {
             return null;
         }

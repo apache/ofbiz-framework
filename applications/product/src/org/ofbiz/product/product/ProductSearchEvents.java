@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -329,7 +329,7 @@ public class ProductSearchEvents {
             }
         } catch (GenericTransactionException e) {
             String errorMsg = UtilProperties.getMessage(resource, "productSearchEvents.error_getting_results", locale) + " : " + e.toString();
-            request.setAttribute("_ERROR_MESSAGE_", errorMsg);               
+            request.setAttribute("_ERROR_MESSAGE_", errorMsg);
             Debug.logError(e, errorMsg, module);
             return "error";
         }
@@ -379,7 +379,7 @@ public class ProductSearchEvents {
             }
         } catch (GenericTransactionException e) {
             String errorMsg = UtilProperties.getMessage(resource, "productSearchEvents.error_getting_results", locale) + " : " + e.toString();
-            request.setAttribute("_ERROR_MESSAGE_", errorMsg);               
+            request.setAttribute("_ERROR_MESSAGE_", errorMsg);
             Debug.logError(e, errorMsg, module);
             return "error";
         }
@@ -412,11 +412,11 @@ public class ProductSearchEvents {
                     Map<String, Object> productMap = FastMap.newInstance();
                     String productId = searchResultView.getString("mainProductId");
                     productMap.put("productId", productId);
-                    
+ 
                     List<GenericValue> productFeaturesCustomRaw = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureTypeId", "HAZMAT") );
                     List<GenericValue> productFeaturesCustom = EntityUtil.filterByDate(productFeaturesCustomRaw);
                     productMap.put("productFeatureCustom", EntityUtil.getFirst(productFeaturesCustom));
-                    
+ 
                     List<GenericValue> productCategoriesRaw = delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productId", productId));
                     List<GenericValue> productCategories = EntityUtil.filterByDate(productCategoriesRaw);
                     productMap.put("productCategories", productCategories);

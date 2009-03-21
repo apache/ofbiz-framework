@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -135,7 +135,7 @@ public class ProductEvents {
                     //errMsg = UtilProperties.getMessage(resource,"productevents.could_not_create_keywords_write", UtilHttp.getLocale(request));
                     //request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     Debug.logWarning("[ProductEvents.updateAllKeywords] Could not create product-keyword (write error); message: " + e.getMessage(), module);
-                    errProds++;                    
+                    errProds++;
                 }
                 numProds++;
                 if (numProds % 500 == 0) {
@@ -437,25 +437,25 @@ public class ProductEvents {
                         product.set("productWidth", UtilParse.parseBigDecimalForEntity(request.getParameter("productWidth")));
                         product.set("productDepth", UtilParse.parseBigDecimalForEntity(request.getParameter("productDepth")));
                         product.set("weight", UtilParse.parseBigDecimalForEntity(request.getParameter("weight")));
-    
+ 
                         // default unit settings for shipping parameters
                         product.set("heightUomId", "LEN_in");
                         product.set("widthUomId", "LEN_in");
                         product.set("depthUomId", "LEN_in");
                         product.set("weightUomId", "WT_oz");
-    
+ 
                         BigDecimal floz = UtilParse.parseBigDecimalForEntity(request.getParameter("~floz"));
                         BigDecimal ml = UtilParse.parseBigDecimalForEntity(request.getParameter("~ml"));
                         BigDecimal ntwt = UtilParse.parseBigDecimalForEntity(request.getParameter("~ntwt"));
                         BigDecimal grams = UtilParse.parseBigDecimalForEntity(request.getParameter("~grams"));
-    
+ 
                         List<GenericValue> currentProductFeatureAndAppls = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE")), true);
                         setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "VLIQ_ozUS", "AMOUNT", floz);
                         setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "VLIQ_ml", "AMOUNT", ml);
                         setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "WT_g", "AMOUNT", grams);
                         setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "WT_oz", "AMOUNT", ntwt);
                         product.store();
-    
+ 
                     } catch (NumberFormatException nfe) {
                         String errMsg = "Shipping Dimensions and Weights must be numbers.";
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -478,7 +478,7 @@ public class ProductEvents {
                             BigDecimal ml = UtilParse.parseBigDecimalForEntity(request.getParameter("~ml" + attribIdx));
                             BigDecimal ntwt = UtilParse.parseBigDecimalForEntity(request.getParameter("~ntwt" + attribIdx));
                             BigDecimal grams = UtilParse.parseBigDecimalForEntity(request.getParameter("~grams" + attribIdx));
-    
+ 
                             List<GenericValue> currentProductFeatureAndAppls = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE")), true);
                             setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "VLIQ_ozUS", "AMOUNT", floz);
                             setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "VLIQ_ml", "AMOUNT", ml);
@@ -528,10 +528,10 @@ public class ProductEvents {
      */
     private static void setOrCreateProdFeature(GenericDelegator delegator, String productId, List<GenericValue> currentProductFeatureAndAppls,
                                           String uomId, String productFeatureTypeId, BigDecimal numberSpecified) throws GenericEntityException {
-        
+ 
         GenericValue productFeatureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId));
         GenericValue uom = delegator.findByPrimaryKey("Uom", UtilMisc.toMap("uomId", uomId));
-        
+ 
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
         // filter list of features to the one we'll be editing
@@ -565,7 +565,7 @@ public class ProductEvents {
                 }
                 prodFeature.set("numberSpecified", numberSpecified);
                 prodFeature.set("description", numberSpecified.toString() + (uom == null ? "" : (" " + uom.getString("description"))));
-                
+ 
                 // if there is a productFeatureCategory with the same id as the productFeatureType, use that category.
                 // otherwise, use a default category from the configuration
                 if (delegator.findByPrimaryKey("ProductFeatureCategory", UtilMisc.toMap("productFeatureCategoryId", productFeatureTypeId)) == null) {
@@ -591,7 +591,7 @@ public class ProductEvents {
         String variantProductId = request.getParameter("productId0");
         String useImagesProdId = request.getParameter("useImages");
         String productFeatureTypeId = request.getParameter("productFeatureTypeId");
-        
+ 
         if (UtilValidate.isEmpty(productFeatureTypeId)) {
             String errMsg = "Error: please select a ProductFeature Type to add or update variant features.";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -607,7 +607,7 @@ public class ProductEvents {
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
                     return "error";
                 }
-                
+ 
                 // check for variantProductId - this will mean that we have multiple variants to update
                 if (variantProductId != null) {
                     // multiple products, so use a numeric suffix to get them all
@@ -620,7 +620,7 @@ public class ProductEvents {
                         if ((description != null) && (description.trim().length() < 1)) {
                             description = null;
                         }
-    
+ 
                         Set<String> variantDescRemoveToRemoveOnVirtual = FastSet.newInstance();
                         checkUpdateFeatureApplByDescription(variantProductId, variantProduct, description, productFeatureTypeId, productFeatureType, "STANDARD_FEATURE", nowTimestamp, delegator, null, variantDescRemoveToRemoveOnVirtual);
                         checkUpdateFeatureApplByDescription(productId, product, description, productFeatureTypeId, productFeatureType, "SELECTABLE_FEATURE", nowTimestamp, delegator, variantDescRemoveToRemoveOnVirtual, null);
@@ -637,7 +637,7 @@ public class ProductEvents {
                         variantProductId = request.getParameter("productId" + attribIdx);
                     } while (variantProductId != null);
                 }
-    
+ 
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericEntityException e) {
                 String errMsg = "Error updating quick admin selectable feature settings: " + e.toString();
@@ -654,9 +654,9 @@ public class ProductEvents {
         }
         return "success";
     }
-    
-    protected static void checkUpdateFeatureApplByDescription(String productId, GenericValue product, String description, 
-            String productFeatureTypeId, GenericValue productFeatureType, String productFeatureApplTypeId, 
+ 
+    protected static void checkUpdateFeatureApplByDescription(String productId, GenericValue product, String description,
+            String productFeatureTypeId, GenericValue productFeatureType, String productFeatureApplTypeId,
             Timestamp nowTimestamp, GenericDelegator delegator, Set<String> descriptionsToRemove, Set<String> descriptionsRemoved) throws GenericEntityException {
         if (productFeatureType == null) {
             return;
@@ -665,7 +665,7 @@ public class ProductEvents {
         GenericValue productFeatureAndAppl = null;
 
         Set<String> descriptionsForThisType = FastSet.newInstance();
-        List<GenericValue> productFeatureAndApplList = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, 
+        List<GenericValue> productFeatureAndApplList = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId,
                 "productFeatureApplTypeId", productFeatureApplTypeId, "productFeatureTypeId", productFeatureTypeId)), true);
         if (productFeatureAndApplList.size() > 0) {
             Iterator<GenericValue> productFeatureAndApplIter = productFeatureAndApplList.iterator();
@@ -688,20 +688,20 @@ public class ProductEvents {
                             while (!foundFeatureOnVariant && variantIter.hasNext()) {
                                 GenericValue variant = variantIter.next();
                                 // get the selectable features for the variant
-                                List<GenericValue> variantProductFeatureAndAppls = variant.getRelated("ProductFeatureAndAppl", 
-                                        UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, 
+                                List<GenericValue> variantProductFeatureAndAppls = variant.getRelated("ProductFeatureAndAppl",
+                                        UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId,
                                                 "productFeatureApplTypeId", "STANDARD_FEATURE", "description", description), null);
                                 if (variantProductFeatureAndAppls.size() > 0) {
                                     foundFeatureOnVariant = true;
                                 }
                             }
-                            
+ 
                             if (foundFeatureOnVariant) {
                                 // don't remove this one!
                                 continue;
                             }
                         }
-                        
+ 
                         if (descriptionsRemoved != null) {
                             descriptionsRemoved.add(productFeatureAndAppl.getString("description"));
                         }
@@ -709,15 +709,15 @@ public class ProductEvents {
                         continue;
                     }
                 }
-                
+ 
                 // we got here, is still a valid description associated with this product
                 descriptionsForThisType.add(productFeatureAndAppl.getString("description"));
             }
         }
-        
+ 
         if (description != null && (productFeatureAndAppl == null || (productFeatureAndAppl != null && !descriptionsForThisType.contains(description)))) {
             // need to add an appl, and possibly the feature
-            
+ 
             // see if a feature exists with the type and description specified (if doesn't exist will create later)
             String productFeatureId = null;
             List<GenericValue> existingProductFeatureList = delegator.findByAnd("ProductFeature", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "description", description));
@@ -731,7 +731,7 @@ public class ProductEvents {
                         UtilMisc.toMap("productFeatureId", productFeatureId,
                                 "productFeatureTypeId", productFeatureTypeId,
                                 "description", description));
-    
+ 
                 // if there is a productFeatureCategory with the same id as the productFeatureType, use that category.
                 // otherwise, create a category for the feature type
                 if (delegator.findByPrimaryKey("ProductFeatureCategory", UtilMisc.toMap("productFeatureCategoryId", productFeatureTypeId)) == null) {
@@ -743,11 +743,11 @@ public class ProductEvents {
                 newProductFeature.set("productFeatureCategoryId", productFeatureTypeId);
                 newProductFeature.create();
             }
-    
+ 
             // check to see if the productFeatureId is already attached to the virtual or variant, if not attach them...
-            List<GenericValue> specificProductFeatureApplList = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAppl", UtilMisc.toMap("productId", productId, 
+            List<GenericValue> specificProductFeatureApplList = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAppl", UtilMisc.toMap("productId", productId,
                     "productFeatureApplTypeId", productFeatureApplTypeId, "productFeatureId", productFeatureId)), true);
-            
+ 
             if (specificProductFeatureApplList.size() == 0) {
                 delegator.create("ProductFeatureAppl",
                         UtilMisc.toMap("productId", productId,
@@ -800,7 +800,7 @@ public class ProductEvents {
         //GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String productId = request.getParameter("productId");
         String productFeatureId = request.getParameter("productFeatureId");
-        
+ 
         if (UtilValidate.isEmpty(productId) || UtilValidate.isEmpty(productFeatureId)) {
             String errMsg = "Must specify both a productId [was:" + productId + "] and a productFeatureId [was:" + productFeatureId + "] to remove the feature from the product.";
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -935,7 +935,7 @@ public class ProductEvents {
             if (localeStr == null && productStore.get("defaultLocaleString") != null) {
                 localeStr = productStore.getString("defaultLocaleString");
             }
-            
+ 
             UtilHttp.setCurrencyUom(session, currencyStr);
             UtilHttp.setLocale(request, localeStr);
 
@@ -943,10 +943,10 @@ public class ProductEvents {
         return "success";
     }
 
-    /** 
+    /**
      * If ProductStore.requireCustomerRole == Y then the loggedin user must be associated with the store in the customer role.
      * This event method is called from the ProductEvents.storeCheckLogin and ProductEvents.storeLogin
-     * 
+     *
      * @param request
      * @param response
      * @return String with response, maybe "success" or "error" if logged in user is not associated with the ProductStore in the CUSTOMER role.
@@ -960,7 +960,7 @@ public class ProductEvents {
             if ("Y".equals(productStore.getString("requireCustomerRole"))) {
                 List<GenericValue> productStoreRoleList = null;
                 try {
-                    productStoreRoleList = delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", productStore.get("productStoreId"), 
+                    productStoreRoleList = delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", productStore.get("productStoreId"),
                             "partyId", userLogin.get("partyId"), "roleTypeId", "CUSTOMER"));
                     productStoreRoleList = EntityUtil.filterByDate(productStoreRoleList, true);
                 } catch (GenericEntityException e) {
@@ -994,7 +994,7 @@ public class ProductEvents {
             return "error";
         }
         String productStoreId = productStore.getString("productStoreId");
-        
+ 
         GenericValue productStoreEmail = null;
         try {
             productStoreEmail = delegator.findByPrimaryKey("ProductStoreEmailSetting",
@@ -1015,7 +1015,7 @@ public class ProductEvents {
         if (UtilValidate.isEmpty(bodyScreenLocation)) {
             bodyScreenLocation = defaultScreenLocation;
         }
-        
+ 
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         paramMap.put("locale", UtilHttp.getLocale(request));
         paramMap.put("userLogin", session.getAttribute("userLogin"));

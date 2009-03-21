@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -52,7 +52,7 @@ public class ShipmentServices {
     public static final String resource_error = "OrderErrorUiLabels";
     public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
     public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
-    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);    
+    public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);
 
     public static Map<String, Object> createShipmentEstimate(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> result = FastMap.newInstance();
@@ -243,14 +243,14 @@ public class ShipmentServices {
         // get the ShipmentCostEstimate(s)
         Map<String, String> estFields = UtilMisc.toMap("productStoreId", productStoreId, "shipmentMethodTypeId", shipmentMethodTypeId,
                 "carrierPartyId", carrierPartyId, "carrierRoleTypeId", carrierRoleTypeId);
-        EntityCondition estFieldsCond = EntityCondition.makeCondition(estFields, EntityOperator.AND); 
-        
+        EntityCondition estFieldsCond = EntityCondition.makeCondition(estFields, EntityOperator.AND);
+ 
         if (UtilValidate.isNotEmpty(productStoreShipMethId)) {
             // if the productStoreShipMethId field is passed, then also get estimates that have the field set
             List<EntityCondition> condList = UtilMisc.toList(EntityCondition.makeCondition("productStoreShipMethId", EntityOperator.EQUALS, productStoreShipMethId), estFieldsCond);
             estFieldsCond = EntityCondition.makeCondition(condList, EntityOperator.OR);
-        } 
-        
+        }
+ 
         Collection<GenericValue> estimates = null;
         try {
             estimates = delegator.findList("ShipmentCostEstimate", estFieldsCond, null, null, null, true);
@@ -350,7 +350,7 @@ public class ShipmentServices {
                         }
                         if (shippableWeight.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableWeight.compareTo(max) <= 0)) {
                             weightValid = true;
-                        }    
+                        }
                     }
                     if (qv != null) {
                         useQty = true;
@@ -364,7 +364,7 @@ public class ShipmentServices {
                         }
                         if (shippableQuantity.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableQuantity.compareTo(max) <= 0)) {
                             qtyValid = true;
-                        }    
+                        }
                     }
                     if (pv != null) {
                         usePrice = true;
@@ -378,12 +378,12 @@ public class ShipmentServices {
                         }
                         if (shippableTotal.compareTo(min) >= 0 && (max.compareTo(BigDecimal.ZERO) == 0 || shippableTotal.compareTo(max) <= 0)) {
                             priceValid = true;
-                        }    
+                        }
                     }
                     // Now check the tests.
                     if ((useWeight && weightValid) || (useQty && qtyValid) || (usePrice && priceValid)) {
                         estimateList.add(thisEstimate);
-                    }    
+                    }
                 }
             }
 
@@ -439,22 +439,22 @@ public class ShipmentServices {
                 int prioritySum = 0;
                 if (UtilValidate.isNotEmpty(currentEstimate.getString("partyId"))) {
                     prioritySum += PRIORITY_PARTY;
-                }    
+                }
                 if (UtilValidate.isNotEmpty(currentEstimate.getString("roleTypeId"))) {
                     prioritySum += PRIORITY_ROLE;
-                }    
+                }
                 if (UtilValidate.isNotEmpty(currentEstimate.getString("geoIdTo"))) {
                     prioritySum += PRIORITY_GEO;
-                }    
+                }
                 if (UtilValidate.isNotEmpty(currentEstimate.getString("weightBreakId"))) {
                     prioritySum += PRIORITY_WEIGHT;
-                }    
+                }
                 if (UtilValidate.isNotEmpty(currentEstimate.getString("quantityBreakId"))) {
                     prioritySum += PRIORITY_QTY;
-                }    
+                }
                 if (UtilValidate.isNotEmpty(currentEstimate.getString("priceBreakId"))) {
                     prioritySum += PRIORITY_PRICE;
-                }    
+                }
 
                 // there will be only one of each priority; latest will replace
                 estimatePriority.put(Integer.valueOf(prioritySum), currentEstimate);
@@ -474,39 +474,39 @@ public class ShipmentServices {
         BigDecimal orderFlat = BigDecimal.ZERO;
         if (estimate.getBigDecimal("orderFlatPrice") != null) {
             orderFlat = estimate.getBigDecimal("orderFlatPrice");
-        }    
+        }
 
         BigDecimal orderItemFlat = BigDecimal.ZERO;
         if (estimate.getBigDecimal("orderItemFlatPrice") != null) {
             orderItemFlat = estimate.getBigDecimal("orderItemFlatPrice");
-        }    
+        }
 
         BigDecimal orderPercent = BigDecimal.ZERO;
         if (estimate.getBigDecimal("orderPricePercent") != null) {
             orderPercent = estimate.getBigDecimal("orderPricePercent");
-        }    
+        }
 
         BigDecimal itemFlatAmount = shippableQuantity.multiply(orderItemFlat);
         BigDecimal orderPercentage = shippableTotal.multiply(orderPercent.movePointLeft(2));
 
         // flat total
-        BigDecimal flatTotal = orderFlat.add(itemFlatAmount).add(orderPercentage);        
+        BigDecimal flatTotal = orderFlat.add(itemFlatAmount).add(orderPercentage);
 
         // spans
         BigDecimal weightUnit = BigDecimal.ZERO;
         if (estimate.getBigDecimal("weightUnitPrice") != null) {
             weightUnit = estimate.getBigDecimal("weightUnitPrice");
-        }    
+        }
 
         BigDecimal qtyUnit = BigDecimal.ZERO;
         if (estimate.getBigDecimal("quantityUnitPrice") != null) {
             qtyUnit = estimate.getBigDecimal("quantityUnitPrice");
-        }    
+        }
 
         BigDecimal priceUnit = BigDecimal.ZERO;
         if (estimate.getBigDecimal("priceUnitPrice") != null) {
             priceUnit = estimate.getBigDecimal("priceUnitPrice");
-        }    
+        }
 
         BigDecimal weightAmount = shippableWeight.multiply(weightUnit);
         BigDecimal quantityAmount = shippableQuantity.multiply(qtyUnit);
@@ -571,7 +571,7 @@ public class ShipmentServices {
         BigDecimal shippingPricePercent = BigDecimal.ZERO;
         if (estimate.getBigDecimal("shippingPricePercent") != null) {
             shippingPricePercent = estimate.getBigDecimal("shippingPricePercent");
-        }    
+        }
 
         // shipping total
         BigDecimal shippingTotal = subTotal.add((subTotal.add(initialEstimateAmt)).multiply(shippingPricePercent.movePointLeft(2)));
@@ -662,7 +662,7 @@ public class ShipmentServices {
 
 
             for (GenericValue shipmentPkg: packages) {
-                GenericValue stagePkg = delegator.makeValue("OdbcPackageOut");               
+                GenericValue stagePkg = delegator.makeValue("OdbcPackageOut");
                 stagePkg.set("shipmentId", shipmentPkg.get("shipmentId"));
                 stagePkg.set("shipmentPackageSeqId", shipmentPkg.get("shipmentPackageSeqId"));
                 stagePkg.set("orderId", shipment.get("primaryOrderId"));
@@ -864,8 +864,8 @@ public class ShipmentServices {
     /**
      * Whenever a ShipmentReceipt is generated, check the Shipment associated
      * with it to see if all items were received. If so, change its status to
-     * PURCH_SHIP_RECEIVED. The check is accomplished by counting the 
-     * products shipped (from ShipmentAndItem) and matching them with the 
+     * PURCH_SHIP_RECEIVED. The check is accomplished by counting the
+     * products shipped (from ShipmentAndItem) and matching them with the
      * products received (from ShipmentReceipt).
      */
     public static Map<String, Object> updatePurchaseShipmentFromReceipt(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -886,7 +886,7 @@ public class ShipmentServices {
                     return updateShipmentMap;
                 }
             }
-            
+ 
             List<GenericValue> shipmentAndItems = delegator.findByAnd("ShipmentAndItem", UtilMisc.toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED"));
             if (shipmentAndItems.size() == 0) {
                 return ServiceUtil.returnSuccess();
@@ -934,7 +934,7 @@ public class ShipmentServices {
 
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
-    
+ 
         Map<String, Object> results = ServiceUtil.returnSuccess();
 
         try {
@@ -965,7 +965,7 @@ public class ShipmentServices {
         } catch (GenericServiceException ex) {
             return ServiceUtil.returnError(ex.getMessage());
         }
-    } 
+    }
     /**
      * Service to call a ShipmentRouteSegment.carrierPartyId's confirm shipment method asynchronously
      */
@@ -980,7 +980,7 @@ public class ShipmentServices {
 
         // get the carrierPartyId
         try {
-            GenericValue shipmentRouteSegment = delegator.findByPrimaryKeyCache("ShipmentRouteSegment", 
+            GenericValue shipmentRouteSegment = delegator.findByPrimaryKeyCache("ShipmentRouteSegment",
                     UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId));
             carrierPartyId = shipmentRouteSegment.getString("carrierPartyId");
         } catch (GenericEntityException e) {
@@ -1009,7 +1009,7 @@ public class ShipmentServices {
 
     /**
      * Calculates the total value of a shipment package by totalling the results of the getOrderItemInvoicedAmountAndQuantity
-     *  service for the orderItem related to each ShipmentPackageContent, prorated by the quantity of the orderItem issued to the 
+     *  service for the orderItem related to each ShipmentPackageContent, prorated by the quantity of the orderItem issued to the
      *  ShipmentPackageContent. Value is converted according to the incoming currencyUomId.
      * @param dctx DispatchContext
      * @param context Map
@@ -1020,7 +1020,7 @@ public class ShipmentServices {
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
-        
+ 
         String shipmentId = (String) context.get("shipmentId");
         String shipmentPackageSeqId = (String) context.get("shipmentPackageSeqId");
         String currencyUomId = (String) context.get("currencyUomId");
@@ -1037,32 +1037,32 @@ public class ShipmentServices {
                 Debug.logError(errorMessage, module);
                 return ServiceUtil.returnError(errorMessage);
             }
-            
+ 
             shipmentPackage = delegator.findByPrimaryKey("ShipmentPackage", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackageSeqId));
             if (UtilValidate.isEmpty(shipmentPackage)) {
                 String errorMessage = UtilProperties.getMessage(resource, "ProductShipmentPackageNotFound", context, locale);
                 Debug.logError(errorMessage, module);
                 return ServiceUtil.returnError(errorMessage);
             }
-            
+ 
             List<GenericValue> packageContents = delegator.findByAnd("PackedQtyVsOrderItemQuantity", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackageSeqId));
             for (GenericValue packageContent: packageContents) {
                 String orderId = packageContent.getString("orderId");
                 String orderItemSeqId = packageContent.getString("orderItemSeqId");
-            
+ 
                 // Get the value of the orderItem by calling the getOrderItemInvoicedAmountAndQuantity service
                 Map<String, Object> getOrderItemValueResult = dispatcher.runSync("getOrderItemInvoicedAmountAndQuantity", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "userLogin", userLogin, "locale", locale));
                 if (ServiceUtil.isError(getOrderItemValueResult)) return getOrderItemValueResult;
                 BigDecimal invoicedAmount = (BigDecimal) getOrderItemValueResult.get("invoicedAmount");
                 BigDecimal invoicedQuantity = (BigDecimal) getOrderItemValueResult.get("invoicedQuantity");
-            
+ 
                 // How much of the invoiced quantity does the issued quantity represent?
                 BigDecimal issuedQuantity = packageContent.getBigDecimal("issuedQuantity");
                 BigDecimal proportionOfInvoicedQuantity = invoicedQuantity.signum() == 0 ? ZERO : issuedQuantity.divide(invoicedQuantity, 10, rounding);
-            
+ 
                 // Prorate the orderItem's invoiced amount by that proportion
                 BigDecimal packageContentValue = proportionOfInvoicedQuantity.multiply(invoicedAmount).setScale(decimals, rounding);
-            
+ 
                 // Convert the value to the shipment currency, if necessary
                 GenericValue orderHeader = packageContent.getRelatedOne("OrderHeader");
                 Map<String, Object> convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", orderHeader.getString("currencyUom"), "uomIdTo", currencyUomId, "originalValue", packageContentValue));
@@ -1072,7 +1072,7 @@ public class ShipmentServices {
                 if (convertUomResult.containsKey("convertedValue")) {
                     packageContentValue = ((BigDecimal) convertUomResult.get("convertedValue")).setScale(decimals, rounding);
                 }
-                
+ 
                 // Add the value of the packed item to the package's total value
                 packageTotalValue = packageTotalValue.add(packageContentValue);
             }
@@ -1088,7 +1088,7 @@ public class ShipmentServices {
         result.put("packageValue", packageTotalValue);
         return result;
     }
-    
+ 
     public static Map<String, Object> sendShipmentCompleteNotification(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
@@ -1127,7 +1127,7 @@ public class ShipmentServices {
         } else {
             sendMap.put("bodyScreenUri", screenUri);
         }
-                
+ 
         String partyId = shipment.getString("partyIdTo");
 
         // get the email address
@@ -1147,11 +1147,11 @@ public class ShipmentServices {
         ResourceBundleMapWrapper uiLabelMap = (ResourceBundleMapWrapper) UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
         uiLabelMap.addBottomResourceBundle("OrderUiLabels");
         uiLabelMap.addBottomResourceBundle("CommonUiLabels");
-                
+ 
         Map<String, Object> bodyParameters = UtilMisc.<String, Object>toMap("partyId", partyId, "shipmentId", shipmentId, "orderId", shipment.getString("primaryOrderId"), "userLogin", userLogin, "uiLabelMap", uiLabelMap, "locale", locale);
         sendMap.put("bodyParameters", bodyParameters);
         sendMap.put("userLogin",userLogin);
-                
+ 
         if (productStoreEmail != null) {
             sendMap.put("subject", productStoreEmail.getString("subject"));
             sendMap.put("contentType", productStoreEmail.get("contentType"));
@@ -1181,5 +1181,5 @@ public class ShipmentServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderProblemSendingEmail", locale), null, null, sendResp);
         }
         return sendResp;
-    }    
+    }
 }

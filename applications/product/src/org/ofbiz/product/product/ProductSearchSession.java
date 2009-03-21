@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -126,18 +126,18 @@ public class ProductSearchSession {
             return productSearchOptions.getResultSortOrder();
         }
         public static void setResultSortOrder(ResultSortOrder resultSortOrder, HttpSession session) {
-            ProductSearchOptions productSearchOptions = getProductSearchOptions(session); 
+            ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
             productSearchOptions.resultSortOrder = resultSortOrder;
             productSearchOptions.changed = true;
         }
-        
+ 
         public static void clearSearchOptions(HttpSession session) {
-            ProductSearchOptions productSearchOptions = getProductSearchOptions(session); 
+            ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
             productSearchOptions.constraintList = null;
             productSearchOptions.topProductCategoryId = null;
             productSearchOptions.resultSortOrder = null;
         }
-        
+ 
         public void clearViewInfo() {
             this.viewIndex = null;
             this.viewSize = null;
@@ -180,7 +180,7 @@ public class ProductSearchSession {
         public Integer getViewSize() {
             return viewSize;
         }
-        
+ 
         /**
          * @param viewSize The viewSize to set.
          */
@@ -188,7 +188,7 @@ public class ProductSearchSession {
             setPreviousViewSize(getViewSize());
             this.viewSize = viewSize;
         }
-        
+ 
         /**
          * @param viewSize The viewSize to set.
          */
@@ -205,14 +205,14 @@ public class ProductSearchSession {
                 }
             }
         }
-        
+ 
         /**
          * @return Returns the paging.
          */
         public String getPaging() {
             return paging;
         }
-        
+ 
         /**
          * @param paging The paging to set.
          */
@@ -222,7 +222,7 @@ public class ProductSearchSession {
             }
             this.paging = paging;
         }
-        
+ 
         /**
          * @return Returns the previousViewSize.
          */
@@ -239,13 +239,13 @@ public class ProductSearchSession {
                 this.previousViewSize = previousViewSize;
             }
         }
-        
+ 
         public String getTopProductCategoryId() {
             return topProductCategoryId;
         }
 
         public static void setTopProductCategoryId(String topProductCategoryId, HttpSession session) {
-            ProductSearchOptions productSearchOptions = getProductSearchOptions(session); 
+            ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
             productSearchOptions.setTopProductCategoryId(topProductCategoryId);
         }
 
@@ -283,7 +283,7 @@ public class ProductSearchSession {
     }
 
     public static ProductSearchOptions getProductSearchOptions(HttpSession session) {
-        ProductSearchOptions productSearchOptions = (ProductSearchOptions) session.getAttribute("_PRODUCT_SEARCH_OPTIONS_CURRENT_"); 
+        ProductSearchOptions productSearchOptions = (ProductSearchOptions) session.getAttribute("_PRODUCT_SEARCH_OPTIONS_CURRENT_");
         if (productSearchOptions == null) {
             productSearchOptions = new ProductSearchOptions();
             session.setAttribute("_PRODUCT_SEARCH_OPTIONS_CURRENT_", productSearchOptions);
@@ -292,16 +292,16 @@ public class ProductSearchSession {
     }
 
     public static void checkSaveSearchOptionsHistory(HttpSession session) {
-        ProductSearchOptions productSearchOptions = getProductSearchOptions(session); 
+        ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
         // if the options have changed since the last search, add it to the beginning of the search options history
         if (productSearchOptions.changed) {
-            List<ProductSearchOptions> optionsHistoryList = getSearchOptionsHistoryList(session); 
+            List<ProductSearchOptions> optionsHistoryList = getSearchOptionsHistoryList(session);
             optionsHistoryList.add(0, new ProductSearchOptions(productSearchOptions));
             productSearchOptions.changed = false;
         }
     }
     public static List<ProductSearchOptions> getSearchOptionsHistoryList(HttpSession session) {
-        List<ProductSearchOptions> optionsHistoryList = UtilGenerics.checkList(session.getAttribute("_PRODUCT_SEARCH_OPTIONS_HISTORY_")); 
+        List<ProductSearchOptions> optionsHistoryList = UtilGenerics.checkList(session.getAttribute("_PRODUCT_SEARCH_OPTIONS_HISTORY_"));
         if (optionsHistoryList == null) {
             optionsHistoryList = FastList.newInstance();
             session.setAttribute("_PRODUCT_SEARCH_OPTIONS_HISTORY_", optionsHistoryList);
@@ -311,7 +311,7 @@ public class ProductSearchSession {
     public static void clearSearchOptionsHistoryList(HttpSession session) {
         session.removeAttribute("_PRODUCT_SEARCH_OPTIONS_HISTORY_");
     }
-    
+ 
     public static void setCurrentSearchFromHistory(int index, boolean removeOld, HttpSession session) {
         List<ProductSearchOptions> searchOptionsHistoryList = getSearchOptionsHistoryList(session);
         if (index < searchOptionsHistoryList.size()) {
@@ -332,17 +332,17 @@ public class ProductSearchSession {
         clearSearchOptionsHistoryList(session);
         return "success";
     }
-    
+ 
     public static String setCurrentSearchFromHistory(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         String searchHistoryIndexStr = request.getParameter("searchHistoryIndex");
         String removeOldStr = request.getParameter("removeOld");
-        
+ 
         if (UtilValidate.isEmpty(searchHistoryIndexStr)) {
             request.setAttribute("_ERROR_MESSAGE_", "No search history index passed, cannot set current search to previous.");
             return "error";
         }
-        
+ 
         try {
             int searchHistoryIndex = Integer.parseInt(searchHistoryIndexStr);
             boolean removeOld = true;
@@ -354,10 +354,10 @@ public class ProductSearchSession {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
         }
-        
+ 
         return "success";
     }
-    
+ 
     /** A ControlServlet event method used to check to see if there is an override for any of the current keywords in the search */
     public static final String checkDoKeywordOverride(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -442,14 +442,14 @@ public class ProductSearchSession {
 
         // if the search options have changed since the last search, put at the beginning of the options history list
         checkSaveSearchOptionsHistory(session);
-        
+ 
         return ProductSearch.searchProducts(productSearchConstraintList, resultSortOrder, delegator, visitId);
     }
 
     public static void searchClear(HttpSession session) {
         ProductSearchOptions.clearSearchOptions(session);
     }
-    
+ 
     public static List<String> searchGetConstraintStrings(boolean detailed, HttpSession session, GenericDelegator delegator) {
         Locale locale = UtilHttp.getLocale(session);
         ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
@@ -494,7 +494,7 @@ public class ProductSearchSession {
 
     public static void processSearchParameters(Map<String, Object> parameters, HttpServletRequest request) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        Boolean alreadyRun = (Boolean) request.getAttribute("processSearchParametersAlreadyRun"); 
+        Boolean alreadyRun = (Boolean) request.getAttribute("processSearchParametersAlreadyRun");
         if (Boolean.TRUE.equals(alreadyRun)) {
             // even if already run, check the VIEW_SIZE and VIEW_INDEX again, just for kicks
             ProductSearchOptions productSearchOptions = getProductSearchOptions(request.getSession());
@@ -505,13 +505,13 @@ public class ProductSearchSession {
         } else {
             request.setAttribute("processSearchParametersAlreadyRun", Boolean.TRUE);
         }
-        
+ 
         //Debug.logInfo("Processing Product Search parameters: " + parameters, module);
-        
+ 
         HttpSession session = request.getSession();
         boolean constraintsChanged = false;
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
-        
+ 
         // clear search? by default yes, but if the clearSearch parameter is N then don't
         String clearSearchString = (String) parameters.get("clearSearch");
         if (!"N".equals(clearSearchString)) {
@@ -528,7 +528,7 @@ public class ProductSearchSession {
                 }
             }
         }
-        
+ 
         String prioritizeCategoryId = null;
         if (UtilValidate.isNotEmpty((String) parameters.get("PRIORITIZE_CATEGORY_ID"))) {
             prioritizeCategoryId = (String) parameters.get("PRIORITIZE_CATEGORY_ID");
@@ -539,7 +539,7 @@ public class ProductSearchSession {
             ProductSearchOptions.setTopProductCategoryId(prioritizeCategoryId, session);
             constraintsChanged = true;
         }
-        
+ 
         // if there is another category, add a constraint for it
         if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATEGORY_ID"))) {
             String searchCategoryId = (String) parameters.get("SEARCH_CATEGORY_ID");
@@ -549,7 +549,7 @@ public class ProductSearchSession {
             searchAddConstraint(new ProductSearch.CategoryConstraint(searchCategoryId, !"N".equals(searchSubCategories), exclude), session);
             constraintsChanged = true;
         }
-        
+ 
         for (int catNum = 1; catNum < 10; catNum++) {
             if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATEGORY_ID" + catNum))) {
                 String searchCategoryId = (String) parameters.get("SEARCH_CATEGORY_ID" + catNum);
@@ -574,15 +574,15 @@ public class ProductSearchSession {
         }
 
         // if there is any category selected try to use catalog and add a constraint for it
-        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATALOG_ID"))) {    
+        if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_CATALOG_ID"))) {
             String searchCatalogId = (String) parameters.get("SEARCH_CATALOG_ID");
             if (searchCatalogId != null && !searchCatalogId.equalsIgnoreCase("")) {
                 List<GenericValue> categories = CategoryWorker.getRelatedCategoriesRet(request, "topLevelList", CatalogWorker.getCatalogTopCategoryId(request, searchCatalogId), true, false, true);
                 searchAddConstraint(new ProductSearch.CatalogConstraint(searchCatalogId, categories), session);
-                constraintsChanged = true;              
+                constraintsChanged = true;
             }
-        } 
-        
+        }
+ 
         // if keywords were specified, add a constraint for them
         if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_STRING"))) {
             String keywordString = (String) parameters.get("SEARCH_STRING");
@@ -690,7 +690,7 @@ public class ProductSearchSession {
             searchAddConstraint(new ProductSearch.SupplierConstraint(supplierPartyId), session);
             constraintsChanged = true;
         }
-        
+ 
         // add a list price range to the search
         if (UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_LOW")) || UtilValidate.isNotEmpty((String) parameters.get("LIST_PRICE_HIGH"))) {
             BigDecimal listPriceLow = null;
@@ -717,15 +717,15 @@ public class ProductSearchSession {
             String listPriceRangeStr = (String) parameters.get("LIST_PRICE_RANGE");
             if (UtilValidate.isEmpty(listPriceRangeStr)) listPriceRangeStr = (String) parameters.get("S_LPR");
             int underscoreIndex = listPriceRangeStr.indexOf("_");
-            String listPriceLowStr; 
-            String listPriceHighStr; 
+            String listPriceLowStr;
+            String listPriceHighStr;
             if (underscoreIndex >= 0) {
-                listPriceLowStr = listPriceRangeStr.substring(0, listPriceRangeStr.indexOf("_")); 
-                listPriceHighStr = listPriceRangeStr.substring(listPriceRangeStr.indexOf("_") + 1); 
+                listPriceLowStr = listPriceRangeStr.substring(0, listPriceRangeStr.indexOf("_"));
+                listPriceHighStr = listPriceRangeStr.substring(listPriceRangeStr.indexOf("_") + 1);
             } else {
                 // no underscore: assume it is a low range with no high range, ie the ending underscore was left off
-                listPriceLowStr = listPriceRangeStr; 
-                listPriceHighStr = null; 
+                listPriceLowStr = listPriceRangeStr;
+                listPriceHighStr = null;
             }
 
             BigDecimal listPriceLow = null;
@@ -748,7 +748,7 @@ public class ProductSearchSession {
             searchAddConstraint(new ProductSearch.ListPriceRangeConstraint(listPriceLow, listPriceHigh, listPriceCurrency), session);
             constraintsChanged = true;
         }
-        
+ 
         // check the ProductStore to see if we should add the ExcludeVariantsConstraint
         if (productStore != null && !"N".equals(productStore.getString("prodSearchExcludeVariants"))) {
             searchAddConstraint(new ProductSearch.ExcludeVariantsConstraint(), session);
@@ -759,7 +759,7 @@ public class ProductSearchSession {
             searchAddConstraint(new ProductSearch.AvailabilityDateConstraint(), session);
             constraintsChanged = true;
         }
-        
+ 
         if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE")) ||
             UtilValidate.isNotEmpty((String) parameters.get("SEARCH_GOOD_IDENTIFICATION_VALUE"))) {
             String include = (String) parameters.get("SEARCH_GOOD_IDENTIFICATION_INCL");
@@ -770,8 +770,8 @@ public class ProductSearchSession {
             if ("N".equalsIgnoreCase(include)) {
                 inc =  Boolean.FALSE;
             }
-            
-            searchAddConstraint(new ProductSearch.GoodIdentificationConstraint((String)parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE"), 
+ 
+            searchAddConstraint(new ProductSearch.GoodIdentificationConstraint((String)parameters.get("SEARCH_GOOD_IDENTIFICATION_TYPE"),
                                 (String) parameters.get("SEARCH_GOOD_IDENTIFICATION_VALUE"), inc), session);
             constraintsChanged = true;
         }
@@ -783,7 +783,7 @@ public class ProductSearchSession {
             searchAddConstraint(viewAllowConstraint, session);
             // not consider this a change for now, shouldn't change often: constraintsChanged = true;
         }
-        
+ 
         // set the sort order
         String sortOrder = (String) parameters.get("sortOrder");
         if (UtilValidate.isEmpty(sortOrder)) sortOrder = (String) parameters.get("S_O");
@@ -807,7 +807,7 @@ public class ProductSearchSession {
                 searchSetSortOrder(new ProductSearch.SortProductPrice(priceTypeId, ascending), session);
             }
         }
-        
+ 
         ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
         if (constraintsChanged) {
             // query changed, clear out the VIEW_INDEX & VIEW_SIZE
@@ -832,29 +832,29 @@ public class ProductSearchSession {
 
         HttpSession session = request.getSession();
         ProductSearchOptions productSearchOptions = getProductSearchOptions(session);
-        
+ 
         String addOnTopProdCategoryId = productSearchOptions.getTopProductCategoryId();
-        
+ 
         Integer viewIndexInteger = productSearchOptions.getViewIndex();
         if (viewIndexInteger != null) {
             viewIndex = viewIndexInteger.intValue();
         }
-        
+ 
         Integer viewSizeInteger = productSearchOptions.getViewSize();
         if (viewSizeInteger != null) {
             viewSize = viewSizeInteger.intValue();
         }
-        
+ 
         Integer previousViewSizeInteger = productSearchOptions.getPreviousViewSize();
         if (previousViewSizeInteger != null) {
             previousViewSize = previousViewSizeInteger.intValue();
         }
-        
+ 
         String pag = productSearchOptions.getPaging();
         if (paging != null) {
             paging = pag;
         }
-            
+ 
         lowIndex = viewIndex * viewSize;
         highIndex = (viewIndex + 1) * viewSize;
 
@@ -955,7 +955,7 @@ public class ProductSearchSession {
 
         return result;
     }
-    
+ 
     public static String makeSearchParametersString(HttpSession session) {
         return makeSearchParametersString(getProductSearchOptions(session));
     }
@@ -1013,7 +1013,7 @@ public class ProductSearchSession {
             /* No way to specify parameters for these right now, so table until later
             } else if (psc instanceof ProductSearch.FeatureSetConstraint) {
                 ProductSearch.FeatureSetConstraint fsc = (ProductSearch.FeatureSetConstraint) psc;
-             */   
+             */
             } else if (psc instanceof ProductSearch.FeatureCategoryConstraint) {
                 ProductSearch.FeatureCategoryConstraint pfcc = (ProductSearch.FeatureCategoryConstraint) psc;
                 featureCategoriesCount++;
@@ -1098,7 +1098,7 @@ public class ProductSearchSession {
                 }
             }
         }
-        
+ 
         String topProductCategoryId = productSearchOptions.getTopProductCategoryId();
         if (topProductCategoryId != null) {
             searchParamString.append("&amp;S_TPC");
