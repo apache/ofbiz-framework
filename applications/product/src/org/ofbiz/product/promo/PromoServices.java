@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -80,7 +80,7 @@ public class PromoServices {
         GenericDelegator delegator = dctx.getDelegator();
         String productStoreId = (String) context.get("productStoreId");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        
+ 
         List<EntityCondition> condList = FastList.newInstance();
         if (UtilValidate.isEmpty(productStoreId)) {
             condList.add(EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId));
@@ -89,7 +89,7 @@ public class PromoServices {
         condList.add(EntityCondition.makeCondition("thruDate", EntityOperator.NOT_EQUAL, null));
         condList.add(EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN, nowTimestamp));
         EntityCondition cond = EntityCondition.makeCondition(condList, EntityOperator.AND);
-        
+ 
         try {
             EntityListIterator eli = delegator.find("ProductStorePromoAndAppl", cond, null, null, null, null);
             GenericValue productStorePromoAndAppl = null;
@@ -104,7 +104,7 @@ public class PromoServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
-        
+ 
         return ServiceUtil.returnSuccess();
     }
 
@@ -186,7 +186,7 @@ public class PromoServices {
         String productPromoCodeId = (String) context.get("productPromoCodeId");
         byte[] wrapper = (byte[]) context.get("uploadedFile");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        
+ 
         if (wrapper == null) {
             return ServiceUtil.returnError("Uploaded file not valid or corrupted");
         }

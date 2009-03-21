@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -51,7 +51,7 @@ public class ProductFeatureServices {
 
     public static final String module = ProductFeatureServices.class.getName();
     public static final String resource = "ProductUiLabels";
-    
+ 
     /*
      * Parameters: productFeatureCategoryId, productFeatureGroupId, productId, productFeatureApplTypeId
      * Result: productFeaturesByType, a Map of all product features from productFeatureCategoryId, group by productFeatureType -> List of productFeatures
@@ -68,11 +68,11 @@ public class ProductFeatureServices {
          */
         String valueToSearch = (String) context.get("productFeatureCategoryId");
         String productFeatureApplTypeId = (String) context.get("productFeatureApplTypeId");
-        
+ 
         String entityToSearch = "ProductFeature";
         String fieldToSearch = "productFeatureCategoryId";
         List<String> orderBy = UtilMisc.toList("productFeatureTypeId", "description");
-        
+ 
         if (valueToSearch == null && context.get("productFeatureGroupId") != null) {
             entityToSearch = "ProductFeatureGroupAndAppl";
             fieldToSearch = "productFeatureGroupId";
@@ -84,18 +84,18 @@ public class ProductFeatureServices {
             valueToSearch = (String) context.get("productId");
             orderBy = UtilMisc.toList("sequenceNum", "productFeatureApplTypeId", "productFeatureTypeId", "description");
         }
-        
+ 
         if (valueToSearch == null) {
             return ServiceUtil.returnError("This service requires a productId, a productFeatureGroupId, or a productFeatureCategoryId to run.");
         }
-        
+ 
         try {
             // get all product features in this feature category
             List<GenericValue> allFeatures = delegator.findByAnd(entityToSearch, UtilMisc.toMap(fieldToSearch, valueToSearch), orderBy);
-        
+ 
             if (entityToSearch.equals("ProductFeatureAndAppl") && productFeatureApplTypeId != null)
                 allFeatures = EntityUtil.filterByAnd(allFeatures, UtilMisc.toMap("productFeatureApplTypeId", productFeatureApplTypeId));
-                
+ 
             List<String> featureTypes = FastList.newInstance();
             Map<String, List<GenericValue>> featuresByType = new LinkedHashMap<String, List<GenericValue>>();
             for (GenericValue feature: allFeatures) {
@@ -120,7 +120,7 @@ public class ProductFeatureServices {
         }
         return results;
     }
-    
+ 
     /*
      * Parameter: productId, productFeatureAppls (a List of ProductFeatureAndAppl entities of features applied to productId)
      * Result: variantProductIds: a List of productIds of variants with those features
@@ -132,11 +132,11 @@ public class ProductFeatureServices {
         String productId = (String) context.get("productId");
         List<String> curProductFeatureAndAppls = UtilGenerics.checkList(context.get("productFeatureAppls"));
         List<String> existingVariantProductIds = FastList.newInstance();
-        
+ 
         try {
             /*
-             * get a list of all products which are associated with the current one as PRODUCT_VARIANT and for each one, 
-             * see if it has every single feature in the list of productFeatureAppls as a STANDARD_FEATURE.  If so, then 
+             * get a list of all products which are associated with the current one as PRODUCT_VARIANT and for each one,
+             * see if it has every single feature in the list of productFeatureAppls as a STANDARD_FEATURE.  If so, then
              * it qualifies and add it to the list of existingVariantProductIds.
              */
             List<GenericValue> productAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")));
@@ -145,7 +145,7 @@ public class ProductFeatureServices {
                 //for each associated product, if it has all standard features, display it's productId
                 boolean hasAllFeatures = true;
                 for (String productFeatureAndAppl: curProductFeatureAndAppls) {
-                    Map<String, String> findByMap = UtilMisc.toMap("productId", productAssoc.getString("productIdTo"), 
+                    Map<String, String> findByMap = UtilMisc.toMap("productId", productAssoc.getString("productIdTo"),
                             "productFeatureId", productFeatureAndAppl,
                             "productFeatureApplTypeId", "STANDARD_FEATURE");
 
@@ -177,44 +177,44 @@ public class ProductFeatureServices {
 
     /*
      * Parameter: productId (of the parent product which has SELECTABLE features)
-     * Result: featureCombinations, a List of Maps containing, for each possible variant of the productid: 
+     * Result: featureCombinations, a List of Maps containing, for each possible variant of the productid:
      * {defaultVariantProductId: id of this variant; curProductFeatureAndAppls: features applied to this variant; existingVariantProductIds: List of productIds which are already variants with these features }
      */
     public static Map<String, Object> getVariantCombinations(DispatchContext dctx, Map<String, ? extends Object> context) {
         Map<String, Object> results = FastMap.newInstance();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        
+ 
         String productId = (String) context.get("productId");
-        
+ 
         try {
             Map<String, Object> featuresResults = dispatcher.runSync("getProductFeaturesByType", UtilMisc.toMap("productId", productId));
             Map<String, List<GenericValue>> features;
-            
+ 
             if (featuresResults.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS)) {
                 features = UtilGenerics.checkMap(featuresResults.get("productFeaturesByType"));
             } else {
                 return ServiceUtil.returnError((String) featuresResults.get(ModelService.ERROR_MESSAGE_LIST));
             }
-            
+ 
             // need to keep 2 lists, oldCombinations and newCombinations, and keep swapping them after each looping.  Otherwise, you'll get a
             // concurrent modification exception
             List<Map<String, Object>> oldCombinations = FastList.newInstance();
-            
+ 
             // loop through each feature type
             for (Map.Entry<String, List<GenericValue>> entry: features.entrySet()) {
                 String currentFeatureType = entry.getKey();
                 List<GenericValue> currentFeatures = entry.getValue();
-                
+ 
                 List<Map<String, Object>> newCombinations = FastList.newInstance();
                 List<Map<String, Object>> combinations;
-                
+ 
                 // start with either existing combinations or from scratch
                 if (oldCombinations.size() > 0) {
                     combinations = oldCombinations;
                 } else {
                     combinations = FastList.newInstance();
                 }
-                
+ 
                 // in both cases, use each feature of current feature type's idCode and
                 // product feature and add it to the id code and product feature applications
                 // of the next variant.  just a matter of whether we're starting with an
@@ -264,11 +264,11 @@ public class ProductFeatureServices {
                     oldCombinations = newCombinations; // save the newly expanded list as oldCombinations
                 }
             }
-            
+ 
             int defaultCodeCounter = 1;
             Set<String> defaultVariantProductIds = FastSet.newInstance(); // this map will contain the codes already used (as keys)
             defaultVariantProductIds.add(productId);
-            
+ 
             // now figure out which of these combinations already have productIds associated with them
             for (Map<String, Object> combination: oldCombinations) {
                 // Verify if the default code is already used, if so add a numeric suffix
@@ -287,11 +287,11 @@ public class ProductFeatureServices {
             Debug.logError(ex, ex.getMessage(), module);
             return ServiceUtil.returnError(ex.getMessage());
         }
-        
+ 
         return results;
     }
 
-    /* 
+    /*
      * Parameters: productCategoryId (String) and productFeatures (a List of ProductFeature GenericValues)
      * Result: products (a List of Product GenericValues)
      */
@@ -319,7 +319,7 @@ public class ProductFeatureServices {
                 featuresByType.put(nextFeature.getString("productFeatureTypeId"), nextFeature.getString("productFeatureId"));
             }
 
-            List<GenericValue> products = FastList.newInstance();  // final list of variant products  
+            List<GenericValue> products = FastList.newInstance();  // final list of variant products 
             for (GenericValue memberProduct: memberProducts) {
                 // find variants for each member product of the category
 
@@ -342,7 +342,7 @@ public class ProductFeatureServices {
                 return ServiceUtil.returnError("No products which fit your requirements were found.");
             } else {
                 results = ServiceUtil.returnSuccess();
-                results.put("products", products);    
+                results.put("products", products);
             }
 
         } else {

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -314,7 +314,7 @@ public class ProductServices {
         } catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
         }
-        
+ 
         result.put("variantSample", sample);
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
 
@@ -692,21 +692,21 @@ public class ProductServices {
             java.util.StringTokenizer st = new java.util.StringTokenizer(productFeatureIds, "|");
             while (st.hasMoreTokens()) {
                 String productFeatureId = st.nextToken();
-               
+ 
                 GenericValue productFeature = delegator.findByPrimaryKey("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureId));
-                
+ 
                 GenericValue productFeatureAppl = delegator.makeValue("ProductFeatureAppl",
                 UtilMisc.toMap("productId", variantProductId, "productFeatureId", productFeatureId,
                 "productFeatureApplTypeId", "STANDARD_FEATURE", "fromDate", UtilDateTime.nowTimestamp()));
-                
+ 
                 // set the default seq num if it's there...
                 if (productFeature != null) {
                     productFeatureAppl.set("sequenceNum", productFeature.get("defaultSequenceNum"));
                 }
-                
+ 
                 productFeatureAppl.create();
             }
-            
+ 
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity error creating quick add variant data", module);
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
@@ -719,14 +719,14 @@ public class ProductServices {
         return result;
     }
 
-    /** 
+    /**
      * This will create a virtual product and return its ID, and associate all of the variants with it.
-     * It will not put the selectable features on the virtual or standard features on the variant. 
+     * It will not put the selectable features on the virtual or standard features on the variant.
      */
     public static Map<String, Object> quickCreateVirtualWithVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        
+ 
         // get the various IN attributes
         String variantProductIdsBag = (String) context.get("variantProductIdsBag");
         String productFeatureIdOne = (String) context.get("productFeatureIdOne");
@@ -734,11 +734,11 @@ public class ProductServices {
         String productFeatureIdThree = (String) context.get("productFeatureIdThree");
 
         Map<String, Object> successResult = ServiceUtil.returnSuccess();
-        
+ 
         try {
             // Generate new virtual productId, prefix with "VP", put in successResult
             String productId = (String) context.get("productId");
-            
+ 
             if (UtilValidate.isEmpty(productId)) {
                 productId = "VP" + delegator.getNextSeqId("VirtualProduct");
                 // Create new virtual product...
@@ -759,7 +759,7 @@ public class ProductServices {
                 product.create();
             }
             successResult.put("productId", productId);
-            
+ 
             // separate variantProductIdsBag into a Set of variantProductIds
             //note: can be comma, tab, or white-space delimited
             Set<String> prelimVariantProductIds = FastSet.newInstance();
@@ -786,12 +786,12 @@ public class ProductServices {
                         // whoops, nothing found... return error
                         return ServiceUtil.returnError("Error creating a virtual with variants: the ID [" + variantProductId + "] is not a valid Product.productId or a GoodIdentification.idValue");
                     }
-                    
+ 
                     if (goodIdentificationList.size() > 1) {
                         // what to do here? for now just log a warning and add all of them as variants; they can always be dissociated later
                         Debug.logWarning("Warning creating a virtual with variants: the ID [" + variantProductId + "] was not a productId and resulted in [" + goodIdentificationList.size() + "] GoodIdentification records: " + goodIdentificationList, module);
                     }
-                    
+ 
                     for (GenericValue goodIdentification: goodIdentificationList) {
                         GenericValue giProduct = goodIdentification.getRelatedOne("Product");
                         if (giProduct != null) {
@@ -809,18 +809,18 @@ public class ProductServices {
             productFeatureIds.add(productFeatureIdOne);
             productFeatureIds.add(productFeatureIdTwo);
             productFeatureIds.add(productFeatureIdThree);
-            
+ 
             for (String featureProductId: featureProductIds) {
                 for (String productFeatureId: productFeatureIds) {
                     if (UtilValidate.isNotEmpty(productFeatureId)) {
-                        GenericValue productFeatureAppl = delegator.makeValue("ProductFeatureAppl", 
+                        GenericValue productFeatureAppl = delegator.makeValue("ProductFeatureAppl",
                                 UtilMisc.toMap("productId", featureProductId, "productFeatureId", productFeatureId,
                                         "productFeatureApplTypeId", "STANDARD_FEATURE", "fromDate", nowTimestamp));
                         productFeatureAppl.create();
                     }
                 }
             }
-            
+ 
             for (GenericValue variantProduct: variantProductsById.values()) {
                 // for each variant product set: isVirtual=N, isVariant=Y, introductionDate=now
                 variantProduct.set("isVirtual", "N");
@@ -829,7 +829,7 @@ public class ProductServices {
                 variantProduct.store();
 
                 // for each variant product create associate with the new virtual as a PRODUCT_VARIANT
-                GenericValue productAssoc = delegator.makeValue("ProductAssoc", 
+                GenericValue productAssoc = delegator.makeValue("ProductAssoc",
                         UtilMisc.toMap("productId", productId, "productIdTo", variantProduct.get("productId"),
                                 "productAssocTypeId", "PRODUCT_VARIANT", "fromDate", nowTimestamp));
                 productAssoc.create();
@@ -838,7 +838,7 @@ public class ProductServices {
             String errMsg = "Error creating new virtual product from variant products: " + e.toString();
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
-        }        
+        }
         return successResult;
     }
 
@@ -905,22 +905,22 @@ public class ProductServices {
 
         return ServiceUtil.returnSuccess();
     }
-    
+ 
     public static Map<String, Object> addAdditionalViewForProduct(DispatchContext dctx, Map<String, ? extends Object> context)
         throws IOException, JDOMException {
-        
+ 
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productId = (String) context.get("productId");
         String productContentTypeId = (String) context.get("productContentTypeId");
         ByteBuffer imageData = (ByteBuffer) context.get("uploadedFile");
-        
+ 
         if (UtilValidate.isNotEmpty((String) context.get("_uploadedFile_fileName"))) {
             String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
             String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
             String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
-            
+ 
             FlexibleStringExpander filenameExpander = FlexibleStringExpander.getInstance(imageFilenameFormat);
             String id = productId + "_View_" + productContentTypeId.charAt(productContentTypeId.length() - 1);
             String fileLocation = filenameExpander.expandString(UtilMisc.toMap("location", "products", "type", "additional", "id", id));
@@ -930,7 +930,7 @@ public class ProductServices {
                 filePathPrefix = fileLocation.substring(0, fileLocation.lastIndexOf("/") + 1); // adding 1 to include the trailing slash
                 filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1);
             }
-            
+ 
             List<GenericValue> fileExtension = FastList.newInstance();
             try {
                 fileExtension = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", (String) context.get("_uploadedFile_contentType")));
@@ -938,14 +938,14 @@ public class ProductServices {
                 Debug.logError(e, module);
                 ServiceUtil.returnError(e.getMessage());
             }
-            
+ 
             GenericValue extension = EntityUtil.getFirst(fileExtension);
             if (extension != null) {
                 filenameToUse += "." + extension.getString("fileExtensionId");
             }
-            
+ 
             File file = new File(imageServerPath + "/" + filePathPrefix + filenameToUse);
-            
+ 
             try {
                 RandomAccessFile out = new RandomAccessFile(file, "rw");
                 out.write(imageData.array());
@@ -957,7 +957,7 @@ public class ProductServices {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError("Unable to write binary data to: " + file.getAbsolutePath());
             }
-            
+ 
             /* scale Image in different sizes */
             String viewNumber = String.valueOf(productContentTypeId.charAt(productContentTypeId.length() - 1));
             ScaleImage imageTransform = new ScaleImage();
@@ -972,25 +972,25 @@ public class ProductServices {
                 String errMsg = "Errors occur in parsing ImageProperties.xml : " + e.toString();
                 Debug.logError(e, errMsg, module);
                 return ServiceUtil.returnError(errMsg);
-            }     
-            
+            }
+ 
             String imageUrl = imageUrlPrefix + "/" + filePathPrefix + filenameToUse;
-                
+ 
             if (UtilValidate.isNotEmpty(imageUrl) && imageUrl.length() > 0) {
                 String contentId = (String) context.get("contentId");
-                
+ 
                 Map<String, Object> dataResourceCtx = FastMap.newInstance();
                 dataResourceCtx.put("objectInfo", imageUrl);
                 dataResourceCtx.put("dataResourceName", (String) context.get("_uploadedFile_fileName"));
                 dataResourceCtx.put("userLogin", userLogin);
-                
+ 
                 Map<String, Object> productContentCtx = FastMap.newInstance();
                 productContentCtx.put("productId", productId);
                 productContentCtx.put("productContentTypeId", productContentTypeId);
                 productContentCtx.put("fromDate", (Timestamp) context.get("fromDate"));
                 productContentCtx.put("thruDate", (Timestamp) context.get("thruDate"));
                 productContentCtx.put("userLogin", userLogin);
-                
+ 
                 if (UtilValidate.isNotEmpty(contentId)) {
                     GenericValue content = null;
                     try {
@@ -999,7 +999,7 @@ public class ProductServices {
                         Debug.logError(e, module);
                         ServiceUtil.returnError(e.getMessage());
                     }
-                        
+ 
                     if (content != null) {
                         GenericValue dataResource = null;
                         try {
@@ -1008,7 +1008,7 @@ public class ProductServices {
                             Debug.logError(e, module);
                             ServiceUtil.returnError(e.getMessage());
                         }
-                    
+ 
                         if (dataResource != null) {
                             dataResourceCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
                             try {
@@ -1026,7 +1026,7 @@ public class ProductServices {
                                 Debug.logError(e, module);
                                 ServiceUtil.returnError(e.getMessage());
                             }
-                            
+ 
                             Map<String, Object> contentCtx = FastMap.newInstance();
                             contentCtx.put("contentId", contentId);
                             contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
@@ -1038,7 +1038,7 @@ public class ProductServices {
                                 ServiceUtil.returnError(e.getMessage());
                             }
                         }
-                            
+ 
                         productContentCtx.put("contentId", contentId);
                         try {
                             dispatcher.runSync("updateProductContent", productContentCtx);
@@ -1068,7 +1068,7 @@ public class ProductServices {
                         Debug.logError(e, module);
                         ServiceUtil.returnError(e.getMessage());
                     }
-                    
+ 
                     productContentCtx.put("contentId", contentResult.get("contentId"));
                     try {
                         dispatcher.runSync("createProductContent", productContentCtx);
@@ -1081,44 +1081,44 @@ public class ProductServices {
         }
            return ServiceUtil.returnSuccess();
     }
-    
+ 
     /**
      * Finds productId(s) corresponding to a product reference, productId or a GoodIdentification idValue
      * @param dctx
      * @param context
-     * @param context.productId use to search with productId or goodIdentification.idValue 
+     * @param context.productId use to search with productId or goodIdentification.idValue
      * @return a GenericValue with a productId and a List of complementary productId found
      */
-    public static Map<String, Object> findProductById(DispatchContext ctx, Map<String, Object> context) { 
+    public static Map<String, Object> findProductById(DispatchContext ctx, Map<String, Object> context) {
         GenericDelegator delegator = ctx.getDelegator();
         String idToFind = (String) context.get("idToFind");
         String goodIdentificationTypeId = (String) context.get("goodIdentificationTypeId");
         String searchProductFirstContext = (String) context.get("searchProductFirst");
         String searchAllIdContext = (String) context.get("searchAllId");
-        
+ 
         boolean searchProductFirst = UtilValidate.isNotEmpty(searchProductFirstContext) && "N".equals(searchProductFirstContext) ? false : true;
         boolean searchAllId = UtilValidate.isNotEmpty(searchAllIdContext)&& "Y".equals(searchAllIdContext) ? true : false;
-        
+ 
         GenericValue product = null;
         List<GenericValue> productsFound = null;
         try {
-            productsFound = ProductWorker.findProductsById(delegator, idToFind, goodIdentificationTypeId, searchProductFirst, searchAllId);   
+            productsFound = ProductWorker.findProductsById(delegator, idToFind, goodIdentificationTypeId, searchProductFirst, searchAllId);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             ServiceUtil.returnError(e.getMessage());
         }
-                
-        if (UtilValidate.isNotEmpty(productsFound)) {          
+ 
+        if (UtilValidate.isNotEmpty(productsFound)) {
             // gets the first productId of the List
             product = EntityUtil.getFirst(productsFound);
             // remove this productId
             productsFound.remove(0);
         }
-        
+ 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("product", product);
         result.put("productsList", productsFound);
-                               
+ 
         return result;
     }
 }

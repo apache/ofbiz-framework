@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -61,7 +61,7 @@ import org.xml.sax.SAXException;
 
 /**
  * DHL ShipmentServices
- * 
+ *
  * <p>Implementation of DHL US domestic shipment interface using DHL ShipIT XML APi.</p>
  *
  * Shipment services not supported in DHL ShipIT 1.1
@@ -73,7 +73,7 @@ import org.xml.sax.SAXException;
  * <li>Label size 4"x6"</li>
  * <li>Out of origin shipping</li>
  * </ul>
- * 
+ *
  * TODO: International
  */
 public class DhlServices {
@@ -84,7 +84,7 @@ public class DhlServices {
 
     /**
      * Opens a URL to DHL and makes a request.
-     * 
+     *
      * @param xmlString
      *            Name of the DHL service to invoke
      * @param xmlString
@@ -165,7 +165,7 @@ public class DhlServices {
         BigDecimal shippableTotal = (BigDecimal) context.get("shippableTotal");
         BigDecimal shippableQuantity = (BigDecimal) context.get("shippableQuantity");
         BigDecimal shippableWeight = (BigDecimal) context.get("shippableWeight");
-        
+ 
         if (shipmentMethodTypeId.equals("NO_SHIPPING")) {
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("shippingEstimateAmount", null);
@@ -501,13 +501,13 @@ public class DhlServices {
     public static Map<String, Object> dhlShipmentConfirm(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Locale locale = (Locale) context.get("locale");        
-        
+        Locale locale = (Locale) context.get("locale");
+ 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
         Map<String, Object> result = FastMap.newInstance();
-        String shipmentConfirmResponseString = null;        
+        String shipmentConfirmResponseString = null;
         try {
             GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
             if (shipment == null) {
@@ -517,16 +517,16 @@ public class DhlServices {
             if (shipmentRouteSegment == null) {
                 return ServiceUtil.returnError("ShipmentRouteSegment not found with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
-            
+ 
             if (!"DHL".equals(shipmentRouteSegment.getString("carrierPartyId"))) {
                 return ServiceUtil.returnError("ERROR: The Carrier for ShipmentRouteSegment " + shipmentRouteSegmentId + " of Shipment " + shipmentId + ", is not DHL.");
             }
-            
+ 
             // add ShipmentRouteSegment carrierServiceStatusId, check before all DHL services
             if (UtilValidate.isNotEmpty(shipmentRouteSegment.getString("carrierServiceStatusId")) && !"SHRSCS_NOT_STARTED".equals(shipmentRouteSegment.getString("carrierServiceStatusId"))) {
                 return ServiceUtil.returnError("ERROR: The Carrier Service Status for ShipmentRouteSegment " + shipmentRouteSegmentId + " of Shipment " + shipmentId + ", is [" + shipmentRouteSegment.getString("carrierServiceStatusId") + "], but must be not-set or [SHRSCS_NOT_STARTED] to perform the DHL Shipment Confirm operation.");
             }
-            
+ 
             // Get Origin Info
             GenericValue originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress");
             if (originPostalAddress == null) {
@@ -543,7 +543,7 @@ public class DhlServices {
             }
             originPhoneNumber = StringUtil.replaceString(originPhoneNumber, "-", "");
             originPhoneNumber = StringUtil.replaceString(originPhoneNumber, " ", "");
-            
+ 
             // lookup the two letter country code (in the geoCode field)
             GenericValue originCountryGeo = originPostalAddress.getRelatedOne("CountryGeo");
             if (originCountryGeo == null) {
@@ -574,7 +574,7 @@ public class DhlServices {
             if (results.get("emailAddress") != null) {
                 recipientEmail = (String) results.get("emailAddress");
             }
-            
+ 
             // lookup the two letter country code (in the geoCode field)
             GenericValue destCountryGeo = destPostalAddress.getRelatedOne("CountryGeo");
             if (destCountryGeo == null) {
@@ -621,9 +621,9 @@ public class DhlServices {
                 List<GenericValue> carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "DHL"), null);
                 GenericValue carrierShipmentBoxType = null;
                 if (carrierShipmentBoxTypes.size() > 0) {
-                    carrierShipmentBoxType = carrierShipmentBoxTypes.get(0); 
+                    carrierShipmentBoxType = carrierShipmentBoxTypes.get(0);
                 }
-                 
+ 
                 // TODO: determine what default UoM is (assuming inches) - there should be a defaultDimensionUomId in Facility
                 if (shipmentBoxType != null) {
                     GenericValue dimensionUom = shipmentBoxType.getRelatedOne("DimensionUom");
@@ -631,7 +631,7 @@ public class DhlServices {
                     width = shipmentBoxType.get("boxWidth").toString();
                     height = shipmentBoxType.get("boxHeight").toString();
                 }
-                
+ 
                 // next step is weight determination, so skip if we have a billing weight
                 if (hasBillingWeight) continue;
 
@@ -664,14 +664,14 @@ public class DhlServices {
 
             // pick which weight to use and round it
             BigDecimal weight = null;
-            if (hasBillingWeight) { 
+            if (hasBillingWeight) {
                 weight = billingWeight;
             } else {
                 weight = packageWeight;
             }
             // want the rounded weight as a string, so we use the "" + int shortcut
             String roundedWeight = weight.setScale(0, BigDecimal.ROUND_HALF_UP).toPlainString();
-            
+ 
             // translate shipmentMethodTypeId to DHL service code
             String shipmentMethodTypeId = shipmentRouteSegment.getString("shipmentMethodTypeId");
             String dhlShipmentDetailCode = null;
@@ -690,7 +690,7 @@ public class DhlServices {
             if ((shippingKey == null) || (accountNbr == null) || (shippingKey.length() == 0) || (accountNbr.length() == 0)) {
                 return ServiceUtil.returnError("DHL Shipping Credentials are not configured. (check shipment.dhl.access)");
             }
-            
+ 
             // label image preference (PNG or GIF)
             String labelImagePreference = UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.dhl.label.image.format");
             if (labelImagePreference == null) {
@@ -700,7 +700,7 @@ public class DhlServices {
                 Debug.logError("Illegal shipment.dhl.label.image.format: " + labelImagePreference, module);
                 return ServiceUtil.returnError("Unknown DHL Label Image Format: " + labelImagePreference);
             }
-            
+ 
             // create AccessRequest XML doc using FreeMarker template
             String templateName = UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.template.dhl.rate.estimate");
             if ((templateName == null) || (templateName.trim().length() == 0)) {
@@ -776,11 +776,11 @@ public class DhlServices {
     }
 
     // NOTE: Must VOID shipments on errors
-    public static Map<String, Object> handleDhlShipmentConfirmResponse(String rateResponseString, GenericValue shipmentRouteSegment, 
+    public static Map<String, Object> handleDhlShipmentConfirmResponse(String rateResponseString, GenericValue shipmentRouteSegment,
             List<GenericValue> shipmentPackageRouteSegs) throws GenericEntityException {
         Map<String, Object> result = FastMap.newInstance();
         GenericValue shipmentPackageRouteSeg = shipmentPackageRouteSegs.get(0);
-        
+ 
         // TODO: figure out how to handle validation on return XML, which can be mangled
         // Ideas: try again right away, let user try again, etc.
         Document rateResponseDocument = null;
@@ -799,13 +799,13 @@ public class DhlServices {
             Debug.logError(e2, excErrMsg, module);
             // TODO VOID
         }
-        
+ 
         // tracking number: Shipment/ShipmentDetail/AirbillNbr
         Element rootElement = rateResponseDocument.getDocumentElement();
         Element shipmentElement = UtilXml.firstChildElement(rootElement, "Shipment");
         Element shipmentDetailElement = UtilXml.firstChildElement(shipmentElement, "ShipmentDetail");
         String trackingNumber = UtilXml.childElementValue(shipmentDetailElement, "AirbillNbr");
-        
+ 
         // label: Shipment/Label/Image
         Element labelElement = UtilXml.firstChildElement(shipmentElement, "Label");
         String encodedImageString = UtilXml.childElementValue(labelElement, "Image");
@@ -813,7 +813,7 @@ public class DhlServices {
             Debug.logError("Cannot find response DHL shipment label.  Rate response document is: " + rateResponseString, module);
             return ServiceUtil.returnError("Cannot get response DHL shipment label for shipment package route segment " + shipmentPackageRouteSeg + ".  DHL response is: " + rateResponseString);
         }
-        
+ 
         // TODO: this is a temporary hack to replace the newlines so that Base64 likes the input This is NOT platform independent
         int size = encodedImageString.length();
         StringBuilder sb = new StringBuilder();
@@ -823,7 +823,7 @@ public class DhlServices {
             sb.append(encodedImageString.charAt(i));
         }
         byte[] labelBytes = Base64.base64Decode(sb.toString().getBytes());
-        
+ 
         if (labelBytes != null) {
             // store in db blob
             shipmentPackageRouteSeg.setBytes("labelImage", labelBytes);
@@ -831,15 +831,15 @@ public class DhlServices {
             Debug.log("Failed to either decode returned DHL label or no data found in eCommerce/Shipment/Label/Image.");
             // TODO: VOID
         }
-        
+ 
         shipmentPackageRouteSeg.set("trackingCode", trackingNumber);
         shipmentPackageRouteSeg.set("labelHtml", sb.toString());
         shipmentPackageRouteSeg.store();
-        
+ 
         shipmentRouteSegment.set("trackingIdNumber", trackingNumber);
         shipmentRouteSegment.put("carrierServiceStatusId", "SHRSCS_CONFIRMED");
         shipmentRouteSegment.store();
-        
+ 
         return ServiceUtil.returnSuccess("DHL Shipment Confirmed.");
     }
 

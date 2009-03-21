@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,7 +38,7 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityOperator;
 
 public class InventoryWorker {
-    
+ 
     public final static String module = InventoryWorker.class.getName();
 
     /**
@@ -57,7 +57,7 @@ public class InventoryWorker {
                     EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
             purchaseOrderConditions.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"));
             purchaseOrderConditions.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
-            List<GenericValue> purchaseOrders = delegator.findList("OrderHeaderAndItems", EntityCondition.makeCondition(purchaseOrderConditions, EntityOperator.AND), 
+            List<GenericValue> purchaseOrders = delegator.findList("OrderHeaderAndItems", EntityCondition.makeCondition(purchaseOrderConditions, EntityOperator.AND),
                     null, UtilMisc.toList("estimatedDeliveryDate DESC", "orderDate"), null, false);
             return purchaseOrders;
         } catch (GenericEntityException ex) {
@@ -65,7 +65,7 @@ public class InventoryWorker {
             return null;
         }
     }
-    
+ 
     /**
      * Finds the net outstanding ordered quantity for a productId, netting quantity on outstanding purchase orders against cancelQuantity
      * @param productId
@@ -112,7 +112,7 @@ public class InventoryWorker {
                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")
-                );     
+                );
         if (productIds.size() > 0) {
             condList.add(EntityCondition.makeCondition("productId", EntityOperator.IN, productIds));
         }
@@ -142,4 +142,4 @@ public class InventoryWorker {
     public static Map<String, BigDecimal> getOutstandingProductQuantitiesForPurchaseOrders(Collection<String> productIds, GenericDelegator delegator) {
         return getOutstandingProductQuantities(productIds, "PURCHASE_ORDER", delegator);
     }
-}    
+}

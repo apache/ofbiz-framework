@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -46,7 +46,7 @@ import org.ofbiz.base.util.cache.UtilCache;
  * Product Config Worker class to reduce code in templates.
  */
 public class ProductConfigWorker {
-    
+ 
     public static final String module = ProductConfigWorker.class.getName();
     public static final String resource = "ProductUiLabels";
     public static final String SEPARATOR = "::";    // cache key separator
@@ -81,13 +81,13 @@ public class ProductConfigWorker {
         }
         return configWrapper;
     }
-    
+ 
     public static void fillProductConfigWrapper(ProductConfigWrapper configWrapper, HttpServletRequest request) {
         int numOfQuestions = configWrapper.getQuestions().size();
         for (int k = 0; k < numOfQuestions; k++) {
             String[] opts = request.getParameterValues(Integer.toString(k));
             if (opts == null) {
-                
+ 
                 //  check for standard item comments
                 ProductConfigWrapper.ConfigItem question = configWrapper.getQuestions().get(k);
                 if (question.isStandard()) {
@@ -99,7 +99,7 @@ public class ProductConfigWorker {
                                 configWrapper.setSelected(k, i, comments);
                             } catch (Exception e) {
                                 Debug.logWarning(e.getMessage(), module);
-                            }                            
+                            }
                         }
                         i++;
                     }
@@ -117,15 +117,15 @@ public class ProductConfigWorker {
                     } else {
                         comments = request.getParameter("comments_" + k + "_" + cnt);
                     }
-                                        
+ 
                     configWrapper.setSelected(k, cnt, comments);
                     ProductConfigWrapper.ConfigOption option = configWrapper.getItemOtion(k, cnt);
-                    
+ 
                     //  set selected variant products 
                     if (UtilValidate.isNotEmpty(option) && (option.hasVirtualComponent())) {
                         List<GenericValue> components = option.getComponents();
                         int variantIndex = 0;
-                        for (int i = 0; i < components.size(); i++) {       
+                        for (int i = 0; i < components.size(); i++) {
                             GenericValue component = components.get(i);
                             if (option.isVirtualComponent(component)) {
                                 String productParamName = "add_product_id" + k + "_" + cnt + "_" + variantIndex;
@@ -133,7 +133,7 @@ public class ProductConfigWorker {
                                 if (UtilValidate.isEmpty(selectedProdcutId)) {
                                     Debug.logWarning("ERROR: Request param [" + productParamName + "] not found!", module);
                                 } else {
-                                    
+ 
                                     //  handle also feature tree virtual variant methods
                                     if (ProductWorker.isVirtual((GenericDelegator)request.getAttribute("delegator"), selectedProdcutId)) {
                                         if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod((GenericDelegator)request.getAttribute("delegator"), selectedProdcutId))) {
@@ -146,12 +146,12 @@ public class ProductConfigWorker {
                                                     selectedFeatures.add(request.getParameterValues(paramName)[0]);
                                                 }
                                             }
-                                            
+ 
                                             // check if features are selected
                                             if (UtilValidate.isEmpty(selectedFeatures)) {
                                                 Debug.logWarning("ERROR: No features selected for productId [" + selectedProdcutId+ "]", module);
                                             }
-                             
+ 
                                             String variantProductId = ProductWorker.getVariantFromFeatureTree(selectedProdcutId, selectedFeatures, (GenericDelegator)request.getAttribute("delegator"));
                                             if (UtilValidate.isNotEmpty(variantProductId)) {
                                                 selectedProdcutId = variantProductId;
@@ -166,21 +166,21 @@ public class ProductConfigWorker {
                                 variantIndex ++;
                             }
                         }
-                    } 
+                    }
                 } catch (Exception e) {
                     Debug.logWarning(e.getMessage(), module);
                 }
             }
         }
     }
-    
+ 
     /**
      * First search persisted configurations and update configWrapper.configId if found.
      * Otherwise store ProductConfigWrapper to ProductConfigConfig entity and updates configWrapper.configId with new configId
      * This method persists only the selected options, price data is lost.
      * @param ProductConfigWrapper
      * @param delegator
-     */    
+     */
     public static void storeProductConfigWrapper(ProductConfigWrapper configWrapper, GenericDelegator delegator) {
         if (configWrapper == null || (!configWrapper.isCompleted()))  return;
         String configId = null;
@@ -190,7 +190,7 @@ public class ProductConfigWorker {
         for (ConfigItem ci: questions) {
             String configItemId = null;
             Long sequenceNum = null;
-            List<ProductConfigWrapper.ConfigOption> selectedOptions = FastList.newInstance();        
+            List<ProductConfigWrapper.ConfigOption> selectedOptions = FastList.newInstance();
             List<ConfigOption> options = ci.getOptions();
             if (ci.isStandard()) {
                 selectedOptions.addAll(options);
@@ -210,36 +210,36 @@ public class ProductConfigWorker {
                     List<GenericValue> configs = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configItemId",configItemId,"sequenceNum", sequenceNum));
                     for (GenericValue productConfigConfig: configs) {
                         for (ConfigOption oneOption: selectedOptions) {
-                            String configOptionId = oneOption.configOption.getString("configOptionId");                            
+                            String configOptionId = oneOption.configOption.getString("configOptionId");
                             if (productConfigConfig.getString("configOptionId").equals(configOptionId)) {
                                 String comments = oneOption.getComments() != null ? oneOption.getComments() : "";
                                 if ((UtilValidate.isEmpty(comments) && UtilValidate.isEmpty(productConfigConfig.getString("description"))) || comments.equals(productConfigConfig.getString("description"))) {
                                     configsToCheck.add(productConfigConfig);
-                                }                                                               
+                                }
                             }
-                        } 
+                        }
                     }
 
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
-                           
-            }  
+ 
+            }
         }
         if (UtilValidate.isNotEmpty(configsToCheck)) {
             for (GenericValue productConfigConfig: configsToCheck) {
                 String tempConfigId = productConfigConfig.getString("configId");
                 try {
                     List<GenericValue> tempResult = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configId",tempConfigId));
-                    if (tempResult.size() == selectedOptionSize && configsToCheck.containsAll(tempResult)) {                        
+                    if (tempResult.size() == selectedOptionSize && configsToCheck.containsAll(tempResult)) {
                         List<GenericValue> configOptionProductOptions = delegator.findByAnd("ConfigOptionProductOption", UtilMisc.toMap("configId",tempConfigId));
                         if (UtilValidate.isNotEmpty(configOptionProductOptions)) {
-                            
+ 
                             //  check for variant product equality
                             for (ConfigItem ci: questions) {
                                 String configItemId = null;
                                 Long sequenceNum = null;
-                                List<ProductConfigWrapper.ConfigOption> selectedOptions = FastList.newInstance();        
+                                List<ProductConfigWrapper.ConfigOption> selectedOptions = FastList.newInstance();
                                 List<ConfigOption> options = ci.getOptions();
                                 if (ci.isStandard()) {
                                     selectedOptions.addAll(options);
@@ -249,11 +249,11 @@ public class ProductConfigWorker {
                                             selectedOptions.add(oneOption);
                                         }
                                     }
-                                }         
-                                
+                                }
+ 
                                 boolean match = true;
                                 for (ProductConfigWrapper.ConfigOption anOption : selectedOptions) {
-                                    if (match && anOption.hasVirtualComponent()) {                                        
+                                    if (match && anOption.hasVirtualComponent()) {
                                         List<GenericValue> components = anOption.getComponents();
                                         for (GenericValue aComponent : components) {
                                             if (anOption.isVirtualComponent(aComponent)) {
@@ -263,11 +263,11 @@ public class ProductConfigWorker {
                                                 String configOptionId = anOption.configOption.getString("configOptionId");
                                                 configItemId = ci.getConfigItemAssoc().getString("configItemId");
                                                 sequenceNum = ci.getConfigItemAssoc().getLong("sequenceNum");
-                                                
-                                                GenericValue configOptionProductOption = delegator.makeValue("ConfigOptionProductOption");                            
-                                                configOptionProductOption.set("configId", tempConfigId);                                
+ 
+                                                GenericValue configOptionProductOption = delegator.makeValue("ConfigOptionProductOption");
+                                                configOptionProductOption.set("configId", tempConfigId);
                                                 configOptionProductOption.set("configItemId",configItemId);
-                                                configOptionProductOption.set("sequenceNum", sequenceNum); 
+                                                configOptionProductOption.set("sequenceNum", sequenceNum);
                                                 configOptionProductOption.set("configOptionId", configOptionId);
                                                 configOptionProductOption.set("productId", optionProductId);
                                                 configOptionProductOption.set("productOptionId", optionProductOptionId);
@@ -278,15 +278,15 @@ public class ProductConfigWorker {
                                             }
                                         }
                                     }
-                                } 
-                                
+                                }
+ 
                                 if (match && (UtilValidate.isEmpty(configOptionProductOptions))) {
                                     configWrapper.configId = tempConfigId;
                                     Debug.logInfo("Existing configuration found with configId:"+ tempConfigId,  module);
                                     return;
                                 }
-                            }                           
-                            
+                            }
+ 
                         } else {
                             configWrapper.configId = tempConfigId;
                             Debug.logInfo("Existing configuration found with configId:"+ tempConfigId,  module);
@@ -296,16 +296,16 @@ public class ProductConfigWorker {
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
-                
+ 
             }
         }
-        
+ 
         //Current configuration is not found in ProductConfigConfig entity. So lets store this one
         boolean nextId = true;
         for (ConfigItem ci: questions) {
             String configItemId = null;
             Long sequenceNum = null;
-            List<ProductConfigWrapper.ConfigOption> selectedOptions = FastList.newInstance();        
+            List<ProductConfigWrapper.ConfigOption> selectedOptions = FastList.newInstance();
             List<ConfigOption> options = ci.getOptions();
            if (ci.isStandard()) {
                 selectedOptions.addAll(options);
@@ -316,7 +316,7 @@ public class ProductConfigWorker {
                     }
                 }
             }
-            
+ 
             if (selectedOptions.size() > 0) {
                 if (nextId) {
                     configId = delegator.getNextSeqId("ProductConfigConfig");
@@ -334,14 +334,14 @@ public class ProductConfigWorker {
                     productConfigConfig.put("configItemId", configItemId);
                     productConfigConfig.put("sequenceNum", sequenceNum);
                     productConfigConfig.put("configOptionId", configOptionId);
-                    productConfigConfig.put("description", description);                    
+                    productConfigConfig.put("description", description);
                     toBeStored.add(productConfigConfig);
 
-                    if (oneOption.hasVirtualComponent()) {                        
-                        List<GenericValue> components = oneOption.getComponents(); 
+                    if (oneOption.hasVirtualComponent()) {
+                        List<GenericValue> components = oneOption.getComponents();
                         for (GenericValue component: components) {
                             if (oneOption.isVirtualComponent(component)) {
-                                String componentOption = (String)oneOption.componentOptions.get(component.getString("productId"));                                
+                                String componentOption = (String)oneOption.componentOptions.get(component.getString("productId"));
                                 GenericValue configOptionProductOption = delegator.makeValue("ConfigOptionProductOption");
                                 configOptionProductOption.put("configId", configId);
                                 configOptionProductOption.put("configItemId", configItemId);
@@ -351,24 +351,24 @@ public class ProductConfigWorker {
                                 configOptionProductOption.put("productOptionId", componentOption);
                                 toBeStored.add(configOptionProductOption);
                             }
-                        }                       
+                        }
                     }
-                    try {                        
+                    try {
                         delegator.storeAll(toBeStored);
                     } catch (GenericEntityException e) {
                         configId = null;
                         Debug.logWarning(e.getMessage(), module);
                     }
-                }                            
-            }  
+                }
+            }
         }
-        
+ 
         //save  configId to configWrapper, so we can use it in shopping cart operations
         configWrapper.configId = configId;
         Debug.logInfo("New configId created:"+ configId,  module);
         return;
     }
-    
+ 
     /**
      * Creates a new ProductConfigWrapper for productId and configures it according to ProductConfigConfig entity with configId
      * ProductConfigConfig entity stores only the selected options, and the product price is calculated from input params

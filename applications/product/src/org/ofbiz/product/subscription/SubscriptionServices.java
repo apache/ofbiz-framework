@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -52,7 +52,7 @@ public class SubscriptionServices {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        
+ 
         String partyId = (String) context.get("partyId");
         String subscriptionResourceId = (String) context.get("subscriptionResourceId");
         String inventoryItemId = (String) context.get("inventoryItemId");
@@ -62,7 +62,7 @@ public class SubscriptionServices {
         String useTimeUomId = (String) context.get("useTimeUomId");
         String alwaysCreateNewRecordStr = (String) context.get("alwaysCreateNewRecord");
         boolean alwaysCreateNewRecord = !"N".equals(alwaysCreateNewRecordStr);
-        
+ 
         GenericValue lastSubscription = null;
         try {
             Map<String, String> subscriptionFindMap = UtilMisc.toMap("partyId", partyId, "subscriptionResourceId", subscriptionResourceId);
@@ -96,7 +96,7 @@ public class SubscriptionServices {
         newSubscription.set("inventoryItemId", inventoryItemId);
 
         Timestamp thruDate = lastSubscription != null ? (Timestamp) lastSubscription.get("thruDate") : null;
-        
+ 
         // set the fromDate, one way or another
         if (thruDate == null) {
             // no thruDate? start with NOW
@@ -111,7 +111,7 @@ public class SubscriptionServices {
             }
             newSubscription.set("fromDate", thruDate);
         }
-        
+ 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(thruDate);
         int[] times = UomWorker.uomTimeToCalTime(useTimeUomId);
@@ -121,10 +121,10 @@ public class SubscriptionServices {
             Debug.logWarning("Don't know anything about useTimeUomId [" + useTimeUomId + "], defaulting to month", module);
             calendar.add(Calendar.MONTH, (useTime.intValue() * times[1]));
         }
-       
+ 
         thruDate = new Timestamp(calendar.getTimeInMillis());
         newSubscription.set("thruDate", thruDate);
-        
+ 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         try {
             if (lastSubscription != null && !alwaysCreateNewRecord) {
@@ -163,7 +163,7 @@ public class SubscriptionServices {
         }
         return result;
     }
-    
+ 
     public static Map<String, Object> processExtendSubscriptionByProduct(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -172,10 +172,10 @@ public class SubscriptionServices {
         if (qty == null) {
             qty = Integer.valueOf(1);
         }
-        
+ 
         Timestamp orderCreatedDate = (Timestamp) context.get("orderCreatedDate");
         if (orderCreatedDate == null) {
-            orderCreatedDate = UtilDateTime.nowTimestamp();   
+            orderCreatedDate = UtilDateTime.nowTimestamp();
         }
         try {
             List<GenericValue> productSubscriptionResourceList = delegator.findByAndCache("ProductSubscriptionResource", UtilMisc.toMap("productId", productId));
@@ -185,7 +185,7 @@ public class SubscriptionServices {
             if (productSubscriptionResourceList.size() == 0) {
                 String msg = "No ProductSubscriptionResource found for productId: " + productId;
                 Debug.logError(msg, module);
-                return ServiceUtil.returnError(msg); 
+                return ServiceUtil.returnError(msg);
             }
 
             for (GenericValue productSubscriptionResource: productSubscriptionResourceList) {
@@ -202,7 +202,7 @@ public class SubscriptionServices {
                 subContext.put("automaticExtend", productSubscriptionResource.get("automaticExtend"));
                 subContext.put("canclAutmExtTime", productSubscriptionResource.get("canclAutmExtTime"));
                 subContext.put("canclAutmExtTimeUomId", productSubscriptionResource.get("canclAutmExtTimeUomId"));
-                
+ 
                 Map<String, Object> ctx = dctx.getModelService("processExtendSubscription").makeValid(subContext, ModelService.IN_PARAM);
                 Map<String, Object> processExtendSubscriptionResult = dispatcher.runSync("processExtendSubscription", ctx);
                 if (ServiceUtil.isError(processExtendSubscriptionResult)) {
@@ -213,18 +213,18 @@ public class SubscriptionServices {
             Debug.logError(e, e.toString(), module);
             return ServiceUtil.returnError(e.toString());
         }
-        
+ 
         return ServiceUtil.returnSuccess();
     }
-    
+ 
     public static Map<String, Object> processExtendSubscriptionByOrder(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> subContext = UtilMisc.makeMapWritable(context);
         String orderId = (String) context.get("orderId");
-        
+ 
         Debug.logInfo("In processExtendSubscriptionByOrder service with orderId: " + orderId, module);
-        
+ 
         GenericValue orderHeader = null;
         try {
             List<GenericValue> orderRoleList = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "END_USER_CUSTOMER"));
@@ -234,12 +234,12 @@ public class SubscriptionServices {
                 subContext.put("partyId", partyId);
             } else {
                 String msg = "No OrderRole found for orderId:" + orderId;
-                return ServiceUtil.returnFailure(msg); 
+                return ServiceUtil.returnFailure(msg);
             }
             orderHeader = delegator.findByPrimaryKeyCache("OrderHeader", UtilMisc.toMap("orderId", orderId));
             if (orderHeader == null) {
                 String msg = "No OrderHeader found for orderId:" + orderId;
-                return ServiceUtil.returnError(msg); 
+                return ServiceUtil.returnError(msg);
             }
             Timestamp orderCreatedDate = (Timestamp) orderHeader.get("orderDate");
             subContext.put("orderCreatedDate", orderCreatedDate);

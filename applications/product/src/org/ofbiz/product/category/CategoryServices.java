@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -49,7 +49,7 @@ import org.ofbiz.service.ServiceUtil;
  * CategoryServices - Category Services
  */
 public class CategoryServices {
-    
+ 
     public static final String module = CategoryServices.class.getName();
 
     public static Map<String, Object> getCategoryMembers(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -101,7 +101,7 @@ public class CategoryServices {
         if (activeOnly) {
             productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
         }
-        
+ 
 
         if (productId != null && index == null) {
             for (GenericValue v: productCategoryMembers) {
@@ -139,7 +139,7 @@ public class CategoryServices {
         }
         return result;
     }
-    
+ 
     private static String getCategoryFindEntityName(GenericDelegator delegator, List<String> orderByFields) {
         // allow orderByFields to contain fields from the Product entity, if there are such fields
         String entityName = "ProductCategoryMember";
@@ -150,14 +150,14 @@ public class CategoryServices {
             orderByFields.add("sequenceNum");
             orderByFields.add("productId");
         }
-        
+ 
         ModelEntity productModel = delegator.getModelEntity("Product");
         ModelEntity productCategoryMemberModel = delegator.getModelEntity("ProductCategoryMember");
         for (String orderByField: orderByFields) {
             // Get the real field name from the order by field removing ascending/descending order
             if (UtilValidate.isNotEmpty(orderByField)) {
                 int startPos = 0, endPos = orderByField.length();
-                
+ 
                 if (orderByField.endsWith(" DESC")) {
                     endPos -= 5;
                 } else if (orderByField.endsWith(" ASC")) {
@@ -167,12 +167,12 @@ public class CategoryServices {
                 } else if (orderByField.startsWith("+")) {
                     startPos++;
                 }
-                
+ 
                 if (startPos != 0 || endPos != orderByField.length()) {
                     orderByField = orderByField.substring(startPos, endPos);
                 }
             }
-            
+ 
             if (!productCategoryMemberModel.isField(orderByField)) {
                 if (productModel.isField(orderByField)) {
                     entityName = "ProductAndCategoryMember";
@@ -191,11 +191,11 @@ public class CategoryServices {
         String productCategoryId = (String) context.get("productCategoryId");
         boolean limitView = ((Boolean) context.get("limitView")).booleanValue();
         int defaultViewSize = ((Integer) context.get("defaultViewSize")).intValue();
-        
+ 
         List<String> orderByFields = UtilGenerics.checkList(context.get("orderByFields"));
         if (orderByFields == null) orderByFields = FastList.newInstance();
         String entityName = getCategoryFindEntityName(delegator, orderByFields);
-        
+ 
         String prodCatalogId = (String) context.get("prodCatalogId");
 
         boolean useCacheForMembers = (context.get("useCacheForMembers") == null || ((Boolean) context.get("useCacheForMembers")).booleanValue());
@@ -209,7 +209,7 @@ public class CategoryServices {
         if (checkViewAllow) {
             viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, prodCatalogId);
         }
-        
+ 
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
         int viewIndex = 1;
@@ -218,7 +218,7 @@ public class CategoryServices {
         } catch (Exception e) {
             viewIndex = 1;
         }
-        
+ 
         int viewSize = defaultViewSize;
         try {
             viewSize = Integer.valueOf((String) context.get("viewSizeString")).intValue();
@@ -246,7 +246,7 @@ public class CategoryServices {
             lowIndex = 0;
             highIndex = 0;
         }
-        
+ 
         List<GenericValue> productCategoryMembers = null;
         if (productCategory != null) {
             try {
@@ -283,12 +283,12 @@ public class CategoryServices {
                         mainCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
                     }
                     EntityCondition mainCond = EntityCondition.makeCondition(mainCondList, EntityOperator.AND);
-                
+ 
                     // set distinct on
                     EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
                     // using list iterator
                     EntityListIterator pli = delegator.find(entityName, mainCond, null, null, orderByFields, findOpts);
-                
+ 
                     // get the partial list for this page
                     if (limitView) {
                         if (viewProductCategoryId != null) {
@@ -321,7 +321,7 @@ public class CategoryServices {
                             // fiter out the view allow
                             productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
                         }
-                        
+ 
                         listSize = productCategoryMembers.size();
                         lowIndex = 1;
                         highIndex = listSize;
@@ -331,11 +331,11 @@ public class CategoryServices {
                     if (productCategoryMembers == null) {
                         productCategoryMembers = FastList.newInstance();
                     }
-                
+ 
                     if (highIndex > listSize) {
                         highIndex = listSize;
                     }
-                
+ 
                     // close the list iterator
                     pli.close();
                 }

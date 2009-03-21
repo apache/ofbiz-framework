@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -89,7 +89,7 @@ public class ProductStoreWorker {
         }
         return null;
     }
-    
+ 
     public static String getStoreCurrencyUomId(HttpServletRequest request) {
         GenericValue productStore = getProductStore(request);
         return UtilHttp.getCurrencyUom(request.getSession(), productStore.getString("defaultCurrencyUomId"));
@@ -131,7 +131,7 @@ public class ProductStoreWorker {
     public static String getProductStorePayToPartyId(String productStoreId, GenericDelegator delegator) {
         return getProductStorePayToPartyId(getProductStore(productStoreId, delegator));
     }
-    
+ 
     public static String getProductStorePayToPartyId(GenericValue productStore) {
         String payToPartyId = "Company"; // default value
         if (productStore != null && productStore.get("payToPartyId") != null) {
@@ -477,7 +477,7 @@ public class ProductStoreWorker {
                 GenericValue product = null;
                 String virtualProductId = null;
 
-                // if the item is a variant, get its virtual productId 
+                // if the item is a variant, get its virtual productId
                 try {
                     product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
                     if ((product != null) && ("Y".equals(product.get("isVariant")))) {
@@ -569,9 +569,9 @@ public class ProductStoreWorker {
     }
 
     /**
-     * This method is used in the showcart pages to determine whether or not to show the inventory message and 
+     * This method is used in the showcart pages to determine whether or not to show the inventory message and
      * in the productdetail pages to determine whether or not to show the item as out of stock.
-     * 
+     *
      * @param request ServletRequest (or HttpServletRequest of course)
      * @param product GenericValue representing the product in question
      * @param quantity Quantity desired.
@@ -718,13 +718,13 @@ public class ProductStoreWorker {
 
         defaultProductStoreEmailScreenLocation.put("PRDS_GC_PURCHASE", "component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardPurchase");
         defaultProductStoreEmailScreenLocation.put("PRDS_GC_RELOAD", "component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardReload");
-        
+ 
         defaultProductStoreEmailScreenLocation.put("PRDS_QUO_CONFIRM", "component://order/widget/ordermgr/QuoteScreens.xml#ViewQuoteSimple");
-        
+ 
         defaultProductStoreEmailScreenLocation.put("PRDS_PWD_RETRIEVE", "component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail");
-    
+ 
         defaultProductStoreEmailScreenLocation.put("PRDS_TELL_FRIEND", "component://ecommerce/widget/EmailProductScreens.xml#TellFriend");
-        
+ 
         defaultProductStoreEmailScreenLocation.put("PRDS_CUST_REGISTER", "component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail");
     }
 

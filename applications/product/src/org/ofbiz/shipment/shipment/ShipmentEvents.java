@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,17 +38,17 @@ import org.ofbiz.service.LocalDispatcher;
  * ShippingEvents - Events used for processing shipping fees
  */
 public class ShipmentEvents {
-    
+ 
     public static final String module = ShipmentEvents.class.getName();
 
     public static String viewShipmentPackageRouteSegLabelImage(HttpServletRequest request, HttpServletResponse response) {
-        
+ 
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        
+ 
         String shipmentId = request.getParameter("shipmentId");
         String shipmentRouteSegmentId = request.getParameter("shipmentRouteSegmentId");
         String shipmentPackageSeqId = request.getParameter("shipmentPackageSeqId");
-        
+ 
         GenericValue shipmentPackageRouteSeg = null;
         try {
             shipmentPackageRouteSeg = delegator.findByPrimaryKey("ShipmentPackageRouteSeg", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId, "shipmentPackageSeqId", shipmentPackageSeqId));
@@ -58,18 +58,18 @@ public class ShipmentEvents {
             request.setAttribute("_ERROR_MESSAGE_", errorMsg);
             return "error";
         }
-        
+ 
         if (shipmentPackageRouteSeg == null) {
             request.setAttribute("_ERROR_MESSAGE_", "Could not find ShipmentPackageRouteSeg where shipmentId=[" + shipmentId + "], shipmentRouteSegmentId=[" + shipmentRouteSegmentId + "], shipmentPackageSeqId=[" + shipmentPackageSeqId + "]");
             return "error";
         }
-        
+ 
         byte[] bytes = shipmentPackageRouteSeg.getBytes("labelImage");
         if (bytes == null || bytes.length == 0) {
             request.setAttribute("_ERROR_MESSAGE_", "The ShipmentPackageRouteSeg was found where shipmentId=[" + shipmentId + "], shipmentRouteSegmentId=[" + shipmentRouteSegmentId + "], shipmentPackageSeqId=[" + shipmentPackageSeqId + "], but there was no labelImage on the value.");
             return "error";
         }
-        
+ 
         // TODO: record the image format somehow to make this block nicer.  Right now we're just trying GIF first as a default, then if it doesn't work, trying PNG.
         // It would be nice to store the actual type of the image alongside the image data.
         try {
@@ -84,8 +84,8 @@ public class ShipmentEvents {
                 return "error";
             }
         }
-        
-        return "success";                                                
+ 
+        return "success";
     }
 
     public static String checkForceShipmentReceived(HttpServletRequest request, HttpServletResponse response) {

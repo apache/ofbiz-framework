@@ -52,7 +52,7 @@ public class InventoryItemTransferTest extends TestCase {
 
     protected void tearDown() throws Exception {
     }
-    
+ 
     public void testCreateInventoryItemsTransfer() throws Exception {
         Map<String, Object> ctx = FastMap.newInstance();
         String statusId = "IXF_REQUESTED";
@@ -68,7 +68,7 @@ public class InventoryItemTransferTest extends TestCase {
         inventoryTransferId = (String) resp.get("inventoryTransferId");
         assertNotNull(inventoryTransferId);
     }
-    
+ 
     public void testUpdateInventoryItemTransfer() throws Exception {
         Map<String, Object> ctx = FastMap.newInstance();
         String statusId = "IXF_COMPLETE";
@@ -81,4 +81,4 @@ public class InventoryItemTransferTest extends TestCase {
         String respMsg = (String) resp.get("responseMessage");
         assertNotSame("error", respMsg);
     }
-}       
+}

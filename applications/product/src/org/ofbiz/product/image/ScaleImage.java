@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -45,7 +45,7 @@ import org.ofbiz.common.image.ImageTransform;
 /**
  * ScaleImage Class
  * <p>
- * Scale the original image into 4 different size Types (small, medium, large, detail) 
+ * Scale the original image into 4 different size Types (small, medium, large, detail)
  */
 public class ScaleImage {
 
@@ -135,7 +135,7 @@ public class ScaleImage {
         if (resultBufImgMap.containsKey("responseMessage") && resultBufImgMap.get("responseMessage").equals("success")) {
             bufImg = (BufferedImage) resultBufImgMap.get("bufferedImage");
 
-            // get Dimensions    
+            // get Dimensions 
             imgHeight = (double) bufImg.getHeight();
             imgWidth = (double) bufImg.getWidth();
             if (imgHeight == 0.0 || imgWidth == 0.0) {
