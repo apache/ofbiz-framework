@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -114,7 +114,7 @@ public abstract class Security {
      * @return Returns true if the currently logged in userLogin has the specified permission, otherwise returns false.
      */
     public abstract boolean hasEntityPermission(String entity, String action, GenericValue userLogin);
-    
+ 
     /**
      * Like hasEntityPermission above, this checks the specified action, as well as for "_ADMIN" to allow for simplified
      * general administration permission, but also checks action_ROLE and validates the user is a member for the
@@ -123,10 +123,10 @@ public abstract class Security {
      * @param application The name of the application corresponding to the desired permission.
      * @param action The action on the application corresponding to the desired permission.
      * @param primaryKey The primary key for the role check.
-     * @param role The roleTypeId which the user must validate with. 
+     * @param role The roleTypeId which the user must validate with.
      * @param session The current HTTP session, contains the logged in userLogin as an attribute.
      * @return Returns true if the currently logged in userLogin has the specified permission, otherwise returns false.
-     */    
+     */
     public abstract boolean hasRolePermission(String application, String action, String primaryKey, String role, HttpSession session);
 
     /**
@@ -142,7 +142,7 @@ public abstract class Security {
      * @return Returns true if the currently logged in userLogin has the specified permission, otherwise returns false.
      */
     public abstract boolean hasRolePermission(String application, String action, String primaryKey, String role, GenericValue userLogin);
-        
+ 
     /**
      * Like hasEntityPermission above, this checks the specified action, as well as for "_ADMIN" to allow for simplified
      * general administration permission, but also checks action_ROLE and validates the user is a member for the
@@ -156,7 +156,7 @@ public abstract class Security {
      * @return Returns true if the currently logged in userLogin has the specified permission, otherwise returns false.
      */
     public abstract boolean hasRolePermission(String application, String action, String primaryKey, List<String> roles, GenericValue userLogin);
-    
+ 
     /**
      * Like hasEntityPermission above, this checks the specified action, as well as for "_ADMIN" to allow for simplified
      * general administration permission, but also checks action_ROLE and validates the user is a member for the
@@ -165,10 +165,10 @@ public abstract class Security {
      * @param application The name of the application corresponding to the desired permission.
      * @param action The action on the application corresponding to the desired permission.
      * @param primaryKey The primary key for the role check.
-     * @param roles List of roleTypeId of which the user must validate with (ORed). 
+     * @param roles List of roleTypeId of which the user must validate with (ORed).
      * @param session The current HTTP session, contains the logged in userLogin as an attribute.
      * @return Returns true if the currently logged in userLogin has the specified permission, otherwise returns false.
-     */    
+     */
     public abstract boolean hasRolePermission(String application, String action, String primaryKey, List<String> roles, HttpSession session);
-    
+ 
 }

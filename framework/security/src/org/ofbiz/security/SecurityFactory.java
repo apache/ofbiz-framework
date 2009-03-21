@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -35,10 +35,10 @@ import org.w3c.dom.Element;
  * If no customiz security name is given, the default implementation will be used (OFBizSecurity)
  */
 public class SecurityFactory {
-    
+ 
     public static final String module = SecurityFactory.class.getName();
     public static final String DEFAULT_SECURITY = "org.ofbiz.security.OFBizSecurity";
-    
+ 
     private static String securityName = null;
     private static Element rootElement = null;
     private static SecurityConfigUtil.SecurityInfo securityInfo = null;
