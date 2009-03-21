@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -42,13 +42,13 @@ public class FacilityServices {
 
     public static final String module = FacilityServices.class.getName();
 
-    public static Map findProductsById(DispatchContext dctx, Map context) {        
+    public static Map findProductsById(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         String facilityId = (String) context.get("facilityId");
         String idValue = (String) context.get("idValue");
         GenericValue product = null;
         List<GenericValue> productsFound = null;
-        
+ 
         try {
             productsFound = ProductWorker.findProductsById(delegator, idValue, null, false, true);
         } catch (GenericEntityException e) {
@@ -62,7 +62,7 @@ public class FacilityServices {
             result.put("productList", productsFound);
         }
         return result;
-    }    
+    }
 
     public static Map fixProductNegativeQOH(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
@@ -89,11 +89,11 @@ public class FacilityServices {
             GenericValue invItem = (GenericValue)invItemListIter.next();
             if ( invItem != null) {
                 int qoh = ((Double)invItem.get("quantityOnHandTotal")).intValue();
-                
+ 
                 if ( qoh < 0 ) {
                     // Got a negative qoh so lets balance if off to zero.
-                    Map contextInput = UtilMisc.toMap("userLogin", userLogin, "inventoryItemId", invItem.get("inventoryItemId"), 
-                            "varianceReasonId", "VAR_LOST", "availableToPromiseVar", new Double(qoh*-1), 
+                    Map contextInput = UtilMisc.toMap("userLogin", userLogin, "inventoryItemId", invItem.get("inventoryItemId"),
+                            "varianceReasonId", "VAR_LOST", "availableToPromiseVar", new Double(qoh*-1),
                             "quantityOnHandVar", new Double(qoh*-1), "comments", "QOH < 0 stocktake correction");
                     try {
                         dispatcher.runSync("createPhysicalInventoryAndVariance",contextInput);
@@ -166,7 +166,7 @@ public class FacilityServices {
         // Check if there is a request to change the locationSeqId
         GenericValue product = null;
         try {
-            Map resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", productId, 
+            Map resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", UtilMisc.toMap("productId", productId,
                     "facilityId", facilityId));
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
@@ -175,30 +175,30 @@ public class FacilityServices {
 
 /*
         try {
-            inventoryTransfer = delegator.findByPrimaryKey("InventoryTransfer", 
+            inventoryTransfer = delegator.findByPrimaryKey("InventoryTransfer",
                     UtilMisc.toMap("inventoryTransferId", inventoryTransferId));
             inventoryItem = inventoryTransfer.getRelatedOne("InventoryItem");
             destinationFacility = inventoryTransfer.getRelatedOne("ToFacility");
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Inventory Item/Transfer lookup problem [" + e.getMessage() + "]");
         }
-        
+ 
         if (inventoryTransfer == null || inventoryItem == null) {
             return ServiceUtil.returnError("ERROR: Lookup of InventoryTransfer and/or InventoryItem failed!");
         }
-            
+ 
         String inventoryType = inventoryItem.getString("inventoryItemTypeId");
-        
-        // set the fields on the transfer record            
+ 
+        // set the fields on the transfer record
         if (inventoryTransfer.get("receiveDate") == null) {
             inventoryTransfer.set("receiveDate", UtilDateTime.nowTimestamp());
         }
-            
-        if (inventoryType.equals("NON_SERIAL_INV_ITEM")) { 
+ 
+        if (inventoryType.equals("NON_SERIAL_INV_ITEM")) {
             // add an adjusting InventoryItemDetail so set ATP back to QOH: ATP = ATP + (QOH - ATP), diff = QOH - ATP
             double atp = inventoryItem.get("availableToPromiseTotal") == null ? 0 : inventoryItem.getDouble("availableToPromiseTotal").doubleValue();
             double qoh = inventoryItem.get("quantityOnHandTotal") == null ? 0 : inventoryItem.getDouble("quantityOnHandTotal").doubleValue();
-            Map createDetailMap = UtilMisc.toMap("availableToPromiseDiff", new Double(qoh - atp), 
+            Map createDetailMap = UtilMisc.toMap("availableToPromiseDiff", new Double(qoh - atp),
                     "inventoryItemId", inventoryItem.get("inventoryItemId"), "userLogin", userLogin);
             try {
                 Map result = dctx.getDispatcher().runSync("createInventoryItemDetail", createDetailMap);
@@ -223,8 +223,8 @@ public class FacilityServices {
                                                     "containerId", inventoryTransfer.get("containerIdTo"),
                                                     "locationSeqId", inventoryTransfer.get("locationSeqIdTo"),
                                                     "userLogin", userLogin);
-        // if the destination facility's owner is different 
-        // from the inventory item's ownwer, 
+        // if the destination facility's owner is different
+        // from the inventory item's ownwer,
         // the inventory item is assigned to the new owner.
         if (destinationFacility != null && destinationFacility.get("ownerPartyId") != null) {
             String fromPartyId = inventoryItem.getString("ownerPartyId");
@@ -244,7 +244,7 @@ public class FacilityServices {
 
         // set the inventory transfer record to complete
         inventoryTransfer.set("statusId", "IXF_COMPLETE");
-        
+ 
         // store the entities
         try {
             inventoryTransfer.store();
@@ -253,5 +253,5 @@ public class FacilityServices {
         }
          */
         return ServiceUtil.returnSuccess();
-    }    
+    }
 }
