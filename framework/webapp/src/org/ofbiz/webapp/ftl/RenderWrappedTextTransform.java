@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -36,8 +36,8 @@ import org.ofbiz.base.util.template.FreeMarkerWorker;
 public class RenderWrappedTextTransform implements  TemplateTransformModel {
 
     public static final String module = RenderWrappedTextTransform.class.getName();
-   
-    public Writer getWriter(final Writer out, Map args) {                      
+ 
+    public Writer getWriter(final Writer out, Map args) {
         final Environment env = Environment.getCurrentEnvironment();
         Map<String, Object> ctx = checkMap(FreeMarkerWorker.getWrappedObject("context", env), String.class, Object.class);
         final String wrappedFTL = FreeMarkerWorker.getArg(checkMap(args, String.class, Object.class), "wrappedFTL", ctx);
@@ -51,7 +51,7 @@ public class RenderWrappedTextTransform implements  TemplateTransformModel {
                 out.flush();
             }
 
-            public void close() throws IOException {  
+            public void close() throws IOException {
                 if (UtilValidate.isNotEmpty(wrappedFTL)) {
                         out.write(wrappedFTL);
                 } else {

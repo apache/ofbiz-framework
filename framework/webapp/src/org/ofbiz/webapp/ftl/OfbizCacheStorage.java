@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,23 +28,23 @@ import org.ofbiz.base.util.cache.UtilCache;
 public class OfbizCacheStorage implements CacheStorage {
     //can't have global cache because names/keys are relative to the webapp
     protected final UtilCache<Object, Object> localCache;
-    
+ 
     public OfbizCacheStorage(String id) {
         this.localCache = new UtilCache<Object, Object>("webapp.FreeMarkerCache." + id, 0, 0, false);
     }
-    
+ 
     public Object get(Object key) {
         return localCache.get(key);
     }
-    
+ 
     public void put(Object key, Object value) {
         localCache.put(key, value);
     }
-    
+ 
     public void remove(Object key) {
         localCache.remove(key);
     }
-    
+ 
     public void clear() {
         localCache.clear();
     }

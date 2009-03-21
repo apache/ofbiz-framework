@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -82,7 +82,7 @@ public class ControlServlet extends HttpServlet {
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long requestStartTime = System.currentTimeMillis();
-        RequestHandler requestHandler = this.getRequestHandler(); 
+        RequestHandler requestHandler = this.getRequestHandler();
         HttpSession session = request.getSession();
 
         // setup DEFAULT chararcter encoding and content type, this will be overridden in the RequestHandler for view rendering
@@ -111,7 +111,7 @@ public class ControlServlet extends HttpServlet {
         if (userLogin != null) {
             GenericDelegator.pushUserIdentifier(userLogin.getString("userLoginId"));
         }
-        
+ 
         // workaraound if we are in the root webapp
         String webappName = UtilHttp.getApplicationName(request);
 
@@ -174,7 +174,7 @@ public class ControlServlet extends HttpServlet {
             Debug.logError("[ControlServlet] ERROR: security not found in ServletContext", module);
         }
         request.setAttribute("security", security);
-        
+ 
         request.setAttribute("_REQUEST_HANDLER_", requestHandler);
 
         // setup some things that should always be there
@@ -223,7 +223,7 @@ public class ControlServlet extends HttpServlet {
             if (request.getAttribute("_ERROR_OCCURRED_") == null && rd != null) {
                 request.setAttribute("_ERROR_OCCURRED_", Boolean.TRUE);
                 Debug.logError("Including errorPage: " + errorPage, module);
-                
+ 
                 // NOTE DEJ20070727 after having trouble with all of these, try to get the page out and as a last resort just send something back
                 try {
                     rd.include(request, response);

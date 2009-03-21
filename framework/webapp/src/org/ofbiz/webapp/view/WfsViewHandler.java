@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -49,10 +49,10 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 /**
- * WfsViewHandler - View Handler 
+ * WfsViewHandler - View Handler
  */
 public class WfsViewHandler extends AbstractViewHandler {
-    
+ 
     public static final String module = WfsViewHandler.class.getName();
     public static final String FormatTemplateUrl ="component://webapp/script/org/ofbiz/webapp/event/formatWfs.ftl";
 
@@ -74,7 +74,7 @@ public class WfsViewHandler extends AbstractViewHandler {
         if (Debug.infoOn()) Debug.logInfo("Retreiving HTTP resource at: " + page, module);
         try {
             String result = null;
-            
+ 
             List entityList = (List)request.getAttribute("entityList");
             SimpleSequence simpleList = new SimpleSequence(entityList);
             Map<String, Object> ctx = FastMap.newInstance();
@@ -96,8 +96,8 @@ public class WfsViewHandler extends AbstractViewHandler {
             throw new ViewHandlerException(e.getMessage(), e);
         }
     }
-    
-    public static Template getDocTemplate(String fileUrl)  throws FileNotFoundException, IOException, TemplateException, URISyntaxException { 
+ 
+    public static Template getDocTemplate(String fileUrl)  throws FileNotFoundException, IOException, TemplateException, URISyntaxException {
         Template template = null;
         URL screenFileUrl = FlexibleLocation.resolveLocation(fileUrl, null);
         String urlStr = screenFileUrl.toString();
@@ -110,7 +110,7 @@ public class WfsViewHandler extends AbstractViewHandler {
     }
 
     public static Configuration makeDefaultOfbizConfig() throws TemplateException, IOException {
-        Configuration config = new Configuration();            
+        Configuration config = new Configuration();
         config.setObjectWrapper(BeansWrapper.getDefaultInstance());
         config.setSetting("datetime_format", "yyyy-MM-dd HH:mm:ss.SSS");
         Configuration defaultOfbizConfig = config;

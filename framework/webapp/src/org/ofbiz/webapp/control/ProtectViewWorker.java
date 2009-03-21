@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -41,13 +41,13 @@ import org.ofbiz.service.ServiceUtil;
  * Common Workers
  */
 public class ProtectViewWorker {
-    
+ 
     private final static String module = ProtectViewWorker.class.getName();
-    private static final String resourceWebapp = "WebappUiLabels";    
+    private static final String resourceWebapp = "WebappUiLabels";
     private static final FastMap<String, Long> hitsByViewAccessed = FastMap.newInstance();
     private static final FastMap<String, Long> durationByViewAccessed = FastMap.newInstance();
     private static final Long one = new Long(1);
-  
+ 
     /**
      * An HTTP WebEvent handler that checks to see if an userLogin should be tarpitted
      * The decision is made in regard of number of hits in last period of time
@@ -62,18 +62,18 @@ public class ProtectViewWorker {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         String  returnValue = "success";
-                
-        if (userLogin != null) {            
-            String userLoginId = userLogin.getString("userLoginId");            
+ 
+        if (userLogin != null) {
+            String userLoginId = userLogin.getString("userLoginId");
             try {
-                List<GenericValue> protectedViews = delegator.findByAnd("UserLoginAndProtectedView", 
+                List<GenericValue> protectedViews = delegator.findByAnd("UserLoginAndProtectedView",
                         UtilMisc.toMap("userLoginId", userLoginId, "viewNameId", viewNameId));
                 // Any views to deal with ?
                 if (UtilValidate.isNotEmpty(protectedViews)) {
                     Long now = System.currentTimeMillis(); // we are not in a margin of some milliseconds 
-                    
+ 
                     // Is this login/view couple already tarpitted ? (ie denied access to view for login for a period of time)
-                    List<GenericValue> tarpittedLoginViews = delegator.findByAnd("TarpittedLoginView", 
+                    List<GenericValue> tarpittedLoginViews = delegator.findByAnd("TarpittedLoginView",
                             UtilMisc.toMap("userLoginId", userLoginId, "viewNameId", viewNameId));
                     if (UtilValidate.isNotEmpty(tarpittedLoginViews)) {
                         GenericValue tarpittedLoginView = tarpittedLoginViews.get(0);
@@ -82,16 +82,16 @@ public class ProtectViewWorker {
                             String tarpittedMessage = UtilProperties.getMessage(resourceWebapp, "protectedviewevents.tarpitted_message", UtilHttp.getLocale(request));
                             // reset since now protected by the tarpit duration
                             hitsByViewAccessed.put(viewNameId, new Long(0));
-                            return ":_protect_:" + tarpittedMessage;                            
+                            return ":_protect_:" + tarpittedMessage;
                         }
                     }
                     GenericValue protectedView = protectedViews.get(0);
                     // 1st hit ?
                     if (UtilValidate.isEmpty(hitsByViewAccessed.get(viewNameId))) {
                         hitsByViewAccessed.put(viewNameId, one);
-                        Long maxHitsDuration = (Long) protectedView.get("maxHitsDuration") * 1000; 
+                        Long maxHitsDuration = (Long) protectedView.get("maxHitsDuration") * 1000;
                         durationByViewAccessed.put(viewNameId, now + maxHitsDuration);
-                    } else {  
+                    } else {
                         Long maxHits = protectedView.getLong("maxHits");
                         Long maxDuration = (Long) durationByViewAccessed.get(viewNameId);
                         Long newMaxHits = (Long) hitsByViewAccessed.get(viewNameId) + one;
@@ -102,9 +102,9 @@ public class ProtectViewWorker {
                             if (newMaxHits > maxHits) { // yes : block and set tarpitReleaseDateTime
                                 String blockedMessage = UtilProperties.getMessage(resourceWebapp, "protectedviewevents.blocked_message", UtilHttp.getLocale(request));
                                 returnValue = ":_protect_:" + blockedMessage;
-                                
+ 
                                 Long tarpitDuration = (Long) protectedView.get("tarpitDuration") * 1000;
-                                
+ 
                                 GenericValue tarpittedLoginView = delegator.makeValue("TarpittedLoginView");
                                 tarpittedLoginView.set("userLoginId", userLoginId);
                                 tarpittedLoginView.set("viewNameId", viewNameId);
@@ -120,12 +120,12 @@ public class ProtectViewWorker {
                             // The period of time is revolved, we begin a new one.
                             // Actually it's not a discrete process but we do as it was...
                             // We don't need precision here, a theft will be catch anyway !
-                            // We could also take an average of hits in the last x periods of time as initial value, 
+                            // We could also take an average of hits in the last x periods of time as initial value,
                             // but it would does not make much more sense.
                             // Of course for this to works well the tarpitting period must be long enough...
                             hitsByViewAccessed.put(viewNameId, one);
-                            Long maxHitsDuration = (Long) protectedView.get("maxHitsDuration") * 1000; 
-                            durationByViewAccessed.put(viewNameId, now + maxHitsDuration);                                
+                            Long maxHitsDuration = (Long) protectedView.get("maxHitsDuration") * 1000;
+                            durationByViewAccessed.put(viewNameId, now + maxHitsDuration);
                         }
                     }
                 }
@@ -133,9 +133,9 @@ public class ProtectViewWorker {
                 Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
                 String errMsg = UtilProperties.getMessage("CommonUiLabels", "CommonDatabaseProblem", messageMap, UtilHttp.getLocale(request));
                 Debug.logError(e, errMsg, module);
-            }            
+            }
         }
-                
+ 
         return returnValue;
-    }            
+    }
 }

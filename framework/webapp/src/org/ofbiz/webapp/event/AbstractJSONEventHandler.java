@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -48,14 +48,14 @@ public abstract class AbstractJSONEventHandler implements EventHandler {
         String respCode = service.invoke(event, requestMap, request, response);
         // pull out the service response from the request attribute
         Map<String, Object> attrMap = UtilHttp.getJSONAttributeMap(request);
-            
+ 
         // create a JSON Object for return
-        JSONObject json = JSONObject.fromObject(attrMap); 
+        JSONObject json = JSONObject.fromObject(attrMap);
         String jsonStr = json.toString();
         if (jsonStr == null) {
             throw new EventHandlerException("JSON Object was empty; fatal error!");
         }
-            
+ 
         // set the X-JSON content type
         response.setContentType("application/x-json");
         // jsonStr.length is not reliable for unicode characters 
@@ -64,7 +64,7 @@ public abstract class AbstractJSONEventHandler implements EventHandler {
         } catch (UnsupportedEncodingException e) {
             throw new EventHandlerException("Problems with Json encoding", e);
         }
-           
+ 
         // return the JSON String
         Writer out;
         try {

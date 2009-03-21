@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -134,7 +134,7 @@ public class ServiceEventHandler implements EventHandler {
             Debug.logError(e, "Unable to obtain the max upload size from general.properties; using default -1", module);
             maxUploadSize = -1;
         }
-        // get the http size threshold configuration - files bigger than this will be 
+        // get the http size threshold configuration - files bigger than this will be
         // temporarly stored on disk during upload
         String sizeThresholdStr = UtilProperties.getPropertyValue("general.properties", "http.upload.max.sizethreshold", "10240");
         int sizeThreshold = 10240; // 10K
@@ -274,10 +274,10 @@ public class ServiceEventHandler implements EventHandler {
                         // NOTTODO: may want to allow parameters that map to entity PK fields to be in the URL, but that might be a big security hole since there are certain security sensitive entities that are made of only PK fields, or that only need PK fields to function (like UserLoginSecurityGroup)
                         // NOTTODO: we could allow URL parameters when it is not a POST (ie when !request.getMethod().equalsIgnoreCase("POST")), but that would open a security hole where sensitive parameters can be passed on the URL in a GET/etc and bypass this security constraint
                     }
-                    
+ 
                     // use the rawParametersMap from UtilHttp in order to also get pathInfo parameters, do canonicalization, etc
                     value = rawParametersMap.get(name);
-                    
+ 
                     // make any composite parameter data (e.g., from a set of parameters {name_c_date, name_c_hour, name_c_minutes})
                     if (value == null) {
                         value = UtilHttp.makeParamValueFromComposite(request, name, locale);

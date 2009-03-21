@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -29,9 +29,9 @@ import org.ofbiz.base.util.UtilJ2eeCompat;
  * ordered list of arguments to use with java.text.MessageFormat.
  */
 public class I18nMessageArgumentTag extends TagSupport {
-    
+ 
     public static final String module = I18nMessageArgumentTag.class.getName();
-    
+ 
     public void setValue(Object argumentValue) throws JspException {
         try {
             I18nMessageTag messageTag = (I18nMessageTag) this.getParent();

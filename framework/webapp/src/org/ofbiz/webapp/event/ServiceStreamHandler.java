@@ -56,7 +56,7 @@ public class ServiceStreamHandler implements EventHandler {
         this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
     }
 
-    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {        
+    public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         InputStream in;
         try {
             in = request.getInputStream();
@@ -75,7 +75,7 @@ public class ServiceStreamHandler implements EventHandler {
         context.put("outputStream", out);
 
         if (Debug.infoOn()) Debug.logInfo("Running service with context: " + context, module);
-        
+ 
         Map<String, Object> resp;
         try {
             resp = dispatcher.runSync(event.invoke, context);
@@ -100,7 +100,7 @@ public class ServiceStreamHandler implements EventHandler {
                 throw new EventHandlerException(ServiceUtil.getErrorMessage(resp));
             }
         }
-        
+ 
         return null;
     }
 

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -76,7 +76,7 @@ public class FreeMarkerViewRenderer extends org.jpublish.view.freemarker.FreeMar
                 }
             }
             root.put("context", wrapper.wrap(contextMap));
-            root.put("cachedInclude", new JpCacheIncludeTransform()); // only adding this in for JP! 
+            root.put("cachedInclude", new JpCacheIncludeTransform()); // only adding this in for JP!
             //root.put("jpublishContext", wrapper.wrap(context));
             FreeMarkerViewHandler.prepOfbizRoot(root, request, response);
         } catch (Exception e) {
@@ -94,7 +94,7 @@ public class FreeMarkerViewRenderer extends org.jpublish.view.freemarker.FreeMar
             template.setObjectWrapper(BeansWrapper.getDefaultInstance());
 
             /* NEVER add content to the beginning of templates; this effects XML processing which requires the
-               first line remain intact.                 
+               first line remain intact.
             boolean showTemplateId = UtilProperties.propertyValueEquals("content", "freemarker.showTemplateId", "Y");
             String templateIdPrefix = UtilProperties.getPropertyValue("content", "freemarker.templateIdPrefix", "[system]");
             if (showTemplateId) {

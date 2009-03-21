@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -32,7 +32,7 @@ import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 
 /**
- * A section is content with a name that implements Content.render. 
+ * A section is content with a name that implements Content.render.
  * <p>That method renders content either by including
  * it or by printing it directly, depending upon the direct
  * value passed to the Section constructor.</p>
@@ -45,7 +45,7 @@ public class Section extends Content {
     protected final String name;
     protected final String info;
     protected RegionManager regionManager;
-    
+ 
     public final static String module = Section.class.getName();
 
     public Section(String name, String info, String content, String type, RegionManager regionManager) {
@@ -125,7 +125,7 @@ public class Section extends Content {
                             try {
                                 contentStr = jp.render(content, request, response);
                             } catch (GeneralException e) {
-                                Debug.logError(e, "Problems rendering view from JPublish", module);                                
+                                Debug.logError(e, "Problems rendering view from JPublish", module);
                             }
                             if (UtilJ2eeCompat.useOutputStreamNotWriter(context)) {
                                 response.getOutputStream().print(contentStr);

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -53,7 +53,7 @@ public class ApacheFopWorker {
      * <code>org.ofbiz.webapp.view.ApacheFopWorker-</code>.
      */
     public static final String tempFilePrefix = "org.ofbiz.webapp.view.ApacheFopWorker-";
-    
+ 
     protected static FopFactory fopFactory = null;
 
     /** Returns an instance of the FopFactory class. FOP documentation recommends
@@ -90,7 +90,7 @@ public class ApacheFopWorker {
         }
         return fopFactory;
     }
-    
+ 
     /** Transform an xsl-fo file to the specified file format.
      * @param srcFile The xsl-fo File instance
      * @param destFile The target (result) File instance
@@ -152,7 +152,7 @@ public class ApacheFopWorker {
             throw new FOPException(e);
         }
     }
-    
+ 
     /** Returns a new Fop instance. Note: FOP documentation recommends using
      * a Fop instance for one transform run only.
      * @param out The target (result) OutputStream instance
@@ -173,7 +173,7 @@ public class ApacheFopWorker {
         }
         return fop;
     }
-    
+ 
     /** Returns a temporary File instance. The temporary file name starts with
      * <a href="#tempFilePrefix">tempFilePrefix</a> and ends with ".xml".
      * Calling methods are responsible for deleting the temporary file.<p>
@@ -209,7 +209,7 @@ public class ApacheFopWorker {
         private URIResolver defaultResolver;
 
         protected LocalResolver() {}
-        
+ 
         public LocalResolver(URIResolver defaultResolver) {
             this.defaultResolver = defaultResolver;
         }

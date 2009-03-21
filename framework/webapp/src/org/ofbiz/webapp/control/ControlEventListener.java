@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -65,12 +65,12 @@ public class ControlEventListener implements HttpSessionListener {
 
     public void sessionDestroyed(HttpSessionEvent event) {
         HttpSession session = event.getSession();
-        
+ 
         // Finalize the Visit
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
-        
+ 
             // instead of using this message, get directly from session attribute so it won't create a new one: GenericValue visit = VisitHandler.getVisit(session);
             GenericValue visit = (GenericValue) session.getAttribute("visit");
             if (visit != null) {
@@ -88,7 +88,7 @@ public class ControlEventListener implements HttpSessionListener {
                 userLoginSession = userLogin.getRelatedOne("UserLoginSession");
 
                 if (userLoginSession == null) {
-                    userLoginSession = userLogin.getDelegator().makeValue("UserLoginSession", 
+                    userLoginSession = userLogin.getDelegator().makeValue("UserLoginSession",
                             UtilMisc.toMap("userLoginId", userLogin.getString("userLoginId")));
                     userLogin.getDelegator().create(userLoginSession);
                 }

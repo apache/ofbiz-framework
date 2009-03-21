@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -34,13 +34,13 @@ import org.ofbiz.webapp.control.RequestHandler;
  * ViewFactory - View Handler Factory
  */
 public class ViewFactory {
-    
+ 
     public static final String module = ViewFactory.class.getName();
 
     protected RequestHandler requestHandler = null;
     protected ServletContext context = null;
     protected Map<String, ViewHandler> handlers = null;
-    
+ 
     public ViewFactory(RequestHandler requestHandler) {
         this.handlers = FastMap.newInstance();
         this.requestHandler = requestHandler;
@@ -79,12 +79,12 @@ public class ViewFactory {
         if (type == null || type.length() == 0) {
             type = "default";
         }
-                            
+ 
         // check if we are new / empty and add the default handler in
-        if (handlers.size() == 0) {            
+        if (handlers.size() == 0) {
             this.preLoadAll();
         }
-        
+ 
         // get the view handler by type from the contextHandlers 
         ViewHandler handler = handlers.get(type);
 
@@ -99,7 +99,7 @@ public class ViewFactory {
             }
             if (handler == null) {
                 throw new ViewHandlerException("No handler found for type: " + type);
-            }                               
+            }
         }
         return handler;
     }

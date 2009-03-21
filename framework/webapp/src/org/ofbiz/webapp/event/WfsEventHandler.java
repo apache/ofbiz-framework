@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -63,7 +63,7 @@ import freemarker.template.TemplateException;
 public class WfsEventHandler implements EventHandler {
 
     public static final String module = WfsEventHandler.class.getName();
-    
+ 
     public static final String InputTemplateUrl ="component://webapp/script/org/ofbiz/webapp/event/processWfs.ftl";
 
     /**
@@ -71,7 +71,7 @@ public class WfsEventHandler implements EventHandler {
      */
     public void init(ServletContext context) throws EventHandlerException {
     }
-    
+ 
     /** Invoke the web event
      *@param eventPath The path or location of this event
      *@param eventMethod The method to invoke
@@ -103,7 +103,7 @@ public class WfsEventHandler implements EventHandler {
             // Take "ogc:filter" element and transform it to a Simple Method query script
             String inputTmplUrl = UtilProperties.getPropertyValue("wfs", "input.template.path", WfsEventHandler.InputTemplateUrl);
             String xmlScript = processWfsEntity(typeName, queryElem, inputTmplUrl);
-            
+ 
             // run simple method script to get a list of entities
             Document simpleDoc = UtilXml.readXmlDocument(xmlScript);
             Element simpleElem = simpleDoc.getDocumentElement();
@@ -112,7 +112,7 @@ public class WfsEventHandler implements EventHandler {
             String retStr = meth.exec(methodContext); //Need to check return string
             List entityList = (List) request.getAttribute("entityList");
             request.setAttribute("entityList", entityList);
-            
+ 
         } catch (TemplateException ioe) {
             sendError(response, "Problem handling event");
             throw new EventHandlerException("Problem processing template", ioe);
@@ -143,7 +143,7 @@ public class WfsEventHandler implements EventHandler {
         try {
 //            res.setContentType(msg.getContentType(Constants.DEFAULT_WFS_VERSION));
 //            res.setContentLength(Integer.parseInt(Long.toString(msg.getContentLength())));
-//            msg.writeTo(res.getOutputStream());                        
+//            msg.writeTo(res.getOutputStream());
 //            res.flushBuffer();
         } catch (Exception e) {
             throw new EventHandlerException(e.getMessage(), e);
@@ -170,7 +170,7 @@ public class WfsEventHandler implements EventHandler {
 //        uri.append(reqInfo);
         return uri.toString();
     }
-    
+ 
     public static String processWfsEntity(String entityName, Node domNode, String templatePath) throws TemplateException, FileNotFoundException, IOException, URISyntaxException {
         String result = null;
         NodeModel nodeModel = NodeModel.wrap(domNode);
@@ -185,7 +185,7 @@ public class WfsEventHandler implements EventHandler {
         return result;
     }
 
-    public static Template getDocTemplate(String fileUrl)  throws FileNotFoundException, IOException, TemplateException, URISyntaxException { 
+    public static Template getDocTemplate(String fileUrl)  throws FileNotFoundException, IOException, TemplateException, URISyntaxException {
         Template template = null;
         URL screenFileUrl = FlexibleLocation.resolveLocation(fileUrl, null);
         String urlStr = screenFileUrl.toString();
@@ -198,7 +198,7 @@ public class WfsEventHandler implements EventHandler {
     }
 
     public static Configuration makeDefaultOfbizConfig() throws TemplateException, IOException {
-        Configuration config = new Configuration();            
+        Configuration config = new Configuration();
         config.setObjectWrapper(BeansWrapper.getDefaultInstance());
         config.setSetting("datetime_format", "yyyy-MM-dd HH:mm:ss.SSS");
         Configuration defaultOfbizConfig = config;

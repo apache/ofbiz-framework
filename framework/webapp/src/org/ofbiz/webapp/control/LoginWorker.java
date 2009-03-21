@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -70,7 +70,7 @@ import org.ofbiz.webapp.stats.VisitHandler;
  * Common Workers
  */
 public class LoginWorker {
-    
+ 
     public final static String module = LoginWorker.class.getName();
     public static final String resourceWebapp = "SecurityextUiLabels";
 
@@ -79,7 +79,7 @@ public class LoginWorker {
 
     /** This Map is keyed by the randomly generated externalLoginKey and the value is a UserLogin GenericValue object */
     public static Map<String, GenericValue> externalLoginKeys = FastMap.newInstance();
-    
+ 
     public static StringWrapper makeLoginUrl(PageContext pageContext) {
         return makeLoginUrl(pageContext, "checkLogin");
     }
@@ -87,7 +87,7 @@ public class LoginWorker {
     public static StringWrapper makeLoginUrl(HttpServletRequest request) {
         return makeLoginUrl(request, "checkLogin");
     }
-    
+ 
     public static StringWrapper makeLoginUrl(PageContext pageContext, String requestName) {
         return makeLoginUrl((HttpServletRequest) pageContext.getRequest(), requestName);
     }
@@ -109,7 +109,7 @@ public class LoginWorker {
 
         return StringUtil.wrapString(loginUrl);
     }
-    
+ 
     /**
      * Gets (and creates if necessary) a key to be used for an external login parameter
      */
@@ -154,7 +154,7 @@ public class LoginWorker {
         if (UtilValidate.isEmpty(userLoginId)) {
             Debug.logWarning("Called setLogged out with empty userLoginId", module);
         }
-        
+ 
         Transaction parentTx = null;
         boolean beganTransaction = false;
 
@@ -254,12 +254,12 @@ public class LoginWorker {
             // in this condition log them in if not already; if not logged in or can't log in, save parameters and return error
             if ((username == null) || (password == null) || ("error".equals(login(request, response)))) {
 
-                // make sure this attribute is not in the request; this avoids infinite recursion when a login by less stringent criteria (like not checkout the hasLoggedOut field) passes; this is not a normal circumstance but can happen with custom code or in funny error situations when the userLogin service gets the userLogin object but runs into another problem and fails to return an error 
+                // make sure this attribute is not in the request; this avoids infinite recursion when a login by less stringent criteria (like not checkout the hasLoggedOut field) passes; this is not a normal circumstance but can happen with custom code or in funny error situations when the userLogin service gets the userLogin object but runs into another problem and fails to return an error
                 request.removeAttribute("_LOGIN_PASSED_");
-                
+ 
                 // keep the previous request name in the session
                 session.setAttribute("_PREVIOUS_REQUEST_", request.getPathInfo());
-                
+ 
                 // NOTE: not using the old _PREVIOUS_PARAMS_ attribute at all because it was a security hole as it was used to put data in the URL (never encrypted) that was originally in a form field that may have been encrypted
                 // keep 2 maps: one for URL parameters and one for form parameters
                 Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
@@ -290,7 +290,7 @@ public class LoginWorker {
      */
     public static String login(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        
+ 
         if (session.getAttribute("userLogin") != null) {
             // already logged in, do nothing...
             return "success";
@@ -301,7 +301,7 @@ public class LoginWorker {
 
         if (username == null) username = (String) session.getAttribute("USERNAME");
         if (password == null) password = (String) session.getAttribute("PASSWORD");
-        
+ 
         // allow a username and/or password in a request attribute to override the request parameter or the session attribute; this way a preprocessor can play with these a bit...
         if (UtilValidate.isNotEmpty((String) request.getAttribute("USERNAME"))) {
             username = (String) request.getAttribute("USERNAME");
@@ -321,7 +321,7 @@ public class LoginWorker {
             request.setAttribute("_ERROR_MESSAGE_LIST_", unpwErrMsgList);
             return "error";
         }
-        
+ 
 
         if ((username != null) && ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "username.lowercase")))) {
             username = username.toLowerCase();
@@ -644,7 +644,7 @@ public class LoginWorker {
         // Shouldn't be here if all went well
         return "error";
     }
-    
+ 
     // preprocessor method to login a user from a HTTP request header (configured in security.properties)
     public static String checkRequestHeaderLogin(HttpServletRequest request, HttpServletResponse response) {
         String httpHeader = UtilProperties.getPropertyValue("security.properties", "security.login.http.header", null);

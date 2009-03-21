@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -33,24 +33,24 @@ import freemarker.template.TemplateScalarModel;
  * SetRequestAttributeMethod - Freemarker Method for setting request attributes
  */
 public class SetRequestAttributeMethod implements TemplateMethodModelEx {
-        
-    public static final String module = SetRequestAttributeMethod.class.getName();        
+ 
+    public static final String module = SetRequestAttributeMethod.class.getName();
 
-    /* 
+    /*
      * @see freemarker.template.TemplateMethodModel#exec(java.util.List)
      */
     public Object exec(List args) throws TemplateModelException {
         if (args == null || args.size() != 2)
-            throw new TemplateModelException("Invalid number of arguements");  
-        if (!(args.get(0) instanceof TemplateScalarModel))    
+            throw new TemplateModelException("Invalid number of arguements");
+        if (!(args.get(0) instanceof TemplateScalarModel))
             throw new TemplateModelException("First argument not an instance of TemplateScalarModel");
-        if (!(args.get(1) instanceof BeanModel) && !(args.get(1) instanceof TemplateNumberModel) && !(args.get(1) instanceof TemplateScalarModel)) 
+        if (!(args.get(1) instanceof BeanModel) && !(args.get(1) instanceof TemplateNumberModel) && !(args.get(1) instanceof TemplateScalarModel))
             throw new TemplateModelException("Second argument not an instance of BeanModel nor TemplateNumberModel nor TemplateScalarModel");
-                          
+ 
         Environment env = Environment.getCurrentEnvironment();
         BeanModel req = (BeanModel)env.getVariable("request");
         HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
-        
+ 
         String name = ((TemplateScalarModel) args.get(0)).getAsString();
         Object value = null;
         if (args.get(1) instanceof TemplateScalarModel)
@@ -58,9 +58,9 @@ public class SetRequestAttributeMethod implements TemplateMethodModelEx {
         if (args.get(1) instanceof TemplateNumberModel)
             value = ((TemplateNumberModel) args.get(1)).getAsNumber();
         if (args.get(1) instanceof BeanModel)
-            value = ((BeanModel) args.get(1)).getWrappedObject();        
-                       
-        request.setAttribute(name, value);               
+            value = ((BeanModel) args.get(1)).getWrappedObject();
+ 
+        request.setAttribute(name, value);
         return new SimpleScalar("");
     }
 

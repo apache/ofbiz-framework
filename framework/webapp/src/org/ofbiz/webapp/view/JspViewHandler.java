@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -33,7 +33,7 @@ import org.ofbiz.webapp.control.ContextFilter;
  * JspViewHandler - Java Server Pages View Handler
  */
 public class JspViewHandler extends AbstractViewHandler {
-    
+ 
     public static final String module = JspViewHandler.class.getName();
 
     protected ServletContext context;
@@ -59,7 +59,7 @@ public class JspViewHandler extends AbstractViewHandler {
         // tell the ContextFilter we are forwarding
         request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, Boolean.TRUE);
         RequestDispatcher rd = request.getRequestDispatcher(page);
-        
+ 
         if (rd == null) {
             Debug.logInfo("HttpServletRequest.getRequestDispatcher() failed; trying ServletContext", module);
             rd = context.getRequestDispatcher(page);

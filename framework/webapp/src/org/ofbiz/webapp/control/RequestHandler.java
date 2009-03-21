@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -71,7 +71,7 @@ public class RequestHandler {
         if (rh == null) {
             rh = new RequestHandler();
             servletContext.setAttribute("_REQUEST_HANDLER_", rh);
-            rh.init(servletContext);            
+            rh.init(servletContext);
         }
         return rh;
     }
@@ -91,7 +91,7 @@ public class RequestHandler {
         this.viewFactory = new ViewFactory(this);
         this.eventFactory = new EventFactory(this);
     }
-    
+ 
     public ConfigXMLReader.ControllerConfig getControllerConfig() {
         return ConfigXMLReader.getControllerConfig(this.controllerConfigURL);
     }
@@ -107,7 +107,7 @@ public class RequestHandler {
             GenericValue userLogin, GenericDelegator delegator) throws RequestHandlerException {
 
         HttpSession session = request.getSession();
-        
+ 
         // get the controllerConfig once for this method so we don't have to get it over and over inside the method
         ConfigXMLReader.ControllerConfig controllerConfig = this.getControllerConfig();
 
@@ -123,9 +123,9 @@ public class RequestHandler {
                 request.setAttribute("targetRequestUri", "/" + defaultRequestUri);
             }
         }
-        
+ 
         String overrideViewUri = RequestHandler.getOverrideViewUri(request.getPathInfo());
-        
+ 
         String requestMissingErrorMessage = "Unknown request [" + defaultRequestUri + "]; this request does not exist or cannot be called directly.";
         ConfigXMLReader.RequestMap requestMap = null;
         if (defaultRequestUri != null) {
@@ -157,7 +157,7 @@ public class RequestHandler {
             // Check if X509 is required and we are not secure; throw exception
             if (!request.isSecure() && requestMap.securityCert) {
                 throw new RequestHandlerException(requestMissingErrorMessage);
-            }            
+            }
 
             // Check to make sure we are allowed to access this request directly. (Also checks if this request is defined.)
             // If the request cannot be called, or is not defined, check and see if there is a default-request we an process
@@ -192,9 +192,9 @@ public class RequestHandler {
                     }
                 }
             }
-            
+ 
             // Check for HTTPS client (x.509) security
-            if (request.isSecure() && requestMap.securityCert) {            
+            if (request.isSecure() && requestMap.securityCert) {
                 X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate"); // 2.2 spec
                 if (clientCerts == null) {
                     clientCerts = (X509Certificate[]) request.getAttribute("javax.net.ssl.peer_certificates"); // 2.1 spec
@@ -214,7 +214,7 @@ public class RequestHandler {
                             Debug.logInfo(clientCerts[i].getSubjectX500Principal().getName(), module);
                         }
                     }
-                   
+ 
                     // check if this is a trusted cert
                     if (SSLUtil.isClientTrusted(clientCerts, null)) {
                         foundTrustedCert = true;
@@ -256,7 +256,7 @@ public class RequestHandler {
                     if (returnString != null && !returnString.equalsIgnoreCase("success")) {
                         if (!returnString.contains(":_protect_:")) {
                             throw new EventHandlerException("Pre-Processor event did not return 'success'.");
-                        } else { // protect the view normally rendered and redirect to error response view 
+                        } else { // protect the view normally rendered and redirect to error response view
                             returnString = returnString.replace(":_protect_:", "");
                             if (returnString.length() > 0) {
                                 request.setAttribute("_ERROR_MESSAGE_", returnString);
@@ -269,7 +269,7 @@ public class RequestHandler {
                                 } else {
                                     overrideViewUri = UtilProperties.getPropertyValue("security.properties", "default.error.response.view");
                                 }
-                            }                
+                            }
                         }
                     } else if (returnString == null) {
                         interruptRequest = true;
@@ -289,7 +289,7 @@ public class RequestHandler {
 
         if (Debug.verboseOn()) Debug.logVerbose("[Processing Request]: " + requestMap.uri + " sessionId=" + UtilHttp.getSessionId(request), module);
         request.setAttribute("thisRequestUri", requestMap.uri); // store the actual request URI
-        
+ 
 
         // Perform security check.
         if (requestMap.securityAuth) {
@@ -310,7 +310,7 @@ public class RequestHandler {
                 requestMap = controllerConfig.requestMapMap.get("checkLogin");
             }
         }
-        
+ 
         // after security check but before running the event, see if a post-login redirect has completed and we have data from the pre-login request form to use now
         // we know this is the case if the _PREVIOUS_PARAM_MAP_ attribute is there, but the _PREVIOUS_REQUEST_ attribute has already been removed
         if (request.getSession().getAttribute("_PREVIOUS_PARAM_MAP_FORM_") != null && request.getSession().getAttribute("_PREVIOUS_REQUEST_") == null) {
@@ -325,7 +325,7 @@ public class RequestHandler {
 
         // now we can start looking for the next request response to use
         ConfigXMLReader.RequestResponse nextRequestResponse = null;
-        
+ 
         // Invoke the defined event (unless login failed)
         if (eventReturn == null && requestMap.event != null) {
             if (requestMap.event.type != null && requestMap.event.path != null && requestMap.event.invoke != null) {
@@ -358,7 +358,7 @@ public class RequestHandler {
                 }
             }
         }
-        
+ 
         // Process the eventReturn
         // at this point eventReturnString is finalized, so get the RequestResponse
         ConfigXMLReader.RequestResponse eventReturnBasedRequestResponse = eventReturn == null ? null : requestMap.requestResponseMap.get(eventReturn);
@@ -389,7 +389,7 @@ public class RequestHandler {
         // get the previous request info
         String previousRequest = (String) request.getSession().getAttribute("_PREVIOUS_REQUEST_");
         String loginPass = (String) request.getAttribute("_LOGIN_PASSED_");
-        
+ 
         // restore previous redirected request's attribute, so redirected page can display previous request's error msg etc.
         String preReqAttStr = (String) request.getSession().getAttribute("_REQ_ATTR_MAP_");
         Map<String, Object> previousRequestAttrMap = null;
@@ -420,7 +420,7 @@ public class RequestHandler {
                 Debug.logWarning("Found special _PREVIOUS_REQUEST_ of [" + previousRequest + "], setting to null to avoid problems, not running request again", module);
             } else {
                 if (Debug.infoOn()) Debug.logInfo("[Doing Previous Request]: " + previousRequest + " sessionId=" + UtilHttp.getSessionId(request), module);
-                
+ 
                 // note that the previous form parameters are not setup (only the URL ones here), they will be found in the session later and handled when the old request redirect comes back
                 Map<String, Object> previousParamMap = UtilGenerics.checkMap(request.getSession().getAttribute("_PREVIOUS_PARAM_MAP_URL_"), String.class, Object.class);
                 String queryString = UtilHttp.urlEncodeArgs(previousParamMap, false);
@@ -429,9 +429,9 @@ public class RequestHandler {
                     redirectTarget += "?" + queryString;
                 }
                 callRedirect(makeLink(request, response, redirectTarget), response, request);
-                
+ 
                 // the old/uglier way: doRequest(request, response, previousRequest, userLogin, delegator);
-                
+ 
                 // this is needed as the request handled will be taking care of the view, etc
                 return;
             }
@@ -448,28 +448,28 @@ public class RequestHandler {
 
         // Make sure we have some sort of response to go to
         if (nextRequestResponse == null) nextRequestResponse = successResponse;
-        
+ 
         if (nextRequestResponse == null) {
             throw new RequestHandlerException("Illegal response; handler could not process request [" + requestMap.uri + "] and event return [" + eventReturn + "].");
         }
-        
+ 
         if (Debug.verboseOn()) Debug.logVerbose("[Event Response Selected]  type=" + nextRequestResponse.type + ", value=" + nextRequestResponse.value + ", sessionId=" + UtilHttp.getSessionId(request), module);
 
         // ========== Handle the responses - chains/views ==========
-        
+ 
         // if the request has the save-last-view attribute set, save it now before the view can be rendered or other chain done so that the _LAST* session attributes will represent the previous request
         if (nextRequestResponse.saveLastView) {
             session.setAttribute("_SAVED_VIEW_NAME_", session.getAttribute("_LAST_VIEW_NAME_"));
             session.setAttribute("_SAVED_VIEW_PARAMS_", session.getAttribute("_LAST_VIEW_PARAMS_"));
         }
-        
+ 
         if (nextRequestResponse != null && "request".equals(nextRequestResponse.type)) {
             // chained request
             Debug.logInfo("[RequestHandler.doRequest]: Response is a chained request." + " sessionId=" + UtilHttp.getSessionId(request), module);
             doRequest(request, response, nextRequestResponse.value, userLogin, delegator);
-        } else { 
+        } else {
             // ======== handle views ========
-            
+ 
             // first invoke the post-processor events.
             for (ConfigXMLReader.Event event: controllerConfig.postprocessorEventList) {
                 try {
@@ -498,16 +498,16 @@ public class RequestHandler {
                 callRedirect(makeLink(request, response, nextRequestResponse.value), response, request);
             } else if ("view".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
-                
+ 
                 // check for an override view, only used if "success" = eventReturn
                 String viewName = (UtilValidate.isNotEmpty(overrideViewUri) && (eventReturn == null || "success".equals(eventReturn))) ? overrideViewUri : nextRequestResponse.value;
                 renderView(viewName, requestMap.securityExternalView, request, response);
             } else if ("view-last".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
-                
+ 
                 // check for an override view, only used if "success" = eventReturn
                 String viewName = (UtilValidate.isNotEmpty(overrideViewUri) && (eventReturn == null || "success".equals(eventReturn))) ? overrideViewUri : nextRequestResponse.value;
-                
+ 
                 // as a further override, look for the _SAVED and then _LAST session attributes
                 Map<String, Object> urlParams = null;
                 if (session.getAttribute("_SAVED_VIEW_NAME_") != null) {
@@ -522,7 +522,7 @@ public class RequestHandler {
                         request.setAttribute(urlParamEntry.getKey(), urlParamEntry.getValue());
                     }
                 }
-                
+ 
                 renderView(viewName, requestMap.securityExternalView, request, response);
             } else if ("none".equals(nextRequestResponse.type)) {
                 // no view to render (meaning the return was processed by the event)
@@ -651,7 +651,7 @@ public class RequestHandler {
 
         // before mapping the view, set a request attribute so we know where we are
         req.setAttribute("_CURRENT_VIEW_", view);
-        
+ 
         // save the view in the session for the last view, plus the parameters Map (can use all parameters as they will never go into a URL, will only stay in the session and extra data will be ignored as we won't go to the original request just the view); note that this is saved after the request/view processing has finished so when those run they will get the value from the previous request
         Map<String, Object> paramMap = UtilHttp.getParameterMap(req);
         // add in the attributes as well so everything needed for the rendering context will be in place if/when we get back to this view
@@ -664,7 +664,7 @@ public class RequestHandler {
         if (viewMap == null) {
             throw new RequestHandlerException("No definition found for view with name [" + view + "]");
         }
-        
+ 
         String nextPage;
 
         if (viewMap.page == null) {
@@ -776,10 +776,10 @@ public class RequestHandler {
         return newURL.toString();
     }
 
-    
+ 
     /**
      * Creates a query string based on the redirect parameters for a request response, if specified, or for all request parameters if no redirect parameters are specified.
-     * 
+     *
      * @param request
      * @param requestUri
      * @param eventReturnString
@@ -796,12 +796,12 @@ public class RequestHandler {
             for (Map.Entry<String, String> entry: requestResponse.redirectParameterMap.entrySet()) {
                 String name = entry.getKey();
                 String from = entry.getValue();
-                
+ 
                 Object value = request.getAttribute(from);
                 if (value == null) {
                     value = request.getParameter(from);
                 }
-                
+ 
                 if (UtilValidate.isNotEmpty(value)) {
                     if (queryString.length() > 1) {
                         queryString.append("&");
@@ -877,7 +877,7 @@ public class RequestHandler {
         if (requestUri != null) {
             requestMap = getControllerConfig().requestMapMap.get(requestUri);
         }
-        
+ 
         StringBuilder newURL = new StringBuilder();
 
         boolean didFullSecure = false;
@@ -925,12 +925,12 @@ public class RequestHandler {
         if (encode) {
             boolean forceManualJsessionid = "false".equals(getServletContext().getInitParameter("cookies")) ? true : false;
             boolean isSpider = false;
-            
+ 
             // if the current request comes from a spider, we will not add the jsessionid to the link
             if (UtilHttp.checkURLforSpiders(request)) {
                 isSpider = true;
             }
-            
+ 
             // if this isn't a secure page, but we made a secure URL, make sure we manually add the jsessionid since the response.encodeURL won't do that
             if (!request.isSecure() && didFullSecure) {
                 forceManualJsessionid = true;

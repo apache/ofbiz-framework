@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -44,9 +44,9 @@ import freemarker.template.TemplateTransformModel;
 public class OfbizUrlTransform implements TemplateTransformModel {
 
     public final static String module = OfbizUrlTransform.class.getName();
-    
+ 
     public boolean checkArg(Map args, String key, boolean defaultValue) {
-        if (!args.containsKey(key)) {        
+        if (!args.containsKey(key)) {
             return defaultValue;
         } else {
             Object o = args.get(key);
@@ -57,13 +57,13 @@ public class OfbizUrlTransform implements TemplateTransformModel {
             return defaultValue;
         }
     }
-    
-    public Writer getWriter(final Writer out, Map args) {                      
+ 
+    public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final boolean fullPath = checkArg(args, "fullPath", false);
         final boolean secure = checkArg(args, "secure", false);
         final boolean encode = checkArg(args, "encode", true);
-        
+ 
         return new Writer(out) {
             public void write(char cbuf[], int off, int len) {
                 buf.append(cbuf, off, len);
@@ -73,8 +73,8 @@ public class OfbizUrlTransform implements TemplateTransformModel {
                 out.flush();
             }
 
-            public void close() throws IOException {  
-                try {                              
+            public void close() throws IOException {
+                try {
                     Environment env = Environment.getCurrentEnvironment();
                     BeanModel req = (BeanModel) env.getVariable("request");
                     BeanModel res = (BeanModel) env.getVariable("response");
@@ -86,9 +86,9 @@ public class OfbizUrlTransform implements TemplateTransformModel {
                         if (res != null) {
                             response = (HttpServletResponse) res.getWrappedObject();
                         }
-                        
+ 
                         String requestUrl = buf.toString();
-                        
+ 
                         // make the link
                         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                         out.write(rh.makeLink(request, response, requestUrl, fullPath, secure, encode));
