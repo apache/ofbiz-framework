@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -33,7 +33,7 @@ import java.util.Stack;
  */
 
 public class RecordIterator {
-    
+ 
     public static final String module = RecordIterator.class.getName();
 
     protected BufferedReader br;
@@ -48,7 +48,7 @@ public class RecordIterator {
     protected String nextLine = null;
     protected Record nextRecord = null;
     protected String eof = new String("\u001A"); // aka ASCII char 26, aka substitute, aka  0x1A, aka CTRL-Z, aka EOF DOS character. Added because problems in some DOS file, specifically file extracted from zip archives.
-    
+ 
     public RecordIterator(URL fileUrl, ModelDataFile modelDataFile) throws DataFileException {
         this.modelDataFile = modelDataFile;
 
@@ -60,12 +60,12 @@ public class RecordIterator {
         }
         this.setupStream(urlStream, fileUrl.toString());
     }
-    
+ 
     public RecordIterator(InputStream dataFileStream, ModelDataFile modelDataFile, String locationInfo) throws DataFileException {
         this.modelDataFile = modelDataFile;
         this.setupStream(dataFileStream, locationInfo);
     }
-    
+ 
     protected void setupStream(InputStream dataFileStream, String locationInfo) throws DataFileException {
         this.locationInfo = locationInfo;
         this.dataFileStream = dataFileStream;
@@ -78,11 +78,11 @@ public class RecordIterator {
         // get the line seeded
         this.getNextLine();
     }
-    
+ 
     protected boolean getNextLine() throws DataFileException {
         this.nextLine = null;
         this.nextRecord = null;
-        
+ 
         boolean isFixedRecord = ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.separatorStyle);
         boolean isFixedLength = ModelDataFile.SEP_FIXED_LENGTH.equals(modelDataFile.separatorStyle);
         boolean isDelimited = ModelDataFile.SEP_DELIMITED.equals(modelDataFile.separatorStyle);
@@ -115,7 +115,7 @@ public class RecordIterator {
                 throw new DataFileException("Error reading line #" + nextLineNum + " from location: " + locationInfo, e);
             }
         }
-        
+ 
         if (nextLine != null && !(eof.equals(nextLine.substring(0,1)) && 1 == nextLine.length())) {
             nextLineNum++;
             ModelRecord modelRecord = findModelForLine(nextLine, nextLineNum, modelDataFile);
@@ -130,29 +130,29 @@ public class RecordIterator {
             return false;
         }
     }
-    
+ 
     public int getCurrentLineNumber() {
         return this.nextLineNum - 1;
     }
-    
+ 
     public boolean hasNext() {
         return nextLine != null && !(eof.equals(nextLine.substring(0,1)) && 1 == nextLine.length());
-        
+ 
     }
-    
+ 
     public Record next() throws DataFileException {
         if (!hasNext()) {
             return null;
         }
-        
+ 
         if (ModelDataFile.SEP_DELIMITED.equals(modelDataFile.separatorStyle) || ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.separatorStyle) || ModelDataFile.SEP_FIXED_LENGTH.equals(modelDataFile.separatorStyle)) {
             boolean isFixedRecord = ModelDataFile.SEP_FIXED_RECORD.equals(modelDataFile.separatorStyle);
             // if (Debug.infoOn()) Debug.logInfo("[DataFile.readDataFile] separatorStyle is " + modelDataFile.separatorStyle + ", isFixedRecord: " + isFixedRecord, module);
-            
+ 
             // advance the line (we have already checked to make sure there is a next line
             this.curLine = this.nextLine;
             this.curRecord = this.nextRecord;
-            
+ 
             // get a new next line
             this.getNextLine();
 
@@ -165,7 +165,7 @@ public class RecordIterator {
             if (this.curRecord.getModelRecord().childRecords.size() > 0) {
                 Stack<Record> parentStack = new Stack<Record>();
                 parentStack.push(curRecord);
-                
+ 
                 while (this.nextRecord != null && this.nextRecord.getModelRecord().parentRecord != null) {
                     // if parent equals top parent on stack, add to that parents child list, otherwise pop off parent and try again
                     Record parentRecord = null;
@@ -185,12 +185,12 @@ public class RecordIterator {
                     }
 
                     parentRecord.addChildRecord(this.nextRecord);
-                    
+ 
                     // if the child record we just added is also a parent, push it onto the stack
                     if (this.nextRecord.getModelRecord().childRecords.size() > 0) {
                         parentStack.push(this.nextRecord);
                     }
-                        
+ 
                     // if it can't find a next line it will nextRecord will be null and the loop will break out
                     this.getNextLine();
                 }
@@ -198,7 +198,7 @@ public class RecordIterator {
         } else {
             throw new DataFileException("Separator style " + modelDataFile.separatorStyle + " not recognized.");
         }
-        
+ 
         return curRecord;
     }
 
@@ -263,7 +263,7 @@ public class RecordIterator {
                 }
             }
         }
-        
+ 
         if (modelRecord == null) {
             throw new DataFileException("Could not find record definition for line " + lineNum + "; first bytes: " +
                     line.substring(0, (line.length() > 5) ? 5 : line.length()));

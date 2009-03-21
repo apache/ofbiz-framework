@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -44,7 +44,7 @@ import org.xml.sax.SAXException;
  */
 
 public class ModelDataFileReader {
-    
+ 
     public static final String module = ModelDataFileReader.class.getName();
 
     public static UtilCache<URL, ModelDataFileReader> readers = new UtilCache<URL, ModelDataFileReader>("ModelDataFile", 0, 0);
@@ -314,7 +314,7 @@ public class ModelDataFileReader {
         field.description = UtilXml.checkEmpty(fieldElement.getAttribute("description"));
         field.defaultValue = UtilXml.checkEmpty(fieldElement.getAttribute("default-value"));
         field.refField = UtilXml.checkEmpty(fieldElement.getAttribute("ref-field"));
-        
+ 
         tempStr = UtilXml.checkEmpty(fieldElement.getAttribute("prim-key"));
         if (tempStr != null && tempStr.length() > 0) {
             field.isPk = Boolean.parseBoolean(tempStr);
