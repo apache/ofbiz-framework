@@ -52,7 +52,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class LabelReferences {
-    
+ 
     public static final String module = LabelReferences.class.getName();
     private static final String uiLabelMap = "${uiLabelMap.";
     private static final String uiLabelMapInLayoutSettings = "uiLabelMap.";
@@ -62,53 +62,53 @@ public class LabelReferences {
     private static final String startExpression = "${";
     private static final String endExpression = "}";
     private static Map<String, Map<String, Integer>> references = null;
-    
+ 
     public static Map<String, Map<String, Integer>> getLabelReferences()
             throws GeneralException {
         references = new TreeMap<String, Map<String, Integer>>();
-        
+ 
         // get labels from FTL files
         getLabelsFromFtlFiles();
-        
+ 
         // get labels from java files
         getLabelsFromJavaFiles();
-        
+ 
         // get labels from simple method files
         getLabelsFromSimpleMethodFiles();
-        
+ 
         // get labels from form widgets files
         getLabelsFromFormWidgets();
-        
+ 
         // get labels from screen widgets files
         getLabelsFromScreenWidgets();
-        
+ 
         // get labels from menu widgets files
         getLabelsFromMenuWidgets();
-        
+ 
         // get labels from tree widgets files
         getLabelsFromTreeWidgets();
-        
+ 
         // get labels from Ofbiz components files
         getLabelsFromOfbizComponents();
-        
+ 
         return references;
     }
-    
+ 
     private static void getLabelsFromFtlFiles() throws GeneralException {
         try {
             List<File> ftlFiles = FileUtil.findFiles("ftl", null, null,
                     uiLabelMap);
-            
+ 
             for (File ftlFile : ftlFiles) {
                 String fileNameURI = ftlFile.toURI().toString();
                 String inFile = FileUtil.readString("UTF-8", ftlFile);
                 int pos = 0;
                 while (pos >= 0) {
                     pos = inFile.indexOf(uiLabelMap, pos);
-                    
+ 
                     if (pos >= 0) {
                         int endLabel = inFile.indexOf("}", pos);
-                        
+ 
                         if (endLabel >= 0) {
                             String labelKey = inFile.substring(pos
                                     + uiLabelMap.length(), endLabel);
@@ -122,7 +122,7 @@ public class LabelReferences {
             }
             /*
              * ftlFiles = FileUtil.findFiles("ftl", null, null, getEntityLabel);
-             * 
+             *
              * for (File ftlFile: ftlFiles) { getFtlEntityLabels(ftlFile,
              * getEntityLabel); }
              */
@@ -130,12 +130,12 @@ public class LabelReferences {
             throw new GeneralException(ioe.getMessage());
         }
     }
-    
+ 
     private static void getLabelsFromJavaFiles() throws GeneralException {
         try {
             List<File> javaFiles = FileUtil.findFiles("java", null, null,
                     getMessage);
-            
+ 
             for (File javaFile : javaFiles) {
                 getJavaLabels(javaFile, getMessage);
             }
@@ -143,7 +143,7 @@ public class LabelReferences {
             throw new GeneralException(ioe.getMessage());
         }
     }
-    
+ 
     private static void getJavaLabels(File javaFile, String message)
             throws GeneralException {
         try {
@@ -152,34 +152,34 @@ public class LabelReferences {
             int pos = 0;
             while (pos >= 0) {
                 pos = inFile.indexOf(message, pos);
-                
+ 
                 if (pos >= 0) {
                     int offSet = (pos + 200 > inFile.length()) ? inFile
                             .length() : pos + 200;
                     String searchComma = inFile.substring(pos, offSet);
                     int firstComma = searchComma.indexOf(",\"", 0);
-                    
+ 
                     if (firstComma < 0) {
                         firstComma = searchComma.indexOf(", \"", 0);
                         pos = pos + firstComma + 3;
                     } else {
                         pos = pos + firstComma + 2;
                     }
-                    
+ 
                     if (firstComma >= 0) {
                         offSet = (pos + 100 > inFile.length()) ? inFile
                                 .length() : pos + 100;
                         searchComma = inFile.substring(pos, offSet);
                         int secondComma = searchComma.indexOf("\",", 0);
                         int endString = pos;
-                        
+ 
                         if (secondComma < 0) {
                             secondComma = searchComma.indexOf("\" ,", 0);
                             endString = endString + secondComma + 1;
                         } else {
                             endString = endString + secondComma;
                         }
-                        
+ 
                         if (secondComma >= 0) {
                             setLabelReference(inFile.substring(pos, endString),
                                     fileNameURI);
@@ -193,7 +193,7 @@ public class LabelReferences {
             throw new GeneralException(ioe.getMessage());
         }
     }
-    
+ 
     private static void getFtlEntityLabels(File javaFile, String message)
             throws GeneralException {
         try {
@@ -202,14 +202,14 @@ public class LabelReferences {
             int pos = 0;
             while (pos >= 0) {
                 pos = inFile.indexOf(message, pos);
-                
+ 
                 if (pos >= 0) {
                     int offSet = (pos + 200 > inFile.length()) ? inFile
                             .length() : pos + 200;
                     String searchDoubleQuote = inFile
                             .substring(pos + 6, offSet);
                     int firstComma = searchDoubleQuote.indexOf("\"", 0);
-                    
+ 
                     if (firstComma >= 0) {
                         offSet = (firstComma + 100 > inFile.length()) ? inFile
                                 .length() : firstComma + 100;
@@ -217,7 +217,7 @@ public class LabelReferences {
                                 firstComma, offSet);
                         int endMethodName = searchLocale
                                 .indexOf(", locale)", 0);
-                        
+ 
                         if (endMethodName < 0) {
                             endMethodName = searchLocale.indexOf(",locale)", 0);
                         }
@@ -234,20 +234,20 @@ public class LabelReferences {
             throw new GeneralException(ioe.getMessage());
         }
     }
-    
+ 
     private static void getLabelsFromSimpleMethodFiles()
             throws GeneralException {
         try {
             List<File> simpleMethodsFiles = FileUtil.findXmlFiles(null, null,
                     "simple-methods",
                     "http://ofbiz.apache.org/dtds/simple-methods.xsd");
-            
+ 
             for (File simpleMethodFile : simpleMethodsFiles) {
                 String fileNameURI = simpleMethodFile.toURI().toString();
                 Document simpleMethodDocument = UtilXml
                         .readXmlDocument(simpleMethodFile.toURI().toURL());
                 Element rootElem = simpleMethodDocument.getDocumentElement();
-                
+ 
                 for (Element elem1 : UtilXml.childElementList(rootElem)) {
                     checkSimpleMethodTag(elem1, fileNameURI);
                     for (Element elem2 : UtilXml.childElementList(elem1)) {
@@ -276,7 +276,7 @@ public class LabelReferences {
             throw new GeneralException(e.getMessage());
         }
     }
-    
+ 
     private static void checkSimpleMethodTag(Element elem, String fileNameURI)
             throws GeneralException {
         // fail-property labels
@@ -284,18 +284,18 @@ public class LabelReferences {
             getFailPropertyTag(elem, fileNameURI);
         }
     }
-    
+ 
     private static void getLabelsFromFormWidgets() throws GeneralException {
         try {
             List<File> formsFiles = FileUtil.findXmlFiles(null, null, "forms",
                     "http://ofbiz.apache.org/dtds/widget-form.xsd");
-            
+ 
             for (File formsFile : formsFiles) {
                 String fileNameURI = formsFile.toURI().toString();
                 Document formDocument = UtilXml.readXmlDocument(formsFile
                         .toURI().toURL());
                 Element rootElem = formDocument.getDocumentElement();
-                
+ 
                 for (Element elem1 : UtilXml.childElementList(rootElem)) {
                     Map<String, String> autoFieldsEntity = FastMap
                             .newInstance();
@@ -328,7 +328,7 @@ public class LabelReferences {
                             setLabelReference(labelKey, fileNameURI);
                         }
                     }
-                    
+ 
                     for (Map.Entry<String, String> entry : autoFieldsService
                             .entrySet()) {
                         if ("N".equals(entry.getValue())) {
@@ -344,7 +344,7 @@ public class LabelReferences {
             throw new GeneralException(e.getMessage());
         }
     }
-    
+ 
     private static void checkFormsTag(Element elem, String fileNameURI,
             Map<String, String> autoFieldsEntity,
             Map<String, String> autoFieldsService) throws GeneralException {
@@ -372,19 +372,19 @@ public class LabelReferences {
             getDisplayEntityTag(elem, fileNameURI);
         }
     }
-    
+ 
     private static void getLabelsFromScreenWidgets() throws GeneralException {
         try {
             List<File> screensFiles = FileUtil
                     .findXmlFiles(null, null, "screens",
                             "http://ofbiz.apache.org/dtds/widget-screen.xsd");
-            
+ 
             for (File screensFile : screensFiles) {
                 String fileNameURI = screensFile.toURI().toString();
                 Document screenDocument = UtilXml.readXmlDocument(screensFile
                         .toURI().toURL());
                 Element rootElem = screenDocument.getDocumentElement();
-                
+ 
                 for (Element elem1 : UtilXml.childElementList(rootElem)) {
                     checkScreensTag(elem1, fileNameURI);
                     for (Element elem2 : UtilXml.childElementList(elem1)) {
@@ -456,7 +456,7 @@ public class LabelReferences {
             throw new GeneralException(e.getMessage());
         }
     }
-    
+ 
     private static void checkScreensTag(Element elem, String fileNameURI) {
         // set labels
         if ("set".equals(elem.getTagName())) {
@@ -472,18 +472,18 @@ public class LabelReferences {
             getLinkTag(elem, fileNameURI);
         }
     }
-    
+ 
     private static void getLabelsFromMenuWidgets() throws GeneralException {
         try {
             List<File> menusFiles = FileUtil.findXmlFiles(null, null, "menus",
                     "http://ofbiz.apache.org/dtds/widget-menu.xsd");
-            
+ 
             for (File menuFiles : menusFiles) {
                 String fileNameURI = menuFiles.toURI().toString();
                 Document menuDocument = UtilXml.readXmlDocument(menuFiles
                         .toURI().toURL());
                 Element rootElem = menuDocument.getDocumentElement();
-                
+ 
                 for (Element elem1 : UtilXml.childElementList(rootElem)) {
                     checkMenuTag(elem1, fileNameURI);
                     for (Element elem2 : UtilXml.childElementList(elem1)) {
@@ -508,25 +508,25 @@ public class LabelReferences {
             throw new GeneralException(e.getMessage());
         }
     }
-    
+ 
     private static void checkMenuTag(Element elem, String fileNameURI) {
         // menu-item labels
         if ("menu-item".equals(elem.getTagName())) {
             getMenuItemTag(elem, fileNameURI);
         }
     }
-    
+ 
     private static void getLabelsFromTreeWidgets() throws GeneralException {
         try {
             List<File> treeFiles = FileUtil.findXmlFiles(null, null, "menus",
                     "http://ofbiz.apache.org/dtds/widget-tree.xsd");
-            
+ 
             for (File treeFile : treeFiles) {
                 String fileNameURI = treeFile.toURI().toString();
                 Document menuDocument = UtilXml.readXmlDocument(treeFile
                         .toURI().toURL());
                 Element rootElem = menuDocument.getDocumentElement();
-                
+ 
                 for (Element elem1 : UtilXml.childElementList(rootElem)) {
                     checkTreeTag(elem1, fileNameURI);
                     for (Element elem2 : UtilXml.childElementList(elem1)) {
@@ -551,26 +551,26 @@ public class LabelReferences {
             throw new GeneralException(e.getMessage());
         }
     }
-    
+ 
     private static void checkTreeTag(Element elem, String fileNameURI) {
         // link labels
         if ("link".equals(elem.getTagName())) {
             getLinkTag(elem, fileNameURI);
         }
     }
-    
+ 
     private static void getLabelsFromOfbizComponents() throws GeneralException {
         try {
             List<File> componentsFiles = FileUtil.findXmlFiles(null, null,
                     "ofbiz-component",
                     "http://ofbiz.apache.org/dtds/ofbiz-component.xsd");
-            
+ 
             for (File componentFile : componentsFiles) {
                 String fileNameURI = componentFile.toURI().toString();
                 Document menuDocument = UtilXml.readXmlDocument(componentFile
                         .toURI().toURL());
                 Element rootElem = menuDocument.getDocumentElement();
-                
+ 
                 for (Element elem1 : UtilXml.childElementList(rootElem)) {
                     checkOfbizComponentTag(elem1, fileNameURI);
                     for (Element elem2 : UtilXml.childElementList(elem1)) {
@@ -584,14 +584,14 @@ public class LabelReferences {
             throw new GeneralException(e.getMessage());
         }
     }
-    
+ 
     private static void checkOfbizComponentTag(Element elem, String fileNameURI) {
         // webapp labels
         if ("webapp".equals(elem.getTagName())) {
             getWebappTag(elem, fileNameURI);
         }
     }
-    
+ 
     private static void setLabelReference(String labelKey, String fileNameURI) {
         Map<String, Integer> reference = references.get(labelKey);
         if (UtilValidate.isEmpty(reference)) {
@@ -600,7 +600,7 @@ public class LabelReferences {
             references.put(labelKey, reference);
         } else {
             Integer labelsInFile = reference.get(fileNameURI);
-            
+ 
             if (UtilValidate.isEmpty(labelsInFile)) {
                 labelsInFile = new Integer(1);
             } else {
@@ -609,20 +609,20 @@ public class LabelReferences {
             reference.put(fileNameURI, labelsInFile);
         }
     }
-    
+ 
     private static boolean getLabelFromTag(Element element, String fileNameURI,
             String attributeValue, String stringToSearch) {
         boolean stringFound = false;
-        
+ 
         if (UtilValidate.isNotEmpty(attributeValue)) {
             int pos = 0;
-            
+ 
             while (pos >= 0) {
                 pos = attributeValue.indexOf(stringToSearch, pos);
-                
+ 
                 if (pos >= 0) {
                     int graph = attributeValue.indexOf("}", pos);
-                    
+ 
                     if (graph >= 0) {
                         String labelKey = attributeValue.substring(pos
                                 + stringToSearch.length(), graph);
@@ -636,7 +636,7 @@ public class LabelReferences {
         }
         return stringFound;
     }
-    
+ 
     private static void getSetTag(Element element, String fileNameURI) {
         String setField = UtilFormatOut
                 .checkNull(element.getAttribute("field"));
@@ -644,7 +644,7 @@ public class LabelReferences {
                 .checkNull(element.getAttribute("value"));
         String fromField = UtilFormatOut.checkNull(element
                 .getAttribute("from-field"));
-        
+ 
         if (UtilValidate.isNotEmpty(setField)) {
             if (UtilValidate.isNotEmpty(setValue)
                     && ("applicationTitle".equals(setField)
@@ -669,11 +669,11 @@ public class LabelReferences {
             }
         }
     }
-    
+ 
     private static void getScreenletTag(Element element, String fileNameURI) {
         String screenTitle = UtilFormatOut.checkNull(element
                 .getAttribute("title"));
-        
+ 
         if (UtilValidate.isNotEmpty(screenTitle)) {
             // screenlet title with hardcoded labels
             if (!getLabelFromTag(element, fileNameURI, screenTitle, uiLabelMap)) {
@@ -681,7 +681,7 @@ public class LabelReferences {
             }
         }
     }
-    
+ 
     private static void getAutoFieldsEntityTag(Element element,
             String fileNameURI, Map<String, String> autoFieldsEntity)
             throws GeneralException {
@@ -690,13 +690,13 @@ public class LabelReferences {
                     .getAttribute("entity-name"));
             String defaultFieldType = UtilFormatOut.checkNull(element
                     .getAttribute("default-field-type"));
-            
+ 
             if (UtilValidate.isNotEmpty(entityName)
                     && UtilValidate.isNotEmpty(defaultFieldType)
                     && (!("hidden".equals(defaultFieldType)))) {
                 ModelEntity entity = LabelManagerFactory.getModelReader()
                         .getModelEntity(entityName);
-                
+ 
                 for (Iterator<ModelField> f = entity.getFieldsIterator(); f
                         .hasNext();) {
                     ModelField field = f.next();
@@ -707,7 +707,7 @@ public class LabelReferences {
             throw new GeneralException(e.getMessage());
         }
     }
-    
+ 
     private static void getAutoFieldsServiceTag(Element element,
             String fileNameURI, Map<String, String> autoFieldsService)
             throws GeneralException {
@@ -716,7 +716,7 @@ public class LabelReferences {
                     .getAttribute("service-name"));
             String defaultFieldType = UtilFormatOut.checkNull(element
                     .getAttribute("default-field-type"));
-            
+ 
             if (UtilValidate.isNotEmpty(serviceName)
                     && (!("hidden".equals(defaultFieldType)))) {
                 ModelService modelService = LabelManagerFactory
@@ -724,7 +724,7 @@ public class LabelReferences {
                 List<ModelParam> modelParams = modelService
                         .getInModelParamList();
                 Iterator<ModelParam> modelParamIter = modelParams.iterator();
-                
+ 
                 while (modelParamIter.hasNext()) {
                     ModelParam modelParam = modelParamIter.next();
                     // skip auto params that the service engine populates...
@@ -733,7 +733,7 @@ public class LabelReferences {
                             || "timeZone".equals(modelParam.name)) {
                         continue;
                     }
-                    
+ 
                     if (modelParam.formDisplay) {
                         if (UtilValidate.isNotEmpty(modelParam.entityName)
                                 && UtilValidate
@@ -743,11 +743,11 @@ public class LabelReferences {
                                 modelEntity = LabelManagerFactory
                                         .getModelReader().getModelEntity(
                                                 modelParam.entityName);
-                                
+ 
                                 if (modelEntity != null) {
                                     ModelField modelField = modelEntity
                                             .getField(modelParam.fieldName);
-                                    
+ 
                                     if (modelField != null) {
                                         autoFieldsService.put(modelField
                                                 .getName(), "N");
@@ -764,11 +764,11 @@ public class LabelReferences {
             throw new GeneralException(e.getMessage());
         }
     }
-    
+ 
     private static void getHyperlinkTag(Element element, String fileNameURI) {
         String hyperlinkDescription = UtilFormatOut.checkNull(element
                 .getAttribute("description"));
-        
+ 
         if (UtilValidate.isNotEmpty(hyperlinkDescription)) {
             // hyperlink description with hardcoded labels
             if (!getLabelFromTag(element, fileNameURI, hyperlinkDescription,
@@ -777,7 +777,7 @@ public class LabelReferences {
             }
         }
     }
-    
+ 
     private static void getFieldTag(Element element, String fileNameURI,
             Map<String, String> autoFieldsEntity,
             Map<String, String> autoFieldsService) {
@@ -788,19 +788,19 @@ public class LabelReferences {
                 .getAttribute("title"));
         String tooltip = UtilFormatOut.checkNull(element
                 .getAttribute("tooltip"));
-        
+ 
         if (UtilValidate.isNotEmpty(autoFieldsEntity)
                 && UtilValidate.isNotEmpty(autoFieldsEntity.get(fieldName))) {
             autoFieldsEntity.put(fieldName, "Y");
         }
-        
+ 
         if (UtilValidate.isNotEmpty(autoFieldsService)
                 && UtilValidate.isNotEmpty(autoFieldsService.get(fieldName))) {
             autoFieldsService.put(fieldName, "Y");
         }
-        
+ 
         boolean escludeField = false;
-        
+ 
         for (Element fieldTypeElem : UtilXml.childElementList(element)) {
             if ("hidden".equals(fieldTypeElem.getTagName())) {
                 escludeField = true;
@@ -808,7 +808,7 @@ public class LabelReferences {
                 escludeField = true;
             }
         }
-        
+ 
         if (!escludeField) {
             // field name labels
             if (UtilValidate.isEmpty(fieldTitle)) {
@@ -820,7 +820,7 @@ public class LabelReferences {
                     setLabelReference(fieldTitle, fileNameURI);
                 }
             }
-            
+ 
             if (UtilValidate.isNotEmpty(tooltip)) {
                 // tooltip with hardcoded labels
                 if (!getLabelFromTag(element, fileNameURI, tooltip, uiLabelMap)) {
@@ -829,13 +829,13 @@ public class LabelReferences {
             }
         }
     }
-    
+ 
     private static void getLabelTag(Element element, String fileNameURI) {
         String labelText = UtilFormatOut
                 .checkNull(element.getAttribute("text"));
         String labelValue = UtilFormatOut.checkNull(UtilXml
                 .elementValue(element));
-        
+ 
         // label text labels
         if (UtilValidate.isNotEmpty(labelText)) {
             // label text with hardcoded labels
@@ -850,11 +850,11 @@ public class LabelReferences {
             }
         }
     }
-    
+ 
     private static void getMenuItemTag(Element element, String fileNameURI) {
         String menuItemTitle = UtilFormatOut.checkNull(element
                 .getAttribute("title"));
-        
+ 
         if (UtilValidate.isNotEmpty(menuItemTitle)) {
             // menu item title with hardcoded labels
             if (!getLabelFromTag(element, fileNameURI, menuItemTitle,
@@ -863,21 +863,21 @@ public class LabelReferences {
             }
         }
     }
-    
+ 
     private static void getFailPropertyTag(Element element, String fileNameURI) {
         String propertyValue = UtilFormatOut.checkNull(element
                 .getAttribute("property"));
-        
+ 
         if (UtilValidate.isNotEmpty(propertyValue)) {
             // fail-property labels
             setLabelReference(propertyValue, fileNameURI);
         }
     }
-    
+ 
     private static void getOptionTag(Element element, String fileNameURI) {
         String description = UtilFormatOut.checkNull(element
                 .getAttribute("description"));
-        
+ 
         if (UtilValidate.isNotEmpty(description)) {
             // option description with hardcoded labels
             if (!getLabelFromTag(element, fileNameURI, description, uiLabelMap)) {
@@ -885,10 +885,10 @@ public class LabelReferences {
             }
         }
     }
-    
+ 
     private static void getLinkTag(Element element, String fileNameURI) {
         String linkText = UtilFormatOut.checkNull(element.getAttribute("text"));
-        
+ 
         if (UtilValidate.isNotEmpty(linkText)) {
             // link text with hardcoded labels
             if (!getLabelFromTag(element, fileNameURI, linkText, uiLabelMap)) {
@@ -896,12 +896,12 @@ public class LabelReferences {
             }
         }
     }
-    
+ 
     private static void getWebappTag(Element element, String fileNameURI) {
         String title = UtilFormatOut.checkNull(element.getAttribute("title"));
         String appBarDisplay = UtilFormatOut.checkNull(element
                 .getAttribute("app-bar-display"));
-        
+ 
         // title labels
         if (UtilValidate.isNotEmpty(title)
                 && UtilValidate.isNotEmpty(appBarDisplay)
@@ -909,7 +909,7 @@ public class LabelReferences {
             setLabelReference(title, fileNameURI);
         }
     }
-    
+ 
     private static void getEntityOptionsTag(Element element, String fileNameURI) {
         String entityName = UtilFormatOut.checkNull(element
                 .getAttribute("entity-name"));
@@ -917,24 +917,24 @@ public class LabelReferences {
                 .getAttribute("description"));
         Set<String> fields = new TreeSet<String>();
         Set<String> pkFields = new TreeSet<String>();
-        
+ 
         try {
-            
+ 
             if (UtilValidate.isNotEmpty(entityName)) {
                 GenericDelegator delegator = LabelManagerFactory.getDelegator();
                 ModelEntity entity = delegator.getModelEntity(entityName);
-                
+ 
                 if (UtilValidate.isNotEmpty(entity)
                         && UtilValidate.isNotEmpty(entity
                                 .getDefaultResourceName())) {
                     int pos = 0;
                     while (pos >= 0) {
                         pos = description.indexOf(startExpression, pos);
-                        
+ 
                         if (pos >= 0) {
                             int endLabel = description.indexOf(endExpression,
                                     pos);
-                            
+ 
                             if (endLabel >= 0) {
                                 String fieldName = description.substring(pos
                                         + startExpression.length(), endLabel);
@@ -955,7 +955,7 @@ public class LabelReferences {
                             }
                         }
                     }
-                    
+ 
                     // Search primary keys of entity
                     Iterator<ModelField> iter = entity.getPksIterator();
                     while (iter != null && iter.hasNext()) {
@@ -979,7 +979,7 @@ public class LabelReferences {
                                 String constraintValue = UtilFormatOut
                                         .checkNull(entityConstraintElem
                                                 .getAttribute("value"));
-                                
+ 
                                 EntityComparisonOperator operator = new EntityComparisonOperator(
                                         EntityOperator.ID_EQUALS, "=");
                                 if ("between".equals(constraintValue)) {
@@ -1012,26 +1012,26 @@ public class LabelReferences {
                                     operator = new EntityComparisonOperator(
                                             EntityOperator.ID_NOT_EQUAL, "<>");
                                 }
-                                
+ 
                                 exprs.add(EntityCondition.makeCondition(
                                         constraintName, operator,
                                         constraintValue));
                             }
                         }
-                        
+ 
                         EntityConditionList<EntityExpr> ecl = null;
                         if (exprs.size() > 0) {
                             ecl = EntityCondition.makeCondition(exprs,
                                     EntityOperator.AND);
                         }
-                        
+ 
                         StringBuilder keyBuffer = new StringBuilder();
                         keyBuffer.append(entityName);
                         keyBuffer.append('.');
                         keyBuffer.append(fieldName);
                         List<GenericValue> entityRecords = delegator.findList(
                                 entityName, ecl, pkFields, null, null, false);
-                        
+ 
                         for (GenericValue entityRecord : entityRecords) {
                             boolean pkFound = false;
                             StringBuilder pkBuffer = new StringBuilder(
@@ -1040,7 +1040,7 @@ public class LabelReferences {
                             while (itPkFields != null && itPkFields.hasNext()) {
                                 String pkField = itPkFields.next();
                                 Object pkFieldValue = entityRecord.get(pkField);
-                                
+ 
                                 if (UtilValidate.isNotEmpty(pkFieldValue)) {
                                     pkBuffer.append('.');
                                     pkBuffer.append(pkFieldValue);
@@ -1060,7 +1060,7 @@ public class LabelReferences {
                     module);
         }
     }
-    
+ 
     private static void getDisplayEntityTag(Element element, String fileNameURI) {
         String entityName = UtilFormatOut.checkNull(element
                 .getAttribute("entity-name"));
@@ -1068,24 +1068,24 @@ public class LabelReferences {
                 .getAttribute("description"));
         Set<String> fields = new TreeSet<String>();
         Set<String> pkFields = new TreeSet<String>();
-        
+ 
         try {
-            
+ 
             if (UtilValidate.isNotEmpty(entityName)) {
                 GenericDelegator delegator = LabelManagerFactory.getDelegator();
                 ModelEntity entity = delegator.getModelEntity(entityName);
-                
+ 
                 if (UtilValidate.isNotEmpty(entity)
                         && UtilValidate.isNotEmpty(entity
                                 .getDefaultResourceName())) {
                     int pos = 0;
                     while (pos >= 0) {
                         pos = description.indexOf(startExpression, pos);
-                        
+ 
                         if (pos >= 0) {
                             int endLabel = description.indexOf(endExpression,
                                     pos);
-                            
+ 
                             if (endLabel >= 0) {
                                 String fieldName = description.substring(pos
                                         + startExpression.length(), endLabel);
@@ -1106,7 +1106,7 @@ public class LabelReferences {
                             }
                         }
                     }
-                    
+ 
                     // Search primary keys of entity
                     Iterator<ModelField> iter = entity.getPksIterator();
                     while (iter != null && iter.hasNext()) {
@@ -1122,7 +1122,7 @@ public class LabelReferences {
                         keyBuffer.append(fieldName);
                         List<GenericValue> entityRecords = delegator.findList(
                                 entityName, null, pkFields, null, null, false);
-                        
+ 
                         for (GenericValue entityRecord : entityRecords) {
                             boolean pkFound = false;
                             StringBuilder pkBuffer = new StringBuilder(
@@ -1131,7 +1131,7 @@ public class LabelReferences {
                             while (itPkFields != null && itPkFields.hasNext()) {
                                 String pkField = itPkFields.next();
                                 Object pkFieldValue = entityRecord.get(pkField);
-                                
+ 
                                 if (UtilValidate.isNotEmpty(pkFieldValue)) {
                                     pkBuffer.append('.');
                                     pkBuffer.append(pkFieldValue);
