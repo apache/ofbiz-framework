@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -56,7 +56,7 @@ public class GoogleBaseSearchEvents {
         String selectResult = (String) request.getParameter("selectResult");
         List productExportList = new ArrayList();
         String errMsg = null;
-        
+ 
         try {
             boolean beganTransaction = TransactionUtil.begin(DEFAULT_TX_TIMEOUT);
             try {
@@ -69,7 +69,7 @@ public class GoogleBaseSearchEvents {
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                         return "error";
                     }
-    
+ 
                     GenericValue searchResultView = null;
                     while ((searchResultView = (GenericValue) eli.next()) != null) {
                         productExportList.add(searchResultView.getString("mainProductId"));
@@ -90,7 +90,7 @@ public class GoogleBaseSearchEvents {
                 String trackingCodeId = (String) request.getParameter("trackingCodeId");
                 String webSiteMountPoint = (String) request.getParameter("webSiteMountPoint");
                 String countryCode = (String) request.getParameter("countryCode");
-                
+ 
                 // Export all or selected products to Google Base
                 try {
                     Map inMap = UtilMisc.toMap("selectResult", productExportList,
