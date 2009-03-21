@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -33,11 +33,11 @@ import org.ofbiz.base.util.Debug;
  *<p>The Unified Expression Language specification doesn't allow assignment of
  * values to non-existent variables (auto-vivify) - but the OFBiz scripting
  * languages do. This class modifies the JUEL library behavior to enable
- * auto-vivify.</p> 
+ * auto-vivify.</p>
  */
 public class JuelConnector {
     protected static final String module = JuelConnector.class.getName();
-    
+ 
     /** Returns an <code>ExpressionFactory</code> instance.
      * @return A customized <code>ExpressionFactory</code> instance
      */
@@ -110,7 +110,7 @@ public class JuelConnector {
             }
         }
     }
-    
+ 
     /** Custom <code>Parser</code> class needed to implement auto-vivify. */
     protected static class ExtendedParser extends Parser {
         public ExtendedParser(Builder context, String input) {

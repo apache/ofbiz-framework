@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -31,13 +31,13 @@ import javax.imageio.spi.ServiceRegistry;
  *
  */
 public class CachedClassLoader extends URLClassLoader {
-    
+ 
     public interface Init {
         void loadClasses(ClassLoader loader, Map<String, Class<?>> classNameMap) throws ClassNotFoundException;
     }
 
     public static final String module = CachedClassLoader.class.getName();
-    
+ 
     private String contextName;
 
     public static Map<String, Class<?>> globalClassNameClassMap = new HashMap<String, Class<?>>();
@@ -59,7 +59,7 @@ public class CachedClassLoader extends URLClassLoader {
 
         globalClassNameClassMap.put("String", java.lang.String.class);
         globalClassNameClassMap.put("java.lang.String", java.lang.String.class);
-        
+ 
         globalClassNameClassMap.put("Boolean", java.lang.Boolean.class);
         globalClassNameClassMap.put("java.lang.Boolean", java.lang.Boolean.class);
 
@@ -80,7 +80,7 @@ public class CachedClassLoader extends URLClassLoader {
         globalClassNameClassMap.put("java.lang.Byte", java.lang.Byte.class);
         globalClassNameClassMap.put("Character", java.lang.Character.class);
         globalClassNameClassMap.put("java.lang.Character", java.lang.Character.class);
-        
+ 
         globalClassNameClassMap.put("Timestamp", java.sql.Timestamp.class);
         globalClassNameClassMap.put("java.sql.Timestamp", java.sql.Timestamp.class);
         globalClassNameClassMap.put("Time", java.sql.Time.class);
@@ -90,7 +90,7 @@ public class CachedClassLoader extends URLClassLoader {
 
         globalClassNameClassMap.put("Locale", java.util.Locale.class);
         globalClassNameClassMap.put("java.util.Locale", java.util.Locale.class);
-        
+ 
         globalClassNameClassMap.put("java.util.Date", java.util.Date.class);
         globalClassNameClassMap.put("Collection", java.util.Collection.class);
         globalClassNameClassMap.put("java.util.Collection", java.util.Collection.class);
@@ -125,7 +125,7 @@ public class CachedClassLoader extends URLClassLoader {
             }
         }
     }
-        
+ 
     public CachedClassLoader(URL[] url, ClassLoader parent, String contextName) {
         super(url, parent);
         this.contextName = contextName;
@@ -141,27 +141,27 @@ public class CachedClassLoader extends URLClassLoader {
             Debug.logVerbose("Cached ClassLoader Packages : " + pakList.toString(), module);
         }
     }
-    
+ 
     public CachedClassLoader(ClassLoader parent, String contextName) {
-        this(new URL[0], parent, contextName);                
+        this(new URL[0], parent, contextName);
     }
-    
+ 
     public CachedClassLoader(URL[] url, ClassLoader parent) {
         this(url, parent, "__globalContext");
-    }    
-    
+    }
+ 
     public String toString() {
         return "org.ofbiz.base.util.CachedClassLoader(" + contextName + ") / " + getParent().toString();
     }
-    
+ 
     public Class<?> loadClass(String name) throws ClassNotFoundException {
         return loadClass(name, false);
     }
-    
+ 
     protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
         //check glocal common classes, ie for all instances
         Class<?> theClass = globalClassNameClassMap.get(name);
-        
+ 
         //check local classes, ie for this instance
         if (theClass == null) theClass = localClassNameClassMap.get(name);
 
@@ -172,10 +172,10 @@ public class CachedClassLoader extends URLClassLoader {
                 throw new ClassNotFoundException("Cached loader got a known bad class name: " + name);
             }
         }
-        
+ 
         if (theClass == null) {
             if (Debug.verboseOn()) Debug.logVerbose("Cached loader cache miss for class name: [" + name + "]", module);
-            
+ 
             synchronized (this) {
                 theClass = localClassNameClassMap.get(name);
                 if (theClass == null) {
@@ -201,11 +201,11 @@ public class CachedClassLoader extends URLClassLoader {
         }
         return theClass;
     }
-    
+ 
     public URL getResource(String name) {
         //check glocal common resources, ie for all instances
         URL theResource = globalResourceMap.get(name);
-        
+ 
         //check local resources, ie for this instance
         if (theResource == null) theResource = localResourceMap.get(name);
 
@@ -216,11 +216,11 @@ public class CachedClassLoader extends URLClassLoader {
                 return null;
             }
         }
-        
+ 
         if (theResource == null) {
             if (Debug.verboseOn()) Debug.logVerbose("Cached loader cache miss for resource name: [" + name + "]", module);
             //Debug.logInfo("Cached loader cache miss for resource name: [" + name + "]", module);
-            
+ 
             synchronized (this) {
                 theResource = localResourceMap.get(name);
                 if (theResource == null) {
@@ -245,7 +245,7 @@ public class CachedClassLoader extends URLClassLoader {
         }
         return theResource;
     }
-    
+ 
     protected boolean isGlobalPath(String name) {
         if (name.startsWith("java.") || name.startsWith("java/") || name.startsWith("/java/")) return true;
         if (name.startsWith("javax.") || name.startsWith("javax/") || name.startsWith("/javax/")) return true;

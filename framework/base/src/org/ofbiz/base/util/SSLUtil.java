@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -107,7 +107,7 @@ public class SSLUtil {
         if (tm.getNumberOfKeyStores() < 1) {
             Debug.logWarning("System truststore not found!", module);
         }
-        
+ 
         for (ComponentConfig.KeystoreInfo ksi: ComponentConfig.getAllKeystoreInfos()) {
             if (ksi.isTrustStore()) {
                 KeyStore ks = ksi.getKeyStore();
@@ -141,7 +141,7 @@ public class SSLUtil {
     }
 
     public static TrustManager[] getTrustManagers(KeyStore ks) throws GeneralSecurityException {
-        return new TrustManager[] { new MultiTrustManager(ks) };        
+        return new TrustManager[] { new MultiTrustManager(ks) };
     }
 
     public static SSLSocketFactory getSSLSocketFactory(KeyStore ks, String password, String alias) throws IOException, GeneralSecurityException, GenericConfigException {
@@ -194,10 +194,10 @@ public class SSLUtil {
     }
 
     public static HostnameVerifier getHostnameVerifier(int level) {
-        switch (level) {           
+        switch (level) {
             case HOSTCERT_MIN_CHECK:
                 return new HostnameVerifier() {
-                    public boolean verify(String hostname, SSLSession session) {                        
+                    public boolean verify(String hostname, SSLSession session) {
                         javax.security.cert.X509Certificate[] peerCerts;
                         try {
                             peerCerts = session.getPeerCertificateChain();
@@ -208,11 +208,11 @@ public class SSLUtil {
                         }
                         for (javax.security.cert.X509Certificate peerCert: peerCerts) {
                             Principal x500s = peerCert.getSubjectDN();
-                            Map subjectMap = KeyStoreUtil.getX500Map(x500s);                            
+                            Map subjectMap = KeyStoreUtil.getX500Map(x500s);
 
                             if (Debug.infoOn())
                                 Debug.logInfo(peerCert.getSerialNumber().toString(16) + " :: " + subjectMap.get("CN"), module);
-                            
+ 
                             try {
                                 peerCert.checkValidity();
                             } catch (Exception e) {

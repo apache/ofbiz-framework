@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,7 +43,7 @@ public class GroovyUtil {
     public static final String module = GroovyUtil.class.getName();
 
     public static UtilCache<String, Class> parsedScripts = new UtilCache<String, Class>("script.GroovyLocationParsedCache", 0, 0, false);
-    
+ 
     public static GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
 
     private static Binding getBinding(Map<String, Object> context) {
@@ -69,7 +69,7 @@ public class GroovyUtil {
                 if (scriptUrl == null) {
                     throw new GeneralException("Script not found at location [" + location + "]");
                 }
-                
+ 
                 scriptClass = groovyClassLoader.parseClass(scriptUrl.openStream(), scriptUrl.getFile());
                 if (Debug.verboseOn()) Debug.logVerbose("Caching Groovy script at: " + location, module);
                 parsedScripts.put(location, scriptClass);
@@ -82,9 +82,9 @@ public class GroovyUtil {
             InvokerHelper.createScript(scriptClass, getBinding(context)).run();
             if (Debug.timingOn()) Debug.logTiming("Ran parsed groovy script in [" + (System.currentTimeMillis() - startTimeParsed) + "]ms at: " + location, module);
             */
-            
+ 
             /* NOTE DEJ20080526: this approach uses a pre-parsed script but it is not thread safe
-             * 
+             *
              * the groovy Script object contains both the parsed script AND the context, which is weird when trying to run a cached Script
              * there is no available clone() method on the Script object, so we can't clone and set the context/binding to get around thread-safe issues
             Script script = parsedScripts.get(location);
@@ -93,19 +93,19 @@ public class GroovyUtil {
                 if (scriptUrl == null) {
                     throw new GeneralException("Script not found at location [" + location + "]");
                 }
-                
+ 
                 script = emptyGroovyShell.parse(scriptUrl.openStream(), scriptUrl.getFile());
                 if (Debug.verboseOn()) Debug.logVerbose("Caching Groovy script at: " + location, module);
                 parsedScripts.put(location, script);
             }
-            
+ 
             script.setBinding(getBinding(context));
             return script.run();
              */
 
             /* NOTE DEJ20080527: this approach works but only caches script text, not the parsed script
             public static UtilCache<String, String> sourceScripts = new UtilCache<String, String>("script.GroovyLocationSourceCache", 0, 0, false);
-            
+ 
             public static GroovyShell emptyGroovyShell = new GroovyShell();
             String scriptString = sourceScripts.get(location);
             if (scriptString == null) {
@@ -113,9 +113,9 @@ public class GroovyUtil {
                 if (scriptUrl == null) {
                     throw new GeneralException("Script not found at location [" + location + "]");
                 }
-                
+ 
                 scriptString = UtilURL.readUrlText(scriptUrl);
-                
+ 
                 if (Debug.verboseOn()) Debug.logVerbose("Caching Groovy script source at: " + location, module);
                 sourceScripts.put(location, scriptString);
             }
@@ -125,7 +125,7 @@ public class GroovyUtil {
             script.setBinding(getBinding(context));
             Object scriptResult = script.run();
             if (Debug.timingOn()) Debug.logTiming("Parsed and ran groovy script in [" + (System.currentTimeMillis() - startTime) + "]ms at: " + location, module);
-            
+ 
             return scriptResult;
              */
         } catch (MalformedURLException e) {

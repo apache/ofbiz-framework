@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -54,7 +54,7 @@ import org.owasp.esapi.reference.DefaultValidator;
  *
  */
 public class StringUtil {
-    
+ 
     public static final String module = StringUtil.class.getName();
 
     /** OWASP ESAPI canonicalize strict flag; setting false so we only get warnings about double encoding, etc; can be set to true for exceptions and more security */
@@ -67,33 +67,33 @@ public class StringUtil {
         defaultWebEncoder = new DefaultEncoder(codecList);
         defaultWebValidator = new DefaultValidator();
     }
-    
+ 
     public static final SimpleEncoder htmlEncoder = new HtmlEncoder();
     public static final SimpleEncoder xmlEncoder = new XmlEncoder();
-    
+ 
     public static interface SimpleEncoder {
         public String encode(String original);
     }
-    
+ 
     public static class HtmlEncoder implements SimpleEncoder {
         public String encode(String original) {
             return StringUtil.defaultWebEncoder.encodeForHTML(original);
         }
     }
-    
+ 
     public static class XmlEncoder implements SimpleEncoder {
         public String encode(String original) {
             return StringUtil.defaultWebEncoder.encodeForXML(original);
         }
     }
-    
+ 
     // ================== Begin General Functions ==================
-    
+ 
     public static String internString(String value) {
         return value != null ? value.intern() : null;
     }
 
-    /** 
+    /**
      * Replaces all occurances of oldString in mainString with newString
      * @param mainString The original string
      * @param oldString The string to replace
@@ -216,7 +216,7 @@ public class StringUtil {
 
             try {
                 decodedMap.put(URLDecoder.decode(name, "UTF-8"), URLDecoder.decode(value, "UTF-8"));
-            } catch (UnsupportedEncodingException e1) {                
+            } catch (UnsupportedEncodingException e1) {
                 Debug.logError(e1, module);
             }
         }
@@ -252,15 +252,15 @@ public class StringUtil {
             try {
                 encodedName = URLEncoder.encode((String) key, "UTF-8");
             } catch (UnsupportedEncodingException e) {
-                Debug.logError(e, module);              
+                Debug.logError(e, module);
             }
             String encodedValue = null;
             try {
                 encodedValue = URLEncoder.encode((String) value, "UTF-8");
             } catch (UnsupportedEncodingException e) {
-                Debug.logError(e, module);                
+                Debug.logError(e, module);
             }
-            
+ 
             if (first)
                 first = false;
             else
@@ -334,7 +334,7 @@ public class StringUtil {
             throw new IllegalArgumentException("String is not from Set.toString()");
         }
 
-        return newSet;    
+        return newSet;
     }
 
     /**
@@ -369,7 +369,7 @@ public class StringUtil {
         }
         return cppBuff.toString();
     }
-    
+ 
     /** Removes all spaces from a string */
     public static String removeSpaces(String str) {
         return removeRegex(str,"[\\ ]");
@@ -397,7 +397,7 @@ public class StringUtil {
             throw new GeneralRuntimeException(e);
         }
     }
-    
+ 
     private static char[] hexChar = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
     public static int convertChar(char c) {
         if ( '0' <= c && c <= '9' ) {
@@ -427,7 +427,7 @@ public class StringUtil {
     public static String removeNonNumeric(String str) {
         return removeRegex(str,"[\\D]");
     }
-    
+ 
     /** Removes all numbers from str */
     public static String removeNumeric(String str) {
         return removeRegex(str,"[\\d]");
@@ -443,22 +443,22 @@ public class StringUtil {
         Matcher matcher = pattern.matcher(str);
         return matcher.replaceAll("");
     }
-    
+ 
     /**
      * Add the number to the string, keeping (padding to min of original length)
-     * 
+     *
      * @return the new value
      */
     public static String addToNumberString(String numberString, long addAmount) {
     if (numberString == null) return null;
-    
+ 
     int origLength = numberString.length();
     long number = Long.parseLong(numberString);
         return padNumberString(Long.toString(number + addAmount), origLength);
     }
-    
+ 
     public static String padNumberString(String numberString, int targetMinLength) {
-        StringBuilder outStrBfr = new StringBuilder(numberString); 
+        StringBuilder outStrBfr = new StringBuilder(numberString);
         while (targetMinLength > outStrBfr.length()) {
             outStrBfr.insert(0, '0');
         }
@@ -466,15 +466,15 @@ public class StringUtil {
     }
 
     /**
-     * Uses a black-list approach for necessary characters for HTML. 
+     * Uses a black-list approach for necessary characters for HTML.
      * Does not allow various characters (after canonicalization), including "<", ">", "&" (if not followed by a space), and "%" (if not followed by a space).
-     * 
+     *
      * @param value
      * @param errorMessageList
      */
     public static String checkStringForHtmlStrictNone(String valueName, String value, List<String> errorMessageList) {
         if (UtilValidate.isEmpty(value)) return value;
-        
+ 
         // canonicalize, strict (error on double-encoding)
         try {
             value = defaultWebEncoder.canonicalize(value, true);
@@ -483,12 +483,12 @@ public class StringUtil {
             Debug.logError("Canonicalization (format consistency, character escaping that is mixed or double, etc) error for attribute named [" + valueName + "], String [" + value + "]: " + e.toString(), module);
             errorMessageList.add("In field [" + valueName + "] found character espacing (mixed or double) that is not allowed or other format consistency error: " + e.toString());
         }
-        
+ 
         // check for "<", ">"
         if (value.indexOf("<") >= 0 || value.indexOf(">") >= 0) {
             errorMessageList.add("In field [" + valueName + "] less-than (<) and greater-than (>) symbols are not allowed.");
         }
-        
+ 
         /* NOTE DEJ 20090311: After playing with this more this doesn't seem to be necessary; the canonicalize will convert all such characters into actual text before this check is done, including other illegal chars like &lt; which will canonicalize to < and then get caught
         // check for & followed a semicolon within 7 characters, no spaces in-between (and perhaps other things sometime?)
         int curAmpIndex = value.indexOf("&");
@@ -503,7 +503,7 @@ public class StringUtil {
             curAmpIndex = value.indexOf("&", curAmpIndex + 1);
         }
          */
-        
+ 
         /* NOTE DEJ 20090311: After playing with this more this doesn't seem to be necessary; the canonicalize will convert all such characters into actual text before this check is done, including other illegal chars like %3C which will canonicalize to < and then get caught
         // check for % followed by 2 hex characters
         int curPercIndex = value.indexOf("%");
@@ -516,16 +516,16 @@ public class StringUtil {
             curPercIndex = value.indexOf("%", curPercIndex + 1);
         }
          */
-        
+ 
         // TODO: anything else to check for that can be used to get HTML or JavaScript going without these characters?
-        
+ 
         return value;
     }
 
     /**
      * Uses a white-list approach to check for safe HTML.
      * Based on the ESAPI validator configured in the antisamy-esapi.xml file.
-     * 
+     *
      * @param value
      * @param errorMessageList
      * @return String with updated value if needed for safer HTML.
@@ -536,7 +536,7 @@ public class StringUtil {
         errorMessageList.addAll(UtilGenerics.checkList(vel.errors(), String.class));
         return value;
     }
-    
+ 
     /**
      * Translates various HTML characters in a string so that the string can be displayed in a browser safely
      * <p>
@@ -552,7 +552,7 @@ public class StringUtil {
      *    <li>'>' (greater than) becomes '&gt;'
      *    <li>\n (Carriage Return) becomes '&lt;br&gt;gt;'
      * </ol>
-     * 
+     *
      * @deprecated Use StringUtil.htmlEncoder instead.
      */
     public static String htmlSpecialChars(String html, boolean doubleQuotes, boolean singleQuotes, boolean insertBR) {
@@ -571,11 +571,11 @@ public class StringUtil {
 
         return html;
     }
-    
+ 
     public static String htmlSpecialChars(String html) {
         return htmlSpecialChars(html, true, true, true);
     }
-    
+ 
     public static String fromHtmlToSpecialChars(String html, boolean doubleQuotes, boolean singleQuotes, boolean insertBR) {
         html = StringUtil.replaceString(html, "&amp;", "&");
         html = StringUtil.replaceString(html, "&lt;", "<");
@@ -639,7 +639,7 @@ public class StringUtil {
     }
     public static StringWrapper makeStringWrapper(String theString) {
         if (theString == null) return null;
-        if (theString.length() == 0) return StringWrapper.EMPTY_STRING_WRAPPER; 
+        if (theString.length() == 0) return StringWrapper.EMPTY_STRING_WRAPPER;
         return new StringWrapper(theString);
     }
 
@@ -648,17 +648,17 @@ public class StringUtil {
      * to avoid the general HTML auto-encoding that is now done through the Screen Widget.
      */
     public static class StringWrapper {
-        public static final StringWrapper EMPTY_STRING_WRAPPER = new StringWrapper(""); 
-        
+        public static final StringWrapper EMPTY_STRING_WRAPPER = new StringWrapper("");
+ 
         protected String theString;
         protected StringWrapper() { }
         public StringWrapper(String theString) {
             this.theString = theString;
         }
-        
+ 
         /**
-         * Fairly simple method used for the plus (+) base concatenation in Groovy. 
-         * 
+         * Fairly simple method used for the plus (+) base concatenation in Groovy.
+         *
          * @param value
          * @return
          */
@@ -675,8 +675,8 @@ public class StringUtil {
     }
 
     /**
-     * A simple Map wrapper class that will do HTML encoding. To be used for passing a Map to something that will expand Strings with it as a context, etc. 
-     * To reduce memory allocation impact this object is recyclable and minimal in that it only keeps a reference to the original Map. 
+     * A simple Map wrapper class that will do HTML encoding. To be used for passing a Map to something that will expand Strings with it as a context, etc.
+     * To reduce memory allocation impact this object is recyclable and minimal in that it only keeps a reference to the original Map.
      */
     public static class HtmlEncodingMapWrapper<K> implements Map<K, Object>, Reusable {
         protected static final ObjectFactory<HtmlEncodingMapWrapper<?>> mapStackFactory = new ObjectFactory<HtmlEncodingMapWrapper<?>>() {
@@ -686,7 +686,7 @@ public class StringUtil {
         };
         public static <K> HtmlEncodingMapWrapper<K> getHtmlEncodingMapWrapper(Map<K, Object> mapToWrap, SimpleEncoder encoder) {
             if (mapToWrap == null) return null;
-            
+ 
             HtmlEncodingMapWrapper<K> mapWrapper = (HtmlEncodingMapWrapper<K>) UtilGenerics.<K, Object>checkMap(mapStackFactory.object());
             mapWrapper.setup(mapToWrap, encoder);
             return mapWrapper;
@@ -695,7 +695,7 @@ public class StringUtil {
         protected Map<K, Object> internalMap = null;
         protected SimpleEncoder encoder = null;
         protected HtmlEncodingMapWrapper() { }
-        
+ 
         public void setup(Map<K, Object> mapToWrap, SimpleEncoder encoder) {
             this.internalMap = mapToWrap;
             this.encoder = encoder;
@@ -704,7 +704,7 @@ public class StringUtil {
             this.internalMap = null;
             this.encoder = null;
         }
-        
+ 
         public int size() { return this.internalMap.size(); }
         public boolean isEmpty() { return this.internalMap.isEmpty(); }
         public boolean containsKey(Object key) { return this.internalMap.containsKey(key); }
@@ -713,7 +713,7 @@ public class StringUtil {
             Object theObject = this.internalMap.get(key);
             if (theObject instanceof String) {
                 if (this.encoder != null) {
-                    return encoder.encode((String) theObject); 
+                    return encoder.encode((String) theObject);
                 } else {
                     return StringUtil.defaultWebEncoder.encodeForHTML((String) theObject);
                 }

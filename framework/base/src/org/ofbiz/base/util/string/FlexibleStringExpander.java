@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -45,7 +45,7 @@ import bsh.EvalError;
  */
 @SuppressWarnings("serial")
 public class FlexibleStringExpander implements Serializable {
-    
+ 
     public static final String module = FlexibleStringExpander.class.getName();
     public static final String openBracket = "${";
     public static final String closeBracket = "}";
@@ -71,11 +71,11 @@ public class FlexibleStringExpander implements Serializable {
             this.strElems = null;
         }
     }
-    
+ 
     public boolean isEmpty() {
         return this.orig == null || this.orig.length() == 0;
     }
-    
+ 
     public String getOriginal() {
         return this.orig;
     }
@@ -84,28 +84,28 @@ public class FlexibleStringExpander implements Serializable {
      * null context argument will return the original String.
      * @param context A context Map containing the variable values
      * @return The original String expanded by replacing varaible place holders.
-     */    
+     */
     public String expandString(Map<String, ? extends Object> context) {
         return this.expandString(context, null, null);
     }
-    
+ 
     /** This expands the pre-parsed String given the context passed in. A
      * null context argument will return the original String.
      * @param context A context Map containing the variable values
      * @param locale the current set locale
      * @return The original String expanded by replacing varaible place holders.
-     */    
+     */
     public String expandString(Map<String, ? extends Object> context, Locale locale) {
         return this.expandString(context, null, locale);
     }
-    
+ 
     /** This expands the pre-parsed String given the context passed in. A
      * null context argument will return the original String.
      * @param context A context Map containing the variable values
      * @param timeZone the current set time zone
      * @param locale the current set locale
      * @return The original String expanded by replacing varaible place holders.
-     */    
+     */
     public String expandString(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
         if (this.strElems == null || context == null) {
             return this.orig == null ? "" : this.orig;
@@ -139,7 +139,7 @@ public class FlexibleStringExpander implements Serializable {
         }
         return buffer.toString();
     }
-    
+ 
     /** Returns a FlexibleStringExpander instance.
      * @param original The original String expression
      * @return A FlexibleStringExpander instance
@@ -164,7 +164,7 @@ public class FlexibleStringExpander implements Serializable {
         }
         return fse;
     }
-    
+ 
     /** Does on-the-fly parsing and expansion of the original String using
      * variable values from the passed context. A null context argument will
      * return the original String.
@@ -175,7 +175,7 @@ public class FlexibleStringExpander implements Serializable {
     public static String expandString(String original, Map<String, ? extends Object> context) {
         return expandString(original, context, null, null);
     }
-    
+ 
     /** Does on-the-fly parsing and expansion of the original String using
      * variable values from the passed context. A null context argument will
      * return the original String.
@@ -186,7 +186,7 @@ public class FlexibleStringExpander implements Serializable {
     public static String expandString(String original, Map<String, ? extends Object> context, Locale locale) {
         return expandString(original, context, null, locale);
     }
-    
+ 
     /** Does on-the-fly parsing and expansion of the original String using
      * variable values from the passed context. A null context argument will
      * return the original String.
@@ -201,7 +201,7 @@ public class FlexibleStringExpander implements Serializable {
         FlexibleStringExpander fse = FlexibleStringExpander.getInstance(original);
         return fse.expandString(context, timeZone, locale);
     }
-    
+ 
     /** Protected helper method.
      * @param original
      * @return a list of parsed string elements
@@ -225,7 +225,7 @@ public class FlexibleStringExpander implements Serializable {
             if (end == -1) {
                 Debug.logWarning("Found a ${ without a closing } (curly-brace) in the String: " + original, module);
                 break;
-            } 
+            }
             if (start > currentInd) {
                 // append everything from the current index to the start of the var
                 strElems.add(new ConstElem(original.substring(currentInd, start)));
@@ -270,17 +270,17 @@ public class FlexibleStringExpander implements Serializable {
     protected static interface StrElem extends Serializable {
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale);
     }
-    
+ 
     protected static class ConstElem implements StrElem {
         protected final String str;
         protected ConstElem(String value) {
             this.str = value.intern();
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            buffer.append(this.str); 
+            buffer.append(this.str);
         }
     }
-    
+ 
     protected static class BshElem implements StrElem {
         protected final String str;
         protected BshElem(String scriptlet) {
@@ -327,7 +327,7 @@ public class FlexibleStringExpander implements Serializable {
             }
         }
     }
-        
+ 
     protected static class NestedVarElem implements StrElem {
         protected final List<StrElem> strElems;
         protected int hint = 20;

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -32,9 +32,9 @@ import java.util.TreeSet;
  */
 @SuppressWarnings("serial")
 public class MessageString implements Serializable {
-    
+ 
     public static final String module = MessageString.class.getName();
-    
+ 
     protected String message;
     protected String fieldName;
     protected String toFieldName;
@@ -43,7 +43,7 @@ public class MessageString implements Serializable {
     protected String propertyResource;
     protected String propertyName;
     protected boolean isError = true;
-    
+ 
     public static List<Object> getMessagesForField(String fieldName, boolean convertToStrings, List<Object> messageStringList) {
         if (fieldName == null) {
             return Collections.emptyList();
@@ -82,7 +82,7 @@ public class MessageString implements Serializable {
         }
         return outList;
     }
-    
+ 
     /**
      * @param message
      * @param fieldName
@@ -129,7 +129,7 @@ public class MessageString implements Serializable {
         this.sourceError = sourceError;
         this.isError = true;
     }
-    
+ 
     /**
      * @return Returns the fieldName.
      */
@@ -159,7 +159,7 @@ public class MessageString implements Serializable {
             return this.fieldName.equals(fieldName);
         }
     }
-    
+ 
     /**
      * @return Returns the message.
      */
@@ -233,7 +233,7 @@ public class MessageString implements Serializable {
     public void setPropertyResource(String propertyResource) {
         this.propertyResource = propertyResource;
     }
-    
+ 
     /**
      * @return Returns the isError.
      */

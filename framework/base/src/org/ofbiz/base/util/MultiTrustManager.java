@@ -49,7 +49,7 @@ public class MultiTrustManager implements X509TrustManager {
         keystores = FastList.newInstance();
     }
 
-    public void add(KeyStore ks) {        
+    public void add(KeyStore ks) {
         if (ks != null) {
             keystores.add(ks);
         }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -148,16 +148,16 @@ public class TimeDuration implements Serializable {
             calStart = (Calendar) cal2.clone();
             calEnd = (Calendar) cal1.clone();
         }
-        
+ 
         // this will be used to speed up time comparisons
         long targetMillis = calEnd.getTimeInMillis();
         long deltaMillis = targetMillis - calStart.getTimeInMillis();
-        
+ 
         // shortcut for equal dates
         if (deltaMillis == 0) {
             return;
         }
-        
+ 
         // compute elapsed years
         long yearMillis = 86400000 * calStart.getMinimum(Calendar.DAY_OF_YEAR);
         float units = deltaMillis / yearMillis;
@@ -189,13 +189,13 @@ public class TimeDuration implements Serializable {
         units = deltaMillis / 1000;
         this.seconds = advanceCalendar(calStart, calEnd, (int) units, Calendar.SECOND);
         deltaMillis = targetMillis - calStart.getTimeInMillis();
-        
+ 
         this.millis = (int) deltaMillis;
         if (isNegative) {
             makeNegative();
         }
     }
-    
+ 
     protected int advanceCalendar(Calendar start, Calendar end, int units, int type) {
         if (units >= 1) {
             start.add(type, units);
@@ -223,7 +223,7 @@ public class TimeDuration implements Serializable {
      * returned object are based on a Gregorian calendar. <b>Note:</b> this
      * method should not be used to calculate elapsed time - use the elapsed
      * time constructor instead.</p>
-     * 
+     *
      * @param millis A millisecond value
      * @return A <code>TimeDuration</code> instance
      */
@@ -264,8 +264,8 @@ public class TimeDuration implements Serializable {
 
     /** Returns a <code>long</code> value derived from a <code>TimeDuration</code>
      * instance. This method is intended to be used in tandem with the
-     * <code>fromLong</code> method. 
-     * 
+     * <code>fromLong</code> method.
+     *
      * @param duration
      * @return the number number of milliseconds in the duration
      */

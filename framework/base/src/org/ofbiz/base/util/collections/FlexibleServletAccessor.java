@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -45,7 +45,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
     public FlexibleServletAccessor(String name) {
         init(name);
     }
-    
+ 
     public FlexibleServletAccessor(String name, String defaultName) {
         if (name == null || name.length() == 0) {
             init(defaultName);
@@ -53,7 +53,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
             init(name);
         }
     }
-    
+ 
     protected void init(String name) {
         this.name = name;
         if (name == null || name.length() == 0) {
@@ -77,12 +77,12 @@ public class FlexibleServletAccessor<T> implements Serializable {
                     attributeName = name;
                     fma = null;
                 }
-                
+ 
                 needsExpand = false;
             }
         }
     }
-    
+ 
     public boolean isEmpty() {
         return this.empty;
     }
@@ -110,7 +110,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
     /** Based on name put in ServletRequest or from List in ServletRequest;
      * If the brackets for a list are empty the value will be appended to the list,
      * otherwise the value will be set in the position of the number in the brackets.
-     * If a "+" (plus sign) is included inside the square brackets before the index 
+     * If a "+" (plus sign) is included inside the square brackets before the index
      * number the value will inserted/added at that point instead of set at the point.
      * @param request
      * @param value
@@ -120,11 +120,11 @@ public class FlexibleServletAccessor<T> implements Serializable {
         AttributeAccessor<T> aa = new AttributeAccessor<T>(name, expandContext, this.attributeName, this.fma, this.needsExpand);
         aa.put(request, value);
     }
-    
+ 
     /** Based on name put in HttpSession or from List in HttpSession;
      * If the brackets for a list are empty the value will be appended to the list,
      * otherwise the value will be set in the position of the number in the brackets.
-     * If a "+" (plus sign) is included inside the square brackets before the index 
+     * If a "+" (plus sign) is included inside the square brackets before the index
      * number the value will inserted/added at that point instead of set at the point.
      * @param session
      * @param value
@@ -134,7 +134,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
         AttributeAccessor<T> aa = new AttributeAccessor<T>(name, expandContext, this.attributeName, this.fma, this.needsExpand);
         aa.put(session, value);
     }
-    
+ 
     /** Based on name remove from ServletRequest or from List in ServletRequest
      * @param request
      * @param expandContext
@@ -144,7 +144,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
         AttributeAccessor<T> aa = new AttributeAccessor<T>(name, expandContext, this.attributeName, this.fma, this.needsExpand);
         return aa.remove(request);
     }
-    
+ 
     /** Based on name remove from HttpSession or from List in HttpSession
      * @param session
      * @param expandContext
@@ -154,18 +154,18 @@ public class FlexibleServletAccessor<T> implements Serializable {
         AttributeAccessor<T> aa = new AttributeAccessor<T>(name, expandContext, this.attributeName, this.fma, this.needsExpand);
         return aa.remove(session);
     }
-    
-    /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key * 
+ 
+    /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key *
      * @return the hashcode
-     */    
+     */
     public int hashCode() {
         return this.name.hashCode();
     }
 
-    /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key 
+    /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key
      * @param obj
      * @return whether this object is equal to the passed object
-     */    
+     */
     public boolean equals(Object obj) {
         if (obj instanceof FlexibleServletAccessor) {
             FlexibleServletAccessor flexibleServletAccessor = (FlexibleServletAccessor) obj;
@@ -182,13 +182,13 @@ public class FlexibleServletAccessor<T> implements Serializable {
         }
     }
 
-    /** To be used for a string representation of the accessor, returns the original name. 
+    /** To be used for a string representation of the accessor, returns the original name.
      * @return the name of this accessor
-     */    
+     */
     public String toString() {
         return this.name;
     }
-    
+ 
     protected static class AttributeAccessor<T> implements Serializable {
         protected Map<String, Object> expandContext;
         protected String attributeName;
@@ -199,11 +199,11 @@ public class FlexibleServletAccessor<T> implements Serializable {
         protected int listIndex;
         protected int openBrace;
         protected int closeBrace;
-        
+ 
         public AttributeAccessor(String origName, Map<String, Object> expandContext, String defAttributeName, FlexibleMapAccessor<T> defFma, boolean needsExpand) {
             attributeName = defAttributeName;
             fma = defFma;
-            
+ 
             if (needsExpand) {
                 String name = FlexibleStringExpander.expandString(origName, expandContext);
                 int dotIndex = name.indexOf('.');
@@ -239,7 +239,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
                 attributeName = attributeName.substring(0, openBrace);
                 isListReference = true;
             }
-        
+ 
         }
 
         public T get(ServletRequest request) {
@@ -286,7 +286,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
                 }
             }
         }
-        
+ 
         public void put(ServletRequest request, T value) {
             if (fma == null) {
                 if (isListReference) {
@@ -305,7 +305,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
                 }
             }
         }
-        
+ 
         public void put(HttpSession session, T value) {
             if (fma == null) {
                 if (isListReference) {

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -48,12 +48,12 @@ public final class BshUtil {
 
     protected static Map<ClassLoader, BshClassManager> masterClassManagers = new HashMap<ClassLoader, BshClassManager>();
     public static UtilCache<String, Interpreter.ParsedScript> parsedScripts = new UtilCache<String, Interpreter.ParsedScript>("script.BshLocationParsedCache", 0, 0, false);
-    
+ 
     /**
      * Evaluate a BSH condition or expression
      * @param expression The expression to evaluate
      * @param context The context to use in evaluation (re-written)
-     * @return Object The result of the evaluation 
+     * @return Object The result of the evaluation
      * @throws EvalError
      */
     public static final Object eval(String expression, Map<String, Object> context) throws EvalError {
@@ -87,7 +87,7 @@ public final class BshUtil {
         }
         return o;
     }
-    
+ 
     public static Interpreter makeInterpreter(Map<String, ? extends Object> context) throws EvalError {
         Interpreter bsh = getMasterInterpreter(null);
         // Set the context for the condition
@@ -95,11 +95,11 @@ public final class BshUtil {
             for (Map.Entry<String, ? extends Object> entry: context.entrySet()) {
                 bsh.set(entry.getKey(), entry.getValue());
             }
-            
+ 
             // include the context itself in for easier access in the scripts
             bsh.set("context", context);
         }
-        
+ 
         return bsh;
     }
 
@@ -120,9 +120,9 @@ public final class BshUtil {
                 }
             }
         }
-        
+ 
         if (master != null) {
-            Interpreter interpreter = new Interpreter(new StringReader(""), System.out, System.err, 
+            Interpreter interpreter = new Interpreter(new StringReader(""), System.out, System.err,
                     false, new NameSpace(master, "global"), null, null);
             return interpreter;
         } else {
@@ -131,11 +131,11 @@ public final class BshUtil {
             return interpreter;
         }
     }
-    
+ 
     public static Object runBshAtLocation(String location, Map<String, ? extends Object> context) throws GeneralException {
         try {
             Interpreter interpreter = makeInterpreter(context);
-            
+ 
             Interpreter.ParsedScript script = null;
             script = parsedScripts.get(location);
             if (script == null) {
@@ -153,7 +153,7 @@ public final class BshUtil {
                     }
                 }
             }
-            
+ 
             return interpreter.evalParsedScript(script);
         } catch (MalformedURLException e) {
             String errMsg = "Error loading BSH script at [" + location + "]: " + e.toString();
@@ -175,7 +175,7 @@ public final class BshUtil {
             } else {
                 Debug.logError(t, "ERROR: Got cause (from getCause) for BSH EvalError: " + ee.toString(), module);
             }
-            
+ 
             String errMsg = "Error running BSH script at [" + location + "], line [" + ee.getErrorLineNumber() + "]: " + t.toString();
             // don't log the full exception, just the main message; more detail logged later
             throw new GeneralException(errMsg, t);

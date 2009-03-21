@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,12 +28,12 @@ import org.ofbiz.base.util.UtilGenerics;
 
 /**
  * MapComparator.java
- * 
+ *
  */
 public class MapComparator implements Comparator<Map<Object, Object>> {
-    
+ 
     public static final String module = MapComparator.class.getName();
-    
+ 
     private List<? extends Object> keys;
 
     /**
@@ -70,9 +70,9 @@ public class MapComparator implements Comparator<Map<Object, Object>> {
             if (key instanceof FlexibleMapAccessor) {
                 FlexibleMapAccessor<Object> fmaKey = UtilGenerics.cast(key);
                 ascending = fmaKey.getIsAscending();
-                
+ 
                 //Debug.logInfo("Doing compare with a FlexibleMapAccessor [" + fmaKey.getOriginalName() + "] ascending [" + ascending + "]", module);
-                
+ 
                 o1 = fmaKey.get(UtilGenerics.<String, Object>checkMap(map1));
                 o2 = fmaKey.get(UtilGenerics.<String, Object>checkMap(map2));
             } else {
@@ -86,7 +86,7 @@ public class MapComparator implements Comparator<Map<Object, Object>> {
                         key = keyStr.substring(1);
                     }
                 }
-                
+ 
                 o1 = map1.get(key);
                 o2 = map2.get(key);
             }
@@ -94,7 +94,7 @@ public class MapComparator implements Comparator<Map<Object, Object>> {
             if (o1 == null && o2 == null) {
                 continue;
             }
-            
+ 
             int compareResult = 0;
             if (o1 != null && o2 == null) {
                 compareResult = -1;
@@ -102,7 +102,7 @@ public class MapComparator implements Comparator<Map<Object, Object>> {
             if (o1 == null && o2 != null) {
                 compareResult = 1;
             }
-            
+ 
             if (compareResult == 0) {
                 try {
                     // the map values in question MUST implement the Comparable interface, if not we'll throw an exception
@@ -124,7 +124,7 @@ public class MapComparator implements Comparator<Map<Object, Object>> {
                 }
             }
         }
-        
+ 
         // none of them were different, so they are equal
         return 0;
     }

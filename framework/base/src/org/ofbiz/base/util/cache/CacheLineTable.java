@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -131,7 +131,7 @@ public class CacheLineTable<K, V> implements Serializable {
         if (fileTable != null) {
             try {
                 if (oldValue == null) oldValue = getFileTable(key);
-                fileTable.put(key != null ? key : ObjectType.NULL, value);                
+                fileTable.put(key != null ? key : ObjectType.NULL, value);
                 CacheLineTable.jdbmMgr.commit();
             } catch (IOException e) {
                 Debug.logError(e, module);
@@ -213,7 +213,7 @@ public class CacheLineTable<K, V> implements Serializable {
     }
 
     /**
-     * 
+     *
      * @return An unmodifiable Set for the keys for this cache; to remove while iterating call the remove method on this class.
      */
     public synchronized Set<? extends K> keySet() {
@@ -241,7 +241,7 @@ public class CacheLineTable<K, V> implements Serializable {
                 long recid = fileTable.getRecid();
                 CacheLineTable.jdbmMgr.delete(recid);
                 CacheLineTable.jdbmMgr.commit();
-                this.fileTable = null;                
+                this.fileTable = null;
 
                 // create a new table
                 this.fileTable = jdbm.htree.HTree.createInstance(CacheLineTable.jdbmMgr);

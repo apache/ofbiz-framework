@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -40,15 +40,15 @@ import org.xml.sax.SAXException;
  *
  */
 public class ComponentLoaderConfig {
-    
-    public static final String module = ComponentLoaderConfig.class.getName();    
+ 
+    public static final String module = ComponentLoaderConfig.class.getName();
     public static final String COMPONENT_LOAD_XML_FILENAME = "component-load.xml";
-    
+ 
     public static final int SINGLE_COMPONENT = 0;
     public static final int COMPONENT_DIRECTORY = 1;
-    
+ 
     protected static List<ComponentDef> componentsToLoad = null;
-    
+ 
     public static List<ComponentDef> getRootComponents(String configFile) throws ComponentException {
         if (componentsToLoad == null) {
             synchronized (ComponentLoaderConfig.class) {
@@ -58,7 +58,7 @@ public class ComponentLoaderConfig {
                     }
                     URL xmlUrl = UtilURL.fromResource(configFile);
                     ComponentLoaderConfig.componentsToLoad = ComponentLoaderConfig.getComponentsFromConfig(xmlUrl);
-                }                
+                }
             }
         }
         return componentsToLoad;
@@ -96,8 +96,8 @@ public class ComponentLoaderConfig {
         public String name;
         public String location;
         public int type = -1;
-        
-        public ComponentDef(Element element) {            
+ 
+        public ComponentDef(Element element) {
             Properties systemProps = System.getProperties();
             if ("load-component".equals(element.getNodeName())) {
                 name = element.getAttribute("component-name");
@@ -108,6 +108,6 @@ public class ComponentLoaderConfig {
                 location = FlexibleStringExpander.expandString(element.getAttribute("parent-directory"), UtilGenerics.<String, Object>checkMap(systemProps));
                 type = COMPONENT_DIRECTORY;
             }
-        }                
+        }
     }
 }

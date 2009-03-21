@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -94,7 +94,7 @@ public class KeyStoreUtil {
         if (password == null) {
             password = "changeit";
         }
-        
+ 
         KeyStore ks = KeyStore.getInstance("jks");
         File keyFile = null;
         if (fileName != null) {
@@ -111,7 +111,7 @@ public class KeyStoreUtil {
         } else {
             ks.load(null, "changeit".toCharArray());
         }
-        return ks;        
+        return ks;
     }
 
     public static X509Certificate readCertificate(byte[] certChain) throws CertificateException {
@@ -130,19 +130,19 @@ public class KeyStoreUtil {
 
     public static Map<String, String> getX500Map(Principal x500) {
         Map<String, String> x500Map = FastMap.newInstance();
-        
+ 
         String name = x500.getName().replaceAll("\\\\,", "&com;");
         String[] x500Opts = name.split("\\,");
         for (String opt: x500Opts) {
             if (opt.indexOf("=") > -1) {
-                String[] nv = opt.split("\\=", 2);                
+                String[] nv = opt.split("\\=", 2);
                 x500Map.put(nv[0].replaceAll("&com;", ","), nv[1].replaceAll("&com;", ","));
             }
         }
 
         return x500Map;
     }
-    
+ 
     public static void importPKCS8CertChain(KeyStore ks, String alias, byte[] keyBytes, String keyPass, byte[] certChain) throws InvalidKeySpecException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
         // load the private key
         KeyFactory kf = KeyFactory.getInstance("RSA");
@@ -178,7 +178,7 @@ public class KeyStoreUtil {
     }
 
     public static Certificate pemToCert(String certString) throws IOException, CertificateException {
-        return pemToCert(new StringReader(certString));    
+        return pemToCert(new StringReader(certString));
     }
 
     public static Certificate pemToCert(File certFile) throws IOException, CertificateException {

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -35,7 +35,7 @@ import org.ofbiz.base.util.Debug;
  *
  */
 public class ContainerLoader implements StartupLoader {
-    
+ 
     public static final String module = ContainerLoader.class.getName();
     public static final String CONTAINER_CONFIG = "ofbiz-containers.xml";
     private static boolean loaded = false;
@@ -50,14 +50,14 @@ public class ContainerLoader implements StartupLoader {
     public void load(Start.Config config, String args[]) throws StartupException {
         Debug.logInfo("[Startup] Loading containers...", module);
         loaded = true;
-        
+ 
         // get the master container configuration file
         this.configFile = config.containerConfig;
-        
+ 
         Collection<ContainerConfig.Container> containers = null;
         try {
             containers = ContainerConfig.getContainers(configFile);
-        } catch (ContainerException e) {            
+        } catch (ContainerException e) {
             throw new StartupException(e);
         }
 
@@ -114,7 +114,7 @@ public class ContainerLoader implements StartupLoader {
         Debug.logInfo("Shutting down containers", module);
         if (Debug.verboseOn())
             printThreadDump();
-        
+ 
         // shutting down in reverse order
         for (int i = loadedContainers.size(); i > 0; i--) {
             Container container = loadedContainers.get(i-1);
@@ -163,7 +163,7 @@ public class ContainerLoader implements StartupLoader {
         try {
             containerClass = loader.loadClass(containerCfg.className);
         } catch (ClassNotFoundException e) {
-            throw new StartupException("Cannot locate container class", e);            
+            throw new StartupException("Cannot locate container class", e);
         }
         if (containerClass == null) {
             throw new StartupException("Component container class not loaded");
@@ -180,7 +180,7 @@ public class ContainerLoader implements StartupLoader {
         } catch (ClassCastException e) {
             throw new StartupException("Cannot create " + containerCfg.name, e);
         }
-        
+ 
         if (containerObj == null) {
             throw new StartupException("Unable to create instance of component container");
         }

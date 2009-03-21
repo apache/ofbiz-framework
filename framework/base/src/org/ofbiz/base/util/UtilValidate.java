@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -895,7 +895,7 @@ public class UtilValidate {
             return false;
         }
     }
-    
+ 
     /** isTime returns true if string arguments hour, minute, and second form a valid time. */
     public static boolean isTime(String hour, String minute, String second) {
         // catch invalid years(not 2- or 4-digit) and invalid months and days.
@@ -1145,7 +1145,7 @@ public class UtilValidate {
     public static boolean isSolo(String cc) {
         String first4digs = cc.substring(0, 4);
         String first2digs = cc.substring(0, 2);
-        if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19)) && 
+        if (((cc.length() == 16) || (cc.length() == 18) || (cc.length() == 19)) &&
                 (first2digs.equals("63") || first4digs.equals("6767")))
             return isCreditCard(cc);
         return false;
@@ -1170,7 +1170,7 @@ public class UtilValidate {
         return false;
     }
 
-    
+ 
     /** Checks to see if the cc number is a valid number for any accepted credit card
      *   @param     ccPassed - a string representing a credit card number
      *   @return  true, if the credit card number is any valid credit card number for any of the accepted card types, false otherwise
@@ -1301,7 +1301,7 @@ public class UtilValidate {
         if (check >= 10) check = 0;
         return Character.forDigit(check, 10);
     }
-    
+ 
     public static String checkValidDatabaseId(String fieldStr) {
         if (fieldStr.indexOf(' ') >= 0) {
             return "[space found at position " + (fieldStr.indexOf(' ') + 1) + "]";

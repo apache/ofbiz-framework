@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,7 +37,7 @@ import org.ofbiz.base.util.UtilGenerics;
 
 /**
  * Map Stack
- * 
+ *
  */
 public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Object> {
 
@@ -81,19 +81,19 @@ public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Objec
     protected MapStack() {
         super();
     }
-    
+ 
     protected List<Map<K, Object>> stackList = FastList.newInstance();
-    
+ 
     public void reset() {
         stackList = FastList.newInstance();
     }
-    
+ 
     /** Puts a new Map on the top of the stack */
     public void push() {
         Map<K, Object> newMap = FastMap.newInstance();
         this.stackList.add(0,newMap);
     }
-    
+ 
     /** Puts an existing Map on the top of the stack (top meaning will override lower layers on the stack) */
     public void push(Map<K, Object> existingMap) {
         if (existingMap == null) {
@@ -101,7 +101,7 @@ public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Objec
         }
         this.stackList.add(0, existingMap);
     }
-    
+ 
     /** Puts an existing Map on the BOTTOM of the stack (bottom meaning will be overriden by lower layers on the stack, ie everything else already there) */
     public void addToBottom(Map<K, Object> existingMap) {
         if (existingMap == null) {
@@ -109,7 +109,7 @@ public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Objec
         }
         this.stackList.add(existingMap);
     }
-    
+ 
     /** Remove and returns the Map from the top of the stack; if there is only one Map on the stack it returns null and does not remove it */
     public Map<K, Object> pop() {
         // always leave at least one Map in the List, ie never pop off the last Map
@@ -119,23 +119,23 @@ public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Objec
             return null;
         }
     }
-    
-    /** 
-     * Creates a MapStack object that has the same Map objects on its stack; 
-     * meant to be used to enable a 
-     * situation where a parent and child context are operating simultaneously 
-     * using two different MapStack objects, but sharing the Maps in common  
+ 
+    /**
+     * Creates a MapStack object that has the same Map objects on its stack;
+     * meant to be used to enable a
+     * situation where a parent and child context are operating simultaneously
+     * using two different MapStack objects, but sharing the Maps in common
      */
     public MapStack<K> standAloneStack() {
         MapStack<K> standAlone = MapStack.create(this);
         return standAlone;
     }
 
-    /** 
-     * Creates a MapStack object that has the same Map objects on its stack, 
-     * but with a new Map pushed on the top; meant to be used to enable a 
-     * situation where a parent and child context are operating simultaneously 
-     * using two different MapStack objects, but sharing the Maps in common  
+    /**
+     * Creates a MapStack object that has the same Map objects on its stack,
+     * but with a new Map pushed on the top; meant to be used to enable a
+     * situation where a parent and child context are operating simultaneously
+     * using two different MapStack objects, but sharing the Maps in common
      */
     public MapStack<K> standAloneChildStack() {
         MapStack<K> standAloneChild = MapStack.create(this);
@@ -211,7 +211,7 @@ public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Objec
         if ("context".equals(key)) {
             return this;
         }
-        
+ 
         // walk the stackList and for the first place it is found return true; otherwise refurn false
         for (Map<K, Object> curMap: this.stackList) {
             // only return if the curMap contains the key, rather than checking for null; this allows a null at a lower level to override a value at a higher level
@@ -229,7 +229,7 @@ public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Objec
         if ("context".equals(name)) {
             return this;
         }
-        
+ 
         // walk the stackList and for the first place it is found return true; otherwise refurn false
         for (Map<K, Object> curMap: this.stackList) {
             // only return if the curMap contains the key, rather than checking for null; this allows a null at a lower level to override a value at a higher level
@@ -254,7 +254,7 @@ public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Objec
                 Debug.logWarning("WARNING: Putting a value in a MapStack with key [context] that is not this MapStack, will be hidden by the current MapStack self-reference: " + value, module);
             }
         }
-            
+ 
         // all write operations are local: only put in the Map on the top of the stack
         Map<K, Object> currentMap = this.stackList.get(0);
         return currentMap.put(key, value);
@@ -334,14 +334,14 @@ public class MapStack<K> implements Map<K, Object>, Reusable, LocalizedMap<Objec
         }
         return Collections.unmodifiableSet(resultEntrySet);
     }
-    
+ 
     public String toString() {
         StringBuilder fullMapString = new StringBuilder();
         int curLevel = 0;
         for (Map<K, Object> curMap: this.stackList) {
             fullMapString.append("============================== Start stack level " + curLevel + "\n");
             for (Map.Entry<K, Object> curEntry: curMap.entrySet()) {
-                
+ 
                 fullMapString.append("==>[");
                 fullMapString.append(curEntry.getKey());
                 fullMapString.append("]:");

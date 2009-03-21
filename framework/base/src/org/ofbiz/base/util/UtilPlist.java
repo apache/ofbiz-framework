@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -75,7 +75,7 @@ public class UtilPlist {
     public static void writePlistPropertyValueList(List<Object> propertyValueList, int indentLevel, PrintWriter writer) {
         for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
         writer.print("(");
-        
+ 
         Iterator<Object> propertyValueIter = propertyValueList.iterator();
         while (propertyValueIter.hasNext()) {
             Object propertyValue = propertyValueIter.next();
@@ -87,7 +87,7 @@ public class UtilPlist {
                 if (propertyValueIter.hasNext()) writer.print(", ");
             }
         }
-        
+ 
         for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
         writer.println(");");
     }
@@ -122,7 +122,7 @@ public class UtilPlist {
     public static void writePlistPropertyValueListXml(List<Object> propertyValueList, int indentLevel, PrintWriter writer) {
         for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
         writer.println("<array>");
-        
+ 
         indentLevel++;
         Iterator<Object> propertyValueIter = propertyValueList.iterator();
         while (propertyValueIter.hasNext()) {
@@ -138,16 +138,16 @@ public class UtilPlist {
             }
         }
         indentLevel--;
-        
+ 
         for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
         writer.println("</array>");
     }
-    
+ 
     /**
-     * Writes model information in the Apple EOModelBundle format. 
-     * 
+     * Writes model information in the Apple EOModelBundle format.
+     *
      * For document structure and definition see: http://developer.apple.com/documentation/InternetWeb/Reference/WO_BundleReference/Articles/EOModelBundle.html
-     * 
+     *
      * @param eoModelMap
      * @param eomodeldFullPath
      * @param filename

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -30,7 +30,7 @@ import java.util.Locale;
 public class UtilFormatOut {
 
     public static final String module = UtilFormatOut.class.getName();
-    
+ 
     public static String safeToString(Object obj) {
         if (obj != null) {
             return obj.toString();
@@ -38,7 +38,7 @@ public class UtilFormatOut {
             return "";
         }
     }
-    
+ 
     // ------------------- price format handlers -------------------
     static DecimalFormat priceDecimalFormat = new DecimalFormat("#,##0.00");
     static DecimalFormat priceNumberFormat = new DecimalFormat("##0.00");
@@ -270,7 +270,7 @@ public class UtilFormatOut {
     public static String formatQuantity(double quantity) {
         return quantityDecimalFormat.format(quantity);
     }
-    
+ 
     public static String formatPaddedNumber(long number, int numericPadding) {
         StringBuilder outStrBfr = new StringBuilder(Long.toString(number));
         while (numericPadding > outStrBfr.length()) {
@@ -278,7 +278,7 @@ public class UtilFormatOut {
         }
         return outStrBfr.toString();
     }
-    
+ 
     public static String formatPaddingRemove(String original) {
         if (original == null) return null;
         StringBuilder orgBuf = new StringBuilder(original);
@@ -287,9 +287,9 @@ public class UtilFormatOut {
         }
         return orgBuf.toString();
     }
-    
-    
-    // ------------------- date handlers -------------------          
+ 
+ 
+    // ------------------- date handlers -------------------
     /** Formats a String timestamp into a nice string
      * @param timestamp String timestamp to be formatted
      * @return A String with the formatted date/time
@@ -299,7 +299,7 @@ public class UtilFormatOut {
             return "";
         DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.FULL);
         java.util.Date date = timestamp;
-        return df.format(date);        
+        return df.format(date);
     }
 
     // ------------------- null string handlers -------------------
@@ -517,11 +517,11 @@ public class UtilFormatOut {
     public static String makeSqlSafe(String unsafeString) {
         return unsafeString.replaceAll("'","''");
     }
-    
+ 
     public static String formatPrintableCreditCard(String original) {
         if (original == null) return null;
         if (original.length() <= 4) return original;
-        
+ 
         StringBuffer buffer = new StringBuffer();
         for(int i=0; i < original.length()-4 ; i++) {
             buffer.append('*');

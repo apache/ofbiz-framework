@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -34,7 +34,7 @@ public class UtilNumber {
 
     // default scale and rounding mode for BigDecimals
     private static final int DEFAULT_BD_SCALE = 2;
-    private static final int DEFAULT_BD_ROUNDING_MODE = BigDecimal.ROUND_HALF_UP; 
+    private static final int DEFAULT_BD_ROUNDING_MODE = BigDecimal.ROUND_HALF_UP;
 
     /**
      * Method to get BigDecimal scale factor from a property
@@ -60,7 +60,7 @@ public class UtilNumber {
         }
         return scale;
     }
-    
+ 
     /**
      * As above, but use the default properties file
      */
@@ -158,11 +158,11 @@ public class UtilNumber {
         rbnfRuleSets = new HashMap<Locale, String>();
         rbnfRuleSets.put(Locale.US, ruleSet_en_US);
     }
-    
+ 
     /**
      * Method to format an amount using a custom rule set.
      * Current rule sets available:
-     * 
+     *
      * en_US
      * %dollars-and-cents - 1,225.25 becomes "one thousand two hundred twenty five dollars and twenty five cents" (useful for checks)
      * %dollars-and-hundreths - 1,225.25 becomes "one thousand two hundred twenty five and 25/00" (alternate for checks)

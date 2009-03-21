@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -70,7 +70,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
             Debug.logVerbose("FlexibleMapAccessor created, original = " + this.original, module);
         }
     }
-    
+ 
     /** Returns a FlexibleMapAccessor instance.
      * @param original The original String expression
      * @return A FlexibleMapAccessor instance
@@ -105,7 +105,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
          return this.original == null || this.original.length() == 0;
     }
 
-    /** Given the name based information in this accessor, get the value from the passed in Map. 
+    /** Given the name based information in this accessor, get the value from the passed in Map.
      *  Supports LocalizedMaps by getting a String or Locale object from the base Map with the key "locale", or by explicit locale parameter.
      * @param base
      * @return the found value
@@ -114,7 +114,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
         return get(base, null);
     }
 
-    /** Given the name based information in this accessor, get the value from the passed in Map. 
+    /** Given the name based information in this accessor, get the value from the passed in Map.
      *  Supports LocalizedMaps by getting a String or Locale object from the base Map with the key "locale", or by explicit locale parameter.
      *  Note that the localization functionality is only used when the lowest level sub-map implements the LocalizedMap interface
      * @param base Map to get value from
@@ -143,10 +143,10 @@ public class FlexibleMapAccessor<T> implements Serializable {
         return UtilGenerics.<T>cast(obj);
     }
 
-    /** Given the name based information in this accessor, put the value in the passed in Map. 
+    /** Given the name based information in this accessor, put the value in the passed in Map.
      * If the brackets for a list are empty the value will be appended to the list,
      * otherwise the value will be set in the position of the number in the brackets.
-     * If a "+" (plus sign) is included inside the square brackets before the index 
+     * If a "+" (plus sign) is included inside the square brackets before the index
      * number the value will inserted/added at that point instead of set at the point.
      * @param base
      * @param value
@@ -164,7 +164,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
             Debug.logInfo("UEL exception while setting value: " + e + ", original = " + this.original, module);
         }
     }
-    
+ 
     /** Given the name based information in this accessor, remove the value from the passed in Map.
      * @param base the Map to remove from
      * @return the object removed
@@ -185,7 +185,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
         }
         return object;
     }
-    
+ 
     protected String getExpression(Map<String, ? extends Object> base) {
         String expression = null;
         if (this.fse != null) {
@@ -202,7 +202,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
         }
         return this.original;
     }
-    
+ 
     @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -217,7 +217,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
         } catch (Exception e) {}
         return false;
     }
-    
+ 
     public int hashCode() {
         return this.original == null ? super.hashCode() : this.original.hashCode();
     }

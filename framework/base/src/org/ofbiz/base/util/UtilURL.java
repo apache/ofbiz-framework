@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -98,14 +98,14 @@ public class UtilURL {
         }
         return url;
     }
-    
+ 
     public static URL fromUrlString(String urlString) {
-        URL url = null;       
+        URL url = null;
         try {
             url = new URL(urlString);
-        } catch (MalformedURLException e) {                        
+        } catch (MalformedURLException e) {
         }
-        
+ 
         return url;
     }
 
@@ -122,7 +122,7 @@ public class UtilURL {
         newFilename = newFilename + filename;
         return fromFilename(newFilename);
     }
-    
+ 
     public static String getOfbizHomeRelativeLocation(URL fileUrl) {
         String ofbizHome = System.getProperty("ofbiz.home");
         String path = fileUrl.getPath();
@@ -132,10 +132,10 @@ public class UtilURL {
         }
         return path;
     }
-    
+ 
     public static String readUrlText(URL url) throws IOException {
         InputStream stream = url.openStream();
-    
+ 
         StringBuilder buf = new StringBuilder();
         BufferedReader in = null;
         try {
@@ -158,7 +158,7 @@ public class UtilURL {
                 }
             }
         }
-        
+ 
         return buf.toString();
     }
 }

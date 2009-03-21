@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -33,21 +33,21 @@ import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 /**
- * Utilities for analyzing and converting Object types in Java 
+ * Utilities for analyzing and converting Object types in Java
  * Takes advantage of reflection
  */
 public class ObjectType {
-    
+ 
     public static final String module = ObjectType.class.getName();
 
     public static final Object NULL = new NullObject();
-    
+ 
     protected static Map<String, Class<?>> classCache = FastMap.newInstance();
 
     public static final String LANG_PACKAGE = "java.lang."; // We will test both the raw value and this + raw value
     public static final String SQL_PACKAGE = "java.sql.";   // We will test both the raw value and this + raw value
 
-    /** 
+    /**
      * Loads a class with the current thread's context classloader.
      * @param className The name of the class to load
      * @return The requested class
@@ -62,7 +62,7 @@ public class ObjectType {
         return loadClass(className, null);
     }
 
-    /** 
+    /**
      * Loads a class with the current thread's context classloader.
      * @param className The name of the class to load
      * @param loader The ClassLoader to use
@@ -86,7 +86,7 @@ public class ObjectType {
                 className = "[L" + arrayClass.getName().replace("[]", "") + ";";
             }
         }
-        
+ 
         // small block to speed things up by putting using preloaded classes for common objects, this turns out to help quite a bit...
         Class<?> theClass = CachedClassLoader.globalClassNameClassMap.get(className);
 
@@ -115,7 +115,7 @@ public class ObjectType {
         return theClass;
     }
 
-    /** 
+    /**
      * Returns an instance of the specified class.  This uses the default
      * no-arg constructor to create the instance.
      * @param className Name of the class to instantiate
@@ -133,7 +133,7 @@ public class ObjectType {
         return o;
     }
 
-    /** 
+    /**
      * Tests if a class properly implements the specified interface.
      * @param objectClass Class to test
      * @param interfaceName Name of the interface to test against
@@ -146,7 +146,7 @@ public class ObjectType {
         return interfaceOf(objectClass, interfaceClass);
     }
 
-    /** 
+    /**
      * Tests if a class properly implements the specified interface.
      * @param objectClass Class to test
      * @param interfaceObject to test against
@@ -194,7 +194,7 @@ public class ObjectType {
         return interfaceOf(obj, interfaceClass);
     }
 
-    /** 
+    /**
      * Tests if an object properly implements the specified interface.
      * @param obj Object to test
      * @param interfaceObject to test against
@@ -206,7 +206,7 @@ public class ObjectType {
         return interfaceOf(obj, interfaceClass);
     }
 
-    /** 
+    /**
      * Tests if an object properly implements the specified interface.
      * @param obj Object to test
      * @param interfaceClass Class to test against
@@ -218,7 +218,7 @@ public class ObjectType {
         return interfaceOf(objectClass, interfaceClass);
     }
 
-    /** 
+    /**
      * Tests if a class properly implements the specified interface.
      * @param objectClass Class to test
      * @param interfaceClass Class to test against
@@ -236,7 +236,7 @@ public class ObjectType {
         return false;
     }
 
-    /** 
+    /**
      * Tests if a class is a class of or a sub-class of the parent.
      * @param objectClass Class to test
      * @param parentName Name of the parent class to test against
@@ -249,7 +249,7 @@ public class ObjectType {
         return isOrSubOf(objectClass, parentClass);
     }
 
-    /** 
+    /**
      * Tests if a class is a class of or a sub-class of the parent.
      * @param objectClass Class to test
      * @param parentObject Object to test against
@@ -261,7 +261,7 @@ public class ObjectType {
         return isOrSubOf(objectClass, parentClass);
     }
 
-    /** 
+    /**
      * Tests if an object is an instance of or a sub-class of the parent.
      * @param obj Object to test
      * @param parentName Name of the parent class to test against
@@ -274,7 +274,7 @@ public class ObjectType {
         return isOrSubOf(obj, parentClass);
     }
 
-    /** 
+    /**
      * Tests if an object is an instance of or a sub-class of the parent.
      * @param obj Object to test
      * @param parentObject Object to test against
@@ -286,7 +286,7 @@ public class ObjectType {
         return isOrSubOf(obj, parentClass);
     }
 
-    /** 
+    /**
      * Tests if an object is an instance of or a sub-class of the parent.
      * @param obj Object to test
      * @param parentClass Class to test against
@@ -298,7 +298,7 @@ public class ObjectType {
         return isOrSubOf(objectClass, parentClass);
     }
 
-    /** 
+    /**
      * Tests if a class is a class of or a sub-class of the parent.
      * @param objectClass Class to test
      * @param parentClass Class to test against
@@ -313,7 +313,7 @@ public class ObjectType {
         return false;
     }
 
-    /** 
+    /**
      * Tests if a class is a class of a sub-class of or properly implements an interface.
      * @param objectClass Class to test
      * @param typeObject Object to test against
@@ -325,7 +325,7 @@ public class ObjectType {
         return instanceOf(objectClass, typeClass);
     }
 
-    /** 
+    /**
      * Tests if a class is a class of a sub-class of or properly implements an interface.
      * @param objectClass Class to test
      * @param typeName name to test against
@@ -335,7 +335,7 @@ public class ObjectType {
         return instanceOf(objectClass, typeName, null);
     }
 
-    /** 
+    /**
      * Tests if an object is an instance of a sub-class of or properly implements an interface.
      * @param obj Object to test
      * @param typeObject Object to test against
@@ -347,7 +347,7 @@ public class ObjectType {
         return instanceOf(obj, typeClass);
     }
 
-    /** 
+    /**
      * Tests if an object is an instance of a sub-class of or properly implements an interface.
      * @param obj Object to test
      * @param typeName name to test against
@@ -357,7 +357,7 @@ public class ObjectType {
         return instanceOf(obj, typeName, null);
     }
 
-    /** 
+    /**
      * Tests if a class is a class of a sub-class of or properly implements an interface.
      * @param objectClass Class to test
      * @param typeName Object to test against
@@ -373,7 +373,7 @@ public class ObjectType {
         return instanceOf(objectClass, infoClass);
     }
 
-    /** 
+    /**
      * Tests if an object is an instance of a sub-class of or properly implements an interface.
      * @param obj Object to test
      * @param typeName Object to test against
@@ -418,7 +418,7 @@ public class ObjectType {
         }
     }
 
-    /** 
+    /**
      * Tests if an object is an instance of a sub-class of or properly implements an interface.
      * @param obj Object to test
      * @param typeClass Class to test against
@@ -430,7 +430,7 @@ public class ObjectType {
         return instanceOf(objectClass, typeClass);
     }
 
-    /** 
+    /**
      * Tests if a class is a class of a sub-class of or properly implements an interface.
      * @param objectClass Class to test
      * @param typeClass Class to test against
@@ -448,7 +448,7 @@ public class ObjectType {
         return simpleTypeConvert(obj, type, format, null, locale, noTypeFail);
     }
 
-    /** 
+    /**
      * Converts the passed object to the named simple type.  Supported types
      * include: String, Boolean, Double, Float, Long, Integer, Date (java.sql.Date),
      * Time, Timestamp, TimeZone;
@@ -492,7 +492,7 @@ public class ObjectType {
             for (int i = 0; i < len; i++) {
                 newObj.add(Array.get(obj, i));
             }
-            return newObj;        
+            return newObj;
         } else if (obj instanceof java.lang.String) {
             fromType = "String";
             String str = (String) obj;
@@ -502,7 +502,7 @@ public class ObjectType {
             if (str.length() == 0) {
                 return null;
             }
-            
+ 
             if ("Boolean".equals(type) || "java.lang.Boolean".equals(type)) {
                 str = StringUtil.removeSpaces(str);
                 return str.equalsIgnoreCase("TRUE") ? Boolean.TRUE : Boolean.FALSE;
@@ -511,14 +511,14 @@ public class ObjectType {
                 if (loc != null) {
                     return loc;
                 } else {
-                    throw new GeneralException("Could not convert " + str + " to " + type + ": ");    
+                    throw new GeneralException("Could not convert " + str + " to " + type + ": ");
                 }
             } else if ("TimeZone".equals(type) || "java.util.TimeZone".equals(type)) {
                 TimeZone tz = UtilDateTime.toTimeZone(str);
                 if (tz != null) {
                     return tz;
                 } else {
-                    throw new GeneralException("Could not convert " + str + " to " + type + ": ");    
+                    throw new GeneralException("Could not convert " + str + " to " + type + ": ");
                 }
             } else if ("BigDecimal".equals(type) || "java.math.BigDecimal".equals(type)) {
                 str = StringUtil.removeSpaces(str);
@@ -901,7 +901,7 @@ public class ObjectType {
                 Set<Boolean> tempSet = FastSet.newInstance();
                 tempSet.add(bol);
                 return tempSet;
-            } else { 
+            } else {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
         } else if (obj instanceof java.util.Locale) {
@@ -925,13 +925,13 @@ public class ObjectType {
                 throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
         } else if (obj.getClass().getName().equals("org.ofbiz.entity.GenericValue")) {
-            fromType = "GenericValue";            
+            fromType = "GenericValue";
             if ("GenericValue".equals(type) || "org.ofbiz.entity.GenericValue".equals(type)) {
                 return obj;
             } else if ("Map".equals(type) || "java.util.Map".equals(type)) {
-                return obj;           
+                return obj;
             } else if ("String".equals(type) || "java.lang.String".equals(type)) {
-                return obj.toString();   
+                return obj.toString();
             } else if ("List".equals(type) || "java.util.List".equals(type)) {
                 List<Object> tempList = FastList.newInstance();
                 tempList.add(obj);
@@ -941,8 +941,8 @@ public class ObjectType {
                 tempSet.add(obj);
                 return tempSet;
             } else {
-                throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");            
-            }            
+                throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
+            }
         } else if (obj instanceof java.util.Map) {
             fromType = "Map";
             Map map = (Map) obj;
@@ -959,7 +959,7 @@ public class ObjectType {
                 tempSet.add(map);
                 return tempSet;
             } else {
-                throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");            
+                throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
         } else if (obj instanceof java.util.List) {
             fromType = "List";
@@ -969,7 +969,7 @@ public class ObjectType {
             } else if ("String".equals(type) || "java.lang.String".equals(type)) {
                 return list.toString();
             } else {
-                throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");            
+                throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
         } else if (obj instanceof java.nio.Buffer) {
             fromType = "Buffer";
@@ -977,7 +977,7 @@ public class ObjectType {
             if ("java.nio.ByteBuffer".equals(type)) {
                 return buffer;
             } else {
-                throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");            
+                throw new GeneralException("Conversion from " + fromType + " to " + type + " not currently supported");
             }
         } else {
             // we can pretty much always do a conversion to a String, so do that here
@@ -985,7 +985,7 @@ public class ObjectType {
                 Debug.logWarning("No special conversion available for " + obj.getClass().getName() + " to String, returning object.toString().", module);
                 return obj.toString();
             }
-            
+ 
             if (noTypeFail) {
                 throw new GeneralException("Conversion from " + obj.getClass().getName() + " to " + type + " not currently supported");
             } else {
@@ -1026,7 +1026,7 @@ public class ObjectType {
         } else if ("contains".equals(operator) && value1 == null) {
             return Boolean.FALSE;
         }
-        
+ 
         int result = 0;
 
         Object convertedValue2 = null;
@@ -1098,9 +1098,9 @@ public class ObjectType {
                 return Boolean.TRUE;
             if (convertedValue1 instanceof Map && ((Map) convertedValue1).size() == 0)
                 return Boolean.TRUE;
-            return Boolean.FALSE;    
+            return Boolean.FALSE;
         } else if ("is-not-empty".equals(operator)) {
-            if (convertedValue1 == null) 
+            if (convertedValue1 == null)
                 return Boolean.FALSE;
             if (convertedValue1 instanceof String && ((String) convertedValue1).length() == 0)
                 return Boolean.FALSE;
@@ -1108,9 +1108,9 @@ public class ObjectType {
                 return Boolean.FALSE;
             if (convertedValue1 instanceof Map && ((Map) convertedValue1).size() == 0)
                 return Boolean.FALSE;
-            return Boolean.TRUE;    
+            return Boolean.TRUE;
         }
-        
+ 
         if ("java.lang.String".equals(type) || "PlainString".equals(type)) {
             String str1 = (String) convertedValue1;
             String str2 = (String) convertedValue2;
@@ -1206,10 +1206,10 @@ public class ObjectType {
         if (verboseOn) Debug.logVerbose("Returning true", module);
         return Boolean.TRUE;
     }
-    
+ 
     public static boolean isEmpty(Object value) {
         if (value == null) return true;
-        
+ 
         if (value instanceof String) {
             if (((String) value).length() == 0) {
                 return true;
@@ -1225,14 +1225,14 @@ public class ObjectType {
         }
         return false;
     }
-    
+ 
     public static final class NullObject {
         public NullObject() { }
-        
+ 
         public String toString() {
             return "ObjectType.NullObject";
         }
-        
+ 
         public boolean equals(Object other) {
             if (other instanceof NullObject) {
                 // should do equality of object? don't think so, just same type

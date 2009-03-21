@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -35,14 +35,14 @@ public class ComponentLocationResolver implements LocationResolver {
 
     public static final String module = ComponentLocationResolver.class.getName();
 
-    public URL resolveLocation(String location) throws MalformedURLException {        
+    public URL resolveLocation(String location) throws MalformedURLException {
         StringBuffer baseLocation = ComponentLocationResolver.getBaseLocation(location);
         URL fileUrl = UtilURL.fromFilename(baseLocation.toString());
-        
+ 
         if (fileUrl == null) {
             Debug.logWarning("Unable to get file URL for component location; expanded location was [" + baseLocation + "], original location was [" + location + "]", module);
         }
-        
+ 
         return fileUrl;
     }
 
