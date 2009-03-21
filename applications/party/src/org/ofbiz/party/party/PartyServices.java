@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -24,7 +24,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.nio.ByteBuffer; 
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
 import javolution.util.FastList;
@@ -218,7 +218,7 @@ public class PartyServices {
                 Debug.logWarning(errorMsg, module);
                 return ServiceUtil.returnError(errorMsg);
             }
-            
+ 
             // record the oldStatusId and change the party status
             String oldStatusId = party.getString("statusId");
             party.set("statusId", statusId);
@@ -943,7 +943,7 @@ public class PartyServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
-        
+ 
         //get party types
         try {
             List<GenericValue> partyTypes = delegator.findList("PartyType", null, null, UtilMisc.toList("description"), null, false);
@@ -953,7 +953,7 @@ public class PartyServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
-        
+ 
         // current party type
         String partyTypeId;
         try {
@@ -1047,14 +1047,14 @@ public class PartyServices {
                 String partyIdFrom = userLogin.getString("partyId");
                 paramList = paramList + "&partyIdFrom=" + partyIdFrom;
                 dynamicView.addAlias("PR", "partyIdFrom");
-                // add the expr 
+                // add the expr
                 andExprs.add(EntityCondition.makeCondition(
-                        EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("partyIdFrom"), EntityOperator.EQUALS, EntityFunction.UPPER(partyIdFrom)), 
-                        EntityOperator.AND, 
+                        EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("partyIdFrom"), EntityOperator.EQUALS, EntityFunction.UPPER(partyIdFrom)),
+                        EntityOperator.AND,
                         EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("partyRelationshipTypeId"), EntityOperator.EQUALS, EntityFunction.UPPER(partyRelationshipTypeId))));
                 fieldsToSelect.add("partyIdTo");
             }
-            
+ 
             // get the params
             String partyId = (String) context.get("partyId");
             String statusId = (String) context.get("statusId");
@@ -1183,7 +1183,7 @@ public class PartyServices {
                 if (UtilValidate.isNotEmpty(inventoryItemId) ||
                     UtilValidate.isNotEmpty(serialNumber) ||
                     UtilValidate.isNotEmpty(softIdentifier)) {
-                    
+ 
                     // add role to view
                     dynamicView.addMemberEntity("II", "InventoryItem");
                     dynamicView.addAlias("II", "ownerPartyId");
@@ -1357,7 +1357,7 @@ public class PartyServices {
                     if (highIndex > partyListSize) {
                         highIndex = partyListSize;
                     }
-                    
+ 
                     // close the list iterator
                     pli.close();
                 } catch (GenericEntityException e) {
@@ -1384,7 +1384,7 @@ public class PartyServices {
      * Changes the association of contact mechs, purposes, notes, orders and attributes from
      * one party to another for the purpose of merging records together. Flags the from party
      * as disabled so it no longer appears in a search.
-     * 
+     *
      * @param dctx
      * @param context
      * @return
@@ -1609,7 +1609,7 @@ public class PartyServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
-                
+ 
         Map<String, Object> resp = ServiceUtil.returnSuccess();
         resp.put("partyId", partyIdTo);
         return resp;
@@ -1657,7 +1657,7 @@ public class PartyServices {
                         delegator.create(addrMap);
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
-                        return ServiceUtil.returnError(e.getMessage());                        
+                        return ServiceUtil.returnError(e.getMessage());
                     }
                 }
             } else {

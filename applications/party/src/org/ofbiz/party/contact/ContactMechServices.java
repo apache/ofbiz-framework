@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -959,10 +959,10 @@ public class ContactMechServices {
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
-    
+ 
     /**
      * Just wraps the ContactMechWorker method of the same name.
-     * 
+     *
      *@param ctx The DispatchContext that this service is operating in
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
@@ -974,7 +974,7 @@ public class ContactMechServices {
         String partyId = (String)context.get("partyId");
         if (UtilValidate.isEmpty(partyId) ) {
             if (userLogin != null) {
-                partyId = userLogin.getString("partyId");   
+                partyId = userLogin.getString("partyId");
             } else {
                 return ServiceUtil.returnError("Both 'partyId' and 'userLogin' are empty.");
             }
@@ -1013,7 +1013,7 @@ public class ContactMechServices {
 
                 // create a new party contact mech for the partyIdTo
                 Map<String, Object> serviceResults = dispatcher.runSync("createPartyContactMech", UtilMisc.<String, Object>toMap("partyId", partyIdTo, "userLogin", userLogin,
-                            "contactMechId", contactMechId, "fromDate", UtilDateTime.nowTimestamp(), 
+                            "contactMechId", contactMechId, "fromDate", UtilDateTime.nowTimestamp(),
                             "allowSolicitation", partyContactMech.getString("allowSolicitation"), "extension", partyContactMech.getString("extension")));
                 if (ServiceUtil.isError(serviceResults)) {
                     return serviceResults;
@@ -1035,7 +1035,7 @@ public class ContactMechServices {
         }
         return ServiceUtil.returnSuccess();
     }
-    
+ 
     /**
      * Creates an EmailAddressVerification
      */
@@ -1043,14 +1043,14 @@ public class ContactMechServices {
         GenericDelegator delegator = (GenericDelegator) dctx.getDelegator();
         String emailAddress = (String) context.get("emailAddress");
         String verifyHash = null;
-        
+ 
         String expireTime = UtilProperties.getPropertyValue("security", "email_verification.expire.hours");
         Integer expTime = Integer.valueOf(expireTime);
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, expTime.intValue());
         Date date = calendar.getTime();
         Timestamp expireDate = UtilDateTime.toTimestamp(date);
-        
+ 
         SecureRandom secureRandom = new SecureRandom();
 
         synchronized(ContactMechServices.class) {
@@ -1079,10 +1079,10 @@ public class ContactMechServices {
                 }
             }
         }
-        
+ 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("verifyHash", verifyHash);
         return result;
     }
-     
+ 
 }

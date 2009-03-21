@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -48,9 +48,9 @@ import org.ofbiz.entity.util.EntityUtil;
  * Worker methods for Party Information
  */
 public class PartyWorker {
-    
+ 
     public static String module = PartyWorker.class.getName();
-    
+ 
     public static Map<String, GenericValue> getPartyOtherValues(ServletRequest request, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Map<String, GenericValue> result = FastMap.newInstance();
@@ -81,15 +81,15 @@ public class PartyWorker {
             Debug.logWarning(e, "Problems getting PartyGroup entity", module);
         }
         return result;
-    }              
-    
+    }
+ 
     /** @deprecated */
     public static void getPartyOtherValues(PageContext pageContext, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
         Map<String, GenericValue> partyMap = getPartyOtherValues(pageContext.getRequest(), partyId, partyAttr, personAttr, partyGroupAttr);
         for (Map.Entry<String, GenericValue> e: partyMap.entrySet()) {
             pageContext.setAttribute(e.getKey(), e.getValue());
-            
-        }      
+ 
+        }
     }
 
     /**
@@ -183,12 +183,12 @@ public class PartyWorker {
                 return v.getTimestamp("fromDate");
             } else {
                 return null;
-            }            
+            }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error while finding latest login time for party with ID [" + partyId + "]: " + e.toString(), module);
             return null;
         }
-        
+ 
     }
 
     public static Locale findPartyLastLocale(String partyId, GenericDelegator delegator) {
