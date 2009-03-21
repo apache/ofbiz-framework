@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,9 +38,9 @@ public class EntityConditionSubSelect extends EntityConditionValue {
     protected String keyFieldName = null;
     protected EntityCondition whereCond = null;
     protected Boolean requireAll = null;
-    
+ 
     protected EntityConditionSubSelect() { }
-    
+ 
     public EntityConditionSubSelect(String entityName, String keyFieldName, EntityCondition whereCond, boolean requireAll, GenericDelegator delegator) {
         this(delegator.getModelEntity(entityName), keyFieldName, whereCond, requireAll);
     }
@@ -101,7 +101,7 @@ public class EntityConditionSubSelect extends EntityConditionValue {
         } catch (GenericEntityException e) {
             String errMsg = "Could not generate sub-select SQL: " + e.toString();
             Debug.logError(e, errMsg, module);
-            
+ 
         }
     }
 

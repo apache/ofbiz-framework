@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -39,7 +39,7 @@ public class TyrexFactory {
 }
 /*
 public class TyrexFactory implements TransactionFactoryInterface {
-    
+ 
     public static final String module = TyrexFactory.class.getName();
 
     protected static TransactionDomain td = null;
@@ -52,7 +52,7 @@ public class TyrexFactory implements TransactionFactoryInterface {
         if (td == null) {
             // probably because there was no tyrexdomain.xml file, try another method:
 
-            // For Tyrex version 0.9.8.5 
+            // For Tyrex version 0.9.8.5
             try {
                 String resourceName = "tyrexdomain.xml";
                 URL url = UtilURL.fromResource(resourceName);
@@ -85,9 +85,9 @@ public class TyrexFactory implements TransactionFactoryInterface {
             Debug.logError("Could not get Tyrex TransactionDomain for domain " + DOMAIN_NAME, module);
         }
 
-        // For Tyrex version 0.9.7.0 
+        // For Tyrex version 0.9.7.0
          tyrex.resource.ResourceLimits rls = new tyrex.resource.ResourceLimits();
-         td = new TransactionDomain("ofbiztx", rls);        
+         td = new TransactionDomain("ofbiztx", rls);
     }
 
     public static Resources getResources() {
@@ -131,11 +131,11 @@ public class TyrexFactory implements TransactionFactoryInterface {
             return null;
         }
     }
-    
+ 
     public String getTxMgrName() {
         return "tyrex";
     }
-    
+ 
     public Connection getConnection(String helperName) throws SQLException, GenericEntityException {
         EntityConfigUtil.DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
 
@@ -147,7 +147,7 @@ public class TyrexFactory implements TransactionFactoryInterface {
             } catch (Exception ex) {
                 Debug.logError(ex, "Tyrex is the configured transaction manager but there was an error getting a database Connection through Tyrex for the " + helperName + " datasource. Please check your configuration, class path, etc.", module);
             }
-        
+ 
             Connection otherCon = ConnectionFactory.tryGenericConnectionSources(helperName, datasourceInfo.inlineJdbcElement);
             return otherCon;
         } else if (datasourceInfo.tyrexDataSourceElement != null) {
@@ -164,7 +164,7 @@ public class TyrexFactory implements TransactionFactoryInterface {
                 } else {
                     Connection con = tyrexDataSource.getConnection();
 
-                    if (con != null) {                        
+                    if (con != null) {
                         return con;
                     }
                 }
@@ -176,13 +176,13 @@ public class TyrexFactory implements TransactionFactoryInterface {
             return null;
         }
     }
-    
+ 
     public void shutdown() {
         TyrexConnectionFactory.closeAll();
         if (td != null) {
             td.terminate();
             td = null;
-        }                
+        }
     }
 }
 */

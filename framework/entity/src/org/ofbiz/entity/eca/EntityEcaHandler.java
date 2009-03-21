@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,19 +26,19 @@ import org.ofbiz.entity.*;
  *
  */
 public interface EntityEcaHandler<T> {
-    
+ 
     public static final String EV_VALIDATE = "validate";
     public static final String EV_RUN = "run";
     public static final String EV_RETURN = "return";
     public static final String EV_CACHE_CLEAR = "cache-clear";
     public static final String EV_CACHE_CHECK = "cache-check";
     public static final String EV_CACHE_PUT = "cache-put";
-    
+ 
     public static final String OP_CREATE = "create";
     public static final String OP_STORE = "store";
     public static final String OP_REMOVE = "remove";
     public static final String OP_FIND = "find";
-    
+ 
 
     public void setDelegator(GenericDelegator delegator);
 

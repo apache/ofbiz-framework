@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,12 +38,12 @@ public class DatasourceInfo {
     public List<? extends Element> sqlLoadPaths;
     public List<? extends Element> readDatas;
     public Element datasourceElement;
-    
-    public static final int TYPE_JNDI_JDBC = 1;        
+ 
+    public static final int TYPE_JNDI_JDBC = 1;
     public static final int TYPE_INLINE_JDBC = 2;
     public static final int TYPE_TYREX_DATA_SOURCE = 3;
     public static final int TYPE_OTHER = 4;
-            
+ 
     public Element jndiJdbcElement;
     public Element tyrexDataSourceElement;
     public Element inlineJdbcElement;
@@ -155,7 +155,7 @@ public class DatasourceInfo {
             this.alwaysUseConstraintKeyword = "true".equals(datasourceElement.getAttribute("always-use-constraint-keyword"));
             this.dropFkUseForeignKeyKeyword = "true".equals(datasourceElement.getAttribute("drop-fk-use-foreign-key-keyword"));
             this.useBinaryTypeForBlob = "true".equals(datasourceElement.getAttribute("use-binary-type-for-blob"));
-            
+ 
             this.tableType = datasourceElement.getAttribute("table-type");
             this.characterSet = datasourceElement.getAttribute("character-set");
             this.collate = datasourceElement.getAttribute("collate");

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -87,7 +87,7 @@ public class EntityDataLoader {
     public static List<URL> getUrlList(String helperName, String componentName, List readerNames) {
         String paths = getPathsString(helperName);
         List<URL> urlList = new LinkedList<URL>();
-        
+ 
         // first get files from resources
         if (readerNames != null) {
             for (Object readerInfo: readerNames) {
@@ -107,7 +107,7 @@ public class EntityDataLoader {
                     Debug.logInfo("Could not find entity-data-reader named: " + readerName + ". Creating a new reader with this name. ", module);
                     entityDataReaderInfo = new EntityDataReaderInfo(readerName);
                 }
-                
+ 
                 if (entityDataReaderInfo != null) {
                     for (Element resourceElement: entityDataReaderInfo.resourceElements) {
                         ResourceHandler handler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, resourceElement);
@@ -118,7 +118,7 @@ public class EntityDataLoader {
                             Debug.logWarning(errorMsg, module);
                         }
                     }
-        
+ 
                     // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
                     for (ComponentConfig.EntityResourceInfo componentResourceInfo: ComponentConfig.getAllEntityResourceInfos("data", componentName)) {
                         if (readerName.equals(componentResourceInfo.readerName)) {
@@ -140,7 +140,7 @@ public class EntityDataLoader {
             String errorMsg = "Could not find datasource named: " + helperName;
             Debug.logWarning(errorMsg, module);
         }
-        
+ 
         // get files from the paths string
         if (paths != null && paths.length() > 0) {
             StringTokenizer tokenizer = new StringTokenizer(paths, ";");
@@ -188,7 +188,7 @@ public class EntityDataLoader {
 
     public static int loadData(URL dataUrl, String helperName, GenericDelegator delegator, List<Object> errorMessages, int txTimeout, boolean dummyFks, boolean maintainTxs, boolean tryInsert) throws GenericEntityException {
         int rowsChanged = 0;
-        
+ 
         if (dataUrl == null) {
             String errMsg = "Cannot load data, dataUrl was null";
             errorMessages.add(errMsg);
@@ -254,7 +254,7 @@ public class EntityDataLoader {
                 toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_CREATE", "description", "Permission to Create a " + entity.getEntityName() + " entity."));
                 toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_UPDATE", "description", "Permission to Update a " + entity.getEntityName() + " entity."));
                 toStore.add(delegator.makeValue("SecurityPermission", "permissionId", baseName + "_DELETE", "description", "Permission to Delete a " + entity.getEntityName() + " entity."));
-                
+ 
                 toStore.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FLEXADMIN", "permissionId", baseName + "_VIEW"));
                 toStore.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FLEXADMIN", "permissionId", baseName + "_CREATE"));
                 toStore.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FLEXADMIN", "permissionId", baseName + "_UPDATE"));

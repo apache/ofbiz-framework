@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -77,7 +77,7 @@ public abstract class EntityConditionBase implements Serializable {
     protected String getColName(Map<String, String> tableAliases, ModelEntity modelEntity, ModelField modelField, String fieldName, boolean includeTableNamePrefix, DatasourceInfo datasourceInfo) {
         if (modelEntity == null || modelField == null) return fieldName;
 
-        // if this is a view entity and we are configured to alias the views, use the alias here instead of the composite (ie table.column) field name 
+        // if this is a view entity and we are configured to alias the views, use the alias here instead of the composite (ie table.column) field name
         if (datasourceInfo != null && datasourceInfo.aliasViews && modelEntity instanceof ModelViewEntity) {
             ModelViewEntity modelViewEntity = (ModelViewEntity) modelEntity;
             ModelAlias modelAlias = modelViewEntity.getAlias(fieldName);
@@ -85,7 +85,7 @@ public abstract class EntityConditionBase implements Serializable {
                 return modelAlias.getColAlias();
             }
         }
-        
+ 
         String colName = getColName(modelField, fieldName);
         if (includeTableNamePrefix && datasourceInfo != null) {
             String tableName = modelEntity.getTableName(datasourceInfo);

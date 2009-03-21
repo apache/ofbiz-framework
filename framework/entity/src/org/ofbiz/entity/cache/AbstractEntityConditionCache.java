@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -50,12 +50,12 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
     }
 
     protected V put(String entityName, EntityCondition condition, K key, V value) {
-        ModelEntity entity = this.getDelegator().getModelEntity(entityName); 
+        ModelEntity entity = this.getDelegator().getModelEntity(entityName);
         if (entity.getNeverCache()) {
             Debug.logWarning("Tried to put a value of the " + entityName + " entity in the cache but this entity has never-cache set to true, not caching.", module);
             return null;
         }
-        
+ 
         Map<K, V> conditionCache = getOrCreateConditionCache(entityName, condition);
         synchronized (conditionCache) {
             return conditionCache.put(key, value);
@@ -136,13 +136,13 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
     }
 
     // if oldValue == null, then this is a new entity
-    // if newValue == null, then 
+    // if newValue == null, then
     public void storeHook(GenericEntity oldEntity, GenericEntity newEntity) {
         storeHook(false, oldEntity, newEntity);
     }
 
     // if oldValue == null, then this is a new entity
-    // if newValue == null, then 
+    // if newValue == null, then
     public void storeHook(GenericPK oldPK, GenericEntity newEntity) {
         storeHook(true, oldPK, newEntity);
     }

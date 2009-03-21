@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -455,7 +455,7 @@ public class EntityUtil {
             entity.store();
         }
     }
-    
+ 
     public static <T> List<T> getFieldListFromEntityList(List<GenericValue> genericValueList, String fieldName, boolean distinct) {
         if (genericValueList == null || fieldName == null) {
             return null;
@@ -465,7 +465,7 @@ public class EntityUtil {
         if (distinct) {
             distinctSet = FastSet.newInstance();
         }
-        
+ 
         for (GenericValue value: genericValueList) {
             T fieldValue = UtilGenerics.<T>cast(value.get(fieldName));
             if (fieldValue != null) {
@@ -479,10 +479,10 @@ public class EntityUtil {
                 }
             }
         }
-        
+ 
         return fieldList;
     }
-    
+ 
     public static <T> List<T> getFieldListFromEntityListIterator(EntityListIterator genericValueEli, String fieldName, boolean distinct) {
         if (genericValueEli == null || fieldName == null) {
             return null;
@@ -492,7 +492,7 @@ public class EntityUtil {
         if (distinct) {
             distinctSet = FastSet.newInstance();
         }
-        
+ 
         GenericValue value = null;
         while ((value = genericValueEli.next()) != null) {
             T fieldValue = UtilGenerics.<T>cast(value.get(fieldName));
@@ -507,7 +507,7 @@ public class EntityUtil {
                 }
             }
         }
-        
+ 
         return fieldList;
     }
 }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,17 +37,17 @@ public class EntityDateFilterCondition extends EntityCondition {
             return new EntityDateFilterCondition();
         }
     };
-    
+ 
     protected String fromDateName = null;
     protected String thruDateName = null;
 
     protected EntityDateFilterCondition() {}
-    
+ 
     /** @deprecated Use EntityCondition.makeConditionDate() instead */
     public EntityDateFilterCondition(String fromDateName, String thruDateName) {
         init(fromDateName, thruDateName);
     }
-    
+ 
     public void init(String fromDateName, String thruDateName) {
         this.fromDateName = fromDateName;
         this.thruDateName = thruDateName;
@@ -57,7 +57,7 @@ public class EntityDateFilterCondition extends EntityCondition {
         this.fromDateName = null;
         this.thruDateName = null;
     }
-    
+ 
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         EntityCondition condition = makeCondition();
         return condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo);
@@ -68,7 +68,7 @@ public class EntityDateFilterCondition extends EntityCondition {
         condition.checkCondition(modelEntity);
     }
 
-    public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {    
+    public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map) {
         EntityCondition condition = makeCondition();
         return condition.mapMatches(delegator, map);
     }

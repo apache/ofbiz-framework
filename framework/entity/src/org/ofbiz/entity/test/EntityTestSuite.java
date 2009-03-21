@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -51,7 +51,7 @@ public class EntityTestSuite extends TestCase {
     /*
      * This sets how many values to insert when trying to create a large number of values.  10,000 causes HSQL to crash but is ok
      * with Derby.  Going up to 100,000 causes problems all around because Java List seems to be capped at about 65,000 values.
-     * 
+     *
      * NOTE: setting this lower so that the general tests don't take so long to run; to really push it can increase this number.
      */
     public static final long TEST_COUNT = 1000;
@@ -65,7 +65,7 @@ public class EntityTestSuite extends TestCase {
     protected void setUp() throws Exception {
         this.delegator = GenericDelegator.getGenericDelegator(DELEGATOR_NAME);
     }
-    
+ 
     /*
      * Tests storing values with the delegator's .create, .makeValue, and .storeAll methods
      */
@@ -381,7 +381,7 @@ public class EntityTestSuite extends TestCase {
             return;
         } finally {
             List<GenericValue> newlyCreatedValues = delegator.findList("Testing", null, null, UtilMisc.toList("testingId"), null, false);
-            delegator.removeAll(newlyCreatedValues); 
+            delegator.removeAll(newlyCreatedValues);
         }
     }
 
@@ -445,7 +445,7 @@ public class EntityTestSuite extends TestCase {
     }
 
     /*
-     * This test will verify that a transaction which takes longer than the pre-set timeout are rolled back. 
+     * This test will verify that a transaction which takes longer than the pre-set timeout are rolled back.
      */
     public void testTransactionUtilMoreThanTimeout() throws Exception {
         try {
@@ -464,7 +464,7 @@ public class EntityTestSuite extends TestCase {
             delegator.removeByAnd("Testing", "testingId", "timeout-test");
         }
     }
-    
+ 
     /*
      * This test will verify that the same transaction transaction which takes less time than timeout will be committed.
      */
@@ -503,7 +503,7 @@ public class EntityTestSuite extends TestCase {
   }
 
   /*
-   * Tests setting a byte value into a blob data type using the GenericValue .setBytes method 
+   * Tests setting a byte value into a blob data type using the GenericValue .setBytes method
    */
   public void testBlobCreate() throws Exception {
       try {
@@ -512,7 +512,7 @@ public class EntityTestSuite extends TestCase {
           GenericValue testingBlob = delegator.makeValue("TestBlob", "testBlobId", "byte-blob");
           testingBlob.setBytes("testBlobField", b);
           testingBlob.create();
-          
+ 
           TestCase.assertTrue("Blob with byte value successfully created...", true);
       } catch (Exception ex) {
         TestCase.fail(ex.getMessage());
@@ -524,7 +524,7 @@ public class EntityTestSuite extends TestCase {
   }
 
   /*
-   * This creates an string id from a number 
+   * This creates an string id from a number
    */
   private String getTestId(String strTestBase, int iNum) {
       StringBuilder strBufTemp = new StringBuilder(strTestBase);
@@ -539,7 +539,7 @@ public class EntityTestSuite extends TestCase {
       }
       if (iNum < 10) {
          strBufTemp.append("0");
-      } 
+      }
       strBufTemp.append(iNum);
       return strBufTemp.toString();
   }

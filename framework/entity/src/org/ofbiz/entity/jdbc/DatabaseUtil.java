@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -583,7 +583,7 @@ public class DatabaseUtil {
             }
             if (Debug.infoOn()) Debug.logInfo("Created " + numIndicesCreated + " indices", module);
         }
-        
+ 
         if (datasourceInfo.checkIndicesOnStart) {
             int numIndicesCreated = 0;
             // TODO: check each key-map to make sure it exists in the index, if any differences warn and then remove the index and recreate it
@@ -665,10 +665,10 @@ public class DatabaseUtil {
                 }
             }
             if (Debug.infoOn()) Debug.logInfo("Created " + numIndicesCreated + " indices", module);
-            
+ 
         }
 
-        
+ 
         timer.timerString("Finished Checking Entity Database");
     }
 
@@ -1025,9 +1025,9 @@ public class DatabaseUtil {
                 Debug.logVerbose(e, module);
                 Debug.logWarning("- order by not in select   [ DETECTION FAILED ]", module);
             }
-            try { 
+            try {
                 //this doesn't work in HSQLDB, other databases?
-                //crashed (vm-death) with MS SQL Server 2000, runs properly with MS SQL Server 2005 
+                //crashed (vm-death) with MS SQL Server 2000, runs properly with MS SQL Server 2005
                 //Debug.logInfo("- named parameters         [" + dbData.supportsNamedParameters() + "]", module);
                 Debug.logInfo("- named parameters         [ SKIPPED ]", module);
             } catch (Exception e) {
@@ -1326,7 +1326,7 @@ public class DatabaseUtil {
                             pkCount += checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
                         }
                     }
-                    
+ 
                     Debug.logInfo("Reviewed " + pkCount + " primary key fields from database.", module);
                 }
             } catch (SQLException e) {
@@ -1349,7 +1349,7 @@ public class DatabaseUtil {
             }
         }
     }
-    
+ 
     public int checkPrimaryKeyInfo(ResultSet rsPks, String lookupSchemaName, boolean needsUpperCase, Map<String, Map<String, ColumnCheckInfo>> colInfo, Collection<String> messages) throws SQLException {
         int pkCount = 0;
         try {
@@ -1372,11 +1372,11 @@ public class DatabaseUtil {
                         Debug.logWarning("Got primary key information for a column that we didn't get column information for: tableName=[" + tableName + "], columnName=[" + columnName + "]", module);
                         continue;
                     }
-        
-                    
+ 
+ 
                     // KEY_SEQ short => sequence number within primary key
                     // PK_NAME String => primary key name (may be null)
-                    
+ 
                     ccInfo.isPk = true;
                     ccInfo.pkSeq = rsPks.getShort("KEY_SEQ");
                     ccInfo.pkName = rsPks.getString("PK_NAME");
@@ -1746,7 +1746,7 @@ public class DatabaseUtil {
                 }
             }
 
-            if (field.getIsNotNull() || field.getIsPk()) { 
+            if (field.getIsNotNull() || field.getIsPk()) {
                 if (this.datasourceInfo.alwaysUseConstraintKeyword) {
                     sqlBuf.append(" CONSTRAINT NOT NULL, ");
                 } else {

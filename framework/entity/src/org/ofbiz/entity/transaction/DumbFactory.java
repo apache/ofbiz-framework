@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -42,9 +42,9 @@ import org.ofbiz.entity.jdbc.ConnectionFactory;
  * A dumb, non-working transaction manager.
  */
 public class DumbFactory implements TransactionFactoryInterface {
-    
+ 
     public static final String module = DumbFactory.class.getName();
-    
+ 
     public TransactionManager getTransactionManager() {
         return new TransactionManager() {
             public void begin() throws NotSupportedException, SystemException {
@@ -101,11 +101,11 @@ public class DumbFactory implements TransactionFactoryInterface {
             }
         };
     }
-    
+ 
     public String getTxMgrName() {
         return "dumb";
     }
-    
+ 
     public Connection getConnection(String helperName) throws SQLException, GenericEntityException {
         DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
 
@@ -117,6 +117,6 @@ public class DumbFactory implements TransactionFactoryInterface {
             return null;
         }
     }
-    
-    public void shutdown() {}    
+ 
+    public void shutdown() {}
 }
