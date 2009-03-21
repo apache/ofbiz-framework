@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -47,7 +47,7 @@ import freemarker.template.TransformControl;
 //import com.clarkware.profiler.Profiler;
 /**
  * MenuWrapTransform - Freemarker Transform for URLs (links)
- * 
+ *
  * This is an interactive FreeMarker tranform that allows the user to modify the contents that are placed within it.
  */
 public class MenuWrapTransform implements TemplateTransformModel {
@@ -55,7 +55,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
     public static final String module = MenuWrapTransform.class.getName();
     public static final String [] upSaveKeyNames = {"globalNodeTrail"};
     public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "renderOnStart", "renderOnClose", "menuDefFile", "menuName", "associatedContentId", "wrapperClassName"};
-    
+ 
     /**
      * A wrapper for the FreeMarkerWorker version.
      */
@@ -168,7 +168,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
             }
 
             public void renderMenu() throws IOException {
-           
+ 
                 String menuDefFile = (String)templateCtx.get("menuDefFile");
                 String menuName = (String)templateCtx.get("menuName");
                 String menuWrapperClassName = (String)templateCtx.get("menuWrapperClassName");
@@ -183,7 +183,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
                 String menuStr = menuWrapper.renderMenuString();
                 out.write(menuStr);
             }
-                
+ 
         };
     }
 }

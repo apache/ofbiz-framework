@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -45,12 +45,12 @@ import org.xml.sax.SAXException;
  * Widget Library - Form factory class
  */
 public class FormFactory {
-    
+ 
     public static final String module = FormFactory.class.getName();
     public static final UtilCache<String, ModelForm> formLocationCache = new UtilCache<String, ModelForm>("widget.form.locationResource", 0, 0, false);
     public static final UtilCache<String, ModelForm> formWebappCache = new UtilCache<String, ModelForm>("widget.form.webappResource", 0, 0, false);
-    
-    public static Map<String, ModelForm> getFormsFromLocation(String resourceName, ModelReader entityModelReader, DispatchContext dispatchContext) 
+ 
+    public static Map<String, ModelForm> getFormsFromLocation(String resourceName, ModelReader entityModelReader, DispatchContext dispatchContext)
             throws IOException, SAXException, ParserConfigurationException {
         /*
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -63,7 +63,7 @@ public class FormFactory {
         return readFormDocument(formFileDoc, entityModelReader, dispatchContext, resourceName);
     }
 
-    public static ModelForm getFormFromLocation(String resourceName, String formName, ModelReader entityModelReader, DispatchContext dispatchContext) 
+    public static ModelForm getFormFromLocation(String resourceName, String formName, ModelReader entityModelReader, DispatchContext dispatchContext)
             throws IOException, SAXException, ParserConfigurationException {
         String cacheKey = resourceName + "#" + formName;
         ModelForm modelForm = formLocationCache.get(cacheKey);
@@ -90,7 +90,7 @@ public class FormFactory {
         return modelForm;
     }
 
-    public static ModelForm getFormFromWebappContext(String resourceName, String formName, HttpServletRequest request) 
+    public static ModelForm getFormFromWebappContext(String resourceName, String formName, HttpServletRequest request)
             throws IOException, SAXException, ParserConfigurationException {
         String webappName = UtilHttp.getApplicationName(request);
         String cacheKey = webappName + "::" + resourceName + "::" + formName;

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -65,17 +65,17 @@ public class ModelTreeCondition {
         }
         return rootCondition.eval(context);
     }
-    
+ 
     public static abstract class TreeCondition {
         protected ModelTree modelTree;
 
         public TreeCondition(ModelTree modelTree, Element conditionElement) {
             this.modelTree = modelTree;
         }
-        
+ 
         public abstract boolean eval(Map<String, Object> context);
     }
-    
+ 
     public static List<TreeCondition> readSubConditions(ModelTree modelTree, Element conditionElement) {
         List<TreeCondition> condList = FastList.newInstance();
         for (Element subElement: UtilXml.childElementList(conditionElement)) {
@@ -83,7 +83,7 @@ public class ModelTreeCondition {
         }
         return condList;
     }
-    
+ 
     public static TreeCondition readCondition(ModelTree modelTree, Element conditionElement) {
         if (conditionElement == null) {
             return null;
@@ -114,15 +114,15 @@ public class ModelTreeCondition {
             throw new IllegalArgumentException("Condition element not supported with name: " + conditionElement.getNodeName());
         }
     }
-    
+ 
     public static class And extends TreeCondition {
         protected List<TreeCondition> subConditions;
-        
+ 
         public And(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.subConditions = readSubConditions(modelTree, condElement);
         }
-        
+ 
         public boolean eval(Map<String, Object> context) {
             // return false for the first one in the list that is false, basic and algo
             for (TreeCondition subCondition: subConditions) {
@@ -133,15 +133,15 @@ public class ModelTreeCondition {
             return true;
         }
     }
-    
+ 
     public static class Xor extends TreeCondition {
         protected List<TreeCondition> subConditions;
-        
+ 
         public Xor(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.subConditions = readSubConditions(modelTree, condElement);
         }
-        
+ 
         public boolean eval(Map<String, Object> context) {
             // if more than one is true stop immediately and return false; if all are false return false; if only one is true return true
             boolean foundOneTrue = false;
@@ -158,15 +158,15 @@ public class ModelTreeCondition {
             return foundOneTrue;
         }
     }
-    
+ 
     public static class Or extends TreeCondition {
         protected List<TreeCondition> subConditions;
-        
+ 
         public Or(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.subConditions = readSubConditions(modelTree, condElement);
         }
-        
+ 
         public boolean eval(Map<String, Object> context) {
             // return true for the first one in the list that is true, basic or algo
             for (TreeCondition subCondition: subConditions) {
@@ -177,38 +177,38 @@ public class ModelTreeCondition {
             return false;
         }
     }
-    
+ 
     public static class Not extends TreeCondition {
         protected TreeCondition subCondition;
-        
+ 
         public Not(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             Element firstChildElement = UtilXml.firstChildElement(condElement);
             this.subCondition = readCondition(modelTree, firstChildElement);
         }
-        
+ 
         public boolean eval(Map<String, Object> context) {
             return !this.subCondition.eval(context);
         }
     }
-    
+ 
     public static class IfHasPermission extends TreeCondition {
         protected FlexibleStringExpander permissionExdr;
         protected FlexibleStringExpander actionExdr;
-        
+ 
         public IfHasPermission(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.permissionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("permission"));
             this.actionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("action"));
         }
-        
+ 
         public boolean eval(Map<String, Object> context) {
             // if no user is logged in, treat as if the user does not have permission
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             if (userLogin != null) {
                 String permission = permissionExdr.expandString(context);
                 String action = actionExdr.expandString(context);
-                
+ 
                 Security security = (Security) context.get("security");
                 if (action != null && action.length() > 0) {
                     // run hasEntityPermission
@@ -230,7 +230,7 @@ public class ModelTreeCondition {
         protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander methodExdr;
         protected FlexibleStringExpander classExdr;
-        
+ 
         public IfValidateMethod(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
@@ -238,11 +238,11 @@ public class ModelTreeCondition {
             this.methodExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("method"));
             this.classExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("class"));
         }
-        
+ 
         public boolean eval(Map<String, Object> context) {
             String methodName = this.methodExdr.expandString(context);
             String className = this.classExdr.expandString(context);
-            
+ 
             Object fieldVal = this.fieldAcsr.get(context);
             String fieldString = null;
             if (fieldVal != null) {
@@ -285,7 +285,7 @@ public class ModelTreeCondition {
             return resultBool.booleanValue();
         }
     }
-    
+ 
     public static class IfCompare extends TreeCondition {
         protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander valueExdr;
@@ -293,25 +293,25 @@ public class ModelTreeCondition {
         protected String operator;
         protected String type;
         protected FlexibleStringExpander formatExdr;
-        
+ 
         public IfCompare(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
             if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.valueExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("value"));
-            
+ 
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
 
             this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
-        
+ 
         public boolean eval(Map<String, Object> context) {
             String value = this.valueExdr.expandString(context);
             String format = this.formatExdr.expandString(context);
-            
+ 
             Object fieldVal = this.fieldAcsr.get(context);
-            
+ 
             // always use an empty string by default
             if (fieldVal == null) {
                 fieldVal = "";
@@ -330,11 +330,11 @@ public class ModelTreeCondition {
 
                 throw new IllegalArgumentException(fullString.toString());
             }
-            
+ 
             return resultBool.booleanValue();
         }
     }
-    
+ 
     public static class IfCompareField extends TreeCondition {
         protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleMapAccessor<Object> toFieldAcsr;
@@ -342,26 +342,26 @@ public class ModelTreeCondition {
         protected String operator;
         protected String type;
         protected FlexibleStringExpander formatExdr;
-        
+ 
         public IfCompareField(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
             if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field"));
             if (this.toFieldAcsr.isEmpty()) this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field-name"));
-            
+ 
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
 
             this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
-        
+ 
         public boolean eval(Map<String, Object> context) {
             String format = this.formatExdr.expandString(context);
-            
+ 
             Object fieldVal = this.fieldAcsr.get(context);
             Object toFieldVal = this.toFieldAcsr.get(context);
-            
+ 
             // always use an empty string by default
             if (fieldVal == null) {
                 fieldVal = "";
@@ -380,25 +380,25 @@ public class ModelTreeCondition {
 
                 throw new IllegalArgumentException(fullString.toString());
             }
-            
+ 
             return resultBool.booleanValue();
         }
     }
-    
+ 
     public static class IfRegexp extends TreeCondition {
         static PatternMatcher matcher = new Perl5Matcher();
         static PatternCompiler compiler = new Perl5Compiler();
 
         protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander exprExdr;
-        
+ 
         public IfRegexp(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
             if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.exprExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("expr"));
         }
-        
+ 
         public boolean eval(Map<String, Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
             String expr = this.exprExdr.expandString(context);
@@ -419,20 +419,20 @@ public class ModelTreeCondition {
             }
             // always use an empty string by default
             if (fieldString == null) fieldString = "";
-    
+ 
             return matcher.matches(fieldString, pattern);
         }
     }
-    
+ 
     public static class IfEmpty extends TreeCondition {
         protected FlexibleMapAccessor<Object> fieldAcsr;
-        
+ 
         public IfEmpty(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
             if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
         }
-        
+ 
         public boolean eval(Map<String, Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
             return ObjectType.isEmpty(fieldVal);
@@ -440,14 +440,14 @@ public class ModelTreeCondition {
     }
     public static class IfEntityPermission extends TreeCondition {
         protected EntityPermissionChecker permissionChecker;
-        
+ 
         public IfEntityPermission(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.permissionChecker = new EntityPermissionChecker(condElement);
         }
-        
+ 
         public boolean eval(Map<String, Object> context) {
-            
+ 
             boolean passed = permissionChecker.runPermissionCheck(context);
             return passed;
         }

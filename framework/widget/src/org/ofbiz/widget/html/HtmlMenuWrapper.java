@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -45,9 +45,9 @@ import org.xml.sax.SAXException;
  * Widget Library - HTML Menu Wrapper class - makes it easy to do the setup and render of a menu
  */
 public class HtmlMenuWrapper {
-    
+ 
     public static final String module = HtmlMenuWrapper.class.getName();
-    
+ 
     protected String resourceName;
     protected String menuName;
     protected HttpServletRequest request;
@@ -58,22 +58,22 @@ public class HtmlMenuWrapper {
 
     protected HtmlMenuWrapper() {}
 
-    public HtmlMenuWrapper(String resourceName, String menuName, HttpServletRequest request, HttpServletResponse response) 
+    public HtmlMenuWrapper(String resourceName, String menuName, HttpServletRequest request, HttpServletResponse response)
             throws IOException, SAXException, ParserConfigurationException {
         init(resourceName, menuName, request, response);
     }
 
-    public void init(String resourceName, String menuName, HttpServletRequest request, HttpServletResponse response)  
+    public void init(String resourceName, String menuName, HttpServletRequest request, HttpServletResponse response)
             throws IOException, SAXException, ParserConfigurationException {
         this.resourceName = resourceName;
         this.menuName = menuName;
         this.request = request;
         this.response = response;
-        
+ 
         this.modelMenu = MenuFactory.getMenuFromWebappContext(resourceName, menuName, request);
 
         this.renderer = getMenuRenderer();
-        
+ 
         this.context = new HashMap<String, Object>();
         Map parameterMap = UtilHttp.getParameterMap(request);
         context.put("parameters", parameterMap);
@@ -81,17 +81,17 @@ public class HtmlMenuWrapper {
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         context.put("userLogin", userLogin);
-        
+ 
         //make sure the locale is in the context
         context.put("locale", UtilHttp.getLocale(request));
-        
+ 
         // if there was an error message, this is an error
         if (UtilValidate.isNotEmpty((String) request.getAttribute("_ERROR_MESSAGE_"))) {
             context.put("isError", Boolean.TRUE);
         } else {
             context.put("isError", Boolean.FALSE);
         }
-        
+ 
         // if a parameter was passed saying this is an error, it is an error
         if ("true".equals((String) parameterMap.get("isError"))) {
             context.put("isError", Boolean.TRUE);
@@ -101,7 +101,7 @@ public class HtmlMenuWrapper {
     public MenuStringRenderer getMenuRenderer() {
         return new HtmlMenuRenderer(request, response);
     }
-    
+ 
     public String renderMenuString() throws IOException {
         HttpServletRequest req = ((HtmlMenuRenderer)renderer).request;
         ServletContext ctx = (ServletContext) req.getAttribute("servletContext");
@@ -121,17 +121,17 @@ public class HtmlMenuWrapper {
         return writer.toString();
     }
 
-    /** 
+    /**
      * Tells the menu library whether this is a response to an error or not.
      * Defaults on initialization according to the presense of an errorMessage
-     * in the request or if an isError parameter was passed to the page with 
+     * in the request or if an isError parameter was passed to the page with
      * the value "true". If true then the prefilled values will come from the
-     * parameters Map instead of the value Map. 
+     * parameters Map instead of the value Map.
      */
     public void setIsError(boolean isError) {
         this.context.put("isError", Boolean.valueOf(isError));
     }
-    
+ 
     public boolean getIsError() {
         Boolean isErrorBoolean = (Boolean) this.context.get("isError");
         if (isErrorBoolean == null) {
@@ -140,15 +140,15 @@ public class HtmlMenuWrapper {
             return isErrorBoolean.booleanValue();
         }
     }
-    
+ 
     public void setMenuOverrideName(String menuName) {
         this.context.put("menuName", menuName);
     }
-    
+ 
     public void putInContext(String name, Object value) {
         this.context.put(name, value);
     }
-    
+ 
     public void putInContext(String menuItemName, String valueName,  Object value) {
         Map<String, Object> valueMap = UtilGenerics.toMap(context.get(menuItemName));
         if (valueMap == null) {
@@ -157,11 +157,11 @@ public class HtmlMenuWrapper {
         }
         valueMap.put(valueName, value);
     }
-    
+ 
     public Object getFromContext(String name) {
         return this.context.get(name);
     }
-    
+ 
     public Object getFromContext(String menuItemName, String valueName) {
         Map<String, Object> valueMap = UtilGenerics.toMap(context.get(menuItemName));
         if (valueMap == null) {
@@ -170,7 +170,7 @@ public class HtmlMenuWrapper {
         }
         return valueMap.get(valueName);
     }
-    
+ 
     public ModelMenu getModelMenu() {
         return modelMenu;
     }
@@ -202,9 +202,9 @@ public class HtmlMenuWrapper {
     }
 
     public static HtmlMenuWrapper getMenuWrapper(HttpServletRequest request, HttpServletResponse response, HttpSession session, String menuDefFile, String menuName, String menuWrapperClassName ) {
-        
+ 
         HtmlMenuWrapper menuWrapper = null;
-        
+ 
         String menuSig = menuDefFile + "__" + menuName;
         if (session != null) {
              menuWrapper = (HtmlMenuWrapper)session.getAttribute(menuSig);
@@ -229,14 +229,14 @@ public class HtmlMenuWrapper {
                 throw new RuntimeException(e6.getMessage());
             }
         } else {
-            menuWrapper.setRequest(request);    
-            menuWrapper.setResponse(response);    
+            menuWrapper.setRequest(request);
+            menuWrapper.setResponse(response);
             Map parameterMap = UtilHttp.getParameterMap(request);
             menuWrapper.setParameters( parameterMap);
 
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
             menuWrapper.putInContext("userLogin", userLogin);
-        
+ 
         }
 
         if (session != null) {

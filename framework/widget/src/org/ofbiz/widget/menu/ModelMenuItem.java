@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -68,13 +68,13 @@ public class ModelMenuItem {
     protected String disableIfEmpty;
     protected ModelMenu subMenu;
     protected Link link;
-    
+ 
     protected List<ModelMenuItem> menuItemList = new LinkedList<ModelMenuItem>();
     protected Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
 
 
     public static String DEFAULT_TARGET_TYPE = "intra-app";
-    
+ 
     protected EntityPermissionChecker permissionChecker;
     protected ModelMenuItem parentMenuItem;
     protected ModelMenuCondition condition;
@@ -82,7 +82,7 @@ public class ModelMenuItem {
     protected List<ModelMenuAction> actions;
     protected String align;
     protected String alignStyle;
-    
+ 
     // ===== CONSTRUCTORS =====
     /** Default Constructor */
     public ModelMenuItem(ModelMenu modelMenu) {
@@ -94,12 +94,12 @@ public class ModelMenuItem {
         parentMenuItem = modelMenuItem;
         loadMenuItem(fieldElement, modelMenuItem.getModelMenu());
     }
-    
+ 
 
     public ModelMenuItem(Element fieldElement, ModelMenu modelMenu) {
         loadMenuItem(fieldElement, modelMenu);
     }
-    
+ 
     public void loadMenuItem(Element fieldElement, ModelMenu modelMenu) {
         this.modelMenu = modelMenu;
         this.name = fieldElement.getAttribute("name");
@@ -159,7 +159,7 @@ public class ModelMenuItem {
         if (linkElement != null) {
             link = new Link(linkElement, this);
         }
-        
+ 
 //        Element permissionElement = UtilXml.firstChildElement(fieldElement, "if-entity-permission");
 //        if (permissionElement != null)
 //            permissionChecker = new EntityPermissionChecker(permissionElement);
@@ -183,7 +183,7 @@ public class ModelMenuItem {
         }
 
     }
-    
+ 
     public ModelMenuItem addUpdateMenuItem(ModelMenuItem modelMenuItem) {
 
         // not a conditional item, see if a named item exists in Map
@@ -213,11 +213,11 @@ public class ModelMenuItem {
     }
 
     public void setDisabled(boolean val) {
-         this.disabled = val;   
+         this.disabled = val;
     }
 
     public boolean getDisabled() {
-         return this.disabled;   
+         return this.disabled;
     }
 
     public void mergeOverrideModelMenuItem(ModelMenuItem overrideMenuItem) {
@@ -247,7 +247,7 @@ public class ModelMenuItem {
     }
 
     public void renderMenuItemString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
-        
+ 
           boolean passed = true;
         if (this.condition != null) {
             if (!this.condition.eval(context)) {
@@ -323,7 +323,7 @@ public class ModelMenuItem {
             return this.modelMenu.getDefaultDisabledTitleStyle();
         }
     }
-    
+ 
     public void setDisabledTitleStyle(String style) {
             this.disabledTitleStyle = style;
     }
@@ -509,7 +509,7 @@ public class ModelMenuItem {
     public Link getLink() {
        return this.link;
     }
-    
+ 
     public boolean isSelected(Map<String, Object> context) {
         return this.name.equals(modelMenu.getSelectedMenuItemContextFieldName(context));
     }
@@ -548,7 +548,7 @@ public class ModelMenuItem {
             if (imageElement != null) {
                 this.image = new Image(imageElement);
             }
-            
+ 
             this.linkType = linkElement.getAttribute("link-type");
             List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
             for (Element parameterElement: parameterElementList) {
@@ -583,7 +583,7 @@ public class ModelMenuItem {
             if (simpleEncoder != null) {
                 txt = simpleEncoder.encode(txt);
             }
-            
+ 
             return txt;
         }
 
@@ -643,7 +643,7 @@ public class ModelMenuItem {
         public String getLinkType() {
             return this.linkType;
         }
-        
+ 
         public List<WidgetWorker.Parameter> getParameterList() {
             return this.parameterList;
         }

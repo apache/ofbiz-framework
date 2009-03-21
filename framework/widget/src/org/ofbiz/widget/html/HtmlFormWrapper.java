@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,9 +43,9 @@ import org.xml.sax.SAXException;
  * Widget Library - HTML Form Wrapper class - makes it easy to do the setup and render of a form
  */
 public class HtmlFormWrapper {
-    
+ 
     public static final String module = HtmlFormWrapper.class.getName();
-    
+ 
     protected String resourceName;
     protected String formName;
     protected HttpServletRequest request;
@@ -56,13 +56,13 @@ public class HtmlFormWrapper {
 
     protected HtmlFormWrapper() {}
 
-    public HtmlFormWrapper(String resourceName, String formName, HttpServletRequest request, HttpServletResponse response) 
+    public HtmlFormWrapper(String resourceName, String formName, HttpServletRequest request, HttpServletResponse response)
             throws IOException, SAXException, ParserConfigurationException {
         this.resourceName = resourceName;
         this.formName = formName;
         this.request = request;
         this.response = response;
-        
+ 
         try {
             GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
             LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -73,35 +73,35 @@ public class HtmlFormWrapper {
         }
 
         this.renderer = new HtmlFormRenderer(request, response);
-        
+ 
         this.context = new HashMap<String, Object>();
         Map parameterMap = UtilHttp.getParameterMap(request);
         context.put("parameters", parameterMap);
-        
+ 
         //make sure the locale is in the context
         context.put("locale", UtilHttp.getLocale(request));
         //make sure the timeZone is in the context
         context.put("timeZone", UtilHttp.getTimeZone(request));
-        
+ 
         // if there was an error message, this is an error
         if (UtilValidate.isNotEmpty((String) request.getAttribute("_ERROR_MESSAGE_"))) {
             context.put("isError", Boolean.TRUE);
         } else {
             context.put("isError", Boolean.FALSE);
         }
-        
+ 
         // if a parameter was passed saying this is an error, it is an error
         if ("true".equals((String) parameterMap.get("isError"))) {
             context.put("isError", Boolean.TRUE);
         }
-        
+ 
         Map uiLabelMap = (Map) request.getAttribute("uiLabelMap");
         if (uiLabelMap != null && uiLabelMap.size() > 0 && context.get("uiLabelMap") == null) {
             Debug.logInfo("Got uiLabelMap: " + uiLabelMap, module);
             context.put("uiLabelMap", uiLabelMap);
         }
     }
-    
+ 
     @SuppressWarnings("unchecked")
     public StringWriter renderFormString(Object contextStack) throws IOException {
         if (contextStack instanceof MapStack) {
@@ -125,17 +125,17 @@ public class HtmlFormWrapper {
         return buffer;
     }
 
-    /** 
+    /**
      * Tells the form library whether this is a response to an error or not.
      * Defaults on initialization according to the presense of an errorMessage
-     * in the request or if an isError parameter was passed to the page with 
+     * in the request or if an isError parameter was passed to the page with
      * the value "true". If true then the prefilled values will come from the
-     * parameters Map instead of the value Map. 
+     * parameters Map instead of the value Map.
      */
     public void setIsError(boolean isError) {
         this.context.put("isError", Boolean.valueOf(isError));
     }
-    
+ 
     public boolean getIsError() {
         Boolean isErrorBoolean = (Boolean) this.context.get("isError");
         if (isErrorBoolean == null) {
@@ -144,20 +144,20 @@ public class HtmlFormWrapper {
             return isErrorBoolean.booleanValue();
         }
     }
-    
+ 
     /**
      * The "useRequestParameters" value in the form context tells the form library
      * to use the request parameters to fill in values instead of the value map.
      * This is generally used when it is an empty form to pre-set inital values.
      * This is automatically set to false for list and multi forms. For related
      * functionality see the setIsError method.
-     * 
+     *
      * @param useRequestParameters
      */
     public void setUseRequestParameters(boolean useRequestParameters) {
         this.context.put("useRequestParameters", Boolean.valueOf(useRequestParameters));
     }
-    
+ 
     public boolean getUseRequestParameters() {
         Boolean useRequestParametersBoolean = (Boolean) this.context.get("useRequestParameters");
         if (useRequestParametersBoolean == null) {
@@ -166,19 +166,19 @@ public class HtmlFormWrapper {
             return useRequestParametersBoolean.booleanValue();
         }
     }
-    
+ 
     public void setFormOverrideName(String formName) {
         this.context.put("formName", formName);
     }
-    
+ 
     public void putInContext(String name, Object value) {
         this.context.put(name, value);
     }
-    
+ 
     public Object getFromContext(String name) {
         return this.context.get(name);
     }
-    
+ 
     public ModelForm getModelForm() {
         return modelForm;
     }
