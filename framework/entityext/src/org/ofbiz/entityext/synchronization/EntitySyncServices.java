@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -66,9 +66,9 @@ import org.xml.sax.SAXException;
  * Entity Engine Sync Services
  */
 public class EntitySyncServices {
-    
+ 
     public static final String module = EntitySyncServices.class.getName();
-    
+ 
     /**
      * Run an Entity Sync (checks to see if other already running, etc)
      *@param dctx The DispatchContext that this service is operating in
@@ -88,41 +88,41 @@ public class EntitySyncServices {
             // increment starting time to run until now
             esc.setSplitStartTime(); // just run this the first time, will be updated between each loop automatically
             while (esc.hasMoreTimeToSync()) {
-                
+ 
                 // this will result in lots of log messages, so leaving commented out unless needed/wanted later
                 // Debug.logInfo("Doing runEntitySync split, currentRunStartTime=" + esc.currentRunStartTime + ", currentRunEndTime=" + esc.currentRunEndTime, module);
-                
+ 
                 esc.totalSplits++;
-                
+ 
                 // tx times are indexed
                 // keep track of how long these sync runs take and store that info on the history table
                 // saves info about removed, all entities that don't have no-auto-stamp set, this will be done in the GenericDAO like the stamp sets
-                
+ 
                 // ===== INSERTS =====
                 ArrayList<GenericValue> valuesToCreate = esc.assembleValuesToCreate();
                 // ===== UPDATES =====
                 ArrayList<GenericValue> valuesToStore = esc.assembleValuesToStore();
                 // ===== DELETES =====
                 List<GenericEntity> keysToRemove = esc.assembleKeysToRemove();
-                
+ 
                 esc.runPushSendData(valuesToCreate, valuesToStore, keysToRemove);
-                
+ 
                 esc.saveResultsReportedFromDataStore();
                 esc.advanceRunTimes();
             }
 
             esc.saveFinalSyncResults();
-            
+ 
         } catch (SyncAbortException e) {
             return e.returnError(module);
         } catch (SyncErrorException e) {
             e.saveSyncErrorInfo(esc);
             return e.returnError(module);
         }
-        
+ 
         return ServiceUtil.returnSuccess();
     }
-    
+ 
     /**
      * Store Entity Sync Data
      *@param dctx The DispatchContext that this service is operating in
@@ -139,7 +139,7 @@ public class EntitySyncServices {
             }
         }
         //LocalDispatcher dispatcher = dctx.getDispatcher();
-        
+ 
         String entitySyncId = (String) context.get("entitySyncId");
         // incoming lists will already be sorted by lastUpdatedStamp (or lastCreatedStamp)
         List valuesToCreate = (List) context.get("valuesToCreate");
@@ -156,14 +156,14 @@ public class EntitySyncServices {
             long toStoreNotUpdated = 0;
             long toRemoveDeleted = 0;
             long toRemoveAlreadyDeleted = 0;
-            
+ 
             // create all values in the valuesToCreate List; if the value already exists update it, or if exists and was updated more recently than this one dont update it
             Iterator valueToCreateIter = valuesToCreate.iterator();
             while (valueToCreateIter.hasNext()) {
                 GenericValue valueToCreate = (GenericValue) valueToCreateIter.next();
                 // to Create check if exists (find by pk), if not insert; if exists check lastUpdatedStamp: if null or before the candidate value insert, otherwise don't insert
                 // NOTE: use the delegator from this DispatchContext rather than the one named in the GenericValue
-                
+ 
                 // maintain the original timestamps when doing storage of synced data, by default with will update the timestamps to now
                 valueToCreate.setIsFromEntitySync(true);
 
@@ -184,13 +184,13 @@ public class EntitySyncServices {
                     }
                 }
             }
-            
+ 
             // iterate through to store list and store each
             Iterator valueToStoreIter = valuesToStore.iterator();
             while (valueToStoreIter.hasNext()) {
                 GenericValue valueToStore = (GenericValue) valueToStoreIter.next();
                 // to store check if exists (find by pk), if not insert; if exists check lastUpdatedStamp: if null or before the candidate value insert, otherwise don't insert
-                
+ 
                 // maintain the original timestamps when doing storage of synced data, by default with will update the timestamps to now
                 valueToStore.setIsFromEntitySync(true);
 
@@ -211,22 +211,22 @@ public class EntitySyncServices {
                     }
                 }
             }
-            
+ 
             // iterate through to remove list and remove each
             Iterator keyToRemoveIter = keysToRemove.iterator();
             while (keyToRemoveIter.hasNext()) {
                 GenericEntity pkToRemove = (GenericEntity) keyToRemoveIter.next();
-                
+ 
                 // check to see if it exists, if so remove and count, if not just count already removed
                 // always do a removeByAnd, if it was a removeByAnd great, if it was a removeByPrimaryKey, this will also work and save us a query
                 pkToRemove.setIsFromEntitySync(true);
-                
+ 
                 // remove the stamp fields inserted by EntitySyncContext.java at or near line 646
                 pkToRemove.remove(ModelEntity.STAMP_TX_FIELD);
                 pkToRemove.remove(ModelEntity.STAMP_FIELD);
                 pkToRemove.remove(ModelEntity.CREATE_STAMP_TX_FIELD);
                 pkToRemove.remove(ModelEntity.CREATE_STAMP_FIELD);
-                
+ 
                 int numRemByAnd = delegator.removeByAnd(pkToRemove.getEntityName(), pkToRemove);
                 if (numRemByAnd == 0) {
                     toRemoveAlreadyDeleted++;
@@ -234,7 +234,7 @@ public class EntitySyncServices {
                     toRemoveDeleted++;
                 }
             }
-            
+ 
             Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("toCreateInserted", Long.valueOf(toCreateInserted));
             result.put("toCreateUpdated", Long.valueOf(toCreateUpdated));
@@ -265,7 +265,7 @@ public class EntitySyncServices {
      */
     public static Map runPullEntitySync(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        
+ 
         String entitySyncId = (String) context.get("entitySyncId");
         String remotePullAndReportEntitySyncDataName = (String) context.get("remotePullAndReportEntitySyncDataName");
 
@@ -273,7 +273,7 @@ public class EntitySyncServices {
 
         // loop until no data is returned to store
         boolean gotMoreData = true;
-        
+ 
         Timestamp startDate = null;
         Long toCreateInserted = null;
         Long toCreateUpdated = null;
@@ -283,10 +283,10 @@ public class EntitySyncServices {
         Long toStoreNotUpdated = null;
         Long toRemoveDeleted = null;
         Long toRemoveAlreadyDeleted = null;
-        
+ 
         while (gotMoreData) {
             gotMoreData = false;
-            
+ 
             // call pullAndReportEntitySyncData, initially with no results, then with results from last loop
             Map<String, Object> remoteCallContext = FastMap.newInstance();
             remoteCallContext.put("entitySyncId", entitySyncId);
@@ -302,24 +302,24 @@ public class EntitySyncServices {
             remoteCallContext.put("toStoreNotUpdated", toStoreNotUpdated);
             remoteCallContext.put("toRemoveDeleted", toRemoveDeleted);
             remoteCallContext.put("toRemoveAlreadyDeleted", toRemoveAlreadyDeleted);
-            
+ 
             try {
                 Map<String, Object> result = dispatcher.runSync(remotePullAndReportEntitySyncDataName, remoteCallContext);
                 if (ServiceUtil.isError(result)) {
                     String errMsg = "Error calling remote pull and report EntitySync service with name: " + remotePullAndReportEntitySyncDataName;
                     return ServiceUtil.returnError(errMsg, null, null, result);
                 }
-                
+ 
                 startDate = (Timestamp) result.get("startDate");
-                
+ 
                 try {
                     // store data returned, get results (just call storeEntitySyncData locally, get the numbers back and boom shakalaka)
-                    
+ 
                     // anything to store locally?
-                    if (startDate != null && (!UtilValidate.isEmpty((Collection) result.get("valuesToCreate")) || 
+                    if (startDate != null && (!UtilValidate.isEmpty((Collection) result.get("valuesToCreate")) ||
                             !UtilValidate.isEmpty((Collection) result.get("valuesToStore")) ||
                             !UtilValidate.isEmpty((Collection) result.get("keysToRemove")))) {
-                        
+ 
                         // yep, we got more data
                         gotMoreData = true;
 
@@ -330,18 +330,18 @@ public class EntitySyncServices {
                         if (valuesToStore == null) valuesToStore = Collections.emptyList();
                         List<GenericEntity> keysToRemove = checkList(result.get("keysToRemove"), GenericEntity.class);
                         if (keysToRemove == null) keysToRemove = Collections.emptyList();
-                        
+ 
                         Map<String, Object> callLocalStoreContext = UtilMisc.toMap("entitySyncId", entitySyncId, "delegatorName", context.get("localDelegatorName"),
-                                "valuesToCreate", valuesToCreate, "valuesToStore", valuesToStore, 
+                                "valuesToCreate", valuesToCreate, "valuesToStore", valuesToStore,
                                 "keysToRemove", keysToRemove);
-                        
+ 
                         callLocalStoreContext.put("userLogin", context.get("userLogin"));
                         Map<String, Object> storeResult = dispatcher.runSync("storeEntitySyncData", callLocalStoreContext);
                         if (ServiceUtil.isError(storeResult)) {
                             String errMsg = "Error calling service to store data locally";
                             return ServiceUtil.returnError(errMsg, null, null, storeResult);
                         }
-                        
+ 
                         // get results for next pass
                         toCreateInserted = (Long) storeResult.get("toCreateInserted");
                         toCreateUpdated = (Long) storeResult.get("toCreateUpdated");
@@ -367,7 +367,7 @@ public class EntitySyncServices {
                 return ServiceUtil.returnError(errMsg);
             }
         }
-        
+ 
         return ServiceUtil.returnSuccess();
     }
 
@@ -381,9 +381,9 @@ public class EntitySyncServices {
         EntitySyncContext esc = null;
         try {
             esc = new EntitySyncContext(dctx, context);
-            
+ 
             Debug.logInfo("Doing pullAndReportEntitySyncData for entitySyncId=" + esc.entitySyncId + ", currentRunStartTime=" + esc.currentRunStartTime + ", currentRunEndTime=" + esc.currentRunEndTime, module);
-            
+ 
             if ("Y".equals(esc.entitySync.get("forPushOnly"))) {
                 return ServiceUtil.returnError("Cannot do Entity Sync Pull because entitySyncId [] is set for Push Only.");
             }
@@ -391,19 +391,19 @@ public class EntitySyncServices {
             // Part 1: if any results are passed, store the results for the given startDate, update EntitySync, etc
             // restore info from last pull, or if no results start new run
             esc.runPullStartOrRestoreSavedResults();
-            
+ 
 
             // increment starting time to run until now
             while (esc.hasMoreTimeToSync()) {
                 // make sure the following message is commented out before commit:
                 // Debug.logInfo("(loop)Doing pullAndReportEntitySyncData split, currentRunStartTime=" + esc.currentRunStartTime + ", currentRunEndTime=" + esc.currentRunEndTime, module);
-                
+ 
                 esc.totalSplits++;
-                
+ 
                 // tx times are indexed
                 // keep track of how long these sync runs take and store that info on the history table
                 // saves info about removed, all entities that don't have no-auto-stamp set, this will be done in the GenericDAO like the stamp sets
-                
+ 
                 // Part 2: get the next set of data for the given entitySyncId
                 // Part 2a: return it back for storage but leave the EntitySyncHistory without results, and don't update the EntitySync last time
 
@@ -413,10 +413,10 @@ public class EntitySyncServices {
                 ArrayList<GenericValue> valuesToStore = esc.assembleValuesToStore();
                 // ===== DELETES =====
                 List<GenericEntity> keysToRemove = esc.assembleKeysToRemove();
-                
+ 
                 esc.setTotalRowCounts(valuesToCreate, valuesToStore, keysToRemove);
 
-                if (Debug.infoOn()) Debug.logInfo("Service pullAndReportEntitySyncData returning - [" + valuesToCreate.size() + "] to create; [" + valuesToStore.size() + "] to store; [" + keysToRemove.size() + "] to remove; [" + esc.totalRowsPerSplit + "] total rows per split.", module); 
+                if (Debug.infoOn()) Debug.logInfo("Service pullAndReportEntitySyncData returning - [" + valuesToCreate.size() + "] to create; [" + valuesToStore.size() + "] to store; [" + keysToRemove.size() + "] to remove; [" + esc.totalRowsPerSplit + "] total rows per split.", module);
                 if (esc.totalRowsPerSplit > 0) {
                     // stop if we found some data, otherwise look and try again
                     Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -431,7 +431,7 @@ public class EntitySyncServices {
                     esc.advanceRunTimes();
                 }
             }
-            
+ 
             // if no more results from database to return, save final settings
             if (!esc.hasMoreTimeToSync() ) {
                 esc.saveFinalSyncResults();
@@ -599,11 +599,11 @@ public class EntitySyncServices {
     public static Map<String, Object> cleanSyncRemoveInfo(DispatchContext dctx, Map<String, ? extends Object> context) {
         Debug.logInfo("Running cleanSyncRemoveInfo", module);
         GenericDelegator delegator = dctx.getDelegator();
-        
+ 
         try {
             // find the largest keepRemoveInfoHours value on an EntitySyncRemove and kill everything before that, if none found default to 10 days (240 hours)
             double keepRemoveInfoHours = 24;
-            
+ 
             List<GenericValue> entitySyncRemoveList = delegator.findList("EntitySync", null, null, null, null, false);
             for (GenericValue entitySyncRemove: entitySyncRemoveList) {
                 Double curKrih = entitySyncRemove.getDouble("keepRemoveInfoHours");
@@ -614,18 +614,18 @@ public class EntitySyncServices {
                     }
                 }
             }
-            
-            
+ 
+ 
             int keepSeconds = (int) Math.floor(keepRemoveInfoHours * 60);
-            
+ 
             Calendar nowCal = Calendar.getInstance();
             nowCal.setTimeInMillis(System.currentTimeMillis());
             nowCal.add(Calendar.SECOND, -keepSeconds);
             Timestamp keepAfterStamp = new Timestamp(nowCal.getTimeInMillis());
-            
+ 
             int numRemoved = delegator.removeByCondition("EntitySyncRemove", EntityCondition.makeCondition(ModelEntity.STAMP_TX_FIELD, EntityOperator.LESS_THAN, keepAfterStamp));
             Debug.logInfo("In cleanSyncRemoveInfo removed [" + numRemoved + "] values with TX timestamp before [" + keepAfterStamp + "]", module);
-            
+ 
             return ServiceUtil.returnSuccess();
         } catch (GenericEntityException e) {
             String errorMsg = "Error cleaning out EntitySyncRemove info: " + e.toString();
