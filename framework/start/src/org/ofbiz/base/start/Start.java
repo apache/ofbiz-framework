@@ -608,7 +608,7 @@ public class Start implements Runnable {
 
             // set the property to tell Jetty to use 2.4 SessionListeners
             System.setProperty("org.mortbay.jetty.servlet.AbstractSessionManager.24SessionDestroyed", "true");
-            
+ 
             // set the default locale
             String localeString = props.getProperty("ofbiz.locale.default");
             if (localeString != null && localeString.length() > 0) {
@@ -631,7 +631,7 @@ public class Start implements Runnable {
             if (tzString != null && tzString.length() > 0) {
                 TimeZone.setDefault(TimeZone.getTimeZone(tzString));
             }
-            
+ 
             // loader classes
             loaders = new ArrayList<String>();
             int currentPosition = 1;
