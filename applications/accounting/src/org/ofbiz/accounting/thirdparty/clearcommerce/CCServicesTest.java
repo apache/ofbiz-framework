@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -50,7 +50,7 @@ public class CCServicesTest extends TestCase {
     public GenericDelegator delegator = null;
     public static final String DISPATCHER_NAME = "test-dispatcher";
     public LocalDispatcher dispatcher = null;
-    
+ 
     // test data
     protected GenericValue emailAddr = null;
     protected String orderId = null;
@@ -60,7 +60,7 @@ public class CCServicesTest extends TestCase {
     protected Map pbOrder = null;
     protected BigDecimal creditAmount = null;
     protected String configFile = null;
-    
+ 
     public CCServicesTest(String name) {
         super(name);
     }
@@ -93,11 +93,11 @@ public class CCServicesTest extends TestCase {
                 "stateProvinceGeoId", "NLD",
                 "postalCode","12345"));
         pbOrder = UtilMisc.toMap(
-                "OrderFrequencyCycle", "M", 
-                "OrderFrequencyInterval", "3", 
+                "OrderFrequencyCycle", "M",
+                "OrderFrequencyInterval", "3",
                 "TotalNumberPayments", "4");
     }
-    
+ 
     protected void tearDown() throws Exception {
         dispatcher.deregister();
     }
@@ -117,24 +117,24 @@ public class CCServicesTest extends TestCase {
                     "orderId", orderId
             );
             serviceInput.put("processAmount", new BigDecimal("200.00"));
-            
+ 
             // run the service (make sure in payment
             Map result = dispatcher.runSync("clearCommerceCCAuth",serviceInput);
-            
+ 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
             Debug.logInfo("[testCCAuth] responseMessage: " + responseMessage, module);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
-            
+ 
             if (((Boolean) result.get("authResult")).equals(new Boolean(false))) {          // returnCode ok?
-                Debug.logInfo("[testAuth] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);              
+                Debug.logInfo("[testAuth] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             }
 
         } catch (GenericServiceException ex) {
             TestCase.fail(ex.getMessage());
         }
-        
+ 
     }
     /*
      * Check the credit action: to deduct a certain amount of a credit card.
@@ -152,20 +152,20 @@ public class CCServicesTest extends TestCase {
             );
             // run the service
             Map result = dispatcher.runSync("clearCommerceCCCredit",serviceMap);
-            
+ 
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
             Debug.logInfo("[testCCCredit] responseMessage: " + responseMessage, module);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
-            
+ 
             if (((Boolean) result.get("creditResult")).equals(new Boolean(false))) {          // returnCode ok?
-                Debug.logInfo("[testCCCredit] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);              
+                Debug.logInfo("[testCCCredit] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
-            }  
+            }
         } catch (GenericServiceException ex) {
             TestCase.fail(ex.getMessage());
         }
-        
+ 
     }
     /*
      * Test Purchase subscription
@@ -173,45 +173,45 @@ public class CCServicesTest extends TestCase {
     public void testPurchaseSubscription() throws Exception {
         Debug.logInfo("=====[testPurchaseSubscription] starting....", module);
         try {
-            
+ 
             Map serviceMap = UtilMisc.toMap(
                     "paymentConfig", configFile,
                     "orderId", orderId,
                     "creditAmount", creditAmount,
                     "billToEmail", emailAddr,
                     "creditCard", creditCard,
-                    "pbOrder", pbOrder          // if supplied, the crediting is for a subscription and credit by period is managed by ClearCommerce                
+                    "pbOrder", pbOrder          // if supplied, the crediting is for a subscription and credit by period is managed by ClearCommerce
             );
             serviceMap.put("creditAmount", new BigDecimal("200.00"));
 
             // run the service
             Map result = dispatcher.runSync("clearCommerceCCCredit",serviceMap);
-            
+ 
             // verify the results
-            String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);    
-            Debug.logInfo("[testPurchaseDescription] responseMessage: " + responseMessage, module);              
+            String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
+            Debug.logInfo("[testPurchaseDescription] responseMessage: " + responseMessage, module);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);  // service completed ok?
             if (((Boolean) result.get("creditResult")).equals(new Boolean(false))) {          // returnCode ok?
-                Debug.logInfo("[testPurchaseSubscription] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);              
+                Debug.logInfo("[testPurchaseSubscription] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             }
         } catch (GenericServiceException ex) {
             TestCase.fail(ex.getMessage());
         }
     }
-            
+ 
     /*
      * Test Free subscription
      */
     public void testFreeSubscription() throws Exception {
-        
+ 
             // not communicate with CC.
     }
     /*
      * Test cancel subscription
      */
     public void testCancelSubscription() throws Exception {
-       /* from the API doc: 
+       /* from the API doc:
        After the Engine receives and processes an internally-managed periodic billing order, the
 order cannot be modified. An order can only be cancelled. If, for example, the credit card
 associated with a recurring order expires and a payment is rejected, the order must be
@@ -219,7 +219,7 @@ cancelled. If the order is to be resumed, a new recurring order must be submitte
 --> Orders are cancelled by using the Store Administrator Tool.
 
     So cannot by program.
-       */     
+       */
     }
     /*
      * Test Query subscription transaction status
@@ -227,21 +227,21 @@ cancelled. If the order is to be resumed, a new recurring order must be submitte
     public void testCCReport() throws Exception{
         Debug.logInfo("=====[testReport] starting....", module);
         try {
-            
+ 
             Map serviceMap = UtilMisc.toMap(
                     "orderId", "4488668f-2db0-3002-002b-0003ba1d84d5",
                     "paymentConfig", configFile
             );
-            
+ 
             // run the service
             Map result = dispatcher.runSync("clearCommerceCCReport",serviceMap);
-            
+ 
             // verify the results
-            String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);    
-            Debug.logInfo("[testPurchaseDescription] responseMessage: " + responseMessage, module);              
+            String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
+            Debug.logInfo("[testPurchaseDescription] responseMessage: " + responseMessage, module);
             TestCase.assertEquals("Reporting service", ModelService.RESPOND_SUCCESS, responseMessage);  // service completed ok?
             if (((Boolean) result.get("creditResult")).equals(new Boolean(false))) {          // returnCode ok?
-                Debug.logInfo("[testReport] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);              
+                Debug.logInfo("[testReport] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             }
         } catch (GenericServiceException ex) {

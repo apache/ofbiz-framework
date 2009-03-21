@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -119,7 +119,7 @@ public class AIMPaymentServices {
         buildEmailSettings(context,props,request);
         request.put("x_Invoice_Num","Order " + orderPaymentPreference.getString("orderId"));
         // PRIOR_AUTH_CAPTURE is the right one to use, since we already have an authorization from the authTransaction.
-        // CAPTURE_ONLY is a "force" transaction to be used if there is no prior authorization 
+        // CAPTURE_ONLY is a "force" transaction to be used if there is no prior authorization
         props.put("transType","PRIOR_AUTH_CAPTURE");
         //props.put("transType","CAPTURE_ONLY");
         props.put("cardtype", (String)creditCard.get("cardType"));
@@ -137,15 +137,15 @@ public class AIMPaymentServices {
         processCaptureTransResult(reply,results);
         // if there is no captureRefNum, then the capture failed
         if (results.get("captureRefNum") == null) {
-             return ServiceUtil.returnError((String) results.get("captureMessage")); 
-        } 
+             return ServiceUtil.returnError((String) results.get("captureMessage"));
+        }
         return results;
     }
 
     public static Map ccRefund(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
-        
+ 
         GenericValue creditCard = null;
         try {
             creditCard = delegator.getRelatedOne("CreditCard",orderPaymentPreference);
@@ -153,12 +153,12 @@ public class AIMPaymentServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Unable to obtain cc information from payment preference");
         }
-        
+ 
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
             return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference; cannot Refund");
         }
-        
+ 
         context.put("creditCard",creditCard);
         context.put("authTransaction",authTransaction);
         Map results = ServiceUtil.returnSuccess();
@@ -224,7 +224,7 @@ public class AIMPaymentServices {
                     if (ServiceUtil.isError(reply)) {
                         return reply;
                     }
-                    
+ 
                     results = ServiceUtil.returnSuccess();
                     results.putAll( processRefundTransResult(reply) );
                     return results;
@@ -375,7 +375,7 @@ public class AIMPaymentServices {
     }
 
     private static String getVersion() {
-        return (String)AIMProperties.get("ver");         
+        return (String)AIMProperties.get("ver");
     }
 
     private static Properties buildAIMProperties(Map context) {
@@ -444,8 +444,8 @@ public class AIMPaymentServices {
             AIMProperties = props;
         }
 
-        if (isTestMode()) { 
-            Debug.logInfo("Created Authorize.Net properties file: " + props.toString(),module); 
+        if (isTestMode()) {
+            Debug.logInfo("Created Authorize.Net properties file: " + props.toString(),module);
         }
 
         return props;
@@ -508,11 +508,11 @@ public class AIMPaymentServices {
                 AIMRequest.put("x_Country",UtilFormatOut.checkNull(ba.getString("countryGeoId")));
             }
             return;
-    
+ 
         } catch (GenericEntityException ex) {
             Debug.logError("Cannot build customer information for " + params + " due to error: " + ex.getMessage(), module);
             return;
-        } 
+        }
     }
 
     private static void buildEmailSettings(Map params, Properties props, Map AIMRequest) {

@@ -60,7 +60,7 @@ public class FinAccountTests extends TestCase {
         ctx.put("finAccountTypeId", "BANK_ACCOUNT");
         ctx.put("userLogin", userLogin);
         Map resp = dispatcher.runSync("createFinAccount", ctx);
-        assertEquals("Service result success", ModelService.RESPOND_SUCCESS, resp.get(ModelService.RESPONSE_MESSAGE));        
+        assertEquals("Service result success", ModelService.RESPOND_SUCCESS, resp.get(ModelService.RESPONSE_MESSAGE));
     }
 
     public void testDeposit() throws Exception {

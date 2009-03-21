@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -40,7 +40,7 @@ import org.ofbiz.service.*;
  * Services for Payment maintenance
  */
 public class PaymentMethodServices {
-    
+ 
     public final static String module = PaymentMethodServices.class.getName();
 
     /**
@@ -91,12 +91,12 @@ public class PaymentMethodServices {
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
-    
+ 
     public static Map makeExpireDate(DispatchContext ctx, Map context) {
         Map result = new HashMap();
         String expMonth = (String) context.get("expMonth");
         String expYear = (String) context.get("expYear");
-        
+ 
         StringBuffer expDate = new StringBuffer();
         expDate.append(expMonth);
         expDate.append("/");
@@ -265,11 +265,11 @@ public class PaymentMethodServices {
         if (!paymentMethod.getString("partyId").equals(partyId) && !security.hasEntityPermission("PAY_INFO", "_UPDATE", userLogin)) {
             return ServiceUtil.returnError("Party Id [" + partyId + "] is not the owner of payment method [" + paymentMethodId + "] and does not have permission to change it.");
         }
-        
+ 
         // do some more complicated/critical validation...
         List messages = new LinkedList();
-        
-        // first remove all spaces from the credit card number       
+ 
+        // first remove all spaces from the credit card number
         String updatedCardNumber = StringUtil.removeSpaces((String) context.get("cardNumber"));
         if (updatedCardNumber.startsWith("*")) {
             // get the masked card number from the db
@@ -282,14 +282,14 @@ public class PaymentMethodServices {
             }
             origMaskedNumber = origMaskedNumber + origCardNumber.substring(cardLength);
             Debug.log(origMaskedNumber);
-            
+ 
             // compare the two masked numbers
             if (updatedCardNumber.equals(origMaskedNumber)) {
                 updatedCardNumber = origCardNumber;
-            }            
+            }
         }
         context.put("cardNumber", updatedCardNumber);
-        
+ 
         if (!UtilValidate.isCardMatch((String) context.get("cardType"), (String) context.get("cardNumber")))
             messages.add((String) context.get("cardNumber")
                     + UtilValidate.isCreditCardPrefixMsg + (String) context.get("cardType") + UtilValidate.isCreditCardSuffixMsg
@@ -298,7 +298,7 @@ public class PaymentMethodServices {
             messages.add("The expiration date " + (String) context.get("expireDate") + " is before today.");
         if (messages.size() > 0) {
             return ServiceUtil.returnError(messages);
-        }        
+        }
 
         newPm = GenericValue.create(paymentMethod);
         toBeStored.add(newPm);
@@ -310,7 +310,7 @@ public class PaymentMethodServices {
             newPmId = delegator.getNextSeqId("PaymentMethod");
         } catch (IllegalArgumentException e) {
             return ServiceUtil.returnError("ERROR: Could not update credit card info (id generation failure)");
-            
+ 
         }
 
         newPm.set("partyId", partyId);
@@ -688,7 +688,7 @@ public class PaymentMethodServices {
 
             if (tempVal == null) {
                 // no value found, create a new one
-                newPartyContactMechPurpose = delegator.makeValue("PartyContactMechPurpose", 
+                newPartyContactMechPurpose = delegator.makeValue("PartyContactMechPurpose",
                     UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId, "fromDate", now));
             }
         }
@@ -794,7 +794,7 @@ public class PaymentMethodServices {
             GenericValue tempVal = null;
 
             try {
-                List allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose", 
+                List allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
                             UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId",contactMechPurposeTypeId), null), true);
                 tempVal = EntityUtil.getFirst(allPCMPs);
             } catch (GenericEntityException e) {

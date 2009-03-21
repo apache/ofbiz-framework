@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -48,11 +48,11 @@ import org.ofbiz.entity.condition.EntityOperator;
  * Worker methods for Payments
  */
 public class PaymentWorker {
-    
+ 
     public static final String module = PaymentWorker.class.getName();
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
-    
+ 
     /** @deprecated */
     public static void getPartyPaymentMethodValueMaps(PageContext pageContext, String partyId, Boolean showOld, String paymentMethodValueMapsAttr) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
@@ -62,9 +62,9 @@ public class PaymentWorker {
 
     // to be able to use in minilanguage where Boolean cannot be used
     public static List getPartyPaymentMethodValueMaps(GenericDelegator delegator, String partyId) {
-        return(getPartyPaymentMethodValueMaps(delegator, partyId, false)); 
+        return(getPartyPaymentMethodValueMaps(delegator, partyId, false));
     }
-    
+ 
     public static List getPartyPaymentMethodValueMaps(GenericDelegator delegator, String partyId, Boolean showOld) {
         List paymentMethodValueMaps = new LinkedList();
         try {
@@ -104,7 +104,7 @@ public class PaymentWorker {
 
         ServletRequest request = pageContext.getRequest();
         Map results = getPaymentMethodAndRelated(request, partyId);
-        
+ 
         if (results.get("paymentMethod") != null) pageContext.setAttribute(paymentMethodAttr, results.get("paymentMethod"));
         if (results.get("creditCard") != null) pageContext.setAttribute(creditCardAttr, results.get("creditCard"));
         if (results.get("eftAccount") != null) pageContext.setAttribute(eftAccountAttr, results.get("eftAccount"));
@@ -113,11 +113,11 @@ public class PaymentWorker {
         if (results.get("donePage") != null) pageContext.setAttribute(donePageAttr, results.get("donePage"));
         if (results.get("tryEntity") != null) pageContext.setAttribute(tryEntityAttr, results.get("tryEntity"));
     }
-    
+ 
     public static Map getPaymentMethodAndRelated(ServletRequest request, String partyId) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Map results = new HashMap();
-        
+ 
         Boolean tryEntity = Boolean.TRUE;
         if (request.getAttribute("_ERROR_MESSAGE_") != null) tryEntity = false;
 
@@ -180,21 +180,21 @@ public class PaymentWorker {
         }
 
         results.put("tryEntity", new Boolean(tryEntity));
-        
+ 
         return results;
     }
-            
-    public static GenericValue getPaymentAddress(GenericDelegator delegator, String partyId) {                
-        List paymentAddresses = null;        
+ 
+    public static GenericValue getPaymentAddress(GenericDelegator delegator, String partyId) {
+        List paymentAddresses = null;
         try {
-            paymentAddresses = delegator.findByAnd("PartyContactMechPurpose", 
-                UtilMisc.toMap("partyId", partyId, "contactMechPurposeTypeId", "PAYMENT_LOCATION"), 
+            paymentAddresses = delegator.findByAnd("PartyContactMechPurpose",
+                UtilMisc.toMap("partyId", partyId, "contactMechPurposeTypeId", "PAYMENT_LOCATION"),
                 UtilMisc.toList("-fromDate"));
-            paymentAddresses = EntityUtil.filterByDate(paymentAddresses);                
+            paymentAddresses = EntityUtil.filterByDate(paymentAddresses);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting PartyContactMechPurpose entity list", module);            
+            Debug.logError(e, "Trouble getting PartyContactMechPurpose entity list", module);
         }
-        
+ 
         // get the address for the primary contact mech
         GenericValue purpose = EntityUtil.getFirst(paymentAddresses);
         GenericValue postalAddress = null;
@@ -205,20 +205,20 @@ public class PaymentWorker {
                 Debug.logError(e, "Trouble getting PostalAddress record for contactMechId: " + purpose.getString("contactMechId"), module);
             }
         }
-                                
-        return postalAddress;   
-    } 
-    
+ 
+        return postalAddress;
+    }
+ 
     /**
      * Returns the total from a list of Payment entities
-     * 
+     *
      * @param payments List of Payment GenericValue items
      * @return total payments as BigDecimal
      */
 
     public static BigDecimal getPaymentsTotal(List payments) {
         if (payments == null) {
-            throw new IllegalArgumentException("Payment list cannot be null");            
+            throw new IllegalArgumentException("Payment list cannot be null");
         }
 
         BigDecimal paymentsTotal = BigDecimal.ZERO;
@@ -236,25 +236,25 @@ public class PaymentWorker {
      * @return the applied total as BigDecimal
      */
     public static BigDecimal getPaymentApplied(GenericDelegator delegator, String paymentId) {
-        return getPaymentApplied(delegator, paymentId, false); 
+        return getPaymentApplied(delegator, paymentId, false);
     }
-    
+ 
     public static BigDecimal getPaymentApplied(GenericDelegator delegator, String paymentId, Boolean actual) {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
-        
+ 
         GenericValue payment = null;
         try {
-            payment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", paymentId));    
+            payment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", paymentId));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting Payment", module);
         }
-        
+ 
         if (payment == null) {
             throw new IllegalArgumentException("The paymentId passed does not match an existing payment");
         }
-        
+ 
         return getPaymentApplied(payment, actual);
     }
     /**
@@ -291,7 +291,7 @@ public class PaymentWorker {
     public static BigDecimal getPaymentApplied(GenericValue payment) {
         return getPaymentApplied(payment, false);
     }
-    
+ 
     /**
      * Method to return the total amount of an payment which is applied to a payment
      * @param payment GenericValue object of the Payment
@@ -324,9 +324,9 @@ public class PaymentWorker {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting entities", module);            
+            Debug.logError(e, "Trouble getting entities", module);
         }
-        return paymentApplied;        
+        return paymentApplied;
     }
     public static BigDecimal getPaymentNotApplied(GenericValue payment) {
         return payment.getBigDecimal("amount").subtract(getPaymentApplied(payment)).setScale(decimals,rounding);
@@ -345,14 +345,14 @@ public class PaymentWorker {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
-        
+ 
         GenericValue payment = null;
         try {
-            payment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", paymentId));    
+            payment = delegator.findByPrimaryKey("Payment", UtilMisc.toMap("paymentId", paymentId));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting Payment", module);
         }
-        
+ 
         if (payment == null) {
             throw new IllegalArgumentException("The paymentId passed does not match an existing payment");
         }

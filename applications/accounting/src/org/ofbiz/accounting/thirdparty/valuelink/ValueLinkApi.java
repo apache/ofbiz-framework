@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -526,7 +526,7 @@ public class ValueLinkApi {
                 Debug.logError(e, module);
             }
 
-            byte[] des3 = copyBytes(desByte1, copyBytes(desByte2, desByte3, 0), 0);            
+            byte[] des3 = copyBytes(desByte1, copyBytes(desByte2, desByte3, 0), 0);
             return generateMwk(des3);
         } else {
             Debug.log("Null DES keys returned", module);
@@ -687,7 +687,7 @@ public class ValueLinkApi {
         BigDecimal amountBd = new BigDecimal(amount);
         return amountBd.movePointLeft(2);
     }
-    
+ 
     public String getCurrency(String currency) {
         return "840"; // todo make this multi-currency
     }
