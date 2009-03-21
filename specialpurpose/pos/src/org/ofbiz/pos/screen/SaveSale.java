@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -39,9 +39,9 @@ import org.ofbiz.pos.device.DeviceLoader;
 public class SaveSale extends XPage {
 
     /**
-     * To save a sale. 2 modes : save and keep the current sale or save and clear the current sale.  
+     * To save a sale. 2 modes : save and keep the current sale or save and clear the current sale.
      */
-    
+ 
     public static final String module = SaveSale.class.getName();
     protected static PosScreen m_pos = null;
     protected XDialog m_dialog = null;
@@ -64,8 +64,8 @@ public class SaveSale extends XPage {
 
     public void openDlg() {
         m_dialog = (XDialog) pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/savesale");
-        m_saleName = (XEdit) m_dialog.findComponent("saleName");        
-        //m_dialog.setM_focused(m_saleName); 
+        m_saleName = (XEdit) m_dialog.findComponent("saleName");
+        //m_dialog.setM_focused(m_saleName);
         m_saleName.setText(m_pos.session.getUserId() + " " + sdf.format(new Date()));
         m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PosSaveASale", Locale.getDefault()));
 
@@ -79,7 +79,7 @@ public class SaveSale extends XPage {
         XEventHelper.addMouseHandler(this, m_save, "save");
         XEventHelper.addMouseHandler(this, m_saveAndClear, "saveAndClear");
         // Save and Print
-        //XEventHelper.addMouseHandler(this, m_saveAndPrint, "saveAndPrint"); //FIXME : button does not exist yet 
+        //XEventHelper.addMouseHandler(this, m_saveAndPrint, "saveAndPrint"); //FIXME : button does not exist yet
         XEventHelper.addMouseHandler(this, m_saleName, "editSaleName");
 
         m_dialog.pack();
@@ -131,7 +131,7 @@ public class SaveSale extends XPage {
         if (wasMouseClicked() && ShowKeyboardInSaveSale) {
             try {
                 Keyboard keyboard = new Keyboard(m_pos);
-                keyboard.setText(m_saleName.getText());                
+                keyboard.setText(m_saleName.getText());
                 m_saleName.setText(keyboard.openDlg());
             } catch (Exception e) {
                 Debug.logError(e, module);
@@ -144,7 +144,7 @@ public class SaveSale extends XPage {
     private void saveSale(String sale) {
         final ClassLoader cl = this.getClassLoader(m_pos);
         Thread.currentThread().setContextClassLoader(cl);
-        m_trans.saveSale(sale, m_pos);        
+        m_trans.saveSale(sale, m_pos);
 //        m_trans.saveOrder(sale, m_pos); // TODO use order instead of shopping list
         this.m_dialog.closeDlg();
     }
@@ -166,5 +166,5 @@ public class SaveSale extends XPage {
             }
         }
         return cl;
-    }    
+    }
 }

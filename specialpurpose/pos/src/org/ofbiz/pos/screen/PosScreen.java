@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -49,7 +49,7 @@ import org.ofbiz.pos.device.DeviceLoader;
 
 public class PosScreen extends XPage implements Runnable, DialogCallback, FocusListener {
 
-    
+ 
     public static final String module = PosScreen.class.getName();
     public static final Frame appFrame = XProjectManager.getCurrentProject().getAppFrame();
     public static final Window appWin = XProjectManager.getCurrentProject().getAppWindow();
@@ -75,7 +75,7 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
     protected boolean inDialog = false;
 
     private Locale defaultLocale = Locale.getDefault();
-    
+ 
     public PosScreen() {
         super();
         this.classLoader = Thread.currentThread().getContextClassLoader();
@@ -85,7 +85,7 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
     public void pageCreated() {
         super.pageCreated();
 
-        // initial settings                
+        // initial settings 
         this.setEnabled(false);
         this.setVisible(false);
 
@@ -98,11 +98,11 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
         this.setLastActivity(System.currentTimeMillis());
 
         if (!firstInit) {
-            firstInit = true;           
-            
+            firstInit = true;
+ 
             // pre-load a few screens
-         
-            currentProject.getPageManager().loadPage(this.getScreenLocation() + "/paypanel");            
+ 
+            currentProject.getPageManager().loadPage(this.getScreenLocation() + "/paypanel");
             currentProject.getPageManager().loadPage(this.getScreenLocation() + "/mgrpanel");
             currentProject.getPageManager().loadPage(this.getScreenLocation() + "/promopanel");
 
@@ -120,7 +120,7 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
             appWin.addFocusListener(this);
 
             // close the splash screen
-            SplashLoader.close();            
+            SplashLoader.close();
         }
 
         // buttons are different per screen
@@ -146,7 +146,7 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
         }
 
         currentScreen = this;
-        this.refresh();      
+        this.refresh();
     }
 
     public void pageDeactivated() {
@@ -303,7 +303,7 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
         if (pageName.startsWith("/")) {
             pageName = pageName.substring(1);
         }
-        XPage newPage = (XPage)currentProject.getPageManager().showPage(this.getScreenLocation() + "/" + pageName);         
+        XPage newPage = (XPage)currentProject.getPageManager().showPage(this.getScreenLocation() + "/" + pageName);
         if (newPage instanceof PosScreen) {
             if (refresh) ((PosScreen) newPage).refresh();
             return (PosScreen) newPage;
@@ -332,14 +332,14 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
     }
 
     public PosDialog showDialog(String pageName, DialogCallback cb) {
-        return showDialog(pageName, cb, null);    
+        return showDialog(pageName, cb, null);
     }
 
     public PosDialog showDialog(String pageName, DialogCallback cb, String text) {
         if (pageName.startsWith("/")) {
             pageName = pageName.substring(1);
         }
-        XPage dialogPage = (XPage)currentProject.getPageManager().loadPage(this.getScreenLocation() + "/" + pageName);        
+        XPage dialogPage = (XPage)currentProject.getPageManager().loadPage(this.getScreenLocation() + "/" + pageName);
         PosDialog dialog = PosDialog.getInstance(dialogPage, true, 0);
         dialog.showDialog(this, cb, text);
         return dialog;
@@ -392,11 +392,11 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
         }
         return this.scrLocation;
     }
-    
+ 
     public void setWaitCursor() {
-        setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.WAIT_CURSOR));        
+        setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.WAIT_CURSOR));
     }
     public void setNormalCursor() {
-        setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.DEFAULT_CURSOR));        
+        setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.DEFAULT_CURSOR));
     }
 }

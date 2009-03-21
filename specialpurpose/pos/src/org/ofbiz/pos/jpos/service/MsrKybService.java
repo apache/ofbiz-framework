@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -60,7 +60,7 @@ public class MsrKybService extends BaseService implements jpos.services.MSRServi
     protected int errorType = MSRConst.MSR_ERT_CARD;
 
     public MsrKybService() {
-        KeyboardAdaptor.getInstance(this, KeyboardAdaptor.MSR_DATA);    
+        KeyboardAdaptor.getInstance(this, KeyboardAdaptor.MSR_DATA);
     }
 
     // MSRService12
@@ -320,7 +320,7 @@ public class MsrKybService extends BaseService implements jpos.services.MSRServi
             ErrorEvent error = new ErrorEvent(this, JposConst.JPOS_E_FAILURE, -1,
                     JposConst.JPOS_EL_INPUT, JposConst.JPOS_ER_CLEAR);
             this.fireEvent(error);
-            return;    
+            return;
         }
     }
 }

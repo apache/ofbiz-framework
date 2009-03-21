@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -59,7 +59,7 @@ import org.ofbiz.service.ServiceUtil;
 
 public class ManagerEvents {
 
-    
+ 
     public static final String module = ManagerEvents.class.getName();
     public static boolean mgrLoggedIn = false;
     static DecimalFormat priceDecimalFormat = new DecimalFormat("#,##0.00");
@@ -67,7 +67,7 @@ public class ManagerEvents {
     // scales and rounding modes for BigDecimal math
     public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");
     public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
-    public static final BigDecimal ZERO = (BigDecimal.ZERO).setScale(scale, rounding);    
+    public static final BigDecimal ZERO = (BigDecimal.ZERO).setScale(scale, rounding);
 
     public static synchronized void modifyPrice(PosScreen pos) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
@@ -170,7 +170,7 @@ public class ManagerEvents {
             String[] func = input.getFunction("CLOSE");
             String lastValue = input.value();
             if (UtilValidate.isNotEmpty(lastValue)) {
-                
+ 
                 try {
                     BigDecimal amt = new BigDecimal(lastValue);
                     amt = amt.movePointLeft(2);
@@ -396,25 +396,25 @@ public class ManagerEvents {
     }
 
     public static synchronized void paidOut(PosScreen pos) {
-        paidOutAndIn(pos, "OUT");        
+        paidOutAndIn(pos, "OUT");
     }
 
     public static synchronized void paidIn(PosScreen pos) {
-        paidOutAndIn(pos, "IN");        
+        paidOutAndIn(pos, "IN");
     }
-                    
+ 
     public static synchronized void paidOutAndIn(PosScreen pos, String type) {
         if (!mgrLoggedIn) {
             pos.showDialog("dialog/error/mgrnotloggedin");
             return;
         }
-        
+ 
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         if (!trans.isOpen()) {
             pos.showDialog("dialog/error/terminalclosed");
             return;
         }
-        
+ 
         PaidInOut PaidInOut = new PaidInOut(trans, pos, type);
         Map mapInOut = PaidInOut.openDlg();
         if (null != mapInOut.get("amount")) {
@@ -429,7 +429,7 @@ public class ManagerEvents {
             }
 
             GenericValue internTx = pos.getSession().getDelegator().makeValue("PosTerminalInternTx");
-            internTx.set("posTerminalLogId", trans.getTerminalLogId());                        
+            internTx.set("posTerminalLogId", trans.getTerminalLogId());
             internTx.set("paidAmount", amt);
             internTx.set("reasonComment", mapInOut.get("reasonComment"));
             internTx.set("reasonEnumId", mapInOut.get("reason"));
@@ -439,13 +439,13 @@ public class ManagerEvents {
                 Debug.logError(e, module);
                 pos.showDialog("dialog/error/exception", e.getMessage());
                 return;
-            }                        
-            //save the TX Log 
-            trans.paidInOut(type);               
-            NavagationEvents.showPosScreen(pos);                                    
-        }    
+            }
+            //save the TX Log
+            trans.paidInOut(type);
+            NavagationEvents.showPosScreen(pos);
+        }
     }
-    
+ 
     private static synchronized void printTotals(PosScreen pos, GenericValue state, boolean runBalance) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
         if (!trans.isOpen()) {

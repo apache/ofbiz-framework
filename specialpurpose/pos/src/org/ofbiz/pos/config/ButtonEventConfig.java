@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -41,7 +41,7 @@ import org.w3c.dom.Element;
 public class ButtonEventConfig implements java.io.Serializable {
 
     public static final String module = ButtonEventConfig.class.getName();
-    public static final String BUTTON_EVENT_CONFIG = "buttonevents.xml";   
+    public static final String BUTTON_EVENT_CONFIG = "buttonevents.xml";
     private static transient UtilCache buttonConfig = new UtilCache("pos.ButtonEvent", 0, 0, 0, false, true);
 
     protected String buttonName = null;

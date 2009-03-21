@@ -49,7 +49,7 @@ public class PaidInOut extends XPage {
     /**
      * To allow creating or choising a reason for a PAID IN or OUT
      */
-    
+ 
     public static final String module = PaidInOut.class.getName();
     protected static PosScreen m_pos = null;
     protected XDialog m_dialog = null;
@@ -96,7 +96,7 @@ public class PaidInOut extends XPage {
 
         m_comboModel = new DefaultComboBoxModel();
         List<GenericValue> posPaidReasons = FastList.newInstance();
-        if (m_type.equals("IN")) { 
+        if (m_type.equals("IN")) {
             m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PosPaidInTitle", locale));
             try {
                 posPaidReasons = m_trans.getSession().getDelegator().findByAndCache("Enumeration", UtilMisc.toMap("enumTypeId", "POS_PAID_REASON_IN"));
@@ -108,7 +108,7 @@ public class PaidInOut extends XPage {
             try {
                 posPaidReasons = m_trans.getSession().getDelegator().findByAndCache("Enumeration", UtilMisc.toMap("enumTypeId", "POS_PAID_REASON_OUT"));
             } catch (GenericEntityException e) {
-                Debug.logError(e, module);            }                
+                Debug.logError(e, module);            }
         }
         for (GenericValue reason : posPaidReasons) {
             m_comboModel.addElement(reason.get("description", locale));
@@ -122,9 +122,9 @@ public class PaidInOut extends XPage {
         if (cancelled) {
             return new HashMap<String, String>();
         } else {
-            return UtilMisc.toMap("amount", m_amountEdit.getText(), 
-                    "reason", (String)(posPaidReasons.get(m_reasonCombo.getSelectedIndex())).get("enumId"),        
-                    "reasonComment", (String) m_reasonCommentEdit.getText());        
+            return UtilMisc.toMap("amount", m_amountEdit.getText(),
+                    "reason", (String)(posPaidReasons.get(m_reasonCombo.getSelectedIndex())).get("enumId"),
+                    "reasonComment", (String) m_reasonCommentEdit.getText());
             }
     }
 
@@ -150,7 +150,7 @@ public class PaidInOut extends XPage {
             try {
                 NumericKeypad numericKeypad = new NumericKeypad(m_pos);
                 numericKeypad.setMinus(true);
-                numericKeypad.setPercent(false);               
+                numericKeypad.setPercent(false);
                 m_amountEdit.setText(numericKeypad.openDlg());
             } catch (Exception e) {
                 Debug.logError(e, module);

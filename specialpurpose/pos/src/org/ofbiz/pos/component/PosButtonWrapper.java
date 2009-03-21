@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -100,7 +100,7 @@ public class PosButtonWrapper {
         }
 
         // get the hex color for the current style
-        String fcolor = Integer.toHexString(style.getStyleAsColor(XStyle.COLOR_FORE).getRGB() & 0x00ffffff);        
+        String fcolor = Integer.toHexString(style.getStyleAsColor(XStyle.COLOR_FORE).getRGB() & 0x00ffffff);
         xbutton.setBackground(style.getStyleAsColor(XStyle.COLOR_BACK));
 
         // add the # for the HTML color

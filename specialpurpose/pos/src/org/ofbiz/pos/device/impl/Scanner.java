@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -62,7 +62,7 @@ public class Scanner extends GenericDevice {
                         Debug.logWarning("Scanner driver does not support decoding data; the raw result is used instead", module);
                         scanData = scanner.getScanData();
                     }
-                    
+ 
                     scanner.clearInput();
                 } catch (jpos.JposException e) {
                     Debug.logError(e, module);
@@ -79,13 +79,13 @@ public class Scanner extends GenericDevice {
             if (!"main/pospanel".equals(PosScreen.currentScreen.getName())) {
                 PosScreen.currentScreen.showPage("pospanel");
             }
-            
+ 
             // we can add some type checking here if needed (i.e. type of barcode; type of SKU, etc)
             if (dataType == ScannerConst.SCAN_SDT_UNKNOWN) {
                 Debug.logWarning("Scanner type checking problems - check scanner driver", module);
             }
 
-            // This deals with multi Bar Codes in one event alone. 
+            // This deals with multi Bar Codes in one event alone.
             // For the moment it works only with barcode id  of 1 char (see ScannerKybService).
             // I thought that javapos AutoDisable option should be the way but does not seem to work.
             // At least with my Zebex handheld and seem also not implemented though present
@@ -94,16 +94,16 @@ public class Scanner extends GenericDevice {
             // Perhaps I'm missing something here, but have no more time to search...
             // I saw in JavaPOS Doc somehting about supplemental barcode. I think it's ok
             // because it seems that in this case the scanner is able to deliver only one label.
-            String toInput = new String(data) + "\n  "; 
+            String toInput = new String(data) + "\n  ";
             while (toInput.indexOf("\n") > -1) {
-                int posCR = toInput.indexOf("\n");            
-                // stuff the data to the Input component                
+                int posCR = toInput.indexOf("\n");
+                // stuff the data to the Input component
                 PosScreen.currentScreen.getInput().clearInput();
                 PosScreen.currentScreen.getInput().appendString(toInput.substring(0, posCR));
-                
+ 
                 // At least one product recognized
                 MenuEvents.addItem(PosScreen.currentScreen, null);
-        
+ 
                 if (!MULTI_BARCODES_ALLOWED) {
                     break;
                 }
