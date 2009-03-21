@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,52 +37,52 @@ import org.w3c.dom.Element;
  * JotmFactory - Central source for JOTM JDBC Objects
  */
 public class XaPoolConnectionFactory {
-        
-    public static final String module = XaPoolConnectionFactory.class.getName();                
-        
+ 
+    public static final String module = XaPoolConnectionFactory.class.getName();
+ 
     protected static Map dsCache = new HashMap();
-    
-    public static Connection getConnection(String helperName, Element jotmJdbcElement) throws SQLException, GenericEntityException {                               
-        StandardXAPoolDataSource pds = (StandardXAPoolDataSource) dsCache.get(helperName);        
-        if (pds != null) {                      
-            if (Debug.verboseOn()) Debug.logVerbose(helperName + " pool size: " + pds.pool.getCount(), module);           
+ 
+    public static Connection getConnection(String helperName, Element jotmJdbcElement) throws SQLException, GenericEntityException {
+        StandardXAPoolDataSource pds = (StandardXAPoolDataSource) dsCache.get(helperName);
+        if (pds != null) {
+            if (Debug.verboseOn()) Debug.logVerbose(helperName + " pool size: " + pds.pool.getCount(), module);
             return TransactionFactory.getCursorConnection(helperName, pds.getConnection());
         }
-        
-        synchronized (XaPoolConnectionFactory.class) {            
+ 
+        synchronized (XaPoolConnectionFactory.class) {
             pds = (StandardXAPoolDataSource) dsCache.get(helperName);
-            if (pds != null) {                           
+            if (pds != null) {
                 return pds.getConnection();
             }
-            
+ 
             // the xapool wrapper class
             String wrapperClass = jotmJdbcElement.getAttribute("pool-xa-wrapper-class");
-            
-            StandardXADataSource ds = null;         
-            try {            
-                //ds =  new StandardXADataSource();                
+ 
+            StandardXADataSource ds = null;
+            try {
+                //ds =  new StandardXADataSource();
                 ds = (StandardXADataSource) ObjectType.getInstance(wrapperClass);
                 pds = new StandardXAPoolDataSource();
-            } catch (NoClassDefFoundError e) {                
-                throw new GenericEntityException("Cannot find xapool.jar");                       
+            } catch (NoClassDefFoundError e) {
+                throw new GenericEntityException("Cannot find xapool.jar");
             } catch (ClassNotFoundException e) {
-                throw new GenericEntityException("Cannot load wrapper class: " + wrapperClass, e);                
+                throw new GenericEntityException("Cannot load wrapper class: " + wrapperClass, e);
             } catch (InstantiationException e) {
-                throw new GenericEntityException("Unable to instantiate " + wrapperClass, e);                
+                throw new GenericEntityException("Unable to instantiate " + wrapperClass, e);
             } catch (IllegalAccessException e) {
-                throw new GenericEntityException("Problems getting instance of " + wrapperClass, e);                
+                throw new GenericEntityException("Problems getting instance of " + wrapperClass, e);
             }
-            
+ 
             if (ds == null)
                 throw new GenericEntityException("StandardXaDataSource was not created, big problem!");
-            
+ 
             ds.setDriverName(jotmJdbcElement.getAttribute("jdbc-driver"));
             ds.setUrl(jotmJdbcElement.getAttribute("jdbc-uri"));
             ds.setUser(jotmJdbcElement.getAttribute("jdbc-username"));
             ds.setPassword(jotmJdbcElement.getAttribute("jdbc-password"));
-            ds.setDescription(helperName);  
-            ds.setTransactionManager(TransactionFactory.getTransactionManager()); 
-            
+            ds.setDescription(helperName);
+            ds.setTransactionManager(TransactionFactory.getTransactionManager());
+ 
             String transIso = jotmJdbcElement.getAttribute("isolation-level");
             if (transIso != null && transIso.length() > 0) {
                 if ("Serializable".equals(transIso)) {
@@ -95,54 +95,54 @@ public class XaPoolConnectionFactory {
                     ((StandardXADataSource) ds).setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
                 } else if ("None".equals(transIso)) {
                     ((StandardXADataSource) ds).setTransactionIsolation(Connection.TRANSACTION_NONE);
-                }                                            
+                }
             }
-            
-            // set the datasource in the pool            
+ 
+            // set the datasource in the pool
             pds.setDataSource(ds);
             pds.setDescription(ds.getDescription());
             pds.setUser(ds.getUser());
             pds.setPassword(ds.getPassword());
             Debug.logInfo("XADataSource: " + ds.getClass().getName() + " attached to pool.", module);
-            
+ 
             // set the transaction manager in the pool
             pds.setTransactionManager(TransactionFactory.getTransactionManager());
-            
-            // configure the pool settings           
-            try {            
+ 
+            // configure the pool settings 
+            try {
                 pds.setMaxSize(Integer.parseInt(jotmJdbcElement.getAttribute("pool-maxsize")));
                 pds.setMinSize(Integer.parseInt(jotmJdbcElement.getAttribute("pool-minsize")));
                 pds.setSleepTime(Long.parseLong(jotmJdbcElement.getAttribute("pool-sleeptime")));
                 pds.setLifeTime(Long.parseLong(jotmJdbcElement.getAttribute("pool-lifetime")));
                 pds.setDeadLockMaxWait(Long.parseLong(jotmJdbcElement.getAttribute("pool-deadlock-maxwait")));
                 pds.setDeadLockRetryWait(Long.parseLong(jotmJdbcElement.getAttribute("pool-deadlock-retrywait")));
-                
+ 
                 // set the test statement to test connections
                 String testStmt = jotmJdbcElement.getAttribute("pool-jdbc-test-stmt");
                 if (testStmt != null && testStmt.length() > 0) {
                     pds.setJdbcTestStmt(testStmt);
                     Debug.logInfo("Set JDBC Test Statement : " + testStmt, module);
-                }                
+                }
             } catch (NumberFormatException nfe) {
                 Debug.logError(nfe, "Problems with pool settings; the values MUST be numbers, using defaults.", module);
             } catch (Exception e) {
                 Debug.logError(e, "Problems with pool settings", module);
             }
-                                  
+ 
             // cache the pool
-            dsCache.put(helperName, pds);        
-                                                      
+            dsCache.put(helperName, pds);
+ 
             return TransactionFactory.getCursorConnection(helperName, pds.getConnection());
-        }                
+        }
     }
-    
+ 
     public static void closeAll() {
         Set cacheKeys = dsCache.keySet();
         Iterator i = cacheKeys.iterator();
         while (i.hasNext()) {
             String helperName = (String) i.next();
             StandardXAPoolDataSource pds = (StandardXAPoolDataSource) dsCache.remove(helperName);
-            pds.shutdown(true);   
-        }                                                                             
+            pds.shutdown(true);
+        }
     }
 }

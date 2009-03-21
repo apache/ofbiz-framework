@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -44,7 +44,7 @@ public class GenericValueHtmlWrapper extends GenericValue {
             return new GenericValueHtmlWrapper();
         }
     };
-    
+ 
     /** Creates new GenericValueHtmlWrapper from existing GenericValue */
     public static GenericValueHtmlWrapper create(GenericValue value) {
         GenericValueHtmlWrapper newValue = genericValueHtmlWrapperFactory.object();
@@ -57,7 +57,7 @@ public class GenericValueHtmlWrapper extends GenericValue {
         return newValue;
     }
 
-    /* NOTE: this is NOT used because there are certain FTL files that call services and things, and this messes those up, so only overriding the Map.get(Object) method to get use of this as a Map 
+    /* NOTE: this is NOT used because there are certain FTL files that call services and things, and this messes those up, so only overriding the Map.get(Object) method to get use of this as a Map
      * Override the basic get method, which all other get methods call so we only need to do this one (though most important for the Map.get(Object) and the getString() methods 
     public Object get(String name) {
         Object value = super.get(name);
@@ -76,13 +76,13 @@ public class GenericValueHtmlWrapper extends GenericValue {
             return value;
         }
     }
-    
+ 
     // another experimental object, this one specifically for FTL
     public static class GenericValueHtmlWrapperForFtl extends MapModel {
         public GenericValueHtmlWrapperForFtl(GenericValue gv, BeansWrapper wrapper) {
             super(gv, wrapper);
         }
-        
+ 
         public TemplateModel get(String key) {
             TemplateModel tm = null;
             try {

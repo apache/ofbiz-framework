@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -47,7 +47,7 @@ import org.w3c.dom.Element;
  * Central source for Tyrex JTA objects from JNDI
  */
 public class JNDIFactory implements TransactionFactoryInterface {
-    
+ 
     // Debug module name
     public static final String module = JNDIFactory.class.getName();
 
@@ -128,11 +128,11 @@ public class JNDIFactory implements TransactionFactoryInterface {
         }
         return userTransaction;
     }
-    
+ 
     public String getTxMgrName() {
         return "jndi";
     }
-    
+ 
     public Connection getConnection(String helperName) throws SQLException, GenericEntityException {
         DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
 
@@ -145,7 +145,7 @@ public class JNDIFactory implements TransactionFactoryInterface {
         } else {
            // Debug.logError("JNDI loaded is the configured transaction manager but no jndi-jdbc element was specified in the " + helperName + " datasource. Please check your configuration.", module);
         }
-        
+ 
         if (datasourceInfo.inlineJdbcElement != null) {
             Connection otherCon = ConnectionFactory.getManagedConnection(helperName, datasourceInfo.inlineJdbcElement);
             return TransactionFactory.getCursorConnection(helperName, otherCon);
@@ -154,7 +154,7 @@ public class JNDIFactory implements TransactionFactoryInterface {
             return null;
         }
     }
-    
+ 
     public static Connection getJndiConnection(String jndiName, String jndiServerName) throws SQLException, GenericEntityException {
         // if (Debug.verboseOn()) Debug.logVerbose("Trying JNDI name " + jndiName, module);
         DataSource ds;
@@ -241,6 +241,6 @@ public class JNDIFactory implements TransactionFactoryInterface {
         }
         return null;
     }
-    
+ 
     public void shutdown() {}
 }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,7 +43,7 @@ import org.ofbiz.entity.model.ModelEntity;
  *
  */
 public abstract class EntityCondition extends EntityConditionBase implements Reusable {
-    
+ 
     public static EntityExpr makeCondition(Object lhs, EntityComparisonOperator operator, Object rhs) {
         EntityExpr expr = EntityExpr.entityExprFactory.object();
         expr.init(lhs, operator, rhs);
@@ -148,7 +148,7 @@ public abstract class EntityCondition extends EntityConditionBase implements Reu
 
     public boolean entityMatches(GenericEntity entity) {
         return mapMatches(entity.getDelegator(), entity);
-    }    
+    }
 
     public Boolean eval(GenericEntity entity) {
         return eval(entity.getDelegator(), entity);
@@ -163,7 +163,7 @@ public abstract class EntityCondition extends EntityConditionBase implements Reu
     abstract public EntityCondition freeze();
 
     abstract public void encryptConditionFields(ModelEntity modelEntity, GenericDelegator delegator);
-    
+ 
     public void visit(EntityConditionVisitor visitor) {
         throw new IllegalArgumentException(getClass().getName() + ".visit not implemented");
     }

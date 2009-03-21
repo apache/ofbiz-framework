@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -53,7 +53,7 @@ public class GenericValue extends GenericEntity implements Reusable {
             return new GenericValue();
         }
     };
-    
+ 
     /** Map to cache various related entity collections */
     public transient Map<String, List<GenericValue>> relatedCache = null;
 
@@ -102,7 +102,7 @@ public class GenericValue extends GenericEntity implements Reusable {
         newValue.init(primaryKey);
         return newValue;
     }
-    
+ 
     public void reset() {
         // from GenericEntity
         super.reset();
@@ -441,7 +441,7 @@ public class GenericValue extends GenericEntity implements Reusable {
         while (relItr.hasNext()) {
             ModelRelation relation = relItr.next();
             if ("one".equalsIgnoreCase(relation.getType())) {
-                // see if the related value exists                
+                // see if the related value exists 
                 Map<String, Object> fields = FastMap.newInstance();
                 for (int i = 0; i < relation.getKeyMapsSize(); i++) {
                     ModelKeyMap keyMap = relation.getKeyMap(i);

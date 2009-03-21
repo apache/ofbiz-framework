@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -110,7 +110,7 @@ public class ModelViewEntity extends ModelEntity {
             ModelViewEntity.ModelAlias alias = new ModelAlias(aliasElement);
             this.aliases.add(alias);
         }
-        
+ 
         for (Element viewLinkElement: UtilXml.childElementList(entityElement, "view-link")) {
             ModelViewLink viewLink = new ModelViewLink(viewLinkElement);
             this.addViewLink(viewLink);
@@ -122,34 +122,34 @@ public class ModelViewEntity extends ModelEntity {
         // before finishing, make sure the table name is null, this should help bring up errors early...
         this.tableName = null;
     }
-    
+ 
     public ModelViewEntity(DynamicViewEntity dynamicViewEntity, ModelReader modelReader) {
         this.entityName = dynamicViewEntity.getEntityName();
         this.packageName = dynamicViewEntity.getPackageName();
         this.title = dynamicViewEntity.getTitle();
         this.defaultResourceName = dynamicViewEntity.getDefaultResourceName();
-        
+ 
         // member-entities
         Iterator<Map.Entry<String, ModelMemberEntity>> modelMemberEntitiesEntryIter = dynamicViewEntity.getModelMemberEntitiesEntryIter();
         while (modelMemberEntitiesEntryIter.hasNext()) {
             Map.Entry<String, ModelMemberEntity> entry = modelMemberEntitiesEntryIter.next();
             this.addMemberModelMemberEntity(entry.getValue());
         }
-        
+ 
         // alias-alls
         dynamicViewEntity.addAllAliasAllsToList(this.aliasAlls);
-        
+ 
         // aliases
         dynamicViewEntity.addAllAliasesToList(this.aliases);
-        
+ 
         // view-links
         dynamicViewEntity.addAllViewLinksToList(this.viewLinks);
-        
+ 
         // relations
         dynamicViewEntity.addAllRelationsToList(this.relations);
-        
+ 
         // finalize stuff
-        // note that this doesn't result in a call to populateReverseLinks because a DynamicViewEntity should never be cached anyway, and will blow up when attempting to make the reverse links to the DynamicViewEntity 
+        // note that this doesn't result in a call to populateReverseLinks because a DynamicViewEntity should never be cached anyway, and will blow up when attempting to make the reverse links to the DynamicViewEntity
         this.populateFieldsBasic(modelReader);
     }
 
@@ -200,7 +200,7 @@ public class ModelViewEntity extends ModelEntity {
     public ModelAlias getAlias(int index) {
         return this.aliases.get(index);
     }
-    
+ 
     public ModelAlias getAlias(String name) {
         Iterator<ModelAlias> aliasIter = getAliasesIterator();
         while (aliasIter.hasNext()) {
@@ -266,7 +266,7 @@ public class ModelViewEntity extends ModelEntity {
     public void addViewLink(ModelViewLink viewLink) {
         this.viewLinks.add(viewLink);
     }
-    
+ 
     public String colNameString(String separator, String afterLast, boolean alias, ModelField... flds) {
         return colNameString(Arrays.asList(flds), separator, afterLast, alias);
     }
@@ -316,10 +316,10 @@ public class ModelViewEntity extends ModelEntity {
             Debug.logError("[ModelViewEntity.populateFields] ERROR: could not find ModelEntity for entity name: " + aliasedEntityName, module);
             return null;
         }
-        
+ 
         return aliasedEntity;
     }
-    
+ 
     public ModelField getAliasedField(ModelEntity aliasedEntity, String field, ModelReader modelReader) {
         ModelField aliasedField = aliasedEntity.getField(field);
         if (aliasedField == null) {
@@ -328,12 +328,12 @@ public class ModelViewEntity extends ModelEntity {
         }
         return aliasedField;
     }
-    
+ 
     public void populateFields(ModelReader modelReader) {
         populateFieldsBasic(modelReader);
         populateReverseLinks();
     }
-    
+ 
     public void populateFieldsBasic(ModelReader modelReader) {
         if (this.memberModelEntities == null) {
             this.memberModelEntities = FastMap.newInstance();
@@ -404,12 +404,12 @@ public class ModelViewEntity extends ModelEntity {
                 } else {
                     field.isPk = aliasedField.isPk;
                 }
-                
+ 
                 field.encrypt = aliasedField.encrypt;
 
                 field.type = aliasedField.type;
                 field.validators = aliasedField.validators;
-                
+ 
                 field.colName = alias.entityAlias + "." + SqlJdbcUtil.filterColName(aliasedField.colName);
                 if (UtilValidate.isEmpty(field.description)) {
                     field.description = aliasedField.description;
@@ -422,7 +422,7 @@ public class ModelViewEntity extends ModelEntity {
             } else {
                 this.nopks.add(field);
             }
-            
+ 
             if ("count".equals(alias.function) || "count-distinct".equals(alias.function)) {
                 // if we have a "count" function we have to change the type
                 field.type = "numeric";
@@ -438,7 +438,7 @@ public class ModelViewEntity extends ModelEntity {
             }
         }
     }
-    
+ 
     protected ModelConversion getOrCreateModelConversion(String aliasName) {
         ModelEntity member = getMemberModelEntity(aliasName);
         if (member == null) {
@@ -446,7 +446,7 @@ public class ModelViewEntity extends ModelEntity {
             Debug.logWarning(errMsg, module);
             throw new RuntimeException("Cannot create View Entity: " + errMsg);
         }
-        
+ 
         Map<String, ModelConversion> aliasConversions = conversions.get(member.getEntityName());
         if (aliasConversions == null) {
             aliasConversions = FastMap.newInstance();
@@ -586,7 +586,7 @@ public class ModelViewEntity extends ModelEntity {
                     // if specified as excluded, leave it out
                     continue;
                 }
-                
+ 
                 if (UtilValidate.isNotEmpty(prefix)) {
                     StringBuilder newAliasBuffer = new StringBuilder(prefix);
                     //make sure the first letter is uppercase to delineate the field name
@@ -594,7 +594,7 @@ public class ModelViewEntity extends ModelEntity {
                     newAliasBuffer.append(aliasName.substring(1));
                     aliasName = newAliasBuffer.toString();
                 }
-                
+ 
                 ModelAlias existingAlias = this.getAlias(aliasName);
                 if (existingAlias != null) {
                     //log differently if this is part of a view-link key-map because that is a common case when a field will be auto-expanded multiple times
@@ -619,7 +619,7 @@ public class ModelViewEntity extends ModelEntity {
                             }
                         }
                     }
-                    
+ 
                     //already exists, oh well... probably an override, but log just in case
                     String warnMsg = "Throwing out field alias in view entity " + this.getEntityName() + " because one already exists with the alias name [" + aliasName + "] and field name [" + modelMemberEntity.getEntityAlias() + "(" + aliasedEntity.getEntityName() + ")." + fieldName + "], existing field name is [" + existingAlias.getEntityAlias() + "." + existingAlias.getField() + "]";
                     if (isInViewLink) {
@@ -629,7 +629,7 @@ public class ModelViewEntity extends ModelEntity {
                     }
                     continue;
                 }
-                
+ 
                 ModelAlias expandedAlias = new ModelAlias();
                 expandedAlias.name = aliasName;
                 expandedAlias.field = fieldName;
@@ -639,7 +639,7 @@ public class ModelViewEntity extends ModelEntity {
                 expandedAlias.function = function;
                 expandedAlias.groupBy = groupBy;
                 expandedAlias.description = modelField.getDescription();
-               
+ 
                 aliases.add(expandedAlias);
             }
         }
@@ -687,7 +687,7 @@ public class ModelViewEntity extends ModelEntity {
             this.prefix = UtilXml.checkEmpty(aliasAllElement.getAttribute("prefix")).intern();
             this.groupBy = "true".equals(UtilXml.checkEmpty(aliasAllElement.getAttribute("group-by")));
             this.function = UtilXml.checkEmpty(aliasAllElement.getAttribute("function"));
-            
+ 
             List<? extends Element> excludes = UtilXml.childElementList(aliasAllElement, "exclude");
             if (UtilValidate.isNotEmpty(excludes)) {
                 this.fieldsToExclude = new HashSet<String>();
@@ -695,7 +695,7 @@ public class ModelViewEntity extends ModelEntity {
                     this.fieldsToExclude.add(excludeElement.getAttribute("field").intern());
                 }
             }
-            
+ 
         }
 
         public String getEntityAlias() {
@@ -755,13 +755,13 @@ public class ModelViewEntity extends ModelEntity {
             this.groupBy = "true".equals(UtilXml.checkEmpty(aliasElement.getAttribute("group-by")));
             this.function = UtilXml.checkEmpty(aliasElement.getAttribute("function")).intern();
             this.description = UtilXml.checkEmpty(UtilXml.childElementValue(aliasElement, "description")).intern();
-            
+ 
             Element complexAliasElement = UtilXml.firstChildElement(aliasElement, "complex-alias");
             if (complexAliasElement != null) {
                 complexAliasMember = new ComplexAlias(complexAliasElement);
             }
         }
-        
+ 
         public ModelAlias(String entityAlias, String name, String field, String colAlias, Boolean isPk, Boolean groupBy, String function) {
             this.entityAlias = entityAlias;
             this.name = name;
@@ -775,15 +775,15 @@ public class ModelViewEntity extends ModelEntity {
             }
             this.function = function;
         }
-        
+ 
         public void setComplexAliasMember(ComplexAliasMember complexAliasMember) {
             this.complexAliasMember = complexAliasMember;
         }
-        
+ 
         public boolean isComplexAlias() {
             return complexAliasMember != null;
         }
-        
+ 
         public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
             if (complexAliasMember != null) {
                 complexAliasMember.makeAliasColName(colNameBuffer, fieldTypeBuffer, modelViewEntity, modelReader);
@@ -797,7 +797,7 @@ public class ModelViewEntity extends ModelEntity {
         public String getName() {
             return this.name;
         }
-        
+ 
         public String getColAlias() {
             return this.colAlias;
         }
@@ -834,15 +834,15 @@ public class ModelViewEntity extends ModelEntity {
     public static interface ComplexAliasMember extends Serializable {
         public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader);
     }
-    
+ 
     public static class ComplexAlias implements ComplexAliasMember {
         protected List<ComplexAliasMember> complexAliasMembers = FastList.newInstance();
         protected String operator;
-        
+ 
         public ComplexAlias(String operator) {
             this.operator = operator;
         }
-        
+ 
         public ComplexAlias(Element complexAliasElement) {
             this.operator = complexAliasElement.getAttribute("operator").intern();
             // handle all complex-alias and complex-alias-field sub-elements
@@ -855,11 +855,11 @@ public class ModelViewEntity extends ModelEntity {
                 }
             }
         }
-        
+ 
         public void addComplexAliasMember(ComplexAliasMember complexAliasMember) {
             this.complexAliasMembers.add(complexAliasMember);
         }
-        
+ 
         public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
             if (complexAliasMembers.size() == 0) {
                 return;
@@ -882,13 +882,13 @@ public class ModelViewEntity extends ModelEntity {
             }
         }
     }
-    
+ 
     public static class ComplexAliasField implements ComplexAliasMember {
         protected String entityAlias = "";
         protected String field = "";
         protected String defaultValue = null;
         protected String function = null;
-        
+ 
         public ComplexAliasField(Element complexAliasFieldElement) {
             this.entityAlias = complexAliasFieldElement.getAttribute("entity-alias").intern();
             this.field = complexAliasFieldElement.getAttribute("field").intern();
@@ -909,9 +909,9 @@ public class ModelViewEntity extends ModelEntity {
         public void makeAliasColName(StringBuilder colNameBuffer, StringBuilder fieldTypeBuffer, ModelViewEntity modelViewEntity, ModelReader modelReader) {
             ModelEntity modelEntity = modelViewEntity.getAliasedEntity(entityAlias, modelReader);
             ModelField modelField = modelViewEntity.getAliasedField(modelEntity, field, modelReader);
-            
+ 
             String colName = entityAlias + "." + modelField.getColName();
-            
+ 
             if (UtilValidate.isNotEmpty(defaultValue)) {
                 colName = "COALESCE(" + colName + "," + defaultValue + ")";
             }
@@ -924,9 +924,9 @@ public class ModelViewEntity extends ModelEntity {
                     colName = prefix + colName + ")";
                 }
             }
-            
+ 
             colNameBuffer.append(colName);
-            
+ 
             //set fieldTypeBuffer if not already set
             if (fieldTypeBuffer.length() == 0) {
                 fieldTypeBuffer.append(modelField.type);

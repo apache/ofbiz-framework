@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -47,7 +47,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
 
     /** Module Name Used for debugging */
     public static final String module = EntityListIterator.class.getName();
-    
+ 
     protected SQLProcessor sqlp;
     protected ResultSet resultSet;
     protected ModelEntity modelEntity;
@@ -58,7 +58,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
     protected GenericDelegator delegator = null;
 
     private boolean haveShowHasNextWarning = false;
-    
+ 
     public EntityListIterator(SQLProcessor sqlp, ModelEntity modelEntity, List<ModelField> selectFields, ModelFieldTypeReader modelFieldTypeReader) {
         this.sqlp = sqlp;
         this.resultSet = sqlp.getResultSet();
@@ -68,8 +68,8 @@ public class EntityListIterator implements ListIterator<GenericValue> {
     }
 
     public EntityListIterator(ResultSet resultSet, ModelEntity modelEntity, List<ModelField> selectFields, ModelFieldTypeReader modelFieldTypeReader) {
-        this.sqlp = null; 
-        this.resultSet = resultSet; 
+        this.sqlp = null;
+        this.resultSet = resultSet;
         this.modelEntity = modelEntity;
         this.selectFields = selectFields;
         this.modelFieldTypeReader = modelFieldTypeReader;
@@ -148,7 +148,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
                 closed = true;
             } else {
                 throw new GenericEntityException("Cannot close an EntityListIterator without a SQLProcessor or a ResultSet");
-            } 
+            }
         }
     }
 
@@ -224,23 +224,23 @@ public class EntityListIterator implements ListIterator<GenericValue> {
         }
     }
 
-    /** 
+    /**
      * PLEASE NOTE: Because of the nature of the JDBC ResultSet interface this method can be very inefficient; it is much better to just use next() until it returns null
      * For example, you could use the following to iterate through the results in an EntityListIterator:
-     * 
+     *
      *      GenericValue nextValue = null;
      *      while ((nextValue = (GenericValue) this.next()) != null) { ... }
-     * 
+     *
      */
     public boolean hasNext() {
         if (!haveShowHasNextWarning) {
             // DEJ20050207 To further discourage use of this, and to find existing use, always log a big warning showing where it is used:
             Exception whereAreWe = new Exception();
             Debug.logWarning(whereAreWe, "WARNING: For performance reasons do not use the EntityListIterator.hasNext() method, just call next() until it returns null; see JavaDoc comments in the EntityListIterator class for details and an example", module);
-            
+ 
             haveShowHasNextWarning = true;
         }
-        
+ 
         try {
             if (resultSet.isLast() || resultSet.isAfterLast()) {
                 return false;
@@ -295,10 +295,10 @@ public class EntityListIterator implements ListIterator<GenericValue> {
 
     /** Moves the cursor to the next position and returns the GenericValue object for that position; if there is no next, returns null
      * For example, you could use the following to iterate through the results in an EntityListIterator:
-     * 
+     *
      *      GenericValue nextValue = null;
      *      while ((nextValue = (GenericValue) this.next()) != null) { ... }
-     * 
+     *
      */
     public GenericValue next() {
         try {
@@ -443,7 +443,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
         try {
             if (number == 0) return FastList.newInstance();
             List<GenericValue> list = FastList.newInstance();
-            
+ 
             // just in case the caller missed the 1 based thingy
             if (start == 0) start = 1;
 
@@ -488,7 +488,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
             throw new GenericEntityException(e.getNonNestedMessage(), e.getNested());
         }
     }
-    
+ 
     public int getResultsSizeAfterPartialList() throws GenericEntityException {
         if (this.last()) {
             return this.currentIndex();

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,13 +38,13 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 
 /**
  * SQLProcessor - provides utitlity functions to ease database access
- * 
+ *
  */
 public class SQLProcessor {
 
     /** Module Name Used for debugging */
     public static final String module = SQLProcessor.class.getName();
-    
+ 
     /** Used for testing connections when test is enabled */
     public static List<String> CONNECTION_TEST_LIST = new ArrayList<String>();
     public static int MAX_CONNECTIONS = 1000;
@@ -64,7 +64,7 @@ public class SQLProcessor {
 
     // / The database resources to be used
     private ResultSet _rs = null;
-    
+ 
     private ResultSetMetaData _rsmd = null;
 
     // / The SQL String used. Use for debugging only
@@ -78,10 +78,10 @@ public class SQLProcessor {
 
     // / true in case the connection shall be closed.
     private boolean _bDeleteConnection = false;
-    
+ 
     private Map<String, String> _needClobWorkAroundWrite = null;
     private Map<String, String> _needBlobWorkAroundWrite = null;
-    
+ 
     /**
      * Construct an object based on the helper/datasource
      *
@@ -108,7 +108,7 @@ public class SQLProcessor {
             _manualTX = false;
         }
     }
-    
+ 
     ResultSetMetaData getResultSetMetaData() {
         if (_rsmd == null) {
             // try the ResultSet, if not null, or try the PreparedStatement, also if not null
@@ -135,7 +135,7 @@ public class SQLProcessor {
         if (_connection == null) {
             return;
         }
-        
+ 
         if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:commit() _manualTX=" + _manualTX, module);
 
         if (_manualTX) {
@@ -148,7 +148,7 @@ public class SQLProcessor {
                     rollback();
                 } catch (GenericDataSourceException rbsqle) {
                     Debug.logError(rbsqle, "Got another error when trying to rollback after error committing transaction: " + sqle.toString());
-                } 
+                }
                 throw new GenericDataSourceException("SQL Exception occurred on commit", sqle);
             }
         }
@@ -161,7 +161,7 @@ public class SQLProcessor {
         if (_connection == null) {
             return;
         }
-        
+ 
         if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:rollback() _manualTX=" + _manualTX, module);
 
         try {
@@ -188,7 +188,7 @@ public class SQLProcessor {
      *
      * @throws GenericDataSourceException
      */
-    public void close() throws GenericDataSourceException {        
+    public void close() throws GenericDataSourceException {
         if (_manualTX) {
             if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:close() calling commit : _manualTX=" + _manualTX, module);
             commit();
@@ -238,7 +238,7 @@ public class SQLProcessor {
             }
 
             _connection = null;
-        }               
+        }
     }
 
     /**
@@ -269,7 +269,7 @@ public class SQLProcessor {
 
         // test the connection
         testConnection(_connection);
-        
+ 
         /* causes problems w/ postgres ??
         if (Debug.verboseOn()) {
             int isoLevel = -999;
@@ -291,7 +291,7 @@ public class SQLProcessor {
             }
         }
         */
-                            
+ 
         // always try to set auto commit to false, but if we can't then later on we won't commit
         try {
             if (_connection.getAutoCommit()) {
@@ -303,7 +303,7 @@ public class SQLProcessor {
                 }
             }
         } catch (SQLException e) {
-            throw new GenericDataSourceException("Cannot get autoCommit status from connection", e);            
+            throw new GenericDataSourceException("Cannot get autoCommit status from connection", e);
         }
 
         try {
@@ -318,8 +318,8 @@ public class SQLProcessor {
         }
 
         if (Debug.verboseOn()) Debug.logVerbose("[SQLProcessor.getConnection] : con=" + _connection, module);
-        
-        _bDeleteConnection = true;        
+ 
+        _bDeleteConnection = true;
         return _connection;
     }
 
@@ -731,9 +731,9 @@ public class SQLProcessor {
 
     /**
      * Set the next binding variable of the currently active prepared statement
-     * 
+     *
      * @param field
-     * 
+     *
      * @throws SQLException
      */
     public void setValue(Blob field) throws SQLException {
@@ -752,9 +752,9 @@ public class SQLProcessor {
 
     /**
      * Set the next binding variable of the currently active prepared statement
-     * 
+     *
      * @param field
-     * 
+     *
      * @throws SQLException
      */
     public void setValue(Clob field) throws SQLException {
@@ -769,9 +769,9 @@ public class SQLProcessor {
     /**
      * Set the next binding variable of the currently active prepared statement
      * to write the serialized data of 'field' to a BLOB.
-     * 
+     *
      * @param field
-     * 
+     *
      * @throws SQLException
      */
     public void setBinaryStream(Object field) throws SQLException {
@@ -781,7 +781,7 @@ public class SQLProcessor {
                 ObjectOutputStream oos = new ObjectOutputStream(os);
                 oos.writeObject(field);
                 oos.close();
-    
+ 
                 byte[] buf = os.toByteArray();
                 os.close();
                 ByteArrayInputStream is = new ByteArrayInputStream(buf);
@@ -801,13 +801,13 @@ public class SQLProcessor {
 
         _ind++;
     }
-    
+ 
     /**
      * Set the next binding variable of the currently active prepared statement
      * to write the serialized data of 'field' to a Blob with the given bytes.
-     * 
+     *
      * @param bytes
-     * 
+     *
      * @throws SQLException
      */
     public void setBytes(byte[] bytes) throws SQLException {
@@ -832,15 +832,15 @@ public class SQLProcessor {
         }
         super.finalize();
     }
-    
+ 
     protected void testConnection(Connection con) throws GenericEntityException {
         if (SQLProcessor.ENABLE_TEST) {
             if (SQLProcessor.CONNECTION_TEST_LIST.contains(con.toString())) {
-                throw new GenericEntityException("Connection the exact same as index " + SQLProcessor.CONNECTION_TEST_LIST.indexOf(con.toString()));            
-            } 
+                throw new GenericEntityException("Connection the exact same as index " + SQLProcessor.CONNECTION_TEST_LIST.indexOf(con.toString()));
+            }
             SQLProcessor.CONNECTION_TEST_LIST.add(con.toString());
             if (SQLProcessor.CONNECTION_TEST_LIST.size() > SQLProcessor.MAX_CONNECTIONS) {
-                SQLProcessor.CONNECTION_TEST_LIST.remove(0);    
+                SQLProcessor.CONNECTION_TEST_LIST.remove(0);
             }
         }
     }
@@ -864,10 +864,10 @@ public class SQLProcessor {
             stmt.setFetchSize(fetchSize);
         }
     }
-    
+ 
     private void checkLockWaitInfo(Exception sqle) {
         String eMsg = sqle.getMessage();
-        
+ 
         // see if there is a lock wait timeout error, if so try to get and print more info about it
         //   the string for Derby is "A lock could not be obtained within the time requested"
         //   the string for MySQL is "Lock wait timeout exceeded; try restarting transaction"

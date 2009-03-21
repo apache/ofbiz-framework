@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -111,9 +111,9 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     /** Can be used to disable automatically creating update stamp fields and populating them on inserts and updates */
     protected boolean noAutoStamp = false;
 
-    /** An indicator to specify if this entity is never cached. 
-     * If true causes the delegator to not clear caches on write and to not get 
-     * from cache on read showing a warning messages to that effect 
+    /** An indicator to specify if this entity is never cached.
+     * If true causes the delegator to not clear caches on write and to not get
+     * from cache on read showing a warning messages to that effect
      */
     protected boolean neverCache = false;
 
@@ -243,7 +243,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         this.noAutoStamp = UtilXml.checkBoolean(entityElement.getAttribute("no-auto-stamp"), false);
         this.neverCache = UtilXml.checkBoolean(entityElement.getAttribute("never-cache"), false);
         this.autoClearCache = UtilXml.checkBoolean(entityElement.getAttribute("auto-clear-cache"), true);
-        
+ 
         String sequenceBankSizeStr = UtilXml.checkEmpty(entityElement.getAttribute("sequence-bank-size"));
         if (UtilValidate.isNotEmpty(sequenceBankSizeStr)) {
             try {
@@ -297,14 +297,14 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
                 if (!field.isPk) this.nopks.add(field);
             }
         }
-        
+ 
         this.populateRelated(reader, extendEntityElement);
         this.populateIndexes(extendEntityElement);
     }
-    
+ 
     // ===== GETTERS/SETTERS =====
 
-    
+ 
     public ModelReader getModelReader() {
         return modelReader;
     }
@@ -368,9 +368,9 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         this.dependentOn = dependentOn;
     }
 
-    /** An indicator to specify if this entity is never cached. 
-     * If true causes the delegator to not clear caches on write and to not get 
-     * from cache on read showing a warning messages to that effect 
+    /** An indicator to specify if this entity is never cached.
+     * If true causes the delegator to not clear caches on write and to not get
+     * from cache on read showing a warning messages to that effect
      */
     public boolean getNeverCache() {
         return this.neverCache;
@@ -387,7 +387,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     public void setAutoClearCache(boolean autoClearCache) {
         this.autoClearCache = autoClearCache;
     }
-    
+ 
     public boolean getHasFieldWithAuditLog() {
         if (this.hasFieldWithAuditLog == null) {
             this.hasFieldWithAuditLog = false;
@@ -433,7 +433,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     public Integer getSequenceBankSize() {
         return this.sequenceBankSize;
     }
-    
+ 
     public void updatePkLists() {
         pks = FastList.newInstance();
         nopks = FastList.newInstance();
@@ -493,7 +493,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         newList.addAll(this.pks);
         return newList;
     }
-    
+ 
     public List<ModelField> getPkFieldsUnmodifiable() {
         return Collections.unmodifiableList(this.pks);
     }
@@ -1219,7 +1219,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
 
         /* This DOESN'T WORK, so forget it... using two passes
          //sort list by fk dependencies
-         
+ 
          if (this.getEntityName().equals(otherModelEntity.getEntityName())) {
          return 0;
          }
@@ -1234,7 +1234,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
          return -1;
          }
          }
-         
+ 
          //look through relations for dependencies from the other to this entity
          Iterator otherRelationsIter = otherModelEntity.getRelationsIterator();
          while (otherRelationsIter.hasNext()) {
@@ -1245,7 +1245,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
          return 1;
          }
          }
-         
+ 
          return 0;
          */
 
@@ -1444,16 +1444,16 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     public Element toXmlElement(Document document) {
         return this.toXmlElement(document, this.getPackageName());
     }
-    
+ 
     /**
-     * Writes entity model information in the Apple EOModelBundle format. 
-     * 
+     * Writes entity model information in the Apple EOModelBundle format.
+     *
      * For document structure and definition see: http://developer.apple.com/documentation/InternetWeb/Reference/WO_BundleReference/Articles/EOModelBundle.html
-     * 
+     *
      * For examples see the JavaRealEstate.framework and JavaBusinessLogic.framework packages which are in the /Library/Frameworks directory after installing the WebObjects Examples package (get latest version of WebObjects download for this).
-     * 
+     *
      * This is based on examples and documentation from WebObjects 5.4, downloaded 20080221.
-     * 
+     *
      * @param writer
      * @param entityPrefix
      * @param helperName
@@ -1461,15 +1461,15 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     public void writeEoModelText(PrintWriter writer, String entityPrefix, String helperName, Set<String> entityNameIncludeSet, ModelReader entityModelReader) throws GenericEntityException {
         if (entityPrefix == null) entityPrefix = "";
         if (helperName == null) helperName = "localderby";
-        
+ 
         UtilPlist.writePlistPropertyMap(this.createEoModelMap(entityPrefix, helperName, entityNameIncludeSet, entityModelReader), 0, writer, false);
     }
 
 
     public Map<String, Object> createEoModelMap(String entityPrefix, String helperName, Set<String> entityNameIncludeSet, ModelReader entityModelReader) throws GenericEntityException {
-        final boolean useRelationshipNames = false; 
+        final boolean useRelationshipNames = false;
         ModelFieldTypeReader modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
-        
+ 
         Map<String, Object> topLevelMap = FastMap.newInstance();
 
         topLevelMap.put("name", this.getEntityName());
@@ -1493,18 +1493,18 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
                 classPropertiesList.add(relationship.getCombinedName());
             }
         }
-        
+ 
         // attributes
         List<Map<String, Object>> attributesList = FastList.newInstance();
         topLevelMap.put("attributes", attributesList);
         for (ModelField field: this.fields) {
             if (field.getIsAutoCreatedInternal()) continue;
-            
+ 
             ModelFieldType fieldType = modelFieldTypeReader.getModelFieldType(field.getType());
-            
+ 
             Map<String, Object> attributeMap = FastMap.newInstance();
             attributesList.add(attributeMap);
-            
+ 
             if (field.getIsPk()) {
                 attributeMap.put("name", field.getName() + "*");
             } else {
@@ -1530,7 +1530,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
                 attributeMap.put("externalType", sqlType);
             }
         }
-        
+ 
         // primaryKeyAttributes
         List<String> primaryKeyAttributesList = FastList.newInstance();
         topLevelMap.put("primaryKeyAttributes", primaryKeyAttributesList);
@@ -1543,10 +1543,10 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         for (ModelRelation relationship: this.relations) {
             if (entityNameIncludeSet.contains(relationship.getRelEntityName())) {
                 ModelEntity relEntity = entityModelReader.getModelEntity(relationship.getRelEntityName());
-                
+ 
                 Map<String, Object> relationshipMap = FastMap.newInstance();
                 relationshipsMapList.add(relationshipMap);
-                
+ 
                 if (useRelationshipNames || relationship.isAutoRelation()) {
                     relationshipMap.put("name", relationship.getCombinedName());
                 } else {
@@ -1561,21 +1561,21 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
                     relationshipMap.put("isMandatory", "Y");
                 }
                 relationshipMap.put("joinSemantic", "EOInnerJoin");
-                
-                
+ 
+ 
                 List<Map<String, Object>> joinsMapList = FastList.newInstance();
                 relationshipMap.put("joins", joinsMapList);
                 for (ModelKeyMap keyMap: relationship.getKeyMapsClone()) {
                     Map<String, Object> joinsMap = FastMap.newInstance();
                     joinsMapList.add(joinsMap);
-                    
+ 
                     ModelField thisField = this.getField(keyMap.getFieldName());
                     if (thisField != null && thisField.getIsPk()) {
                         joinsMap.put("sourceAttribute", keyMap.getFieldName() + "*");
                     } else {
                         joinsMap.put("sourceAttribute", keyMap.getFieldName());
                     }
-                    
+ 
                     ModelField relField = null;
                     if (relEntity != null) relField = relEntity.getField(keyMap.getRelFieldName());
                     if (relField != null && relField.getIsPk()) {
@@ -1589,7 +1589,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
         if (relationshipsMapList.size() > 0) {
             topLevelMap.put("relationships", relationshipsMapList);
         }
-        
+ 
         return topLevelMap;
     }
 }

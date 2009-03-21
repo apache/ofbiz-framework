@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -754,7 +754,7 @@ public class GenericDAO {
             if (queryTotalTime > 150) {
                 Debug.logTiming("Ran query in " + queryTotalTime + " milli-seconds: " + sql, module);
             }
-        }        
+        }
         return new EntityListIterator(sqlP, modelEntity, selectFields, modelFieldTypeReader);
     }
 
@@ -882,7 +882,7 @@ public class GenericDAO {
             // put this inside an if statement so that we don't have to generate the string when not used...
             Debug.logVerbose("Doing selectListIteratorByCondition with whereEntityCondition: " + whereEntityCondition, module);
         }
-        
+ 
         boolean isGroupBy = false;
         ModelViewEntity modelViewEntity = null;
         String groupByString = null;
@@ -890,17 +890,17 @@ public class GenericDAO {
             modelViewEntity = (ModelViewEntity) modelEntity;
             groupByString = modelViewEntity.colNameString(modelViewEntity.getGroupBysCopy(), ", ", "", false);
             if (UtilValidate.isNotEmpty(groupByString)) {
-                isGroupBy = true;                  
+                isGroupBy = true;
             }
         }
-        
+ 
         // To get a count of the rows that will be returned when there is a GROUP BY, must do something like:
         //     SELECT COUNT(1) FROM (SELECT COUNT(1) FROM OFBIZ.POSTAL_ADDRESS PA GROUP BY PA.CITY) TEMP_NAME
         // instead of a simple:
         //     SELECT COUNT(1) FROM OFBIZ.POSTAL_ADDRESS PA GROUP BY PA.CITY
 
         StringBuilder sqlBuffer = new StringBuilder("SELECT ");
-        
+ 
         if (isGroupBy) {
             sqlBuffer.append("COUNT(1) FROM (SELECT ");
         }
@@ -961,7 +961,7 @@ public class GenericDAO {
             sqlBuffer.append(" HAVING ");
             sqlBuffer.append(entityCondHavingString);
         }
-        
+ 
         if (isGroupBy) {
             sqlBuffer.append(") TEMP_NAME");
         }
@@ -998,7 +998,7 @@ public class GenericDAO {
                 count = resultSet.getLong(1);
             }
             return count;
-            
+ 
         } catch (SQLException e) {
             throw new GenericDataSourceException("Error getting count value", e);
         } finally {

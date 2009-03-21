@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -134,7 +134,7 @@ public abstract class EntityOperator<T> extends EntityConditionBase {
     static { register( "in", IN ); }
     public static final EntityComparisonOperator BETWEEN = new EntityComparisonOperator(ID_BETWEEN, "BETWEEN") {
         public boolean compare(Comparable lhs, Object rhs) { return EntityComparisonOperator.compareIn(lhs, rhs); }
-        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) { appendRHSBetweenList(entityConditionParams, sb, field, rhs); }  
+        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) { appendRHSBetweenList(entityConditionParams, sb, field, rhs); }
     };
     static { register( "between", BETWEEN ); }
     public static final EntityComparisonOperator NOT = new EntityComparisonOperator(ID_NOT, "NOT");
@@ -214,7 +214,7 @@ public abstract class EntityOperator<T> extends EntityConditionBase {
         }
         whereStringBuilder.append(')');
     }
-    
+ 
     protected void appendRHSBetweenList(List<EntityConditionParam> entityConditionParams, StringBuilder whereStringBuilder, ModelField field, Object rhs) {
         if (rhs instanceof Collection) {
             Iterator rhsIter = ((Collection) rhs).iterator();
@@ -227,7 +227,7 @@ public abstract class EntityOperator<T> extends EntityConditionBase {
                     whereStringBuilder.append(" AND ");
                 }
             }
-        } 
+        }
     }
 
 

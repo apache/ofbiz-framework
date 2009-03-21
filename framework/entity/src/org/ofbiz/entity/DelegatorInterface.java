@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -138,11 +138,11 @@ public interface DelegatorInterface {
     EntityListIterator find(String entityName, EntityCondition whereEntityCondition,
             EntityCondition havingEntityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
             throws GenericEntityException;
-    
-    List<GenericValue> findList(String entityName, EntityCondition entityCondition, 
+ 
+    List<GenericValue> findList(String entityName, EntityCondition entityCondition,
             Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions, boolean useCache)
             throws GenericEntityException;
-    
+ 
     int removeByAnd(String entityName, Object... fields) throws GenericEntityException;
 
     int removeByAnd(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException;

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -52,7 +52,7 @@ public class EntityExpr extends EntityCondition {
             return new EntityExpr();
         }
     };
-    
+ 
     private Object lhs = null;
     private EntityOperator<?> operator = null;
     private Object rhs = null;
@@ -98,7 +98,7 @@ public class EntityExpr extends EntityCondition {
                 throw new IllegalArgumentException("BETWEEN Operator requires a Collection with 2 elements for the right/rhs argument");
             }
         }
-        
+ 
         if (lhs instanceof String) {
             this.lhs = EntityFieldValue.makeFieldValue((String) lhs);
         } else {
@@ -106,10 +106,10 @@ public class EntityExpr extends EntityCondition {
         }
         this.operator = operator;
         this.rhs = rhs;
-        
+ 
         //Debug.logInfo("new EntityExpr internal field=" + lhs + ", value=" + rhs + ", value type=" + (rhs == null ? "null object" : rhs.getClass().getName()), module);
     }
-    
+ 
     public void init(EntityCondition lhs, EntityJoinOperator operator, EntityCondition rhs) {
         if (lhs == null) {
             throw new IllegalArgumentException("The left EntityCondition argument cannot be null");
@@ -125,7 +125,7 @@ public class EntityExpr extends EntityCondition {
         this.operator = operator;
         this.rhs = rhs;
     }
-    
+ 
     public void reset() {
         this.lhs = null;
         this.operator = null;
@@ -164,7 +164,7 @@ public class EntityExpr extends EntityCondition {
 
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         // if (Debug.verboseOn()) Debug.logVerbose("makeWhereString for entity " + modelEntity.getEntityName(), module);
-        
+ 
         this.checkRhsType(modelEntity, null);
 
         StringBuilder sql = new StringBuilder();
@@ -211,7 +211,7 @@ public class EntityExpr extends EntityCondition {
             }
         }
     }
-    
+ 
     public void visit(EntityConditionVisitor visitor) {
         visitor.acceptEntityOperator(operator, lhs, rhs);
     }
@@ -219,7 +219,7 @@ public class EntityExpr extends EntityCondition {
     public void accept(EntityConditionVisitor visitor) {
         visitor.acceptEntityExpr(this);
     }
-    
+ 
     public void checkRhsType(ModelEntity modelEntity, GenericDelegator delegator) {
         if (this.rhs == null || this.rhs == GenericEntity.NULL_FIELD || modelEntity == null) return;
 
@@ -227,20 +227,20 @@ public class EntityExpr extends EntityCondition {
         if (this.rhs instanceof EntityFunction) {
             value = ((EntityFunction) this.rhs).getOriginalValue();
         }
-        
+ 
         if (value instanceof Collection) {
             Collection valueCol = (Collection) value;
             if (valueCol.size() > 0) {
                 value = valueCol.iterator().next();
             }
         }
-        
+ 
         if (delegator == null) {
             // this will be the common case for now as the delegator isn't available where we want to do this
             // we'll cheat a little here and assume the default delegator
             delegator = GenericDelegator.getGenericDelegator("default");
         }
-        
+ 
         String fieldName = null;
         if (this.lhs instanceof EntityFieldValue) {
             EntityFieldValue efv = (EntityFieldValue) this.lhs;
@@ -249,7 +249,7 @@ public class EntityExpr extends EntityCondition {
             // nothing to check
             return;
         }
-        
+ 
         ModelField curField = modelEntity.getField(fieldName);
         if (UtilValidate.isEmpty(curField)) {
             throw new IllegalArgumentException("FieldName " + fieldName + " not found for entity: " + modelEntity.getEntityName());
@@ -263,7 +263,7 @@ public class EntityExpr extends EntityCondition {
         if (type == null) {
             throw new IllegalArgumentException("Type " + curField.getType() + " not found for entity [" + modelEntity.getEntityName() + "]; probably because there is no datasource (helper) setup for the entity group that this entity is in: [" + delegator.getEntityGroupName(modelEntity.getEntityName()) + "]");
         }
-        
+ 
         // make sure the type matches the field Java type
         if (!ObjectType.instanceOf(value, type.getJavaType())) {
             String errMsg = "In entity field [" + modelEntity.getEntityName() + "." + curField.getName() + "] set the value passed in [" + value.getClass().getName() + "] is not compatible with the Java type of the field [" + type.getJavaType() + "]";

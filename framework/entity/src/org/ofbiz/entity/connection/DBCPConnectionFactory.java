@@ -90,7 +90,7 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
 
             // wrap it with a LocalXAConnectionFactory
             XAConnectionFactory xacf = new LocalXAConnectionFactory(txMgr, cf);
-                                                 
+ 
             // configure the pool settings
             GenericObjectPool pool = new GenericObjectPool();
             pool.setTimeBetweenEvictionRunsMillis(600000);

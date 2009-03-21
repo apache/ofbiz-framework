@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -86,7 +86,7 @@ public class EntityCrypto {
         try {
             SecretKey decryptKey = this.getKey(keyName, false);
             byte[] decryptedBytes = DesCrypt.decrypt(decryptKey, encryptedBytes);
-            
+ 
             decryptedObj = UtilObject.getObject(decryptedBytes);
         } catch (GeneralException e) {
             try {
@@ -101,7 +101,7 @@ public class EntityCrypto {
                 throw new EntityCryptoException(e);
             }
         }
-        
+ 
         // NOTE: this is definitely for debugging purposes only, do not uncomment in production server for security reasons: Debug.logInfo("Decrypted value [" + encryptedString + "] to result: " + decryptedObj, module);
         return decryptedObj;
     }
