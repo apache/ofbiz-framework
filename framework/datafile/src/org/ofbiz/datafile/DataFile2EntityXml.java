@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -25,11 +25,11 @@ import java.io.*;
 import org.ofbiz.base.util.*;
 
 public class DataFile2EntityXml {
-    
+ 
     /** Creates a new instance of DataFile2EntityXml */
     public DataFile2EntityXml() {
     }
-    
+ 
     /**
      * @param args the command line arguments
      */
@@ -38,7 +38,7 @@ public class DataFile2EntityXml {
         BufferedWriter outFile = null;
 
         try {
-            
+ 
             //outFile = new BufferedWriter(new FileWriter(file));
             outFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
         } catch (Exception e) {
@@ -81,17 +81,17 @@ public class DataFile2EntityXml {
         } catch (IOException e) {
             throw new DataFileException("Error writing to file " + fileName, e);
         }
-        
+ 
     }
-    
+ 
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
         String dataFileLoc = args[0];
         String definitionLoc = args[1];
         String definitionName = args[2];
-        
+ 
         BufferedWriter outFile = new BufferedWriter(new FileWriter(dataFileLoc + ".xml"));
-        
+ 
         URL dataFileUrl = null;
         //try {
             dataFileUrl = UtilURL.fromFilename(dataFileLoc);
@@ -134,5 +134,5 @@ public class DataFile2EntityXml {
         outFile.close();
 
     }
-    
+ 
 }

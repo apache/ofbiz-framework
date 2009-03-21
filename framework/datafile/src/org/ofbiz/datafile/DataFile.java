@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -41,7 +41,7 @@ import org.ofbiz.base.util.UtilValidate;
  */
 
 public class DataFile {
-    
+ 
     public static final String module = DataFile.class.getName();
 
     /** List of record in the file, contains Record objects */
@@ -153,14 +153,14 @@ public class DataFile {
         if (locationInfo == null) {
             locationInfo = "unknown";
         }
-        
+ 
         RecordIterator recordIterator = this.makeRecordIterator(dataFileStream, locationInfo);
         while (recordIterator.hasNext()) {
             this.records.add(recordIterator.next());
         }
         // no need to manually close the stream since we are reading to the end of the file: recordIterator.close();
     }
-    
+ 
     public RecordIterator makeRecordIterator(URL fileUrl) throws DataFileException {
         return new RecordIterator(fileUrl, this.modelDataFile);
     }
