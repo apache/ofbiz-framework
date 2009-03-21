@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -44,9 +44,9 @@ import org.ofbiz.entity.util.EntityUtil;
  * Worker methods for Contact Mechanisms
  */
 public class ContactMechWorker {
-    
+ 
     public static final String module = ContactMechWorker.class.getName();
-    
+ 
     /** @deprecated */
     public static void getPartyContactMechValueMaps(PageContext pageContext, String partyId, boolean showOld, String partyContactMechValueMapsAttr) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
@@ -55,11 +55,11 @@ public class ContactMechWorker {
             pageContext.setAttribute(partyContactMechValueMapsAttr, partyContactMechValueMaps);
         }
     }
-    
+ 
     public static List<Map<String, Object>> getPartyContactMechValueMaps(GenericDelegator delegator, String partyId, boolean showOld) {
-       return getPartyContactMechValueMaps(delegator, partyId, showOld, null);    
+       return getPartyContactMechValueMaps(delegator, partyId, showOld, null);
     }
-    
+ 
     public static List<Map<String, Object>> getPartyContactMechValueMaps(GenericDelegator delegator, String partyId, boolean showOld, String contactMechTypeId) {
         List<Map<String, Object>> partyContactMechValueMaps = FastList.newInstance();
 
@@ -74,10 +74,10 @@ public class ContactMechWorker {
                     if (contactMech != null && contactMechTypeId.equals(contactMech.getString("contactMechTypeId"))) {
                         tempColTemp.add(partyContactMech);
                     }
-                        
+ 
                 }
                 tempCol = tempColTemp;
-            } 
+            }
             if (!showOld) tempCol = EntityUtil.filterByDate(tempCol, true);
             allPartyContactMechs = tempCol;
         } catch (GenericEntityException e) {
@@ -130,7 +130,7 @@ public class ContactMechWorker {
 
         return partyContactMechValueMaps;
     }
-    
+ 
     public static List<Map<String, Object>> getFacilityContactMechValueMaps(GenericDelegator delegator, String facilityId, boolean showOld, String contactMechTypeId) {
         List<Map<String, Object>> facilityContactMechValueMaps = FastList.newInstance();
 
@@ -145,10 +145,10 @@ public class ContactMechWorker {
                     if (contactMech != null && contactMechTypeId.equals(contactMech.getString("contactMechTypeId"))) {
                         tempColTemp.add(partyContactMech);
                     }
-                        
+ 
                 }
                 tempCol = tempColTemp;
-            } 
+            }
             if (!showOld) tempCol = EntityUtil.filterByDate(tempCol, true);
             allFacilityContactMechs = tempCol;
         } catch (GenericEntityException e) {
@@ -201,7 +201,7 @@ public class ContactMechWorker {
 
         return facilityContactMechValueMaps;
     }
-    
+ 
 
     /** @deprecated */
     public static void getOrderContactMechValueMaps(PageContext pageContext, String orderId, String orderContactMechValueMapsAttr) {
@@ -211,7 +211,7 @@ public class ContactMechWorker {
             pageContext.setAttribute(orderContactMechValueMapsAttr, maps);
         }
     }
-    public static List<Map<String, GenericValue>> getOrderContactMechValueMaps(GenericDelegator delegator, String orderId) {        
+    public static List<Map<String, GenericValue>> getOrderContactMechValueMaps(GenericDelegator delegator, String orderId) {
         List<Map<String, GenericValue>> orderContactMechValueMaps = FastList.newInstance();
 
         List<GenericValue> allOrderContactMechs = null;
@@ -316,7 +316,7 @@ public class ContactMechWorker {
 
         return workEffortContactMechValueMaps.size() > 0 ? workEffortContactMechValueMaps : null;
     }
-    
+ 
     public static void getContactMechAndRelated(ServletRequest request, String partyId, Map<String, Object> target) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
 
@@ -483,7 +483,7 @@ public class ContactMechWorker {
             Debug.logWarning(e, module);
         }
     }
-    
+ 
     /** Returns the first valid FacilityContactMech found based on the given facilityId and a prioritized list of purposes
      * @param delegator
      * @param facilityId
@@ -493,9 +493,9 @@ public class ContactMechWorker {
     public static GenericValue getFacilityContactMechByPurpose(GenericDelegator delegator, String facilityId, List<String> purposeTypes) {
         if (UtilValidate.isEmpty(facilityId)) return null;
         if (UtilValidate.isEmpty(purposeTypes)) return null;
-        
+ 
         for (String purposeType: purposeTypes) {
-            List<GenericValue> facilityContactMechPurposes = null;            
+            List<GenericValue> facilityContactMechPurposes = null;
             List<EntityCondition> conditionList = FastList.newInstance();
             conditionList.add(EntityCondition.makeCondition("facilityId", facilityId));
             conditionList.add(EntityCondition.makeCondition("contactMechPurposeTypeId", purposeType));
@@ -523,10 +523,10 @@ public class ContactMechWorker {
                     return EntityUtil.getFirst(facilityContactMechs);
                 }
             }
-            
+ 
         }
         return null;
-    }    
+    }
 
     public static void getFacilityContactMechAndRelated(ServletRequest request, String facilityId, Map<String, Object> target) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
@@ -693,7 +693,7 @@ public class ContactMechWorker {
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
         }
-    }    
+    }
 
     public static List<Map<String, Object>> getPartyPostalAddresses(ServletRequest request, String partyId, String curContactMechId) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
@@ -746,7 +746,7 @@ public class ContactMechWorker {
     public static Map<String, Object> getCurrentPostalAddress(ServletRequest request, String partyId, String curContactMechId) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Map<String, Object> results = FastMap.newInstance();
-        
+ 
         if (curContactMechId != null) {
             List<GenericValue> partyContactMechs = null;
 
@@ -911,13 +911,13 @@ public class ContactMechWorker {
             return attr.getString("attrValue");
         }
     }
-    
+ 
     public static String getPostalAddressPostalCodeGeoId(GenericValue postalAddress, GenericDelegator delegator) throws GenericEntityException {
         // if postalCodeGeoId not empty use that
         if (UtilValidate.isNotEmpty(postalAddress.getString("postalCodeGeoId"))) {
             return postalAddress.getString("postalCodeGeoId");
         }
-        
+ 
         // no postalCodeGeoId, see if there is a Geo record matching the countryGeoId and postalCode fields
         if (UtilValidate.isNotEmpty(postalAddress.getString("countryGeoId")) && UtilValidate.isNotEmpty(postalAddress.getString("postalCode"))) {
             // first try the shortcut with the geoId convention for "{countryGeoId}-{postalCode}"
@@ -926,23 +926,23 @@ public class ContactMechWorker {
                 // save the value to the database for quicker future reference
                 postalAddress.set("postalCodeGeoId", geo.getString("geoId"));
                 postalAddress.store();
-                
+ 
                 return geo.getString("geoId");
             }
 
             // no shortcut, try the longcut to see if there is something with a geoCode associated to the countryGeoId
-            List<GenericValue> geoAssocAndGeoToList = delegator.findByAndCache("GeoAssocAndGeoTo", 
+            List<GenericValue> geoAssocAndGeoToList = delegator.findByAndCache("GeoAssocAndGeoTo",
                     UtilMisc.toMap("geoIdFrom", postalAddress.getString("countryGeoId"), "geoCode", postalAddress.getString("postalCode"), "geoAssocTypeId", "REGIONS"));
             GenericValue geoAssocAndGeoTo = EntityUtil.getFirst(geoAssocAndGeoToList);
             if (geoAssocAndGeoTo != null) {
                 // save the value to the database for quicker future reference
                 postalAddress.set("postalCodeGeoId", geoAssocAndGeoTo.getString("geoId"));
                 postalAddress.store();
-                
+ 
                 return geoAssocAndGeoTo.getString("geoId");
             }
         }
-        
+ 
         // nothing found, return null
         return null;
     }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -85,7 +85,7 @@ public class PartyContentWrapper implements ContentWrapper {
             return null;
         }
     }
-    
+ 
     public List<String> getList(String contentTypeId) {
         try {
             return getPartyContentTextList(party, contentTypeId, locale, mimeTypeId, party.getDelegator(), dispatcher);
@@ -219,7 +219,7 @@ public class PartyContentWrapper implements ContentWrapper {
         if (contentId != null) {
             partyContent = delegator.findByPrimaryKeyCache("PartyContent", UtilMisc.toMap("partyId", partyId, "contentId", contentId));
         } else {
-            partyContent = getFirstPartyContentByType(partyId, party, partyContentTypeId, delegator);            
+            partyContent = getFirstPartyContentByType(partyId, party, partyContentTypeId, delegator);
         }
         if (partyContent != null) {
             // when rendering the product content, always include the Product and ProductContent records that this comes from
