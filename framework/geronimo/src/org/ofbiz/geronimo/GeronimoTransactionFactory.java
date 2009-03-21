@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,14 +43,14 @@ import org.ofbiz.entity.transaction.TransactionFactoryInterface;
  */
 public class GeronimoTransactionFactory implements TransactionFactoryInterface {
 
-    public static final String module = GeronimoTransactionFactory.class.getName();        
-    
+    public static final String module = GeronimoTransactionFactory.class.getName();
+ 
     private static int defaultTransactionTimeoutSeconds = 60;
     private static TransactionLog transactionLog;
     private static Collection resourceManagers = null;
     private static GeronimoTransactionManager geronimoTransactionManager;
 
-    static {    
+    static {
         // creates an instance of Geronimo transaction context, etc with a local transaction factory which is not bound to a registry
         try {
             transactionLog = new UnrecoverableLog();
@@ -70,25 +70,25 @@ public class GeronimoTransactionFactory implements TransactionFactoryInterface {
     /*
      * @see org.ofbiz.entity.transaction.TransactionFactoryInterface#getUserTransaction()
      */
-    public UserTransaction getUserTransaction() {  
+    public UserTransaction getUserTransaction() {
         return geronimoTransactionManager;
     }
-    
+ 
     public String getTxMgrName() {
         return "geronimo";
     }
-    
+ 
     public Connection getConnection(String helperName) throws SQLException, GenericEntityException {
         DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
 
         if (datasourceInfo != null && datasourceInfo.inlineJdbcElement != null) {
-            return ConnectionFactory.getManagedConnection(helperName, datasourceInfo.inlineJdbcElement);                        
-        } else {            
+            return ConnectionFactory.getManagedConnection(helperName, datasourceInfo.inlineJdbcElement);
+        } else {
             Debug.logError("Geronimo is the configured transaction manager but no inline-jdbc element was specified in the " + helperName + " datasource. Please check your configuration", module);
             return null;
         }
     }
-    
+ 
     public void shutdown() {
         ConnectionFactory.closeAllManagedConnections();
         /*
@@ -96,6 +96,6 @@ public class GeronimoTransactionFactory implements TransactionFactoryInterface {
             // TODO: need to do anything for this?
             transactionContextManager = null;
         }
-        */          
+        */
     }
 }
