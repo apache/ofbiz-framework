@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -67,7 +67,7 @@ import net.wimpi.pim.contact.basicimpl.PhoneNumberImpl;
 
 public class VCard {
     public static final String module = VCard.class.getName();
-    
+ 
     public static Map<String, Object> importVCard(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = (LocalDispatcher) dctx.getDispatcher();
         GenericDelegator delegator = (GenericDelegator) dctx.getDelegator();
@@ -82,11 +82,11 @@ public class VCard {
             ContactIOFactory ciof = Pim.getContactIOFactory();
             ContactUnmarshaller unmarshaller = ciof.createContactUnmarshaller();
             Contact[] contacts = unmarshaller.unmarshallContacts(in);
-            
+ 
             for (Contact contact: contacts) {
                 PersonalIdentity pid = contact.getPersonalIdentity();
                 Map<String, Object> serviceCtx = UtilMisc.<String, Object>toMap("firstName", pid.getFirstname(), "lastName", pid.getLastname());
-                
+ 
                 for (Iterator iter = contact.getAddresses(); iter.hasNext();) {
                     Address address = (AddressImpl) iter.next();
                     if (contact.isPreferredAddress(address)) {
@@ -100,7 +100,7 @@ public class VCard {
                     }
                 }
                 serviceCtx.put("address1", workAddress.getStreet());
-                serviceCtx.put("city", workAddress.getCity()); 
+                serviceCtx.put("city", workAddress.getCity());
                 serviceCtx.put("postalCode", workAddress.getPostalCode());
                 EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
                                                     EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "COUNTRY"),
@@ -110,10 +110,10 @@ public class VCard {
 
                 EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
                         EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "STATE"),
-                        EntityCondition.makeCondition("geoName", EntityOperator.LIKE, workAddress.getRegion())), EntityOperator.AND); 
+                        EntityCondition.makeCondition("geoName", EntityOperator.LIKE, workAddress.getRegion())), EntityOperator.AND);
                 GenericValue stateGeo = EntityUtil.getFirst(delegator.findList("Geo", condition, null, null, null, true));
                 serviceCtx.put("stateProvinceGeoId", stateGeo.get("geoId"));
-                
+ 
                 Communications communications = contact.getCommunications();
                 for (Iterator iter = communications.getEmailAddresses(); iter.hasNext();) {
                     EmailAddress emailAddress = (EmailAddressImpl) iter.next();
@@ -126,7 +126,7 @@ public class VCard {
                     }
                 }
                 serviceCtx.put("emailAddress", email);
-                
+ 
                 for (Iterator iter = communications.getPhoneNumbers(); iter.hasNext();) {
                     PhoneNumber phoneNumber = (PhoneNumberImpl) iter.next();
                     if (phoneNumber.isPreferred()) {
@@ -138,7 +138,7 @@ public class VCard {
                     } else { // for now use only preffered / work phone numbers
                         continue;
                     }
-                } 
+                }
                 String[] numberParts = phone.split("\\D");
                 String telNumber = "";
                 for (String number: numberParts) {
@@ -148,7 +148,7 @@ public class VCard {
                 }
                 serviceCtx.put("areaCode", telNumber.substring(0, 3));
                 serviceCtx.put("contactNumber", telNumber.substring(3));
-                
+ 
                 GenericValue userLogin = (GenericValue) context.get("userLogin");
                 serviceCtx.put("userLogin", userLogin);
                 String serviceName = (String) context.get("serviceName");
@@ -164,7 +164,7 @@ public class VCard {
         }
         return result;
     }
-    
+ 
     public static Map<String, Object> exportVCard(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = (GenericDelegator) dctx.getDelegator();
         String partyId = (String) context.get("partyId");
@@ -172,28 +172,28 @@ public class VCard {
         try {
             ContactModelFactory cmf = Pim.getContactModelFactory();
             Contact contact = cmf.createContact();
-            
+ 
             PersonalIdentity pid = cmf.createPersonalIdentity();
             String fullName = PartyHelper.getPartyName(delegator, partyId, false);
             String[] name = fullName.split("\\s");
             pid.setFirstname(name[0]);
             pid.setLastname(name[1]);
             contact.setPersonalIdentity(pid);
-            
+ 
             GenericValue postalAddress = PartyWorker.findPartyLatestPostalAddress(partyId, delegator);
             Address address = cmf.createAddress();
             address.setStreet(postalAddress.getString("address1"));
             address.setCity(postalAddress.getString("city"));
-            
+ 
             address.setPostalCode(postalAddress.getString("postalCode"));
             String state = postalAddress.getRelatedOne("StateProvinceGeo").getString("geoName");
             address.setRegion(state);
-            
+ 
             String country = postalAddress.getRelatedOne("CountryGeo").getString("geoName");
             address.setCountry(country);
             address.setWork(true); // this can be better set by checking contactMechPurposeTypeId
             contact.addAddress(address);
-            
+ 
             Communications communication = cmf.createCommunications();
             contact.setCommunications(communication);
 
@@ -214,7 +214,7 @@ public class VCard {
             ContactMarshaller marshaller = ciof.createContactMarshaller();
             String saveToDirectory = UtilProperties.getPropertyValue("sfa.properties", "save.outgoing.directory", "");
             if (UtilValidate.isEmpty(saveToDirectory)) {
-                saveToDirectory = System.getProperty("ofbiz.home"); 
+                saveToDirectory = System.getProperty("ofbiz.home");
             }
             String saveToFilename = fullName + ".vcf";
             file = FileUtil.getFile(saveToDirectory + "/" + saveToFilename);
@@ -228,7 +228,7 @@ public class VCard {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Unable to write data to: " + file.getAbsolutePath());
         } catch (GenericEntityException e) {
-            return ServiceUtil.returnError(e.getMessage());            
+            return ServiceUtil.returnError(e.getMessage());
         }
         return ServiceUtil.returnSuccess();
     }
