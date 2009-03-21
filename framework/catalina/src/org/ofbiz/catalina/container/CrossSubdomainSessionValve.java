@@ -24,7 +24,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
         super();
     }
 
-    public @Override void invoke(Request request, Response response) throws IOException, ServletException { 
+    public @Override void invoke(Request request, Response response) throws IOException, ServletException {
 
         // this will cause Request.doGetSession to create the session cookie if necessary
         request.getSession(true);
@@ -45,7 +45,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
     }
 
     protected void replaceCookie(Request request, Response response, Cookie cookie) {
-        
+ 
         // copy the existing session cookie, but use a different domain (only if domain is valid)
         String cookieDomain = null;
         cookieDomain = UtilProperties.getPropertyValue("url", "cookie.domain", "");
@@ -68,7 +68,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
                 cookieDomain = "." + domainArray[domainArray.length - 2] + "." + domainArray[domainArray.length - 1];
             }
         }
-        
+ 
 
         if (UtilValidate.isNotEmpty(cookieDomain)) {
             Cookie newCookie = new Cookie(cookie.getName(), cookie.getValue());
@@ -81,7 +81,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
             if (cookie.getComment() != null) {
                 newCookie.setComment(cookie.getComment());
             }
-            newCookie.setSecure(cookie.getSecure()); 
+            newCookie.setSecure(cookie.getSecure());
 
             // if the response has already been committed, our replacement strategy will have no effect
             if (response.isCommitted()) {
@@ -95,7 +95,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
                     MessageBytes value = mimeHeaders.getValue(i);
                     if (value.indexOf(cookie.getName()) >= 0) {
                         StringBuffer buffer = new StringBuffer();
-                        ServerCookie.appendCookieValue(buffer, newCookie.getVersion(), newCookie.getName(), newCookie.getValue(), newCookie.getPath(), 
+                        ServerCookie.appendCookieValue(buffer, newCookie.getVersion(), newCookie.getName(), newCookie.getValue(), newCookie.getPath(),
                                 newCookie.getDomain(), newCookie.getComment(), newCookie.getMaxAge(), newCookie.getSecure());
                         Debug.logVerbose("CrossSubdomainSessionValve: old Set-Cookie value: " + value.toString(), module);
                         Debug.logVerbose("CrossSubdomainSessionValve: new Set-Cookie value: " + buffer, module);
