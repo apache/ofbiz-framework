@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -41,11 +41,11 @@ public class CompareCondition implements Conditional {
         }
     }
 
-    
+ 
     public static final String module = CompareCondition.class.getName();
-    
+ 
     SimpleMethod simpleMethod;
-    
+ 
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
     String value;
@@ -53,10 +53,10 @@ public class CompareCondition implements Conditional {
     String operator;
     String type;
     String format;
-    
+ 
     public CompareCondition(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
-        
+ 
         // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
@@ -76,7 +76,7 @@ public class CompareCondition implements Conditional {
         String operator = methodContext.expandString(this.operator);
         String type = methodContext.expandString(this.type);
         String format = methodContext.expandString(this.format);
-        
+ 
         Object fieldVal = getFieldVal(methodContext);
 
         List<Object> messages = FastList.newInstance();
@@ -85,7 +85,7 @@ public class CompareCondition implements Conditional {
             messages.add(0, "Error with comparison in if-compare between field [" + mapAcsr.toString() + "." + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 StringBuilder fullString = new StringBuilder();
-                
+ 
                 for (Object message: messages) {
                     fullString.append(message);
                 }
@@ -99,12 +99,12 @@ public class CompareCondition implements Conditional {
             }
             return false;
         }
-        
+ 
         if (resultBool != null) return resultBool.booleanValue();
-        
+ 
         return false;
     }
-    
+ 
     protected Object getFieldVal(MethodContext methodContext) {
         Object fieldVal = null;
         if (!mapAcsr.isEmpty()) {
@@ -132,7 +132,7 @@ public class CompareCondition implements Conditional {
         String type = methodContext.expandString(this.type);
         String format = methodContext.expandString(this.format);
         Object fieldVal = getFieldVal(methodContext);
-        
+ 
         messageBuffer.append("[");
         if (!this.mapAcsr.isEmpty()) {
             messageBuffer.append(this.mapAcsr);

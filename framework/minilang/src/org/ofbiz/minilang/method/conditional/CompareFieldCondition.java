@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -40,11 +40,11 @@ public class CompareFieldCondition implements Conditional {
         }
     }
 
-    
+ 
     public static final String module = CompareFieldCondition.class.getName();
-    
+ 
     SimpleMethod simpleMethod;
-    
+ 
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
     ContextAccessor<Map<String, ? extends Object>> toMapAcsr;
@@ -53,10 +53,10 @@ public class CompareFieldCondition implements Conditional {
     String operator;
     String type;
     String format;
-    
+ 
     public CompareFieldCondition(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
-        
+ 
         // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
@@ -64,7 +64,7 @@ public class CompareFieldCondition implements Conditional {
             // NOTE: this is still supported, but is deprecated
             this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         }
-        
+ 
         // NOTE: this is still supported, but is deprecated
         this.toMapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("to-map-name"));
         // set fieldAcsr to their default value of fieldAcsr if empty
@@ -75,7 +75,7 @@ public class CompareFieldCondition implements Conditional {
         }
 
         // do NOT default the to-map-name to the map-name because that
-        //would make it impossible to compare from a map field to an 
+        //would make it impossible to compare from a map field to an
         //environment field
 
         this.operator = element.getAttribute("operator");
@@ -112,12 +112,12 @@ public class CompareFieldCondition implements Conditional {
             }
             return false;
         }
-        
+ 
         if (resultBool != null) return resultBool.booleanValue();
-        
+ 
         return false;
     }
-    
+ 
     protected Object getFieldVal1(MethodContext methodContext) {
         Object fieldVal1 = null;
         if (!mapAcsr.isEmpty()) {
@@ -149,7 +149,7 @@ public class CompareFieldCondition implements Conditional {
         }
         return fieldVal2;
     }
-    
+ 
     public void prettyPrint(StringBuilder messageBuffer, MethodContext methodContext) {
         String operator = methodContext.expandString(this.operator);
         String type = methodContext.expandString(this.type);
@@ -157,7 +157,7 @@ public class CompareFieldCondition implements Conditional {
 
         Object fieldVal1 = getFieldVal1(methodContext);
         Object fieldVal2 = getFieldVal2(methodContext);
-        
+ 
         messageBuffer.append("[");
         if (!this.mapAcsr.isEmpty()) {
             messageBuffer.append(this.mapAcsr);

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -40,9 +40,9 @@ public class TransactionBegin extends MethodOperation {
             return "transaction-begin";
         }
     }
-    
+ 
     public static final String module = TransactionBegin.class.getName();
-    
+ 
     ContextAccessor<Boolean> beganTransactionAcsr;
 
     public TransactionBegin(Element element, SimpleMethod simpleMethod) {
@@ -56,12 +56,12 @@ public class TransactionBegin extends MethodOperation {
             beganTransaction = TransactionUtil.begin();
         } catch (GenericTransactionException e) {
             Debug.logError(e, "Could not begin transaction in simple-method, returning error.", module);
-            
+ 
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [error beginning a transaction: " + e.getMessage() + "]";
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         }
-        
+ 
         beganTransactionAcsr.put(methodContext, beganTransaction);
         return true;
     }

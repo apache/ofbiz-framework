@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,9 +28,9 @@ import org.ofbiz.minilang.*;
  * A type of MethodObject that represents an Object value in a certain location
  */
 public class FieldObject<T> extends MethodObject<T> {
-    
+ 
     public static final String module = FieldObject.class.getName();
-    
+ 
     ContextAccessor<T> fieldAcsr;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     String type;
@@ -40,7 +40,7 @@ public class FieldObject<T> extends MethodObject<T> {
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         fieldAcsr = new ContextAccessor<T>(element.getAttribute("field"), element.getAttribute("field-name"));
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-        
+ 
         type = element.getAttribute("type");
         if (UtilValidate.isEmpty(type)) {
             type = "String";
@@ -51,7 +51,7 @@ public class FieldObject<T> extends MethodObject<T> {
     public String getTypeName() {
         return type;
     }
-    
+ 
     public Class<T> getTypeClass(ClassLoader loader) {
         try {
             return UtilGenerics.cast(ObjectType.loadClass(type, loader));
@@ -60,7 +60,7 @@ public class FieldObject<T> extends MethodObject<T> {
             return null;
         }
     }
-    
+ 
     public T getObject(MethodContext methodContext) {
         T fieldVal = null;
 
@@ -80,7 +80,7 @@ public class FieldObject<T> extends MethodObject<T> {
             if (Debug.infoOn()) Debug.logInfo("Field value not found with name " + fieldAcsr + " in Map with name " + mapAcsr + ", not getting Object value, returning null.", module);
             return null;
         }
-        
+ 
         return fieldVal;
     }
 }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -52,14 +52,14 @@ public class Assert extends MethodOperation {
     protected FlexibleStringExpander titleExdr;
 
     /** List of Conditional objects */
-    protected List<Conditional> conditionalList = FastList.newInstance(); 
+    protected List<Conditional> conditionalList = FastList.newInstance();
 
     public Assert(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
 
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
         titleExdr = FlexibleStringExpander.getInstance(element.getAttribute("title"));
-        
+ 
         for (Element conditionalElement: UtilXml.childElementList(element)) {
             this.conditionalList.add(ConditionalFactory.makeConditional(conditionalElement, simpleMethod));
         }
@@ -73,11 +73,11 @@ public class Assert extends MethodOperation {
         }
 
         String title = this.titleExdr.expandString(methodContext.getEnvMap());
-        
+ 
         //  check each conditional and if fails generate a message to add to the error list
         for (Conditional condition: conditionalList) {
             boolean conditionTrue = condition.checkCondition(methodContext);
-            
+ 
             if (!conditionTrue) {
                 // pretty print condition
                 StringBuilder messageBuffer = new StringBuilder();
@@ -99,7 +99,7 @@ public class Assert extends MethodOperation {
     public String rawString() {
         return expandedString(null);
     }
-    
+ 
     public String expandedString(MethodContext methodContext) {
         String title = this.titleExdr.expandString(methodContext.getEnvMap());
 

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -44,9 +44,9 @@ public class StringToField extends MethodOperation {
             return "string-to-field";
         }
     }
-    
+ 
     public static final String module = StringToField.class.getName();
-    
+ 
     String string;
     ContextAccessor<Map<String, Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
@@ -64,7 +64,7 @@ public class StringToField extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
         String valueStr = methodContext.expandString(string);
-        
+ 
         if (!argListAcsr.isEmpty()) {
             List<? extends Object> argList = argListAcsr.get(methodContext);
             if (UtilValidate.isNotEmpty(argList)) {
@@ -78,7 +78,7 @@ public class StringToField extends MethodOperation {
         } else {
             value = valueStr;
         }
-        
+ 
         if (!mapAcsr.isEmpty()) {
             Map<String, Object> toMap = mapAcsr.get(methodContext);
 

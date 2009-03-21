@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -36,31 +36,31 @@ import org.apache.bsf.util.BSFEngineImpl;
  * <P>This is the OFBiz MiniLang SimpleMethod adapter for IBM's Bean Scripting Famework.
  * It is an implementation of the BSFEngine class, allowing BSF aware
  * applications to use SimpleMethod as a scripting language.
- * 
+ *
  * <P>There should only be ONE simple-method in the XML file and it will be run as an event.
  */
 public class SimpleMethodBsfEngine extends BSFEngineImpl {
-    
+ 
     public static final String module = SimpleMethodBsfEngine.class.getName();
-    
+ 
     protected Map<String, Object> context = FastMap.newInstance();
-    
+ 
     public void initialize(BSFManager mgr, String lang, Vector declaredBeans) throws BSFException {
         super.initialize(mgr, lang, declaredBeans);
-        
+ 
         // declare the bsf manager for callbacks, etc.
         context.put("bsf", mgr);
-        
+ 
         for(int i=0; i<declaredBeans.size(); i++) {
             BSFDeclaredBean bean = (BSFDeclaredBean)declaredBeans.get(i);
             declareBean(bean);
         }
     }
-    
+ 
     public void setDebug(boolean debug) {
         //interpreter.DEBUG=debug;
     }
-    
+ 
     /**
      * Invoke method name on the specified scripted object.
      * The object may be null to indicate the global namespace of the
@@ -70,8 +70,8 @@ public class SimpleMethodBsfEngine extends BSFEngineImpl {
     public Object call(Object object, String name, Object[] args) throws BSFException {
         throw new BSFException("The call method is not yet supported for SimpleMethods");
     }
-    
-    
+ 
+ 
     /**
      * This is an implementation of the apply() method.
      * It exectutes the funcBody text in an "anonymous" method call with
@@ -80,10 +80,10 @@ public class SimpleMethodBsfEngine extends BSFEngineImpl {
     public Object apply(String source, int lineNo, int columnNo, Object funcBody, Vector namesVec, Vector argsVec) throws BSFException {
         //if (namesVec.size() != argsVec.size()) throw new BSFException("number of params/names mismatch");
         //if (!(funcBody instanceof String)) throw new BSFException("apply: function body must be a string");
-        
+ 
         throw new BSFException("The apply method is not yet supported for simple-methods");
     }
-    
+ 
     public Object eval(String source, int lineNo, int columnNo, Object expr) throws BSFException {
         if (!(expr instanceof String)) throw new BSFException("simple-method expression must be a string");
 
@@ -105,13 +105,13 @@ public class SimpleMethodBsfEngine extends BSFEngineImpl {
         return simpleMethod.exec(methodContext);
         //methodContext.getResults();
     }
-    
-    
+ 
+ 
     public void exec(String source, int lineNo, int columnNo, Object script) throws BSFException {
         eval(source, lineNo, columnNo, script);
     }
-    
-    
+ 
+ 
 /*
         public void compileApply (String source, int lineNo, int columnNo,
                 Object funcBody, Vector paramNames, Vector arguments, CodeBuffer cb)
@@ -123,17 +123,17 @@ public class SimpleMethodBsfEngine extends BSFEngineImpl {
         public void compileScript (String source, int    lineNo,    int columnNo,
                 Object script, CodeBuffer cb) throws BSFException;
  */
-    
+ 
     public void declareBean(BSFDeclaredBean bean) throws BSFException {
         context.put(bean.name, bean.bean);
     }
-    
+ 
     public void undeclareBean(BSFDeclaredBean bean) throws BSFException {
         context.remove(bean.name);
     }
-    
+ 
     public void terminate() { }
-    
+ 
     private String sourceInfo(String source, int lineNo, int columnNo) {
         return "SimpleMethod: " + source + " at line: " + lineNo +" column: " + columnNo;
     }

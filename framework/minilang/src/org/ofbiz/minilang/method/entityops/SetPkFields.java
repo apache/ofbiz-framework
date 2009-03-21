@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -41,9 +41,9 @@ public class SetPkFields extends MethodOperation {
             return "set-pk-fields";
         }
     }
-    
+ 
     public static final String module = SetPkFields.class.getName();
-    
+ 
     ContextAccessor<GenericValue> valueAcsr;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     String setIfNullStr;
@@ -58,7 +58,7 @@ public class SetPkFields extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         // if anything but false it will be true
         boolean setIfNull = !"false".equals(methodContext.expandString(setIfNullStr));
-        
+ 
         GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             String errMsg = "In set-pk-fields a value was not found with the specified valueAcsr: " + valueAcsr + ", not setting fields";

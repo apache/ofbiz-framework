@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -53,16 +53,16 @@ public class CallService extends MethodOperation {
             return "call-service";
         }
     }
-    
+ 
     public static final String module = CallService.class.getName();
-    
+ 
     protected String serviceName;
     protected ContextAccessor<Map<String, Object>> inMapAcsr;
     protected String includeUserLoginStr;
     protected String breakOnErrorStr;
     protected String errorCode;
     protected String successCode;
-    
+ 
     /** Require a new transaction for this service */
     protected  String requireNewTransactionStr;
     /** Override the default transaction timeout, only works if we start the transaction */
@@ -112,7 +112,7 @@ public class CallService extends MethodOperation {
             }
         }
         this.transactionTimeout = timeout;
-        
+ 
         successCode = element.getAttribute("success-code");
         if (successCode == null || successCode.length() == 0) successCode = "success";
 
@@ -139,7 +139,7 @@ public class CallService extends MethodOperation {
                 rtfDef.resultName = resultToFieldElement.getAttribute("result-name");
                 rtfDef.mapAcsr = new ContextAccessor<Map<String, Object>>(resultToFieldElement.getAttribute("map-name"));
                 String field = resultToFieldElement.getAttribute("field");
-                if (UtilValidate.isEmpty(field)) field = resultToFieldElement.getAttribute("field-name"); 
+                if (UtilValidate.isEmpty(field)) field = resultToFieldElement.getAttribute("field-name");
                 rtfDef.fieldAcsr = new ContextAccessor<Object>(field, rtfDef.resultName);
 
                 resultToField.add(rtfDef);
@@ -174,7 +174,7 @@ public class CallService extends MethodOperation {
             }
         }
     }
-    
+ 
     public String getServiceName() {
         return this.serviceName;
     }
@@ -182,7 +182,7 @@ public class CallService extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         boolean includeUserLogin = !"false".equals(methodContext.expandString(includeUserLoginStr));
         boolean breakOnError = !"false".equals(methodContext.expandString(breakOnErrorStr));
-        
+ 
 
         String serviceName = methodContext.expandString(this.serviceName);
         String errorCode = methodContext.expandString(this.errorCode);
@@ -221,7 +221,7 @@ public class CallService extends MethodOperation {
                 inMap.put("userLogin", userLogin);
             }
         }
-        
+ 
         // always add Locale to context unless null
         Locale locale = methodContext.getLocale();
         if (locale != null) {

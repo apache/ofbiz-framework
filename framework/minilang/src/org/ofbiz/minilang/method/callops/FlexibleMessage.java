@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -29,9 +29,9 @@ import org.ofbiz.minilang.method.*;
  * Simple class to wrap messages that come either from a straight string or a properties file
  */
 public class FlexibleMessage implements Serializable {
-    
+ 
     public static final String module = FlexibleMessage.class.getName();
-    
+ 
     String message = null;
     String propertyResource = null;
     boolean isProperty = false;
@@ -65,7 +65,7 @@ public class FlexibleMessage implements Serializable {
     public String getMessage(ClassLoader loader, MethodContext methodContext) {
         String message = methodContext.expandString(this.message);
         String propertyResource = methodContext.expandString(this.propertyResource);
-        
+ 
         // if (Debug.infoOn()) Debug.logInfo("[FlexibleMessage.getMessage] isProperty: " + isProperty + ", message: " + message + ", propertyResource: " + propertyResource, module);
         if (!isProperty && message != null) {
             // if (Debug.infoOn()) Debug.logInfo("[FlexibleMessage.getMessage] Adding message: " + message, module);

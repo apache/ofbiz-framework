@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -53,11 +53,11 @@ public class RegexpCondition implements Conditional {
         }
     }
 
-    
+ 
     public static final String module = RegexpCondition.class.getName();
-    
+ 
     SimpleMethod simpleMethod;
-    
+ 
     static PatternMatcher matcher = new Perl5Matcher();
     static PatternCompiler compiler = new Perl5Compiler();
 
@@ -68,10 +68,10 @@ public class RegexpCondition implements Conditional {
     ContextAccessor<Object> fieldAcsr;
 
     FlexibleStringExpander exprExdr;
-    
+ 
     public RegexpCondition(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
-        
+ 
         // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
@@ -101,7 +101,7 @@ public class RegexpCondition implements Conditional {
             return false;
         }
     }
-    
+ 
     protected String getFieldString(MethodContext methodContext) {
         String fieldString = null;
         Object fieldVal = null;
@@ -127,7 +127,7 @@ public class RegexpCondition implements Conditional {
         }
         // always use an empty string by default
         if (fieldString == null) fieldString = "";
-        
+ 
         return fieldString;
     }
 

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -40,9 +40,9 @@ public class TransactionRollback extends MethodOperation {
             return "transaction-rollback";
         }
     }
-    
+ 
     public static final String module = TransactionRollback.class.getName();
-    
+ 
     ContextAccessor<Boolean> beganTransactionAcsr;
 
     public TransactionRollback(Element element, SimpleMethod simpleMethod) {
@@ -52,22 +52,22 @@ public class TransactionRollback extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
         boolean beganTransaction = false;
-        
+ 
         Boolean beganTransactionBoolean = beganTransactionAcsr.get(methodContext);
         if (beganTransactionBoolean != null) {
             beganTransaction = beganTransactionBoolean.booleanValue();
         }
-        
+ 
         try {
             TransactionUtil.rollback(beganTransaction, "Explicit rollback in simple-method [" + this.simpleMethod.getShortDescription() + "]", null);
         } catch (GenericTransactionException e) {
             Debug.logError(e, "Could not rollback transaction in simple-method, returning error.", module);
-            
+ 
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [error rolling back a transaction: " + e.getMessage() + "]";
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         }
-        
+ 
         beganTransactionAcsr.remove(methodContext);
         return true;
     }

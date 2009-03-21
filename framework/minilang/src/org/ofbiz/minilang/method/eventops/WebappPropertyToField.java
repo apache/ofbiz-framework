@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -41,9 +41,9 @@ public class WebappPropertyToField extends MethodOperation {
             return "webapp-property-to-field";
         }
     }
-    
+ 
     public static final String module = WebappPropertyToField.class.getName();
-    
+ 
     String resource;
     String property;
     String defaultVal;
@@ -55,7 +55,7 @@ public class WebappPropertyToField extends MethodOperation {
         resource = element.getAttribute("resource");
         property = element.getAttribute("property");
         defaultVal = element.getAttribute("default");
-        
+ 
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
@@ -65,7 +65,7 @@ public class WebappPropertyToField extends MethodOperation {
         String resource = methodContext.expandString(this.resource);
         String property = methodContext.expandString(this.property);
         String defaultVal = methodContext.expandString(this.defaultVal);
-                
+ 
         String fieldVal = null;
 
         // only run this if it is in an EVENT context

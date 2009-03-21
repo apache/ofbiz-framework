@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -39,13 +39,13 @@ public class Log extends MethodOperation {
             return "log";
         }
     }
-    
+ 
     public static final String module = Log.class.getName();
 
     String levelStr;
     String message;
     List<MethodString> methodStrings = null;
-    
+ 
     public Log(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         this.message = element.getAttribute("message");
@@ -54,12 +54,12 @@ public class Log extends MethodOperation {
         List<? extends Element> methodStringElements = UtilXml.childElementList(element);
         if (methodStringElements.size() > 0) {
             methodStrings = FastList.newInstance();
-            
+ 
             for (Element methodStringElement: methodStringElements) {
                 if ("string".equals(methodStringElement.getNodeName())) {
-                    methodStrings.add(new StringString(methodStringElement, simpleMethod)); 
+                    methodStrings.add(new StringString(methodStringElement, simpleMethod));
                 } else if ("field".equals(methodStringElement.getNodeName())) {
-                    methodStrings.add(new FieldString(methodStringElement, simpleMethod)); 
+                    methodStrings.add(new FieldString(methodStringElement, simpleMethod));
                 } else {
                     //whoops, invalid tag here, print warning
                     Debug.logWarning("Found an unsupported tag under the log tag: " + methodStringElement.getNodeName() + "; ignoring", module);
@@ -71,7 +71,7 @@ public class Log extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         String levelStr = methodContext.expandString(this.levelStr);
         String message = methodContext.expandString(this.message);
-        
+ 
         int level;
         Integer levelInt = Debug.getLevelFromString(levelStr);
         if (levelInt == null) {
@@ -85,7 +85,7 @@ public class Log extends MethodOperation {
         if (!Debug.isOn(level)) {
             return true;
         }
-        
+ 
         StringBuilder buf = new StringBuilder();
         buf.append("[");
         String methodLocation = this.simpleMethod.getFromLocation();
@@ -97,18 +97,18 @@ public class Log extends MethodOperation {
         buf.append("#");
         buf.append(this.simpleMethod.getMethodName());
         buf.append("] ");
-        
+ 
         if (message != null) buf.append(message);
-        
+ 
         if (methodStrings != null) {
             for (MethodString methodString: methodStrings) {
                 String strValue = methodString.getString(methodContext);
                 if (strValue != null) buf.append(strValue);
             }
-        }        
+        }
 
         Debug.log(level, null, buf.toString(), module);
-        
+ 
         return true;
     }
 

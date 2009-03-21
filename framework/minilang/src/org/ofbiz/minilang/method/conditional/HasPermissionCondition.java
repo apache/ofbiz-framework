@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -39,15 +39,15 @@ public class HasPermissionCondition implements Conditional {
         }
     }
 
-    
+ 
     SimpleMethod simpleMethod;
-    
+ 
     String permission;
     String action;
-    
+ 
     public HasPermissionCondition(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
-        
+ 
         this.permission = element.getAttribute("permission");
         this.action = element.getAttribute("action");
     }
@@ -61,7 +61,7 @@ public class HasPermissionCondition implements Conditional {
         if (userLogin != null) {
             String permission = methodContext.expandString(this.permission);
             String action = methodContext.expandString(this.action);
-            
+ 
             Security security = methodContext.getSecurity();
             if (action != null && action.length() > 0) {
                 // run hasEntityPermission
@@ -75,7 +75,7 @@ public class HasPermissionCondition implements Conditional {
                 }
             }
         }
-        
+ 
         return runSubOps;
     }
 
