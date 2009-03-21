@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -39,7 +39,7 @@ import org.ofbiz.product.store.ProductStoreWorker;
     /** It represents an (in-memory) bill of materials (in which each
      * component is an BOMNode)
      * Useful for tree traversal (breakdown, explosion, implosion).
-     */    
+     */
  
 public class BOMTree {
     public static final int EXPLOSION = 0;
@@ -72,7 +72,7 @@ public class BOMTree {
     public BOMTree(String productId, String bomTypeId, Date inDate, GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
         this(productId, bomTypeId, inDate, EXPLOSION, delegator, dispatcher, userLogin);
     }
-    
+ 
     /** Creates a new instance of BOMTree by reading
      * the productId's bill of materials (upward or downward).
      * If virtual products are found, it tries to configure them by running
@@ -98,7 +98,7 @@ public class BOMTree {
 
         this.delegator = delegator;
         this.dispatcher = dispatcher;
-        
+ 
         inputProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
 
         String productIdForRules = productId;
@@ -110,17 +110,17 @@ public class BOMTree {
         GenericValue oneProductFeatureAppl = null;
         for (int i = 0; i < productFeaturesAppl.size(); i++) {
             oneProductFeatureAppl = (GenericValue)productFeaturesAppl.get(i);
-            productFeatures.add(delegator.findByPrimaryKey("ProductFeature", 
+            productFeatures.add(delegator.findByPrimaryKey("ProductFeature",
                                        UtilMisc.toMap("productFeatureId", oneProductFeatureAppl.getString("productFeatureId"))));
-                               
+ 
         }
         // If the product is manufactured as a different product,
         // load the new product
         GenericValue manufacturedAsProduct = manufacturedAsProduct(productId, inDate);
         // We load the information about the product that needs to be manufactured
         // from Product entity
-        GenericValue product = delegator.findByPrimaryKey("Product", 
-                                            UtilMisc.toMap("productId", 
+        GenericValue product = delegator.findByPrimaryKey("Product",
+                                            UtilMisc.toMap("productId",
                                             (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): productId)));
         if (product == null) return;
         BOMNode originalNode = new BOMNode(product, dispatcher, userLogin);
@@ -137,8 +137,8 @@ public class BOMTree {
                 // load the new product
                 productIdForRules = virtualProduct.getString("productId");
                 manufacturedAsProduct = manufacturedAsProduct(virtualProduct.getString("productId"), inDate);
-                product = delegator.findByPrimaryKey("Product", 
-                        UtilMisc.toMap("productId", 
+                product = delegator.findByPrimaryKey("Product",
+                        UtilMisc.toMap("productId",
                                 (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): virtualProduct.get("productId"))));
             }
         }
@@ -165,9 +165,9 @@ public class BOMTree {
     public GenericValue getInputProduct() {
         return inputProduct;
     }
-    
+ 
     private GenericValue manufacturedAsProduct(String productId, Date inDate) throws GenericEntityException {
-        List manufacturedAsProducts = delegator.findByAnd("ProductAssoc", 
+        List manufacturedAsProducts = delegator.findByAnd("ProductAssoc",
                                          UtilMisc.toMap("productId", productId,
                                          "productAssocTypeId", "PRODUCT_MANUFACTURED"));
         manufacturedAsProducts = EntityUtil.filterByDate(manufacturedAsProducts, inDate);
@@ -177,7 +177,7 @@ public class BOMTree {
         }
         return manufacturedAsProduct;
     }
-    
+ 
     private boolean hasBom(GenericValue product, Date inDate) throws GenericEntityException {
         List children = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", bomTypeId));
         children = EntityUtil.filterByDate(children, inDate);
@@ -189,13 +189,13 @@ public class BOMTree {
      * or not.
      * @return true if no virtual nodes (products) are present in the tree.
      *
-     */    
+     */
     public boolean isConfigured() {
         ArrayList notConfiguredParts = new ArrayList();
         root.isConfigured(notConfiguredParts);
         return (notConfiguredParts.size() == 0);
     }
-    
+ 
     /** Getter for property rootQuantity.
      * @return Value of property rootQuantity.
      *
@@ -203,7 +203,7 @@ public class BOMTree {
     public BigDecimal getRootQuantity() {
         return rootQuantity;
     }
-    
+ 
     /** Setter for property rootQuantity.
      * @param rootQuantity New value of property rootQuantity.
      *
@@ -219,7 +219,7 @@ public class BOMTree {
     public BigDecimal getRootAmount() {
         return rootAmount;
     }
-    
+ 
     /** Setter for property rootAmount.
      * @param rootAmount New value of property rootAmount.
      *
@@ -227,15 +227,15 @@ public class BOMTree {
     public void setRootAmount(BigDecimal rootAmount) {
         this.rootAmount = rootAmount;
     }
-    
+ 
     /** Getter for property root.
      * @return Value of property root.
      *
      */
     public BOMNode getRoot() {
         return root;
-    }    
-    
+    }
+ 
     /** Getter for property inDate.
      * @return Value of property inDate.
      *
@@ -243,7 +243,7 @@ public class BOMTree {
     public Date getInDate() {
         return inDate;
     }
-    
+ 
     /** Getter for property bomTypeId.
      * @return Value of property bomTypeId.
      *
@@ -251,12 +251,12 @@ public class BOMTree {
     public String getBomTypeId() {
         return bomTypeId;
     }
-    
+ 
     /** It visits the in-memory tree that represents a bill of materials
      * and it collects info of its nodes in the StringBuffer.
      * Method used for debug purposes.
      * @param sb The StringBuffer used to collect tree info.
-     */    
+     */
     public void print(StringBuffer sb) {
         if (root != null) {
             root.print(sb, getRootQuantity(), 0);
@@ -268,22 +268,22 @@ public class BOMTree {
      * Method used for bom breakdown (explosion/implosion).
      * @param arr The ArrayList used to collect tree info.
      * @param initialDepth The depth of the root node.
-     */    
+     */
     public void print(ArrayList arr, int initialDepth) {
         print(arr, initialDepth, true);
     }
-    
+ 
     public void print(ArrayList arr, int initialDepth, boolean excludeWIPs) {
         if (root != null) {
             root.print(arr, getRootQuantity(), initialDepth, excludeWIPs);
         }
     }
-    
+ 
     /** It visits the in-memory tree that represents a bill of materials
      * and it collects info of its nodes in the ArrayList.
      * Method used for bom breakdown (explosion/implosion).
      * @param arr The ArrayList used to collect tree info.
-     */    
+     */
     public void print(ArrayList arr) {
         print(arr, 0, false);
     }
@@ -296,17 +296,17 @@ public class BOMTree {
      * and it collects info of its nodes in the HashMap.
      * Method used for bom summarized explosion.
      * @param quantityPerNode The HashMap that will contain the summarized quantities per productId.
-     */    
+     */
     public void sumQuantities(HashMap quantityPerNode) {
         if (root != null) {
             root.sumQuantity(quantityPerNode);
         }
     }
-    
+ 
     /** It visits the in-memory tree that represents a bill of materials
      * and it collects all the productId it contains.
      * @return ArrayLsit conatining all the tree's productId.
-     */    
+     */
     public ArrayList getAllProductsId() {
         ArrayList nodeArr = new ArrayList();
         ArrayList productsId = new ArrayList();
@@ -316,7 +316,7 @@ public class BOMTree {
         }
         return productsId;
     }
-    
+ 
     /** It visits the in-memory tree that represents a bill of materials
      * and it creates a manufacturing order for each of the nodes that needs
      * to be manufactured.
@@ -324,7 +324,7 @@ public class BOMTree {
      * @param orderItemSeqId
      * @param delegator The delegator used.
      * @throws GenericEntityException If a db problem occurs.
-     */    
+     */
     public String createManufacturingOrders(String facilityId, Date date, String workEffortName, String description, String routingId, String orderId, String orderItemSeqId, String shipmentId, GenericValue userLogin)  throws GenericEntityException {
         String workEffortId = null;
         if (root != null) {

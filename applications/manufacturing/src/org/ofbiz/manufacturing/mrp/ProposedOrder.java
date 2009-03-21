@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -47,10 +47,10 @@ import org.ofbiz.manufacturing.bom.BOMTree;
  *
  */
 public class ProposedOrder {
-    
+ 
     public static final String module = ProposedOrder.class.getName();
     public static final String resource = "ManufacturingUiLabels";
-    
+ 
     protected GenericValue product;
     protected boolean isBuilt;
     protected String productId;
@@ -60,8 +60,8 @@ public class ProposedOrder {
     protected Timestamp requiredByDate;
     protected Timestamp requirementStartDate;
     protected BigDecimal quantity;
-    
-    
+ 
+ 
     public ProposedOrder(GenericValue product, String facilityId, String manufacturingFacilityId, boolean isBuilt, Timestamp requiredByDate, BigDecimal quantity) {
         this.product = product;
         this.productId = product.getString("productId");
@@ -179,7 +179,7 @@ public class ProposedOrder {
                         */
                     }
                 }
-            } else { 
+            } else {
                 // routing is null
                 Debug.logError("No routing found for product = "+ product.getString("productId"), module);
             }
@@ -196,8 +196,8 @@ public class ProposedOrder {
         requirementStartDate = startDate;
         return result;
     }
-    
-    
+ 
+ 
     /**
      * calculate the ProposedOrder quantity and update the quantity property.
      * Read the first ProductFacility.reorderQuantity and calculate the quantity : if (quantity < reorderQuantity) quantity = reorderQuantity;
@@ -215,7 +215,7 @@ public class ProposedOrder {
         }
          */
     }
-    
+ 
     /**
      * create a ProposedOrder in the Requirement Entity calling the createRequirement service.
      * @param ctx The DispatchContext used to call service to create the Requirement Entity record.
@@ -259,7 +259,7 @@ public class ProposedOrder {
             return null;
         }
     }
-    
+ 
     public void setMrpName(String mrpName) {
         this.mrpName = mrpName;
     }

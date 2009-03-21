@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -46,9 +46,9 @@ import org.ofbiz.service.ServiceUtil;
  *
  */
 public class TechDataServices {
-    
+ 
     public static final String module = TechDataServices.class.getName();
-    
+ 
     /**
      *
      * Used to retreive some RoutingTasks (WorkEffort) selected by Name or MachineGroup ordered by Name
@@ -60,21 +60,21 @@ public class TechDataServices {
     public static Map lookupRoutingTask(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
         Map result = new HashMap();
-        
+ 
         String workEffortName = (String) context.get("workEffortName");
         String fixedAssetId = (String) context.get("fixedAssetId");
-        
+ 
         List listRoutingTask = null;
         List constraints = new LinkedList();
-        
+ 
         if (workEffortName != null && workEffortName.length()>0)
             constraints.add(EntityCondition.makeCondition("workEffortName", EntityOperator.GREATER_THAN_EQUAL_TO, workEffortName));
         if (fixedAssetId != null && fixedAssetId.length()>0 && ! "ANY".equals(fixedAssetId))
             constraints.add(EntityCondition.makeCondition("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
-        
+ 
         constraints.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "ROU_ACTIVE"));
         constraints.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "ROU_TASK"));
-        
+ 
         EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(constraints, EntityOperator.AND);
         try {
             listRoutingTask = delegator.findList("WorkEffort", ecl, null, UtilMisc.toList("workEffortName"), null, false);
@@ -99,7 +99,7 @@ public class TechDataServices {
         GenericDelegator delegator = ctx.getDelegator();
         Map result = new HashMap();
         String sequenceNumNotOk = "N";
-        
+ 
         String workEffortIdFrom = (String) context.get("workEffortIdFrom");
         String workEffortIdTo = (String) context.get("workEffortIdTo");
         String workEffortAssocTypeId = (String) context.get("workEffortAssocTypeId");
@@ -107,17 +107,17 @@ public class TechDataServices {
         Timestamp  fromDate =  (Timestamp) context.get("fromDate");
         Timestamp  thruDate =  (Timestamp) context.get("thruDate");
         String create = (String) context.get("create");
-        
+ 
         boolean createProcess = (create !=null && create.equals("Y")) ? true : false;
         List listRoutingTaskAssoc = null;
-        
+ 
         try {
             listRoutingTaskAssoc = delegator.findByAnd("WorkEffortAssoc",UtilMisc.toMap("workEffortIdFrom", workEffortIdFrom,"sequenceNum",sequenceNum), UtilMisc.toList("fromDate"));
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
             return ServiceUtil.returnError("Error finding desired WorkEffortAssoc records: " + e.toString());
         }
-        
+ 
         if (listRoutingTaskAssoc != null) {
             Iterator  i = listRoutingTaskAssoc.iterator();
             while (i.hasNext()) {
@@ -194,7 +194,7 @@ public class TechDataServices {
         }
         return techDataCalendar;
     }
-    
+ 
     /** Used to find the fisrt day in the TechDataCalendarWeek where capacity != 0, beginning at dayStart, dayStart included.
      *
      * @param techDataCalendarWeek        The TechDataCalendarWeek cover
@@ -335,7 +335,7 @@ public class TechDataServices {
             dateTo.setTime(dateTo.getTime()+amount);
             amount = 0;
         }else amount -= nextCapacity;
-        
+ 
         Map result = new HashMap();
         while (amount > 0)  {
             result = startNextDay(techDataCalendar, dateTo);
@@ -348,7 +348,7 @@ public class TechDataServices {
         }
         return dateTo;
     }
-    
+ 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /** Used to find the last day in the TechDataCalendarWeek where capacity != 0, ending at dayEnd, dayEnd included.
      *
@@ -491,7 +491,7 @@ public class TechDataServices {
             dateTo.setTime(dateTo.getTime()-amount);
             amount = 0;
         }else amount -= previousCapacity;
-        
+ 
         Map result = new HashMap();
         while (amount > 0)  {
             result = endPreviousDay(techDataCalendar, dateTo);
