@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -91,7 +91,7 @@ public class FindServices {
      *
      * This is use to the generic method that expects entity data affixed with special suffixes
      * to indicate their purpose in formulating an SQL query statement.
-     * @param inputFields     Input parameters run thru UtilHttp.getParameterMap  
+     * @param inputFields     Input parameters run thru UtilHttp.getParameterMap
      * @return a map with field name and operator
      */
     public static HashMap<String, HashMap<String, HashMap<String, Object>>> prepareField(Map<String, ?> inputFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap) {
@@ -201,14 +201,14 @@ public class FindServices {
         }
         return normalizedFields;
     }
-    
+ 
     /**
      * createCondition, comparing the normalizedFields with the list of keys, .
      *
      * This is use to the generic method that expects entity data affixed with special suffixes
      * to indicate their purpose in formulating an SQL query statement.
-     * @param keys     list of field for which it's possible to make the query  
-     * @param normalizedFields     list of field the user have populated  
+     * @param keys     list of field for which it's possible to make the query
+     * @param normalizedFields     list of field the user have populated
      * @return a arrayList usable to create an entityCondition
      */
     public static ArrayList<EntityCondition> createCondition(ModelEntity modelEntity, HashMap<String, HashMap<String, HashMap<String, Object>>> normalizedFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap, GenericDelegator delegator, Map<String, ?> context) {
@@ -293,7 +293,7 @@ public class FindServices {
             } else {
                 fieldObject = fieldValue;
             }
-            
+ 
             if (ignoreCase != null && ignoreCase.equals("Y") && "java.lang.String".equals(fieldObject.getClass().getName())) {
                 cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), (EntityComparisonOperator) fieldOp, EntityFunction.UPPER(((String)fieldValue).toUpperCase()));
             } else {
@@ -354,27 +354,27 @@ public class FindServices {
         }
         return tmpList;
     }
-    
+ 
     /**
-     * 
+     *
      *  same as performFind but now returning a list instead of an iterator
      *  Extra parameters viewIndex: startPage of the partial list (0 = first page)
      *                              viewSize: the length of the page (number of records)
      *  Extra output parameter: listSize: size of the totallist
      *                                         list : the list itself.
-     * 
+     *
      * @param dctx
      * @param context
      * @return Map
      */
     public static Map<String, Object> performFindList(DispatchContext dctx, Map<String, ?> context) {
         Map<String, Object> result = performFind(dctx,context);
-        
+ 
         Integer viewSize = (Integer) context.get("viewSize");
-        if (viewSize == null) viewSize = Integer.valueOf(20);       // default 
+        if (viewSize == null) viewSize = Integer.valueOf(20);       // default
         Integer viewIndex = (Integer) context.get("viewIndex");
         if (viewIndex == null)  viewIndex = Integer.valueOf(0);  // default
-        
+ 
         int start = viewIndex.intValue() * viewSize.intValue();
         List<GenericValue> list = null;
         Integer listSize = null;
@@ -387,13 +387,13 @@ public class FindServices {
         } catch (Exception e) {
             Debug.logInfo("Problem getting partial list" + e,module);
         }
-        
+ 
         result.put("listSize", listSize);
         result.put("list",list);
         result.remove("listIt");
         return result;
     }
-        
+ 
     /**
      * performFind
      *
@@ -407,7 +407,7 @@ public class FindServices {
         String noConditionFind = (String) context.get("noConditionFind");
         String distinct = (String) context.get("distinct");
         List fieldList =  (List) context.get("fieldList");
-        GenericValue userLogin = (GenericValue) context.get("userLogin"); 
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (UtilValidate.isEmpty(noConditionFind)) {
             // try finding in inputFields Map
             noConditionFind = (String) inputFields.get("noConditionFind");
@@ -433,7 +433,7 @@ public class FindServices {
         }
         EntityConditionList exprList = (EntityConditionList)prepareResult.get("entityConditionList");
         List<String> orderByList = checkList(prepareResult.get("orderByList"), String.class);
-        
+ 
         Map<String, Object> executeResult = null;
         try {
             executeResult = dispatcher.runSync("executeFind", UtilMisc.toMap("entityName", entityName, "orderByList", orderByList, "fieldList", fieldList, "entityConditionList", exprList, "noConditionFind", noConditionFind, "distinct", distinct, "locale", context.get("locale"), "timeZone", context.get("timeZone")));
@@ -444,14 +444,14 @@ public class FindServices {
         if (executeResult.get("listIt") == null) {
             if (Debug.verboseOn()) Debug.logVerbose("No list iterator found for query string + [" + prepareResult.get("queryString") + "]", module);
         }
-        
+ 
         Map<String, Object> results = ServiceUtil.returnSuccess();
         results.put("listIt", executeResult.get("listIt"));
         results.put("queryString", prepareResult.get("queryString"));
         results.put("queryStringMap", prepareResult.get("queryStringMap"));
         return results;
     }
-    
+ 
     /**
      * prepareFind
      *
@@ -493,7 +493,7 @@ public class FindServices {
         ArrayList<EntityCondition> tmpList = createCondition(modelEntity, normalizedFields, queryStringMap, origValueMap, delegator, context);
 
         /* the filter by date condition should only be added when there are other conditions or when
-         * the user has specified a noConditionFind.  Otherwise, specifying filterByDate will become 
+         * the user has specified a noConditionFind.  Otherwise, specifying filterByDate will become
          * its own condition.
          */
         if ((tmpList.size() > 0) || ((noConditionFind != null) && (noConditionFind.equals("Y")))) {
@@ -512,7 +512,7 @@ public class FindServices {
         if (tmpList.size() > 0) {
             exprList = EntityCondition.makeCondition(tmpList);
         }
-        
+ 
         List<String> orderByList = null;
         if (UtilValidate.isNotEmpty(orderBy)) {
             orderByList = StringUtil.split(orderBy,"|");
@@ -526,7 +526,7 @@ public class FindServices {
         String queryString = UtilHttp.urlEncodeArgs(reducedQueryStringMap);
         results.put("queryString", queryString);
         results.put("queryStringMap", reducedQueryStringMap);
-        
+ 
         results.put("orderByList", orderByList);
         results.put("entityConditionList", exprList);
         return results;
@@ -544,7 +544,7 @@ public class FindServices {
         boolean noConditionFind = "Y".equals((String) context.get("noConditionFind"));
         boolean distinct = "Y".equals((String) context.get("distinct"));
         List fieldList =  (List) context.get("fieldList");
-        Set fieldSet = null;        
+        Set fieldSet = null;
         if (fieldList != null) {
             fieldSet = new HashSet(fieldList);
         }
@@ -553,7 +553,7 @@ public class FindServices {
         EntityListIterator listIt = null;
         try {
             if (noConditionFind || (entityConditionList != null && entityConditionList.getConditionListSize() > 0)) {
-                listIt = delegator.find(entityName, entityConditionList, null, fieldSet, orderByList, 
+                listIt = delegator.find(entityName, entityConditionList, null, fieldSet, orderByList,
                         new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, distinct));
             }
         } catch (GenericEntityException e) {
@@ -564,7 +564,7 @@ public class FindServices {
         results.put("listIt", listIt);
         return results;
     }
-    
+ 
     private static String dayStart(String timeStampString, int daysLater) {
         String retValue = null;
         Timestamp ts = null;
@@ -650,14 +650,14 @@ public class FindServices {
     /**
      * Returns the first generic item of the service 'performFind'
      * Same parameters as performFind service but returns a single GenericValue
-     * 
+     *
      * @param dctx
      * @param context
      * @return
      */
     public static Map<String, Object> performFindItem(DispatchContext dctx, Map<String, ?> context) {
         Map<String, Object> result = org.ofbiz.common.FindServices.performFind(dctx,context);
-        
+ 
         List<GenericValue> list = null;
         GenericValue item= null;
         try {
@@ -670,7 +670,7 @@ public class FindServices {
         } catch (Exception e) {
             Debug.logInfo("Problem getting list Item" + e,module);
         }
-        
+ 
         if (!UtilValidate.isEmpty(item)) {
             result.put("item",item);
         }

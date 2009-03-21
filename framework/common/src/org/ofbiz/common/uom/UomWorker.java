@@ -81,5 +81,5 @@ public class UomWorker {
 
     public static Calendar addUomTime(Timestamp startTime, String uomId, int value) {
         return addUomTime(null, startTime, uomId, value);
-    }        
+    }
 }

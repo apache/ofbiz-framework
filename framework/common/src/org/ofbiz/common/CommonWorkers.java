@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,20 +38,20 @@ import org.ofbiz.entity.condition.EntityOperator;
  * Common Workers
  */
 public class CommonWorkers {
-    
+ 
     public final static String module = CommonWorkers.class.getName();
 
     public static List<GenericValue> getCountryList(GenericDelegator delegator) {
         List<GenericValue> geoList = FastList.newInstance();
         String defaultCountry = UtilProperties.getPropertyValue("general.properties", "country.geo.id.default");
         GenericValue defaultGeo = null;
-        if (defaultCountry != null && defaultCountry.length() > 0) { 
+        if (defaultCountry != null && defaultCountry.length() > 0) {
             try {
                 defaultGeo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", defaultCountry));
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot lookup Geo", module);
-            }       
-        }        
+            }
+        }
         try {
             List<GenericValue> countryGeoList = delegator.findByAndCache("Geo", UtilMisc.toMap("geoTypeId", "COUNTRY"), UtilMisc.toList("geoName"));
             if (defaultGeo != null) {
@@ -62,12 +62,12 @@ public class CommonWorkers {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot lookup Geo", module);
-        }        
-        return geoList;            
+        }
+        return geoList;
     }
-    
+ 
     public static List<GenericValue> getStateList(GenericDelegator delegator) {
-        List<GenericValue> geoList = FastList.newInstance();       
+        List<GenericValue> geoList = FastList.newInstance();
         EntityCondition condition = EntityCondition.makeCondition(EntityOperator.OR,
                 EntityCondition.makeCondition("geoTypeId", "STATE"), EntityCondition.makeCondition("geoTypeId", "PROVINCE"),
                 EntityCondition.makeCondition("geoTypeId", "TERRITORY"));
@@ -77,8 +77,8 @@ public class CommonWorkers {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot lookup State Geos: " + e.toString(), module);
         }
-        return geoList;            
-    }    
+        return geoList;
+    }
 
     /**
      * Returns a list of regional geo associations.
@@ -101,8 +101,8 @@ public class CommonWorkers {
             geoList = delegator.findList("GeoAssocAndGeoTo", stateProvinceFindCond, null, sortList, null, true);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot lookup Geo", module);
-        }                        
-        
-        return geoList;            
-    }    
+        }
+ 
+        return geoList;
+    }
 }

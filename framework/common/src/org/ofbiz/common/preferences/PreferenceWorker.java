@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -84,7 +84,7 @@ public class PreferenceWorker {
         boolean hasPermission = false;
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         if (userLogin != null) {
-            String userLoginId = userLogin.getString("userLoginId"); 
+            String userLoginId = userLogin.getString("userLoginId");
             String userLoginIdArg = (String) context.get(LOGINID_PARAMETER_NAME); // is an optional parameters which defaults to the logged on user
             if (userLoginIdArg == null || (userLoginIdArg != null && userLoginId.equals(userLoginIdArg))) {
                 hasPermission = true; // users can copy to their own preferences
@@ -99,7 +99,7 @@ public class PreferenceWorker {
     }
 
     /**
-     * Checks preference get/set permissions. Returns hasPermission=true if 
+     * Checks preference get/set permissions. Returns hasPermission=true if
      * permission is granted.
      * <p>This method is a simple wrapper around the isValidxxxId methods.</p>
      * @param ctx The DispatchContext that this service is operating in.
@@ -157,7 +157,7 @@ public class PreferenceWorker {
      * found, the method attempts to get the current user's userLoginId. If the user
      * isn't logged in, then the method returns <a href="#DEFAULT_UID">DEFAULT_UID</a>
      * if returnDefault is set to true, otherwise the method returns a null or empty string.</p>
-     * 
+     *
      * @param context Map containing the input arguments.
      * @param returnDefault return <a href="#DEFAULT_UID">DEFAULT_UID</a> if no userLoginId is found.
      * @return userLoginId String
@@ -189,7 +189,7 @@ public class PreferenceWorker {
      * If the user has the <a href="#ADMIN_PERMISSION">ADMIN_PERMISSION</a> permission then the
      *  method returns true.</li>
      * </ul></p>
-     * 
+     *
      * @param ctx The DispatchContext that this service is operating in.
      * @param context Map containing the input arguments.
      * @return true if the userLoginId arguments are valid

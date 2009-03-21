@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -84,7 +84,7 @@ public class GeoWorker {
 
         return geoList;
     }
-    
+ 
     public static Set<String> expandGeoRegionDeep(Set<String> geoIdSet, GenericDelegator delegator) throws GenericEntityException {
         if (geoIdSet == null || geoIdSet.size() == 0) {
             return geoIdSet;
@@ -120,7 +120,7 @@ public class GeoWorker {
         //Debug.log("Contains Geo : " + geoList.contains(geo));
         return geoList.contains(geo);
     }
-    
+ 
     public static GenericValue findLatestGeoPoint(GenericDelegator delegator, String Entity, String mainId, String mainValueId, String secondId, String secondValueId) {
         List<GenericValue> gptList = null;
         if (UtilValidate.isNotEmpty(secondId) && UtilValidate.isNotEmpty(secondValueId)) {
@@ -141,5 +141,5 @@ public class GeoWorker {
             return EntityUtil.getFirst(gptList);
         }
         return null;
-    }    
+    }
 }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -102,7 +102,7 @@ public class CommonDimensionServices {
             dateValue.set("dayOfMonth", new Long(calendar.get(Calendar.DAY_OF_MONTH)));
             dateValue.set("dayOfYear", new Long(calendar.get(Calendar.DAY_OF_YEAR)));
             dateValue.set("monthName", monthNameFormat.format(currentDate));
-            
+ 
             dateValue.set("monthOfYear", new Long(calendar.get(Calendar.MONTH) + 1));
             dateValue.set("yearName", new Long(calendar.get(Calendar.YEAR)));
             dateValue.set("weekOfMonth", new Long(calendar.get(Calendar.WEEK_OF_MONTH)));
@@ -110,7 +110,7 @@ public class CommonDimensionServices {
             dateValue.set("weekdayType", (dayOfWeek == 1 || dayOfWeek == 7? "Weekend": "Weekday"));
             dateValue.set("yearMonthDay", yearMonthDayFormat.format(currentDate));
             dateValue.set("yearAndMonth", yearMonthFormat.format(currentDate));
-            
+ 
             try {
                 if (newValue) {
                     dateValue.create();

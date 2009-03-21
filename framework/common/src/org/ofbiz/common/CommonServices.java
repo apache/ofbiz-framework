@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -177,7 +177,7 @@ public class CommonServices {
         Debug.set(Debug.INFO, "Y".equalsIgnoreCase((String) context.get("info")));
         Debug.set(Debug.TIMING, "Y".equalsIgnoreCase((String) context.get("timing")));
         Debug.set(Debug.VERBOSE, "Y".equalsIgnoreCase((String) context.get("verbose")));
-    
+ 
         return ServiceUtil.returnSuccess();
     }
 
@@ -185,7 +185,7 @@ public class CommonServices {
         String name = (String) context.get("name");
         String level = (String) context.get("level");
         boolean additivity = "Y".equalsIgnoreCase((String) context.get("additivity"));
-    
+ 
         Logger logger = null;
         if ("root".equals(name)) {
             logger = Logger.getRootLogger();
@@ -194,7 +194,7 @@ public class CommonServices {
         }
         logger.setLevel(Level.toLevel(level));
         logger.setAdditivity(additivity);
-    
+ 
         return ServiceUtil.returnSuccess();
     }
 
@@ -458,8 +458,8 @@ public class CommonServices {
         try {
             while ((line = reader.readLine()) != null) {
                 Debug.log("Read line: " + line, module);
-                writer.write(line);               
-            }                       
+                writer.write(line);
+            }
         } catch (IOException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -469,7 +469,7 @@ public class CommonServices {
             } catch (Exception e) {
                 Debug.logError(e, module);
             }
-        }       
+        }
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("contentType", "text/plain");

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -36,7 +36,7 @@ import org.ofbiz.service.ServiceUtil;
 
 public class PeriodServices {
     public static String module = PeriodServices.class.getName();
-    
+ 
     /* find the date of the last closed CustomTimePeriod, or, if none available, the earliest date available of any
      * CustomTimePeriod
      */
@@ -45,16 +45,16 @@ public class PeriodServices {
         String organizationPartyId = (String) context.get("organizationPartyId"); // input parameters
         String periodTypeId = (String) context.get("periodTypeId");
         Timestamp findDate = (Timestamp) context.get("findDate");
-        
+ 
         // default findDate to now
         if (findDate == null) {
             findDate = UtilDateTime.nowTimestamp();
         }
-        
+ 
         Timestamp lastClosedDate = null;          // return parameters
         GenericValue lastClosedTimePeriod = null;
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        
+ 
         try {
             // try to get the ending date of the most recent accounting time period before findDate which has been closed
             List<EntityCondition> findClosedConditions = UtilMisc.toList(EntityCondition.makeConditionMap("organizationPartyId", organizationPartyId),
@@ -64,8 +64,8 @@ public class PeriodServices {
                 // if a periodTypeId was supplied, use it
                 findClosedConditions.add(EntityCondition.makeConditionMap("periodTypeId", periodTypeId));
             }
-            List<GenericValue> closedTimePeriods = delegator.findList("CustomTimePeriod", EntityCondition.makeCondition(findClosedConditions), 
-                    UtilMisc.toSet("customTimePeriodId", "periodTypeId", "isClosed", "fromDate", "thruDate"), 
+            List<GenericValue> closedTimePeriods = delegator.findList("CustomTimePeriod", EntityCondition.makeCondition(findClosedConditions),
+                    UtilMisc.toSet("customTimePeriodId", "periodTypeId", "isClosed", "fromDate", "thruDate"),
                     UtilMisc.toList("thruDate DESC"), null, false);
 
             if ((closedTimePeriods != null) && (closedTimePeriods.size() > 0) && (closedTimePeriods.get(0).get("thruDate") != null)) {
@@ -78,14 +78,14 @@ public class PeriodServices {
                 if ((periodTypeId != null) && !(periodTypeId.equals(""))) {
                     findParams.put("periodTypeId", periodTypeId);
                 }
-                List<GenericValue> timePeriods = delegator.findByAnd("CustomTimePeriod", findParams, UtilMisc.toList("fromDate ASC")); 
+                List<GenericValue> timePeriods = delegator.findByAnd("CustomTimePeriod", findParams, UtilMisc.toList("fromDate ASC"));
                 if ((timePeriods != null) && (timePeriods.size() > 0) && (timePeriods.get(0).get("fromDate") != null)) {
                     lastClosedDate = UtilDateTime.toTimestamp(timePeriods.get(0).getDate("fromDate"));
                 } else {
                     return ServiceUtil.returnError("Cannot get a starting date for net income");
                 }
             }
-            
+ 
             result.put("lastClosedTimePeriod", lastClosedTimePeriod);  // ok if this is null - no time periods have been closed
             result.put("lastClosedDate", lastClosedDate);  // should have a value - not null
             return result;

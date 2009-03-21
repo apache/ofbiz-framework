@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -49,9 +49,9 @@ import freemarker.template.TemplateException;
  * Provides generic services related to preparing and
  * delivering notifications via email.
  * <p>
- * To use the NotificationService, a message specific service should be 
+ * To use the NotificationService, a message specific service should be
  * defined for a particular <a href="http://freemarker.sourceforge.net/docs/dgui_quickstart_template.html">
- * Freemarker Template</a> mapping the required fields of the 
+ * Freemarker Template</a> mapping the required fields of the
  * template to the required attributes of the service.
  * <p>
  * This service definition should extend the <code>sendNotificationInterface<code>
@@ -70,19 +70,19 @@ import freemarker.template.TemplateException;
  * </blockquote>
  * <p>
  * An optional parameter available to all message templates is <code>baseUrl</code>
- * which can either be specified when the service is invoked or let the 
- * <code>NotificationService</code> attempt to resolve it as best it can, 
+ * which can either be specified when the service is invoked or let the
+ * <code>NotificationService</code> attempt to resolve it as best it can,
  * see {@link #setBaseUrl(GenericDelegator, String, Map) setBaseUrl(Map)} for details on how this is achieved.
  * <p>
- * The following example shows what a simple notification message template, 
- * associated with the above service, might contain: 
+ * The following example shows what a simple notification message template,
+ * associated with the above service, might contain:
  * <blockquote>
  * <pre>
  *     Please use the following link to schedule a delivery date:
  *     &lt;p&gt;
  *     ${baseUrl}/ordermgr/control/schedulepo?orderId=${orderId}"
  * </pre>
- * </blockquote> 
+ * </blockquote>
  * <p>
  * The template file must be found on the classpath at runtime and
  * match the "templateName" field passed to the service when it
@@ -92,15 +92,15 @@ import freemarker.template.TemplateException;
  * to implement a custom service that takes one or two parameters that can
  * be used to resolve the rest of the required fields and then pass them to
  * the {@link #prepareNotification(DispatchContext, Map) prepareNotification(DispatchContext, Map)}
- * or {@link #sendNotification(DispatchContext, Map) sendNotification(DispatchContext, Map)} 
+ * or {@link #sendNotification(DispatchContext, Map) sendNotification(DispatchContext, Map)}
  * methods directly to generate or generate and send the notification respectively.
- * 
+ *
  */
 public class NotificationServices {
 
     public static final String module = NotificationServices.class.getName();
 
-    /** 
+    /**
      * This will use the {@link #prepareNotification(DispatchContext, Map) prepareNotification(DispatchContext, Map)}
      * method to generate the body of the notification message to send
      * and then deliver it via the "sendMail" service.
@@ -110,26 +110,26 @@ public class NotificationServices {
      * specified body instead. This can be used to combine both service
      * calls in a decoupled manner if other steps are required between
      * generating the message body and sending the notification.
-     * 
+     *
      * @param ctx   The dispatching context of the service
      * @param context The map containing all the fields associated with
      * the sevice
      * @return A Map with the service response messages in it
      */
     public static Map<String, Object> sendNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
-        LocalDispatcher dispatcher = ctx.getDispatcher();                      
+        LocalDispatcher dispatcher = ctx.getDispatcher();
         Map result = null;
-                
+ 
         try {
             // see whether the optional 'body' attribute was specified or needs to be processed
             // nulls are handled the same as not specified
-            String body = (String) context.get("body");            
-            
-            if (body == null) {                                        
-                // prepare the body of the notification email                         
+            String body = (String) context.get("body");
+ 
+            if (body == null) {
+                // prepare the body of the notification email
                 Map bodyResult = prepareNotification(ctx, context);
-                
-                // ensure the body was generated successfully                
+ 
+                // ensure the body was generated successfully
                 if (bodyResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS)) {
                     body = (String) bodyResult.get("body");
                 } else {
@@ -138,7 +138,7 @@ public class NotificationServices {
                     body = null;
                 }
             }
-            
+ 
             // make sure we have a valid body before sending
             if (body != null) {
                 // retain only the required attributes for the sendMail service
@@ -152,9 +152,9 @@ public class NotificationServices {
                 emailContext.put("sendVia", context.get("sendVia"));
                 emailContext.put("sendType", context.get("sendType"));
                 emailContext.put("contentType", context.get("contentType"));
-    
-                // pass on to the sendMail service                 
-                result = dispatcher.runSync("sendMail", emailContext);            
+ 
+                // pass on to the sendMail service
+                result = dispatcher.runSync("sendMail", emailContext);
             } else {
                 Debug.logError("Invalid email body; null is not allowed", module);
                 result = ServiceUtil.returnError("Invalid email body; null is not allowed");
@@ -175,44 +175,44 @@ public class NotificationServices {
      * The result returned will contain the appropriate response
      * messages indicating succes or failure and the OUT parameter,
      * "body" containing the generated message.
-     * 
+     *
      * @param ctx   The dispatching context of the service
      * @param context The map containing all the fields associated with
      * the sevice
      * @return A new Map indicating success or error containing the
-     * body generated from the template and the input parameters. 
+     * body generated from the template and the input parameters.
      */
     public static Map<String, Object> prepareNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = ctx.getDelegator();
         String templateName = (String) context.get("templateName");
         Map templateData = (Map) context.get("templateData");
         String webSiteId = (String) context.get("webSiteId");
-                        
-        Map result = null;                               
+ 
+        Map result = null;
         if (templateData == null) {
             templateData = FastMap.newInstance();
         }
-               
+ 
         try {
             // ensure the baseURl is defined
             setBaseUrl(delegator, webSiteId, templateData);
-                                   
+ 
             // initialize the template reader and processor
             URL templateUrl = UtilURL.fromResource(templateName);
-            
+ 
             if (templateUrl == null) {
                 Debug.logError("Problem getting the template URL: " + templateName + " not found", module);
                 return ServiceUtil.returnError("Problem finding template; see logs");
             }
-                                    
+ 
             // process the template with the given data and write
             // the email body to the String buffer
             Writer writer = new StringWriter();
             FreeMarkerWorker.renderTemplate(templateUrl.toExternalForm(), templateData, writer);
 
             // extract the newly created body for the notification email
-            String notificationBody = writer.toString();            
-            
+            String notificationBody = writer.toString();
+ 
             // generate the successfull reponse
             result = ServiceUtil.returnSuccess("Message body generated successfully");
             result.put("body", notificationBody);
@@ -234,17 +234,17 @@ public class NotificationServices {
      * <code>baseUrl</code> field is set in the given context.
      * <p>
      * If it has been specified a default <code>baseUrl</code> will be
-     * set using a best effort approach. If it is specified in the 
+     * set using a best effort approach. If it is specified in the
      * url.properties configuration files of the system, that will be
-     * used, otherwise it will attempt resolve the fully qualified 
+     * used, otherwise it will attempt resolve the fully qualified
      * local host name.
      * <p>
      * <i>Note:</i> I thought it might be useful to have some dynamic way
      * of extending the default properties provided by the NotificationService,
-     * such as the <code>baseUrl</code>, perhaps using the standard 
+     * such as the <code>baseUrl</code>, perhaps using the standard
      * <code>ResourceBundle</code> java approach so that both classes
      * and static files may be invoked.
-     *  
+     *
      * @param context   The context to check and, if necessary, set the
      * <code>baseUrl</code>.
      */
@@ -253,14 +253,14 @@ public class NotificationServices {
         if (!context.containsKey("baseUrl")) {
             StringBuilder httpBase = null;
             StringBuilder httpsBase = null;
-                    
-            String localServer = null;        
-                   
+ 
+            String localServer = null;
+ 
             String httpsPort = null;
             String httpsServer = null;
             String httpPort = null;
             String httpServer = null;
-            Boolean enableHttps = null;        
+            Boolean enableHttps = null;
 
             try {
                 // using just the IP address of localhost if we don't have a defined server
@@ -271,7 +271,7 @@ public class NotificationServices {
                 localServer = "127.0.0.1";
             }
 
-            // load the properties from the website entity        
+            // load the properties from the website entity
             GenericValue webSite = null;
             if (webSiteId != null) {
                 try {
@@ -287,9 +287,9 @@ public class NotificationServices {
                     Debug.logWarning(e, "Problems with WebSite entity; using global defaults", module);
                 }
             }
-            
+ 
             // fill in any missing properties with fields from the global file
-            if (UtilValidate.isEmpty(httpsPort)) {            
+            if (UtilValidate.isEmpty(httpsPort)) {
                 httpsPort = UtilProperties.getPropertyValue("url.properties", "port.https", "443");
             }
             if (UtilValidate.isEmpty(httpsServer)) {
@@ -304,7 +304,7 @@ public class NotificationServices {
             if (UtilValidate.isEmpty(enableHttps)) {
                 enableHttps = (UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y")) ? Boolean.TRUE : Boolean.FALSE;
             }
-                                
+ 
             // prepare the (non-secure) URL
             httpBase = new StringBuilder("http://");
             httpBase.append(httpServer);
@@ -315,7 +315,7 @@ public class NotificationServices {
 
             // set the base (non-secure) URL for any messages requiring it
             context.put("baseUrl", httpBase.toString());
-            
+ 
             if (enableHttps.booleanValue()) {
                 // prepare the (secure) URL
                 httpsBase = new StringBuilder("https://");
@@ -324,12 +324,12 @@ public class NotificationServices {
                     httpsBase.append(":");
                     httpsBase.append(httpsPort);
                 }
-    
+ 
                 // set the base (secure) URL for any messages requiring it
                 context.put("baseSecureUrl", httpsBase.toString());
             } else {
                 context.put("baseSecureUrl", httpBase.toString());
-            }                        
+            }
         }
     }
 }

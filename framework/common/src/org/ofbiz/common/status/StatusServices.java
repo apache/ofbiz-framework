@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,16 +37,16 @@ import org.ofbiz.service.ServiceUtil;
  * StatusServices
  */
 public class StatusServices {
-    
+ 
     public static final String module = StatusServices.class.getName();
-    
+ 
     public static Map<String, Object> getStatusItems(DispatchContext ctx, Map<String, ?> context) {
         GenericDelegator delegator = ctx.getDelegator();
         List<String> statusTypes = checkList(context.get("statusTypeIds"), String.class);
         if (statusTypes == null || statusTypes.size() == 0) {
             return ServiceUtil.returnError("Parameter statusTypeIds can not be null and must contain at least one element");
         }
-        
+ 
         List<GenericValue> statusItems = FastList.newInstance();
         for (String statusTypeId: statusTypes) {
             try {
@@ -55,7 +55,7 @@ public class StatusServices {
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
-        }        
+        }
         Map<String, Object> ret = FastMap.newInstance();
         ret.put("statusItems",statusItems);
         return ret;
@@ -74,6 +74,6 @@ public class StatusServices {
         if (statusValidChangeToDetails != null) {
             ret.put("statusValidChangeToDetails", statusValidChangeToDetails);
         }
-        return ret;        
+        return ret;
     }
 }
