@@ -87,10 +87,10 @@ public class InvoiceWorker {
      * @return the invoice total as BigDecimal
      */
     public static BigDecimal getInvoiceItemTotal(GenericValue invoiceItem) {
-    	BigDecimal quantity = invoiceItem.getBigDecimal("quantity");
-    	if (quantity == null) {
-    		quantity = BigDecimal.ONE;
-    	}
+        BigDecimal quantity = invoiceItem.getBigDecimal("quantity");
+        if (quantity == null) {
+            quantity = BigDecimal.ONE;
+        }
         return quantity.multiply(invoiceItem.getBigDecimal("amount")).setScale(decimals, rounding);
     }
 
@@ -450,7 +450,7 @@ public class InvoiceWorker {
             }
         }
         if (UtilValidate.isNotEmpty(invoiceApplied) && !actualCurrency) {
-        	invoiceApplied = invoiceApplied.multiply(getInvoiceCurrencyConversionRate(delegator, invoiceId)).setScale(decimals,rounding);
+            invoiceApplied = invoiceApplied.multiply(getInvoiceCurrencyConversionRate(delegator, invoiceId)).setScale(decimals,rounding);
         }
         return invoiceApplied;
     }
@@ -522,68 +522,68 @@ public class InvoiceWorker {
         return invoiceItemApplied;        
     }
     public static BigDecimal getInvoiceCurrencyConversionRate(GenericValue invoice) {
-    	BigDecimal conversionRate = null;
-    	GenericDelegator delegator = invoice.getDelegator();
-    	String otherCurrencyUomId = null;
-    	// find the organization party currencyUomId which different from the invoice currency
-    	try {
-    		GenericValue party  = delegator.findByPrimaryKey("PartyAcctgPreference", UtilMisc.toMap("partyId", invoice.getString("partyIdFrom")));
-    		if (UtilValidate.isEmpty(party) || party.getString("baseCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
-    			party  = delegator.findByPrimaryKey("PartyAcctgPreference", UtilMisc.toMap("partyId", invoice.getString("partyId")));
-    		}
-    		if (UtilValidate.isNotEmpty(party) && party.getString("baseCurrencyUomId") != null) {
-   				otherCurrencyUomId = new String(party.getString("baseCurrencyUomId"));
-    		} else {
-    			otherCurrencyUomId = new String(UtilProperties.getPropertyValue("general", "currency.uom.id.default"));
-    		}
-    		if (otherCurrencyUomId == null) {
-    			otherCurrencyUomId = "USD"; // final default
-    		}
-    	} catch (GenericEntityException e) {
-    		Debug.logError(e, "Trouble getting database records....", module);            
-    	}
-		if (invoice.getString("currencyUomId").equals(otherCurrencyUomId)) {
-			return BigDecimal.ONE;  // organization party has the same currency so conversion not required.
-		}
-		
-    	try {
-    		// check if the invoice is posted and get the conversion from there
-    		List acctgTransEntries = invoice.getRelated("AcctgTrans");
-    		if (UtilValidate.isNotEmpty(acctgTransEntries)) {
-    			GenericValue acctgTransEntry = ((GenericValue) acctgTransEntries.get(0)).getRelated("AcctgTransEntry").get(0);
-    			conversionRate = acctgTransEntry.getBigDecimal("amount").divide(acctgTransEntry.getBigDecimal("origAmount"), new MathContext(100)).setScale(decimals,rounding);
-    		}
-    		// check if a payment is applied and use the currency conversion from there
-    		if (UtilValidate.isEmpty(conversionRate)) {
-    			List paymentAppls = invoice.getRelated("PaymentApplication");
-    			Iterator ii = paymentAppls.iterator();
-    			while (ii.hasNext()) {
-    				GenericValue paymentAppl = (GenericValue) ii.next();
-    				GenericValue payment = paymentAppl.getRelatedOne("Payment");
-    				if (UtilValidate.isNotEmpty(payment.getBigDecimal("actualCurrencyAmount"))) {
-    					if (UtilValidate.isEmpty(conversionRate)) {
-    						conversionRate = payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100)).setScale(decimals,rounding);
-    					} else {
-    						conversionRate = conversionRate.add(payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100))).divide(new BigDecimal("2"),new MathContext(100)).setScale(decimals,rounding);
-    					}
-    				}
-    			}
-    		}
-    		// use the dated conversion entity
-    		if (UtilValidate.isEmpty(conversionRate)) {
-    			List rates = EntityUtil.filterByDate(delegator.findByAnd("UomConversionDated", UtilMisc.toMap("uomIdTo", invoice.getString("currencyUomId"), "uomId", otherCurrencyUomId)), invoice.getTimestamp("invoiceDate")); 
-    			if (UtilValidate.isNotEmpty(rates)) {
-    				conversionRate = (BigDecimal.ONE).divide(((GenericValue) rates.get(0)).getBigDecimal("conversionFactor"), new MathContext(100)).setScale(decimals,rounding);
-    			} else {
-    				Debug.logError("Could not find conversionrate for invoice: " + invoice.getString("invoiceId"), module);
-    				return new BigDecimal("1");
-    			}
-    		}
+        BigDecimal conversionRate = null;
+        GenericDelegator delegator = invoice.getDelegator();
+        String otherCurrencyUomId = null;
+        // find the organization party currencyUomId which different from the invoice currency
+        try {
+            GenericValue party  = delegator.findByPrimaryKey("PartyAcctgPreference", UtilMisc.toMap("partyId", invoice.getString("partyIdFrom")));
+            if (UtilValidate.isEmpty(party) || party.getString("baseCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
+                party  = delegator.findByPrimaryKey("PartyAcctgPreference", UtilMisc.toMap("partyId", invoice.getString("partyId")));
+            }
+            if (UtilValidate.isNotEmpty(party) && party.getString("baseCurrencyUomId") != null) {
+                otherCurrencyUomId = new String(party.getString("baseCurrencyUomId"));
+            } else {
+                otherCurrencyUomId = new String(UtilProperties.getPropertyValue("general", "currency.uom.id.default"));
+            }
+            if (otherCurrencyUomId == null) {
+                otherCurrencyUomId = "USD"; // final default
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Trouble getting database records....", module);            
+        }
+        if (invoice.getString("currencyUomId").equals(otherCurrencyUomId)) {
+            return BigDecimal.ONE;  // organization party has the same currency so conversion not required.
+        }
+        
+        try {
+            // check if the invoice is posted and get the conversion from there
+            List acctgTransEntries = invoice.getRelated("AcctgTrans");
+            if (UtilValidate.isNotEmpty(acctgTransEntries)) {
+                GenericValue acctgTransEntry = ((GenericValue) acctgTransEntries.get(0)).getRelated("AcctgTransEntry").get(0);
+                conversionRate = acctgTransEntry.getBigDecimal("amount").divide(acctgTransEntry.getBigDecimal("origAmount"), new MathContext(100)).setScale(decimals,rounding);
+            }
+            // check if a payment is applied and use the currency conversion from there
+            if (UtilValidate.isEmpty(conversionRate)) {
+                List paymentAppls = invoice.getRelated("PaymentApplication");
+                Iterator ii = paymentAppls.iterator();
+                while (ii.hasNext()) {
+                    GenericValue paymentAppl = (GenericValue) ii.next();
+                    GenericValue payment = paymentAppl.getRelatedOne("Payment");
+                    if (UtilValidate.isNotEmpty(payment.getBigDecimal("actualCurrencyAmount"))) {
+                        if (UtilValidate.isEmpty(conversionRate)) {
+                            conversionRate = payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100)).setScale(decimals,rounding);
+                        } else {
+                            conversionRate = conversionRate.add(payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100))).divide(new BigDecimal("2"),new MathContext(100)).setScale(decimals,rounding);
+                        }
+                    }
+                }
+            }
+            // use the dated conversion entity
+            if (UtilValidate.isEmpty(conversionRate)) {
+                List rates = EntityUtil.filterByDate(delegator.findByAnd("UomConversionDated", UtilMisc.toMap("uomIdTo", invoice.getString("currencyUomId"), "uomId", otherCurrencyUomId)), invoice.getTimestamp("invoiceDate")); 
+                if (UtilValidate.isNotEmpty(rates)) {
+                    conversionRate = (BigDecimal.ONE).divide(((GenericValue) rates.get(0)).getBigDecimal("conversionFactor"), new MathContext(100)).setScale(decimals,rounding);
+                } else {
+                    Debug.logError("Could not find conversionrate for invoice: " + invoice.getString("invoiceId"), module);
+                    return new BigDecimal("1");
+                }
+            }
 
-    	} catch (GenericEntityException e) {
-    		Debug.logError(e, "Trouble getting database records....", module);            
-    	}
-    	return(conversionRate);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Trouble getting database records....", module);            
+        }
+        return(conversionRate);
     }
 
     public static BigDecimal getInvoiceCurrencyConversionRate(GenericDelegator delegator, String invoiceId) {
