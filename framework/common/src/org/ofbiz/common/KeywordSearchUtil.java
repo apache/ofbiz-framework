@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -62,14 +62,14 @@ public class KeywordSearchUtil {
         String seps = UtilProperties.getPropertyValue("keywordsearch", "index.keyword.separators", ";: ,.!?\t\"\'\r\n\\/()[]{}*%<>-+_");
         return seps;
     }
-    
+ 
     public static String getStopWordBagOr() {
         return UtilProperties.getPropertyValue("keywordsearch", "stop.word.bag.or");
     }
     public static String getStopWordBagAnd() {
         return UtilProperties.getPropertyValue("keywordsearch", "stop.word.bag.and");
     }
-    
+ 
     public static boolean getRemoveStems() {
         String removeStemsStr = UtilProperties.getPropertyValue("keywordsearch", "remove.stems");
         return "true".equals(removeStemsStr);
@@ -87,7 +87,7 @@ public class KeywordSearchUtil {
         }
         return stemSet;
     }
-    
+ 
     public static void processForKeywords(String str, Map<String, Long> keywords, boolean forSearch, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         String separators = getSeparators();
         String stopWordBagOr = getStopWordBagOr();
@@ -95,10 +95,10 @@ public class KeywordSearchUtil {
 
         boolean removeStems = getRemoveStems();
         Set<String> stemSet = getStemSet();
-        
+ 
         processForKeywords(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet, forSearch, anyPrefix, anySuffix, isAnd);
     }
-    
+ 
     public static void processKeywordsForIndex(String str, Map<String, Long> keywords, String separators, String stopWordBagAnd, String stopWordBagOr, boolean removeStems, Set<String> stemSet) {
         processForKeywords(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet, false, false, false, false);
     }
@@ -107,16 +107,16 @@ public class KeywordSearchUtil {
         Set<String> keywordSet = makeKeywordSet(str, separators, forSearch);
         fixupKeywordSet(keywordSet, keywords, stopWordBagAnd, stopWordBagOr, removeStems, stemSet, forSearch, anyPrefix, anySuffix, isAnd);
     }
-    
+ 
     public static void fixupKeywordSet(Set<String> keywordSet, Map<String, Long> keywords, String stopWordBagAnd, String stopWordBagOr, boolean removeStems, Set<String> stemSet, boolean forSearch, boolean anyPrefix, boolean anySuffix, boolean isAnd) {
         if (keywordSet == null) {
             return;
         }
-        
+ 
         for (String token: keywordSet) {
-            
+ 
             // when cleaning up the tokens the ordering is inportant: check stop words, remove stems, then get rid of 1 character tokens (1 digit okay)
-            
+ 
             // check stop words
             String colonToken = ":" + token + ":";
             if (forSearch) {
@@ -128,7 +128,7 @@ public class KeywordSearchUtil {
                     continue;
                 }
             }
-            
+ 
             // remove stems
             if (removeStems) {
                 for (String stem: stemSet) {
@@ -137,12 +137,12 @@ public class KeywordSearchUtil {
                     }
                 }
             }
-            
+ 
             // get rid of all length 0 tokens now
             if (token.length() == 0) {
                 continue;
             }
-            
+ 
             // get rid of all length 1 character only tokens, pretty much useless
             if (token.length() == 1 && Character.isLetter(token.charAt(0))) {
                 continue;
@@ -162,7 +162,7 @@ public class KeywordSearchUtil {
                 }
                 token = strSb.toString();
             }
-            
+ 
             // group by word, add up weight
             Long curWeight = (Long) keywords.get(token);
             if (curWeight == null) {
@@ -175,12 +175,12 @@ public class KeywordSearchUtil {
 
     public static Set<String> makeKeywordSet(String str, String separators, boolean forSearch) {
         if (separators == null) separators = getSeparators();
-        
+ 
         Set<String> keywords = new TreeSet<String>();
         if (str.length() > 0) {
             // strip off weird characters
             str = str.replaceAll("\\\302\\\240|\\\240", " ");
-            
+ 
             if (forSearch) {
                 // remove %_*? from separators if is for a search
                 StringBuilder sb = new StringBuilder(separators);
@@ -190,7 +190,7 @@ public class KeywordSearchUtil {
                 if (sb.indexOf("?") >= 0) sb.deleteCharAt(sb.indexOf("?"));
                 separators = sb.toString();
             }
-            
+ 
             StringTokenizer tokener = new StringTokenizer(str, separators, false);
             while (tokener.hasMoreTokens()) {
                 // make sure it is lower case before doing anything else
@@ -201,7 +201,7 @@ public class KeywordSearchUtil {
                     token = token.replace('*', '%');
                     token = token.replace('?', '_');
                 }
-                
+ 
                 keywords.add(token);
             }
         }

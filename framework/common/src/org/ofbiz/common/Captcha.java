@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -61,7 +61,7 @@ public class Captcha {
     }
 
     public static boolean createImageCaptcha (HttpServletRequest request,HttpServletResponse response) {
-        try {            
+        try {
             //It is possible to pass the font size, image width and height with the request as well
             Color backgroundColor = Color.gray;
             Color borderColor = Color.DARK_GRAY;
@@ -142,7 +142,7 @@ public class Captcha {
         //Adding this because we called response.getOutputStream() above. This will prevent and illegal state exception being thrown
         return true;
     }
-    
+ 
     public static void writeImage(BufferedImage image, HttpServletRequest request)
     {
         try {
@@ -162,7 +162,7 @@ public class Captcha {
             return;
         }
     }
-    
+ 
     public static void deleteFile() {
         if (CAPTCHA_FILE_PATH != null) {
                File file = new File(CAPTCHA_FILE_PATH);

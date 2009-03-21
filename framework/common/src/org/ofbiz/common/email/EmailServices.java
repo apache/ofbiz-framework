@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -165,10 +165,10 @@ public class EmailServices {
             }
             if (UtilValidate.isEmpty(socketFactoryClass)) {
                 socketFactoryClass = UtilProperties.getPropertyValue("general.properties", "mail.smtp.socketFactory.class");
-            }                
+            }
             if (UtilValidate.isEmpty(socketFactoryFallback)) {
                 socketFactoryFallback = UtilProperties.getPropertyValue("general.properties", "mail.smtp.socketFactory.fallback", "false");
-            }                                        
+            }
         } else if (sendVia == null) {
             return ServiceUtil.returnError("Parameter sendVia is required when sendType is not mail.smtp.host");
         }
@@ -176,7 +176,7 @@ public class EmailServices {
         if (contentType == null) {
             contentType = "text/html";
         }
-        
+ 
         if (UtilValidate.isNotEmpty(bodyParts)) {
             contentType = "multipart/mixed";
         }
@@ -189,8 +189,8 @@ public class EmailServices {
                 props.put("mail.smtp.port", port);
             }
             if (UtilValidate.isNotEmpty(socketFactoryPort)) {
-                props.put("mail.smtp.socketFactory.port", socketFactoryPort);                
-            }                        
+                props.put("mail.smtp.socketFactory.port", socketFactoryPort);
+            }
             if (UtilValidate.isNotEmpty(socketFactoryClass)) {
                 props.put("mail.smtp.socketFactory.class", socketFactoryClass);
                 Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
@@ -204,7 +204,7 @@ public class EmailServices {
 
             Session session = Session.getInstance(props);
             boolean debug = UtilProperties.propertyValueEqualsIgnoreCase("general.properties", "mail.debug.on", "Y");
-            session.setDebug(debug);                        
+            session.setDebug(debug);
 
             MimeMessage mail = new MimeMessage(session);
             if (messageId != null) {
@@ -383,9 +383,9 @@ public class EmailServices {
                 return ServiceUtil.returnError(errMsg);
             }
         }
-        
+ 
         boolean isMultiPart = false;
-        
+ 
         // check if attachment screen location passed in
         if (UtilValidate.isNotEmpty(xslfoAttachScreenLocation)) {
             isMultiPart = true;
@@ -398,7 +398,7 @@ public class EmailServices {
                 screensAtt.populateContextForService(dctx, bodyParameters);
                 screenContextAtt.putAll(bodyParameters);
                 screensAtt.render(xslfoAttachScreenLocation);
-                
+ 
                 /*
                 try { // save generated fo file for debugging
                     String buf = writer.toString();
@@ -415,7 +415,7 @@ public class EmailServices {
 
                 // create the output stream for the generation
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                
+ 
                 Fop fop = ApacheFopWorker.createFopInstance(baos, MimeConstants.MIME_PDF);
                 ApacheFopWorker.transform(src, null, fop);
 
@@ -472,7 +472,7 @@ public class EmailServices {
                 serviceContext.put("contentType", "text/html");
             }
         }
-        
+ 
         // also expand the subject at this point, just in case it has the FlexibleStringExpander syntax in it...
         String subject = (String) serviceContext.remove("subject");
         subject = FlexibleStringExpander.expandString(subject, screenContext, locale);
@@ -492,16 +492,16 @@ public class EmailServices {
             String errMsg = "Error send email :" + e.toString();
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
-        } 
+        }
         result.put("body", bodyWriter.toString());
         return result;
     }
-    
+ 
     /** class to create a file in memory required for sending as an attachment */
     public static class StringDataSource implements DataSource {
         private String contentType;
         private ByteArrayOutputStream contentArray;
-        
+ 
         public StringDataSource(String content, String contentType) throws IOException {
             this.contentType = contentType;
             contentArray = new ByteArrayOutputStream();
@@ -509,7 +509,7 @@ public class EmailServices {
             contentArray.flush();
             contentArray.close();
         }
-        
+ 
         public String getContentType() {
             return contentType == null ? "application/octet-stream" : contentType;
         }
@@ -531,12 +531,12 @@ public class EmailServices {
     public static class ByteArrayDataSource implements DataSource {
         private String contentType;
         private byte[] contentArray;
-        
+ 
         public ByteArrayDataSource(byte[] content, String contentType) throws IOException {
             this.contentType = contentType;
             this.contentArray = content;
         }
-        
+ 
         public String getContentType() {
             return contentType == null ? "application/octet-stream" : contentType;
         }
