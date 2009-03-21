@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,17 +37,17 @@ import org.w3c.dom.Element;
 
 /**
  * The OFBiz ActiveDirectory Authentication Handler.<p>
- * 
+ *
  * The ACL of a user is still controlled by OFBiz.
  *
  */
 public final class OFBizActiveDirectoryAuthenticationHandler extends AbstractOFBizAuthenticationHandler {
 
     /**
-     * Public constructor, initializes some required member variables.<p> 
+     * Public constructor, initializes some required member variables.<p>
      */
     public OFBizActiveDirectoryAuthenticationHandler() {
-        
+ 
     }
 
     public SearchResult getLdapSearchResult(String username, String password,
@@ -111,8 +111,8 @@ public final class OFBizActiveDirectoryAuthenticationHandler extends AbstractOFB
             // No ldap service found, or cannot login.
             throw new NamingException(e.getLocalizedMessage());
         }
-        
+ 
         return result;
     }
-    
+ 
 }

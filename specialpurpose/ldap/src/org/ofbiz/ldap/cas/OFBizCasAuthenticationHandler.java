@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,32 +38,32 @@ import org.w3c.dom.Element;
 
 /**
  * The OFBiz CAS-LDAP Authentication Handler.<p>
- * 
+ *
  * The ACL of a user is still controlled by OFBiz.
  *
  */
 public final class OFBizCasAuthenticationHandler extends AbstractOFBizAuthenticationHandler {
 
     public static final String PARAM_TICKET = "ticket";
-    
+ 
     public static final String PARAM_SERVICE = "service";
-    
+ 
     public static final String PARAM_RENEW = "renew";
 
     /**
-     * Public constructor, initializes some required member variables.<p> 
+     * Public constructor, initializes some required member variables.<p>
      */
     public OFBizCasAuthenticationHandler() {
-        
+ 
     }
-    
-    
+ 
+ 
     public String login(HttpServletRequest request, HttpServletResponse response, Element rootElement) throws Exception {
 
         String ticket = request.getParameter(PARAM_TICKET);
         String username = request.getParameter("USERNAME");
         String password = request.getParameter("PASSWORD");
-        
+ 
         String casUrl = UtilXml.childElementValue(rootElement, "CasUrl", "https://localhost:8443/cas");
         String loginUri = UtilXml.childElementValue(rootElement, "CasLoginUri", "/login");
         String validateUri = UtilXml.childElementValue(rootElement, "CasValidateUri", "/validate");
@@ -106,7 +106,7 @@ public final class OFBizCasAuthenticationHandler extends AbstractOFBizAuthentica
                 }
             }
         }
-        
+ 
         if (casLoggedIn && username != null) {
             // as we cannot get the password user input in CAS login page, we use a random one
             password = randomString();
