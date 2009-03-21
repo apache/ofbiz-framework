@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -109,7 +109,7 @@ public class LoginEvents {
             return emailPassword(request, response);
         } else {
             return "success";
-        }    
+        }
     }
 
     /** Show the password hint for the userLoginId specified in the request object.
@@ -172,11 +172,11 @@ public class LoginEvents {
      */
     public static String emailPassword(HttpServletRequest request, HttpServletResponse response) {
         String defaultScreenLocation = "component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail";
-        
+ 
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         String productStoreId = ProductStoreWorker.getProductStoreId(request);
-        
+ 
         String errMsg = null;
 
         Map<String, String> subjectData = FastMap.newInstance();
@@ -277,7 +277,7 @@ public class LoginEvents {
         if (UtilValidate.isEmpty(bodyScreenLocation)) {
             bodyScreenLocation = defaultScreenLocation;
         }
-        
+ 
         // set the needed variables in new context
         Map<String, Object> bodyParameters = FastMap.newInstance();
         bodyParameters.put("useEncryption", Boolean.valueOf(useEncryption));
@@ -354,7 +354,7 @@ public class LoginEvents {
         // if we logged in okay, do the check store customer role
         return ProductEvents.checkStoreCustomerRole(request, response);
     }
-    
+ 
     public static String getUsername(HttpServletRequest request) {
         String cookieUsername = null;
         Cookie[] cookies = request.getCookies();
@@ -369,7 +369,7 @@ public class LoginEvents {
         }
         return cookieUsername;
     }
-    
+ 
     public static void setUsername(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         String domain = UtilProperties.getPropertyValue("url.properties", "cookie.domain");
@@ -382,7 +382,7 @@ public class LoginEvents {
                 cookie.setPath("/");
                 cookie.setDomain(domain);
                 response.addCookie(cookie);
-            } 
+            }
         }
-    }    
+    }
 }
