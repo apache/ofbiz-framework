@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -51,7 +51,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
 
     public static final String module = WorkEffortContentWrapper.class.getName();
     public static final String CACHE_KEY_SEPARATOR = "::";
-    
+ 
     public static UtilCache<String, String> workEffortContentCache = new UtilCache<String, String>("workeffort.content.rendered", true);
 
     protected LocalDispatcher dispatcher;
@@ -164,7 +164,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
 
         return null;
     }
-    
+ 
     public List<String> getList(String contentTypeId) {
         try {
             return getWorkEffortContentTextList(workEffort, contentTypeId, locale, mimeTypeId, workEffort.getDelegator(), dispatcher);
@@ -193,7 +193,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             }
         }
 
-        return null;        
+        return null;
     }
 
     public String getContent(String contentId, boolean useCache) {
@@ -260,7 +260,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             Debug.logError(e, "Error rendering WorkEffortContent, inserting empty String", module);
             String candidateOut = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName): "";
             return candidateOut == null? "" : candidateOut;
-        }               
+        }
     }
 
     public static void getWorkEffortContentAsText(String contentId, String workEffortId, GenericValue workEffort, String workEffortContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
@@ -343,7 +343,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         if (delegator == null) {
             throw new IllegalArgumentException("GenericDelegator missing");
         }
-        
+ 
         List<GenericValue> workEffortContentList = null;
         try {
                 workEffortContentList = delegator.findByAndCache("WorkEffortContent", UtilMisc.toMap("workEffortId", workEffortId, "workEffortContentTypeId", workEffortContentTypeId), UtilMisc.toList("-fromDate"));

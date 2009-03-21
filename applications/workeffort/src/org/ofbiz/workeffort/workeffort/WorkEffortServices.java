@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -61,7 +61,7 @@ import org.ofbiz.service.calendar.TemporalExpressionWorker;
  * WorkEffortServices - WorkEffort related Services
  */
 public class WorkEffortServices {
-    
+ 
     public static final String module = WorkEffortServices.class.getName();
 
     public static Map<String, Object> getWorkEffortAssignedEventsForRole(DispatchContext ctx, Map<String, ? extends Object> context) {
@@ -99,13 +99,13 @@ public class WorkEffortServices {
         result.put("events", validWorkEfforts);
         return result;
     }
-    
+ 
     public static Map<String, Object> getWorkEffortAssignedEventsForRoleOfAllParties(DispatchContext ctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = ctx.getDelegator();
         String roleTypeId = (String) context.get("roleTypeId");
 
         List validWorkEfforts = null;
-        
+ 
         try {
             List<EntityExpr> conditionList = FastList.newInstance();
             conditionList.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, roleTypeId));
@@ -114,7 +114,7 @@ public class WorkEffortServices {
             conditionList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_DELEGATED"));
             conditionList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_COMPLETED"));
             conditionList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"));
-            
+ 
             EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
             validWorkEfforts = EntityUtil.filterByDate(
                     delegator.findList("WorkEffortAndPartyAssign", ecl, null, UtilMisc.toList("estimatedStartDate", "priority"), null, false)
@@ -262,7 +262,7 @@ public class WorkEffortServices {
                 constraints.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "WF_COMPLETED"));
                 constraints.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "WF_TERMINATED"));
                 constraints.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "WF_ABORTED"));
-                
+ 
                 EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(constraints);
                 groupWorkEfforts = EntityUtil.filterByDate(
                         delegator.findList("WorkEffortPartyAssignByGroup", ecl, null, UtilMisc.toList("priority"), null, false)
@@ -278,33 +278,33 @@ public class WorkEffortServices {
         result.put("groupActivities", groupWorkEfforts);
         return result;
     }
-    
+ 
     public static Map<String, Object> getWorkEffort(DispatchContext ctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = ctx.getDelegator();
-        GenericValue userLogin = (GenericValue) context.get("userLogin");    
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
         Security security = ctx.getSecurity();
         Map<String, Object> resultMap = FastMap.newInstance();
-        
-        String workEffortId = (String) context.get("workEffortId");    
+ 
+        String workEffortId = (String) context.get("workEffortId");
         GenericValue workEffort = null;
-        
+ 
         try {
             workEffort = delegator.findOne("WorkEffort", false, "workEffortId", workEffortId);
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
         }
-        
+ 
         Boolean canView = null;
         Collection workEffortPartyAssignments = null;
         Boolean tryEntity = null;
         GenericValue currentStatus = null;
-        
+ 
         if (workEffort == null) {
             tryEntity = Boolean.FALSE;
             canView = Boolean.TRUE;
-        
+ 
             String statusId = (String) context.get("currentStatusId");
-        
+ 
             if (statusId != null && statusId.length() > 0) {
                 try {
                     currentStatus = delegator.findByPrimaryKeyCache("StatusItem", UtilMisc.toMap("statusId", statusId));
@@ -325,9 +325,9 @@ public class WorkEffortServices {
             if (!canView.booleanValue() && security.hasEntityPermission("WORKEFFORTMGR", "_VIEW", userLogin)) {
                 canView = Boolean.TRUE;
             }
-        
+ 
             tryEntity = Boolean.TRUE;
-        
+ 
             if (workEffort.get("currentStatusId") != null) {
                 try {
                     currentStatus = delegator.findByPrimaryKeyCache("StatusItem", UtilMisc.toMap("statusId", workEffort.get("currentStatusId")));
@@ -336,7 +336,7 @@ public class WorkEffortServices {
                 }
             }
         }
-        
+ 
         if (workEffortId != null) resultMap.put("workEffortId", workEffortId);
         if (workEffort != null) resultMap.put("workEffort", workEffort);
         if (canView != null) resultMap.put("canView", canView);
@@ -344,14 +344,14 @@ public class WorkEffortServices {
         if (tryEntity != null) resultMap.put("tryEntity", tryEntity);
         if (currentStatus != null) resultMap.put("currentStatusItem", currentStatus);
         return resultMap;
-    } 
-        
+    }
+ 
     private static List<EntityCondition> getDefaultWorkEffortExprList(Collection<String> partyIds, String facilityId, String fixedAssetId, String workEffortTypeId) {
         List<EntityCondition> entityExprList = UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"), EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CANCELLED"));
         List<EntityExpr> typesList = FastList.newInstance();
         if (UtilValidate.isNotEmpty(workEffortTypeId)) {
             typesList.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, workEffortTypeId));
-        }        
+        }
         if (UtilValidate.isNotEmpty(partyIds)) {
             entityExprList.add(EntityCondition.makeCondition("partyId", EntityOperator.IN, partyIds));
         }
@@ -596,12 +596,12 @@ public class WorkEffortServices {
         result.put("maxConcurrentEntries", Integer.valueOf(maxConcurrentEntries));
         return result;
     }
-    
+ 
     public static Map<String, Object> getProductManufacturingSummaryByFacility(DispatchContext ctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = ctx.getDelegator();
         String productId = (String) context.get("productId");
         String facilityId = (String) context.get("facilityId"); // optional
-        
+ 
         Map<String, Map<String, Object>> summaryInByFacility = FastMap.newInstance();
         Map<String, Map<String, Object>> summaryOutByFacility = FastMap.newInstance();
         try {

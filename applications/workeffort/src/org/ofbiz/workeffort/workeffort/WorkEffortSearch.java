@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -61,7 +61,7 @@ import org.ofbiz.entity.util.EntityUtil;
 
 /**
  *  Utilities for WorkEffort search based on various constraints including assocs, features and keywords.
- *  
+ *
  *  Search:
  *      WorkEffort fields: workEffortTypeId,workEffortPurposeTypeId,scopeEnumId, ??others
  *      WorkEffortKeyword - keyword search
@@ -116,7 +116,7 @@ public class WorkEffortSearch {
                     getAllSubWorkEffortIds(subWorkEffortId, workEffortIdSet, delegator, nowTimestamp);
                 }
             }
-            
+ 
             // Find WorkEffort where current workEffortId = workEffortParentId; only select minimal fields to keep the size low
             List<GenericValue> childWorkEffortList = delegator.findList("WorkEffort", EntityCondition.makeCondition("workEffortParentId", EntityComparisonOperator.EQUALS, workEffortId),
                     UtilMisc.toSet("workEffortId", "workEffortParentId"), null, null, true);
@@ -192,7 +192,7 @@ public class WorkEffortSearch {
             long startMillis = System.currentTimeMillis();
 
             // do the query
-            EntityListIterator eli = this.doQuery(delegator);            
+            EntityListIterator eli = this.doQuery(delegator);
             ArrayList<String> workEffortIds = this.makeWorkEffortIdList(eli);
             if (eli != null) {
                 try {
@@ -201,7 +201,7 @@ public class WorkEffortSearch {
                     Debug.logError(e, "Error closing WorkEffortSearch EntityListIterator");
                 }
             }
-            
+ 
             long endMillis = System.currentTimeMillis();
             double totalSeconds = ((double)endMillis - (double)startMillis)/1000.0;
 
@@ -307,9 +307,9 @@ public class WorkEffortSearch {
             }
             dynamicViewEntity.addAlias("WEFF", "workEffortId", null, null, null, Boolean.valueOf(workEffortIdGroupBy), null);
             EntityCondition whereCondition = EntityCondition.makeCondition(entityConditionList, EntityOperator.AND);
-            
+ 
             // Debug.logInfo("WorkEffortSearch, whereCondition = " + whereCondition.toString(), module);
-            
+ 
             EntityFindOptions efo = new EntityFindOptions();
             efo.setDistinct(true);
             efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
@@ -335,7 +335,7 @@ public class WorkEffortSearch {
             try {
                 boolean hasResults = false;
                 Object initialResult = null;
-                
+ 
                 /* this method has been replaced by the following to address issue with SAP DB and possibly other DBs
                 if (resultOffset != null) {
                     Debug.logInfo("Before relative, current index=" + eli.currentIndex(), module);
@@ -357,7 +357,7 @@ public class WorkEffortSearch {
                     hasResults = eli.relative(resultOffset.intValue() - 1);
                     initialResult = null;
                 }
-                
+ 
                 // get the first as the current one
                 GenericValue searchResult = null;
                 if (hasResults) {
@@ -378,13 +378,13 @@ public class WorkEffortSearch {
                     return workEffortIds;
                 }
 
-                
+ 
                 // init numRetreived to one since we have already grabbed the initial one
                 int numRetreived = 1;
                 int duplicatesFound = 0;
 
                 Set<String> workEffortIdSet = FastSet.newInstance();
-                
+ 
                 workEffortIds.add(searchResult.getString("workEffortId"));
                 workEffortIdSet.add(searchResult.getString("workEffortId"));
 
@@ -397,7 +397,7 @@ public class WorkEffortSearch {
                     } else {
                         duplicatesFound++;
                     }
-                    
+ 
                     /*
                     StringBuilder lineMsg = new StringBuilder("Got search result line: ");
                     Iterator<String> fieldsToSelectIter = fieldsToSelect.iterator();
@@ -492,8 +492,8 @@ public class WorkEffortSearch {
         /** pretty print for log messages and even UI stuff */
         public abstract String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale);
     }
-    
-    
+ 
+ 
     public static class WorkEffortAssocConstraint extends WorkEffortSearchConstraint {
         public static final String constraintName = "WorkEffortAssoc";
         protected String workEffortId;
@@ -516,7 +516,7 @@ public class WorkEffortSearch {
             }
 
             // allow assoc from or to the current WE and the workEffortId on this constraint
-            
+ 
             // make index based values and increment
             String entityAlias;
             String prefix;
@@ -533,7 +533,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdFrom"));
-            
+ 
             List<EntityExpr> assocConditionFromTo = FastList.newInstance();
             assocConditionFromTo.add(EntityCondition.makeCondition(prefix + "WorkEffortIdTo", EntityOperator.IN, workEffortIdSet));
             if (UtilValidate.isNotEmpty(workEffortAssocTypeId)) {
@@ -554,7 +554,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdTo"));
-            
+ 
             List<EntityExpr> assocConditionToFrom = FastList.newInstance();
             assocConditionToFrom.add(EntityCondition.makeCondition(prefix + "WorkEffortIdFrom", EntityOperator.IN, workEffortIdSet));
             if (UtilValidate.isNotEmpty(workEffortAssocTypeId)) {
@@ -565,13 +565,13 @@ public class WorkEffortSearch {
 
             // now create and add the combined constraint
             workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(assocConditionFromTo, EntityOperator.AND), EntityOperator.OR, EntityCondition.makeCondition(assocConditionToFrom, EntityOperator.AND)));
-            
-            
+ 
+ 
             // add in workEffortSearchConstraint, don't worry about the workEffortSearchResultId or constraintSeqId, those will be fill in later
             workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", this.workEffortId + "," + this.workEffortAssocTypeId, "includeSubWorkEfforts", this.includeSubWorkEfforts ? "Y" : "N")));
         }
 
-        
+ 
         /** pretty print for log messages and even UI stuff */
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             GenericValue workEffort = null;
@@ -583,7 +583,7 @@ public class WorkEffortSearch {
                 Debug.logError(e, "Error looking up WorkEffortAssocConstraint pretty print info: " + e.toString(), module);
             }
 
-            StringBuilder ppBuf = new StringBuilder();            
+            StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortAssoc", locale) + ": ");
             if (workEffort != null) {
                 ppBuf.append(workEffort.getString("workEffortName"));
@@ -643,11 +643,11 @@ public class WorkEffortSearch {
     public static class WorkEffortReviewConstraint extends WorkEffortSearchConstraint {
         public static final String constraintName = "WorkEffortReview";
         protected String reviewTextString;
-        
+ 
         public WorkEffortReviewConstraint(String reviewTextString) {
-            this.reviewTextString = reviewTextString;        
-        }        
-               
+            this.reviewTextString = reviewTextString;
+        }
+ 
         public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
             String entityAlias = "WFR" + workEffortSearchContext.index;
             String prefix = "wfr" + workEffortSearchContext.index;
@@ -661,19 +661,19 @@ public class WorkEffortSearch {
             workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint", valueMap));
         }
 
-        
+ 
         /** pretty print for log messages and even UI stuff */
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortReviews", locale) + ": \"");
-            ppBuf.append(this.reviewTextString).append("\", ").append(UtilProperties.getMessage(resource, "WorkEffortKeywordWhere", locale)).append(" ");                        
+            ppBuf.append(this.reviewTextString).append("\", ").append(UtilProperties.getMessage(resource, "WorkEffortKeywordWhere", locale)).append(" ");
             return ppBuf.toString();
         }
 
         public boolean equals(Object obj) {
             WorkEffortSearchConstraint psc = (WorkEffortSearchConstraint) obj;
             if (psc instanceof WorkEffortReviewConstraint) {
-                WorkEffortReviewConstraint that = (WorkEffortReviewConstraint) psc;                
+                WorkEffortReviewConstraint that = (WorkEffortReviewConstraint) psc;
                 if (this.reviewTextString == null) {
                     if (that.reviewTextString != null) {
                         return false;
@@ -689,7 +689,7 @@ public class WorkEffortSearch {
             }
         }
     }
-    
+ 
     public static class PartyAssignmentConstraint extends WorkEffortSearchConstraint {
         public static final String constraintName = "PartyAssignment";
         protected String partyId;
@@ -712,7 +712,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId"));
-            
+ 
             workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "PartyId", EntityOperator.EQUALS, partyId));
             workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN, workEffortSearchContext.nowTimestamp)));
             workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN, workEffortSearchContext.nowTimestamp));
@@ -755,7 +755,7 @@ public class WorkEffortSearch {
                 ppBuf.append(this.partyId);
                 ppBuf.append("] ");
             }
-            
+ 
             if (roleType != null) {
                 ppBuf.append(roleType.getString("description"));
             } else {
@@ -816,7 +816,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "FromDate", "fromDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId"));
-            
+ 
             workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "ProductId", EntityOperator.IN, productIdSet));
             workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition(prefix + "ThruDate", EntityOperator.GREATER_THAN, workEffortSearchContext.nowTimestamp)));
             workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN, workEffortSearchContext.nowTimestamp));
@@ -831,7 +831,7 @@ public class WorkEffortSearch {
                     productIdInfo.append(",");
                 }
             }
-            
+ 
             workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", productIdInfo.toString())));
         }
 
@@ -849,7 +849,7 @@ public class WorkEffortSearch {
                     } else {
                         infoOut.append(product.getString("productName"));
                     }
-                    
+ 
                     if (productIdIter.hasNext()) {
                         infoOut.append(", ");
                     }
@@ -857,7 +857,7 @@ public class WorkEffortSearch {
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProductSetConstraint information for constraint pretty print", module);
             }
-            
+ 
             return infoOut.toString();
         }
 
@@ -962,7 +962,7 @@ public class WorkEffortSearch {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortKeywords", locale)).append(": \"");
             ppBuf.append(this.keywordsString).append("\", ").append(UtilProperties.getMessage(resource, "WorkEffortKeywordWhere", locale)).append(" ");
-            ppBuf.append(isAnd ? UtilProperties.getMessage(resource, "WorkEffortKeywordAllWordsMatch", locale) : UtilProperties.getMessage(resource, "WorkEffortKeywordAnyWordMatches", locale));            
+            ppBuf.append(isAnd ? UtilProperties.getMessage(resource, "WorkEffortKeywordAllWordsMatch", locale) : UtilProperties.getMessage(resource, "WorkEffortKeywordAnyWordMatches", locale));
             return ppBuf.toString();
         }
 
@@ -1005,12 +1005,12 @@ public class WorkEffortSearch {
 
         public LastUpdatedRangeConstraint(Timestamp fromDate, Timestamp thruDate) {
             this.fromDate = fromDate;
-            this.thruDate = thruDate;            
+            this.thruDate = thruDate;
         }
 
         public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
             workEffortSearchContext.dynamicViewEntity.addAlias("WEFF", "lastModifiedDate", "lastModifiedDate", null, null, null, null);
-            
+ 
             EntityConditionList<EntityExpr> dateConditions = null;
             EntityExpr dateCondition=null;
             if (fromDate !=null && thruDate!=null) {
@@ -1034,9 +1034,9 @@ public class WorkEffortSearch {
                         EntityCondition.makeCondition("lastModifiedDate", EntityOperator.EQUALS, null)),
                         EntityOperator.OR);
             }
-             
+ 
             workEffortSearchContext.entityConditionList.add(conditions);
-           
+ 
             // add in workEffortSearchConstraint, don't worry about the workEffortSearchResultId or constraintSeqId, those will be fill in later
             workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString","fromDate : " + fromDate + " thruDate : " + thruDate)));
         }
@@ -1045,10 +1045,10 @@ public class WorkEffortSearch {
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortLastModified", locale)).append(": \"");
-            ppBuf.append(fromDate).append("-").append(thruDate).append("\", ").append(UtilProperties.getMessage(resource, "WorkEffortLastModified", locale)).append(" ");                        
+            ppBuf.append(fromDate).append("-").append(thruDate).append("\", ").append(UtilProperties.getMessage(resource, "WorkEffortLastModified", locale)).append(" ");
             return ppBuf.toString();
         }
-        
+ 
 
         public boolean equals(Object obj) {
             WorkEffortSearchConstraint psc = (WorkEffortSearchConstraint) obj;
