@@ -26,10 +26,8 @@ under the License.
     <!-- load the cached classloader container (always second) -->
     <container name="classloader-container" class="org.ofbiz.base.container.ClassLoaderContainer"/>
 
-    <!--
     <container name="commons-vfs-container" class="org.ofbiz.commons.vfs.CommonsVfsContainer"/>
     <container name="webslinger-container" class="org.ofbiz.webslinger.WebslingerContainer"/>
-    -->
 
     <!-- load JNDI/JOTM; this is no longer needed, leaving this in for now just in case someone wants to drop in JOTM from the specialized directory
     <container name="jotm-container" class="org.ofbiz.jotm.container.JotmContainer">
