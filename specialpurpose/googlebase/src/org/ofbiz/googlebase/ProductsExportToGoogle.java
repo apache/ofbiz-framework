@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -56,7 +56,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class ProductsExportToGoogle {
-    
+ 
     private static final String resource = "GoogleBaseUiLabels";
     private static final String module = ProductsExportToGoogle.class.getName();
 
@@ -64,32 +64,32 @@ public class ProductsExportToGoogle {
         Locale locale = (Locale) context.get("locale");
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        
+ 
         Map result = null;
         try {
             String configString = "googleBaseExport.properties";
-                            
+ 
             // get the Developer Key
             String developerKey = UtilProperties.getPropertyValue(configString, "googleBaseExport.developerKey");
-            
+ 
             // get the Authentication Url
             String authenticationUrl = UtilProperties.getPropertyValue(configString, "googleBaseExport.authenticationUrl");
-            
+ 
             // get the Google Account Email
             String accountEmail = UtilProperties.getPropertyValue(configString, "googleBaseExport.accountEmail");
-            
+ 
             // get the Google Account Password
             String accountPassword = UtilProperties.getPropertyValue(configString, "googleBaseExport.accountPassword");
-            
+ 
             // get the Url to Post Items
             String postItemsUrl = UtilProperties.getPropertyValue(configString, "googleBaseExport.postItemsUrl");
-        
+ 
             StringBuffer dataItemsXml = new StringBuffer();
-            
+ 
             result = buildDataItemsXml(dctx, context, dataItemsXml);
             if (!ServiceUtil.isFailure(result)) {
                 String token = authenticate(authenticationUrl, accountEmail, accountPassword);
-                if (token != null) {    
+                if (token != null) {
                     result = postItem(token, postItemsUrl, developerKey, dataItemsXml, locale, (String)context.get("testMode"), (List)result.get("newProductsInGoogle"), (List)result.get("productsRemovedFromGoogle"), dispatcher, delegator);
                 } else {
                     Debug.logError("Error during authentication to Google Account", module);
@@ -103,7 +103,7 @@ public class ProductsExportToGoogle {
         }
         return result;
     }
-   
+ 
     public static Map exportProductCategoryToGoogle(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
@@ -115,22 +115,22 @@ public class ProductsExportToGoogle {
         if (userLogin == null) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.cannotRetrieveUserLogin", locale));
         }
-        
+ 
         try {
             if (UtilValidate.isNotEmpty(productCategoryId)) {
                 List productsList = FastList.newInstance();
                 Map result = dispatcher.runSync("getProductCategoryMembers", UtilMisc.toMap("categoryId", productCategoryId));
-                
+ 
                 if (result.get("categoryMembers") != null) {
                     List productCategoryMembers = (List)result.get("categoryMembers");
                     if (productCategoryMembers != null) {
                         Iterator i = productCategoryMembers.iterator();
                         while (i.hasNext()) {
                             GenericValue prodCatMemb = (GenericValue) i.next();
-                            
+ 
                             if (prodCatMemb != null) {
                                 String productId = prodCatMemb.getString("productId");
-                                
+ 
                                 if (productId != null) {
                                     GenericValue prod = prodCatMemb.getRelatedOne("Product");
                                     Timestamp salesDiscontinuationDate = prod.getTimestamp("salesDiscontinuationDate");
@@ -140,14 +140,14 @@ public class ProductsExportToGoogle {
                                     }
                                 }
                             }
-                        }   
+                        }
                     }
                 }
-                
+ 
                 if (productsList.size() == 0) {
                     return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.noProductsAvailableInProductCategory", locale));
                 } else {
-                    Map paramIn = FastMap.newInstance(); 
+                    Map paramIn = FastMap.newInstance();
                     paramIn.put("selectResult", productsList);
                     paramIn.put("webSiteUrl", webSiteUrl);
                     paramIn.put("imageUrl", imageUrl);
@@ -156,21 +156,21 @@ public class ProductsExportToGoogle {
                     paramIn.put("testMode", "N");
                     paramIn.put("userLogin", userLogin);
                     result = dispatcher.runSync("exportToGoogle", paramIn);
-                    
-                    if (ServiceUtil.isError(result)) { 
+ 
+                    if (ServiceUtil.isError(result)) {
                         return ServiceUtil.returnFailure(ServiceUtil.getErrorMessage(result));
-                    }    
-                }   
+                    }
+                }
             } else {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.missingParameterProductCategoryId", locale));
             }
         } catch (Exception e) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.exceptionInExportProductCategoryToGoogle", locale));
         }
-        
+ 
         return ServiceUtil.returnSuccess();
     }
-    
+ 
     private static String authenticate(String authenticationUrl, String accountEmail, String accountPassword) {
         String postOutput = null;
         String token = null;
@@ -181,22 +181,22 @@ public class ProductsExportToGoogle {
             return token;
         }
 
-        // Parse the result of the login request. If everything went fine, the 
+        // Parse the result of the login request. If everything went fine, the
         // response will look like
         //      HTTP/1.0 200 OK
         //      Server: GFE/1.3
-        //      Content-Type: text/plain 
+        //      Content-Type: text/plain
         //      SID=DQAAAGgA...7Zg8CTN
         //      LSID=DQAAAGsA...lk8BBbG
         //      Auth=DQAAAGgA...dk3fA5N
         // so all we need to do is look for "Auth" and get the token that comes after it
 
         StringTokenizer tokenizer = new StringTokenizer(postOutput, "=\n ");
-      
+ 
         while (tokenizer.hasMoreElements()) {
             if ("Auth".equals(tokenizer.nextToken())) {
                 if (tokenizer.hasMoreElements()) {
-                    token = tokenizer.nextToken(); 
+                    token = tokenizer.nextToken();
                 }
                 break;
             }
@@ -211,14 +211,14 @@ public class ProductsExportToGoogle {
         // Open connection
         URL url = new URL(authenticationUrl);
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-      
+ 
         // Set properties of the connection
         urlConnection.setRequestMethod("POST");
         urlConnection.setDoInput(true);
         urlConnection.setDoOutput(true);
         urlConnection.setUseCaches(false);
         urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-    
+ 
         // Form the POST parameters
         StringBuffer content = new StringBuffer();
         content.append("Email=").append(URLEncoder.encode(accountEmail, "UTF-8"));
@@ -229,7 +229,7 @@ public class ProductsExportToGoogle {
         OutputStream outputStream = urlConnection.getOutputStream();
         outputStream.write(content.toString().getBytes("UTF-8"));
         outputStream.close();
-    
+ 
         // Retrieve the output
         int responseCode = urlConnection.getResponseCode();
         InputStream inputStream;
@@ -238,10 +238,10 @@ public class ProductsExportToGoogle {
         } else {
             inputStream = urlConnection.getErrorStream();
         }
-    
+ 
         return toString(inputStream);
     }
-    
+ 
     private static String toString(InputStream inputStream) throws IOException {
         String string;
         StringBuffer outputBuilder = new StringBuffer();
@@ -253,31 +253,31 @@ public class ProductsExportToGoogle {
         }
         return outputBuilder.toString();
     }
-    
-    private static Map postItem(String token, String postItemsUrl, String developerKey, StringBuffer dataItems, 
+ 
+    private static Map postItem(String token, String postItemsUrl, String developerKey, StringBuffer dataItems,
                                 Locale locale, String testMode, List newProductsInGoogle, List productsRemovedFromGoogle, LocalDispatcher dispatcher, GenericDelegator delegator) throws IOException {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Request To Google Base :\n" + dataItems.toString(), module);
         }
-        
+ 
         HttpURLConnection connection = (HttpURLConnection)(new URL(postItemsUrl)).openConnection();
-        
+ 
         // Test Mode Yes (add the dry-run=true)
         if (UtilValidate.isNotEmpty(testMode) && "Y".equals(testMode)) {
             connection.setRequestProperty("dry-run", "true");
-        } 
-        
+        }
+ 
         connection.setDoInput(true);
         connection.setDoOutput(true);
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/atom+xml");
         connection.setRequestProperty("Authorization", "GoogleLogin auth=" + token);
         connection.setRequestProperty("X-Google-Key", "key=" + developerKey);
-    
+ 
         OutputStream outputStream = connection.getOutputStream();
         outputStream.write(dataItems.toString().getBytes());
         outputStream.close();
-    
+ 
         int responseCode = connection.getResponseCode();
         InputStream inputStream;
         Map result = FastMap.newInstance();
@@ -293,19 +293,19 @@ public class ProductsExportToGoogle {
                 } else {
                     result = ServiceUtil.returnSuccess();
                 }
-            } 
+            }
         } else {
             inputStream = connection.getErrorStream();
             response = toString(inputStream);
             result = ServiceUtil.returnFailure(response);
         }
-        
+ 
         if (Debug.verboseOn()) {
             Debug.logVerbose("Response From Google Base :\n" + response, module);
         }
         return result;
     }
-    
+ 
     private static Map buildDataItemsXml(DispatchContext dctx, Map context, StringBuffer dataItemsXml) {
         Locale locale = (Locale)context.get("locale");
         List newProductsInGoogle = FastList.newInstance();
@@ -508,7 +508,7 @@ public class ProductsExportToGoogle {
         }
         return priceString;
     }
-    
+ 
     private static Map readResponseFromGoogle(String msg, List newProductsInGoogle, List productsRemovedFromGoogle, LocalDispatcher dispatcher, GenericDelegator delegator, Locale locale) {
         List message = FastList.newInstance();
         // Debug.log("====get xml response from google: " + msg);
@@ -560,7 +560,7 @@ public class ProductsExportToGoogle {
             Debug.logError("Exception reading response from Google: " + e.getMessage(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "productsExportToGoogle.exceptionReadingResponseFromGoogle", locale));
         }
-        
+ 
         if (message.size() > 0) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "productsExportToGoogle.errorInTheResponseFromGoogle", locale), message);
         }
