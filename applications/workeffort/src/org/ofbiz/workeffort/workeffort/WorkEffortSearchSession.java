@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -92,13 +92,13 @@ public class WorkEffortSearchSession {
             workEffortSearchOptions.resultSortOrder = resultSortOrder;
             workEffortSearchOptions.changed = true;
         }
-        
+ 
         public static void clearSearchOptions(HttpSession session) {
             WorkEffortSearchOptions workEffortSearchOptions = getWorkEffortSearchOptions(session);
             workEffortSearchOptions.constraintList = null;
             workEffortSearchOptions.resultSortOrder = null;
         }
-        
+ 
         public void clearViewInfo() {
             this.viewIndex = null;
             this.viewSize = null;
@@ -128,7 +128,7 @@ public class WorkEffortSearchSession {
         public void setViewSize(Integer viewSize) {
             this.viewSize = viewSize;
         }
-        
+ 
         public List<String> searchGetConstraintStrings(boolean detailed, GenericDelegator delegator, Locale locale) {
             List<WorkEffortSearchConstraint> workEffortSearchConstraintList = this.getConstraintList();
             List<String> constraintStrings = FastList.newInstance();
@@ -139,7 +139,7 @@ public class WorkEffortSearchSession {
                 if (workEffortSearchConstraint == null) continue;
                 String constraintString = workEffortSearchConstraint.prettyPrintConstraint(delegator, detailed, locale);
                 if (UtilValidate.isNotEmpty(constraintString)) {
-                    constraintStrings.add(constraintString);                    
+                    constraintStrings.add(constraintString);
                 } else {
                     constraintStrings.add("Description not available");
                 }
@@ -147,18 +147,18 @@ public class WorkEffortSearchSession {
             return constraintStrings;
         }
     }
-    
+ 
     public static WorkEffortSearchOptions getWorkEffortSearchOptions(HttpSession session) {
-        WorkEffortSearchOptions workEffortSearchOptions = (WorkEffortSearchOptions) session.getAttribute("_WORK_EFFORT_SEARCH_OPTIONS_CURRENT_"); 
+        WorkEffortSearchOptions workEffortSearchOptions = (WorkEffortSearchOptions) session.getAttribute("_WORK_EFFORT_SEARCH_OPTIONS_CURRENT_");
         if (workEffortSearchOptions == null) {
             workEffortSearchOptions = new WorkEffortSearchOptions();
             session.setAttribute("_WORK_EFFORT_SEARCH_OPTIONS_CURRENT_", workEffortSearchOptions);
         }
         return workEffortSearchOptions;
     }
-    
+ 
     public static void processSearchParameters(Map<String, Object> parameters, HttpServletRequest request) {
-        Boolean alreadyRun = (Boolean) request.getAttribute("processSearchParametersAlreadyRun"); 
+        Boolean alreadyRun = (Boolean) request.getAttribute("processSearchParametersAlreadyRun");
         if (Boolean.TRUE.equals(alreadyRun)) {
             return;
         } else {
@@ -166,7 +166,7 @@ public class WorkEffortSearchSession {
         }
         HttpSession session = request.getSession();
         boolean constraintsChanged = false;
-        
+ 
         // clear search? by default yes, but if the clearSearch parameter is N then don't
         String clearSearchString = (String) parameters.get("clearSearch");
         if (!"N".equals(clearSearchString)) {
@@ -186,7 +186,7 @@ public class WorkEffortSearchSession {
 
 //      add a Work Effort Review to the search
         if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_STRING_REVIEW_TEXT"))) {
-            String reviewText = (String) parameters.get("SEARCH_STRING_REVIEW_TEXT");            
+            String reviewText = (String) parameters.get("SEARCH_STRING_REVIEW_TEXT");
             searchAddConstraint(new WorkEffortSearch.WorkEffortReviewConstraint(reviewText), session);
             constraintsChanged = true;
         }
@@ -194,10 +194,10 @@ public class WorkEffortSearchSession {
         if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_WORK_EFFORT_ID"))) {
             String workEffortId=(String) parameters.get("SEARCH_WORK_EFFORT_ID");
             String workEffortAssocTypeId=(String) parameters.get("workEffortAssocTypeId");
-            boolean includeAllSubWorkEfforts =!"N".equalsIgnoreCase((String) parameters.get("SEARCH_SUB_WORK_EFFORTS"));                           
+            boolean includeAllSubWorkEfforts =!"N".equalsIgnoreCase((String) parameters.get("SEARCH_SUB_WORK_EFFORTS"));
             searchAddConstraint(new WorkEffortSearch.WorkEffortAssocConstraint(workEffortId,workEffortAssocTypeId,includeAllSubWorkEfforts), session);
             constraintsChanged = true;
-        }        
+        }
 //      add a Work Effort Party Assignment to the search
         if (UtilValidate.isNotEmpty((String) parameters.get("partyId"))) {
             String partyId=(String) parameters.get("partyId");
@@ -205,14 +205,14 @@ public class WorkEffortSearchSession {
             searchAddConstraint(new WorkEffortSearch.PartyAssignmentConstraint(partyId,roleTypeId), session);
             constraintsChanged = true;
         }
-        
+ 
 //      add a Product Set to the search
         if (UtilValidate.isNotEmpty((String) parameters.get("productId_1"))) {
             List<String> productSet = FastList.newInstance();
             productSet.add((String) parameters.get("productId_1"));
             if (UtilValidate.isNotEmpty((String) parameters.get("productId_2"))) {
-                productSet.add((String) parameters.get("productId_2"));    
-            }            
+                productSet.add((String) parameters.get("productId_2"));
+            }
             searchAddConstraint(new WorkEffortSearch.ProductSetConstraint(productSet), session);
             constraintsChanged = true;
         }
@@ -222,16 +222,16 @@ public class WorkEffortSearchSession {
             Timestamp fromDate =null;
             if (UtilValidate.isNotEmpty((String) parameters.get("fromDate"))) {
                 fromDate=Timestamp.valueOf((String) parameters.get("fromDate"));
-            }                       
-            
+            }
+ 
             Timestamp thruDate = null;
             if (UtilValidate.isNotEmpty((String) parameters.get("thruDate"))) {
                 thruDate = Timestamp.valueOf((String) parameters.get("thruDate"));
-            }                        
+            }
             searchAddConstraint(new WorkEffortSearch.LastUpdatedRangeConstraint(fromDate,thruDate), session);
             constraintsChanged = true;
         }
-        
+ 
         // if keywords were specified, add a constraint for them
         if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_STRING"))) {
             String keywordString = (String) parameters.get("SEARCH_STRING");
@@ -253,7 +253,7 @@ public class WorkEffortSearchSession {
                 searchSetSortOrder(new WorkEffortSearch.SortWorkEffortField(fieldName, ascending), session);
             }
         }
-        
+ 
         WorkEffortSearchOptions workEffortSearchOptions = getWorkEffortSearchOptions(session);
         if (constraintsChanged) {
             // query changed, clear out the VIEW_INDEX & VIEW_SIZE
@@ -281,7 +281,7 @@ public class WorkEffortSearchSession {
             }
         }
     }
-    
+ 
     public static void searchAddConstraint(WorkEffortSearchConstraint workEffortSearchConstraint, HttpSession session) {
         WorkEffortSearchOptions.addConstraint(workEffortSearchConstraint, session);
     }
@@ -289,14 +289,14 @@ public class WorkEffortSearchSession {
         WorkEffortSearchOptions.setResultSortOrder(resultSortOrder, session);
     }
     public static List<WorkEffortSearchOptions> getSearchOptionsHistoryList(HttpSession session) {
-        List<WorkEffortSearchOptions> optionsHistoryList = UtilGenerics.checkList(session.getAttribute("_WORK_EFFORT_SEARCH_OPTIONS_HISTORY_")); 
+        List<WorkEffortSearchOptions> optionsHistoryList = UtilGenerics.checkList(session.getAttribute("_WORK_EFFORT_SEARCH_OPTIONS_HISTORY_"));
         if (optionsHistoryList == null) {
             optionsHistoryList = FastList.newInstance();
             session.setAttribute("_WORK_EFFORT_SEARCH_OPTIONS_HISTORY_", optionsHistoryList);
         }
         return optionsHistoryList;
     }
-    
+ 
     public static List<String> searchGetConstraintStrings(boolean detailed, HttpSession session, GenericDelegator delegator) {
         Locale locale = UtilHttp.getLocale(session);
         WorkEffortSearchOptions workEffortSearchOptions = getWorkEffortSearchOptions(session);
@@ -309,10 +309,10 @@ public class WorkEffortSearchSession {
         return resultSortOrder.prettyPrintSortOrder(detailed, locale);
     }
     public static void checkSaveSearchOptionsHistory(HttpSession session) {
-        WorkEffortSearchOptions workEffortSearchOptions = WorkEffortSearchSession.getWorkEffortSearchOptions(session); 
+        WorkEffortSearchOptions workEffortSearchOptions = WorkEffortSearchSession.getWorkEffortSearchOptions(session);
         // if the options have changed since the last search, add it to the beginning of the search options history
         if (workEffortSearchOptions.changed) {
-            List<WorkEffortSearchOptions> optionsHistoryList = WorkEffortSearchSession.getSearchOptionsHistoryList(session); 
+            List<WorkEffortSearchOptions> optionsHistoryList = WorkEffortSearchSession.getSearchOptionsHistoryList(session);
             optionsHistoryList.add(0, new WorkEffortSearchOptions(workEffortSearchOptions));
             workEffortSearchOptions.changed = false;
         }

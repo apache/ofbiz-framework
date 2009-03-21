@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -39,7 +39,7 @@ import org.ofbiz.workeffort.workeffort.WorkEffortSearchSession.WorkEffortSearchO
 public class WorkEffortSearchEvents {
 
     public static final String module = WorkEffortSearchEvents.class.getName();
-    
+ 
     public static Map getWorkEffortSearchResult(HttpServletRequest request, GenericDelegator delegator) {
 
         // ========== Create View Indexes
@@ -51,7 +51,7 @@ public class WorkEffortSearchEvents {
 
         HttpSession session = request.getSession();
         WorkEffortSearchOptions workEffortSearchOptions = WorkEffortSearchSession.getWorkEffortSearchOptions(session);
-        
+ 
         Integer viewIndexInteger = workEffortSearchOptions.getViewIndex();
         if (viewIndexInteger != null) viewIndex = viewIndexInteger.intValue();
         Integer viewSizeInteger = workEffortSearchOptions.getViewSize();
@@ -77,7 +77,7 @@ public class WorkEffortSearchEvents {
 
             WorkEffortSearchContext workEffortSearchContext = new WorkEffortSearchContext(delegator, visitId);
             workEffortSearchContext.addWorkEffortSearchConstraints(workEffortSearchConstraintList);
-            
+ 
             workEffortSearchContext.setResultSortOrder(resultSortOrder);
             workEffortSearchContext.setResultOffset(resultOffset);
             workEffortSearchContext.setMaxResults(maxResults);
@@ -112,6 +112,6 @@ public class WorkEffortSearchEvents {
 
         return result;
     }
-   
-    
+ 
+ 
 }
