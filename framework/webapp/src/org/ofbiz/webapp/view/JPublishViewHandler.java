@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -36,7 +36,7 @@ import org.ofbiz.webapp.view.AbstractViewHandler;
 public class JPublishViewHandler extends AbstractViewHandler {
 
     public static final String module = JPublishViewHandler.class.getName();
-    
+ 
     protected ServletContext servletContext = null;
     protected JPublishWrapper wrapper = null;
 
@@ -47,7 +47,7 @@ public class JPublishViewHandler extends AbstractViewHandler {
         this.servletContext = context;
         this.wrapper = (JPublishWrapper) context.getAttribute("jpublishWrapper");
         if (this.wrapper == null) {
-            this.wrapper = new JPublishWrapper(servletContext);            
+            this.wrapper = new JPublishWrapper(servletContext);
         }
 
         // make sure it loaded

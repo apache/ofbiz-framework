@@ -56,7 +56,7 @@ public class AbstractXmlRpcTestCase extends TestCase {
     }
 
     public org.apache.xmlrpc.client.XmlRpcClient getRpcClient(String url) throws MalformedURLException {
-        return getRpcClient(url, null, null);    
+        return getRpcClient(url, null, null);
     }
 
     public org.apache.xmlrpc.client.XmlRpcClient getRpcClient(String url, String login, String password) throws MalformedURLException {

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -54,12 +54,12 @@ import org.jpublish.util.URLUtilities;
  * JPublishWrapper - Used for calling pages through JPublish
  */
 public class JPublishWrapper {
-    
+ 
     public static final String module = JPublishWrapper.class.getName();
-    
+ 
     protected ServletContext servletContext = null;
     protected SiteContext siteContext = null;
-    
+ 
     public JPublishWrapper(ServletContext context) {
         this.servletContext = context;
         // find the WEB-INF root
@@ -74,9 +74,9 @@ public class JPublishWrapper {
         try {
             //siteContext = new SiteContext(contextRoot, servletConfig.getInitParameter("config"));
             siteContext = new SiteContext(contextRoot, "WEB-INF/jpublish.xml");
-            siteContext.setWebInfPath(webInfPath);            
+            siteContext.setWebInfPath(webInfPath);
         } catch (Exception e) {
-            Debug.logError(e, "Cannot load SiteContext", module);            
+            Debug.logError(e, "Cannot load SiteContext", module);
         }
 
         // execute startup actions
@@ -84,13 +84,13 @@ public class JPublishWrapper {
             ActionManager actionManager = siteContext.getActionManager();
             actionManager.executeStartupActions();
         } catch (Exception e) {
-            Debug.logError(e, "Problems executing JPublish startup actions", module);            
+            Debug.logError(e, "Problems executing JPublish startup actions", module);
         }
-        
+ 
         // set this wrapper in the ServletContext for use by the ViewHandler
         servletContext.setAttribute("jpublishWrapper", this);
     }
-    
+ 
     protected void configureClasspath(File webInfPath) {
         File webLibPath = new File(webInfPath, "lib");
         File webClassPath = new File(webInfPath, "classes");
@@ -162,7 +162,7 @@ public class JPublishWrapper {
         }
         return false;
     }
-    
+ 
     /**
      * Renders a page and returns the string containing the content of the rendered page
      * @param path Path to the page
@@ -172,10 +172,10 @@ public class JPublishWrapper {
      * @throws GeneralException
      */
     public String render(String path, HttpServletRequest request, HttpServletResponse response) throws GeneralException {
-        Writer writer = new StringWriter();   
-        String content = null;    
+        Writer writer = new StringWriter();
+        String content = null;
         render(path, request, response, writer);
-        try {                    
+        try {
             content = writer.toString();
             writer.close();
         } catch (IOException e) {
@@ -183,11 +183,11 @@ public class JPublishWrapper {
         }
         return content;
     }
-    
+ 
     public void render(String path, HttpServletRequest request, HttpServletResponse response, Writer writer) throws GeneralException {
         render(path, request, response, writer, null, false);
     }
-    
+ 
     public void render(String path, HttpServletRequest request, HttpServletResponse response, Writer writer, OutputStream outputStream) throws GeneralException {
         render(path, request, response, writer, outputStream, false);
     }
@@ -250,7 +250,7 @@ public class JPublishWrapper {
             // if the page is static
             StaticResourceManager staticResourceManager = siteContext.getStaticResourceManager();
             if (staticResourceManager.resourceExists(path)) {
-                if (outputStream != null) {                
+                if (outputStream != null) {
                     // execute the global actions
                     if (executeGlobalActions(request, response, context, path, allowRedirect))
                         return;
@@ -258,12 +258,12 @@ public class JPublishWrapper {
                     // execute path actions
                     if (executePathActions(request, response, context, path, allowRedirect))
                         return;
-    
+ 
                     // execute parameter actions
                     if (executeParameterActions(request, response, context, path, allowRedirect))
                         return;
 
-                    // load and return the static resource                                    
+                    // load and return the static resource
                     staticResourceManager.load(path, outputStream);
                     outputStream.flush();
                     return;
@@ -271,12 +271,12 @@ public class JPublishWrapper {
                     throw new GeneralException("Cannot load static resource with a null OutputStream");
                 }
             }
-            
+ 
             // check and make sure we have a writer
             if (writer == null)
                 throw new GeneralException("Cannot load dynamic content with a null Writer");
 
-            // load the page          
+            // load the page
             PageInstance pageInstance = siteContext.getPageManager().getPage(path);
             Page page = new Page(pageInstance);
 
@@ -304,16 +304,16 @@ public class JPublishWrapper {
             if (executeParameterActions(request, response, context, path, allowRedirect))
                 return;
 
-            // execute the page actions           
+            // execute the page actions 
             if (optionalRedirect(page.executeActions(context), path, response, allowRedirect))
                 return;
 
             // get the template
             Template template = siteContext.getTemplateManager().getTemplate(page.getFullTemplateName());
-           
-            // merge the template           
+ 
+            // merge the template
             template.merge(context, page, writer);
-            writer.flush();            
+            writer.flush();
         } catch (FileNotFoundException e) {
             throw new GeneralException("File not found", e);
         } catch (Exception e) {
@@ -327,26 +327,26 @@ public class JPublishWrapper {
         }
     }
 
-    /**      
+    /**
      * Privleged action for setting the class path.  This is used to get around
-     * the Java security system to set the class path so scripts have full 
+     * the Java security system to set the class path so scripts have full
      * access to all loaded Java classes.
-     *  
+     *
      * <p>Note: This functionality is untested.</p>
      */
     class SetClassPathAction implements PrivilegedAction {
         private String classPath;
 
-        /** 
-         * Construct the action to set the class path.        
+        /**
+         * Construct the action to set the class path.
          *   @param classPath The new class path
          */
         public SetClassPathAction(String classPath) {
             this.classPath = classPath;
         }
 
-        /** 
-         * Set the "java.class.path" property.               
+        /**
+         * Set the "java.class.path" property.
          * @return Returns null
          */
         public Object run() {

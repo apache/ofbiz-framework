@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -48,7 +48,7 @@ public class VelocityViewHandler extends AbstractViewHandler {
     public static final String module = VelocityViewHandler.class.getName();
 
     public static final String REQUEST = "req";
-    public static final String RESPONSE = "res";       
+    public static final String RESPONSE = "res";
 
     private static SimplePool writerPool = new SimplePool(40);
     private VelocityEngine ve = null;
@@ -89,7 +89,7 @@ public class VelocityViewHandler extends AbstractViewHandler {
         }
     }
 
-    public void render(String name, String page, String info, String contentType, String encoding, 
+    public void render(String name, String page, String info, String contentType, String encoding,
             HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
         if (ve == null) {
             throw new ViewHandlerException("Velocity Template Engine has not been initialized");

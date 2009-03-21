@@ -71,7 +71,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
 
     private Boolean enabledForExtensions = null;
     private Boolean enabledForExceptions = null;
-            
+ 
     public void init(ServletContext context) throws EventHandlerException {
         String delegatorName = context.getInitParameter("entityDelegatorName");
         this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
@@ -204,7 +204,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
         public ServiceRpcHandler() {
             this.setAuthenticationHandler(new OfbizRpcAuthHandler());
         }
-        
+ 
         public XmlRpcHandler getHandler(String method) throws XmlRpcNoSuchHandlerException, XmlRpcException {
             ModelService model = null;
             try {
@@ -234,7 +234,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             }
 
             // prepare the context -- single parameter type struct (map)
-            Map<String, Object> context = this.getContext(xmlRpcReq, serviceName);            
+            Map<String, Object> context = this.getContext(xmlRpcReq, serviceName);
 
             // add in auth parameters
             XmlRpcHttpRequestConfig config = (XmlRpcHttpRequestConfig) xmlRpcReq.getConfig();
@@ -256,11 +256,11 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 throw new XmlRpcException(e.getMessage(), e);
             }
             if (ServiceUtil.isError(resp)) {
-                Debug.logError(ServiceUtil.getErrorMessage(resp), module);                
+                Debug.logError(ServiceUtil.getErrorMessage(resp), module);
                 throw new XmlRpcException(ServiceUtil.getErrorMessage(resp));
             }
 
-            // return only definied parameters                        
+            // return only definied parameters 
             return model.makeValid(resp, ModelService.OUT_PARAM, false, null);
         }
 

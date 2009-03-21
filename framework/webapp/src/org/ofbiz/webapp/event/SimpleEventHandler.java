@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -46,15 +46,15 @@ public class SimpleEventHandler implements EventHandler {
      */
     public void init(ServletContext context) throws EventHandlerException {
     }
-    
+ 
     /**
      * @see org.ofbiz.webapp.event.EventHandler#invoke(Event, org.ofbiz.webapp.control.ConfigXMLReader.RequestMap, HttpServletRequest, HttpServletResponse)
      */
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         String xmlResource = event.path;
         String eventName = event.invoke;
-        Locale locale = UtilHttp.getLocale(request); 
-        
+        Locale locale = UtilHttp.getLocale(request);
+ 
         if (Debug.verboseOn()) Debug.logVerbose("[Set path/method]: " + xmlResource + " / " + eventName, module);
 
         if (xmlResource == null) {
@@ -71,7 +71,7 @@ public class SimpleEventHandler implements EventHandler {
             return eventReturn;
         } catch (MiniLangException e) {
             Debug.logError(e, module);
-            String errMsg = UtilProperties.getMessage(SimpleEventHandler.err_resource, "simpleEventHandler.event_not_completed", (locale != null ? locale : Locale.getDefault())) + ": ";            
+            String errMsg = UtilProperties.getMessage(SimpleEventHandler.err_resource, "simpleEventHandler.event_not_completed", (locale != null ? locale : Locale.getDefault())) + ": ";
             request.setAttribute("_ERROR_MESSAGE_", errMsg + e.getMessage());
             return "error";
         }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,10 +38,10 @@ import freemarker.template.TemplateTransformModel;
  * OfbizContentTransform - Freemarker Transform for content links
  */
 public class OfbizContentTransform implements TemplateTransformModel {
-        
+ 
     public final static String module = OfbizUrlTransform.class.getName();
-    
-    public Writer getWriter(final Writer out, Map args) {              
+ 
+    public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         return new Writer(out) {
             public void write(char cbuf[], int off, int len) {
@@ -52,21 +52,21 @@ public class OfbizContentTransform implements TemplateTransformModel {
                 out.flush();
             }
 
-            public void close() throws IOException {  
-                try {                              
+            public void close() throws IOException {
+                try {
                     Environment env = Environment.getCurrentEnvironment();
                     BeanModel req = (BeanModel)env.getVariable("request");
                     HttpServletRequest request = req == null ? null : (HttpServletRequest) req.getWrappedObject();
-                    
+ 
                     String requestUrl = buf.toString();
-                    
+ 
                     // make the link
                     StringBuffer newURL = new StringBuffer();
                     ContentUrlTag.appendContentPrefix(request, newURL);
                     if (newURL.length() > 0 && newURL.charAt(newURL.length() - 1) != '/' && requestUrl.charAt(0) != '/') {
                         newURL.append('/');
                     }
-                    newURL.append(requestUrl);                                        
+                    newURL.append(requestUrl);
                     out.write(newURL.toString());
                 } catch (TemplateModelException e) {
                     throw new IOException(e.getMessage());

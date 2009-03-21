@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -40,7 +40,7 @@ import org.ofbiz.entity.model.ModelEntity;
 
 /**
  * <p>Counts server hits and tracks statistics for request, events and views
- * <p>Handles total stats since the server started and binned 
+ * <p>Handles total stats since the server started and binned
  *  stats according to settings in the serverstats.properties file.
  */
 public class ServerHitBin {
@@ -542,7 +542,7 @@ public class ServerHitBin {
                 break;
             }
 
-            // the first in the list will be this object, remove and copy it, 
+            // the first in the list will be this object, remove and copy it,
             // put the copy at the first of the list, then put this object back on
             binList.remove(0);
             if (this.numberHits > 0) {
@@ -587,7 +587,7 @@ public class ServerHitBin {
     void saveHit(HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin) {
         // persist record of hit in ServerHit entity if option turned on
         if (UtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist." + ServerHitBin.typeIds[type] + ".hit", "true")) {
-            // if the hit type is ENTITY and the name contains "ServerHit" don't 
+            // if the hit type is ENTITY and the name contains "ServerHit" don't
             // persist; avoids the infinite loop and a bunch of annoying data
             if (this.type == ENTITY && this.id.indexOf("ServerHit") > 0) {
                 return;
@@ -666,7 +666,7 @@ public class ServerHitBin {
             // This may not satisfy those who want to record each and
             // every server hit even with equal startTimes but that could be
             // solved adding a counter to the ServerHit's PK (a counter
-            // counting multiple hits at the same startTime).            
+            // counting multiple hits at the same startTime).
             try {
                 serverHit.create();
             } catch (GenericEntityException e) {

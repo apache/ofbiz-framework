@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -65,7 +65,7 @@ public class SOAPEventHandler implements EventHandler {
      */
     public void init(ServletContext context) throws EventHandlerException {
     }
-    
+ 
     /**
      * @see org.ofbiz.webapp.event.EventHandler#invoke(Event, org.ofbiz.webapp.control.ConfigXMLReader.RequestMap, HttpServletRequest, HttpServletResponse)
      */
@@ -138,14 +138,14 @@ public class SOAPEventHandler implements EventHandler {
 
         // not a wsdl request; invoke the service
         try {
-            axisServer = AxisServer.getServer(UtilMisc.toMap("name", "OFBiz/Axis Server", "provider", null));                    
+            axisServer = AxisServer.getServer(UtilMisc.toMap("name", "OFBiz/Axis Server", "provider", null));
         } catch (AxisFault e) {
             sendError(response, e);
             throw new EventHandlerException("Problems with the AXIS server", e);
         }
         MessageContext mctx = new MessageContext(axisServer);
         mctx.setEncodingStyle(Constants.URI_LITERAL_ENC); // sets the response encoding
-        
+ 
         // get the SOAP message
         Message msg = null;
 
@@ -178,12 +178,12 @@ public class SOAPEventHandler implements EventHandler {
 
         // get the service name and parameters
         try {
-            reqEnv = (SOAPEnvelope) msg.getSOAPPart().getEnvelope();                    
+            reqEnv = (SOAPEnvelope) msg.getSOAPPart().getEnvelope();
         } catch (SOAPException e) {
             sendError(response, "Problem processing the service");
             throw new EventHandlerException("Cannot get the envelope", e);
         }
-        
+ 
         List<Object> bodies = null;
 
         try {
@@ -264,9 +264,9 @@ public class SOAPEventHandler implements EventHandler {
             }
         }
 
-        try {            
-            response.setContentType(msg.getContentType(Constants.DEFAULT_SOAP_VERSION));   
-            response.setContentLength(Integer.parseInt(Long.toString(msg.getContentLength())));                                 
+        try {
+            response.setContentType(msg.getContentType(Constants.DEFAULT_SOAP_VERSION));
+            response.setContentLength(Integer.parseInt(Long.toString(msg.getContentLength())));
         } catch (AxisFault e) {
             sendError(response, e);
             throw new EventHandlerException(e.getMessage(), e);
@@ -292,7 +292,7 @@ public class SOAPEventHandler implements EventHandler {
         try {
             res.setContentType(msg.getContentType(Constants.DEFAULT_SOAP_VERSION));
             res.setContentLength(Integer.parseInt(Long.toString(msg.getContentLength())));
-            msg.writeTo(res.getOutputStream());                        
+            msg.writeTo(res.getOutputStream());
             res.flushBuffer();
         } catch (Exception e) {
             throw new EventHandlerException(e.getMessage(), e);
@@ -319,7 +319,7 @@ public class SOAPEventHandler implements EventHandler {
         uri.append(reqInfo);
         return uri.toString();
     }
-    
+ 
     public static String messageToString(Message msg) throws SOAPException, IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         msg.writeTo(out);

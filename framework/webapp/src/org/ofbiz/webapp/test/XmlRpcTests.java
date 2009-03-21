@@ -38,7 +38,7 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
     public void testXmlRpcRequest() throws Exception {
         XmlRpcClient client = this.getRpcClient(url, "admin", "ofbiz");
         Object[] params = new Object[] { 55.00, "message from xml-rpc client" };
-        Map result = (Map) client.execute("testScv", params);        
+        Map result = (Map) client.execute("testScv", params);
         assertEquals("XML-RPC Service result success", "service done", result.get("resp"));
     }
 }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -31,7 +31,7 @@ import org.ofbiz.entity.GenericValue;
  * WebSiteWorker - Worker class for web site related functionality
  */
 public class WebSiteWorker {
-    
+ 
     public static final String module = WebSiteWorker.class.getName();
 
     public static String getWebSiteId(ServletRequest request) {
@@ -40,7 +40,7 @@ public class WebSiteWorker {
         if (application == null) return null;
         return application.getInitParameter("webSiteId");
     }
-    
+ 
     public static GenericValue getWebSite(ServletRequest request) {
         String webSiteId = getWebSiteId(request);
         if (webSiteId == null) {
