@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -39,7 +39,7 @@ public class Various {
 
 
     public static void setDatesFollowingTasks(GenericValue task) {
-        
+ 
         try {
             List assocs = task.getRelated("FromWorkEffortAssoc");
             if (UtilValidate.isNotEmpty(assocs)) {
@@ -49,7 +49,7 @@ public class Various {
                     GenericValue nextTask = assoc.getRelatedOne("ToWorkEffort");
                       Timestamp newStartDate = task.getTimestamp("estimatedCompletionDate"); // start of next task the next day
                       if (nextTask.get("estimatedStartDate") == null || nextTask.getTimestamp("estimatedStartDate").before(newStartDate) ) {
-                            nextTask.put("estimatedStartDate", UtilDateTime.addDaysToTimestamp(task.getTimestamp("estimatedCompletionDate"), 1)); // start of next task the next day 
+                            nextTask.put("estimatedStartDate", UtilDateTime.addDaysToTimestamp(task.getTimestamp("estimatedCompletionDate"), 1)); // start of next task the next day
                              nextTask.put("estimatedCompletionDate", calculateCompletionDate(nextTask, task.getTimestamp("estimatedCompletionDate")));
                              nextTask.store();
                       }
@@ -61,7 +61,7 @@ public class Various {
             Debug.logError("Could not updte task: " + e.getMessage(), module);
         }
     }
-    
+ 
     public static Timestamp calculateCompletionDate(GenericValue task, Timestamp startDate) {
         Double plannedHours = 0.00;
         try {
@@ -84,7 +84,7 @@ public class Various {
         if (plannedHours == 0.00) {
             plannedHours = new Double("24.00"); // default length of task is 3 days.
         }
-        
+ 
         // only add days which are not saturday(7) or sunday(1)
         int days = plannedHours.intValue() / 8;
         while (days > 0) {
@@ -94,9 +94,9 @@ public class Various {
             }
             startDate = UtilDateTime.addDaysToTimestamp(startDate, 1);
         }
-        return startDate; 
+        return startDate;
     }
-    
+ 
     public static double calculateActualHours(GenericDelegator delegator, String timesheetId) {
         List actuals = FastList.newInstance();
         double actualHours = 0.00;
