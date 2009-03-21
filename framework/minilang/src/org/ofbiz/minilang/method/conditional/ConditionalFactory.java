@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,12 +43,12 @@ public abstract class ConditionalFactory<C extends Conditional> {
         }
         conditionalFactories = Collections.unmodifiableMap(factories);
     }
-    
+ 
     public static final String module = ConditionalFactory.class.getName();
-    
+ 
     public static Conditional makeConditional(Element element, SimpleMethod simpleMethod) {
         String tagName = element.getTagName();
-        
+ 
         ConditionalFactory factory = conditionalFactories.get(tagName);
         if (factory != null) {
             return factory.createCondition(element, simpleMethod);

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -42,7 +42,7 @@ public class IfCompare extends MethodOperation {
             return "if-compare";
         }
     }
-    
+ 
     public static final String module = IfCompare.class.getName();
 
     protected List<MethodOperation> subOps = FastList.newInstance();
@@ -80,14 +80,14 @@ public class IfCompare extends MethodOperation {
     }
 
     public boolean exec(MethodContext methodContext) {
-        // if conditions fails, always return true; if a sub-op returns false 
+        // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
-        
+ 
         String value = methodContext.expandString(this.value);
         String operator = methodContext.expandString(this.operator);
         String type = methodContext.expandString(this.type);
         String format = methodContext.expandString(this.format);
-        
+ 
         Object fieldVal = null;
         if (!mapAcsr.isEmpty()) {
             Map<String, ? extends Object> fromMap = mapAcsr.get(methodContext);
@@ -112,7 +112,7 @@ public class IfCompare extends MethodOperation {
             messages.add(0, "Error with comparison in if-compare between field [" + mapAcsr.toString() + "." + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 StringBuilder fullString = new StringBuilder();
-                
+ 
                 for (Object message: messages) {
                     fullString.append(message);
                 }

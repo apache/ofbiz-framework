@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -40,9 +40,9 @@ public class PropertyToField extends MethodOperation {
             return "property-to-field";
         }
     }
-    
+ 
     public static final String module = PropertyToField.class.getName();
-    
+ 
     String resource;
     String property;
     ContextAccessor<Map<String, Object>> mapAcsr;
@@ -67,7 +67,7 @@ public class PropertyToField extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         String resource = methodContext.expandString(this.resource);
         String property = methodContext.expandString(this.property);
-        
+ 
         String value = null;
         if (noLocale) {
             value = UtilProperties.getPropertyValue(resource, property);
@@ -77,8 +77,8 @@ public class PropertyToField extends MethodOperation {
         if (value == null || value.length() == 0) {
             value = defaultVal;
         }
-        
-        // note that expanding the value string here will handle defaultValue and the string from 
+ 
+        // note that expanding the value string here will handle defaultValue and the string from
         //  the properties file; if we decide later that we don't want the string from the properties 
         //  file to be expanded we should just expand the defaultValue at the beginning of this method.
         value = methodContext.expandString(value);

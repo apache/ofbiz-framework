@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -44,7 +44,7 @@ import org.ofbiz.service.LocalDispatcher;
  * A single operation, does the specified operation on the given field
  */
 public class MethodContext implements Iterable<Map.Entry<String, Object>> {
-    
+ 
     public static final int EVENT = 1;
     public static final int SERVICE = 2;
 
@@ -110,10 +110,10 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
     }
 
     /**
-     * This is a very simple constructor which assumes the needed objects (dispatcher, 
-     * delegator, security, request, response, etc) are in the context. 
+     * This is a very simple constructor which assumes the needed objects (dispatcher,
+     * delegator, security, request, response, etc) are in the context.
      * Will result in calling method as a service or event, as specified.
-     */    
+     */
     public MethodContext(Map<String, ? extends Object> context, ClassLoader loader, int methodType) {
         this.methodType = methodType;
         this.parameters = UtilMisc.makeMapWritable(context);
@@ -130,8 +130,8 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
             this.response = (HttpServletResponse) context.get("response");
             if (this.locale == null) this.locale = UtilHttp.getLocale(request);
             if (this.timeZone == null) this.timeZone = UtilHttp.getTimeZone(request);
-            
-            //make sure the delegator and other objects are in place, getting from 
+ 
+            //make sure the delegator and other objects are in place, getting from
             // request if necessary; assumes this came through the ControlServlet
             // or something similar
             if (this.request != null) {
@@ -143,7 +143,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
         } else if (methodType == MethodContext.SERVICE) {
             this.results = FastMap.newInstance();
         }
-        
+ 
         if (this.loader == null) {
             try {
                 this.loader = Thread.currentThread().getContextClassLoader();
@@ -152,7 +152,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
             }
         }
     }
-    
+ 
     public void setErrorReturn(String errMsg, SimpleMethod simpleMethod) {
         if (getMethodType() == MethodContext.EVENT) {
             putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
@@ -170,13 +170,13 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
     public Map<String, Object> getEnvMap() {
         return this.env;
     }
-    
+ 
     /** Gets the named value from the environment. Supports the "." (dot) syntax to access Map members and the
-     * "[]" (bracket) syntax to access List entries. This value is expanded, supporting the insertion of other 
+     * "[]" (bracket) syntax to access List entries. This value is expanded, supporting the insertion of other
      * environment values using the "${}" notation.
-     * 
+     *
      * @param key The name of the environment value to get. Can contain "." and "[]" syntax elements as described above.
-     * @return The environment value if found, otherwise null. 
+     * @return The environment value if found, otherwise null.
      */
     public <T> T getEnv(String key) {
         String ekey = this.expandString(key);
@@ -188,14 +188,14 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
     }
 
     /** Puts the named value in the environment. Supports the "." (dot) syntax to access Map members and the
-     * "[]" (bracket) syntax to access List entries. 
+     * "[]" (bracket) syntax to access List entries.
      * If the brackets for a list are empty the value will be appended to end of the list,
      * otherwise the value will be set in the position of the number in the brackets.
-     * If a "+" (plus sign) is included inside the square brackets before the index 
+     * If a "+" (plus sign) is included inside the square brackets before the index
      * number the value will inserted/added at that index instead of set at that index.
-     * This value is expanded, supporting the insertion of other 
+     * This value is expanded, supporting the insertion of other
      * environment values using the "${}" notation.
-     * 
+     *
      * @param key The name of the environment value to get. Can contain "." syntax elements as described above.
      * @param value The value to set in the named environment location.
      */
@@ -208,8 +208,8 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
         fma.put(this.env, value);
     }
 
-    /** Calls putEnv for each entry in the Map, thus allowing for the additional flexibility in naming 
-     * supported in that method. 
+    /** Calls putEnv for each entry in the Map, thus allowing for the additional flexibility in naming
+     * supported in that method.
      */
     public void putAllEnv(Map<String, ? extends Object> values) {
         for (Map.Entry<String, ? extends Object> entry: values.entrySet()) {
@@ -218,9 +218,9 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
     }
 
     /** Removes the named value from the environment. Supports the "." (dot) syntax to access Map members and the
-     * "[]" (bracket) syntax to access List entries. This value is expanded, supporting the insertion of other 
+     * "[]" (bracket) syntax to access List entries. This value is expanded, supporting the insertion of other
      * environment values using the "${}" notation.
-     * 
+     *
      * @param key The name of the environment value to get. Can contain "." syntax elements as described above.
      */
     public <T> T removeEnv(String key) {
@@ -255,7 +255,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
     public ClassLoader getLoader() {
         return this.loader;
     }
-    
+ 
     public Locale getLocale() {
         return this.locale;
     }
@@ -304,7 +304,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
     public Map<String, Object> getResults() {
         return this.results;
     }
-    
+ 
     /** Expands environment variables delimited with ${} */
     public String expandString(String original) {
         return FlexibleStringExpander.expandString(original, this.env);

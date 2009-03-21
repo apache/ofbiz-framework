@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -68,16 +68,16 @@ public class CombinedCondition implements Conditional {
             return "not";
         }
     }
-    
+ 
     public static final int OR = 1;
     public static final int XOR = 2;
     public static final int AND = 3;
     public static final int NOT = 4;
 
-    SimpleMethod simpleMethod;    
+    SimpleMethod simpleMethod;
     int conditionType;
     List<Conditional> subConditions = FastList.newInstance();
-    
+ 
     public CombinedCondition(Element element, int conditionType, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
         this.conditionType = conditionType;
@@ -88,7 +88,7 @@ public class CombinedCondition implements Conditional {
 
     public boolean checkCondition(MethodContext methodContext) {
         if (subConditions.size() == 0) return true;
-        
+ 
         Iterator<Conditional> subCondIter = subConditions.iterator();
         switch (this.conditionType) {
             case OR:

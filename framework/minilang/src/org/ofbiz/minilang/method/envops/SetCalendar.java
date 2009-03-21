@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -47,7 +47,7 @@ public class SetCalendar extends MethodOperation {
         }
     }
     public static final String module = SetCalendar.class.getName();
-    
+ 
     protected ContextAccessor<Timestamp> field;
     protected ContextAccessor<Object> fromField;
     protected FlexibleStringExpander valueExdr;
@@ -145,7 +145,7 @@ public class SetCalendar extends MethodOperation {
             if (Debug.verboseOn()) Debug.logVerbose("Error converting attributes to objects: " + e.getMessage(), module);
             return true;
         }
-        
+ 
         // Convert Strings to ints
         int years = this.yearsExdr.isEmpty() ? 0 : Integer.parseInt(methodContext.expandString(this.yearsExdr));
         int months = this.monthsExdr.isEmpty() ? 0 : Integer.parseInt(methodContext.expandString(this.monthsExdr));
@@ -164,7 +164,7 @@ public class SetCalendar extends MethodOperation {
         cal.add(Calendar.DAY_OF_MONTH, days);
         cal.add(Calendar.MONTH, months);
         cal.add(Calendar.YEAR, years);
-        
+ 
         Timestamp toStamp = new Timestamp(cal.getTimeInMillis());
 
         // Align period start/end
@@ -191,7 +191,7 @@ public class SetCalendar extends MethodOperation {
                 toStamp = UtilDateTime.getYearEnd(toStamp, timeZone, locale);
             }
         }
-        
+ 
         if (Debug.verboseOn())
             Debug.logVerbose("In screen setting calendar [" + this.field.toString(), module);
         this.field.put(methodContext, toStamp);
@@ -199,10 +199,10 @@ public class SetCalendar extends MethodOperation {
     }
 
     public String rawString() {
-        return "<set-calendar field=\"" + this.field 
-                + (this.valueExdr.isEmpty() ? "" : "\" value=\"" + this.valueExdr.getOriginal()) 
-                + (this.fromField.isEmpty() ? "" : "\" from-field=\"" + this.fromField) 
-                + (this.defaultExdr.isEmpty() ? "" : "\" default-value=\"" + this.defaultExdr.getOriginal()) 
+        return "<set-calendar field=\"" + this.field
+                + (this.valueExdr.isEmpty() ? "" : "\" value=\"" + this.valueExdr.getOriginal())
+                + (this.fromField.isEmpty() ? "" : "\" from-field=\"" + this.fromField)
+                + (this.defaultExdr.isEmpty() ? "" : "\" default-value=\"" + this.defaultExdr.getOriginal())
                 + "\"/>";
     }
     public String expandedString(MethodContext methodContext) {

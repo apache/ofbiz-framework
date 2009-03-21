@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -42,7 +42,7 @@ public class IfCompareField extends MethodOperation {
             return "if-compare-field";
         }
     }
-    
+ 
     public static final String module = IfCompareField.class.getName();
 
     protected List<MethodOperation> subOps = FastList.newInstance();
@@ -66,7 +66,7 @@ public class IfCompareField extends MethodOperation {
             // NOTE: this is still supported, but is deprecated
             this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         }
-        
+ 
         // NOTE: this is still supported, but is deprecated
         this.toMapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("to-map-name"));
         // set fieldAcsr to their defualt value of fieldAcsr if empty
@@ -77,7 +77,7 @@ public class IfCompareField extends MethodOperation {
         }
 
         // do NOT default the to-map-name to the map-name because that
-        //would make it impossible to compare from a map field to an 
+        //would make it impossible to compare from a map field to an
         //environment field
 
         this.operator = element.getAttribute("operator");
@@ -93,7 +93,7 @@ public class IfCompareField extends MethodOperation {
     }
 
     public boolean exec(MethodContext methodContext) {
-        // if conditions fails, always return true; if a sub-op returns false 
+        // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
 
         String operator = methodContext.expandString(this.operator);

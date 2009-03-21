@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,9 +28,9 @@ import org.ofbiz.minilang.*;
  * A type of MethodString that represents a String constant value
  */
 public class FieldString extends MethodString {
-    
+ 
     public static final String module = FieldString.class.getName();
-    
+ 
     ContextAccessor<Object> fieldAcsr;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
 
@@ -58,7 +58,7 @@ public class FieldString extends MethodString {
             if (Debug.infoOn()) Debug.logInfo("Field value not found with name " + fieldAcsr + " in Map with name " + mapAcsr + ", not getting string value", module);
             return "";
         }
-        
+ 
         return fieldVal.toString();
     }
 }

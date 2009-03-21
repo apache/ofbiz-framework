@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -40,9 +40,9 @@ public class CallSimpleMethod extends MethodOperation {
             return "call-simple-method";
         }
     }
-    
+ 
     public static final String module = CallSimpleMethod.class.getName();
-    
+ 
     String xmlResource;
     String methodName;
 
@@ -51,11 +51,11 @@ public class CallSimpleMethod extends MethodOperation {
         this.methodName = element.getAttribute("method-name");
         this.xmlResource = element.getAttribute("xml-resource");
     }
-    
+ 
     public String getXmlResource() {
         return this.xmlResource;
     }
-    
+ 
     public String getMethodName() {
         return this.methodName;
     }
@@ -80,10 +80,10 @@ public class CallSimpleMethod extends MethodOperation {
                 methodContext.setErrorReturn(errMsg, simpleMethod);
                 return false;
             }
-            
+ 
             String returnVal = simpleMethodToCall.exec(methodContext);
             if (Debug.verboseOn()) Debug.logVerbose("Called inline simple-method named [" + methodName + "] in resource [" + xmlResource + "], returnVal is [" + returnVal + "]", module);
-            
+ 
             if (returnVal != null && returnVal.equals(simpleMethodToCall.getDefaultErrorCode())) {
                 // in this case just set the error code just in case it hasn't already been set, the error messages will already be in place...
                 if (methodContext.getMethodType() == MethodContext.EVENT) {
@@ -93,7 +93,7 @@ public class CallSimpleMethod extends MethodOperation {
                 }
                 return false;
             }
-            
+ 
             // if the response code/message is error, if so show the error and return false
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 String responseCode = (String) methodContext.getEnv(simpleMethod.getEventResponseCodeName());
@@ -117,7 +117,7 @@ public class CallSimpleMethod extends MethodOperation {
 
         return true;
     }
-    
+ 
     public SimpleMethod getSimpleMethodToCall(ClassLoader loader) throws MiniLangException {
         SimpleMethod simpleMethodToCall = null;
         if (xmlResource == null || xmlResource.length() == 0) {

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -41,7 +41,7 @@ public class CheckErrors extends MethodOperation {
             return "check-errors";
         }
     }
-    
+ 
     ContextAccessor<List<Object>> errorListAcsr;
     String errorCode;
 
@@ -54,7 +54,7 @@ public class CheckErrors extends MethodOperation {
         super(element, simpleMethod);
         errorCode = element.getAttribute("error-code");
         if (errorCode == null || errorCode.length() == 0) errorCode = "error";
-        
+ 
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
 
         errorPrefix = new FlexibleMessage(UtilXml.firstChildElement(element, "error-prefix"), "check.error.prefix");
@@ -68,11 +68,11 @@ public class CheckErrors extends MethodOperation {
 
         if (UtilValidate.isNotEmpty(messages)) {
             String errorCode = methodContext.expandString(this.errorCode);
-            
+ 
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 /* The OLD way, now puts formatting control in the template...
                 String errMsg = errorPrefix.getMessage(methodContext.getLoader(), methodContext) +
-                    ServiceUtil.makeMessageList(messages, messagePrefix.getMessage(methodContext.getLoader(), methodContext), 
+                    ServiceUtil.makeMessageList(messages, messagePrefix.getMessage(methodContext.getLoader(), methodContext),
                             messageSuffix.getMessage(methodContext.getLoader(), methodContext)) +
                             errorSuffix.getMessage(methodContext.getLoader(), methodContext);
                 methodContext.putEnv(simpleMethod.getEventErrorMessageName(), errMsg);

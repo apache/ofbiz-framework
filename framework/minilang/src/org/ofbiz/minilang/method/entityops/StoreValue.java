@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -40,9 +40,9 @@ public class StoreValue extends MethodOperation {
             return "store-value";
         }
     }
-    
+ 
     public static final String module = StoreValue.class.getName();
-    
+ 
     ContextAccessor<GenericValue> valueAcsr;
     String doCacheClearStr;
 
@@ -54,7 +54,7 @@ public class StoreValue extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
-        
+ 
         GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             String errMsg = "In store-value a value was not found with the specified valueAcsr: " + valueAcsr + ", not storing";

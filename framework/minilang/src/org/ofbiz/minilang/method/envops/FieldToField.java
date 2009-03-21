@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -42,9 +42,9 @@ public class FieldToField extends MethodOperation {
             return "field-to-field";
         }
     }
-    
+ 
     public static final String module = FieldToField.class.getName();
-    
+ 
     ContextAccessor<Map<String, Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
     ContextAccessor<Map<String, Object>> toMapAcsr;
@@ -88,7 +88,7 @@ public class FieldToField extends MethodOperation {
             return true;
         }
 
-        // note that going to an env field will only work if it came from an env 
+        // note that going to an env field will only work if it came from an env
         // field because if not specified the to-map-name will be set to the map-name
         // to go from a map field to an env field, use the field-to-env operation
         Map<String, Object> toMap = null;

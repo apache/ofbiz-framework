@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -42,9 +42,9 @@ public class RequestToField extends MethodOperation {
             return "request-to-field";
         }
     }
-    
+ 
     public static final String module = RequestToField.class.getName();
-    
+ 
     ContextAccessor<Map<String, Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
     FlexibleServletAccessor<Object> requestAcsr;
@@ -56,7 +56,7 @@ public class RequestToField extends MethodOperation {
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
         fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
         requestAcsr = new FlexibleServletAccessor<Object>(element.getAttribute("request-name"), fieldAcsr.toString());
-        
+ 
         defaultVal = element.getAttribute("default");
     }
 

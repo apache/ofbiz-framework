@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,7 +43,7 @@ public class CallObjectMethod extends MethodOperation {
             return "call-object-method";
         }
     }
-    
+ 
     public static final String module = CallClassMethod.class.getName();
 
     ContextAccessor<Object> objFieldAcsr;
@@ -60,21 +60,21 @@ public class CallObjectMethod extends MethodOperation {
         // the schema for this element now just has the "obj-field" attribute, though the old "obj-field-name" and "obj-map-name" pair is still supported
         objFieldAcsr = new ContextAccessor<Object>(element.getAttribute("obj-field"), element.getAttribute("obj-field-name"));
         objMapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("obj-map-name"));
-        
+ 
         methodName = element.getAttribute("method-name");
-        
+ 
         // the schema for this element now just has the "ret-field" attribute, though the old "ret-field-name" and "ret-map-name" pair is still supported
         retFieldAcsr = new ContextAccessor<Object>(element.getAttribute("ret-field"), element.getAttribute("ret-field-name"));
         retMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("ret-map-name"));
-        
+ 
         List<? extends Element> parameterElements = UtilXml.childElementList(element);
         if (parameterElements.size() > 0) {
             parameters = FastList.newInstance();
-            
+ 
             for (Element parameterElement: parameterElements) {
                 MethodObject methodObject = null;
                 if ("string".equals(parameterElement.getNodeName())) {
-                    methodObject = new StringObject(parameterElement, simpleMethod); 
+                    methodObject = new StringObject(parameterElement, simpleMethod);
                 } else if ("field".equals(parameterElement.getNodeName())) {
                     methodObject = new FieldObject<Object>(parameterElement, simpleMethod);
                 } else {
@@ -96,7 +96,7 @@ public class CallObjectMethod extends MethodOperation {
             Map<String, ? extends Object> fromMap = objMapAcsr.get(methodContext);
             if (fromMap == null) {
                 Debug.logWarning("Map not found with name " + objMapAcsr + ", which should contain the object to execute a method on; not executing method, rerturning error.", module);
-                
+ 
                 String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Map not found with name " + objMapAcsr + ", which should contain the object to execute a method on]";
                 methodContext.setErrorReturn(errMsg, simpleMethod);
                 return false;
@@ -109,7 +109,7 @@ public class CallObjectMethod extends MethodOperation {
 
         if (methodObject == null) {
             if (Debug.infoOn()) Debug.logInfo("Object not found to execute method on with name " + objFieldAcsr + " in Map with name " + objMapAcsr + ", not executing method, rerturning error.", module);
-            
+ 
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Object not found to execute method on with name " + objFieldAcsr + " in Map with name " + objMapAcsr + "]";
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
@@ -118,7 +118,7 @@ public class CallObjectMethod extends MethodOperation {
         Class<?> methodClass = methodObject.getClass();
         return CallObjectMethod.callMethod(simpleMethod, methodContext, parameters, methodClass, methodObject, methodName, retFieldAcsr, retMapAcsr);
     }
-    
+ 
     public static boolean callMethod(SimpleMethod simpleMethod, MethodContext methodContext, List<MethodObject<?>> parameters, Class<?> methodClass, Object methodObject, String methodName, ContextAccessor<Object> retFieldAcsr, ContextAccessor<Map<String, Object>> retMapAcsr) {
         Object[] args = null;
         Class<?>[] parameterTypes = null;
@@ -126,7 +126,7 @@ public class CallObjectMethod extends MethodOperation {
         if (parameters != null) {
             args = new Object[parameters.size()];
             parameterTypes = new Class<?>[parameters.size()];
-            
+ 
             int i = 0;
             for (MethodObject<?> methodObjectDef: parameters) {
                 args[i] = methodObjectDef.getObject(methodContext);
@@ -143,12 +143,12 @@ public class CallObjectMethod extends MethodOperation {
                 i++;
             }
         }
-        
+ 
         try {
             Method method = methodClass.getMethod(methodName, parameterTypes);
             try {
                 Object retValue = method.invoke(methodObject, args);
-                
+ 
                 //if retFieldAcsr is empty, ignore return value
                 if (!retFieldAcsr.isEmpty()) {
                     if (!retMapAcsr.isEmpty()) {
@@ -181,17 +181,17 @@ public class CallObjectMethod extends MethodOperation {
                 return false;
             }
         } catch (NoSuchMethodException e) {
-            Debug.logError(e, "Could not find method to execute in simple-method call method operation", module);            
+            Debug.logError(e, "Could not find method to execute in simple-method call method operation", module);
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Could not find method to execute named " + methodName + ": " + e.toString() + "]";
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         } catch (SecurityException e) {
-            Debug.logError(e, "Security exception finding method to execute in simple-method call method operation", module);            
+            Debug.logError(e, "Security exception finding method to execute in simple-method call method operation", module);
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Security exception finding method to execute named " + methodName + ": " + e.toString() + "]";
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         }
-        
+ 
         return true;
     }
 

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -45,9 +45,9 @@ public class CallServiceAsynch extends MethodOperation {
             return "call-service-asynch";
         }
     }
-    
+ 
     public static final String module = CallServiceAsynch.class.getName();
-    
+ 
     protected String serviceName;
     protected ContextAccessor<Map<String, Object>> inMapAcsr;
     protected String includeUserLoginStr;
@@ -62,7 +62,7 @@ public class CallServiceAsynch extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         String serviceName = methodContext.expandString(this.serviceName);
         boolean includeUserLogin = !"false".equals(methodContext.expandString(includeUserLoginStr));
-        
+ 
         Map<String, Object> inMap = null;
         if (inMapAcsr.isEmpty()) {
             inMap = FastMap.newInstance();
@@ -82,13 +82,13 @@ public class CallServiceAsynch extends MethodOperation {
                 inMap.put("userLogin", userLogin);
             }
         }
-        
+ 
         // always add Locale to context unless null
         Locale locale = methodContext.getLocale();
         if (locale != null) {
             inMap.put("locale", locale);
         }
-        
+ 
         // invoke the service
         try {
             methodContext.getDispatcher().runAsync(serviceName, inMap);

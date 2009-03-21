@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,17 +38,17 @@ public class EmptyCondition implements Conditional {
         }
     }
 
-    
+ 
     public static final String module = EmptyCondition.class.getName();
-    
+ 
     SimpleMethod simpleMethod;
-    
+ 
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
-    
+ 
     public EmptyCondition(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
-        
+ 
         // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
@@ -86,10 +86,10 @@ public class EmptyCondition implements Conditional {
                 }
             }
         }
-        
+ 
         return runSubOps;
     }
-    
+ 
     protected Object getFieldVal(MethodContext methodContext) {
         Object fieldVal = null;
         if (!mapAcsr.isEmpty()) {

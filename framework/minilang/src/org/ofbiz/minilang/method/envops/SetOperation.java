@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -46,7 +46,7 @@ public class SetOperation extends MethodOperation {
         }
     }
     public static final String module = SetOperation.class.getName();
-    
+ 
     protected ContextAccessor<Object> field;
     protected ContextAccessor<Object> fromField;
     protected FlexibleStringExpander valueExdr;
@@ -105,18 +105,18 @@ public class SetOperation extends MethodOperation {
                 return false;
             }
         }
-        
+ 
         if (Debug.verboseOn()) Debug.logVerbose("In screen setting field [" + this.field.toString() + "] to value: " + newValue, module);
         this.field.put(methodContext, newValue);
         return true;
     }
 
     public String rawString() {
-        return "<set field=\"" + this.field 
-                + (this.valueExdr.isEmpty() ? "" : "\" value=\"" + this.valueExdr.getOriginal()) 
-                + (this.fromField.isEmpty() ? "" : "\" from-field=\"" + this.fromField) 
-                + (this.defaultExdr.isEmpty() ? "" : "\" default-value=\"" + this.defaultExdr.getOriginal()) 
-                + (this.type == null || this.type.length() == 0 ? "" : "\" type=\"" + this.type) 
+        return "<set field=\"" + this.field
+                + (this.valueExdr.isEmpty() ? "" : "\" value=\"" + this.valueExdr.getOriginal())
+                + (this.fromField.isEmpty() ? "" : "\" from-field=\"" + this.fromField)
+                + (this.defaultExdr.isEmpty() ? "" : "\" default-value=\"" + this.defaultExdr.getOriginal())
+                + (this.type == null || this.type.length() == 0 ? "" : "\" type=\"" + this.type)
                 + "\"/>";
     }
     public String expandedString(MethodContext methodContext) {

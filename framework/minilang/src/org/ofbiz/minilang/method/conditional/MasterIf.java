@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -50,14 +50,14 @@ public class MasterIf extends MethodOperation {
 
     public MasterIf(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        
+ 
         Element conditionElement = UtilXml.firstChildElement(element, "condition");
         Element conditionChildElement = UtilXml.firstChildElement(conditionElement);
         this.condition = ConditionalFactory.makeConditional(conditionChildElement, simpleMethod);
-        
+ 
         Element thenElement = UtilXml.firstChildElement(element, "then");
         SimpleMethod.readOperations(thenElement, thenSubOps, simpleMethod);
-        
+ 
         List<? extends Element> elseIfElements = UtilXml.childElementList(element, "else-if");
         if (UtilValidate.isNotEmpty(elseIfElements)) {
             elseIfs = FastList.newInstance();
@@ -65,7 +65,7 @@ public class MasterIf extends MethodOperation {
                 elseIfs.add(new ElseIf(elseIfElement, simpleMethod));
             }
         }
-        
+ 
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
             elseSubOps = FastList.newInstance();
@@ -74,7 +74,7 @@ public class MasterIf extends MethodOperation {
     }
 
     public boolean exec(MethodContext methodContext) {
-        // if conditions fails, always return true; if a sub-op returns false 
+        // if conditions fails, always return true; if a sub-op returns false
         // return false and stop, otherwise return true
         // return true;
 
@@ -92,7 +92,7 @@ public class MasterIf extends MethodOperation {
                     }
                 }
             }
-            
+ 
             if (elseSubOps != null) {
                 return SimpleMethod.runSubOps(elseSubOps, methodContext);
             } else {
@@ -110,7 +110,7 @@ public class MasterIf extends MethodOperation {
                 allSubOps.addAll(elseIf.getThenSubOps());
             }
         }
-        
+ 
         return allSubOps;
     }
 

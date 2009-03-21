@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -96,7 +96,7 @@ public class SimpleMethod {
         }
         methodOperationFactories = Collections.unmodifiableMap(mapFactories);
     }
-    
+ 
     public static final String module = SimpleMethod.class.getName();
     public static final String err_resource = "MiniLangErrorUiLabels";
 
@@ -254,7 +254,7 @@ public class SimpleMethod {
         if (UtilValidate.isEmpty(fromLocation)) {
             fromLocation = "<location not known>";
         }
-        
+ 
         Map<String, SimpleMethod> simpleMethods = FastMap.newInstance();
 
         // read in the file
@@ -531,7 +531,7 @@ public class SimpleMethod {
     public String getUserLoginEnvName() {
         return this.userLoginName;
     }
-    
+ 
     public Set<String> getAllServiceNamesCalled() throws MiniLangException {
         Set<String> allServiceNames = FastSet.newInstance();
         Set<String> simpleMethodsVisited = FastSet.newInstance();
@@ -549,7 +549,7 @@ public class SimpleMethod {
             } else if (methodOperation instanceof SetServiceFields) {
                 String svcName = ((SetServiceFields) methodOperation).getServiceName();
                 if (UtilValidate.isNotEmpty(svcName)) allServiceNames.add(svcName);
-                
+ 
             } else if (methodOperation instanceof CallSimpleMethod) {
                 CallSimpleMethod csm = (CallSimpleMethod) methodOperation;
                 try {
@@ -630,7 +630,7 @@ public class SimpleMethod {
             } else if (methodOperation instanceof GetRelatedOne) {
                 String relationName = ((GetRelatedOne) methodOperation).getRelationName();
                 if (UtilValidate.isNotEmpty(relationName)) allEntityNames.add(relationName);
-                
+ 
             } else if (methodOperation instanceof CallSimpleMethod) {
                 CallSimpleMethod csm = (CallSimpleMethod) methodOperation;
                 try {
@@ -681,7 +681,7 @@ public class SimpleMethod {
         // always put the null field object in as "null"
         methodContext.putEnv("null", GenericEntity.NULL_FIELD);
         methodContext.putEnv("nullField", GenericEntity.NULL_FIELD);
-        
+ 
         methodContext.putEnv(delegatorName, methodContext.getDelegator());
         methodContext.putEnv(securityName, methodContext.getSecurity());
         methodContext.putEnv(dispatcherName, methodContext.getDispatcher());
@@ -693,14 +693,14 @@ public class SimpleMethod {
             methodContext.putEnv(eventSessionName, methodContext.getRequest().getSession());
             methodContext.putEnv(eventResponseName, methodContext.getResponse());
         }
-        
+ 
         methodContext.putEnv("methodName", this.getMethodName());
         methodContext.putEnv("methodShortDescription", this.getShortDescription());
 
 
         GenericValue userLogin = methodContext.getUserLogin();
         Locale locale = methodContext.getLocale();
-                
+ 
         if (userLogin != null) {
             methodContext.putEnv(userLoginName, userLogin);
         }
@@ -749,31 +749,31 @@ public class SimpleMethod {
             finished = runSubOps(methodOperations, methodContext);
         } catch (Throwable t) {
             // make SURE nothing gets thrown through
-            String errMsg = UtilProperties.getMessage(SimpleMethod.err_resource, "simpleMethod.error_running", locale) + ": " + t.getMessage();                                
+            String errMsg = UtilProperties.getMessage(SimpleMethod.err_resource, "simpleMethod.error_running", locale) + ": " + t.getMessage();
             Debug.logError(errMsg, module);
             finished = false;
             errorMsg += errMsg + "<br/>";
         }
-        
+ 
         String returnValue = null;
         String response = null;
         StringBuilder summaryErrorStringBuffer = new StringBuilder();
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             boolean forceError = false;
-            
+ 
             String tempErrorMsg = (String) methodContext.getEnv(eventErrorMessageName);
             if (errorMsg.length() > 0 || (tempErrorMsg != null && tempErrorMsg.length() > 0)) {
                 errorMsg += tempErrorMsg;
                 methodContext.getRequest().setAttribute("_ERROR_MESSAGE_", errorMsg);
                 forceError = true;
-                
+ 
                 summaryErrorStringBuffer.append(errorMsg);
             }
             List<Object> tempErrorMsgList = UtilGenerics.checkList(methodContext.getEnv(eventErrorMessageListName));
             if (UtilValidate.isNotEmpty(tempErrorMsgList)) {
                 methodContext.getRequest().setAttribute("_ERROR_MESSAGE_LIST_", tempErrorMsgList);
                 forceError = true;
-                
+ 
                 summaryErrorStringBuffer.append("; ");
                 summaryErrorStringBuffer.append(tempErrorMsgList.toString());
             }
@@ -803,7 +803,7 @@ public class SimpleMethod {
             returnValue = response;
         } else if (methodContext.getMethodType() == MethodContext.SERVICE) {
             boolean forceError = false;
-            
+ 
             String tempErrorMsg = (String) methodContext.getEnv(serviceErrorMessageName);
             if (errorMsg.length() > 0 || (tempErrorMsg != null && tempErrorMsg.length() > 0)) {
                 errorMsg += tempErrorMsg;
@@ -817,7 +817,7 @@ public class SimpleMethod {
             if (UtilValidate.isNotEmpty(errorMsgList)) {
                 methodContext.putResult(ModelService.ERROR_MESSAGE_LIST, errorMsgList);
                 forceError = true;
-                
+ 
                 summaryErrorStringBuffer.append("; ");
                 summaryErrorStringBuffer.append(errorMsgList.toString());
             }
@@ -826,7 +826,7 @@ public class SimpleMethod {
             if (UtilValidate.isNotEmpty(errorMsgMap)) {
                 methodContext.putResult(ModelService.ERROR_MESSAGE_MAP, errorMsgMap);
                 forceError = true;
-                
+ 
                 summaryErrorStringBuffer.append("; ");
                 summaryErrorStringBuffer.append(errorMsgMap.toString());
             }
@@ -884,7 +884,7 @@ public class SimpleMethod {
                 errorMsg += errMsg + "<br/>";
             }
         }
-        
+ 
         return returnValue;
     }
 
@@ -912,7 +912,7 @@ public class SimpleMethod {
         }
     }
 
-    /** Execs the given operations returning true if all return true, or returning 
+    /** Execs the given operations returning true if all return true, or returning
      *  false and stopping if any return false.
      */
     public static boolean runSubOps(List<MethodOperation> methodOperations, MethodContext methodContext) {

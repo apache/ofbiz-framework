@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -42,9 +42,9 @@ public class OrderMapList extends MethodOperation {
             return "order-map-list";
         }
     }
-    
+ 
     public static final String module = FieldToList.class.getName();
-    
+ 
     protected ContextAccessor<List<Map<Object, Object>>> listAcsr;
     protected List<FlexibleMapAccessor<String>> orderByAcsrList = FastList.newInstance();
     protected MapComparator mc;
@@ -52,9 +52,9 @@ public class OrderMapList extends MethodOperation {
     public OrderMapList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         listAcsr = new ContextAccessor<List<Map<Object, Object>>>(element.getAttribute("list"), element.getAttribute("list-name"));
-        
+ 
         for (Element orderByElement: UtilXml.childElementList(element, "order-by")) {
-            FlexibleMapAccessor<String> fma = FlexibleMapAccessor.getInstance(UtilValidate.isNotEmpty(orderByElement.getAttribute("field")) ? 
+            FlexibleMapAccessor<String> fma = FlexibleMapAccessor.getInstance(UtilValidate.isNotEmpty(orderByElement.getAttribute("field")) ?
                     orderByElement.getAttribute("field") : orderByElement.getAttribute("field-name"));
             this.orderByAcsrList.add(fma);
         }
@@ -70,7 +70,7 @@ public class OrderMapList extends MethodOperation {
             if (Debug.infoOn()) Debug.logInfo("List not found with name " + listAcsr + ", not ordering/sorting list.", module);
             return true;
         }
-        
+ 
         Collections.sort(orderList, mc);
 
         return true;

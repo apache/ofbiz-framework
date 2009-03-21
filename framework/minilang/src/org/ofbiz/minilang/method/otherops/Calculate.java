@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -49,9 +49,9 @@ public class Calculate extends MethodOperation {
             return "calculate";
         }
     }
-    
+ 
     public static final String module = Calculate.class.getName();
-    
+ 
     public static final BigDecimal ZERO = BigDecimal.ZERO;
     public static final int TYPE_DOUBLE = 1;
     public static final int TYPE_FLOAT = 2;
@@ -116,7 +116,7 @@ public class Calculate extends MethodOperation {
         } else {
             type = Calculate.TYPE_BIG_DECIMAL;
         }
-        
+ 
         String roundingModeString = methodContext.expandString(this.roundingModeString);
         int roundingMode;
         if ("Ceiling".equals(roundingModeString)) {
@@ -145,13 +145,13 @@ public class Calculate extends MethodOperation {
         if (UtilValidate.isNotEmpty(decimalScaleString)) {
             decimalScale = Integer.valueOf(decimalScaleString).intValue();
         }
-        
+ 
         String decimalFormatString = methodContext.expandString(this.decimalFormatString);
         DecimalFormat df = null;
         if (UtilValidate.isNotEmpty(decimalFormatString)) {
             df = new DecimalFormat(decimalFormatString);
         }
-        
+ 
         BigDecimal resultValue = ZERO;
         resultValue = resultValue.setScale(decimalScale, roundingMode);
         for (Calculate.SubCalc calcop: calcops) {
@@ -159,7 +159,7 @@ public class Calculate extends MethodOperation {
             // Debug.logInfo("main total so far: " + resultValue, module);
         }
         resultValue = resultValue.setScale(decimalScale, roundingMode);
-        
+ 
         /* the old thing that did conversion to string and back, may want to use somewhere sometime...:
          * for now just doing the setScale above (before and after calc ops)
         try {
@@ -175,7 +175,7 @@ public class Calculate extends MethodOperation {
             return false;
         }
         */
-        
+ 
         Object resultObj = null;
         switch (type) {
         case TYPE_DOUBLE:
@@ -193,16 +193,16 @@ public class Calculate extends MethodOperation {
             resultObj = Integer.valueOf(resultValue.intValue());
             break;
         case TYPE_STRING:
-            // run the decimal-formatting         
+            // run the decimal-formatting
             if (df != null && resultValue.compareTo(ZERO) > 0) {
                 resultObj = df.format(resultValue);
             } else {
                 resultObj = resultValue.toString();
             }
-            break;            
+            break;
         case TYPE_BIG_DECIMAL:
             resultObj = resultValue;
-            break;            
+            break;
         }
 
         if (!mapAcsr.isEmpty()) {
@@ -250,7 +250,7 @@ public class Calculate extends MethodOperation {
                 Debug.logError(e, "Could not parse the number string: " + valueStr, module);
                 throw new IllegalArgumentException("Could not parse the number string: " + valueStr);
             }
-            
+ 
             // Debug.logInfo("calcValue number: " + value, module);
             return value;
         }
@@ -310,7 +310,7 @@ public class Calculate extends MethodOperation {
             } else if ("negative".equals(operatorStr)) {
                 operator = CalcOp.OPERATOR_NEGATIVE;
             }
-            
+ 
             BigDecimal resultValue = ZERO;
             resultValue = resultValue.setScale(scale, roundingMode);
             boolean isFirst = true;

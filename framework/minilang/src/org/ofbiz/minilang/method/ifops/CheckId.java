@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,7 +27,7 @@ import org.ofbiz.minilang.*;
 import org.ofbiz.minilang.method.*;
 
 /**
- * Iff the given ID field is not valid the fail-message 
+ * Iff the given ID field is not valid the fail-message
  * or fail-property sub-elements are used to add a message to the error-list.
  */
 public class CheckId extends MethodOperation {
@@ -40,9 +40,9 @@ public class CheckId extends MethodOperation {
             return "check-id";
         }
     }
-    
+ 
     public static final String module = CheckId.class.getName();
-    
+ 
     String message = null;
     String propertyResource = null;
     boolean isProperty = false;
@@ -94,10 +94,10 @@ public class CheckId extends MethodOperation {
             // no map name, try the env
             fieldVal = fieldAcsr.get(methodContext);
         }
-        
+ 
         String fieldStr = fieldVal.toString();
         StringBuilder errorDetails = new StringBuilder();
-        
+ 
         //check various illegal characters, etc for ids
         isValid = UtilValidate.isValidDatabaseId(fieldStr, errorDetails);
 
@@ -109,10 +109,10 @@ public class CheckId extends MethodOperation {
     }
 
     public void addMessage(List<Object> messages, MethodContext methodContext, String defaultMessage, String errorDetails) {
-        
+ 
         String message = methodContext.expandString(this.message);
         String propertyResource = methodContext.expandString(this.propertyResource);
-        
+ 
         if (!isProperty && message != null) {
             messages.add(message + errorDetails);
         } else if (isProperty && propertyResource != null && message != null) {
