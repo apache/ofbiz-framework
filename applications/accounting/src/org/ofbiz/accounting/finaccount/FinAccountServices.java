@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -41,7 +41,7 @@ import org.ofbiz.service.*;
 import javolution.util.FastMap;
 
 public class FinAccountServices {
-    
+ 
     public static final String module = FinAccountServices.class.getName();
 
     public static Map createAccountAndCredit(DispatchContext dctx, Map context) {
@@ -53,7 +53,7 @@ public class FinAccountServices {
 
         // check the type
         if (finAccountTypeId == null) {
-            finAccountTypeId = "SVCCRED_ACCOUNT";            
+            finAccountTypeId = "SVCCRED_ACCOUNT";
         }
         if (accountName == null) {
             if ("SVCCRED_ACCOUNT".equals(finAccountTypeId)) {
@@ -150,7 +150,7 @@ public class FinAccountServices {
             transactionMap.put("reasonEnumId", context.get("reasonEnumId"));
             transactionMap.put("comments", context.get("comments"));
             transactionMap.put("userLogin", userLogin);
-                        
+ 
             Map creditTransResult = dispatcher.runSync("createFinAccountTrans", transactionMap);
             if (ServiceUtil.isError(creditTransResult) || ServiceUtil.isFailure(creditTransResult)) {
                 return creditTransResult;
@@ -171,15 +171,15 @@ public class FinAccountServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productStoreId = (String) context.get("productStoreId");
-        String finAccountTypeId = (String) context.get("finAccountTypeId");        
-        
+        String finAccountTypeId = (String) context.get("finAccountTypeId");
+ 
         try {
             // get the product store id and use it to generate a unique fin account code
             GenericValue productStoreFinAccountSetting = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId));
             if (productStoreFinAccountSetting == null) {
                 return ServiceUtil.returnError("No settings found for store [" + productStoreId + "] for fin account type [" + finAccountTypeId + "]");
             }
-            
+ 
             Long accountCodeLength = productStoreFinAccountSetting.getLong("accountCodeLength");
             Long accountValidDays = productStoreFinAccountSetting.getLong("accountValidDays");
             Long pinCodeLength = productStoreFinAccountSetting.getLong("pinCodeLength");
@@ -210,7 +210,7 @@ public class FinAccountServices {
             inContext.put("organizationPartyId", payToPartyId);
 
             Map createResult = dispatcher.runSync("createFinAccount", inContext);
-            
+ 
             if (ServiceUtil.isError(createResult)) {
                 return createResult;
             } else {
@@ -286,7 +286,7 @@ public class FinAccountServices {
             return ServiceUtil.returnError(ex.getMessage());
         }
 
-        if (finAccount != null) {            
+        if (finAccount != null) {
             String statusId = finAccount.getString("statusId");
             if (statusId == null) statusId = "FNACT_ACTIVE";
 
@@ -332,7 +332,7 @@ public class FinAccountServices {
         if (finAccount != null) {
             // check to make sure the account is refundable
             if (!"Y".equals(finAccount.getString("isRefundable"))) {
-                return ServiceUtil.returnError("Account is not refunable");    
+                return ServiceUtil.returnError("Account is not refunable");
             }
 
             // get the actual and available balance
@@ -368,7 +368,7 @@ public class FinAccountServices {
                             GenericValue productStore = delegator.getRelatedOne("ProductStore", orderHeader);
                             GenericValue orderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
                             if (!"ITEM_CANCELLED".equals(orderItem.getString("statusId"))) {
-                                
+ 
                                 // make sure the item hasn't already been returned
                                 List returnItems = orderItem.getRelated("ReturnItem");
                                 if (returnItems == null || returnItems.size() == 0) {

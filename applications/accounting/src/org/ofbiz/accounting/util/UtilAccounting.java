@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -49,14 +49,14 @@ public class UtilAccounting {
      * @return  The account ID (glAccountId) found
      * @throws  AccountingException        When the no accounts found or an entity exception occurs
      */
-    public static String getProductOrgGlAccountId(String productId, 
-            String glAccountTypeId, String organizationPartyId, GenericDelegator delegator) 
+    public static String getProductOrgGlAccountId(String productId,
+            String glAccountTypeId, String organizationPartyId, GenericDelegator delegator)
         throws AccountingException {
 
         GenericValue account = null;
         try {
             // first try to find the account in ProductGlAccount
-            account = delegator.findByPrimaryKeyCache("ProductGlAccount", 
+            account = delegator.findByPrimaryKeyCache("ProductGlAccount",
                     UtilMisc.toMap("productId", productId, "glAccountTypeId", glAccountTypeId, "organizationPartyId", organizationPartyId));
         } catch (GenericEntityException e) {
             throw new AccountingException("Failed to find a ProductGLAccount for productId [" + productId + "], organization [" + organizationPartyId + "], and productGlAccountTypeId [" + glAccountTypeId + "].", e);
@@ -80,9 +80,9 @@ public class UtilAccounting {
         return account.getString("glAccountId");
     }
 
-    /** 
-     * As above, but explicitly looking for default account for given type and organization 
-     * 
+    /**
+     * As above, but explicitly looking for default account for given type and organization
+     *
      * @param   glAccountTypeId         The type of account
      * @param   organizationPartyId     The organization of the account
      * @return  The default account ID (glAccountId) for this type
@@ -96,7 +96,7 @@ public class UtilAccounting {
      * Little method to figure out the net or ending balance of a GlAccountHistory or GlAccountAndHistory value, based on what kind
      * of account (DEBIT or CREDIT) it is
      * @param account - GlAccountHistory or GlAccountAndHistory value
-     * @return balance - a BigDecimal 
+     * @return balance - a BigDecimal
      */
     public static BigDecimal getNetBalance(GenericValue account, String debugModule) {
         try {
@@ -114,7 +114,7 @@ public class UtilAccounting {
         } else if (isCreditAccount(glAccount)) {
             balance = account.getBigDecimal("postedCredits").subtract(account.getBigDecimal("postedDebits"));
         }
-        return balance;    
+        return balance;
     }
 
     public static List getDescendantGlAccountClassIds(GenericValue glAccountClass) throws GenericEntityException {
@@ -153,11 +153,11 @@ public class UtilAccounting {
 
     /**
      * Checks if a payment is of a specified PaymentType.paymentTypeId.  Return false if payment is null.  It's better to use the
-     * more specific calls like isTaxPayment(). 
+     * more specific calls like isTaxPayment().
      */
     public static boolean isPaymentType(GenericValue payment, String inputTypeId) throws GenericEntityException {
-        if (payment == null) { 
-            return false; 
+        if (payment == null) {
+            return false;
         }
 
         GenericValue paymentType = payment.getRelatedOneCache("PaymentType");

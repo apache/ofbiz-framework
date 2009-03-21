@@ -84,11 +84,11 @@ public class FinAccountPaymentServices {
 
         // obtain the order information
         OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
-        
-        // NOTE DEJ20070808: this means that we want store related settings for where the item is being purchased, 
+ 
+        // NOTE DEJ20070808: this means that we want store related settings for where the item is being purchased,
         //NOT where the account was setup; should this be changed to use settings from the store where the account was setup?
         String productStoreId = orh.getProductStoreId();
-        
+ 
         // TODO, NOTE DEJ20070808: why is this setup this way anyway? for the allowAuthToNegative wouldn't that be better setup
         //on the FinAccount and not on the ProductStoreFinActSetting? maybe an override on the FinAccount would be good...
 
@@ -125,7 +125,7 @@ public class FinAccountPaymentServices {
             // fin the store requires a pin number; validate the PIN with the code
             Map findProductStoreFinActSettingMap = UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId);
             GenericValue finAccountSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", findProductStoreFinActSettingMap);
-            
+ 
             if (finAccountSettings == null) {
                 Debug.logWarning("In finAccountPreAuth could not find ProductStoreFinActSetting record, values searched by: " + findProductStoreFinActSettingMap, module);
             }
@@ -206,8 +206,8 @@ public class FinAccountPaymentServices {
                     Debug.logWarning("In finAccountPreAuth for finAccountId [" + finAccountId + "] availableBalance [" + availableBalanceOriginal + "] was different after rounding [" + availableBalance + "]; it should never have made it into the database this way, so check whatever put it there.", module);
                 }
             }
-            
-            
+ 
+ 
             Map result = ServiceUtil.returnSuccess();
             String authMessage = null;
             Boolean processResult;
@@ -221,7 +221,7 @@ public class FinAccountPaymentServices {
             if (("Y".equals(allowAuthToNegative) && availableBalance.compareTo(minBalance) > -1)
                     || (availableBalance.compareTo(amount) > -1)) {
                 Timestamp thruDate;
-                
+ 
                 if (finAccountSettings != null && finAccountSettings.getLong("authValidDays") != null) {
                     thruDate = UtilDateTime.getDayEnd(UtilDateTime.nowTimestamp(), finAccountSettings.getLong("authValidDays"));
                 } else {
@@ -237,7 +237,7 @@ public class FinAccountPaymentServices {
                     refNum = (String) tmpResult.get("finAccountAuthId");
                     processResult = Boolean.TRUE;
                 }
-                                
+ 
                 // refresh the account
                 finAccount.refresh();
             } else {
@@ -252,7 +252,7 @@ public class FinAccountPaymentServices {
             result.put("authResult", processResult);
             result.put("processAmount", amount);
             result.put("authFlag", "1");
-            result.put("authCode", "A");            
+            result.put("authCode", "A");
             result.put("authRefNum", refNum);
             Debug.logInfo("FinAccont Auth: " + result, module);
 
@@ -280,7 +280,7 @@ public class FinAccountPaymentServices {
             if (authTransaction == null) {
                 return ServiceUtil.returnError(err + " Could not find authorization transaction.");
             }
-            
+ 
             Map input = UtilMisc.toMap("userLogin", userLogin, "finAccountAuthId", authTransaction.get("referenceNum"));
             Map serviceResults = dispatcher.runSync("expireFinAccountAuth", input);
 
@@ -365,9 +365,9 @@ public class FinAccountPaymentServices {
                 partyId = billToParty.getString("partyId");
             }
         }
-        
-        // BIG NOTE: make sure the expireFinAccountAuth and finAccountWithdraw services are done in the SAME TRANSACTION 
-        //(ie no require-new-transaction in either of them AND no running async) 
+ 
+        // BIG NOTE: make sure the expireFinAccountAuth and finAccountWithdraw services are done in the SAME TRANSACTION
+        //(ie no require-new-transaction in either of them AND no running async)
 
         // cancel the authorization before doing the withdraw to avoid problems with way negative available amount on account; should happen in same transaction to avoid conflict problems
         Map releaseResult;
@@ -622,11 +622,11 @@ public class FinAccountPaymentServices {
             return ServiceUtil.returnError("Financial account has expired as of " + finAccount.getTimestamp("thruDate"));
         }
         Debug.log("Deposit into financial account #" + finAccountId + " [" + amount + "]", module);
-        
+ 
         // get the previous balance
         BigDecimal previousBalance = finAccount.getBigDecimal("actualBalance");
         if (previousBalance == null) {
-            previousBalance = FinAccountHelper.ZERO;    
+            previousBalance = FinAccountHelper.ZERO;
         }
 
         // create the transaction
@@ -663,7 +663,7 @@ public class FinAccountPaymentServices {
         result.put("balance", actualBalance);
         result.put("amount", amount);
         result.put("processResult", Boolean.TRUE);
-        result.put("referenceNum", refNum);        
+        result.put("referenceNum", refNum);
         return result;
     }
 
@@ -747,7 +747,7 @@ public class FinAccountPaymentServices {
         if (balance.compareTo(replenishThreshold) > -1) {
             Debug.logInfo("finAccountReplenish Info: Not replenishing FinAccount [" + finAccountId  + "] because balance [" + balance + "] is greater than the replenishThreshold [" + replenishThreshold + "]", module);
             // not ready
-            return ServiceUtil.returnSuccess();        
+            return ServiceUtil.returnSuccess();
         }
 
         // configure rollback service to set status to Negative Pending Replenishment
@@ -855,7 +855,7 @@ public class FinAccountPaymentServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
-        
+ 
         return ServiceUtil.returnSuccess();
     }
 
@@ -892,10 +892,10 @@ public class FinAccountPaymentServices {
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        
+ 
         return null;
     }
-    
+ 
     private static String createFinAcctPaymentTransaction(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, BigDecimal amount,
             String productStoreId, String partyId, String orderId, String orderItemSeqId, String currencyUom, String txType, String finAccountId, String reasonEnumId) throws GeneralException {
 

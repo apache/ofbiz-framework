@@ -162,7 +162,7 @@ public class FinAccountProductServices {
                 }
             }
         }
-        
+ 
         // create the context for FSE
         Map expContext = FastMap.newInstance();
         expContext.put("orderHeader", orderHeader);
@@ -176,9 +176,9 @@ public class FinAccountProductServices {
         finAccountName = exp.expandString(expContext);
 
         // price/amount/quantity to create initial deposit amount
-        BigDecimal quantity = orderItem.getBigDecimal("quantity");        
+        BigDecimal quantity = orderItem.getBigDecimal("quantity");
         BigDecimal price = orderItem.getBigDecimal("unitPrice");
-        BigDecimal deposit = price.multiply(quantity).setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);        
+        BigDecimal deposit = price.multiply(quantity).setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
 
         // create the financial account
         Map createCtx = FastMap.newInstance();

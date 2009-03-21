@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -45,7 +45,7 @@ import org.ofbiz.service.LocalDispatcher;
  * InvoiceWorker - Worker methods of invoices
  */
 public class InvoiceWorker {
-    
+ 
     public static String module = InvoiceWorker.class.getName();
     private static BigDecimal ZERO = BigDecimal.ZERO;
     private static int decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
@@ -66,18 +66,18 @@ public class InvoiceWorker {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
-        
+ 
         GenericValue invoice = null;
         try {
-            invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));    
+            invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting Invoice", module);
         }
-        
+ 
         if (invoice == null) {
             throw new IllegalArgumentException("The invoiceId passed does not match an existing invoice");
         }
-        
+ 
         return getInvoiceTotal(invoice, actualCurrency);
     }
 
@@ -110,7 +110,7 @@ public class InvoiceWorker {
         BigDecimal ONE = BigDecimal.ONE;
 
         if (invoice == null)
-           throw new IllegalArgumentException("The invoiceId passed does not match an existing invoice"); 
+           throw new IllegalArgumentException("The invoiceId passed does not match an existing invoice");
         List invoiceTaxItems = null;
         try {
             GenericDelegator delegator = invoice.getDelegator();
@@ -120,7 +120,7 @@ public class InvoiceWorker {
                     ), EntityOperator.AND);
             invoiceTaxItems = delegator.findList("InvoiceItem", condition, null, null, null, false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting InvoiceItem list", module);            
+            Debug.logError(e, "Trouble getting InvoiceItem list", module);
         }
         if (UtilValidate.isNotEmpty(invoiceTaxItems)) {
             Iterator invoiceItemsIter = invoiceTaxItems.iterator();
@@ -138,11 +138,11 @@ public class InvoiceWorker {
         return invoiceTaxTotal.setScale(decimals, rounding);
 
     }
-    
+ 
     public static BigDecimal getInvoiceNoTaxTotal(GenericValue invoice) {
         return getInvoiceTotal(invoice, Boolean.TRUE).subtract(getInvoiceTaxTotal(invoice));
     }
-    
+ 
     /**
      * Method to return the total amount of an invoice
      * @param invoice GenericValue object of the Invoice
@@ -151,7 +151,7 @@ public class InvoiceWorker {
      public static BigDecimal getInvoiceTotal(GenericValue invoice) {
         return getInvoiceTotal(invoice, Boolean.TRUE);
     }
-        
+ 
     public static BigDecimal getInvoiceTotal(GenericValue invoice, Boolean actualCurrency) {
         BigDecimal invoiceTotal = ZERO;
         BigDecimal invoiceTaxTotal = ZERO;
@@ -159,7 +159,7 @@ public class InvoiceWorker {
         try {
             invoiceItems = invoice.getRelated("InvoiceItem");
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting InvoiceItem list", module);            
+            Debug.logError(e, "Trouble getting InvoiceItem list", module);
         }
         if (UtilValidate.isNotEmpty(invoiceItems)) {
             Iterator invoiceItemsIter = invoiceItems.iterator();
@@ -203,13 +203,13 @@ public class InvoiceWorker {
         // remaining code is the old method, which we leave here for compatibility purposes
         List billToRoles = null;
         try {
-            billToRoles = invoice.getRelated("InvoiceRole", UtilMisc.toMap("roleTypeId", "BILL_TO_CUSTOMER"), 
+            billToRoles = invoice.getRelated("InvoiceRole", UtilMisc.toMap("roleTypeId", "BILL_TO_CUSTOMER"),
                 UtilMisc.toList("-datetimePerformed"));
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting InvoiceRole list", module);            
+            Debug.logError(e, "Trouble getting InvoiceRole list", module);
         }
-        
-        if (billToRoles != null) {        
+ 
+        if (billToRoles != null) {
             GenericValue role = EntityUtil.getFirst(billToRoles);
             GenericValue party = null;
             try {
@@ -219,8 +219,8 @@ public class InvoiceWorker {
             }
             if (party != null)
                 return party;
-        }            
-        return null;        
+        }
+        return null;
     }
 
     /** Convenience method to obtain the bill from party for an invoice. Note that invoice.partyIdFrom is the bill from party. */
@@ -232,12 +232,12 @@ public class InvoiceWorker {
         }
         return null;
     }
-    
+ 
     /**
       * Method to obtain the send from party for an invoice
       * @param invoice GenericValue object of the Invoice
       * @return GenericValue object of the Party
-      */    
+      */
     public static GenericValue getSendFromParty(GenericValue invoice) {
         GenericValue billFromParty = getBillFromParty(invoice);
         if (billFromParty != null) {
@@ -247,13 +247,13 @@ public class InvoiceWorker {
         // remaining code is the old method, which we leave here for compatibility purposes
         List sendFromRoles = null;
         try {
-            sendFromRoles = invoice.getRelated("InvoiceRole", UtilMisc.toMap("roleTypeId", "BILL_FROM_VENDOR"), 
+            sendFromRoles = invoice.getRelated("InvoiceRole", UtilMisc.toMap("roleTypeId", "BILL_FROM_VENDOR"),
                 UtilMisc.toList("-datetimePerformed"));
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting InvoiceRole list", module);            
+            Debug.logError(e, "Trouble getting InvoiceRole list", module);
         }
-        
-        if (sendFromRoles != null) {        
+ 
+        if (sendFromRoles != null) {
             GenericValue role = EntityUtil.getFirst(sendFromRoles);
             GenericValue party = null;
             try {
@@ -263,28 +263,28 @@ public class InvoiceWorker {
             }
             if (party != null)
                 return party;
-        }            
-        return null;        
+        }
+        return null;
     }
-    
+ 
     /**
       * Method to obtain the billing address for an invoice
       * @param invoice GenericValue object of the Invoice
       * @return GenericValue object of the PostalAddress
-      */        
+      */
     public static GenericValue getBillToAddress(GenericValue invoice) {
-        return getInvoiceAddressByType(invoice, "BILLING_LOCATION");        
+        return getInvoiceAddressByType(invoice, "BILLING_LOCATION");
     }
-    
+ 
     /**
       * Method to obtain the sending address for an invoice
       * @param invoice GenericValue object of the Invoice
       * @return GenericValue object of the PostalAddress
-      */        
+      */
     public static GenericValue getSendFromAddress(GenericValue invoice) {
-        return getInvoiceAddressByType(invoice, "PAYMENT_LOCATION");                
+        return getInvoiceAddressByType(invoice, "PAYMENT_LOCATION");
     }
-    
+ 
     public static GenericValue getInvoiceAddressByType(GenericValue invoice, String contactMechPurposeTypeId) {
         GenericDelegator delegator = invoice.getDelegator();
         List locations = null;
@@ -292,7 +292,7 @@ public class InvoiceWorker {
         try {
             locations = invoice.getRelated("InvoiceContactMech", UtilMisc.toMap("contactMechPurposeTypeId", contactMechPurposeTypeId), null);
         } catch (GenericEntityException e) {
-            Debug.logError("Touble getting InvoiceContactMech entity list", module);           
+            Debug.logError("Touble getting InvoiceContactMech entity list", module);
         }
 
         if (locations == null || locations.size() == 0)    {
@@ -303,22 +303,22 @@ public class InvoiceWorker {
             if (invoice.getString("invoiceTypeId").equals("PURCHASE_INVOICE"))
                 destinationPartyId = "partyFrom";
             try {
-                locations = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose", 
+                locations = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
                         UtilMisc.toMap("partyId", destinationPartyId, "contactMechPurposeTypeId", contactMechPurposeTypeId)));
             } catch (GenericEntityException e) {
-                Debug.logError("Trouble getting contact party purpose list", module);           
+                Debug.logError("Trouble getting contact party purpose list", module);
             }
             //if still not found get it from the general location
             if (locations == null || locations.size() == 0)    {
                 try {
-                    locations = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose", 
+                    locations = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
                             UtilMisc.toMap("partyId", destinationPartyId, "contactMechPurposeTypeId", "GENERAL_LOCATION")));
                 } catch (GenericEntityException e) {
-                    Debug.logError("Trouble getting contact party purpose list", module);           
+                    Debug.logError("Trouble getting contact party purpose list", module);
                 }
             }
-        }        
-        
+        }
+ 
         // now return the first PostalAddress from the locations
         GenericValue postalAddress = null;
         GenericValue contactMech = null;
@@ -328,7 +328,7 @@ public class InvoiceWorker {
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Trouble getting Contact for contactMechId: " + contactMech.getString("contactMechId"), module);
             }
-            
+ 
             if (contactMech.getString("contactMechTypeId").equals("POSTAL_ADDRESS"))    {
                 try {
                     postalAddress = contactMech.getRelatedOne("PostalAddress");
@@ -340,16 +340,16 @@ public class InvoiceWorker {
         }
         return contactMech;
     }
-        
+ 
     private static GenericValue getAddressFromParty(GenericValue party, String purposeTypeId) {
         if (party == null) return null;
-        
+ 
         GenericValue contactMech = null;
         GenericValue postalAddress = null;
         try {
-            List mecs = party.getRelated("PartyContactMechPurpose", 
+            List mecs = party.getRelated("PartyContactMechPurpose",
                 UtilMisc.toMap("contactMechPurposeTypeId", purposeTypeId), null);
-            if (mecs != null) {            
+            if (mecs != null) {
                 List filteredMecs = EntityUtil.filterByDate(mecs);
                 GenericValue mecPurpose = EntityUtil.getFirst(filteredMecs);
                 if (mecPurpose != null)
@@ -358,22 +358,22 @@ public class InvoiceWorker {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting current ContactMech for Party/Purpose", module);
         }
-        
+ 
         if (contactMech != null) {
             if (contactMech.getString("contactMechTypeId").equals("POSTAL_ADDRESS")) {
                 try {
-                    postalAddress = contactMech.getRelatedOne("PostalAddress");                               
+                    postalAddress = contactMech.getRelatedOne("PostalAddress");
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Trouble getting PostalAddress from ContactMech", module);
                 }
             }
         }
-        
+ 
         if (postalAddress != null)
             return postalAddress;
-        return null;        
+        return null;
     }
-    
+ 
     /**
      * Method to return the total amount of an invoice which is not yet applied to a payment
      * @param invoice GenericValue object of the Invoice
@@ -393,7 +393,7 @@ public class InvoiceWorker {
     }
     /**
      * Returns amount not applied (ie, still outstanding) of an invoice at an asOfDate, based on Payment.effectiveDate <= asOfDateTime
-     * 
+     *
      * @param invoice
      * @param asOfDateTime
      * @return
@@ -402,7 +402,7 @@ public class InvoiceWorker {
         return InvoiceWorker.getInvoiceTotal(invoice, Boolean.TRUE).subtract(getInvoiceApplied(invoice, asOfDateTime));
     }
 
-    
+ 
     /**
      * Method to return the total amount of an invoice which is applied to a payment
      * @param invoice GenericValue object of the Invoice
@@ -411,10 +411,10 @@ public class InvoiceWorker {
     public static BigDecimal getInvoiceApplied(GenericDelegator delegator, String invoiceId) {
         return getInvoiceApplied(delegator, invoiceId, UtilDateTime.nowTimestamp(), Boolean.TRUE);
     }
-    
+ 
     /**
      * Returns amount applied to invoice before an asOfDateTime, based on Payment.effectiveDate <= asOfDateTime
-     * 
+     *
      * @param delegator
      * @param invoiceId
      * @param asOfDateTime - a Timestamp
@@ -424,10 +424,10 @@ public class InvoiceWorker {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
-        
+ 
         BigDecimal invoiceApplied = ZERO;
         List paymentApplications = null;
-        
+ 
         // lookup payment applications which took place before the asOfDateTime for this invoice
         EntityConditionList dateCondition = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition("effectiveDate", EntityOperator.EQUALS, null),
@@ -435,12 +435,12 @@ public class InvoiceWorker {
         EntityConditionList conditions = EntityCondition.makeCondition(UtilMisc.toList(
                 dateCondition,
                 EntityCondition.makeCondition("invoiceId", EntityOperator.EQUALS, invoiceId)),
-                EntityOperator.AND); 
+                EntityOperator.AND);
 
         try {
             paymentApplications = delegator.findList("PaymentAndApplication", conditions, null, UtilMisc.toList("effectiveDate"), null, false);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting paymentApplicationlist", module);            
+            Debug.logError(e, "Trouble getting paymentApplicationlist", module);
         }
         if (UtilValidate.isNotEmpty(paymentApplications)) {
             Iterator p = paymentApplications.iterator();
@@ -462,7 +462,7 @@ public class InvoiceWorker {
     public static BigDecimal getInvoiceApplied(GenericValue invoice) {
         return getInvoiceApplied(invoice, UtilDateTime.nowTimestamp());
     }
-    
+ 
     /**
      * @param delegator
      * @param invoiceId
@@ -484,21 +484,21 @@ public class InvoiceWorker {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
-        
+ 
         GenericValue invoiceItem = null;
         try {
-            invoiceItem = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId,"invoiceItemSeqId", invoiceItemSeqId));    
+            invoiceItem = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId,"invoiceItemSeqId", invoiceItemSeqId));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting InvoiceItem", module);
         }
-        
+ 
         if (invoiceItem == null) {
             throw new IllegalArgumentException("The invoiceId/itemSeqId passed does not match an existing invoiceItem");
         }
-        
+ 
         return getInvoiceItemApplied(invoiceItem);
     }
-    
+ 
     /**
      * Method to return the total amount of an invoiceItem which is applied to a payment
      * @param invoice GenericValue object of the Invoice
@@ -510,7 +510,7 @@ public class InvoiceWorker {
         try {
             paymentApplications = invoiceItem.getRelated("PaymentApplication");
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting paymentApplicationlist", module);            
+            Debug.logError(e, "Trouble getting paymentApplicationlist", module);
         }
         if (UtilValidate.isNotEmpty(paymentApplications)) {
             Iterator p = paymentApplications.iterator();
@@ -519,7 +519,7 @@ public class InvoiceWorker {
                 invoiceItemApplied = invoiceItemApplied.add(paymentApplication.getBigDecimal("amountApplied")).setScale(decimals,rounding);
             }
         }
-        return invoiceItemApplied;        
+        return invoiceItemApplied;
     }
     public static BigDecimal getInvoiceCurrencyConversionRate(GenericValue invoice) {
         BigDecimal conversionRate = null;
@@ -540,12 +540,12 @@ public class InvoiceWorker {
                 otherCurrencyUomId = "USD"; // final default
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting database records....", module);            
+            Debug.logError(e, "Trouble getting database records....", module);
         }
         if (invoice.getString("currencyUomId").equals(otherCurrencyUomId)) {
             return BigDecimal.ONE;  // organization party has the same currency so conversion not required.
         }
-        
+ 
         try {
             // check if the invoice is posted and get the conversion from there
             List acctgTransEntries = invoice.getRelated("AcctgTrans");
@@ -571,7 +571,7 @@ public class InvoiceWorker {
             }
             // use the dated conversion entity
             if (UtilValidate.isEmpty(conversionRate)) {
-                List rates = EntityUtil.filterByDate(delegator.findByAnd("UomConversionDated", UtilMisc.toMap("uomIdTo", invoice.getString("currencyUomId"), "uomId", otherCurrencyUomId)), invoice.getTimestamp("invoiceDate")); 
+                List rates = EntityUtil.filterByDate(delegator.findByAnd("UomConversionDated", UtilMisc.toMap("uomIdTo", invoice.getString("currencyUomId"), "uomId", otherCurrencyUomId)), invoice.getTimestamp("invoiceDate"));
                 if (UtilValidate.isNotEmpty(rates)) {
                     conversionRate = (BigDecimal.ONE).divide(((GenericValue) rates.get(0)).getBigDecimal("conversionFactor"), new MathContext(100)).setScale(decimals,rounding);
                 } else {
@@ -581,7 +581,7 @@ public class InvoiceWorker {
             }
 
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting database records....", module);            
+            Debug.logError(e, "Trouble getting database records....", module);
         }
         return(conversionRate);
     }
@@ -590,19 +590,19 @@ public class InvoiceWorker {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
-        
+ 
         GenericValue invoice = null;
         try {
-            invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));    
+            invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting Invoice", module);
         }
-        
+ 
         if (invoice == null) {
             throw new IllegalArgumentException("The invoiceId passed does not match an existing invoice");
         }
-        
+ 
         return getInvoiceCurrencyConversionRate(invoice);
     }
-   
+ 
 }

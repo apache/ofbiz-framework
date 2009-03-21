@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -40,7 +40,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.webapp.event.EventHandlerException;
 
 public class GlEvents {
-    
+ 
 public static final String module = GlEvents.class.getName();
 public static String createReconcileAccount(HttpServletRequest request,HttpServletResponse response) {
     LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -87,7 +87,7 @@ public static String createReconcileAccount(HttpServletRequest request,HttpServl
             Debug.logError(e, module);
             return "error";
         }
-        
+ 
     }
     Map fieldMap = UtilMisc.toMap("glReconciliationName", "Reconciliation at date " + UtilDateTime.nowTimestamp(), "glAccountId", glAccountId, "organizationPartyId", organizationPartyId, "reconciledDate", UtilDateTime.nowTimestamp(), "reconciledBalance", reconciledBalance, "userLogin", userLogin);
     Map glReconResult = null;
