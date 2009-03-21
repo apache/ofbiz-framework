@@ -85,7 +85,7 @@ public class GenerateContainer implements Container {
             geronimoHome = System.getenv("GERONIMO_HOME");
             if (geronimoHome == null) {
                 geronimoHome = UtilProperties.getPropertyValue("appserver", "geronimoHome", null);
-            }            
+            }
         }
     }
 
@@ -272,7 +272,7 @@ public class GenerateContainer implements Container {
                     env.put("GERONIMO_BATCH_PAUSE", "on");
                 }
                     processBuilder.directory(workingDir);
-                
+ 
                 try {
                     System.out.println("Currently undeploying " + ofbizName + ", using : <<" + command + ">>, please wait ...");
                         processBuilder.redirectErrorStream(true);
@@ -284,7 +284,7 @@ public class GenerateContainer implements Container {
                         if ("\\".equals(separator)) {   //Windows
                             System.out.print(new String(buf,0,readLen));
                         } else {
-                            System.out.println(new String(buf,0,readLen));                                
+                            System.out.println(new String(buf,0,readLen));
                         }
                     }
                     is.close();
@@ -333,7 +333,7 @@ public class GenerateContainer implements Container {
                     env.put("GERONIMO_BATCH_PAUSE", "on");
                 }
                 processBuilder.directory(workingDir);
-                
+ 
                 try {
                     System.out.println("Currently deploying " + ofbizName + ", using : <<" + command + ">>, please wait ...");
                     processBuilder.redirectErrorStream(true);
@@ -345,7 +345,7 @@ public class GenerateContainer implements Container {
                         if ("\\".equals(separator)) {   //Windows
                             System.out.print(new String(buf,0,readLen));
                         } else {
-                            System.out.println(new String(buf,0,readLen));                                
+                            System.out.println(new String(buf,0,readLen));
                         }
                     }
                     is.close();
