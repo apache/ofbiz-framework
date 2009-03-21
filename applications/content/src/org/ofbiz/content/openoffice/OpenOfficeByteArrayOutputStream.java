@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -33,7 +33,7 @@ import com.sun.star.io.NotConnectedException;
 public class OpenOfficeByteArrayOutputStream extends ByteArrayOutputStream implements XOutputStream {
 
     public static final String module = OpenOfficeByteArrayOutputStream.class.getName();
-    
+ 
     public OpenOfficeByteArrayOutputStream() {
         super();
         // TODO Auto-generated constructor stub
@@ -63,7 +63,7 @@ public class OpenOfficeByteArrayOutputStream extends ByteArrayOutputStream imple
               throw(new com.sun.star.io.IOException(e.getMessage()));
           }
       }
-      
+ 
       public void flush()
       {
           try {

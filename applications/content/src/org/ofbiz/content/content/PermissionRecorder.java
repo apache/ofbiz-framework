@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -31,7 +31,7 @@ import org.ofbiz.entity.GenericValue;
 
 /**
  * PermissionRecorder Class
- * 
+ *
  * Services for granting operation permissions on Content entities in a data-driven manner.
  */
 public class PermissionRecorder {
@@ -129,8 +129,8 @@ public class PermissionRecorder {
         if (!currentContentId.equals(id)) {
             currentContentMap = FastMap.newInstance();
             permCheckResults.add(currentContentMap);
-            currentContentMap.put("contentId", id);            
-            currentContentMap.put("checkResults", FastList.newInstance());            
+            currentContentMap.put("contentId", id);
+            currentContentMap.put("checkResults", FastList.newInstance());
         }
         currentContentId = id;
     }
@@ -141,7 +141,7 @@ public class PermissionRecorder {
 
     public void setRoles(List roles) {
         if (currentContentMap != null) {
-            if (roles != null) 
+            if (roles != null)
                 currentContentMap.put("roles", roles.toArray());
             else
                 currentContentMap.put("roles", null);
@@ -150,7 +150,7 @@ public class PermissionRecorder {
 
     public void setPurposes(List purposes) {
         if (currentContentMap != null) {
-            if (purposes != null) 
+            if (purposes != null)
                 currentContentMap.put("purposes", purposes.toArray());
             else
                 currentContentMap.put("purposes", null);

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -318,7 +318,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         if (locale == null) {
             return contentAssocDataResourceViewFrom;
         }
-        
+ 
         String localeStr = locale.toString();
         boolean isTwoLetterLocale = localeStr.length() == 2;
 
@@ -329,7 +329,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             Debug.logError(e, "Error finding alternate locale content: " + e.toString(), module);
             return contentAssocDataResourceViewFrom;
         }
-        
+ 
         alternateViews = EntityUtil.filterByDate(alternateViews, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
         Iterator alternateViewIter = alternateViews.iterator();
         while (alternateViewIter.hasNext()) {
@@ -338,9 +338,9 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             if (UtilValidate.isEmpty(currentLocaleString)) {
                 continue;
             }
-            
+ 
             int currentLocaleLength = currentLocaleString.length();
-            
+ 
             // could be a 2 letter or 5 letter code
             if (isTwoLetterLocale) {
                 if (currentLocaleLength == 2) {
@@ -370,12 +370,12 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                 }
             }
         }
-        
+ 
         return contentAssocDataResourceViewFrom;
     }
 
     public static void traverse(GenericDelegator delegator, GenericValue content, Timestamp fromDate, Timestamp thruDate, Map whenMap, int depthIdx, Map masterNode, String contentAssocTypeId, List pickList, String direction) {
-        
+ 
         //String startContentAssocTypeId = null;
         String contentTypeId = null;
         String contentId = null;
@@ -477,7 +477,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         List nodeTrail = (List)ctx.get("nodeTrail");
         ContentWorker.traceNodeTrail("11",nodeTrail);
         int sz = nodeTrail.size();
-        if (sz == 0) { 
+        if (sz == 0) {
             return false;
         }
 
@@ -494,7 +494,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                 currentNode = (Map)kids.get(idx);
                 ContentWorker.traceNodeTrail("12",nodeTrail);
                 Boolean isPick = (Boolean)currentNode.get("isPick");
-               
+ 
                 if (isPick != null && isPick.booleanValue()) {
                     nodeTrail.add(currentNode);
                     inProgress = true;
@@ -514,7 +514,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                 }
                 idx++;
             }
-        } 
+        }
 
         if (!inProgress) {
             // look for next sibling
@@ -608,7 +608,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     }
 
     public static void selectKids(Map currentNode, Map ctx) {
-        
+ 
         GenericDelegator delegator = (GenericDelegator) ctx.get("delegator");
         GenericValue parentContent = (GenericValue) currentNode.get("value");
         String contentAssocTypeId = (String) ctx.get("contentAssocTypeId");
@@ -624,7 +624,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             direction = "From";
         Timestamp fromDate = (Timestamp) ctx.get("fromDate");
         Timestamp thruDate = (Timestamp) ctx.get("thruDate");
-        
+ 
         List assocTypeList = StringUtil.split(contentAssocTypeId, " ");
         List contentTypeList = StringUtil.split(contentTypeId, " ");
         String contentAssocPredicateId = null;
@@ -662,7 +662,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     }
 
     public static boolean checkWhen(Map context, String whenStr) {
-   
+ 
         boolean isWhen = true; //opposite default from checkReturnWhen
         if (whenStr != null && whenStr.length() > 0) {
             FlexibleStringExpander fse = FlexibleStringExpander.getInstance(whenStr);
@@ -703,7 +703,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
         GenericDelegator delegator = currentContent.getDelegator();
         List assocList = getAssociations(currentContent, linkDir, assocTypes, fromDate, thruDate);
-        if (UtilValidate.isEmpty(assocList)) { 
+        if (UtilValidate.isEmpty(assocList)) {
             return assocList;
         }
         if (Debug.infoOn()) Debug.logInfo("assocList:" + assocList.size() + " contentId:" + currentContent.getString("contentId"), "");
@@ -870,7 +870,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             contentIdField = "contentIdTo";
             contentIdOtherField = "contentId";
         }
-        
+ 
         if (Debug.infoOn()) Debug.logInfo("getContentAncestry, contentId:" + contentId, "");
         if (Debug.infoOn()) Debug.logInfo("getContentAncestry, contentAssocTypeId:" + contentAssocTypeId, "");
         Map andMap = null;
@@ -890,11 +890,11 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                 contentAncestorList.add(contentAssoc.getString(contentIdOtherField));
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e,module); 
+            Debug.logError(e,module);
             return;
         }
     }
-    
+ 
     public static void getContentAncestryAll(GenericDelegator delegator, String contentId, String passedContentTypeId, String direction, List contentAncestorList) {
         String contentIdField = null;
         String contentIdOtherField = null;
@@ -905,7 +905,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             contentIdField = "contentIdTo";
             contentIdOtherField = "contentId";
         }
-        
+ 
         if (Debug.infoOn()) Debug.logInfo("getContentAncestry, contentId:" + contentId, "");
         Map andMap = UtilMisc.toMap(contentIdField, contentId);
         try {
@@ -928,7 +928,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                 }
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e,module); 
+            Debug.logError(e,module);
             return;
         }
     }
@@ -938,7 +938,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
          List contentAncestorList = FastList.newInstance();
          List nodeTrail = FastList.newInstance();
          getContentAncestry(delegator, contentId, contentAssocTypeId, direction, contentAncestorList);
-         Iterator contentAncestorListIter = contentAncestorList.iterator(); 
+         Iterator contentAncestorListIter = contentAncestorList.iterator();
          while (contentAncestorListIter.hasNext()) {
              GenericValue value = (GenericValue) contentAncestorListIter.next();
              Map thisNode = ContentWorker.makeNode(value);
@@ -965,7 +965,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             contentIdField = "contentIdTo";
             contentIdOtherField = "contentId";
         }
-        
+ 
             //if (Debug.infoOn()) Debug.logInfo("getContentAncestry, contentId:" + contentId, "");
         try {
             List lst = delegator.findByAndCache("ContentAssoc", UtilMisc.toMap(contentIdField, contentId, "contentAssocTypeId", contentAssocTypeId));
@@ -976,11 +976,11 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                 GenericValue contentAssoc = (GenericValue)lst2.get(0);
                 getContentAncestryValues(delegator, contentAssoc.getString(contentIdOtherField), contentAssocTypeId, direction, contentAncestorList);
                 GenericValue content = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentAssoc.getString(contentIdOtherField)));
-                
+ 
                 contentAncestorList.add(content);
             }
         } catch (GenericEntityException e) {
-            Debug.logError(e,module); 
+            Debug.logError(e,module);
             return;
         }
     }
@@ -1002,7 +1002,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     }
 
     public static Map callContentPermissionCheckResult(GenericDelegator delegator, LocalDispatcher dispatcher, Map context) {
-        
+ 
         Map permResults = FastMap.newInstance();
         String skipPermissionCheck = (String) context.get("skipPermissionCheck");
 
@@ -1026,7 +1026,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                 Debug.logError(e, "Problem checking permissions", "ContentServices");
             }
         } else {
-            permResults.put("permissionStatus", "granted");   
+            permResults.put("permissionStatus", "granted");
         }
         return permResults;
     }
@@ -1117,7 +1117,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         List passedGlobalNodeTrail = null;
         GenericValue currentContent = null;
         String viewContentId = null;
-        if (UtilValidate.isNotEmpty(trail)) { 
+        if (UtilValidate.isNotEmpty(trail)) {
             passedGlobalNodeTrail = UtilMisc.makeListWritable(trail);
         } else {
             passedGlobalNodeTrail = FastList.newInstance();
@@ -1128,7 +1128,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             Map nd = (Map)passedGlobalNodeTrail.get(sz - 1);
             if (nd != null)
                 currentContent = (GenericValue)nd.get("value");
-            if (currentContent != null) 
+            if (currentContent != null)
                 viewContentId = (String)currentContent.get("contentId");
         }
 
@@ -1271,7 +1271,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         }
         return bool;
     }
-        
+ 
 
     public static List prepTargetOperationList(Map context, String md) {
 
@@ -1296,7 +1296,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     }
 
     /**
-     * Checks to see if there is a purpose string (delimited by pipes) and 
+     * Checks to see if there is a purpose string (delimited by pipes) and
      * turns it into a list and concants to any existing purpose list.
      * @param context
      * @return
@@ -1323,7 +1323,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     public static String prepPermissionErrorMsg(Map permResults) {
 
         String permissionStatus = (String)permResults.get("permissionStatus");
-        String errorMessage = "Permission is denied." + permissionStatus; 
+        String errorMessage = "Permission is denied." + permissionStatus;
         errorMessage += ServiceUtil.getErrorMessage(permResults);
         PermissionRecorder recorder = (PermissionRecorder)permResults.get("permissionRecorder");
             Debug.logInfo("recorder(0):" + recorder, "");
@@ -1383,7 +1383,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
     public static Map makeNode(GenericValue thisContent) {
         Map thisNode = null;
-        if (thisContent == null) 
+        if (thisContent == null)
             return thisNode;
 
         thisNode = FastMap.newInstance();
@@ -1408,7 +1408,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
 
     public static String nodeTrailToCsv(List nodeTrail) {
-        
+ 
         if (nodeTrail == null)
             return "";
         StringBuilder csv = new StringBuilder();
@@ -1427,7 +1427,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     }
 
     public static List csvToList(String csv, GenericDelegator delegator) {
-        
+ 
         List outList = FastList.newInstance();
         List contentIdList = StringUtil.split(csv, ",");
         GenericValue content = null;
@@ -1447,7 +1447,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             values = FastList.newInstance();
             values.add(contentId);
             values.add(contentName);
-            outList.add(values);    
+            outList.add(values);
         }
         return outList;
     }
@@ -1519,7 +1519,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     /*
      * Tries to find the mime type of the associated content and parent content.
      *
-     * @param delegator 
+     * @param delegator
      * @param view SubContentDataResourceView
      * @param parentContent Content entity
      * @param contentId part of primary key of view. To be used if view is null.
@@ -1577,7 +1577,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
     public static String logMap(String lbl, Map map, int indentLevel) {
         StringBuilder indent = new StringBuilder();
-        for (int i=0; i<indentLevel; i++) { 
+        for (int i=0; i<indentLevel; i++) {
             indent.append(' ');
         }
         StringBuilder sb = new StringBuilder();
@@ -1623,7 +1623,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
 
     public static String logList(String lbl, List lst, int indentLevel) {
         StringBuilder indent = new StringBuilder();
-        for (int i=0; i<indentLevel; i++) { 
+        for (int i=0; i<indentLevel; i++) {
             indent.append(' ');
         }
         StringBuilder sb = new StringBuilder();
@@ -1631,7 +1631,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     }
 
     public static StringBuilder logList(StringBuilder s, String lbl, List lst, StringBuilder indent) {
-   
+ 
         String sep = ":";
         String eol = "\n";
         String spc = "";
@@ -1666,7 +1666,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         }
         return s.append(eol).append(eol);
     }
-    
+ 
     public static void traceNodeTrail(String lbl, List nodeTrail) {
         /*
                 if (!Debug.verboseOn()) {

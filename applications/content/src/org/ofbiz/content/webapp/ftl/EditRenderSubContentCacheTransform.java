@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -46,14 +46,14 @@ import freemarker.template.TemplateTransformModel;
 //import com.clarkware.profiler.Profiler;
 /**
  * EditRenderSubContentCacheTransform - Freemarker Transform for URLs (links)
- * 
+ *
  * This is an interactive FreeMarker tranform that allows the user to modify the contents that are placed within it.
  */
 public class EditRenderSubContentCacheTransform implements TemplateTransformModel {
 
     public static final String module = EditRenderSubContentCacheTransform.class.getName();
     public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly"};
-    
+ 
     /**
      * A wrapper for the FreeMarkerWorker version.
      */
@@ -138,7 +138,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
                     String wrapTemplateId = (String)templateCtx.get("wrapTemplateId");
                     if (UtilValidate.isNotEmpty(wrapTemplateId)) {
                         templateCtx.put("wrappedContent", wrappedContent);
-                        
+ 
                     //Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
                     Map templateRoot = null;
                     Map templateRootTemplate = (Map)templateCtx.get("templateRootTemplate");
@@ -149,7 +149,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
                     } else {
                         templateRoot = UtilMisc.makeMapWritable(templateRootTemplate);
                     }
-                        
+ 
                         templateRoot.put("context", templateCtx);
         if (Debug.verboseOn()) {
             Set kySet = templateCtx.keySet();
@@ -159,7 +159,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
                 Object val = templateCtx.get(ky);
             }
         }
-                        
+ 
                         String mimeTypeId = (String)templateCtx.get("mimeTypeId");
                         Locale locale = null;
                         try {
@@ -173,7 +173,7 @@ public class EditRenderSubContentCacheTransform implements TemplateTransformMode
                             Debug.logError(e2, "Error rendering content" + e2.getMessage(), module);
                             throw new IOException("Error rendering content" + e2.toString());
                         }
-                        
+ 
                 } else {
                     out.write(wrappedContent);
                 }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -208,7 +208,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                 String contentAssocTypeId = null;
                 String mapKey = null;
                 String fromDate = null;
-             
+ 
                 if (!directAssocMode) {
                     contentIdTo = (String)templateRoot.get("contentId");
                     contentAssocTypeId = (String)templateRoot.get("contentAssocTypeId");
@@ -263,7 +263,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                     fullRequest += delim + "fromDate=" + fromDate;
                     delim = "&";
                 }
-              
+ 
                 if (Debug.infoOn()) Debug.logInfo("in Render(2), contentIdTo ." + contentIdTo , module);
                 out.write("<a href=\"");
                 ServletContext servletContext = (ServletContext) request.getSession().getServletContext();
@@ -281,10 +281,10 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                 if (UtilValidate.isEmpty(editStyle)) {
                     editStyle = "buttontext";
                 }
-                return editStyle; 
+                return editStyle;
             }
         };
-        
+ 
     }
 
 }

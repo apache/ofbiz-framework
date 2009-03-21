@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -102,16 +102,16 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
         //final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
         GenericValue view = (GenericValue) FreeMarkerWorker.getWrappedObject("subContentDataResourceView", env);
         final Integer indent = (templateCtx.get("indent") == null) ? Integer.valueOf(0) : (Integer)templateCtx.get("indent");
-       
+ 
         String contentId = (String)templateCtx.get("contentId");
         String subContentId = (String)templateCtx.get("subContentId");
         if (view == null) {
             String thisContentId = subContentId;
-            if (UtilValidate.isEmpty(thisContentId)) 
+            if (UtilValidate.isEmpty(thisContentId))
                 thisContentId = contentId;
 
             if (UtilValidate.isNotEmpty(thisContentId)) {
-            
+ 
                 try {
                     view = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", thisContentId));
                 } catch (GenericEntityException e) {
@@ -148,7 +148,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
             startContentAssocTypeId = "SUB_CONTENT";
         traverseContext.put("contentAssocTypeId", startContentAssocTypeId);
         String direction = (String)templateCtx.get( "direction");
-        if (UtilValidate.isEmpty(direction)) 
+        if (UtilValidate.isEmpty(direction))
             direction = "From";
         traverseContext.put("direction", direction);
 
@@ -229,9 +229,9 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 String wrapTemplateId = (String)templateCtx.get("wrapTemplateId");
                 if (UtilValidate.isNotEmpty(wrapTemplateId)) {
                     templateCtx.put("wrappedFTL", wrappedFTL);
-                    
+ 
                     Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
-                    
+ 
 /*
                     templateRoot.put("viewSize", viewSize);
                     templateRoot.put("viewIndex", viewIndex);
@@ -243,7 +243,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                     templateRoot.put("wrapContentIdTo", contentId);
                     templateRoot.put("wrapMimeTypeId", mimeTypeId);
                     //templateRoot.put("wrapMapKey", mapKey);
-                    
+ 
 */
                     templateRoot.put("context", templateCtx);
                     String mimeTypeId = (String) templateCtx.get("mimeTypeId");
@@ -277,7 +277,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
             }
 
             private boolean checkWhen (GenericValue thisContent, String contentAssocTypeId) {
-        
+ 
                 boolean isPick = false;
                 Map assocContext = FastMap.newInstance();
                 if (UtilValidate.isEmpty(contentAssocTypeId))

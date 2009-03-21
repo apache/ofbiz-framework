@@ -133,7 +133,7 @@ public class BlogRssServices {
                     entry.setPublishedDate(v.getTimestamp("createdDate"));
                     entry.setDescription(desc);
                     entry.setLink(thisLink);
-                    entry.setAuthor((v.getString("createdByUserLogin")));                    
+                    entry.setAuthor((v.getString("createdByUserLogin")));
                     entries.add(entry);
                 }
             }

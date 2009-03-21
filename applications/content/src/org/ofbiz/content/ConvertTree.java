@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -47,8 +47,8 @@ public class ConvertTree{
 This program will convert the output of the DOS 'tree' command into a contantAssoc tree.
 the leaves in the tree will point to filenames on the local disk.
 
-With this program and the content navigation a office file server can be replaced with a 
-document tree in OFBiz. From that point on the documents can be connected to the cutomers, 
+With this program and the content navigation a office file server can be replaced with a
+document tree in OFBiz. From that point on the documents can be connected to the cutomers,
 orders, invoices etc..
 
 In order ta make this service active add the following to the service definition file:
@@ -93,7 +93,7 @@ In order ta make this service active add the following to the service definition
                         Entity.set("createdStamp",UtilDateTime.nowTimestamp());
                         Entity.set("createdTxStamp",UtilDateTime.nowTimestamp());
                         delegator.create(Entity);
-                        
+ 
                         Entity = null;
                         Entity = delegator.makeValue("Content");
                         Entity.set("contentId", "HOME_DUCUMENT");
@@ -117,13 +117,13 @@ In order ta make this service active add the following to the service definition
                         int recordCount = 0;
                         while (( line = input.readLine()) != null) {//start line
                              boolean hasFolder=true;
-                             String 
+                             String
                              rootContent=null,
                              contentId = null;
                              counterLine++;
                              if (counterLine>1) {
                                 size = line.length();
-                                String 
+                                String
                                 check = "\\",
                                 checkSubContent = ",",
                                 contentName = "",
@@ -132,7 +132,7 @@ In order ta make this service active add the following to the service definition
                                 //Debug.log("======Data======"+data);
                                 size = data.length();
                                 List<GenericValue> contents = null;
-                                
+ 
                                 for(int index = 0; index< size; index++) {//start character in line
                                     boolean contentNameMatch = false;
                                     int contentAssocSize=0;
@@ -160,7 +160,7 @@ In order ta make this service active add the following to the service definition
                                                      GenericValue contentcheck = delegator.findByPrimaryKey("Content",UtilMisc.toMap("contentId",contentAss.get("contentId")));
                                                      if (contentcheck!=null) {
                                                          if (contentcheck.get("contentName").equals(contentName) && contentNameMatch==false) {
-                                                             contentNameMatch = true; 
+                                                             contentNameMatch = true;
                                                              contentId = contentcheck.get("contentId").toString();
                                                          }
                                                      }
@@ -168,11 +168,11 @@ In order ta make this service active add the following to the service definition
                                             } else {
                                                 rootContent = "HOME_DUCUMENT";
                                                 contentAssocs= delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId",contentId, "contentIdTo", rootContent));
-                                                
+ 
                                             }
                                             contentAssocSize=contentAssocs.size();
                                         }
-                                        
+ 
                                         if ( contentAssocSize == 0 && contentNameMatch==false) {//New Root Content
                                             Entity = null;
                                             contentId = delegator.getNextSeqId("Content");
@@ -197,7 +197,7 @@ In order ta make this service active add the following to the service definition
                                         if (rootContent==null) {
                                             rootContent = "HOME_DUCUMENT";
                                         }
-                                            contentAssocs = delegator.findByAnd("ContentAssoc", 
+                                            contentAssocs = delegator.findByAnd("ContentAssoc",
                                                     UtilMisc.toMap("contentId",contentId,"contentIdTo",rootContent,"contentAssocTypeId","TREE_CHILD"));
                                             if (contentAssocs.size()==0) {
                                                 contentAssoc = FastMap.newInstance();
@@ -253,12 +253,12 @@ In order ta make this service active add the following to the service definition
                     return ServiceUtil.returnError(errMsg);
                 }
     }
-    
+ 
     public static  Map<String,Object> createSubContent(int index,String line,String rootContent, Map context, DispatchContext dctx) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        String 
+        String
         subContents=null,
         check = ",",
         oldChar = "\"",
@@ -317,7 +317,7 @@ In order ta make this service active add the following to the service definition
                         Entity.set("createdStamp",UtilDateTime.nowTimestamp());
                         Entity.set("createdTxStamp",UtilDateTime.nowTimestamp());
                         delegator.create(Entity);
-                        
+ 
                         //Relation Content
                         Map<String,Object> contentAssoc = FastMap.newInstance();
                         contentAssoc.put("contentId", contentId);
@@ -329,7 +329,7 @@ In order ta make this service active add the following to the service definition
                     contentName ="";
                     contentNameInprogress="";
                 }
-                
+ 
                    if ((subContents.charAt(index))!= check.charAt(0)) {
                         contentNameInprogress = contentNameInprogress.concat(Character.toString(subContents.charAt(index)));
                         if (contentNameInprogress.length() > 99) {
@@ -377,7 +377,7 @@ In order ta make this service active add the following to the service definition
                         Entity.set("createdStamp",UtilDateTime.nowTimestamp());
                         Entity.set("createdTxStamp",UtilDateTime.nowTimestamp());
                         delegator.create(Entity);
-                        
+ 
                         //create ContentAssoc
                         Map<String,Object> contentAssoc = FastMap.newInstance();
                         contentAssoc.put("contentId", contentId);
@@ -387,7 +387,7 @@ In order ta make this service active add the following to the service definition
                         dispatcher.runSync("createContentAssoc", contentAssoc);
                     }
                    }
-    
+ 
             }
         return ServiceUtil.returnSuccess(sucMsg);
         } catch (GenericEntityException e) {

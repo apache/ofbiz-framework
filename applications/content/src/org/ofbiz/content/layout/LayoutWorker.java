@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -45,7 +45,7 @@ public class LayoutWorker {
     public static final String err_resource = "ContentErrorUiLabels";
 
     /**
-     * Uploads image data from a form and stores it in ImageDataResource. 
+     * Uploads image data from a form and stores it in ImageDataResource.
      * Expects key data in a field identitified by the "idField" value
      * and the binary data to be in a field id'd by uploadField.
      */
@@ -53,7 +53,7 @@ public class LayoutWorker {
 
         //Debug.logVerbose("in uploadAndStoreImage", "");
         Locale locale = UtilHttp.getLocale(request);
-        
+ 
         Map results = FastMap.newInstance();
         Map formInput = FastMap.newInstance();
         results.put("formInput", formInput);
@@ -66,7 +66,7 @@ public class LayoutWorker {
         }
 
         if (lst.size() == 0) {
-            String errMsg = UtilProperties.getMessage(LayoutWorker.err_resource, "layoutEvents.no_files_uploaded", locale);                                    
+            String errMsg = UtilProperties.getMessage(LayoutWorker.err_resource, "layoutEvents.no_files_uploaded", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             //Debug.logWarning("[DataEvents.uploadImage] No files uploaded", module);
             return ServiceUtil.returnError("No files uploaded.");
@@ -93,7 +93,7 @@ public class LayoutWorker {
         }
 
         if (imageFi == null ) {
-            Map messageMap = UtilMisc.toMap("imageFi", imageFi);          
+            Map messageMap = UtilMisc.toMap("imageFi", imageFi);
             String errMsg = UtilProperties.getMessage(LayoutWorker.err_resource, "layoutEvents.image_null", messageMap, locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             //Debug.logWarning("[DataEvents.uploadImage] imageFi(" + imageFi + ") is null", module);
@@ -104,13 +104,13 @@ public class LayoutWorker {
         ByteBuffer byteWrap = ByteBuffer.wrap(imageBytes);
         results.put("imageData", byteWrap);
         results.put("imageFileName", imageFi.getName());
-      
+ 
         //Debug.logVerbose("in uploadAndStoreImage, results:" + results, "");
         return results;
     }
 
-    public static ByteBuffer returnByteBuffer(Map map) {        
+    public static ByteBuffer returnByteBuffer(Map map) {
         ByteBuffer byteBuff = (ByteBuffer)map.get("imageData");
         return byteBuff;
-    }    
+    }
 }

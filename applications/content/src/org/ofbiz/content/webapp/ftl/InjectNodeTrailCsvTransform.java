@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -109,12 +109,12 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                     if (Debug.infoOn()) Debug.logInfo("in InjectNodeTrailCsv(0), contentAssocTypeId:"+contentAssocTypeId,module);
                     try {
                         if (UtilValidate.isNotEmpty(subContentId)) {
-                            csvTrail = ContentWorker.getContentAncestryNodeTrailCsv(delegator, subContentId, contentAssocTypeId, "to");                     
+                            csvTrail = ContentWorker.getContentAncestryNodeTrailCsv(delegator, subContentId, contentAssocTypeId, "to");
                             if (UtilValidate.isNotEmpty(csvTrail))
                                 csvTrail += ",";
                             csvTrail += subContentId;
                         } else if (UtilValidate.isNotEmpty(contentId)) {
-                            csvTrail = ContentWorker.getContentAncestryNodeTrailCsv(delegator, contentId, contentAssocTypeId, "to");                     
+                            csvTrail = ContentWorker.getContentAncestryNodeTrailCsv(delegator, contentId, contentAssocTypeId, "to");
                             if (UtilValidate.isNotEmpty(csvTrail))
                                 csvTrail += ",";
                             csvTrail += contentId;
@@ -131,12 +131,12 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                         csvTrail = passedCsv;
                         int lastComma = passedCsv.lastIndexOf(",");
                         String lastPassedContentId = null;
-                        if (lastComma >= 0) { 
+                        if (lastComma >= 0) {
                             lastPassedContentId = passedCsv.substring(lastComma + 1);
                         } else {
                             lastPassedContentId = passedCsv;
                         }
-    
+ 
                         if (UtilValidate.isNotEmpty(lastPassedContentId)) {
                             if (UtilValidate.isNotEmpty(trail)) {
                                 Map nd = (Map)trail.get(0);

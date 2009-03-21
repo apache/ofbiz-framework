@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -66,7 +66,7 @@ public class OpenOfficeServices {
      * and "/" for Linux/Unix.
      */
     public static Map<String, Object> convertDocumentByteBuffer(DispatchContext dctx, Map<String, ? extends Object> context) {
-        
+ 
         Map results = ServiceUtil.returnSuccess();
         GenericDelegator delegator = dctx.getDelegator();
         XMultiComponentFactory xmulticomponentfactory = null;
@@ -78,7 +78,7 @@ public class OpenOfficeServices {
         String fileOutName = "OOOUT_" + uniqueSeqNum;
         File fileIn = null;
         File fileOut = null;
-        
+ 
         ByteBuffer inByteBuffer = (ByteBuffer) context.get("inByteBuffer");
         String inputMimeType = (String) context.get("inputMimeType");
         String outputMimeType = (String) context.get("outputMimeType");
@@ -88,17 +88,17 @@ public class OpenOfficeServices {
         // if these are empty don't worry, the OpenOfficeWorker down below will take care of it
         String oooHost = (String) context.get("oooHost");
         String oooPort = (String) context.get("oooPort");
-        
-        try {   
+ 
+        try {
             xmulticomponentfactory = OpenOfficeWorker.getRemoteServer(oooHost, oooPort);
             byte[] inByteArray = inByteBuffer.getBytes();
-            
+ 
             // The following line work in linux, but not Windows or Mac environment. It is preferred because it does not use temporary files
             //OpenOfficeByteArrayInputStream oobais = new OpenOfficeByteArrayInputStream(inByteArray);
             //Debug.logInfo("Doing convertDocumentByteBuffer, inBytes size is [" + inByteArray.length + "]", module);
              //OpenOfficeByteArrayOutputStream baos = OpenOfficeWorker.convertOODocByteStreamToByteStream(xmulticomponentfactory, oobais, inputMimeType, outputMimeType);
-            
-            
+ 
+ 
             String tempDir = UtilProperties.getPropertyValue("content", "content.temp.dir");
             fileIn = new File(tempDir + fileInName);
             FileOutputStream fos = new FileOutputStream(fileIn);
@@ -114,7 +114,7 @@ public class OpenOfficeServices {
                 baos.write(c);
             }
             fis.close();
-            
+ 
             results.put("outByteBuffer", new ByteBuffer(baos.toByteArray()));
             baos.close();
 
@@ -142,7 +142,7 @@ public class OpenOfficeServices {
      */
     public static Map<String, Object> convertDocument(DispatchContext dctx, Map<String, ? extends Object> context) {
         XMultiComponentFactory xmulticomponentfactory = null;
-        
+ 
         String stringUrl = "file:///" + context.get("filenameFrom");
         String stringConvertedFile = "file:///" + context.get("filenameTo");
         String filterName = "file:///" + context.get("filterName");
@@ -150,11 +150,11 @@ public class OpenOfficeServices {
         // if these are empty don't worry, the OpenOfficeWorker down below will take care of it
         String oooHost = (String) context.get("oooHost");
         String oooPort = (String) context.get("oooPort");
-        
-        try {    
+ 
+        try {
             xmulticomponentfactory = OpenOfficeWorker.getRemoteServer(oooHost, oooPort);
             OpenOfficeWorker.convertOODocToFile(xmulticomponentfactory, stringUrl, stringConvertedFile, filterName);
-            
+ 
             Map results = ServiceUtil.returnSuccess();
             return results;
         } catch (IOException e) {
@@ -171,7 +171,7 @@ public class OpenOfficeServices {
      */
     public static Map<String, Object> convertDocumentFileToFile(DispatchContext dctx, Map<String, ? extends Object> context) {
         XMultiComponentFactory xmulticomponentfactory = null;
-        
+ 
         String stringUrl = (String) context.get("filenameFrom");
         String stringConvertedFile = (String) context.get("filenameTo");
         String inputMimeType = (String) context.get("inputMimeType");
@@ -180,8 +180,8 @@ public class OpenOfficeServices {
         // if these are empty don't worry, the OpenOfficeWorker down below will take care of it
         String oooHost = (String) context.get("oooHost");
         String oooPort = (String) context.get("oooPort");
-        
-        try {    
+ 
+        try {
             xmulticomponentfactory = OpenOfficeWorker.getRemoteServer(oooHost, oooPort);
             File inputFile = new File(stringUrl);
             long fileSize = inputFile.length();
@@ -199,7 +199,7 @@ public class OpenOfficeServices {
             fis.close();
             oobais.close();
             oobaos.close();
-            
+ 
             Map results = ServiceUtil.returnSuccess();
             return results;
         } catch (IOException e) {
@@ -216,7 +216,7 @@ public class OpenOfficeServices {
      */
     public static Map<String, Object> convertDocumentStreamToStream(DispatchContext dctx, Map<String, ? extends Object> context) {
         XMultiComponentFactory xmulticomponentfactory = null;
-        
+ 
         String stringUrl = "file:///" + context.get("filenameFrom");
         String stringConvertedFile = "file:///" + context.get("filenameTo");
         String inputMimeType = (String) context.get("inputMimeType");
@@ -225,8 +225,8 @@ public class OpenOfficeServices {
         // if these are empty don't worry, the OpenOfficeWorker down below will take care of it
         String oooHost = (String) context.get("oooHost");
         String oooPort = (String) context.get("oooPort");
-        
-        try {    
+ 
+        try {
             xmulticomponentfactory = OpenOfficeWorker.getRemoteServer(oooHost, oooPort);
             File inputFile = new File(stringUrl);
             long fileSize = inputFile.length();
@@ -244,7 +244,7 @@ public class OpenOfficeServices {
             fis.close();
             oobais.close();
             oobaos.close();
-            
+ 
             Map results = ServiceUtil.returnSuccess();
             return results;
         } catch (IOException e) {
@@ -261,7 +261,7 @@ public class OpenOfficeServices {
      */
     public static Map<String, Object> compareDocuments(DispatchContext dctx, Map<String, ? extends Object> context) {
         XMultiComponentFactory xmulticomponentfactory = null;
-        
+ 
         String stringUrl = "file:///" + context.get("filenameFrom");
         String stringOriginalFile = "file:///" + context.get("filenameOriginal");
         String stringOutFile = "file:///" + context.get("filenameOut");
@@ -269,8 +269,8 @@ public class OpenOfficeServices {
         // if these are empty don't worry, the OpenOfficeWorker down below will take care of it
         String oooHost = (String)context.get("oooHost");
         String oooPort = (String)context.get("oooPort");
-        
-        try {    
+ 
+        try {
             xmulticomponentfactory = OpenOfficeWorker.getRemoteServer(oooHost, oooPort);
         } catch (IOException e) {
             Debug.logError(e, "Error in OpenOffice operation: ", module);
@@ -280,31 +280,31 @@ public class OpenOfficeServices {
             return ServiceUtil.returnError(e.toString());
         }
         //System.out.println("xmulticomponentfactory: " + xmulticomponentfactory);
-       
+ 
         // Converting the document to the favoured type
         try {
             // Composing the URL
-            
-            
+ 
+ 
             // Query for the XPropertySet interface.
             XPropertySet xpropertysetMultiComponentFactory = (XPropertySet) UnoRuntime.queryInterface(XPropertySet.class, xmulticomponentfactory);
-            
+ 
             // Get the default context from the office server.
             Object objectDefaultContext = xpropertysetMultiComponentFactory.getPropertyValue("DefaultContext");
-            
+ 
             // Query for the interface XComponentContext.
             XComponentContext xcomponentcontext = (XComponentContext) UnoRuntime.queryInterface(XComponentContext.class, objectDefaultContext);
-            
+ 
             /* A desktop environment contains tasks with one or more
                frames in which components can be loaded. Desktop is the
                environment for components which can instanciate within
                frames. */
-            
+ 
             Object desktopObj = xmulticomponentfactory.createInstanceWithContext("com.sun.star.frame.Desktop", xcomponentcontext);
             XDesktop desktop = (XDesktop) UnoRuntime.queryInterface(XDesktop.class, desktopObj);
             XComponentLoader xcomponentloader = (XComponentLoader) UnoRuntime.queryInterface(XComponentLoader.class, desktopObj);
-           
-            
+ 
+ 
             // Preparing properties for loading the document
             PropertyValue propertyvalue[] = new PropertyValue[ 1 ];
             // Setting the flag for hidding the open document
@@ -315,13 +315,13 @@ public class OpenOfficeServices {
             //propertyvalue[ 1 ] = new PropertyValue();
             //propertyvalue[ 1 ].Name = "FilterName";
             //propertyvalue[ 1 ].Value = "HTML (StarWriter)";
-            
+ 
             // Loading the wanted document
             Object objectDocumentToStore = xcomponentloader.loadComponentFromURL(stringUrl, "_blank", 0, propertyvalue);
-            
+ 
             // Getting an object that will offer a simple way to store a document to a URL.
             XStorable xstorable = (XStorable) UnoRuntime.queryInterface(XStorable.class, objectDocumentToStore);
-            
+ 
             // Preparing properties for comparing the document
             propertyvalue = new PropertyValue[ 1 ];
             // Setting the flag for overwriting
@@ -337,8 +337,8 @@ public class OpenOfficeServices {
             Object dispatchHelperObj = xmulticomponentfactory.createInstanceWithContext("com.sun.star.frame.DispatchHelper", xcomponentcontext);
             XDispatchHelper dispatchHelper = (XDispatchHelper) UnoRuntime.queryInterface(XDispatchHelper.class, dispatchHelperObj);
             XDispatchProvider dispatchProvider = (XDispatchProvider) UnoRuntime.queryInterface(XDispatchProvider.class, frame);
-            dispatchHelper.executeDispatch(dispatchProvider, ".uno:CompareDocuments", "", 0, propertyvalue);       
-            
+            dispatchHelper.executeDispatch(dispatchProvider, ".uno:CompareDocuments", "", 0, propertyvalue);
+ 
             // Preparing properties for storing the document
             propertyvalue = new PropertyValue[ 1 ];
             // Setting the flag for overwriting
@@ -349,18 +349,18 @@ public class OpenOfficeServices {
             //propertyvalue[ 1 ] = new PropertyValue();
             //propertyvalue[ 1 ].Name = "FilterName";
             //propertyvalue[ 1 ].Value = context.get("convertFilterName");
-            
+ 
             Debug.logInfo("stringOutFile: "+stringOutFile, module);
             // Storing and converting the document
             xstorable.storeToURL(stringOutFile, propertyvalue);
-            
+ 
             // Getting the method dispose() for closing the document
             XComponent xcomponent = (XComponent) UnoRuntime.queryInterface(XComponent.class,
             xstorable);
-            
+ 
             // Closing the converted document
             xcomponent.dispose();
-            
+ 
             Map results = ServiceUtil.returnSuccess();
             return results;
         } catch (Exception e) {

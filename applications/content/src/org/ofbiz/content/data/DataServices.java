@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -115,18 +115,18 @@ public class DataServices {
             dataResource.put("lastModifiedByUserLogin", lastModifiedByUserLogin);
             dataResource.put("createdDate", createdDate);
             dataResource.put("lastModifiedDate", lastModifiedDate);
-            // get first statusId  for content out of the statusItem table if not provided 
+            // get first statusId  for content out of the statusItem table if not provided
             if (UtilValidate.isEmpty(dataResource.get("statusId"))) {
                 try {
                     List statusItems = delegator.findByAnd("StatusItem",UtilMisc.toMap("statusTypeId", "CONTENT_STATUS"), UtilMisc.toList("sequenceId"));
                     if (!UtilValidate.isEmpty(statusItems)) {
-                        dataResource.put("statusId",  ((GenericValue) statusItems.get(0)).getString("statusId")); 
+                        dataResource.put("statusId",  ((GenericValue) statusItems.get(0)).getString("statusId"));
                     }
                 } catch (GenericEntityException e) {
                     return ServiceUtil.returnError(e.getMessage());
                 }
             }
-            
+ 
             try {
                 dataResource.create();
             } catch (GenericEntityException e) {
@@ -160,7 +160,7 @@ public class DataServices {
                     return ServiceUtil.returnError(e.getMessage());
                 }
             }
-        
+ 
 
         return result;
     }
@@ -175,7 +175,7 @@ public class DataServices {
 
     public static Map<String, Object> createFileNoPerm(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
-        context.put("skipPermissionCheck", "true");        
+        context.put("skipPermissionCheck", "true");
         return createFileMethod(dctx, context);
     }
 
@@ -311,7 +311,7 @@ public class DataServices {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
             }
-        
+ 
         result.put("dataResource", dataResource);
         return result;
     }
@@ -344,7 +344,7 @@ public class DataServices {
                     String errMsg = "dataResourceId is null.";
                     Debug.logError(errMsg, module);
                     return ServiceUtil.returnError(errMsg);
-                
+ 
             }
             String textData = (String) context.get("textData");
             if (Debug.verboseOn()) Debug.logVerbose("in updateElectronicText, textData:" + textData, module);
@@ -419,7 +419,7 @@ public class DataServices {
                 if (file == null) {
                     throw new IOException("File: " + file + " is null");
                 }
-            
+ 
             // write the data to the file
             if (UtilValidate.isNotEmpty(textData)) {
                 try {

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -65,7 +65,7 @@ public class ContentServicesComplex {
     public static Map<String, Object> getAssocAndContentAndDataResource(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         GenericDelegator delegator = dctx.getDelegator();
-        List assocTypes = (List) context.get("assocTypes"); 
+        List assocTypes = (List) context.get("assocTypes");
         List contentTypes = (List)context.get("contentTypes");
         Timestamp fromDate = (Timestamp)context.get("fromDate");
         Timestamp thruDate = (Timestamp)context.get("thruDate");
@@ -140,7 +140,7 @@ public class ContentServicesComplex {
         EntityConditionList assocExprList = EntityCondition.makeCondition(exprList, EntityOperator.AND);
         List relatedAssocs = null;
         try {
-            //relatedAssocs = delegator.findByCondition(viewName, joinExpr, 
+            //relatedAssocs = delegator.findByCondition(viewName, joinExpr,
             relatedAssocs = delegator.findList(viewName, assocExprList, null,UtilMisc.toList("caFromDate"), null, false);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
@@ -171,12 +171,12 @@ public class ContentServicesComplex {
     public static Map<String, Object> getAssocAndContentAndDataResourceCache(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         GenericDelegator delegator = dctx.getDelegator();
-        List assocTypes = (List) context.get("assocTypes"); 
+        List assocTypes = (List) context.get("assocTypes");
         String assocTypesString = (String)context.get("assocTypesString");
         if (UtilValidate.isNotEmpty(assocTypesString)) {
             List lst = StringUtil.split(assocTypesString, "|");
             if (assocTypes == null) {
-                assocTypes = FastList.newInstance();   
+                assocTypes = FastList.newInstance();
             }
             assocTypes.addAll(lst);
         }
@@ -185,7 +185,7 @@ public class ContentServicesComplex {
         if (UtilValidate.isNotEmpty(contentTypesString)) {
             List lst = StringUtil.split(contentTypesString, "|");
             if (contentTypes == null) {
-                contentTypes = FastList.newInstance();   
+                contentTypes = FastList.newInstance();
             }
             contentTypes.addAll(lst);
         }
@@ -199,7 +199,7 @@ public class ContentServicesComplex {
         Map results = null;
         try {
             results = getAssocAndContentAndDataResourceCacheMethod(delegator,
-                          contentId, mapKey, direction, fromDate, 
+                          contentId, mapKey, direction, fromDate,
                           fromDateStr, assocTypes, contentTypes, nullThruDatesOnly, contentAssocPredicateId);
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.getMessage());
@@ -210,15 +210,15 @@ public class ContentServicesComplex {
     }
 
 
-    public static Map getAssocAndContentAndDataResourceCacheMethod(GenericDelegator delegator, String contentId, String mapKey, String direction, 
+    public static Map getAssocAndContentAndDataResourceCacheMethod(GenericDelegator delegator, String contentId, String mapKey, String direction,
                           Timestamp fromDate, String fromDateStr, List assocTypes, List contentTypes, Boolean nullThruDatesOnly, String contentAssocPredicateId) throws GenericEntityException, MiniLangException {
             Map results = getAssocAndContentAndDataResourceCacheMethod(delegator,
-                          contentId, mapKey, direction, fromDate, fromDateStr, assocTypes, 
+                          contentId, mapKey, direction, fromDate, fromDateStr, assocTypes,
                           contentTypes, nullThruDatesOnly, contentAssocPredicateId, null);
             return results;
     }
 
-    public static Map getAssocAndContentAndDataResourceCacheMethod(GenericDelegator delegator, String contentId, String mapKey, String direction, 
+    public static Map getAssocAndContentAndDataResourceCacheMethod(GenericDelegator delegator, String contentId, String mapKey, String direction,
                           Timestamp fromDate, String fromDateStr, List assocTypes, List contentTypes, Boolean nullThruDatesOnly, String contentAssocPredicateId, String orderBy) throws GenericEntityException, MiniLangException {
 
         //List exprList = FastList.newInstance();
@@ -258,7 +258,7 @@ public class ContentServicesComplex {
             fieldMap.putAll(UtilMisc.toMap("thruDate", null));
         }
         List contentAssocsUnfiltered = null;
-        
+ 
             //if (Debug.infoOn()) Debug.logInfo("in getAssocAndContent...Cache, fieldMap:" + fieldMap, module);
         contentAssocsUnfiltered = delegator.findByAndCache("ContentAssoc", fieldMap, UtilMisc.toList("-fromDate"));
 

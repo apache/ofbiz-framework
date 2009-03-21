@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -163,12 +163,12 @@ public class RenderSubContentAsText implements TemplateTransformModel {
 
                 FreeMarkerWorker.saveContextValues(templateRoot, saveKeyNames, savedValues);
                 try {
-                    String txt = ContentWorker.renderSubContentAsText(dispatcher, delegator, thisContentId, thisMapKey, templateRoot, locale, mimeTypeId, true);                    
+                    String txt = ContentWorker.renderSubContentAsText(dispatcher, delegator, thisContentId, thisMapKey, templateRoot, locale, mimeTypeId, true);
                     //String txt = ContentWorker.renderSubContentAsTextCache(delegator, thisContentId, thisMapKey, null, templateRoot, locale, mimeTypeId, null, fromDate);
                     if ("true".equals(xmlEscape)) {
                         txt = UtilFormatOut.encodeXmlValue(txt);
                     }
-                    
+ 
                     out.write(txt);
 
                     if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", module);
@@ -187,13 +187,13 @@ public class RenderSubContentAsText implements TemplateTransformModel {
             }
 
             public void openEditWrap(Writer out, String editStyle) throws IOException {
-            
+ 
                 String divStr = "<div class=\"" + editStyle + "\">";
                 out.write(divStr);
             }
 
             public void closeEditWrap(Writer out, String editRequestName) throws IOException {
-           /* 
+           /*
                 if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(5):" + templateRoot.get("contentId"), module);
                 if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, subContentId(5):" + templateRoot.get("subContentId"), module);
                 StringBuilder sb = new StringBuilder();
@@ -203,7 +203,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
                 String contentAssocTypeId = null;
                 String mapKey = null;
                 String fromDate = null;
-             
+ 
                 contentIdTo = (String)templateRoot.get("contentId");
                 contentAssocTypeId = (String)templateRoot.get("contentAssocTypeId");
                 mapKey = (String)templateRoot.get("mapKey");
@@ -254,7 +254,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
                     fullRequest += delim + "fromDate=" + fromDate;
                     delim = "&";
                 }
-              
+ 
                 if (Debug.infoOn()) Debug.logInfo("in Render(2), contentIdTo ." + contentIdTo , module);
                 WidgetWorker.appendOfbizUrl(sb, fullRequest, request, response);
                 String url = sb.toString();
@@ -273,7 +273,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
                 if (UtilValidate.isEmpty(editStyle)) {
                     editStyle = "buttontext";
                 }
-                return editStyle; 
+                return editStyle;
             }
         };
     }

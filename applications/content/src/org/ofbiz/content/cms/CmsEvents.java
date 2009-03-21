@@ -65,7 +65,7 @@ public class CmsEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ServletContext servletContext = request.getSession().getServletContext();
         HttpSession session = request.getSession();
-        
+ 
         String webSiteId = (String) session.getAttribute("webSiteId");
         if (webSiteId == null) {
             webSiteId = WebSiteWorker.getWebSiteId(request);
@@ -130,9 +130,9 @@ public class CmsEvents {
             }
             if (pathInfo.endsWith("/")) {
                 pathInfo = pathInfo.substring(0, pathInfo.length() - 1);
-            }                        
+            }
             Debug.log("Path INFO for Alias: " + pathInfo, module);
-            
+ 
             GenericValue pathAlias = null;
             try {
                 pathAlias = delegator.findByPrimaryKeyCache("WebSitePathAlias", UtilMisc.toMap("webSiteId", webSiteId, "pathAlias", pathInfo));
@@ -198,12 +198,12 @@ public class CmsEvents {
                 MapStack<String> templateMap = MapStack.create();
                 ScreenRenderer.populateContextForRequest(templateMap, null, request, response, servletContext);
                 templateMap.put("formStringRenderer", new HtmlFormRenderer(request, response));
-                
+ 
                 // make the link prefix
                 ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
                 RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                 templateMap.put("_REQUEST_HANDLER_", rh);
-                
+ 
                 // NOTE DEJ20080817: this is done in the ContentMapFacade class now to avoid problems with the jsessionid being in the middle of the URL and such
                 //String contextLinkPrefix = rh.makeLink(request, response, "", true, false, true);
                 //templateMap.put("_CONTEXT_LINK_PREFIX_", contextLinkPrefix);
@@ -226,7 +226,7 @@ public class CmsEvents {
                     if (UtilValidate.isEmpty(mapKey)) {
                         ContentWorker.renderContentAsText(dispatcher, delegator, contentId, writer, templateMap, locale, "text/html", true);
                     } else {
-                        ContentWorker.renderSubContentAsText(dispatcher, delegator, contentId, writer, mapKey, templateMap, locale, "text/html", true);                        
+                        ContentWorker.renderSubContentAsText(dispatcher, delegator, contentId, writer, mapKey, templateMap, locale, "text/html", true);
                     }
 
                 } catch (IOException e) {
@@ -253,7 +253,7 @@ public class CmsEvents {
             }
         }
         String siteName = null;
-        try { 
+        try {
             siteName = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId)).getString("siteName");
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -281,7 +281,7 @@ public class CmsEvents {
             return true;
         } else {
             // the passed in contentId is not a publish point for the web site;
-            // however we will publish its content if it is a node of one of the trees that have a publish point as the root 
+            // however we will publish its content if it is a node of one of the trees that have a publish point as the root
             List<GenericValue> topLevelContentValues = delegator.findByAndCache("WebSiteContent",
                 UtilMisc.toMap("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT"), UtilMisc.toList("-fromDate"));
             topLevelContentValues = EntityUtil.filterByDate(topLevelContentValues);
