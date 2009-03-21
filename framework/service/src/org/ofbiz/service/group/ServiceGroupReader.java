@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,12 +37,12 @@ import org.w3c.dom.Element;
  * ServiceGroupReader.java
  */
 public class ServiceGroupReader {
-    
+ 
     public static final String module = ServiceGroupReader.class.getName();
 
     // using a cache is dangerous here because if someone clears it the groups won't work at all: public static UtilCache groupsCache = new UtilCache("service.ServiceGroups", 0, 0, false);
     public static Map<String, GroupModel> groupsCache = FastMap.newInstance();
-    
+ 
     public static void readConfig() {
         Element rootElement = null;
 
@@ -62,8 +62,8 @@ public class ServiceGroupReader {
         for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("group")) {
             addGroupDefinitions(componentResourceInfo.createResourceHandler());
         }
-    }    
-    
+    }
+ 
     public static void addGroupDefinitions(ResourceHandler handler) {
         Element rootElement = null;
 
@@ -77,7 +77,7 @@ public class ServiceGroupReader {
 
         for (Element group: UtilXml.childElementList(rootElement, "group")) {
             String groupName = group.getAttribute("name");
-            groupsCache.put(groupName, new GroupModel(group));        
+            groupsCache.put(groupName, new GroupModel(group));
             numDefs++;
         }
         if (Debug.importantOn()) {

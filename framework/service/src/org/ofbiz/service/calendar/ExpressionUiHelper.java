@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -40,7 +40,7 @@ public class ExpressionUiHelper {
 
     /** An array of valid DayInMonth occurrence values. */
     public static final int Occurrence[] = {1, 2, 3, 4, 5, -1, -2, -3, -4 -5};
-    
+ 
     /** Returns a List of valid DayInMonth occurrence int values.
      * @return
      */
@@ -101,7 +101,7 @@ public class ExpressionUiHelper {
         }
         return result;
     }
-    
+ 
     /** Returns a List of Maps containing valid Frequency values.
      * @param uiLabelMap CommonUiLabels label Map
      * @return List of Maps. Each Map has a
@@ -117,7 +117,7 @@ public class ExpressionUiHelper {
         result.add(UtilMisc.toMap("description", uiLabelMap.get("CommonYear"), "value", new Integer(Calendar.YEAR)));
         return result;
     }
-    
+ 
     /** Returns a List of Maps containing valid temporal expression types.
      * @param uiLabelMap TemporalExpressionUiLabels label Map
      * @return List of Maps. Each Map has a

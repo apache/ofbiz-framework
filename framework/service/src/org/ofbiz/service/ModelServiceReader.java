@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -148,7 +148,7 @@ public class ModelServiceReader implements Serializable {
                     } catch (GenericConfigException e) {
                         Debug.logError(e, "Could not get resource URL", module);
                     }
-                    
+ 
                     int i = 0;
                     Node curChild = docElement.getFirstChild();
                     if (curChild != null) {
@@ -187,7 +187,7 @@ public class ModelServiceReader implements Serializable {
                                         String msg = "-- getModelService: # " + i + " Loaded service: " + serviceName +
                                             " (IN) " + reqIn + "/" + optIn + " (OUT) " + reqOut + "/" + optOut;
 
-                                        Debug.logVerbose(msg, module);                                        
+                                        Debug.logVerbose(msg, module);
                                     }
                                     */
                                 } else {
@@ -216,7 +216,7 @@ public class ModelServiceReader implements Serializable {
         return modelServices;
     }
 
-    /** 
+    /**
      * Gets an Service object based on a definition from the specified XML Service descriptor file.
      * @param serviceName The serviceName of the Service definition to use.
      * @return An Service object describing the specified service of the specified descriptor file.
@@ -230,7 +230,7 @@ public class ModelServiceReader implements Serializable {
             return null;
     }
 
-    /** 
+    /**
      * Creates a Iterator with the serviceName of each Service defined in the specified XML Service Descriptor file.
      * @return A Iterator of serviceName Strings
      */
@@ -244,7 +244,7 @@ public class ModelServiceReader implements Serializable {
         }
     }
 
-    /** 
+    /**
      * Creates a Collection with the serviceName of each Service defined in the specified XML Service Descriptor file.
      * @return A Collection of serviceName Strings
      */
@@ -261,16 +261,16 @@ public class ModelServiceReader implements Serializable {
         service.definitionLocation = resourceLocation;
         service.engineName = UtilXml.checkEmpty(serviceElement.getAttribute("engine")).intern();
         service.location = UtilXml.checkEmpty(serviceElement.getAttribute("location")).intern();
-        service.invoke = UtilXml.checkEmpty(serviceElement.getAttribute("invoke")).intern();  
+        service.invoke = UtilXml.checkEmpty(serviceElement.getAttribute("invoke")).intern();
         service.semaphore = UtilXml.checkEmpty(serviceElement.getAttribute("semaphore")).intern();
         service.defaultEntityName = UtilXml.checkEmpty(serviceElement.getAttribute("default-entity-name")).intern();
-        service.fromLoader = isFromURL ? readerURL.toExternalForm() : handler.getLoaderName();        
+        service.fromLoader = isFromURL ? readerURL.toExternalForm() : handler.getLoaderName();
 
         // these default to true; if anything but true, make false
         service.auth = "true".equalsIgnoreCase(serviceElement.getAttribute("auth"));
         service.export = "true".equalsIgnoreCase(serviceElement.getAttribute("export"));
         service.debug = "true".equalsIgnoreCase(serviceElement.getAttribute("debug"));
-        
+ 
         // this defaults to true; if anything but false, make it true
         service.validate = !"false".equalsIgnoreCase(serviceElement.getAttribute("validate"));
         service.useTransaction = !"false".equalsIgnoreCase(serviceElement.getAttribute("use-transaction"));
@@ -313,7 +313,7 @@ public class ModelServiceReader implements Serializable {
             }
         }
         service.maxRetry = maxRetry;
-        
+ 
         // get the timeout and convert to int
         String timeoutStr = UtilXml.checkEmpty(serviceElement.getAttribute("transaction-timeout"), serviceElement.getAttribute("transaction-timout"));
         int timeout = 0;
@@ -326,10 +326,10 @@ public class ModelServiceReader implements Serializable {
             }
         }
         service.transactionTimeout = timeout;
-                       
+ 
         service.description = getCDATADef(serviceElement, "description");
-        service.nameSpace = getCDATADef(serviceElement, "namespace");  
-        
+        service.nameSpace = getCDATADef(serviceElement, "namespace");
+ 
         // contruct the context
         service.contextInfo = FastMap.newInstance();
         this.createNotification(serviceElement, service);
@@ -340,7 +340,7 @@ public class ModelServiceReader implements Serializable {
         this.createAutoAttrDefs(serviceElement, service);
         this.createAttrDefs(serviceElement, service);
         this.createOverrideDefs(serviceElement, service);
-               
+ 
         return service;
     }
 
@@ -385,7 +385,7 @@ public class ModelServiceReader implements Serializable {
                 ModelNotification notify = new ModelNotification();
                 notify.notificationEvent = e.getAttribute("event");
                 notify.notificationGroupName = e.getAttribute("group");
-                model.notifications.add(notify);                
+                model.notifications.add(notify);
             }
         }
     }
@@ -444,7 +444,7 @@ public class ModelServiceReader implements Serializable {
             if (Debug.verboseOn()) Debug.logVerbose("Created INTERNAL GROUP model [" + service.internalGroup + "]", module);
         }
     }
-    
+ 
     protected void createImplDefs(Element baseElement, ModelService service) {
         for (Element implement: UtilXml.childElementList(baseElement, "implements")) {
             String serviceName = UtilXml.checkEmpty(implement.getAttribute("service")).intern();
@@ -454,43 +454,43 @@ public class ModelServiceReader implements Serializable {
                 //service.implServices.add(serviceName);
         }
     }
-    
+ 
     protected void createAutoAttrDefs(Element baseElement, ModelService service) {
         for (Element element: UtilXml.childElementList(baseElement, "auto-attributes")) {
             createAutoAttrDef(element, service);
         }
     }
-    
+ 
     protected void createAutoAttrDef(Element autoElement, ModelService service) {
-        // get the entity name; first from the auto-attributes then from the service def                 
-        String entityName = UtilXml.checkEmpty(autoElement.getAttribute("entity-name"));        
+        // get the entity name; first from the auto-attributes then from the service def
+        String entityName = UtilXml.checkEmpty(autoElement.getAttribute("entity-name"));
         if (entityName == null || entityName.length() == 0) {
             entityName = service.defaultEntityName;
             if (entityName == null || entityName.length() == 0) {
                 Debug.logWarning("Auto-Attribute does not specify an entity-name; not default-entity on service definition", module);
             }
         }
-        
+ 
         // get the include type 'pk|nonpk|all'
         String includeType = UtilXml.checkEmpty(autoElement.getAttribute("include"));
         boolean includePk = "pk".equals(includeType) || "all".equals(includeType);
         boolean includeNonPk = "nonpk".equals(includeType) || "all".equals(includeType);
-        
+ 
         // need a delegator for this
         GenericDelegator delegator = dctx.getDelegator();
         if (delegator == null) {
             Debug.logWarning("Cannot use auto-attribute fields with a null delegator", module);
         }
-        
+ 
         if (delegator != null && entityName != null) {
             Map<String, ModelParam> modelParamMap = new LinkedHashMap<String, ModelParam>();
-            try {            
+            try {
                 ModelEntity entity = delegator.getModelEntity(entityName);
                 if (entity == null) {
                     throw new GeneralException("Could not find entity with name [" + entityName + "]");
                 }
                 Iterator<ModelField> fieldsIter = entity.getFieldsIterator();
-                if (fieldsIter != null) {            
+                if (fieldsIter != null) {
                     while (fieldsIter.hasNext()) {
                         ModelField field = fieldsIter.next();
                         if ((!field.getIsAutoCreatedInternal()) && ((field.getIsPk() && includePk) || (!field.getIsPk() && includeNonPk))) {
@@ -509,25 +509,25 @@ public class ModelServiceReader implements Serializable {
                             }
                             param.mode = UtilXml.checkEmpty(autoElement.getAttribute("mode")).intern();
                             param.optional = "true".equalsIgnoreCase(autoElement.getAttribute("optional")); // default to true
-                            param.formDisplay = !"false".equalsIgnoreCase(autoElement.getAttribute("form-display")); // default to false                        
+                            param.formDisplay = !"false".equalsIgnoreCase(autoElement.getAttribute("form-display")); // default to false
                             param.allowHtml = UtilXml.checkEmpty(autoElement.getAttribute("allow-html"), "none").intern(); // default to none
                             modelParamMap.put(field.getName(), param);
                         }
                     }
-                    
+ 
                     // get the excludes list; and remove those from the map
                     List<? extends Element> excludes = UtilXml.childElementList(autoElement, "exclude");
-                    if (excludes != null) {                    
+                    if (excludes != null) {
                         for (Element exclude: excludes) {
                             modelParamMap.remove(UtilXml.checkEmpty(exclude.getAttribute("field-name")));
                         }
                     }
-                    
+ 
                     // now add in all the remaining params
                     for (ModelParam thisParam: modelParamMap.values()) {
-                        //Debug.logInfo("Adding Param to " + service.name + ": " + thisParam.name + " [" + thisParam.mode + "] " + thisParam.type + " (" + thisParam.optional + ")", module);                       
+                        //Debug.logInfo("Adding Param to " + service.name + ": " + thisParam.name + " [" + thisParam.mode + "] " + thisParam.type + " (" + thisParam.optional + ")", module);
                         service.addParam(thisParam);
-                    }                    
+                    }
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problem loading auto-attributes [" + entityName + "] for " + service.name, module);
@@ -536,7 +536,7 @@ public class ModelServiceReader implements Serializable {
             }
         }
     }
-            
+ 
     protected void createAttrDefs(Element baseElement, ModelService service) {
         // Add in the defined attributes (override the above defaults if specified)
         for (Element attribute: UtilXml.childElementList(baseElement, "attribute")) {
@@ -560,15 +560,15 @@ public class ModelServiceReader implements Serializable {
                 if (Debug.verboseOn()) Debug.logVerbose("Got a default-value [" + defValue + "] for service attribute [" + service.name + "." + param.name + "]", module);
                 param.setDefaultValue(defValue.intern());
             }
-            
+ 
             // set the entity name to the default if not specified
             if (param.entityName.length() == 0) {
                 param.entityName = service.defaultEntityName;
-            }   
-            
+            }
+ 
             // set the field-name to the name if entity name is specified but no field-name
             if (param.fieldName.length() == 0 && param.entityName.length() > 0) {
-                param.fieldName = param.name;         
+                param.fieldName = param.name;
             }
 
             // set the validators
@@ -644,30 +644,30 @@ public class ModelServiceReader implements Serializable {
         def.internal = true;
         service.addParam(def);
     }
-    
+ 
     protected void createOverrideDefs(Element baseElement, ModelService service) {
         for (Element overrideElement: UtilXml.childElementList(baseElement, "override")) {
             String name = UtilXml.checkEmpty(overrideElement.getAttribute("name"));
             ModelParam param = service.getParam(name);
             boolean directToParams = true;
             if (param == null) {
-                if (!service.inheritedParameters && (service.implServices.size() > 0 || "group".equals(service.engineName))) {                 
+                if (!service.inheritedParameters && (service.implServices.size() > 0 || "group".equals(service.engineName))) {
                     // create a temp def to place in the ModelService
                     // this will get read when we read implemented services 
-                    directToParams = false;               
+                    directToParams = false;
                     param = new ModelParam();
                     param.name = name;
                 } else {
                     Debug.logWarning("No parameter found for override parameter named: " + name + " in service " + service.name, module);
                 }
-            }             
-            
-            if (param != null) {                                                        
+            }
+ 
+            if (param != null) {
                 // set only modified values
-                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("type"))) {                
+                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("type"))) {
                     param.type = UtilXml.checkEmpty(overrideElement.getAttribute("type")).intern();
                 }
-                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("mode"))) {                            
+                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("mode"))) {
                     param.mode = UtilXml.checkEmpty(overrideElement.getAttribute("mode")).intern();
                 }
                 if (UtilValidate.isNotEmpty(overrideElement.getAttribute("entity-name"))) {
@@ -676,21 +676,21 @@ public class ModelServiceReader implements Serializable {
                 if (UtilValidate.isNotEmpty(overrideElement.getAttribute("field-name"))) {
                     param.fieldName = UtilXml.checkEmpty(overrideElement.getAttribute("field-name")).intern();
                 }
-                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("form-label"))) {                
+                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("form-label"))) {
                     param.formLabel = UtilXml.checkEmpty(overrideElement.getAttribute("form-label")).intern();
                 }
-                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("optional"))) {                            
+                if (UtilValidate.isNotEmpty(overrideElement.getAttribute("optional"))) {
                     param.optional = "true".equalsIgnoreCase(overrideElement.getAttribute("optional")); // default to true
                     param.overrideOptional = true;
                 }
                 if (UtilValidate.isNotEmpty(overrideElement.getAttribute("form-display"))) {
                     param.formDisplay = !"false".equalsIgnoreCase(overrideElement.getAttribute("form-display")); // default to false
                     param.overrideFormDisplay = true;
-                }                
+                }
 
                 if (UtilValidate.isNotEmpty(overrideElement.getAttribute("allow-html"))) {
                     param.allowHtml = UtilXml.checkEmpty(overrideElement.getAttribute("allow-html")).intern();
-                }                
+                }
 
                 // default value
                 String defValue = overrideElement.getAttribute("default-value");
@@ -703,11 +703,11 @@ public class ModelServiceReader implements Serializable {
 
                 if (directToParams) {
                     service.addParam(param);
-                } else {                  
-                    service.overrideParameters.add(param);                    
+                } else {
+                    service.overrideParameters.add(param);
                 }
-            }                                                                                      
-        }        
+            }
+        }
     }
 
     protected void addValidators(Element attribute, ModelParam param) {

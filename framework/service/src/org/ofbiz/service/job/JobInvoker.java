@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -143,7 +143,7 @@ public class JobInvoker implements Runnable {
             return 0;
         }
     }
-    
+ 
     public Long getThreadId() {
         if (this.thread != null) {
             return this.thread.getId();
@@ -228,7 +228,7 @@ public class JobInvoker implements Runnable {
                 }
             } else {
                 Debug.logInfo("Invoker [" + thread.getName() + "] received job [" + job.getJobName() + "] from poller [" + jp.toString() + "]", module);
-                
+ 
                 // setup the current job settings
                 this.currentJob = job;
                 this.statusCode = 1;

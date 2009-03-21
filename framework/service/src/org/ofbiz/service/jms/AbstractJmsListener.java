@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -89,7 +89,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
         }
 
         if (Debug.verboseOn()) Debug.logVerbose("Running service: " + serviceName, module);
-        
+ 
         Map<String, Object> result = null;
         if (context != null) {
             try {
@@ -102,14 +102,14 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
     }
 
     /**
-     * Receives the MapMessage and processes the service. 
+     * Receives the MapMessage and processes the service.
      * @see javax.jms.MessageListener#onMessage(Message)
      */
     public void onMessage(Message message) {
         MapMessage mapMessage = null;
 
         if (Debug.verboseOn()) Debug.logVerbose("JMS Message Received --> " + message, module);
-        
+ 
         if (message instanceof MapMessage) {
             mapMessage = (MapMessage) message;
         } else {
@@ -148,7 +148,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
     }
 
     /**
-     * 
+     *
      * @see org.ofbiz.service.jms.GenericMessageListener#isConnected()
      */
     public boolean isConnected() {

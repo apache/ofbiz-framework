@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -35,7 +35,7 @@ import org.ofbiz.entity.GenericValue;
  * Recurrence Rule Object
  */
 public class RecurrenceRule {
-    
+ 
     public static final String module = RecurrenceRule.class.getName();
 
     // **********************
@@ -98,7 +98,7 @@ public class RecurrenceRule {
     protected List byMonthList;
     protected List bySetPosList;
 
-    /** 
+    /**
      * Creates a new RecurrenceRule object from a RecurrenceInfo entity.
      *@param rule GenericValue object defining this rule.
      */
@@ -109,7 +109,7 @@ public class RecurrenceRule {
         init();
     }
 
-    /** 
+    /**
      * Initializes the rules for this RecurrenceInfo object.
      *@throws RecurrenceRuleException
      */
@@ -118,7 +118,7 @@ public class RecurrenceRule {
         String freq = rule.getString("frequency");
 
         if (!checkFreq(freq))
-            throw new RecurrenceRuleException("Recurrence FREQUENCY is a required parameter.");       
+            throw new RecurrenceRuleException("Recurrence FREQUENCY is a required parameter.");
         if (rule.getLong("intervalNumber").longValue() < 1)
             throw new RecurrenceRuleException("Recurrence INTERVAL must be a positive integer.");
 
@@ -133,7 +133,7 @@ public class RecurrenceRule {
         byMonthList = StringUtil.split(rule.getString("byMonthList"), ",");
         bySetPosList = StringUtil.split(rule.getString("bySetPosList"), ",");
     }
-    
+ 
     // Checks for a valid frequency property.
     private boolean checkFreq(String freq) {
         if (freq == null)
@@ -155,7 +155,7 @@ public class RecurrenceRule {
         return false;
     }
 
-    /** 
+    /**
      * Gets the end time of the recurrence rule or 0 if none.
      *@return long The timestamp of the end time for this rule or 0 for none.
      */
@@ -169,7 +169,7 @@ public class RecurrenceRule {
 
         stamp = rule.getTimestamp("untilDateTime");
         Debug.logVerbose("Stamp value: " + stamp, module);
-        
+ 
         if (stamp != null) {
             long nanos = (long) stamp.getNanos();
             time = stamp.getTime();
@@ -179,7 +179,7 @@ public class RecurrenceRule {
         return time;
     }
 
-    /** 
+    /**
      * Get the number of times this recurrence will run (-1 until end time).
      *@return long The number of time this recurrence will run.
      */
@@ -189,7 +189,7 @@ public class RecurrenceRule {
         return 0;
     }
 
-    /** 
+    /**
      * Returns the frequency name of the recurrence.
      *@return String The name of this frequency.
      */
@@ -197,7 +197,7 @@ public class RecurrenceRule {
         return rule.getString("frequency").toUpperCase();
     }
 
-    /** 
+    /**
      * Returns the frequency of this recurrence.
      *@return int The reference value for the frequency
      */
@@ -223,7 +223,7 @@ public class RecurrenceRule {
         return 0;
     }
 
-    /** 
+    /**
      * Returns the interval of the frequency.
      *@return long Interval value
      */
@@ -233,7 +233,7 @@ public class RecurrenceRule {
         return rule.getLong("intervalNumber").longValue();
     }
 
-    /** 
+    /**
      * Returns the interval of the frequency as an int.
      *@return The interval of this frequency as an integer.
      */
@@ -242,7 +242,7 @@ public class RecurrenceRule {
         return (int) getInterval();
     }
 
-    /** 
+    /**
      * Returns the next recurrence of this rule.
      *@param startTime The time this recurrence first began.
      *@param fromTime The time to base the next recurrence on.
@@ -255,12 +255,12 @@ public class RecurrenceRule {
             startTime = RecurrenceUtil.now();
         if (fromTime == 0)
             fromTime = startTime;
-                      
+ 
         // Test the end time of the recurrence.
         if (getEndTime() != 0 && getEndTime() <= RecurrenceUtil.now())
             return 0;
         Debug.logVerbose("Rule NOT expired by end time.", module);
-        
+ 
         // Test the recurrence limit.
         if (getCount() != -1 && currentCount >= getCount())
             return 0;
@@ -284,9 +284,9 @@ public class RecurrenceRule {
         return nextRuntime;
     }
 
-    /** 
-     * Gets the current recurrence (current for the checkTime) of this rule and returns it if it is valid. 
-     * If the current recurrence is not valid, doesn't try to find a valid one, instead returns 0. 
+    /**
+     * Gets the current recurrence (current for the checkTime) of this rule and returns it if it is valid.
+     * If the current recurrence is not valid, doesn't try to find a valid one, instead returns 0.
      *@param startTime The time this recurrence first began.
      *@param checkTime The time to base the current recurrence on.
      *@param currentCount The total number of times the recurrence has run.
@@ -299,12 +299,12 @@ public class RecurrenceRule {
         if (checkTime == 0) {
             checkTime = startTime;
         }
-                      
+ 
         // Test the end time of the recurrence.
         if (getEndTime() != 0 && getEndTime() <= RecurrenceUtil.now()) {
             return 0;
         }
-        
+ 
         // Test the recurrence limit.
         if (getCount() != -1 && currentCount >= getCount()) {
             return 0;
@@ -316,15 +316,15 @@ public class RecurrenceRule {
         Calendar checkTimeCal = Calendar.getInstance();
         cal.setTime(nextRun);
         checkTimeCal.setTime(new Date(checkTime));
-        
+ 
         // Get previous frequency and update its values from checkTime
-        switch (getFrequency()) {        
+        switch (getFrequency()) {
         case YEARLY:
             cal.add(Calendar.YEAR, -getIntervalInt());
             if (cal.get(Calendar.YEAR) != checkTimeCal.get(Calendar.YEAR)) {
                 return 0;
             }
-            
+ 
         case MONTHLY:
             if (MONTHLY == getFrequency()) {
                 cal.add(Calendar.MONTH, -getIntervalInt());
@@ -334,7 +334,7 @@ public class RecurrenceRule {
             } else {
                 cal.set(Calendar.MONTH, checkTimeCal.get(Calendar.MONTH));
             }
-            
+ 
         case WEEKLY:
             if (WEEKLY == getFrequency()) {
                 cal.add(Calendar.WEEK_OF_YEAR, -getIntervalInt());
@@ -390,11 +390,11 @@ public class RecurrenceRule {
         if (validByRule(cal.getTime())) {
              return cal.getTime().getTime();
         }
-        
+ 
         return 0;
     }
-    
-    /** 
+ 
+    /**
      * Tests the date to see if it falls within the rules
      *@param startDate date object to test
      *@return True if the date is within the rules
@@ -403,7 +403,7 @@ public class RecurrenceRule {
         return isValid(startDate.getTime(), date.getTime());
     }
 
-    /** 
+    /**
      * Tests the date to see if it falls within the rules
      *@param startTime date object to test
      *@return True if the date is within the rules
@@ -421,7 +421,7 @@ public class RecurrenceRule {
         return false;
     }
 
-    /** 
+    /**
      * Removes this rule from the persistant store.
      *@throws RecurrenceRuleException
      */
@@ -751,7 +751,7 @@ public class RecurrenceRule {
             throws RecurrenceRuleException {
         return makeRule(delegator, frequency, interval, -1, endTime);
     }
-        
+ 
     public static RecurrenceRule makeRule(GenericDelegator delegator, int frequency, int interval, int count, long endTime)
             throws RecurrenceRuleException {
         String freq[] = {"", "SECONDLY", "MINUTELY", "HOURLY", "DAILY", "WEEKLY", "MONTHLY", "YEARLY"};
@@ -760,7 +760,7 @@ public class RecurrenceRule {
             throw new RecurrenceRuleException("Invalid frequency");
         if (interval < 0)
             throw new RecurrenceRuleException("Invalid interval");
-       
+ 
         String freqStr = freq[frequency];
 
         try {

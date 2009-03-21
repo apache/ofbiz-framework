@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -138,24 +138,24 @@ public class JmsServiceEngine extends AbstractEngine {
         InitialContext jndi = null;
         TopicConnectionFactory factory = null;
         TopicConnection con = null;
-        
+ 
         try {
             jndi = JNDIContextFactory.getInitialContext(serverName);
             factory = (TopicConnectionFactory) jndi.lookup(jndiName);
         } catch (GeneralException ge) {
-            throw new GenericServiceException("Problems getting JNDI InitialContext.", ge.getNested());              
+            throw new GenericServiceException("Problems getting JNDI InitialContext.", ge.getNested());
         } catch (NamingException ne) {
-            JNDIContextFactory.clearInitialContext(serverName);           
+            JNDIContextFactory.clearInitialContext(serverName);
             try {
                 jndi = JNDIContextFactory.getInitialContext(serverName);
                 factory = (TopicConnectionFactory) jndi.lookup(jndiName);
             } catch (GeneralException ge2) {
-                throw new GenericServiceException("Problems getting JNDI InitialContext.", ge2.getNested());                  
+                throw new GenericServiceException("Problems getting JNDI InitialContext.", ge2.getNested());
             } catch (NamingException ne2) {
                 throw new GenericServiceException("JNDI lookup problems.", ne);
             }
         }
-        
+ 
         try {
             con = factory.createTopicConnection(userName, password);
 
@@ -176,7 +176,7 @@ public class JmsServiceEngine extends AbstractEngine {
             // close the connections
             publisher.close();
             session.close();
-            con.close();                         
+            con.close();
         } catch (NamingException ne) {
             throw new GenericServiceException("Problems with JNDI lookup.", ne);
         } catch (JMSException je) {
@@ -197,24 +197,24 @@ public class JmsServiceEngine extends AbstractEngine {
         InitialContext jndi = null;
         QueueConnectionFactory factory = null;
         QueueConnection con = null;
-        
+ 
         try {
             jndi = JNDIContextFactory.getInitialContext(serverName);
-            factory = (QueueConnectionFactory) jndi.lookup(jndiName);  
+            factory = (QueueConnectionFactory) jndi.lookup(jndiName);
         } catch (GeneralException ge) {
-            throw new GenericServiceException("Problems getting JNDI InitialContext.", ge.getNested());        
+            throw new GenericServiceException("Problems getting JNDI InitialContext.", ge.getNested());
         } catch (NamingException ne) {
-            JNDIContextFactory.clearInitialContext(serverName);           
+            JNDIContextFactory.clearInitialContext(serverName);
             try {
                 jndi = JNDIContextFactory.getInitialContext(serverName);
-                factory = (QueueConnectionFactory) jndi.lookup(jndiName); 
+                factory = (QueueConnectionFactory) jndi.lookup(jndiName);
             } catch (GeneralException ge2) {
-                throw new GenericServiceException("Problems getting JNDI InitialContext.", ge2.getNested());            
+                throw new GenericServiceException("Problems getting JNDI InitialContext.", ge2.getNested());
             } catch (NamingException ne2) {
                 throw new GenericServiceException("JNDI lookup problem.", ne2);
-            }            
+            }
         }
-        
+ 
         try {
             con = factory.createQueueConnection(userName, password);
 
@@ -251,28 +251,28 @@ public class JmsServiceEngine extends AbstractEngine {
         String userName = server.getAttribute("username");
         String password = server.getAttribute("password");
         String clientId = server.getAttribute("client-id");
-        
+ 
         InitialContext jndi = null;
         XAQueueConnectionFactory factory = null;
-        XAQueueConnection con = null;        
-        
+        XAQueueConnection con = null;
+ 
         try {
             jndi = JNDIContextFactory.getInitialContext(serverName);
-            factory = (XAQueueConnectionFactory) jndi.lookup(jndiName);                        
+            factory = (XAQueueConnectionFactory) jndi.lookup(jndiName);
         } catch (GeneralException ge) {
             throw new GenericServiceException("Problems getting JNDI InitialContext.", ge.getNested());
         } catch (NamingException ne) {
-            JNDIContextFactory.clearInitialContext(serverName); 
+            JNDIContextFactory.clearInitialContext(serverName);
             try {
                 jndi = JNDIContextFactory.getInitialContext(serverName);
                 factory = (XAQueueConnectionFactory) jndi.lookup(jndiName);
             } catch (GeneralException ge2) {
-                throw new GenericServiceException("Problems getting JNDI InitialContext.", ge2.getNested());                
+                throw new GenericServiceException("Problems getting JNDI InitialContext.", ge2.getNested());
             } catch (NamingException ne2) {
                 throw new GenericServiceException("JNDI lookup problems.", ne2);
             }
         }
-                        
+ 
         try {
             con = factory.createXAQueueConnection(userName, password);
 
@@ -307,9 +307,9 @@ public class JmsServiceEngine extends AbstractEngine {
             con.close();
         } catch (GenericTransactionException gte) {
             throw new GenericServiceException("Problems enlisting resource w/ transaction manager.", gte.getNested());
-        } catch (NamingException ne) {            
+        } catch (NamingException ne) {
             throw new GenericServiceException("Problems with JNDI lookup.", ne);
-        } catch (JMSException je) {           
+        } catch (JMSException je) {
             throw new GenericServiceException("JMS Internal Error.", je);
         }
         return ServiceUtil.returnSuccess();
@@ -350,7 +350,7 @@ public class JmsServiceEngine extends AbstractEngine {
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, org.ofbiz.service.GenericRequester, boolean)
      */
-    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist) throws GenericServiceException {        
+    public void runAsync(String localName, ModelService modelService, Map<String, Object> context, GenericRequester requester, boolean persist) throws GenericServiceException {
         Map<String, Object> result = run(modelService, context);
 
         requester.receiveResult(result);

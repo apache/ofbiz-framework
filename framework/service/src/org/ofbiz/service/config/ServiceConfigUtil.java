@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
  * Misc. utility method for dealing with the serviceengine.xml file
  */
 public class ServiceConfigUtil implements Serializable {
-    
+ 
     public static final String module = ServiceConfigUtil.class.getName();
     public static final String engine = "default";
     public static final String SERVICE_ENGINE_XML_FILENAME = "serviceengine.xml";
@@ -56,10 +56,10 @@ public class ServiceConfigUtil implements Serializable {
         } catch (GenericConfigException e) {
             Debug.logError(e, "Error getting Service Engine XML root element", module);
         }
-        return  UtilXml.firstChildElement(rootElement, elementName);       
+        return  UtilXml.firstChildElement(rootElement, elementName);
     }
-    
-    public static String getElementAttr(String elementName, String attrName) {        
+ 
+    public static String getElementAttr(String elementName, String attrName) {
         Element element = getElement(elementName);
 
         if (element == null) return null;
@@ -67,23 +67,23 @@ public class ServiceConfigUtil implements Serializable {
     }
 
     public static String getSendPool() {
-        return getElementAttr("thread-pool", "send-to-pool");        
+        return getElementAttr("thread-pool", "send-to-pool");
     }
-    
+ 
     public static List<String> getRunPools() {
         List<String> readPools = null;
-        
+ 
         Element threadPool = getElement("thread-pool");
         List<? extends Element> readPoolElements = UtilXml.childElementList(threadPool, "run-from-pool");
         if (readPoolElements != null) {
-            readPools = FastList.newInstance();        
+            readPools = FastList.newInstance();
             for (Element e: readPoolElements) {
                 readPools.add(e.getAttribute("name"));
             }
         }
         return readPools;
     }
-    
+ 
     public static int getPurgeJobDays() {
         String days = getElementAttr("thread-pool", "purge-job-days");
         int purgeDays;
@@ -144,7 +144,7 @@ public class ServiceConfigUtil implements Serializable {
 
         return null;
     }
-        
+ 
     public static class NotificationGroup implements Serializable {
         protected Notification notification;
         protected List<Notify> notify;

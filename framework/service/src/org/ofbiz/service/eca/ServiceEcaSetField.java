@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -62,7 +62,7 @@ public class ServiceEcaSetField {
 
             // process the context changes
             if (UtilValidate.isNotEmpty(value)) {
-                context.put(fieldName, this.format(value, context));            
+                context.put(fieldName, this.format(value, context));
             } else if (UtilValidate.isNotEmpty(envName) && context.get(envName) != null) {
                 context.put(fieldName, this.format((String) context.get(envName), context));
             }
@@ -70,7 +70,7 @@ public class ServiceEcaSetField {
     }
 
     protected Object format(String s, Map<String, ? extends Object> c) {
-        if (UtilValidate.isEmpty(s) || UtilValidate.isEmpty(format)) {            
+        if (UtilValidate.isEmpty(s) || UtilValidate.isEmpty(format)) {
             return s;
         }
 
@@ -81,7 +81,7 @@ public class ServiceEcaSetField {
                 newStr.append(c.get(envName));
             }
             newStr.append(s);
-            return newStr.toString(); 
+            return newStr.toString();
         }
         if ("to-upper".equalsIgnoreCase(format)) {
             return s.toUpperCase();
@@ -125,7 +125,7 @@ public class ServiceEcaSetField {
             if (!UtilValidate.areEqual(this.envName, other.envName)) return false;
             if (!UtilValidate.areEqual(this.value, other.value)) return false;
             if (!UtilValidate.areEqual(this.format, other.format)) return false;
-            
+ 
             return true;
         } else {
             return false;

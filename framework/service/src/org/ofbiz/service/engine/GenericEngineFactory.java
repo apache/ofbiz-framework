@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,18 +37,18 @@ public class GenericEngineFactory {
 
     protected ServiceDispatcher dispatcher = null;
     protected Map<String, GenericEngine> engines = null;
-    
+ 
     public GenericEngineFactory(ServiceDispatcher dispatcher) {
         this.dispatcher = dispatcher;
         engines = FastMap.newInstance();
     }
 
-    /** 
+    /**
      * Gets the GenericEngine instance that corresponds to given the name
      *@param engineName Name of the engine
      *@return GenericEngine that corresponds to the engineName
      */
-    public GenericEngine getGenericEngine(String engineName) throws GenericServiceException {        
+    public GenericEngine getGenericEngine(String engineName) throws GenericServiceException {
         Element rootElement = null;
 
         try {

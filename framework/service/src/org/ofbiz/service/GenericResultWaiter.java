@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,14 +28,14 @@ import org.ofbiz.base.util.Debug;
 public class GenericResultWaiter implements GenericRequester {
 
     public static final String module = GenericResultWaiter.class.getName();
-    
+ 
     /** Status code for a running service */
     public static final int SERVICE_RUNNING = -1;
     /** Status code for a failed service */
     public static final int SERVICE_FAILED = 0;
     /** Status code for a successful service */
     public static final int SERVICE_FINISHED = 1;
-    
+ 
     private boolean completed = false;
     private int status = -1;
     private Map<String, Object> result = null;
@@ -49,10 +49,10 @@ public class GenericResultWaiter implements GenericRequester {
         completed = true;
         status = SERVICE_FINISHED;
         notify();
-        if (Debug.verboseOn()) 
+        if (Debug.verboseOn())
             Debug.logVerbose("Received Result (" + completed + ") -- " + result, module);
     }
-    
+ 
     /**
      * @see org.ofbiz.service.GenericRequester#receiveThrowable(java.lang.Throwable)
      */
@@ -60,9 +60,9 @@ public class GenericResultWaiter implements GenericRequester {
         this.t = t;
         completed = true;
         status = SERVICE_FAILED;
-        notify();              
+        notify();
     }
-    
+ 
     /**
      * Returns the status of the service.
      * @return int Status code
@@ -70,7 +70,7 @@ public class GenericResultWaiter implements GenericRequester {
     public synchronized int status() {
         return this.status;
     }
-    
+ 
     /**
      * If the service has completed return true
      * @return boolean
@@ -78,7 +78,7 @@ public class GenericResultWaiter implements GenericRequester {
     public synchronized boolean isCompleted() {
         return completed;
     }
-    
+ 
     /**
      * Returns the exception which was thrown or null if none
      * @return Exception
@@ -87,7 +87,7 @@ public class GenericResultWaiter implements GenericRequester {
         if (!isCompleted())
             throw new java.lang.IllegalStateException("Cannot return exception, synchronous call has not completed.");
         return this.t;
-    }    
+    }
 
     /**
      * Gets the results of the service or null if none

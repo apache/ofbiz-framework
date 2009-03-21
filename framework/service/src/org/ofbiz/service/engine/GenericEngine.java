@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -34,7 +34,7 @@ public interface GenericEngine {
 
     /**
      * Run the service synchronously and return the result.
-     * 
+     *
      * @param localName Name of the LocalDispatcher.
      * @param modelService Service model object.
      * @param context Map of name, value pairs composing the context.
@@ -45,7 +45,7 @@ public interface GenericEngine {
 
     /**
      * Run the service synchronously and IGNORE the result.
-     * 
+     *
      * @param localName Name of the LocalDispatcher.
      * @param modelService Service model object.
      * @param context Map of name, value pairs composing the context.
@@ -55,7 +55,7 @@ public interface GenericEngine {
 
     /**
      * Run the service asynchronously, passing an instance of GenericRequester that will receive the result.
-     * 
+     *
      * @param localName Name of the LocalDispatcher.
      * @param modelService Service model object.
      * @param context Map of name, value pairs composing the context.
@@ -68,7 +68,7 @@ public interface GenericEngine {
 
     /**
      * Run the service asynchronously and IGNORE the result.
-     * 
+     *
      * @param localName Name of the LocalDispatcher.
      * @param modelService Service model object.
      * @param context Map of name, value pairs composing the context.
@@ -80,7 +80,7 @@ public interface GenericEngine {
     /**
      * Send the service callbacks
      * @param modelService Service model object
-     * @param context Map of name, value pairs composing the context 
+     * @param context Map of name, value pairs composing the context
      * @param cbObj Object to return to callback (Throwable or Map)
      * @param mode Service mode (sync or async)
      * @throws GenericServiceException
