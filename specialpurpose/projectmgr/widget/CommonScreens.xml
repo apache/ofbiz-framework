@@ -354,7 +354,6 @@ under the License.
                                         <container>
                                             <section>
                                                 <widgets>
-                                                    <label text="&amp;nbsp;&lt;br/&gt;"/>
                                                     <label style="h1" text="${uiLabelMap.PartyTheProfileOf} ${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName} ${lookupPerson.suffix} ${lookupGroup.groupName}"/>
                                                 </widgets>
                                                 <fail-widgets>
