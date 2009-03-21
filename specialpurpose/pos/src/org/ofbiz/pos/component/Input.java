@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -37,9 +37,9 @@ public class Input implements KeyboardReceiver, KeyListener {
     public static final String module = Input.class.getName();
     private static final String[] validFunc = { "CHECK", "CHECKINFO", "CLOSE", "CREDIT", "GIFTCARD", "LOGIN", "MGRLOGIN",
                                                 "MSRINFO", "OPEN", "PAID", "PAID_IN", "PAID_OUT", "PROMOCODE", "QTY",
-                                                "REFNUM", "SHIFT", "TOTAL", "UNLOCK", "VOID", "TRACK2", "SECURITYCODE", 
+                                                "REFNUM", "SHIFT", "TOTAL", "UNLOCK", "VOID", "TRACK2", "SECURITYCODE",
                                                 "CREDITEXP", "POSTALCODE"};
-                                                
+ 
 
     protected Stack functionStack = new Stack();
     protected Component[] pageComs = null;

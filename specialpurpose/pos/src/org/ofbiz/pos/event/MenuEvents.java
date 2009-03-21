@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -47,8 +47,8 @@ public class MenuEvents {
     // scales and rounding modes for BigDecimal math
     public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");
     public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
-    public static final BigDecimal ZERO = (BigDecimal.ZERO).setScale(scale, rounding);    
-    
+    public static final BigDecimal ZERO = (BigDecimal.ZERO).setScale(scale, rounding);
+ 
     // extended number events
     public static synchronized void triggerClear(PosScreen pos) {
         // clear the pieces
@@ -207,14 +207,14 @@ public class MenuEvents {
                 }
             } catch (Exception e) {
                 Debug.logError(e, module);
-                pos.showDialog("dialog/error/producterror");                
+                pos.showDialog("dialog/error/producterror");
             }
-                        
+ 
             // add the item to the cart; report any errors to the user
             if (productId != null) {
                 try {
                     if (!aggregatedItem) {
-                        trans.addItem(productId, quantity);                    
+                        trans.addItem(productId, quantity);
                     } else {
                         trans.addItem(productId, pcw);
                     }
@@ -354,7 +354,7 @@ public class MenuEvents {
                 } catch (NumberFormatException e) {
                 }
 
-                amount = amount.movePointLeft(2).negate();                
+                amount = amount.movePointLeft(2).negate();
                 trans.addDiscount(sku, amount, percent);
                 trans.calcTax();
             }
@@ -431,7 +431,7 @@ public class MenuEvents {
         String index = journal.getSelectedIdx();
         String productId = journal.getSelectedSku();
         //trans.configureItem(index, pos);
-               
+ 
         boolean aggregatedItem = false;
         ProductConfigWrapper pcw = null;
         try {
@@ -447,14 +447,14 @@ public class MenuEvents {
             }
         } catch (Exception e) {
             Debug.logError(e, module);
-            pos.showDialog("dialog/error/producterror");                
+            pos.showDialog("dialog/error/producterror");
         }
-        
+ 
         trans.calcTax();
         pos.refresh();
-        
+ 
         return;
     }
 
-    
+ 
 }

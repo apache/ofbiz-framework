@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -32,7 +32,7 @@ import org.ofbiz.pos.adaptor.KeyboardReceiver;
 
 /**
  * Generic Keyboard Wedge Barcode Scanner
- * 
+ *
  * Configure your scanner:
  * 1) Send STX Preamble
  * 2) Send barcode id as prefix
@@ -89,7 +89,7 @@ public class ScannerKybService extends BaseService implements jpos.services.Scan
         return this.decodeData;
     }
 
-    public void setDecodeData(boolean b) throws JposException {       
+    public void setDecodeData(boolean b) throws JposException {
         this.decodeData = b;
     }
 
@@ -132,7 +132,7 @@ public class ScannerKybService extends BaseService implements jpos.services.Scan
 
     public int getPowerState() throws JposException {
         return 0;
-    }    
+    }
 
     // KeyboardReceiver
     public synchronized void receiveData(int[] codes, char[] chars) {
@@ -151,7 +151,7 @@ public class ScannerKybService extends BaseService implements jpos.services.Scan
 
         // parse the scanned data
         if (str != null) {
-            str = str.trim();        
+            str = str.trim();
             this.scannedData = str.getBytes();
             if (this.decodeData) {
                 if (this.codeLocation == TYPELOC_PREFIX) {
@@ -163,7 +163,7 @@ public class ScannerKybService extends BaseService implements jpos.services.Scan
                 } else {
                     this.codeId = "";
                     this.scannedDataLabel = str.getBytes();
-                }                
+                }
             }
         }
     }

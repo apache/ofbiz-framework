@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -42,9 +42,9 @@ import org.ofbiz.pos.PosTransaction;
 public class LoadSale extends XPage {
 
     /**
-     * To load a sale from a shopping list. 2 modes : add to or replace the current sale. Also a button to delete a sale (aka shopping list) 
+     * To load a sale from a shopping list. 2 modes : add to or replace the current sale. Also a button to delete a sale (aka shopping list)
      */
-    
+ 
     public static final String module = LoadSale.class.getName();
     protected static PosScreen m_pos = null;
     protected XDialog m_dialog = null;
@@ -55,7 +55,7 @@ public class LoadSale extends XPage {
     protected XButton m_replace = null;
     protected XButton m_delete = null;
     protected XButton m_replaceAndDelete = null;
-    protected DefaultListModel m_listModel = null; 
+    protected DefaultListModel m_listModel = null;
     protected static PosTransaction m_trans = null;
 
     //TODO : make getter and setter for members (ie m_*) if needed (extern calls). For that in Eclipse use Source/Generate Getters and setters
@@ -92,7 +92,7 @@ public class LoadSale extends XPage {
         }
         m_salesList.setModel(m_listModel);
         m_salesList.setVisibleRowCount(-1);
-        m_salesList.ensureIndexIsVisible(m_salesList.getItemCount());     
+        m_salesList.ensureIndexIsVisible(m_salesList.getItemCount());
         m_salesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         m_salesList.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "PosLoadSaleListDblClickTip", Locale.getDefault()));
 
@@ -216,11 +216,11 @@ public class LoadSale extends XPage {
         if (!m_trans.addListToCart(sale, m_pos, addToCart)) {
 //        if (!m_trans.restoreOrder(sale, m_pos, addToCart)) { // TODO use order instead of shopping list
             Debug.logError("Error while loading cart from shopping list : " + sale, module);
-        } 
+        }
         else {
             m_trans.calcTax();
             m_pos.refresh();
-        }   
+        }
         closeDlg();
     }
 
@@ -241,7 +241,7 @@ public class LoadSale extends XPage {
             }
         }
         return cl;
-    }    
+    }
 
     private void closeDlg() {
         m_dialog.closeDlg();

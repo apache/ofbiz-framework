@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,28 +27,28 @@ import net.xoetrope.swing.XDialog;
 //import org.ofbiz.base.util.Debug;
 //
 public class XFocusDialog extends XDialog {
-//    
+//
 //    protected XEdit m_focused = null;
 //
 //    public XFocusDialog() {
 //        super();
 //    }
-//    
+//
 //    public void pageActivated() {
 //        super.pageActivated();
 //        setFocus();
 //    }
-//    
+//
 //    public void setFocus() {
-//        SwingUtilities.invokeLater( 
+//        SwingUtilities.invokeLater(
 //            new Runnable() {
 //                public void run() {
 //                    Debug.logInfo( "isEditable in setFocus :" + m_focused.isEditable(), "======================================" );
 //                    Debug.logInfo( "isEnabled in setFocus: " + m_focused.isEnabled(), "======================================" );
-//                    Debug.logInfo( "isFocusable in setFocus :" + m_focused.isFocusable(), "======================================" );                    
+//                    Debug.logInfo( "isFocusable in setFocus :" + m_focused.isFocusable(), "======================================" );
 //                    m_focused.requestFocusInWindow();
 //                }
-//            }      
+//            }
 //        );
 //    }
 //
@@ -58,7 +58,7 @@ public class XFocusDialog extends XDialog {
 //    public void setM_focused(XEdit focused) {
 //        Debug.logInfo( "isEditable in setM_focused :" + focused.isEditable(), "======================================" );
 //        Debug.logInfo( "isEnabled in setM_focused :" + focused.isEnabled(), "======================================" );
-//        Debug.logInfo( "isFocusable in setM_focused :" + focused.isFocusable(), "======================================" );                            
+//        Debug.logInfo( "isFocusable in setM_focused :" + focused.isFocusable(), "======================================" );
 //        this.m_focused = focused;
 //    }
 }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -42,7 +42,7 @@ public class Journal {
 
     public static final String module = Journal.class.getName();
     protected XProject currentProject = (XProject)XProjectManager.getCurrentProject();
-    
+ 
     private static String[] field = { "sku", "desc", "qty", "price" };
     private static String[] name = { "PosSku", "PosItem", "PosQty", "PosAmt" };
     private static int[] width = { 100, 170, 50, 90};
@@ -52,33 +52,33 @@ public class Journal {
     protected XTable jtable = null;
     protected String style = null;
 
-    public Journal(PosScreen page) {        
+    public Journal(PosScreen page) {
         jpanel = (XScrollPane) page.findComponent("journal_panel");
         jpanel.setVisible(false);
-        
+ 
         this.jtable = (XTable) page.findComponent("jtable");
 
-        // set the table as selectable        
+        // set the table as selectable
         jtable.setInteractiveTable(true);
         jtable.setFocusable(false);
-        jtable.setDragEnabled(false);        
-        jtable.setColumnSelectionAllowed(false);        
+        jtable.setDragEnabled(false);
+        jtable.setColumnSelectionAllowed(false);
         jtable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
+ 
 
         // set the styles
-        jtable.setBorderStyle("journalBorder");        
+        jtable.setBorderStyle("journalBorder");
         jtable.setHeaderStyle("journalHeader");
         jtable.setStyle("journalData");
         jtable.setSelectedStyle("journalSelected");
-        
+ 
         // some settings needed for XUI 3.2rc2b update
         jtable.setRowHeight(30); // Better to catch the line on a touch screen (minimal height I think)
         XStyle style = currentProject.getStyleManager().getStyle("journalBorder");
-        Color borderColor = style.getStyleAsColor(XStyle.COLOR_FORE );        
-        jtable.setGridColor(borderColor); // jtable.setBorderStyle("journalBorder"); above is not working anymore        
+        Color borderColor = style.getStyleAsColor(XStyle.COLOR_FORE );
+        jtable.setGridColor(borderColor); // jtable.setBorderStyle("journalBorder"); above is not working anymore
         style = currentProject.getStyleManager().getStyle("journalData");
-        Color backgoundColor = style.getStyleAsColor(XStyle.COLOR_BACK);        
+        Color backgoundColor = style.getStyleAsColor(XStyle.COLOR_BACK);
         jtable.setBackground(backgoundColor); // TODO This line is not working
         jpanel.setBorder(jtable.getBorder()); // TODO there is a small shift between the vertical header grid lines and the other vertical grid lines. This line is not working
 
@@ -155,7 +155,7 @@ public class Journal {
 
         // make sure we are at the last item in the journal
         jtable.setSelectedRow(0);
-        
+ 
         try {
             jtable.update();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -168,7 +168,7 @@ public class Journal {
         XModel jmodel = (XModel)currentProject.getModel().get("table/items");
         // clear the list
         jmodel.clear();
-       
+ 
         if (field.length == 0) {
             return null;
         }
@@ -194,10 +194,10 @@ public class Journal {
         newNode.setTagName(tag);
         if (value != null) {
             newNode.set(value);
-        }        
+        }
         return newNode;
     }
-    
+ 
     private String getModelText(XModel model)
     {
         StringWriter sw = new StringWriter();

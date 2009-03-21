@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -172,7 +172,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
                     Thread.sleep(3000);
                 } catch (Exception e) {
                 }
-            }                        
+            }
         }
 
         // print the customer receipt
@@ -295,7 +295,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
                             for (int i=0; i < this.configPaddingLength[type]; i+=1) {
                                 spaces.append(" ");
                             }
-                            this.configPadding[type] = spaces.toString();                            
+                            this.configPadding[type] = spaces.toString();
                         } catch (NumberFormatException e) {
                             Debug.logWarning(e, module);
                         }
@@ -377,7 +377,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
             // adjust the padding
             expandMap.put("description", UtilFormatOut.padString((String) expandMap.get("description"), descLength[type], true, ' '));
             expandMap.put("productId", UtilFormatOut.padString((String) expandMap.get("productId"), pridLength[type], true, ' '));
-            expandMap.put("basePrice", UtilFormatOut.padString((String) expandMap.get("basePrice"), priceLength[type], false, ' '));            
+            expandMap.put("basePrice", UtilFormatOut.padString((String) expandMap.get("basePrice"), priceLength[type], false, ' '));
             expandMap.put("subtotal", UtilFormatOut.padString((String) expandMap.get("subtotal"), priceLength[type], false, ' '));
             expandMap.put("quantity", UtilFormatOut.padString((String) expandMap.get("quantity"), qtyLength[type], false, ' '));
             expandMap.put("adjustments", UtilFormatOut.padString((String) expandMap.get("adjustments"), priceLength[type], false, ' '));
@@ -393,7 +393,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
             } else {
                 this.println(toPrint);
             }
-            
+ 
             if (trans.isAggregatedItem(((String)expandMap.get("productId")).trim())) {
                 List<Map> maps = trans.getItemConfigInfo(i);
                 for (Map map: maps) {
@@ -439,7 +439,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
         expandMap.put("nameOnCard", UtilFormatOut.padString((String) expandMap.get("nameOnCard"), infoLength[type], false, ' '));
         expandMap.put("payInfo", UtilFormatOut.padString((String) expandMap.get("payInfo"), infoLength[type], false, ' '));
         expandMap.put("amount", UtilFormatOut.padString((String) expandMap.get("amount"), priceLength[type], false, ' '));
-        
+ 
         String toPrint = FlexibleStringExpander.expandString(template, expandMap);
         if (toPrint.indexOf("\n") > -1) {
             String[] lines = toPrint.split("\\n");

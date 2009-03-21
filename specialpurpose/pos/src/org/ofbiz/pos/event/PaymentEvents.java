@@ -32,7 +32,7 @@ import java.util.Locale;
 
 public class PaymentEvents {
 
-    
+ 
     public static final String module = PaymentEvents.class.getName();
 
     public static synchronized void payCash(PosScreen pos) {
@@ -115,7 +115,7 @@ public class PaymentEvents {
         String[] securityCodeInfo = input.getFunction("SECURITYCODE");
         String[] postalCodeInfo = input.getFunction("POSTALCODE");
         String[] creditExpirationInfo = input.getFunction("CREDITEXP");
-        
+ 
         // check for no/external payment processing
         int paymentCheck = trans.checkPaymentMethodType("CREDIT_CARD");
         if (paymentCheck == PosTransaction.NO_PAYMENT) {
@@ -194,7 +194,7 @@ public class PaymentEvents {
                             msrInfoStr = crtInfo[1] + "|" + creditExpirationInfo[1];
                         } else {
                             msrInfoStr = crtInfo[1];
-                        }                        
+                        }
                     }
                 } else {  // is swiped
                     // grab total from input, if available
@@ -229,7 +229,7 @@ public class PaymentEvents {
                         if (pmId != null) {
                             trans.addPayment(pmId, amount);
                         }
-                        if (track2Info != null && UtilValidate.isNotEmpty(track2Info[1])) { 
+                        if (track2Info != null && UtilValidate.isNotEmpty(track2Info[1])) {
                             // if swiped
                             trans.setPaymentTrack2(pmId, null, track2Info[1]);
                         } else { //keyed
@@ -255,7 +255,7 @@ public class PaymentEvents {
             }
         }
     }
-    
+ 
     private static synchronized void processNoPayment(PosScreen pos, String paymentMethodTypeId) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
 
@@ -416,7 +416,7 @@ public class PaymentEvents {
     // processed or if an error occurred
     public static synchronized void clearInputPaymentFunctions(PosScreen pos) {
         String[] paymentFuncs = {"CHECK", "CHECKINFO", "CREDIT",
-                                    "GIFTCARD", "MSRINFO", "REFNUM", "CREDITEXP", 
+                                    "GIFTCARD", "MSRINFO", "REFNUM", "CREDITEXP",
                                     "TRACK2", "SECURITYCODE", "POSTALCODE" };
         Input input = pos.getInput();
         for (int i = 0; i < paymentFuncs.length; i++) {

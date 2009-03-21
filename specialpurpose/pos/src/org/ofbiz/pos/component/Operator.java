@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -47,15 +47,15 @@ public class Operator {
     public static final String[] OPER_DATE = { "oper_date", "DATE" };
     public static final String[] OPER_EMPL = { "oper_empl", "EMPL" };
     public static final String[] OPER_TXID = { "oper_txid", "TXID" };
-    public static final String[] OPER_DRWR = { "oper_drwr", "DRAWER" };    
-    
+    public static final String[] OPER_DRWR = { "oper_drwr", "DRAWER" };
+ 
     public static SimpleDateFormat sdf = new SimpleDateFormat(UtilProperties.getMessage(PosTransaction.resource,"PosDateFormat",Locale.getDefault()));
     protected Component[] operatorField = null;
     protected XStyle titleStyle = null;
     protected XPanel operPanel = null;
-    
+ 
     private Locale defaultLocale = Locale.getDefault();
-   
+ 
 
     public Operator(PosScreen page) {
         this.titleStyle = XProjectManager.getCurrentProject().getStyleManager().getStyle(style);
@@ -66,7 +66,7 @@ public class Operator {
     }
 
     public void setLock(boolean lock) {
-        operPanel.setVisible(!lock);        
+        operPanel.setVisible(!lock);
     }
 
     public void refresh() {

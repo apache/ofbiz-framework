@@ -26,7 +26,7 @@ public class NumericKeypad extends XPage
 
     public String openDlg() {
 
-        m_pageSupport = pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/numeric");        
+        m_pageSupport = pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/numeric");
         m_dialog = (XDialog)m_pageSupport;
 
         m_edit = (XEdit) m_pageSupport.findComponent("numeric_input");
@@ -104,7 +104,7 @@ public class NumericKeypad extends XPage
         }
         if (getPercent()) {
             button = (XButton) m_dialog.findComponent("numPercent");
-            XEventHelper.addMouseHandler(this, button, "triggerMinus");            
+            XEventHelper.addMouseHandler(this, button, "triggerMinus");
         } else {
             disableButton("numPercent");
         }
@@ -191,7 +191,7 @@ public class NumericKeypad extends XPage
         if (wasMouseClicked()) {
             String text = "";
             try {
-                text = m_edit.getText();            
+                text = m_edit.getText();
             } catch (NullPointerException e) {
                 // getText throws exception if no text
                 text = "";
@@ -205,7 +205,7 @@ public class NumericKeypad extends XPage
 
             m_dialog.repaint();
             return;
-        }        
+        }
     }
 
     private int countChars(String string, char c) {
@@ -239,7 +239,7 @@ public class NumericKeypad extends XPage
     private synchronized void clear() {
         if (wasMouseClicked()) {
             String text = "";
-            m_edit.setText(text);            
+            m_edit.setText(text);
             m_dialog.repaint();
             return;
         }
@@ -249,13 +249,13 @@ public class NumericKeypad extends XPage
         if (wasMouseClicked()) {
             String text = "";
             try {
-                text = m_edit.getText();            
+                text = m_edit.getText();
             } catch (NullPointerException e) {
                 // getText throws exception if no text
                 text = "";
             } finally {
-                m_edit.setText(text + c);            
-            }      
+                m_edit.setText(text + c);
+            }
             m_dialog.repaint();
             //update the screen?
             return;
@@ -266,13 +266,13 @@ public class NumericKeypad extends XPage
         if (wasMouseClicked()) {
             String text = "";
             try {
-                text = m_edit.getText();            
+                text = m_edit.getText();
             } catch (NullPointerException e) {
                 // getText throws exception if no text
                 text = "";
             } finally {
-                m_edit.setText(text + c);            
-            }      
+                m_edit.setText(text + c);
+            }
             m_dialog.repaint();
             //update the screen?
             return;
