@@ -136,6 +136,7 @@
     </property>
     <property key="ContentBrowse">
         <value xml:lang="en">Browse</value>
+        <value xml:lang="fr">Consulter</value>
         <value xml:lang="it">Sfoglia</value>
     </property>
     <property key="ContentCMS">
@@ -672,6 +673,7 @@
     </property>
     <property key="ContentForumDescriptionThread">
         <value xml:lang="en">Thread description</value>
+        <value xml:lang="fr">Description du fil de discussion</value>
         <value xml:lang="it">Descrizione discussione</value>
     </property>
     <property key="ContentForumGroupCreate">
@@ -1324,6 +1326,7 @@
     </property>
     <property key="ContentSurveyQuestionNumber">
         <value xml:lang="en">Question #</value>
+        <value xml:lang="fr">Question n°</value>
         <value xml:lang="it">Domanda #</value>
     </property>
     <property key="ContentSurveyQuestions">
