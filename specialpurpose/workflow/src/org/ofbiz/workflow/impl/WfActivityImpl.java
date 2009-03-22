@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -67,7 +67,7 @@ import org.ofbiz.workflow.WfResource;
 public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity {
 
     public static final String module = WfActivityImpl.class.getName();
-    
+ 
     private static final int CHECK_ASSIGN = 1;
     private static final int CHECK_COMPLETE = 2;
 
@@ -88,10 +88,10 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
 
     private void init() throws WfException {
         GenericValue valueObject = getDefinitionObject();
-        
+ 
         // set the activity context
         this.setProcessContext(container().contextKey());
-        
+ 
         // parse the descriptions
         this.parseDescriptions(this.processContext());
 
@@ -116,15 +116,15 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
                 }
             }
         }
-        
+ 
         GenericValue performer = null;
         if (valueObject.get("performerParticipantId") != null) {
             try {
                 performer = valueObject.getRelatedOne("PerformerWorkflowParticipant");
                 if (performer == null) {
-                    Map performerFields = UtilMisc.toMap("packageId", valueObject.getString("packageId"), 
-                            "packageVersion", valueObject.getString("packageVersion"), "processId", "_NA_", 
-                            "processVersion", "_NA_", "participantId", valueObject.getString("performerParticipantId"));                
+                    Map performerFields = UtilMisc.toMap("packageId", valueObject.getString("packageId"),
+                            "packageVersion", valueObject.getString("packageVersion"), "processId", "_NA_",
+                            "processVersion", "_NA_", "participantId", valueObject.getString("performerParticipantId"));
                     performer = delegator.findByPrimaryKey("WorkflowParticipant", performerFields);
                 }
             } catch (GenericEntityException e) {
@@ -133,7 +133,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
         }
         if (performer != null)
             createAssignments(performer);
-            
+ 
         boolean limitAfterStart = valueObject.getBoolean("limitAfterStart").booleanValue();
 
         if (Debug.verboseOn()) {
@@ -142,7 +142,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
         if (!limitAfterStart && valueObject.get("limitService") != null && !valueObject.getString("limitService").equals("")) {
             Debug.logVerbose("[WfActivity.init]: limit service is not after start, setting up now.", module);
             setLimitService();
-        }                    
+        }
     }
 
     private void createAssignments(GenericValue currentPerformer) throws WfException {
@@ -150,16 +150,16 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
         GenericValue performer = checkPerformer(currentPerformer);
         boolean assignAll = false;
 
-        if (valueObject.get("acceptAllAssignments") != null) {        
+        if (valueObject.get("acceptAllAssignments") != null) {
             assignAll = valueObject.getBoolean("acceptAllAssignments").booleanValue();
         }
-        
-        // first check for single assignment   
+ 
+        // first check for single assignment
         if (!assignAll) {
             if (performer != null) {
                 Debug.logVerbose("[WfActivity.createAssignments] : (S) Single assignment", module);
                 assign(WfFactory.getWfResource(performer), false);
-            }           
+            }
         }
 
         // check for a party group
@@ -181,8 +181,8 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
                 // party is a group
                 Collection partyRelations = null;
                 try {
-                    Map fields = UtilMisc.toMap("partyIdFrom", performer.getString("partyId"), 
-                            "partyRelationshipTypeId", "GROUP_ROLLUP");                                                                                                                                       
+                    Map fields = UtilMisc.toMap("partyIdFrom", performer.getString("partyId"),
+                            "partyRelationshipTypeId", "GROUP_ROLLUP");
                     partyRelations = getDelegator().findByAnd("PartyRelationship", fields);
                 } catch (GenericEntityException e) {
                     throw new WfException(e.getMessage(), e);
@@ -203,8 +203,8 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
                 Debug.logVerbose("[WfActivity.createAssignments] : (G) Single assignment", module);
                 assign(WfFactory.getWfResource(performer), false);
             }
-        } 
-        
+        }
+ 
         // check for role types
         else if (performer.get("roleTypeId") != null && !performer.getString("roleTypeId").equals("_NA_")) {
             Collection partyRoles = null;
@@ -230,10 +230,10 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
     private List getAssignments() throws WfException {
         List assignments = new ArrayList();
         List assignList = this.getAllAssignments();
-            
+ 
         if (assignList == null)
             return assignments;
-        
+ 
         Iterator i = assignList.iterator();
         while (i.hasNext()) {
             GenericValue value = (GenericValue) i.next();
@@ -248,7 +248,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
         if (Debug.verboseOn()) Debug.logVerbose("Found [" + assignments.size() + "] assignment(s)", module);
         return assignments;
     }
-    
+ 
     private List getAllAssignments() throws WfException {
         List assignList = null;
         try {
@@ -256,13 +256,13 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e);
         }
-        
+ 
         if (assignList != null) {
             assignList = EntityUtil.filterByDate(assignList);
-        } else { 
+        } else {
             return new ArrayList();
         }
-        return assignList;            
+        return assignList;
     }
 
     // create a new assignment
@@ -283,11 +283,11 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
     private GenericValue checkPerformer(GenericValue performer) throws WfException {
         GenericValue newPerformer = GenericValue.create(performer);
         Map context = processContext();
-        
-        String performerType = performer.getString("participantTypeId"); 
+ 
+        String performerType = performer.getString("participantTypeId");
         String partyId = performer.getString("partyId");
         String roleTypeId = performer.getString("roleTypeId");
-        
+ 
         // check for dynamic party
         if (partyId != null && partyId.trim().toLowerCase().startsWith("expr:")) {
             if (Debug.verboseOn()) Debug.logVerbose("Dynamic performer: Found a party expression", module);
@@ -303,15 +303,15 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
                 } else {
                     throw new WfException("Expression did not return a String");
                 }
-            }            
+            }
         }
-        
+ 
         // check for dynamic role
         if (roleTypeId != null && roleTypeId.trim().toLowerCase().startsWith("expr:")) {
             if (Debug.verboseOn()) Debug.logVerbose("Dynamic performer: Found a role expression", module);
             Object value = null;
             try {
-                value = BshUtil.eval(roleTypeId.trim().substring(5).trim(), context);                  
+                value = BshUtil.eval(roleTypeId.trim().substring(5).trim(), context);
             } catch (bsh.EvalError e) {
                 throw new WfException("Bsh evaluation error occurred.", e);
             }
@@ -323,21 +323,21 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
                 }
             }
         }
-        
+ 
         // check for un-defined party
         if (performerType.equals("HUMAN") || performerType.equals("ORGANIZATIONAL_UNIT")) {
             if (partyId == null) {
                 newPerformer.set("partyId", performer.getString("participantId"));
             }
         }
-        
+ 
         // check for un-defined role
         if (performerType.equals("ROLE")) {
             if (roleTypeId == null) {
                 newPerformer.set("roleTypeId", performer.getString("participantId"));
             }
         }
-                                
+ 
         return newPerformer;
     }
 
@@ -352,7 +352,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
         // check the start mode
         String mode = getDefinitionObject().getString("startModeEnumId");
 
-        if (mode == null) {        
+        if (mode == null) {
             throw new WfException("Start mode cannot be null");
         }
 
@@ -383,9 +383,9 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
         }
         try {
             changeState("closed.completed");
-            GenericValue activityWe = getRuntimeObject();            
+            GenericValue activityWe = getRuntimeObject();
             activityWe.set("actualCompletionDate", UtilDateTime.nowTimestamp());
-            activityWe.store();                       
+            activityWe.store();
         } catch (InvalidState is) {
             throw new WfException("Invalid WF State", is);
         } catch (TransitionNotAllowed tna) {
@@ -396,33 +396,33 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
 
         container().activityComplete(this);
     }
-    
+ 
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#resume()
      */
     public void resume() throws WfException, CannotResume, NotRunning, NotSuspended {
         super.resume();
-        try {        
-            Debug.logVerbose("Checking to see if we can complete the activity", module);    
+        try {
+            Debug.logVerbose("Checking to see if we can complete the activity", module);
             this.checkComplete();
         } catch (CannotComplete e) {
             throw new CannotResume("Attempt to complete activity failed", e);
-        } 
+        }
     }
-    
+ 
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#abort()
      */
     public void abort() throws WfException, CannotStop, NotRunning {
         super.abort();
-        
+ 
         // cancel the active assignments
         Iterator assignments = this.getAssignments().iterator();
         while (assignments.hasNext()) {
-            WfAssignment assignment = (WfAssignment) assignments.next();            
+            WfAssignment assignment = (WfAssignment) assignments.next();
             assignment.changeStatus("CAL_CANCELLED");
-        }                
-    }    
+        }
+    }
 
     /**
      * @see org.ofbiz.workflow.WfActivity#isMemberOfAssignment(org.ofbiz.workflow.WfAssignment)
@@ -433,11 +433,11 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
 
     /**
      * @see org.ofbiz.workflow.WfActivity#container()
-     */    
+     */
     public WfProcess container() throws WfException {
         return WfFactory.getWfProcess(delegator, processId);
     }
-   
+ 
     /**
      * @see org.ofbiz.workflow.WfActivity#setResult(java.util.Map)
      */
@@ -538,26 +538,26 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
         if (valueObject.get("completeAllAssignments") != null)
             completeAll = valueObject.getBoolean("completeAllAssignments").booleanValue();
 
-        List validStatus = null;        
+        List validStatus = null;
 
         if (type == CHECK_ASSIGN)
-            validStatus = UtilMisc.toList("CAL_ACCEPTED", "CAL_COMPLETED", "CAL_DELEGATED");            
+            validStatus = UtilMisc.toList("CAL_ACCEPTED", "CAL_COMPLETED", "CAL_DELEGATED");
         else if (type == CHECK_COMPLETE)
-            validStatus = UtilMisc.toList("CAL_COMPLETED", "CAL_DELEGATED");            
+            validStatus = UtilMisc.toList("CAL_COMPLETED", "CAL_DELEGATED");
         else
             throw new WfException("Invalid status type");
 
         boolean foundOne = false;
 
         List assignList = this.getAllAssignments();
-        Iterator i = assignList.iterator();        
+        Iterator i = assignList.iterator();
 
-        while (i.hasNext()) {            
+        while (i.hasNext()) {
             GenericValue value = (GenericValue) i.next();
             String party = value.getString("partyId");
             String role = value.getString("roleTypeId");
-            java.sql.Timestamp from = value.getTimestamp("fromDate");            
-            WfAssignment a = WfFactory.getWfAssignment(getDelegator(), runtimeKey(), party, role, from);                                   
+            java.sql.Timestamp from = value.getTimestamp("fromDate");
+            WfAssignment a = WfFactory.getWfAssignment(getDelegator(), runtimeKey(), party, role, from);
 
             if (validStatus.contains(a.status())) {
                 // if we find one set this to true
@@ -568,7 +568,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
                     return false;
             }
         }
-        
+ 
         // we are here only if all are done, or complete/assign is false; so if not false we are done
         if ((type == CHECK_COMPLETE && completeAll) || (type == CHECK_ASSIGN && acceptAll)) {
             return true;
@@ -632,9 +632,9 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
 
     // schedule the limit service to run
     private void setLimitService() throws WfException {
-        LocalDispatcher dispatcher = getDispatcher();        
+        LocalDispatcher dispatcher = getDispatcher();
 
-       
+ 
         DispatchContext dctx = dispatcher.getDispatchContext();
         String limitService = getDefinitionObject().getString("limitService");
         ModelService service = null;
@@ -652,9 +652,9 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
 
         // make the limit service context
         List inList = new ArrayList(service.getInParamNames());
-        String inParams = StringUtil.join(inList, ",");        
-        
-        Map serviceContext = actualContext(inParams, null, null, true);                                              
+        String inParams = StringUtil.join(inList, ",");
+ 
+        Map serviceContext = actualContext(inParams, null, null, true);
         Debug.logVerbose("Setting limit service with context: " + serviceContext, module);
 
         Double timeLimit = null;
@@ -728,7 +728,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
         // extended attributes take priority over context attributes
         Map extendedAttributes = StringUtil.strToMap(extendedAttr);
 
-        if (UtilValidate.isNotEmpty(extendedAttributes)) {        
+        if (UtilValidate.isNotEmpty(extendedAttributes)) {
             context.putAll(extendedAttributes);
         }
 
@@ -752,9 +752,9 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
             WfResource res = assign.assignee();
             context.put("assignedPartyId", res.resourcePartyId());
             context.put("assignedRoleTypeId", res.resourceRoleId());
-        }   
-                        
-        // first we will pull out the values from the context for the actual parameters   
+        }
+ 
+        // first we will pull out the values from the context for the actual parameters 
         if (actualParameters != null) {
             List params = StringUtil.split(actualParameters, ",");
             Iterator i = params.iterator();
@@ -762,7 +762,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
             while (i.hasNext()) {
                 Object key = i.next();
                 String keyStr = (String) key;
-                
+ 
                 if (keyStr != null && keyStr.trim().toLowerCase().startsWith("expr:")) {
                     // check for bsh expressions; this does not place values into the context
                     try {
@@ -775,23 +775,23 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
                     List couple = StringUtil.split(keyStr.trim().substring(5).trim(), "=");
                     String mName = (String) couple.get(0); // mapped name
                     String cName = (String) couple.get(1); // context name
-                    
+ 
                     // trim out blank space
                     if (mName != null) mName = mName.trim();
-                    if (cName != null) cName = cName.trim(); 
-                                                           
-                    if (mName != null && cName != null && context.containsKey(cName)) {                    
+                    if (cName != null) cName = cName.trim();
+ 
+                    if (mName != null && cName != null && context.containsKey(cName)) {
                         actualContext.put(mName, context.get(cName));
-                    }                          
+                    }
                 } else if (context.containsKey(key)) {
-                    // direct assignment from context                   
+                    // direct assignment from context
                     actualContext.put(key, context.get(key));
-                } else if (!actualContext.containsKey(key) && !ignoreUnknown) {                
+                } else if (!actualContext.containsKey(key) && !ignoreUnknown) {
                     throw new WfException("Context does not contain the key: '" + (String) key + "'");
                 }
             }
         }
-        
+ 
         // the serviceSignature should not limit which parameters are in the actualContext
         // so instead we will use this signature to pull out values so they do not all have to be defined
         if (serviceSignature != null) {
@@ -799,11 +799,11 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
             while (si.hasNext()) {
                 Object key = si.next();
                 String keyStr = (String) key;
-                if (!actualContext.containsKey(key) && context.containsKey(key)) {                
+                if (!actualContext.containsKey(key) && context.containsKey(key)) {
                     actualContext.put(keyStr, context.get(keyStr));
                 }
             }
-        }        
+        }
         return actualContext;
     }
 

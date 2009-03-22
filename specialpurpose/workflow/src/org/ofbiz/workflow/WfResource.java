@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,21 +26,21 @@ import java.util.List;
  */
 public interface WfResource {
 
-    /** 
+    /**
      * Gets the number of work items
      * @throws WfException
      * @return Count of work items
      */
     public int howManyWorkItem() throws WfException;
 
-    /** 
+    /**
      * Gets an iterator of work items
      * @throws WfException
      * @return Iterator of work items
      */
     public Iterator getIteratorWorkItem() throws WfException;
 
-    /** 
+    /**
      * Gets the work items
      * @param maxNumber
      * @throws WfException
@@ -48,7 +48,7 @@ public interface WfResource {
      */
     public List getSequenceWorkItem(int maxNumber) throws WfException;
 
-    /** 
+    /**
      * Checks if an assignment object is associated with this resource
      * @param member The assignment object to check
      * @throws WfException
@@ -56,35 +56,35 @@ public interface WfResource {
      */
     public boolean isMemberOfWorkItems(WfAssignment member) throws WfException;
 
-    /** 
+    /**
      * Gets the resource key.
      * @throws WfException
      * @return String of the resouce key.
      */
     public String resourceKey() throws WfException;
 
-    /** 
+    /**
      * Gets the resource name
      * @throws WfException
      * @return String of the resource name
      */
     public String resourceName() throws WfException;
 
-    /** 
+    /**
      * Gets the role id of this resource
      * @throws WfException
      * @return String role id of this participant or null if none
      */
     public String resourceRoleId() throws WfException;
 
-    /** 
+    /**
      * Gets the party id of this resource
      * @throws WfException
      * @return String party id of this participant or null if none
      */
     public String resourcePartyId() throws WfException;
 
-    /** 
+    /**
      * Release the resouce from the assignement
      * @param fromAssigment
      * @param releaseInfo

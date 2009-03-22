@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -30,7 +30,7 @@ import org.ofbiz.workflow.WfActivity;
  * Workflow Client API - Start Activity Async-Job
  */
 public class StartActivityJob extends AbstractJob {
-    
+ 
     public static final String module = StartActivityJob.class.getName();
 
     protected WfActivity activity = null;
@@ -39,9 +39,9 @@ public class StartActivityJob extends AbstractJob {
     public StartActivityJob(WfActivity activity) {
         this(activity, null);
     }
-    
+ 
     public StartActivityJob(WfActivity activity, GenericRequester requester) {
-        super(activity.toString() + "." + System.currentTimeMillis(), activity.toString());        
+        super(activity.toString() + "." + System.currentTimeMillis(), activity.toString());
         this.activity = activity;
         this.requester = requester;
         runtime = new Date().getTime();
@@ -55,17 +55,17 @@ public class StartActivityJob extends AbstractJob {
     /**
      * @see org.ofbiz.service.job.Job#exec()
      */
-    public void exec() {        
+    public void exec() {
         try {
-            Debug.logVerbose("Executing job now : " + activity, module);                                      
+            Debug.logVerbose("Executing job now : " + activity, module);
             activity.activate();
             if (requester != null)
                 requester.receiveResult(new HashMap());
-        } catch (Exception e) {            
+        } catch (Exception e) {
             Debug.logError(e, "Start Activity [" + activity + "] Failed", module);
             if (requester != null)
                 requester.receiveThrowable(e);
-        }       
+        }
         finish();
     }
 }

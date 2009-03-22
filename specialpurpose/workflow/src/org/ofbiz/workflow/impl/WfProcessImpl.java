@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -65,15 +65,15 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
     public static final String module = WfProcessImpl.class.getName();
 
     protected WfRequester requester = null;
-    protected WfProcessMgr manager = null;    
-   
+    protected WfProcessMgr manager = null;
+ 
     public WfProcessImpl(GenericValue valueObject, WfProcessMgr manager) throws WfException {
         super(valueObject, null);
-        this.manager = manager;           
+        this.manager = manager;
         this.requester = null;
         init();
     }
-        
+ 
     /**
      * @see org.ofbiz.workflow.impl.WfExecutionObjectImpl#WfExecutionObjectImpl(org.ofbiz.entity.GenericDelegator, java.lang.String)
      */
@@ -82,14 +82,14 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
         if (activityId != null && activityId.length() > 0)
             throw new WfException("Execution object is not of type WfProcess.");
         this.manager = WfFactory.getWfProcessMgr(delegator, packageId, packageVersion, processId, processVersion);
-        this.requester = null;        
+        this.requester = null;
     }
-    
+ 
     private void init() throws WfException {
         // since we are a process we don't have a context yet
         // get the context to use with parsing descriptions from the manager
         Map context = manager.getInitialContext();
-        this.parseDescriptions(context);        
+        this.parseDescriptions(context);
     }
 
     /**
@@ -109,28 +109,28 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
             return new ArrayList(activeSteps().subList(0, maxNumber - 1));
         return activeSteps();
     }
-    
+ 
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#abort()
      */
     public void abort() throws WfException, CannotStop, NotRunning {
         super.abort();
-        
+ 
         // cancel the active activities
         Iterator activities = this.activeSteps().iterator();
         while (activities.hasNext()) {
             WfActivity activity = (WfActivity) activities.next();
             activity.abort();
-        }                
+        }
     }
-  
+ 
     /**
      * @see org.ofbiz.workflow.WfProcess#start()
      */
     public void start() throws WfException, CannotStart, AlreadyRunning {
         start(null);
     }
-     
+ 
     /**
      * @see org.ofbiz.workflow.WfProcess#start()
      */
@@ -149,11 +149,11 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
         try {
             if (activityId != null) {
                 GenericValue processDef = getDefinitionObject();
-                Map fields = UtilMisc.toMap("packageId", processDef.getString("packageId"), "packageVersion", 
-                        processDef.getString("packageVersion"), "processId", processDef.getString("processId"), 
-                        "processVersion", processDef.getString("processVersion"), "activityId", activityId);                         
+                Map fields = UtilMisc.toMap("packageId", processDef.getString("packageId"), "packageVersion",
+                        processDef.getString("packageVersion"), "processId", processDef.getString("processId"),
+                        "processVersion", processDef.getString("processVersion"), "activityId", activityId);
                 start = getDelegator().findByPrimaryKey("WorkflowActivity", fields);
-                
+ 
                 // here we must check and make sure this activity is defined to as a starting activity
                 if (!start.getBoolean("canStart").booleanValue())
                     throw new CannotStart("The specified activity cannot initiate the workflow process");
@@ -168,9 +168,9 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
         if (start == null)
             throw new CannotStart("No initial activity available");
 
-        if (Debug.verboseOn()) 
+        if (Debug.verboseOn())
             Debug.logVerbose("[WfProcess.start] : Started the workflow process.", module);
-            
+ 
         // set the actualStartDate
         try {
             GenericValue v = getRuntimeObject();
@@ -179,38 +179,38 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
         } catch (GenericEntityException e) {
             Debug.logWarning("Could not set 'actualStartDate'.", module);
             e.printStackTrace();
-        }            
+        }
         startActivity(start);
     }
-  
+ 
     /**
      * @see org.ofbiz.workflow.WfProcess#manager()
      */
     public WfProcessMgr manager() throws WfException {
         return manager;
     }
-    
+ 
     /**
      * @see org.ofbiz.workflow.WfProcess#requester()
      */
     public WfRequester requester() throws WfException {
         return requester;
     }
-   
+ 
     /**
      * @see org.ofbiz.workflow.WfProcess#getIteratorStep()
      */
     public Iterator getIteratorStep() throws WfException {
         return activeSteps().iterator();
     }
-   
+ 
     /**
      * @see org.ofbiz.workflow.WfProcess#isMemberOfStep(org.ofbiz.workflow.WfActivity)
      */
     public boolean isMemberOfStep(WfActivity member) throws WfException {
         return activeSteps().contains(member);
     }
-    
+ 
     /**
      * @see org.ofbiz.workflow.WfProcess#getActivitiesInState(java.lang.String)
      */
@@ -226,7 +226,7 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
         }
         return res.iterator();
     }
-  
+ 
     /**
      * @see org.ofbiz.workflow.WfProcess#result()
      */
@@ -248,14 +248,14 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
         }
         return results;
     }
-   
+ 
     /**
      * @see org.ofbiz.workflow.WfProcess#howManyStep()
      */
     public int howManyStep() throws WfException {
         return activeSteps().size();
     }
-  
+ 
     /**
      * @see org.ofbiz.workflow.WfProcess#receiveResults(org.ofbiz.workflow.WfActivity, java.util.Map)
      */
@@ -264,7 +264,7 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
         context.putAll(results);
         setSerializedData(context);
     }
-    
+ 
     /**
      * @see org.ofbiz.workflow.WfProcess#activityComplete(org.ofbiz.workflow.WfActivity)
      */
@@ -316,7 +316,7 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
                     joinTransition(toActivity, trans);
             }
         } else {
-            if (Debug.verboseOn()) 
+            if (Debug.verboseOn())
                 Debug.logVerbose("[WfProcess.queueNext] : No transitions left to follow.", module);
             this.finishProcess();
         }
@@ -384,34 +384,34 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
         GenericResultWaiter req = new GenericResultWaiter();
 
         if (Debug.verboseOn()) Debug.logVerbose("[WfProcess.startActivity] : Attempting to start activity (" + activity.name() + ")", module);
-        
+ 
         // locate the dispatcher to use
         LocalDispatcher dispatcher = this.getDispatcher();
-        
+ 
         // get the job manager
         JobManager jm = dispatcher.getJobManager();
         if (jm == null) {
             throw new WfException("No job manager found on the service dispatcher; cannot start activity");
         }
-          
-        // using the StartActivityJob class to run the activity within its own thread              
-        try {            
-            Job activityJob = new StartActivityJob(activity, req);                                   
-            jm.runJob(activityJob);  
+ 
+        // using the StartActivityJob class to run the activity within its own thread
+        try {
+            Job activityJob = new StartActivityJob(activity, req);
+            jm.runJob(activityJob);
         } catch (JobManagerException e) {
             throw new WfException("JobManager error", e);
         }
-         
-        // the GenericRequester object will hold any exceptions; and report the job as failed       
+ 
+        // the GenericRequester object will hold any exceptions; and report the job as failed
         if (req.status() == GenericResultWaiter.SERVICE_FAILED) {
             Throwable reqt = req.getThrowable();
             if (reqt instanceof CannotStart)
                 Debug.logVerbose("[WfProcess.startActivity] : Cannot start activity. Waiting for manual start.", module);
             else if (reqt instanceof AlreadyRunning)
                 throw new WfException("Activity already running", reqt);
-            else            
+            else
                 throw new WfException("Activity error", reqt);
-        }                        
+        }
     }
 
     // Determine the next activity or activities
@@ -434,8 +434,8 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
 
         // the default value is TRUE, so if no expression is supplied we evaluate as true
         boolean transitionOk = true;
-        
-        // the otherwise condition (only used by XOR splits) 
+ 
+        // the otherwise condition (only used by XOR splits)
         GenericValue otherwise = null;
 
         // iterate through the possible transitions
@@ -449,24 +449,24 @@ public class WfProcessImpl extends WfExecutionObjectImpl implements WfProcess {
                 otherwise = transition;
                 continue;
             }
-            
+ 
             // get the condition body from the condition tag
             String conditionBody = transition.getString("conditionExpr");
-            
+ 
             // get the extended attributes for the transition
-            Map extendedAttr = StringUtil.strToMap(transition.getString("extendedAttributes")); 
-            
+            Map extendedAttr = StringUtil.strToMap(transition.getString("extendedAttributes"));
+ 
             // check for a conditionClassName attribute if exists use it
             if (extendedAttr != null && extendedAttr.get("conditionClassName") != null) {
-                String conditionClassName = (String) extendedAttr.get("conditionClassName");  
-                transitionOk = this.evalConditionClass(conditionClassName, conditionBody, this.processContext(), extendedAttr);              
+                String conditionClassName = (String) extendedAttr.get("conditionClassName");
+                transitionOk = this.evalConditionClass(conditionClassName, conditionBody, this.processContext(), extendedAttr);
             } else {
                 // since no condition class is supplied, evaluate the expression using bsh
                 if (conditionBody != null) {
                     transitionOk = this.evalBshCondition(conditionBody, this.processContext());
                 }
             }
-                                   
+ 
             if (transitionOk) {
                 transList.add(transition);
                 if (split.equals("WST_XOR"))

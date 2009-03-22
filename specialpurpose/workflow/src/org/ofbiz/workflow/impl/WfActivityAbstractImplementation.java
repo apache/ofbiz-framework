@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -67,14 +67,14 @@ public abstract class WfActivityAbstractImplementation {
         return runService(service, params, extend);
     }
 
-    protected GenericResultWaiter runService(ModelService service, String params, String extend) throws WfException { 
+    protected GenericResultWaiter runService(ModelService service, String params, String extend) throws WfException {
         LocalDispatcher dispatcher = getActivity().getDispatcher();
         List paramNames = service.getParameterNames(ModelService.IN_PARAM, true);
         if (paramNames != null && paramNames.size() == 0)
             paramNames =  null;
-                 
+ 
         Map ctx = getActivity().actualContext(params, extend, paramNames, false);
-        
+ 
         GenericResultWaiter waiter = new GenericResultWaiter();
         Debug.logVerbose("[WfActivityAbstractImplementation.runService] : Invoking the service.", module);
         try {
@@ -104,7 +104,7 @@ public abstract class WfActivityAbstractImplementation {
         return resultContext;
     }
 
-    /** 
+    /**
      * Getter for property complete.
      * @return Value of property complete.
      */
@@ -112,7 +112,7 @@ public abstract class WfActivityAbstractImplementation {
         return this.complete;
     }
 
-    /** 
+    /**
      * Setter for property complete.
      * @param complete New value of property complete.
      */

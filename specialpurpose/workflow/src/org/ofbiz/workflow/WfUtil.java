@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,23 +26,23 @@ import org.ofbiz.base.util.UtilMisc;
  * WorkflowUtil - Workflow Engine Utilities
  */
 public final class WfUtil {
-    
+ 
     private static final Map typeMap = UtilMisc.toMap("WDT_BOOLEAN", "java.lang.Boolean",
-        "WDT_STRING", "java.lang.String", "WDT_INTEGER", "java.lang.Long", 
+        "WDT_STRING", "java.lang.String", "WDT_INTEGER", "java.lang.Long",
         "WDT_FLOAT", "java.lang.Double", "WDT_DATETIME", "java.sql.Timestamp");
-                      
+ 
     /**
      * Gets the Java type from a XPDL datatype
      * @param xpdlType XPDL data type to be translated
      * @return Java Class name equivalence to the XPDL data type
      */
-    public static final String getJavaType(String xpdlType) {        
+    public static final String getJavaType(String xpdlType) {
         if (typeMap.containsKey(xpdlType))
             return (String) typeMap.get(xpdlType);
         else
             return "java.lang.Object";
     }
-    
+ 
     /**
      * Returns the OFB status code which refers to the passed OMG status code
      * @param state
@@ -78,6 +78,6 @@ public final class WfUtil {
         }
         return null;
     }
-    
-    
+ 
+ 
 }

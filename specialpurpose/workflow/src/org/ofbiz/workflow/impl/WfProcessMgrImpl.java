@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -54,14 +54,14 @@ public class WfProcessMgrImpl implements WfProcessMgr {
     public static final String module = WfProcessMgrImpl.class.getName();
 
     protected GenericValue processDef;
-    
+ 
     protected String state; // will probably move to a runtime entity for the manager
     protected List processList; // will probably be a related entity to the runtime entity
-    
+ 
     protected Map contextSignature = null;
     protected Map resultSignature = null;
     protected Map initialContext = null;
-    
+ 
     /**
      * Method WfProcessMgrImpl.
      * @param delegator
@@ -70,7 +70,7 @@ public class WfProcessMgrImpl implements WfProcessMgr {
      * @param processId
      * @param processVersion
      * @throws WfException
-     */   
+     */
     public WfProcessMgrImpl(GenericDelegator delegator, String packageId, String packageVersion,
             String processId, String processVersion) throws WfException {
         Map finder = UtilMisc.toMap("packageId", packageId, "processId", processId);
@@ -99,7 +99,7 @@ public class WfProcessMgrImpl implements WfProcessMgr {
     /**
      * @see org.ofbiz.workflow.WfProcessMgr#setProcessMgrState(java.lang.String)
      */
-    public void setProcessMgrState(String newState) throws WfException, TransitionNotAllowed {            
+    public void setProcessMgrState(String newState) throws WfException, TransitionNotAllowed {
         if (!newState.equals("enabled") || !newState.equals("disabled"))
             throw new TransitionNotAllowed();
         this.state = newState;
@@ -117,8 +117,8 @@ public class WfProcessMgrImpl implements WfProcessMgr {
     /**
      * @see org.ofbiz.workflow.WfProcessMgr#createProcess(org.ofbiz.workflow.WfRequester)
      */
-    public WfProcess createProcess(WfRequester requester) throws WfException, NotEnabled, 
-            InvalidRequester, RequesterRequired {            
+    public WfProcess createProcess(WfRequester requester) throws WfException, NotEnabled,
+            InvalidRequester, RequesterRequired {
         if (state.equals("disabled"))
             throw new NotEnabled();
 
@@ -140,11 +140,11 @@ public class WfProcessMgrImpl implements WfProcessMgr {
 
     /**
      * @see org.ofbiz.workflow.WfProcessMgr#contextSignature()
-     */   
+     */
     public Map contextSignature() throws WfException {
         return this.contextSignature;
     }
-    
+ 
     /**
      * @see org.ofbiz.workflow.WfProcessMgr#howManyProcess()
      */
@@ -194,7 +194,7 @@ public class WfProcessMgrImpl implements WfProcessMgr {
     public Map resultSignature() throws WfException {
         return this.resultSignature;
     }
-    
+ 
     /**
      * Method getInitialContext.
      * @return Map
@@ -252,7 +252,7 @@ public class WfProcessMgrImpl implements WfProcessMgr {
                 resultSignature.put(name, WfUtil.getJavaType(type));
         }
     }
-                    
+ 
     private void buildInitialContext() throws WfException {
         GenericDelegator delegator = processDef.getDelegator();
         this.initialContext = new HashMap();
@@ -262,18 +262,18 @@ public class WfProcessMgrImpl implements WfProcessMgr {
             Map fields = new HashMap();
             fields.put("packageId", processDef.get("packageId"));
             fields.put("packageVersion", processDef.get("packageVersion"));
-            
+ 
             // first get all package fields
             fields.put("processId", "_NA_");
-            fields.put("processVersion", "_NA_");            
+            fields.put("processVersion", "_NA_");
             List data1 = delegator.findByAnd("WorkflowDataField", fields);
             dataFields.addAll(data1);
-            
+ 
             // now get all process fields
             fields.put("processId", processDef.get("processId"));
             fields.put("processVersion", processDef.get("processVersion"));
             List data2 = delegator.findByAnd("WorkflowDataField", fields);
-            dataFields.addAll(data2);                
+            dataFields.addAll(data2);
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e);
         }
@@ -281,19 +281,19 @@ public class WfProcessMgrImpl implements WfProcessMgr {
             return;
 
         Iterator i = dataFields.iterator();
-        
+ 
         while (i.hasNext()) {
             GenericValue dataField = (GenericValue) i.next();
-            String name = dataField.getString("dataFieldName");                    
+            String name = dataField.getString("dataFieldName");
             String type = dataField.getString("dataTypeEnumId");
             String value = dataField.getString("initialValue");
-   
-            try {                
-                initialContext.put(name, ObjectType.simpleTypeConvert(value, WfUtil.getJavaType(type), null, null));                          
+ 
+            try {
+                initialContext.put(name, ObjectType.simpleTypeConvert(value, WfUtil.getJavaType(type), null, null));
             } catch (GeneralException e) {
                 throw new WfException(e.getMessage(), e);
-            }            
+            }
         }
-    }      
+    }
 }
 

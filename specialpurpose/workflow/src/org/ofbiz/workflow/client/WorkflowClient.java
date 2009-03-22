@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -44,24 +44,24 @@ import org.ofbiz.workflow.WfResource;
 public class WorkflowClient {
 
     public static final String module = WorkflowClient.class.getName();
-    
+ 
     protected GenericDelegator delegator = null;
     protected LocalDispatcher dispatcher = null;
-  
+ 
     protected WorkflowClient() {}
-    
+ 
     /**
      * Get a new instance of the Workflow Client
      * @param delegator the GenericDelegator object which matchs the delegator used by the workflow engine.
      * @param dispatcher a LocalDispatcher object to invoke the workflow services.
-     */  
+     */
     public WorkflowClient(GenericDelegator delegator, LocalDispatcher dispatcher) {
         if (delegator == null)
             throw new IllegalArgumentException("GenericDelegator cannot be null");
         if (dispatcher == null)
             throw new IllegalArgumentException("LocalDispatcher cannot be null");
         this.delegator = delegator;
-        this.dispatcher = dispatcher;  
+        this.dispatcher = dispatcher;
     }
 
     /**
@@ -70,7 +70,7 @@ public class WorkflowClient {
      * *** Note the delegator from this object must match the delegator used by the workflow engine.
      */
     public WorkflowClient(DispatchContext context) {
-        this(context.getDelegator(), context.getDispatcher());               
+        this(context.getDelegator(), context.getDispatcher());
     }
 
     /**
@@ -82,7 +82,7 @@ public class WorkflowClient {
      * @return The new assignment object.
      * @throws WfException
      */
-    public WfAssignment assign(String workEffortId, String partyId, String roleTypeId, Timestamp fromDate, boolean append) throws WfException {            
+    public WfAssignment assign(String workEffortId, String partyId, String roleTypeId, Timestamp fromDate, boolean append) throws WfException {
         WfActivity activity = WfFactory.getWfActivity(delegator, workEffortId);
         WfResource resource = WfFactory.getWfResource(delegator, null, null, partyId, roleTypeId);
 
@@ -106,7 +106,7 @@ public class WorkflowClient {
      * @throws WfException
      */
     public void accept(String workEffortId, String partyId, String roleTypeId, Timestamp fromDate) throws WfException {
-        WfAssignment assign = WfFactory.getWfAssignment(delegator, workEffortId, partyId, roleTypeId, fromDate);           
+        WfAssignment assign = WfFactory.getWfAssignment(delegator, workEffortId, partyId, roleTypeId, fromDate);
         assign.accept();
     }
 
@@ -119,7 +119,7 @@ public class WorkflowClient {
      * @return GenericResultWaiter of the start job.
      * @throws WfException
      */
-    public void acceptAndStart(String workEffortId, String partyId, String roleTypeId, Timestamp fromDate) throws WfException {        
+    public void acceptAndStart(String workEffortId, String partyId, String roleTypeId, Timestamp fromDate) throws WfException {
         accept(workEffortId, partyId, roleTypeId, fromDate);
         start(workEffortId);
     }
@@ -136,15 +136,15 @@ public class WorkflowClient {
      * @return The new assignment object.
      * @throws WfException
      */
-    public WfAssignment delegate(String workEffortId, String fromPartyId, String fromRoleTypeId, Timestamp fromFromDate, String toPartyId, String toRoleTypeId, Timestamp toFromDate) throws WfException {                    
+    public WfAssignment delegate(String workEffortId, String fromPartyId, String fromRoleTypeId, Timestamp fromFromDate, String toPartyId, String toRoleTypeId, Timestamp toFromDate) throws WfException {
         WfActivity activity = WfFactory.getWfActivity(delegator, workEffortId);
         WfAssignment fromAssign = null;
-        
+ 
         // check status and delegateAfterStart attribute
-        if (activity.state().equals("open.running") && !activity.getDefinitionObject().getBoolean("delegateAfterStart").booleanValue())                 
+        if (activity.state().equals("open.running") && !activity.getDefinitionObject().getBoolean("delegateAfterStart").booleanValue())
             throw new WfException("This activity cannot be delegated once it has been started");
-                      
-        if (fromPartyId == null && fromRoleTypeId == null && fromFromDate == null) {            
+ 
+        if (fromPartyId == null && fromRoleTypeId == null && fromFromDate == null) {
             Iterator i = activity.getIteratorAssignment();
             fromAssign = (WfAssignment) i.next();
             if (i.hasNext()) {
@@ -155,12 +155,12 @@ public class WorkflowClient {
 
         if (fromAssign == null) {
             fromAssign = WfFactory.getWfAssignment(delegator, workEffortId, fromPartyId, fromRoleTypeId, fromFromDate);
-        }                    
-        fromAssign.delegate();   
-        
+        }
+        fromAssign.delegate();
+ 
         // check for a restartOnDelegate
         WfActivity newActivity = null;
-        if (activity.getDefinitionObject().getBoolean("restartOnDelegate").booleanValue()) {  
+        if (activity.getDefinitionObject().getBoolean("restartOnDelegate").booleanValue()) {
             // this only applies to running single assignment activities
             if (activity.state().equals("open.running") && activity.howManyAssignment() == 0) {
                 try {
@@ -172,16 +172,16 @@ public class WorkflowClient {
                 }
                 String parentProcessId = activity.container().runtimeKey();
                 newActivity = WfFactory.getWfActivity(activity.getDefinitionObject(), parentProcessId);
-            }         
-        }    
-        
+            }
+        }
+ 
         WfAssignment assign = null;
         if (newActivity != null) {
             assign = assign(newActivity.runtimeKey(), toPartyId, toRoleTypeId, toFromDate, true);
         } else {
             assign = assign(workEffortId, toPartyId, toRoleTypeId, toFromDate, true);
         }
-        
+ 
         return assign;
     }
 
@@ -195,21 +195,21 @@ public class WorkflowClient {
      * @return GenericResultWaiter of the start job.
      * @throws WfException
      */
-    public void delegateAndAccept(String workEffortId, String fromPartyId, String fromRoleTypeId, Timestamp fromFromDate, String toPartyId, String toRoleTypeId, Timestamp toFromDate, boolean start) throws WfException {                                 
-        WfAssignment assign = delegate(workEffortId, fromPartyId, fromRoleTypeId, fromFromDate, toPartyId, toRoleTypeId, toFromDate);                      
+    public void delegateAndAccept(String workEffortId, String fromPartyId, String fromRoleTypeId, Timestamp fromFromDate, String toPartyId, String toRoleTypeId, Timestamp toFromDate, boolean start) throws WfException {
+        WfAssignment assign = delegate(workEffortId, fromPartyId, fromRoleTypeId, fromFromDate, toPartyId, toRoleTypeId, toFromDate);
         assign.accept();
         Debug.logVerbose("Delegated assignment.", module);
-        
+ 
         if (start) {
             Debug.logVerbose("Starting activity.", module);
             if (!activityRunning(assign.activity())) {
                 start(assign.activity().runtimeKey());
-            } else {            
+            } else {
                 Debug.logWarning("Activity already running; not starting.", module);
             }
         } else {
             Debug.logVerbose("Not starting assignment.", module);
-        }              
+        }
     }
 
     /**
@@ -220,15 +220,15 @@ public class WorkflowClient {
      */
     public void start(String workEffortId) throws WfException {
         if (dispatcher == null) {
-            throw new WfException("LocalDispatcher is null; cannot create job for activity startup");      
+            throw new WfException("LocalDispatcher is null; cannot create job for activity startup");
         }
-        
+ 
         WfActivity activity = WfFactory.getWfActivity(delegator, workEffortId);
 
         if (Debug.verboseOn()) Debug.logVerbose("Starting activity: " + activity.name(), module);
         if (activityRunning(activity))
             throw new WfException("Activity is already running");
-            
+ 
         Job job = new StartActivityJob(activity);
 
         if (Debug.verboseOn()) Debug.logVerbose("Job: " + job, module);
@@ -237,7 +237,7 @@ public class WorkflowClient {
         } catch (JobManagerException e) {
             throw new WfException(e.getMessage(), e);
         }
-               
+ 
     }
 
     /**
@@ -249,13 +249,13 @@ public class WorkflowClient {
      * @return GenericResultWaiter for the complete job.
      * @throws WfException
      */
-    public void complete(String workEffortId, String partyId, String roleTypeId, Timestamp fromDate, Map result) throws WfException {                    
+    public void complete(String workEffortId, String partyId, String roleTypeId, Timestamp fromDate, Map result) throws WfException {
         WfAssignment assign = WfFactory.getWfAssignment(delegator, workEffortId, partyId, roleTypeId, fromDate);
         if (result != null && result.size() > 0)
             assign.setResult(result);
-        assign.complete();        
+        assign.complete();
     }
-    
+ 
     /**
      * Suspend an activity
      * @param workEffortId The WorkEffort entity key for the activity object
@@ -263,14 +263,14 @@ public class WorkflowClient {
      */
     public void suspend(String workEffortId) throws WfException {
         WfActivity activity = WfFactory.getWfActivity(delegator, workEffortId);
-        
+ 
         if (Debug.verboseOn()) Debug.logVerbose("Suspending activity: " + activity.name(), module);
         if (!activityRunning(activity))
             throw new WfException("Activity is not running");
-            
+ 
         activity.suspend();
-    }        
-       
+    }
+ 
     /**
      * Resume an activity
      * @param workEffortId The WorkEffort entity key for the activity object
@@ -285,17 +285,17 @@ public class WorkflowClient {
 
         activity.resume();
     }
-    
+ 
     /**
      * Abort a process
      * @param workEffortId The workeffort entity key for the process to abort
      * @throws WfException
      */
     public void abortProcess(String workEffortId) throws WfException {
-        WfProcess process = WfFactory.getWfProcess(delegator, workEffortId);        
+        WfProcess process = WfFactory.getWfProcess(delegator, workEffortId);
         process.abort();
     }
-                
+ 
     /**
      * Append data to the execution object's process context.
      * @param workEffortId The WorkEffort entity key for the execution object.

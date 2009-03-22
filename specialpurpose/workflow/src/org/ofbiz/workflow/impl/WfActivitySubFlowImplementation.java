@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -60,9 +60,9 @@ public class WfActivitySubFlowImplementation extends WfActivityAbstractImplement
         service.engineName = "workflow";
         service.location = subFlow.getString("packageId");
         service.invoke = subFlow.getString("subFlowProcessId");
-        service.validate = false;        
+        service.validate = false;
 
-        // we don't use the service definition parameters (since there is no definition) so, we will just grab 
+        // we don't use the service definition parameters (since there is no definition) so, we will just grab
         // the actual parameters and let the workflow engine test the contextSignature
         String actualParameters = subFlow.getString("actualParameters");
         GenericResultWaiter waiter = runService(service, actualParameters, null);

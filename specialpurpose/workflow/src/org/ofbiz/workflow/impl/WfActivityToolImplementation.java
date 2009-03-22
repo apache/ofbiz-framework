@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -71,17 +71,17 @@ public class WfActivityToolImplementation extends WfActivityAbstractImplementati
             String toolId = thisTool.getString("toolId");
             String params = thisTool.getString("actualParameters");
             String toolTypeEnumId = thisTool.getString("toolTypeEnumId");
-            
+ 
             //Linea agregada por Oswin Ondarza
             allParams = allParams + "," + params;
             String extend = thisTool.getString("extendedAttributes");
-            
-            Map extendedAttr = StringUtil.strToMap(extend);            
+ 
+            Map extendedAttr = StringUtil.strToMap(extend);
             if (extendedAttr != null && extendedAttr.containsKey("serviceName"))
                 serviceName = (String) extendedAttr.get("serviceName");
-                
-            serviceName = serviceName != null ? serviceName : (toolTypeEnumId.equals("WTT_APPLICATION") ? 
-                    "wfActivateApplication" : toolId);                                                       
+ 
+            serviceName = serviceName != null ? serviceName : (toolTypeEnumId.equals("WTT_APPLICATION") ?
+                    "wfActivateApplication" : toolId);
             waiters.add(runService(serviceName, params, extend));
         }
 
@@ -90,7 +90,7 @@ public class WfActivityToolImplementation extends WfActivityAbstractImplementati
             Collection remove = new ArrayList();
             while (wi.hasNext()) {
                 GenericResultWaiter thw = (GenericResultWaiter) wi.next();
-                
+ 
                 if (thw.isCompleted()) {
                     Map thwResult = null;
                     if (thw.status() == GenericResultWaiter.SERVICE_FINISHED) {
@@ -105,8 +105,8 @@ public class WfActivityToolImplementation extends WfActivityAbstractImplementati
                             Debug.logError("Service Error: " + errorMsg, module);
                         }
                         thwResult.remove(ModelService.RESPONSE_MESSAGE);
-                    }                    
-                    
+                    }
+ 
                     try {
                         if (thwResult != null)
                             this.setResult(thwResult, allParams);
@@ -118,7 +118,7 @@ public class WfActivityToolImplementation extends WfActivityAbstractImplementati
             }
             waiters.removeAll(remove);
         }
-        
+ 
         setComplete(true);
     }
 

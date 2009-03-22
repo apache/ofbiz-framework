@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -65,7 +65,7 @@ import org.ofbiz.workflow.WfUtil;
 public abstract class WfExecutionObjectImpl implements WfExecutionObject {
 
     public static final String module = WfExecutionObjectImpl.class.getName();
-    public static final String dispatcherName = "WFDispatcher";    
+    public static final String dispatcherName = "WFDispatcher";
 
     protected String packageId = null;
     protected String packageVersion = null;
@@ -103,7 +103,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
         if (Debug.verboseOn()) Debug.logVerbose(" Process ID: " + processId + " V: " + processVersion, module);
         if (Debug.verboseOn()) Debug.logVerbose("Activity ID: " + activityId, module);
     }
-    
+ 
     // creates the stored runtime workeffort data.
     private void createRuntime(String parentId) throws WfException {
         GenericValue valueObject = getDefinitionObject();
@@ -135,24 +135,24 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
                 dataMap.put("sourceReferenceId", parentWorkEffort.getString("sourceReferenceId"));
         }
 
-        try {            
-            dataObject = getDelegator().makeValue("WorkEffort", dataMap);            
+        try {
+            dataObject = getDelegator().makeValue("WorkEffort", dataMap);
             getDelegator().create(dataObject);
-            
+ 
             String objectId = activityId != null ? activityId : processId;
             if (Debug.verboseOn()) Debug.logVerbose("Created new runtime object [" + objectId + "] (Workeffort: " + runtimeKey() + ")", module);
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e);
         }
     }
-    
+ 
     protected void parseDescriptions(Map parseContext) throws WfException {
         GenericValue runtime = getRuntimeObject();
         String name = runtime.getString("workEffortName");
         String desc = runtime.getString("description");
         String nameExp = FlexibleStringExpander.expandString(name, parseContext);
         String descExp = FlexibleStringExpander.expandString(desc, parseContext);
-        
+ 
         boolean changed = false;
         if (nameExp != null && !nameExp.equals(name)) {
             changed = true;
@@ -162,7 +162,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
             changed = true;
             runtime.set("description", descExp);
         }
-        
+ 
         if (changed) {
             try {
                 runtime.store();
@@ -174,11 +174,11 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
 
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#name()
-     */   
+     */
     public String name() throws WfException {
         return getRuntimeObject().getString("workEffortName");
     }
-   
+ 
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#setName(java.lang.String)
      */
@@ -192,7 +192,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
             throw new WfException(e.getMessage(), e);
         }
     }
-   
+ 
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#setPriority(long)
      */
@@ -233,8 +233,8 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
 
         if (stateStr == null)
             throw new WfException("Stored state is not a valid type.");
-            
-        if (Debug.verboseOn()) Debug.logVerbose("Current state: " + stateStr, module);            
+ 
+        if (Debug.verboseOn()) Debug.logVerbose("Current state: " + stateStr, module);
         return stateStr;
     }
 
@@ -260,14 +260,14 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
             possibleStates.remove("open.not_running.not_started");
             possibleStates.remove("open.not_running.suspended");
             possibleStates.remove("closed.completed");
-            possibleStates.remove("closed.terminated");            
+            possibleStates.remove("closed.terminated");
             return possibleStates;
         }
         if (currentState.equals("open.not_running.suspended")) {
             possibleStates.remove("open.not_running.suspended");
             possibleStates.remove("open.not_running.not_started");
             possibleStates.remove("closed.complete");
-            possibleStates.remove("closed.terminated");            
+            possibleStates.remove("closed.terminated");
             return possibleStates;
         }
         return new ArrayList();
@@ -288,15 +288,15 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
     public void abort() throws WfException, CannotStop, NotRunning {
         Debug.logInfo("Aborting current state : " + state(), module);
         String stateStr = "closed.aborted";
-        
+ 
         if (!state().startsWith("open")) {
             throw new NotRunning();
         }
-        
+ 
         if (!validStates().contains(stateStr)) {
             throw new CannotStop();
         }
-                
+ 
         changeState(stateStr);
     }
 
@@ -345,14 +345,14 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#setProcessContext(java.util.Map)
      */
-    public void setProcessContext(Map newValue) throws WfException, InvalidData, UpdateNotAllowed {            
+    public void setProcessContext(Map newValue) throws WfException, InvalidData, UpdateNotAllowed {
         setSerializedData(newValue);
     }
 
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#setProcessContext(java.lang.String)
      */
-    public void setProcessContext(String contextKey) throws WfException, InvalidData, UpdateNotAllowed {            
+    public void setProcessContext(String contextKey) throws WfException, InvalidData, UpdateNotAllowed {
         GenericValue dataObject = getRuntimeObject();
 
         try {
@@ -463,7 +463,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
             }
         } else {
             changeState("open.running");
-        }                                       
+        }
     }
 
     /**
@@ -478,7 +478,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#changeState(java.lang.String)
      */
-    public void changeState(String newState) throws WfException, InvalidState, TransitionNotAllowed {            
+    public void changeState(String newState) throws WfException, InvalidState, TransitionNotAllowed {
         // Test is transaction is allowed???
         GenericValue dataObject = getRuntimeObject();
 
@@ -500,7 +500,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#suspend()
      */
-    public void suspend() throws WfException, CannotSuspend, NotRunning, AlreadySuspended {            
+    public void suspend() throws WfException, CannotSuspend, NotRunning, AlreadySuspended {
         changeState("open.not_running.suspended");
     }
 
@@ -623,7 +623,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
         }
         return context;
     }
-    
+ 
     private GenericValue getWorkEffort(String workEffortId) throws WfException {
         GenericValue we = null;
         try {
@@ -633,14 +633,14 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
         }
         return we;
     }
-            
+ 
     /**
      * Evaluate a condition expression using an implementation of TransitionCondition
      * @param className The class name of the TransitionCondition implementation
      * @param expression The expression to evaluate
      * @return The result of the evaluation (True/False)
      * @throws WfException
-     */    
+     */
     protected boolean evalConditionClass(String className, String expression, Map context, Map attrs) throws WfException {
         // attempt to load and instance of the class
         Object conditionObject = null;
@@ -648,41 +648,41 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
             conditionObject = ObjectType.getInstance(className);
         } catch (ClassNotFoundException e) {
             Debug.logError(e, "Cannot load class " + className, module);
-            return false;           
+            return false;
         } catch (InstantiationException e) {
             Debug.logError(e, "Cannot get instance of class " + className, module);
-            return false;            
+            return false;
         } catch (IllegalAccessException e) {
             Debug.logError(e, "Cannot access class " + className, module);
-            return false;            
+            return false;
         }
-                                
+ 
         // make sure we implement the TransitionCondition interface
         if (!ObjectType.instanceOf(conditionObject, "org.ofbiz.workflow.TransitionCondition")) {
             Debug.logError("Class " + className + " is not an instance of TransitionCondition", module);
             return false;
         }
-        
+ 
         // cast to the interface
         TransitionCondition cond = (TransitionCondition) conditionObject;
-        
+ 
         // trim up the expression if it isn't empty
         if (expression != null)
             expression = expression.trim();
-        
+ 
         // get a DispatchContext object to pass over to the eval
         DispatchContext dctx = this.getDispatcher().getDispatchContext();
-        
+ 
         // evaluate the condition
-        Boolean evaluation = null;  
-        try {               
+        Boolean evaluation = null;
+        try {
             evaluation = cond.evaluateCondition(context, attrs, expression, dctx);
         } catch (EvaluationException e) {
             throw new WfException("Problems evaluating condition", e);
         }
-        
-        return evaluation.booleanValue();                            
-    }      
+ 
+        return evaluation.booleanValue();
+    }
 
     /**
      * Evaluate a condition expression using BeanShell
@@ -696,7 +696,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
             Debug.logVerbose("Null or empty expression, returning true.", module);
             return true;
         }
-        
+ 
         Object o = null;
         try {
             o = BshUtil.eval(expression.trim(), context);
