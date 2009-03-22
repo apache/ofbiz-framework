@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -109,7 +109,7 @@ public class WfAssignmentImpl implements WfAssignment {
         if (value == null)
             throw new WfException("No existing assignment found or create failed");
     }
-   
+ 
     /**
      * @see org.ofbiz.workflow.WfAssignment#accept()
      */
@@ -141,7 +141,7 @@ public class WfAssignmentImpl implements WfAssignment {
 
                 while (ai.hasNext()) {
                     WfAssignment a = (WfAssignment) ai.next();
-                    if (!this.isEqual(a)) a.delegate();                    
+                    if (!this.isEqual(a)) a.delegate();
                 }
             }
         }
@@ -164,7 +164,7 @@ public class WfAssignmentImpl implements WfAssignment {
         try {
             activity.complete();
         } catch (CannotComplete e) {
-            Debug.logWarning("Activity not complete : " + e.getMessage(), module);            
+            Debug.logWarning("Activity not complete : " + e.getMessage(), module);
         }
     }
 
@@ -175,7 +175,7 @@ public class WfAssignmentImpl implements WfAssignment {
         // check and make sure we are not already delegated
         if (status().equals("CAL_DELEGATED"))
             throw new WfException("Assignment has already been delegated");
-        
+ 
         // set the thru-date
         GenericValue valueObject = valueObject();
         try {
@@ -183,18 +183,18 @@ public class WfAssignmentImpl implements WfAssignment {
             valueObject.store();
             if (Debug.verboseOn()) Debug.logVerbose("[WfAssignment.delegated()] : set the thru-date.", module);
         } catch (GenericEntityException e) {
-            e.printStackTrace();            
+            e.printStackTrace();
             throw new WfException(e.getMessage(), e);
-        }  
-        
-        // change the status      
-        changeStatus("CAL_DELEGATED");     
+        }
+ 
+        // change the status 
+        changeStatus("CAL_DELEGATED");
     }
 
     /**
      * @see org.ofbiz.workflow.WfAssignment#changeStatus(java.lang.String)
      */
-    public void changeStatus(String status) throws WfException {    
+    public void changeStatus(String status) throws WfException {
         // change the status
         GenericValue valueObject = valueObject();
         try {
@@ -273,23 +273,23 @@ public class WfAssignmentImpl implements WfAssignment {
             throw new WfException("Invalid assignment; no runtime entity");
         return value;
     }
-    
+ 
     private boolean isEqual(WfAssignment asgn) throws WfException {
         // compare this to null = different assignment
         if (asgn == null) {
             return false;
         }
-        
+ 
         // if status is different; we must be different
         if (!this.status().equals(asgn.status())) {
             return false;
         }
-        
+ 
         // different activity = different assignment
         WfActivity thisActivity = this.activity();
-        WfActivity compActivity = asgn.activity();               
+        WfActivity compActivity = asgn.activity();
         if ((thisActivity == null && compActivity != null) || (thisActivity != null && compActivity == null)) {
-            return false;              
+            return false;
         } else {
             String thisKey = thisActivity.runtimeKey();
             String compKey = compActivity.runtimeKey();
@@ -297,14 +297,14 @@ public class WfAssignmentImpl implements WfAssignment {
                 return false;
             } else if (thisKey != null && compKey != null && !thisKey.equals(compKey)) {
                 return false;
-            }                                
+            }
         }
-        
+ 
         // different participantId = different assignment - the rest doesn't matter
         WfResource thisResource = this.assignee();
-        WfResource compResource = asgn.assignee();       
+        WfResource compResource = asgn.assignee();
         if ((thisResource == null && compResource != null) || (thisResource != null && compResource == null)) {
-            return false;              
+            return false;
         } else {
             String thisKey = thisResource.resourceKey();
             String compKey = compResource.resourceKey();
@@ -312,9 +312,9 @@ public class WfAssignmentImpl implements WfAssignment {
                 return false;
             } else if (thisKey != null && compKey != null && !thisKey.equals(compKey)) {
                 return false;
-            }                                
-        }               
-        
+            }
+        }
+ 
         // same status, same activity, same participantId = same assignement
         return true;
     }

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,11 +43,11 @@ import org.ofbiz.workflow.WfRequester;
  * WfRequesterImpl - Workflow Requester implementation
  */
 public class WfRequesterImpl implements WfRequester {
-    
+ 
     public static final String module = WfRequesterImpl.class.getName();
 
     protected Map performers = null;
-      
+ 
     /**
      * Method WfRequesterImpl.
      */
@@ -57,7 +57,7 @@ public class WfRequesterImpl implements WfRequester {
 
     /**
      * @see org.ofbiz.workflow.WfRequester#registerProcess(org.ofbiz.workflow.WfProcess, java.util.Map, org.ofbiz.service.GenericRequester)
-     */  
+     */
     public void registerProcess(WfProcess process, Map context, GenericRequester requester) throws WfException {
         if (process == null)
             throw new WfException("Process cannot be null");
@@ -75,15 +75,15 @@ public class WfRequesterImpl implements WfRequester {
             throw new WfException("Context passed does not validate against defined signature: ", e);
         }
 
-        // Set the context w/ the process        
+        // Set the context w/ the process 
         Map localContext = new HashMap(context);
         localContext.putAll(mgr.getInitialContext());
-        process.setProcessContext(localContext);   
-        
+        process.setProcessContext(localContext);
+ 
         // Set the source reference id if one was passed
         GenericValue processDefinition = process.getDefinitionObject();
         String sourceReferenceField = processDefinition.getString("sourceReferenceField");
-        if (context.containsKey(sourceReferenceField)) {  
+        if (context.containsKey(sourceReferenceField)) {
             GenericValue processObj = process.getRuntimeObject();
             if (processObj != null) {
                 try {
@@ -94,23 +94,23 @@ public class WfRequesterImpl implements WfRequester {
                 }
             }
         }
-                  
+ 
     }
 
     /**
      * @see org.ofbiz.workflow.WfRequester#howManyPerformer()
-     */    
+     */
     public int howManyPerformer() throws WfException {
         return performers.size();
     }
-  
+ 
     /**
      * @see org.ofbiz.workflow.WfRequester#getIteratorPerformer()
      */
     public Iterator getIteratorPerformer() throws WfException {
         return performers.keySet().iterator();
     }
-   
+ 
     /**
      * @see org.ofbiz.workflow.WfRequester#getSequencePerformer(int)
      */
@@ -119,14 +119,14 @@ public class WfRequesterImpl implements WfRequester {
             return new ArrayList(performers.keySet()).subList(0, (maxNumber - 1));
         return new ArrayList(performers.keySet());
     }
-  
+ 
     /**
      * @see org.ofbiz.workflow.WfRequester#isMemberOfPerformer(org.ofbiz.workflow.WfProcess)
      */
     public boolean isMemberOfPerformer(WfProcess member) throws WfException {
         return performers.containsKey(member);
     }
-   
+ 
     /**
      * @see org.ofbiz.workflow.WfRequester#receiveEvent(org.ofbiz.workflow.WfEventAudit)
      */

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -55,7 +55,7 @@ public class WfApplicationServices {
 
     public static final String module = WfApplicationServices.class.getName();
 
-    /** 
+    /**
      * Activate an application by inserting expected arguments in
      * the ApplicationSandbox table.
      *
@@ -77,8 +77,8 @@ public class WfApplicationServices {
             final String partyId = (String) weAssigment.get("partyId");
             final String roleTypeId = (String) weAssigment.get("roleTypeId");
             final Timestamp fromDate = (Timestamp) weAssigment.get("fromDate");
-            result.put("applicationId", insertAppSandbox(ctx.getDelegator(), workEffortId, partyId, 
-                    roleTypeId, fromDate, context));                                
+            result.put("applicationId", insertAppSandbox(ctx.getDelegator(), workEffortId, partyId,
+                    roleTypeId, fromDate, context));
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         } catch (GenericServiceException we) {
             we.printStackTrace();
@@ -93,8 +93,8 @@ public class WfApplicationServices {
         final GenericDelegator delegator = ctx.getDelegator();
         final Map result = new HashMap();
         try {
-            result.put("applicationContext", 
-                    getRunTimeContext(delegator, getRuntimeData(delegator, (String) context.get("applicationId"))));                                
+            result.put("applicationContext",
+                    getRunTimeContext(delegator, getRuntimeData(delegator, (String) context.get("applicationId"))));
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         } catch (GenericServiceException we) {
             we.printStackTrace();
@@ -130,7 +130,7 @@ public class WfApplicationServices {
                 if (((Map) context.get("result")).containsKey(name))
                     value = ((Map) context.get("result")).get(name);
                 if (value != null)
-                    resultContext.put(name,                        
+                    resultContext.put(name,
                             ObjectType.simpleTypeConvert(value, (String) resultSignature.get(name), null, null));
             }
             runTimeContext.putAll(resultContext);
@@ -175,7 +175,7 @@ public class WfApplicationServices {
         return result;
     }
 
-    private static String insertAppSandbox(GenericDelegator delegator, String workEffortId, String partyId, 
+    private static String insertAppSandbox(GenericDelegator delegator, String workEffortId, String partyId,
             String roleTypeId, Timestamp fromDate, Map context) throws GenericServiceException {
         String dataId = null;
         String applicationId = Long.toString((new Date().getTime()));
@@ -192,7 +192,7 @@ public class WfApplicationServices {
         } catch (IOException ioe) {
             throw new GenericServiceException(ioe.getMessage(), ioe);
         }
-        Map aFields = UtilMisc.toMap("applicationId", applicationId, "workEffortId", workEffortId, 
+        Map aFields = UtilMisc.toMap("applicationId", applicationId, "workEffortId", workEffortId,
                 "partyId", partyId, "roleTypeId", roleTypeId, "fromDate", fromDate, "runtimeDataId", dataId);
 
         GenericValue appV = null;
@@ -255,9 +255,9 @@ public class WfApplicationServices {
         }
     }
 
-    private static void getApplicationSignatures(GenericDelegator delegator, GenericValue application, 
-            Map contextSignature, Map resultSignature) throws GenericEntityException {     
-        Map expresions = null;   
+    private static void getApplicationSignatures(GenericDelegator delegator, GenericValue application,
+            Map contextSignature, Map resultSignature) throws GenericEntityException {
+        Map expresions = null;
         // look for the 1st application.
         final GenericValue workEffort =
             delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", application.get("workEffortId")));
@@ -317,7 +317,7 @@ public class WfApplicationServices {
             final Collection assigments = delegator.findByAnd("WorkEffortPartyAssignment", expresions, orderBy);
             if (assigments.isEmpty()) {
                 Debug.logError("No accepted activities found for the workEffortId=" + workEffortId, module);
-                throw new GenericServiceException("Can not find WorkEffortPartyAssignment for the Workflow service. WorkEffortId=" + workEffortId);                    
+                throw new GenericServiceException("Can not find WorkEffortPartyAssignment for the Workflow service. WorkEffortId=" + workEffortId);
             }
             if (assigments.size() != 1)
                 Debug.logWarning("More than one accepted activities found for the workEffortId=" + workEffortId, module);
