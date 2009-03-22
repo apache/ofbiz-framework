@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -70,7 +70,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     public static final String module = EntityPersistentMgr.class.getName();
 
     protected CallbackUtilities callBackUtil = null;
-    
+ 
     public void configure(CallbackUtilities callbackutilities) throws RootException {
         this.callBackUtil = callbackutilities;
     }
@@ -121,7 +121,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
 
     public void persist(AssignmentPersistenceInterface assignmentpersistenceinterface, String s, SharkTransaction sharktransaction) throws PersistenceException {
         persist(assignmentpersistenceinterface, true ,sharktransaction);
-        
+ 
     }
 
     public void persist(ProcessVariablePersistenceInterface processvariablepersistenceinterface, boolean flag, SharkTransaction sharktransaction) throws PersistenceException {
@@ -233,7 +233,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
             }
             try {
                 delegator.removeByAnd(org.ofbiz.shark.SharkConstants.WfActivity, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.subFlowId, processId));
-                
+ 
                 process.remove();
             } catch (Exception e) {
                 throw new PersistenceException(e);
@@ -319,7 +319,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         Debug.logInfo("Call : delete(ActivityVariablePersistenceInterface activityVariable, SharkTransaction trans)",module);
     }
 
-    
+ 
     public List getProcessMgrsWhere(SharkTransaction trans, String sqlWhere) throws PersistenceException {
         StringTokenizer st = null;
         StringTokenizer strtoc = null;
@@ -494,7 +494,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     }
 
     protected List findFinishedProcesses(SharkTransaction trans, String packageId, String processDefId, String packageVer, Date finishedBefore) throws PersistenceException {
-        
+ 
         GenericDelegator delegator = SharkContainer.getDelegator();
         List finsihedStates = UtilMisc.toList("closed.completed", "closed.terminated", "closed.aborted");
         List order = UtilMisc.toList(org.ofbiz.shark.SharkConstants.lastStateTime);
@@ -552,7 +552,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
 
     public List getAllActiveActivitiesForProcess(String processId, SharkTransaction trans) throws PersistenceException {
         List finishedStates = UtilMisc.toList("open.running");//, "open.not_running.not_started" , "open.not_running.suspended");
-        return this.findProcessActivities(processId, finishedStates, EntityOperator.NOT_EQUAL, trans); 
+        return this.findProcessActivities(processId, finishedStates, EntityOperator.NOT_EQUAL, trans);
     }
     public List getAllAssignmentsForResource(String user, SharkTransaction trans) throws PersistenceException {
         GenericDelegator delegator = SharkContainer.getDelegator();
@@ -647,7 +647,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         if (at.getState().startsWith("closed")) {
             return new ArrayList();
         } else {
-            
+ 
             List createdList = getAllAssignmentsForActivity(activityId, trans);
             return createdList;
         }
@@ -769,14 +769,14 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
 
     public List getAllDeadlinesForProcess(String procId, SharkTransaction trans) throws PersistenceException {
         List lookupList = getDeadlineValues(UtilMisc.toList(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.processId, EntityOperator.EQUALS, procId)));
-        List dl = getDealineObjects(lookupList); 
+        List dl = getDealineObjects(lookupList);
         return dl;
     }
 
     public List getAllDeadlinesForProcess(String procId, long timeLimit, SharkTransaction trans) throws PersistenceException {
         List lookupList = getDeadlineValues(UtilMisc.toList(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.processId, EntityOperator.EQUALS, procId),
                 EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.timeLimit, EntityOperator.LESS_THAN, new Long(timeLimit))));
-        List dl = getDealineObjects(lookupList); 
+        List dl = getDealineObjects(lookupList);
         return dl;
     }
 
@@ -827,7 +827,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
 
         List lookupList = getDeadlineValues(UtilMisc.toList(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.processId, EntityOperator.EQUALS, procId),
                 EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.activityId, EntityOperator.EQUALS, actId)));
-        List dl = getDealineObjects(lookupList); 
+        List dl = getDealineObjects(lookupList);
 
         return dl;
     }
@@ -837,7 +837,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         List lookupList = getDeadlineValues(UtilMisc.toList(EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.processId, EntityOperator.EQUALS, procId),
                 EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.activityId, EntityOperator.EQUALS, actId),
                 EntityCondition.makeCondition(org.ofbiz.shark.SharkConstants.timeLimit, EntityOperator.LESS_THAN, new Long(timeLimit))));
-        List dl = getDealineObjects(lookupList); 
+        List dl = getDealineObjects(lookupList);
         return dl;
     }
 
@@ -1019,7 +1019,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
                 createdList.add(Process.getInstance(this, v));
             }
         }
-        
+ 
         return createdList;
     }
     public List getActivitiesWhere(SharkTransaction trans, String sqlWhere) throws PersistenceException {
@@ -1062,7 +1062,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
                 continue;
             }
             act_list = getAllActivitiesForProcess(ProcessId, trans);
-            
+ 
             for(int i = 0; i < act_list.size(); i ++)
             {
                 if ((state == null) && (defId  != null)) {
@@ -1159,7 +1159,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         }
         return createdList;
     }
-    
+ 
     public List getProcessVariables(String processId,List varList, SharkTransaction trans) throws PersistenceException {
         List createdList = new ArrayList();
         List tmpList = null;

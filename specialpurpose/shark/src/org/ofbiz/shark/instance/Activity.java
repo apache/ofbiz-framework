@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -195,7 +195,7 @@ public class Activity extends InstanceEntityObject implements ActivityPersistenc
         return activity.get(org.ofbiz.shark.SharkConstants.acceptedTime) != null ? activity.getLong(org.ofbiz.shark.SharkConstants.acceptedTime).longValue() : 0;
     }
 
-    public void setAcceptedTime(long timestamp) 
+    public void setAcceptedTime(long timestamp)
     {
         activity.set(org.ofbiz.shark.SharkConstants.acceptedTime, new Long(timestamp));
     }
@@ -230,7 +230,7 @@ public class Activity extends InstanceEntityObject implements ActivityPersistenc
         }
     }
 
-    public void setProcessMgrName(String arg0) 
+    public void setProcessMgrName(String arg0)
     {
         activity.set(org.ofbiz.shark.SharkConstants.processMgrName, arg0);
     }

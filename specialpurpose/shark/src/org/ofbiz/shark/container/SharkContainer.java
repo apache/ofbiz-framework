@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -51,7 +51,7 @@ import org.ofbiz.service.LocalDispatcher;
  * Shark Workflow Engine Container
  */
 
-public class SharkContainer implements Container, Runnable 
+public class SharkContainer implements Container, Runnable
 {
     public static final String module = SharkContainer.class.getName();
 
@@ -65,7 +65,7 @@ public class SharkContainer implements Container, Runnable
     protected String configFile = null;
     private SharkCORBAServer corbaServer = null;
     private Thread orbThread = null;
-    
+ 
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
@@ -132,7 +132,7 @@ public class SharkContainer implements Container, Runnable
         // set the Shark configuration
         Properties props = UtilProperties.getProperties("shark.properties");
         Shark.configure(props);
-        
+ 
         String java_home = System.getenv("JAVA_HOME");
         if ((java_home == null) && (java_home.length() > 0))
         {
@@ -157,7 +157,7 @@ public class SharkContainer implements Container, Runnable
             }
             else
                 Debug.logError("OUT : Error in iiop host property", module);
-        
+ 
         SharkContainer.shark = Shark.getInstance();
         Debug.logInfo("Started Shark workflow service", module);
 
