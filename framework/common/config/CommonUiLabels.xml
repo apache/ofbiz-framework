@@ -2879,6 +2879,7 @@
     </property>
     <property key="CommonHigh">
         <value xml:lang="en">High</value>
+        <value xml:lang="fr">Haut</value>
     </property>    
     <property key="CommonHome">
         <value xml:lang="en">Home</value>
@@ -3450,6 +3451,7 @@
     </property>
     <property key="CommonLow">
         <value xml:lang="en">Low</value>
+        <value xml:lang="fr">Bas</value>
     </property>    
     <property key="CommonMain">
         <value xml:lang="ar">الرئيسية</value>
@@ -3996,6 +3998,7 @@
     </property>
     <property key="CommonNormal">
         <value xml:lang="en">Normal</value>
+        <value xml:lang="fr">Normal</value>
     </property>     
     <property key="CommonNoAccess">
         <value xml:lang="en">No Access to this function, contact your system administrator if you feel this is an error</value>
