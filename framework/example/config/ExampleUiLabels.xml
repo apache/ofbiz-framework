@@ -79,12 +79,12 @@
     </property>
     <property key="ExampleDateField10Title">
         <value xml:lang="en">Field10: date and time selection field with default value</value>
-        <value xml:lang="fr">Champ 10 :  sélection de date et temps avec une valeur par défaut</value>
+        <value xml:lang="fr">Champ 10 : sélection de date et temps (valeur par défaut)</value>
         <value xml:lang="it">Campo10: campo di selezione con valore di default per data e ora</value>
     </property>
     <property key="ExampleDateField10Tooltip">
         <value xml:lang="en">Same as above, uses the nowTimestamp variable (always available in the form context) to set the default value to now</value>
-        <value xml:lang="fr">La même chose qu'au-dessus, mais utilise la variable nowTimestamp (toujours disponible depuis context) pour affecter la valeur par défaut à "maintenant"</value>
+        <value xml:lang="fr">La même chose mais la variable nowTimestamp (toujours disponible dans context) est utilisée pour affecter la valeur par défaut à "maintenant"</value>
         <value xml:lang="it">Lo stesso di sopra, usare la variabile nowTimestamp (sempre disponibile nel contesto della form) per impostare il valore di default ad adesso</value>
     </property>
     <property key="ExampleDateField1Title">
@@ -109,12 +109,12 @@
     </property>
     <property key="ExampleDateField4Tooltip">
         <value xml:lang="en">Use the input-method (time-dropdown) and clock (24) attributes to create drop down boxes for hour and minute selections</value>
-        <value xml:lang="fr">Utilise des listes déroulantes pour définir les heures et minutes en format 24H</value>
+        <value xml:lang="fr">Utilise des listes déroulantes pour définir les heures et minutes</value>
         <value xml:lang="it">Usare il metodo di input (time-dropdown) e gli attributi ora (24) per creare i box per la selezione ore e minuti</value>
     </property>
     <property key="ExampleDateField5Title">
         <value xml:lang="en">Field5: advanced date time selection (AM/PM)</value>
-        <value xml:lang="fr">Champ 5 : utilise des listes déroulantes pour définir les heures et minutes en format AMP/PM</value>
+        <value xml:lang="fr">Champ 5 : sélection avancée de date et temps (AM/PM)</value>
         <value xml:lang="it">Campo5: selezione avanzata data e ora (AM/PM)</value>
     </property>
     <property key="ExampleDateField6Title">
@@ -149,7 +149,7 @@
     </property>
     <property key="ExampleDateField9Tooltip">
         <value xml:lang="en">Same as above, uses the $ {bsh:...} notation to call an util method to get the now timestamp</value>
-        <value xml:lang="fr">Identique à ci-desus, utilise la notation $ {bsh:...} pour appeler un méthode utilitaire pour obtenir l'heure du moment</value>
+        <value xml:lang="fr">La même chose mais utilise la notation $ {bsh:...} pour appeler un méthode utilitaire pour obtenir l'heure du moment</value>
         <value xml:lang="it">Lo stesso di sopra, usare la notazione $ {bsh:...} per eseguire un metodo di utilità per ottenere un nuovo timestamp</value>
     </property>
     <property key="ExampleDateTimeFields">
@@ -194,7 +194,7 @@
     </property>
     <property key="ExampleDropDownEntityOptionsTooltip3">
         <value xml:lang="en">The complete syntax is... TODO</value>
-        <value xml:lang="fr">La syntaxe complète est </value>
+        <value xml:lang="fr">La syntaxe complète est... A FAIRE </value>
         <value xml:lang="it">La sintassi completa è.... DA FARE</value>
     </property>
     <property key="ExampleDropDownField1Title">
@@ -204,7 +204,7 @@
     </property>
     <property key="ExampleDropDownField1Tooltip">
         <value xml:lang="en">This is an example of a drop-down field with allow-empty set to true: as you can see, an empty entry is automatically added.</value>
-        <value xml:lang="fr">Example de champ à liste déroulante ayant allow-empty définit comme vrai. Comme vous le voyez, une option vide est automatiquement ajoutée en tête</value>
+        <value xml:lang="fr">Exemple de champ à liste déroulante ayant allow-empty définit comme vrai. Comme vous le voyez, une option vide est automatiquement ajoutée en tête</value>
         <value xml:lang="it">Questo è un'esempio di un campo drop-down con allow-empty impostato a vero: come tu puoi vedere, una riga automatica verrà aggiunta</value>
     </property>
     <property key="ExampleDropDownField2Title">
@@ -214,7 +214,7 @@
     </property>
     <property key="ExampleDropDownField2Tooltip">
         <value xml:lang="en">The same as above, but here allow-empty is set to false (the default, if not specified): as you can see, there is no empty selection.</value>
-        <value xml:lang="fr">La même chose qu'au-dessus, mais ici allow-empty est mis à faux (la valeur par défaut n'est pas spécifiée). Comme vous pouvez le voir, il n'y a pas d'option vide en tête</value>
+        <value xml:lang="fr">La même chose mais ici allow-empty est faux (la valeur par défaut n'est pas spécifiée). Comme vous pouvez le voir, il n'y a pas d'option vide en tête</value>
         <value xml:lang="it">Lo stesso di spota, ma qui allow-empty è falso (di default, se non specificato): come puoi vedere, non c'è nessuna selezione vuota.</value>
     </property>
     <property key="ExampleDropDownField3Title">
@@ -254,7 +254,7 @@
     </property>
     <property key="ExampleDropDownField8Tooltip">
         <value xml:lang="en">How to use the event and action attributes (in the field element) to trigger a Javascript action (in this example a popup message when the option is changed).</value>
-        <value xml:lang="fr">Comment utiliser les attributs évènement (event) et action, dans l'élément champ (field) pour déclencher une action Javascript. Dans cet exemple un message surgissant quand l'option est changée</value>
+        <value xml:lang="fr">Comment utiliser les attributs évènement (event) et action, dans l'élément champ (field) pour déclencher une action Javascript, dans cet exemple un message surgissant quand l'option est changée</value>
         <value xml:lang="it">Come usare gli eventi a l'azione attributi (nell'elemento field) per avviare l'azione Javascript (nell'esempio un messaggio popup quando l'opzione viene cambiata).</value>
     </property>
     <property key="ExampleDropDownFields">
