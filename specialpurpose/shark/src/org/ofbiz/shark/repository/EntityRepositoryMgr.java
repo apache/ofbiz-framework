@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -212,7 +212,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
         List refs = null;
         try {
             refs = delegator.findByAnd(org.ofbiz.shark.SharkConstants.WfRepositoryRef, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.refXpdlId, referredXPDLId));
-            
+ 
         } catch (GenericEntityException e) {
             throw new RepositoryException(e);
         }
@@ -376,7 +376,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
             String referredXPDLId,
             String referringXPDLId,
             String referringXPDLVersion,
-            int referredXPDLNumber) throws RepositoryException 
+            int referredXPDLNumber) throws RepositoryException
     {
             Debug.log("Add XPDL Reference", module);
             GenericDelegator delegator = SharkContainer.getDelegator();
@@ -420,29 +420,29 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
         }
         return null;
     }
-} 
-class NextVersions extends HashMap implements Serializable 
+}
+class NextVersions extends HashMap implements Serializable
 {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
     private static final String INITIAL_VERSION = "1";
 
-    public synchronized String getNextVersion (String xpdlId) 
+    public synchronized String getNextVersion (String xpdlId)
     {
-        if (containsKey(xpdlId)) 
+        if (containsKey(xpdlId))
         {
             return (String)get(xpdlId);
         }
         return INITIAL_VERSION;
     }
 
-    public synchronized String updateNextVersion (String xpdlId) throws Exception 
+    public synchronized String updateNextVersion (String xpdlId) throws Exception
     {
         String curVersion=INITIAL_VERSION;
         String nextVersion=INITIAL_VERSION;
-        if (containsKey(xpdlId)) 
+        if (containsKey(xpdlId))
         {
             curVersion=(String)get(xpdlId);
         }

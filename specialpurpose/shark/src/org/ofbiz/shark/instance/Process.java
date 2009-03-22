@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -204,19 +204,19 @@ public class Process extends InstanceEntityObject implements ProcessPersistenceI
         return process.get(org.ofbiz.shark.SharkConstants.startedTime) != null ? process.getLong(org.ofbiz.shark.SharkConstants.startedTime).longValue() : 0;
     }
 
-    public void setStartedTime(long timestamp) 
+    public void setStartedTime(long timestamp)
     {
         process.set(org.ofbiz.shark.SharkConstants.startedTime, new Long(timestamp));
     }
 
 
     public void store() throws GenericEntityException {
-        if (newValue) 
+        if (newValue)
         {
             delegator.createOrStore(process);
             newValue = false;
         }
-        else 
+        else
         {
             delegator.store(process);
         }
