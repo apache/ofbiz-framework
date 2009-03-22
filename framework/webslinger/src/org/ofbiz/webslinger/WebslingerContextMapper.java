@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -66,7 +67,6 @@ import org.webslinger.container.WebslingerContainer;
 import org.webslinger.lang.ObjectUtil;
 import org.webslinger.servlet.WebslingerServlet;
 import org.webslinger.util.TTLObject;
-import org.webslinger.collections.ArrayUtil;
 import org.webslinger.collections.CollectionUtil;
 
 public class WebslingerContextMapper extends AbstractMappingWebslingerServletContextFactory {
@@ -178,7 +178,7 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
             }
             delegatorName = server.getString("delegatorName");
             dispatcherName = server.getString("dispatcherName");
-            hashCode = target.hashCode() ^ ObjectUtil.hashCodeHelper(delegatorName) ^ ArrayUtil.hashCodeHelper(bases);
+            hashCode = target.hashCode() ^ ObjectUtil.hashCodeHelper(delegatorName) ^ Arrays.hashCode(bases);
         }
 
         public String getContextPath() {
@@ -207,7 +207,7 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
             if (!contextPath.equals(other.contextPath)) return false;
             if (!target.equals(other.target)) return false;
             if (!ObjectUtil.equalsHelper(delegatorName, other.delegatorName)) return false;
-            return ArrayUtil.equalsHelper(bases, other.bases);
+            return Arrays.equals(bases, other.bases);
         }
     }
 }
