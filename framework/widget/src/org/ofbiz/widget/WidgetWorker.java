@@ -305,7 +305,6 @@ public class WidgetWorker {
     }
  
     public static String determineAutoLinkType(String linkType, String target, String targetType, HttpServletRequest request) {
-        Debug.logInfo("determineAutoLinkType: linkType=" + linkType + ", target=[" + target + "], targetType=" + targetType, module);
         if ("auto".equals(linkType)) {
             if ("intra-app".equals(targetType)) {
                 String requestUri = (target.indexOf('?') > -1) ? target.substring(0, target.indexOf('?')) : target;
