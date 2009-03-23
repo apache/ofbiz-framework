@@ -268,8 +268,9 @@ public class ServiceEventHandler implements EventHandler {
                     if (requestMap != null && requestMap.securityHttps) {
                         if (urlOnlyParameterNames.contains(name)) {
                             String errMsg = "Found URL parameter [" + name + "] passed to secure (https) request-map with uri [" + requestMap.uri + "] with an event that calls service [" + serviceName + "]; this is not allowed for security reasons! The data should be encrypted by making it part of the request body instead of the request URL.";
-                            Debug.logWarning("=============== " + errMsg, module);
-                            // TODO: restore this once more issues with existing links, like Delete links in forms, are resolved, for now just log warnings: throw new EventHandlerException(errMsg);
+                            Debug.logError("=============== " + errMsg + "; In session [" + session.getId() + "]", module);
+                            // NOTE: this forces service call event parameters to be in the body and not in the URL! can be issues with existing links, like Delete links or whatever, and those need to be changed to forms! 
+                            throw new EventHandlerException(errMsg);
                         }
                         // NOTTODO: may want to allow parameters that map to entity PK fields to be in the URL, but that might be a big security hole since there are certain security sensitive entities that are made of only PK fields, or that only need PK fields to function (like UserLoginSecurityGroup)
                         // NOTTODO: we could allow URL parameters when it is not a POST (ie when !request.getMethod().equalsIgnoreCase("POST")), but that would open a security hole where sensitive parameters can be passed on the URL in a GET/etc and bypass this security constraint
