@@ -276,8 +276,13 @@ public class ServiceEventHandler implements EventHandler {
                         // NOTTODO: we could allow URL parameters when it is not a POST (ie when !request.getMethod().equalsIgnoreCase("POST")), but that would open a security hole where sensitive parameters can be passed on the URL in a GET/etc and bypass this security constraint
                     }
  
-                    // use the rawParametersMap from UtilHttp in order to also get pathInfo parameters, do canonicalization, etc
-                    value = rawParametersMap.get(name);
+                    // if the service modelParam has allow-html="any" then get this direct from the request instead of in the parameters Map so there will be no canonicalization possibly messing things up
+                    if ("any".equals(modelParam.allowHtml)) {
+                        value = request.getParameter(name);
+                    } else {
+                        // use the rawParametersMap from UtilHttp in order to also get pathInfo parameters, do canonicalization, etc
+                        value = rawParametersMap.get(name);
+                    }
  
                     // make any composite parameter data (e.g., from a set of parameters {name_c_date, name_c_hour, name_c_minutes})
                     if (value == null) {
