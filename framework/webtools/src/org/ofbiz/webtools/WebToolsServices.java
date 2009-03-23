@@ -42,6 +42,8 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
@@ -53,6 +55,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilPlist;
 import org.ofbiz.base.util.UtilProperties;
@@ -425,21 +428,21 @@ public class WebToolsServices {
         resultMap.put("messages", messages);
         return resultMap;
     }
- 
+    
     public static Map<String, Object> parseEntityXmlFile(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
 
-        URL url = (URL)context.get("url");
-        String xmltext = (String)context.get("xmltext");
+        URL url = (URL) context.get("url");
+        String xmltext = (String) context.get("xmltext");
 
         if (url == null && xmltext == null) {
             return ServiceUtil.returnError("No entity xml file or text specified");
         }
-        boolean mostlyInserts = (String)context.get("mostlyInserts") != null;
-        boolean maintainTimeStamps = (String)context.get("maintainTimeStamps") != null;
-        boolean createDummyFks = (String)context.get("createDummyFks") != null;
-        boolean checkDataOnly = (String)context.get("checkDataOnly") != null;
-        Integer txTimeout = (Integer)context.get("txTimeout");
+        boolean mostlyInserts = (String) context.get("mostlyInserts") != null;
+        boolean maintainTimeStamps = (String) context.get("maintainTimeStamps") != null;
+        boolean createDummyFks = (String) context.get("createDummyFks") != null;
+        boolean checkDataOnly = (String) context.get("checkDataOnly") != null;
+        Integer txTimeout = (Integer) context.get("txTimeout");
 
         if (txTimeout == null) {
             txTimeout = Integer.valueOf(7200);
