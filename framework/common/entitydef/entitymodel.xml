@@ -314,7 +314,6 @@ under the License.
       <field name="noteId" type="id-ne"></field>
       <field name="noteName" type="name"></field>
       <field name="noteInfo" type="very-long"></field>
-      <field name="noteParty" type="id"></field>
       <field name="noteDateTime" type="date-time"></field>
       <prim-key field="noteId"/>
     </entity>

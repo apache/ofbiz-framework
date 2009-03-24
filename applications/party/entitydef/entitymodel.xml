@@ -2621,6 +2621,12 @@ under the License.
             <key-map field-name="organizationPartyId" rel-field-name="partyId"/>
         </relation>
     </extend-entity>
+    <extend-entity entity-name="NoteData">
+        <field name="noteParty" type="id"></field>
+        <relation type="one" fk-name="NOTE_DATA_PTY" title="Note" rel-entity-name="Party">
+            <key-map field-name="noteParty" rel-field-name="partyId"/>
+        </relation>
+    </extend-entity>
     <extend-entity entity-name="ServerHit">
         <field name="internalContentId" type="id"></field>
         <field name="partyId" type="id"></field>
