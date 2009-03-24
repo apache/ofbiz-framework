@@ -24,7 +24,7 @@ under the License.
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
-    <!-- Party services -->
+    <!-- AddressMatchMap services -->
     <service name="createAddressMatchMap" engine="simple" default-entity-name="AddressMatchMap" auth="true"
             location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createAddressMatchMap">
         <description>Create an AddressMatchMap record</description>
@@ -52,6 +52,7 @@ under the License.
         <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
     </service>
 
+    <!-- Party services -->
     <service name="deleteParty" engine="java"
             location="org.ofbiz.party.party.PartyServices" invoke="deleteParty" auth="true">
         <description>Delete a Party</description>
@@ -234,6 +235,14 @@ under the License.
         <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
     </service>
 
+    <service name="lookupParty" engine="simple"
+        location="component://party/script/org/ofbiz/party/LookupServices.xml" invoke="lookupParty" auth="true">
+        <description>Performs a lookup for parties</description>
+        <attribute name="firstName" type="String" form-display="true" form-label="First name" mode="IN" optional="true"/>
+        <attribute name="lastName" type="String" form-display="true" form-label="Last name" mode="IN" optional="true"/>
+        <attribute name="lookupResult" type="List" mode="OUT" optional="false"/>
+    </service>
+    
     <!-- Party Role services -->
     <service name="createPartyRole" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPartyRole" auth="true">

@@ -544,4 +544,28 @@ under the License.
         <description>Delete an existing General Ledger Account of a Party</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>        
     </service>
+
+    <!-- CustomTimePeriod Services -->
+    <service name="findCustomTimePeriods" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/period/PeriodServices.xml" invoke="findCustomTimePeriods" auth="true">
+        <description>Find CustomTimePeriod records, returns both general ones and those for the organizationPartyId passed</description>
+        <attribute name="findDate" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="excludeNoOrganizationPeriods" type="String" mode="IN" optional="true"/>
+        <attribute name="onlyIncludePeriodTypeIdList" type="List" mode="IN" optional="true"/>
+        <attribute name="customTimePeriodList" type="List" mode="OUT" optional="true"/>
+    </service>
+    <service name="findLastClosedDate" engine="java"
+        location="org.ofbiz.accounting.period.PeriodServices" invoke="findLastClosedDate" auth="true">
+        <description>Find the last date before findDate whose TimePeriod is marked isClosed="Y" for organizationPartyId and periodTypeId combination.
+            If none are found, ie, no closed CustomTimePeriod exists, then return the earliest date available for any
+            CustomTimePeriod of the organizationPartyId and periodTypeId.
+            If no findDate is given, then use the current moment (nowTimestamp).
+        </description>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="findDate" type="Timestamp" mode="IN" optional="true"/>
+        <attribute name="periodTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="lastClosedDate" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="lastClosedTimePeriod" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+    </service>
 </services>

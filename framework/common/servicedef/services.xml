@@ -174,29 +174,6 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
-    <service name="findCustomTimePeriods" engine="simple"
-            location="component://common/script/org/ofbiz/common/period/PeriodServices.xml" invoke="findCustomTimePeriods" auth="true">
-        <description>Find CustomTimePeriod records, returns both general ones and those for the organizationPartyId passed</description>
-        <attribute name="findDate" type="Timestamp" mode="IN" optional="false"/>
-        <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
-        <attribute name="excludeNoOrganizationPeriods" type="String" mode="IN" optional="true"/>
-        <attribute name="onlyIncludePeriodTypeIdList" type="List" mode="IN" optional="true"/>
-        <attribute name="customTimePeriodList" type="List" mode="OUT" optional="true"/>
-    </service>
-    <service name="findLastClosedDate" engine="java"
-            location="org.ofbiz.common.period.PeriodServices" invoke="findLastClosedDate" auth="true">
-        <description>Find the last date before findDate whose TimePeriod is marked isClosed="Y" for organizationPartyId and periodTypeId combination.
-            If none are found, ie, no closed CustomTimePeriod exists, then return the earliest date available for any
-            CustomTimePeriod of the organizationPartyId and periodTypeId.
-            If no findDate is given, then use the current moment (nowTimestamp).
-        </description>
-        <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
-        <attribute name="findDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="periodTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="lastClosedDate" type="Timestamp" mode="OUT" optional="true"/>
-        <attribute name="lastClosedTimePeriod" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
-    </service>
-
     <!-- Status services -->
     <service name="getStatusItems" engine="java"
             location="org.ofbiz.common.status.StatusServices" invoke="getStatusItems" auth="false">
@@ -212,14 +189,6 @@ under the License.
     </service>
 
     <!-- Lookup services -->
-    <service name="lookupParty" engine="simple"
-            location="component://common/script/org/ofbiz/common/LookupServices.xml" invoke="lookupParty" auth="true">
-        <description>Performs a lookup for parties</description>
-        <attribute name="firstName" type="String" form-display="true" form-label="First name" mode="IN" optional="true"/>
-        <attribute name="lastName" type="String" form-display="true" form-label="Last name" mode="IN" optional="true"/>
-        <attribute name="lookupResult" type="List" mode="OUT" optional="false"/>
-    </service>
-
     <service name="prepareFind" auth="false" engine="java" invoke="prepareFind" location="org.ofbiz.common.FindServices">
         <description>Generic service to return a entity conditions</description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
