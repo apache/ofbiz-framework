@@ -950,4 +950,11 @@ under the License.
             location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="cancelAllBackOrders" auth="true">
         <description>Cancels those back orders from suppliers whose cancel back order date (cancelBackOrderDate) has passed the current date</description>
     </service>
+    <service name="updatePoOnReceiveInventory" engine="simple" 
+            location="component://product/script/org/ofbiz/shipment/receipt/ShipmentReceiptServices.xml" invoke="updatePoOnReceiveInventory">
+        <description>Update order items if quantity received is higher than quantity on purchase order</description>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantityAccepted"  type="BigDecimal" mode="IN" optional="false"/>
+    </service>
 </services>
