@@ -326,6 +326,10 @@ under the License.
                 </#list>
             </table>
         </div>
+        <#-- This was removed in r697962, should have been only commented out as maybe in future will be used again (free shipping promo)
+        <div class="tooltip"><b>${uiLabelMap.ProductNoteOnItemId} :</b> ${uiLabelMap.ProductItemIdGiftPurchaseFreeShipping}</div>
+        <div class="tooltip"><b>${uiLabelMap.ProductNoteOnPartyId} :</b> ${uiLabelMap.ProductPartyFreeShipping}</div>
+        -->
     </div>
     <div class="screenlet">
         <div class="screenlet-title-bar">
