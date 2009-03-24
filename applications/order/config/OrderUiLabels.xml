@@ -2399,7 +2399,7 @@
         <value xml:lang="de">Informationen zur Planung Lieferung</value>
         <value xml:lang="en">Delivery Schedule Info</value>
         <value xml:lang="es">Información de horario de entrega</value>
-        <value xml:lang="fr">Information du plan de livraison</value>
+        <value xml:lang="fr">Information du plan d'expédition</value>
         <value xml:lang="it">Informazioni consegna schedulata</value>
         <value xml:lang="th">ข้อมูลตารางเวลาการส่ง</value>
     </property>
@@ -2422,7 +2422,7 @@
         <value xml:lang="de">Gewünschtes Lieferdatum</value>
         <value xml:lang="en">Desired Delivery Date</value>
         <value xml:lang="es">Fecha de entrega deseada</value>
-        <value xml:lang="fr">Date de livraison souhaitée</value>
+        <value xml:lang="fr">Date d'expédition souhaitée</value>
         <value xml:lang="it">Data Consegna Desiderata</value>
         <value xml:lang="nl">Verlangde levertijd</value>
         <value xml:lang="ro">Data Livrarii Dorita</value>
@@ -5243,7 +5243,7 @@
         <value xml:lang="de">Geschätztes Lieferdatum</value>
         <value xml:lang="en">Estimated Delivery Date</value>
         <value xml:lang="es">Fecha de entrega estimada</value>
-        <value xml:lang="fr">Date de livraison estimée</value>
+        <value xml:lang="fr">Date d'expédition estimée</value>
         <value xml:lang="it">Data Consegna Stimata</value>
         <value xml:lang="nl">Estimated Delivery Date</value>
         <value xml:lang="ro">Data Livrarii Stimate</value>
@@ -8160,7 +8160,7 @@
         <value xml:lang="de">Versandmethode auswählen</value>
         <value xml:lang="en">Select Shipping Method</value>
         <value xml:lang="es">Seleccionar método de envñio</value>
-        <value xml:lang="fr">Sélectionner une méthode de livraison</value>
+        <value xml:lang="fr">Sélectionner une méthode d'expédition</value>
         <value xml:lang="hi_IN">माल भेजने का तरीका कहिए</value>
         <value xml:lang="it">Seleziona metodo spedizione</value>
         <value xml:lang="ja">Select Shipping Method</value>
@@ -9329,7 +9329,7 @@
         <value xml:lang="de">Als voreingestellten gewünschten Liefertermin für den nächsten EIntrag verwenden</value>
         <value xml:lang="en">Use as default desired delivery date for next entry</value>
         <value xml:lang="es">Usar como fecha de envío deseada por defecto para los siguientes ítems</value>
-        <value xml:lang="fr">Utiliser par défaut la date de livraison souhaitée pour les autres lignes</value>
+        <value xml:lang="fr">Utiliser par défaut la date d'expédition souhaitée pour les autres lignes</value>
         <value xml:lang="it">Usare una data di di consegna desiderata di default per il prossimo inserimento</value>
         <value xml:lang="nl">Use as default desired delivery date for next entry</value>
         <value xml:lang="ro">Foloseste o data de livrare dorita de default pentru urmatoarea inregistrare</value>
