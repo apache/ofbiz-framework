@@ -46,7 +46,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
      * @param dispatcher
      */
     protected AbstractJmsListener(ServiceDispatcher serviceDispatcher) {
-        this.dispatcher = GenericDispatcher.getLocalDispatcher("JMSDispatcher", null, this.getClass().getClassLoader(), serviceDispatcher);
+        this.dispatcher = GenericDispatcher.getLocalDispatcher("JMSDispatcher", null, null, this.getClass().getClassLoader(), serviceDispatcher);
     }
 
     /**

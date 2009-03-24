@@ -54,8 +54,8 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.SecurityFactory;
+import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.WebAppDispatcher;
 
 /**
  * ContextFilter - Restricts access to raw files and configures servlet objects.
@@ -289,9 +289,7 @@ public class ContextFilter implements Filter {
                 for (String name: StringUtil.split(readerFiles, ";")) {
                     try {
                         URL readerURL = config.getServletContext().getResource(name);
-
-                        if (readerURL != null)
-                            readers.add(readerURL);
+                        if (readerURL != null) readers.add(readerURL);
                     } catch (NullPointerException npe) {
                         Debug.logInfo(npe, "[ContextFilter.init] ERROR: Null pointer exception thrown.", module);
                     } catch (MalformedURLException e) {
@@ -302,12 +300,14 @@ public class ContextFilter implements Filter {
             // get the unique name of this dispatcher
             String dispatcherName = config.getServletContext().getInitParameter("localDispatcherName");
 
-            if (dispatcherName == null)
+            if (dispatcherName == null) {
                 Debug.logError("No localDispatcherName specified in the web.xml file", module);
-            dispatcher = new WebAppDispatcher(dispatcherName, delegator, readers);
+            }
+            dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator, readers, null);
             config.getServletContext().setAttribute("dispatcher", dispatcher);
-            if (dispatcher == null)
+            if (dispatcher == null) {
                 Debug.logError("[ContextFilter.init] ERROR: dispatcher could not be initialized.", module);
+            }
         }
         return dispatcher;
     }

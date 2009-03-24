@@ -18,56 +18,33 @@
  *******************************************************************************/
 package org.ofbiz.webslinger;
 
-import java.io.File;
 import java.io.IOException;
-import java.lang.ref.SoftReference;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.management.JMException;
-import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.ParserConfigurationException;
 
-import org.xml.sax.SAXException;
-
-import org.apache.commons.vfs.FileObject;
-import org.apache.commons.vfs.FileSystemException;
-import org.apache.commons.vfs.FileSystemManager;
-import org.apache.commons.vfs.NameScope;
-
-import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.entity.GenericEntity;
-import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.transaction.TransactionFactory;
 import org.ofbiz.entity.cache.Cache;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.SecurityFactory;
+import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.WebAppDispatcher;
-
 import org.webslinger.AbstractMappingWebslingerServletContextFactory;
 import org.webslinger.WebslingerServletContext;
-import org.webslinger.container.WebslingerContainer;
-import org.webslinger.lang.ObjectUtil;
-import org.webslinger.servlet.WebslingerServlet;
-import org.webslinger.util.TTLObject;
 import org.webslinger.collections.CollectionUtil;
+import org.webslinger.lang.ObjectUtil;
 
 public class WebslingerContextMapper extends AbstractMappingWebslingerServletContextFactory {
     protected ServletContext servletContext;
@@ -132,7 +109,7 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
             }
         }
         System.err.println(readerURLs);
-        return new WebAppDispatcher(name, delegator, readerURLs);
+        return GenericDispatcher.getLocalDispatcher(name, delegator, readerURLs, null);
     }
 
     protected Set<String> getSuffixes() throws Exception {
