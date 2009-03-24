@@ -659,6 +659,30 @@ under the License.
         <response name="error" type="view" value="EditPartyGlAccount"/>
     </request-map>    
     
+    <!-- CustomTimePeriod requests -->
+    <request-map uri="EditCustomTimePeriod">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCustomTimePeriod"/>
+    </request-map>
+    <request-map uri="createCustomTimePeriod">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createCustomTimePeriod"/>
+        <response name="success" type="view" value="EditCustomTimePeriod"/>
+        <response name="error" type="view" value="EditCustomTimePeriod"/>
+    </request-map>
+    <request-map uri="updateCustomTimePeriod">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateCustomTimePeriod"/>
+        <response name="success" type="view" value="EditCustomTimePeriod"/>
+        <response name="error" type="view" value="EditCustomTimePeriod"/>
+    </request-map>
+    <request-map uri="deleteCustomTimePeriod">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="deleteCustomTimePeriod"/>
+        <response name="success" type="view" value="EditCustomTimePeriod"/>
+        <response name="error" type="view" value="EditCustomTimePeriod"/>
+    </request-map>
+    
     <!-- =============== Fixed Asset mapping =================-->
     <request-map uri="ListFixedAssets"><security https="true" auth="true"/><response name="success" type="view" value="ListFixedAssets"/></request-map>
     <request-map uri="FixedAssetSearchResults"><security https="true" auth="false"/><response name="success" type="view" value="FixedAssetSearchResults"/></request-map>
@@ -1978,6 +2002,8 @@ under the License.
     <view-map name="ListGlAccountEntries" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListGlAccountEntries"/>
     <view-map name="ListAcctgTransEntries" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ListAcctgTransEntries"/>
     <view-map name="EditPartyGlAccount" type="screen" page="component://accounting/widget/GlSetupScreens.xml#EditPartyGlAccount"/>
+    
+    <view-map name="EditCustomTimePeriod" type="screen" page="component://accounting/widget/PeriodScreens.xml#EditCustomTimePeriod"/>
     
     <!-- FinAccount -->
     <view-map name="FindFinAccount" type="screen" page="component://accounting/widget/FinAccountScreens.xml#FindFinAccount"/>

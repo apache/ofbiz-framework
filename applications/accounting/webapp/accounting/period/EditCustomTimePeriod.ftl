@@ -17,21 +17,19 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign nowDate = Static["org.ofbiz.base.util.UtilDateTime"].nowDate()>
-
-<h1>${uiLabelMap.WebtoolsEditCustomTimePeriods}</h1>
+<h1>${uiLabelMap.AccountingEditCustomTimePeriods}</h1>
 <br />
 <#if security.hasPermission("PERIOD_MAINT", session)>
    <div class="screenlet">
      <div class="screenlet-title-bar">      
          <ul>
-           <li class="h3">${uiLabelMap.WebtoolsShowOnlyPeriodsWithOrganization}</li>
+           <li class="h3">${uiLabelMap.AccountingShowOnlyPeriodsWithOrganization}</li>
          </ul>
          <br class="clear"/>
      </div>
      <form method="post" action="<@ofbizUrl>EditCustomTimePeriod</@ofbizUrl>" name="setOrganizationPartyIdForm">
          <input type="hidden" name="currentCustomTimePeriodId" value="${currentCustomTimePeriodId?if_exists}">
-         <span class="label">${uiLabelMap.WebtoolsShowOnlyPeriodsWithOrganization}</span>
+         <span class="label">${uiLabelMap.AccountingShowOnlyPeriodsWithOrganization}</span>
          <input type="text" size="20" name="findOrganizationPartyId" value="${findOrganizationPartyId?if_exists}">
          <input type="submit" value='${uiLabelMap.CommonUpdate}'>
      </form>
@@ -41,22 +39,22 @@ under the License.
     <div class="screenlet-title-bar">
       <#if currentCustomTimePeriod?has_content>
         <ul>
-          <li class="h3">${uiLabelMap.WebtoolsCurrentCustomTimePeriod}</li>
+          <li class="h3">${uiLabelMap.AccountingCurrentCustomTimePeriod}</li>
           <li><a href="<@ofbizUrl>EditCustomTimePeriod?findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>">${uiLabelMap.WebtoolsClearCurrent}</a></li>
         </ul>
       <#else>
-        <h3>${uiLabelMap.WebtoolsCurrentCustomTimePeriod}</h3>
+        <h3>${uiLabelMap.AccountingCurrentCustomTimePeriod}</h3>
       </#if>
     </div>
     <#if currentCustomTimePeriod?has_content>
       <table class="basic-table" cellspacing="0">
         <tr class="header-row">
           <td>${uiLabelMap.CommonId}</td>
-          <td>${uiLabelMap.WebtoolsParent}</td>
-          <td>${uiLabelMap.WebtoolsOrgPartyId}</td>
-          <td>${uiLabelMap.WebtoolsPeriodType}</td>
+          <td>${uiLabelMap.CommonParent}</td>
+          <td>${uiLabelMap.AccountingOrgPartyId}</td>
+          <td>${uiLabelMap.AccountingPeriodType}</td>
           <td>#</td>
-          <td>${uiLabelMap.WebtoolsPeriodName}</td>
+          <td>${uiLabelMap.AccountingPeriodName}</td>
           <td>${uiLabelMap.CommonFromDate}</td>
           <td>${uiLabelMap.CommonThruDate}</td>
           <td>&nbsp;</td>
@@ -112,7 +110,7 @@ under the License.
               <#assign hasntStarted = false>
               <#assign compareDate = currentCustomTimePeriod.getDate("fromDate")>
               <#if compareDate?has_content>
-                <#if nowDate.before(compareDate)><#assign hasntStarted = true></#if>
+                <#if nowTimestamp.before(compareDate)><#assign hasntStarted = true></#if>
               </#if>
               <input type="text" size='13' name="fromDate" value="${currentCustomTimePeriod.fromDate?string("yyyy-MM-dd")}"<#if hasntStarted> class="alert"</#if>>
             </td>
@@ -120,7 +118,7 @@ under the License.
               <#assign hasExpired = false>
               <#assign compareDate = currentCustomTimePeriod.getDate("thruDate")>
               <#if compareDate?has_content>
-                <#if nowDate.after(compareDate)><#assign hasExpired = true></#if>
+                <#if nowTimestamp.after(compareDate)><#assign hasExpired = true></#if>
               </#if>
               <input type="text" size='13' name="thruDate" value="${currentCustomTimePeriod.thruDate?string("yyyy-MM-dd")}"<#if hasntStarted> class="alert"</#if>>
             </td>
@@ -133,22 +131,22 @@ under the License.
         </form>
       </table>
     <#else>
-      <div class="screenlet-body">${uiLabelMap.WebtoolsNoCurrentCustomTimePeriodSelected}</div>
+      <div class="screenlet-body">${uiLabelMap.AccountingNoCurrentCustomTimePeriodSelected}</div>
     </#if>
   </div>
   <div class="screenlet">
     <div class="screenlet-title-bar">
-      <h3>${uiLabelMap.WebtoolsChildPeriods}</h3>
+      <h3>${uiLabelMap.AccountingChildPeriods}</h3>
     </div>
     <#if customTimePeriods?has_content>
       <table class="basic-table" cellspacing="0">
         <tr class="header-row">
           <td>${uiLabelMap.CommonId}</td>
           <td>${uiLabelMap.WebtoolsParent}</td>
-          <td>${uiLabelMap.WebtoolsOrgPartyId}</td>
-          <td>${uiLabelMap.WebtoolsPeriodType}</td>
+          <td>${uiLabelMap.AccountingOrgPartyId}</td>
+          <td>${uiLabelMap.AccountingPeriodType}</td>
           <td>#</td>
-          <td>${uiLabelMap.WebtoolsPeriodName}</td>
+          <td>${uiLabelMap.AccountingPeriodName}</td>
           <td>${uiLabelMap.CommonFromDate}</td>
           <td>${uiLabelMap.CommonThruDate}</td>
           <td>&nbsp;</td>
@@ -203,7 +201,7 @@ under the License.
               <#assign hasntStarted = false>
               <#assign compareDate = customTimePeriod.getDate("fromDate")>
               <#if compareDate?has_content>
-                <#if nowDate.before(compareDate)><#assign hasntStarted = true></#if>
+                <#if nowTimestamp.before(compareDate)><#assign hasntStarted = true></#if>
               </#if>
               <input type="text" size='13' name="fromDate" value="${customTimePeriod.fromDate?if_exists}"<#if hasntStarted> class="alert"</#if>>
             </td>
@@ -211,7 +209,7 @@ under the License.
               <#assign hasExpired = false>
               <#assign compareDate = customTimePeriod.getDate("thruDate")>
               <#if compareDate?has_content>
-                <#if nowDate.after(compareDate)><#assign hasExpired = true></#if>
+                <#if nowTimestamp.after(compareDate)><#assign hasExpired = true></#if>
               </#if>
               <input type="text" size='13' name="thruDate" value="${customTimePeriod.thruDate?if_exists}"<#if hasExpired> class="alert"</#if>>
              </td>
@@ -227,12 +225,12 @@ under the License.
         </#list>
       </table>
     <#else>
-      <div class="screenlet-body">${uiLabelMap.WebtoolsNoChildPeriodsFound}</div>
+      <div class="screenlet-body">${uiLabelMap.AccountingNoChildPeriodsFound}</div>
     </#if>
   </div>
   <div class="screenlet">
     <div class="screenlet-title-bar">
-      <h3>${uiLabelMap.WebtoolsAddCustomTimePeriod}</h3>
+      <h3>${uiLabelMap.AccountingAddCustomTimePeriod}</h3>
     </div>
     <div class="screenlet-body">
       <form method="POST" action="<@ofbizUrl>createCustomTimePeriod</@ofbizUrl>" name="createCustomTimePeriodForm">
@@ -240,7 +238,7 @@ under the License.
         <input type="hidden" name="currentCustomTimePeriodId" value="${currentCustomTimePeriodId?if_exists}">
         <input type="hidden" name="useValues" value="true">
         <div>
-          <span class="label">${uiLabelMap.WebtoolsParent}</span>
+          <span class="label">${uiLabelMap.CommonParent}</span>
           <select name="parentPeriodId">
             <option value=''>&nbsp;</option>
             <#list allCustomTimePeriods as allCustomTimePeriod>
@@ -262,9 +260,9 @@ under the License.
           </select>
         </div>
         <div>
-          <span class="label">${uiLabelMap.WebtoolsOrgPartyId}</span>
+          <span class="label">${uiLabelMap.AccountingOrgPartyId}</span>
           <input type="text" size='20' name='organizationPartyId'>
-          <span class="label">${uiLabelMap.WebtoolsPeriodType}</span>
+          <span class="label">${uiLabelMap.AccountingPeriodType}</span>
           <select name="periodTypeId">
             <#list periodTypes as periodType>
               <#assign isDefault = false>
@@ -276,9 +274,9 @@ under the License.
               <option value="${periodType.periodTypeId}" <#if isDefault>selected="selected"</#if>>${periodType.description} [${periodType.periodTypeId}]</option>
             </#list>
           </select>
-          <span class="label">${uiLabelMap.WebtoolsPeriodNumber}</span>
+          <span class="label">${uiLabelMap.AccountingPeriodNumber}</span>
           <input type="text" size='4' name='periodNum'>
-          <span class="label">${uiLabelMap.WebtoolsPeriodName}</span>
+          <span class="label">${uiLabelMap.AccountingPeriodName}</span>
           <input type="text" size='10' name='periodName'>
         </div>
         <div>
@@ -292,5 +290,5 @@ under the License.
     </div>
   </div>
 <#else>
-  <h3>${uiLabelMap.WebtoolsPermissionPeriod}.</h3>
+  <h3>${uiLabelMap.AccountingPermissionPeriod}.</h3>
 </#if>

@@ -353,30 +353,6 @@ under the License.
         <response name="error" type="view" value="ServiceList"/>
     </request-map>
     
-    <!-- CustomTimePeriod requests -->
-    <request-map uri="EditCustomTimePeriod">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditCustomTimePeriod"/>
-    </request-map>
-    <request-map uri="createCustomTimePeriod">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createCustomTimePeriod"/>
-        <response name="success" type="view" value="EditCustomTimePeriod"/>
-        <response name="error" type="view" value="EditCustomTimePeriod"/>
-    </request-map>
-    <request-map uri="updateCustomTimePeriod">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updateCustomTimePeriod"/>
-        <response name="success" type="view" value="EditCustomTimePeriod"/>
-        <response name="error" type="view" value="EditCustomTimePeriod"/>
-    </request-map>
-    <request-map uri="deleteCustomTimePeriod">
-        <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deleteCustomTimePeriod"/>
-        <response name="success" type="view" value="EditCustomTimePeriod"/>
-        <response name="error" type="view" value="EditCustomTimePeriod"/>
-    </request-map>
-
     <!-- PerformanceTest requests -->
     <request-map uri="EntityPerformanceTest">
         <security https="true" auth="true"/>
@@ -619,8 +595,6 @@ under the License.
     <view-map name="StatBinsHistory" type="screen" page="component://webtools/widget/StatsScreens.xml#StatBinsHistory"/>
 
     <view-map name="EntityPerformanceTest" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityPerformanceTest"/>
-
-    <view-map name="EditCustomTimePeriod" type="screen" page="component://webtools/widget/MiscScreens.xml#EditCustomTimePeriod"/>
 
     <view-map name="ServiceLog" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceLog"/>
     <view-map name="ServiceList" type="screen" page="component://webtools/widget/ServiceScreens.xml#ServiceList"/>

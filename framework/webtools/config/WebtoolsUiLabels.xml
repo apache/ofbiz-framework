@@ -373,12 +373,6 @@
         <value xml:lang="it">Monitor Flussi di Lavoro Attivi</value>
         <value xml:lang="th">ตรวจสอบขั้นตอนการทำงาน</value>
     </property>
-    <property key="WebtoolsAddCustomTimePeriod">
-        <value xml:lang="en">Add Custom Time Period</value>
-        <value xml:lang="fr">Ajouter une période de temps</value>
-        <value xml:lang="it">Aggiungi Periodi di Tempo Personalizzati</value>
-        <value xml:lang="th">เพิ่มการกำหนดระยะเวลา</value>
-    </property>
     <property key="WebtoolsAddLoggerFormDescription">
         <value xml:lang="en">This form allows you to enable a logger for a specific package or class.</value>
         <value xml:lang="fr">Cette page vous permet d'activer un enregistreur (logger) pour un paquet ou une classe spécifique.</value>
@@ -561,12 +555,6 @@
         <value xml:lang="th">ตรวจสอบ/เปลี่ยนแปลง ฐานข้อมูล</value>
         <value xml:lang="zh">检查/更新数据库</value>
     </property>
-    <property key="WebtoolsChildPeriods">
-        <value xml:lang="en">Child Periods</value>
-        <value xml:lang="fr">Périodes enfants</value>
-        <value xml:lang="it">Periodi Figli</value>
-        <value xml:lang="th">ช่วงเวลาสั้น ๆ</value>
-    </property>
     <property key="WebtoolsClearAllCaches">
         <value xml:lang="en">Clear All Caches</value>
         <value xml:lang="fr">Vider tous les caches</value>
@@ -745,12 +733,6 @@
         <value xml:lang="it">Creare/Rimuovere Chiave Primaria</value>
         <value xml:lang="th">ล้าง/ลบ Primary Keys</value>
     </property>
-    <property key="WebtoolsCurrentCustomTimePeriod">
-        <value xml:lang="en">Current Custom Time Period</value>
-        <value xml:lang="fr">Période de temps spécifique courante</value>
-        <value xml:lang="it">Periodi di Tempo Personalizzati Attuale</value>
-        <value xml:lang="th">ช่วงเวลาของลูกค้าในปัจจุบัน</value>
-    </property>
     <property key="WebtoolsDaemon">
         <value xml:lang="en">Daemon</value>
         <value xml:lang="fr">Démon</value>
@@ -871,14 +853,6 @@
         <value xml:lang="ro">Nume Dispatcher</value>
         <value xml:lang="th">ชื่อ Dispatcher</value>
         <value xml:lang="zh">执行程序名称</value>
-    </property>
-    <property key="WebtoolsEditCustomTimePeriods">
-        <value xml:lang="en">Edit Custom Time Periods</value>
-        <value xml:lang="fr">Modifier les périodes de temps</value>
-        <value xml:lang="it">Aggiorna Periodi di Tempo Personalizzati</value>
-        <value xml:lang="ro">Actualizeaza Perioadele de Timp Personalizate</value>
-        <value xml:lang="th">แก้ไขการกำหนดเวลา</value>
-        <value xml:lang="zh">编辑定制时间段</value>
     </property>
     <property key="WebtoolsElements">
         <value xml:lang="en">Elements</value>
@@ -1878,19 +1852,6 @@
         <value xml:lang="th">ชื่อหรือหน้าที่</value>
         <value xml:lang="zh">名称或角色</value>
     </property>
-    <property key="WebtoolsNoChildPeriodsFound">
-        <value xml:lang="en">No child periods found</value>
-        <value xml:lang="fr">Aucune période enfant trouvée</value>
-        <value xml:lang="it">Nessun periodo figlio trovato</value>
-        <value xml:lang="th">ไม่พบช่วงเวลาสั้น ๆ</value>
-    </property>
-    <property key="WebtoolsNoCurrentCustomTimePeriodSelected">
-        <value xml:lang="en">No Current Custom Time Period Selected; "Children" below have no Parent Period.</value>
-        <value xml:lang="fr">Aucune période de temps sélectionnée; la période "fille" ci-dessous n'a aucune période parente.</value>
-        <value xml:lang="it">Nessun periodo di tempo personalizzato selezionato; i "Periodi figli" sottostanti non hanno alcun "Periodo padre".</value>
-        <value xml:lang="th">ไม่มีลูกค้าในช่วงเวลาที่เลือก; "Children" ด้านล่างนี้ไม่มีกลุ่มช่วงเวลา
-        </value>
-    </property>
     <property key="WebtoolsNoEntitiesRead">
         <value xml:lang="en">No entities read</value>
         <value xml:lang="fr">Aucune entité lue</value>
@@ -2049,12 +2010,6 @@
         <value xml:lang="th">ทางเลือก</value>
         <value xml:lang="zh">可选</value>
     </property>
-    <property key="WebtoolsOrgPartyId">
-        <value xml:lang="en">Org Party Id</value>
-        <value xml:lang="fr">Réf. d'org.</value>
-        <value xml:lang="it">Organizzazione</value>
-        <value xml:lang="th">รหัสองค์กรกลุ่มผู้ใช้</value>
-    </property>
     <property key="WebtoolsOutParameters">
         <value xml:lang="en">Out parameters</value>
         <value xml:lang="fr">Paramètres en sortie</value>
@@ -2155,24 +2110,6 @@
         <value xml:lang="th">การดำเนินการทดสอบ</value>
         <value xml:lang="zh">性能测试</value>
     </property>
-    <property key="WebtoolsPeriodName">
-        <value xml:lang="en">Period Name</value>
-        <value xml:lang="fr">Nom de période</value>
-        <value xml:lang="it">Nome Periodo</value>
-        <value xml:lang="th">ชื่อช่วงเวลา</value>
-    </property>
-    <property key="WebtoolsPeriodNumber">
-        <value xml:lang="en">Period Number</value>
-        <value xml:lang="fr">N° de période</value>
-        <value xml:lang="it">Numero Periodo</value>
-        <value xml:lang="th">หมายเลขช่วงเวลา</value>
-    </property>
-    <property key="WebtoolsPeriodType">
-        <value xml:lang="en">Period Type</value>
-        <value xml:lang="fr">Type de période</value>
-        <value xml:lang="it">Tipo Periodo</value>
-        <value xml:lang="th">ประเภทช่วงเวลา</value>
-    </property>
     <property key="WebtoolsPermissionError">
         <value xml:lang="en">Webtools Permission Error</value>
         <value xml:lang="fr">Erreur d'autorisation sur les outils web</value>
@@ -2186,12 +2123,6 @@
         <value xml:lang="fr">Vous n'avez pas l'autorisation d'utiliser cette page (ENTITY_MAINT est nécessaire)</value>
         <value xml:lang="it">Tu non hai il permesso di usare questa pagina (necessario ENTITY_MAINT)</value>
         <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ใช้งานในหน้านี้ (ENTITY_MAINT ที่ต้องการ)</value>
-    </property>
-    <property key="WebtoolsPermissionPeriod">
-        <value xml:lang="en">You do not have permission to use this page (PERIOD_MAINT needed)</value>
-        <value xml:lang="fr">Vous n'avez pas l'autorisation d'utiliser cette page (PERIOD_MAINT est nécessaire)</value>
-        <value xml:lang="it">Tu non hai il permesso di usare questa pagina (necessario PERIOD_MAINT)</value>
-        <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ใช้งานในหน้านี้ (PERIOD_MAINT ที่ต้องการ)</value>
     </property>
     <property key="WebtoolsPermissionType">
         <value xml:lang="en">Permission Type</value>
@@ -2642,12 +2573,6 @@
         <value xml:lang="fr">Définir en tant qu'actuel</value>
         <value xml:lang="it">Imposta Come Attuale</value>
         <value xml:lang="th">ตั้งเป็นปัจจุบัน</value>
-    </property>
-    <property key="WebtoolsShowOnlyPeriodsWithOrganization">
-        <value xml:lang="en">Show Only Periods with Organization Party ID</value>
-        <value xml:lang="fr">Montrer seulement les périodes ayant la réf. d'acteur de l'organisation</value>
-        <value xml:lang="it">Mostra Solo Periodi con Organizzazioni</value>
-        <value xml:lang="th">แสดงช่วงเวลากับรหัสองค์กรกลุ่มผู้ใช้อย่างเดียว</value>
     </property>
     <property key="WebtoolsShowShowWSDL">
         <value xml:lang="en">Show wsdl</value>
