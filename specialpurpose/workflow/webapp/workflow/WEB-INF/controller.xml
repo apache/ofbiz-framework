@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
+    <include location="component://common/webcommon/WEB-INF/tempexpr-controller.xml"/>    
+    <description>Workflow Site Configuration File</description>
+    <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
+
+    
+    <!-- Events to run on every request before security (chains exempt) -->
+    <!--
+    <preprocessor>
+    </preprocessor>
+    -->
+    <!-- Events to run on every request after all other processing (chains exempt) -->
+    <!--
+    <postprocessor>
+        <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
+    </postprocessor>
+    -->
+
+    <!-- Request Mappings -->
+    <!-- Old Workflow Engine Requests -->
+    <request-map uri="readxpdl">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="readxpdl"/>
+    </request-map>
+    <request-map uri="workflowMonitor">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="workflowMonitor"/>
+    </request-map>    
+    <!-- end of request mappings -->
+
+    <!-- View Mappings -->
+    <view-map name="readxpdl" type="screen" page="component://webtools/widget/MiscScreens.xml#readxpdl"/>
+    <view-map name="workflowMonitor" type="screen" page="component://webtools/widget/MiscScreens.xml#workflowMonitor"/>
+    <!-- end of view mappings -->
+</site-conf>

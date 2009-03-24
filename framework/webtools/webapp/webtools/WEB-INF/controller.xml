@@ -232,16 +232,6 @@ under the License.
         <response name="success" type="view" value="viewdatafile"/>
     </request-map>
 
-    <!-- Old Workflow Engine Requests -->
-    <request-map uri="readxpdl">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="readxpdl"/>
-    </request-map>
-    <request-map uri="workflowMonitor">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="workflowMonitor"/>
-    </request-map>    
-
     <!-- ControlServlet and other stats requests -->
     <request-map uri="StatsSinceStart">
         <security https="true" auth="true"/>
@@ -584,9 +574,6 @@ under the License.
     <view-map name="EditUtilCache" type="screen" page="component://webtools/widget/CacheScreens.xml#EditUtilCache"/>
 
     <view-map name="viewdatafile" type="screen" page="component://webtools/widget/MiscScreens.xml#viewdatafile"/>
-
-    <view-map name="readxpdl" type="screen" page="component://webtools/widget/MiscScreens.xml#readxpdl"/>
-    <view-map name="workflowMonitor" type="screen" page="component://webtools/widget/MiscScreens.xml#workflowMonitor"/>
 
     <view-map name="LogConfiguration" type="screen" page="component://webtools/widget/LogScreens.xml#LogConfiguration"/>
     <view-map name="LogView" type="screen" page="component://webtools/widget/LogScreens.xml#LogView"/>

@@ -40,7 +40,7 @@ under the License.
       <#if currentCustomTimePeriod?has_content>
         <ul>
           <li class="h3">${uiLabelMap.AccountingCurrentCustomTimePeriod}</li>
-          <li><a href="<@ofbizUrl>EditCustomTimePeriod?findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>">${uiLabelMap.WebtoolsClearCurrent}</a></li>
+          <li><a href="<@ofbizUrl>EditCustomTimePeriod?findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>">${uiLabelMap.CommonClearCurrent}</a></li>
         </ul>
       <#else>
         <h3>${uiLabelMap.AccountingCurrentCustomTimePeriod}</h3>
@@ -85,7 +85,7 @@ under the License.
               </select>
               <#if (currentCustomTimePeriod.parentPeriodId)?exists>
                 <a href='<@ofbizUrl>EditCustomTimePeriod?currentCustomTimePeriodId=${currentCustomTimePeriod.parentPeriodId}&findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>'>
-                ${uiLabelMap.WebtoolsSetAsCurrent}</a>
+                ${uiLabelMap.CommonSetAsCurrent}</a>
               </#if>
             </td>
             <td><input type="text" size='12' name="currentCustomTimePeriod" value="${currentCustomTimePeriod.organizationPartyId?if_exists}"></td>
@@ -142,7 +142,7 @@ under the License.
       <table class="basic-table" cellspacing="0">
         <tr class="header-row">
           <td>${uiLabelMap.CommonId}</td>
-          <td>${uiLabelMap.WebtoolsParent}</td>
+          <td>${uiLabelMap.CommonParent}</td>
           <td>${uiLabelMap.AccountingOrgPartyId}</td>
           <td>${uiLabelMap.AccountingPeriodType}</td>
           <td>#</td>
@@ -218,7 +218,7 @@ under the License.
               <a href='<@ofbizUrl>deleteCustomTimePeriod?customTimePeriodId=${customTimePeriod.customTimePeriodId?if_exists}&currentCustomTimePeriodId=${currentCustomTimePeriodId?if_exists}&findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>'>
               ${uiLabelMap.CommonDelete}</a>
               <a href='<@ofbizUrl>EditCustomTimePeriod?currentCustomTimePeriodId=${customTimePeriod.customTimePeriodId?if_exists}&findOrganizationPartyId=${findOrganizationPartyId?if_exists}</@ofbizUrl>'>
-              ${uiLabelMap.WebtoolsSetAsCurrent}</a>
+              ${uiLabelMap.CommonSetAsCurrent}</a>
             </td>
             </form>
           </tr>
