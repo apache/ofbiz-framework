@@ -367,12 +367,6 @@
         <value xml:lang="th">ขั้นตอน</value>
         <value xml:lang="zh">操作</value>
     </property>
-    <property key="WebtoolsActiveWorkflowMonitor">
-        <value xml:lang="en">Active Workflow Monitor</value>
-        <value xml:lang="fr">Moniteur actif du Workflow</value>
-        <value xml:lang="it">Monitor Flussi di Lavoro Attivi</value>
-        <value xml:lang="th">ตรวจสอบขั้นตอนการทำงาน</value>
-    </property>
     <property key="WebtoolsAddLoggerFormDescription">
         <value xml:lang="en">This form allows you to enable a logger for a specific package or class.</value>
         <value xml:lang="fr">Cette page vous permet d'activer un enregistreur (logger) pour un paquet ou une classe spécifique.</value>
@@ -562,12 +556,6 @@
         <value xml:lang="ro">Curata Toate Cache</value>
         <value xml:lang="th">ลบค่า Caches ทั้งหมด</value>
         <value xml:lang="zh">清除全部缓存</value>
-    </property>
-    <property key="WebtoolsClearCurrent">
-        <value xml:lang="en">Clear Current</value>
-        <value xml:lang="fr">Vider l'en cours</value>
-        <value xml:lang="it">Pulisci Attuale</value>
-        <value xml:lang="th">ยกเลิกที่เป็นปัจจุบัน</value>
     </property>
     <property key="WebtoolsClearExpiredFromAll">
         <value xml:lang="en">Clear Expired From All</value>
@@ -1325,18 +1313,6 @@
         <value xml:lang="th">นำเข้า XML ไปยังแหล่งข้อมูล</value>
         <value xml:lang="zh">把XML导入到数据源</value>
     </property>
-    <property key="WebtoolsImportUpdateToDB">
-        <value xml:lang="en">Import/Update to DB?</value>
-        <value xml:lang="fr">Import/ Mise à jour vers DB ?</value>
-        <value xml:lang="it">Importa/Aggiorna sul DB?</value>
-        <value xml:lang="th">นำเข้า/เปลี่ยนแปลง ฐานข้อมูล?</value>
-    </property>
-    <property key="WebtoolsImportXPDLPageDescription">
-        <value xml:lang="en">This page is used to read and import XPDL files into the workflow process repository.</value>
-        <value xml:lang="fr">Cette page est utilisée pour lire et importer des fichiers XPDL dans le dépôt de processus du workflow.</value>
-        <value xml:lang="it">Questa pagina è usata per leggere e importare files XPDL nel repository processi flussi di lavoro.</value>
-        <value xml:lang="th">หน้านี้ใช้อ่านและนำเข้าไฟล์ XPDL เข้าสู่ที่เก็บขั้นตอนการทำงาน</value>
-    </property>
     <property key="WebtoolsImportantLogLevel">
         <value xml:lang="en">Important</value>
         <value xml:lang="fr">Important</value>
@@ -1894,12 +1870,6 @@
         <value xml:lang="th">ไม่พบ services</value>
         <value xml:lang="zh">找不到服务</value>
     </property>
-    <property key="WebtoolsNoStepsFoundForRunningWorkflow">
-        <value xml:lang="en">No steps found for running workflow process: ${workflow}</value>
-        <value xml:lang="fr">Aucune étape trouvée pour exécuter une opération de workflow: ${workflow}</value>
-        <value xml:lang="it">Nessun passo trovato per l'esecuzione del processo flusso di lavoro: ${workflow}</value>
-        <value xml:lang="th">ไม่พบขั้นตอนการดำเนินงาน: ${workflow}</value>
-    </property>
     <property key="WebtoolsNoUtilCacheElementsFound">
         <value xml:lang="en">No UtilCache elements found</value>
         <value xml:lang="fr">Aucun élément de UtilCache trouvé</value>
@@ -2132,12 +2102,6 @@
         <value xml:lang="th">ประเภทของการอนุญาต</value>
         <value xml:lang="zh">权限类型</value>
     </property>
-    <property key="WebtoolsPermissionWorkflow">
-        <value xml:lang="en">You do not have permission to use this page (WORKFLOW_MAINT needed)</value>
-        <value xml:lang="fr">Vous n'avez pas l'autorisation d'utiliser cette page (WORKFLOW_MAINT est nécessaire)</value>
-        <value xml:lang="it">Tu non hai il permesso di usare questa pagina (necessario WORKFLOW_MAINT)</value>
-        <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ใช้งานในหน้านี้ (WORKFLOW_MAINT ที่ต้องการ)</value>
-    </property>
     <property key="WebtoolsPk">
         <value xml:lang="en">Primary Key</value>
         <value xml:lang="fr">Clé primaire</value>
@@ -2232,14 +2196,6 @@
         <value xml:lang="fr">Lu et imprimé ${toBeStored.size()} Entités.</value>
         <value xml:lang="it">Lette e stampate ${toBeStored.size()} entità.</value>
         <value xml:lang="th">อ่านและพิมพ์ ${toBeStored.size()} entities.</value>
-    </property>
-    <property key="WebtoolsReadXPDLFile">
-        <value xml:lang="en">Read XPDL File</value>
-        <value xml:lang="fr">Lire le fichier XPDL</value>
-        <value xml:lang="it">Leggi File XPDL</value>
-        <value xml:lang="ro">Citeste File XPDL</value>
-        <value xml:lang="th">อ่านไฟล์ XPDL</value>
-        <value xml:lang="zh">读取XPDL文件</value>
     </property>
     <property key="WebtoolsRecordsUpdatedBefore">
         <value xml:lang="en">Records Updated Before</value>
@@ -2567,12 +2523,6 @@
         <value xml:lang="ro">Lista servizi per</value>
         <value xml:lang="th">รายการ Services สำหรับ</value>
         <value xml:lang="zh">服务列表：</value>
-    </property>
-    <property key="WebtoolsSetAsCurrent">
-        <value xml:lang="en">Set As Current</value>
-        <value xml:lang="fr">Définir en tant qu'actuel</value>
-        <value xml:lang="it">Imposta Come Attuale</value>
-        <value xml:lang="th">ตั้งเป็นปัจจุบัน</value>
     </property>
     <property key="WebtoolsShowShowWSDL">
         <value xml:lang="en">Show wsdl</value>
@@ -3132,82 +3082,6 @@
         <value xml:lang="th">ทำงานกับข้อมูลไฟล์</value>
         <value xml:lang="zh">Work With Data Files</value>
     </property>
-    <property key="WebtoolsWorkflowActivityId">
-        <value xml:lang="en">Activity ID</value>
-        <value xml:lang="fr">Réf. d'activité</value>
-        <value xml:lang="it">Attività</value>
-        <value xml:lang="th">รหัสการทำงาน</value>
-    </property>
-    <property key="WebtoolsWorkflowActivityListFor">
-        <value xml:lang="en">Activity list for</value>
-        <value xml:lang="fr">Liste d'activité pour</value>
-        <value xml:lang="it">Lista Actività per</value>
-        <value xml:lang="th">รายการทำงานสำหรับ</value>
-    </property>
-    <property key="WebtoolsWorkflowActualCompleteDate">
-        <value xml:lang="en">Actual Complete Date</value>
-        <value xml:lang="fr">Date réelle de fin</value>
-        <value xml:lang="it">Data Fine Attuale</value>
-        <value xml:lang="th">วันที่เสร็จจริง</value>
-    </property>
-    <property key="WebtoolsWorkflowAssignments">
-        <value xml:lang="en">Assignation(s)</value>
-        <value xml:lang="fr">Tâche (s)</value>
-        <value xml:lang="it">Assegnato(i)</value>
-        <value xml:lang="th">งานที่ได้รับมอบหมาย</value>
-    </property>
-    <property key="WebtoolsWorkflowCurrentStatus">
-        <value xml:lang="en">Current Status</value>
-        <value xml:lang="fr">Statut "Current"</value>
-        <value xml:lang="it">Stato attuale</value>
-        <value xml:lang="th">สถานะทั่ว ๆ ไป</value>
-    </property>
-    <property key="WebtoolsWorkflowEngineTools">
-        <value xml:lang="en">Workflow Engine Tools</value>
-        <value xml:lang="fr">Outils du moteur de Workflow</value>
-        <value xml:lang="it">Strumenti per Engine Flussi di Lavoro</value>
-        <value xml:lang="ro">Instrumente pentru Engine Fluxuri de Lucru</value>
-        <value xml:lang="th">เครื่องมือ Workflow Engine</value>
-        <value xml:lang="zh">工作流引擎工具</value>
-    </property>
-    <property key="WebtoolsWorkflowMonitor">
-        <value xml:lang="en">Workflow Monitor</value>
-        <value xml:lang="fr">Moniteur de Workflow</value>
-        <value xml:lang="it">Monitor dei Flussi di Lavoro</value>
-        <value xml:lang="ro">Monitorul Fluxurilor de Lucru</value>
-        <value xml:lang="th">Workflow Monitor</value>
-        <value xml:lang="zh">工作流监控程序</value>
-    </property>
-    <property key="WebtoolsWorkflowPackageVersion">
-        <value xml:lang="en">Package/Version</value>
-        <value xml:lang="fr">Package/Version</value>
-        <value xml:lang="it">Pacchetto/Versione</value>
-        <value xml:lang="th">แพ็คเกจ/เวอร์ชั่น</value>
-    </property>
-    <property key="WebtoolsWorkflowPageDescription">
-        <value xml:lang="en">This page is used to view the status of running workflows.</value>
-        <value xml:lang="fr">Cette page est utilisée pour voir le statut du déroulement des opérations du workflow</value>
-        <value xml:lang="it">Questa pagina è usata per mostrare lo stato del flussi di lavoro in esecuzione.</value>
-        <value xml:lang="th">หน้านี้ใช้ตรวจสอบค่าสถานะของการดำเนินงานโครงสร้าง</value>
-    </property>
-    <property key="WebtoolsWorkflowProcessVersion">
-        <value xml:lang="en">Process/Version</value>
-        <value xml:lang="fr">Processus/Version</value>
-        <value xml:lang="it">Processo/Versione</value>
-        <value xml:lang="th">โปรเซส/เวอร์ชั่น</value>
-    </property>
-    <property key="WebtoolsWorkflowSourceReferenceId">
-        <value xml:lang="en">Source Reference ID</value>
-        <value xml:lang="fr">Réf. de référence de source</value>
-        <value xml:lang="it">Riferimento Origine</value>
-        <value xml:lang="th">รหัสอ้างอิงที่มา</value>
-    </property>
-    <property key="WebtoolsWorkflows">
-        <value xml:lang="en">Workflows</value>
-        <value xml:lang="fr">Workflows</value>
-        <value xml:lang="it">Flussi di Lavoro</value>
-        <value xml:lang="th">ขั้นตอนการทำงาน</value>
-    </property>
     <property key="WebtoolsWroteNRecordsToXMLFile">
         <value xml:lang="en">Wrote ${numberWritten} records to XML file ${parameters.filename}.</value>
         <value xml:lang="fr">Ecrire ${numberWritten} les enregistrements dans le fichier XML ${parameters.filename}.</value>
@@ -3235,12 +3109,6 @@
         <value xml:lang="ro">Aceasta pagina nu poate fi folosita pentru importarea exportarea documentelor XML de Entity Engine. Toate aceste documente au un root tag "&lt;entity-engine-xml&gt;".</value>
         <value xml:lang="th">หน้านี้ใช้การนำเข้าข้อมูลที่มีการส่งออกเอนติตี้เอนจินเอกสาร XML โดยใช้คำสั่ง "&lt;entity-engine-xml&gt;".</value>
         <value xml:lang="zh">本页面用于导入导出的实体引擎XML文档。这些文档都有一个根标签 "&lt;entity-engine-xml&gt;".</value>
-    </property>
-    <property key="WebtoolsXpdlFilenameOrUrl">
-        <value xml:lang="en">XPDL Filename or URL</value>
-        <value xml:lang="fr">Nom de fichier XPDL ou URL</value>
-        <value xml:lang="it">Nome file XPDL o URL</value>
-        <value xml:lang="th">ชื่อไฟล์ XPDL หรือ URL</value>
     </property>
     <property key="WebtoolsYouMayCreateAnEntity">
         <value xml:lang="en">You may create an Entity ${entityName} by entering the values you want, and clicking Create.</value>

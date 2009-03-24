@@ -17,20 +17,20 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<h1>${uiLabelMap.WebtoolsReadXPDLFile}</h1>
+<h1>${uiLabelMap.WorkflowReadXPDLFile}</h1>
 <br />
-<p>${uiLabelMap.WebtoolsImportXPDLPageDescription}</p>
+<p>${uiLabelMap.WorkflowImportXPDLPageDescription}</p>
 <hr/>
 <#if security.hasPermission("WORKFLOW_MAINT", session)>
   <form method="post" action="<@ofbizUrl>readxpdl</@ofbizUrl>">
     <table class="basic-table form-widget-table">
       <tr>
-        <td class="label">${uiLabelMap.WebtoolsXpdlFilenameOrUrl}</td>
+        <td class="label">${uiLabelMap.WorkflowXpdlFilenameOrUrl}</td>
         <td><input name='XPDL_LOCATION' type="text" size='60' value='${parameters.XPDL_LOCATION?if_exists}'></td>
-        <td><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span><input type="checkbox" name='XPDL_IS_URL'<#if parameters.XPDL_IS_URL?has_content> checked="checked"</#if>></td>
+        <td><span class="label">${uiLabelMap.WorkflowDataIsUrl}</span><input type="checkbox" name='XPDL_IS_URL'<#if parameters.XPDL_IS_URL?has_content> checked="checked"</#if>></td>
       </tr>
       <tr>
-        <td class="label">${uiLabelMap.WebtoolsImportUpdateToDB}</td>
+        <td class="label">${uiLabelMap.WorkflowImportUpdateToDB}</td>
         <td><input type="checkbox" name='XPDL_IMPORT'></td>
         <td>&nbsp;</td>
       </tr>
@@ -58,11 +58,11 @@ under the License.
           <pre>${entity}</pre>
       </#list>
       <hr/>
-      <div>${uiLabelMap.WebtoolsReadAndPrintedNEntities}</div>
+      <div>${uiLabelMap.WorkflowReadAndPrintedNEntities}</div>
     <#else>
-      <div>${uiLabelMap.WebtoolsNoEntitiesRead}.</div>
+      <div>${uiLabelMap.WorkflowNoEntitiesRead}.</div>
     </#if>
   </#if>
 <#else>
-  <h3>${uiLabelMap.WebtoolsPermissionWorkflow}</h3>
+  <h3>${uiLabelMap.WorkflowPermissionWorkflow}</h3>
 </#if>

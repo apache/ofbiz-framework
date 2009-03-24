@@ -112,11 +112,6 @@ text-decoration: underline;
           <li><a href="<@ofbizUrl>threadList</@ofbizUrl>">${uiLabelMap.PageTitleThreadList}</a></li>
           <li><a href="<@ofbizUrl>ServiceLog</@ofbizUrl>">${uiLabelMap.WebtoolsServiceLog}</a></li>
         </#if>
-        <#if security.hasPermission("WORKFLOW_MAINT", session)>
-          <li><h3>${uiLabelMap.WebtoolsWorkflowEngineTools}</h3></li>
-          <li><a href="<@ofbizUrl>workflowMonitor</@ofbizUrl>">${uiLabelMap.WebtoolsWorkflowMonitor}</a></li>
-          <li><a href="<@ofbizUrl>readxpdl</@ofbizUrl>">${uiLabelMap.WebtoolsReadXPDLFile}</a></li>
-        </#if>
         <#if security.hasPermission("DATAFILE_MAINT", session)>
           <li><h3>${uiLabelMap.WebtoolsDataFileTools}</h3></li>
           <li><a href="<@ofbizUrl>viewdatafile</@ofbizUrl>">${uiLabelMap.WebtoolsWorkWithDataFiles}</a></li>

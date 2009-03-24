@@ -1122,6 +1122,12 @@
         <value xml:lang="ru">Отчистить все</value>
         <value xml:lang="th">เคลียร์ทั้งหมด</value>
     </property>
+    <property key="CommonClearCurrent">
+        <value xml:lang="en">Clear Current</value>
+        <value xml:lang="fr">Vider l'en cours</value>
+        <value xml:lang="it">Pulisci Attuale</value>
+        <value xml:lang="th">ยกเลิกที่เป็นปัจจุบัน</value>
+    </property>
     <property key="CommonClickHere">
         <value xml:lang="ar">انقر هنا</value>
         <value xml:lang="cs">Klikněte zde</value>
@@ -5584,6 +5590,9 @@
         <value xml:lang="zh">安全</value>
         <value xml:lang="zh_CN">安全</value>
     </property>
+    <property key="CommonSecurityGroups">
+        <value xml:lang="en">Security Groups</value>
+    </property>
     <property key="CommonSegmentGroupGeoAbbr">
         <value xml:lang="en">Abbreviation</value>
         <value xml:lang="es">Abreviación</value>
@@ -5880,6 +5889,12 @@
         <value xml:lang="th">กำหนด</value>
         <value xml:lang="zh">设置</value>
         <value xml:lang="zh_CN">赋值</value>
+    </property>
+    <property key="CommonSetAsCurrent">
+        <value xml:lang="en">Set As Current</value>
+        <value xml:lang="fr">Définir en tant qu'actuel</value>
+        <value xml:lang="it">Imposta Come Attuale</value>
+        <value xml:lang="th">ตั้งเป็นปัจจุบัน</value>
     </property>
     <property key="CommonSetColumnWidth">
         <value xml:lang="en">Set Column Width...</value>

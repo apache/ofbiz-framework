@@ -17,22 +17,22 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<h1>${uiLabelMap.WebtoolsActiveWorkflowMonitor}</h1>
+<h1>${uiLabelMap.WorkflowActiveWorkflowMonitor}</h1>
 <br />
 <#if security.hasPermission("WORKFLOW_MAINT", session)>
 
   <#-- list all running processes -->
   <#if !parameters.workflow?exists>
     <#if runningProcesses?exists>
-      <p>${uiLabelMap.WebtoolsWorkflowPageDescription}</p>
+      <p>${uiLabelMap.WorkflowWorkflowPageDescription}</p>
       <table class="basic-table dark-grid" cellspacing="0">
         <tr class="header-row">
-          <td>${uiLabelMap.WebtoolsWorkflowPackageVersion}</td>
-          <td>${uiLabelMap.WebtoolsWorkflowProcessVersion}</td>
-          <td>${uiLabelMap.WebtoolsWorkflowCurrentStatus}</td>
-          <td>${uiLabelMap.WebtoolsPriority}</div></td>
+          <td>${uiLabelMap.WorkflowWorkflowPackageVersion}</td>
+          <td>${uiLabelMap.WorkflowWorkflowProcessVersion}</td>
+          <td>${uiLabelMap.WorkflowWorkflowCurrentStatus}</td>
+          <td>${uiLabelMap.WorkflowPriority}</div></td>
           <td>${uiLabelMap.CommonActualStartDate}</div></td>
-          <td>${uiLabelMap.WebtoolsWorkflowSourceReferenceId}</div></td>
+          <td>${uiLabelMap.WorkflowWorkflowSourceReferenceId}</div></td>
           <td>&nbsp;</td>
         </tr>
         <#list runningProcesses as runningProcess>
@@ -48,25 +48,25 @@ under the License.
         </#list>
       </table>
     <else>
-      <h3>${uiLabelMap.WebtoolsNoRunningProcesses}</h3>
+      <h3>${uiLabelMap.WorkflowNoRunningProcesses}</h3>
     </#if>
   <#else>
     <#-- list all steps in the process -->
     <#if activities?exists>
-      <div class="button-bar"><a href="<@ofbizUrl>workflowMonitor</@ofbizUrl>">${uiLabelMap.WebtoolsWorkflows}</a></div>
+      <div class="button-bar"><a href="<@ofbizUrl>workflowMonitor</@ofbizUrl>">${uiLabelMap.WorkflowWorkflows}</a></div>
       <br />
       <div class="screenlet">
         <div class="screenlet-title-bar">
-          <h3>${uiLabelMap.WebtoolsWorkflowActivityListFor}: ${workflowDefworkflowPackageId} / ${workflowDef.workflowProcessId}</h3> 
+          <h3>${uiLabelMap.WorkflowWorkflowActivityListFor}: ${workflowDefworkflowPackageId} / ${workflowDef.workflowProcessId}</h3> 
         </div>
         <table class="basic-table dark-grid" cellspacing="0">
           <tr class="header-row">
-            <td>${uiLabelMap.WebtoolsWorkflowActivityId}</td>
-            <td>${uiLabelMap.WebtoolsPriority}</td>
-            <td>${uiLabelMap.WebtoolsWorkflowCurrentStatus}</td>
+            <td>${uiLabelMap.WorkflowWorkflowActivityId}</td>
+            <td>${uiLabelMap.WorkflowPriority}</td>
+            <td>${uiLabelMap.WorkflowWorkflowCurrentStatus}</td>
             <td>${uiLabelMap.CommonActualStartDate}</td>
-            <td>${uiLabelMap.WebtoolsWorkflowActualCompleteDate}</td>
-            <td>${uiLabelMap.WebtoolsWorkflowAssignments}</td>
+            <td>${uiLabelMap.WorkflowWorkflowActualCompleteDate}</td>
+            <td>${uiLabelMap.WorkflowWorkflowAssignments}</td>
           </tr>
           <#list activities as step>
             <#assign assignments = step.getRelated("WorkEffortPartyAssignment")>
@@ -92,9 +92,9 @@ under the License.
         </table>
       </div>
     <#else>
-      <h3>${uiLabelMap.WebtoolsNoStepsFoundForRunningWorkflow}</h3>
+      <h3>${uiLabelMap.WorkflowNoStepsFoundForRunningWorkflow}</h3>
     </#if>
   </#if>
 <#else>
-  <h3>${uiLabelMap.WebtoolsPermissionWorkflow}</h3>
+  <h3>${uiLabelMap.WorkflowPermissionWorkflow}</h3>
 </#if>
