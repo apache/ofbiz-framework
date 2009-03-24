@@ -201,6 +201,12 @@
         <value xml:lang="nl">Voeg categorie van GB-rekening toe</value>
         <value xml:lang="th">เพิ่มหมวดหมู่บัญชีแยกประเภททั่วไป</value>
     </property>
+    <property key="AccountingAddCustomTimePeriod">
+        <value xml:lang="en">Add Custom Time Period</value>
+        <value xml:lang="fr">Ajouter une période de temps</value>
+        <value xml:lang="it">Aggiungi Periodi di Tempo Personalizzati</value>
+        <value xml:lang="th">เพิ่มการกำหนดระยะเวลา</value>
+    </property>
     <property key="AccountingAddFinAccountTypeGlAccount">
         <value xml:lang="de">Finanzkonten-Art Hauptkonto hinzufügen</value>
         <value xml:lang="en">Add FinAccount Type Gl Account</value>
@@ -1999,6 +2005,12 @@
         <value xml:lang="th">เกิดปัญหาในการตรวจสอบความถูกต้องของคุณ; กรุณาเช็คบัตรของคุณและรหัสส่วนตัวของคุณและทำอีกครั้ง</value>
         <value xml:lang="zh">检查你的余额时出现问题；请检查你的卡和密码，然后重试</value>
     </property>
+    <property key="AccountingCurrentCustomTimePeriod">
+        <value xml:lang="en">Current Custom Time Period</value>
+        <value xml:lang="fr">Période de temps spécifique courante</value>
+        <value xml:lang="it">Periodi di Tempo Personalizzati Attuale</value>
+        <value xml:lang="th">ช่วงเวลาของลูกค้าในปัจจุบัน</value>
+    </property>
     <property key="AccountingCustNr">
         <value xml:lang="ar">رقم الزبون</value>
         <value xml:lang="en">Cust.Nr</value>
@@ -2170,6 +2182,14 @@
         <value xml:lang="ru">Изменить кредитную карту</value>
         <value xml:lang="th">แก้ไขบัตรเครดิต</value>
         <value xml:lang="zh">编辑信用卡</value>
+    </property>
+    <property key="AccountingEditCustomTimePeriods">
+        <value xml:lang="en">Edit Custom Time Periods</value>
+        <value xml:lang="fr">Modifier les périodes de temps</value>
+        <value xml:lang="it">Aggiorna Periodi di Tempo Personalizzati</value>
+        <value xml:lang="ro">Actualizeaza Perioadele de Timp Personalizate</value>
+        <value xml:lang="th">แก้ไขการกำหนดเวลา</value>
+        <value xml:lang="zh">编辑定制时间段</value>
     </property>
     <property key="AccountingEditFinAccount">
         <value xml:lang="en">Create/Update Financial Account</value>
@@ -4887,6 +4907,19 @@
         <value xml:lang="th">เวลาที่กำหนดยอดรวมของบัญชีไม่มี</value>
         <value xml:lang="zh">不存在账单账户条件。</value>
     </property>
+    <property key="AccountingNoChildPeriodsFound">
+        <value xml:lang="en">No child periods found</value>
+        <value xml:lang="fr">Aucune période enfant trouvée</value>
+        <value xml:lang="it">Nessun periodo figlio trovato</value>
+        <value xml:lang="th">ไม่พบช่วงเวลาสั้น ๆ</value>
+    </property>
+    <property key="AccountingNoCurrentCustomTimePeriodSelected">
+        <value xml:lang="en">No Current Custom Time Period Selected; "Children" below have no Parent Period.</value>
+        <value xml:lang="fr">Aucune période de temps sélectionnée; la période "fille" ci-dessous n'a aucune période parente.</value>
+        <value xml:lang="it">Nessun periodo di tempo personalizzato selezionato; i "Periodi figli" sottostanti non hanno alcun "Periodo padre".</value>
+        <value xml:lang="th">ไม่มีลูกค้าในช่วงเวลาที่เลือก; "Children" ด้านล่างนี้ไม่มีกลุ่มช่วงเวลา
+        </value>
+    </property>
     <property key="AccountingNoGenBilAddressFound">
         <value xml:lang="ar">لا عنوان عام/فوترة موجود للطرف</value>
         <value xml:lang="en">No general/billing address found for party:</value>
@@ -5147,6 +5180,9 @@
         <value xml:lang="ru">Заказы</value>
         <value xml:lang="th">สั่งซื้อ</value>
         <value xml:lang="zh">定单</value>
+    </property>
+    <property key="AccountingOrgGlSettings">
+        <value xml:lang="en">Organization GL Settings</value>
     </property>
     <property key="AccountingOrganizationPartyId">
         <value xml:lang="ar">تعريف طرف المؤسسة</value>
@@ -6010,6 +6046,42 @@
         <value xml:lang="th">คุณไม่ได้รับการอนุญาตสำหรับการทำงานนี้</value>
         <value xml:lang="zh">你没有执行这个功能的权限。</value>
     </property>
+    <property key="AccountingPermissionPeriod">
+        <value xml:lang="en">You do not have permission to use this page (PERIOD_MAINT needed)</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation d'utiliser cette page (PERIOD_MAINT est nécessaire)</value>
+        <value xml:lang="it">Tu non hai il permesso di usare questa pagina (necessario PERIOD_MAINT)</value>
+        <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ใช้งานในหน้านี้ (PERIOD_MAINT ที่ต้องการ)</value>
+    </property>
+    <property key="AccountingOrgPartyId">
+        <value xml:lang="en">Org Party Id</value>
+        <value xml:lang="fr">Réf. d'org.</value>
+        <value xml:lang="it">Organizzazione</value>
+        <value xml:lang="th">รหัสองค์กรกลุ่มผู้ใช้</value>
+    </property>
+    <property key="AccountingChildPeriods">
+        <value xml:lang="en">Child Periods</value>
+        <value xml:lang="fr">Périodes enfants</value>
+        <value xml:lang="it">Periodi Figli</value>
+        <value xml:lang="th">ช่วงเวลาสั้น ๆ</value>
+    </property>
+    <property key="AccountingPeriodName">
+        <value xml:lang="en">Period Name</value>
+        <value xml:lang="fr">Nom de période</value>
+        <value xml:lang="it">Nome Periodo</value>
+        <value xml:lang="th">ชื่อช่วงเวลา</value>
+    </property>
+    <property key="AccountingPeriodNumber">
+        <value xml:lang="en">Period Number</value>
+        <value xml:lang="fr">N° de période</value>
+        <value xml:lang="it">Numero Periodo</value>
+        <value xml:lang="th">หมายเลขช่วงเวลา</value>
+    </property>
+    <property key="AccountingPeriodType">
+        <value xml:lang="en">Period Type</value>
+        <value xml:lang="fr">Type de période</value>
+        <value xml:lang="it">Tipo Periodo</value>
+        <value xml:lang="th">ประเภทช่วงเวลา</value>
+    </property>
     <property key="AccountingPhysicalCard">
         <value xml:lang="de">Physikalische Karte</value>
         <value xml:lang="en">Physical Card</value>
@@ -6558,6 +6630,12 @@
         <value xml:lang="it">Mostra campi di ricerca</value>
         <value xml:lang="nl">Toon alle velden</value>
         <value xml:lang="th">แสดงการค้นหาฟิลด์</value>
+    </property>
+    <property key="AccountingShowOnlyPeriodsWithOrganization">
+        <value xml:lang="en">Show Only Periods with Organization Party ID</value>
+        <value xml:lang="fr">Montrer seulement les périodes ayant la réf. d'acteur de l'organisation</value>
+        <value xml:lang="it">Mostra Solo Periodi con Organizzazioni</value>
+        <value xml:lang="th">แสดงช่วงเวลากับรหัสองค์กรกลุ่มผู้ใช้อย่างเดียว</value>
     </property>
     <property key="AccountingShowPayments">
         <value xml:lang="ar">عرض التسديدات</value>

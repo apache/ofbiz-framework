@@ -36,7 +36,7 @@ under the License.
         <menu-item name="agreements" title="${uiLabelMap.AccountingAgreements}"><link target="FindAgreement"/></menu-item>
         <menu-item name="ListFixedAssets" title="${uiLabelMap.AccountingFixedAssets}"><link target="ListFixedAssets"/></menu-item>
         <menu-item name="GlobalGLSettings" title="${uiLabelMap.AccountingGlobalGLSettings}"><link target="globalGLSettings"/></menu-item>
-        <menu-item name="companies" title="${uiLabelMap.AccountingGeneralLedger}"><link target="ListCompanies"/></menu-item>
+        <menu-item name="companies" title="${uiLabelMap.AccountingOrgGlSettings}"><link target="ListCompanies"/></menu-item>
     </menu>
     
     <menu name="InvoiceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
@@ -588,7 +588,11 @@ under the License.
           default-menu-item-name="chartofaccounts">
         <menu-item name="Chartofaccounts" title="${uiLabelMap.AccountingChartOfAcctsMenu}">
             <link target="FindGlobalGlAccount"/>
-        </menu-item>        
+        </menu-item>
+        <menu-item name="EditCustomTimePeriod" title="${uiLabelMap.AccountingEditCustomTimePeriods}">
+            <condition><if-has-permission permission="PERIOD_MAINT"/></condition>
+            <link target="EditCustomTimePeriod"/>
+        </menu-item>
         <menu-item name="Costs" title="${uiLabelMap.ManufacturingCostCalcs}">
             <link target="EditCostCalcs"/>
         </menu-item>  

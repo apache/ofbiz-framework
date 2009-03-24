@@ -122,9 +122,6 @@ text-decoration: underline;
           <li><a href="<@ofbizUrl>viewdatafile</@ofbizUrl>">${uiLabelMap.WebtoolsWorkWithDataFiles}</a></li>
         </#if>
         <li><h3>${uiLabelMap.WebtoolsMiscSetupTools}</h3></li>
-        <#if security.hasPermission("PERIOD_MAINT", session)>
-          <li><a href="<@ofbizUrl>EditCustomTimePeriod</@ofbizUrl>">${uiLabelMap.WebtoolsEditCustomTimePeriods}</a></li>
-        </#if>
         <#if security.hasPermission("ENUM_STATUS_MAINT", session)>
           <#--
           <li><a href="<@ofbizUrl>EditEnumerationTypes</@ofbizUrl>">Edit Enumerations</a></li>
