@@ -221,8 +221,6 @@ under the License.
         <property name="base-test" value="org.ofbiz.base.test.BaseUnitTests"/>
         <!-- this is now run through the new testtools stuff <property name="entity-test" value="org.ofbiz.entity.test.EntityTestSuite"/> -->
         <!-- this is now run through the new testtools stuff <property name="service-test" value="org.ofbiz.service.test.ServiceEngineTests"/> -->
-        <!-- <property name="usps-test" value="org.ofbiz.shipment.thirdparty.usps.UspsServicesTests"/> -->
-        <!-- For the jxtests component: <property name="jxunit-test" value="net.sourceforge.jxunit.JXTestCase"/> -->
     </container>
 
     <container name="testtools-container" class="org.ofbiz.testtools.TestRunContainer"/>

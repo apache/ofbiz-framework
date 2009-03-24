@@ -283,7 +283,7 @@ public class DatabaseUtil {
                                     // do primary key matching check
                                     if (checkPks && ccInfo.isPk && !field.getIsPk()) {
                                         String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + entity.getTableName(datasourceInfo) + "] of entity [" +
-                                            entity.getEntityName() + "] IS a primary key in the database, but IS NOT a primary key in the entity definition. The primary key for this table needs to be re-created or modified so that this column is NOT party of the primary key.";
+                                            entity.getEntityName() + "] IS a primary key in the database, but IS NOT a primary key in the entity definition. The primary key for this table needs to be re-created or modified so that this column is NOT part of the primary key.";
                                         Debug.logError(message, module);
                                         if (messages != null) messages.add(message);
                                     }
