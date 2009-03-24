@@ -33,14 +33,14 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     calls = 1000;
     startTime = System.currentTimeMillis();
     for (int i = 0; i < calls; i++) {
-        dummy = delegator.findByPrimaryKey("Product", [productId : "GZ-1000"]);
+        dummy = delegator.findByPrimaryKey("JobSandbox", [jobId : "PURGE_OLD_JOBS"]);
     }
     totalTime = System.currentTimeMillis() - startTime;
     callsPerSecond = calls / (totalTime/1000);
 
     perfRow = [:];
     perfRow.operation = "findByPrimaryKey";
-    perfRow.entity = "Large:Product";
+    perfRow.entity = "Large:JobSandbox";
     perfRow.calls = decimalFormat.format(calls);
     perfRow.seconds = decimalFormat.format(totalTime / 1000);
     perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
@@ -50,14 +50,14 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     calls = 10000;
     startTime = System.currentTimeMillis();
     for (int i = 0; i < calls; i++) {
-        dummy = delegator.findByPrimaryKeyCache("Product", [productId : "GZ-1000"]);
+        dummy = delegator.findByPrimaryKeyCache("JobSandbox", [jobId : "PURGE_OLD_JOBS"]);
     }
     totalTime = System.currentTimeMillis() - startTime;
     callsPerSecond = calls / (totalTime / 1000);
 
     perfRow = [:];
     perfRow.operation = "findByPrimaryKeyCache";
-    perfRow.entity = "Large:Product";
+    perfRow.entity = "Large:JobSandbox";
     perfRow.calls = decimalFormat.format(calls);
     perfRow.seconds = decimalFormat.format(totalTime / 1000);
     perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
@@ -67,14 +67,14 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     calls = 1000;
     startTime = System.currentTimeMillis();
     for (int i = 0; i < calls; i++) {
-        dummy = delegator.findByPrimaryKey("Party", [partyId : "_NA_"]);
+        dummy = delegator.findByPrimaryKey("DataSourceType", [dataSourceTypeId : "ADMIN_ENTRY"]);
     }
     totalTime = System.currentTimeMillis() - startTime;
     callsPerSecond = calls / (totalTime / 1000);
 
     perfRow = [:];
     perfRow.operation = "findByPrimaryKey";
-    perfRow.entity = "Small:Party";
+    perfRow.entity = "Small:DataSourceType";
     perfRow.calls = decimalFormat.format(calls);
     perfRow.seconds = decimalFormat.format(totalTime / 1000);
     perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
@@ -84,25 +84,25 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     calls = 10000;
     startTime = System.currentTimeMillis();
     for (int i=0; i < calls; i++) {
-        dummy = delegator.findByPrimaryKeyCache("Party", [partyId : "_NA_"]);
+        dummy = delegator.findByPrimaryKeyCache("DataSourceType", [dataSourceTypeId : "ADMIN_ENTRY"]);
     }
     totalTime = System.currentTimeMillis() - startTime;
     callsPerSecond = calls / (totalTime / 1000);
 
     perfRow = [:];
     perfRow.operation = "findByPrimaryKeyCache";
-    perfRow.entity = "Small:Party";
+    perfRow.entity = "Small:DataSourceType";
     perfRow.calls = decimalFormat.format(calls);
     perfRow.seconds = decimalFormat.format(totalTime / 1000);
     perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
     perfRow.callsPerSecond = decimalFormat.format(callsPerSecond);
     performanceList.add(perfRow);
 
-      createTestList = [];
+    createTestList = [];
     calls = 1000;
     startTime = System.currentTimeMillis();
     for (int i = 0; i < calls; i++) { 
-        dummy = delegator.makeValue("Product", [autoCreateKeywords : "N", description : "Initial Description", internalName : "Auto-Test Name", productId : "_~WRITE_TEST~_" + i]);
+        dummy = delegator.makeValue("JobSandbox", [poolId : "pool", jobName : "Initial Name" + i, serviceName : "foo", statusId : "SERVICE_FINISHED", jobId : "_~WRITE_TEST~_" + i]);
         createTestList.add(dummy); 
         delegator.create(dummy);
     }
@@ -111,7 +111,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
 
     perfRow = [:];
     perfRow.operation = "create";
-    perfRow.entity = "Large:Product";
+    perfRow.entity = "Large:JobSandbox";
     perfRow.calls = decimalFormat.format(calls);
     perfRow.seconds = decimalFormat.format(totalTime / 1000);
     perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
@@ -122,7 +122,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     startTime = System.currentTimeMillis();    
     for (int i = 0; i < calls; i++) { 
         dummy = createTestList.get(i); 
-        dummy.description = "This was a test from the performance groovy script";
+        dummy.jobName = "This was a test from the performance groovy script";
         dummy.store();
     }
     totalTime = System.currentTimeMillis() - startTime;
@@ -130,7 +130,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
 
     perfRow = [:];
     perfRow.operation = "update";
-    perfRow.entity = "Large:Product";
+    perfRow.entity = "Large:JobSandbox";
     perfRow.calls = decimalFormat.format(calls);
     perfRow.seconds = decimalFormat.format(totalTime / 1000);
     perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
@@ -148,7 +148,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
 
     perfRow = [:];
     perfRow.operation = "remove";
-    perfRow.entity = "Large:Product";
+    perfRow.entity = "Large:JobSandbox";
     perfRow.calls = decimalFormat.format(calls);
     perfRow.seconds = decimalFormat.format(totalTime / 1000);
     perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
@@ -159,7 +159,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     startTime = System.currentTimeMillis();
     for (int i = 0; i < calls; i++) {
         ptyMap = [:];
-        ptyMap.partyId = "_NA_";
+        ptyMap.dataSourceTypeId = "ADMIN_ENTRY";
     }
     totalTime = System.currentTimeMillis() - startTime;
     callsPerSecond = calls / (totalTime / 1000);
@@ -176,7 +176,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     calls = 100000;
     startTime = System.currentTimeMillis();
     for (int i = 0; i < calls; i++) {
-        ptyMap = UtilMisc.toMap("partyId", "_NA_");
+        ptyMap = UtilMisc.toMap("dataSourceTypeId", "ADMIN_ENTRY");
     }
     totalTime = System.currentTimeMillis() - startTime;
     callsPerSecond = calls / (totalTime / 1000);
@@ -209,7 +209,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     perfRow.callsPerSecond = decimalFormat.format(callsPerSecond);
     performanceList.add(perfRow);
 
-    testPk = delegator.makePK("Party", [partyId : "_NA_"]);
+    testPk = delegator.makePK("DataSourceType", [dataSourceTypeId : "ADMIN_ENTRY"]);
     utilCache.put(testPk, "testValue");
     calls = 1000000;
     startTime = System.currentTimeMillis();
