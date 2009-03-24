@@ -17,7 +17,7 @@
  * under the License.
  *******************************************************************************/
 
-package org.ofbiz.common.period;
+package org.ofbiz.accounting.period;
 
 import java.sql.Timestamp;
 import java.util.List;

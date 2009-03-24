@@ -18,9 +18,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if (requestAttributes.person)?exists><#assign person = requestAttributes.person></#if>
-<#if (requestAttributes.partyGroup)?exists><#assign partyGroup = requestAttributes.partyGroup></#if>
-
 <#assign docLangAttr = locale.toString()?replace("_", "-")>
 <#assign langDir = "ltr">
 <#if "ar.iw"?contains(docLangAttr?substring(0, 2))>
