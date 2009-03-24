@@ -1884,7 +1884,7 @@
     <property key="Enumeration.description.PROMO_FREE_SHIPPING">
         <value xml:lang="de">Gratis Lieferung</value>
         <value xml:lang="en">Free Shipping</value>
-        <value xml:lang="fr">Livraison gratuite</value>
+        <value xml:lang="fr">Expédition gratuite</value>
         <value xml:lang="it">Spedizione gratuita</value>
         <value xml:lang="pt">Envio Grátis</value>
         <value xml:lang="ro">Expediere Gratuita</value>
@@ -8409,7 +8409,7 @@
         <value xml:lang="de">Auftragsauslieferungsplan</value>
         <value xml:lang="en">Order Delivery Schedule</value>
         <value xml:lang="es">Planificación de entrega</value>
-        <value xml:lang="fr">planification de livraison</value>
+        <value xml:lang="fr">planification d'expédition</value>
         <value xml:lang="it">Schedulazione consegne ordini</value>
         <value xml:lang="pt">Prazo de Entrega de Encomendas</value>
         <value xml:lang="ro">Planificare Livrari Comenzi</value>
@@ -9981,7 +9981,7 @@
         <value xml:lang="de">Lieferplan genehmigen</value>
         <value xml:lang="en">Approve Delivery Schedule</value>
         <value xml:lang="es">Aprobar planificación de entrega</value>
-        <value xml:lang="fr">Approuver le progamme de livraison</value>
+        <value xml:lang="fr">Approuver le progamme d'expédition</value>
         <value xml:lang="it">Approva scedulazione consegna</value>
         <value xml:lang="pt">Aprovar Prazo de Entrega</value>
         <value xml:lang="ro">Approba Planificare Livrare</value>
