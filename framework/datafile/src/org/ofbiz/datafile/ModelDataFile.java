@@ -38,10 +38,10 @@ public class ModelDataFile {
     /** The type code of the File, ususally contained somewhere in the file and can be used to identify it */
     public String typeCode = "";
 
-    /** The party that generally sends the file */
+    /** The entity that generally sends the file */
     public String sender = "";
 
-    /** The party that generally receives the file */
+    /** The entity that generally receives the file */
     public String receiver = "";
 
     /** The length in bytes of a single record, ONLY if it uses fixed length records */
