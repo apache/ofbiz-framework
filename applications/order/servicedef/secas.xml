@@ -47,6 +47,11 @@ under the License.
         <condition field-name="facilityId" operator="is-not-empty"/>
         <action service="setUnitPriceAsLastPrice" mode="sync"/>
     </eca>
+    <eca service="receiveInventoryProduct" event="commit">
+        <condition field-name="facilityId" operator="is-not-empty"/>
+        <condition field-name="orderId" operator="is-not-empty"/>
+        <action service="updatePoOnReceiveInventory" mode="sync"/>
+    </eca>
     <eca service="changeOrderItemStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="ITEM_CANCELLED"/>
         <action service="cancelOrderInventoryReservation" mode="sync"/>
