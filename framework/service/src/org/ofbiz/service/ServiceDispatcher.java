@@ -21,6 +21,7 @@ package org.ofbiz.service;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javax.transaction.Transaction;
 
@@ -79,7 +80,7 @@ public class ServiceDispatcher {
     protected JobManager jm = null;
     protected JmsListenerFactory jlf = null;
 
-    public ServiceDispatcher(GenericDelegator delegator, boolean enableJM, boolean enableJMS, boolean enableSvcs) {
+    protected ServiceDispatcher(GenericDelegator delegator, boolean enableJM, boolean enableJMS, boolean enableSvcs) {
         Debug.logInfo("[ServiceDispatcher] : Creating new instance.", module);
         factory = new GenericEngineFactory(this);
         ServiceGroupReader.readConfig();
@@ -114,7 +115,7 @@ public class ServiceDispatcher {
         }
     }
 
-    public ServiceDispatcher(GenericDelegator delegator) {
+    protected ServiceDispatcher(GenericDelegator delegator) {
         this(delegator, enableJM, enableJMS, enableSvcs);
     }
 
@@ -159,7 +160,7 @@ public class ServiceDispatcher {
         }
         return sd;
     }
-
+    
     /**
      * Registers the loader with this ServiceDispatcher
      * @param name the local dispatcher

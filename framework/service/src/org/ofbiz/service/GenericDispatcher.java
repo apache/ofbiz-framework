@@ -18,7 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.service;
 
+import java.net.URL;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 import javolution.util.FastMap;
 
@@ -36,14 +39,14 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     protected static Map<String, LocalDispatcher> dispatcherCache = FastMap.newInstance();
  
     public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator) {
-        return getLocalDispatcher(dispatcherName, delegator, null, null);
+        return getLocalDispatcher(dispatcherName, delegator, null, null, null);
     }
 
-    public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator, ClassLoader loader) {
-        return getLocalDispatcher(dispatcherName, delegator, loader, null);
+    public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator, Collection<URL> readerURLs, ClassLoader loader) {
+        return getLocalDispatcher(dispatcherName, delegator, readerURLs, loader, null);
     }
  
-    public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator, ClassLoader loader, ServiceDispatcher serviceDispatcher) {
+    public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator, Collection<URL> readerURLs, ClassLoader loader, ServiceDispatcher serviceDispatcher) {
         if (dispatcherName == null) {
             dispatcherName = "default";
             Debug.logWarning("Got a getGenericDelegator call with a null dispatcherName, assuming default for the name.", module);
@@ -72,7 +75,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
                         dispatcher = sd.getLocalDispatcher(dispatcherName);
                     }
                     if (thisDispatcher == null) {
-                        dispatcher = new GenericDispatcher(dispatcherName, delegator, loader, sd);
+                        dispatcher = new GenericDispatcher(dispatcherName, delegator, readerURLs, loader, sd);
                     }
 
                     if (dispatcher != null) {
@@ -95,12 +98,16 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         } catch (SecurityException e) {
             loader = GenericDispatcher.class.getClassLoader();
         }
-        return new GenericDispatcher(name, delegator, loader, sd);
+        return new GenericDispatcher(name, delegator, null, loader, sd);
+    }
+    
+    public static Set<String> getAllDispatcherNames() {
+        return dispatcherCache.keySet();
     }
 
     protected GenericDispatcher() {}
 
-    protected GenericDispatcher(String name, GenericDelegator delegator, ClassLoader loader, ServiceDispatcher serviceDispatcher) {
+    protected GenericDispatcher(String name, GenericDelegator delegator, Collection<URL> readerURLs, ClassLoader loader, ServiceDispatcher serviceDispatcher) {
         if (serviceDispatcher != null) {
             this.dispatcher = serviceDispatcher;
         }
@@ -111,7 +118,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
                 loader = this.getClass().getClassLoader();
             }
         }
-        DispatchContext dc = new DispatchContext(name, null, loader, null);
+        DispatchContext dc = new DispatchContext(name, readerURLs, loader, null);
         init(name, delegator, dc);
     }
 

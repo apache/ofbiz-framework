@@ -25,6 +25,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.service.eca.ServiceEcaUtil;
 import org.ofbiz.service.ModelPermGroup;
 import org.ofbiz.service.ModelPermission;
+import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 
@@ -283,34 +284,15 @@ List getEcaListForService(String selectedService){
 }
 
 
-/*Local Dispatchers
-accounting, content, ecommerce, manufacturing, marketing, ordermgr, partymgr, catalog, facility, workeffort, example, WFDispatcher, webtools, order, wholesale, salesrep, hotelbackend, community
-*/
-//Ashish: Don't know how to get list of available dispatchers, so hardcoded. Add to this list if I missed some.
-dispArrList = ["accounting", 
-               "content", 
-               "ecommerce", 
-               "manufacturing", 
-               "marketing", 
-               "order", 
-               "partymgr", 
-               "catalog", 
-               "facility", 
-               "workeffort", 
-               "example", 
-               "WFDispatcher",
-               "webtools",
-               "wholesale",
-               "salesrep",
-               "hotelbackend",
-               "community"];
-Collections.sort(dispArrList);
+//Local Dispatchers
+dispArrList = new TreeSet();
+dispArrList.addAll(GenericDispatcher.getAllDispatcherNames());
 context.dispArrList = dispArrList;
 
 uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
 uiLabelMap.addBottomResourceBundle("CommonUiLabels");
 
-selDisp = parameters.selDisp ?: "partymgr";
+selDisp = parameters.selDisp ?: "webtools";
 
 curLocalDispatcher = dispatcher.getLocalDispatcher(selDisp, delegator);
 curDispatchContext = curLocalDispatcher.getDispatchContext();

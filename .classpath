@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="framework/testtools/src"/>
+	<classpathentry kind="src" path="framework/webslinger/src"/>
 	<classpathentry kind="src" path="specialpurpose/oagis/src"/>
 	<classpathentry kind="src" path="specialpurpose/hhfacility/src"/>
 	<classpathentry kind="src" path="specialpurpose/assetmaint/src"/>
@@ -111,7 +112,7 @@
 	<classpathentry kind="lib" path="framework/base/lib/xercesImpl-2.8.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/resolver-2.8.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/javolution-5.2.3.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/commons/commons-vfs-20070730.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-vfs-20070730.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-validator-1.3.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-primitives-1.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-pool-1.3.jar"/>
@@ -133,8 +134,8 @@
 	<classpathentry kind="lib" path="framework/base/lib/scripting/asm-tree-2.2.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/scripting/asm-util-2.2.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/scripting/groovy-1.5.6.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/jdom-1.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/jpim-0.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/jdom-1.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/jpim-0.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.15.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/owasp-esapi-full-java-1.4.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/json-lib-2.2.3-jdk15.jar"/>
@@ -155,5 +156,16 @@
 	<classpathentry kind="lib" path="framework/base/lib/antisamy-bin.1.2.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/fop-0.94.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/nekohtml.jar"/>
+	<classpathentry kind="lib" path="framework/webslinger/lib/webslinger-20090320-c73d2e782311.jar"/>
+	<classpathentry kind="lib" path="framework/webslinger/lib/webslinger-catalina-20090320-c73d2e782311.jar"/>
+	<classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-bsf-20090320-c73d2e782311.jar"/>
+	<classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-code-20090320-c73d2e782311.jar"/>
+	<classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-groovy-20090320-c73d2e782311.jar"/>
+	<classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-janino-20090320-c73d2e782311.jar"/>
+	<classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-servlet-20090320-c73d2e782311.jar"/>
+	<classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-template-20090320-c73d2e782311.jar"/>
+	<classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-velocity-20090320-c73d2e782311.jar"/>
+	<classpathentry kind="lib" path="framework/webslinger/lib/webslinger-extension-wiki-20090320-c73d2e782311.jar"/>
+	<classpathentry kind="lib" path="framework/webslinger/lib/webslinger-launcher-20090320-c73d2e782311.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
