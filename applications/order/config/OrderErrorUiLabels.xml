@@ -1002,7 +1002,7 @@
     <property key="OrderInvalidDesiredDeliveryDateSyntaxError">
         <value xml:lang="en">Invalid Desired Delivery Date : Syntax Error</value>
         <value xml:lang="es">Fecha deseada de entrega inválida : Error de sintaxis</value>
-        <value xml:lang="fr">Date de livraison souhaitée invalide : Erreur de syntaxe</value>
+        <value xml:lang="fr">Date d'expédition souhaitée invalide : Erreur de syntaxe</value>
         <value xml:lang="it">Data Consegna Desiderata Invalida : Errore Sintassi</value>
         <value xml:lang="ro">Data Livrarii Dorita Invalida : Eroare de Sintaxa</value>
         <value xml:lang="ru">Неверная желаемая дата доставки: синтаксическая ошибка</value>
@@ -1366,7 +1366,7 @@
     <property key="OrderProblemGettingItemDesiredDeliveryDateFor">
         <value xml:lang="en">Problem getting itemDesiredDeliveryDate for ${productId}</value>
         <value xml:lang="es">Problema obteniendo la fecha de entrega deseada del ítem para ${productId}</value>
-        <value xml:lang="fr">Problème en obtenant la date de livraison de l'article désiré pour ${productId}</value>
+        <value xml:lang="fr">Problème en obtenant la date d'expédition de l'article désiré pour ${productId}</value>
         <value xml:lang="it">Problema leggendo itemDesiredDeliveryDate per ${productId}</value>
         <value xml:lang="ro">Problema citind itemDesiredDeliveryDate pentru ${productId}</value>
         <value xml:lang="ru">Проблема при получении itemDesiredDeliveryDate для ${productId}</value>
@@ -2626,7 +2626,7 @@
     <property key="OrderUnableToUpdateItemsEstimatedDeliveryDate">
         <value xml:lang="en">Unable to update item's estimated delivery date</value>
         <value xml:lang="es">No se puede actualizar la fecha de entrega estimada para los ítems</value>
-        <value xml:lang="fr">Impossible de mettre à jour la date de livraison estimée pour les articles</value>
+        <value xml:lang="fr">Impossible de mettre à jour la date d'expédition estimée pour les articles</value>
         <value xml:lang="it">Non è possibile aggiornare riga(e) data consegna stimata</value>
         <value xml:lang="ro">Nu este posibila actualizarea linieri(lor)date librari stimate</value>
         <value xml:lang="ru">Невозможно обновить оценочную дату доставки позиции</value>

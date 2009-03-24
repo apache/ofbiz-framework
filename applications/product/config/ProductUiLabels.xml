@@ -1192,7 +1192,7 @@
         <value xml:lang="de">Geschätztes Lieferdatum</value>
         <value xml:lang="en">Est. Deliver Date</value>
         <value xml:lang="es">Fecha de recepción estimada</value>
-        <value xml:lang="fr">Date de livraison estimée</value>
+        <value xml:lang="fr">Date d'expédition estimée</value>
         <value xml:lang="it">Data consegna stimata</value>
         <value xml:lang="ro">Data Livrare Stimata</value>
         <value xml:lang="ru">Ожид. дата доставки</value>
@@ -8812,7 +8812,7 @@
         <value xml:lang="de">Tage bis zur Lieferung</value>
         <value xml:lang="en">Days To Ship</value>
         <value xml:lang="es">Días para el envío</value>
-        <value xml:lang="fr">Délai de livraison</value>
+        <value xml:lang="fr">Délai d'expédition</value>
         <value xml:lang="it">Giorni Alla Spedizione</value>
         <value xml:lang="ro">Zile pana la Expediere</value>
         <value xml:lang="ru">Дней до поставки</value>
@@ -12590,7 +12590,7 @@
         <value xml:lang="de">Minimaler Lagerbestand neuer Auftrag Tage bis zur Lieferung</value>
         <value xml:lang="en">Minimum Stock Reorder Quantity Days To Ship</value>
         <value xml:lang="es">Cantidad mínima para volver a pedir y días de envío</value>
-        <value xml:lang="fr">Stock minimum, quantité réapprovisionnement, délai de livraison</value>
+        <value xml:lang="fr">Stock minimum, quantité réapprovisionnement, délai d'expédition</value>
         <value xml:lang="it">Giacenza Minima e Quantità Riordine e Giorni per Spedire</value>
         <value xml:lang="ro">Stoc Minim Cantitate Recomandata Zile pentru Expediere</value>
         <value xml:lang="ru">Минимальный склад перезаказ количества и дней до доставки</value>
@@ -18353,7 +18353,7 @@
     <property key="ProductStandardLeadTimeDays">
         <value xml:lang="en">Standard lead time days</value>
         <value xml:lang="es">Plazo de entrega (en días)</value>
-        <value xml:lang="fr">Délai de livraison (en jour)</value>
+        <value xml:lang="fr">Délai d'expédition (en jour)</value>
         <value xml:lang="it">Giorni di attesa Standard</value>
         <value xml:lang="ro">Zile de asteptare Standard</value>
         <value xml:lang="ru">Стандартное время жизни запроса в днях</value>

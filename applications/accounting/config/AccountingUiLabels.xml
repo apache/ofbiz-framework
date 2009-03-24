@@ -7086,7 +7086,7 @@
     <property key="AccountingTroubleGettingShipmentEntity">
         <value xml:lang="en">Trouble getting Shipment entity for shipment [${tmpShipmentId}]</value>
         <value xml:lang="es">Problema obteniendo entidad envío para envío [${tmpShipmentId}]</value>
-        <value xml:lang="fr">Problème rencontré en essayant d'obtenir l'entité de livraison pour la livraison  [${tmpShipmentId}]</value>
+        <value xml:lang="fr">Problème rencontré en essayant d'obtenir l'entité d'expédition pour la livraison  [${tmpShipmentId}]</value>
         <value xml:lang="it">Problemi leggendo entità Shipment per la spedizione ${tmpShipmentId}</value>
         <value xml:lang="nl">Problemen om een verzendingsentiteit op te halen voor verzending [${tmpShipmentId}]</value>
         <value xml:lang="ro">Probleme la citerea  entitatii Shipment pentru expediere [${tmpShipmentId}]</value>
@@ -7110,7 +7110,7 @@
     </property>
     <property key="AccountingUnableToAuthAdditionalShipCharges">
         <value xml:lang="en">Unable to authorize additional shipping charges for shipmentId ${shipmentId} to paymentMethodId ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
-        <value xml:lang="fr">Impossible d'autoriser des frais de livraison supplémentaires pour la livraison [ ${shipmentId}] à la méthode de paiement ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
+        <value xml:lang="fr">Impossible d'autoriser des frais d'expédition supplémentaires pour la livraison [ ${shipmentId}] à la méthode de paiement ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
         <value xml:lang="it">Non è possibile autorizzare i ricarichi spedizione aggiuntivi per la spedizione ${shipmentId} metodo di pagamento ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
         <value xml:lang="nl">Niet in staat om additioneel verzendadres te authoriseren voor zending ${shipmentId} naar paymentMethodId ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
         <value xml:lang="ru">Невозможно авторизовать дополнительные затраты поставки для поставки с кодом ${shipmentId} для paymentMethodId ${paymentMethodId} (orderPaymentPreferenceId ${orderPaymentPreferenceId})</value>
@@ -9338,7 +9338,7 @@
         <value xml:lang="de">Versand-Nr.</value>
         <value xml:lang="en">Shipment Id</value>
         <value xml:lang="es">Id Envío</value>
-        <value xml:lang="fr">Réf. de livraison</value>
+        <value xml:lang="fr">Réf. d'expédition</value>
         <value xml:lang="it">Numero Spedizione</value>
         <value xml:lang="nl">ID zending</value>
         <value xml:lang="ro">Nr.Expediere</value>
