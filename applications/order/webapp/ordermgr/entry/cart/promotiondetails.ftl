@@ -23,6 +23,6 @@ under the License.
     </div>
     <div class="screenlet-body">
         <div>${StringUtil.wrapString(productPromo.promoText?if_exists)}</div>
-        <div>Generated Description: ${promoAutoDescription?if_exists}</div>
+        <div>${uiLabelMap.EcommerceGeneratedDescription}  ${promoAutoDescription?if_exists}</div>
     </div>
 </div>

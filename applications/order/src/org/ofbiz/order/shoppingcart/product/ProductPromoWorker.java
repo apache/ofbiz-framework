@@ -68,6 +68,7 @@ import org.ofbiz.service.calendar.RecurrenceInfoException;
 public class ProductPromoWorker {
 
     public static final String module = ProductPromoWorker.class.getName();
+    public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
 
     public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
@@ -659,22 +660,19 @@ public class ProductPromoWorker {
         }
  
         if ("Y".equals(productPromo.getString("requireCode"))) {
-            promoDescBuf.append("Requires code to use. ");
+            promoDescBuf.append(UtilProperties.getMessage(resource, "OrderRequiresCodeToUse", locale));
         }
         if (productPromo.getLong("useLimitPerOrder") != null) {
-            promoDescBuf.append("Limit ");
-            promoDescBuf.append(productPromo.getLong("useLimitPerOrder"));
-            promoDescBuf.append(" per order. ");
+            promoDescBuf.append(UtilProperties.getMessage(resource, "OrderLimitPerOrder", 
+                    UtilMisc.toMap("limit", productPromo.getLong("useLimitPerOrder")), locale));
         }
         if (productPromo.getLong("useLimitPerCustomer") != null) {
-            promoDescBuf.append("Limit ");
-            promoDescBuf.append(productPromo.getLong("useLimitPerCustomer"));
-            promoDescBuf.append(" per customer. ");
+            promoDescBuf.append(UtilProperties.getMessage(resource, "OrderLimitPerCustomer", 
+                    UtilMisc.toMap("limit", productPromo.getLong("useLimitPerCustomer")), locale));
         }
         if (productPromo.getLong("useLimitPerPromotion") != null) {
-            promoDescBuf.append("Limit ");
-            promoDescBuf.append(productPromo.getLong("useLimitPerPromotion"));
-            promoDescBuf.append(" per promotion. ");
+            promoDescBuf.append(UtilProperties.getMessage(resource, "OrderLimitPerPromotion", 
+                    UtilMisc.toMap("limit", productPromo.getLong("useLimitPerPromotion")), locale));
         }
  
         return promoDescBuf.toString();
@@ -1013,6 +1011,10 @@ public class ProductPromoWorker {
             BigDecimal orderSubTotal = cart.getSubTotalForPromotions();
             if (Debug.verboseOn()) Debug.logVerbose("Doing order total compare: orderSubTotal=" + orderSubTotal, module);
             compareBase = new Integer(orderSubTotal.compareTo(new BigDecimal(condValue)));
+        } else if ("PPIP_SHIP_TOTAL".equals(inputParamEnumId)) {
+            BigDecimal shippingTotal = cart.getTotalShipping();
+            if (Debug.verboseOn()) Debug.logVerbose("Doing shipping total compare: shippingTotal=" + shippingTotal, module);
+            compareBase = new Integer(shippingTotal.compareTo(new BigDecimal(condValue)));
         } else if ("PPIP_ORST_HIST".equals(inputParamEnumId)) {
             // description="Order sub-total X in last Y Months"
             if (partyId != null && userLogin != null) {
@@ -1058,9 +1060,9 @@ public class ProductPromoWorker {
                         Debug.logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_YEAR ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result), module);
                         return false;
                     } else {
-                        Double orderSubTotal = (Double) result.get("totalSubRemainingAmount");
+                        BigDecimal orderSubTotal = (BigDecimal) result.get("totalSubRemainingAmount");
                         if (Debug.verboseOn()) Debug.logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.", module);
-                        compareBase = new Integer(orderSubTotal.compareTo(Double.valueOf(condValue)));
+                        compareBase = new Integer(orderSubTotal.compareTo(new BigDecimal((condValue))));
                     }
                 } catch (GenericServiceException e) {
                     Debug.logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.", module);
