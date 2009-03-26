@@ -57,8 +57,10 @@ under the License.
         <field name="groupId"><hidden/></field>
         <field name="permissionId" title="${uiLabelMap.PartyPermissionId}"><display-entity entity-name="SecurityPermission" description="${permissionId} ${description}"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeSecurityPermissionFromSecurityGroup?permissionId=${permissionId}&amp;groupId=${groupId}"
-                description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="removeSecurityPermissionFromSecurityGroup" description="${uiLabelMap.CommonRemove}">
+                <parameter param-name="permissionId" from-field="permissionId"/>
+                <parameter param-name="groupId" from-field="groupId"/>
+            </hyperlink>
         </field>
     </form>
 
