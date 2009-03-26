@@ -18,12 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.accounting.thirdparty.verisign;
 
-import java.util.*;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
-import java.io.UnsupportedEncodingException;
-
-import com.Verisign.payment.PFProAPI;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.ofbiz.base.util.Debug;
@@ -31,9 +34,12 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
+
+import com.Verisign.payment.PFProAPI;
 
 /**
  * PayflowPro - Verisign PayFlow Pro <=> OFBiz Service Module
@@ -122,7 +128,7 @@ public class PayflowPro {
             data.put("ZIP", ps.getString("postalCode"));
         }
 
-        PFProAPI pn = init(configString);
+        PFProAPI pn = init(configString, context);
 
         // get the base params
         StringBuffer params = makeBaseParams(configString);
@@ -185,7 +191,7 @@ public class PayflowPro {
         // amount to capture
         data.put("AMT", amount.toString());
 
-        PFProAPI pn = init(configString);
+        PFProAPI pn = init(configString, context);
 
         // get the base params
         StringBuffer params = makeBaseParams(configString);
@@ -248,7 +254,7 @@ public class PayflowPro {
         // amount to capture
         data.put("AMT", amount.toString());
 
-        PFProAPI pn = init(configString);
+        PFProAPI pn = init(configString, context);
 
         // get the base params
         StringBuffer params = makeBaseParams(configString);
@@ -309,7 +315,7 @@ public class PayflowPro {
         // amount to capture
         data.put("AMT", amount.toString());
 
-        PFProAPI pn = init(configString);
+        PFProAPI pn = init(configString, context);
 
         // get the base params
         StringBuffer params = makeBaseParams(configString);
@@ -607,8 +613,8 @@ public class PayflowPro {
         return buf;
     }
 
-    private static PFProAPI init(String resource) {
-        String certsPath = UtilProperties.getPropertyValue(resource, "payment.verisign.certsPath", "pfcerts");
+    private static PFProAPI init(String resource, Map context) {
+        String certsPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue(resource, "payment.verisign.certsPath", "pfcerts"), context);
         String hostAddress = UtilProperties.getPropertyValue(resource, "payment.verisign.hostAddress", "test-payflow.verisign.com");
         Integer hostPort = Integer.decode(UtilProperties.getPropertyValue(resource, "payment.verisign.hostPort", "443"));
         Integer timeout = Integer.decode(UtilProperties.getPropertyValue(resource, "payment.verisign.timeout", "80"));
@@ -644,7 +650,7 @@ servers. Change the URL from test-payflow.verisign.com to payflow.verisign.com.
 credit card type that was submitted.
 3 Invalid transaction type. Transaction type is not appropriate for this transaction. For
 example, you cannot credit an authorization-only transaction.
-4 Invalid amount format. Use the format: “#####.##”  Do not include currency
+4 Invalid amount format. Use the format: #####.##  Do not include currency
 symbols or commas.
 5 Invalid merchant information. Processor does not recognize your merchant account
 information. Contact your bank account acquirer to resolve this problem.
@@ -707,11 +713,11 @@ been settled). If the transaction has already settled, your only recourse is a r
 transaction type, or an attempt to capture an authorization transaction that has already
 been captured.
 112 Failed AVS check. Address and ZIP code do not match. An authorization may still
-exist on the cardholder’s account.
+exist on the cardholder account.
 113 Merchant sale total will exceed the sales cap with current transaction. ACH
 transactions only.
 114 Card Security Code (CSC) Mismatch. An authorization may still exist on the
-cardholder’s account.
+cardholder account.
 115 System busy, try again later
 116 VPS Internal error. Failed to lock terminal number
 117 Failed merchant rule check. One or more of the following three failures occurred:
@@ -724,9 +730,9 @@ CSC validation failed. The CSC return value should appear in the RESPMSG.
 118 Invalid keywords found in string fields 
 122 Merchant sale total will exceed the credit cap with current transaction. ACH
 transactions only.
-125 Fraud Protection Services Filter — Declined by filters 
+125 Fraud Protection Services Filter _ Declined by filters 
 
-126 Fraud Protection Services Filter — Flagged for review by filters 
+126 Fraud Protection Services Filter _ Flagged for review by filters 
 Important Note: Result code 126 indicates that a transaction triggered a fraud filter.
 This is not an error, but a notice that the transaction is in a review status. The
 transaction has been authorized but requires you to review and to manually accept the
@@ -735,10 +741,10 @@ Result code 126 is intended to give you an idea of the kind of transaction that 
 considered suspicious to enable you to evaluate whether you can benefit from using the
 Fraud Protection Services.
 To eliminate result 126, turn the filters off.
-For more information, see the User’s Guide for Payflow Pro With Fraud Protection
-Services or User’s Guide for Payflow Link Guide With Fraud Protection Services.
-127 Fraud Protection Services Filter — Not processed by filters 
-128 Fraud Protection Services Filter — Declined by merchant after being flagged for
+For more information, see the User Guide for Payflow Pro With Fraud Protection
+Services or User Guide for Payflow Link Guide With Fraud Protection Services.
+127 Fraud Protection Services Filter _ Not processed by filters 
+128 Fraud Protection Services Filter _ Declined by merchant after being flagged for
 review by filters 
 131 Version 1 Payflow Pro SDK client no longer supported. Upgrade to the most recent
 version of the Payflow Pro client.
@@ -747,47 +753,47 @@ version of the Payflow Pro client.
 1000 Generic host error. This is a generic message returned by your credit card processor.
 The RESPMSG will contain more information describing the error.
 1001 Buyer Authentication Service unavailable
-1002 Buyer Authentication Service — Transaction timeout
-1003 Buyer Authentication Service — Invalid client version
-1004 Buyer Authentication Service — Invalid timeout value
+1002 Buyer Authentication Service _ Transaction timeout
+1003 Buyer Authentication Service _ Invalid client version
+1004 Buyer Authentication Service _ Invalid timeout value
 1011 Buyer Authentication Service unavailable
 1012 Buyer Authentication Service unavailable
 1013 Buyer Authentication Service unavailable
-1014 Buyer Authentication Service — Merchant is not enrolled for Buyer
+1014 Buyer Authentication Service _ Merchant is not enrolled for Buyer
 Authentication Service (3-D Secure).
-1016 Buyer Authentication Service — 3-D Secure error response received. Instead of
+1016 Buyer Authentication Service _ 3-D Secure error response received. Instead of
 receiving a PARes response to a Validate Authentication transaction, an error response
 was received.
-1017 Buyer Authentication Service — 3-D Secure error response is invalid. An error
+1017 Buyer Authentication Service _ 3-D Secure error response is invalid. An error
 response is received and the response is not well formed for a Validate Authentication
 transaction.
 
-1021 Buyer Authentication Service — Invalid card type
-1022 Buyer Authentication Service — Invalid or missing currency code
-1023 Buyer Authentication Service — merchant status for 3D secure is invalid
-1041 Buyer Authentication Service — Validate Authentication failed: missing or
+1021 Buyer Authentication Service _ Invalid card type
+1022 Buyer Authentication Service _ Invalid or missing currency code
+1023 Buyer Authentication Service _ merchant status for 3D secure is invalid
+1041 Buyer Authentication Service _ Validate Authentication failed: missing or
 invalid PARES
-1042 Buyer Authentication Service — Validate Authentication failed: PARES format is 
+1042 Buyer Authentication Service _ Validate Authentication failed: PARES format is 
 invalid
-1043 Buyer Authentication Service — Validate Authentication failed: Cannot find
+1043 Buyer Authentication Service _ Validate Authentication failed: Cannot find
 successful Verify Enrollment
-1044 Buyer Authentication Service — Validate Authentication failed: Signature
+1044 Buyer Authentication Service _ Validate Authentication failed: Signature
 validation failed for PARES
-1045 Buyer Authentication Service — Validate Authentication failed: Mismatched or
+1045 Buyer Authentication Service _ Validate Authentication failed: Mismatched or
 invalid amount in PARES
-1046 Buyer Authentication Service — Validate Authentication failed: Mismatched or
+1046 Buyer Authentication Service _ Validate Authentication failed: Mismatched or
 invalid acquirer in PARES
-1047 Buyer Authentication Service — Validate Authentication failed: Mismatched or
+1047 Buyer Authentication Service _ Validate Authentication failed: Mismatched or
 invalid Merchant ID in PARES
-1048 Buyer Authentication Service — Validate Authentication failed: Mismatched or
+1048 Buyer Authentication Service _ Validate Authentication failed: Mismatched or
 invalid card number in PARES
-1049 Buyer Authentication Service — Validate Authentication failed: Mismatched or
+1049 Buyer Authentication Service _ Validate Authentication failed: Mismatched or
 invalid currency code in PARES
-1050 Buyer Authentication Service — Validate Authentication failed: Mismatched or
+1050 Buyer Authentication Service _ Validate Authentication failed: Mismatched or
 invalid XID in PARES
-1051 Buyer Authentication Service — Validate Authentication failed: Mismatched or
+1051 Buyer Authentication Service _ Validate Authentication failed: Mismatched or
 invalid order date in PARES
-1052 Buyer Authentication Service — Validate Authentication failed: This PARES was 
+1052 Buyer Authentication Service _ Validate Authentication failed: This PARES was 
 already validated for a previous Validate Authentication transaction
 
  */
