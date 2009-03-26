@@ -1011,10 +1011,6 @@ public class ProductPromoWorker {
             BigDecimal orderSubTotal = cart.getSubTotalForPromotions();
             if (Debug.verboseOn()) Debug.logVerbose("Doing order total compare: orderSubTotal=" + orderSubTotal, module);
             compareBase = new Integer(orderSubTotal.compareTo(new BigDecimal(condValue)));
-        } else if ("PPIP_SHIP_TOTAL".equals(inputParamEnumId)) {
-            BigDecimal shippingTotal = cart.getTotalShipping();
-            if (Debug.verboseOn()) Debug.logVerbose("Doing shipping total compare: shippingTotal=" + shippingTotal, module);
-            compareBase = new Integer(shippingTotal.compareTo(new BigDecimal(condValue)));
         } else if ("PPIP_ORST_HIST".equals(inputParamEnumId)) {
             // description="Order sub-total X in last Y Months"
             if (partyId != null && userLogin != null) {
