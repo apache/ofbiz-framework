@@ -221,7 +221,7 @@ function insertImageName(type,nameValue) {
             <h3>${uiLabelMap.ProductDuplicateProductCategory}</h3>
         </div>
         <div class="screenlet-body">  
-            <form action="/catalog/control/DuplicateProductCategory" method="post" style="margin: 0;">
+            <form action="<@ofbizUrl>DuplicateProductCategory</@ofbizUrl>" method="post" style="margin: 0;">
                 <table cellspacing="0" class="basic-table">                
                     <tr><td>
                         ${uiLabelMap.ProductDuplicateProductCategorySelected}:
