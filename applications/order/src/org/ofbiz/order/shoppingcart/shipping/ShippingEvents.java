@@ -152,8 +152,8 @@ public class ShippingEvents {
         String standardMessage = "A problem occurred calculating shipping. Fees will be calculated offline.";
         List errorMessageList = new ArrayList();
 
-        if (shipmentMethodTypeId.equals("NO_SHIPPING")) {
-                return ServiceUtil.returnSuccess();
+        if ("NO_SHIPPING".equals(shipmentMethodTypeId)) {
+            return ServiceUtil.returnSuccess();
         }
 
         if (shipmentMethodTypeId == null || carrierPartyId == null) {
