@@ -52,7 +52,8 @@ float: right;
         <#if !orderItemList?has_content>
             <span class="alert">${uiLabelMap.checkhelper_sales_order_lines_lookup_failed}</span>
         <#else>
-            <form name="updateItemInfo" method="post" action="<@ofbizUrl>updateOrderItems?${paramString}</@ofbizUrl>">
+            <form name="updateItemInfo" method="post" action="<@ofbizUrl>updateOrderItems</@ofbizUrl>">
+            <input type="hidden" name="orderId" value="${orderId}"/>                        
             <#if (orderHeader.orderTypeId == 'PURCHASE_ORDER')>  
               <input type="hidden" name="supplierPartyId" value="${partyId}"/>
               <input type="hidden" name="orderTypeId" value="PURCHASE_ORDER"/>
