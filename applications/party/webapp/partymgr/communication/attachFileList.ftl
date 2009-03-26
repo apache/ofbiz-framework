@@ -1,8 +1,4 @@
   <div id="partyContentList">   
-    <div class="screenlet-title-bar">
-      <h3>${uiLabelMap.MyPageAttachFile}</h3>
-    </div>
-    <div class="screenlet-body">
       <#if commEventContent?has_content>
         <table class="basic-table" cellspacing="0">
           <#list commEventContent as commContent>
@@ -33,5 +29,4 @@
       <#else>
         ${uiLabelMap.PartyNoContent}
       </#if>
-      </div>
   </div>

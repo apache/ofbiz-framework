@@ -433,6 +433,8 @@ public class ConfigXMLReader {
         public String type;
         public String value;
         public boolean saveLastView = false;
+        public boolean saveCurrentView = false;
+        public boolean saveHomeView = false;
         public Map<String, String> redirectParameterMap = FastMap.newInstance();
  
         public RequestResponse(Element responseElement) {
@@ -440,6 +442,8 @@ public class ConfigXMLReader {
             this.type = responseElement.getAttribute("type");
             this.value = responseElement.getAttribute("value");
             this.saveLastView = "true".equals(responseElement.getAttribute("save-last-view"));
+            this.saveCurrentView = "true".equals(responseElement.getAttribute("save-current-view"));
+            this.saveHomeView = "true".equals(responseElement.getAttribute("save-home-view"));
             for (Element redirectParameterElement: UtilXml.childElementList(responseElement, "redirect-parameter")) {
                 String from = redirectParameterElement.getAttribute("from");
                 if (UtilValidate.isEmpty(from)) from = redirectParameterElement.getAttribute("name");

@@ -245,6 +245,7 @@ under the License.
                     <xs:enumeration value="none"/>
                     <xs:enumeration value="view"/>
                     <xs:enumeration value="view-last"><xs:annotation><xs:documentation>Will use the view from the last request unless there is a saved from some previous request (using the save-last-view attribute).</xs:documentation></xs:annotation></xs:enumeration>
+                    <xs:enumeration value="view-home"><xs:annotation><xs:documentation>Will use the view from the last saved 'home' position (using the save-home-view attribute).</xs:documentation></xs:annotation></xs:enumeration>
                     <xs:enumeration value="request"/>
                     <xs:enumeration value="request-redirect"/>
                     <xs:enumeration value="request-redirect-noparam"/>
@@ -255,6 +256,24 @@ under the License.
         <xs:attribute name="value" type="xs:string"/>
         <xs:attribute name="save-last-view" default="false">
             <xs:annotation><xs:documentation>Saves the last (previous) request's view for future use, generally with the view-last type of response.</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="save-current-view" default="false">
+            <xs:annotation><xs:documentation>Saves the current request's view for future use, generally with the view-last type of response.</xs:documentation></xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="save-home-view" default="false">
+            <xs:annotation><xs:documentation>Saves the current request's view for future use, generally with the view-home type of response.</xs:documentation></xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>

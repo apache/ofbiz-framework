@@ -2498,6 +2498,10 @@
         <value xml:lang="ru">Присоединить содержание</value>
         <value xml:lang="th">หัวข้อติดกัน</value>
     </property>
+    <property key="PartyAttachFile">
+        <value xml:lang="en">Attach File</value>
+        <value xml:lang="it">Allega file</value>
+    </property>
     <property key="PartyAttentionName">
         <value xml:lang="cs">Jméno</value>
         <value xml:lang="de">Zu Händen von</value>
@@ -4116,6 +4120,10 @@
         <value xml:lang="th">เปลี่ยนแปลงชื่อที่อยู่เป็นผลสำเร็จ</value>
         <value xml:lang="zh">已成功更新域名。</value>
     </property>
+    <property key="PartyDraftEmails">
+        <value xml:lang="en">Draft Emails</value>
+        <value xml:lang="it">Bozze emails</value>
+    </property>
     <property key="PartyEditCommCustRequest">
         <value xml:lang="de">Kommunikation Kundenanfrage bearbeiten</value>
         <value xml:lang="en">Edit Communication Customer Request</value>
@@ -4513,6 +4521,10 @@
         <value xml:lang="ru">Номер факса</value>
         <value xml:lang="th">หมายเลขแฟกซ์</value>
         <value xml:lang="zh">传真号码</value>
+    </property>
+    <property key="PartyFileAttach">
+        <value xml:lang="en">File Attach.</value>
+        <value xml:lang="it">Allega file</value>
     </property>
     <property key="PartyFinancialHistory">
         <value xml:lang="en">Fin. History</value>
@@ -5746,9 +5758,8 @@
         <value xml:lang="th">ข้อมูลการติดต่อไม่ใช่ของคุณ, คุณไม่อาจจะดูหรือแก้ไขมันได้</value>
         <value xml:lang="zh">指定的联系信息不属于你，你不能浏览或编辑它。</value>
     </property>
-    <property key="PartyDraftEmails">
-        <value xml:lang="en">Draft Emails</value>
-        <value xml:lang="it">Bozze emails</value>
+    <property key="PartyMyCommunications">
+        <value xml:lang="en">My Communications</value>
     </property>
     <property key="PartyName">
         <value xml:lang="cs">Jméno</value>
@@ -6044,6 +6055,12 @@
         <value xml:lang="ru">Прозвище</value>
         <value xml:lang="th">ชื่อเล่น</value>
         <value xml:lang="zh">昵称</value>
+    </property>
+    <property key="PartyNoAccess">
+        <value xml:lang="en">You do not have access to this information</value>
+        <value xml:lang="fr">Vous n'avez pas accès à cette information</value>
+        <value xml:lang="it">Non hai l'accesso a queste informazioni</value>
+        <value xml:lang="th">คุณไม่มีข้อมูลอยู่ในระบบ</value>
     </property>
     <property key="PartyNoBillingAddress">
         <value xml:lang="cs">Nebyla vybrána fakturační adresa</value>

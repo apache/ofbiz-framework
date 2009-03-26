@@ -62,7 +62,11 @@ under the License.
             </else>
         </if-empty>
         <field-to-result field="newEntity.communicationEventId" result-name="communicationEventId"/>
-        
+
+        <if-empty field="newEntity.partyIdFrom">
+            <set field="newEntity.partyIdFrom" from-field="userLogin.partyId"/>            
+        </if-empty>
+
         <!-- if only contactMechId and no partyIdTo is provided for creation email address find the related party -->
         <if-empty field="parameters.partyIdTo">
             <if-not-empty field="parameters.contactMechIdTo">
@@ -74,7 +78,7 @@ under the License.
                 <set field="newEntity.partyIdTo" from-field="partyContactMech.partyId"/>
             </if-not-empty>
         </if-empty>
-        
+
         <now-timestamp field="newEntity.entryDate"/>
         <create-value value-field="newEntity"/>
 
@@ -140,24 +144,32 @@ under the License.
         
         <!-- if the from- or to-party changed change also the roles -->
         <if-not-empty field="parameters.partyIdFrom">
-            <if-compare operator="not-equals" value="parameters.partIdFrom" field="event.partyIdFrom">
-                <!-- check if role exist then delete old role -->
-                <entity-one entity-name="CommunicationEventRole" value-field="roleFrom">
-                    <field-map field-name="communicationEventId" from-field="event.communicationEventId" />
-                    <field-map field-name="partyId" from-field="parameters.partyIdFrom" />
-                    <field-map field-name="roleTypeId" value="ORIGINATOR" />
-                </entity-one>
-                <if-not-empty field="roleFrom">
-                    <remove-value value-field="roleFrom" />
-                </if-not-empty>
-                <!-- add new role -->
-                <set field="newRoleFrom.communicationEventId" from-field="event.communicationEventId" />
-                <set field="newRoleFrom.partyId" from-field="event.partyIdFrom" />
-                <set field="newRoleFrom.roleTypeId" value="ORIGINATOR" />
-                <set field="newRoleFrom.contactMechId" from-field="event.contactMechIdFrom" />
-                <call-service service-name="createCommunicationEventRole"
-                    in-map-name="newRoleFrom" />
-            </if-compare>
+            <if>
+                <condition>
+                    <or>
+                        <if-compare operator="not-equals" value="parameters.partIdFrom" field="event.partyIdFrom"/>
+                        <if-compare operator="not-equals" value="parameters.contactIdFrom" field="event.contactIdFrom"/>
+                    </or>
+                </condition>
+                <then>
+                    <!-- check if role exist then delete old role -->
+                    <entity-one entity-name="CommunicationEventRole" value-field="roleFrom">
+                        <field-map field-name="communicationEventId" from-field="event.communicationEventId" />
+                        <field-map field-name="partyId" from-field="parameters.partyIdFrom" />
+                        <field-map field-name="roleTypeId" value="ORIGINATOR" />
+                    </entity-one>
+                    <if-not-empty field="roleFrom">
+                        <remove-value value-field="roleFrom" />
+                    </if-not-empty>
+                    <!-- add new role -->
+                    <set field="newRoleFrom.communicationEventId" from-field="event.communicationEventId" />
+                    <set field="newRoleFrom.partyId" from-field="event.partyIdFrom" />
+                    <set field="newRoleFrom.roleTypeId" value="ORIGINATOR" />
+                    <set field="newRoleFrom.contactMechId" from-field="event.contactMechIdFrom" />
+                    <call-service service-name="createCommunicationEventRole"
+                        in-map-name="newRoleFrom" />
+                </then>
+            </if>
         </if-not-empty>
         <if-empty field="parameters.partyIdTo">
             <if-not-empty field="parameters.contactMechIdTo">

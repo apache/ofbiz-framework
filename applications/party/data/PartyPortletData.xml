@@ -23,8 +23,8 @@
     <PortalPortlet portalPortletId="party" portletName="Party Info" screenName="Party" screenLocation="component://party/widget/partymgr/ProfileScreens.xml" description="General information about a person or party group" />
 
     <!-- communications -->
-    <PortalPortlet portalPortletId="communications" portletName="Communications"  description="Communication list" 
-        screenName="Communications" screenLocation="component://party/widget/partymgr/CommunicationScreens.xml"
+    <PortalPortlet portalPortletId="MyCommunications" portletName="My Communications"  description="Communication list" 
+        screenName="MyCommunicationEvents" screenLocation="component://party/widget/partymgr/CommunicationScreens.xml"
         editFormName="EditPartyId" editFormLocation="component://party/webapp/partymgr/communication/CommForms.xml" />
     
 

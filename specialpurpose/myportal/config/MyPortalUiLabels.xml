@@ -121,12 +121,6 @@
         <value xml:lang="it">Nuova utente</value>
         <value xml:lang="th">ลงทะเบียน </value>
     </property>
-    <property key="MyPortalNoAccess">
-        <value xml:lang="en">You do not have access to this information</value>
-        <value xml:lang="fr">Vous n'avez pas accès à cette information</value>
-        <value xml:lang="it">Non hai l'accesso a queste informazioni</value>
-        <value xml:lang="th">คุณไม่มีข้อมูลอยู่ในระบบ</value>
-    </property>
     <property key="MyPortalNoAccess1">
         <value xml:lang="en">No Access priviledges has been setup.</value>
         <value xml:lang="fr">Aucun accès privilégié n'a été paramétré.</value>

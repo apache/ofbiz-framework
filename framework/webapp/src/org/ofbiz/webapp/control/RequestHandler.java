@@ -464,9 +464,13 @@ public class RequestHandler {
  
         // if the request has the save-last-view attribute set, save it now before the view can be rendered or other chain done so that the _LAST* session attributes will represent the previous request
         if (nextRequestResponse.saveLastView) {
+        	// Debug.log("======save last view: " + session.getAttribute("_LAST_VIEW_NAME_"));
             session.setAttribute("_SAVED_VIEW_NAME_", session.getAttribute("_LAST_VIEW_NAME_"));
             session.setAttribute("_SAVED_VIEW_PARAMS_", session.getAttribute("_LAST_VIEW_PARAMS_"));
         }
+        String saveName = null;
+        if (nextRequestResponse.saveCurrentView) { saveName = "SAVED"; } 
+        if (nextRequestResponse.saveHomeView) { saveName = "HOME"; } 
  
         if (nextRequestResponse != null && "request".equals(nextRequestResponse.type)) {
             // chained request
@@ -506,7 +510,7 @@ public class RequestHandler {
  
                 // check for an override view, only used if "success" = eventReturn
                 String viewName = (UtilValidate.isNotEmpty(overrideViewUri) && (eventReturn == null || "success".equals(eventReturn))) ? overrideViewUri : nextRequestResponse.value;
-                renderView(viewName, requestMap.securityExternalView, request, response);
+                renderView(viewName, requestMap.securityExternalView, request, response, saveName);
             } else if ("view-last".equals(nextRequestResponse.type)) {
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
  
@@ -527,8 +531,25 @@ public class RequestHandler {
                         request.setAttribute(urlParamEntry.getKey(), urlParamEntry.getValue());
                     }
                 }
+                renderView(viewName, requestMap.securityExternalView, request, response, null);
+            } else if ("view-home".equals(nextRequestResponse.type)) {
+                if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
  
-                renderView(viewName, requestMap.securityExternalView, request, response);
+                // check for an override view, only used if "success" = eventReturn
+                String viewName = (UtilValidate.isNotEmpty(overrideViewUri) && (eventReturn == null || "success".equals(eventReturn))) ? overrideViewUri : nextRequestResponse.value;
+ 
+                // as a further override, look for the _HOME session attributes
+                Map<String, Object> urlParams = null;
+                if (session.getAttribute("_HOME_VIEW_NAME_") != null) {
+                    viewName = (String) session.getAttribute("_HOME_VIEW_NAME_");
+                    urlParams = (Map<String, Object>) UtilGenerics.<String, Object>checkMap(session.getAttribute("_HOME_VIEW_PARAMS_"));
+                }
+                if (urlParams != null) {
+                    for (Map.Entry<String, Object> urlParamEntry: urlParams.entrySet()) {
+                        request.setAttribute(urlParamEntry.getKey(), urlParamEntry.getValue());
+                    }
+                }
+                renderView(viewName, requestMap.securityExternalView, request, response, null);
             } else if ("none".equals(nextRequestResponse.type)) {
                 // no view to render (meaning the return was processed by the event)
                 if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler.doRequest]: Response is handled by the event." + " sessionId=" + UtilHttp.getSessionId(request), module);
@@ -629,8 +650,7 @@ public class RequestHandler {
             throw new RequestHandlerException(ise.getMessage(), ise);
         }
     }
-
-    private void renderView(String view, boolean allowExtView, HttpServletRequest req, HttpServletResponse resp) throws RequestHandlerException {
+    private void renderView(String view, boolean allowExtView, HttpServletRequest req, HttpServletResponse resp, String saveName) throws RequestHandlerException {
         GenericValue userLogin = (GenericValue) req.getSession().getAttribute("userLogin");
         GenericDelegator delegator = (GenericDelegator) req.getAttribute("delegator");
         // workaraound if we are in the root webapp
@@ -664,7 +684,19 @@ public class RequestHandler {
         UtilMisc.makeMapSerializable(paramMap);
         req.getSession().setAttribute("_LAST_VIEW_NAME_", view);
         req.getSession().setAttribute("_LAST_VIEW_PARAMS_", paramMap);
-
+        
+        if ("SAVED".equals(saveName)) {
+        	//Debug.log("======save current view: " + view);
+        	req.getSession().setAttribute("_SAVED_VIEW_NAME_", view);
+        	req.getSession().setAttribute("_SAVED_VIEW_PARAMS_", paramMap);
+        }
+        
+        if ("HOME".equals(saveName)) {
+        	//Debug.log("======save home view: " + view);
+        	req.getSession().setAttribute("_HOME_VIEW_NAME_", view);
+        	req.getSession().setAttribute("_HOME_VIEW_PARAMS_", paramMap);
+        }
+        
         ConfigXMLReader.ViewMap viewMap = (view == null ? null : getControllerConfig().viewMapMap.get(view));
         if (viewMap == null) {
             throw new RequestHandlerException("No definition found for view with name [" + view + "]");

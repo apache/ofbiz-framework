@@ -653,6 +653,20 @@ under the License.
           <key-map field-name="securityGroupId" rel-field-name="groupId"/>
         </relation>
     </entity>
+  <view-entity entity-name="PortalPageAndUserLogin" package-name="org.ofbiz.common.portal"
+    title="PortalPage accessible via security group to a userLogin">
+    <member-entity entity-alias="PP" entity-name="PortalPage"/>
+    <member-entity entity-alias="UG" entity-name="UserLoginSecurityGroup"/>
+    <alias entity-alias="PP" name="portalPageId"/>
+    <alias entity-alias="PP" name="securityGroupId"/>
+    <alias entity-alias="PP" name="parentPortalPageId"/>
+    <alias entity-alias="UG" name="userLoginId"/>
+    <alias entity-alias="UG" name="fromDate"/>
+    <alias entity-alias="UG" name="thruDate"/>
+    <view-link entity-alias="PP" rel-entity-alias="UG">
+      <key-map field-name="securityGroupId" rel-field-name="groupId"/>
+    </view-link>
+  </view-entity>
   <entity entity-name="PortalPageColumn" package-name="org.ofbiz.common.portal" title="Defines a Portal Page">
         <field name="portalPageId" type="id-ne"></field>
         <field name="columnSeqId" type="id-ne"></field>
