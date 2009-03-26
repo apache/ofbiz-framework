@@ -29,41 +29,41 @@ under the License.
             <#if currentStatus.statusId == "ORDER_CREATED" || currentStatus.statusId == "ORDER_PROCESSING">
               <li><a href="javascript:document.OrderApproveOrder.submit()">${uiLabelMap.OrderApproveOrder}</a></li>
               <form name="OrderApproveOrder" method="post" action="<@ofbizUrl>changeOrderStatus/orderview</@ofbizUrl>">
-                <input type="hidden" name="statusId" value="ORDER_APPROVED">
-                <input type="hidden" name="setItemStatus" value="Y">
-                <input type="hidden" name="workEffortId" value=${workEffortId?if_exists}>
-                <input type="hidden" name="orderId" value=${orderId?if_exists}>
-                <input type="hidden" name="partyId" value=${assignPartyId?if_exists}>
-                <input type="hidden" name="roleTypeId" value=${assignRoleTypeId?if_exists}>
-                <input type="hidden" name="fromDate" value=${fromDate?if_exists}>
+                <input type="hidden" name="statusId" value="ORDER_APPROVED"/>
+                <input type="hidden" name="setItemStatus" value="Y"/>
+                <input type="hidden" name="workEffortId" value="${workEffortId?if_exists}"/>
+                <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
+                <input type="hidden" name="partyId" value="${assignPartyId?if_exists}"/>
+                <input type="hidden" name="roleTypeId" value="${assignRoleTypeId?if_exists}"/>
+                <input type="hidden" name="fromDate" value="${fromDate?if_exists}"/>
               </form>
             <#elseif currentStatus.statusId == "ORDER_APPROVED">
               <li><a href="javascript:document.OrderHold.submit()">${uiLabelMap.OrderHold}</a></li>
               <form name="OrderHold" method="post" action="<@ofbizUrl>changeOrderStatus/orderview</@ofbizUrl>">
-                <input type="hidden" name="statusId" value="ORDER_HOLD">
-                <input type="hidden" name="workEffortId" value=${workEffortId?if_exists}>
-                <input type="hidden" name="orderId" value=${orderId?if_exists}>
-                <input type="hidden" name="partyId" value=${assignPartyId?if_exists}>
-                <input type="hidden" name="roleTypeId" value=${assignRoleTypeId?if_exists}>
-                <input type="hidden" name="fromDate" value=${fromDate?if_exists}>
+                <input type="hidden" name="statusId" value="ORDER_HOLD"/>
+                <input type="hidden" name="workEffortId" value="${workEffortId?if_exists}"/>
+                <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
+                <input type="hidden" name="partyId" value="${assignPartyId?if_exists}"/>
+                <input type="hidden" name="roleTypeId" value="${assignRoleTypeId?if_exists}"/>
+                <input type="hidden" name="fromDate" value="${fromDate?if_exists}"/>
               </form>
             <#elseif currentStatus.statusId == "ORDER_HOLD">
               <li><a href="javascript:document.OrderApproveOrder.submit()">${uiLabelMap.OrderApproveOrder}</a></li>
               <form name="OrderApproveOrder" method="post" action="<@ofbizUrl>changeOrderStatus/orderview</@ofbizUrl>">
-                <input type="hidden" name="statusId" value="ORDER_APPROVED">
-                <input type="hidden" name="setItemStatus" value="Y">
-                <input type="hidden" name="workEffortId" value=${workEffortId?if_exists}>
-                <input type="hidden" name="orderId" value=${orderId?if_exists}>
-                <input type="hidden" name="partyId" value=${assignPartyId?if_exists}>
-                <input type="hidden" name="roleTypeId" value=${assignRoleTypeId?if_exists}>
-                <input type="hidden" name="fromDate" value=${fromDate?if_exists}>
+                <input type="hidden" name="statusId" value="ORDER_APPROVED"/>
+                <input type="hidden" name="setItemStatus" value="Y"/>
+                <input type="hidden" name="workEffortId" value="${workEffortId?if_exists}"/>
+                <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
+                <input type="hidden" name="partyId" value="${assignPartyId?if_exists}"/>
+                <input type="hidden" name="roleTypeId" value="${assignRoleTypeId?if_exists}"/>
+                <input type="hidden" name="fromDate" value="${fromDate?if_exists}"/>
               </form>
             </#if>
             <#if setOrderCompleteOption>
               <li><a href="javascript:document.OrderCompleteOrder.submit()">${uiLabelMap.OrderCompleteOrder}</a></li>
               <form name="OrderCompleteOrder" method="post" action="<@ofbizUrl>changeOrderStatus</@ofbizUrl>">
-                <input type="hidden" name="statusId" value="ORDER_COMPLETED">
-                <input type="hidden" name="orderId" value=${orderId?if_exists}>
+                <input type="hidden" name="statusId" value="ORDER_COMPLETED"/>
+                <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
               </form>
             </#if>
         </ul>
