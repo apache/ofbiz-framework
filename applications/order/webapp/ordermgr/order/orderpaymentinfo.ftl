@@ -115,7 +115,15 @@ under the License.
                   <td width="10%">
                     <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
                      <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
-                        <div><a href="<@ofbizUrl>updateOrderPaymentPreference?orderId=${orderId}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&statusId=PAYMENT_CANCELLED&checkOutPaymentId=${paymentMethod.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a></div>
+                        <div>
+                          <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
+                          <form name="CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}" method="post" action="<@ofbizUrl>updateOrderPaymentPreference</@ofbizUrl>">
+                            <input type="hidden" name="orderId" value="${orderId}">
+                            <input type="hidden" name="orderPaymentPreferenceId" value="${orderPaymentPreference.orderPaymentPreferenceId}">
+                            <input type="hidden" name="statusId" value="PAYMENT_CANCELLED">
+                            <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId?if_exists}">
+                          </form>
+                        </div>
                      </#if>
                     </#if>
                   </td>
@@ -152,7 +160,15 @@ under the License.
                   <td width="10%">
                    <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
                     <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">                        
-                      <div><a href="<@ofbizUrl>updateOrderPaymentPreference?orderId=${orderId}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&amp;statusId=PAYMENT_CANCELLED&amp;checkOutPaymentId=${paymentMethod.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a></div>
+                      <div>
+                        <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
+                        <form name="CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}" method="post" action="<@ofbizUrl>updateOrderPaymentPreference</@ofbizUrl>">
+                          <input type="hidden" name="orderId" value="${orderId}">
+                          <input type="hidden" name="orderPaymentPreferenceId" value="${orderPaymentPreference.orderPaymentPreferenceId}">
+                          <input type="hidden" name="statusId" value="PAYMENT_CANCELLED">
+                          <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId?if_exists}">
+                        </form>
+                      </div>
                     </#if>
                    </#if>
                   </td>
@@ -229,7 +245,13 @@ under the License.
                 <td width="10%">
                   <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
                    <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">                        
-                      <div><a href="<@ofbizUrl>updateOrderPaymentPreference?orderId=${orderId}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&amp;statusId=PAYMENT_CANCELLED&amp;checkOutPaymentId=${paymentMethod.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a></div>
+                      <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
+                      <form name="CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}" method="post" action="<@ofbizUrl>updateOrderPaymentPreference</@ofbizUrl>">
+                        <input type="hidden" name="orderId" value="${orderId}">
+                        <input type="hidden" name="orderPaymentPreferenceId" value="${orderPaymentPreference.orderPaymentPreferenceId}">
+                        <input type="hidden" name="statusId" value="PAYMENT_CANCELLED">
+                        <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId?if_exists}">
+                      </form>
                    </#if>
                   </#if>
                 </td>
@@ -263,7 +285,13 @@ under the License.
                 <td width="10%">
                   <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
                    <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">                        
-                      <div><a href="<@ofbizUrl>updateOrderPaymentPreference?orderId=${orderId}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&statusId=PAYMENT_CANCELLED&checkOutPaymentId=${paymentMethod.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a></div>
+                      <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
+                      <form name="CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}" method="post" action="<@ofbizUrl>updateOrderPaymentPreference</@ofbizUrl>">
+                        <input type="hidden" name="orderId" value="${orderId}">
+                        <input type="hidden" name="orderPaymentPreferenceId" value="${orderPaymentPreference.orderPaymentPreferenceId}">
+                        <input type="hidden" name="statusId" value="PAYMENT_CANCELLED">
+                        <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId?if_exists}">
+                      </form>
                    </#if>
                   </#if>
                 </td>
@@ -294,7 +322,7 @@ under the License.
                           <#assign pcardNumber = giftCard.cardNumber>
                           <#if pcardNumber?has_content>
                             <#assign psize = pcardNumber?length - 4>
-                            <#if 0 < psize>
+                            <#if (psize > 0)>
                               <#list 0 .. psize-1 as foo>
                                 <#assign giftCardNumber = giftCardNumber + "*">
                               </#list>
@@ -315,7 +343,13 @@ under the License.
                 <td width="10%">
                   <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
                    <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">                        
-                      <div><a href="<@ofbizUrl>updateOrderPaymentPreference?orderId=${orderId}&orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}&statusId=PAYMENT_CANCELLED&checkOutPaymentId=${paymentMethod.paymentMethodTypeId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonCancel}</a></div>
+                      <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
+                      <form name="CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}" method="post" action="<@ofbizUrl>updateOrderPaymentPreference</@ofbizUrl>">
+                        <input type="hidden" name="orderId" value="${orderId}">
+                        <input type="hidden" name="orderPaymentPreferenceId" value="${orderPaymentPreference.orderPaymentPreferenceId}">
+                        <input type="hidden" name="statusId" value="PAYMENT_CANCELLED">
+                        <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId?if_exists}">
+                      </form>
                    </#if>
                   </#if>
                 </td>

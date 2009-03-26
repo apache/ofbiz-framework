@@ -1454,8 +1454,10 @@ under the License.
     <request-map uri="updateOrderPaymentPreference">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateOrderPaymentPreference"/>
-        <response name="success" type="request-redirect" value="orderview"/>
-        <response name="error" type="request-redirect" value="orderview"/>
+        <response name="success" type="request-redirect" value="orderview">
+            <redirect-parameter name="orderId"/>
+        </response>
+        <response name="error" type="view" value="orderview"/>
     </request-map>
     <request-map uri="setOrderReservationPriority">
         <security https="true" auth="true"/>
