@@ -28,7 +28,7 @@
     
     <!-- PortalPortlet System provided pages -->
     <!-- no security group -->
-    <PortalPage portalPageId="MYPORTAL_NONE" portalPageName="Main" description="The default OFBiz portal page" ownerUserLoginId="_NA_"/><!-- user belonging to no portal security group -->
+    <PortalPage portalPageId="MYPORTAL_NONE" sequenceNum="0" portalPageName="Main" description="The default OFBiz portal page" ownerUserLoginId="_NA_"/><!-- user belonging to no portal security group -->
     
     <PortalPage portalPageId="MYPORTAL_EMPLOYEE" sequenceNum="0" portalPageName="Main" description="The OFBiz My Portal Main page" ownerUserLoginId="_NA_" securityGroupId="MYPORTAL_EMPLOYEE" />
     <PortalPage portalPageId="MYPORTAL_EMPLOYEE1" sequenceNum="100" portalPageName="My Profile" description="The OFBiz My Portal Profile page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
@@ -104,7 +104,7 @@
     <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0" />
     
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE" portalPortletId="listrequestlist" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>    
-    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE" portalPortletId="communications" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="LoyaltyPoints" portletSeqId="00001" columnSeqId="00001" sequenceNum="2"/>
@@ -117,14 +117,14 @@
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="ShipperAccount" portletSeqId="00001" columnSeqId="00002" sequenceNum="9"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002" sequenceNum="10"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="MYTASKSPARTY" portletSeqId="00001" columnSeqId="00002" sequenceNum="11"/>
-    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE2" portalPortletId="communications" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
-    <PortletAttribute portalPageId="MYPORTAL_EMPLOYEE2" portalPortletId="communications" portletSeqId="00001" attrName="communicationPartyId" attrValue="Company"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE2" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
+    <PortletAttribute portalPageId="MYPORTAL_EMPLOYEE2" portalPortletId="MyCommunications" portletSeqId="00001" attrName="communicationPartyId" attrValue="Company"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE3" portalPortletId="mycompanycomms" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE4" portalPortletId="mytimesheet" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE5" portalPortletId="mytasks" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML" portalPortletId="listrequestlist" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>    
-    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML" portalPortletId="communications" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001"  sequenceNum="1"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="UserLogin" portletSeqId="00001" columnSeqId="00002"  sequenceNum="2"/>
@@ -133,8 +133,8 @@
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002"  sequenceNum="5"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002"  sequenceNum="6"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="MYTASKSPARTY" portletSeqId="00001" columnSeqId="00002"  sequenceNum="7"/>
-    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML2" portalPortletId="communications" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
-    <PortletAttribute portalPageId="MYPORTAL_EMPL-NOEML2" portalPortletId="communications" portletSeqId="00001" attrName="communicationPartyId" attrValue="Company"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML2" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
+    <PortletAttribute portalPageId="MYPORTAL_EMPL-NOEML2" portalPortletId="MyCommunications" portletSeqId="00001" attrName="communicationPartyId" attrValue="Company"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML3" portalPortletId="mycompanycomms" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML4" portalPortletId="mytimesheet" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML5" portalPortletId="mytasks" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>

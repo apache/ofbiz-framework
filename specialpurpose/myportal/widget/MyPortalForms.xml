@@ -189,61 +189,6 @@ under the License.
         <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
-    <form name="MyPortalNewEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
-        <actions>
-            <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>            
-            <entity-condition entity-name="PartyContactWithPurpose" list="emailAddresses">
-                <condition-list combine="and">
-                    <condition-expr field-name="partyId" value="${userLogin.partyId}"/>
-                    <condition-expr field-name="contactFromDate" operator="less-equals" from-field="nowDate"/>
-                    <condition-list combine="or">
-                        <condition-expr field-name="contactThruDate" from-field="null"/>
-                        <condition-expr field-name="contactThruDate" operator="greater-equals" from-field="nowDate"/>
-                    </condition-list>
-                    <condition-expr field-name="purposeFromDate" operator="less-equals" from-field="nowDate"/>
-                    <condition-list combine="or">
-                        <condition-expr field-name="purposeThruDate" operator="greater-equals" from-field="nowDate"/>
-                        <condition-expr field-name="purposeThruDate" from-field="null"/>
-                    </condition-list>
-                    <condition-expr field-name="contactMechPurposeTypeId" operator="equals" value="PRIMARY_EMAIL"/>
-                    <condition-expr field-name="contactMechTypeId" operator="equals" value="EMAIL_ADDRESS"/>
-                </condition-list>
-                <order-by field-name="infoString"/>
-            </entity-condition>
-            <set field="communicationEventId" from-field="parameters.communicationEventId"/>
-        </actions>
-        <alt-target use-when="communicationEventId!=null" target="updateCommunicationEvent"/>
-        <field name="donePage"><hidden/></field>        
-        <field name="communicationEventId"  use-when="communicationEventId!=null"><hidden/></field> 
-        <field name="communicationEventTypeId"><hidden value="AUTO_EMAIL_COMM"/></field>
-        <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
-        <field name="parentCommEventId" use-when="parentCommEventId != null"><hidden value="${parameters.parentCommEventId}"/></field>
-        <field name="parentCommEventId" use-when="originalCommEventId != null"><hidden value="${parameters.originalCommEventId}"/></field>
-        <field name="partyIdFrom"><hidden value="${userLogin.partyId}"/></field>
-        <field name="emailAddress" parameter-name="contactMechIdFrom">
-            <drop-down>
-                <list-options list-name="emailAddresses" description="${infoString}" key-name="contactMechId"/>
-            </drop-down>
-        </field>
-        <field name="contactMechIdTo" title="${uiLabelMap.PartyEmailTo}">
-            <lookup target-form-name="LookupPartyEmail" default-value="${parameters.contactMechIdTo}"/>
-        </field>
-        <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time/></field>
-        <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>
-        <field name="fileAttach" title="${uiLabelMap.MyPageFileAttach}"><display/></field>
-        <field name="fileAttach" title="${uiLabelMap.MyPageFileAttach}">
-            <hyperlink target="addAttachmentEmail?communicationEventTypeId=${parameters.communicationEventTypeId}&amp;partyId=${userLogin.partyId}&amp;communicationEventId=${parameters.communicationEventId}" description="${uiLabelMap.MyPageAttachFile}"/>
-        </field>
-        <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="80" rows="20" default-value="${parameters.content}"/></field>
-        <field name="send" title="&amp;nbsp;" position="1">
-            <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSend}" target="javascript:(document.MyPortalNewEmail.submit())"/>
-        </field>
-        <field name="save" title="&amp;nbsp;" position="2">
-            <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.MyPortalNewEmail.statusId.value='COM_PENDING'),(document.MyPortalNewEmail.submit())"/>
-        </field>
-        <field name="dummy" position="320"><hidden/></field>
-    </form>
     <form name="ListPhaseInfo" extends="ListPhaseInfo" extends-resource="component://projectmgr/widget/forms/ProjectForms.xml">
         <field name="phase"><display description="${phaseName}"/></field>
     </form>

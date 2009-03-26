@@ -304,7 +304,6 @@
     <view-map name="ListProjects" type="screen" page="component://mypage/widget/MyPageScreens.xml#ListProjects"/>
     <view-map name="custPreferences" type="screen" page="component://mypage/widget/CommonScreens.xml#custPreferences"/>
     <view-map name="EditCommunicationEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#EditCommunicationEvent"/>
-    <view-map name="addAttachmentEmail" type="screen" page="component://mypage/widget/MyPageScreens.xml#addAttachmentEmail"/>
     <view-map name="EditCustRequestContent" type="screen" page="component://mypage/widget/MyPageScreens.xml#EditCustRequestContent"/>      
     
 </site-conf>

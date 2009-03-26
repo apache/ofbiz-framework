@@ -8039,6 +8039,9 @@
         <value xml:lang="th">ค้นหา</value>
         <value xml:lang="zh">搜索</value>
     </property>
+    <property key="FormFieldTitle_saveButton">
+        <value xml:lang="en">Save</value>
+    </property>
     <property key="FormFieldTitle_sendButton">
         <value xml:lang="de">Absenden</value>
         <value xml:lang="en">Send</value>

@@ -20,6 +20,38 @@ under the License.
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
 
+    <menu name="PartyAppBar" title="${uiLabelMap.PartyManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="find" title="${uiLabelMap.PartyParties}"><link target="findparty"/></menu-item>
+        <menu-item name="mycomm" title="${uiLabelMap.PartyMyCommunications}"><link target="MyCommunicationEvents"/></menu-item>
+        <menu-item name="comm" title="${uiLabelMap.PartyCommunications}"><link target="FindCommunicationEvents"/></menu-item>
+        <menu-item name="visits" title="${uiLabelMap.PartyVisits}"><link target="showvisits"/></menu-item>
+        <menu-item name="classification" title="${uiLabelMap.PartyClassifications}"><link target="showclassgroups"/></menu-item>
+        <menu-item name="security" title="${uiLabelMap.CommonSecurity}">
+            <condition>
+                <if-has-permission permission="PARTYMGR" action="_VIEW"/>
+            </condition>
+            <link target="FindSecurityGroup"/>
+        </menu-item>
+        <menu-item name="addrmap" title="${uiLabelMap.PageTitleAddressMatchMap}"><link target="addressMatchMap"/></menu-item>
+        <menu-item name="partyinv" title="${uiLabelMap.PartyInvitation}"><link target="partyInvitation"/></menu-item>
+    </menu>
+    
+    <menu name="SecurityGroupTabBar" default-menu-item-name="EditSecurityGroup" default-selected-style="selected"
+        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="EditSecurityGroup" title="${uiLabelMap.PartySecurityGroups}">
+            <link target="EditSecurityGroup?groupId=${groupId}"/>
+        </menu-item>
+        <menu-item name="EditSecurityGroupPermissions" title="${uiLabelMap.PartyPermissions}">
+            <link target="EditSecurityGroupPermissions?groupId=${groupId}"/>
+        </menu-item>
+        <menu-item name="EditSecurityGroupUserLogins" title="${uiLabelMap.PartyUserLogins}">
+            <link target="EditSecurityGroupUserLogins?groupId=${groupId}"/>
+        </menu-item>
+        <menu-item name="EditSecurityGroupProtectedViews" title="${uiLabelMap.PartyProtectedViews}">
+            <link target="EditSecurityGroupProtectedViews?groupId=${groupId}"/>
+        </menu-item>
+    </menu>
+    
     <menu name="ProfileTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="viewprofile">
         <menu-item name="viewprofile" title="${uiLabelMap.PartyProfile}">
@@ -130,18 +162,6 @@ under the License.
             </condition>
             <link target="/ordermgr/control/checkinits?partyId=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app"/> 
         </menu-item>
-        <!-- menu-item name="paymentsSent" title="${uiLabelMap.AccountingPaymentsSent}">
-            <condition>
-                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
-            </condition>
-            <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdTo=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app"/> 
-        </menu-item>
-        <menu-item name="paymentsReceived" title="${uiLabelMap.AccountingPaymentsReceived}">
-            <condition>
-                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
-            </condition>
-            <link target="/accounting/control/findPayments?lookupFlag=Y&amp;hideFields=Y&amp;partyIdFrom=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app"/> 
-        </menu-item-->
     </menu>
     <menu name="create-new-party" type="simple" menu-container-style="basic-nav">
         <menu-item name="create-party-group" title="${uiLabelMap.PartyCreateNewPartyGroup}">
@@ -198,21 +218,27 @@ under the License.
             <condition>
                 <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
             </condition>      
-            <link
-                target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;portalPageId=${parameters.portalPageId}&amp;statusId=COM_PENDING"/>
+            <link target="NewDraftCommunicationEvent">
+                <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
+                <parameter param-name="my" value="My"/>
+                <parameter param-name="statusId" value="COM_PENDING"/>
+            </link>
         </menu-item>
         <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}">
             <condition>
                 <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
             </condition>      
-            <link
-                target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;portalPageId=${parameters.portalPageId}" />
+            <link target="NewDraftCommunicationEvent">
+                <parameter param-name="communicationEventTypeId" value="COMMENT_NOTE"/>
+                <parameter param-name="my" value="My"/>
+                <parameter param-name="statusId" value="COM_PENDING"/>
+            </link>
         </menu-item>
         <menu-item name="openEvents" title="${uiLabelMap.PartyOpenEvents}">
             <condition>
                 <if-compare field="parameters.all" operator="equals" value="true" />
             </condition>
-            <link target="showPortalPage?portalPageId=${parameters.portalPageId}&amp;all=false" />
+            <link target="${bsh:session.getAttribute(&quot;_LAST_VIEW_NAME_&quot;)}?portalPageId=${parameters.portalPageId}&amp;all=false" />
         </menu-item>
         <menu-item name="allOtherEvents" title="${uiLabelMap.PartyAllEvents}">
             <condition>
@@ -221,8 +247,216 @@ under the License.
                     <if-empty field="parameters.all"/>
                 </or>
             </condition>
-            <link target="showPortalPage?portalPageId=${parameters.portalPageId}&amp;all=true" />
+            <link target="${bsh:session.getAttribute(&quot;_LAST_VIEW_NAME_&quot;)}?portalPageId=${parameters.portalPageId}&amp;all=true" />
         </menu-item>
     </menu>    
+    <menu name="MyCommSubTabBar" menu-container-style="button-bar button-style-2">
+        <actions>
+            <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/GetMyCommunicationEventRole.groovy"/>
+        </actions>
+        <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
+            <condition>
+                <and>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
+                    <if-empty field="communicationEvent"/>
+                </and>
+            </condition>
+            <link target="NewDraftCommunicationEvent">
+                <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
+                <parameter param-name="my" value="My"/>
+                <parameter param-name="statusId" value="COM_PENDING"/>
+            </link>
+        </menu-item>
+        <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
+            <condition>
+                <and>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+                    <if-empty field="communicationEvent"/>
+                </and>
+            </condition>
+            <link target="NewDraftCommunicationEvent">
+                <parameter param-name="communicationEventTypeId" value="COMMENT_NOTE"/>
+                <parameter param-name="my" value="My"/>
+                <parameter param-name="statusId" value="COM_PENDING"/>
+            </link>
+        </menu-item>
+        <menu-item name="reply" title="${uiLabelMap.PartyReply}">
+            <condition>
+                <and>
+                    <not><if-empty field="communicationEvent"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
+                    <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
+                    <if-compare field="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+                </and>
+            </condition>
+            <link target="NewDraftCommunicationEvent">
+                <parameter param-name="communicationEventTypeId" value="communicationEvent.communicationEventTypeId"/>
+                <parameter param-name="parentCommEventId" from-field="parameters.communicationEventId"/>
+                <parameter param-name="my" value="My"/>
+            </link>
+        </menu-item>
+        <menu-item name="forward" title="${uiLabelMap.PartyForward}">
+            <condition>
+                <and>
+                    <not><if-empty field="communicationEvent"/></not>
+                    <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+                </and>
+            </condition>
+            <link target="NewDraftCommunicationEvent">
+                <parameter param-name="communicationEventTypeId" value="communicationEvent.communicationEventTypeId"/>
+                <parameter param-name="originalCommEventId" from-field="parameters.communicationEventId"/>
+                <parameter param-name="my" value="My"/>
+            </link>
+        </menu-item>
+        <menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
+            <condition>
+                <and>
+                    <not><if-empty field="communicationEvent"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
+                    <if-compare field="communicationEvent.statusId" operator="not-equals" value="COM_PENDING"/>
+                    <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
+                </and>
+            </condition>
+            <link target="editRequestFromCommEvent?communicationEventId=${communicationEvent.communicationEventId}&amp;my=${parameters.my}"/>
+        </menu-item>
+        <menu-item name="close" title="${uiLabelMap.CommonClose}">
+            <condition>
+                <and>
+                    <not><if-empty field="communicationEvent"/></not>
+                    <if-compare field="myCommunicationEventRole.roleStatusId" operator="equals" value="COM_ROLE_READ"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
+                </and>
+            </condition>
+            <link target="setCommunicationEventRoleStatus?communicationEventId=${communicationEvent.communicationEventId}&amp;partyId=${myCommunicationEventRole.partyId&amp;roleType=${myCommunicationEventRole.roleTypeId}&amp;statusId=COM_ROLE_COMPLETED"/>
+        </menu-item>
+        <menu-item name="delete" title="${uiLabelMap.CommonDelete}">
+            <condition>
+                <and>
+                    <not><if-empty field="communicationEvent"/></not>
+                    <or>
+                        <if-has-permission permission="PARTYMGR_CME-EMAIL_DELETE"/>
+                        <if-has-permission permission="PARTYMGR_ADMIN"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="deleteCommunicationEvent">
+                <parameter param-name="communicationEventId" from-field="communicationEvent.communicationEventId"/>
+            </link>
+        </menu-item>
+    </menu>
+    <menu name="CommEventTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="Find" title="${uiLabelMap.CommonFind}">
+            <condition><if-compare field="tabButtonItem" operator="not-equals" value="Find"/></condition>
+            <link target="FindCommunicationEvents"/>
+        </menu-item>
+        <menu-item name="OverView" title="${uiLabelMap.CommonOverview}">
+            <condition><not><if-empty field="communicationEvent"/></not></condition>
+            <link target="ViewCommunicationEvent?communicationEventId=${parameters.communicationEventId}"/>
+        </menu-item>
+        <menu-item name="CommunicationEvent" title="${uiLabelMap.PartyCommEvent}">
+            <condition><not><if-empty field="communicationEvent"/></not></condition>
+            <link target="EditCommunicationEvent?communicationEventId=${parameters.communicationEventId}"/>
+        </menu-item>
+        <menu-item name="UpdateCommPurposes" title="${uiLabelMap.PartyEventPurpose}">
+            <condition><not><if-empty field="communicationEvent"/></not></condition>
+            <link target="UpdateCommPurposes?communicationEventId=${parameters.communicationEventId}"/>
+        </menu-item>
+        <menu-item name="UpdateCommRoles" title="${uiLabelMap.PartyRoles}">
+            <condition><not><if-empty field="communicationEvent"/></not></condition>
+            <link target="UpdateCommRoles?communicationEventId=${parameters.communicationEventId}"/>
+        </menu-item>
+        <menu-item name="UpdateCommWorkEfforts" title="${uiLabelMap.PartyCommWorkEfforts}">
+            <condition><not><if-empty field="communicationEvent"/></not></condition>
+            <link target="ListCommWorkEfforts?communicationEventId=${parameters.communicationEventId}"/>
+        </menu-item>
+        <menu-item name="CommContent" title="${uiLabelMap.CommonContent}">
+            <condition><not><if-empty field="communicationEvent"/></not></condition>
+            <link target="ListCommContent?communicationEventId=${parameters.communicationEventId}"/>
+        </menu-item>
+        <!-- TODO! 
+            <menu-item name="ListCommCustRequests" title="CustRequests">
+            <link target="ListCommCustRequests?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
+            </menu-item>
+        -->
+        <menu-item name="ListUnknownPartyComms" title="${uiLabelMap.PartyEmailFromUnknownParties}">
+            <link target="listUnknownPartyComms"/>
+        </menu-item>
+    </menu>
+    <menu name="CommFindTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+        default-menu-item-name="find">
+        <menu-item name="find" title="${uiLabelMap.CommonFind}">
+            <link target="findCommunications?partyId=${partyId}&amp;communicationEventId=${communicationEventId}" url-mode="intra-app"/>
+        </menu-item>
+        <menu-item name="showall" title="${uiLabelMap.CommonShowAll}">
+            <link target="listCommunications?partyId=${partyId}&amp;communicationEventId=${communicationEventId}" url-mode="intra-app"/>
+        </menu-item>
+        <menu-item name="pending" title="${uiLabelMap.PartyPending}">
+            <link target="pendingCommunications?partyId=${partyId}&amp;communicationEventId=${communicationEventId}" url-mode="intra-app"/>
+        </menu-item>
+    </menu>
+    
+    <menu name="CommSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+        menu-container-style="button-bar button-style-2 no-clear">
+        <menu-item name="new" title="${uiLabelMap.PartyNewCommunication}">
+            <link target="EditCommunicationEvent"/>
+        </menu-item>
+        <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
+            <link target="EditCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION"/>
+        </menu-item>
+        <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
+            <link target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE"/>
+        </menu-item>
+        <menu-item name="reply" title="${uiLabelMap.PartyReply}">
+            <condition>
+                <and>
+                    <not><if-empty field="parameters.communicationEventId"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
+                    <if-compare field="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
+                </and>
+            </condition>
+            <link target="EditCommunicationEvent?parentCommEventId=${parameters.communicationEventId}"/>
+        </menu-item>
+        <menu-item name="forward" title="${uiLabelMap.PartyForward}">
+            <condition>
+                <and>
+                    <not><if-empty field="parameters.communicationEventId"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
+                    <if-compare field="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
+                </and>
+            </condition>
+            <link target="EditCommunicationEvent?originalCommEventId=${parameters.communicationEventId}"/>
+        </menu-item>
+        <menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
+            <condition>
+                <and>
+                    <not><if-empty field="parameters.communicationEventId"/></not>
+                    <not><if-empty field="communicationEvent.partyIdFrom"/></not>
+                    <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
+                </and>
+            </condition>
+            <link target="editRequestFromCommEvent?communicationEventId=${parameters.communicationEventId}"/>
+        </menu-item>
+        <menu-item name="delete" title="${uiLabelMap.CommonDelete}">
+            <condition>
+                <and>
+                    <not><if-empty field="communicationEventRole"/></not>
+                    <or>
+                        <if-has-permission permission="PARTYMGR_CME-EMAIL_DELETE"/>
+                        <if-has-permission permission="PARTYMGR_ADMIN"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="RemoveCommunicationEventRole">
+                <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
+                <parameter param-name="roleTypeId" from-field="communicationEventRole.roleTypeId"/>
+                <parameter param-name="deleteCommEventIfLast" value="Y"/>
+                <parameter param-name="delContentDataResource" value="Y"/>
+            </link>
+        </menu-item>
+    </menu>
     
 </menus>

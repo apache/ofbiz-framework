@@ -96,12 +96,12 @@ if (parameters.userLogin) {
             ],EntityOperator.AND);
     sequenceNums = delegator.findList("PortalPage", sequenceNumCond, null, ["sequenceNum"], null, false);
     if(sequenceNums){
-       parameters.sequenceNumMin = sequenceNums.get(0).sequenceNum;
-       parameters.sequenceNumMax = sequenceNums.get(sequenceNums.size()-1).sequenceNum;
+       context.parameters.sequenceNumMin = sequenceNums.get(0).sequenceNum;
+       context.parameters.sequenceNumMax = sequenceNums.get(sequenceNums.size()-1).sequenceNum;
     }
     else{
-       parameters.sequenceNumMin = "null";
-       parameters.sequenceNumMax = "null";
+       context.parameters.sequenceNumMin = "null";
+       context.parameters.sequenceNumMax = "null";
     }
     
     context.portalPages = portalPages;

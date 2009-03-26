@@ -46,7 +46,7 @@ under the License.
                                         <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="ProfileTabBar"/>
                                     </widgets>
                                 </section>
-                                <include-menu location="component://party/webapp/partymgr/communication/CommMenus.xml" name="CommFindTabBar"/>
+                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommFindTabBar"/>
                                 <container><label style="h1" text="${uiLabelMap.PartyPendingCommunicationEvents}"/></container>
                                 <container><link style="smallSubmit" target="ViewCommunicationEvent?partyId=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/></container>
                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListPendingCommEvents"/>
@@ -71,7 +71,12 @@ under the License.
                 <set field="partyId" value="${parameters.partyId}"/>
                 <set field="partyIdFrom" value="${parameters.partyIdFrom}" default-value="${parameters.partyId}"/>
                 <set field="partyIdTo" value="${parameters.partyIdTo}" default-value="${parameters.partyId}"/>
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="ListPartyCommEvents?partyId=${partyId}"/>
+                <entity-condition entity-name="CommunicationEventAndRole" list="commEvents">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyId" operator="equals" value="${partyId}"/>
+                    </condition-list>
+                    <order-by field-name="-entryDate"/>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
@@ -137,10 +142,10 @@ under the License.
                                 <if-service-permission service-name="partyCommunicationEventPermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <include-menu location="component://party/webapp/partymgr/communication/CommMenus.xml" name="CommEventTabBar"/>
+                                <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommEventTabBar"/>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="menu-bar">
-                                        <include-menu name="CommSubTabBar" location="component://party/webapp/partymgr/communication/CommMenus.xml"/>
+                                        <include-menu name="CommSubTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="findCommEvents"/>
@@ -168,71 +173,79 @@ under the License.
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent" />
             </actions>
             <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator"
-                    location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="Common${parameters.my}CommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="lefthalf">
-                            <label style="h1" text="${uiLabelMap.PartyCommEvent}: ${parameters.communicationEventId}"></label>
-                            <include-screen name="commEvent" />
-                            <section>
-                                <condition>
-                                    <not>
-                                        <if-empty field="communicationEvent.parentCommEventId" />
-                                    </not>
-                                </condition>
-                                <actions>
-                                    <set field="parent" value="${uiLabelMap.CommonParent}"/>
-                                    <entity-one entity-name="CommunicationEvent"
-                                        value-field="communicationEvent">
-                                        <field-map field-name="communicationEventId"
-                                            from-field="communicationEvent.parentCommEventId" />
-                                    </entity-one>
-                                </actions>
-                                <widgets>
-                                    <include-screen name="commEvent" />
-                                </widgets>
-                            </section>
-                        </container>
-                        <container style="righthalf">
-                            <label style="h1" text="${uiLabelMap.CommonRelatedInformation}" />
-                            <screenlet title="${uiLabelMap.PartyCommEventRoles}">
-                                <include-form name="ViewCommRoles"
-                                    location="component://party/webapp/partymgr/communication/CommForms.xml" />
-                            </screenlet>
-                            <screenlet title="${uiLabelMap.PartyCommContent}">
-                                <include-form name="listCommContent"
-                                    location="component://party/webapp/partymgr/communication/CommForms.xml" />
-                            </screenlet>
-                            <section>
-                                <actions>
-                                    <entity-and list="commEvents" entity-name="CommunicationEvent">
-                                        <field-map field-name="parentCommEventId"
-                                            from-field="parameters.communicationEventId" />
-                                    </entity-and>
-                                </actions>
-                                <widgets>
-                                    <screenlet title="${uiLabelMap.PartyChildCommunicationEvents}">
-                                        <include-form name="ListCommEvents"
-                                            location="component://party/webapp/partymgr/communication/CommForms.xml" />
-                                    </screenlet>
-                                </widgets>
-                            </section>
-                            <section>
-                                <actions>
-                                    <set field="entityName" value="CustRequestAndCommEvent" />
-                                    <set field="requestParameters.communicationEventId"
-                                        from-field="parameters.communicationEventId" />
-                                </actions>
-                                <widgets>
-                                    <screenlet title="${uiLabelMap.OrderRequestList}">
-                                        <include-form name="ListRequests"
-                                            location="component://party/webapp/partymgr/communication/CommForms.xml"/>
-                                    </screenlet>
-                                </widgets>
-                            </section>
-                        </container>
+                        <include-screen name="commOverview"/>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="commOverview">
+        <section>
+            <widgets>
+                <container style="lefthalf">
+                    <section>
+                        <widgets>
+                            <label style="h1" text="${uiLabelMap.FormFieldTitle_communicationEventId} ${parameters.communicationEventId}"/>
+                            <include-screen name="commEvent" location="component://party/widget/partymgr/CommunicationScreens.xml"/>
+                        </widgets>
+                    </section>
+                    <section>
+                        <condition>
+                            <not>
+                                <if-empty field="communicationEvent.parentCommEventId" />
+                            </not>
+                        </condition>
+                        <actions>
+                            <set field="parent" value="${uiLabelMap.CommonParent}"/>
+                            <entity-one entity-name="CommunicationEvent" value-field="communicationEvent">
+                                <field-map field-name="communicationEventId" from-field="communicationEvent.parentCommEventId" />
+                            </entity-one>
+                        </actions>
+                        <widgets>
+                            <include-screen name="commEvent" location="component://party/widget/partymgr/CommunicationScreens.xml" />
+                        </widgets>
+                    </section>
+                </container>
+                <container style="righthalf">
+                    <label style="h1" text="${uiLabelMap.CommonRelatedInformation}" />
+                    <screenlet title="${uiLabelMap.PartyCommEventRoles}">
+                        <include-form name="ViewCommRoles"
+                            location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                    </screenlet>
+                    <screenlet title="${uiLabelMap.PartyCommContent}">
+                        <include-form name="listCommContent"
+                            location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                    </screenlet>
+                    <section>
+                        <actions>
+                            <entity-and list="commEvents" entity-name="CommunicationEvent">
+                                <field-map field-name="parentCommEventId"
+                                    from-field="parameters.communicationEventId" />
+                            </entity-and>
+                        </actions>
+                        <widgets>
+                            <screenlet title="${uiLabelMap.PartyChildCommunicationEvents}">
+                                <include-form name="ListCommEvents"
+                                    location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                            </screenlet>
+                        </widgets>
+                    </section>
+                    <section>
+                        <actions>
+                            <set field="entityName" value="CustRequestAndCommEvent" />
+                            <set field="requestParameters.communicationEventId"
+                                from-field="parameters.communicationEventId" />
+                        </actions>
+                        <widgets>
+                            <screenlet title="${uiLabelMap.OrderRequestList}">
+                                <include-form name="ListRequests"
+                                    location="component://order/webapp/ordermgr/request/RequestForms.xml" />
+                            </screenlet>
+                        </widgets>
+                    </section>
+                </container>
             </widgets>
         </section>
     </screen>
@@ -252,11 +265,11 @@ under the License.
                         <widgets>
                             <section>
                                 <condition>
-                                    <and>
+                                    <or>
                                         <if-compare field="communicationEvent.statusId"
                                             operator="equals" value="COM_UNKNOWN_PARTY" />
                                         <if-empty field="communicationEvent.partyIdFrom" />
-                                    </and>
+                                    </or>
                                 </condition>
                                 <widgets>
                                     <screenlet>
@@ -267,8 +280,6 @@ under the License.
                                             <label style="h2" text="${uiLabelMap.PartyEmailMessage}" />
                                         </container>
                                         <include-form name="allocateMsgToPartyForm"
-                                            location="component://party/webapp/partymgr/communication/CommForms.xml" />
-                                        <include-form name="deleteEmail"
                                             location="component://party/webapp/partymgr/communication/CommForms.xml" />
                                     </screenlet>
                                 </widgets>
@@ -287,70 +298,151 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="addAttachmentEmail">
+        <section>
+            <actions>
+                <entity-condition entity-name="MimeType" list="mimeTypes">
+                    <order-by field-name="description"/>
+                    <order-by field-name="mimeTypeId"/>
+                </entity-condition>
+                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
+                <set field="communicationEventTypeId" from-field="parameters.communicationEventTypeId"/>
+                <set field="partyId" from-field="userLogin.partyId"/>                    
+            </actions> 
+            <widgets>
+                <screenlet title="${uiLabelMap.PartyAttachContent}">
+                    <platform-specific>
+                        <html>
+                            <html-template location="component://party/webapp/partymgr/communication/addAttachFile.ftl"/>
+                        </html>
+                    </platform-specific>
+                </screenlet>
+            </widgets>                   
+        </section>
+    </screen>    
+    <screen name="AttachFileList">
+        <section>
+            <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <entity-and entity-name="CommEventContentAssoc" list="commEventContent">
+                    <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
+                </entity-and>
+                <entity-and entity-name="PartyContent" list="partyContent">
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.PartyAttachFile}">
+                    <platform-specific>
+                        <html>
+                            <html-template location="component://party/webapp/partymgr/communication/attachFileList.ftl"/>
+                        </html>
+                    </platform-specific>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EditCommunicationEvent">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCommunication" />
-                <set field="tabButtonItem" value="CommunicationEvent" />
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent" />
+                <set field="parameters.communicationEventTypeId" from-field="parameters.communicationEventTypeId" default-value="${communicationEvent.communicationEventTypeId}"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventReply.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventForward.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator"
-                    location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="Common${parameters.my}CommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section><!-- Email -->
                             <condition>
                                 <or><!-- have for e-mails a special form -->
-                                    <if-compare field="parameters.communicationEventTypeId"
-                                        operator="equals" value="EMAIL_COMMUNICATION" />
-                                    <if-compare field="parameters.communicationEventTypeId"
-                                        operator="equals" value="AUTO_EMAIL_COMM" />
+                                    <if-compare field="parameters.communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION" />
+                                    <if-compare field="parameters.communicationEventTypeId" operator="equals" value="AUTO_EMAIL_COMM" />
                                 </or>
                             </condition>
                             <widgets>
-                        <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent}" collapsible="true">
-                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="NewEmail"/>
-                        </screenlet>
+                                <section>
+                                    <condition>
+                                        <if-empty field="communicationEvent"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.PartyCreateAddEmail} ${parameters.communicationEventId}">
+                                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditEmail"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="lefthalf">
+                                            <screenlet title="${uiLabelMap.PartyCreateAddEmail} ${parameters.communicationEventId}">
+                                                <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditEmail"/>
+                                            </screenlet>
+                                        </container>
+                                        <container style="righthalf">
+                                            <screenlet title="${uiLabelMap.PartyCommEventRoles}">
+                                                <include-form name="ViewCommRoles" location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                                            </screenlet>
+                                            <screenlet title="${uiLabelMap.PartyCommEventRoles}">
+                                                <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="AddEventRole" />
+                                            </screenlet>
+                                            <include-screen name="AttachFileList"/>
+                                            <include-screen name="addAttachmentEmail"/>
+                                        </container>
+                                    </fail-widgets>
+                                </section>
+                                <container style="clear"/>
                             </widgets>
                         </section>
                         <section>
                             <condition><!-- internal note -->
-                                    <if-compare field="parameters.communicationEventTypeId"
-                                        operator="equals" value="COMMENT_NOTE" />
+                                <if-compare field="parameters.communicationEventTypeId" operator="equals" value="COMMENT_NOTE" />
                             </condition>
                             <widgets>
-                        <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent}" collapsible="true">
-                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="NewInternalNote"/>
-                        </screenlet>
+                                <section>
+                                    <condition>
+                                        <if-empty field="communicationEvent"/>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent} ${parameters.communicationEventId}">
+                                            <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditInternalNote"/>
+                                        </screenlet>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="lefthalf">
+                                            <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent} ${parameters.communicationEventId}">
+                                                <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="EditInternalNote"/>
+                                            </screenlet>
+                                        </container>
+                                        <container style="righthalf">
+                                            <screenlet title="${uiLabelMap.PartyCommEventRoles}">
+                                                <include-form name="ListCommRoles" location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                                            </screenlet>
+                                            <screenlet title="${uiLabelMap.PartyCommEventRoles}">
+                                                <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="AddEventRole" />
+                                            </screenlet>
+                                            <include-screen name="AttachFileList"/>
+                                            <include-screen name="addAttachmentEmail"/>
+                                        </container>
+                                    </fail-widgets>
+                                </section>
                             </widgets>
                         </section>
                         <section>
                             <condition><!-- others -->
                                 <and>
-                                    <if-compare field="parameters.communicationEventTypeId"
-                                        operator="not-equals" value="COMMENT_NOTE" />
-                                    <if-compare field="parameters.communicationEventTypeId"
-                                        operator="not-equals" value="EMAIL_COMMUNICATION" />
-                                    <if-compare field="parameters.communicationEventTypeId"
-                                        operator="not-equals" value="AUTO_EMAIL_COMM" />
+                                    <if-compare field="parameters.communicationEventTypeId" operator="not-equals" value="COMMENT_NOTE" />
+                                    <if-compare field="parameters.communicationEventTypeId" operator="not-equals" value="EMAIL_COMMUNICATION" />
+                                    <if-compare field="parameters.communicationEventTypeId" operator="not-equals" value="AUTO_EMAIL_COMM" />
                                 </and>
                             </condition>
                             <widgets>
-                        <screenlet id="EditCommunicationEventPanel"
-                            title="${uiLabelMap.PartyEditCommunicationEvent}" collapsible="true">
-                            <include-form
-                                location="component://party/webapp/partymgr/communication/CommForms.xml"
-                                name="EditCommEvent" />
-                        </screenlet>
-                        <screenlet title="${uiLabelMap.PartyChildCommunicationEvents}"
-                            navigation-form-name="ListChildCommEvents">
-                            <include-form
-                                location="component://party/webapp/partymgr/communication/CommForms.xml"
-                                name="ListChildCommEvents" />
-                        </screenlet>
-                        </widgets>
+                                <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent} ${parameters.communicationEventId}">
+                                    <include-form name="EditCommEvent" location="component://party/webapp/partymgr/communication/CommForms.xml" />
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.PartyChildCommunicationEvents}" navigation-form-name="ListChildCommEvents">
+                                    <include-form  name="ListChildCommEvents" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                                </screenlet>
+                            </widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
@@ -361,11 +453,10 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditCommunication" />
-                <set field="tabButtonItem" value="CommunicationEvent" />
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonCommunicationEventDecorator"
+                <decorator-screen name="Common${parameters.my}CommunicationEventDecorator"
                     location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet  title="${uiLabelMap.PartyEditCustomerRequest}">
@@ -378,7 +469,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
     <screen name="UpdateCommRoles">
         <section>
             <actions>
@@ -583,7 +673,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCommEvents"/>
-                <set field="headerItem" value="comm"/>
                 <set field="tabButtonItem" value="CommContent"/>
                 <set field="partyId" value="${parameters.partyId}"/>
                 <set default-value="${userLogin.partyId}" field="partyIdFrom" value="${parameters.partyIdFrom}"/>
@@ -676,16 +765,31 @@ under the License.
         </section>
     </screen>
     
+    <screen name="PartyCommunicationEvents">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleCommEvents"/>
+                <set field="headerItem" value="mycomm"/>
+            </actions>
+            <widgets>
+                <decorator-screen  name="CommonMyCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-screen name="MyCommunicationEvents"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <!-- Portlet screens -->
-    <screen name="Communications">
+    <screen name="MyCommunicationEvents">
         <section>
             <actions>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
                 <set field="partyId" from-field="parameters.partyId" default-value="${communicationPartyId}"/>
                 <set field="partyId" from-field="partyId" default-value="${userLogin.partyId}"/>
                 <set field="all" from-field="parameters.all"/>
-                <entity-condition entity-name="CommunicationEventAndRole"
-                    list="commEvents">
+                <entity-condition entity-name="CommunicationEventAndRole" list="commEvents">
                     <condition-list combine="and">
                         <condition-expr field-name="statusId" operator="not-equals"
                             value="COM_UNKNOWN_PARTY" />
@@ -698,8 +802,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="-datetimeStarted" />
                 </entity-condition>
-                <entity-condition entity-name="CommunicationEventAndRole"
-                    list="commEventsUnknown">
+                <entity-condition entity-name="CommunicationEventAndRole" list="commEventsUnknown">
                     <condition-list combine="and">
                         <condition-expr field-name="statusId" operator="equals"
                             value="COM_UNKNOWN_PARTY" />
@@ -745,7 +848,7 @@ under the License.
                     <label style="h2" text="${uiLabelMap.PartyEmailsFromKnownOrigin}"></label>
                     <include-form name="ListPartyCommEvents"
                         location="component://party/webapp/partymgr/communication/CommForms.xml"/>
-                        <section>
+                    <section>
                         <condition>
                             <not>
                                 <if-empty field="commEventDraft" />

@@ -46,7 +46,7 @@ under the License.
 
     <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
 
-    <request-map uri="viewprofile"><security https="true" auth="true"/><response name="success" type="view" value="viewprofile" save-last-view="true"/></request-map>
+    <request-map uri="viewprofile"><security https="true" auth="true"/><response name="success" type="view" value="viewprofile" save-current-view="true"/></request-map>
     <request-map uri="EditPartyRelationships"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyRelationships"/></request-map>
     <request-map uri="viewroles"><security https="true" auth="true"/><response name="success" type="view" value="viewroles"/></request-map>
     <request-map uri="linkparty"><security https="true" auth="true"/><response name="success" type="view" value="linkparty"/></request-map>
@@ -684,38 +684,95 @@ under the License.
     </request-map>
 
     <!-- communication event requests -->
-    <request-map uri="FindCommunicationEvents"><security https="true" auth="true"/><response name="success" type="view" value="FindCommunicationEvents"/></request-map>
-    <request-map uri="ListCommContent"><security https="true" auth="true"/><response name="success" type="view" value="ListCommContent"/></request-map>
-    <request-map uri="PendingCommunications"><security https="true" auth="true"/><response name="success" type="view" value="PendingCommunications"/></request-map>
-    <request-map uri="EditCommunicationEvent"><security https="true" auth="true"/><response name="success" type="view" value="EditCommunicationEvent"/></request-map>
-    <request-map uri="ViewCommunicationEvent"><security https="true" auth="true"/><response name="success" type="view" value="ViewCommunicationEvent"/></request-map>
-    <request-map uri="AddCommContent"><security https="true" auth="true"/><response name="success" type="view" value="AddCommContent"/></request-map>
-    <request-map uri="EditCommContent"><security https="true" auth="true"/><response name="success" type="view" value="EditCommContent"/></request-map>
-    
-    <request-map uri="EditCommunication"><security https="true" auth="true"/><response name="success" type="view" value="EditCommunicationEvent"/></request-map>
+    <request-map uri="setCommunicationEventRoleStatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setCommunicationEventRoleStatus"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view-last"/>
+    </request-map>
+    <request-map uri="MyCommunicationEvents">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="MyCommunicationEvents" save-home-view="true"/>
+    </request-map>
+    <request-map uri="FindCommunicationEvents">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindCommunicationEvents" save-home-view="true"/>
+    </request-map>
+    <request-map uri="ListCommContent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListCommContent"/>
+    </request-map>
+    <request-map uri="PendingCommunications">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PendingCommunications"/>
+    </request-map>
+    <request-map uri="EditCommunicationEvent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCommunicationEvent" save-current-view="true"/>
+    </request-map>
+    <request-map uri="ViewCommunicationEvent">
+        <security https="true" auth="true"/>
+        <event  type="simple" invoke="setCommEventToRead" path="org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
+        <response name="success" type="view" value="ViewCommunicationEvent" save-last-view="true"/>
+    </request-map>
+    <request-map uri="addContentToCommEvent">
+        <security https="true" auth="true"/>        
+        <event type="simple" invoke="addContentToCommEvent" path="org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
+        <response name="success" type="request" value="NewCommunicationEvent"/>
+        <response name="error" type="view" value="EditCommunicationEvent"/>
+    </request-map>
+    <request-map uri="addAttachmentEmail">
+        <security https="true" auth="true"/>        
+        <response name="success" type="view" value="addAttachmentEmail"/>
+    </request-map>
+    <request-map uri="uploadAttachFiletoEmail">
+        <security https="true" auth="true"/>        
+        <event type="simple" invoke="createCommunicationContent" path="org/ofbiz/party/communication/CommunicationEventEvents.xml"/>
+        <response name="success" type="request" value="EditCommunicationEvent"/>
+        <response name="error" type="view" value="addAttachmentEmail"/>
+    </request-map>
+    <request-map uri="removeAttachFile">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeCommEventContentAssoc"/>        
+        <response name="success" type="request" value="EditCommunicationEvent"/>
+        <response name="error" type="view" value="EditCommunicationEvent"/>
+    </request-map>
+    <request-map uri="AddCommContent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="AddCommContent"/>
+    </request-map>
+    <request-map uri="EditCommContent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCommContent"/>
+    </request-map>
+    <request-map uri="NewDraftCommunicationEvent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCommunicationEvent"/>
+        <response name="success" type="view" value="EditCommunicationEvent" save-current-view="true"/>
+    </request-map>
     <request-map uri="createCommunicationEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCommunicationEvent"/>
-        <response name="success" type="view" value="EditCommunicationEvent"/>
-        <response name="error" type="view" value="ViewCommunicationEvent"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view" value="EditCommunicationEvent"/>
     </request-map>
     <request-map uri="updateCommunicationEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateCommunicationEvent"/>
-        <response name="success" type="view" value="EditCommunicationEvent"/>
-        <response name="error" type="view" value="ViewCommunicationEvent"/>
+        <response name="success" type="view-home"/>
+        <response name="error" type="view" value="EditCommunicationEvent"/>
     </request-map>
     <request-map uri="deleteCommunicationEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteCommunicationEvent"/>
-        <response name="success" type="view" value="FindCommunicationEvents"/>
-        <response name="error" type="view" value="ViewCommunicationEvent"/>
+        <response name="success" type="view-home" value="MyCommunicationEvents"/>
+        <response name="error" type="view-last"/>
     </request-map>
     <request-map uri="deleteUnknownCommunicationEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteCommunicationEvent"/>
-        <response name="success" type="view" value="FindCommunicationEvents"/>
-        <response name="error" type="view" value="ViewCommunicationEvent"/>
+        <response name="success" type="view-last" save-last-view="true"/>
+        <response name="error" type="view-last" save-last-view="true"/>
     </request-map>
     <request-map uri="deleteCommunicationEvents">
         <security https="true" auth="true"/>
@@ -731,27 +788,20 @@ under the License.
     </request-map>
     <request-map uri="editRequestFromCommEvent">
         <security https="true" auth="true" />
-        <response name="success" type="view" value="EditRequestFromCommEvent" />
+        <response name="success" type="view" value="EditRequestFromCommEvent" save-last-view="true"/>
     </request-map>
     <request-map uri="createRequestFromCommEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCustRequestFromCommEvent"/>
-        <response name="success" type="view" value="ViewRequest"/>
-        <response name="error" type="view" value="EditRequestFromCommEvent"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view-last"/>
     </request-map>
 
-    <request-map uri="deletePartyCommunicationEvent">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteCommunicationEvent"/>
-        <response name="success" type="view" value="ListPartyCommEvents"/>
-        <response name="error" type="view" value="ListPartyCommEvents"/>
-    </request-map>
-    
     <request-map uri="allocateMsgToParty">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="allocateMsgToParty"/>
-        <response name="success" type="view" value="ViewCommunicationEvent"/>
-        <response name="error" type="view" value="ViewCommunicationEvent"/>
+        <response name="success" type="view-last" save-last-view="true"/>
+        <response name="error" type="view-last" save-last-view="true"/>
     </request-map>
 
     <request-map uri="createCommContentDataResource">
@@ -771,8 +821,8 @@ under the License.
     <request-map uri="uploadCommEventContent">
         <security https="true" auth="true"/>
         <event type="service" invoke="persistContentAndAssoc"/>
-        <response name="success" type="view" value="EditCommContent"/>
-        <response name="error" type="view" value="EditCommContent"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view-last"/>
     </request-map>
     
     <request-map uri="UpdateCommPurposes"><security https="true" auth="true"/><response name="success" type="view" value="UpdateCommPurposes"/></request-map>
@@ -793,16 +843,15 @@ under the License.
     <request-map uri="createCommunicationEventRole">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCommunicationEventRole"/>
-        <response name="success" type="view" value="UpdateCommRoles"/>
-        <response name="error" type="view" value="UpdateCommRoles"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view-last"/>
     </request-map>
     <request-map uri="RemoveCommunicationEventRole">
         <security https="true" auth="true"/>
         <event type="service" invoke="removeCommunicationEventRole"/>
-        <response name="success" type="view" value="UpdateCommRoles"/>
-        <response name="error" type="view" value="UpdateCommRoles"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view-last"/>
     </request-map>
-
     <request-map uri="ListPartyCommEvents"><security https="true" auth="true"/><response name="success" type="view" value="ListPartyCommEvents"/></request-map>
     
     <!-- TODO
@@ -1165,11 +1214,13 @@ under the License.
     <view-map name="PendingCommunications" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#PendingCommunications"/>
     <view-map name="ListPartyCommEvents" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListPartyCommEvents"/>
     <view-map name="ListUnknownPartyComms" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListUnknownPartyComms"/>
+    <view-map name="MyCommunicationEvents" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#PartyCommunicationEvents"/>
     <view-map name="FindCommunicationEvents" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#FindCommunicationEvents"/>
     <view-map name="EditCommunicationEvent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditCommunicationEvent"/>
     <view-map name="ViewCommunicationEvent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ViewCommunicationEvent"/>
     <view-map name="UpdateCommPurposes" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#UpdateCommPurposes"/>
     <view-map name="UpdateCommRoles" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#UpdateCommRoles"/>
+    <view-map name="addAttachmentEmail" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#addAttachmentEmail"/>
     
     <!-- TODO
     <view-map name="ListCommCustRequests" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListCommCustRequests"/>

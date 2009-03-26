@@ -44,6 +44,7 @@ under the License.
                 <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="MYPORTAL" global="true"/>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/GetParentPortalPageId.groovy"/>
                 <set field="applicationTitle" value="${uiLabelMap.PageTitleMyPortalForNoLogin}"/>
+                <set field="my" value="My" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
@@ -100,16 +101,34 @@ under the License.
     <screen name="CommonCommunicationEventDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="${parameters.portalPageId}"/>
                 <entity-one entity-name="CommunicationEvent" value-field="commEvent">
                     <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
                 </entity-one>
-                <script location="component://myportal/webapp/myportal/WEB-INF/actions/GetMyCommunicationEventRole.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/GetMyCommunicationEventRole.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu location="component://myportal/widget/MyPortalMenus.xml" name="CommSubTabBar"/>
+                        <!--include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="MyCommSubTabBar"/-->
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="CommonMyCommunicationEventDecorator">
+        <section>
+            <actions>
+                <entity-one entity-name="CommunicationEvent" value-field="commEvent">
+                    <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
+                </entity-one>
+                <!--script location="component://party/webapp/partymgr/WEB-INF/actions/communication/GetMyCommunicationEventRole.groovy"/-->
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="MyCommSubTabBar"/>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
@@ -143,14 +162,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="main">
-        <section>
-            <widgets>
-                <include-screen name="showPortalPage" location="component://common/widget/PortalPageScreens.xml"/>
-            </widgets>
-        </section>
-    </screen>                 
-    
     <screen name="login">
         <section>
             <widgets>

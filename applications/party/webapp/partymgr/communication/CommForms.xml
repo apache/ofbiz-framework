@@ -117,8 +117,7 @@ under the License.
         <field name="messageId"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
     </form>
-    
-    <form name="NewEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
+    <form name="EditEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
         <actions>
             <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>            
             <entity-condition entity-name="PartyContactWithPurpose" list="emailAddresses">
@@ -140,7 +139,8 @@ under the License.
                 <order-by field-name="infoString"/>
             </entity-condition>
         </actions>
-        <field name="donePage"><hidden/></field>
+        <alt-target use-when="communicationEvent!=null" target="updateCommunicationEvent"/>
+        <field name="communicationEventId"><hidden/></field> 
         <field name="communicationEventTypeId"><hidden value="AUTO_EMAIL_COMM"/></field>
         <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
         <field name="parentCommEventId" use-when="parentCommEventId != null"><hidden value="${parameters.parentCommEventId}"/></field>
@@ -152,14 +152,49 @@ under the License.
             </drop-down>
         </field>
         <field name="contactMechIdTo" title="${uiLabelMap.PartyEmailTo}">
-            <lookup target-form-name="LookupPartyEmail"/>
+            <lookup target-form-name="LookupPartyEmail" default-value="${parameters.contactMechIdTo}"/>
         </field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time/></field>
         <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="80" rows="20" default-value="${parameters.content}"/></field>
-        <field name="sendButton"><submit button-type="button"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10" default-value="${parameters.content}"/></field>
+        <field name="send" title="&amp;nbsp;" position="1" use-when="communicationEvent!=null">
+            <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSend}" target="javascript:(document.EditEmail.submit())"/>
+        </field>
+        <field name="save" title="&amp;nbsp;" position="2" use-when="communicationEvent!=null">
+            <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.EditEmail.statusId.value='COM_PENDING'),(document.EditEmail.submit())"/>
+        </field>
+        <field name="createButton" use-when="communicationEvent==null"><submit/></field>
+        <field name="dummy" position="320"><hidden/></field>
     </form>
+    <form name="EditInternalNote" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
+        <actions>
+            <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/recentVisitor.groovy"/>
+        </actions>
+        <alt-target use-when="communicationEvent!=null" target="updateCommunicationEvent"/>
+        <field name="communicationEventId"><hidden/></field> 
+        <field name="communicationEventTypeId"><hidden value="COMMENT_NOTE"/></field>
+        <field name="parentCommEventId"><hidden value="${parameters.parentCommEventId}"/></field>
+        <field name="statusId"><hidden value="COM_PENDING"/></field>
+        <field name="partyIdFrom"><hidden value="${userLogin.partyId}"/></field>
+        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
+            <drop-down>
+                <list-options list-name="recentParties" key-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
+            </drop-down>
+        </field>
+        <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>
+        <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10" default-value="${parameters.content}"/></field>
+        <field name="send" title="&amp;nbsp;" position="1" use-when="communicationEvent!=null">
+            <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSend}" target="javascript:(document.EditInternalNote.statusId.value='COM_COMPLETED'),(document.EditInternalNote.submit())"/>
+        </field>
+        <field name="save" title="&amp;nbsp;" position="2" use-when="communicationEvent!=null">
+            <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.EditInternalNote.submit())"/>
+        </field>
+        <field name="createButton" use-when="communicationEvent==null"><submit/></field>
+        <field name="dummy" position="320"><hidden/></field>
+    </form>
+    
     <form name="ViewEmail" type="single" default-map-name="communicationEvent">
         <actions>
             <entity-one entity-name="ContactMech"  value-field="contactMechFrom">
@@ -190,52 +225,28 @@ under the License.
         <field name="note" title="${uiLabelMap.CommonNote}"><display/></field>
     </form>
     
-    <form name="NewInternalNote" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
-        <actions>
-            <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/recentVisitor.groovy"/>
-        </actions>
-        <field name="donePage"><hidden/></field>
-        <field name="communicationEventTypeId"><hidden value="COMMENT_NOTE"/></field>
-        <field name="parentCommEventId"><hidden value="${parameters.parentCommEventId}"/></field>
-        <field name="statusId"><hidden value="COM_COMPLETE"/></field>
-        <field name="partyIdFrom"><hidden value="${userLogin.partyId}"/></field>
-        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
-            <drop-down>
-                <list-options list-name="recentParties" key-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
-            </drop-down>
-        </field>
-        <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>
-        <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10" default-value="${parameters.content}"/></field>
-        <field name="sendButton"><submit button-type="button"/></field>
-    </form>
-    
     <form name="ViewCommEvent" type="single" default-map-name="communicationEvent"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="donePage"><hidden/></field>
-        <field name="communicationEventId">
-            <hyperlink description="${communicationEventId}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}"/>
-        </field>
-        <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><display-entity entity-name="PartyNameView"  key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"><sub-hyperlink target="viewprofile?partyId=${partyIdFrom}" description="[${partyIdFrom}]"/></display-entity></field>
-        <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><display-entity entity-name="PartyNameView"  key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"><sub-hyperlink target="viewprofile?partyId=${communicationEvent.partyIdTo}" description="[${communicationEvent.partyIdTo}]"/></display-entity></field>
+        <field name="communicationEventId"><display/></field>
+        <field name="partyIdFrom" use-when="&quot;my&quot;==void" title="${uiLabelMap.PartyPartyFrom}"><display-entity entity-name="PartyNameView"  key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"><sub-hyperlink target="viewprofile?partyId=${partyIdFrom}" description="[${partyIdFrom}]"/></display-entity></field>
+        <field name="partyIdTo" use-when="&quot;my&quot;==void" title="${uiLabelMap.PartyPartyTo}"><display-entity entity-name="PartyNameView"  key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"><sub-hyperlink target="viewprofile?partyId=${communicationEvent.partyIdTo}" description="[${communicationEvent.partyIdTo}]"/></display-entity></field>
         <field name="statusId"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
-        <field name="contactMechTypeId"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
-        <field name="contactMechIdFrom" title="${uiLabelMap.PartyFromContactMech}"><display/></field>
-        <field name="contactMechIdTo" title="${uiLabelMap.PartyToEmailAddress}">
+        <field name="contactMechTypeId" use-when="&quot;my&quot;==void"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
+        <field name="contactMechIdFrom" use-when="&quot;my&quot;==void" title="${uiLabelMap.PartyFromContactMech}"><display/></field>
+        <field name="contactMechIdTo" use-when="&quot;my&quot;==void" title="${uiLabelMap.PartyToEmailAddress}">
             <display-entity entity-name="ContactMech" key-field-name="contactMechId" description="${infoString}"/>
         </field>
-        <field name="roleTypeIdFrom"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
-        <field name="roleTypeIdTo"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
+        <field name="roleTypeIdFrom" use-when="&quot;my&quot;==void"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
+        <field name="roleTypeIdTo" use-when="&quot;my&quot;==void"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
-        <field name="reasonEnumId"><display-entity entity-name="Enumeration" description="${description}" key-field-name="enumId"/></field>
         <field name="subject"><display/></field>
         <field map-name="subjectMap" name="eventNote" title="${uiLabelMap.CommonNote}"><display/></field>
-        <field name="contentMimeTypeId"><display/></field>
+        <field name="contentMimeTypeId" use-when="&quot;my&quot;==void"><display/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10" read-only="true"/></field>
     </form>
 
-    <form name="findCommEvents" type="single" target="FindCommunicationEvents" paginate="true" 
+    <form name="findCommEvents" type="single" target="FindCommunicationEvents" paginate="true" focus-field-name="submitButton"  
         header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId" position="1"><text-find/></field>
         <field name="parentCommEventId" position="2"><text-find/></field>
@@ -293,7 +304,7 @@ under the License.
         </row-actions>
         <field name="communicationEventId"><hidden/></field>
         <field name="subject">
-            <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}"/>
+            <hyperlink description="${subject}" target="View${my}CommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}"/>
         </field>
         <field name="communicationEventTypeId" title="${uiLabelMap.CommonType}"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}">
@@ -310,22 +321,33 @@ under the License.
         <field name="createdStamp" title="${uiLabelMap.CommonCreated}"><display type="date"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSend}"><display type="date"/></field>
     </form>
-
-    <form name="ListPartyCommEvents" type="list" extends="ListCommEvents"
-        header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <actions>
-            <entity-condition entity-name="CommunicationEventAndRole" list="commEvents">
-                <condition-list combine="and">
-                    <condition-expr field-name="partyId" operator="equals" value="${partyId}"/>
-                </condition-list>
-                <order-by field-name="-entryDate"/>
-            </entity-condition>
-        </actions>
-        <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
+    <form name="ListPartyCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" type="list" target="RemoveCommunicationEventRole">
+        <row-actions>
+            <set field="toComplete" value="${bsh:&quot;COM_ROLE_READ&quot;.equals(roleStatusId)?&quot;PartyToComplete&quot;:&quot;&quot;}"/>
+        </row-actions>
+        <field name="partyId"><hidden/></field>
+        <field name="communicationEventId"><hidden/></field>
+        <field name="roleTypeId"><hidden/></field>
+        <field name="deleteCommEventIfLast"><hidden value="Y"/></field>        
+        <field name="delContentDataResource"><hidden value="Y"/></field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field> 
+        <field name="removeButton" widget-style="smallSubmit"><submit/></field>
+        <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
+            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;my=${my}"/>
         </field>
+        <field name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
+            <display-entity entity-name="StatusItem" description="${description}">
+                <sub-hyperlink target="setCommunicationEventRoleStatus" 
+                    description="${uiLabelMap.${toComplete}}">
+                    <parameter param-name="communicationEventId"/>
+                    <parameter param-name="partyId"/>
+                    <parameter param-name="roleTypeId"/>
+                    <parameter param-name="statusId" value="COM_ROLE_COMPLETED"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="createdStamp" entry-name="entryDate"/>
     </form>
-
     <form name="ListPendingCommEvents" type="list" extends="ListCommEvents" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="CommunicationEvent" list="commEvents">
@@ -343,9 +365,9 @@ under the License.
     <form name="ListUnknownPartyEmails" extends="ListCommEvents" type="multi" use-row-submit="true" separate-columns="true"
            target="deleteCommunicationEvents?communicationEventId=${communicationEventId}&amp;delContentDataResource=Y">
         <actions>
-            <entity-and  list="commEvents" entity-name="CommunicationEvent">
+            <entity-and  list="commEvents" entity-name="CommunicationEventAndRole">
                 <field-map field-name="statusId" value="COM_UNKNOWN_PARTY"/>
-                <order-by field-name="-lastUpdatedStamp" />
+                <order-by field-name="-entryDate" />
             </entity-and>
         </actions>
         <field name="_rowSubmit" title="${uiLabelMap.CommonYes}">
@@ -367,7 +389,7 @@ under the License.
         </actions>
     </form>
 
-    <form name="ListLookupCommEvents" type="list" list-name="listIt" extends="ListCommEvents" header-row-style="header-row-2">
+    <form name="ListLookupCommEvents" type="list" list-name="listIt" extends="ListCommEvents" header-row-style="header-row-2" target="deleteCommunicationEvent">
         <actions>
             <service result-map-list="listIt" result-map="result" service-name="performFind">
                 <field-map from-field="parameters" field-name="inputFields"/>
@@ -375,9 +397,7 @@ under the License.
                 <field-map value="-createdStamp" field-name="orderBy"/>
             </service>
         </actions>
-        <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteCommunicationEvent?communicationEventId=${communicationEventId}"/>
-        </field>
+        <field name="removeLink" title="${uiLabelMap.CommonDelete}"><submit/></field>
     </form>
     
     <form name="ListCommWorkEfforts" type="list" paginate-target="ListCommWorkEfforts"
@@ -439,13 +459,14 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.PartyAddPurpose}"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListCommRoles" type="list" paginate-target="UpdateCommRoles"
+    <form name="ListCommRoles" type="list" paginate-target="UpdateCommRoles" target="RemoveCommunicationEventRole"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CommunicationEventRole" use-cache="true">
                 <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </entity-and>
         </actions>
+        <field name="communicationEventId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
                 <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" description="${partyId}"/>
@@ -454,22 +475,22 @@ under the License.
         <field name="contactMechId"><display-entity description="${infoString}" entity-name="ContactMech"/></field>
         <field name="roleTypeId"><display-entity description="${description}" entity-name="RoleType"/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
-        <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="/RemoveCommunicationEventRole?partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;communicationEventId=${communicationEventId}&amp;donePage=${donePage}"/>
-        </field>
+        <field name="removeButton" widget-style="smallSubmit"><submit/></field>
     </form>
 
     <form name="ViewCommRoles" extends="ListCommRoles">
-        <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}"><ignored/></field>
+        <field name="removeButton"><ignored/></field>
     </form> 
 
     <form name="AddEventRole" type="single" target="createCommunicationEventRole"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="communicationEventId"><hidden/></field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="roleTypeId" >
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}" position="1"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId" position="2">
             <drop-down>
                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                    <entity-constraint name="parentTypeId" value="COMMEVENT_ROLE"/>
+                    <entity-constraint name="roleTypeId" operator="not-equals" value="ORIGINATOR"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -634,7 +655,7 @@ under the License.
         <field name="subject" widget-style="buttontext"
             widget-area-style="fieldWidth300">
             <hyperlink description="${subject}"
-                target="ViewCommunicationEvent?communicationEventId=${communicationEventId}" />
+                target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;my=My" />
         </field>
         <field name="entryDate">
             <display description="${date:dateTimeStr(entryDate, timeZone, locale)}" />
@@ -690,21 +711,6 @@ under the License.
     <form name="ListRequests" extends="ListRequests" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="custRequestName"><hyperlink description="${custRequestName} [${custRequestId}]" target="/ordermgr/control/ViewRequest?custRequestId=${custRequestId}" target-type="inter-app"/></field>
     </form>
-
-    <form name="ListMyUnknownPartyEmails" type="multi"
-        extends="ListMyUnknownPartyEmails" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" use-row-submit="true">
-        <field name="portalPageId"><hidden/></field>
-        <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject}" target="deleteCommunicationEvents?portalPageId=${parameters.portalPageId}"/>
-        </field>
-        <field name="_rowSubmit" title="${uiLabelMap.CommonYes}">
-            <check />
-        </field>
-        <field name="deleteSelectedButton" widget-style="smallSubmit">
-            <submit />
-        </field>
-    </form>
-
     <form name="EditPartyId" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
         <field name="communicationPartyId" entry-name="attributeMap.communicationPartyId">
             <lookup target-form-name="LookupPartyName"/>
@@ -712,35 +718,7 @@ under the License.
         <field name="updateButton"><submit/></field>
     </form>
 
-    <form name="ListPartyCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" type="list">
-        <row-actions>
-            <set field="toComplete" value="${bsh:&quot;COM_ROLE_READ&quot;.equals(roleStatusId)?&quot;toComplete&quot;:&quot;&quot;}"/>
-        </row-actions>
-        <field name="portalPageId"><hidden/></field>
-        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field> 
-        <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="RemoveCommunicationEventRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y&amp;portalPageId=${parameters.portalPageId}"/>
-        </field>
-        <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;portalPageId=${portalPageId}"/>
-        </field>
-        <field name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <display-entity entity-name="StatusItem" description="${description}">
-                <sub-hyperlink description="${uiLabelMap.PartyToComplete}" target="setCommunicationEventRoleStatus">
-				<parameter param-name="communicationEventId"/>
-				<parameter param-name="partyId"/>
-				<parameter param-name="roleTypeId"/>
-				<parameter param-name="statusID" value="COM_ROLE_COMPLETED"/>
-				<parameter param-name="donePage" from-field="parameters.donePage"/>
-				<parameter param-name="VIEWSIZE" from-field="parameters.VIEWSIZE"/>
-				<parameter param-name="VIEW_INDEX" from-field="parameters.VIEW_INDEX"/>
-			</sub-hyperlink>
-            </display-entity>
-        </field>
-        <field name="createdStamp" entry-name="entryDate"/>
-    </form>
-
-    <form name="ListDraftEmails" type="list" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml"
+    <form name="ListDraftEmails" type="list" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" target="deleteCommunicationEvent"
         use-row-submit="true">
         <actions>
             <entity-condition entity-name="CommunicationEvent" list="commEvents">
@@ -752,13 +730,8 @@ under the License.
             </entity-condition>
         </actions>        
         <field name="subject">
-            <hyperlink description="${subject}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION&amp;partyId=${userLogin.partyId}"/>
+            <hyperlink description="${subject}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}&amp;my=${my}"/>
         </field>
-        <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;portalPageId=${portalPageId}"/>
-        </field>
+        <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit/></field>
     </form>
-    
-    
-    
 </forms>

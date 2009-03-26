@@ -20,38 +20,53 @@
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.condition.*;
+import org.ofbiz.entity.util.EntityUtil;
 
-// executes only on startup when no parameters.portalPageId is available
+// executes only on startup when only the basic parameters.portalPageId (from commonscreens.xml) is available
 if (userLogin && parameters.parentPortalPageId && !parameters.portalPageId) {
-    // look for system page according the current securitygroup
-    //get the security group
-    userLoginSecurityGroupId = null;
-    condSec = EntityCondition.makeCondition([
-            EntityCondition.makeCondition("groupId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
-            EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, userLogin.userLoginId)
-            ],EntityOperator.AND);
-    userLoginSecurityGroups = delegator.findList("UserLoginSecurityGroup", condSec, null, null, null, false);
-    if (UtilValidate.isNotEmpty(userLoginSecurityGroups)) {
-        userLoginSecurityGroupId = userLoginSecurityGroups.get(0).get("groupId");
-    }
-    //get the portal page
-    cond1 = EntityCondition.makeCondition([
-            EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
-            EntityCondition.makeCondition("securityGroupId", EntityOperator.EQUALS, userLoginSecurityGroupId),
-            EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, "_NA_"),
-            EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, null)
-            ],EntityOperator.AND);
-    portalMainPages = delegator.findList("PortalPage", cond1, null, null, null, false);
+	// look for system page according the current securitygroup
+	//get the security group
+	condSec = EntityCondition.makeCondition([
+			EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, parameters.parentPortalPageId + "%"),
+            EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, null),
+			EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, userLogin.userLoginId)
+			],EntityOperator.AND);
+	portalMainPages = EntityUtil.filterByDate(delegator.findList("PortalPageAndUserLogin", condSec, null, null, null, false));
+	if (!portalMainPages) { // look for a null securityGroup if not found
+	    condSec = EntityCondition.makeCondition([
+            EntityCondition.makeCondition("securityGroupId", EntityOperator.EQUALS, null),
+            EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, null),
+            EntityCondition.makeCondition("portalPageId", EntityOperator.LIKE, parameters.parentPortalPageId + "%")
+	        ],EntityOperator.AND);
+	    portalMainPages = delegator.findList("PortalPage", condSec, null, null, null, false);
+	}
     if (portalMainPages) {
-        portalPage = portalMainPages.get(0);
-        if ("_NA_".equals(portalPage.ownerUserLoginId)) {
-            context.parameters.parentPortalPageId = portalPage.portalPageId;
+    	portalPageId = portalMainPages.get(0).portalPageId;
+    	// check if overridden with a privat page
+    	privatMainPages = delegator.findByAnd("PortalPage", [originalPortalPageId : portalPageId, ownerUserLoginId : userLogin.userLoginId]);
+    	if (privatMainPages) {
+            context.parameters.portalPageId = privatMainPages.get(0).portalPageId;
+    	} else {
+    		context.parameters.portalPageId = portalPageId;
+    	}
+    }
+}
+// Debug.log('======portalPageId: ' + parameters.portalPageId);
+if (userLogin && parameters.portalPageId) {
+    portalPage = delegator.findByPrimaryKey("PortalPage", [portalPageId : parameters.portalPageId]);
+    if (portalPage) {
+        if (portalPage.parentPortalPageId) {
+            context.parameters.parentPortalPageId = portalPage.parentPortalPageId;
         } else {
-            context.parameters.parentPortalPageId = portalPage.orginalPortalPageId;
-        }
-        context.parameters.portalPageId = portalPage.portalPageId; //make sure we have a starting portalPageId
-        if (!context.headerItem) {
-            context.headerItem = portalPage.portalPageId; // and the menu item is highlighted
+        	if ("_NA_".equals(portalPage.ownerUserLoginId)) {
+        		context.parameters.parentPortalPageId = portalPage.portalPageId;
+        	} else {
+                context.parameters.parentPortalPageId = portalPage.originalPortalPageId;
+        	}
         }
     }
+}
+// Debug.log('======parent portalPageId: ' + parameters.parentPortalPageId);
+if (!context.headerItem && parameters.portalPageId) {
+    context.headerItem = parameters.portalPageId; // and the menu item is highlighted
 }
