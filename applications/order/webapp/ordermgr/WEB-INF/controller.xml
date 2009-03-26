@@ -96,49 +96,49 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massChangeOrderApproved"/>
         <response name="success" type="request-redirect" value="findorders"/>
-        <response name="error" type="request-redirect" value="findorders"/>
+        <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massProcessOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massProcessOrders"/>
         <response name="success" type="request-redirect" value="findorders"/>
-        <response name="error" type="request-redirect" value="findorders"/>
+        <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massHoldOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massHoldOrders"/>
         <response name="success" type="request-redirect" value="findorders"/>
-        <response name="error" type="request-redirect" value="findorders"/>
+        <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massCancelOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massCancelOrders"/>
         <response name="success" type="request-redirect" value="findorders"/>
-        <response name="error" type="request-redirect" value="findorders"/>
+        <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massRejectOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massRejectOrders"/>
         <response name="success" type="request-redirect" value="findorders"/>
-        <response name="error" type="request-redirect" value="findorders"/>
+        <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massPickOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massPickOrders"/>
         <response name="success" type="request-redirect" value="findorders"/>
-        <response name="error" type="request-redirect" value="findorders"/>
+        <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massPrintOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massPrintOrders"/>
         <response name="success" type="request-redirect" value="findorders"/>
-        <response name="error" type="request-redirect" value="findorders"/>
+        <response name="error" type="view" value="findorders"/>
     </request-map>
     <request-map uri="massCreateFileForOrders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="massCreateFileForOrders"/>
         <response name="success" type="request-redirect" value="findorders"/>
-        <response name="error" type="request-redirect" value="findorders"/>
+        <response name="error" type="view" value="findorders"/>
     </request-map>
 
     <!-- Delivery Info Requests, intended for sales orders but can be used for purchase orders as well -->
@@ -241,14 +241,14 @@ under the License.
     <request-map uri="quickShipOrder">
         <security https="true" auth="true"/>
         <event type="service" invoke="quickShipEntireOrder"/>
-        <response name="success" type="request-redirect" value="orderview"/>
-        <response name="error" type="request-redirect" value="orderview"/>
+        <response name="success" type="request-redirect" value="orderview"><redirect-parameter name="orderId"/></response>
+        <response name="error" type="view" value="orderview"/>
     </request-map>
     <request-map uri="quickDropShipOrder">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="quickDropShipOrder"/>
-        <response name="success" type="request-redirect" value="orderview"/>
-        <response name="error" type="request-redirect" value="orderview"/>
+        <response name="success" type="request-redirect" value="orderview"><redirect-parameter name="orderId"/></response>
+        <response name="error" type="view" value="orderview"/>
     </request-map>
     <request-map uri="completePurchaseOrder">
         <security https="true" auth="true"/>
@@ -322,7 +322,7 @@ under the License.
     <request-map uri="updateOrderNote">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateOrderNote"/>
-        <response name="success" type="request-redirect" value="orderview"/>
+        <response name="success" type="request-redirect" value="orderview"><redirect-parameter name="orderId"/></response>
         <response name="error" type="view" value="orderview"/>
     </request-map>
     
@@ -1115,14 +1115,14 @@ under the License.
     <request-map uri="createCustRequestContent">
         <security auth="true" https="true"/>
         <event path="org/ofbiz/order/request/CustRequestEvents.xml" type="simple"  invoke="createCustRequestContent"/>
-        <response name="success" type="request-redirect" value="EditCustRequestContent"/>
+        <response name="success" type="request-redirect" value="EditCustRequestContent"><redirect-parameter name="custRequestId"/></response>
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>
     
     <request-map uri="deleteCustRequestContent">
         <security auth="true" https="true"/>
         <event invoke="deleteCustRequestContent" type="service"/>
-        <response name="success" type="request-redirect" value="EditCustRequestContent"/>
+        <response name="success" type="request-redirect" value="EditCustRequestContent"><redirect-parameter name="custRequestId"/></response>
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>
     
@@ -1448,15 +1448,13 @@ under the License.
     <request-map uri="authOrderPayment">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="authOrderPaymentPreference"/>
-        <response name="success" type="request-redirect" value="orderview"/>
+        <response name="success" type="request-redirect" value="orderview"><redirect-parameter name="orderId"/></response>
     </request-map>
     
     <request-map uri="updateOrderPaymentPreference">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateOrderPaymentPreference"/>
-        <response name="success" type="request-redirect" value="orderview">
-            <redirect-parameter name="orderId"/>
-        </response>
+        <response name="success" type="request-redirect" value="orderview"><redirect-parameter name="orderId"/></response>
         <response name="error" type="view" value="orderview"/>
     </request-map>
     <request-map uri="setOrderReservationPriority">
