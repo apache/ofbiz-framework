@@ -27,7 +27,10 @@ under the License.
         <#if security.hasEntityPermission("FACILITY", "_CREATE", session) && ((orderHeader.statusId == "ORDER_APPROVED") || (orderHeader.statusId == "ORDER_SENT"))>
           <#-- Special shipment options -->
           <#if orderHeader.orderTypeId == "SALES_ORDER">
-            <li><a href="<@ofbizUrl>quickShipOrder?${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickShipEntireOrder}</a></li>
+            <form name="quickShipOrder" method="post" action="<@ofbizUrl>quickShipOrder</@ofbizUrl>">
+              <input type="hidden" name="orderId" value="${orderId}"/>
+            </form>
+            <li><a href="javascript:document.quickShipOrder.submit()" class="buttontext">${uiLabelMap.OrderQuickShipEntireOrder}</a></li>
           <#else> <#-- PURCHASE_ORDER -->
             <span class="label">&nbsp;<#if orderHeader.orderTypeId == "PURCHASE_ORDER">${uiLabelMap.ProductDestinationFacility}</#if></span>
             <#if ownedFacilities?has_content>
@@ -69,8 +72,20 @@ under the License.
         </#if>
         <#if security.hasEntityPermission("ORDERMGR", "_RETURN", session) && orderHeader.statusId == "ORDER_COMPLETED">
           <#if returnableItems?has_content>
-            <li><a href="<@ofbizUrl>quickRefundOrder?orderId=${orderId}&amp;receiveReturn=true&amp;returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickRefundEntireOrder}</a></li>
-            <li><a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}&amp;needsInventoryReceive=${needsInventoryReceive?default("N")}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateReturn}</a></li>
+            <form name="quickRefundOrder" method="post" action="<@ofbizUrl>quickRefundOrder</@ofbizUrl>">
+              <input type="hidden" name="orderId" value="${orderId}"/>
+              <input type="hidden" name="receiveReturn" value="true"/>
+              <input type="hidden" name="returnHeaderTypeId" value="${returnHeaderTypeId}"/>
+            </form>
+            <li><a href="javascript:document.quickRefundOrder.submit()" class="buttontext">${uiLabelMap.OrderQuickRefundEntireOrder}</a></li>
+
+            <form name="quickreturn" method="post" action="<@ofbizUrl>quickreturn</@ofbizUrl>">
+              <input type="hidden" name="orderId" value="${orderId}"/>
+              <input type="hidden" name="party_id" value="${partyId?if_exists}"/>
+              <input type="hidden" name="returnHeaderTypeId" value="${returnHeaderTypeId}"/>
+              <input type="hidden" name="needsInventoryReceive" value="${needsInventoryReceive?default("N")}"/>
+            </form>
+            <li><a href="javascript:document.quickreturn.submit()" class="buttontext">${uiLabelMap.OrderCreateReturn}</a></li>
           </#if>  
         </#if>
 
@@ -243,7 +258,13 @@ under the License.
                 <#if shipGroup.maySplit?upper_case == "N">
                     ${uiLabelMap.FacilityWaitEntireOrderReady}
                     <#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session)>
-                      <#if orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_CANCELLED"><a href="<@ofbizUrl>allowordersplit?shipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;${paramString}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderAllowSplit}</a></#if>
+                      <#if orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_CANCELLED">
+                        <form name="allowordersplit_${shipGroup.shipGroupSeqId}" method="post" action="<@ofbizUrl>allowordersplit</@ofbizUrl>">
+                          <input type="hidden" name="orderId" value="${orderId}"/>
+                          <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
+                        </form>
+                        <a href="javascript:document.allowordersplit_${shipGroup.shipGroupSeqId}.submit()" class="buttontext">${uiLabelMap.OrderAllowSplit}</a>
+                      </#if>
                     </#if>
                 <#else>
                     ${uiLabelMap.FacilityShipAvailable}
