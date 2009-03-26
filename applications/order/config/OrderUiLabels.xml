@@ -3593,6 +3593,18 @@
         <value xml:lang="ru">Последние поиски</value>
         <value xml:lang="th">ค้นหาครั้งสุดท้าย</value>
         <value xml:lang="zh">最近使用的搜索</value>
+    </property>     
+    <property key="OrderLimitPerCustomer">
+        <value xml:lang="en">Limit ${limit} per customer. </value>
+        <value xml:lang="fr">Limiter à ${limit} par client. </value>
+    </property>
+    <property key="OrderLimitPerPromotion">
+        <value xml:lang="en">Limit ${limit} per promotion. </value>
+        <value xml:lang="fr">Limiter à ${limit} par promotion. </value>
+    </property>
+    <property key="OrderLimitPerOrder">
+        <value xml:lang="en">Limit ${limit} per order. </value>
+        <value xml:lang="fr">Limiter à ${limit} par commande. </value>
     </property>
     <property key="OrderLinkedFromOrderItem">
         <value xml:lang="de">Verlinkt von Auftragselement</value>
@@ -7116,6 +7128,10 @@
         <value xml:lang="zh">请求</value>
         <value xml:lang="zh_CN">请求</value>
     </property>
+    <property key="OrderRequiresCodeToUse">
+        <value xml:lang="en">Requires code to use. </value>
+        <value xml:lang="fr">Nécessite un code. </value>
+    </property>     
     <property key="OrderRequestContent">
         <value xml:lang="de">Inhalt</value>
         <value xml:lang="en">Content</value>
