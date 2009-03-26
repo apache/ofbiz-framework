@@ -34,7 +34,7 @@ under the License.
             <#assign rowClass = "2">
             <#list variantInventorySummaries as variantSummary>
             <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                <td><a href="/catalog/control/EditProductInventoryItems?productId=${variantSummary.productId}" class="buttontext">${variantSummary.productId}</a></td>
+                <td><a href="<@ofbizUrl>EditProductInventoryItems?productId=${variantSummary.productId}</@ofbizUrl>" class="buttontext">${variantSummary.productId}</a></td>
                     <#list featureTypeIds as featureTypeId>
                         <td>${(variantSummary[featureTypeId].description)?default(featureTypeId)}</td>
                     </#list>
