@@ -37,9 +37,9 @@ import org.ofbiz.widget.screen.ScreenWidgetViewHandler;
 import org.ofbiz.widget.xml.XmlFormRenderer;
 
 public class ScreenXmlViewHandler extends ScreenWidgetViewHandler {
- 
+
     public static final String module = ScreenXmlViewHandler.class.getName();
- 
+
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
         Writer writer = null;
         try {

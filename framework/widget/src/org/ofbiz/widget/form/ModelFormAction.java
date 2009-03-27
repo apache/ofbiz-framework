@@ -61,12 +61,12 @@ public abstract class ModelFormAction {
         this.modelForm = modelForm;
         if (Debug.verboseOn()) Debug.logVerbose("Reading Screen action with name: " + actionElement.getNodeName(), module);
     }
- 
+
     public abstract void runAction(Map<String, Object> context);
- 
+
     public static List<ModelFormAction> readSubActions(ModelForm modelForm, Element parentElement) {
         List<ModelFormAction> actions = new LinkedList<ModelFormAction>();
- 
+
         for (Element actionElement: UtilXml.childElementList(parentElement)) {
             if ("set".equals(actionElement.getNodeName())) {
                 actions.add(new SetField(modelForm, actionElement));
@@ -88,19 +88,19 @@ public abstract class ModelFormAction {
                 throw new IllegalArgumentException("Action element not supported with name: " + actionElement.getNodeName());
             }
         }
- 
+
         return actions;
     }
- 
+
     public static void runSubActions(List<ModelFormAction> actions, Map<String, Object> context) {
         if (actions == null) return;
- 
+
         for (ModelFormAction action: actions) {
             if (Debug.verboseOn()) Debug.logVerbose("Running screen action " + action.getClass().getName(), module);
             action.runAction(context);
         }
     }
- 
+
     public static class SetField extends ModelFormAction {
         protected FlexibleMapAccessor<Object> field;
         protected FlexibleMapAccessor<String> fromField;
@@ -108,7 +108,7 @@ public abstract class ModelFormAction {
         protected FlexibleStringExpander defaultExdr;
         protected FlexibleStringExpander globalExdr;
         protected String type;
- 
+
         public SetField(ModelForm modelForm, Element setElement) {
             super (modelForm, setElement);
             this.field = FlexibleMapAccessor.getInstance(setElement.getAttribute("field"));
@@ -121,12 +121,12 @@ public abstract class ModelFormAction {
                 throw new IllegalArgumentException("Cannot specify a from-field [" + setElement.getAttribute("from-field") + "] and a value [" + setElement.getAttribute("value") + "] on the set action in a screen widget");
             }
         }
- 
+
         public void runAction(Map<String, Object> context) {
             String globalStr = this.globalExdr.expandString(context);
             // default to false
             boolean global = "true".equals(globalStr);
- 
+
             Object newValue = null;
             if (!this.fromField.isEmpty()) {
                 newValue = this.fromField.get(context);
@@ -148,18 +148,18 @@ public abstract class ModelFormAction {
                     Debug.logError(e, errMsg, module);
                     throw new IllegalArgumentException(errMsg);
                 }
- 
+
             }
             if (Debug.verboseOn()) Debug.logVerbose("In screen setting field [" + this.field.getOriginalName() + "] to value: " + newValue, module);
             this.field.put(context, newValue);
- 
+
             if (global) {
                 Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
                 if (globalCtx != null) {
                     this.field.put(globalCtx, newValue);
                 }
             }
- 
+
             // this is a hack for backward compatibility with the JPublish page object
             Map<String, Object> page = UtilGenerics.checkMap(context.get("page"));
             if (page != null) {
@@ -167,19 +167,19 @@ public abstract class ModelFormAction {
             }
         }
     }
- 
+
     public static class PropertyMap extends ModelFormAction {
         protected FlexibleStringExpander resourceExdr;
         protected FlexibleMapAccessor<Map<String, Object>> mapNameAcsr;
         protected FlexibleStringExpander globalExdr;
- 
+
         public PropertyMap(ModelForm modelForm, Element setElement) {
             super (modelForm, setElement);
             this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
             this.mapNameAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("map-name"));
             this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
- 
+
         public void runAction(Map<String, Object> context) {
             String globalStr = this.globalExdr.expandString(context);
             // default to false
@@ -198,9 +198,9 @@ public abstract class ModelFormAction {
             }
         }
     }
- 
+
     public static class PropertyToField extends ModelFormAction {
- 
+
         protected FlexibleStringExpander resourceExdr;
         protected FlexibleStringExpander propertyExdr;
         protected FlexibleMapAccessor<String> fieldAcsr;
@@ -219,7 +219,7 @@ public abstract class ModelFormAction {
             this.argListAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("arg-list-name"));
             this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
- 
+
         public void runAction(Map<String, Object> context) {
             //String globalStr = this.globalExdr.expandString(context);
             // default to false
@@ -228,7 +228,7 @@ public abstract class ModelFormAction {
             Locale locale = (Locale) context.get("locale");
             String resource = this.resourceExdr.expandString(context, locale);
             String property = this.propertyExdr.expandString(context, locale);
- 
+
             String value = null;
             if (noLocale) {
                 value = UtilProperties.getPropertyValue(resource, property);
@@ -238,7 +238,7 @@ public abstract class ModelFormAction {
             if (value == null || value.length() == 0) {
                 value = this.defaultExdr.expandString(context);
             }
- 
+
             // note that expanding the value string here will handle defaultValue and the string from
             //  the properties file; if we decide later that we don't want the string from the properties 
             //  file to be expanded we should just expand the defaultValue at the beginning of this method.
@@ -254,15 +254,15 @@ public abstract class ModelFormAction {
             fieldAcsr.put(context, value);
         }
     }
- 
+
     public static class Script extends ModelFormAction {
         protected String location;
- 
+
         public Script(ModelForm modelForm, Element scriptElement) {
             super (modelForm, scriptElement);
             this.location = scriptElement.getAttribute("location");
         }
- 
+
         public void runAction(Map<String, Object> context) {
             if (location.endsWith(".bsh")) {
                 try {
@@ -292,7 +292,7 @@ public abstract class ModelFormAction {
         protected FlexibleStringExpander autoFieldMapExdr;
         protected FlexibleStringExpander resultMapListNameExdr;
         protected Map<FlexibleMapAccessor<Object>, Object> fieldMap;
- 
+
         public Service(ModelForm modelForm, Element serviceElement) {
             super (modelForm, serviceElement);
             this.serviceNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("service-name"));
@@ -315,19 +315,19 @@ public abstract class ModelFormAction {
                 this.resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list"));
                 if (this.resultMapListNameExdr.isEmpty()) this.resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list-name"));
             }
- 
+
             this.fieldMap = EntityFinderUtil.makeFieldMap(serviceElement);
         }
- 
+
         public void runAction(Map<String, Object> context) {
             String serviceNameExpanded = this.serviceNameExdr.expandString(context);
             if (UtilValidate.isEmpty(serviceNameExpanded)) {
                 throw new IllegalArgumentException("Service name was empty, expanded from: " + this.serviceNameExdr.getOriginal());
             }
- 
+
             String autoFieldMapString = this.autoFieldMapExdr.expandString(context);
             boolean autoFieldMapBool = !"false".equals(autoFieldMapString);
- 
+
             try {
                 Map<String, Object> serviceContext = null;
                 if (autoFieldMapBool) {
@@ -335,13 +335,13 @@ public abstract class ModelFormAction {
                 } else {
                     serviceContext = new HashMap<String, Object>();
                 }
- 
+
                 if (this.fieldMap != null) {
                     EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, serviceContext);
                 }
- 
+
                 Map<String, Object> result = this.modelForm.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
- 
+
                 if (!this.resultMapNameAcsr.isEmpty()) {
                     this.resultMapNameAcsr.put(context, result);
                     String queryString = (String)result.get("queryString");
@@ -352,7 +352,7 @@ public abstract class ModelFormAction {
                             String queryStringEncoded = queryString.replaceAll("&", "%26");
                             context.put("queryStringEncoded", queryStringEncoded);
                         } catch (PatternSyntaxException e) {
- 
+
                         }
                     }
                 } else {
@@ -377,12 +377,12 @@ public abstract class ModelFormAction {
 
     public static class EntityOne extends ModelFormAction {
         protected PrimaryKeyFinder finder;
- 
+
         public EntityOne(ModelForm modelForm, Element entityOneElement) {
             super (modelForm, entityOneElement);
             finder = new PrimaryKeyFinder(entityOneElement);
         }
- 
+
         public void runAction(Map<String, Object> context) {
             try {
                 finder.runFind(context, this.modelForm.getDelegator(context));
@@ -397,7 +397,7 @@ public abstract class ModelFormAction {
     public static class EntityAnd extends ModelFormAction {
         protected ByAndFinder finder;
         String actualListName;
- 
+
         public EntityAnd(ModelForm modelForm, Element entityAndElement) {
             super (modelForm, entityAndElement);
 
@@ -405,7 +405,7 @@ public abstract class ModelFormAction {
             // Document ownerDoc = entityAndElement.getOwnerDocument();
             // boolean useCache = "true".equalsIgnoreCase(entityAndElement.getAttribute("use-cache"));
             // if (!useCache) UtilXml.addChildElement(entityAndElement, "use-iterator", ownerDoc);
- 
+
             // make list-name optional
             if (UtilValidate.isEmpty(entityAndElement.getAttribute("list")) && UtilValidate.isEmpty(entityAndElement.getAttribute("list-name"))) {
                 String lstNm = modelForm.getListName();
@@ -418,7 +418,7 @@ public abstract class ModelFormAction {
             if (UtilValidate.isEmpty(this.actualListName)) this.actualListName = entityAndElement.getAttribute("list-name");
             finder = new ByAndFinder(entityAndElement);
         }
- 
+
         public void runAction(Map<String, Object> context) {
             try {
                 // don't want to do this: context.put("defaultFormResultList", null);
@@ -434,21 +434,21 @@ public abstract class ModelFormAction {
                 throw new IllegalArgumentException(errMsg);
             }
         }
- 
+
     }
 
     public static class EntityCondition extends ModelFormAction {
         ByConditionFinder finder;
         String actualListName;
- 
+
         public EntityCondition(ModelForm modelForm, Element entityConditionElement) {
             super (modelForm, entityConditionElement);
- 
+
             //don't want to default to the iterator, should be specified explicitly, not the default
             // Document ownerDoc = entityConditionElement.getOwnerDocument();
             // boolean useCache = "true".equalsIgnoreCase(entityConditionElement.getAttribute("use-cache"));
             // if (!useCache) UtilXml.addChildElement(entityConditionElement, "use-iterator", ownerDoc);
- 
+
             // make list-name optional
             if (UtilValidate.isEmpty(entityConditionElement.getAttribute("list")) && UtilValidate.isEmpty(entityConditionElement.getAttribute("list-name"))) {
                 String lstNm = modelForm.getListName();
@@ -461,7 +461,7 @@ public abstract class ModelFormAction {
             if (UtilValidate.isEmpty(this.actualListName)) this.actualListName = entityConditionElement.getAttribute("list-name");
             finder = new ByConditionFinder(entityConditionElement);
         }
- 
+
         public void runAction(Map<String, Object> context) {
             try {
                 // don't want to do this: context.put("defaultFormResultList", null);

@@ -45,9 +45,9 @@ import org.xml.sax.SAXException;
  * Widget Library - HTML Menu Wrapper class - makes it easy to do the setup and render of a menu
  */
 public class HtmlMenuWrapper {
- 
+
     public static final String module = HtmlMenuWrapper.class.getName();
- 
+
     protected String resourceName;
     protected String menuName;
     protected HttpServletRequest request;
@@ -69,11 +69,11 @@ public class HtmlMenuWrapper {
         this.menuName = menuName;
         this.request = request;
         this.response = response;
- 
+
         this.modelMenu = MenuFactory.getMenuFromWebappContext(resourceName, menuName, request);
 
         this.renderer = getMenuRenderer();
- 
+
         this.context = new HashMap<String, Object>();
         Map parameterMap = UtilHttp.getParameterMap(request);
         context.put("parameters", parameterMap);
@@ -81,17 +81,17 @@ public class HtmlMenuWrapper {
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         context.put("userLogin", userLogin);
- 
+
         //make sure the locale is in the context
         context.put("locale", UtilHttp.getLocale(request));
- 
+
         // if there was an error message, this is an error
         if (UtilValidate.isNotEmpty((String) request.getAttribute("_ERROR_MESSAGE_"))) {
             context.put("isError", Boolean.TRUE);
         } else {
             context.put("isError", Boolean.FALSE);
         }
- 
+
         // if a parameter was passed saying this is an error, it is an error
         if ("true".equals((String) parameterMap.get("isError"))) {
             context.put("isError", Boolean.TRUE);
@@ -101,7 +101,7 @@ public class HtmlMenuWrapper {
     public MenuStringRenderer getMenuRenderer() {
         return new HtmlMenuRenderer(request, response);
     }
- 
+
     public String renderMenuString() throws IOException {
         HttpServletRequest req = ((HtmlMenuRenderer)renderer).request;
         ServletContext ctx = (ServletContext) req.getAttribute("servletContext");
@@ -131,7 +131,7 @@ public class HtmlMenuWrapper {
     public void setIsError(boolean isError) {
         this.context.put("isError", Boolean.valueOf(isError));
     }
- 
+
     public boolean getIsError() {
         Boolean isErrorBoolean = (Boolean) this.context.get("isError");
         if (isErrorBoolean == null) {
@@ -140,15 +140,15 @@ public class HtmlMenuWrapper {
             return isErrorBoolean.booleanValue();
         }
     }
- 
+
     public void setMenuOverrideName(String menuName) {
         this.context.put("menuName", menuName);
     }
- 
+
     public void putInContext(String name, Object value) {
         this.context.put(name, value);
     }
- 
+
     public void putInContext(String menuItemName, String valueName,  Object value) {
         Map<String, Object> valueMap = UtilGenerics.toMap(context.get(menuItemName));
         if (valueMap == null) {
@@ -157,11 +157,11 @@ public class HtmlMenuWrapper {
         }
         valueMap.put(valueName, value);
     }
- 
+
     public Object getFromContext(String name) {
         return this.context.get(name);
     }
- 
+
     public Object getFromContext(String menuItemName, String valueName) {
         Map<String, Object> valueMap = UtilGenerics.toMap(context.get(menuItemName));
         if (valueMap == null) {
@@ -170,7 +170,7 @@ public class HtmlMenuWrapper {
         }
         return valueMap.get(valueName);
     }
- 
+
     public ModelMenu getModelMenu() {
         return modelMenu;
     }
@@ -202,9 +202,9 @@ public class HtmlMenuWrapper {
     }
 
     public static HtmlMenuWrapper getMenuWrapper(HttpServletRequest request, HttpServletResponse response, HttpSession session, String menuDefFile, String menuName, String menuWrapperClassName ) {
- 
+
         HtmlMenuWrapper menuWrapper = null;
- 
+
         String menuSig = menuDefFile + "__" + menuName;
         if (session != null) {
              menuWrapper = (HtmlMenuWrapper)session.getAttribute(menuSig);
@@ -236,7 +236,7 @@ public class HtmlMenuWrapper {
 
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
             menuWrapper.putInContext("userLogin", userLogin);
- 
+
         }
 
         if (session != null) {

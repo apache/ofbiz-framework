@@ -74,17 +74,17 @@ public class ModelScreenCondition implements Serializable {
         }
         return rootCondition.eval(context);
     }
- 
+
     public static abstract class ScreenCondition implements Serializable {
         protected ModelScreen modelScreen;
 
         public ScreenCondition(ModelScreen modelScreen, Element conditionElement) {
             this.modelScreen = modelScreen;
         }
- 
+
         public abstract boolean eval(Map<String, Object> context);
     }
- 
+
     public static List<ScreenCondition> readSubConditions(ModelScreen modelScreen, Element conditionElement) {
         List<ScreenCondition> condList = FastList.newInstance();
         List<? extends Element> subElementList = UtilXml.childElementList(conditionElement);
@@ -93,7 +93,7 @@ public class ModelScreenCondition implements Serializable {
         }
         return condList;
     }
- 
+
     public static ScreenCondition readCondition(ModelScreen modelScreen, Element conditionElement) {
         if (conditionElement == null) {
             return null;
@@ -126,15 +126,15 @@ public class ModelScreenCondition implements Serializable {
             throw new IllegalArgumentException("Condition element not supported with name: " + conditionElement.getNodeName());
         }
     }
- 
+
     public static class And extends ScreenCondition {
         protected List<ScreenCondition> subConditions;
- 
+
         public And(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
             this.subConditions = readSubConditions(modelScreen, condElement);
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             // return false for the first one in the list that is false, basic and algo
             for (ScreenCondition subCondition: this.subConditions) {
@@ -145,15 +145,15 @@ public class ModelScreenCondition implements Serializable {
             return true;
         }
     }
- 
+
     public static class Xor extends ScreenCondition {
         protected List<ScreenCondition> subConditions;
- 
+
         public Xor(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
             this.subConditions = readSubConditions(modelScreen, condElement);
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             // if more than one is true stop immediately and return false; if all are false return false; if only one is true return true
             boolean foundOneTrue = false;
@@ -170,15 +170,15 @@ public class ModelScreenCondition implements Serializable {
             return foundOneTrue;
         }
     }
- 
+
     public static class Or extends ScreenCondition {
         protected List<ScreenCondition> subConditions;
- 
+
         public Or(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
             this.subConditions = readSubConditions(modelScreen, condElement);
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             // return true for the first one in the list that is true, basic or algo
             for (ScreenCondition subCondition: this.subConditions) {
@@ -189,16 +189,16 @@ public class ModelScreenCondition implements Serializable {
             return false;
         }
     }
- 
+
     public static class Not extends ScreenCondition {
         protected ScreenCondition subCondition;
- 
+
         public Not(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
             Element firstChildElement = UtilXml.firstChildElement(condElement);
             this.subCondition = readCondition(modelScreen, firstChildElement);
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             return !this.subCondition.eval(context);
         }
@@ -229,7 +229,7 @@ public class ModelScreenCondition implements Serializable {
                 if (UtilValidate.isEmpty(resource)) {
                     resource = serviceName;
                 }
- 
+
                 if (UtilValidate.isEmpty(serviceName)) {
                     Debug.logWarning("No permission service-name specified!", module);
                     return false;
@@ -290,20 +290,20 @@ public class ModelScreenCondition implements Serializable {
     public static class IfHasPermission extends ScreenCondition {
         protected FlexibleStringExpander permissionExdr;
         protected FlexibleStringExpander actionExdr;
- 
+
         public IfHasPermission(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
             this.permissionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("permission"));
             this.actionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("action"));
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             // if no user is logged in, treat as if the user does not have permission
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             if (userLogin != null) {
                 String permission = permissionExdr.expandString(context);
                 String action = actionExdr.expandString(context);
- 
+
                 Security security = (Security) context.get("security");
                 if (action != null && action.length() > 0) {
                     // run hasEntityPermission
@@ -325,7 +325,7 @@ public class ModelScreenCondition implements Serializable {
         protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander methodExdr;
         protected FlexibleStringExpander classExdr;
- 
+
         public IfValidateMethod(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
             this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
@@ -333,11 +333,11 @@ public class ModelScreenCondition implements Serializable {
             this.methodExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("method"));
             this.classExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("class"));
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             String methodName = this.methodExdr.expandString(context);
             String className = this.classExdr.expandString(context);
- 
+
             Object fieldVal = this.fieldAcsr.get(context);
             String fieldString = null;
             if (fieldVal != null) {
@@ -380,7 +380,7 @@ public class ModelScreenCondition implements Serializable {
             return resultBool.booleanValue();
         }
     }
- 
+
     public static class IfCompare extends ScreenCondition {
         protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander valueExdr;
@@ -388,25 +388,25 @@ public class ModelScreenCondition implements Serializable {
         protected String operator;
         protected String type;
         protected FlexibleStringExpander formatExdr;
- 
+
         public IfCompare(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
             this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
             if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.valueExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("value"));
- 
+
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
 
             this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             String value = this.valueExdr.expandString(context);
             String format = this.formatExdr.expandString(context);
- 
+
             Object fieldVal = this.fieldAcsr.get(context);
- 
+
             // always use an empty string by default
             if (fieldVal == null) {
                 fieldVal = "";
@@ -425,11 +425,11 @@ public class ModelScreenCondition implements Serializable {
 
                 throw new IllegalArgumentException(fullString.toString());
             }
- 
+
             return resultBool.booleanValue();
         }
     }
- 
+
     public static class IfCompareField extends ScreenCondition {
         protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleMapAccessor<Object> toFieldAcsr;
@@ -437,26 +437,26 @@ public class ModelScreenCondition implements Serializable {
         protected String operator;
         protected String type;
         protected FlexibleStringExpander formatExdr;
- 
+
         public IfCompareField(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
             this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
             if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field"));
             if (this.toFieldAcsr.isEmpty()) this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field-name"));
- 
+
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
 
             this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             String format = this.formatExdr.expandString(context);
- 
+
             Object fieldVal = this.fieldAcsr.get(context);
             Object toFieldVal = this.toFieldAcsr.get(context);
- 
+
             // always use an empty string by default
             if (fieldVal == null) {
                 fieldVal = "";
@@ -475,25 +475,25 @@ public class ModelScreenCondition implements Serializable {
 
                 throw new IllegalArgumentException(fullString.toString());
             }
- 
+
             return resultBool.booleanValue();
         }
     }
- 
+
     public static class IfRegexp extends ScreenCondition {
         static PatternMatcher matcher = new Perl5Matcher();
         static PatternCompiler compiler = new Perl5Compiler();
 
         protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander exprExdr;
- 
+
         public IfRegexp(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
             this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
             if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.exprExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("expr"));
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
             String expr = this.exprExdr.expandString(context);
@@ -514,20 +514,20 @@ public class ModelScreenCondition implements Serializable {
             }
             // always use an empty string by default
             if (fieldString == null) fieldString = "";
- 
+
             return matcher.matches(fieldString, pattern);
         }
     }
- 
+
     public static class IfEmpty extends ScreenCondition {
         protected FlexibleMapAccessor<Object> fieldAcsr;
- 
+
         public IfEmpty(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
             this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
             if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
             return ObjectType.isEmpty(fieldVal);
@@ -535,12 +535,12 @@ public class ModelScreenCondition implements Serializable {
     }
     public static class IfEntityPermission extends ScreenCondition {
         protected EntityPermissionChecker permissionChecker;
- 
+
         public IfEntityPermission(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
             this.permissionChecker = new EntityPermissionChecker(condElement);
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             return permissionChecker.runPermissionCheck(context);
         }

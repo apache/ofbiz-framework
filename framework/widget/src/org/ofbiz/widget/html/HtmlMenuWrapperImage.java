@@ -40,7 +40,7 @@ import org.xml.sax.SAXException;
  * Widget Library - HTML Menu Wrapper class - makes it easy to do the setup and render of a menu
  */
 public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
- 
+
     public static final String module = HtmlMenuWrapperImage.class.getName();
 
     protected HtmlMenuWrapperImage() {}
@@ -53,10 +53,10 @@ public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
     public MenuStringRenderer getMenuRenderer() {
         return new HtmlMenuRendererImage(request, response);
     }
- 
+
     public void init(String resourceName, String menuName, HttpServletRequest request, HttpServletResponse response)
             throws IOException, SAXException, ParserConfigurationException {
- 
+
         super.init(resourceName, menuName, request, response);
         //String pubPt = (String)request.getAttribute("pubPt");
         //if (Debug.infoOn()) Debug.logInfo("in init, pubPt:" + pubPt, module);

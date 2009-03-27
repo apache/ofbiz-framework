@@ -27,7 +27,7 @@ public class GenericWidgetOutput {
     public GenericWidgetOutput(String output) {
         this.output = new String(output);
     }
- 
+
     public String toString() {
         return this.output;
     }

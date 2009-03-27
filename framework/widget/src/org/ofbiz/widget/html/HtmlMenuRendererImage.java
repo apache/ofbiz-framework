@@ -73,7 +73,7 @@ public class HtmlMenuRendererImage extends HtmlMenuRenderer {
         String widthStr = "";
         if (UtilValidate.isNotEmpty(cellWidth))
             widthStr = " width=\"" + cellWidth + "\" ";
- 
+
         imgStr += widthStr;
         imgStr += " border=\"0\" />";
         return imgStr;

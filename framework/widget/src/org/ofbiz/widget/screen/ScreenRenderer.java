@@ -66,18 +66,18 @@ import freemarker.ext.servlet.HttpSessionHashModel;
 public class ScreenRenderer {
 
     public static final String module = ScreenRenderer.class.getName();
- 
+
     protected Appendable writer;
     protected MapStack<String> context;
     protected ScreenStringRenderer screenStringRenderer;
- 
+
     public ScreenRenderer(Appendable writer, MapStack<String> context, ScreenStringRenderer screenStringRenderer) {
         this.writer = writer;
         this.context = context;
         if (this.context == null) this.context = MapStack.create();
         this.screenStringRenderer = screenStringRenderer;
     }
- 
+
     /**
      * Renders the named screen using the render environment configured when this ScreenRenderer was created.
      *
@@ -158,7 +158,7 @@ public class ScreenRenderer {
         context.put("userLogin", userLogin);
         context.put("nowTimestamp", UtilDateTime.nowTimestamp());
     }
- 
+
     /**
      * This method populates the context for this ScreenRenderer based on the HTTP Request and Response objects and the ServletContext.
      * It leverages various conventions used in other places, namely the ControlServlet and so on, of OFBiz to get the different resources needed.
@@ -179,7 +179,7 @@ public class ScreenRenderer {
         Map<String, Object> parameterMap = UtilHttp.getCombinedMap(request, attrNamesToSkip);
 
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
- 
+
         populateBasicContext(context, screens, parameterMap, (GenericDelegator) request.getAttribute("delegator"),
                 (LocalDispatcher) request.getAttribute("dispatcher"), (Security) request.getAttribute("security"),
                 UtilHttp.getLocale(request), userLogin);
@@ -193,7 +193,7 @@ public class ScreenRenderer {
 
         // set up the user's time zone
         context.put("timeZone", UtilHttp.getTimeZone(request));
- 
+
         // ========== setup values that are specific to OFBiz webapps
 
         context.put("request", request);

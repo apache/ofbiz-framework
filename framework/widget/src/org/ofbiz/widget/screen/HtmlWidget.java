@@ -83,11 +83,11 @@ public class HtmlWidget extends ModelScreenWidget {
             return StringUtil.htmlEncoder.encode(super.getAsString());
         }
     }
- 
+
     // End Static, begin class section
- 
+
     protected List<ModelScreenWidget> subWidgets = new ArrayList<ModelScreenWidget>();
- 
+
     public HtmlWidget(ModelScreen modelScreen, Element htmlElement) {
         super(modelScreen, htmlElement);
         List<? extends Element> childElementList = UtilXml.childElementList(htmlElement);
@@ -116,20 +116,20 @@ public class HtmlWidget extends ModelScreenWidget {
         buffer.append("</html-widget>");
         return buffer.toString();
     }
- 
+
     public static void renderHtmlTemplate(Appendable writer, FlexibleStringExpander locationExdr, Map<String, Object> context) {
         String location = locationExdr.expandString(context);
         //Debug.logInfo("Rendering template at location [" + location + "] with context: \n" + context, module);
- 
+
         if (UtilValidate.isEmpty(location)) {
             throw new IllegalArgumentException("Template location is empty");
         }
- 
+
 
         /*
         // =======================================================================
         // Go through the context and find GenericValue objects and wrap them
- 
+
         // NOTE PROBLEM: there are still problems with this as it gets some things
         // but does not get non-entity data including lots of strings
         // directly in the context or things prepared or derived right in
@@ -137,18 +137,18 @@ public class HtmlWidget extends ModelScreenWidget {
         // do something more aggressive to encode and wrap EVERYTHING in
         // the context, but I've been thinking that even this is too much
         // overhead and that would be crazy
- 
+
         // NOTE ALTERNATIVE1: considering instead to use the FTL features to wrap
         // everything in an <#escape x as x?html>...</#escape>, but that could
         // cause problems with ${} expansions that have HTML in them, including:
         // included screens (using ${screens.render(...)}), content that should
         // have HTML in it (lots of general, product, category, etc content), etc
- 
+
         // NOTE ALTERNATIVE2: kind of like the "#escape X as x?html" option,
         // implement an FTL *Model class and load it through a ObjectWrapper
         // FINAL NOTE: after testing all of these alternatives, this one seems
         // to behave the best, so going with that for now.
- 
+
         // isolate the scope so these wrapper objects go away after rendering is done
         MapStack<String> contextMs;
         if (!(context instanceof MapStack)) {
@@ -177,12 +177,12 @@ public class HtmlWidget extends ModelScreenWidget {
             // and Lists in Maps and such; that's tricky because we have to go
             // through the entire Map and not just one entry, and we would
             // have to shallow copy the whole Map too
- 
+
         }
         // this line goes at the end of the method, but moved up here to be part of the big comment about this
         contextMs.pop();
          */
- 
+
         if (location.endsWith(".ftl")) {
             try {
                 Map<String, ? extends Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
@@ -190,7 +190,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.formatBoundaryComment("Begin", "Template", location));
                 }
- 
+
                 //FreeMarkerWorker.renderTemplateAtLocation(location, context, writer);
                 Template template = null;
                 if (location.endsWith(".fo.ftl")) { // FOP can't render correctly escaped characters
@@ -199,7 +199,7 @@ public class HtmlWidget extends ModelScreenWidget {
                     template = FreeMarkerWorker.getTemplate(location, specialTemplateCache, specialConfig);
                 }
                 FreeMarkerWorker.renderTemplate(template, context, writer);
- 
+
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.formatBoundaryComment("End", "Template", location));
                 }
@@ -224,7 +224,7 @@ public class HtmlWidget extends ModelScreenWidget {
             throw new IllegalArgumentException("Rendering not yet supported for the template at location: " + location);
         }
     }
- 
+
     // TODO: We can make this more fancy, but for now this is very functional
     public static void writeError(Appendable writer, String message) {
         try {
@@ -235,7 +235,7 @@ public class HtmlWidget extends ModelScreenWidget {
 
     public static class HtmlTemplate extends ModelScreenWidget {
         protected FlexibleStringExpander locationExdr;
- 
+
         public HtmlTemplate(ModelScreen modelScreen, Element htmlTemplateElement) {
             super(modelScreen, htmlTemplateElement);
             this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateElement.getAttribute("location"));
@@ -253,11 +253,11 @@ public class HtmlWidget extends ModelScreenWidget {
     public static class HtmlTemplateDecorator extends ModelScreenWidget {
         protected FlexibleStringExpander locationExdr;
         protected Map<String, HtmlTemplateDecoratorSection> sectionMap = FastMap.newInstance();
- 
+
         public HtmlTemplateDecorator(ModelScreen modelScreen, Element htmlTemplateDecoratorElement) {
             super(modelScreen, htmlTemplateDecoratorElement);
             this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateDecoratorElement.getAttribute("location"));
- 
+
             List<? extends Element> htmlTemplateDecoratorSectionElementList = UtilXml.childElementList(htmlTemplateDecoratorElement, "html-template-decorator-section");
             for (Element htmlTemplateDecoratorSectionElement: htmlTemplateDecoratorSectionElementList) {
                 String name = htmlTemplateDecoratorSectionElement.getAttribute("name");
@@ -279,7 +279,7 @@ public class HtmlWidget extends ModelScreenWidget {
             MapStack<String> standAloneStack = contextMs.standAloneChildStack();
             standAloneStack.put("screens", new ScreenRenderer(writer, standAloneStack, screenStringRenderer));
             SectionsRenderer sections = new SectionsRenderer(this.sectionMap, standAloneStack, writer, screenStringRenderer);
- 
+
             // put the sectionMap in the context, make sure it is in the sub-scope, ie after calling push on the MapStack
             contextMs.push();
             context.put("sections", sections);
@@ -296,7 +296,7 @@ public class HtmlWidget extends ModelScreenWidget {
     public static class HtmlTemplateDecoratorSection extends ModelScreenWidget {
         protected String name;
         protected List<ModelScreenWidget> subWidgets;
- 
+
         public HtmlTemplateDecoratorSection(ModelScreen modelScreen, Element htmlTemplateDecoratorSectionElement) {
             super(modelScreen, htmlTemplateDecoratorSectionElement);
             this.name = htmlTemplateDecoratorSectionElement.getAttribute("name");

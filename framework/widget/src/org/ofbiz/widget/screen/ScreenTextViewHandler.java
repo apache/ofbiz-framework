@@ -38,7 +38,7 @@ import org.ofbiz.widget.text.TextFormRenderer;
 import org.ofbiz.widget.text.TextScreenRenderer;
 
 public class ScreenTextViewHandler extends AbstractViewHandler {
- 
+
     public static final String module = ScreenTextViewHandler.class.getName();
 
     protected ServletContext servletContext = null;

@@ -59,7 +59,7 @@ import org.ofbiz.widget.html.HtmlWidgetRenderer;
 public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRenderer {
 
     public static final String module = FoFormRenderer.class.getName();
- 
+
     HttpServletRequest request;
     HttpServletResponse response;
 
@@ -408,12 +408,12 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
         // TODO
     }
- 
+
     public void renderBanner(Appendable writer, Map<String, Object> context, ModelForm.Banner banner) throws IOException {
         // TODO
         this.makeBlockString(writer, null, "");
     }
- 
+
     public void renderHyperlinkTitle(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText) throws IOException {
     }
 }

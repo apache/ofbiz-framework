@@ -49,17 +49,17 @@ import freemarker.template.utility.StandardCompress;
 public class ScreenWidgetViewHandler extends AbstractViewHandler {
 
     public static final String module = ScreenWidgetViewHandler.class.getName();
- 
+
     protected ServletContext servletContext = null;
     protected HtmlScreenRenderer htmlScreenRenderer = new HtmlScreenRenderer();
- 
+
     /**
      * @see org.ofbiz.webapp.view.ViewHandler#init(javax.servlet.ServletContext)
      */
     public void init(ServletContext context) throws ViewHandlerException {
         this.servletContext = context;
     }
- 
+
     /**
      * @see org.ofbiz.webapp.view.ViewHandler#render(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
@@ -88,7 +88,7 @@ public class ScreenWidgetViewHandler extends AbstractViewHandler {
                 // to speed up output.
                 writer = new StandardCompress().getWriter(writer, null);
             }
- 
+
             ScreenRenderer screens = new ScreenRenderer(writer, null, htmlScreenRenderer);
             screens.populateContextForRequest(request, response, servletContext);
             // this is the object used to render forms from their definitions

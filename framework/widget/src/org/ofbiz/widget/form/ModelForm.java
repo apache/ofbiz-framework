@@ -155,17 +155,17 @@ public class ModelForm extends ModelWidget {
      * Can also include Banner objects.
      */
     protected List<FieldGroupBase> fieldGroupList = FastList.newInstance();
- 
+
     /** This Map is keyed with the field name and has a FieldGroup for the value.
      * Can also include Banner objects.
      */
     protected Map<String, FieldGroupBase> fieldGroupMap = FastMap.newInstance();
- 
+
     /** This field group will be the "catch-all" group for fields that are not
      *  included in an explicit field-group.
      */
     protected FieldGroup defaultFieldGroup;
- 
+
     /** Default hyperlink target. */
     public static String DEFAULT_TARGET_TYPE = "intra-app";
 
@@ -179,18 +179,18 @@ public class ModelForm extends ModelWidget {
     public static String DEFAULT_PAG_PREV_STYLE = "nav-previous";
     public static String DEFAULT_PAG_NEXT_STYLE = "nav-next";
     public static String DEFAULT_PAG_LAST_STYLE = "nav-last";
- 
+
     /** Sort field default styles. */
     public static String DEFAULT_SORT_FIELD_STYLE = "sort-order";
     public static String DEFAULT_SORT_FIELD_ASC_STYLE = "sort-order-asc";
     public static String DEFAULT_SORT_FIELD_DESC_STYLE = "sort-order-desc";
- 
+
     protected List<ModelFormAction> actions;
     protected List<ModelFormAction> rowActions;
     protected FlexibleStringExpander rowCountExdr;
     protected List<ModelFormField> multiSubmitFields = FastList.newInstance();
     protected int rowCount = 0;
- 
+
     /** On Submit areas to be updated. */
     protected List<UpdateArea> onSubmitUpdateAreas;
     /** On Paginate areas to be updated. */
@@ -207,12 +207,12 @@ public class ModelForm extends ModelWidget {
         this.dispatchContext = dispatchContext;
         initForm(formElement);
     }
- 
+
     public ModelForm(Element formElement) {
         super(formElement);
         initForm(formElement);
     }
- 
+
     public void initForm(Element formElement) {
 
         setDefaultViewSize(UtilProperties.getPropertyValue("widget.properties", "widget.form.defaultViewSize"));
@@ -293,7 +293,7 @@ public class ModelForm extends ModelWidget {
                 this.onSubmitUpdateAreas = parent.onSubmitUpdateAreas;
                 this.onPaginateUpdateAreas = parent.onPaginateUpdateAreas;
                 this.altRowStyles = parent.altRowStyles;
- 
+
                 //these are done below in a special way...
                 //this.fieldList = parent.fieldList;
                 //this.fieldMap = parent.fieldMap;
@@ -438,7 +438,7 @@ public class ModelForm extends ModelWidget {
         if (this.paginateStyle == null || formElement.hasAttribute("paginate-style")) {
             setPaginateStyle(formElement.getAttribute("paginate-style"));
         }
- 
+
         this.paginate = "true".equals(formElement.getAttribute("paginate"));
         this.skipStart = "true".equals(formElement.getAttribute("skip-start"));
         this.skipEnd = "true".equals(formElement.getAttribute("skip-end"));
@@ -466,7 +466,7 @@ public class ModelForm extends ModelWidget {
             AltRowStyle altRowStyle = new AltRowStyle(altRowStyleElement);
             this.altRowStyles.add(altRowStyle);
         }
- 
+
         // alt-target
         List altTargetElements = UtilXml.childElementList(formElement, "alt-target");
         Iterator altTargetElementIter = altTargetElements.iterator();
@@ -475,14 +475,14 @@ public class ModelForm extends ModelWidget {
             AltTarget altTarget = new AltTarget(altTargetElement);
             this.addAltTarget(altTarget);
         }
- 
+
         // on-event-update-area
         List<? extends Element> updateAreaElements = UtilXml.childElementList(formElement, "on-event-update-area");
         for (Element updateAreaElement : updateAreaElements) {
             UpdateArea updateArea = new UpdateArea(updateAreaElement);
             this.addOnEventUpdateArea(updateArea);
         }
- 
+
         // auto-fields-service
         List autoFieldsServiceElements = UtilXml.childElementList(formElement, "auto-fields-service");
         Iterator autoFieldsServiceElementIter = autoFieldsServiceElements.iterator();
@@ -537,13 +537,13 @@ public class ModelForm extends ModelWidget {
                 } else if (tagName.equals("banner")) {
                     Banner thisBanner = new Banner(sortFieldElement, this);
                     this.fieldGroupList.add(thisBanner);
- 
+
                     lastFieldGroup = new FieldGroup(null, this);
                     this.fieldGroupList.add(lastFieldGroup);
                 } else if (tagName.equals("field-group")) {
                     FieldGroup thisFieldGroup = new FieldGroup(sortFieldElement, this);
                     this.fieldGroupList.add(thisFieldGroup);
- 
+
                     lastFieldGroup = new FieldGroup(null, this);
                     this.fieldGroupList.add(lastFieldGroup);
                 }
@@ -796,7 +796,7 @@ public class ModelForm extends ModelWidget {
      */
     public void renderFormString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
         runFormActions(context);
- 
+
         setWidgetBoundaryComments(context);
 
         // if this is a list form, don't useRequestParameters
@@ -844,7 +844,7 @@ public class ModelForm extends ModelWidget {
     public void renderSingleFormString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer, int positions) throws IOException {
         List<ModelFormField> tempFieldList = FastList.newInstance();
         tempFieldList.addAll(this.fieldList);
- 
+
         // Check to see if there is a field, same name and same use-when (could come from extended form)
         for (int j = 0; j < tempFieldList.size(); j++) {
             ModelFormField modelFormField = (ModelFormField) tempFieldList.get(j);
@@ -888,7 +888,7 @@ public class ModelForm extends ModelWidget {
         if (fieldIter.hasNext()) {
             nextFormField = (ModelFormField) fieldIter.next();
         }
- 
+
         FieldGroup currentFieldGroup = null;
         String currentFieldGroupName = null;
         String lastFieldGroupName = null;
@@ -901,8 +901,8 @@ public class ModelForm extends ModelWidget {
                 currentFieldGroupName = currentFieldGroup.getId();
             }
         }
- 
- 
+
+
         boolean isFirstPass = true;
         boolean haveRenderedOpenFieldRow = false;
         while (currentFormField != null) {
@@ -948,12 +948,12 @@ public class ModelForm extends ModelWidget {
                     currentFieldGroup = defaultFieldGroup;
                 }
                 currentFieldGroupName = currentFieldGroup.getId();
- 
+
                 if (lastFieldGroup != null ) {
                     lastFieldGroupName = lastFieldGroup.getId();
                     if (!lastFieldGroupName.equals(currentFieldGroupName)) {
                         lastFieldGroup.renderEndString(writer, context, formStringRenderer);
- 
+
                         List inbetweenList = getInbetweenList(lastFieldGroup, currentFieldGroup);
                         Iterator iter = inbetweenList.iterator();
                         while (iter.hasNext()) {
@@ -964,7 +964,7 @@ public class ModelForm extends ModelWidget {
                         }
                     }
                 }
- 
+
                 if (currentFieldGroup != null && (lastFieldGroup == null || !lastFieldGroupName.equals(currentFieldGroupName))) {
                         currentFieldGroup.renderStartString(writer, context, formStringRenderer);
                         lastFieldGroup = currentFieldGroup;
@@ -1106,7 +1106,7 @@ public class ModelForm extends ModelWidget {
         this.renderItemRows(writer, context, formStringRenderer, false, numOfColumns);
 
         formStringRenderer.renderFormatListWrapperClose(writer, context, this);
- 
+
         if (!skipEnd) {
             formStringRenderer.renderMultiFormClose(writer, context, this);
         }
@@ -1218,7 +1218,7 @@ public class ModelForm extends ModelWidget {
             if (maxNumOfColumns < numOfColumns) {
                 maxNumOfColumns = numOfColumns;
             }
- 
+
             fieldRowsByPosition.add(UtilMisc.toMap("displayBefore", innerDisplayHyperlinkFieldsBegin,
                                                    "inputFields", innerFormFields,
                                                    "displayAfter", innerDisplayHyperlinkFieldsEnd));
@@ -1232,7 +1232,7 @@ public class ModelForm extends ModelWidget {
             List innerDisplayHyperlinkFieldsBegin = (List)listsMap.get("displayBefore");
             List innerFormFields = (List)listsMap.get("inputFields");
             List innerDisplayHyperlinkFieldsEnd = (List)listsMap.get("displayAfter");
- 
+
             int numOfCells = innerDisplayHyperlinkFieldsBegin.size() +
                              innerDisplayHyperlinkFieldsEnd.size() +
                              (innerFormFields.size() > 0? 1: 0);
@@ -1310,7 +1310,7 @@ public class ModelForm extends ModelWidget {
     }
 
     public void preparePager(Map<String, Object> context) {
- 
+
         //  increment the paginator
         this.incrementPaginatorNumber(context);
         this.rowCount = 0;
@@ -1434,7 +1434,7 @@ public class ModelForm extends ModelWidget {
                 if (itemIndex < lowIndex) {
                     continue;
                 }
- 
+
                 Map<String, Object> itemMap = UtilGenerics.checkMap(item);
                 MapStack<String> localContext = MapStack.create(context);
                 if (UtilValidate.isNotEmpty(this.getListEntryName())) {
@@ -1587,7 +1587,7 @@ public class ModelForm extends ModelWidget {
                 context.put("highIndex", Integer.valueOf(isOverridenListSize() ? listSize : highIndex));
             }
             context.put("actualPageSize", Integer.valueOf(highIndex - lowIndex));
- 
+
             if (iter instanceof EntityListIterator) {
                 try {
                     ((EntityListIterator) iter).close();
@@ -1783,7 +1783,7 @@ public class ModelForm extends ModelWidget {
     public String getTargetType() {
         return this.targetType;
     }
- 
+
     public String getParentFormName() {
         return this.parentFormName;
     }
@@ -1806,19 +1806,19 @@ public class ModelForm extends ModelWidget {
     public Map<String, ? extends Object> getDefaultMap(Map<String, ? extends Object> context) {
         return this.defaultMapName.get(context);
     }
- 
+
     public String getDefaultRequiredFieldStyle() {
         return this.defaultRequiredFieldStyle;
     }
- 
+
     public String getDefaultSortFieldStyle() {
         return (UtilValidate.isEmpty(this.defaultSortFieldStyle) ? DEFAULT_SORT_FIELD_STYLE : this.defaultSortFieldStyle);
     }
- 
+
     public String getDefaultSortFieldAscStyle() {
         return (UtilValidate.isEmpty(this.defaultSortFieldAscStyle) ? DEFAULT_SORT_FIELD_ASC_STYLE : this.defaultSortFieldAscStyle);
     }
- 
+
     public String getDefaultSortFieldDescStyle() {
         return (UtilValidate.isEmpty(this.defaultSortFieldDescStyle) ? DEFAULT_SORT_FIELD_DESC_STYLE : this.defaultSortFieldDescStyle);
     }
@@ -1847,7 +1847,7 @@ public class ModelForm extends ModelWidget {
     public String getOddRowStyle() {
         return this.oddRowStyle;
     }
- 
+
     public String getEvenRowStyle() {
         return this.evenRowStyle;
     }
@@ -1855,11 +1855,11 @@ public class ModelForm extends ModelWidget {
     public String getDefaultTableStyle() {
         return this.defaultTableStyle;
     }
- 
+
     public String getHeaderRowStyle() {
         return this.headerRowStyle;
     }
- 
+
     public String getDefaultTitleStyle() {
         return this.defaultTitleStyle;
     }
@@ -1919,7 +1919,7 @@ public class ModelForm extends ModelWidget {
         if (simpleEncoder != null) {
             expanderContext = StringUtil.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder);
         }
- 
+
         try {
             // use the same Interpreter (ie with the same context setup) for all evals
             Interpreter bsh = this.getBshInterpreter(context);
@@ -1982,11 +1982,11 @@ public class ModelForm extends ModelWidget {
     public String getBoundaryCommentName() {
         return formLocation + "#" + name;
     }
- 
+
     public void resetBshInterpreter(Map<String, Object> context) {
         context.remove("bshInterpreter");
     }
- 
+
     public Interpreter getBshInterpreter(Map<String, Object> context) throws EvalError {
         Interpreter bsh = (Interpreter) context.get("bshInterpreter");
         if (bsh == null) {
@@ -2044,35 +2044,35 @@ public class ModelForm extends ModelWidget {
     public void setDefaultWidgetAreaStyle(String string) {
         this.defaultWidgetAreaStyle = string;
     }
- 
+
     /**
      * @param string
      */
     public void setOddRowStyle(String string) {
         this.oddRowStyle = string;
     }
- 
+
     /**
      * @param string
      */
     public void setEvenRowStyle(String string) {
         this.evenRowStyle = string;
     }
- 
+
     /**
      * @param string
      */
     public void setDefaultTableStyle(String string) {
         this.defaultTableStyle = string;
     }
- 
+
     /**
      * @param string
      */
     public void setHeaderRowStyle(String string) {
         this.headerRowStyle = string;
     }
- 
+
     /**
      * @param string
      */
@@ -2111,7 +2111,7 @@ public class ModelForm extends ModelWidget {
     public String getFormLocation() {
         return this.formLocation;
     }
- 
+
     /**
      * @param string
      */
@@ -2193,7 +2193,7 @@ public class ModelForm extends ModelWidget {
     public String getPaginateTargetAnchor() {
         return this.paginateTargetAnchor;
     }
- 
+
     public String getPaginateIndexField(Map<String, Object> context) {
         String field = this.paginateIndexField.expandString(context);
         if (UtilValidate.isEmpty(field)) {
@@ -2206,7 +2206,7 @@ public class ModelForm extends ModelWidget {
 
     public int getPaginateIndex(Map<String, Object> context) {
         String field = this.getPaginateIndexField(context);
- 
+
         int viewIndex = 0;
         try {
             Object value = context.get(field);
@@ -2216,7 +2216,7 @@ public class ModelForm extends ModelWidget {
             Map parameters = (Map) context.get("parameters");
             if (parameters != null) {
                 value = parameters.get("VIEW_INDEX" + "_" + getPaginatorNumber(context));
- 
+
                 if (value == null) {
                     value = parameters.get(field);
                 }
@@ -2231,7 +2231,7 @@ public class ModelForm extends ModelWidget {
         } catch (Exception e) {
             Debug.logWarning(e, "Error getting paginate view index: " + e.toString(), module);
         }
- 
+
         return viewIndex;
     }
 
@@ -2335,7 +2335,7 @@ public class ModelForm extends ModelWidget {
     public String getTargetWindow(Map<String, Object> context) {
         return this.targetWindowExdr.expandString(context);
     }
- 
+
     public void setTargetWindow( String val ) {
         this.targetWindowExdr = FlexibleStringExpander.getInstance(val);
     }
@@ -2351,7 +2351,7 @@ public class ModelForm extends ModelWidget {
     public boolean getSkipStart() {
         return this.skipStart;
     }
- 
+
     public boolean getSkipEnd() {
         return this.skipEnd;
     }
@@ -2363,11 +2363,11 @@ public class ModelForm extends ModelWidget {
     public void setSkipStart(boolean val) {
         this.skipStart = val;
     }
- 
+
     public void setSkipEnd(boolean val) {
         this.skipEnd = val;
     }
- 
+
     public boolean getHideHeader() {
         return this.hideHeader;
     }
@@ -2412,7 +2412,7 @@ public class ModelForm extends ModelWidget {
             defaultViewSize = DEFAULT_PAGE_SIZE;
         }
     }
- 
+
     public int getListSize(Map<String, Object> context) {
         Integer value = (Integer) context.get("listSize");
         return value != null ? value.intValue() : 0;
@@ -2482,11 +2482,11 @@ public class ModelForm extends ModelWidget {
             List items = (List) entryList;
             listSize = items.size();
         }
- 
+
         if (paginate) {
             viewIndex = this.getPaginateIndex(context);
             viewSize = this.getPaginateSize(context);
- 
+
             lowIndex = viewIndex * viewSize;
             highIndex = (viewIndex + 1) * viewSize;
         } else {
@@ -2495,18 +2495,18 @@ public class ModelForm extends ModelWidget {
             lowIndex = 0;
             highIndex = defaultViewSize;
         }
- 
+
         context.put("listSize", Integer.valueOf(listSize));
         context.put("viewIndex", Integer.valueOf(viewIndex));
         context.put("viewSize", Integer.valueOf(viewSize));
         context.put("lowIndex", Integer.valueOf(lowIndex));
         context.put("highIndex", Integer.valueOf(highIndex));
     }
- 
+
     public String getPassedRowCount(Map<String, Object> context) {
         return rowCountExdr.expandString(context);
     }
- 
+
     public int getRowCount() {
         return this.rowCount;
     }
@@ -2557,7 +2557,7 @@ public class ModelForm extends ModelWidget {
         }
         return inbetweenList;
     }
- 
+
     public String getSortField(Map<String, Object> context) {
         String field = "sortField";
         String value = null;
@@ -2573,16 +2573,16 @@ public class ModelForm extends ModelWidget {
         } catch (Exception e) {
             Debug.logWarning(e, "Error getting sortField: " + e.toString(), module);
         }
- 
+
         return value;
     }
- 
+
     /* Returns the list of ModelForm.UpdateArea objects.
      */
     public List<UpdateArea> getOnSubmitUpdateAreas() {
         return this.onSubmitUpdateAreas;
     }
- 
+
     public static class AltRowStyle {
         public String useWhen;
         public String style;
@@ -2591,7 +2591,7 @@ public class ModelForm extends ModelWidget {
             this.style = altRowStyleElement.getAttribute("style");
         }
     }
- 
+
     /**
      * iterate through alt-row-styles list to see if should be used, then add style
      * @return The style for item row
@@ -2622,7 +2622,7 @@ public class ModelForm extends ModelWidget {
 
         return styles;
     }
- 
+
     public static class AltTarget {
         public String useWhen;
         public FlexibleStringExpander targetExdr;
@@ -2727,7 +2727,7 @@ public class ModelForm extends ModelWidget {
             this.defaultPosition = position;
         }
     }
- 
+
     public static interface FieldGroupBase {}
 
     public static class FieldGroup implements FieldGroupBase {
@@ -2740,7 +2740,7 @@ public class ModelForm extends ModelWidget {
         protected static int baseSeqNo = 0;
         protected static String baseId = "_G";
         public FieldGroup(Element sortOrderElement, ModelForm modelForm) {
- 
+
             this.modelForm = modelForm;
             if (sortOrderElement != null) {
                 this.id = sortOrderElement.getAttribute("id");
@@ -2755,7 +2755,7 @@ public class ModelForm extends ModelWidget {
                 if (this.initiallyCollapsed) {
                     this.collapsible = true;
                 }
- 
+
                 List sortFieldElements = UtilXml.childElementList(sortOrderElement, "sort-field");
                 Iterator sortFieldElementIter = sortFieldElements.iterator();
                 while (sortFieldElementIter.hasNext()) {
@@ -2768,19 +2768,19 @@ public class ModelForm extends ModelWidget {
                 this.setId(lastGroupId);
             }
         }
- 
+
         public String getId() {
             return this.id;
         }
- 
+
         public void setId( String id) {
             this.id = id;
         }
- 
+
         public String getStyle() {
             return this.style;
         }
- 
+
         public String getTitle() {
             return this.title;
         }
@@ -2797,7 +2797,7 @@ public class ModelForm extends ModelWidget {
             formStringRenderer.renderFieldGroupOpen(writer, context, this);
             formStringRenderer.renderFormatSingleWrapperOpen(writer, context, modelForm);
         }
- 
+
         public void renderEndString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderFormatSingleWrapperClose(writer, context, modelForm);
             formStringRenderer.renderFieldGroupClose(writer, context, this);
@@ -2813,7 +2813,7 @@ public class ModelForm extends ModelWidget {
         public FlexibleStringExpander leftTextStyle;
         public FlexibleStringExpander rightText;
         public FlexibleStringExpander rightTextStyle;
- 
+
         public Banner(Element sortOrderElement, ModelForm modelForm) {
             this.modelForm = modelForm;
             this.style = FlexibleStringExpander.getInstance(sortOrderElement.getAttribute("style"));
@@ -2824,7 +2824,7 @@ public class ModelForm extends ModelWidget {
             this.rightText = FlexibleStringExpander.getInstance(sortOrderElement.getAttribute("right-text"));
             this.rightTextStyle = FlexibleStringExpander.getInstance(sortOrderElement.getAttribute("right-text-style"));
         }
- 
+
         public String getStyle(Map<String, Object> context) { return this.style.expandString(context); }
         public String getText(Map<String, Object> context) { return this.text.expandString(context); }
         public String getTextStyle(Map<String, Object> context) { return this.textStyle.expandString(context); }
@@ -2832,7 +2832,7 @@ public class ModelForm extends ModelWidget {
         public String getLeftTextStyle(Map<String, Object> context) { return this.leftTextStyle.expandString(context); }
         public String getRightText(Map<String, Object> context) { return this.rightText.expandString(context); }
         public String getRightTextStyle(Map<String, Object> context) { return this.rightTextStyle.expandString(context); }
- 
+
         public void renderString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderBanner(writer, context, this);
         }
@@ -2921,7 +2921,7 @@ public class ModelForm extends ModelWidget {
                     String target = link.getTarget(null);
                     String urlMode = link.getTargetType();
                     // Debug.logInfo("In findRequestNamesLinkedtoInWidget found link [" + link.rawString() + "] with target [" + target + "]", module);
- 
+
                     Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target, urlMode);
                     if (controllerLocAndRequestSet != null) {
                         allRequestsUsed.addAll(controllerLocAndRequestSet);
@@ -2979,14 +2979,14 @@ public class ModelForm extends ModelWidget {
             for (AltTarget altTarget: this.altTargets) {
                 String target = altTarget.targetExdr.getOriginal();
                 String urlMode = "intra-app";
- 
+
                 Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target, urlMode);
                 if (controllerLocAndRequestSet != null) {
                     allRequestsUsed.addAll(controllerLocAndRequestSet);
                 }
             }
         }
- 
+
         if (!this.target.isEmpty()) {
             String target = this.target.getOriginal();
             String urlMode = UtilValidate.isNotEmpty(this.targetType) ? this.targetType : "intra-app";
@@ -2997,7 +2997,7 @@ public class ModelForm extends ModelWidget {
                 }
             }
         }
- 
+
         return allRequestsUsed;
     }
 }

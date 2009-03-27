@@ -76,7 +76,7 @@ import org.ofbiz.widget.form.ModelFormField.TextareaField;
 public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRenderer {
 
     public static final String module = HtmlFormRenderer.class.getName();
- 
+
     protected HttpServletRequest request;
     protected HttpServletResponse response;
     protected RequestHandler rh;
@@ -131,17 +131,17 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     }
 
     public void addAsterisks(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
- 
+
         boolean requiredField = modelFormField.getRequiredField();
         if (requiredField) {
             String requiredStyle = modelFormField.getRequiredFieldStyle();
- 
+
             if (UtilValidate.isEmpty(requiredStyle)) {
                writer.append("*");
             }
         }
     }
- 
+
     public void appendClassNames(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
         String className = modelFormField.getWidgetStyle();
         if (UtilValidate.isNotEmpty(className) || modelFormField.shouldBeRed(context)) {
@@ -154,7 +154,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append('"');
         }
     }
- 
+
     /* (non-Javadoc)
      * @see org.ofbiz.widget.form.FormStringRenderer#renderDisplayField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.DisplayField)
      */
@@ -163,7 +163,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         ModelForm modelForm = modelFormField.getModelForm();
 
         StringBuffer str = new StringBuffer();
- 
+
         String idName = modelFormField.getIdName();
         if (UtilValidate.isNotEmpty(idName) && ("list".equals(modelForm.getType()) || "multi".equals(modelForm.getType()))) {
             idName += "_" + modelForm.getRowCount();
@@ -201,10 +201,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (str.length() > 0) {
             writer.append("</span>");
         }
- 
+
         ModelFormField.InPlaceEditor inPlaceEditor = displayField.getInPlaceEditor();
         boolean ajaxEnabled = inPlaceEditor != null && this.javaScriptEnabled;
- 
+
         if (ajaxEnabled) {
             writer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
             String url = inPlaceEditor.getUrl(context);
@@ -324,7 +324,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (displayField instanceof DisplayEntityField) {
             this.makeHyperlinkString(writer, ((DisplayEntityField) displayField).getSubHyperlink(), context);
         }
- 
+
         this.appendTooltip(writer, context, modelFormField);
 
         //appendWhitespace(writer);
@@ -336,11 +336,11 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void renderHyperlinkField(Appendable writer, Map<String, Object> context, HyperlinkField hyperlinkField) throws IOException {
         this.request.setAttribute("image", hyperlinkField.getImage());
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
- 
+
         WidgetWorker.makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context),
                 hyperlinkField.getParameterList(), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context), modelFormField,
                 this.request, this.response, context);
- 
+
         this.appendTooltip(writer, context, modelFormField);
         //appendWhitespace(writer);
     }
@@ -413,7 +413,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
 
         writer.append("/>");
- 
+
         this.addAsterisks(writer, context, modelFormField);
 
         this.makeHyperlinkString(writer, textField.getSubHyperlink(), context);
@@ -467,7 +467,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (textareaField.isReadOnly()) {
             writer.append(" readonly");
         }
- 
+
         writer.append('>');
 
         String value = modelFormField.getEntry(context, textareaField.getDefaultValue(context));
@@ -476,7 +476,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
 
         writer.append("</textarea>");
- 
+
         if (textareaField.getVisualEditorEnable()) {
             writer.append("<script language=\"javascript\" src=\"/images/htmledit/whizzywig.js\" type=\"text/javascript\"></script>");
             writer.append("<script language=\"javascript\" type=\"text/javascript\"> buttonPath = \"/images/htmledit/\"; cssFile=\"/images/htmledit/simple.css\";makeWhizzyWig(\"");
@@ -509,7 +509,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         ModelFormField modelFormField = dateTimeField.getModelFormField();
         String paramName = modelFormField.getParameterName(context);
         String defaultDateTimeString = dateTimeField.getDefaultDateTimeString(context);
- 
+
         Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
@@ -553,7 +553,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append(" title=\"");
         writer.append(localizedInputTitle);
         writer.append('"');
- 
+
         String value = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
             if (value.length() > maxlength) {
@@ -563,7 +563,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(value);
             writer.append('"');
         }
- 
+
         writer.append(" size=\"");
         writer.append(Integer.toString(size));
         writer.append('"');
@@ -603,7 +603,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(",'");
             writer.append(UtilHttp.encodeBlanks(modelFormField.getEntry(context, defaultDateTimeString)));
             writer.append("');\">");
- 
+
             writer.append("<img src=\"");
             this.appendContentUrl(writer, "/images/cal.gif");
             writer.append("\" width=\"16\" height=\"16\" border=\"0\" alt=\"");
@@ -612,7 +612,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(localizedIconTitle);
             writer.append("\"/></a>");
         }
- 
+
         // if we have an input method of time-dropdown, then render two dropdowns
         if ("time-dropdown".equals(dateTimeField.getInputMethod())) {
             String className = modelFormField.getWidgetStyle();
@@ -655,7 +655,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                     writer.append(">" + Integer.toString(i) + "</option>");
                 }
             }
- 
+
             // write the select for minutes
             writer.append("</select>:<select name=\"");
             writer.append(UtilHttp.makeCompositeParam(paramName, "minutes") + "\"");
@@ -705,7 +705,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
- 
+
         String currentValue = modelFormField.getEntry(context);
         // Get the current value's description from the option value. If there
         // is a localized version it will be there.
@@ -731,7 +731,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append(modelFormField.getParameterName(context));
 
         String idName = modelFormField.getIdName();
- 
+
         if (ajaxEnabled) {
             writer.append("_description\"");
 
@@ -742,7 +742,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(textFieldIdName);
                 writer.append('"');
             }
- 
+
             if (UtilValidate.isNotEmpty(currentValue)) {
                 writer.append(" value=\"");
                 String explicitDescription = (currentDescription != null ? currentDescription : dropDownField.getCurrentDescription(context));
@@ -754,7 +754,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append('"');
             }
             writer.append("/>");
- 
+
             appendWhitespace(writer);
             writer.append("<input type=\"hidden\"");
             writer.append(" name=\"");
@@ -765,14 +765,14 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(idName);
                 writer.append('"');
             }
- 
+
             if (UtilValidate.isNotEmpty(currentValue)) {
                 writer.append(" value=\"");
                 //String explicitDescription = dropDownField.getCurrentDescription(context);
                 writer.append(currentValue);
                 writer.append('"');
             }
- 
+
             writer.append("/>");
 
             appendWhitespace(writer);
@@ -809,7 +809,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             if (dropDownField.isAllowMultiple()) {
                 writer.append(" multiple=\"multiple\"");
             }
- 
+
             int otherFieldSize = dropDownField.getOtherFieldSize();
             String otherFieldName = dropDownField.getParameterNameOther(context);
             if (otherFieldSize > 0) {
@@ -879,12 +879,12 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             }
 
             writer.append("</select>");
- 
+
 
             // Adapted from work by Yucca Korpela
             // http://www.cs.tut.fi/~jkorpela/forms/combo.html
             if (otherFieldSize > 0) {
- 
+
                 String fieldName = modelFormField.getParameterName(context);
                 Map<String, Object> dataMap = UtilGenerics.checkMap(modelFormField.getMap(context));
                 if (dataMap == null) {
@@ -892,7 +892,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 }
                 Object otherValueObj = dataMap.get(otherFieldName);
                 String otherValue = (otherValueObj == null) ? "" : otherValueObj.toString();
- 
+
                 writer.append("<noscript>");
                 writer.append("<input type='text' name='");
                 writer.append(otherFieldName);
@@ -927,7 +927,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("\n//--></script>");
             }
         }
- 
+
         this.makeHyperlinkString(writer, dropDownField.getSubHyperlink(), context);
 
         this.appendTooltip(writer, context, modelFormField);
@@ -943,7 +943,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         ModelForm modelForm = modelFormField.getModelForm();
         String currentValue = modelFormField.getEntry(context);
         Boolean allChecked = checkField.isAllChecked(context);
- 
+
         List<ModelFormField.OptionValue> allOptionValues = checkField.getAllOptionValues(context, modelForm.getDelegator(context));
         String event = modelFormField.getEvent();
         String action = modelFormField.getAction(context);
@@ -956,7 +956,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append("<input type=\"checkbox\"");
 
             appendClassNames(writer, context, modelFormField);
- 
+
             // if current value should be selected in the list, select it
             if (Boolean.TRUE.equals(allChecked)) {
                 writer.append(" checked=\"checked\"");
@@ -979,7 +979,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(action);
                 writer.append('"');
             }
- 
+
             writer.append("/>");
 
             writer.append(optionValue.getDescription());
@@ -1011,7 +1011,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             appendClassNames(writer, context, modelFormField);
 
             writer.append("><input type=\"radio\"");
- 
+
             // if current value should be selected in the list, select it
             String noCurrentSelectedKey = radioField.getNoCurrentSelectedKey(context);
             if (UtilValidate.isNotEmpty(currentValue) && currentValue.equals(optionValue.getKey())) {
@@ -1033,7 +1033,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(action);
                 writer.append('"');
             }
- 
+
             writer.append("/>");
 
             writer.append(optionValue.getDescription());
@@ -1085,7 +1085,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(" src=\"");
             this.appendContentUrl(writer, submitField.getImageLocation());
             writer.append('"');
- 
+
             event = modelFormField.getEvent();
             action = modelFormField.getAction(context);
             if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
@@ -1095,7 +1095,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(action);
                 writer.append('"');
             }
- 
+
             writer.append("/>");
         } else {
             // default to "button"
@@ -1132,7 +1132,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append('"');
             }
 
- 
+
             event = modelFormField.getEvent();
             action = modelFormField.getAction(context);
             if (UtilValidate.isNotEmpty(event) && UtilValidate.isNotEmpty(action)) {
@@ -1145,7 +1145,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 //add single click JS onclick
                 // disabling for now, using form onSubmit action instead: writer.append(singleClickAction);
             }
- 
+
             if (ajaxEnabled) {
                 writer.append(" onclick=\"");
                 writer.append("ajaxSubmitFormUpdateAreas('");
@@ -1153,7 +1153,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append("', '" + createAjaxParamsFromUpdateAreas(updateAreas, null, context));
                 writer.append("')\"");
             }
- 
+
             writer.append("/>");
         }
 
@@ -1229,7 +1229,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void renderFieldTitle(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
         String tempTitleText = modelFormField.getTitle(context);
         String titleText = UtilHttp.encodeAmpersands(tempTitleText);
- 
+
         if (UtilValidate.isNotEmpty(titleText)) {
             if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
                 writer.append("<span class=\"");
@@ -1258,12 +1258,12 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void renderSingleFormFieldTitle(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
         boolean requiredField = modelFormField.getRequiredField();
         if (requiredField) {
- 
+
             String requiredStyle = modelFormField.getRequiredFieldStyle();
             if (UtilValidate.isEmpty(requiredStyle)) {
                 requiredStyle = modelFormField.getTitleStyle();
             }
- 
+
             if (UtilValidate.isNotEmpty(requiredStyle)) {
                 writer.append("<span class=\"");
                 writer.append(requiredStyle);
@@ -1324,7 +1324,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append("basic-form");
         }
         writer.append("\"");
- 
+
         writer.append(" onSubmit=\"javascript:submitFormDisableSubmits(this)\"");
 
         if (!modelForm.getClientAutocompleteFields()) {
@@ -1391,7 +1391,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
         writer.append("</form>");
         appendWhitespace(writer);
- 
+
         // see if there is anything that needs to be added outside of the multi-form
         Map<String, Object> wholeFormContext = UtilGenerics.checkMap(context.get("wholeFormContext"));
         Appendable postMultiFormWriter = wholeFormContext != null ? (Appendable) wholeFormContext.get("postMultiFormWriter") : null;
@@ -1399,7 +1399,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(postMultiFormWriter.toString());
             appendWhitespace(writer);
         }
- 
+
         renderEndingBoundaryComment(writer, "Form Widget - Form Element (Multi)", modelForm);
     }
 
@@ -1518,7 +1518,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFormatHeaderRowFormCellTitleSeparator(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelForm, boolean)
      */
     public void renderFormatHeaderRowFormCellTitleSeparator(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, boolean isLast) throws IOException {
- 
+
         String titleStyle = modelFormField.getTitleStyle();
         if (UtilValidate.isNotEmpty(titleStyle)) {
             writer.append("<span class=\"");
@@ -1540,10 +1540,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
      */
     public void renderFormatItemRowOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         Integer itemIndex = (Integer)context.get("itemIndex");
- 
+
         writer.append("  <tr");
         if (itemIndex!=null) {
- 
+
             String altRowStyles = modelForm.getStyleAltRowStyle(context);
             if (itemIndex.intValue() % 2 == 0) {
                 String evenRowStyle = modelForm.getEvenRowStyle();
@@ -1756,7 +1756,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     public void renderTextFindField(Appendable writer, Map<String, Object> context, TextFindField textFindField) throws IOException {
 
         ModelFormField modelFormField = textFindField.getModelFormField();
- 
+
         String defaultOption = textFindField.getDefaultOption();
         Locale locale = (Locale)context.get("locale");
         if (!textFindField.getHideOptions()) {
@@ -1779,7 +1779,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(modelFormField.getParameterName(context));
             writer.append("_op\" value=\"" + defaultOption + "\"/>");
         }
- 
+
         writer.append("<input type=\"text\"");
 
         appendClassNames(writer, context, modelFormField);
@@ -1831,7 +1831,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(modelFormField.getParameterName(context));
             writer.append("_ic\" value=\"" + (ignCase ? "Y" : "") + "\"/>");
         }
- 
+
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
             writer.append("</span>");
         }
@@ -2204,7 +2204,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
 
         writer.append("/>");
- 
+
         // add lookup pop-up button
         String descriptionFieldName = lookupField.getDescriptionFieldName();
         if (UtilValidate.isNotEmpty(descriptionFieldName)) {
@@ -2239,7 +2239,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append("\" width=\"15\" height=\"14\" border=\"0\" alt=\"Lookup\"/></a>");
 
         this.addAsterisks(writer, context, modelFormField);
- 
+
         this.makeHyperlinkString(writer, lookupField.getSubHyperlink(), context);
         this.appendTooltip(writer, context, modelFormField);
 
@@ -2434,7 +2434,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append(commonDisplaying);
         writer.append("</li>");
         appendWhitespace(writer);
- 
+
         // Next button
         writer.append("  <li class=\"" + modelForm.getPaginateNextStyle());
         if (highIndex < listSize) {
@@ -2498,7 +2498,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String str = (String) context.get("_QBESTRING_");
         String oldSortField = modelForm.getSortField(context);
         String sortFieldStyle = modelFormField.getSortFieldStyle();
- 
+
         // if the entry-name is defined use this instead of field name
         String columnField = modelFormField.getEntryName();
         if (UtilValidate.isEmpty(columnField)) {
@@ -2555,7 +2555,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
         writer.append("\">" + titleText + "</a>");
     }
- 
+
     /* (non-Javadoc)
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFileField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.FileField)
      */
@@ -2710,7 +2710,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
 
         //appendWhitespace(writer);
     }
- 
+
     public void renderFieldGroupOpen(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
         String style = fieldGroup.getStyle();
         String id = fieldGroup.getId();
@@ -2765,7 +2765,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append(title);
                 writer.append("</div>");
             }
- 
+
             writer.append("</td></tr></table></div>");
 
             writer.append("<div id=\"" + collapsibleAreaId + "\" class=\"fieldgroup-body\"");
@@ -2775,7 +2775,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(">");
         }
     }
- 
+
     public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
         String style = fieldGroup.getStyle();
         String id = fieldGroup.getId();
@@ -2785,7 +2785,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append("</div>");
         }
     }
- 
+
     // TODO: Remove embedded styling
     public void renderBanner(Appendable writer, Map<String, Object> context, ModelForm.Banner banner) throws IOException {
         writer.append(" <table width=\"100%\">  <tr>");
@@ -2794,7 +2794,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (UtilValidate.isEmpty(leftStyle)) leftStyle = style;
         String rightStyle = banner.getRightTextStyle(context);
         if (UtilValidate.isEmpty(rightStyle)) rightStyle = style;
- 
+
         String leftText = banner.getLeftText(context);
         if (UtilValidate.isNotEmpty(leftText)) {
             writer.append("   <td align=\"left\">");
@@ -2811,7 +2811,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             }
             writer.append("</td>");
         }
- 
+
         String text = banner.getText(context);
         if (UtilValidate.isNotEmpty(text)) {
             writer.append("   <td align=\"center\">");
@@ -2828,7 +2828,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             }
             writer.append("</td>");
         }
- 
+
         String rightText = banner.getRightText(context);
         if (UtilValidate.isNotEmpty(rightText)) {
             writer.append("   <td align=\"right\">");
@@ -2847,7 +2847,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
         writer.append("</tr> </table>");
     }
- 
+
     /**
      * Renders a link for the column header fields when there is a header-link="" specified in the <field > tag, using
      * style from header-link-style="".  Also renders a selectAll checkbox in multi forms.

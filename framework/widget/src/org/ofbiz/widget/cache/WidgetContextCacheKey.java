@@ -32,9 +32,9 @@ import javolution.util.FastSet;
 public class WidgetContextCacheKey {
 
     public static final String module = WidgetContextCacheKey.class.getName();
- 
+
     private static Set<String> fieldNamesToSkip;
- 
+
     static {
         fieldNamesToSkip = FastSet.newInstance();
         fieldNamesToSkip.add("globalContext");
@@ -78,7 +78,7 @@ public class WidgetContextCacheKey {
         fieldNamesToSkip.add("visit");
         fieldNamesToSkip.add("visitor");
     }
- 
+
     protected Map<String, Object> context;
 
     public WidgetContextCacheKey(Map<String, Object> context) {
@@ -133,7 +133,7 @@ public class WidgetContextCacheKey {
         }
         return true;
     }
- 
+
     public String toString() {
         Map<String, Object> printableMap = FastMap.newInstance();
         Iterator fieldNameIt = this.context.keySet().iterator();

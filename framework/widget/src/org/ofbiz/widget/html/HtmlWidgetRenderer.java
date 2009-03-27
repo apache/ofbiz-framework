@@ -43,7 +43,7 @@ public class HtmlWidgetRenderer {
     public void appendWhitespace(Appendable writer) throws IOException {
         writer.append(whiteSpace);
     }
- 
+
     /**
      * Helper method used to build the boundary comment string.
      * @param boundaryType The boundary type: "Begin" or "End"
@@ -53,7 +53,7 @@ public class HtmlWidgetRenderer {
     public String buildBoundaryComment(String boundaryType, String widgetType, String widgetName) {
         return formatBoundaryComment(boundaryType, widgetType, widgetName);
     }
- 
+
     public static String formatBoundaryComment(String boundaryType, String widgetType, String widgetName) {
         return "<!-- " + boundaryType + " " + widgetType + " " + widgetName + " -->" + whiteSpace;
     }

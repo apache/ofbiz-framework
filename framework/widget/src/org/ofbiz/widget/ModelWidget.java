@@ -53,7 +53,7 @@ public class ModelWidget implements Serializable {
     public static final String enableBoundaryCommentsParam = "widgetVerbose";
     protected String name;
     protected boolean enableWidgetBoundaryComments = false;
- 
+
     protected ModelWidget() {}
 
     /**
@@ -71,7 +71,7 @@ public class ModelWidget implements Serializable {
     public String getName() {
         return name;
     }
- 
+
     /**
      * Returns the widget's name to be used in boundary comments. The default action
      * is to return the widget's name. Derived classes can override this method to
@@ -81,7 +81,7 @@ public class ModelWidget implements Serializable {
     public String getBoundaryCommentName() {
         return name;
     }
- 
+
     /**
      * Returns true if boundary comments are enabled for this widget, otherwise
      * returns false.
@@ -127,7 +127,7 @@ public class ModelWidget implements Serializable {
         }
         return paginator_number;
     }
- 
+
     public void incrementPaginatorNumber(Map<String, Object> context) {
         Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
         if (globalCtx != null) {
@@ -140,5 +140,5 @@ public class ModelWidget implements Serializable {
             }
         }
     }
- 
+
 }
