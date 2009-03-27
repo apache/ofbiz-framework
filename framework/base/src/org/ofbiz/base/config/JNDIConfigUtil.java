@@ -30,7 +30,7 @@ import org.ofbiz.base.util.*;
  *
  */
 public class JNDIConfigUtil {
- 
+
     public static final String module = JNDIConfigUtil.class.getName();
     public static final String JNDI_CONFIG_XML_FILENAME = "jndiservers.xml";
     protected static Map<String, JndiServerInfo> jndiServerInfos = FastMap.newInstance();

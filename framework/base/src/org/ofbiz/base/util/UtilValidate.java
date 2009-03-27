@@ -895,7 +895,7 @@ public class UtilValidate {
             return false;
         }
     }
- 
+
     /** isTime returns true if string arguments hour, minute, and second form a valid time. */
     public static boolean isTime(String hour, String minute, String second) {
         // catch invalid years(not 2- or 4-digit) and invalid months and days.
@@ -1170,7 +1170,7 @@ public class UtilValidate {
         return false;
     }
 
- 
+
     /** Checks to see if the cc number is a valid number for any accepted credit card
      *   @param     ccPassed - a string representing a credit card number
      *   @return  true, if the credit card number is any valid credit card number for any of the accepted card types, false otherwise
@@ -1301,7 +1301,7 @@ public class UtilValidate {
         if (check >= 10) check = 0;
         return Character.forDigit(check, 10);
     }
- 
+
     public static String checkValidDatabaseId(String fieldStr) {
         if (fieldStr.indexOf(' ') >= 0) {
             return "[space found at position " + (fieldStr.indexOf(' ') + 1) + "]";

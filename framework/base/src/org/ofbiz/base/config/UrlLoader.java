@@ -26,7 +26,7 @@ import java.io.*;
  *
  */
 public class UrlLoader extends ResourceLoader implements java.io.Serializable {
- 
+
     public URL getURL(String location) throws GenericConfigException {
         String fullLocation = fullLocation(location);
 
@@ -40,10 +40,10 @@ public class UrlLoader extends ResourceLoader implements java.io.Serializable {
         if (url == null) {
             throw new GenericConfigException("URL Resource not found: " + fullLocation);
         }
- 
+
         return url;
     }
- 
+
     public InputStream loadResource(String location) throws GenericConfigException {
         URL url = getURL(location);
 

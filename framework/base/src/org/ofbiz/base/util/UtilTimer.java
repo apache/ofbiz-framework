@@ -30,7 +30,7 @@ import javolution.util.FastMap;
  *
  */
 public class UtilTimer {
- 
+
     public static final String module = UtilTimer.class.getName();
     protected static Map<String, UtilTimer> staticTimers = FastMap.newInstance();
 
@@ -42,7 +42,7 @@ public class UtilTimer {
     protected long lastMessageTime;
     protected boolean running = false;
     protected boolean log = false;
- 
+
     public static UtilTimer makeTimer() {
         return new UtilTimer();
     }

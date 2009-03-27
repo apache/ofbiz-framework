@@ -94,7 +94,7 @@ public class KeyStoreUtil {
         if (password == null) {
             password = "changeit";
         }
- 
+
         KeyStore ks = KeyStore.getInstance("jks");
         File keyFile = null;
         if (fileName != null) {
@@ -130,7 +130,7 @@ public class KeyStoreUtil {
 
     public static Map<String, String> getX500Map(Principal x500) {
         Map<String, String> x500Map = FastMap.newInstance();
- 
+
         String name = x500.getName().replaceAll("\\\\,", "&com;");
         String[] x500Opts = name.split("\\,");
         for (String opt: x500Opts) {
@@ -142,7 +142,7 @@ public class KeyStoreUtil {
 
         return x500Map;
     }
- 
+
     public static void importPKCS8CertChain(KeyStore ks, String alias, byte[] keyBytes, String keyPass, byte[] certChain) throws InvalidKeySpecException, NoSuchAlgorithmException, CertificateException, KeyStoreException {
         // load the private key
         KeyFactory kf = KeyFactory.getInstance("RSA");

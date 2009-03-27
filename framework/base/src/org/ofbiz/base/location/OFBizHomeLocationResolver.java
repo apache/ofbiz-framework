@@ -29,9 +29,9 @@ import org.ofbiz.base.util.UtilURL;
  */
 
 public class OFBizHomeLocationResolver implements LocationResolver {
- 
+
     public static final String envName = "ofbiz.home";
- 
+
     public URL resolveLocation(String location) throws MalformedURLException {
         String propValue = System.getProperty(envName);
         if (propValue == null) {
@@ -40,14 +40,14 @@ public class OFBizHomeLocationResolver implements LocationResolver {
         }
 
         StringBuilder baseLocation = new StringBuilder(FlexibleLocation.stripLocationType(location));
- 
+
         // if there is not a forward slash between the two, add it
         if (baseLocation.charAt(0) != '/' && propValue.charAt(propValue.length() - 1) != '/') {
             baseLocation.insert(0, '/');
         }
- 
+
         baseLocation.insert(0, propValue);
- 
+
         return UtilURL.fromFilename(baseLocation.toString());
     }
 }

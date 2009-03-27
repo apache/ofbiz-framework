@@ -34,7 +34,7 @@ import org.ofbiz.base.util.*;
  *
  */
 public class SecurityConfigUtil {
- 
+
     public static final String module = SecurityConfigUtil.class.getName();
 
     /** The security config filename */

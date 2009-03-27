@@ -128,30 +128,30 @@ public class BlowFishCrypt {
         cipher.init(mode, secretKeySpec);
         return cipher.doFinal(bytes);
     }
- 
+
     public static byte[] generateKey() throws NoSuchAlgorithmException {
         KeyGenerator keyGen = KeyGenerator.getInstance("Blowfish");
         keyGen.init(448);
- 
+
         SecretKey secretKey = keyGen.generateKey();
         byte[] keyBytes = secretKey.getEncoded();
- 
+
         return keyBytes;
     }
- 
+
     public static boolean testKey(byte[] key) {
         String testString = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstufwxyz";
         BlowFishCrypt c = new BlowFishCrypt(key);
         byte[] encryptedBytes = c.encrypt(testString);
         String encryptedMessage = new String(encryptedBytes);
- 
+
         byte[] decryptedBytes = c.decrypt(encryptedMessage);
         String decryptedMessage = new String(decryptedBytes);
- 
+
         if (testString.equals(decryptedMessage)) {
             return true;
         }
- 
+
         return false;
     }
 
@@ -159,7 +159,7 @@ public class BlowFishCrypt {
         if (args[0] == null) {
             args[0] = "ofbkey";
         }
- 
+
         byte[] key = generateKey();
         if (testKey(key)) {
             FileOutputStream fos = new FileOutputStream(args[0]);

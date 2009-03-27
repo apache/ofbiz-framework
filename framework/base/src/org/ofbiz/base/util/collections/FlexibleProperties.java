@@ -37,7 +37,7 @@ import org.ofbiz.base.util.Debug;
 public class FlexibleProperties extends Properties implements Serializable {
 
     public static final String module = FlexibleProperties.class.getName();
- 
+
     private static final boolean truncateIfMissingDefault = false;
     private static final boolean doPropertyExpansionDefault = true;
 

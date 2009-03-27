@@ -30,7 +30,7 @@ public interface Container {
      * @throws ContainerException
      */
     public void init(String[] args, String configFile) throws ContainerException;
- 
+
     /**
      * Start the container
      *

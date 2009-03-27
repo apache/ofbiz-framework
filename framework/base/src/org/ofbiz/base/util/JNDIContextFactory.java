@@ -32,7 +32,7 @@ import org.ofbiz.base.util.cache.UtilCache;
  *
  */
 public class JNDIContextFactory {
- 
+
     public static final String module = JNDIContextFactory.class.getName();
     static UtilCache<String, InitialContext> contexts = new UtilCache<String, InitialContext>("entity.JNDIContexts", 0, 0);
 

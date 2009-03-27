@@ -38,11 +38,11 @@ public class ComponentLocationResolver implements LocationResolver {
     public URL resolveLocation(String location) throws MalformedURLException {
         StringBuffer baseLocation = ComponentLocationResolver.getBaseLocation(location);
         URL fileUrl = UtilURL.fromFilename(baseLocation.toString());
- 
+
         if (fileUrl == null) {
             Debug.logWarning("Unable to get file URL for component location; expanded location was [" + baseLocation + "], original location was [" + location + "]", module);
         }
- 
+
         return fileUrl;
     }
 

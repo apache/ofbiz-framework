@@ -41,11 +41,11 @@ import org.xml.sax.SAXException;
  *
  */
 public class ContainerConfig {
- 
+
     public static final String module = ContainerConfig.class.getName();
- 
+
     protected static Map<String, Container> containers = new LinkedHashMap<String, Container>();
- 
+
     public static Container getContainer(String containerName, String configFile) throws ContainerException {
         Container container = containers.get(containerName);
         if (container == null) {
@@ -65,7 +65,7 @@ public class ContainerConfig {
         }
         return container;
     }
- 
+
     public static Collection<Container> getContainers(String configFile) throws ContainerException {
         if (containers.size() == 0) {
             synchronized (ContainerConfig.class) {
@@ -150,14 +150,14 @@ public class ContainerConfig {
     }
 
     protected ContainerConfig() {}
- 
+
     protected ContainerConfig(String configFileLocation) throws ContainerException {
         // load the config file
         URL xmlUrl = UtilURL.fromResource(configFileLocation);
         if (xmlUrl == null) {
             throw new ContainerException("Could not find " + configFileLocation + " master OFBiz container configuration");
         }
- 
+
         // read the document
         Document containerDocument = null;
         try {
@@ -169,33 +169,33 @@ public class ContainerConfig {
         } catch (IOException e) {
             throw new ContainerException("Error reading the container config file: " + xmlUrl, e);
         }
- 
+
         // root element
         Element root = containerDocument.getDocumentElement();
- 
+
         // containers
         for (Element curElement: UtilXml.childElementList(root, "container")) {
             Container container = new Container(curElement);
             containers.put(container.name, container);
         }
     }
- 
+
     public static class Container {
         public String name;
         public String className;
         public Map<String, Property> properties;
- 
+
         public Container(Element element) {
             this.name = element.getAttribute("name");
             this.className = element.getAttribute("class");
- 
+
             properties = new LinkedHashMap<String, Property>();
             for (Element curElement: UtilXml.childElementList(element, "property")) {
                 Property property = new Property(curElement);
                 properties.put(property.name, property);
             }
         }
- 
+
         public Property getProperty(String name) {
             return properties.get(name);
         }
@@ -216,7 +216,7 @@ public class ContainerConfig {
             public String name;
             public String value;
             public Map<String, Property> properties;
- 
+
             public Property(Element element) {
                 this.name = element.getAttribute("name");
                 this.value = element.getAttribute("value");
@@ -230,7 +230,7 @@ public class ContainerConfig {
                     properties.put(property.name, property);
                 }
             }
- 
+
             public Property getProperty(String name) {
                 return properties.get(name);
             }

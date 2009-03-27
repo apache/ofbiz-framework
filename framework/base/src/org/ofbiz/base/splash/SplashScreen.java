@@ -66,7 +66,7 @@ public final class SplashScreen extends Frame {
         fMediaTracker = new MediaTracker(this);
         fImage = Toolkit.getDefaultToolkit().getImage(fImageId);
     }
- 
+
     private void center() {
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         Rectangle frame = getBounds();

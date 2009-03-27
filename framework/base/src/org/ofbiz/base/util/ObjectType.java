@@ -37,11 +37,11 @@ import javolution.util.FastSet;
  * Takes advantage of reflection
  */
 public class ObjectType {
- 
+
     public static final String module = ObjectType.class.getName();
 
     public static final Object NULL = new NullObject();
- 
+
     protected static Map<String, Class<?>> classCache = FastMap.newInstance();
 
     public static final String LANG_PACKAGE = "java.lang."; // We will test both the raw value and this + raw value
@@ -86,7 +86,7 @@ public class ObjectType {
                 className = "[L" + arrayClass.getName().replace("[]", "") + ";";
             }
         }
- 
+
         // small block to speed things up by putting using preloaded classes for common objects, this turns out to help quite a bit...
         Class<?> theClass = CachedClassLoader.globalClassNameClassMap.get(className);
 
@@ -502,7 +502,7 @@ public class ObjectType {
             if (str.length() == 0) {
                 return null;
             }
- 
+
             if ("Boolean".equals(type) || "java.lang.Boolean".equals(type)) {
                 str = StringUtil.removeSpaces(str);
                 return str.equalsIgnoreCase("TRUE") ? Boolean.TRUE : Boolean.FALSE;
@@ -985,7 +985,7 @@ public class ObjectType {
                 Debug.logWarning("No special conversion available for " + obj.getClass().getName() + " to String, returning object.toString().", module);
                 return obj.toString();
             }
- 
+
             if (noTypeFail) {
                 throw new GeneralException("Conversion from " + obj.getClass().getName() + " to " + type + " not currently supported");
             } else {
@@ -1026,7 +1026,7 @@ public class ObjectType {
         } else if ("contains".equals(operator) && value1 == null) {
             return Boolean.FALSE;
         }
- 
+
         int result = 0;
 
         Object convertedValue2 = null;
@@ -1110,7 +1110,7 @@ public class ObjectType {
                 return Boolean.FALSE;
             return Boolean.TRUE;
         }
- 
+
         if ("java.lang.String".equals(type) || "PlainString".equals(type)) {
             String str1 = (String) convertedValue1;
             String str2 = (String) convertedValue2;
@@ -1206,10 +1206,10 @@ public class ObjectType {
         if (verboseOn) Debug.logVerbose("Returning true", module);
         return Boolean.TRUE;
     }
- 
+
     public static boolean isEmpty(Object value) {
         if (value == null) return true;
- 
+
         if (value instanceof String) {
             if (((String) value).length() == 0) {
                 return true;
@@ -1225,14 +1225,14 @@ public class ObjectType {
         }
         return false;
     }
- 
+
     public static final class NullObject {
         public NullObject() { }
- 
+
         public String toString() {
             return "ObjectType.NullObject";
         }
- 
+
         public boolean equals(Object other) {
             if (other instanceof NullObject) {
                 // should do equality of object? don't think so, just same type

@@ -35,7 +35,7 @@ import java.util.Map;
  *
  */
 public class HttpClient {
- 
+
     public static final String module = HttpClient.class.getName();
 
     private int hostVerification = SSLUtil.HOSTCERT_NORMAL_CHECK;
@@ -55,7 +55,7 @@ public class HttpClient {
 
     private Map<String, Object> parameters = null;
     private Map<String, String> headers = null;
- 
+
     private URL requestUrl = null;
     private URLConnection con = null;
 
@@ -107,22 +107,22 @@ public class HttpClient {
     public void setTimeout(int timeout) {
         this.timeout = timeout;
     }
- 
+
     /** Enables this request to follow redirect 3xx codes (default true) */
      public void followRedirects(boolean followRedirects) {
         this.followRedirects = followRedirects;
     }
- 
+
     /** Turns on or off line feeds in the request. (default is on) */
     public void setLineFeed(boolean lineFeed) {
         this.lineFeed = lineFeed;
     }
- 
+
     /** Set the raw stream for posts. */
     public void setRawStream(String stream) {
         this.rawStream = stream;
     }
- 
+
     /** Set the URL for this request. */
     public void setUrl(URL url) {
         this.url = url.toExternalForm();
@@ -196,7 +196,7 @@ public class HttpClient {
     public void setClientCertificateAlias(String alias) {
         this.clientCertAlias = alias;
     }
- 
+
     /** Returns the alias of the client certificate to be used for this SSL connection. */
     public String getClientCertificateAlias() {
         return this.clientCertAlias;
@@ -221,12 +221,12 @@ public class HttpClient {
     public boolean getAllowUntrusted() {
         return this.trustAny;
     }
- 
+
     public void setBasicAuthInfo(String basicAuthUsername, String basicAuthPassword) {
         this.basicAuthUsername = basicAuthUsername;
         this.basicAuthPassword = basicAuthPassword;
     }
- 
+
     /** Invoke HTTP request GET. */
     public String get() throws HttpClientException {
         return sendHttpRequest("get");
@@ -241,7 +241,7 @@ public class HttpClient {
     public String post() throws HttpClientException {
         return sendHttpRequest("post");
     }
- 
+
     /** Invoke HTTP request POST and pass raw stream. */
     public String post(String stream) throws HttpClientException {
         this.rawStream = stream;
@@ -338,7 +338,7 @@ public class HttpClient {
                     Debug.logWarning(ioe, "Caught exception printing content debugging information", module);
                 }
             }
- 
+
             String charset = null;
             String contentType = con.getContentType();
             if (contentType == null) {
@@ -348,9 +348,9 @@ public class HttpClient {
                     Debug.logWarning(ioe, "Problems guessing content type from steam", module);
                 }
             }
- 
+
             if (Debug.verboseOn() || debug) Debug.log("Content-Type: " + contentType, module);
- 
+
             if (contentType != null) {
                 contentType = contentType.toUpperCase();
                 int charsetEqualsLoc = contentType.indexOf("=", contentType.indexOf("CHARSET"));
@@ -360,11 +360,11 @@ public class HttpClient {
                 } else if (charsetEqualsLoc >= 0) {
                     charset = contentType.substring(charsetEqualsLoc + 1);
                 }
- 
+
                 if (charset != null) charset = charset.trim();
                 if (Debug.verboseOn() || debug) Debug.log("Getting text from HttpClient with charset: " + charset, module);
             }
- 
+
             BufferedReader post = new BufferedReader(charset == null ? new InputStreamReader(in) : new InputStreamReader(in, charset));
             String line = new String();
 
@@ -389,7 +389,7 @@ public class HttpClient {
     private InputStream sendHttpRequestStream(String method, boolean overrideTrust) throws HttpClientException {
         // setup some SSL variables
         SSLUtil.loadJsseProperties();
- 
+
         String arguments = null;
         InputStream in = null;
 
@@ -445,14 +445,14 @@ public class HttpClient {
                 }
                 con.setDoInput(true);
             }
- 
+
             // if there is basicAuth info set the request property for it
             if (basicAuthUsername != null) {
                 String basicAuthString = "Basic " + Base64.base64Encode(basicAuthUsername + ":" + (basicAuthPassword == null ? "" : basicAuthPassword));
                 con.setRequestProperty("Authorization", basicAuthString);
                 if (Debug.verboseOn() || debug) Debug.log("Header - Authorization: " + basicAuthString, module);
             }
- 
+
             if (UtilValidate.isNotEmpty(headers)) {
                 for (Map.Entry<String, String> entry: headers.entrySet()) {
                     String headerName = entry.getKey();

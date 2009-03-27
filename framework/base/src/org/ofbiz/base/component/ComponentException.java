@@ -33,7 +33,7 @@ public class ComponentException extends GenericConfigException {
     public ComponentException(String str) {
         super(str);
     }
- 
+
     public ComponentException(Throwable nested) {
         super(nested);
     }

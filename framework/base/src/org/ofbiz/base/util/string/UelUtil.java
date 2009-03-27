@@ -117,7 +117,7 @@ public class UelUtil {
             return this.variableMapper;
         }
     }
- 
+
     protected static class BasicVariableMapper extends VariableMapper {
         protected final ELContext elContext;
         protected final Map<String, Object> variables;

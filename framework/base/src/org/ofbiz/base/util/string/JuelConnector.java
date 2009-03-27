@@ -37,7 +37,7 @@ import org.ofbiz.base.util.Debug;
  */
 public class JuelConnector {
     protected static final String module = JuelConnector.class.getName();
- 
+
     /** Returns an <code>ExpressionFactory</code> instance.
      * @return A customized <code>ExpressionFactory</code> instance
      */
@@ -110,7 +110,7 @@ public class JuelConnector {
             }
         }
     }
- 
+
     /** Custom <code>Parser</code> class needed to implement auto-vivify. */
     protected static class ExtendedParser extends Parser {
         public ExtendedParser(Builder context, String input) {

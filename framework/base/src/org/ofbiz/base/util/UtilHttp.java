@@ -60,14 +60,14 @@ import org.owasp.esapi.errors.EncodingException;
 public class UtilHttp {
 
     public static final String module = UtilHttp.class.getName();
- 
+
     public static final String MULTI_ROW_DELIMITER = "_o_";
     public static final String ROW_SUBMIT_PREFIX = "_rowSubmit_o_";
     public static final String COMPOSITE_DELIMITER = "_c_";
     public static final int MULTI_ROW_DELIMITER_LENGTH = MULTI_ROW_DELIMITER.length();
     public static final int ROW_SUBMIT_PREFIX_LENGTH = ROW_SUBMIT_PREFIX.length();
     public static final int COMPOSITE_DELIMITER_LENGTH = COMPOSITE_DELIMITER.length();
- 
+
     /**
      * Create a combined map from servlet context, session, attributes and parameters
      * @return The resulting Map
@@ -87,7 +87,7 @@ public class UtilHttp {
         combinedMap.putAll(getSessionMap(request, namesToSkip));        // session overrides application
         combinedMap.putAll(getParameterMap(request));                   // parameters override session
         combinedMap.putAll(getAttributeMap(request));                   // attributes trump them all
- 
+
         return combinedMap;
     }
 
@@ -132,7 +132,7 @@ public class UtilHttp {
             }
             paramMap.put(name, value);
         }
- 
+
         paramMap.putAll(getPathInfoOnlyParameterMap(request, nameSet, onlyIncludeOrSkip));
 
         if (paramMap.size() == 0) {
@@ -147,10 +147,10 @@ public class UtilHttp {
             Debug.logVerbose("Made Request Parameter Map with [" + paramMap.size() + "] Entries", module);
             Debug.logVerbose("Request Parameter Map Entries: " + System.getProperty("line.separator") + UtilMisc.printMap(paramMap), module);
         }
- 
+
         return canonicalizeParameterMap(paramMap);
     }
- 
+
     public static Map<String, Object> getQueryStringOnlyParameterMap(HttpServletRequest request) {
         Map<String, Object> paramMap = FastMap.newInstance();
         String queryString = request.getQueryString();
@@ -173,11 +173,11 @@ public class UtilHttp {
         }
         return canonicalizeParameterMap(paramMap);
     }
- 
+
     public static Map<String, Object> getPathInfoOnlyParameterMap(HttpServletRequest request, Set<? extends String> nameSet, Boolean onlyIncludeOrSkip) {
         boolean onlyIncludeOrSkipPrim = onlyIncludeOrSkip == null ? true : onlyIncludeOrSkip.booleanValue();
         Map<String, Object> paramMap = FastMap.newInstance();
- 
+
         // now add in all path info parameters /~name1=value1/~name2=value2/
         // note that if a parameter with a given name already exists it will be put into a list with all values
         String pathInfoStr = request.getPathInfo();
@@ -217,17 +217,17 @@ public class UtilHttp {
                 }
             }
         }
- 
+
         return canonicalizeParameterMap(paramMap);
     }
- 
+
     public static Map<String, Object> getUrlOnlyParameterMap(HttpServletRequest request) {
         // NOTE: these have already been through canonicalizeParameterMap, so not doing it again here
         Map<String, Object> paramMap = getQueryStringOnlyParameterMap(request);
         paramMap.putAll(getPathInfoOnlyParameterMap(request, null, null));
         return paramMap;
     }
- 
+
     public static Map<String, Object> canonicalizeParameterMap(Map<String, Object> paramMap) {
         for (Map.Entry<String, Object> paramEntry: paramMap.entrySet()) {
             if (paramEntry.getValue() instanceof String) {
@@ -242,7 +242,7 @@ public class UtilHttp {
         }
         return paramMap;
     }
- 
+
     public static String canonicalizeParameter(String paramValue) {
         try {
             String cannedStr = StringUtil.defaultWebEncoder.canonicalize(paramValue, StringUtil.esapiCanonicalizeStrict);
@@ -253,7 +253,7 @@ public class UtilHttp {
             return paramValue;
         }
     }
- 
+
     /**
      * Create a map from a HttpRequest (attributes) object used in JSON requests
      * @return The resulting Map
@@ -274,7 +274,7 @@ public class UtilHttp {
 
         return returnMap;
     }
- 
+
     /**
      * Create a map from a HttpRequest (attributes) object
      * @return The resulting Map
@@ -518,14 +518,14 @@ public class UtilHttp {
         }
         return appName;
     }
- 
+
     public static void setInitialRequestInfo(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (UtilValidate.isNotEmpty((String) session.getAttribute("_WEBAPP_NAME_"))) {
             // oops, info already in place...
             return;
         }
- 
+
         StringBuffer fullRequestUrl = UtilHttp.getFullRequestUrl(request);
 
         session.setAttribute("_WEBAPP_NAME_", UtilHttp.getApplicationName(request));
@@ -533,7 +533,7 @@ public class UtilHttp {
         session.setAttribute("_CLIENT_REQUEST_", fullRequestUrl.toString());
         session.setAttribute("_CLIENT_USER_AGENT_", request.getHeader("User-Agent") != null ? request.getHeader("User-Agent") : "");
         session.setAttribute("_CLIENT_REFERER_", request.getHeader("Referer") != null ? request.getHeader("Referer") : "");
- 
+
         session.setAttribute("_CLIENT_FORWARDED_FOR_", request.getHeader("X-Forwarded-For"));
         session.setAttribute("_CLIENT_REMOTE_ADDR_", request.getRemoteAddr());
         session.setAttribute("_CLIENT_REMOTE_HOST_", request.getRemoteHost());
@@ -585,7 +585,7 @@ public class UtilHttp {
                 localeObject = userLogin.get("lastLocale");
             }
         }
- 
+
         // no user locale? before global default try appDefaultLocale if specified
         if (localeObject == null && !UtilValidate.isEmpty(appDefaultLocale)) {
             localeObject = appDefaultLocale;
@@ -641,7 +641,7 @@ public class UtilHttp {
     public static void setTimeZone(HttpSession session, TimeZone timeZone) {
         session.setAttribute("timeZone", timeZone);
     }
- 
+
     public static TimeZone getTimeZone(HttpServletRequest request) {
         HttpSession session = request.getSession();
         TimeZone timeZone = (TimeZone) session.getAttribute("timeZone");
@@ -777,7 +777,7 @@ public class UtilHttp {
         }
         return buf.toString();
     }
- 
+
     public static String getRequestUriFromTarget(String target) {
         if (target == null || target.length() == 0) return null;
         int endOfRequestUri = target.length();
@@ -1027,7 +1027,7 @@ public class UtilHttp {
     public static String stripViewParamsFromQueryString(String queryString) {
         return stripViewParamsFromQueryString(queryString, null);
     }
- 
+
     public static String stripViewParamsFromQueryString(String queryString, String paginatorNumber) {
         Set<String> paramNames = new HashSet<String>();
         if (UtilValidate.isNotEmpty(paginatorNumber)) {
@@ -1039,7 +1039,7 @@ public class UtilHttp {
         paramNames.add("viewSize" + paginatorNumber);
         return stripNamedParamsFromQueryString(queryString, paramNames);
     }
- 
+
     public static String stripNamedParamsFromQueryString(String queryString, Collection<String> paramNames) {
         String retStr = null;
         if (UtilValidate.isNotEmpty(queryString)) {
@@ -1066,7 +1066,7 @@ public class UtilHttp {
         }
         return retStr;
     }
- 
+
     /**
      * Given multi form data with the ${param}_o_N notation, creates a Collection
      * of Maps for the submitted rows. Each Map contains the key/value pairs 
@@ -1231,7 +1231,7 @@ public class UtilHttp {
      */
     public static boolean checkURLforSpiders(HttpServletRequest request) {
         boolean result = false;
- 
+
         String spiderRequest = (String) request.getAttribute("_REQUEST_FROM_SPIDER_");
         if (UtilValidate.isNotEmpty(spiderRequest)) {
             if ("Y".equals(spiderRequest)) {
@@ -1254,10 +1254,10 @@ public class UtilHttp {
                 }
             }
         }
- 
+
         if (!result)
             request.setAttribute("_REQUEST_FROM_SPIDER_", "N");
- 
+
         return result;
     }
 

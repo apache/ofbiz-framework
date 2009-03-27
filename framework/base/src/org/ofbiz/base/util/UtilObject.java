@@ -38,7 +38,7 @@ public class UtilObject {
         byte[] data = null;
         try {
             bos = new ByteArrayOutputStream();
- 
+
             int numBytesRead;
             while ((numBytesRead = is.read(buffer)) != -1) {
                 bos.write(buffer, 0, numBytesRead);

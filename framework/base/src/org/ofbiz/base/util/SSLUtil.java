@@ -107,7 +107,7 @@ public class SSLUtil {
         if (tm.getNumberOfKeyStores() < 1) {
             Debug.logWarning("System truststore not found!", module);
         }
- 
+
         for (ComponentConfig.KeystoreInfo ksi: ComponentConfig.getAllKeystoreInfos()) {
             if (ksi.isTrustStore()) {
                 KeyStore ks = ksi.getKeyStore();
@@ -212,7 +212,7 @@ public class SSLUtil {
 
                             if (Debug.infoOn())
                                 Debug.logInfo(peerCert.getSerialNumber().toString(16) + " :: " + subjectMap.get("CN"), module);
- 
+
                             try {
                                 peerCert.checkValidity();
                             } catch (Exception e) {

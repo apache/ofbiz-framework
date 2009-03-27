@@ -77,7 +77,7 @@ public class FileUtil {
             }
         }
     }
- 
+
     /**
      * Writes a file from a string with a specified encoding.
      *
@@ -100,7 +100,7 @@ public class FileUtil {
             throw e;
         }
     }
- 
+
     public static void writeString(String encoding, String s, File outFile) throws IOException {
         try {
             FileUtils.writeStringToFile(outFile, s, encoding);
@@ -109,7 +109,7 @@ public class FileUtil {
             throw e;
         }
     }
- 
+
     public static Writer getBufferedWriter(String path, String name) throws IOException {
         String fileName = getPatchedFileName(path, name);
         if (UtilValidate.isEmpty(fileName)) {
@@ -181,14 +181,14 @@ public class FileUtil {
                 }
             }
         }
- 
+
         return buf;
     }
     public static StringBuffer readTextFile(String fileName, boolean newline) throws FileNotFoundException, IOException {
         File file = new File(fileName);
         return readTextFile(file, newline);
     }
- 
+
     public static String readString(String encoding, File inFile) throws IOException {
         String readString = "";
         try {
@@ -199,11 +199,11 @@ public class FileUtil {
         }
         return readString;
     }
- 
+
     public static void searchFiles(List<File> fileList, File path, FilenameFilter filter, boolean includeSubfolders) throws IOException {
         // Get filtered files in the current path
         File[] files = path.listFiles(filter);
- 
+
         // Process each filtered entry
         for (int i = 0; i < files.length; i++) {
             // recurse if the entry is a directory
@@ -215,50 +215,50 @@ public class FileUtil {
             }
         }
     }
- 
+
     public static List<File> findFiles(String fileExt, String basePath, String partialPath, String stringToFind) throws IOException {
         if (basePath == null) {
             basePath = System.getProperty("ofbiz.home");
         }
- 
+
         Set<String> stringsToFindInPath = FastSet.newInstance();
         Set<String> stringsToFindInFile = FastSet.newInstance();
- 
+
         if (partialPath != null) {
            stringsToFindInPath.add(partialPath);
         }
         if (stringToFind != null) {
            stringsToFindInFile.add(stringToFind);
         }
- 
+
         List<File> fileList = FastList.newInstance();
         FileUtil.searchFiles(fileList, new File(basePath), new SearchTextFilesFilter(fileExt, stringsToFindInPath, stringsToFindInFile), true);
- 
+
         return fileList;
     }
- 
+
     public static List<File> findXmlFiles(String basePath, String partialPath, String rootElementName, String xsdOrDtdName) throws IOException {
         if (basePath == null) {
             basePath = System.getProperty("ofbiz.home");
         }
- 
+
         Set<String> stringsToFindInPath = FastSet.newInstance();
         Set<String> stringsToFindInFile = FastSet.newInstance();
- 
+
         if (partialPath != null) stringsToFindInPath.add(partialPath);
         if (rootElementName != null) stringsToFindInFile.add("<" + rootElementName + " ");
         if (xsdOrDtdName != null) stringsToFindInFile.add(xsdOrDtdName);
- 
+
         List<File> fileList = FastList.newInstance();
         FileUtil.searchFiles(fileList, new File(basePath), new SearchTextFilesFilter("xml", stringsToFindInPath, stringsToFindInFile), true);
         return fileList;
     }
- 
+
     public static class SearchTextFilesFilter implements FilenameFilter {
         String fileExtension;
         Set<String> stringsToFindInFile = FastSet.newInstance();
         Set<String> stringsToFindInPath = FastSet.newInstance();
- 
+
         public SearchTextFilesFilter(String fileExtension, Set<String> stringsToFindInPath, Set<String> stringsToFindInFile) {
             this.fileExtension = fileExtension;
             if (stringsToFindInPath != null) {
@@ -268,7 +268,7 @@ public class FileUtil {
                 this.stringsToFindInFile.addAll(stringsToFindInFile);
             }
         }
- 
+
         public boolean accept(File dir, String name) {
             File file = new File(dir, name);
             if (file.getName().startsWith(".")) {
@@ -277,7 +277,7 @@ public class FileUtil {
             if (file.isDirectory()) {
                 return true;
             }
- 
+
             boolean hasAllPathStrings = true;
             String fullPath = dir.getPath().replace('\\', '/');
             for (String pathString: stringsToFindInPath) {
@@ -286,7 +286,7 @@ public class FileUtil {
                     break;
                 }
             }
- 
+
             if (hasAllPathStrings && name.endsWith("." + fileExtension)) {
                 StringBuffer xmlFileBuffer = null;
                 try {

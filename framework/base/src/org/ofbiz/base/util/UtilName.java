@@ -69,7 +69,7 @@ public class UtilName {
     public String getRawString() {
         return this.raw;
     }
- 
+
     public String getPrefix() {
         return this.getField(PREFIX);
     }
