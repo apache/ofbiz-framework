@@ -55,7 +55,7 @@ public class GiftCertificateServices {
     public static final int PIN_NUMBER_LENGTH = 6;
 
     public static BigDecimal ZERO = BigDecimal.ZERO;
- 
+
     // Base Gift Certificate Services
     public static Map createGiftCertificate(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -84,7 +84,7 @@ public class GiftCertificateServices {
 
             GenericValue giftCertSettings = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId));
             Map acctResult = null;
- 
+
             if ("Y".equals(giftCertSettings.getString("requirePinCode"))) {
                 // TODO: move this code to createFinAccountForStore as well
                 int cardNumberLength = CARD_NUMBER_LENGTH;
@@ -100,7 +100,7 @@ public class GiftCertificateServices {
 
                 // in this case, the card number is the finAccountId
                 finAccountId = cardNumber;
- 
+
                 // create the FinAccount
                 Map acctCtx = UtilMisc.toMap("finAccountId", finAccountId);
                 acctCtx.put("finAccountTypeId", FinAccountHelper.giftCertFinAccountTypeId);
@@ -117,12 +117,12 @@ public class GiftCertificateServices {
                     cardNumber = (String) acctResult.get("finAccountCode");
                 }
             }
- 
+
             if (ServiceUtil.isError(acctResult)) {
                 String error = ServiceUtil.getErrorMessage(acctResult);
                 return ServiceUtil.returnError(error);
             }
- 
+
             // create the initial (deposit) transaction
             // do something tricky here: run as the "system" user
             // that can actually create a financial account transaction
@@ -195,7 +195,7 @@ public class GiftCertificateServices {
         if (finAccountId == null) {
             return ServiceUtil.returnError("Cannot get fin account for adding to balance");
         }
- 
+
         if (finAccount == null) {
             try {
                 finAccount = delegator.findByPrimaryKey("FinAccount", UtilMisc.toMap("finAccountId", finAccountId));
@@ -276,7 +276,7 @@ public class GiftCertificateServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Cannot get financial account settings " + e.getMessage());
         }
- 
+
         // check the actual balance (excluding authorized amounts) and create the transaction if it is sufficient
         BigDecimal previousBalance = finAccount.get("actualBalance") == null ? BigDecimal.ZERO : finAccount.getBigDecimal("actualBalance");
 
@@ -327,7 +327,7 @@ public class GiftCertificateServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Cannot get financial account settings " + e.getMessage());
         }
- 
+
         // TODO: get the real currency from context
         //String currencyUom = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
         // get the balance
@@ -361,7 +361,7 @@ public class GiftCertificateServices {
         if (authTransaction == null) {
             return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference; cannot capture");
         }
- 
+
         // get the gift certificate and its authorization from the authorization
         String finAccountAuthId = authTransaction.getString("referenceNum");
         try {
@@ -376,10 +376,10 @@ public class GiftCertificateServices {
             if ((giftCard.getTimestamp("thruDate") != null) && (giftCard.getTimestamp("thruDate").before(UtilDateTime.nowTimestamp()))) {
                 return ServiceUtil.returnError("Gift certificate has expired as of " + giftCard.getTimestamp("thruDate"));
             }
- 
+
             // obtain the order information
             OrderReadHelper orh = new OrderReadHelper(delegator, orderPaymentPreference.getString("orderId"));
- 
+
             Map redeemCtx = new HashMap();
             redeemCtx.put("userLogin", userLogin);
             redeemCtx.put("productStoreId", orh.getProductStoreId());
@@ -397,13 +397,13 @@ public class GiftCertificateServices {
             if (ServiceUtil.isError(redeemResult)) {
                 return redeemResult;
             }
- 
+
             // now release the authorization should this use the gift card release service?
             Map releaseResult = dispatcher.runSync("expireFinAccountAuth", UtilMisc.<String, Object>toMap("userLogin", userLogin, "finAccountAuthId", finAccountAuthId));
             if (ServiceUtil.isError(releaseResult)) {
                 return releaseResult;
             }
- 
+
             Map result = ServiceUtil.returnSuccess();
             if (redeemResult != null) {
                 Boolean processResult = (Boolean) redeemResult.get("processResult");
@@ -422,7 +422,7 @@ public class GiftCertificateServices {
         }
 }
 
- 
+
     public static Map giftCertificateAuthorize(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
@@ -463,16 +463,16 @@ public class GiftCertificateServices {
             } else {
                 return ServiceUtil.returnError("No product store financial account settings available");
             }
- 
+
             if (finAccountId == null) {
                 return ServiceUtil.returnError("Gift certificate pin number is invalid");
             }
- 
+
             // check for expiration date
             if ((finAccount.getTimestamp("thruDate") != null) && (finAccount.getTimestamp("thruDate").before(UtilDateTime.nowTimestamp()))) {
                 return ServiceUtil.returnError("Gift certificate has expired as of " + finAccount.getTimestamp("thruDate"));
             }
- 
+
             // check the amount to authorize against the available balance of fin account, which includes active authorizations as well as transactions
             BigDecimal availableBalance = finAccount.getBigDecimal("availableBalance");
             Boolean processResult = null;
@@ -501,7 +501,7 @@ public class GiftCertificateServices {
                 refNum = "N/A";      // a refNum is always required from authorization
                 processResult = Boolean.FALSE;
             }
- 
+
             result.put("processAmount", amount);
             result.put("authResult", processResult);
             result.put("processAmount", amount);
@@ -509,7 +509,7 @@ public class GiftCertificateServices {
             result.put("authCode", "A");
             result.put("captureCode", "C");
             result.put("authRefNum", refNum);
- 
+
             return result;
         } catch (GenericEntityException ex) {
             Debug.logError(ex, "Cannot authorize gift certificate", module);
@@ -519,7 +519,7 @@ public class GiftCertificateServices {
             return ServiceUtil.returnError("Cannot authorize gift certificate due to " + ex.getMessage());
         }
     }
- 
+
     public static Map giftCertificateRefund(DispatchContext dctx, Map context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
@@ -699,7 +699,7 @@ public class GiftCertificateServices {
             Debug.logError(e, "Unable to get Product Store FinAccount settings for " + FinAccountHelper.giftCertFinAccountTypeId, module);
             ServiceUtil.returnError("Unable to get Product Store FinAccount settings for " + FinAccountHelper.giftCertFinAccountTypeId + ": " + e.getMessage());
         }
- 
+
         // survey information
         String surveyId = giftCertSettings.getString("purchaseSurveyId");
 
@@ -824,7 +824,7 @@ public class GiftCertificateServices {
                 uiLabelMap.addBottomResourceBundle("CommonUiLabels");
                 answerMap.put("uiLabelMap", uiLabelMap);
                 answerMap.put("locale", locale);
- 
+
                 // set the bcc address(s)
                 String bcc = productStoreEmail.getString("bccAddress");
                 if (copyMe) {

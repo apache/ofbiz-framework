@@ -414,7 +414,7 @@ public class PayflowPro {
             // other error
             Debug.logWarning("In PayflowPro failing authorization; respCode/RESULT=" + respCode + ", avsCheckOkay=" + avsCheckOkay + ", cvv2CheckOkay=" + cvv2CheckOkay + "; AUTHCODE=" + parameters.get("AUTHCODE"), module);
             result.put("authResult", Boolean.FALSE);
- 
+
             // now check certain special conditions and report back through the generic params
             if ("12".equals(respCode)) {
                 result.put("resultDeclined", Boolean.TRUE);
@@ -797,7 +797,7 @@ invalid order date in PARES
 already validated for a previous Validate Authentication transaction
 
  */
- 
+
 /* RESULT for communication errors (less than 0)
  *
 -1 Failed to connect to host

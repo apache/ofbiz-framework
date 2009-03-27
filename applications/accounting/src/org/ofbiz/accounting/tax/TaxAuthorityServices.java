@@ -72,7 +72,7 @@ public class TaxAuthorityServices {
 
         if (quantity == null) quantity = ONE_BASE;
         BigDecimal amount = basePrice.multiply(quantity);
- 
+
         BigDecimal taxTotal = ZERO_BASE;
         BigDecimal taxPercentage = ZERO_BASE;
         BigDecimal priceWithTax = basePrice;
@@ -84,7 +84,7 @@ public class TaxAuthorityServices {
             if (productStore == null) {
                 throw new IllegalArgumentException("Could not find ProductStore with ID [" + productStoreId + "] for tax calculation");
             }
- 
+
             if ("Y".equals(productStore.getString("showPricesWithVatTax"))) {
                 Set taxAuthoritySet = FastSet.newInstance();
                 if (productStore.get("vatTaxAuthPartyId") == null) {
@@ -94,11 +94,11 @@ public class TaxAuthorityServices {
                     GenericValue taxAuthority = delegator.findByPrimaryKeyCache("TaxAuthority", UtilMisc.toMap("taxAuthGeoId", productStore.get("vatTaxAuthGeoId"), "taxAuthPartyId", productStore.get("vatTaxAuthPartyId")));
                     taxAuthoritySet.add(taxAuthority);
                 }
- 
+
                 if (taxAuthoritySet.size() == 0) {
                     throw new IllegalArgumentException("Could not find any Tax Authories for store with ID [" + productStoreId + "] for tax calculation; the store settings may need to be corrected.");
                 }
- 
+
                 List taxAdustmentList = getTaxAdjustments(delegator, product, productStore, null, billToPartyId, taxAuthoritySet, basePrice, amount, shippingPrice, ZERO_BASE);
                 if (taxAdustmentList.size() == 0) {
                     // this is something that happens every so often for different products and such, so don't blow up on it...
@@ -121,11 +121,11 @@ public class TaxAuthorityServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
- 
+
         // round to 2 decimal places for display/etc
         taxTotal = taxTotal.setScale(salestaxFinalDecimals, salestaxRounding);
         priceWithTax = priceWithTax.setScale(salestaxFinalDecimals, salestaxRounding);
- 
+
         Map result = ServiceUtil.returnSuccess();
         result.put("taxTotal", taxTotal);
         result.put("taxPercentage", taxPercentage);
@@ -162,11 +162,11 @@ public class TaxAuthorityServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
- 
+
         if (productStore == null && payToPartyId == null) {
             throw new IllegalArgumentException("Could not find payToPartyId [" + payToPartyId + "] or ProductStore [" + productStoreId + "] for tax calculation");
         }
- 
+
         // Setup the return lists.
         List orderAdjustments = FastList.newInstance();
         List itemAdjustments = FastList.newInstance();
@@ -219,7 +219,7 @@ public class TaxAuthorityServices {
         } else {
             Debug.logWarning("shippingAddress was null, adding nothing to taxAuthoritySet", module);
         }
- 
+
         //Debug.logInfo("Tax calc geoIdSet before expand:" + geoIdSet + "; this is for shippingAddress=" + shippingAddress, module);
         // get the most granular, or all available, geoIds and then find parents by GeoAssoc with geoAssocTypeId="REGIONS" and geoIdTo=<granular geoId> and find the GeoAssoc.geoId
         geoIdSet = GeoWorker.expandGeoRegionDeep(geoIdSet, delegator);
@@ -258,7 +258,7 @@ public class TaxAuthorityServices {
                 EntityCondition.makeCondition("taxAuthPartyId", EntityOperator.EQUALS, "_NA_"),
                 EntityOperator.AND,
                 EntityCondition.makeCondition("taxAuthGeoId", EntityOperator.EQUALS, "_NA_")));
- 
+
         Iterator taxAuthorityIter = taxAuthoritySet.iterator();
         while (taxAuthorityIter.hasNext()) {
             GenericValue taxAuthority = (GenericValue) taxAuthorityIter.next();
@@ -283,7 +283,7 @@ public class TaxAuthorityServices {
                     GenericValue pcm = (GenericValue) pcmIter.next();
                     productCategoryIdSet.add(pcm.get("productCategoryId"));
                 }
- 
+
                 if (productCategoryIdSet.size() == 0) {
                     productCategoryCond = EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, null);
                 } else {
@@ -331,7 +331,7 @@ public class TaxAuthorityServices {
                 if (orderPromotionsAmount != null && taxAuthorityRateProduct != null && (taxAuthorityRateProduct.get("taxPromotions") == null || (taxAuthorityRateProduct.get("taxPromotions") != null && taxAuthorityRateProduct.getBoolean("taxPromotions").booleanValue()))) {
                     taxable = taxable.add(orderPromotionsAmount);
                 }
- 
+
                 if (taxable.compareTo(BigDecimal.ZERO) == 0) {
                     // this should make it less confusing if the taxable flag on the product is not Y/true, and there is no shipping and such
                     continue;
@@ -391,7 +391,7 @@ public class TaxAuthorityServices {
 
         return adjustments;
     }
- 
+
     private static void handlePartyTaxExempt(GenericValue adjValue, Set billToPartyIdSet, String taxAuthGeoId, String taxAuthPartyId, BigDecimal taxAmount, Timestamp nowTimestamp, GenericDelegator delegator) throws GenericEntityException {
         Debug.logInfo("Checking for tax exemption : " + taxAuthGeoId + " / " + taxAuthPartyId, module);
         List ptiConditionList = UtilMisc.toList(

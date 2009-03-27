@@ -145,7 +145,7 @@ public class AIMPaymentServices {
     public static Map ccRefund(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
- 
+
         GenericValue creditCard = null;
         try {
             creditCard = delegator.getRelatedOne("CreditCard",orderPaymentPreference);
@@ -153,12 +153,12 @@ public class AIMPaymentServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Unable to obtain cc information from payment preference");
         }
- 
+
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
             return ServiceUtil.returnError("No authorization transaction found for the OrderPaymentPreference; cannot Refund");
         }
- 
+
         context.put("creditCard",creditCard);
         context.put("authTransaction",authTransaction);
         Map results = ServiceUtil.returnSuccess();
@@ -224,7 +224,7 @@ public class AIMPaymentServices {
                     if (ServiceUtil.isError(reply)) {
                         return reply;
                     }
- 
+
                     results = ServiceUtil.returnSuccess();
                     results.putAll( processRefundTransResult(reply) );
                     return results;
@@ -508,7 +508,7 @@ public class AIMPaymentServices {
                 AIMRequest.put("x_Country",UtilFormatOut.checkNull(ba.getString("countryGeoId")));
             }
             return;
- 
+
         } catch (GenericEntityException ex) {
             Debug.logError("Cannot build customer information for " + params + " due to error: " + ex.getMessage(), module);
             return;

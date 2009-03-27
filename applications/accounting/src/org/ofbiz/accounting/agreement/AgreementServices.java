@@ -43,7 +43,7 @@ import org.ofbiz.service.ServiceUtil;
  */
 
 public class AgreementServices {
- 
+
     public static final String module = AgreementServices.class.getName();
     // set some BigDecimal properties
     private static BigDecimal ZERO = BigDecimal.ZERO;
@@ -57,7 +57,7 @@ public class AgreementServices {
         if (decimals != -1) ZERO = ZERO.setScale(decimals, rounding);
     }
     public static final String resource = "AccountingUiLabels";
- 
+
     /**
      * Determines commission receiving parties and amounts for the provided product, price, and quantity
      * @param ctx The DispatchContext that this service is operating in.
@@ -80,7 +80,7 @@ public class AgreementServices {
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
         List commissions = FastList.newInstance();
- 
+
         try {
             BigDecimal amount = ((BigDecimal)context.get("amount"));
             BigDecimal quantity = (BigDecimal)context.get("quantity");
@@ -91,7 +91,7 @@ public class AgreementServices {
             quantity = quantity.abs();
             String productId = (String) context.get("productId");
             String invoiceItemTypeId = (String) context.get("invoiceItemTypeId");
- 
+
             // Collect agreementItems applicable to this orderItem/returnItem
             // TODO: partyIds should be part of this query!
             List agreementItems = delegator.findByAndCache("AgreementItemAndProductAppl", UtilMisc.toMap(
@@ -112,7 +112,7 @@ public class AgreementServices {
             }
             // this is not very efficient if there were many
             agreementItems = EntityUtil.filterByDate(agreementItems);
- 
+
             Iterator it = agreementItems.iterator();
             while (it.hasNext()) {
                 GenericValue agreementItem = (GenericValue) it.next();
@@ -124,7 +124,7 @@ public class AgreementServices {
                     BigDecimal commission = ZERO;
                     BigDecimal min = new BigDecimal("-1e12");   // Limit to 1 trillion commission
                     BigDecimal max = new BigDecimal("1e12");
- 
+
                     // number of days due for commission, which will be the lowest termDays of all the AgreementTerms
                     long days = -1;
                     Iterator itt = terms.iterator();
@@ -164,7 +164,7 @@ public class AgreementServices {
                         commission = max;
                     commission = negative ? commission.negate() : commission;
                     commission = commission.setScale(decimals, rounding);
- 
+
                     Map partyCommissionResult = UtilMisc.toMap(
                             "partyIdFrom", agreementItem.getString("partyIdFrom"),
                             "partyIdTo", agreementItem.getString("partyIdTo"),
