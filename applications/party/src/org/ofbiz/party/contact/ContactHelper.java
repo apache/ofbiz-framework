@@ -33,9 +33,9 @@ import org.ofbiz.entity.util.EntityUtil;
  * Accessors for Contact Mechanisms
  */
 public class ContactHelper {
- 
+
     public static final String module = ContactHelper.class.getName();
- 
+
     public static Collection<GenericValue> getContactMech(GenericValue party, boolean includeOld) {
         return getContactMech(party, null, null, includeOld);
     }

@@ -218,7 +218,7 @@ public class PartyServices {
                 Debug.logWarning(errorMsg, module);
                 return ServiceUtil.returnError(errorMsg);
             }
- 
+
             // record the oldStatusId and change the party status
             String oldStatusId = party.getString("statusId");
             party.set("statusId", statusId);
@@ -943,7 +943,7 @@ public class PartyServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
- 
+
         //get party types
         try {
             List<GenericValue> partyTypes = delegator.findList("PartyType", null, null, UtilMisc.toList("description"), null, false);
@@ -953,7 +953,7 @@ public class PartyServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
- 
+
         // current party type
         String partyTypeId;
         try {
@@ -1054,7 +1054,7 @@ public class PartyServices {
                         EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("partyRelationshipTypeId"), EntityOperator.EQUALS, EntityFunction.UPPER(partyRelationshipTypeId))));
                 fieldsToSelect.add("partyIdTo");
             }
- 
+
             // get the params
             String partyId = (String) context.get("partyId");
             String statusId = (String) context.get("statusId");
@@ -1183,7 +1183,7 @@ public class PartyServices {
                 if (UtilValidate.isNotEmpty(inventoryItemId) ||
                     UtilValidate.isNotEmpty(serialNumber) ||
                     UtilValidate.isNotEmpty(softIdentifier)) {
- 
+
                     // add role to view
                     dynamicView.addMemberEntity("II", "InventoryItem");
                     dynamicView.addAlias("II", "ownerPartyId");
@@ -1357,7 +1357,7 @@ public class PartyServices {
                     if (highIndex > partyListSize) {
                         highIndex = partyListSize;
                     }
- 
+
                     // close the list iterator
                     pli.close();
                 } catch (GenericEntityException e) {
@@ -1609,7 +1609,7 @@ public class PartyServices {
                 return ServiceUtil.returnError(e.getMessage());
             }
         }
- 
+
         Map<String, Object> resp = ServiceUtil.returnSuccess();
         resp.put("partyId", partyIdTo);
         return resp;

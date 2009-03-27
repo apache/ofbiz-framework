@@ -44,9 +44,9 @@ import org.ofbiz.entity.util.EntityUtil;
  * Worker methods for Contact Mechanisms
  */
 public class ContactMechWorker {
- 
+
     public static final String module = ContactMechWorker.class.getName();
- 
+
     /** @deprecated */
     public static void getPartyContactMechValueMaps(PageContext pageContext, String partyId, boolean showOld, String partyContactMechValueMapsAttr) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
@@ -55,11 +55,11 @@ public class ContactMechWorker {
             pageContext.setAttribute(partyContactMechValueMapsAttr, partyContactMechValueMaps);
         }
     }
- 
+
     public static List<Map<String, Object>> getPartyContactMechValueMaps(GenericDelegator delegator, String partyId, boolean showOld) {
        return getPartyContactMechValueMaps(delegator, partyId, showOld, null);
     }
- 
+
     public static List<Map<String, Object>> getPartyContactMechValueMaps(GenericDelegator delegator, String partyId, boolean showOld, String contactMechTypeId) {
         List<Map<String, Object>> partyContactMechValueMaps = FastList.newInstance();
 
@@ -74,7 +74,7 @@ public class ContactMechWorker {
                     if (contactMech != null && contactMechTypeId.equals(contactMech.getString("contactMechTypeId"))) {
                         tempColTemp.add(partyContactMech);
                     }
- 
+
                 }
                 tempCol = tempColTemp;
             }
@@ -130,7 +130,7 @@ public class ContactMechWorker {
 
         return partyContactMechValueMaps;
     }
- 
+
     public static List<Map<String, Object>> getFacilityContactMechValueMaps(GenericDelegator delegator, String facilityId, boolean showOld, String contactMechTypeId) {
         List<Map<String, Object>> facilityContactMechValueMaps = FastList.newInstance();
 
@@ -145,7 +145,7 @@ public class ContactMechWorker {
                     if (contactMech != null && contactMechTypeId.equals(contactMech.getString("contactMechTypeId"))) {
                         tempColTemp.add(partyContactMech);
                     }
- 
+
                 }
                 tempCol = tempColTemp;
             }
@@ -201,7 +201,7 @@ public class ContactMechWorker {
 
         return facilityContactMechValueMaps;
     }
- 
+
 
     /** @deprecated */
     public static void getOrderContactMechValueMaps(PageContext pageContext, String orderId, String orderContactMechValueMapsAttr) {
@@ -316,7 +316,7 @@ public class ContactMechWorker {
 
         return workEffortContactMechValueMaps.size() > 0 ? workEffortContactMechValueMaps : null;
     }
- 
+
     public static void getContactMechAndRelated(ServletRequest request, String partyId, Map<String, Object> target) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
 
@@ -483,7 +483,7 @@ public class ContactMechWorker {
             Debug.logWarning(e, module);
         }
     }
- 
+
     /** Returns the first valid FacilityContactMech found based on the given facilityId and a prioritized list of purposes
      * @param delegator
      * @param facilityId
@@ -493,7 +493,7 @@ public class ContactMechWorker {
     public static GenericValue getFacilityContactMechByPurpose(GenericDelegator delegator, String facilityId, List<String> purposeTypes) {
         if (UtilValidate.isEmpty(facilityId)) return null;
         if (UtilValidate.isEmpty(purposeTypes)) return null;
- 
+
         for (String purposeType: purposeTypes) {
             List<GenericValue> facilityContactMechPurposes = null;
             List<EntityCondition> conditionList = FastList.newInstance();
@@ -523,7 +523,7 @@ public class ContactMechWorker {
                     return EntityUtil.getFirst(facilityContactMechs);
                 }
             }
- 
+
         }
         return null;
     }
@@ -746,7 +746,7 @@ public class ContactMechWorker {
     public static Map<String, Object> getCurrentPostalAddress(ServletRequest request, String partyId, String curContactMechId) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Map<String, Object> results = FastMap.newInstance();
- 
+
         if (curContactMechId != null) {
             List<GenericValue> partyContactMechs = null;
 
@@ -911,13 +911,13 @@ public class ContactMechWorker {
             return attr.getString("attrValue");
         }
     }
- 
+
     public static String getPostalAddressPostalCodeGeoId(GenericValue postalAddress, GenericDelegator delegator) throws GenericEntityException {
         // if postalCodeGeoId not empty use that
         if (UtilValidate.isNotEmpty(postalAddress.getString("postalCodeGeoId"))) {
             return postalAddress.getString("postalCodeGeoId");
         }
- 
+
         // no postalCodeGeoId, see if there is a Geo record matching the countryGeoId and postalCode fields
         if (UtilValidate.isNotEmpty(postalAddress.getString("countryGeoId")) && UtilValidate.isNotEmpty(postalAddress.getString("postalCode"))) {
             // first try the shortcut with the geoId convention for "{countryGeoId}-{postalCode}"
@@ -926,7 +926,7 @@ public class ContactMechWorker {
                 // save the value to the database for quicker future reference
                 postalAddress.set("postalCodeGeoId", geo.getString("geoId"));
                 postalAddress.store();
- 
+
                 return geo.getString("geoId");
             }
 
@@ -938,11 +938,11 @@ public class ContactMechWorker {
                 // save the value to the database for quicker future reference
                 postalAddress.set("postalCodeGeoId", geoAssocAndGeoTo.getString("geoId"));
                 postalAddress.store();
- 
+
                 return geoAssocAndGeoTo.getString("geoId");
             }
         }
- 
+
         // nothing found, return null
         return null;
     }

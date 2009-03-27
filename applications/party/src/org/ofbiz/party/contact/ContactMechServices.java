@@ -959,7 +959,7 @@ public class ContactMechServices {
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }
- 
+
     /**
      * Just wraps the ContactMechWorker method of the same name.
      *
@@ -1035,7 +1035,7 @@ public class ContactMechServices {
         }
         return ServiceUtil.returnSuccess();
     }
- 
+
     /**
      * Creates an EmailAddressVerification
      */
@@ -1043,14 +1043,14 @@ public class ContactMechServices {
         GenericDelegator delegator = (GenericDelegator) dctx.getDelegator();
         String emailAddress = (String) context.get("emailAddress");
         String verifyHash = null;
- 
+
         String expireTime = UtilProperties.getPropertyValue("security", "email_verification.expire.hours");
         Integer expTime = Integer.valueOf(expireTime);
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, expTime.intValue());
         Date date = calendar.getTime();
         Timestamp expireDate = UtilDateTime.toTimestamp(date);
- 
+
         SecureRandom secureRandom = new SecureRandom();
 
         synchronized(ContactMechServices.class) {
@@ -1079,10 +1079,10 @@ public class ContactMechServices {
                 }
             }
         }
- 
+
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("verifyHash", verifyHash);
         return result;
     }
- 
+
 }

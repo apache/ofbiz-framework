@@ -85,7 +85,7 @@ public class PartyContentWrapper implements ContentWrapper {
             return null;
         }
     }
- 
+
     public List<String> getList(String contentTypeId) {
         try {
             return getPartyContentTextList(party, contentTypeId, locale, mimeTypeId, party.getDelegator(), dispatcher);
