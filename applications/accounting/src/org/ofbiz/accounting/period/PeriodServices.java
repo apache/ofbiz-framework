@@ -36,7 +36,7 @@ import org.ofbiz.service.ServiceUtil;
 
 public class PeriodServices {
     public static String module = PeriodServices.class.getName();
- 
+
     /* find the date of the last closed CustomTimePeriod, or, if none available, the earliest date available of any
      * CustomTimePeriod
      */
@@ -45,16 +45,16 @@ public class PeriodServices {
         String organizationPartyId = (String) context.get("organizationPartyId"); // input parameters
         String periodTypeId = (String) context.get("periodTypeId");
         Timestamp findDate = (Timestamp) context.get("findDate");
- 
+
         // default findDate to now
         if (findDate == null) {
             findDate = UtilDateTime.nowTimestamp();
         }
- 
+
         Timestamp lastClosedDate = null;          // return parameters
         GenericValue lastClosedTimePeriod = null;
         Map<String, Object> result = ServiceUtil.returnSuccess();
- 
+
         try {
             // try to get the ending date of the most recent accounting time period before findDate which has been closed
             List<EntityCondition> findClosedConditions = UtilMisc.toList(EntityCondition.makeConditionMap("organizationPartyId", organizationPartyId),
@@ -85,7 +85,7 @@ public class PeriodServices {
                     return ServiceUtil.returnError("Cannot get a starting date for net income");
                 }
             }
- 
+
             result.put("lastClosedTimePeriod", lastClosedTimePeriod);  // ok if this is null - no time periods have been closed
             result.put("lastClosedDate", lastClosedDate);  // should have a value - not null
             return result;

@@ -59,20 +59,20 @@ import com.worldpay.select.merchant.SelectServletResponse;
  * WorldPay Select Pro Response Servlet
  */
 public class SelectRespServlet extends SelectServlet implements SelectDefs {
- 
+
     public static final String module = SelectRespServlet.class.getName();
     protected JPublishWrapper jp = null;
 
     protected void doRequest(SelectServletRequest request, SelectServletResponse response) throws ServletException, IOException {
         Debug.logInfo("Response received from worldpay..", module);
- 
+
         String localLocaleStr = request.getParameter("M_localLocale");
         String webSiteId = request.getParameter("M_webSiteId");
         String delegatorName = request.getParameter("M_delegatorName");
         String dispatchName = request.getParameter("M_dispatchName");
         String userLoginId = request.getParameter("M_userLoginId");
         String confirmTemplate = request.getParameter("M_confirmTemplate");
- 
+
         // get the ServletContext
         ServletContext context = (ServletContext) request.getAttribute("servletContext");
         if (this.jp == null) {
@@ -81,15 +81,15 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
                 this.jp = new JPublishWrapper(context);
             }
         }
- 
+
         // get the delegator
         GenericDelegator delegator = GenericDelegator.getGenericDelegator(delegatorName);
- 
+
         // get the dispatcher
         ServiceDispatcher serviceDisp = ServiceDispatcher.getInstance(dispatchName, delegator);
         DispatchContext dctx = serviceDisp.getLocalContext(dispatchName);
         LocalDispatcher dispatcher = dctx.getDispatcher();
- 
+
         // get the userLogin
         GenericValue userLogin = null;
         try {
@@ -98,11 +98,11 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
             Debug.logError(e, "Cannot get admin UserLogin entity", module);
             callError(request);
         }
- 
+
         // get the client locale
         List localeSplit = StringUtil.split(localLocaleStr, "_");
         Locale localLocale = new Locale((String) localeSplit.get(0), (String) localeSplit.get(1));
- 
+
         // get the properties file
         String configString = null;
         try {
@@ -115,11 +115,11 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
         if (configString == null)
         configString = "payment.properties";
         Debug.logInfo("Got the payment configuration", module);
- 
+
         String orderId = request.getParameter(SelectDefs.SEL_cartId);
         String authAmount = request.getParameter(SelectDefs.SEL_authAmount);
         String transStatus = request.getParameter(SelectDefs.SEL_transStatus);
- 
+
         // get the order header
         GenericValue orderHeader = null;
         try {
@@ -128,7 +128,7 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
             Debug.logError(e, "Cannot get the order header for the returned orderId", module);
             callError(request);
         }
- 
+
         // the order total MUST match the auth amount or we do not process
         BigDecimal wpTotal = new BigDecimal(authAmount);
         BigDecimal orderTotal = orderHeader.getBigDecimal("grandTotal");
@@ -138,18 +138,18 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
                 callError(request);
             }
         }
- 
+
         // store some stuff for calling existing events
         HttpSession session = request.getSession(true);
         session.setAttribute("userLogin", userLogin);
- 
+
         request.setAttribute("delegator", delegator);
         request.setAttribute("dispatcher", dispatcher);
         request.setAttribute("orderId", orderId);
         request.setAttribute("notifyEmail", request.getParameter("M_notifyEmail"));
         request.setAttribute("confirmEmail", request.getParameter("M_confirmEmail"));
         request.setAttribute("_CONTROL_PATH_", request.getParameter("M_controlPath"));
- 
+
         // attempt to start a transaction
         boolean beganTransaction = false;
         try {
@@ -157,7 +157,7 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
         } catch (GenericTransactionException gte) {
             Debug.logError(gte, "Unable to begin transaction", module);
         }
- 
+
         boolean okay = false;
         if (transStatus.equalsIgnoreCase("Y")) {
             // order was approved
@@ -168,12 +168,12 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
             Debug.logInfo("Order #" + orderId + " cancelled", module);
             okay = OrderChangeHelper.cancelOrder(dispatcher, userLogin, orderId);
         }
- 
+
         if (okay) {
             // set the payment preference
             okay = setPaymentPreferences(delegator, userLogin, orderId, request);
         }
- 
+
         if (okay) {
             try {
                 TransactionUtil.commit(beganTransaction);
@@ -187,10 +187,10 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
                 Debug.logError(gte, "Unable to rollback transaction", module);
             }
         }
- 
+
         // attempt to release the offline hold on the order (workflow)
         OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
- 
+
         // call the email confirm service
         Map emailContext = UtilMisc.toMap("orderId", orderId);
         try {
@@ -198,7 +198,7 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
         } catch (GenericServiceException e) {
             Debug.logError(e, "Problems sending email confirmation", module);
         }
- 
+
         // set up the output stream for the response
         response.setContentType("text/html");
         ServletOutputStream out = response.getOutputStream();
@@ -214,7 +214,7 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
         out.println(content);
         out.flush();
     }
- 
+
     private boolean setPaymentPreferences(GenericDelegator delegator, GenericValue userLogin, String orderId, ServletRequest request) {
         List paymentPrefs = null;
         boolean okay = true;
@@ -233,7 +233,7 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
         }
         return okay;
     }
- 
+
     private boolean setPaymentPreference(GenericValue paymentPreference, GenericValue userLogin, ServletRequest request) {
         String transId = request.getParameter(SelectDefs.SEL_transId);
         String transTime = request.getParameter(SelectDefs.SEL_transTime);
@@ -242,10 +242,10 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
         String authCode = request.getParameter(SelectDefs.SEL_authCode);
         String authAmount = request.getParameter(SelectDefs.SEL_authAmount);
         String rawAuthMessage = request.getParameter(SelectDefs.SEL_rawAuthMessage);
- 
+
         // Need these for create payment service
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
- 
+
         if (transStatus.equalsIgnoreCase("Y")) {
             paymentPreference.set("authCode", authCode);
             paymentPreference.set("statusId", "PAYMENT_RECEIVED");
@@ -254,14 +254,14 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
         }
         Long transTimeLong = new Long(transTime);
         java.sql.Timestamp authDate = new java.sql.Timestamp(transTimeLong.longValue());
- 
+
         paymentPreference.set("avsCode", avsCode);
         paymentPreference.set("authRefNum", transId);
         paymentPreference.set("authDate", authDate);
         paymentPreference.set("authFlag", transStatus);
         paymentPreference.set("authMessage", rawAuthMessage);
         paymentPreference.set("maxAmount", new BigDecimal(authAmount));
- 
+
         // create a payment record too -- this method does not store the object so we must here
         Map results = null;
         try {
@@ -278,7 +278,7 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
             request.setAttribute("_ERROR_MESSAGE_", (String) results.get(ModelService.ERROR_MESSAGE));
             return false;
         }
- 
+
         try {
             paymentPreference.store();
             paymentPreference.getDelegator().create(paymentPreference);
@@ -288,7 +288,7 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
         }
         return true;
     }
- 
+
     private void callError(ServletRequest request) throws ServletException {
         Enumeration e = request.getParameterNames();
         Debug.logError("###### SelectRespServlet Error:", module);

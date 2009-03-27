@@ -50,7 +50,7 @@ public class CCServicesTest extends TestCase {
     public GenericDelegator delegator = null;
     public static final String DISPATCHER_NAME = "test-dispatcher";
     public LocalDispatcher dispatcher = null;
- 
+
     // test data
     protected GenericValue emailAddr = null;
     protected String orderId = null;
@@ -60,7 +60,7 @@ public class CCServicesTest extends TestCase {
     protected Map pbOrder = null;
     protected BigDecimal creditAmount = null;
     protected String configFile = null;
- 
+
     public CCServicesTest(String name) {
         super(name);
     }
@@ -97,7 +97,7 @@ public class CCServicesTest extends TestCase {
                 "OrderFrequencyInterval", "3",
                 "TotalNumberPayments", "4");
     }
- 
+
     protected void tearDown() throws Exception {
         dispatcher.deregister();
     }
@@ -117,15 +117,15 @@ public class CCServicesTest extends TestCase {
                     "orderId", orderId
             );
             serviceInput.put("processAmount", new BigDecimal("200.00"));
- 
+
             // run the service (make sure in payment
             Map result = dispatcher.runSync("clearCommerceCCAuth",serviceInput);
- 
+
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
             Debug.logInfo("[testCCAuth] responseMessage: " + responseMessage, module);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
- 
+
             if (((Boolean) result.get("authResult")).equals(new Boolean(false))) {          // returnCode ok?
                 Debug.logInfo("[testAuth] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
@@ -134,7 +134,7 @@ public class CCServicesTest extends TestCase {
         } catch (GenericServiceException ex) {
             TestCase.fail(ex.getMessage());
         }
- 
+
     }
     /*
      * Check the credit action: to deduct a certain amount of a credit card.
@@ -152,12 +152,12 @@ public class CCServicesTest extends TestCase {
             );
             // run the service
             Map result = dispatcher.runSync("clearCommerceCCCredit",serviceMap);
- 
+
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
             Debug.logInfo("[testCCCredit] responseMessage: " + responseMessage, module);
             TestCase.assertEquals("Service result is success", ModelService.RESPOND_SUCCESS, responseMessage);
- 
+
             if (((Boolean) result.get("creditResult")).equals(new Boolean(false))) {          // returnCode ok?
                 Debug.logInfo("[testCCCredit] Error Messages from ClearCommerce: " + result.get("internalRespMsgs"), module);
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
@@ -165,7 +165,7 @@ public class CCServicesTest extends TestCase {
         } catch (GenericServiceException ex) {
             TestCase.fail(ex.getMessage());
         }
- 
+
     }
     /*
      * Test Purchase subscription
@@ -173,7 +173,7 @@ public class CCServicesTest extends TestCase {
     public void testPurchaseSubscription() throws Exception {
         Debug.logInfo("=====[testPurchaseSubscription] starting....", module);
         try {
- 
+
             Map serviceMap = UtilMisc.toMap(
                     "paymentConfig", configFile,
                     "orderId", orderId,
@@ -186,7 +186,7 @@ public class CCServicesTest extends TestCase {
 
             // run the service
             Map result = dispatcher.runSync("clearCommerceCCCredit",serviceMap);
- 
+
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
             Debug.logInfo("[testPurchaseDescription] responseMessage: " + responseMessage, module);
@@ -199,12 +199,12 @@ public class CCServicesTest extends TestCase {
             TestCase.fail(ex.getMessage());
         }
     }
- 
+
     /*
      * Test Free subscription
      */
     public void testFreeSubscription() throws Exception {
- 
+
             // not communicate with CC.
     }
     /*
@@ -227,15 +227,15 @@ cancelled. If the order is to be resumed, a new recurring order must be submitte
     public void testCCReport() throws Exception{
         Debug.logInfo("=====[testReport] starting....", module);
         try {
- 
+
             Map serviceMap = UtilMisc.toMap(
                     "orderId", "4488668f-2db0-3002-002b-0003ba1d84d5",
                     "paymentConfig", configFile
             );
- 
+
             // run the service
             Map result = dispatcher.runSync("clearCommerceCCReport",serviceMap);
- 
+
             // verify the results
             String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
             Debug.logInfo("[testPurchaseDescription] responseMessage: " + responseMessage, module);

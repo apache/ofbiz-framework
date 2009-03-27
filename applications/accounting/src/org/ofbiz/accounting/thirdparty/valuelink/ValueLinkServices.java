@@ -1449,7 +1449,7 @@ public class ValueLinkServices {
             uiLabelMap.addBottomResourceBundle("CommonUiLabels");
             answerMap.put("uiLabelMap", uiLabelMap);
             answerMap.put("locale", locale);
- 
+
             String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
             if (UtilValidate.isEmpty(bodyScreenLocation)) {
                 bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);

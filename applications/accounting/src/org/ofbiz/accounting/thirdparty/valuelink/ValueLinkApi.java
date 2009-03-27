@@ -687,7 +687,7 @@ public class ValueLinkApi {
         BigDecimal amountBd = new BigDecimal(amount);
         return amountBd.movePointLeft(2);
     }
- 
+
     public String getCurrency(String currency) {
         return "840"; // todo make this multi-currency
     }

@@ -53,27 +53,27 @@ import com.worldpay.util.CurrencyAmount;
  * WorldPay Select Pro Events/Services
  */
 public class WorldPayEvents {
- 
+
     public static final String module = WorldPayEvents.class.getName();
- 
+
     public static String worldPayRequest(HttpServletRequest request, HttpServletResponse response) {
         ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
- 
+
         // we need the websiteId for the correct properties file
         String webSiteId = CatalogWorker.getWebSiteId(request);
- 
+
         // get the orderId from the request, stored by previous event(s)
         String orderId = (String) request.getAttribute("orderId");
- 
+
         if (orderId == null) {
             Debug.logError("Problems getting orderId, was not found in request", module);
             request.setAttribute("_ERROR_MESSAGE_", "<li>OrderID not found, please contact customer service.");
             return "error";
         }
- 
+
         // get the order header for total and other information
         GenericValue orderHeader = null;
         try {
@@ -83,7 +83,7 @@ public class WorldPayEvents {
             request.setAttribute("_ERROR_MESSAGE_", "<li>Problems getting order information, please contact customer service.");
             return "error";
         }
- 
+
         // get the contact address to pass over
         GenericValue contactAddress = null;
         try {
@@ -95,7 +95,7 @@ public class WorldPayEvents {
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Problems getting order contact information", module);
         }
- 
+
         // get the country geoID
         GenericValue countryGeo = null;
         if (contactAddress != null) {
@@ -105,7 +105,7 @@ public class WorldPayEvents {
                 Debug.logWarning(e, "Problems getting country geo entity", module);
             }
         }
- 
+
         // string of customer's name
         String name = null;
         if (contactAddress != null) {
@@ -114,7 +114,7 @@ public class WorldPayEvents {
             else if (contactAddress.get("toName") != null && contactAddress.getString("toName").length() > 0)
                 name = contactAddress.getString("toName");
         }
- 
+
         // build an address string
         StringBuffer address = null;
         if (contactAddress != null) {
@@ -138,11 +138,11 @@ public class WorldPayEvents {
                 address.append(contactAddress.getString("stateProvinceGeoId").trim());
             }
         }
- 
+
         // get the telephone number to pass over
         String phoneNumber = null;
         GenericValue phoneContact = null;
- 
+
         // get the email address to pass over
         String emailAddress = null;
         GenericValue emailContact = null;
@@ -154,32 +154,32 @@ public class WorldPayEvents {
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Problems getting order email address", module);
         }
- 
+
         // get the product store
         GenericValue productStore = null;
         try {
             productStore = orderHeader.getRelatedOne("ProductStore");
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get ProductStore from OrderHeader", module);
- 
+
         }
         if (productStore == null) {
             Debug.logError("ProductStore is null", module);
             request.setAttribute("_ERROR_MESSAGE_", "<li>Problems getting merchant configuration, please contact customer service.");
             return "error";
         }
- 
+
         // get the payment properties file
         GenericValue paymentConfig = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStore.getString("productStoreId"), "EXT_WORLDPAY", null, true);
         String configString = null;
         if (paymentConfig != null) {
             configString = paymentConfig.getString("paymentPropertiesPath");
         }
- 
+
         if (configString == null) {
             configString = "payment.properties";
         }
- 
+
         String instId = UtilProperties.getPropertyValue(configString, "payment.worldpay.instId", "NONE");
         String authMode = UtilProperties.getPropertyValue(configString, "payment.worldpay.authMode", "A");
         String testMode = UtilProperties.getPropertyValue(configString, "payment.worldpay.testMode", "100");
@@ -189,19 +189,19 @@ public class WorldPayEvents {
         String timeout = UtilProperties.getPropertyValue(configString, "payment.worldpay.timeout", "0");
         String company = UtilFormatOut.checkEmpty(productStore.getString("companyName"), "");
         String defCur = UtilFormatOut.checkEmpty(productStore.getString("defaultCurrencyUomId"), "USD");
- 
+
         // order description
         String description = "Order #" + orderId;
         if (company != null && company.length() > 0)
         description = description + " from " + company;
- 
+
         // check the instId - very important
         if (instId == null || instId.equals("NONE")) {
             Debug.logError("Worldpay InstId not found, cannot continue", module);
             request.setAttribute("_ERROR_MESSAGE_", "<li>Problems getting merchant configuration, please contact customer service.");
             return "error";
         }
- 
+
         int instIdInt = 0;
         try {
             instIdInt = Integer.parseInt(instId);
@@ -210,7 +210,7 @@ public class WorldPayEvents {
             request.setAttribute("_ERROR_MESSAGE_", "<li>Problems getting merchant configuration, please contact customer service.");
             return "error";
         }
- 
+
         // check the testMode
         int testModeInt = -1;
         if (testMode != null) {
@@ -221,7 +221,7 @@ public class WorldPayEvents {
                 testModeInt = 0;
             }
         }
- 
+
         // create the purchase link
         String purchaseURL = null;
         HTTPURL link = null;
@@ -239,7 +239,7 @@ public class WorldPayEvents {
             request.setAttribute("_ERROR_MESSAGE_", "<li>Problem creating link to WorldPay, please contact customer service.");
             return "error";
         }
- 
+
         // create the currency amount
         double orderTotal = orderHeader.getDouble("grandTotal").doubleValue();
         CurrencyAmount currencyAmount = null;
@@ -251,7 +251,7 @@ public class WorldPayEvents {
             request.setAttribute("_ERROR_MESSAGE_", "<li>Merchant Configuration Error, please contact customer service.");
             return "error";
         }
- 
+
         // create a purchase token
         PurchaseToken token = null;
         try {
@@ -265,7 +265,7 @@ public class WorldPayEvents {
             request.setAttribute("_ERROR_MESSAGE_", "<li>Problems creating a purchase token, please contact customer service.");
             return "error";
         }
- 
+
         // set the auth/test modes 
         try {
             token.setAuthorisationMode(authMode);
@@ -273,7 +273,7 @@ public class WorldPayEvents {
             Debug.logWarning(e, "Problems setting the authorization mode", module);
         }
         token.setTestMode(testModeInt);
- 
+
         // set the token to the purchase link
         try {
             linkParms.setValue(SelectDefs.SEL_purchase, token.produce());
@@ -282,7 +282,7 @@ public class WorldPayEvents {
             request.setAttribute("_ERROR_MESSAGE_", "<li>Problems producing purchase token, please contact customer service.");
             return "error";
         }
- 
+
         // set the customer data in the link
         linkParms.setValue(SelectDefs.SEL_desc, description);
         linkParms.setValue(SelectDefs.SEL_name, name != null ? name : "");
@@ -291,7 +291,7 @@ public class WorldPayEvents {
         linkParms.setValue(SelectDefs.SEL_country, countryGeo.getString("geoCode"));
         linkParms.setValue(SelectDefs.SEL_tel, phoneNumber != null ? phoneNumber : "");
         linkParms.setValue(SelectDefs.SEL_email, emailAddress != null ? emailAddress : "");
- 
+
         // set some optional data
         if (fixContact != null && fixContact.toUpperCase().startsWith("Y")) {
             linkParms.setValue(SelectDefs.SEL_fixContact, "Y");
@@ -299,7 +299,7 @@ public class WorldPayEvents {
         if (hideContact != null && hideContact.toUpperCase().startsWith("Y")) {
             linkParms.setValue("hideContact", "Y"); // why is this not in SelectDefs??
         }
- 
+
         // now set some send-back parameters
         linkParms.setValue("M_controlPath", (String)request.getAttribute("_CONTROL_PATH_"));
         linkParms.setValue("M_userLoginId", userLogin.getString("userLoginId"));
@@ -308,7 +308,7 @@ public class WorldPayEvents {
         linkParms.setValue("M_webSiteId", webSiteId);
         linkParms.setValue("M_localLocale", UtilHttp.getLocale(request).toString());
         linkParms.setValue("M_confirmTemplate", confirmTemplate != null ? confirmTemplate : "");
- 
+
         // redirect to worldpay
         try {
             response.sendRedirect(link.produce());
@@ -317,7 +317,7 @@ public class WorldPayEvents {
             request.setAttribute("_ERROR_MESSAGE_", "<li>Problems connecting with WorldPay, please contact customer service.");
             return "error";
         }
- 
+
         return "success";
     }
 

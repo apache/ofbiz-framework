@@ -41,7 +41,7 @@ import org.ofbiz.service.*;
 import javolution.util.FastMap;
 
 public class FinAccountServices {
- 
+
     public static final String module = FinAccountServices.class.getName();
 
     public static Map createAccountAndCredit(DispatchContext dctx, Map context) {
@@ -150,7 +150,7 @@ public class FinAccountServices {
             transactionMap.put("reasonEnumId", context.get("reasonEnumId"));
             transactionMap.put("comments", context.get("comments"));
             transactionMap.put("userLogin", userLogin);
- 
+
             Map creditTransResult = dispatcher.runSync("createFinAccountTrans", transactionMap);
             if (ServiceUtil.isError(creditTransResult) || ServiceUtil.isFailure(creditTransResult)) {
                 return creditTransResult;
@@ -172,14 +172,14 @@ public class FinAccountServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String productStoreId = (String) context.get("productStoreId");
         String finAccountTypeId = (String) context.get("finAccountTypeId");
- 
+
         try {
             // get the product store id and use it to generate a unique fin account code
             GenericValue productStoreFinAccountSetting = delegator.findByPrimaryKeyCache("ProductStoreFinActSetting", UtilMisc.toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId));
             if (productStoreFinAccountSetting == null) {
                 return ServiceUtil.returnError("No settings found for store [" + productStoreId + "] for fin account type [" + finAccountTypeId + "]");
             }
- 
+
             Long accountCodeLength = productStoreFinAccountSetting.getLong("accountCodeLength");
             Long accountValidDays = productStoreFinAccountSetting.getLong("accountValidDays");
             Long pinCodeLength = productStoreFinAccountSetting.getLong("pinCodeLength");
@@ -210,7 +210,7 @@ public class FinAccountServices {
             inContext.put("organizationPartyId", payToPartyId);
 
             Map createResult = dispatcher.runSync("createFinAccount", inContext);
- 
+
             if (ServiceUtil.isError(createResult)) {
                 return createResult;
             } else {
@@ -368,7 +368,7 @@ public class FinAccountServices {
                             GenericValue productStore = delegator.getRelatedOne("ProductStore", orderHeader);
                             GenericValue orderItem = delegator.findByPrimaryKey("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
                             if (!"ITEM_CANCELLED".equals(orderItem.getString("statusId"))) {
- 
+
                                 // make sure the item hasn't already been returned
                                 List returnItems = orderItem.getRelated("ReturnItem");
                                 if (returnItems == null || returnItems.size() == 0) {

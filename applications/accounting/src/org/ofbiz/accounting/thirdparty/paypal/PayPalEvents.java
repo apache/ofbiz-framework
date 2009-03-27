@@ -57,21 +57,21 @@ import org.ofbiz.service.LocalDispatcher;
 
 
 public class PayPalEvents {
- 
+
     public static final String resource = "AccountingUiLabels";
     public static final String resourceErr = "AccountingErrorUiLabels";
     public static final String commonResource = "CommonUiLabels";
     public static final String module = PayPalEvents.class.getName();
- 
+
     /** Initiate PayPal Request */
     public static String callPayPal(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
- 
+
         // get the orderId
         String orderId = (String) request.getAttribute("orderId");
- 
+
         // get the order header
         GenericValue orderHeader = null;
         try {
@@ -81,10 +81,10 @@ public class PayPalEvents {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingOrderHeader", locale));
             return "error";
         }
- 
+
         // get the order total
         String orderTotal = orderHeader.getBigDecimal("grandTotal").toPlainString();
- 
+
         // get the product store
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
 
@@ -93,44 +93,44 @@ public class PayPalEvents {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingMerchantConfiguration", locale));
             return "error";
         }
- 
+
         // get the payment properties file
         GenericValue paymentConfig = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStore.getString("productStoreId"), "EXT_PAYPAL", null, true);
         String configString = null;
         if (paymentConfig != null) {
             configString = paymentConfig.getString("paymentPropertiesPath");
         }
- 
+
         if (configString == null) {
             configString = "payment.properties";
         }
- 
+
         // get the company name
         String company = UtilFormatOut.checkEmpty(productStore.getString("companyName"), "");
- 
+
         // create the item name
         String itemName = UtilProperties.getMessage(resource, "AccountingOrderNr", locale) + orderId + " " +
                                  (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " "+ company : "");
         String itemNumber = "0";
- 
+
         // get the redirect url
         String redirectUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.redirect");
- 
+
         // get the notify url
         String notifyUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.notify");
- 
+
         // get the return urls
         String returnUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.return");
- 
+
         // get the cancel return urls
         String cancelReturnUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.cancelReturn");
- 
+
         // get the image url
         String imageUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.image");
- 
+
         // get the paypal account
         String payPalAccount = UtilProperties.getPropertyValue(configString, "payment.paypal.business");
- 
+
         if (UtilValidate.isEmpty(redirectUrl)
             || UtilValidate.isEmpty(notifyUrl)
             || UtilValidate.isEmpty(returnUrl)
@@ -141,7 +141,7 @@ public class PayPalEvents {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingMerchantConfiguration", locale));
             return "error";
         }
- 
+
         // create the redirect string
         Map <String, Object> parameters = new LinkedHashMap <String, Object>();
         parameters.put("cmd", "_xclick");
@@ -157,13 +157,13 @@ public class PayPalEvents {
         parameters.put("image_url", imageUrl);
         parameters.put("no_note", "1");        // no notes allowed in paypal (not passed back)
         parameters.put("no_shipping", "1");    // no shipping address required (local shipping used)
- 
+
         String encodedParameters = UtilHttp.urlEncodeArgs(parameters, false);
         String redirectString = redirectUrl + "?" + encodedParameters;
- 
+
         // set the order in the session for cancelled orders
         request.getSession().setAttribute("PAYPAL_ORDER", orderId);
- 
+
         // redirect to paypal
         try {
             response.sendRedirect(redirectString);
@@ -172,16 +172,16 @@ public class PayPalEvents {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsConnectingWithPayPal", locale));
             return "error";
         }
- 
+
         return "success";
     }
- 
+
     /** PayPal Call-Back Event */
     public static String payPalIPN(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
- 
+
         // get the product store
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
         if (productStore == null) {
@@ -189,10 +189,10 @@ public class PayPalEvents {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingMerchantConfiguration", locale));
             return "error";
         }
- 
+
         // get the payment properties file
         GenericValue paymentConfig = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStore.getString("productStoreId"), "EXT_PAYPAL", null, true);
- 
+
         String configString = null;
         if (paymentConfig != null) {
             configString = paymentConfig.getString("paymentPropertiesPath");
@@ -201,23 +201,23 @@ public class PayPalEvents {
         if (configString == null) {
             configString = "payment.properties";
         }
- 
+
         // get the confirm URL
         String confirmUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.confirm");
- 
+
         // get the redirect URL
         String redirectUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.redirect");
- 
+
         if (confirmUrl == null || redirectUrl == null) {
             Debug.logError("Payment properties is not configured properly, no confirm URL defined!", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingMerchantConfiguration", locale));
             return "error";
         }
- 
+
         // first verify this is valid from PayPal
         Map <String, Object> parametersMap = UtilHttp.getParameterMap(request);
         parametersMap.put("cmd", "_notify-validate");
- 
+
         // send off the confirm request
         String confirmResp = null;
 
@@ -252,7 +252,7 @@ public class PayPalEvents {
                 Debug.logError("### Param: " + name + " => " + value, module);
             }
         }
- 
+
         // get the user
         GenericValue userLogin = null;
         String userLoginId = request.getParameter("custom");
@@ -265,7 +265,7 @@ public class PayPalEvents {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingAuthenticationUser", locale));
             return "error";
         }
- 
+
         // get the orderId
         String orderId = request.getParameter("invoice");
 
@@ -357,16 +357,16 @@ public class PayPalEvents {
 
         return "success";
     }
- 
+
     /** Event called when customer cancels a paypal order */
     public static String cancelPayPalOrder(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
- 
+
         // get the stored order id from the session
         String orderId = (String) request.getSession().getAttribute("PAYPAL_ORDER");
- 
+
         // attempt to start a transaction
         boolean beganTransaction = false;
         try {
@@ -374,10 +374,10 @@ public class PayPalEvents {
         } catch (GenericTransactionException gte) {
             Debug.logError(gte, "Unable to begin transaction", module);
         }
- 
+
         // cancel the order
         boolean okay = OrderChangeHelper.cancelOrder(dispatcher, userLogin, orderId);
- 
+
         if (okay) {
             try {
                 TransactionUtil.commit(beganTransaction);
@@ -391,15 +391,15 @@ public class PayPalEvents {
                 Debug.logError(gte, "Unable to rollback transaction", module);
             }
         }
- 
+
         // attempt to release the offline hold on the order (workflow)
         if (okay)
             OrderChangeHelper.releaseInitialOrderHold(dispatcher, orderId);
- 
+
         request.setAttribute("_EVENT_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.previousPayPalOrderHasBeenCancelled", locale));
         return "success";
     }
- 
+
     private static boolean setPaymentPreferences(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, String orderId, HttpServletRequest request) {
         Debug.logVerbose("Setting payment prefrences..", module);
         List <GenericValue> paymentPrefs = null;
@@ -421,7 +421,7 @@ public class PayPalEvents {
         }
         return true;
     }
- 
+
     private static boolean setPaymentPreference(LocalDispatcher dispatcher, GenericValue userLogin, GenericValue paymentPreference, HttpServletRequest request) {
         Locale locale = UtilHttp.getLocale(request);
         String paymentDate = request.getParameter("payment_date");
@@ -483,7 +483,7 @@ public class PayPalEvents {
             Debug.logError(e, "Cannot set payment preference/payment info", module);
             return false;
         }
- 
+
         // create a payment record too
         Map <String, Object> results = null;
         try {

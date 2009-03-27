@@ -53,7 +53,7 @@ import org.ofbiz.service.ServiceUtil;
  * Worker methods for BillingAccounts
  */
 public class BillingAccountWorker {
- 
+
     public static final String module = BillingAccountWorker.class.getName();
     private static BigDecimal ZERO = BigDecimal.ZERO;
     private static int decimals = -1;
@@ -95,10 +95,10 @@ public class BillingAccountWorker {
 
                 if (currencyUomId.equals(billingAccountVO.getString("accountCurrencyUomId"))) {
                     BigDecimal accountBalance = BillingAccountWorker.getBillingAccountBalance(billingAccountVO);
- 
+
                     Map billingAccount = new HashMap(billingAccountVO);
                     BigDecimal accountLimit = getAccountLimit(billingAccountVO);
- 
+
                     billingAccount.put("accountBalance", accountBalance);
                     BigDecimal accountAvailable = accountLimit.subtract(accountBalance);
                     totalAvailable = totalAvailable.add(accountAvailable);
@@ -109,7 +109,7 @@ public class BillingAccountWorker {
         }
         return billingAccountList;
     }
- 
+
     /**
      * Returns the accountLimit of the BillingAccount or BigDecimal ZERO if it is null
      * @param billingAccount
@@ -123,7 +123,7 @@ public class BillingAccountWorker {
             return ZERO;
         }
     }
- 
+
     /**
      * Calculates the "available" balance of a billing account, which is the
      * net balance minus amount of pending (not cancelled, rejected, or received) order payments.
@@ -139,7 +139,7 @@ public class BillingAccountWorker {
     }
 
     public static BigDecimal getBillingAccountBalance(GenericValue billingAccount) throws GenericEntityException {
- 
+
         GenericDelegator delegator = billingAccount.getDelegator();
         String billingAccountId = billingAccount.getString("billingAccountId");
 
@@ -176,10 +176,10 @@ public class BillingAccountWorker {
         /*
         GenericDelegator delegator = billingAccount.getDelegator();
         String billingAccountId = billingAccount.getString("billingAccountId");
- 
+
         // first get the net balance of invoices - payments
         BigDecimal balance = getBillingAccountNetBalance(delegator, billingAccountId);
- 
+
         // now the amounts of all the pending orders (not cancelled, rejected or completed)
         List orderHeaders = getBillingAccountOpenOrders(delegator, billingAccountId);
 
@@ -204,7 +204,7 @@ public class BillingAccountWorker {
         return balance;
          */
     }
- 
+
     /**
      * Returns list of orders which are currently open against a billing account
      */
@@ -217,7 +217,7 @@ public class BillingAccountWorker {
                 EntityJoinOperator.AND);
         return delegator.findList("OrderHeader", ecl, null, null, null, false);
     }
- 
+
     /**
      * Returns the amount which could be charged to a billing account, which is defined as the accountLimit minus account balance and minus the balance of outstanding orders
      * When trying to figure out how much of a billing account can be used to pay for an outstanding order, use this method
@@ -235,7 +235,7 @@ public class BillingAccountWorker {
             return ZERO;
         }
     }
- 
+
     public static BigDecimal getBillingAccountAvailableBalance(GenericDelegator delegator, String billingAccountId) throws GenericEntityException {
         GenericValue billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
         return getBillingAccountAvailableBalance(billingAccount);
@@ -251,7 +251,7 @@ public class BillingAccountWorker {
      */
     public static BigDecimal getBillingAccountNetBalance(GenericDelegator delegator, String billingAccountId) throws GenericEntityException {
         BigDecimal balance = ZERO;
- 
+
         // search through all PaymentApplications and add the amount that was applied to invoice and subtract the amount applied from payments
         List paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
         for (Iterator pAi = paymentAppls.iterator(); pAi.hasNext(); ) {
@@ -267,11 +267,11 @@ public class BillingAccountWorker {
                 balance = balance.subtract(amountApplied);
             }
         }
- 
+
         balance = balance.setScale(decimals, rounding);
         return balance;
     }
- 
+
     /**
      * Returns the amount of the billing account which could be captured, which is BillingAccount.accountLimit - net balance
      * @param billingAccount
@@ -281,27 +281,27 @@ public class BillingAccountWorker {
     public static BigDecimal availableToCapture(GenericValue billingAccount) throws GenericEntityException {
         BigDecimal netBalance = getBillingAccountNetBalance(billingAccount.getDelegator(), billingAccount.getString("billingAccountId"));
         BigDecimal accountLimit = billingAccount.getBigDecimal("accountLimit");
- 
+
         return accountLimit.subtract(netBalance).setScale(decimals, rounding);
     }
- 
+
     public static Map calcBillingAccountBalance(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         String billingAccountId = (String) context.get("billingAccountId");
         Map result = ServiceUtil.returnSuccess();
- 
+
         try {
             GenericValue billingAccount = delegator.findByPrimaryKey("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId));
             if (billingAccount == null) {
                 return ServiceUtil.returnError("Unable to locate billing account #" + billingAccountId);
             }
- 
+
             result.put("billingAccount", billingAccount);
             result.put("accountBalance",  getBillingAccountBalance(delegator, billingAccountId));
             result.put("netAccountBalance", getBillingAccountNetBalance(delegator, billingAccountId));
             result.put("availableBalance", getBillingAccountAvailableBalance(billingAccount));
             result.put("availableToCapture", availableToCapture(billingAccount));
- 
+
             return result;
         } catch (GenericEntityException e) {
             Debug.logError(e, module);

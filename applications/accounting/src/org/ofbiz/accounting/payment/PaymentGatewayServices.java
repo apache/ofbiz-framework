@@ -89,7 +89,7 @@ public class PaymentGatewayServices {
         // set zero to the proper scale
         if (decimals != -1) ZERO = ZERO.setScale(decimals);
     }
- 
+
     /**
      * Authorizes a single order preference with an option to specify an amount. The result map has the Booleans
      * "errors" and "finished" which notify the user if there were any errors and if the authorizatoin was finished.
@@ -155,7 +155,7 @@ public class PaymentGatewayServices {
         } else {
             transAmount = orderPaymentPreference.getBigDecimal("maxAmount");
         }
- 
+
         // round this before moving on just in case a funny number made it this far
         transAmount = transAmount.setScale(decimals, rounding);
 
@@ -194,7 +194,7 @@ public class PaymentGatewayServices {
                             // TODO: what do we do with this? we need to fail the auth but still allow the order through so it can be fixed later
                             // NOTE: this is called through a different path for auto re-orders, so it should be good to go... will leave this comment here just in case...
                         }
- 
+
                         // if we have a failure at this point and no NSF retry is needed, then try other credit cards on file, if the user has any
                         if (!needsNsfRetry) {
                             // is this an auto-order?
@@ -211,7 +211,7 @@ public class PaymentGatewayServices {
                                     } else {
                                         // TODO optional: any other ways to find the bill to party? perhaps look at info from OrderPaymentPreference, ie search back from other PaymentMethod...
                                     }
- 
+
                                     if (UtilValidate.isNotEmpty(billToPartyId)) {
                                         otherPaymentMethodAndCreditCardList = delegator.findByAnd("PaymentMethodAndCreditCard",
                                                 UtilMisc.toMap("partyId", billToPartyId, "paymentMethodTypeId", "CREDIT_CARD"));
@@ -222,18 +222,18 @@ public class PaymentGatewayServices {
                                         Iterator otherPaymentMethodAndCreditCardIter = otherPaymentMethodAndCreditCardList.iterator();
                                         while (otherPaymentMethodAndCreditCardIter.hasNext()) {
                                             GenericValue otherPaymentMethodAndCreditCard = (GenericValue) otherPaymentMethodAndCreditCardIter.next();
- 
+
                                             // change OrderPaymentPreference in memory only and call auth service
                                             orderPaymentPreference.set("paymentMethodId", otherPaymentMethodAndCreditCard.getString("paymentMethodId"));
                                             Map authRetryResult = authPayment(dispatcher, userLogin, orh, orderPaymentPreference, totalRemaining, reAuth, transAmount);
                                             try {
                                                 boolean processRetryResult = processResult(dctx, authPaymentResult, userLogin, orderPaymentPreference);
- 
+
                                                 if (processRetryResult) {
                                                     // wow, we got here that means the other card was successful...
                                                     // on success save the OrderPaymentPreference, and then return finished (which will break from loop)
                                                     orderPaymentPreference.store();
- 
+
                                                     Map results = ServiceUtil.returnSuccess();
                                                     results.put("messages", authRetryResult.get("customerRespMsgs"));
                                                     results.put("processAmount", thisAmount);
@@ -250,7 +250,7 @@ public class PaymentGatewayServices {
                                                 results.put("errors", Boolean.TRUE);
                                                 return results;
                                             }
- 
+
                                             // if no sucess, fall through to return not finished
                                         }
                                     }
@@ -472,7 +472,7 @@ public class PaymentGatewayServices {
         if (paymentPreference.get("securityCode") != null) {
             processContext.put("cardSecurityCode", paymentPreference.get("securityCode"));
         }
- 
+
         // get the billing information
         getBillingInformation(orh, paymentPreference, processContext);
 
@@ -501,9 +501,9 @@ public class PaymentGatewayServices {
         Map processorResult = null;
         try {
             // invoke the payment processor; allow 5 minute transaction timeout and require a new tx; we'll capture the error and pass back nicely
- 
+
             GenericValue creditCard = (GenericValue) processContext.get("creditCard");
- 
+
             // only try other exp dates if orderHeader.autoOrderShoppingListId is not empty, productStore.autoOrderCcTryExp=Y and this payment is a creditCard
             boolean tryOtherExpDates = "Y".equals(productStore.getString("autoOrderCcTryExp")) && creditCard != null && UtilValidate.isNotEmpty(orderHeader.getString("autoOrderShoppingListId"));
 
@@ -511,7 +511,7 @@ public class PaymentGatewayServices {
             if (!tryOtherExpDates || UtilValidate.isDateAfterToday(creditCard.getString("expireDate"))) {
                 processorResult = dispatcher.runSync(serviceName, processContext, TX_TIME, true);
             }
- 
+
             // try other expire dates if the expireDate is not after today, or if we called the auth service and resultBadExpire = true
             if (tryOtherExpDates && (!UtilValidate.isDateAfterToday(creditCard.getString("expireDate")) || (processorResult != null && Boolean.TRUE.equals((Boolean) processorResult.get("resultBadExpire"))))) {
                 // try adding 2, 3, 4 years later with the same month
@@ -519,7 +519,7 @@ public class PaymentGatewayServices {
                 int dateSlash1 = expireDate.indexOf("/");
                 String month = expireDate.substring(0, dateSlash1);
                 String year = expireDate.substring(dateSlash1 + 1);
- 
+
                 // start adding 2 years, if comes back with resultBadExpire try again up to twice incrementing one year
                 year = StringUtil.addToNumberString(year, 2);
                 // note that this is set in memory only for now, not saved to the database unless successful
@@ -534,14 +534,14 @@ public class PaymentGatewayServices {
                     creditCard.set("expireDate", month + "/" + year);
                     processorResult = dispatcher.runSync(serviceName, processContext, TX_TIME, true);
                 }
- 
+
                 if (!ServiceUtil.isError(processorResult) && Boolean.TRUE.equals((Boolean) processorResult.get("resultBadExpire"))) {
                     // okay, try one more year... and this is the last try
                     year = StringUtil.addToNumberString(year, 1);
                     creditCard.set("expireDate", month + "/" + year);
                     processorResult = dispatcher.runSync(serviceName, processContext, TX_TIME, true);
                 }
- 
+
                 // at this point if we have a successful result, let's save the new creditCard expireDate
                 if (!ServiceUtil.isError(processorResult) && Boolean.TRUE.equals((Boolean) processorResult.get("authResult"))) {
                     // TODO: this is bad; we should be expiring the old card and creating a new one instead of editing it
@@ -1106,7 +1106,7 @@ public class PaymentGatewayServices {
                         return ServiceUtil.returnError(ex.getMessage());
                     }
                     if (captureResult != null) {
- 
+
                         BigDecimal amountCaptured = (BigDecimal) captureResult.get("captureAmount");
                         Debug.logInfo("Amount captured for order [" + orderId + "] from unapplied payments associated to billing account [" + billingAccountId + "] is: " + amountCaptured, module);
 
@@ -1323,7 +1323,7 @@ public class PaymentGatewayServices {
         BigDecimal captureAmount = (BigDecimal) context.get("captureAmount");
         String orderId = (String) context.get("orderId");
         Map results = ServiceUtil.returnSuccess();
- 
+
         try {
             // Note that the partyIdFrom of the Payment should be the partyIdTo of the invoice, since you're receiving a payment from the party you billed
             GenericValue invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
@@ -1337,7 +1337,7 @@ public class PaymentGatewayServices {
             if (ServiceUtil.isError(tmpResult)) {
                 return tmpResult;
             }
- 
+
             String paymentId = (String) tmpResult.get("paymentId");
             tmpResult = dispatcher.runSync("createPaymentApplication", UtilMisc.<String, Object>toMap("paymentId", paymentId, "invoiceId", invoiceId, "billingAccountId", billingAccountId,
                     "amountApplied", captureAmount, "userLogin", userLogin));
@@ -1348,7 +1348,7 @@ public class PaymentGatewayServices {
                 return ServiceUtil.returnError("No payment created for invoice [" + invoiceId + "] and billing account [" + billingAccountId + "]");
             }
             results.put("paymentId", paymentId);
- 
+
             if (orderId != null && captureAmount.compareTo(BigDecimal.ZERO) > 0) {
                 // Create a paymentGatewayResponse, if necessary
                 GenericValue order = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
@@ -1359,7 +1359,7 @@ public class PaymentGatewayServices {
                 List orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "paymentMethodTypeId", "EXT_BILLACT"));
                 if (orderPaymentPreferences.size() > 0) {
                     GenericValue orderPaymentPreference = EntityUtil.getFirst(orderPaymentPreferences);
- 
+
                     // Check the productStore setting to see if we need to do this explicitly
                     GenericValue productStore = order.getRelatedOne("ProductStore");
                     if (productStore.getString("manualAuthIsCapture") == null || (! productStore.getString("manualAuthIsCapture").equalsIgnoreCase("Y"))) {
@@ -1383,7 +1383,7 @@ public class PaymentGatewayServices {
                         // Update the orderPaymentPreference
                         orderPaymentPreference.set("statusId", "PAYMENT_SETTLED");
                         orderPaymentPreference.store();
- 
+
                         results.put("paymentGatewayResponseId", responseId);
                     }
                 }
@@ -1407,7 +1407,7 @@ public class PaymentGatewayServices {
         captureAmount = captureAmount.setScale(decimals, rounding);
         String orderId = (String) context.get("orderId");
         BigDecimal capturedAmount = BigDecimal.ZERO;
- 
+
         try {
             // Select all the unapplied payment applications associated to the billing account
             List conditionList = UtilMisc.toList(EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
@@ -1460,7 +1460,7 @@ public class PaymentGatewayServices {
         results.put("captureAmount", capturedAmount);
         return results;
     }
- 
+
     private static Map capturePayment(DispatchContext dctx, GenericValue userLogin, OrderReadHelper orh, GenericValue paymentPref, BigDecimal amount) {
         return capturePayment(dctx, userLogin, orh, paymentPref, amount, null);
     }
@@ -1545,8 +1545,8 @@ public class PaymentGatewayServices {
         } catch (GenericServiceException ex) {
             return ServiceUtil.returnError("Cannot get model service for " + serviceName);
         }
- 
- 
+
+
         if (authTrans != null) {
             captureContext.put("authTrans", authTrans);
         }
@@ -1717,7 +1717,7 @@ public class PaymentGatewayServices {
             response.set("paymentMethodId", orderPaymentPreference.get("paymentMethodId"));
             response.set("transCodeEnumId", "PGT_AUTHORIZE");
             response.set("currencyUomId", currencyUomId);
- 
+
             // set the avs/fraud result
             response.set("gatewayAvsResult", context.get("avsCode"));
             response.set("gatewayCvResult", context.get("cvCode"));
@@ -1732,7 +1732,7 @@ public class PaymentGatewayServices {
             response.set("gatewayFlag", context.get("authFlag"));
             response.set("gatewayMessage", context.get("authMessage"));
             response.set("transactionDate", UtilDateTime.nowTimestamp());
- 
+
             if (Boolean.TRUE.equals((Boolean) context.get("resultDeclined"))) response.set("resultDeclined", "Y");
             if (Boolean.TRUE.equals((Boolean) context.get("resultNsf"))) response.set("resultNsf", "Y");
             if (Boolean.TRUE.equals((Boolean) context.get("resultBadExpire"))) response.set("resultBadExpire", "Y");
@@ -1740,7 +1740,7 @@ public class PaymentGatewayServices {
 
             // save the response
             savePgr(dctx, response);
- 
+
             // create the internal messages
             List messages = (List) context.get("internalRespMsgs");
             if (UtilValidate.isNotEmpty(messages)) {
@@ -1755,11 +1755,11 @@ public class PaymentGatewayServices {
                     savePgr(dctx, respMsg);
                 }
             }
- 
+
             if (response.getBigDecimal("amount").compareTo((BigDecimal)context.get("processAmount")) != 0) {
                 Debug.logWarning("The authorized amount does not match the max amount : Response - " + response + " : result - " + context, module);
             }
- 
+
             // set the status of the OrderPaymentPreference
             if (context != null && authResult.booleanValue()) {
                 orderPaymentPreference.set("statusId", "PAYMENT_AUTHORIZED");
@@ -1768,11 +1768,11 @@ public class PaymentGatewayServices {
             } else {
                 orderPaymentPreference.set("statusId", "PAYMENT_ERROR");
             }
- 
+
             // remove sensitive credit card data regardless of outcome
             orderPaymentPreference.set("securityCode", null);
             orderPaymentPreference.set("track2", null);
- 
+
             boolean needsNsfRetry = needsNsfRetry(orderPaymentPreference, context, delegator);
             if (needsNsfRetry) {
                 orderPaymentPreference.set("needsNsfRetry", "Y");
@@ -1792,7 +1792,7 @@ public class PaymentGatewayServices {
                         creditCard.set("consecutiveFailedAuths", new Long(consecutiveFailedAuths.longValue() + 1));
                     }
                     creditCard.set("lastFailedAuthDate", nowTimestamp);
- 
+
                     if (Boolean.TRUE.equals((Boolean) context.get("resultNsf"))) {
                         Long consecutiveFailedNsf = creditCard.getLong("consecutiveFailedNsf");
                         if (consecutiveFailedNsf == null) {
@@ -1805,7 +1805,7 @@ public class PaymentGatewayServices {
                     creditCard.store();
                 }
             }
- 
+
             // auth was successful, to clear out any failed auth or nsf info
             if (authResult.booleanValue()) {
                 if ((creditCard != null) && (creditCard.get("lastFailedAuthDate") != null)) {
@@ -1824,7 +1824,7 @@ public class PaymentGatewayServices {
 
         return ServiceUtil.returnSuccess();
     }
- 
+
     private static boolean needsNsfRetry(GenericValue orderPaymentPreference, Map processContext, GenericDelegator delegator) throws GenericEntityException {
         boolean needsNsfRetry = false;
         if (Boolean.TRUE.equals((Boolean) processContext.get("resultNsf"))) {
@@ -2468,12 +2468,12 @@ public class PaymentGatewayServices {
 
         return ServiceUtil.returnSuccess();
     }
- 
+
     public static Map retryFailedAuthNsfs(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
- 
+
         // get the date/time for one week before now since we'll only retry once a week for NSFs
         Calendar calcCal = Calendar.getInstance();
         calcCal.setTimeInMillis(System.currentTimeMillis());
@@ -2517,7 +2517,7 @@ public class PaymentGatewayServices {
 
         return ServiceUtil.returnSuccess();
     }
- 
+
     public static GenericValue getCaptureTransaction(GenericValue orderPaymentPreference) {
         GenericValue capTrans = null;
         try {
@@ -2940,7 +2940,7 @@ public class PaymentGatewayServices {
                 }
             }
         }
- 
+
         return ServiceUtil.returnSuccess();
     }
 
@@ -3139,7 +3139,7 @@ public class PaymentGatewayServices {
         String expireDate = creditCard.getString("expireDate");
         String lastNumberStr = expireDate.substring(expireDate.length() - 1);
         int lastNumber = Integer.parseInt(lastNumberStr);
- 
+
         if ((float) lastNumber / 2.0 == 0.0) {
             return alwaysBadExpireProcessor(dctx, context);
         } else {

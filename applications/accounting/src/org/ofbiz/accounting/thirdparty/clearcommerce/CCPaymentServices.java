@@ -263,22 +263,22 @@ public class CCPaymentServices {
         return processReAuthResponse(reauthResponseDoc);
 
     }
- 
+
     public static Map ccReport(DispatchContext dctx, Map context) {
- 
+
         // configuration file
         String paymentConfig = (String) context.get("paymentConfig");
         if (UtilValidate.isEmpty(paymentConfig)) {
             paymentConfig = "payment.properties";
         }
- 
+
         // orderId
         String orderId = (String) context.get("orderId");
         if (UtilValidate.isEmpty(orderId)) {
             return ServiceUtil.returnError("orderId is required......");
         }
- 
- 
+
+
         // EngineDocList
         Document requestDocument = UtilXml.makeEmptyXmlDocument("EngineDocList");
         Element engineDocListElement = requestDocument.getDocumentElement();
@@ -299,7 +299,7 @@ public class CCPaymentServices {
         }
         else
             UtilXml.addChildElementValue(engineDocElement, "GroupId", orderId, requestDocument);
- 
+
 
         // EngineDocList.EngineDoc.User
         Element userElement = UtilXml.addChildElement(engineDocElement, "User", requestDocument);
@@ -343,7 +343,7 @@ public class CCPaymentServices {
             clientId.setAttribute("DataType", "S32");
         }
         UtilXml.addChildElementValue(value,"OrderId", orderId, requestDocument);
- 
+
         Debug.set(Debug.VERBOSE, true);
         Document reportResponseDoc = null;
         try {
@@ -352,9 +352,9 @@ public class CCPaymentServices {
             return ServiceUtil.returnError(cce.getMessage());
         }
         Debug.set(Debug.VERBOSE, true);
- 
+
         Map result = ServiceUtil.returnSuccess();
- 
+
         return result;
     }
 
@@ -707,7 +707,7 @@ public class CCPaymentServices {
             Element total = UtilXml.addChildElementValue(pbOrderElement, "TotalNumberPayments", (String) pbOrder.get("TotalNumberPayments"), requestDocument);
             total.setAttribute("DataType", "S32");
         }
- 
+
         return requestDocument;
     }
 
