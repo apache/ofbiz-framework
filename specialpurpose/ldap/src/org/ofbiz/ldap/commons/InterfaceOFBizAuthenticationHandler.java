@@ -43,7 +43,7 @@ public interface InterfaceOFBizAuthenticationHandler {
      * @throws Exception
      */
     String login(HttpServletRequest request, HttpServletResponse response, Element rootElement) throws Exception;
- 
+
     /**
      * Get the security group of a user.
      *
@@ -53,7 +53,7 @@ public interface InterfaceOFBizAuthenticationHandler {
      * @return the SecurityGroup object.
      */
     Object getSecurityGroup(Element rootElement, SearchResult result);
- 
+
     /**
      * Get the party id of a user.
      *
@@ -75,7 +75,7 @@ public interface InterfaceOFBizAuthenticationHandler {
      * @throws Exception
      */
     String logout(HttpServletRequest request, HttpServletResponse response, Element rootElement);
- 
+
     /**
      * Get LDAP search result from a username, password and configuration.
      *
