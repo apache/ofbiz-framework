@@ -44,7 +44,7 @@ margin: 1em;
               <tr>
                 <td>
                   <div class="h2">
-                    <a href="<@ofbizUrl>createPortalPagePortlet?portalPortletId=${portalPortlet.portalPortletId}&amp;portalPageId=${parameters.portalPageId}&amp;columnSeqId=${parameters.columnSeqId}&amp;parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>">${portalPortlet.portletName}</a>
+                    <form method="post" action="<@ofbizUrl>createPortalPagePortlet</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)" name="createPortalPortlet"><input name="portalPortletId" value="${portalPortlet.portalPortletId}" type="hidden"/><input name="portalPageId" value="${parameters.portalPageId}" type="hidden"/><input name="columnSeqId" value="${parameters.columnSeqId}" type="hidden"/></form><a class="buttontext" href="javascript:document.createPortalPortlet.submit()">${uiLabelMap.CommonAdd}: ${portalPortlet.portletName}</a>
                   </div>
                   <div class="tabletext">
                     ${portalPortlet.description}
