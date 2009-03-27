@@ -137,7 +137,7 @@ under the License.
                   <a href="<@ofbizUrl>editcontactmech?partyId=${party.partyId}&contactMechId=${contactMech.contactMechId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
                 </#if>
                 <#if security.hasEntityPermission("PARTYMGR", "_DELETE", session) || userLogin.partyId == party.partyId>
-                  <a href="<@ofbizUrl>deleteContactMech/viewprofile?partyId=${party.partyId}&contactMechId=${contactMech.contactMechId}</@ofbizUrl>">${uiLabelMap.CommonExpire}</a>
+                  <form name="deleteContact" target="<@ofbizUrl>deleteContactMech</@ofbizUrl>"><input name="partyId" value="${party.partyId}" type="hidden"/><input name="contactMechId" value="${contactMech.contactMechId}" type="hidden"/><a href="javascript:document.deleteContact.submit()">${uiLabelMap.CommonExpire}</a>
                 </#if>
               </td>
             </tr>
