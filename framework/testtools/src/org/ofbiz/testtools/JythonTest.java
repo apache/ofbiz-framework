@@ -27,7 +27,7 @@ public class JythonTest extends TestCaseBase {
     public static final String module = JythonTest.class.getName();
 
     protected String scriptLocation;
- 
+
     /**
      * @param modelTestSuite
      */
@@ -43,7 +43,7 @@ public class JythonTest extends TestCaseBase {
     public void run(TestResult result) {
         // TODO Auto-generated method stub
         result.startTest(this);
- 
+
         result.endTest(this);
     }
 }

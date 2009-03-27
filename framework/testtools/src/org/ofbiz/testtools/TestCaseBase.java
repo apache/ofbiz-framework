@@ -26,10 +26,10 @@ import junit.framework.Test;
 public abstract class TestCaseBase implements Test {
 
     public static final String module = TestCaseBase.class.getName();
- 
+
     protected ModelTestSuite modelTestSuite;
     protected String caseName;
- 
+
     public TestCaseBase(String caseName, ModelTestSuite modelTestSuite) {
         this.modelTestSuite = modelTestSuite;
         this.caseName = caseName;
