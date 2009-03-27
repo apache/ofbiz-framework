@@ -90,7 +90,7 @@ public class ServiceEcaUtil {
         } catch (GenericConfigException e) {
             Debug.logError(e, "Could not get resource URL", module);
         }
- 
+
         int numDefs = 0;
         for (Element e: UtilXml.childElementList(rootElement, "eca")) {
             String serviceName = e.getAttribute("service");

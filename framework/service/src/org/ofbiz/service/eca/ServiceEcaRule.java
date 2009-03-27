@@ -70,7 +70,7 @@ public class ServiceEcaRule implements java.io.Serializable {
         }
 
         if (Debug.verboseOn()) Debug.logVerbose("Conditions: " + conditions, module);
- 
+
         Set<String> nameSet = UtilMisc.toSet("set", "action");
         for (Element actionOrSetElement: UtilXml.childElementList(eca, nameSet)) {
             if ("action".equals(actionOrSetElement.getNodeName())) {
@@ -86,19 +86,19 @@ public class ServiceEcaRule implements java.io.Serializable {
     public String getShortDisplayName() {
         return this.serviceName + ":" + this.eventName;
     }
- 
+
     public String getServiceName() {
         return this.serviceName;
     }
- 
+
     public String getEventName() {
         return this.eventName;
     }
- 
+
     public String getDefinitionLocation() {
         return this.definitionLocation;
     }
- 
+
     public List<ServiceEcaAction> getEcaActionList() {
         List<ServiceEcaAction> actionList = FastList.newInstance();
         for (Object actionOrSet: this.actionsAndSets) {
@@ -108,13 +108,13 @@ public class ServiceEcaRule implements java.io.Serializable {
         }
         return actionList;
     }
- 
+
     public List<ServiceEcaCondition> getEcaConditionList() {
         List<ServiceEcaCondition> condList = FastList.newInstance();
         condList.addAll(this.conditions);
         return condList;
     }
- 
+
     public void eval(String serviceName, DispatchContext dctx, Map<String, Object> context, Map<String, Object> result, boolean isError, boolean isFailure, Set<String> actionsRun) throws GenericServiceException {
         if (!enabled) {
             Debug.logInfo("Service ECA [" + this.serviceName + "] on [" + this.eventName + "] is disabled; not running.", module);
@@ -169,7 +169,7 @@ public class ServiceEcaRule implements java.io.Serializable {
     public boolean isEnabled() {
         return this.enabled;
     }
- 
+
     public boolean equals(Object obj) {
         if (obj instanceof ServiceEcaRule) {
             ServiceEcaRule other = (ServiceEcaRule) obj;
@@ -177,11 +177,11 @@ public class ServiceEcaRule implements java.io.Serializable {
             if (!UtilValidate.areEqual(this.eventName, other.eventName)) return false;
             if (!this.conditions.equals(other.conditions)) return false;
             if (!this.actionsAndSets.equals(other.actionsAndSets)) return false;
- 
+
             if (this.runOnFailure != other.runOnFailure) return false;
             if (this.runOnError != other.runOnError) return false;
             if (this.enabled != other.enabled) return false;
- 
+
             return true;
         } else {
             return false;

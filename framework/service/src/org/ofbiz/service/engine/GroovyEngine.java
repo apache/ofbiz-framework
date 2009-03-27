@@ -37,14 +37,14 @@ public final class GroovyEngine extends GenericAsyncEngine {
     public GroovyEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
     }
- 
+
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
     public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         runSync(localName, modelService, context);
     }
- 
+
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
@@ -59,10 +59,10 @@ public final class GroovyEngine extends GenericAsyncEngine {
 
         String location = this.getLocation(modelService);
         context.put("dctx", dispatcher.getLocalContext(localName));
- 
+
         try {
             Object resultObj = GroovyUtil.runScriptAtLocation(location, context);
- 
+
             if (resultObj != null && resultObj instanceof Map) {
                 return cast(resultObj);
             } else if (context.get("result") != null && context.get("result") instanceof Map) {

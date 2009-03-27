@@ -50,7 +50,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
     public EntityAutoEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
     }
- 
+
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
@@ -73,16 +73,16 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         if (modelService.invoke == null || (!"create".equals(modelService.invoke) && !"update".equals(modelService.invoke) && !"delete".equals(modelService.invoke))) {
             throw new GenericServiceException("In Service [" + modelService.name + "] the invoke value must be create, update, or delete for entity-auto engine");
         }
- 
+
         if (UtilValidate.isEmpty(modelService.defaultEntityName)) {
             throw new GenericServiceException("In Service [" + modelService.name + "] you must specify a default-entity-name for entity-auto engine");
         }
- 
+
         ModelEntity modelEntity = dctx.getDelegator().getModelEntity(modelService.defaultEntityName);
         if (modelEntity == null) {
             throw new GenericServiceException("In Service [" + modelService.name + "] the specified default-entity-name [" + modelService.defaultEntityName + "] is not valid");
         }
- 
+
         try {
             boolean allPksInOnly = true;
             for (ModelField pkField: modelEntity.getPkFieldsUnmodifiable()) {
@@ -91,19 +91,19 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                     allPksInOnly = false;
                 }
             }
- 
+
             if ("create".equals(modelService.invoke)) {
                 GenericValue newEntity = dctx.getDelegator().makeValue(modelEntity.getEntityName());
- 
+
                 boolean isSinglePk = modelEntity.getPksSize() == 1;
                 boolean isDoublePk = modelEntity.getPksSize() == 2;
                 Iterator<ModelField> pksIter = modelEntity.getPksIterator();
- 
+
                 ModelField singlePkModeField = isSinglePk ? pksIter.next() : null;
                 ModelParam singlePkModelParam = isSinglePk ? modelService.getParam(singlePkModeField.getName()) : null;
                 boolean isSinglePkIn = isSinglePk ? singlePkModelParam.isIn() : false;
                 boolean isSinglePkOut = isSinglePk ? singlePkModelParam.isOut() : false;
- 
+
                 ModelParam doublePkPrimaryInParam = null;
                 ModelParam doublePkSecondaryOutParam = null;
                 ModelField doublePkSecondaryOutField = null;
@@ -124,8 +124,8 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                         // we don't have an IN and an OUT... so do nothing and leave them null
                     }
                 }
- 
- 
+
+
                 if (isSinglePk && isSinglePkOut && !isSinglePkIn) {
                     /*
                      **** primary sequenced primary key ****
@@ -139,7 +139,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                     <create-value value-name="newEntity"/>
                      *
                      */
- 
+
                     String sequencedId = dctx.getDelegator().getNextSeqId(modelEntity.getEntityName());
                     newEntity.set(singlePkModeField.getName(), sequencedId);
                     result.put(singlePkModelParam.name, sequencedId);
@@ -169,7 +169,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                         pkValue = dctx.getDelegator().getNextSeqId(modelEntity.getEntityName());
                     } else {
                         // pkValue passed in, check and if there are problems return an error
- 
+
                         if (pkValue instanceof String) {
                             StringBuffer errorDetails = new StringBuffer();
                             if (!UtilValidate.isValidDatabaseId((String) pkValue, errorDetails)) {
@@ -193,7 +193,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                     <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
                     <create-value value-name="newEntity"/>
                      */
- 
+
                     newEntity.setPKFields(parameters, true);
                     dctx.getDelegator().setNextSubSeqId(newEntity, doublePkSecondaryOutField.getName(), 5, 1);
                     result.put(doublePkSecondaryOutParam.name, newEntity.get(doublePkSecondaryOutField.getName()));
@@ -218,7 +218,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                             "3. a 2-part pk with one part IN (existing primary pk) and one part OUT (the secdonary pk to sub-sequence, " +
                             "4. all pk fields are IN for a manually specified primary key");
                 }
- 
+
                 // handle the case where there is a fromDate in the pk of the entity, and it is optional or undefined in the service def, populate automatically
                 ModelField fromDateField = modelEntity.getField("fromDate");
                 if (fromDateField != null && fromDateField.getIsPk()) {
@@ -227,7 +227,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                         newEntity.set("fromDate", UtilDateTime.nowTimestamp());
                     }
                 }
- 
+
                 newEntity.setNonPKFields(parameters, true);
                 newEntity.create();
             } else if ("update".equals(modelService.invoke)) {
@@ -238,7 +238,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
                 <store-value value-name="lookedUpValue"/>
                  */
- 
+
                 // check to make sure that all primary key fields are defined as IN attributes
                 if (!allPksInOnly) {
                     throw new GenericServiceException("In Service [" + modelService.name + "] which uses the entity-auto engine with the update invoke option not all pk fields have the mode IN");
@@ -248,9 +248,9 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 if (lookedUpValue == null) {
                     return ServiceUtil.returnError("Value not found, cannot update");
                 }
- 
+
                 localContext.put("lookedUpValue", lookedUpValue);
- 
+
                 // populate the oldStatusId out if there is a service parameter for it, and before we do the set non-pk fields
                 /*
                 <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -264,7 +264,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 if (statusIdParam != null && statusIdParam.isIn() && oldStatusIdParam != null && oldStatusIdParam.isOut() && statusIdField != null) {
                     result.put("oldStatusId", lookedUpValue.get("statusId"));
                 }
- 
+
                 // do the StatusValidChange check
                 /*
                 <if-compare-field field="lookedUpValue.statusId" operator="not-equals" to-field="parameters.statusId">
@@ -295,9 +295,9 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                         }
                     }
                 }
- 
+
                 // NOTE: nothing here to maintain the status history, that should be done with a custom service called by SECA rule
- 
+
                 lookedUpValue.setNonPKFields(parameters, true);
                 lookedUpValue.store();
             } else if ("delete".equals(modelService.invoke)) {
@@ -307,12 +307,12 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 <entity-one entity-name="ExampleItem" value-name="lookedUpValue"/>
                 <remove-value value-name="lookedUpValue"/>
                  */
- 
+
                 // check to make sure that all primary key fields are defined as IN attributes
                 if (!allPksInOnly) {
                     throw new GenericServiceException("In Service [" + modelService.name + "] which uses the entity-auto engine with the delete invoke option not all pk fields have the mode IN");
                 }
- 
+
                 GenericValue lookedUpValue = PrimaryKeyFinder.runFind(modelEntity, parameters, dctx.getDelegator(), false, true, null, null);
                 if (lookedUpValue != null) {
                     lookedUpValue.remove();

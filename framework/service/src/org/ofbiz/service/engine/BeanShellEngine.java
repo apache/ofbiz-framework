@@ -41,14 +41,14 @@ public final class BeanShellEngine extends GenericAsyncEngine {
     public BeanShellEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
     }
- 
+
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
     public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         runSync(localName, modelService, context);
     }
- 
+
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
@@ -64,10 +64,10 @@ public final class BeanShellEngine extends GenericAsyncEngine {
 
         String location = this.getLocation(modelService);
         context.put("dctx", dispatcher.getLocalContext(localName));
- 
+
         try {
             Object resultObj = BshUtil.runBshAtLocation(location, context);
- 
+
             if (resultObj != null && resultObj instanceof Map) {
                 Debug.logInfo("Got result Map from script return: " + resultObj, module);
                 return cast(resultObj);

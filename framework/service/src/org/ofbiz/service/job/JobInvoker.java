@@ -143,7 +143,7 @@ public class JobInvoker implements Runnable {
             return 0;
         }
     }
- 
+
     public Long getThreadId() {
         if (this.thread != null) {
             return this.thread.getId();
@@ -228,7 +228,7 @@ public class JobInvoker implements Runnable {
                 }
             } else {
                 Debug.logInfo("Invoker [" + thread.getName() + "] received job [" + job.getJobName() + "] from poller [" + jp.toString() + "]", module);
- 
+
                 // setup the current job settings
                 this.currentJob = job;
                 this.statusCode = 1;

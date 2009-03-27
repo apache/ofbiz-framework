@@ -33,7 +33,7 @@ public class ServiceValidationException extends GenericServiceException {
     protected List<String> extraFields = new ArrayList<String>();
     protected String errorMode = null;
     protected ModelService service = null;
- 
+
     public ServiceValidationException(ModelService service, List<String> missingFields, List<String> extraFields, String errorMode) {
         super();
         this.service = service;

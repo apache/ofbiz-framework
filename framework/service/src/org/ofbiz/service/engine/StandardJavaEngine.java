@@ -39,7 +39,7 @@ public final class StandardJavaEngine extends GenericAsyncEngine {
     public StandardJavaEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
     }
- 
+
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */

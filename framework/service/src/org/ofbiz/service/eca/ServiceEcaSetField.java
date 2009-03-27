@@ -125,7 +125,7 @@ public class ServiceEcaSetField {
             if (!UtilValidate.areEqual(this.envName, other.envName)) return false;
             if (!UtilValidate.areEqual(this.value, other.value)) return false;
             if (!UtilValidate.areEqual(this.format, other.format)) return false;
- 
+
             return true;
         } else {
             return false;

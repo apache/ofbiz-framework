@@ -52,7 +52,7 @@ public class RmiServiceContainer implements Container {
     public void init(String[] args, String configFile) {
         this.configFile = configFile;
     }
- 
+
     public boolean start() throws ContainerException {
         // get the container config
         ContainerConfig.Container cfg = ContainerConfig.getContainer("rmi-dispatcher", configFile);

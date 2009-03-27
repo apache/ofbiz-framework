@@ -38,14 +38,14 @@ import org.w3c.dom.Element;
  * GroupModel.java
  */
 public class GroupModel {
- 
+
     public static final String module = GroupModel.class.getName();
- 
+
     private String groupName, sendMode;
     private List<GroupServiceModel> services;
     private boolean optional = false;
     private int lastServiceRan;
- 
+
     /**
      * Constructor using DOM Element
      * @param group DOM element for the group
@@ -74,7 +74,7 @@ public class GroupModel {
 
         if (Debug.verboseOn()) Debug.logVerbose("Created Service Group Model --> " + this, module);
     }
- 
+
     /**
      * Basic Constructor
      * @param groupName Name of the group
@@ -87,7 +87,7 @@ public class GroupModel {
         this.sendMode = sendMode;
         this.services = services;
     }
- 
+
     /**
      * Getter for group name
      * @return String
@@ -95,7 +95,7 @@ public class GroupModel {
     public String getGroupName() {
         return this.groupName;
     }
- 
+
     /**
      * Getter for send mode
      * @return String
@@ -103,7 +103,7 @@ public class GroupModel {
     public String getSendMode() {
         return this.sendMode;
     }
- 
+
     /**
      * Returns a list of services in this group
      * @return List
@@ -111,7 +111,7 @@ public class GroupModel {
     public List<GroupServiceModel> getServices() {
         return this.services;
     }
- 
+
     /**
      * Invokes the group of services in order defined
      * @param dispatcher ServiceDispatcher used for invocation
@@ -136,7 +136,7 @@ public class GroupModel {
             throw new GenericServiceException("This mode is not currently supported");
         }
     }
- 
+
     /**
      * @see java.lang.Object#toString()
      */
@@ -149,7 +149,7 @@ public class GroupModel {
         str.append(getServices());
         return str.toString();
     }
- 
+
     private Map<String, Object> runAll(ServiceDispatcher dispatcher, String localName, Map<String, Object> context) throws GenericServiceException {
         Map<String, Object> runContext = UtilMisc.makeMapWritable(context);
         Map<String, Object> result = FastMap.newInstance();
@@ -157,13 +157,13 @@ public class GroupModel {
             if (Debug.verboseOn()) Debug.logVerbose("Using Context: " + runContext, module);
             Map<String, Object> thisResult = model.invoke(dispatcher, localName, runContext);
             if (Debug.verboseOn()) Debug.logVerbose("Result: " + thisResult, module);
- 
+
             // make sure we didn't fail
             if (ServiceUtil.isError(thisResult)) {
                 Debug.logError("Grouped service [" + model.getName() + "] failed.", module);
                 return thisResult;
             }
- 
+
             result.putAll(thisResult);
             if (model.resultToContext()) {
                 runContext.putAll(thisResult);
@@ -172,12 +172,12 @@ public class GroupModel {
         }
         return result;
     }
- 
+
     private Map<String, Object> runIndex(ServiceDispatcher dispatcher, String localName, Map<String, Object> context, int index) throws GenericServiceException {
         GroupServiceModel model = services.get(index);
         return model.invoke(dispatcher, localName, context);
     }
- 
+
     private Map<String, Object> runOne(ServiceDispatcher dispatcher, String localName, Map<String, Object> context) throws GenericServiceException {
         Map<String, Object> result = null;
         for (GroupServiceModel model: services) {

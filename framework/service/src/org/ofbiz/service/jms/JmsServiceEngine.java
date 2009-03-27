@@ -138,7 +138,7 @@ public class JmsServiceEngine extends AbstractEngine {
         InitialContext jndi = null;
         TopicConnectionFactory factory = null;
         TopicConnection con = null;
- 
+
         try {
             jndi = JNDIContextFactory.getInitialContext(serverName);
             factory = (TopicConnectionFactory) jndi.lookup(jndiName);
@@ -155,7 +155,7 @@ public class JmsServiceEngine extends AbstractEngine {
                 throw new GenericServiceException("JNDI lookup problems.", ne);
             }
         }
- 
+
         try {
             con = factory.createTopicConnection(userName, password);
 
@@ -197,7 +197,7 @@ public class JmsServiceEngine extends AbstractEngine {
         InitialContext jndi = null;
         QueueConnectionFactory factory = null;
         QueueConnection con = null;
- 
+
         try {
             jndi = JNDIContextFactory.getInitialContext(serverName);
             factory = (QueueConnectionFactory) jndi.lookup(jndiName);
@@ -214,7 +214,7 @@ public class JmsServiceEngine extends AbstractEngine {
                 throw new GenericServiceException("JNDI lookup problem.", ne2);
             }
         }
- 
+
         try {
             con = factory.createQueueConnection(userName, password);
 
@@ -251,11 +251,11 @@ public class JmsServiceEngine extends AbstractEngine {
         String userName = server.getAttribute("username");
         String password = server.getAttribute("password");
         String clientId = server.getAttribute("client-id");
- 
+
         InitialContext jndi = null;
         XAQueueConnectionFactory factory = null;
         XAQueueConnection con = null;
- 
+
         try {
             jndi = JNDIContextFactory.getInitialContext(serverName);
             factory = (XAQueueConnectionFactory) jndi.lookup(jndiName);
@@ -272,7 +272,7 @@ public class JmsServiceEngine extends AbstractEngine {
                 throw new GenericServiceException("JNDI lookup problems.", ne2);
             }
         }
- 
+
         try {
             con = factory.createXAQueueConnection(userName, password);
 

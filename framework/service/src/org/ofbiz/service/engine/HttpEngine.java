@@ -43,33 +43,33 @@ import org.ofbiz.service.ServiceDispatcher;
  * HttpEngine.java
  */
 public class HttpEngine extends GenericAsyncEngine {
- 
+
     public static final String module = HttpEngine.class.getName();
     private static final boolean exportAll = false;
 
     public HttpEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
     }
- 
+
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         DispatchContext dctx = dispatcher.getLocalContext(localName);
         String xmlContext = null;
- 
+
         try {
             if (Debug.verboseOn()) Debug.logVerbose("Serializing Context --> " + context, module);
             xmlContext = XmlSerializer.serialize(context);
         } catch (Exception e) {
             throw new GenericServiceException("Cannot serialize context.", e);
         }
- 
+
         Map<String, Object> parameters = FastMap.newInstance();
         parameters.put("serviceName", modelService.invoke);
         if (xmlContext != null)
             parameters.put("serviceContext", xmlContext);
- 
+
         HttpClient http = new HttpClient(this.getLocation(modelService), parameters);
         String postResult = null;
         try {
@@ -77,7 +77,7 @@ public class HttpEngine extends GenericAsyncEngine {
         } catch (HttpClientException e) {
             throw new GenericServiceException("Problems invoking HTTP request", e);
         }
- 
+
         Map<String, Object> result = null;
         try {
             Object res = XmlSerializer.deserialize(postResult, dctx.getDelegator());
@@ -88,7 +88,7 @@ public class HttpEngine extends GenericAsyncEngine {
         } catch (Exception e) {
             throw new GenericServiceException("Problems deserializing result.", e);
         }
- 
+
         return result;
     }
 
@@ -98,7 +98,7 @@ public class HttpEngine extends GenericAsyncEngine {
     public void runSyncIgnore(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Map<String, Object> result = runSync(localName, modelService, context);
     }
- 
+
     /**
      * Event for handling HTTP services
      * @param request HttpServletRequest object
@@ -108,20 +108,20 @@ public class HttpEngine extends GenericAsyncEngine {
     public static String httpEngine(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
- 
+
         String serviceName = request.getParameter("serviceName");
         String serviceMode = request.getParameter("serviceMode");
         String xmlContext = request.getParameter("serviceContext");
- 
+
         Map<String, Object> result = FastMap.newInstance();
         Map<String, Object> context = null;
- 
+
         if (serviceName == null)
             result.put(ModelService.ERROR_MESSAGE, "Cannot have null service name");
- 
+
         if (serviceMode == null)
             serviceMode = "SYNC";
- 
+
         // deserialize the context
         if (!result.containsKey(ModelService.ERROR_MESSAGE)) {
             if (xmlContext != null) {
@@ -139,7 +139,7 @@ public class HttpEngine extends GenericAsyncEngine {
                 }
             }
         }
- 
+
         // invoke the service
         if (!result.containsKey(ModelService.ERROR_MESSAGE)) {
             try {
@@ -159,10 +159,10 @@ public class HttpEngine extends GenericAsyncEngine {
                 result.put(ModelService.ERROR_MESSAGE, "Service invocation error: " + e.toString());
             }
         }
- 
+
         // backup error message
         StringBuilder errorMessage = new StringBuilder();
- 
+
         // process the result
         String resultString = null;
         try {
@@ -174,12 +174,12 @@ public class HttpEngine extends GenericAsyncEngine {
             errorMessage.append("::");
             errorMessage.append(e);
         }
- 
+
         // handle the response
         try {
             PrintWriter out = response.getWriter();
             response.setContentType("plain/text");
- 
+
             if (errorMessage.length() > 0) {
                 response.setContentLength(errorMessage.length());
                 out.write(errorMessage.toString());
@@ -187,16 +187,16 @@ public class HttpEngine extends GenericAsyncEngine {
                 response.setContentLength(resultString.length());
                 out.write(resultString);
             }
- 
+
             out.flush();
             response.flushBuffer();
         } catch (IOException e) {
             Debug.logError(e, "Problems w/ getting the servlet writer.", module);
             return "error";
         }
- 
+
         return null;
     }
 
- 
+
 }

@@ -48,7 +48,7 @@ public class ServiceSemaphore {
         if (mode == SEMAPHORE_MODE_NONE) return;
 
         lockTime = UtilDateTime.nowTimestamp();
- 
+
         if (this.checkLockNeedToWait()) {
             waitOrFail();
         }
@@ -60,7 +60,7 @@ public class ServiceSemaphore {
         // remove the lock file
         dbWrite(lock, true);
     }
- 
+
     private void waitOrFail() throws SemaphoreWaitException, SemaphoreFailException {
         if (SEMAPHORE_MODE_FAIL == mode) {
             // fail
@@ -113,7 +113,7 @@ public class ServiceSemaphore {
 
             // use the special method below so we can reuse the unqiue tx functions
             dbWrite(semaphore, false);
- 
+
             // we own the lock, no waiting
             return false;
         } else {

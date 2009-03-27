@@ -160,7 +160,7 @@ public class ServiceDispatcher {
         }
         return sd;
     }
-    
+
     /**
      * Registers the loader with this ServiceDispatcher
      * @param name the local dispatcher
@@ -278,7 +278,7 @@ public class ServiceDispatcher {
 
         // set IN attributes with default-value as applicable
         modelService.updateDefaultValues(context, ModelService.IN_PARAM);
- 
+
         Map<String, Object> ecaContext = null;
 
         // for isolated transactions
@@ -316,17 +316,17 @@ public class ServiceDispatcher {
             try {
                 int lockRetriesRemaining = LOCK_RETRIES;
                 boolean needsLockRetry = false;
- 
+
                 do {
                     lockRetriesRemaining--;
- 
+
                     // NOTE: general pattern here is to do everything up to the main service call, and retry it all if
                     //needed because those will be part of the same transaction and have been rolled back
                     // TODO: if there is an ECA called async or in a new transaction it won't get rolled back
                     //but will be called again, which means the service may complete multiple times! that would be for
                     //pre-invoke and earlier events only of course
- 
- 
+
+
                     // setup global transaction ECA listeners to execute later
                     if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-rollback", ctx, context, result, isError, isFailure);
                     if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-commit", ctx, context, result, isError, isFailure);
@@ -337,7 +337,7 @@ public class ServiceDispatcher {
                     // check for pre-auth failure/errors
                     isFailure = ServiceUtil.isFailure(result);
                     isError = ServiceUtil.isError(result);
- 
+
                     //Debug.logInfo("After [" + modelService.name + "] pre-auth ECA, before auth; isFailure=" + isFailure + ", isError=" + isError, module);
 
                     context = checkAuth(localName, context, modelService);
@@ -351,7 +351,7 @@ public class ServiceDispatcher {
                     if (userLogin != null && userLogin.getString("userLoginId") != null) {
                         GenericDelegator.pushUserIdentifier(userLogin.getString("userLoginId"));
                     }
- 
+
                     // pre-validate ECA
                     if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "in-validate", ctx, context, result, isError, isFailure);
 
@@ -377,7 +377,7 @@ public class ServiceDispatcher {
                     // check for pre-invoke failure/errors
                     isFailure = ServiceUtil.isFailure(result);
                     isError = ServiceUtil.isError(result);
- 
+
                     //Debug.logInfo("After [" + modelService.name + "] pre-invoke ECA, before invoke; isFailure=" + isFailure + ", isError=" + isError, module);
 
                     // ===== invoke the service =====
@@ -390,7 +390,7 @@ public class ServiceDispatcher {
                             Debug.logWarning("Service (in runSync : " + modelService.name + ") returns null result", module);
                         }
                     }
- 
+
                     // re-check the errors/failures
                     isFailure = ServiceUtil.isFailure(result);
                     isError = ServiceUtil.isError(result);
@@ -401,7 +401,7 @@ public class ServiceDispatcher {
                         // crazy stuff here: see if there was a deadlock or other such error and if so retry... which we can ONLY do if we own the transaction!
 
                         String errMsg = ServiceUtil.getErrorMessage(result);
- 
+
                         // look for the string DEADLOCK in an upper-cased error message; tested on: Derby, MySQL
                         // - Derby 10.2.2.0 deadlock string: "A lock could not be obtained due to a deadlock"
                         // - MySQL ? deadlock string: "Deadlock found when trying to get lock; try restarting transaction"
@@ -415,12 +415,12 @@ public class ServiceDispatcher {
                         if (errMsg != null && errMsg.toUpperCase().indexOf("DEADLOCK") >= 0) {
                             // it's a deadlock! retry...
                             String retryMsg = "RETRYING SERVICE [" + modelService.name + "]: Deadlock error found in message [" + errMsg + "]; retry [" + (LOCK_RETRIES - lockRetriesRemaining) + "] of [" + LOCK_RETRIES + "]";
- 
+
                             // make sure the old transaction is rolled back, and then start a new one
- 
+
                             // if there is an exception in these things, let the big overall thing handle it
                             TransactionUtil.rollback(beganTrans, retryMsg, null);
- 
+
                             beganTrans = TransactionUtil.begin(modelService.transactionTimeout);
                             // enlist for XAResource debugging
                             if (beganTrans && TransactionUtil.debugResources) {
@@ -431,22 +431,22 @@ public class ServiceDispatcher {
                                     Debug.logError(e, module);
                                 }
                             }
- 
+
                             if (!beganTrans) {
                                 // just log and let things roll through, will be considered an error and ECAs, etc will run according to that
                                 Debug.logError("After rollback attempt for lock retry did not begin a new transaction!", module);
                             } else {
                                 // deadlocks can be resolved by retring immediately as conflicting operations in the other thread will have cleared
                                 needsLockRetry = true;
- 
+
                                 // reset state variables
                                 result = FastMap.newInstance();
                                 isFailure = false;
                                 isError = false;
- 
+
                                 Debug.logWarning(retryMsg, module);
                             }
- 
+
                             // look for lock wait timeout error, retry in a different way by running after the parent transaction finishes, ie attach to parent tx
                             // - Derby 10.2.2.0 lock wait timeout string: "A lock could not be obtained within the time requested"
                             // - MySQL ? lock wait timeout string: "Lock wait timeout exceeded; try restarting transaction"
@@ -485,10 +485,10 @@ public class ServiceDispatcher {
                 // check for pre-commit failure/errors
                 isFailure = ServiceUtil.isFailure(result);
                 isError = ServiceUtil.isError(result);
- 
+
                 // global-commit-post-run ECA, like global-commit but gets the context after the service is run
                 if (eventMap != null) ServiceEcaUtil.evalRules(modelService.name, eventMap, "global-commit-post-run", ctx, ecaContext, result, isError, isFailure);
- 
+
                 // check for failure and log on info level; this is used for debugging
                 if (isFailure) {
                     Debug.logWarning("Service Failure [" + modelService.name + "]: " + ServiceUtil.getErrorMessage(result), module);
@@ -521,7 +521,7 @@ public class ServiceDispatcher {
                 if (isError) {
                     String errMsg = "Error in Service [" + modelService.name + "]: " + ServiceUtil.getErrorMessage(result);
                     Debug.logError(errMsg, module);
- 
+
                     // rollback the transaction
                     try {
                         TransactionUtil.rollback(beganTrans, errMsg, null);
@@ -544,7 +544,7 @@ public class ServiceDispatcher {
 
                 // call notifications -- event is determined from the result (success, error, fail)
                 modelService.evalNotifications(this.getLocalContext(localName), context, result);
- 
+
                 // clear out the EE userIdentifier
                 GenericDelegator.popUserIdentifier();
             }
@@ -556,7 +556,7 @@ public class ServiceDispatcher {
             if (lock != null) {
                 lock.release();
             }
- 
+
             // resume the parent transaction
             if (parentTransaction != null) {
                 try {
@@ -573,7 +573,7 @@ public class ServiceDispatcher {
 
         checkDebug(modelService, 0, debugging);
         rs.setEndStamp();
- 
+
         long timeToRun = System.currentTimeMillis() - serviceStartTime;
         if (Debug.timingOn() && timeToRun > 50) {
             Debug.logTiming("Sync service [" + localName + "/" + modelService.name + "] finished in [" + timeToRun + "] milliseconds", module);
@@ -604,7 +604,7 @@ public class ServiceDispatcher {
             Debug.logVerbose("[ServiceDispatcher.runAsync] : prepareing service " + service.name + " [" + service.location + "/" + service.invoke +
                 "] (" + service.engineName + ")", module);
         }
- 
+
         Map<String, Object> context = FastMap.newInstance();
         if (params != null) {
             context.putAll(params);

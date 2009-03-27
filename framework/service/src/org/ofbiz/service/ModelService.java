@@ -106,7 +106,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /** The name of this service */
     public String name;
- 
+
     /** The location of the definition this service */
     public String definitionLocation;
 
@@ -130,7 +130,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /** The loader which loaded this definition */
     public String fromLoader;
- 
+
     /** Does this service require authorization */
     public boolean auth;
 
@@ -160,7 +160,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /** Permission service main-action */
     public String permissionMainAction;
- 
+
     /** Permission service resource-description */
     public String permissionResourceDesc;
 
@@ -172,7 +172,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /** Semaphore sleep time (in milliseconds) */
     public int semaphoreSleep;
- 
+
     /** Set of services this service implements */
     public Set<ModelServiceIface> implServices = new LinkedHashSet<ModelServiceIface>();
 
@@ -187,7 +187,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /** Internal Service Group */
     public GroupModel internalGroup = null;
- 
+
     /** Context Information, a Map of parameters used by the service, contains ModelParam objects */
     protected Map<String, ModelParam> contextInfo = FastMap.newInstance();
 
@@ -546,7 +546,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             Debug.logError("[ModelService.validate] : {" + name + "} : (" + mode + ") Required test error: " + e.toString(), module);
             throw e;
         }
- 
+
         // required and type validation complete, do allow-html validation
         if ("IN".equals(mode)) {
             List<String> errorMessageList = FastList.newInstance();
@@ -601,7 +601,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 }
                 missingMsgs.add(msg);
             }
- 
+
             List<String> missingCopy = FastList.newInstance();
             missingCopy.addAll(missing);
             throw new ServiceValidationException(missingMsgs, model, missingCopy, null, mode);
@@ -840,7 +840,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 locale = Locale.getDefault();
             }
         }
- 
+
         if (timeZone == null) {
             // if statement here to avoid warning messages for Entity ECA service input validation, even though less efficient that doing a straight get
             if (source.containsKey("timeZone")) {
@@ -850,7 +850,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 timeZone = TimeZone.getDefault();
             }
         }
- 
+
         for (ModelParam param: contextParamList) {
             //boolean internalParam = param.internal;
 
@@ -950,7 +950,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 } else if (thisService != null) {
                     ctx.put("resourceDescription", thisService.name);
                 }
- 
+
                 LocalDispatcher dispatcher = dctx.getDispatcher();
                 Map<String, Object> resp;
                 try {
@@ -1059,7 +1059,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         for (ModelParam modelParam: this.contextParamList) {
             // don't include OUT parameters in this list, only IN and INOUT
             if ("OUT".equals(modelParam.mode)) continue;
- 
+
             inList.add(modelParam);
         }
         return inList;

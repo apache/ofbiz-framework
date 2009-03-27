@@ -437,7 +437,7 @@ public class TemporalExpressions implements Serializable {
         protected final int endSecs;
         protected final int endMins;
         protected final int endHrs;
- 
+
         /**
          * @param start A time String in the form of hh:mm:ss (24 hr clock)
          * @param end A time String in the form of hh:mm:ss (24 hr clock)
@@ -595,7 +595,7 @@ public class TemporalExpressions implements Serializable {
     public static class DayOfWeekRange extends TemporalExpression {
         protected final int start;
         protected final int end;
- 
+
         /**
          * @param start An integer in the range of <code>Calendar.SUNDAY</code>
          * to <code>Calendar.SATURDAY</code>
@@ -691,7 +691,7 @@ public class TemporalExpressions implements Serializable {
     public static class MonthRange extends TemporalExpression {
         protected final int start;
         protected final int end;
- 
+
         /**
          * @param start An integer in the range of <code>Calendar.JANUARY</code>
          * to <code>Calendar.UNDECIMBER</code>
@@ -789,7 +789,7 @@ public class TemporalExpressions implements Serializable {
     public static class DayOfMonthRange extends TemporalExpression {
         protected final int start;
         protected final int end;
- 
+
         /**
          * @param start An integer in the range of 1 to 31
          * @param end An integer in the range of 1 to 31
@@ -870,7 +870,7 @@ public class TemporalExpressions implements Serializable {
     public static class DayInMonth extends TemporalExpression {
         protected final int dayOfWeek;
         protected final int occurrence;
- 
+
         /**
          * @param dayOfWeek An integer in the range of <code>Calendar.SUNDAY</code>
          * to <code>Calendar.SATURDAY</code>
@@ -986,7 +986,7 @@ public class TemporalExpressions implements Serializable {
         protected final Date start;
         protected final int freqType;
         protected final int freqCount;
- 
+
         /**
          * @param start Starting date, defaults to current system time
          * @param freqType One of the following integer values: <code>Calendar.SECOND

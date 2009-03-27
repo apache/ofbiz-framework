@@ -122,7 +122,7 @@ public class DispatchContext implements Serializable {
     public String getName() {
         return name;
     }
- 
+
     /**
      * Uses an existing map of name value pairs and extracts the keys which are used in serviceName
      * Note: This goes not guarantee the context will be 100% valid, there may be missing fields 
@@ -135,9 +135,9 @@ public class DispatchContext implements Serializable {
     public Map<String, Object> makeValidContext(String serviceName, String mode, Map<String, ? extends Object> context) throws GenericServiceException {
         ModelService model = this.getModelService(serviceName);
         return makeValidContext(model, mode, context);
- 
+
     }
- 
+
     /**
      * Uses an existing map of name value pairs and extracts the keys which are used in serviceName
      * Note: This goes not guarantee the context will be 100% valid, there may be missing fields 
@@ -149,7 +149,7 @@ public class DispatchContext implements Serializable {
      */
     public Map<String, Object> makeValidContext(ModelService model, String mode, Map<String, ? extends Object> context) throws GenericServiceException {
         Map<String, Object> newContext;
- 
+
         int modeInt = 0;
         if (mode.equalsIgnoreCase("in")) {
             modeInt = 1;
@@ -185,18 +185,18 @@ public class DispatchContext implements Serializable {
         if (retVal == null) {
             retVal = getGlobalModelService(serviceName);
         }
- 
+
         if (retVal == null) {
             throw new GenericServiceException("Cannot locate service by name (" + serviceName + ")");
         }
- 
+
         //Debug.logTiming("Got ModelService for name [" + serviceName + "] in [" + (System.currentTimeMillis() - timeStart) + "] milliseconds", module);
         return retVal;
     }
- 
+
     private ModelService getLocalModelService(String serviceName) throws GenericServiceException {
         Map<String, ModelService> serviceMap = this.getLocalServiceMap();
- 
+
         ModelService retVal = null;
         if (serviceMap != null) {
             retVal = serviceMap.get(serviceName);
@@ -204,7 +204,7 @@ public class DispatchContext implements Serializable {
                 retVal.interfaceUpdate(this);
             }
         }
- 
+
         return retVal;
     }
 
@@ -218,7 +218,7 @@ public class DispatchContext implements Serializable {
                 retVal.interfaceUpdate(this);
             }
         }
- 
+
         return retVal;
     }
 
@@ -276,10 +276,10 @@ public class DispatchContext implements Serializable {
                 }
             }
         }
- 
+
         return serviceMap;
     }
- 
+
     private Map<String, ModelService> getGlobalServiceMap() {
         Map<String, ModelService> serviceMap = modelServiceMapByDispatcher.get(GLOBAL_KEY);
         if (serviceMap == null) {
@@ -306,7 +306,7 @@ public class DispatchContext implements Serializable {
                             serviceMap.putAll(servicesMap);
                         }
                     }
- 
+
                     // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
                     for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("model")) {
                         Map<String, ModelService> servicesMap = ModelServiceReader.getModelServiceMap(componentResourceInfo.createResourceHandler(), this);

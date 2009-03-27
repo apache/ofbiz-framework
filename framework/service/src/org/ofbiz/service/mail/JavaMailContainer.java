@@ -84,7 +84,7 @@ public class JavaMailContainer implements Container {
         String dispatcherName = ContainerConfig.getPropertyValue(cfg, "dispatcher-name", "JavaMailDispatcher");
         String delegatorName = ContainerConfig.getPropertyValue(cfg, "delegator-name", "default");
         this.deleteMail = "true".equals(ContainerConfig.getPropertyValue(cfg, "delete-mail", "false"));
- 
+
         this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
         this.timerDelay = (long) ContainerConfig.getPropertyValue(cfg, "poll-delay", 300000);

@@ -65,7 +65,7 @@ public class ServiceMcaRule implements java.io.Serializable {
             Debug.logInfo("Service MCA [" + ruleName + "] is disabled; not running.", module);
             return;
         }
- 
+
         boolean allCondTrue = true;
         for (ServiceMcaCondition cond: conditions) {
             if (!cond.eval(dispatcher, messageWrapper, userLogin)) {
