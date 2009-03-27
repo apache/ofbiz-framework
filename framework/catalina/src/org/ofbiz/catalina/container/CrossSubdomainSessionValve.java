@@ -45,7 +45,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
     }
 
     protected void replaceCookie(Request request, Response response, Cookie cookie) {
- 
+
         // copy the existing session cookie, but use a different domain (only if domain is valid)
         String cookieDomain = null;
         cookieDomain = UtilProperties.getPropertyValue("url", "cookie.domain", "");
@@ -68,7 +68,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
                 cookieDomain = "." + domainArray[domainArray.length - 2] + "." + domainArray[domainArray.length - 1];
             }
         }
- 
+
 
         if (UtilValidate.isNotEmpty(cookieDomain)) {
             Cookie newCookie = new Cookie(cookie.getName(), cookie.getValue());

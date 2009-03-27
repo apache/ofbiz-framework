@@ -33,9 +33,9 @@ import org.apache.catalina.valves.ValveBase;
  * Once that is done just setup a connector just like the example http-connector and have it listen on the port you set in the ssl-accelerator-port value.
  */
 public class SslAcceleratorValve extends ValveBase {
- 
+
     protected Integer sslAcceleratorPort = null;
- 
+
     public void setSslAcceleratorPort(Integer sslAcceleratorPort) {
         this.sslAcceleratorPort = sslAcceleratorPort;
     }

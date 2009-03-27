@@ -149,7 +149,7 @@ public class CatalinaContainer implements Container {
     protected boolean distribute = false;
 
     protected boolean enableDefaultMimeTypes = true;
- 
+
     protected String catalinaRuntimeHome;
 
     /**
@@ -171,7 +171,7 @@ public class CatalinaContainer implements Container {
         this.contextReloadable = ContainerConfig.getPropertyValue(cc, "apps-context-reloadable", false);
         this.crossContext = ContainerConfig.getPropertyValue(cc, "apps-cross-context", true);
         this.distribute = ContainerConfig.getPropertyValue(cc, "apps-distributable", true);
- 
+
         this.catalinaRuntimeHome = ContainerConfig.getPropertyValue(cc, "catalina-runtime-home", "runtime/catalina");
 
         // set catalina_home
@@ -301,7 +301,7 @@ public class CatalinaContainer implements Container {
             CrossSubdomainSessionValve sessionValve = new CrossSubdomainSessionValve();
             engine.addValve(sessionValve);
         }
- 
+
         // configure the access log valve
         String logDir = ContainerConfig.getPropertyValue(engineConfig, "access-log-dir", null);
         AccessLogValve al = null;
@@ -316,7 +316,7 @@ public class CatalinaContainer implements Container {
             }
             al.setDirectory(logFile.getAbsolutePath());
         }
- 
+
         // configure the SslAcceleratorValve
         String sslAcceleratorPortStr = ContainerConfig.getPropertyValue(engineConfig, "ssl-accelerator-port", null);
         if (UtilValidate.isNotEmpty(sslAcceleratorPortStr)) {
@@ -325,7 +325,7 @@ public class CatalinaContainer implements Container {
             sslAcceleratorValve.setSslAcceleratorPort(sslAcceleratorPort);
             engine.addValve(sslAcceleratorValve);
         }
- 
+
 
         String alp2 = ContainerConfig.getPropertyValue(engineConfig, "access-log-pattern", null);
         if (al != null && !UtilValidate.isEmpty(alp2)) {
@@ -438,7 +438,7 @@ public class CatalinaContainer implements Container {
         channel.setChannelReceiver(listener);
         channel.setChannelSender(trans);
         channel.setMembershipService(mcast);
- 
+
         cluster.setChannel(channel);
         cluster.addValve(clusterValve);
         // removed since 5.5.9? cluster.setPrintToScreen(true);
@@ -517,7 +517,7 @@ public class CatalinaContainer implements Container {
         context.setJ2EEApplication(J2EE_APP);
         context.setJ2EEServer(J2EE_SERVER);
         context.setLoader(embedded.createLoader(ClassLoaderContainer.getClassLoader()));
- 
+
         context.setCookies(appInfo.isSessionCookieAccepted());
         context.addParameter("cookies", appInfo.isSessionCookieAccepted() ? "true" : "false");
 
