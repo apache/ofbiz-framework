@@ -40,9 +40,12 @@ margin: 1em;
                                         "resourceTypeEnumId", "VT_SCREENSHOT"), orderByList)>
         <tr<#if visualTheme.visualThemeId == visualThemeId> class="selected"</#if>>
           <td>
-            <#-- Not too sure about displaying the theme ID - it might confuse the users -->
-            <#-- <a href="<@ofbizUrl>updateVisualTheme?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=VISUAL_THEME&amp;userPrefValue=${visualTheme.visualThemeId}</@ofbizUrl>">${visualTheme.description} [${visualTheme.visualThemeId}]</a> -->
-            <a href="<@ofbizUrl>setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=VISUAL_THEME&amp;userPrefValue=${visualTheme.visualThemeId}</@ofbizUrl>">${visualTheme.description}</a>
+            <form name="SetUserPreferences_${visualTheme.visualThemeId}" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>">
+              <input type="hidden" name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
+              <input type="hidden" name="userPrefTypeId" value="VISUAL_THEME"/>
+              <input type="hidden" name="userPrefValue" value="${visualTheme.visualThemeId}"/>
+            </form>
+            <a href="javascript:document.SetUserPreferences_${visualTheme.visualThemeId}.submit()">${visualTheme.description}</a>
           </td>
           <td>
             <#if visualTheme.visualThemeId == visualThemeId>${uiLabelMap.CommonVisualThemeSelected}<#else>&nbsp;</#if>
