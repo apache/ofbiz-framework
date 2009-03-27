@@ -48,7 +48,7 @@ public class FacilityServices {
         String idValue = (String) context.get("idValue");
         GenericValue product = null;
         List<GenericValue> productsFound = null;
- 
+
         try {
             productsFound = ProductWorker.findProductsById(delegator, idValue, null, false, true);
         } catch (GenericEntityException e) {
@@ -89,7 +89,7 @@ public class FacilityServices {
             GenericValue invItem = (GenericValue)invItemListIter.next();
             if ( invItem != null) {
                 int qoh = ((Double)invItem.get("quantityOnHandTotal")).intValue();
- 
+
                 if ( qoh < 0 ) {
                     // Got a negative qoh so lets balance if off to zero.
                     Map contextInput = UtilMisc.toMap("userLogin", userLogin, "inventoryItemId", invItem.get("inventoryItemId"),
@@ -182,18 +182,18 @@ public class FacilityServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("Inventory Item/Transfer lookup problem [" + e.getMessage() + "]");
         }
- 
+
         if (inventoryTransfer == null || inventoryItem == null) {
             return ServiceUtil.returnError("ERROR: Lookup of InventoryTransfer and/or InventoryItem failed!");
         }
- 
+
         String inventoryType = inventoryItem.getString("inventoryItemTypeId");
- 
+
         // set the fields on the transfer record
         if (inventoryTransfer.get("receiveDate") == null) {
             inventoryTransfer.set("receiveDate", UtilDateTime.nowTimestamp());
         }
- 
+
         if (inventoryType.equals("NON_SERIAL_INV_ITEM")) {
             // add an adjusting InventoryItemDetail so set ATP back to QOH: ATP = ATP + (QOH - ATP), diff = QOH - ATP
             double atp = inventoryItem.get("availableToPromiseTotal") == null ? 0 : inventoryItem.getDouble("availableToPromiseTotal").doubleValue();
@@ -244,7 +244,7 @@ public class FacilityServices {
 
         // set the inventory transfer record to complete
         inventoryTransfer.set("statusId", "IXF_COMPLETE");
- 
+
         // store the entities
         try {
             inventoryTransfer.store();
