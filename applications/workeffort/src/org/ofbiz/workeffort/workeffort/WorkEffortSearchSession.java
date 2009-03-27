@@ -92,13 +92,13 @@ public class WorkEffortSearchSession {
             workEffortSearchOptions.resultSortOrder = resultSortOrder;
             workEffortSearchOptions.changed = true;
         }
- 
+
         public static void clearSearchOptions(HttpSession session) {
             WorkEffortSearchOptions workEffortSearchOptions = getWorkEffortSearchOptions(session);
             workEffortSearchOptions.constraintList = null;
             workEffortSearchOptions.resultSortOrder = null;
         }
- 
+
         public void clearViewInfo() {
             this.viewIndex = null;
             this.viewSize = null;
@@ -128,7 +128,7 @@ public class WorkEffortSearchSession {
         public void setViewSize(Integer viewSize) {
             this.viewSize = viewSize;
         }
- 
+
         public List<String> searchGetConstraintStrings(boolean detailed, GenericDelegator delegator, Locale locale) {
             List<WorkEffortSearchConstraint> workEffortSearchConstraintList = this.getConstraintList();
             List<String> constraintStrings = FastList.newInstance();
@@ -147,7 +147,7 @@ public class WorkEffortSearchSession {
             return constraintStrings;
         }
     }
- 
+
     public static WorkEffortSearchOptions getWorkEffortSearchOptions(HttpSession session) {
         WorkEffortSearchOptions workEffortSearchOptions = (WorkEffortSearchOptions) session.getAttribute("_WORK_EFFORT_SEARCH_OPTIONS_CURRENT_");
         if (workEffortSearchOptions == null) {
@@ -156,7 +156,7 @@ public class WorkEffortSearchSession {
         }
         return workEffortSearchOptions;
     }
- 
+
     public static void processSearchParameters(Map<String, Object> parameters, HttpServletRequest request) {
         Boolean alreadyRun = (Boolean) request.getAttribute("processSearchParametersAlreadyRun");
         if (Boolean.TRUE.equals(alreadyRun)) {
@@ -166,7 +166,7 @@ public class WorkEffortSearchSession {
         }
         HttpSession session = request.getSession();
         boolean constraintsChanged = false;
- 
+
         // clear search? by default yes, but if the clearSearch parameter is N then don't
         String clearSearchString = (String) parameters.get("clearSearch");
         if (!"N".equals(clearSearchString)) {
@@ -205,7 +205,7 @@ public class WorkEffortSearchSession {
             searchAddConstraint(new WorkEffortSearch.PartyAssignmentConstraint(partyId,roleTypeId), session);
             constraintsChanged = true;
         }
- 
+
 //      add a Product Set to the search
         if (UtilValidate.isNotEmpty((String) parameters.get("productId_1"))) {
             List<String> productSet = FastList.newInstance();
@@ -223,7 +223,7 @@ public class WorkEffortSearchSession {
             if (UtilValidate.isNotEmpty((String) parameters.get("fromDate"))) {
                 fromDate=Timestamp.valueOf((String) parameters.get("fromDate"));
             }
- 
+
             Timestamp thruDate = null;
             if (UtilValidate.isNotEmpty((String) parameters.get("thruDate"))) {
                 thruDate = Timestamp.valueOf((String) parameters.get("thruDate"));
@@ -231,7 +231,7 @@ public class WorkEffortSearchSession {
             searchAddConstraint(new WorkEffortSearch.LastUpdatedRangeConstraint(fromDate,thruDate), session);
             constraintsChanged = true;
         }
- 
+
         // if keywords were specified, add a constraint for them
         if (UtilValidate.isNotEmpty((String) parameters.get("SEARCH_STRING"))) {
             String keywordString = (String) parameters.get("SEARCH_STRING");
@@ -253,7 +253,7 @@ public class WorkEffortSearchSession {
                 searchSetSortOrder(new WorkEffortSearch.SortWorkEffortField(fieldName, ascending), session);
             }
         }
- 
+
         WorkEffortSearchOptions workEffortSearchOptions = getWorkEffortSearchOptions(session);
         if (constraintsChanged) {
             // query changed, clear out the VIEW_INDEX & VIEW_SIZE
@@ -281,7 +281,7 @@ public class WorkEffortSearchSession {
             }
         }
     }
- 
+
     public static void searchAddConstraint(WorkEffortSearchConstraint workEffortSearchConstraint, HttpSession session) {
         WorkEffortSearchOptions.addConstraint(workEffortSearchConstraint, session);
     }
@@ -296,7 +296,7 @@ public class WorkEffortSearchSession {
         }
         return optionsHistoryList;
     }
- 
+
     public static List<String> searchGetConstraintStrings(boolean detailed, HttpSession session, GenericDelegator delegator) {
         Locale locale = UtilHttp.getLocale(session);
         WorkEffortSearchOptions workEffortSearchOptions = getWorkEffortSearchOptions(session);
