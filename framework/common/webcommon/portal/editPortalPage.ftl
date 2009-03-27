@@ -54,12 +54,17 @@ under the License.
       <#list portalPagePortletViewList as portlet>
         <#if (!portlet.columnSeqId?has_content && portalPageColumn_index == 0) || (portlet.columnSeqId?if_exists == portalPageColumn.columnSeqId)>
           <#if portlet.screenName?has_content>
-              <#assign portletFields = '<input name="portalPageId" value="' + portalPage.portalPageId + '" type="hidden"/>'>
-              <#assign portletFields = portletFields + '<input name="portalPortletId" value="' + portlet.portalPortletId + '" type="hidden"/>'>
-              <#assign portletFields = portletFields + '<input name="portletSeqId" value="' + portlet.portletSeqId  + '" type="hidden"/>'>
-              <#assign portletUrlLink="">
+              <#assign portletFields = '<input name="portalPageId" value="' + portlet.portalPageId + '" type="hidden"/><input name="portalPortletId" value="' + portlet.portalPortletId + '" type="hidden"/><input name="portletSeqId" value="' + portlet.portletSeqId  + '" type="hidden"/>'>
               <div class="portlet-config">
               <div class="portlet-config-title-bar">
+                <#list portalPages as portalPageList>
+                  <#if portalPage.portalPageId != portalPageList.portalPageId>
+                    <form method="post" action="<@ofbizUrl>movePortletToPortalPage</@ofbizUrl>" name="movePP_${portlet_index}_${portalPageList_index}">
+                      ${portletFields}
+                      <input name="newPortalPageId" value="${portalPageList.portalPageId}" type="hidden"/>
+                    </form>
+                  </#if>
+                </#list>                          
                 <ul>
                   <li class="title">Portlet : ${portlet.portletName?if_exists} [${portlet.portalPortletId}]</li>
                   <li class="remove"><form method="post" action="<@ofbizUrl>deletePortalPagePortlet</@ofbizUrl>" name="removePP_${portlet_index}">${portletFields}</form><a href="javascript:document.removePP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
@@ -88,12 +93,11 @@ under the License.
                   </#if>  
                   <#if (portalPages.size() > 1)>
                     <li>
-                    <select name="moveToPortal" onchange="window.location=this[this.selectedIndex].value;">
+                    <select name="moveToPortal" onchange="javascript:(document.forms['movePP_${portlet_index}_' + this.selectedIndex.toString()].newPortalPageId = this[this.selectedIndex].value),(document.forms['movePP_${portlet_index}_' + this.selectedIndex.toString()].submit())">
                       <option value="">${uiLabelMap.CommonMoveToPortalPage}</option>
-  
                       <#list portalPages as portalPageList>
                           <#if portalPage.portalPageId != portalPageList.portalPageId>
-                          <option value="<@ofbizUrl>movePortletToPortalPage?${portletUrlLink}&amp;newPortalPageId=${portalPageList.portalPageId}</@ofbizUrl>">${portalPageList.portalPageName?if_exists}</option>
+                            <option value="${portalPageList.portalPageId}">${portalPageList.portalPageName?if_exists}</option>
                           </#if>
                       </#list>                          
                     </select>
