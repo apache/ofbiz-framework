@@ -39,15 +39,15 @@ public class HasPermissionCondition implements Conditional {
         }
     }
 
- 
+
     SimpleMethod simpleMethod;
- 
+
     String permission;
     String action;
- 
+
     public HasPermissionCondition(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
- 
+
         this.permission = element.getAttribute("permission");
         this.action = element.getAttribute("action");
     }
@@ -61,7 +61,7 @@ public class HasPermissionCondition implements Conditional {
         if (userLogin != null) {
             String permission = methodContext.expandString(this.permission);
             String action = methodContext.expandString(this.action);
- 
+
             Security security = methodContext.getSecurity();
             if (action != null && action.length() > 0) {
                 // run hasEntityPermission
@@ -75,7 +75,7 @@ public class HasPermissionCondition implements Conditional {
                 }
             }
         }
- 
+
         return runSubOps;
     }
 

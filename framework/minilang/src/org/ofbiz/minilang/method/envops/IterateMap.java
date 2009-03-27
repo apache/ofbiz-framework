@@ -44,7 +44,7 @@ public class IterateMap extends MethodOperation {
             return "iterate-map";
         }
     }
- 
+
     public static final String module = IterateMap.class.getName();
 
     List<MethodOperation> subOps = FastList.newInstance();
@@ -78,7 +78,7 @@ public class IterateMap extends MethodOperation {
         if (oldValue != null) {
             Debug.logWarning("In iterate-map the value had a non-null value before entering the loop for the operation: " + this.rawString(), module);
         }
- 
+
         Map<? extends Object, ? extends Object> theMap = mapAcsr.get(methodContext);
         if (theMap == null) {
             if (Debug.infoOn()) Debug.logInfo("Map not found with name " + mapAcsr + ", doing nothing: " + rawString(), module);

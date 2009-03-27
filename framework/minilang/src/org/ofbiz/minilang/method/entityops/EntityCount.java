@@ -50,9 +50,9 @@ public class EntityCount extends MethodOperation {
             return "entity-count";
         }
     }
- 
+
     public static final String module = EntityCount.class.getName();
- 
+
     protected FlexibleStringExpander entityNameExdr;
     protected FlexibleStringExpander delegatorNameExdr;
     protected Condition whereCondition;
@@ -68,7 +68,7 @@ public class EntityCount extends MethodOperation {
         } else {
             this.countAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("count-name"));
         }
- 
+
         // process condition-expr | condition-list
         Element conditionExprElement = UtilXml.firstChildElement(element, "condition-expr");
         Element conditionListElement = UtilXml.firstChildElement(element, "condition-list");
@@ -83,7 +83,7 @@ public class EntityCount extends MethodOperation {
         } else if (conditionObjectElement != null) {
             this.whereCondition = new ConditionObject(conditionObjectElement);
         }
- 
+
         // process having-condition-list
         Element havingConditionListElement = UtilXml.firstChildElement(element, "having-condition-list");
         if (havingConditionListElement != null) {
@@ -97,7 +97,7 @@ public class EntityCount extends MethodOperation {
             GenericDelegator delegator = methodContext.getDelegator();
             String entityName = this.entityNameExdr.expandString(context);
             String delegatorName = this.delegatorNameExdr.expandString(context);
- 
+
             if (delegatorName != null && delegatorName.length() > 0) {
                 delegator = GenericDelegator.getGenericDelegator(delegatorName);
             }
@@ -113,9 +113,9 @@ public class EntityCount extends MethodOperation {
             if (this.havingCondition != null) {
                 havingEntityCondition = this.havingCondition.createCondition(context, entityName, delegator);
             }
- 
+
             long count = delegator.findCountByCondition(entityName, whereEntityCondition, havingEntityCondition, null);
- 
+
             this.countAcsr.put(context, count);
         } catch (GeneralException e) {
             Debug.logError(e, module);
@@ -139,7 +139,7 @@ public class EntityCount extends MethodOperation {
         if (entName.indexOf("${") >= 0) return null;
         return entName;
     }
- 
+
     public String rawString() {
         // TODO: something more than the empty tag
         return "<entity-count/>";

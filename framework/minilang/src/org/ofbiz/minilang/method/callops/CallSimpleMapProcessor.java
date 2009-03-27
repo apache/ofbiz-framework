@@ -42,7 +42,7 @@ public class CallSimpleMapProcessor extends MethodOperation {
             return "call-map-processor";
         }
     }
- 
+
     String xmlResource;
     String processorName;
     ContextAccessor<Map<String, Object>> inMapAcsr;

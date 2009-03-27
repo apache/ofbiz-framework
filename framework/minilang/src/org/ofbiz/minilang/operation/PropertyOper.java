@@ -27,9 +27,9 @@ import org.ofbiz.base.util.*;
  * A MakeInStringOperation that insert the value of a property from a properties file
  */
 public class PropertyOper extends MakeInStringOperation {
- 
+
     public static final String module = PropertyOper.class.getName();
- 
+
     String resource;
     String property;
 

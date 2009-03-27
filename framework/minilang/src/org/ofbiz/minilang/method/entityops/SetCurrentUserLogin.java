@@ -39,9 +39,9 @@ public class SetCurrentUserLogin extends MethodOperation {
             return "set-current-user-login";
         }
     }
- 
+
     public static final String module = SetCurrentUserLogin.class.getName();
- 
+
     ContextAccessor<GenericValue> valueAcsr;
 
     public SetCurrentUserLogin(Element element, SimpleMethod simpleMethod) {

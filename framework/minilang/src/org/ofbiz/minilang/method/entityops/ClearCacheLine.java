@@ -39,9 +39,9 @@ public class ClearCacheLine extends MethodOperation {
             return "clear-cache-line";
         }
     }
- 
+
     public static final String module = ClearCacheLine.class.getName();
- 
+
     String entityName;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
 
@@ -53,7 +53,7 @@ public class ClearCacheLine extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
         String entityName = methodContext.expandString(this.entityName);
- 
+
         if (mapAcsr.isEmpty()) {
             methodContext.getDelegator().clearCacheLine(entityName);
         } else {

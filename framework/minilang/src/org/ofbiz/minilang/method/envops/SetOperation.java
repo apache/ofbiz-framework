@@ -46,7 +46,7 @@ public class SetOperation extends MethodOperation {
         }
     }
     public static final String module = SetOperation.class.getName();
- 
+
     protected ContextAccessor<Object> field;
     protected ContextAccessor<Object> fromField;
     protected FlexibleStringExpander valueExdr;
@@ -105,7 +105,7 @@ public class SetOperation extends MethodOperation {
                 return false;
             }
         }
- 
+
         if (Debug.verboseOn()) Debug.logVerbose("In screen setting field [" + this.field.toString() + "] to value: " + newValue, module);
         this.field.put(methodContext, newValue);
         return true;

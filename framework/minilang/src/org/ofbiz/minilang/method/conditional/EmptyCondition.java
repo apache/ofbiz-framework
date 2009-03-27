@@ -38,17 +38,17 @@ public class EmptyCondition implements Conditional {
         }
     }
 
- 
+
     public static final String module = EmptyCondition.class.getName();
- 
+
     SimpleMethod simpleMethod;
- 
+
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
- 
+
     public EmptyCondition(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
- 
+
         // NOTE: this is still supported, but is deprecated
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"));
@@ -86,10 +86,10 @@ public class EmptyCondition implements Conditional {
                 }
             }
         }
- 
+
         return runSubOps;
     }
- 
+
     protected Object getFieldVal(MethodContext methodContext) {
         Object fieldVal = null;
         if (!mapAcsr.isEmpty()) {

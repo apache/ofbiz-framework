@@ -80,7 +80,7 @@ public class MakeNextSeqId extends MethodOperation {
 
         GenericValue value = valueAcsr.get(methodContext);
         methodContext.getDelegator().setNextSubSeqId(value, seqFieldName, numericPadding, incrementBy);
- 
+
         return true;
     }
 

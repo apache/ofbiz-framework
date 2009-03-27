@@ -48,9 +48,9 @@ public class FindByPrimaryKey extends MethodOperation {
             return "find-by-primary-key";
         }
     }
- 
+
     public static final String module = FindByPrimaryKey.class.getName();
- 
+
     ContextAccessor<GenericValue> valueAcsr;
     String entityName;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
@@ -72,7 +72,7 @@ public class FindByPrimaryKey extends MethodOperation {
         String entityName = methodContext.expandString(this.entityName);
         String delegatorName = methodContext.expandString(this.delegatorName);
         String useCacheStr = methodContext.expandString(this.useCacheStr);
- 
+
         boolean useCache = "true".equals(useCacheStr);
 
         GenericDelegator delegator = methodContext.getDelegator();
@@ -85,12 +85,12 @@ public class FindByPrimaryKey extends MethodOperation {
             GenericEntity inEntity = (GenericEntity) inMap;
             entityName = inEntity.getEntityName();
         }
- 
+
         Collection<String> fieldsToSelectList = null;
         if (!fieldsToSelectListAcsr.isEmpty()) {
             fieldsToSelectList = fieldsToSelectListAcsr.get(methodContext);
         }
- 
+
         try {
             if (fieldsToSelectList != null) {
                 valueAcsr.put(methodContext, delegator.findByPrimaryKeyPartial(delegator.makePK(entityName, inMap), UtilMisc.makeSetWritable(fieldsToSelectList)));
@@ -105,7 +105,7 @@ public class FindByPrimaryKey extends MethodOperation {
         }
         return true;
     }
- 
+
     public String getEntityName() {
         return this.entityName;
     }

@@ -29,9 +29,9 @@ import org.ofbiz.base.util.*;
  * The container of MakeInString operations to make a new input String
  */
 public class MakeInString {
- 
+
     public static final String module = MakeInString.class.getName();
- 
+
     String fieldName;
     List<MakeInStringOperation> operations = FastList.newInstance();
 

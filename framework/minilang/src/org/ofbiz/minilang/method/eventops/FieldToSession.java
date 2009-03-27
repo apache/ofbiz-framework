@@ -41,9 +41,9 @@ public class FieldToSession extends MethodOperation {
             return "field-to-session";
         }
     }
- 
+
     public static final String module = FieldToSession.class.getName();
- 
+
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
     FlexibleServletAccessor<Object> sessionAcsr;

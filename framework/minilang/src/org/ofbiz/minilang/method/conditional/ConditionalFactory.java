@@ -43,12 +43,12 @@ public abstract class ConditionalFactory<C extends Conditional> {
         }
         conditionalFactories = Collections.unmodifiableMap(factories);
     }
- 
+
     public static final String module = ConditionalFactory.class.getName();
- 
+
     public static Conditional makeConditional(Element element, SimpleMethod simpleMethod) {
         String tagName = element.getTagName();
- 
+
         ConditionalFactory factory = conditionalFactories.get(tagName);
         if (factory != null) {
             return factory.createCondition(element, simpleMethod);

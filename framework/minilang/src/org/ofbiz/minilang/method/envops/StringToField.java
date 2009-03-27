@@ -44,9 +44,9 @@ public class StringToField extends MethodOperation {
             return "string-to-field";
         }
     }
- 
+
     public static final String module = StringToField.class.getName();
- 
+
     String string;
     ContextAccessor<Map<String, Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
@@ -64,7 +64,7 @@ public class StringToField extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
         String valueStr = methodContext.expandString(string);
- 
+
         if (!argListAcsr.isEmpty()) {
             List<? extends Object> argList = argListAcsr.get(methodContext);
             if (UtilValidate.isNotEmpty(argList)) {
@@ -78,7 +78,7 @@ public class StringToField extends MethodOperation {
         } else {
             value = valueStr;
         }
- 
+
         if (!mapAcsr.isEmpty()) {
             Map<String, Object> toMap = mapAcsr.get(methodContext);
 

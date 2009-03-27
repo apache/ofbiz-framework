@@ -41,13 +41,13 @@ public abstract class MethodOperation {
     public @interface DeprecatedOperation {
         String value();
     }
- 
+
     protected SimpleMethod simpleMethod;
 
     public MethodOperation(Element element, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
     }
- 
+
     public SimpleMethod getSimpleMethod() {
         return this.simpleMethod;
     }

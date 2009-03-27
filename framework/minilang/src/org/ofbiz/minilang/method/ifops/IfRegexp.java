@@ -43,7 +43,7 @@ public class IfRegexp extends MethodOperation {
             return "if-regexp";
         }
     }
- 
+
     public static final String module = IfRegexp.class.getName();
 
     static PatternMatcher matcher = new Perl5Matcher();

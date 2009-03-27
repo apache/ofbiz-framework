@@ -42,9 +42,9 @@ public class FieldToField extends MethodOperation {
             return "field-to-field";
         }
     }
- 
+
     public static final String module = FieldToField.class.getName();
- 
+
     ContextAccessor<Map<String, Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
     ContextAccessor<Map<String, Object>> toMapAcsr;

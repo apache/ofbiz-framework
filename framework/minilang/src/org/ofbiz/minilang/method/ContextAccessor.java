@@ -36,7 +36,7 @@ public class ContextAccessor<T> {
     public ContextAccessor(String name) {
         init(name);
     }
- 
+
     public ContextAccessor(String name, String defaultName) {
         if (name == null || name.length() == 0) {
             init(defaultName);
@@ -44,21 +44,21 @@ public class ContextAccessor<T> {
             init(name);
         }
     }
- 
+
     protected void init(String name) {
         this.name = name;
         this.fma = FlexibleMapAccessor.getInstance(name);
     }
- 
+
     public boolean isEmpty() {
         return this.fma.isEmpty();
     }
- 
+
     /** Based on name get from Map or from List in Map */
     public T get(MethodContext methodContext) {
         return UtilGenerics.<T>cast(methodContext.getEnv(fma));
     }
- 
+
     /** Based on name put in Map or from List in Map;
      * If the brackets for a list are empty the value will be appended to the list,
      * otherwise the value will be set in the position of the number in the brackets.
@@ -68,17 +68,17 @@ public class ContextAccessor<T> {
     public void put(MethodContext methodContext, T value) {
         methodContext.putEnv(fma, value);
     }
- 
+
     /** Based on name remove from Map or from List in Map */
     public T remove(MethodContext methodContext) {
         return UtilGenerics.<T>cast(methodContext.removeEnv(fma));
     }
- 
+
     /** Based on name get from Map or from List in Map */
     public T get(Map<String, ? extends Object> theMap, MethodContext methodContext) {
         return fma.get(theMap);
     }
- 
+
     /** Based on name put in Map or from List in Map;
      * If the brackets for a list are empty the value will be appended to the list,
      * otherwise the value will be set in the position of the number in the brackets.
@@ -88,12 +88,12 @@ public class ContextAccessor<T> {
     public void put(Map<String, Object> theMap, T value, MethodContext methodContext) {
         fma.put(theMap, value);
     }
- 
+
     /** Based on name remove from Map or from List in Map */
     public T remove(Map<String, ? extends Object> theMap, MethodContext methodContext) {
         return fma.remove(theMap);
     }
- 
+
     /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key */
     public int hashCode() {
         return this.name.hashCode();

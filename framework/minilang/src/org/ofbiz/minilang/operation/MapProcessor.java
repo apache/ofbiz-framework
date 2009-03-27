@@ -28,7 +28,7 @@ import org.ofbiz.base.util.*;
  * Map Processor Main Class
  */
 public class MapProcessor {
- 
+
     String name;
     List<MakeInString> makeInStrings = FastList.newInstance();
     List<SimpleMapProcess> simpleMapProcesses = FastList.newInstance();

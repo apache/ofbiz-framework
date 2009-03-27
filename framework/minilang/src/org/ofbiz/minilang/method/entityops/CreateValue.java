@@ -40,9 +40,9 @@ public class CreateValue extends MethodOperation {
             return "create-value";
         }
     }
- 
+
     public static final String module = CreateValue.class.getName();
- 
+
     ContextAccessor<GenericValue> valueAcsr;
     String doCacheClearStr;
     boolean testDuplicate;
@@ -57,7 +57,7 @@ public class CreateValue extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
- 
+
         GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             String errMsg = "In create-value a value was not found with the specified valueAcsr: " + valueAcsr + ", not creating";
@@ -78,7 +78,7 @@ public class CreateValue extends MethodOperation {
                 methodContext.getDelegator().create(value, doCacheClear);
             }
         } catch (GenericEntityException e) {
- 
+
             Debug.logError(e, module);
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem creating the " + valueAcsr + " value: " + e.getMessage() + "]";
             if (methodContext.getMethodType() == MethodContext.EVENT) {

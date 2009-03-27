@@ -38,9 +38,9 @@ public class FieldToResult extends MethodOperation {
             return "field-to-result";
         }
     }
- 
+
     public static final String module = FieldToResult.class.getName();
- 
+
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
     ContextAccessor<Object> resultAcsr;

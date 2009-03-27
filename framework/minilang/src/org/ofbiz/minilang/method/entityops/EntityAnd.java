@@ -40,9 +40,9 @@ public class EntityAnd extends MethodOperation {
             return "entity-and";
         }
     }
- 
+
     public static final String module = EntityAnd.class.getName();
- 
+
     protected ByAndFinder finder;
 
     public EntityAnd(Element element, SimpleMethod simpleMethod) {

@@ -32,7 +32,7 @@ import org.w3c.dom.Element;
  */
 public class Convert extends SimpleMapOperation {
     public static final String module = Convert.class.getName();
- 
+
     String toField;
     String type;
     boolean replace = true;

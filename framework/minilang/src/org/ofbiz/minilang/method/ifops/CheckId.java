@@ -40,9 +40,9 @@ public class CheckId extends MethodOperation {
             return "check-id";
         }
     }
- 
+
     public static final String module = CheckId.class.getName();
- 
+
     String message = null;
     String propertyResource = null;
     boolean isProperty = false;
@@ -94,10 +94,10 @@ public class CheckId extends MethodOperation {
             // no map name, try the env
             fieldVal = fieldAcsr.get(methodContext);
         }
- 
+
         String fieldStr = fieldVal.toString();
         StringBuilder errorDetails = new StringBuilder();
- 
+
         //check various illegal characters, etc for ids
         isValid = UtilValidate.isValidDatabaseId(fieldStr, errorDetails);
 
@@ -109,10 +109,10 @@ public class CheckId extends MethodOperation {
     }
 
     public void addMessage(List<Object> messages, MethodContext methodContext, String defaultMessage, String errorDetails) {
- 
+
         String message = methodContext.expandString(this.message);
         String propertyResource = methodContext.expandString(this.propertyResource);
- 
+
         if (!isProperty && message != null) {
             messages.add(message + errorDetails);
         } else if (isProperty && propertyResource != null && message != null) {

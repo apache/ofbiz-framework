@@ -47,8 +47,8 @@ public class SequencedIdToEnv extends MethodOperation {
             return "sequenced-id";
         }
     }
- 
- 
+
+
     String seqName;
     ContextAccessor<Object> envAcsr;
     boolean getLongOnly;

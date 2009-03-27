@@ -36,7 +36,7 @@ public class Return extends MethodOperation {
             return "return";
         }
     }
- 
+
     String responseCode;
 
     public Return(Element element, SimpleMethod simpleMethod) {
@@ -48,7 +48,7 @@ public class Return extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
         String responseCode = methodContext.expandString(this.responseCode);
- 
+
         if (methodContext.getMethodType() == MethodContext.EVENT) {
             methodContext.putEnv(simpleMethod.getEventResponseCodeName(), responseCode);
             return false;

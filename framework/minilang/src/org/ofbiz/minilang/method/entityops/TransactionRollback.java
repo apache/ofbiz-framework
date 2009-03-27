@@ -40,9 +40,9 @@ public class TransactionRollback extends MethodOperation {
             return "transaction-rollback";
         }
     }
- 
+
     public static final String module = TransactionRollback.class.getName();
- 
+
     ContextAccessor<Boolean> beganTransactionAcsr;
 
     public TransactionRollback(Element element, SimpleMethod simpleMethod) {
@@ -52,22 +52,22 @@ public class TransactionRollback extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
         boolean beganTransaction = false;
- 
+
         Boolean beganTransactionBoolean = beganTransactionAcsr.get(methodContext);
         if (beganTransactionBoolean != null) {
             beganTransaction = beganTransactionBoolean.booleanValue();
         }
- 
+
         try {
             TransactionUtil.rollback(beganTransaction, "Explicit rollback in simple-method [" + this.simpleMethod.getShortDescription() + "]", null);
         } catch (GenericTransactionException e) {
             Debug.logError(e, "Could not rollback transaction in simple-method, returning error.", module);
- 
+
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [error rolling back a transaction: " + e.getMessage() + "]";
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         }
- 
+
         beganTransactionAcsr.remove(methodContext);
         return true;
     }

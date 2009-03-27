@@ -42,7 +42,7 @@ public class IfCompareField extends MethodOperation {
             return "if-compare-field";
         }
     }
- 
+
     public static final String module = IfCompareField.class.getName();
 
     protected List<MethodOperation> subOps = FastList.newInstance();
@@ -66,7 +66,7 @@ public class IfCompareField extends MethodOperation {
             // NOTE: this is still supported, but is deprecated
             this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         }
- 
+
         // NOTE: this is still supported, but is deprecated
         this.toMapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("to-map-name"));
         // set fieldAcsr to their defualt value of fieldAcsr if empty

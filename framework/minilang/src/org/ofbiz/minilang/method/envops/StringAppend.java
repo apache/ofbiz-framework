@@ -42,9 +42,9 @@ public class StringAppend extends MethodOperation {
             return "string-append";
         }
     }
- 
+
     public static final String module = StringAppend.class.getName();
- 
+
     String string;
     String prefix;
     String suffix;
@@ -57,7 +57,7 @@ public class StringAppend extends MethodOperation {
         string = element.getAttribute("string");
         prefix = element.getAttribute("prefix");
         suffix = element.getAttribute("suffix");
- 
+
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         fieldAcsr = new ContextAccessor<String>(element.getAttribute("field"), element.getAttribute("field-name"));
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
@@ -74,7 +74,7 @@ public class StringAppend extends MethodOperation {
                 toMap = FastMap.newInstance();
                 mapAcsr.put(methodContext, toMap);
             }
- 
+
             String oldValue = (String) fieldAcsr.get(toMap, methodContext);
             fieldAcsr.put(toMap, this.appendString(oldValue, methodContext), methodContext);
         } else {
@@ -84,12 +84,12 @@ public class StringAppend extends MethodOperation {
 
         return true;
     }
- 
+
     public String appendString(String oldValue, MethodContext methodContext) {
         String value = methodContext.expandString(string);
         String prefixValue = methodContext.expandString(prefix);
         String suffixValue = methodContext.expandString(suffix);
- 
+
         if (!argListAcsr.isEmpty()) {
             List<? extends Object> argList = argListAcsr.get(methodContext);
             if (UtilValidate.isNotEmpty(argList)) {
@@ -112,7 +112,7 @@ public class StringAppend extends MethodOperation {
                 newValue.append(oldValue);
             }
         }
- 
+
         return newValue.toString();
     }
 

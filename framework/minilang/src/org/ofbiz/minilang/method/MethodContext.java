@@ -44,7 +44,7 @@ import org.ofbiz.service.LocalDispatcher;
  * A single operation, does the specified operation on the given field
  */
 public class MethodContext implements Iterable<Map.Entry<String, Object>> {
- 
+
     public static final int EVENT = 1;
     public static final int SERVICE = 2;
 
@@ -130,7 +130,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
             this.response = (HttpServletResponse) context.get("response");
             if (this.locale == null) this.locale = UtilHttp.getLocale(request);
             if (this.timeZone == null) this.timeZone = UtilHttp.getTimeZone(request);
- 
+
             //make sure the delegator and other objects are in place, getting from
             // request if necessary; assumes this came through the ControlServlet
             // or something similar
@@ -143,7 +143,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
         } else if (methodType == MethodContext.SERVICE) {
             this.results = FastMap.newInstance();
         }
- 
+
         if (this.loader == null) {
             try {
                 this.loader = Thread.currentThread().getContextClassLoader();
@@ -152,7 +152,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
             }
         }
     }
- 
+
     public void setErrorReturn(String errMsg, SimpleMethod simpleMethod) {
         if (getMethodType() == MethodContext.EVENT) {
             putEnv(simpleMethod.getEventErrorMessageName(), errMsg);
@@ -170,7 +170,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
     public Map<String, Object> getEnvMap() {
         return this.env;
     }
- 
+
     /** Gets the named value from the environment. Supports the "." (dot) syntax to access Map members and the
      * "[]" (bracket) syntax to access List entries. This value is expanded, supporting the insertion of other
      * environment values using the "${}" notation.
@@ -255,7 +255,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
     public ClassLoader getLoader() {
         return this.loader;
     }
- 
+
     public Locale getLocale() {
         return this.locale;
     }
@@ -304,7 +304,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
     public Map<String, Object> getResults() {
         return this.results;
     }
- 
+
     /** Expands environment variables delimited with ${} */
     public String expandString(String original) {
         return FlexibleStringExpander.expandString(original, this.env);

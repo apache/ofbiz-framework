@@ -38,7 +38,7 @@ public class FirstFromList extends MethodOperation {
             return "first-from-list";
         }
     }
- 
+
     public static final String module = FirstFromList.class.getName();
 
     ContextAccessor<Object> entryAcsr;

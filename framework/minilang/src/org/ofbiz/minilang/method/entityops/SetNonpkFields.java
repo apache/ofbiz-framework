@@ -41,9 +41,9 @@ public class SetNonpkFields extends MethodOperation {
             return "set-nonpk-fields";
         }
     }
- 
+
     public static final String module = SetNonpkFields.class.getName();
- 
+
     ContextAccessor<GenericValue> valueAcsr;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     String setIfNullStr;
@@ -58,7 +58,7 @@ public class SetNonpkFields extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         // if anything but false it will be true
         boolean setIfNull = !"false".equals(methodContext.expandString(setIfNullStr));
- 
+
         GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             String errMsg = "In set-nonpk-fields a value was not found with the specified valueAcsr: " + valueAcsr + ", not setting fields";

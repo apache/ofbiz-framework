@@ -79,7 +79,7 @@ public class IfHasPermission extends MethodOperation {
         if (userLogin != null) {
             String permission = methodContext.expandString(permissionExdr);
             String action = methodContext.expandString(actionExdr);
- 
+
             Security security = methodContext.getSecurity();
             if (action != null && action.length() > 0) {
                 // run hasEntityPermission

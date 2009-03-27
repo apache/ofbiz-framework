@@ -26,7 +26,7 @@ import org.ofbiz.minilang.*;
  * A type of MethodString that represents a String constant value
  */
 public class StringString extends MethodString {
- 
+
     String value;
     String cdataValue;
 
@@ -39,10 +39,10 @@ public class StringString extends MethodString {
     public String getString(MethodContext methodContext) {
         String value = methodContext.expandString(this.value);
         String cdataValue = methodContext.expandString(this.cdataValue);
- 
+
         boolean valueExists = UtilValidate.isNotEmpty(value);
         boolean cdataValueExists = UtilValidate.isNotEmpty(cdataValue);
- 
+
         if (valueExists && cdataValueExists) {
             return value + cdataValue;
         } else {

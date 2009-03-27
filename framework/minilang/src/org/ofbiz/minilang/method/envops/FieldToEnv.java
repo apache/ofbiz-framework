@@ -40,9 +40,9 @@ public class FieldToEnv extends MethodOperation {
             return "field-to-env";
         }
     }
- 
+
     public static final String module = FieldToEnv.class.getName();
- 
+
     ContextAccessor<Object> envAcsr;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;

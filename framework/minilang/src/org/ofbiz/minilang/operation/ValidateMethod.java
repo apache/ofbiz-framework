@@ -29,9 +29,9 @@ import org.ofbiz.base.util.*;
  * A string operation that calls a validation method
  */
 public class ValidateMethod extends SimpleMapOperation {
- 
+
     public static final String module = ValidateMethod.class.getName();
- 
+
     String methodName;
     String className;
 

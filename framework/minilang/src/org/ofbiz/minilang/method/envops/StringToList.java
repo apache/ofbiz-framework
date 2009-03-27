@@ -42,9 +42,9 @@ public class StringToList extends MethodOperation {
             return "string-to-list";
         }
     }
- 
+
     public static final String module = StringToList.class.getName();
- 
+
     String string;
     ContextAccessor<List<Object>> listAcsr;
     ContextAccessor<List<? extends Object>> argListAcsr;

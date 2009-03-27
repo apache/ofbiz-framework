@@ -53,9 +53,9 @@ public class SetServiceFields extends MethodOperation {
             return "set-service-fields";
         }
     }
- 
+
     public static final String module = CallService.class.getName();
- 
+
     String serviceName;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Map<String, Object>> toMapAcsr;
@@ -89,7 +89,7 @@ public class SetServiceFields extends MethodOperation {
             toMap = FastMap.newInstance();
             toMapAcsr.put(methodContext, toMap);
         }
- 
+
         LocalDispatcher dispatcher = methodContext.getDispatcher();
         ModelService modelService = null;
         try {
@@ -115,18 +115,18 @@ public class SetServiceFields extends MethodOperation {
                         value = null;
                     }
                 }
- 
+
                 toMap.put(modelParam.name, value);
             }
         }
- 
+
         return true;
     }
 
     public String getServiceName() {
         return this.serviceName;
     }
- 
+
     public String rawString() {
         // TODO: something more than the empty tag
         return "<set-service-fields/>";

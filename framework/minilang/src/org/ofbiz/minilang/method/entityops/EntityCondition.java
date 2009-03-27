@@ -40,9 +40,9 @@ public class EntityCondition extends MethodOperation {
             return "entity-condition";
         }
     }
- 
+
     public static final String module = EntityCondition.class.getName();
- 
+
     protected ByConditionFinder finder;
 
     public EntityCondition(Element element, SimpleMethod simpleMethod) {

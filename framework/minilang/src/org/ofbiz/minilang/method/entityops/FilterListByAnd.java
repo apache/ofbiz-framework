@@ -42,7 +42,7 @@ public class FilterListByAnd extends MethodOperation {
             return "filter-list-by-and";
         }
     }
- 
+
     ContextAccessor<List<GenericEntity>> listAcsr;
     ContextAccessor<List<GenericEntity>> toListAcsr;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
