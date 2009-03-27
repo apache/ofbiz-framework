@@ -56,7 +56,7 @@ public class GoogleBaseSearchEvents {
         String selectResult = (String) request.getParameter("selectResult");
         List productExportList = new ArrayList();
         String errMsg = null;
- 
+
         try {
             boolean beganTransaction = TransactionUtil.begin(DEFAULT_TX_TIMEOUT);
             try {
@@ -69,7 +69,7 @@ public class GoogleBaseSearchEvents {
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
                         return "error";
                     }
- 
+
                     GenericValue searchResultView = null;
                     while ((searchResultView = (GenericValue) eli.next()) != null) {
                         productExportList.add(searchResultView.getString("mainProductId"));
@@ -90,7 +90,7 @@ public class GoogleBaseSearchEvents {
                 String trackingCodeId = (String) request.getParameter("trackingCodeId");
                 String webSiteMountPoint = (String) request.getParameter("webSiteMountPoint");
                 String countryCode = (String) request.getParameter("countryCode");
- 
+
                 // Export all or selected products to Google Base
                 try {
                     Map inMap = UtilMisc.toMap("selectResult", productExportList,
