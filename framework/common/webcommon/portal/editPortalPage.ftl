@@ -23,8 +23,8 @@ under the License.
       <td class="manage-portal-column-toolbar" style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> ${uiLabelMap.CommonWidth}:${portalPageColumn.columnWidthPercentage}%;</#if>">
         <hr/>
         <ul>
-          <li id="delete-column"><a href="<@ofbizUrl>deletePortalPageColumn?portalPageId=${portalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></li>
-          <li id="add-portlet"><a href="<@ofbizUrl>AddPortlet?portalPageId=${portalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonAddAPortlet}</a></li>
+          <li id="delete-column"><form method="post" action="<@ofbizUrl>deletePortalPageColumn</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)" name="delPortalPageId_${portalPageColumn_index}"><input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/><input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/></form><a class="buttontext" href="javascript:document.delPortalPageId_${portalPageColumn_index}.submit()">${uiLabelMap.CommonRemove}</a></li>
+          <li id="add-portlet"><form method="post" action="<@ofbizUrl>AddPortlet</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)" name="addPortlet_${portalPageColumn_index}"><input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/><input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/></form><a class="buttontext" href="javascript:document.addPortlet_${portalPageColumn_index}.submit()">${uiLabelMap.CommonAddAPortlet}</a></li>
           <li id="column-width">
 	        <select name="setColWidth" onchange="window.location=this.value;">
 	          <option value="">${uiLabelMap.CommonSetColumnWidth}</option>
@@ -54,34 +54,37 @@ under the License.
       <#list portalPagePortletViewList as portlet>
         <#if (!portlet.columnSeqId?has_content && portalPageColumn_index == 0) || (portlet.columnSeqId?if_exists == portalPageColumn.columnSeqId)>
           <#if portlet.screenName?has_content>
-              <#assign portletUrlLink = "portalPageId="+portalPage.portalPageId+"&amp;portalPortletId="+portlet.portalPortletId+"&amp;portletSeqId="+portlet.portletSeqId+"&amp;parentPortalPageId="+parameters.parentPortalPageId/>
+              <#assign portletFields = '<input name="portalPageId" value="' + portalPage.portalPageId + '" type="hidden"/>'>
+              <#assign portletFields = portletFields + '<input name="portalPortletId" value="' + portlet.portalPortletId + '" type="hidden"/>'>
+              <#assign portletFields = portletFields + '<input name="portletSeqId" value="' + portlet.portletSeqId  + '" type="hidden"/>'>
+              <#assign portletUrlLink="">
               <div class="portlet-config">
               <div class="portlet-config-title-bar">
                 <ul>
                   <li class="title">Portlet : ${portlet.portletName?if_exists} [${portlet.portalPortletId}]</li>
-                  <li class="remove"><a href="<@ofbizUrl>deletePortalPagePortlet?${portletUrlLink}</@ofbizUrl>" title="${uiLabelMap.CommonRemovePortlet}">&nbsp;&nbsp;&nbsp;</a></li>
+                  <li class="remove"><form method="post" action="<@ofbizUrl>deletePortalPagePortlet</@ofbizUrl>" name="removePP_${portlet_index}">${portletFields}</form><a href="javascript:document.removePP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
 
                   <#if (portlet.editFormName?has_content && portlet.editFormLocation?has_content)>
-                    <li class="edit"><a href="<@ofbizUrl>ManagePortalPages?${portletUrlLink}&editAttributes=Y</@ofbizUrl>" title="${uiLabelMap.CommonEditPortletAttributes}">&nbsp;&nbsp;&nbsp;</a></li>
+                    <li class="edit"><form method="post" action="<@ofbizUrl>ManagePortalPages</@ofbizUrl>" name="editPP_${portlet_index}">${portletFields}<input name="editAttributes" value="Y" type="hidden"/></form><a href="javascript:document.editPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>  
 
                   <#if !firstInColumn>
-                    <li class="move-up"><a href="<@ofbizUrl>updatePortalPagePortletSeq?${portletUrlLink}&amp;mode=UP</@ofbizUrl>" title="${uiLabelMap.CommonMovePortletUp}">&nbsp;&nbsp;&nbsp;</a></li>
+                    <li class="move-up"><form method="post" action="<@ofbizUrl>updatePortalPagePortletSeq</@ofbizUrl>" name="moveUpPP_${portlet_index}">${portletFields}<input name="mode" value="UP" type="hidden"/></form><a href="javascript:document.moveUpPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>  
                   <#if portlet_has_next>
-                    <li class="move-down"><a href="<@ofbizUrl>updatePortalPagePortletSeq?${portletUrlLink}&amp;mode=DOWN</@ofbizUrl>" title="${uiLabelMap.CommonMovePortletDown}">&nbsp;&nbsp;&nbsp;</a></li>
+                    <li class="move-down"><form method="post" action="<@ofbizUrl>updatePortalPagePortletSeq</@ofbizUrl>" name="moveDownPP_${portlet_index}">${portletFields}<input name="mode" value="DOWN" type="hidden"/></form><a href="javascript:document.moveDownPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>  
                   <#if portalPageColumn_has_next>
-                    <li class="move-right"><a href="<@ofbizUrl>updatePortalPagePortlet?${portletUrlLink}&amp;columnSeqId=${portalPageColumnList[portalPageColumn_index+1].columnSeqId}</@ofbizUrl>" title="${uiLabelMap.CommonMovePortletRight}">&nbsp;&nbsp;&nbsp;</a></li>
+                    <li class="move-right"><form method="post" action="<@ofbizUrl>updatePortalPagePortlet</@ofbizUrl>" name="moveRightPP_${portlet_index}">${portletFields}<input name="columnSeqId" value="${portalPageColumnList[portalPageColumn_index+1].columnSeqId}" type="hidden"/><input name="mode" value="RIGHT" type="hidden"/></form><a href="javascript:document.moveRightPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>  
                   <#if (portalPageColumn_index > 0)>
-                    <li class="move-left"><a href="<@ofbizUrl>updatePortalPagePortlet?${portletUrlLink}&amp;columnSeqId=${portalPageColumnList[portalPageColumn_index-1].columnSeqId}</@ofbizUrl>" title="${uiLabelMap.CommonMovePortletLeft}">&nbsp;&nbsp;&nbsp;</a></li>
+                    <li class="move-left"><form method="post" action="<@ofbizUrl>updatePortalPagePortlet</@ofbizUrl>" name="moveLeftPP_${portlet_index}">${portletFields}<input name="columnSeqId" value="${portalPageColumnList[portalPageColumn_index-1].columnSeqId}" type="hidden"/><input name="mode" value="LEFT" type="hidden"/></form><a href="javascript:document.moveLeftPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>  
                   <#if !firstInColumn>
-                    <li class="move-top"><a href="<@ofbizUrl>updatePortalPagePortletSeq?${portletUrlLink}&amp;mode=TOP</@ofbizUrl>" title="${uiLabelMap.CommonMovePortletTop}">&nbsp;&nbsp;&nbsp;</a></li>
+                    <li class="move-top"><form method="post" action="<@ofbizUrl>updatePortalPagePortletSeq</@ofbizUrl>" name="moveTopPP_${portlet_index}">${portletFields}<input name="mode" value="TOP" type="hidden"/></form><a href="javascript:document.moveTopPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>  
                   <#if portlet_has_next>
-                    <li class="move-bottom"><a href="<@ofbizUrl>updatePortalPagePortletSeq?${portletUrlLink}&amp;mode=BOTTOM</@ofbizUrl>" title="${uiLabelMap.CommonMovePortletBottom}">&nbsp;&nbsp;&nbsp;</a></li>
+                    <li class="move-bottom"><form method="post" action="<@ofbizUrl>updatePortalPagePortletSeq</@ofbizUrl>" name="moveBottomPP_${portlet_index}">${portletFields}<input name="mode" value="BOTTOM" type="hidden"/></form><a href="javascript:document.moveBottomPP_${portlet_index}.submit()">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>  
                   <#if (portalPages.size() > 1)>
                     <li>
