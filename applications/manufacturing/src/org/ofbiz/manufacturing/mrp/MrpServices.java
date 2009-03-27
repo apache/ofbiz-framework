@@ -57,15 +57,15 @@ import org.ofbiz.service.ServiceUtil;
  *
  */
 public class MrpServices {
- 
+
     public static final String module = MrpServices.class.getName();
     public static final String resource = "ManufacturingUiLabels";
- 
+
     public static Map initMrpEvents(DispatchContext ctx, Map context) {
         GenericDelegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Timestamp now = UtilDateTime.nowTimestamp();
- 
+
         String facilityId = (String)context.get("facilityId");
         String manufacturingFacilityId = (String)context.get("manufacturingFacilityId");
         Integer defaultYearsOffset = (Integer)context.get("defaultYearsOffset");
@@ -73,7 +73,7 @@ public class MrpServices {
 
         //Erases the old table for the moment and initializes it with the new orders,
         //Does not modify the old one now.
- 
+
         List listResult = null;
         try {
             listResult = delegator.findList("MrpEvent", null, null, null, null, false);
@@ -163,7 +163,7 @@ public class MrpServices {
             BigDecimal shipGroupQuantity = genericResult.getBigDecimal("quantity");
             BigDecimal cancelledQuantity = genericResult.getBigDecimal("cancelQuantity");
             BigDecimal eventQuantityTmp = BigDecimal.ZERO;
- 
+
             if (UtilValidate.isNotEmpty(reservedQuantity)) {
                 eventQuantityTmp = reservedQuantity.negate();
             } else {
@@ -228,7 +228,7 @@ public class MrpServices {
             if (estimatedShipDate == null) {
                 estimatedShipDate = now;
             }
- 
+
             parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId", "PROD_REQ_RECP");
             try {
                 InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("requirementId"), false, delegator);
@@ -236,7 +236,7 @@ public class MrpServices {
                 return ServiceUtil.returnError("Problem initializing the MrpEvent entity (PROD_REQ_RECP)");
             }
         }
- 
+
         // ----------------------------------------
         // Loads all the approved purchase order items
         // ----------------------------------------
@@ -269,7 +269,7 @@ public class MrpServices {
                 }
             }
             String productId =  genericResult.getString("productId");
- 
+
             BigDecimal shipGroupQuantity = genericResult.getBigDecimal("quantity");
             BigDecimal cancelledQuantity = genericResult.getBigDecimal("cancelQuantity");
             if (UtilValidate.isEmpty(shipGroupQuantity)) {
@@ -305,7 +305,7 @@ public class MrpServices {
             if (estimatedShipDate == null) {
                 estimatedShipDate = now;
             }
- 
+
             parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId", "PUR_ORDER_RECP");
             try {
                 InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, shipGroupQuantity, null, genericResult.getString("orderId") + "-" + genericResult.getString("orderItemSeqId"), false, delegator);
@@ -336,7 +336,7 @@ public class MrpServices {
             if (estimatedShipDate == null) {
                 estimatedShipDate = now;
             }
- 
+
             parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId", "MANUF_ORDER_REQ");
             try {
                 String eventName = (UtilValidate.isEmpty(genericResult.getString("workEffortParentId"))? genericResult.getString("workEffortId"): genericResult.getString("workEffortParentId") + "-" + genericResult.getString("workEffortId"));
@@ -345,7 +345,7 @@ public class MrpServices {
                 return ServiceUtil.returnError("Problem initializing the MrpEvent entity (MRP_REQUIREMENT)");
             }
         }
- 
+
         // ----------------------------------------
         // PRODUCTION Run: product produced
         // ----------------------------------------
@@ -383,7 +383,7 @@ public class MrpServices {
             if (estimatedShipDate == null) {
                 estimatedShipDate = now;
             }
- 
+
             parameters = UtilMisc.toMap("mrpId", mrpId, "productId", productId, "eventDate", estimatedShipDate, "mrpEventTypeId", "MANUF_ORDER_RECP");
             try {
                 InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, eventQuantityTmp, null, genericResult.getString("workEffortId"), false, delegator);
@@ -433,7 +433,7 @@ public class MrpServices {
                 return ServiceUtil.returnError("Problem initializing the MrpEvent entity (REQUIRED_MRP)");
             }
         }
- 
+
         // ----------------------------------------
         // SALES FORECASTS
         // ----------------------------------------
@@ -494,7 +494,7 @@ public class MrpServices {
         Debug.logInfo("return from initMrpEvent", module);
         return result;
     }
- 
+
     /**
      * Find the quantity on hand of products for MRP.
      * <li>PreConditions : none</li>
@@ -550,7 +550,7 @@ public class MrpServices {
      *  @param routingTaskStartDate Map with all the routingTask as keys and startDate of each of them
      * @return None
      */
- 
+
     public static void processBomComponent(String mrpId, GenericValue product, BigDecimal eventQuantity, Timestamp startDate, Map routingTaskStartDate, List listComponent) {
         // TODO : change the return type to boolean to be able to test if all is ok or if it have had a exception
         GenericDelegator delegator = product.getDelegator();
@@ -581,7 +581,7 @@ public class MrpServices {
             }
         }
     }
- 
+
     /**
      * Launch the MRP.
      * <li>PreConditions : none</li>
@@ -603,7 +603,7 @@ public class MrpServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Timestamp now = UtilDateTime.nowTimestamp();
- 
+
         String mrpName = (String)context.get("mrpName");
         Integer defaultYearsOffset = (Integer)context.get("defaultYearsOffset");
         String facilityGroupId = (String)context.get("facilityGroupId");
@@ -643,7 +643,7 @@ public class MrpServices {
         if (UtilValidate.isEmpty(facilityId) || UtilValidate.isEmpty(manufacturingFacilityId)) {
             return ServiceUtil.returnError("facilityId and manufacturingFacilityId cannot be null");
         }
- 
+
         int bomLevelWithNoEvent = 0;
         BigDecimal stockTmp = BigDecimal.ZERO;
         String oldProductId = null;
@@ -660,7 +660,7 @@ public class MrpServices {
         List components = null;
         boolean isBuilt = false;
         GenericValue routing = null;
- 
+
         String mrpId = delegator.getNextSeqId("MrpEvent");
 
         Map result = null;
@@ -668,7 +668,7 @@ public class MrpServices {
         List listInventoryEventForMRP = null;
         ListIterator iteratorListInventoryEventForMRP = null;
         GenericValue inventoryEventForMRP = null;
- 
+
         // Initialization of the MrpEvent table, This table will contain the products we want to buy or build.
         parameters = UtilMisc.toMap("mrpId", mrpId, "reInitialize", Boolean.TRUE, "defaultYearsOffset", defaultYearsOffset, "userLogin", userLogin);
         parameters.put("facilityId", facilityId);
@@ -694,11 +694,11 @@ public class MrpServices {
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError("MRP Error retieving MRP event for the bom level: " + bomLevel + ". Error: " + e.getMessage());
             }
- 
+
             if (UtilValidate.isNotEmpty(listInventoryEventForMRP)) {
                 bomLevelWithNoEvent = 0;
                 iteratorListInventoryEventForMRP = listInventoryEventForMRP.listIterator();
- 
+
                 oldProductId = "";
                 while (iteratorListInventoryEventForMRP.hasNext()) {
                     inventoryEventForMRP = (GenericValue) iteratorListInventoryEventForMRP.next();
@@ -754,7 +754,7 @@ public class MrpServices {
 
                         oldProductId = productId;
                     }
- 
+
                     stockTmp = stockTmp.add(eventQuantity);
                     if (stockTmp.compareTo(minimumStock) < 0) {
                         BigDecimal qtyToStock = minimumStock.subtract(stockTmp);
@@ -766,7 +766,7 @@ public class MrpServices {
                         proposedOrder.setMrpName(mrpName);
                         // calculate the ProposedOrder quantity and update the quantity object property.
                         proposedOrder.calculateQuantityToSupply(reorderQuantity, minimumStock, iteratorListInventoryEventForMRP);
- 
+
                         // -----------------------------------------------------
                         // The components are also loaded thru the configurator
                         Map serviceResponse = null;
@@ -793,7 +793,7 @@ public class MrpServices {
                             isBuilt = false;
                         }
                         // #####################################################
- 
+
                         // calculate the ProposedOrder requirementStartDate and update the requirementStartDate object property.
                         Map routingTaskStartDate = proposedOrder.calculateStartDate(daysToShip, routing, delegator, dispatcher, userLogin);
                         if (isBuilt) {
@@ -828,11 +828,11 @@ public class MrpServices {
             } else {
                 bomLevelWithNoEvent += 1;
             }
- 
+
             bomLevel += 1;
             // if there are 3 levels with no inventoryEvenPanned we stop
         } while (bomLevelWithNoEvent < 3);
- 
+
         result =  new HashMap();
         List msgResult = new LinkedList();
         result.put("msgResult",msgResult);

@@ -32,9 +32,9 @@ import org.ofbiz.service.ServiceUtil;
 
 
 public class InventoryEventPlannedServices {
- 
+
     public static final String module = InventoryEventPlannedServices.class.getName();
- 
+
     /**
      *
      *  Create an MrpEvent.
