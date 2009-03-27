@@ -39,7 +39,7 @@ public class Various {
 
 
     public static void setDatesFollowingTasks(GenericValue task) {
- 
+
         try {
             List assocs = task.getRelated("FromWorkEffortAssoc");
             if (UtilValidate.isNotEmpty(assocs)) {
@@ -61,7 +61,7 @@ public class Various {
             Debug.logError("Could not updte task: " + e.getMessage(), module);
         }
     }
- 
+
     public static Timestamp calculateCompletionDate(GenericValue task, Timestamp startDate) {
         Double plannedHours = 0.00;
         try {
@@ -84,7 +84,7 @@ public class Various {
         if (plannedHours == 0.00) {
             plannedHours = new Double("24.00"); // default length of task is 3 days.
         }
- 
+
         // only add days which are not saturday(7) or sunday(1)
         int days = plannedHours.intValue() / 8;
         while (days > 0) {
@@ -96,7 +96,7 @@ public class Various {
         }
         return startDate;
     }
- 
+
     public static double calculateActualHours(GenericDelegator delegator, String timesheetId) {
         List actuals = FastList.newInstance();
         double actualHours = 0.00;
