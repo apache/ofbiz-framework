@@ -39,29 +39,29 @@ public class UtilJavaParse {
 
     public static String findRealPathAndFileForClass(String fullyQualifiedClassName) {
         // search through the component directories, in the src directory for each, using the class path as the path within it
- 
+
         String sourceSubPath = fullyQualifiedClassName.substring(0, fullyQualifiedClassName.lastIndexOf(".")).replace('.', File.separatorChar);
         String classFileName = fullyQualifiedClassName.substring(fullyQualifiedClassName.lastIndexOf(".")+1) + ".java";
- 
+
         Collection<ComponentConfig> allComponentConfigs = ComponentConfig.getAllComponents();
         for (ComponentConfig cc: allComponentConfigs) {
             String rootDirectory = cc.getRootLocation();
             if (!rootDirectory.endsWith(File.separatorChar + "")) rootDirectory += File.separatorChar;
             rootDirectory += "src" + File.separatorChar;
- 
+
             File rootDirFile = new File(rootDirectory);
             if (!rootDirFile.exists()) {
                 // no src directory, move along
                 continue;
             }
- 
+
             String classDir = rootDirectory + sourceSubPath;
             File classDirFile = new File(classDir);
             if (!classDirFile.exists()) {
                 // no src class sub-directory, move along
                 continue;
             }
- 
+
             String fullPathAndFile = classDir + File.separatorChar + classFileName;
             File classFile = new File(fullPathAndFile);
             if (classFile.exists()) {
@@ -69,15 +69,15 @@ public class UtilJavaParse {
                 return fullPathAndFile;
             }
         }
- 
+
         return null;
     }
- 
+
     public static int findServiceMethodBlockStart(String methodName, String javaFile) {
         if (Debug.verboseOn()) Debug.logVerbose("In findServiceMethodBlockStart for " + methodName, module);
- 
+
         // starts with something like this: public static Map exportServiceEoModelBundle(DispatchContext dctx, Map context) {
- 
+
         // start with the main pattern
         int methodNameIndex = javaFile.indexOf("public static Map " + methodName + "(DispatchContext dctx, Map context) {");
         // try a little less... and some nice messy variations...
@@ -86,17 +86,17 @@ public class UtilJavaParse {
         if (methodNameIndex < 0) methodNameIndex = javaFile.indexOf(" Map " + methodName + " (DispatchContext ");
         if (methodNameIndex < 0) methodNameIndex = javaFile.indexOf(" Map " + methodName + "( DispatchContext ");
         if (methodNameIndex < 0) methodNameIndex = javaFile.indexOf(" Map " + methodName + " ( DispatchContext ");
- 
+
         // not found!
         if (methodNameIndex < 0) return -1;
- 
+
         // find the open brace and return its position
         return javaFile.indexOf("{", methodNameIndex);
     }
- 
+
     public static int findEndOfBlock(int blockStart, String javaFile) {
         //Debug.logInfo("In findEndOfBlock for blockStart " + blockStart, module);
- 
+
         int nextOpen = javaFile.indexOf("{", blockStart+1);
         int nextClose = javaFile.indexOf("}", blockStart+1);
         if (nextOpen > 0 && nextClose > 0 && nextClose > nextOpen) {
@@ -112,7 +112,7 @@ public class UtilJavaParse {
             nextClose = javaFile.indexOf("}", endOfSubBlock+1);
             //Debug.logInfo("In loop in findEndOfBlock for nextOpen=" + nextOpen + ", nextClose=" + nextClose + ", endOfSubBlock=" + endOfSubBlock, module);
         }
- 
+
         // at this point there should be no nextOpen or nextOpen is after the nextClose, meaning we're at the end of the block
         return nextClose;
     }
@@ -130,7 +130,7 @@ public class UtilJavaParse {
     }
     public static Set<String> findServiceCallsInBlock(int blockStart, int blockEnd, String javaFile) {
         Set<String> serviceNameSet = FastSet.newInstance();
- 
+
         int dispatcherIndex = javaFile.indexOf("dispatcher.", blockStart+1);
         while (dispatcherIndex > 0 && dispatcherIndex < blockEnd) {
             // verify it is a call we're looking for
@@ -150,7 +150,7 @@ public class UtilJavaParse {
 
             dispatcherIndex = javaFile.indexOf("dispatcher.", openParenIndex);
         }
- 
+
         return serviceNameSet;
     }
 
@@ -162,7 +162,7 @@ public class UtilJavaParse {
         entityMethodNames.add("getGroupHelperName");
         entityMethodNames.add("getEntityHelperName");
         entityMethodNames.add("getEntityHelper");
- 
+
         entityMethodNames.add("makeValue");
         entityMethodNames.add("makeValueSingle");
         entityMethodNames.add("makeValidValue");
@@ -173,7 +173,7 @@ public class UtilJavaParse {
         entityMethodNames.add("createSingle");
         entityMethodNames.add("removeByAnd");
         entityMethodNames.add("removeByCondition");
- 
+
         entityMethodNames.add("create");
         entityMethodNames.add("createSingle");
         entityMethodNames.add("removeByAnd");
@@ -218,10 +218,10 @@ public class UtilJavaParse {
                     entityNameSet.add(entityName);
                 }
             }
- 
+
             delegatorIndex = javaFile.indexOf("delegator.", openParenIndex);
         }
- 
+
         return entityNameSet;
     }
 

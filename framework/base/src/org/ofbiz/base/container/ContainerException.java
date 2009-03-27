@@ -24,7 +24,7 @@ import org.ofbiz.base.config.*;
  * ContainerException
  */
 public class ContainerException extends GenericConfigException {
- 
+
     public ContainerException() {
         super();
     }
@@ -32,7 +32,7 @@ public class ContainerException extends GenericConfigException {
     public ContainerException(String str) {
         super(str);
     }
- 
+
     public ContainerException(Throwable t) {
         super(t);
     }

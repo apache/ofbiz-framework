@@ -25,7 +25,7 @@ import javax.servlet.ServletContext;
  *
  */
 public class UtilJ2eeCompat {
- 
+
     public static final String module = UtilJ2eeCompat.class.getName();
 
     public static final String TOMCAT = "apache tomcat";

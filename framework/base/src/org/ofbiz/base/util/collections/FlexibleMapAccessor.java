@@ -70,7 +70,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
             Debug.logVerbose("FlexibleMapAccessor created, original = " + this.original, module);
         }
     }
- 
+
     /** Returns a FlexibleMapAccessor instance.
      * @param original The original String expression
      * @return A FlexibleMapAccessor instance
@@ -164,7 +164,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
             Debug.logInfo("UEL exception while setting value: " + e + ", original = " + this.original, module);
         }
     }
- 
+
     /** Given the name based information in this accessor, remove the value from the passed in Map.
      * @param base the Map to remove from
      * @return the object removed
@@ -185,7 +185,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
         }
         return object;
     }
- 
+
     protected String getExpression(Map<String, ? extends Object> base) {
         String expression = null;
         if (this.fse != null) {
@@ -202,7 +202,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
         }
         return this.original;
     }
- 
+
     @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -217,7 +217,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
         } catch (Exception e) {}
         return false;
     }
- 
+
     public int hashCode() {
         return this.original == null ? super.hashCode() : this.original.hashCode();
     }

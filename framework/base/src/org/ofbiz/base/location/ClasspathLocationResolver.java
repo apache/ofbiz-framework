@@ -32,7 +32,7 @@ public class ClasspathLocationResolver implements LocationResolver {
     public URL resolveLocation(String location) throws MalformedURLException {
         return resolveLocation(location, null);
     }
- 
+
     public URL resolveLocation(String location, ClassLoader loader) throws MalformedURLException {
         String baseLocation = FlexibleLocation.stripLocationType(location);
         // if there is a leading forward slash, remove it

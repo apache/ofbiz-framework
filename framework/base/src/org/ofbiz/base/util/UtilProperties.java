@@ -77,7 +77,7 @@ public class UtilProperties implements java.io.Serializable {
     protected static Locale fallbackLocale = null;
     protected static Set<Locale> defaultCandidateLocales = null;
     protected static Set<String> propertiesNotFound = FastSet.newInstance();
- 
+
     /** Compares the specified property to the compareString, returns true if they are the same, false otherwise
      * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
      * @param name The name of the property in the properties file
@@ -323,7 +323,7 @@ public class UtilProperties implements java.io.Serializable {
         }
         return value == null ? "" : value.trim();
     }
- 
+
     /** Sets the specified value of the specified property name to the specified resource/properties file
     * @param resource The name of the resource - must be a file
     * @param name The name of the property in the properties file
@@ -361,7 +361,7 @@ public class UtilProperties implements java.io.Serializable {
             +"###############################################################################\n"
             +"#                                                                              \n"
             +"#Dynamically modified by OFBiz Framework (org.ofbiz.base.util : UtilProperties.setPropertyValue)");
- 
+
             propFile.close();
         } catch (FileNotFoundException e) {
             Debug.log(e, "Unable to located the resource file.", module);
@@ -659,7 +659,7 @@ public class UtilProperties implements java.io.Serializable {
         }
         return resourceName;
     }
- 
+
     public static boolean isPropertiesResourceNotFound(String resource, Locale locale, boolean removeExtension) {
         return propertiesNotFound.contains(UtilProperties.createResourceName(resource, locale, removeExtension));
     }
@@ -817,7 +817,7 @@ public class UtilProperties implements java.io.Serializable {
         protected int hashCode = hashCode();
 
         protected UtilResourceBundle() {}
- 
+
         public UtilResourceBundle(Properties properties, Locale locale, UtilResourceBundle parent) {
             this.properties = properties;
             this.locale = locale;
@@ -873,11 +873,11 @@ public class UtilProperties implements java.io.Serializable {
             }
             return bundle;
         }
- 
+
         public int hashCode() {
             return this.hashCode;
         }
- 
+
         public boolean equals(Object obj) {
             return obj == null ? false : obj.hashCode() == this.hashCode;
         }
@@ -885,11 +885,11 @@ public class UtilProperties implements java.io.Serializable {
         public Locale getLocale() {
             return this.locale;
         }
- 
+
         protected Object handleGetObject(String key) {
             return properties.get(key);
         }
- 
+
         public Enumeration<String> getKeys() {
             return new Enumeration<String>() {
                 Iterator i = properties.keySet().iterator();

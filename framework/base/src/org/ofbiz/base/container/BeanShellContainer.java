@@ -42,7 +42,7 @@ public class BeanShellContainer implements Container {
     public void init(String[] args, String configFile) {
         this.configFileLocation = configFile;
     }
- 
+
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */

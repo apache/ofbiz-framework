@@ -38,7 +38,7 @@ public class FileLoader extends ResourceLoader implements java.io.Serializable {
         }
         return fileUrl;
     }
- 
+
     public InputStream loadResource(String location) throws GenericConfigException {
         URL fileUrl = getURL(location);
         try {

@@ -43,7 +43,7 @@ import org.ofbiz.base.util.collections.MapComparator;
 public class UtilMisc {
 
     public static final String module = UtilMisc.class.getName();
- 
+
     public static final BigDecimal ZERO_BD = BigDecimal.ZERO;
 
     /**
@@ -176,7 +176,7 @@ public class UtilMisc {
         }
         return theBuf.toString();
     }
- 
+
     public static <T> List<T> makeListWritable(Collection<? extends T> col) {
         List<T> result = FastList.newInstance();
         if (col != null) result.addAll(col);
@@ -194,7 +194,7 @@ public class UtilMisc {
         if (col != null) result.addAll(col);
         return result;
     }
- 
+
     /**
      * This change a Map to be Serializable by removing all entries with values that are not Serializable.
      *
@@ -216,7 +216,7 @@ public class UtilMisc {
         //if (!(map instanceof Serializable)) {
         //    Debug.logInfo("Parameter Map is not Serializable!", module);
         //}
- 
+
         //for (Map.Entry<String, V> mapEntry: map.entrySet()) {
         //    Debug.logInfo("Entry in Map made serializable: " + mapEntry.getKey() + "=" + mapEntry.getValue(), module);
         //}
@@ -242,7 +242,7 @@ public class UtilMisc {
         }
         return toSort;
     }
- 
+
     /**
      * Assuming outerMap not null; if null will throw a NullPointerException
      */
@@ -266,7 +266,7 @@ public class UtilMisc {
         }
         return innerList;
     }
- 
+
     /**
      * Assuming theMap not null; if null will throw a NullPointerException
      */
@@ -284,7 +284,7 @@ public class UtilMisc {
         } else {
             throw new IllegalArgumentException("In addToBigDecimalInMap found a Map value of a type not supported: " + currentNumberObj.getClass().getName());
         }
- 
+
         if (addNumber == null || ZERO_BD.equals(addNumber)) {
             return currentNumber;
         }
@@ -296,7 +296,7 @@ public class UtilMisc {
     public static <T> T removeFirst(List<T> lst) {
         return lst.remove(0);
     }
- 
+
     public static <T> Set<T> collectionToSet(Collection<T> c) {
         if (c == null) return null;
         Set<T> theSet = null;
@@ -309,7 +309,7 @@ public class UtilMisc {
         }
         return theSet;
     }
- 
+
     /**
      * Create a Set from passed objX parameters
      * @return The resulting Set
@@ -509,7 +509,7 @@ public class UtilMisc {
         }
         return list;
     }
- 
+
     public static <K, V> void addToListInMap(V element, Map<K, Object> theMap, K listKey) {
         List<V> theList = UtilGenerics.checkList(theMap.get(listKey));
         if (theList == null) {
@@ -518,7 +518,7 @@ public class UtilMisc {
         }
         theList.add(element);
     }
- 
+
     public static <K, V> void addToSetInMap(V element, Map<K, Set<V>> theMap, K setKey) {
         Set<V> theSet = UtilGenerics.checkSet(theMap.get(setKey));
         if (theSet == null) {
@@ -527,7 +527,7 @@ public class UtilMisc {
         }
         theSet.add(element);
     }
- 
+
     public static <K, V> void addToSortedSetInMap(V element, Map<K, Set<V>> theMap, K setKey) {
         Set<V> theSet = UtilGenerics.checkSet(theMap.get(setKey));
         if (theSet == null) {
@@ -536,7 +536,7 @@ public class UtilMisc {
         }
         theSet.add(element);
     }
- 
+
     /** Converts an <code>Object</code> to a <code>double</code>. Returns
      * zero if conversion is not possible.
      * @param obj Object to convert
@@ -647,7 +647,7 @@ public class UtilMisc {
             theMap.put(key, value);
         }
     }
- 
+
     /**
      * Parse a locale string Locale object
      * @param localeString The locale string (en_US)
@@ -966,7 +966,7 @@ public class UtilMisc {
             }
         }
     }
- 
+
     public static void staticWait(long timeout) throws InterruptedException {
         new UtilMiscWaiter().safeWait(timeout);
     }

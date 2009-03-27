@@ -32,16 +32,16 @@ import org.ofbiz.base.util.UtilProperties;
  */
 
 public class FlexibleLocation {
- 
+
     protected static Map<String, LocationResolver> locationResolvers = FastMap.newInstance();
- 
+
     protected static Map<String, String> defaultResolvers = FastMap.newInstance();
- 
+
     protected static String standardUrlResolverName = StandardUrlLocationResolver.class.getName();
     protected static String classpathResolverName = ClasspathLocationResolver.class.getName();
     protected static String ofbizHomeResolverName = OFBizHomeLocationResolver.class.getName();
     protected static String componentResolverName = ComponentLocationResolver.class.getName();
- 
+
     static {
         defaultResolvers.put("http", standardUrlResolverName);
         defaultResolvers.put("https", standardUrlResolverName);
@@ -53,7 +53,7 @@ public class FlexibleLocation {
         defaultResolvers.put("ofbizhome", ofbizHomeResolverName);
         defaultResolvers.put("component", componentResolverName);
     }
- 
+
     /**
      * Resolves the gives location into a URL object for use in various ways.
      *
@@ -71,13 +71,13 @@ public class FlexibleLocation {
     public static URL resolveLocation(String location) throws MalformedURLException {
         return resolveLocation(location, null);
     }
- 
+
     public static URL resolveLocation(String location, ClassLoader loader) throws MalformedURLException {
         if (location == null || location.length() == 0) {
             return null;
         }
         String locationType = getLocationType(location);
- 
+
         LocationResolver resolver = locationResolvers.get(locationType);
         if (resolver == null) {
             synchronized (FlexibleLocation.class) {
@@ -115,14 +115,14 @@ public class FlexibleLocation {
                     } catch (SecurityException e) {
                         throw new MalformedURLException("Error loading Location Resolver class \"" + locationResolverName + "\": " + e.toString());
                     }
- 
+
                     if (resolver != null) {
                         locationResolvers.put(locationType, resolver);
                     }
                 }
             }
         }
- 
+
         if (resolver != null) {
             if (loader != null && resolver instanceof ClasspathLocationResolver) {
                 ClasspathLocationResolver cplResolver = (ClasspathLocationResolver) resolver;
@@ -134,7 +134,7 @@ public class FlexibleLocation {
             throw new MalformedURLException("Could not find a LocationResolver for the location type: " + locationType);
         }
     }
- 
+
     /**
      * Find the location type descriptor for the passed location String;
      *   generally is all text before the first ":" character.
@@ -144,7 +144,7 @@ public class FlexibleLocation {
         if (location == null || location.length() == 0) {
             return null;
         }
- 
+
         int colonIndex = location.indexOf(":");
         if (colonIndex > 0) {
             return location.substring(0, colonIndex);
@@ -152,14 +152,14 @@ public class FlexibleLocation {
             return "classpath";
         }
     }
- 
+
     public static String stripLocationType(String location) {
         if (location == null || location.length() == 0) {
             return "";
         }
- 
+
         StringBuffer strippedSoFar = new StringBuffer(location);
- 
+
         // first take care of the colon and everything before it
         int colonIndex = strippedSoFar.indexOf(":");
         if (colonIndex == 0) {
@@ -167,12 +167,12 @@ public class FlexibleLocation {
         } else if (colonIndex > 0) {
             strippedSoFar.delete(0, colonIndex + 1);
         }
- 
+
         // now remove any extra forward slashes, ie as long as the first two are forward slashes remove the first one
         while (strippedSoFar.charAt(0) == '/' && strippedSoFar.charAt(1) == '/') {
             strippedSoFar.deleteCharAt(0);
         }
- 
+
         return strippedSoFar.toString();
     }
 }

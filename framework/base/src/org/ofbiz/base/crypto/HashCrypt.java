@@ -47,7 +47,7 @@ public class HashCrypt {
             messagedigest.update(strBytes);
             byte[] digestBytes = messagedigest.digest();
             char[] digestChars = Hex.encodeHex(digestBytes);
- 
+
             return "{" + hashType + "}" + new String(digestChars, 0, digestChars.length);
         } catch (Exception e) {
             throw new GeneralRuntimeException("Error while computing hash of type " + hashType, e);
@@ -71,23 +71,23 @@ public class HashCrypt {
             throw new GeneralRuntimeException("Error while computing hash of type " + hashType, e);
         }
     }
- 
+
     public static String getHashTypeFromPrefix(String hashString) {
         if (UtilValidate.isEmpty(hashString) || hashString.charAt(0) != '{') {
             return null;
         }
- 
+
         return hashString.substring(1, hashString.indexOf('}'));
     }
- 
+
     public static String removeHashTypePrefix(String hashString) {
         if (UtilValidate.isEmpty(hashString) || hashString.charAt(0) != '{') {
             return hashString;
         }
- 
+
         return hashString.substring(hashString.indexOf('}') + 1);
     }
- 
+
     public static String getDigestHashOldFunnyHexEncode(String str, String hashType) {
         if (UtilValidate.isEmpty(hashType)) hashType = "SHA";
         if (str == null) return null;

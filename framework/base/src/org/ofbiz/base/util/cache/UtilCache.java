@@ -49,7 +49,7 @@ import org.ofbiz.base.util.UtilValidate;
 public class UtilCache<K, V> implements Serializable {
 
     public static final String module = UtilCache.class.getName();
- 
+
     /** A static Map to keep track of all of the UtilCache instances. */
     public static Map<String, UtilCache<?, ?>> utilCacheTable = new WeakHashMap<String, UtilCache<?, ?>>();
 
@@ -76,7 +76,7 @@ public class UtilCache<K, V> implements Serializable {
     protected long removeHitCount = 0;
     /** A count of the number of cache misses on removes */
     protected long removeMissCount = 0;
- 
+
     /** The maximum number of elements in the cache.
      * If set to 0, there will be no limit on the number of elements in the cache.
      */
@@ -97,7 +97,7 @@ public class UtilCache<K, V> implements Serializable {
 
     /** The set of listeners to receive notifcations when items are modidfied(either delibrately or because they were expired). */
     protected Set<CacheListener<K, V>> listeners = FastSet.newInstance();
- 
+
     /** Constructor which specifies the cacheName as well as the maxSize, expireTime and useSoftReference.
      * The passed maxSize, expireTime and useSoftReference will be overridden by values from cache.properties if found.
      * @param maxSize The maxSize member is set to this value
@@ -322,7 +322,7 @@ public class UtilCache<K, V> implements Serializable {
         CacheLine<V> line = cacheLineTable.get(key);
         return line;
     }
- 
+
     protected CacheLine<V> getInternal(Object key, boolean countGet) {
         CacheLine<V> line = getInternalNoCheck(key);
         if (line == null) {
@@ -347,7 +347,7 @@ public class UtilCache<K, V> implements Serializable {
         if (cacheLineTable == null) {
             return null;
         }
- 
+
         List<V> valuesList = FastList.newInstance();
         for (K key: cacheLineTable.keySet()) {
             valuesList.add(this.get(key));
@@ -371,7 +371,7 @@ public class UtilCache<K, V> implements Serializable {
     public V remove(Object key) {
         return this.removeInternal(key, true);
     }
- 
+
     /** This is used for internal remove calls because we only want to count external calls */
     @SuppressWarnings("unchecked")
     protected synchronized V removeInternal(Object key, boolean countRemove) {
@@ -445,11 +445,11 @@ public class UtilCache<K, V> implements Serializable {
     public long getMissCountTotal() {
         return this.missCountSoftRef + this.missCountNotFound + this.missCountExpired;
     }
- 
+
     public long getRemoveHitCount() {
         return this.removeHitCount;
     }
- 
+
     public long getRemoveMissCount() {
         return this.removeMissCount;
     }
@@ -527,7 +527,7 @@ public class UtilCache<K, V> implements Serializable {
     public boolean getUseSoftReference() {
         return this.useSoftReference;
     }
- 
+
     public boolean getUseFileSystemStore() {
         return this.useFileSystemStore;
     }
@@ -552,7 +552,7 @@ public class UtilCache<K, V> implements Serializable {
             return false;
         }
     }
- 
+
     /**
      * NOTE: this returns an unmodifiable copy of the keySet, so removing from here won't have an effect,
      * and calling a remove while iterating through the set will not cause a concurrent modification exception.
@@ -622,14 +622,14 @@ public class UtilCache<K, V> implements Serializable {
             listeners.add(listener);
         }
     }
- 
+
     /** Removes an event listener for key removals */
     public void removeListener(CacheListener<K, V> listener) {
         synchronized (listeners) {
             listeners.remove(listener);
         }
     }
- 
+
     /** Clears all expired cache entries from all caches */
     public static void clearExpiredFromAllCaches() {
         for (Map.Entry<String, UtilCache<?, ?>> entry: utilCacheTable.entrySet()) {
@@ -637,7 +637,7 @@ public class UtilCache<K, V> implements Serializable {
             utilCache.clearExpired();
         }
     }
- 
+
     /** Checks for a non-expired key in a specific cache */
     public static boolean validKey(String cacheName, Object key) {
         UtilCache<?, ?> cache = findCache(cacheName);
@@ -647,7 +647,7 @@ public class UtilCache<K, V> implements Serializable {
         }
         return false;
     }
- 
+
     public static void clearCachesThatStartWith(String startsWith) {
         synchronized (utilCacheTable) {
             for (Map.Entry<String, UtilCache<?, ?>> entry: utilCacheTable.entrySet()) {

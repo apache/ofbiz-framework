@@ -98,14 +98,14 @@ public class UtilURL {
         }
         return url;
     }
- 
+
     public static URL fromUrlString(String urlString) {
         URL url = null;
         try {
             url = new URL(urlString);
         } catch (MalformedURLException e) {
         }
- 
+
         return url;
     }
 
@@ -122,7 +122,7 @@ public class UtilURL {
         newFilename = newFilename + filename;
         return fromFilename(newFilename);
     }
- 
+
     public static String getOfbizHomeRelativeLocation(URL fileUrl) {
         String ofbizHome = System.getProperty("ofbiz.home");
         String path = fileUrl.getPath();
@@ -132,10 +132,10 @@ public class UtilURL {
         }
         return path;
     }
- 
+
     public static String readUrlText(URL url) throws IOException {
         InputStream stream = url.openStream();
- 
+
         StringBuilder buf = new StringBuilder();
         BufferedReader in = null;
         try {
@@ -158,7 +158,7 @@ public class UtilURL {
                 }
             }
         }
- 
+
         return buf.toString();
     }
 }

@@ -297,7 +297,7 @@ public class UtilDateTime {
     public static java.sql.Timestamp getWeekEnd(java.sql.Timestamp stamp) {
         return getWeekEnd(stamp, TimeZone.getDefault(), Locale.getDefault());
     }
- 
+
     public static java.util.Calendar toCalendar(java.sql.Timestamp stamp) {
         Calendar cal = Calendar.getInstance();
         if (stamp != null) {
@@ -619,7 +619,7 @@ public class UtilDateTime {
         calendar.setTime(date);
         return dateFormat.format(date);
     }
- 
+
     /**
      * Makes a date String in the format MM/DD/YYYY from a Date
      *
@@ -703,7 +703,7 @@ public class UtilDateTime {
         return df.format(timestamp);
     }
 
- 
+
     /**
      * Makes a Timestamp for the beginning of the month
      *
@@ -741,23 +741,23 @@ public class UtilDateTime {
         Calendar tempCal = toCalendar(stamp, TimeZone.getDefault(), Locale.getDefault());
         return tempCal.get(Calendar.DAY_OF_WEEK);
     }
- 
+
     public static int weekNumber(Timestamp input, int startOfWeek) {
         Calendar calendar = Calendar.getInstance();
         calendar.setFirstDayOfWeek(startOfWeek);
- 
+
         if (startOfWeek == Calendar.MONDAY) {
            calendar.setMinimalDaysInFirstWeek(4);
         } else if (startOfWeek == Calendar.SUNDAY) {
            calendar.setMinimalDaysInFirstWeek(3);
         }
- 
+
         calendar.setTime(new java.util.Date(input.getTime()));
         return calendar.get(Calendar.WEEK_OF_YEAR);
     }
- 
+
     // ----- New methods that take a timezone and locale -- //
- 
+
     /**
      * Returns a Calendar object initialized to the specified date/time, time zone,
      * and locale.
@@ -855,7 +855,7 @@ public class UtilDateTime {
         retStamp.setNanos(999999999);
         return retStamp;
     }
- 
+
     public static Timestamp getMonthStart(Timestamp stamp, TimeZone timeZone, Locale locale) {
         return getMonthStart(stamp, 0, 0, timeZone, locale);
     }
@@ -953,7 +953,7 @@ public class UtilDateTime {
         }
         return resultList;
     }
- 
+
     /**
      * Returns an initialized DateFormat object.
      *
@@ -1077,7 +1077,7 @@ public class UtilDateTime {
     public static TimeZone getDefaultTimeZone() {
         return TimeZone.getDefault();
     }
- 
+
     /** Returns a TimeZone object based upon a time zone ID. Method defaults to
      * server's time zone if tzID is null or empty.
      * @see java.util.TimeZone

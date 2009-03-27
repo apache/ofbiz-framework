@@ -255,11 +255,11 @@ public class ComponentConfig {
     public static List getAppBarWebInfos(String serverName) {
         return ComponentConfig.getAppBarWebInfos(serverName, null, null);
     }
- 
+
     public static List getAppBarWebInfos(String serverName, String menuName) {
         return ComponentConfig.getAppBarWebInfos(serverName, null, menuName);
     }
- 
+
     public static List<WebappInfo> getAppBarWebInfos(String serverName, Comparator<? super String> comp, String menuName) {
         List<WebappInfo> webInfos = serverWebApps.get(serverName + menuName);
         if (webInfos == null) {
@@ -535,7 +535,7 @@ public class ComponentConfig {
     public List<KeystoreInfo> getKeystoreInfos() {
         return this.keystoreInfos;
     }
- 
+
     public List<WebappInfo> getWebappInfos() {
         return this.webappInfos;
     }
@@ -647,7 +647,7 @@ public class ComponentConfig {
         public String getName() {
             return name;
         }
- 
+
         public String getType() {
             return type;
         }
@@ -713,20 +713,20 @@ public class ComponentConfig {
             if (UtilValidate.isEmpty(this.title)) {
                 this.title = Character.toUpperCase(name.charAt(0)) + name.substring(1).toLowerCase();
             }
- 
+
             if (UtilValidate.isEmpty(this.description)) {
                 this.description = this.title;
             }
- 
+
             String menuNameStr = element.getAttribute("menu-name");
             if (UtilValidate.isNotEmpty(menuNameStr)) {
                 this.menuName = menuNameStr;
             } else {
                 this.menuName = "main";
             }
- 
+
             this.position = element.getAttribute("position");
- 
+
             // default mount point is name if none specified
             if (UtilValidate.isEmpty(this.mountPoint)) {
                 this.mountPoint = this.name;
@@ -784,7 +784,7 @@ public class ComponentConfig {
         public String getTitle() {
             return title;
         }
- 
+
         public String getDescription() {
             return description;
         }
@@ -796,7 +796,7 @@ public class ComponentConfig {
         public Map<String, String> getInitParameters() {
             return initParameters;
         }
- 
+
         public boolean isSessionCookieAccepted() {
             return sessionCookieAccepted;
         }

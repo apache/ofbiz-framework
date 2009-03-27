@@ -148,16 +148,16 @@ public class TimeDuration implements Serializable {
             calStart = (Calendar) cal2.clone();
             calEnd = (Calendar) cal1.clone();
         }
- 
+
         // this will be used to speed up time comparisons
         long targetMillis = calEnd.getTimeInMillis();
         long deltaMillis = targetMillis - calStart.getTimeInMillis();
- 
+
         // shortcut for equal dates
         if (deltaMillis == 0) {
             return;
         }
- 
+
         // compute elapsed years
         long yearMillis = 86400000 * calStart.getMinimum(Calendar.DAY_OF_YEAR);
         float units = deltaMillis / yearMillis;
@@ -189,13 +189,13 @@ public class TimeDuration implements Serializable {
         units = deltaMillis / 1000;
         this.seconds = advanceCalendar(calStart, calEnd, (int) units, Calendar.SECOND);
         deltaMillis = targetMillis - calStart.getTimeInMillis();
- 
+
         this.millis = (int) deltaMillis;
         if (isNegative) {
             makeNegative();
         }
     }
- 
+
     protected int advanceCalendar(Calendar start, Calendar end, int units, int type) {
         if (units >= 1) {
             start.add(type, units);

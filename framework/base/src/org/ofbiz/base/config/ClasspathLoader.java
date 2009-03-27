@@ -36,7 +36,7 @@ public class ClasspathLoader extends ResourceLoader implements java.io.Serializa
         }
         return url;
     }
- 
+
     public InputStream loadResource(String location) throws GenericConfigException {
         URL url = getURL(location);
         try {

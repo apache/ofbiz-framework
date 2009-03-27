@@ -75,7 +75,7 @@ public class UtilPlist {
     public static void writePlistPropertyValueList(List<Object> propertyValueList, int indentLevel, PrintWriter writer) {
         for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
         writer.print("(");
- 
+
         Iterator<Object> propertyValueIter = propertyValueList.iterator();
         while (propertyValueIter.hasNext()) {
             Object propertyValue = propertyValueIter.next();
@@ -87,7 +87,7 @@ public class UtilPlist {
                 if (propertyValueIter.hasNext()) writer.print(", ");
             }
         }
- 
+
         for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
         writer.println(");");
     }
@@ -122,7 +122,7 @@ public class UtilPlist {
     public static void writePlistPropertyValueListXml(List<Object> propertyValueList, int indentLevel, PrintWriter writer) {
         for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
         writer.println("<array>");
- 
+
         indentLevel++;
         Iterator<Object> propertyValueIter = propertyValueList.iterator();
         while (propertyValueIter.hasNext()) {
@@ -138,11 +138,11 @@ public class UtilPlist {
             }
         }
         indentLevel--;
- 
+
         for (int i = 0; i < indentLevel; i++) writer.print(indentFourString);
         writer.println("</array>");
     }
- 
+
     /**
      * Writes model information in the Apple EOModelBundle format.
      *

@@ -33,7 +33,7 @@ public class GenericConfigException extends GeneralException {
     public GenericConfigException(String str) {
         super(str);
     }
- 
+
     public GenericConfigException(Throwable nested) {
         super(nested);
     }

@@ -100,7 +100,7 @@ public class Base64 {
             Base64DecMap[Base64EncMap[idx]] = (byte) idx;
         }
     }
- 
+
     /**
      * This method decodes the given byte[] using the base64-encoding
      * specified in RFC-2045 (Section 6.8).
@@ -141,7 +141,7 @@ public class Base64 {
 
         return dest;
     }
- 
+
     /**
      * This method decodes the given string using the base64-encoding
      * specified in RFC-2045 (Section 6.8).
@@ -153,12 +153,12 @@ public class Base64 {
         if (str == null) {
             return null;
         }
- 
+
         byte data[] = new byte[str.length()];
         data = str.getBytes();
         return new String(base64Decode(data));
     }
- 
+
     /**
      * This method encodes the given byte[] using the base64-encoding
      * specified in RFC-2045 (Section 6.8).
@@ -197,7 +197,7 @@ public class Base64 {
 
         return dest;
     }
- 
+
     /**
      * This method encodes the given string using the base64-encoding
      * specified in RFC-2045 (Section 6.8).

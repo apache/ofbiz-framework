@@ -46,7 +46,7 @@ public class OutputStreamByteCount extends OutputStream {
     public void write(byte[] b, int off, int len) throws IOException {
         byteCount += len;
     }
- 
+
     public long getByteCount() {
         return this.byteCount;
     }

@@ -40,15 +40,15 @@ import org.xml.sax.SAXException;
  *
  */
 public class ComponentLoaderConfig {
- 
+
     public static final String module = ComponentLoaderConfig.class.getName();
     public static final String COMPONENT_LOAD_XML_FILENAME = "component-load.xml";
- 
+
     public static final int SINGLE_COMPONENT = 0;
     public static final int COMPONENT_DIRECTORY = 1;
- 
+
     protected static List<ComponentDef> componentsToLoad = null;
- 
+
     public static List<ComponentDef> getRootComponents(String configFile) throws ComponentException {
         if (componentsToLoad == null) {
             synchronized (ComponentLoaderConfig.class) {
@@ -96,7 +96,7 @@ public class ComponentLoaderConfig {
         public String name;
         public String location;
         public int type = -1;
- 
+
         public ComponentDef(Element element) {
             Properties systemProps = System.getProperties();
             if ("load-component".equals(element.getNodeName())) {

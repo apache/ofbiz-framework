@@ -60,7 +60,7 @@ public class UtilNumber {
         }
         return scale;
     }
- 
+
     /**
      * As above, but use the default properties file
      */
@@ -158,7 +158,7 @@ public class UtilNumber {
         rbnfRuleSets = new HashMap<Locale, String>();
         rbnfRuleSets.put(Locale.US, ruleSet_en_US);
     }
- 
+
     /**
      * Method to format an amount using a custom rule set.
      * Current rule sets available:

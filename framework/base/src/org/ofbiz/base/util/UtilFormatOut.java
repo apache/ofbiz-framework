@@ -30,7 +30,7 @@ import java.util.Locale;
 public class UtilFormatOut {
 
     public static final String module = UtilFormatOut.class.getName();
- 
+
     public static String safeToString(Object obj) {
         if (obj != null) {
             return obj.toString();
@@ -38,7 +38,7 @@ public class UtilFormatOut {
             return "";
         }
     }
- 
+
     // ------------------- price format handlers -------------------
     static DecimalFormat priceDecimalFormat = new DecimalFormat("#,##0.00");
     static DecimalFormat priceNumberFormat = new DecimalFormat("##0.00");
@@ -270,7 +270,7 @@ public class UtilFormatOut {
     public static String formatQuantity(double quantity) {
         return quantityDecimalFormat.format(quantity);
     }
- 
+
     public static String formatPaddedNumber(long number, int numericPadding) {
         StringBuilder outStrBfr = new StringBuilder(Long.toString(number));
         while (numericPadding > outStrBfr.length()) {
@@ -278,7 +278,7 @@ public class UtilFormatOut {
         }
         return outStrBfr.toString();
     }
- 
+
     public static String formatPaddingRemove(String original) {
         if (original == null) return null;
         StringBuilder orgBuf = new StringBuilder(original);
@@ -287,8 +287,8 @@ public class UtilFormatOut {
         }
         return orgBuf.toString();
     }
- 
- 
+
+
     // ------------------- date handlers -------------------
     /** Formats a String timestamp into a nice string
      * @param timestamp String timestamp to be formatted
@@ -517,11 +517,11 @@ public class UtilFormatOut {
     public static String makeSqlSafe(String unsafeString) {
         return unsafeString.replaceAll("'","''");
     }
- 
+
     public static String formatPrintableCreditCard(String original) {
         if (original == null) return null;
         if (original.length() <= 4) return original;
- 
+
         StringBuffer buffer = new StringBuffer();
         for(int i=0; i < original.length()-4 ; i++) {
             buffer.append('*');

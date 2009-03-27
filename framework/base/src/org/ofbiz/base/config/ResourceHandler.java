@@ -29,18 +29,18 @@ import org.w3c.dom.Document;
  *
  */
 public interface ResourceHandler extends Serializable {
- 
+
     public String getLoaderName();
- 
+
     public String getLocation();
- 
+
     public Document getDocument() throws GenericConfigException;
- 
+
     public InputStream getStream() throws GenericConfigException;
- 
+
     public URL getURL() throws GenericConfigException;
- 
+
     public boolean isFileResource() throws GenericConfigException;
- 
+
     public String getFullLocation() throws GenericConfigException;
 }

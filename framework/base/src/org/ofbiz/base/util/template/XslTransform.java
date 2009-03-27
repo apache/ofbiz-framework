@@ -88,14 +88,14 @@ public final class XslTransform {
                     transformer.setParameter(key, val);
                }
             }
- 
+
             DOMResult outputResult = new DOMResult(UtilXml.makeEmptyXmlDocument());
- 
+
             String inputUrl = (String)context.get("inputUrl");
             String inputString = (String)context.get("inputString");
             Document inputDocument = (Document)context.get("inputDocument");
             Source inputSource = getSource(inputDocument, inputUrl, inputString);
- 
+
             transformer.transform(inputSource, outputResult);
             Node nd = outputResult.getNode();
             outputDocument = (Document)nd;
@@ -103,7 +103,7 @@ public final class XslTransform {
 
         return outputDocument;
     }
- 
+
     private static Source getSource(Document inputDocument, String inputUrl, String inputString) throws GeneralException, IOException {
         Source source = null;
         if (inputDocument != null) {

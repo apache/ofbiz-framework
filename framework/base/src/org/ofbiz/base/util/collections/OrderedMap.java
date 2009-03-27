@@ -68,7 +68,7 @@ public class OrderedMap<K, V> extends HashMap<K, V> {
         super.clear();
         orderedKeys.clear();
     }
- 
+
     /**
      * @see java.util.Map#remove(java.lang.Object)
      */
@@ -77,7 +77,7 @@ public class OrderedMap<K, V> extends HashMap<K, V> {
             orderedKeys.remove(key);
         return super.remove(key);
     }
- 
+
     /**
      * @see java.util.Map#values()
      */
@@ -85,7 +85,7 @@ public class OrderedMap<K, V> extends HashMap<K, V> {
         if (orderedKeys.isEmpty()) {
             return null;
         }
- 
+
         List<V> values = FastList.newInstance();
         for (K key: orderedKeys) {
             values.add(this.get(key));

@@ -57,7 +57,7 @@ import org.xml.sax.helpers.DefaultHandler;
 public class UtilXml {
 
     public static final String module = UtilXml.class.getName();
- 
+
     public static String writeXmlDocument(Document document) throws java.io.IOException {
         if (document == null) {
             Debug.logWarning("[UtilXml.writeXmlDocument] Document was null, doing nothing", module);
@@ -154,7 +154,7 @@ public class UtilXml {
         serializer.asDOMSerializer();
         serializer.serialize(element);
     }
- 
+
     public static Document readXmlDocument(String content)
             throws SAXException, ParserConfigurationException, java.io.IOException {
         return readXmlDocument(content, true);
@@ -205,10 +205,10 @@ public class UtilXml {
         }
 
         long startTime = System.currentTimeMillis();
- 
+
         // DON'T do this: seems to be causing problems with Catalina/Tomcat, maybe it is expecting a different parser?
         //System.setProperty("javax.xml.parsers.DocumentBuilderFactory", "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
- 
+
         Document document = null;
 
         /* Xerces DOMParser direct interaction; the other seems to be working better than this, so we'll stay with the standard JAXP stuff
@@ -222,7 +222,7 @@ public class UtilXml {
         parser.parse(new InputSource(is));
         document = parser.getDocument();
         */
- 
+
         /* Standard JAXP (mostly), but doesn't seem to be doing XML Schema validation, so making sure that is on... */
         DocumentBuilderFactory factory = new org.apache.xerces.jaxp.DocumentBuilderFactoryImpl();
         factory.setValidating(validate);
@@ -230,7 +230,7 @@ public class UtilXml {
 
         factory.setAttribute("http://xml.org/sax/features/validation", validate);
         factory.setAttribute("http://apache.org/xml/features/validation/schema", validate);
- 
+
         // with a SchemaUrl, a URL object
         //factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
         //factory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", SchemaUrl);
@@ -243,7 +243,7 @@ public class UtilXml {
             builder.setErrorHandler(eh);
         }
         document = builder.parse(is);
- 
+
         double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
         if (Debug.verboseOn()) Debug.logVerbose("XML Read " + totalSeconds + "s: " + docDescription, module);
         return document;
@@ -268,7 +268,7 @@ public class UtilXml {
         }
 
         if (document == null) return null;
- 
+
         if (rootElementName != null) {
             Element rootElement = document.createElement(rootElementName);
             document.appendChild(rootElement);
@@ -395,9 +395,9 @@ public class UtilXml {
       * if name is null, all child elements will be included. */
     public static List<? extends Node> childNodeList(Node node) {
         if (node == null) return null;
- 
+
         List<Node> nodes = FastList.newInstance();
- 
+
         if (node != null) {
             do {
                 if (node.getNodeType() == Node.ELEMENT_NODE || node.getNodeType() == Node.COMMENT_NODE) {
@@ -535,11 +535,11 @@ public class UtilXml {
         } while ((textNode = textNode.getNextSibling()) != null);
         return valueBuffer.toString();
     }
- 
+
     /** Return the text (node value) of the first node under this */
     public static String nodeValue(Node node) {
         if (node == null) return null;
- 
+
         StringBuilder valueBuffer = new StringBuilder();
         do {
             if (node.getNodeType() == Node.CDATA_SECTION_NODE || node.getNodeType() == Node.TEXT_NODE || node.getNodeType() == Node.COMMENT_NODE) {
@@ -644,13 +644,13 @@ public class UtilXml {
                 } else {
                     filename = systemId.substring(lastSlash + 1);
                 }
- 
+
                 URL resourceUrl = UtilURL.fromResource(filename);
- 
+
                 if (resourceUrl != null) {
                     InputStream resStream = resourceUrl.openStream();
                     InputSource inputSource = new InputSource(resStream);
- 
+
                     if (UtilValidate.isNotEmpty(publicId)) {
                         inputSource.setPublicId(publicId);
                     }
