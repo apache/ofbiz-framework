@@ -44,7 +44,7 @@ import org.ofbiz.security.Security;
  * Web Event for doing updates on Generic Entities
  */
 public class GenericWebEvent {
- 
+
     public static final String module = GenericWebEvent.class.getName();
     public static final String err_resource = "WebtoolsErrorUiLabels";
 
@@ -147,7 +147,7 @@ public class GenericWebEvent {
             request.setAttribute("_ERROR_MESSAGE_", errMsgPk);
             return "error";
         }
- 
+
         // if this is a delete, do that before getting all of the non-pk parameters and validating them
         if (updateMode.equals("DELETE")) {
             // Remove associated/dependent entries from other tables here
@@ -178,7 +178,7 @@ public class GenericWebEvent {
                 Map<String, String> messageMap = UtilMisc.toMap("fieldType", field.getType());
                 errMsgNonPk += UtilProperties.getMessage(GenericWebEvent.err_resource, "genericWebEvent.fatal_error_param", messageMap, locale) + ".";
             }
- 
+
             String fval = request.getParameter(field.getName());
             if (fval != null && fval.length() > 0) {
                 try {
@@ -193,12 +193,12 @@ public class GenericWebEvent {
                 findByEntity.set(field.getName(), null);
             }
         }
- 
+
         if (errMsgNonPk.length() > 0) {
             request.setAttribute("_ERROR_MESSAGE_", errMsgNonPk);
             return "error";
         }
- 
+
 
         // if the updateMode is CREATE, check to see if an entity with the specified primary key already exists
         if (updateMode.equals("CREATE")) {
@@ -317,7 +317,7 @@ public class GenericWebEvent {
         } else {
             Map<String, String> messageMap = UtilMisc.toMap("updateMode", updateMode);
             String errMsg = UtilProperties.getMessage(GenericWebEvent.err_resource, "genericWebEvent.update_of_param_failed", messageMap, locale)+ ".";
- 
+
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             Debug.logWarning("updateGeneric: Update Mode specified (" + updateMode + ") was not valid for entity: " + findByEntity.toString(), module);
             return "error";

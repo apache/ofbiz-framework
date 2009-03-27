@@ -40,20 +40,20 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
 
     protected URL controllerXmlUrl;
     protected String requestUri;
- 
+
     protected ConfigXMLReader.RequestMap requestInfoMap;
- 
+
     protected ServiceArtifactInfo serviceCalledByRequestEvent = null;
     protected Set<ControllerRequestArtifactInfo> requestsThatAreResponsesToThisRequest = new TreeSet<ControllerRequestArtifactInfo>();
     protected Set<ControllerViewArtifactInfo> viewsThatAreResponsesToThisRequest = new TreeSet<ControllerViewArtifactInfo>();
- 
+
     public ControllerRequestArtifactInfo(URL controllerXmlUrl, String requestUri, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
         this.controllerXmlUrl = controllerXmlUrl;
         this.requestUri = requestUri;
- 
+
         this.requestInfoMap = aif.getControllerRequestMap(controllerXmlUrl, requestUri);
- 
+
         if (this.requestInfoMap == null) {
             throw new GeneralException("Controller request with name [" + requestUri + "] is not defined in controller file [" + controllerXmlUrl + "].");
         }
@@ -62,11 +62,11 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
             throw new GeneralException("Could not find Controller Request [" + requestUri + "] at URL [" + controllerXmlUrl.toExternalForm() + "]");
         }
     }
- 
+
     /** note this is mean to be called after the object is created and added to the ArtifactInfoFactory.allControllerRequestInfos in ArtifactInfoFactory.getControllerRequestArtifactInfo */
     public void populateAll() throws GeneralException {
         // populate serviceCalledByRequestEvent, requestsThatAreResponsesToThisRequest, viewsThatAreResponsesToThisRequest and related reverse maps
- 
+
         if (this.requestInfoMap.event != null && "service".equals(this.requestInfoMap.event.type)) {
             String serviceName = (String) this.requestInfoMap.event.invoke;
             try {
@@ -79,7 +79,7 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
                 Debug.logWarning(e.toString(), module);
             }
         }
- 
+
         Map<String, ConfigXMLReader.RequestResponse> requestResponseMap = UtilGenerics.checkMap(this.requestInfoMap.requestResponseMap);
         for (ConfigXMLReader.RequestResponse response: requestResponseMap.values()) {
             if ("view".equals(response.type)) {
@@ -120,15 +120,15 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
             }
         }
     }
- 
+
     public URL getControllerXmlUrl() {
         return this.controllerXmlUrl;
     }
- 
+
     public String getRequestUri() {
         return this.requestUri;
     }
- 
+
     public String getDisplayName() {
         String location = UtilURL.getOfbizHomeRelativeLocation(this.controllerXmlUrl);
         if (location.endsWith("/WEB-INF/controller.xml")) {
@@ -136,23 +136,23 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
         }
         return this.requestUri + " (" + location + ")";
     }
- 
+
     public String getDisplayType() {
         return "Controller Request";
     }
- 
+
     public String getType() {
         return ArtifactInfoFactory.ControllerRequestInfoTypeId;
     }
- 
+
     public String getUniqueId() {
         return this.controllerXmlUrl.toExternalForm() + "#" + this.requestUri;
     }
- 
+
     public URL getLocationURL() throws MalformedURLException {
         return this.controllerXmlUrl;
     }
- 
+
     public boolean equals(Object obj) {
         if (obj instanceof ControllerRequestArtifactInfo) {
             ControllerRequestArtifactInfo that = (ControllerRequestArtifactInfo) obj;
@@ -161,32 +161,32 @@ public class ControllerRequestArtifactInfo extends ArtifactInfoBase {
             return false;
         }
     }
- 
+
     /** Get the Services that are called by this Request */
     public ServiceArtifactInfo getServiceCalledByRequestEvent() {
         return serviceCalledByRequestEvent;
     }
- 
+
     public Set<FormWidgetArtifactInfo> getFormInfosReferringToRequest() {
         return this.aif.allFormInfosReferringToRequest.get(this.getUniqueId());
     }
- 
+
     public Set<FormWidgetArtifactInfo> getFormInfosTargetingRequest() {
         return this.aif.allFormInfosTargetingRequest.get(this.getUniqueId());
     }
- 
+
     public Set<ScreenWidgetArtifactInfo> getScreenInfosReferringToRequest() {
         return this.aif.allScreenInfosReferringToRequest.get(this.getUniqueId());
     }
- 
+
     public Set<ControllerRequestArtifactInfo> getRequestsThatAreResponsesToThisRequest() {
         return this.requestsThatAreResponsesToThisRequest;
     }
- 
+
     public Set<ControllerRequestArtifactInfo> getRequestsThatThisRequestIsResponsTo() {
         return this.aif.allRequestInfosReferringToRequest.get(this.getUniqueId());
     }
- 
+
     public Set<ControllerViewArtifactInfo> getViewsThatAreResponsesToThisRequest() {
         return this.viewsThatAreResponsesToThisRequest;
     }
