@@ -54,7 +54,7 @@ public class PackingServices {
         }
 
         Debug.log("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] Pack input [" + productId + "] @ [" + quantity + "] packageSeq [" + packageSeq + "] weight [" + weight +"]", module);
- 
+
         if (weight == null) {
             Debug.logWarning("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] product [" + productId + "] being packed without a weight, assuming 0", module);
             weight = BigDecimal.ZERO;
@@ -158,7 +158,7 @@ public class PackingServices {
                 } else {
                     quantities = new String[] { qtyStr };
                 }
- 
+
                 // process the weight array
                 if (UtilValidate.isEmpty(wgtStr)) wgtStr = "0";
                 weights = new String[] { wgtStr };
@@ -255,7 +255,7 @@ public class PackingServices {
         String carrierPartyId = (String) context.get("carrierPartyId");
         String carrierRoleTypeId = (String) context.get("carrierRoleTypeId");
         String productStoreId = (String) context.get("productStoreId");
- 
+
         BigDecimal shippableWeight = setSessionPackageWeights(session, packageWeights);
         BigDecimal estimatedShipCost = session.getShipmentCostEstimate(shippingContactMechId, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, productStoreId, null, null, shippableWeight, null);
         session.setAdditionalShippingCharge(estimatedShipCost);
@@ -301,7 +301,7 @@ public class PackingServices {
         } else {
             resp = ServiceUtil.returnSuccess("Shipment #" + shipmentId + " created and marked as PACKED.");
         }
- 
+
         resp.put("shipmentId", shipmentId);
         return resp;
     }

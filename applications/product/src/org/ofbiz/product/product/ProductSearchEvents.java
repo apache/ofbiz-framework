@@ -412,11 +412,11 @@ public class ProductSearchEvents {
                     Map<String, Object> productMap = FastMap.newInstance();
                     String productId = searchResultView.getString("mainProductId");
                     productMap.put("productId", productId);
- 
+
                     List<GenericValue> productFeaturesCustomRaw = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureTypeId", "HAZMAT") );
                     List<GenericValue> productFeaturesCustom = EntityUtil.filterByDate(productFeaturesCustomRaw);
                     productMap.put("productFeatureCustom", EntityUtil.getFirst(productFeaturesCustom));
- 
+
                     List<GenericValue> productCategoriesRaw = delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productId", productId));
                     List<GenericValue> productCategories = EntityUtil.filterByDate(productCategoriesRaw);
                     productMap.put("productCategories", productCategories);

@@ -44,7 +44,7 @@ import org.ofbiz.entity.util.EntityUtil;
  *  Does indexing in preparation for a keyword search.
  */
 public class KeywordIndex {
- 
+
     public static final String module = KeywordIndex.class.getName();
 
     public static void forceIndexKeywords(GenericValue product) throws GenericEntityException {
@@ -58,7 +58,7 @@ public class KeywordIndex {
     public static void indexKeywords(GenericValue product, boolean doAll) throws GenericEntityException {
         if (product == null) return;
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
- 
+
         if (!doAll) {
             if ("N".equals(product.getString("autoCreateKeywords"))) {
                 return;
@@ -72,7 +72,7 @@ public class KeywordIndex {
                 return;
             }
         }
- 
+
         GenericDelegator delegator = product.getDelegator();
         if (delegator == null) return;
         String productId = product.getString("productId");
@@ -83,7 +83,7 @@ public class KeywordIndex {
         String stopWordBagAnd = KeywordSearchUtil.getStopWordBagAnd();
         boolean removeStems = KeywordSearchUtil.getRemoveStems();
         Set<String> stemSet = KeywordSearchUtil.getStemSet();
- 
+
         Map<String, Long> keywords = new TreeMap<String, Long>();
         List<String> strings = FastList.newInstance();
 
@@ -142,7 +142,7 @@ public class KeywordIndex {
                 addWeightedKeywordSourceString(goodIdentification, "idValue", strings);
             }
         }
- 
+
         // Variant Product IDs
         if ("Y".equals(product.getString("isVirtual"))) {
             if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0"))) {
@@ -161,7 +161,7 @@ public class KeywordIndex {
                 }
             }
         }
- 
+
         String productContentTypes = UtilProperties.getPropertyValue("prodsearch", "index.include.ProductContentTypes");
         for (String productContentTypeId: productContentTypes.split(",")) {
             int weight = 1;
@@ -171,11 +171,11 @@ public class KeywordIndex {
             } catch (Exception e) {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
             }
- 
+
             List<GenericValue> productContentAndInfos = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "productContentTypeId", productContentTypeId), null);
             for (GenericValue productContentAndInfo: productContentAndInfos) {
                 addWeightedDataResourceString(productContentAndInfo, weight, strings, delegator, product);
- 
+
                 List<GenericValue> alternateViews = productContentAndInfo.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"));
                 alternateViews = EntityUtil.filterByDate(alternateViews, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
                 for (GenericValue thisView: alternateViews) {
@@ -183,7 +183,7 @@ public class KeywordIndex {
                 }
             }
         }
- 
+
         for (String str: strings) {
             // call process keywords method here
             KeywordSearchUtil.processKeywordsForIndex(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet);
@@ -205,7 +205,7 @@ public class KeywordIndex {
             delegator.storeAll(toBeStored);
         }
     }
- 
+
     public static void addWeightedDataResourceString(GenericValue drView, int weight, List<String> strings, GenericDelegator delegator, GenericValue product) {
         Map<String, GenericValue> drContext = UtilMisc.toMap("product", product);
         try {

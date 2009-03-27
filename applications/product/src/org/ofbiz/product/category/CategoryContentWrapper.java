@@ -49,7 +49,7 @@ import org.ofbiz.service.LocalDispatcher;
  * Category Content Worker: gets category content to display
  */
 public class CategoryContentWrapper implements ContentWrapper {
- 
+
     public static final String module = CategoryContentWrapper.class.getName();
 
     protected LocalDispatcher dispatcher;
@@ -60,25 +60,25 @@ public class CategoryContentWrapper implements ContentWrapper {
     public static CategoryContentWrapper makeCategoryContentWrapper(GenericValue productCategory, HttpServletRequest request) {
         return new CategoryContentWrapper(productCategory, request);
     }
- 
+
     public CategoryContentWrapper(LocalDispatcher dispatcher, GenericValue productCategory, Locale locale, String mimeTypeId) {
         this.dispatcher = dispatcher;
         this.productCategory = productCategory;
         this.locale = locale;
         this.mimeTypeId = mimeTypeId;
     }
- 
+
     public CategoryContentWrapper(GenericValue productCategory, HttpServletRequest request) {
         this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         this.productCategory = productCategory;
         this.locale = UtilHttp.getLocale(request);
         this.mimeTypeId = "text/html";
     }
- 
+
     public StringUtil.StringWrapper get(String prodCatContentTypeId) {
         return StringUtil.makeStringWrapper(getProductCategoryContentAsText(productCategory, prodCatContentTypeId, locale, mimeTypeId, productCategory.getDelegator(), dispatcher));
     }
- 
+
     public static String getProductCategoryContentAsText(GenericValue productCategory, String prodCatContentTypeId, HttpServletRequest request) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         return getProductCategoryContentAsText(productCategory, prodCatContentTypeId, UtilHttp.getLocale(request), "text/html", productCategory.getDelegator(), dispatcher);
@@ -87,7 +87,7 @@ public class CategoryContentWrapper implements ContentWrapper {
     public static String getProductCategoryContentAsText(GenericValue productCategory, String prodCatContentTypeId, Locale locale, LocalDispatcher dispatcher) {
         return getProductCategoryContentAsText(productCategory, prodCatContentTypeId, locale, null, null, dispatcher);
     }
- 
+
     public static String getProductCategoryContentAsText(GenericValue productCategory, String prodCatContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher) {
         String candidateFieldName = ModelUtil.dbNameToVarName(prodCatContentTypeId);
         try {
@@ -107,16 +107,16 @@ public class CategoryContentWrapper implements ContentWrapper {
             return productCategory.getString(candidateFieldName);
         }
     }
- 
+
     public static void getProductCategoryContentAsText(String productCategoryId, GenericValue productCategory, String prodCatContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
         if (productCategoryId == null && productCategory != null) {
             productCategoryId = productCategory.getString("productCategoryId");
         }
- 
+
         if (delegator == null && productCategory != null) {
             delegator = productCategory.getDelegator();
         }
- 
+
         if (UtilValidate.isEmpty(mimeTypeId)) {
             mimeTypeId = "text/html";
         }
@@ -124,7 +124,7 @@ public class CategoryContentWrapper implements ContentWrapper {
         if (delegator == null) {
             throw new GeneralRuntimeException("Unable to find a delegator to use!");
         }
- 
+
         String candidateFieldName = ModelUtil.dbNameToVarName(prodCatContentTypeId);
         ModelEntity categoryModel = delegator.getModelEntity("ProductCategory");
         if (categoryModel.isField(candidateFieldName)) {
@@ -139,7 +139,7 @@ public class CategoryContentWrapper implements ContentWrapper {
                 }
             }
         }
- 
+
         List<GenericValue> categoryContentList = delegator.findByAndCache("ProductCategoryContent", UtilMisc.toMap("productCategoryId", productCategoryId, "prodCatContentTypeId", prodCatContentTypeId), UtilMisc.toList("-fromDate"));
         categoryContentList = EntityUtil.filterByDate(categoryContentList);
         GenericValue categoryContent = EntityUtil.getFirst(categoryContentList);
