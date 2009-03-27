@@ -140,6 +140,14 @@ under the License.
         <response name="success" type="view" value="geoLocation"/>
     </request-map>
     
+    <!-- home/last/current mappings -->
+    <request-map uri="backHome">
+        <response name="success" type="view-home"/>
+    </request-map>
+    <request-map uri="backLast">
+        <response name="success" type="view-last"/>
+    </request-map>
+    
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="main" type="none"/>

@@ -46,7 +46,10 @@ under the License.
 
     <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
 
-    <request-map uri="viewprofile"><security https="true" auth="true"/><response name="success" type="view" value="viewprofile" save-current-view="true"/></request-map>
+    <request-map uri="viewprofile">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="viewprofile" save-home-view="true"/>
+    </request-map>
     <request-map uri="EditPartyRelationships"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyRelationships"/></request-map>
     <request-map uri="viewroles"><security https="true" auth="true"/><response name="success" type="view" value="viewroles"/></request-map>
     <request-map uri="linkparty"><security https="true" auth="true"/><response name="success" type="view" value="linkparty"/></request-map>
@@ -117,7 +120,10 @@ under the License.
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
 
-    <request-map uri="editcontactmech"><security https="true" auth="true"/><response name="success" type="view" value="editcontactmech"/></request-map>
+    <request-map uri="editcontactmech">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="editcontactmech" save-current-view="true"/>
+    </request-map>
     <request-map uri="createContactMech">
         <security https="true" auth="true"/>
         <event type="service" invoke="createPartyContactMech"/>
@@ -133,7 +139,7 @@ under the License.
     <request-map uri="deleteContactMech">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePartyContactMech"/>
-        <response name="success" type="view" value="editcontactmech"/>
+        <response name="success" type="view-home" value="editcontactmech"/>
         <response name="error" type="view" value="editcontactmech"/>
     </request-map>
 

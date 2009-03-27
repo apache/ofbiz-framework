@@ -225,9 +225,9 @@ under the License.
   </table>
   </div>
   <div class="button-bar">
-    <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonGoBack}</a>
+    <a href="<@ofbizUrl>backHome</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonGoBack}</a>
     <a href="javascript:document.editcontactmechform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
   </div>
 <#else>
-  <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonGoBack}</a>
+  <a href="<@ofbizUrl>backHome</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonGoBack}</a>
 </#if>
