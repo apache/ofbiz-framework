@@ -38,9 +38,9 @@ import org.w3c.dom.Element;
 public class JunitSuiteWrapper {
 
     public static final String module = JunitSuiteWrapper.class.getName();
- 
+
     protected List<ModelTestSuite> modelTestSuiteList = FastList.newInstance();
- 
+
     public JunitSuiteWrapper(String componentName, String suiteName, String testCase) {
         for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuiteInfos(componentName)) {
             ResourceHandler testSuiteResource = testSuiteInfo.createResourceHandler();
@@ -90,7 +90,7 @@ public class JunitSuiteWrapper {
 
         return testSuites;
     }
- 
+
     public List<Test> getAllTestList() {
         List<Test> allTestList = FastList.newInstance();
 
@@ -99,7 +99,7 @@ public class JunitSuiteWrapper {
                 allTestList.add(tst);
             }
         }
- 
+
         return allTestList;
     }
 }

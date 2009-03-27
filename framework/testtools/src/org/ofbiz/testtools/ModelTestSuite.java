@@ -42,28 +42,28 @@ import org.w3c.dom.Element;
 public class ModelTestSuite {
 
     public static final String module = ModelTestSuite.class.getName();
- 
+
     protected String suiteName;
     protected String delegatorName;
     protected String dispatcherName;
- 
+
     protected GenericDelegator delegator;
     protected LocalDispatcher dispatcher;
 
     protected List<Test> testList = FastList.newInstance();
- 
+
     public ModelTestSuite(Element mainElement, String testCase) {
         this.suiteName = mainElement.getAttribute("suite-name");
 
         this.delegatorName = mainElement.getAttribute("delegator-name");
         if (UtilValidate.isEmpty(this.delegatorName)) this.delegatorName = "test";
- 
+
         this.dispatcherName = mainElement.getAttribute("dispatcher-name");
         if (UtilValidate.isEmpty(this.dispatcherName)) this.dispatcherName = "test-dispatcher";
- 
+
         this.delegator = GenericDelegator.getGenericDelegator(this.delegatorName);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(this.dispatcherName, delegator);
- 
+
         for (Element testCaseElement : UtilXml.childElementList(mainElement, UtilMisc.toSet("test-case", "test-group"))) {
             String caseName = testCaseElement.getAttribute("case-name");
             String nodeName = testCaseElement.getNodeName();
@@ -118,19 +118,19 @@ public class ModelTestSuite {
         }
 
     }
- 
+
     String getSuiteName() {
         return this.suiteName;
     }
- 
+
     GenericDelegator getDelegator() {
         return this.delegator;
     }
- 
+
     LocalDispatcher getDispatcher() {
         return this.dispatcher;
     }
- 
+
     List<Test> getTestList() {
         return testList;
     }

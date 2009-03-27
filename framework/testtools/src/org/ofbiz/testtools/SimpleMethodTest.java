@@ -57,7 +57,7 @@ public class SimpleMethodTest extends TestCaseBase {
 
     public void run(TestResult result) {
         result.startTest(this);
- 
+
         LocalDispatcher dispatcher = modelTestSuite.getDispatcher();
 
         try {
