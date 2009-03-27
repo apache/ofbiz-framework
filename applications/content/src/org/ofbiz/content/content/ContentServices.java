@@ -150,7 +150,7 @@ public class ContentServices {
             }
         return results;
     }
- 
+
     private static void walkParentTree(Map nodeMap, List parentList) {
         List kids = (List)nodeMap.get("kids");
         if (UtilValidate.isEmpty(kids)) {
@@ -558,7 +558,7 @@ public class ContentServices {
                     return ServiceUtil.returnError("Problem updating content Status: " + e);
                 }
             }
- 
+
             content.setNonPKFields(context);
             content.put("lastModifiedByUserLogin", lastModifiedByUserLogin);
             content.put("lastModifiedDate", lastModifiedDate);
@@ -1037,13 +1037,13 @@ public class ContentServices {
 
         return results;
     }
- 
+
     public static Map<String, Object> publishContent(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
- 
+
         Map result = FastMap.newInstance();
         GenericValue content = (GenericValue)context.get("content");
         GenericValue userLogin = (GenericValue)context.get("userLogin");
- 
+
         try {
             content.put("statusId", "CTNT_PUBLISHED");
             content.store();
@@ -1053,9 +1053,9 @@ public class ContentServices {
         }
         return result;
     }
- 
+
     public static Map<String, Object> getPrefixedMembers(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
- 
+
         Map result = FastMap.newInstance();
         Map mapIn = (Map)context.get("mapIn");
         String prefix = (String)context.get("prefix");
@@ -1076,7 +1076,7 @@ public class ContentServices {
         }
         return result;
     }
- 
+
     public static Map<String, Object> splitString(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map result = FastMap.newInstance();
         List outputList = FastList.newInstance();
@@ -1088,7 +1088,7 @@ public class ContentServices {
         result.put("outputList", outputList);
         return result;
     }
- 
+
     public static Map<String, Object> joinString(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         Map result = FastMap.newInstance();
         String outputString = null;
@@ -1100,9 +1100,9 @@ public class ContentServices {
         result.put("outputString", outputString);
         return result;
     }
- 
+
     public static Map<String, Object> urlEncodeArgs(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
- 
+
         Map result = FastMap.newInstance();
         Map mapFiltered = FastMap.newInstance();
         Map mapIn = (Map)context.get("mapIn");
@@ -1126,5 +1126,5 @@ public class ContentServices {
         }
         return result;
     }
- 
+
 }

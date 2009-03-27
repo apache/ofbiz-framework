@@ -49,10 +49,10 @@ import org.ofbiz.webapp.view.ViewHandlerException;
  * This handler will use JPublish to generate the XSL-FO
  */
 public class SimpleContentViewHandler extends AbstractViewHandler {
- 
+
     public static final String module = SimpleContentViewHandler.class.getName();
     protected ServletContext servletContext = null;
- 
+
     public void init(ServletContext context) throws ViewHandlerException {
         this.servletContext = context;
     }
@@ -60,7 +60,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
      * @see org.ofbiz.webapp.view.ViewHandler#render(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
- 
+
         String contentId = request.getParameter("contentId");
         String rootContentId = request.getParameter("rootContentId");
         String mapKey = request.getParameter("mapKey");
@@ -73,7 +73,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
         String rootDir = null;
         String webSiteId = null;
         String https = null;
- 
+
         if (UtilValidate.isEmpty(rootDir)) {
             rootDir = servletContext.getRealPath("/");
         }

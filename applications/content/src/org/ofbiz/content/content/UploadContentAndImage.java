@@ -73,7 +73,7 @@ public class UploadContentAndImage {
 
     public static String uploadContentAndImage(HttpServletRequest request, HttpServletResponse response) {
 
- 
+
         try {
             Locale locale = UtilHttp.getLocale(request);
             LocalDispatcher dispatcher = (LocalDispatcher)request.getAttribute("dispatcher");
@@ -91,14 +91,14 @@ public class UploadContentAndImage {
                 return "error";
             }
             //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]lst " + lst, module);
- 
+
             if (lst.size() == 0) {
                 String errMsg = UtilProperties.getMessage(UploadContentAndImage.err_resource, "uploadContentAndImage.no_files_uploaded", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 Debug.logWarning("[DataEvents.uploadImage] No files uploaded", module);
                 return "error";
             }
- 
+
             Map passedParams = FastMap.newInstance();
             FileItem fi = null;
             FileItem imageFi = null;
@@ -191,7 +191,7 @@ public class UploadContentAndImage {
 
             if (UtilValidate.isEmpty(ftlContentId))
                 ftlContentId = passedContentId;
- 
+
             String ftlDataResourceId = drid;
 
             if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]ftlContentId:" + ftlContentId, module);
@@ -291,7 +291,7 @@ public class UploadContentAndImage {
                     return "error";
                 }
             }
- 
+
             // Check for existing AUTHOR link
             String userLoginId = userLogin.getString("userLoginId");
             GenericValue authorContent = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", userLoginId));
@@ -340,7 +340,7 @@ public class UploadContentAndImage {
 
     public static String uploadContentStuff(HttpServletRequest request, HttpServletResponse response) {
 
- 
+
         try {
             HttpSession session = request.getSession();
             GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
@@ -356,13 +356,13 @@ public class UploadContentAndImage {
                 return "error";
             }
             //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]lst " + lst, module);
- 
+
             if (lst.size() == 0) {
                 request.setAttribute("_ERROR_MESSAGE_", "No files uploaded");
                 Debug.logWarning("[DataEvents.uploadImage] No files uploaded", module);
                 return "error";
             }
- 
+
             Map passedParams = FastMap.newInstance();
             FileItem fi = null;
             FileItem imageFi = null;
@@ -531,7 +531,7 @@ public class UploadContentAndImage {
             request.setAttribute("caFromDate" + suffix, ftlResults.get("fromDate"));
             request.setAttribute("drDataResourceId" + suffix, ftlResults.get("dataResourceId"));
             request.setAttribute("caContentId" + suffix, ftlResults.get("contentId"));
- 
+
             String caContentIdTo = (String)passedParams.get("caContentIdTo");
             if (UtilValidate.isNotEmpty(caContentIdTo)) {
                 Map resequenceContext = FastMap.newInstance();

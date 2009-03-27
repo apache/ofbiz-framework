@@ -126,7 +126,7 @@ public class DataServices {
                     return ServiceUtil.returnError(e.getMessage());
                 }
             }
- 
+
             try {
                 dataResource.create();
             } catch (GenericEntityException e) {
@@ -160,7 +160,7 @@ public class DataServices {
                     return ServiceUtil.returnError(e.getMessage());
                 }
             }
- 
+
 
         return result;
     }
@@ -311,7 +311,7 @@ public class DataServices {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
             }
- 
+
         result.put("dataResource", dataResource);
         return result;
     }
@@ -344,7 +344,7 @@ public class DataServices {
                     String errMsg = "dataResourceId is null.";
                     Debug.logError(errMsg, module);
                     return ServiceUtil.returnError(errMsg);
- 
+
             }
             String textData = (String) context.get("textData");
             if (Debug.verboseOn()) Debug.logVerbose("in updateElectronicText, textData:" + textData, module);
@@ -419,7 +419,7 @@ public class DataServices {
                 if (file == null) {
                     throw new IOException("File: " + file + " is null");
                 }
- 
+
             // write the data to the file
             if (UtilValidate.isNotEmpty(textData)) {
                 try {

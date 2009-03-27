@@ -136,7 +136,7 @@ public class InjectNodeTrailCsvTransform implements TemplateTransformModel {
                         } else {
                             lastPassedContentId = passedCsv;
                         }
- 
+
                         if (UtilValidate.isNotEmpty(lastPassedContentId)) {
                             if (UtilValidate.isNotEmpty(trail)) {
                                 Map nd = (Map)trail.get(0);

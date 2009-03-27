@@ -43,7 +43,7 @@ import org.ofbiz.service.ServiceUtil;
 public class SearchEvents {
 
     public static final String module = SearchEvents.class.getName();
- 
+
     public static String indexTree(HttpServletRequest request, HttpServletResponse response) {
 
         Map result;

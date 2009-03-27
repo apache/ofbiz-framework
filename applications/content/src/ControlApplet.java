@@ -36,27 +36,27 @@ import java.util.Map;
  * Control Applet - Client applet for page pushing and (future) chat
  */
 public class ControlApplet extends Applet implements Runnable {
- 
+
     private static String pushUrl = "/commonapp/control/pushapplet";
     private static String pullUrl = "/commonapp/control/pullapplet";
- 
+
     protected AppletContext ctx = null;
- 
+
     protected String sessionId = null;
     protected String visitId = null;
     protected String serverUrl = null;
     protected String timeoutUrl = null;
     protected String currentPage = null;
     protected String debug = null;
- 
+
     protected int waitTime = 1500;
     protected int timeout = 300000;
- 
+
     protected boolean isRunning = false;
     protected boolean stopped = true;
- 
+
     protected Thread thread = null;
- 
+
     public void init() {
         ctx = this.getAppletContext();
         this.sessionId = this.getParameter("sessionId");
@@ -65,7 +65,7 @@ public class ControlApplet extends Applet implements Runnable {
         this.timeoutUrl = this.getParameter("timeoutUrl");
         this.currentPage = this.getParameter("currentPage");
         this.debug = this.getParameter("debug");
- 
+
         // see if we override the integer values
         try {
             int waitInt = Integer.parseInt(this.getParameter("waitTime"));
@@ -79,24 +79,24 @@ public class ControlApplet extends Applet implements Runnable {
                 timeout = outInt;
         } catch (NumberFormatException e) {
         }
- 
+
         if (serverUrl != null) {
             boolean sessionOkay = false;
             boolean visitOkay = false;
             boolean pageOkay = false;
- 
+
             if (sessionId != null && sessionId.length() > 0)
                 sessionOkay = true;
             if (visitId != null && visitId.length() > 0)
                 visitOkay = true;
             if (currentPage != null && currentPage.length() > 0)
                 pageOkay = true;
- 
+
             if (sessionOkay && visitOkay && pageOkay) {
                 // tell the host about our current page (mainly for followers)
                 this.push();
             }
- 
+
             // start the polling thread
             this.isRunning = true;
             this.stopped = false;
@@ -105,11 +105,11 @@ public class ControlApplet extends Applet implements Runnable {
             thread.start();
         }
     }
- 
+
     public void destroy() {
         this.stopped = true;
     }
- 
+
     // poll the servlet for page request
     public void run() {
         while (isRunning && !stopped) {
@@ -124,26 +124,26 @@ public class ControlApplet extends Applet implements Runnable {
         if (debug != null && debug.equalsIgnoreCase("true"))
             System.out.println("Polling finished.");
     }
- 
+
     protected void pull() {
         Map params = new HashMap();
         params.put("sessionId", this.sessionId.trim());
         params.put("visitId", this.visitId.trim());
- 
+
         String pullResp = null;
         URL callPullUrl = null;
         try {
             callPullUrl = new URL(serverUrl + pullUrl);
         } catch (MalformedURLException e) {
         }
- 
+
         if (callPullUrl != null) {
             try {
                 pullResp = callServer(callPullUrl, params);
             } catch (IOException e) {
             }
         }
- 
+
         if (pullResp != null && pullResp.length() > 0) {
             URL docUrl = null;
             try {
@@ -154,20 +154,20 @@ public class ControlApplet extends Applet implements Runnable {
                 ctx.showDocument(docUrl, "appletWindow");
         }
     }
- 
+
     protected void push() {
         Map params = new HashMap();
         params.put("sessionId", this.sessionId.trim());
         params.put("visitId", this.visitId.trim());
         params.put("currentPage", this.currentPage.trim());
- 
+
         String pushResp = null;
         URL callPushUrl = null;
         try {
             callPushUrl = new URL(serverUrl + pushUrl);
         } catch (MalformedURLException e) {
         }
- 
+
         if (callPushUrl != null) {
             try {
                 pushResp = callServer(callPushUrl, params);
@@ -175,7 +175,7 @@ public class ControlApplet extends Applet implements Runnable {
             }
         }
     }
- 
+
     private String callServer(URL serverUrl, Map parms) throws IOException {
         // send the request
         String parameters = this.encodeArgs(parms);
@@ -187,7 +187,7 @@ public class ControlApplet extends Applet implements Runnable {
         PrintWriter pw = new PrintWriter(uc.getOutputStream());
         pw.println(parameters);
         pw.close();
- 
+
         // read the response
         BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
         String responseStr = in.readLine();
@@ -198,7 +198,7 @@ public class ControlApplet extends Applet implements Runnable {
             System.out.println("Receive response: " + responseStr);
         return responseStr;
     }
- 
+
     public String encodeArgs(Map args) {
         StringBuffer buf = new StringBuffer();
         if (args != null) {
@@ -214,7 +214,7 @@ public class ControlApplet extends Applet implements Runnable {
                     } else {
                         valueStr = value.toString();
                     }
- 
+
                     if (valueStr != null && valueStr.length() > 0) {
                         if (buf.length() > 0) buf.append('&');
                         try {

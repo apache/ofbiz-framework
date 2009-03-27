@@ -184,9 +184,9 @@ public class RenderContentAsText implements TemplateTransformModel {
                         if ("true".equals(xmlEscape)) {
                             txt = UtilFormatOut.encodeXmlValue(txt);
                         }
- 
+
                         out.write(txt);
- 
+
                         // if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", module);
                     } catch (GeneralException e) {
                         String errMsg = "Error rendering thisContentId:" + thisContentId + " msg:" + e.toString();
@@ -219,7 +219,7 @@ public class RenderContentAsText implements TemplateTransformModel {
                     fullRequest += delim + "contentId=" + contentId;
                     delim = "&";
                 }
- 
+
                 out.write("<a href=\"");
                 ServletContext servletContext = (ServletContext) request.getSession().getServletContext();
                 RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");

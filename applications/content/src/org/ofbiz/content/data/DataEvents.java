@@ -203,7 +203,7 @@ public class DataEvents {
             length = (Long) resourceData.get("length");
         }
         Debug.log("Got resource data stream: " + length + " bytes", module);
- 
+
         // stream the content to the browser
         if (stream != null && length != null) {
             try {
@@ -231,7 +231,7 @@ public class DataEvents {
 
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Map parameters = UtilHttp.getParameterMap(request);
- 
+
         Debug.log("Img UserAgent - " + request.getHeader("User-Agent"), module);
 
         String dataResourceId = (String) parameters.get("imgId");
@@ -253,7 +253,7 @@ public class DataEvents {
                     request.setAttribute("_ERROR_MESSAGE_", errorMsg);
                     return "error";
                 }
- 
+
                 // make sure the logged in user can download this content; otherwise is a pretty big security hole for DataResource records...
                 // TODO: should we restrict the roleTypeId?
                 List contentAndRoleList = delegator.findByAnd("ContentAndRole",
@@ -265,7 +265,7 @@ public class DataEvents {
                     return "error";
                 }
             }
- 
+
             String mimeType = DataResourceWorker.getMimeType(dataResource);
             //if (Debug.infoOn()) Debug.logInfo("in serveImage, imageType:" + imageType, module);
 
@@ -345,8 +345,8 @@ public class DataEvents {
             dataResourceId = (String)result.get("dataResourceId");
             dataResource.set("dataResourceId", dataResourceId);
         }
- 
- 
+
+
         // Save the primary key so that it can be used in a "quick pick" list later
         GenericPK pk = dataResource.getPrimaryKey();
         HttpSession session = request.getSession();

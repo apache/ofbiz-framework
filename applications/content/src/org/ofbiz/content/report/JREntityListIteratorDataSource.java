@@ -32,7 +32,7 @@ import org.ofbiz.entity.util.EntityListIterator;
  * <code>JREntityListIteratorDataSource</code>
  */
 public class JREntityListIteratorDataSource implements JRDataSource {
- 
+
     public static final String module = JREntityListIteratorDataSource.class.getName();
 
     private EntityListIterator entityListIterator = null;

@@ -94,7 +94,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
             contentAssocTypeId = "SUB_CONTENT";
             templateRoot.put("contentAssocTypeId ", contentAssocTypeId);
         }
- 
+
         final Map pickedEntityIds = FastMap.newInstance();
         List assocTypes = StringUtil.split(contentAssocTypeId, "|");
 
@@ -131,7 +131,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         String strNullThruDatesOnly = (String) templateRoot.get("nullThruDatesOnly");
         String orderBy = (String) templateRoot.get("orderBy");
         Boolean nullThruDatesOnly = (strNullThruDatesOnly != null && strNullThruDatesOnly.equalsIgnoreCase("true")) ? Boolean.TRUE : Boolean.FALSE;
- 
+
         // NOTE this was looking for subContentId, but that doesn't make ANY sense, so changed to contentId
         String contentId = (String) templateRoot.get("contentId");
 
@@ -190,7 +190,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                 List subList = list.subList(0, list.size() - 1);
                 templateRoot.put("globalNodeTrail", subList);
                 env.setVariable("globalNodeTrail", FreeMarkerWorker.autoWrap(subList, env));
- 
+
                 //if (Debug.infoOn()) Debug.logInfo("highIndex(2):" + highIndexInteger , "");
                 //if (Debug.infoOn()) Debug.logInfo("in limited, returnLimit(2):" + returnLimit , "");
                 //if (Debug.verboseOn()) Debug.logVerbose("in limited, pickedEntityIds(2):" + pickedEntityIds , "");

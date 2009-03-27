@@ -48,7 +48,7 @@ import freemarker.template.TemplateTransformModel;
 public class EditRenderSubContentTransform implements TemplateTransformModel {
 
     public static final String module = EditRenderSubContentTransform.class.getName();
- 
+
     /**
      * A wrapper for the FreeMarkerWorker version.
      */
@@ -76,7 +76,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
         String subDataResourceTypeIdTemp = getArg(args, "subDataResourceTypeId", ctx);
         final String contentId = getArg(args, "contentId", ctx);
 
- 
+
         final Locale locale = (Locale) FreeMarkerWorker.getWrappedObject("locale", env);
         String mimeTypeIdTemp = getArg(args, "mimeTypeId", ctx);
         final String rootDir = getArg(args, "rootDir", ctx);
@@ -179,9 +179,9 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
                         templateContext.put("webSiteId", webSiteId);
                         templateContext.put("https", https);
                         templateContext.put("rootDir", rootDir);
- 
+
                         Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
- 
+
                         templateRoot.put("wrapDataResourceId", dataResourceId);
                         templateRoot.put("wrapDataResourceTypeId", subDataResourceTypeId);
                         templateRoot.put("wrapContentIdTo", contentId);
@@ -189,7 +189,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
                         templateRoot.put("wrapMimeTypeId", mimeTypeId);
                         templateRoot.put("wrapMapKey", mapKey);
                         templateRoot.put("context", templateContext);
- 
+
                         try {
                             ContentWorker.renderContentAsText(dispatcher, delegator, wrapTemplateId, out, templateRoot, locale, mimeTypeId, false);
                         } catch (IOException e) {
@@ -199,7 +199,7 @@ public class EditRenderSubContentTransform implements TemplateTransformModel {
                             Debug.logError(e2, "Error rendering content" + e2.getMessage(), module);
                             throw new IOException("Error rendering content" + e2.toString());
                         }
- 
+
                         Map ctx = (Map) FreeMarkerWorker.getWrappedObject("context", env);
                         templateContext.put("contentId", contentId);
                         templateContext.put("locale", locale);

@@ -168,7 +168,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
                     if ("true".equals(xmlEscape)) {
                         txt = UtilFormatOut.encodeXmlValue(txt);
                     }
- 
+
                     out.write(txt);
 
                     if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", module);
@@ -187,7 +187,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
             }
 
             public void openEditWrap(Writer out, String editStyle) throws IOException {
- 
+
                 String divStr = "<div class=\"" + editStyle + "\">";
                 out.write(divStr);
             }
@@ -203,7 +203,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
                 String contentAssocTypeId = null;
                 String mapKey = null;
                 String fromDate = null;
- 
+
                 contentIdTo = (String)templateRoot.get("contentId");
                 contentAssocTypeId = (String)templateRoot.get("contentAssocTypeId");
                 mapKey = (String)templateRoot.get("mapKey");
@@ -254,7 +254,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
                     fullRequest += delim + "fromDate=" + fromDate;
                     delim = "&";
                 }
- 
+
                 if (Debug.infoOn()) Debug.logInfo("in Render(2), contentIdTo ." + contentIdTo , module);
                 WidgetWorker.appendOfbizUrl(sb, fullRequest, request, response);
                 String url = sb.toString();

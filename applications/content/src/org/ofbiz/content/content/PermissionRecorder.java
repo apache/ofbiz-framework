@@ -255,7 +255,7 @@ public class PermissionRecorder {
             //if (Debug.infoOn()) Debug.logInfo("renderCCMapHtml, (1):" + rMap, module);
             sb.append(renderResultRowHtml(rMap, cMap));
         }
- 
+
         return sb.toString();
     }
 

@@ -102,7 +102,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
         //final GenericValue userLogin = (GenericValue) FreeMarkerWorker.getWrappedObject("userLogin", env);
         GenericValue view = (GenericValue) FreeMarkerWorker.getWrappedObject("subContentDataResourceView", env);
         final Integer indent = (templateCtx.get("indent") == null) ? Integer.valueOf(0) : (Integer)templateCtx.get("indent");
- 
+
         String contentId = (String)templateCtx.get("contentId");
         String subContentId = (String)templateCtx.get("subContentId");
         if (view == null) {
@@ -111,7 +111,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 thisContentId = contentId;
 
             if (UtilValidate.isNotEmpty(thisContentId)) {
- 
+
                 try {
                     view = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", thisContentId));
                 } catch (GenericEntityException e) {
@@ -229,9 +229,9 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                 String wrapTemplateId = (String)templateCtx.get("wrapTemplateId");
                 if (UtilValidate.isNotEmpty(wrapTemplateId)) {
                     templateCtx.put("wrappedFTL", wrappedFTL);
- 
+
                     Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
- 
+
 /*
                     templateRoot.put("viewSize", viewSize);
                     templateRoot.put("viewIndex", viewIndex);
@@ -243,7 +243,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
                     templateRoot.put("wrapContentIdTo", contentId);
                     templateRoot.put("wrapMimeTypeId", mimeTypeId);
                     //templateRoot.put("wrapMapKey", mapKey);
- 
+
 */
                     templateRoot.put("context", templateCtx);
                     String mimeTypeId = (String) templateCtx.get("mimeTypeId");
@@ -277,7 +277,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
             }
 
             private boolean checkWhen (GenericValue thisContent, String contentAssocTypeId) {
- 
+
                 boolean isPick = false;
                 Map assocContext = FastMap.newInstance();
                 if (UtilValidate.isEmpty(contentAssocTypeId))

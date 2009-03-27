@@ -177,7 +177,7 @@ public class SurveyWrapper {
         } else {
             currentAnswers = this.getResponseAnswers(null);
         }
- 
+
         Map sqaaWithColIdListByMultiRespId = FastMap.newInstance();
         Iterator surveyQuestionAndApplIter = surveyQuestionAndAppls.iterator();
         while (surveyQuestionAndApplIter.hasNext()) {
@@ -260,7 +260,7 @@ public class SurveyWrapper {
         if (this.edit) {
             return true;
         }
- 
+
         GenericValue survey = this.getSurvey();
         if (!"Y".equals(survey.getString("allowMultiple")) || !"Y".equals(survey.getString("allowUpdate"))) {
             return false;
@@ -404,7 +404,7 @@ public class SurveyWrapper {
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
- 
+
             EntityListIterator eli = this.getEli(question);
             if (startIndex > 0 && number > 0) {
                 resp = eli.getPartialList(startIndex, number);
@@ -537,14 +537,14 @@ public class SurveyWrapper {
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
- 
+
             long[] result = { 0, 0, 0 };
             // index 0 = total responses
             // index 1 = total yes
             // index 2 = total no
- 
+
             EntityListIterator eli = this.getEli(question);
- 
+
             if (eli != null) {
                 GenericValue value;
                 while (((value = (GenericValue) eli.next()) != null)) {
@@ -555,10 +555,10 @@ public class SurveyWrapper {
                     }
                     result[0]++; // increment the count
                 }
- 
+
                 eli.close();
             }
- 
+
             return result;
         } catch (GenericEntityException e) {
             try {
@@ -589,9 +589,9 @@ public class SurveyWrapper {
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
- 
+
             EntityListIterator eli = this.getEli(question);
- 
+
             if (eli != null) {
                 GenericValue value;
                 while (((value = (GenericValue) eli.next()) != null)) {
@@ -617,7 +617,7 @@ public class SurveyWrapper {
                     }
                     result[0]++; // increment the count
                 }
- 
+
                 eli.close();
             }
         } catch (GenericEntityException e) {
@@ -678,7 +678,7 @@ public class SurveyWrapper {
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
- 
+
             EntityListIterator eli = this.getEli(question);
             if (eli != null) {
                 GenericValue value;
@@ -695,7 +695,7 @@ public class SurveyWrapper {
                         total++; // increment the count
                     }
                 }
- 
+
                 eli.close();
             }
         } catch (GenericEntityException e) {
