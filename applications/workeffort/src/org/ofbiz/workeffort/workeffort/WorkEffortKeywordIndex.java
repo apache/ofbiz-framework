@@ -45,7 +45,7 @@ public class WorkEffortKeywordIndex {
     public static final String module = WorkEffortKeywordIndex.class.getName();
     public static void indexKeywords(GenericValue workEffort) throws GenericEntityException {
         if (workEffort == null) return;
- 
+
         GenericDelegator delegator = workEffort.getDelegator();
         if (delegator == null) return;
         String workEffortId = workEffort.getString("workEffortId");
@@ -54,7 +54,7 @@ public class WorkEffortKeywordIndex {
         String stopWordBagAnd = KeywordSearchUtil.getStopWordBagAnd();
         boolean removeStems = KeywordSearchUtil.getRemoveStems();
         Set<String> stemSet = KeywordSearchUtil.getStemSet();
- 
+
         Map<String, Long> keywords = new TreeMap<String, Long>();
         List<String> strings = FastList.newInstance();
         int widWeight = 1;
@@ -64,11 +64,11 @@ public class WorkEffortKeywordIndex {
             Debug.logWarning("Could not parse weight number: " + e.toString(), module);
         }
         keywords.put(workEffort.getString("workEffortId").toLowerCase(), Long.valueOf(widWeight));
- 
+
         addWeightedKeywordSourceString(workEffort, "workEffortName", strings);
         addWeightedKeywordSourceString(workEffort, "workEffortTypeId", strings);
         addWeightedKeywordSourceString(workEffort, "currentStatusId", strings);
- 
+
         if (!"0".equals(UtilProperties.getPropertyValue("workeffortsearch", "index.weight.WorkEffortNoteAndData.noteInfo", "1"))) {
             Iterator workEffortNotes = UtilMisc.toIterator(delegator.findByAnd("WorkEffortNoteAndData", UtilMisc.toMap("workEffortId", workEffortId)));
             while (workEffortNotes != null && workEffortNotes.hasNext()) {
@@ -86,7 +86,7 @@ public class WorkEffortKeywordIndex {
                 addWeightedKeywordSourceString(workEffortAttribute, "attrValue", strings);
             }
         }
- 
+
         String workEffortContentTypes = UtilProperties.getPropertyValue("workeffortsearch", "index.include.WorkEffortContentTypes");
         for (String workEffortContentTypeId: workEffortContentTypes.split(",")) {
             int weight = 1;
@@ -95,7 +95,7 @@ public class WorkEffortKeywordIndex {
             } catch (Exception e) {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
             }
- 
+
             List<GenericValue> workEffortContentAndInfos = delegator.findByAnd("WorkEffortContentAndInfo", UtilMisc.toMap("workEffortId", workEffortId, "workEffortContentTypeId", workEffortContentTypeId), null);
             for (GenericValue workEffortContentAndInfo: workEffortContentAndInfos) {
                 addWeightedDataResourceString(workEffortContentAndInfo, weight, strings, delegator, workEffort);
@@ -120,7 +120,7 @@ public class WorkEffortKeywordIndex {
             if (Debug.verboseOn()) Debug.logVerbose("WorkEffortKeywordIndex indexKeywords Storing " + toBeStored.size() + " keywords for workEffortId " + workEffort.getString("workEffortId"), module);
             delegator.storeAll(toBeStored);
         }
- 
+
     }
 
     public static void addWeightedDataResourceString(GenericValue dataResource, int weight, List<String> strings, GenericDelegator delegator, GenericValue workEffort) {

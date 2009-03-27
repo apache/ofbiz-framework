@@ -39,7 +39,7 @@ import org.ofbiz.entity.condition.EntityOperator;
  * WorkEffortWorker - Worker class to reduce code in JSPs & make it more reusable
  */
 public class ProjectWorker {
- 
+
     public static final String module = ProjectWorker.class.getName();
 
     /** @deprecated */

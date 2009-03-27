@@ -46,9 +46,9 @@ import org.ofbiz.service.ModelService;
 
 /** WorkEffortWorker - Work Effort worker class. */
 public class WorkEffortWorker {
- 
+
     public static final String module = WorkEffortWorker.class.getName();
- 
+
     /** @deprecated */
     public static void getWorkEffort(PageContext pageContext, String workEffortIdAttrName, String workEffortAttrName, String partyAssignsAttrName,
         String canViewAttrName, String tryEntityAttrName, String currentStatusAttrName) {
@@ -161,7 +161,7 @@ public class WorkEffortWorker {
             pageContext.setAttribute(attribute, aC);
         }
     }
- 
+
     public static List<GenericValue> getLowestLevelWorkEfforts(GenericDelegator delegator, String workEffortId, String workEffortAssocTypeId) {
         List<GenericValue> workEfforts = FastList.newInstance();
         try {

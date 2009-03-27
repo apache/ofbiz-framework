@@ -79,13 +79,13 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
     // ----- TemporalExpressionVisitor Implementation ----- //
 
     public void visit(Null expr) {}
- 
+
     public void visit(Union expr) {
         for (TemporalExpression childExpr : expr.getExpressionSet()) {
             childExpr.accept(this);
         }
     }
- 
+
     public void visit(Intersection expr) {
         this.stateStack.push(this.state);
         VisitorState newState = new VisitorState();
@@ -118,7 +118,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
             this.state.exRecurList.addAll(newState.exRecurList);
         }
     }
- 
+
     public void visit(TemporalExpressions.DateRange expr) {
         if (this.state.isExcluded) {
             throw new IllegalStateException("iCalendar does not support excluded date ranges");
@@ -128,7 +128,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         periodList.add(new Period(new DateTime(range.start()), new DateTime(range.end())));
         this.incDateList.add(new RDate(periodList));
     }
- 
+
     @SuppressWarnings("unchecked")
     public void visit(TimeOfDayRange expr) {
         // TODO: this needs a better conversion
@@ -147,7 +147,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         recur.getHourList().addAll(hourList);
         this.state.addRecur(recur);
     }
- 
+
     @SuppressWarnings("unchecked")
     public void visit(TemporalExpressions.DayOfWeekRange expr) {
         int startDay = expr.getStartDay();
@@ -165,7 +165,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         recur.getDayList().addAll(dayList);
         this.state.addRecur(recur);
     }
- 
+
     @SuppressWarnings("unchecked")
     public void visit(TemporalExpressions.MonthRange expr) {
         int startMonth = expr.getStartMonth();
@@ -185,7 +185,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         recur.getMonthList().addAll(monthList);
         this.state.addRecur(recur);
     }
- 
+
     @SuppressWarnings("unchecked")
     public void visit(TemporalExpressions.DayOfMonthRange expr) {
         int startDay = expr.getStartDay();
@@ -200,13 +200,13 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         recur.getMonthDayList().addAll(dayList);
         this.state.addRecur(recur);
     }
- 
+
     public void visit(TemporalExpressions.DayInMonth expr) {
         Recur recur = new Recur(Recur.MONTHLY, 0);
         recur.getDayList().add(new WeekDay(dayOfWeekArray[expr.getDayOfWeek() - 1], expr.getOccurrence()));
         this.state.addRecur(recur);
     }
- 
+
     public void visit(TemporalExpressions.Frequency expr) {
         if (this.dateStart == null) {
             this.dateStart = new DtStart(new net.fortuna.ical4j.model.Date(expr.getStartDate()));
@@ -228,7 +228,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
             this.state.addRecur((new Recur(Recur.YEARLY, freqCount)));
         }
     }
- 
+
     @SuppressWarnings("unchecked")
     protected Recur consolidateRecurs(List<Recur> recurList) {
         // Try to consolidate a list of Recur instances into one instance
@@ -268,7 +268,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         newRecur.getHourList().addAll(hourList);
         return newRecur;
     }
- 
+
     protected class VisitorState {
         public boolean isExcluded = false;
         public boolean isIntersection = false;

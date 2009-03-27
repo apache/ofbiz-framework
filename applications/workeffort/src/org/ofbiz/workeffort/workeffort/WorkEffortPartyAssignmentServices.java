@@ -34,7 +34,7 @@ import org.ofbiz.service.ModelService;
  * WorkEffortPartyAssignmentServices - Services to handle form input and other data changes.
  */
 public class WorkEffortPartyAssignmentServices {
- 
+
     public static final String module = WorkEffortPartyAssignmentServices.class.getName();
 
     public static void updateWorkflowEngine(GenericValue wepa, GenericValue userLogin, LocalDispatcher dispatcher) {
