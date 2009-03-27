@@ -48,11 +48,11 @@ import org.ofbiz.service.ServiceUtil;
 public class OrderTestServices {
 
     public static final String module = OrderTestServices.class.getName();
- 
+
     public static Map createTestSalesOrders(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Integer numberOfOrders = (Integer) context.get("numberOfOrders");
- 
+
         int numberOfOrdersInt = numberOfOrders.intValue();
         for (int i = 1; i <= numberOfOrdersInt; i++) {
             try {
@@ -65,13 +65,13 @@ public class OrderTestServices {
         }
         return ServiceUtil.returnSuccess();
     }
- 
+
     public static Map createTestSalesOrderSingle(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
- 
+
         String productCategoryId = (String) context.get("productCategoryId");
         String productStoreId = (String) context.get("productStoreId");
         String currencyUomId = (String) context.get("currencyUomId");
@@ -82,9 +82,9 @@ public class OrderTestServices {
         if (UtilValidate.isEmpty(salesChannel)) {
             salesChannel = "WEB_SALES_CHANNEL";
         }
- 
+
         int numberOfProductsPerOrderInt = numberOfProductsPerOrder.intValue();
- 
+
         List productsList = FastList.newInstance();
         try {
             Map result = dispatcher.runSync("getProductCategoryMembers", UtilMisc.toMap("categoryId", productCategoryId));
@@ -108,7 +108,7 @@ public class OrderTestServices {
         }
 
         Random r = new Random();
- 
+
         ShoppingCart cart = new ShoppingCart(delegator, productStoreId, locale, currencyUomId);
         cart.setOrderType("SALES_ORDER");
         cart.setChannelType(salesChannel);
@@ -145,7 +145,7 @@ public class OrderTestServices {
             boolean approved = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId);
             Debug.logInfo("Test order with id: " + orderId + " has been approved: " + approved, module);
         }
- 
+
         return ServiceUtil.returnSuccess();
     }
 }

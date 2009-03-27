@@ -399,7 +399,7 @@ public class CheckOutHelper {
 
             // set the shipping address
             errorMessages.addAll(setCheckOutShippingAddressInternal(shippingContactMechId));
- 
+
             // Recalc shipping costs before setting payment
             Map shipEstimateMap = ShippingEvents.getShipGroupEstimate(dispatcher, delegator, cart, 0);
             BigDecimal shippingTotal = (BigDecimal) shipEstimateMap.get("shippingTotal");
@@ -483,7 +483,7 @@ public class CheckOutHelper {
                     gcFieldsOkay = false;
                 }
             }
- 
+
             if (UtilValidate.isNotEmpty(selectedPaymentMethods)) {
                 if (gcAmt == null || gcAmt.length() == 0) {
                     errMsg = UtilProperties.getMessage(resource_error,"checkhelper.enter_amount_to_place_on_gift_card", (cart != null ? cart.getLocale() : Locale.getDefault()));
@@ -644,7 +644,7 @@ public class CheckOutHelper {
                         inputMap.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
                         inputMap.put("quantity", orderItem.getBigDecimal("quantity"));
                         inputMap.put("userLogin", permUserLogin);
- 
+
                         Map prunResult = dispatcher.runSync("createProductionRunFromConfiguration", inputMap);
                         if (ServiceUtil.isError(prunResult)) {
                             Debug.logError(ServiceUtil.getErrorMessage(prunResult) + " for input:" + inputMap, module);
@@ -794,22 +794,22 @@ public class CheckOutHelper {
         List shipAmt = new ArrayList(totalItems);
 
         // Debug.logInfo("====== makeTaxContext passed in shipAddress=" + shipAddress, module);
- 
+
         Iterator it = csi.shipItemInfo.keySet().iterator();
         for (int i = 0; i < totalItems; i++) {
             ShoppingCartItem cartItem = (ShoppingCartItem) it.next();
             ShoppingCart.CartShipInfo.CartShipItemInfo itemInfo = csi.getShipItemInfo(cartItem);
- 
+
             //Debug.logInfo("In makeTaxContext for item [" + i + "] in ship group [" + shipGroup + "] got cartItem: " + cartItem, module);
             //Debug.logInfo("In makeTaxContext for item [" + i + "] in ship group [" + shipGroup + "] got itemInfo: " + itemInfo, module);
- 
+
             product.add(i, cartItem.getProduct());
             amount.add(i, cartItem.getItemSubTotal(itemInfo.quantity));
             price.add(i, cartItem.getBasePrice());
             shipAmt.add(i, BigDecimal.ZERO); // no per item shipping yet
             shoppingCartItemIndexMap.put(Integer.valueOf(i), cartItem);
         }
- 
+
         //add promotion adjustments
         List allAdjustments = cart.getAdjustments();
         BigDecimal orderPromoAmt = OrderReadHelper.calcOrderPromoAdjustmentsBd(allAdjustments);
@@ -1055,7 +1055,7 @@ public class CheckOutHelper {
             if (UtilValidate.isNotEmpty(cashCodPcBaPaymentPreferences) &&
                     UtilValidate.isNotEmpty(allPaymentPreferences) &&
                     cashCodPcBaPaymentPreferences.size() == allPaymentPreferences.size()) {
- 
+
                 //if there are Check type, approve the order only if it is face to face
                 List checkPareferences = EntityUtil.filterByAnd(cashCodPcBaPaymentPreferences, UtilMisc.toMap("paymentMethodTypeId", "PERSONAL_CHECK"));
                 if (UtilValidate.isNotEmpty(checkPareferences)) {
@@ -1191,7 +1191,7 @@ public class CheckOutHelper {
         String errMsg=null;
         String REJECT_MESSAGE = productStore.getString("authFraudMessage");
         String orderId = this.cart.getOrderId();
- 
+
         try {
             if (userLogin != null) {
                 // nuke the userlogin

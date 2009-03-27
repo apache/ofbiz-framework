@@ -209,7 +209,7 @@ public class ShoppingCartServices {
         if (orderName != null) {
             cart.setOrderName(orderName);
         }
- 
+
         // set the role information
         GenericValue placingParty = orh.getPlacingParty();
         if (placingParty != null) {
@@ -328,12 +328,12 @@ public class ShoppingCartServices {
                 if (quantity == null) {
                     quantity = BigDecimal.ZERO;
                 }
- 
+
                 BigDecimal unitPrice = null;
                 if ("Y".equals(item.getString("isModifiedPrice"))) {
                     unitPrice = item.getBigDecimal("unitPrice");
                 }
- 
+
                 int itemIndex = -1;
                 if (item.get("productId") == null) {
                     // non-product item
@@ -350,14 +350,14 @@ public class ShoppingCartServices {
                     // product item
                     String prodCatalogId = item.getString("prodCatalogId");
                     String productId = item.getString("productId");
- 
+
                     //prepare the rental data
                     Timestamp reservStart = null;
                     BigDecimal reservLength = null;
                     BigDecimal reservPersons = null;
                     String accommodationMapId = null;
                     String accommodationSpotId = null;
- 
+
                     GenericValue workEffort = null;
                     String workEffortId = orh.getCurrentOrderItemWorkEffort(item);
                     if (workEffortId != null) {
@@ -373,9 +373,9 @@ public class ShoppingCartServices {
                         reservPersons = workEffort.getBigDecimal("reservPersons");
                         accommodationMapId = workEffort.getString("accommodationMapId");
                         accommodationSpotId = workEffort.getString("accommodationSpotId");
- 
+
                     }    //end of rental data
- 
+
                     //check for AGGREGATED products
                     ProductConfigWrapper configWrapper = null;
                     String configId = null;
@@ -424,7 +424,7 @@ public class ShoppingCartServices {
                 cartItem.setShoppingList(item.getString("shoppingListId"), item.getString("shoppingListItemSeqId"));
                 cartItem.setIsModifiedPrice("Y".equals(item.getString("isModifiedPrice")));
                 cartItem.setName(item.getString("itemDescription"));
- 
+
                 // load order item attributes
                 List<GenericValue> orderItemAttributesList = null;
                 try {
@@ -459,7 +459,7 @@ public class ShoppingCartServices {
 
                 // set the PO number on the cart
                 cart.setPoNumber(item.getString("correspondingPoId"));
- 
+
                 List<GenericValue> itemAdjustments = orh.getOrderItemAdjustments(item);
                 if (itemAdjustments != null) {
                     for(GenericValue itemAdjustment : itemAdjustments) {
@@ -520,7 +520,7 @@ public class ShoppingCartServices {
                     itemIndex ++;
                 }
             }
- 
+
             // set the item seq in the cart
             if (nextItemSeq > 0) {
                 try {
@@ -538,12 +538,12 @@ public class ShoppingCartServices {
             // The cart adjustments are added to the cart
             cart.getAdjustments().addAll(adjustments);
         }
- 
+
         Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("shoppingCart", cart);
         return result;
     }
- 
+
     public static Map<String, Object> loadCartFromQuote(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
@@ -554,7 +554,7 @@ public class ShoppingCartServices {
         Locale locale = (Locale) context.get("locale");
 
         boolean applyQuoteAdjustments = applyQuoteAdjustmentsString == null || "true".equals(applyQuoteAdjustmentsString);
- 
+
         // get the quote header
         GenericValue quote = null;
         try {
@@ -585,7 +585,7 @@ public class ShoppingCartServices {
         cart.setQuoteId(quoteId);
         cart.setOrderName(quote.getString("quoteName"));
         cart.setChannelType(quote.getString("salesChannelEnumId"));
- 
+
         List<GenericValue>quoteItems = null;
         List<GenericValue>quoteAdjs = null;
         List<GenericValue>quoteRoles = null;
@@ -705,14 +705,14 @@ public class ShoppingCartServices {
                     // pass to the cart the quoteUnitPrice/amount value.
                     quoteUnitPrice = quoteUnitPrice.divide(amount, generalRounding);
                 }
- 
+
                 //rental product data
                 Timestamp reservStart = quoteItem.getTimestamp("reservStart");
                 BigDecimal reservLength = quoteItem.getBigDecimal("reservLength");
                 BigDecimal reservPersons = quoteItem.getBigDecimal("reservPersons");
                 //String accommodationMapId = quoteItem.getString("accommodationMapId");
                 //String accommodationSpotId = quoteItem.getString("accommodationSpotId");
- 
+
                 int itemIndex = -1;
                 if (quoteItem.get("productId") == null) {
                     // non-product item
@@ -733,7 +733,7 @@ public class ShoppingCartServices {
                     }
                     try {
                             itemIndex = cart.addItemToEnd(productId, amount, quantity, quoteUnitPrice, reservStart, reservLength, reservPersons,null,null, null, null, null, configWrapper, null, dispatcher, new Boolean(!applyQuoteAdjustments), new Boolean(quoteUnitPrice.compareTo(BigDecimal.ZERO) == 0), Boolean.FALSE, Boolean.FALSE);
- 
+
                     } catch (ItemNotFoundException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
@@ -918,7 +918,7 @@ public class ShoppingCartServices {
         result.put("shoppingCart", cart);
         return result;
     }
- 
+
     public static Map<String, Object>getShoppingCartData(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         Locale locale = (Locale) context.get("locale");
@@ -950,7 +950,7 @@ public class ShoppingCartServices {
         }
         return result;
     }
- 
+
     public static Map<String, Object>getShoppingCartItemIndex(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         ShoppingCart shoppingCart = (ShoppingCart) context.get("shoppingCart");
@@ -966,7 +966,7 @@ public class ShoppingCartServices {
         }
         return result;
     }
- 
+
     public static Map<String, Object>resetShipGroupItems(DispatchContext dctx, Map<String, Object> context) {
         Map<String, Object> result = ServiceUtil.returnSuccess();
         ShoppingCart cart = (ShoppingCart) context.get("shoppingCart");
@@ -978,7 +978,7 @@ public class ShoppingCartServices {
         }
         return result;
     }
- 
+
     public static Map<String, Object>prepareVendorShipGroups(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
@@ -1008,7 +1008,7 @@ public class ShoppingCartServices {
             } catch (GenericEntityException e) {
                 Debug.logError(e.toString(), module);
             }
- 
+
             if (UtilValidate.isEmpty(vendorProduct)) {
                 if (vendorMap.containsKey("_NA_")) {
                     index = ((Integer) vendorMap.get("_NA_")).intValue();
@@ -1016,7 +1016,7 @@ public class ShoppingCartServices {
                 } else {
                     index = cart.addShipInfo();
                     vendorMap.put("_NA_", index);
- 
+
                     ShoppingCart.CartShipInfo info = cart.getShipInfo(index);
                     info.setVendorPartyId("_NA_");
                     info.setShipGroupSeqId(UtilFormatOut.formatPaddedNumber(index, 5));
@@ -1031,7 +1031,7 @@ public class ShoppingCartServices {
                 } else {
                     index = cart.addShipInfo();
                     vendorMap.put(vendorPartyId, index);
- 
+
                     ShoppingCart.CartShipInfo info = cart.getShipInfo(index);
                     info.setVendorPartyId(vendorPartyId);
                     info.setShipGroupSeqId(UtilFormatOut.formatPaddedNumber(index, 5));

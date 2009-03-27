@@ -91,7 +91,7 @@ public class ShoppingCartEvents {
         }
         return "success";
     }
- 
+
     public static String addItemGroup(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = getCartObject(request);
         Map parameters = UtilHttp.getParameterMap(request);
@@ -101,7 +101,7 @@ public class ShoppingCartEvents {
         request.setAttribute("itemGroupNumber", groupNumber);
         return "success";
     }
- 
+
     public static String addCartItemToGroup(HttpServletRequest request, HttpServletResponse response) {
         ShoppingCart cart = getCartObject(request);
         Map parameters = UtilHttp.getParameterMap(request);
@@ -112,7 +112,7 @@ public class ShoppingCartEvents {
         cartItem.setItemGroup(itemGroupNumber, cart);
         return "success";
     }
- 
+
     /** Event to add an item to the shopping cart. */
     public static String addToCart(HttpServletRequest request, HttpServletResponse response) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
@@ -185,7 +185,7 @@ public class ShoppingCartEvents {
         if (productCategoryId != null && productCategoryId.length() == 0) {
             productCategoryId = null;
         }
- 
+
         if (paramMap.containsKey("ADD_ITEM_TYPE")) {
             itemType = (String) paramMap.remove("ADD_ITEM_TYPE");
         } else if (paramMap.containsKey("add_item_type")) {
@@ -244,8 +244,8 @@ public class ShoppingCartEvents {
                 ProductConfigWorker.storeProductConfigWrapper(configWrapper, delegator);
             }
         }
- 
- 
+
+
         //Check for virtual products
         if (ProductWorker.isVirtual(delegator, productId)) {
 
@@ -259,14 +259,14 @@ public class ShoppingCartEvents {
                         selectedFeatures.add(request.getParameterValues(paramName)[0]);
                     }
                 }
- 
+
                 // check if features are selected
                 if (UtilValidate.isEmpty(selectedFeatures)) {
                     request.setAttribute("product_id", productId);
                     request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource_error,"cart.addToCart.chooseVariationBeforeAddingToCart",locale));
                     return "product";
                 }
- 
+
                 String variantProductId = ProductWorker.getVariantFromFeatureTree(productId, selectedFeatures, delegator);
                 if (UtilValidate.isNotEmpty(variantProductId)) {
                     productId = variantProductId;
@@ -282,7 +282,7 @@ public class ShoppingCartEvents {
                 return "product";
             }
         }
- 
+
         // get the override price
         if (paramMap.containsKey("PRICE")) {
             priceStr = (String) paramMap.remove("PRICE");
@@ -360,7 +360,7 @@ public class ShoppingCartEvents {
                     return "error";
                 }
             }
- 
+
             //check for valid rental parameters
             if (UtilValidate.isEmpty(reservStart) && UtilValidate.isEmpty(reservLength) && UtilValidate.isEmpty(reservPersons)) {
                 request.setAttribute("product_id", productId);
@@ -419,14 +419,14 @@ public class ShoppingCartEvents {
                 amount = null;
             }
         }
- 
+
         // check for required amount
         if ((ProductWorker.isAmountRequired(delegator, productId)) && (amount == null || amount.doubleValue() == 0.0)) {
             request.setAttribute("product_id", productId);
             request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource_error,"cart.addToCart.enterAmountBeforeAddingToCart",locale));
             return "product";
         }
- 
+
         // get the ship before date (handles both yyyy-mm-dd input and full timestamp)
         shipBeforeDateStr = (String) paramMap.remove("shipBeforeDate");
         if (shipBeforeDateStr != null && shipBeforeDateStr.length() > 0) {
@@ -484,7 +484,7 @@ public class ShoppingCartEvents {
         if (surveyResponses != null) {
             paramMap.put("surveyResponses", surveyResponses);
         }
- 
+
         GenericValue productStore = ProductStoreWorker.getProductStore(request);
         String addToCartRemoveIncompat = productStore.getString("addToCartRemoveIncompat");
         String addToCartReplaceUpsell = productStore.getString("addToCartReplaceUpsell");
@@ -544,7 +544,7 @@ public class ShoppingCartEvents {
         } catch (GenericEntityException e) {
             Debug.logError(e.getMessage(), module);
         }
- 
+
         // Translate the parameters and add to the cart
         result = cartHelper.addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId, productCategoryId,
                 itemType, itemDescription, price, amount, quantity, reservStart, reservLength, reservPersons,
@@ -642,7 +642,7 @@ public class ShoppingCartEvents {
         }
 
         cart.setOrderType("PURCHASE_ORDER");
- 
+
         session.setAttribute("shoppingCart", cart);
         session.setAttribute("productStoreId", cart.getProductStoreId());
         session.setAttribute("orderMode", cart.getOrderType());
@@ -784,13 +784,13 @@ public class ShoppingCartEvents {
             // here we want to do a full logout, but not using the normal logout stuff because it saves things in the UserLogin record that we don't want changed for the anonymous user
             session.invalidate();
             session = request.getSession(true);
- 
+
             // to allow the display of the order confirmation page put the userLogin in the request, but leave it out of the session
             request.setAttribute("temporaryAnonymousUserLogin", userLogin);
- 
+
             Debug.logInfo("Doing clearCart for anonymous user, so logging out but put anonymous userLogin in temporaryAnonymousUserLogin request attribute", module);
         }
- 
+
         return "success";
     }
 
@@ -1128,7 +1128,7 @@ public class ShoppingCartEvents {
         }
         return "success";
     }
- 
+
     /**
      * set the order name of the cart based on request.  right now will always return "success"
      *
@@ -1292,7 +1292,7 @@ public class ShoppingCartEvents {
                                                 UtilMisc.<String, Object>toMap("orderId", quoteId,
                                                         "skipProductChecks", Boolean.TRUE, // the products have already been checked in the order, no need to check their validity again
                                                         "userLogin", userLogin));
- 
+
             cart = (ShoppingCart) outMap.get("shoppingCart");
         } catch (GenericServiceException exc) {
             request.setAttribute("_ERROR_MESSAGE_", exc.getMessage());
@@ -1451,7 +1451,7 @@ public class ShoppingCartEvents {
         // set party info
         String partyId = request.getParameter("supplierPartyId");
         cart.setAttribute("supplierPartyId", partyId);
- 
+
         if (!UtilValidate.isEmpty(request.getParameter("partyId"))) {
             partyId = request.getParameter("partyId");
         }
@@ -1702,10 +1702,10 @@ public class ShoppingCartEvents {
 
         // set the order name
         cart.setOrderName(orderName);
- 
+
         // set the corresponding purchase order id
         cart.setPoNumber(correspondingPoId);
- 
+
         // set the default ship before and after dates if supplied
         try {
             if (UtilValidate.isNotEmpty(shipBeforeDateStr)) {
@@ -1726,9 +1726,9 @@ public class ShoppingCartEvents {
         }
         return "success";
     }
- 
+
     public static String getConfigDetailsEvent(HttpServletRequest request, HttpServletResponse response) {
- 
+
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         String productId = request.getParameter("product_id");
         String currencyUomId = ShoppingCartEvents.getCartObject(request).getCurrency();
@@ -1743,11 +1743,11 @@ public class ShoppingCartEvents {
             ProductConfigWorker.storeProductConfigWrapper(configWrapper, delegator);
             request.setAttribute("configId", configWrapper.getConfigId());
         }
- 
+
         request.setAttribute("totalPrice", org.ofbiz.base.util.UtilFormatOut.formatCurrency(configWrapper.getTotalPrice(), currencyUomId, UtilHttp.getLocale(request)));
         return "success";
     }
- 
+
     public static String bulkAddProductsInApprovedOrder(HttpServletRequest request, HttpServletResponse response) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -1761,7 +1761,7 @@ public class ShoppingCartEvents {
         String itemDescription = "";
         String orderId = null;
         String shipGroupSeqId = null;
- 
+
         Map paramMap = UtilHttp.getParameterMap(request);
         String itemGroupNumber = request.getParameter("itemGroupNumber");
         int rowCount = UtilHttp.getMultiFormRowCount(paramMap);

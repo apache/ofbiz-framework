@@ -61,7 +61,7 @@ import org.ofbiz.service.ServiceUtil;
  * Shopping cart events.
  */
 public class ShoppingListEvents {
- 
+
     public static final String module = ShoppingListEvents.class.getName();
     public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
@@ -97,7 +97,7 @@ public class ShoppingListEvents {
             errMsg = UtilProperties.getMessage(resource_error, "shoppinglistevents.select_items_to_add_to_list", cart.getLocale());
             throw new IllegalArgumentException(errMsg);
         }
- 
+
         if (UtilValidate.isEmpty(shoppingListId)) {
             // create a new shopping list
             Map newListResult = null;
@@ -118,7 +118,7 @@ public class ShoppingListEvents {
             if (newListResult != null) {
                 shoppingListId = (String) newListResult.get("shoppingListId");
             }
- 
+
             // if no list was created throw an error
             if (shoppingListId == null || shoppingListId.equals("")) {
                 errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.shoppingListId_is_required_parameter", cart.getLocale());
@@ -132,7 +132,7 @@ public class ShoppingListEvents {
                 throw new IllegalArgumentException("Could not clear current shopping list: " + e.toString());
             }
         }
- 
+
         for (int i = 0; i < items.length; i++) {
             Integer cartIdInt = null;
             try {
@@ -169,11 +169,11 @@ public class ShoppingListEvents {
                 }
             }
         }
- 
+
         // return the shoppinglist id
         return shoppingListId;
     }
- 
+
     public static String addListToCart(HttpServletRequest request, HttpServletResponse response) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
@@ -206,7 +206,7 @@ public class ShoppingListEvents {
             errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.choose_shopping_list", cart.getLocale());
             throw new IllegalArgumentException(errMsg);
         }
- 
+
         // get the shopping list
         GenericValue shoppingList = null;
         List shoppingListItems = null;
@@ -238,7 +238,7 @@ public class ShoppingListEvents {
             errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.error_getting_shopping_list_and_items", cart.getLocale());
             throw new IllegalArgumentException(errMsg);
         }
- 
+
         // no items; not an error; just mention that nothing was added
         if (shoppingListItems == null || shoppingListItems.size() == 0) {
             errMsg = UtilProperties.getMessage(resource_error,"shoppinglistevents.no_items_added", cart.getLocale());
@@ -281,13 +281,13 @@ public class ShoppingListEvents {
                 if (shoppingListSurveyInfo.containsKey(listId + "." + itemId)) {
                     attributes.put("surveyResponses", shoppingListSurveyInfo.get(listId + "." + itemId));
                 }
- 
+
                 ProductConfigWrapper configWrapper = null;
                 if (UtilValidate.isNotEmpty(configId)) {
                     configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, productId, cart.getProductStoreId(), prodCatalogId, cart.getWebSiteId(), cart.getCurrency(), cart.getLocale(), cart.getAutoUserLogin());
                 }
                 // TODO: add code to check for survey response requirement
- 
+
                 // i cannot get the addOrDecrease function to accept a null reservStart field: i get a null pointer exception a null constant works....
                 if (reservStart == null) {
                        cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, attributes, prodCatalogId, configWrapper, null, null, null, dispatcher);
@@ -309,11 +309,11 @@ public class ShoppingListEvents {
                 eventMessage.append(errMsg + "\n");
             }
         }
- 
+
         if (eventMessage.length() > 0) {
             return eventMessage.toString();
         }
- 
+
         // all done
         return ""; // no message to return; will simply reply as success
     }
@@ -325,14 +325,14 @@ public class ShoppingListEvents {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         Locale locale = UtilHttp.getLocale(request);
- 
+
         BigDecimal quantity = null;
         try {
             quantity = new BigDecimal(quantityStr);
         } catch (Exception e) {
             // do nothing, just won't pass to service if it is null
         }
- 
+
         Map serviceInMap = new HashMap();
         serviceInMap.put("shoppingListId", request.getParameter("shoppingListId"));
         serviceInMap.put("shoppingListItemSeqId", request.getParameter("shoppingListItemSeqId"));
@@ -349,7 +349,7 @@ public class ShoppingListEvents {
             Debug.logError(e, errorMsg, module);
             return "error";
         }
- 
+
         ServiceUtil.getMessages(request, result, "", "", "", "", "", "", "");
         if ("error".equals(result.get(ModelService.RESPONSE_MESSAGE))) {
             return "error";
@@ -357,7 +357,7 @@ public class ShoppingListEvents {
             return "success";
         }
     }
- 
+
     /**
      * Finds or creates a specialized (auto-save) shopping list used to record shopping bag contents between user visits.
      */
@@ -417,16 +417,16 @@ public class ShoppingListEvents {
     public static String saveCartToAutoSaveList(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
- 
+
         try {
             fillAutoSaveList(cart, dispatcher);
         } catch (GeneralException e) {
             Debug.logError(e, "Error saving the cart to the auto-save list: " + e.toString(), module);
         }
- 
+
         return "success";
     }
- 
+
     /**
      * Restores the specialized (auto-save) shopping list back into the shopping cart
      */

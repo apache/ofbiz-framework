@@ -44,7 +44,7 @@ public class ProductStoreCartAwareEvents {
     public static String setSessionProductStore(HttpServletRequest request, HttpServletResponse response) {
         Map parameters = UtilHttp.getParameterMap(request);
         String productStoreId = (String) parameters.get("productStoreId");
- 
+
         try {
             ProductStoreCartAwareEvents.setSessionProductStore(productStoreId, request);
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class ProductStoreCartAwareEvents {
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
- 
+
         return "success";
     }
 
@@ -61,23 +61,23 @@ public class ProductStoreCartAwareEvents {
         if (productStoreId == null) {
             return;
         }
- 
+
         HttpSession session = request.getSession();
         String oldProductStoreId = (String) session.getAttribute("productStoreId");
- 
+
         if (productStoreId.equals(oldProductStoreId)) {
             // great, nothing to do, bye bye
             return;
         }
- 
+
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
- 
+
         // get the ProductStore record, make sure it's valid
         GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
         if (productStore == null) {
             throw new IllegalArgumentException("Cannot set session ProductStore, passed productStoreId [" + productStoreId + "] is not valid/not found.");
         }
- 
+
         // make sure ProductStore change is allowed for the WebSite
         GenericValue webSite = WebSiteWorker.getWebSite(request);
         if (productStore == null) {
@@ -87,22 +87,22 @@ public class ProductStoreCartAwareEvents {
         if (!"Y".equals(allowProductStoreChange)) {
             throw new IllegalArgumentException("Cannot set session ProductStore, changing ProductStore not allowed for WebSite [" + webSite.getString("webSite") + "].");
         }
- 
+
         // set the productStoreId in the session (we know is different by this point)
         session.setAttribute("productStoreId", productStoreId);
- 
+
         // have set the new store, now need to clear out the current catalog so the default for the new store will be used
         session.removeAttribute("CURRENT_CATALOG_ID");
- 
+
         // if there is no locale or currencyUom in the session, set the defaults from the store, but don't do so through the CommonEvents methods setSessionLocale and setSessionCurrencyUom because we don't want these to be put on the UserLogin entity
         // note that this is different from the normal default setting process because these will now override the settings on the UserLogin; this is desired when changing stores and the user should be given a chance to change their personal settings after the store change
         UtilHttp.setCurrencyUomIfNone(session, productStore.getString("defaultCurrencyUomId"));
         UtilHttp.setLocaleIfNone(session, productStore.getString("defaultLocaleString"));
- 
+
         // if a shoppingCart exists in the session and the productStoreId on it is different,
         // - leave the old cart as-is (don't clear it, want to leave the auto-save list intact)
         // - but create a new cart (which will load from auto-save list if applicable) and put it in the session
- 
+
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
         // this should always be different given the previous session productStoreId check, but just in case...
         if (!productStoreId.equals(cart.getProductStoreId())) {
