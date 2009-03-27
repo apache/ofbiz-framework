@@ -45,25 +45,25 @@ import org.w3c.dom.Element;
 public final class OFBizCasAuthenticationHandler extends AbstractOFBizAuthenticationHandler {
 
     public static final String PARAM_TICKET = "ticket";
- 
+
     public static final String PARAM_SERVICE = "service";
- 
+
     public static final String PARAM_RENEW = "renew";
 
     /**
      * Public constructor, initializes some required member variables.<p>
      */
     public OFBizCasAuthenticationHandler() {
- 
+
     }
- 
- 
+
+
     public String login(HttpServletRequest request, HttpServletResponse response, Element rootElement) throws Exception {
 
         String ticket = request.getParameter(PARAM_TICKET);
         String username = request.getParameter("USERNAME");
         String password = request.getParameter("PASSWORD");
- 
+
         String casUrl = UtilXml.childElementValue(rootElement, "CasUrl", "https://localhost:8443/cas");
         String loginUri = UtilXml.childElementValue(rootElement, "CasLoginUri", "/login");
         String validateUri = UtilXml.childElementValue(rootElement, "CasValidateUri", "/validate");
@@ -106,7 +106,7 @@ public final class OFBizCasAuthenticationHandler extends AbstractOFBizAuthentica
                 }
             }
         }
- 
+
         if (casLoggedIn && username != null) {
             // as we cannot get the password user input in CAS login page, we use a random one
             password = randomString();

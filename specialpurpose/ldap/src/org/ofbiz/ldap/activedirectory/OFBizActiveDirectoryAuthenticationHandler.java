@@ -47,7 +47,7 @@ public final class OFBizActiveDirectoryAuthenticationHandler extends AbstractOFB
      * Public constructor, initializes some required member variables.<p>
      */
     public OFBizActiveDirectoryAuthenticationHandler() {
- 
+
     }
 
     public SearchResult getLdapSearchResult(String username, String password,
@@ -111,8 +111,8 @@ public final class OFBizActiveDirectoryAuthenticationHandler extends AbstractOFB
             // No ldap service found, or cannot login.
             throw new NamingException(e.getLocalizedMessage());
         }
- 
+
         return result;
     }
- 
+
 }
