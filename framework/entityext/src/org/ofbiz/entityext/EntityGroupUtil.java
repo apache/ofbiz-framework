@@ -41,14 +41,14 @@ public class EntityGroupUtil {
 
     public static Set<String> getEntityNamesByGroup(String entityGroupId, GenericDelegator delegator, boolean requireStampFields) throws GenericEntityException {
         Set<String> entityNames = FastSet.newInstance();
- 
+
         List<GenericValue> entitySyncGroupIncludes = delegator.findByAnd("EntityGroupEntry", UtilMisc.toMap("entityGroupId", entityGroupId));
- 
+
         List<ModelEntity> modelEntities = getModelEntitiesFromRecords(entitySyncGroupIncludes, delegator, requireStampFields);
         for (ModelEntity modelEntity: modelEntities) {
             entityNames.add(modelEntity.getEntityName());
         }
- 
+
         return entityNames;
     }
 
@@ -57,17 +57,17 @@ public class EntityGroupUtil {
 
         for (String entityName: delegator.getModelReader().getEntityNames()) {
             ModelEntity modelEntity = delegator.getModelEntity(entityName);
- 
+
             // if view-entity, throw it out
             if (modelEntity instanceof ModelViewEntity) {
                 continue;
             }
- 
+
             // if it doesn't have either or both of the two update stamp fields, throw it out
             if (requireStampFields && (!modelEntity.isField(ModelEntity.STAMP_FIELD) || !modelEntity.isField(ModelEntity.STAMP_TX_FIELD))) {
                 continue;
             }
- 
+
             // if there are no includes records, always include; otherwise check each one to make sure at least one matches
             if (entityGroupEntryValues.size() == 0) {
                 entityModelToUseList.add(modelEntity);
@@ -88,7 +88,7 @@ public class EntityGroupUtil {
                     } else if (modelEntity.getPackageName().startsWith(entityOrPackage)) {
                         matches = true;
                     }
- 
+
                     if (matches) {
                         if ("ESIA_INCLUDE".equals(entitySyncInclude.getString("applEnumId"))) {
                             matchesInclude = true;
@@ -100,7 +100,7 @@ public class EntityGroupUtil {
                         }
                     }
                 }
- 
+
                 if (matchesAlways || (matchesInclude && !matchesExclude)) {
                     // make sure this log message is not checked in uncommented:
                     //Debug.log("In runEntitySync adding [" + modelEntity.getEntityName() + "] to list of Entities to sync", module);
@@ -108,7 +108,7 @@ public class EntityGroupUtil {
                 }
             }
         }
- 
+
         return entityModelToUseList;
     }
 }

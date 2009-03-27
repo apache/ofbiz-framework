@@ -34,7 +34,7 @@ public class EntityServiceFactory {
         LocalDispatcher dispatcher = GenericDispatcher.getLocalDispatcher("entity-" + delegator.getDelegatorName(), delegator);
         return dispatcher;
     }
- 
+
     public static DispatchContext getDispatchContext(GenericDelegator delegator) {
         LocalDispatcher dispatcher = getLocalDispatcher(delegator);
         if (dispatcher == null) return null;

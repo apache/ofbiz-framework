@@ -39,7 +39,7 @@ import org.ofbiz.service.ServiceUtil;
  * Entity Engine Cache Services
  */
 public class EntityCacheServices implements DistributedCacheClear {
- 
+
     public static final String module = EntityCacheServices.class.getName();
 
     protected GenericDelegator delegator = null;
@@ -53,7 +53,7 @@ public class EntityCacheServices implements DistributedCacheClear {
         this.dispatcher = EntityServiceFactory.getLocalDispatcher(delegator);
         this.userLoginId = userLoginId;
     }
- 
+
     public GenericValue getAuthUserLogin() {
         GenericValue userLogin = null;
         try {
@@ -76,7 +76,7 @@ public class EntityCacheServices implements DistributedCacheClear {
             Debug.logWarning("The userLogin for distributed cache clear was not found with userLoginId [" + userLoginId + "], not clearing remote caches.", module);
             return;
         }
- 
+
         try {
             this.dispatcher.runAsync("distributedClearCacheLineByValue", UtilMisc.toMap("value", value, "userLogin", userLogin), false);
         } catch (GenericServiceException e) {
@@ -96,7 +96,7 @@ public class EntityCacheServices implements DistributedCacheClear {
             Debug.logWarning("The userLogin for distributed cache clear was not found with userLoginId [" + userLoginId + "], not clearing remote caches.", module);
             return;
         }
- 
+
         try {
             this.dispatcher.runAsync("distributedClearCacheLineByDummyPK", UtilMisc.toMap("dummyPK", dummyPK, "userLogin", userLogin), false);
         } catch (GenericServiceException e) {
@@ -116,14 +116,14 @@ public class EntityCacheServices implements DistributedCacheClear {
             Debug.logWarning("The userLogin for distributed cache clear was not found with userLoginId [" + userLoginId + "], not clearing remote caches.", module);
             return;
         }
- 
+
         try {
             this.dispatcher.runAsync("distributedClearCacheLineByCondition", UtilMisc.toMap("entityName", entityName, "condition", condition, "userLogin", userLogin), false);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error running the distributedClearCacheLineByCondition service", module);
         }
     }
- 
+
     public void distributedClearCacheLine(GenericPK primaryKey) {
         // Debug.logInfo("running distributedClearCacheLine for primaryKey: " + primaryKey, module);
         if (this.dispatcher == null) {
@@ -136,7 +136,7 @@ public class EntityCacheServices implements DistributedCacheClear {
             Debug.logWarning("The userLogin for distributed cache clear was not found with userLoginId [" + userLoginId + "], not clearing remote caches.", module);
             return;
         }
- 
+
         try {
             this.dispatcher.runAsync("distributedClearCacheLineByPrimaryKey", UtilMisc.toMap("primaryKey", primaryKey, "userLogin", userLogin), false);
         } catch (GenericServiceException e) {
@@ -155,14 +155,14 @@ public class EntityCacheServices implements DistributedCacheClear {
             Debug.logWarning("The userLogin for distributed cache clear was not found with userLoginId [" + userLoginId + "], not clearing remote caches.", module);
             return;
         }
- 
+
         try {
             this.dispatcher.runAsync("distributedClearAllEntityCaches", UtilMisc.toMap("userLogin", userLogin), false);
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error running the distributedClearAllCaches service", module);
         }
     }
- 
+
     /**
      * Clear All Entity Caches Service
      *@param ctx The DispatchContext that this service is operating in
@@ -174,12 +174,12 @@ public class EntityCacheServices implements DistributedCacheClear {
         Boolean distributeBool = (Boolean) context.get("distribute");
         boolean distribute = false;
         if (distributeBool != null) distribute = distributeBool.booleanValue();
- 
+
         delegator.clearAllCaches(distribute);
- 
+
         return ServiceUtil.returnSuccess();
     }
- 
+
     /**
      * Clear Cache Line Service: one of the following context parameters is required: value, dummyPK or primaryKey
      *@param ctx The DispatchContext that this service is operating in
