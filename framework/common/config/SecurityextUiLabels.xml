@@ -526,7 +526,7 @@
         <value xml:lang="ro">Parola incorecta.</value>
         <value xml:lang="ru">Неверный пароль.</value>
         <value xml:lang="th">รหัสผ่านไม่ถูกต้อง</value>
-        <value xml:lang="zh">密码不争取。</value>
+        <value xml:lang="zh">密码不正确。</value>
     </property>
     <property key="loginservices.password_may_not_equal_username">
         <value xml:lang="de">Das Passwort darf nicht mit dem Usernamen übereinstimmen.</value>
