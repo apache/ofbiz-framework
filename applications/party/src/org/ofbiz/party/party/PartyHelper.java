@@ -38,9 +38,9 @@ import org.ofbiz.service.ServiceUtil;
  * PartyHelper
  */
 public class PartyHelper {
- 
+
     public static final String module = PartyHelper.class.getName();
- 
+
     public static String getPartyName(GenericValue partyObject) {
         return getPartyName(partyObject, false);
     }
@@ -81,7 +81,7 @@ public class PartyHelper {
             }
         }
     }
- 
+
     public static String formatPartyNameObject(GenericValue partyValue, boolean lastNameFirst) {
         if (partyValue == null) {
             return "";

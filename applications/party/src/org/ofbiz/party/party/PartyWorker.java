@@ -48,9 +48,9 @@ import org.ofbiz.entity.util.EntityUtil;
  * Worker methods for Party Information
  */
 public class PartyWorker {
- 
+
     public static String module = PartyWorker.class.getName();
- 
+
     public static Map<String, GenericValue> getPartyOtherValues(ServletRequest request, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Map<String, GenericValue> result = FastMap.newInstance();
@@ -82,13 +82,13 @@ public class PartyWorker {
         }
         return result;
     }
- 
+
     /** @deprecated */
     public static void getPartyOtherValues(PageContext pageContext, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
         Map<String, GenericValue> partyMap = getPartyOtherValues(pageContext.getRequest(), partyId, partyAttr, personAttr, partyGroupAttr);
         for (Map.Entry<String, GenericValue> e: partyMap.entrySet()) {
             pageContext.setAttribute(e.getKey(), e.getValue());
- 
+
         }
     }
 
@@ -188,7 +188,7 @@ public class PartyWorker {
             Debug.logError(e, "Error while finding latest login time for party with ID [" + partyId + "]: " + e.toString(), module);
             return null;
         }
- 
+
     }
 
     public static Locale findPartyLastLocale(String partyId, GenericDelegator delegator) {
