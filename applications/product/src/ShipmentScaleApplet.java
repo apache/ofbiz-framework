@@ -40,16 +40,16 @@ import netscape.javascript.JSObject;
  * ShipmentScaleApplet - Applet for reading weight from a scale and input into the browser
  */
 public class ShipmentScaleApplet extends Applet implements SerialPortEventListener, CommPortOwnershipListener {
- 
+
     private AppletContext ctx = null;
- 
+
     private CommPortIdentifier portId = null;
     private SerialPort serialPort = null;
     private boolean portOpen = false;
- 
+
     private InputStream in = null;
     private OutputStream out = null;
- 
+
     public void init() {
         this.ctx = this.getAppletContext();
         /*
@@ -66,11 +66,11 @@ public class ShipmentScaleApplet extends Applet implements SerialPortEventListen
             e.printStackTrace();
         }
     }
- 
+
     public void paint() {
- 
+
     }
- 
+
     public void configurePort(String port) throws UnsupportedCommOperationException, IOException {
         try {
             portId = CommPortIdentifier.getPortIdentifier(port);
@@ -84,20 +84,20 @@ public class ShipmentScaleApplet extends Applet implements SerialPortEventListen
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
- 
+
         serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
         serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_RTSCTS_OUT);
- 
+
         in = serialPort.getInputStream();
         out = serialPort.getOutputStream();
- 
+
         try {
             serialPort.addEventListener(this);
         } catch (TooManyListenersException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
- 
+
         serialPort.enableReceiveTimeout(30);
         serialPort.notifyOnDataAvailable(true);
         serialPort.notifyOnBreakInterrupt(true);
@@ -135,7 +135,7 @@ public class ShipmentScaleApplet extends Applet implements SerialPortEventListen
                         }
                         //inputBuffer.append("(" + newData + ")");
                     }
- 
+
                     } catch (IOException ex) {
                         System.err.println(ex);
                         return;
@@ -157,9 +157,9 @@ public class ShipmentScaleApplet extends Applet implements SerialPortEventListen
      */
     public void ownershipChange(int arg0) {
         // TODO Auto-generated method stub
- 
+
     }
- 
+
     // send the code to the scale and requests the weight
     public void sendMessage() throws IOException {
         String message = "W\r";
@@ -170,20 +170,20 @@ public class ShipmentScaleApplet extends Applet implements SerialPortEventListen
         out.flush();
         serialPort.sendBreak(1000);
     }
- 
+
     public void close() throws IOException {
         out.close();
         in.close();
         serialPort.close();
     }
- 
+
     public static void main(String args[]) throws Exception {
         ShipmentScaleApplet applet = new ShipmentScaleApplet();
         applet.sendMessage();
         applet.close();
     }
- 
- 
+
+
     // validates the response from the scale and calls the set method
     private void checkResponse(String response) {
         StringTokenizer token = new StringTokenizer(response, "|");
@@ -192,7 +192,7 @@ public class ShipmentScaleApplet extends Applet implements SerialPortEventListen
             setWeight(weightStr);
         }
     }
- 
+
     private void sendFakeMessage() throws IOException {
         String weight = this.getParameter("fakeWeight");
         if (weight == null) {
@@ -200,7 +200,7 @@ public class ShipmentScaleApplet extends Applet implements SerialPortEventListen
         }
         setWeight(weight);
     }
- 
+
     // calls the setWeight(weight) JavaScript function on the current page
     private void setWeight(String weight) {
         JSObject win = JSObject.getWindow(this);

@@ -276,7 +276,7 @@ public class CategoryWorker {
         String previousCategory = (String) requestParameters.get("pcategory");
         setTrail(request, currentCategory, previousCategory);
     }
- 
+
     public static void setTrail(ServletRequest request, String currentCategory, String previousCategory) {
         if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.setTrail] Start: previousCategory=" + previousCategory + " currentCategory=" + currentCategory, module);
 
@@ -290,7 +290,7 @@ public class CategoryWorker {
         crumb = adjustTrail(crumb, currentCategory, previousCategory);
         setTrail(request, crumb);
     }
- 
+
     public static List<String> adjustTrail(List<String> origTrail, String currentCategoryId, String previousCategoryId) {
         List<String> trail = FastList.newInstance();
         if (origTrail != null) {
@@ -344,7 +344,7 @@ public class CategoryWorker {
         // add the current category to the end of the list
         trail.add(currentCategoryId);
         if (Debug.verboseOn()) Debug.logVerbose("[CategoryWorker.setTrail] Continuing list: Added currentCategory: " + currentCategoryId, module);
- 
+
         return trail;
     }
 
@@ -434,7 +434,7 @@ public class CategoryWorker {
 
         if (productCategoryId == null) return newList;
         if (valueObjects == null) return null;
- 
+
         for (GenericValue curValue: valueObjects) {
             String productId = curValue.getString(productIdFieldName);
             if (isProductInCategory(delegator, productId, productCategoryId)) {
@@ -443,19 +443,19 @@ public class CategoryWorker {
         }
         return newList;
     }
- 
+
     public static void getCategoryContentWrappers(Map<String, CategoryContentWrapper> catContentWrappers, List<GenericValue> categoryList, HttpServletRequest request) throws GenericEntityException {
         if (catContentWrappers == null || categoryList == null) {
             return;
         }
         for (GenericValue cat: categoryList) {
             String productCategoryId = (String) cat.get("productCategoryId");
- 
+
             if (catContentWrappers.containsKey(productCategoryId)) {
                 // if this ID is already in the Map, skip it (avoids inefficiency, infinite recursion, etc.)
                 continue;
             }
- 
+
             CategoryContentWrapper catContentWrapper = new CategoryContentWrapper(cat, request);
             catContentWrappers.put(productCategoryId, catContentWrapper);
             List<GenericValue> subCat = getRelatedCategoriesRet(request, "subCatList", productCategoryId, true);

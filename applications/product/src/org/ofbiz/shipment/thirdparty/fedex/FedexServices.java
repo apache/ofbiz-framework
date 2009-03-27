@@ -166,7 +166,7 @@ public class FedexServices {
         String faxNumber = null;
         String emailAddress = null;
         try {
- 
+
             // Make sure the company exists
             GenericValue companyParty = delegator.findByPrimaryKeyCache("Party", UtilMisc.toMap("partyId", companyPartyId));
             if (companyParty == null) {
@@ -283,7 +283,7 @@ public class FedexServices {
             if (UtilValidate.isEmpty(templateLocation)) {
                 return ServiceUtil.returnError("Can't find location for FDXSubscriptionRequest template - should be in " + shipmentPropertiesFile + ":shipment.template.fedex.subscription.location");
             }
- 
+
             // Populate the Freemarker context
             Map<String, Object> subscriptionRequestContext = FastMap.newInstance();
             subscriptionRequestContext.put("AccountNumber", accountNumber);
@@ -348,13 +348,13 @@ public class FedexServices {
 
             Element fedexSubscriptionReplyElement = fDXSubscriptionReplyDocument.getDocumentElement();
             handleErrors(fedexSubscriptionReplyElement, errorList);
- 
+
             if (UtilValidate.isNotEmpty(errorList)) {
                 return ServiceUtil.returnError(errorList);
             }
- 
+
             String meterNumber = UtilXml.childElementValue(fedexSubscriptionReplyElement, "MeterNumber");
- 
+
             result.put("meterNumber", meterNumber);
 
         } catch ( GenericEntityException e ) {
@@ -374,7 +374,7 @@ public class FedexServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         //GenericValue userLogin = (GenericValue) context.get("userLogin");
         //Locale locale = (Locale) context.get("locale");
- 
+
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
 
@@ -425,7 +425,7 @@ public class FedexServices {
         if (UtilValidate.isEmpty(dropoffType)) {
             return ServiceUtil.returnError("Default dropoff type not found for Fedex ship request - should be in " + shipmentPropertiesFile + ":shipment.fedex.default.dropoffType.");
         }
- 
+
         try {
 
             Map<String, Object> shipRequestContext = FastMap.newInstance();
@@ -439,18 +439,18 @@ public class FedexServices {
             if (UtilValidate.isEmpty(shipmentRouteSegment)) {
                 return ServiceUtil.returnError("ShipmentRouteSegment not found with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
- 
+
             // Determine the Fedex carrier
             String carrierPartyId = shipmentRouteSegment.getString("carrierPartyId");
             if (! "FEDEX".equals(carrierPartyId)) {
                 return ServiceUtil.returnError("ERROR: The Carrier for ShipmentRouteSegment " + shipmentRouteSegmentId + " of Shipment " + shipmentId + ", is not Fedex.");
             }
- 
+
             // Check the shipmentRouteSegment's carrier status
             if (UtilValidate.isNotEmpty(shipmentRouteSegment.getString("carrierServiceStatusId")) && !"SHRSCS_NOT_STARTED".equals(shipmentRouteSegment.getString("carrierServiceStatusId"))) {
                 return ServiceUtil.returnError("ERROR: The Carrier Service Status for ShipmentRouteSegment " + shipmentRouteSegmentId + " of Shipment " + shipmentId + ", is [" + shipmentRouteSegment.getString("carrierServiceStatusId") + "], but must be not-set or [SHRSCS_NOT_STARTED] to perform the Fedex Shipment Confirm operation.");
             }
- 
+
             // Translate shipmentMethodTypeId to Fedex service code and carrier code
             String shipmentMethodTypeId = shipmentRouteSegment.getString("shipmentMethodTypeId");
             GenericValue carrierShipmentMethod = delegator.findByPrimaryKey("CarrierShipmentMethod", UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId, "partyId", "FEDEX", "roleTypeId", "CARRIER"));
@@ -461,7 +461,7 @@ public class FedexServices {
                 return ServiceUtil.returnError("No Carrier service code for carrier Fedex shipmentMethodTypeId " + shipmentMethodTypeId);
             }
             String service = carrierShipmentMethod.getString("carrierServiceCode");
- 
+
             // CarrierCode is FDXG only for FEDEXGROUND and GROUNDHOMEDELIVERY services.
             boolean isGroundService = service.equals("FEDEXGROUND") || service.equals("GROUNDHOMEDELIVERY");
             String carrierCode = isGroundService ? "FDXG" : "FDXE";
@@ -475,7 +475,7 @@ public class FedexServices {
             } else {
                 currencyCode = UtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD");
             }
- 
+
             // Get and validate origin postal address
             GenericValue originPostalAddress = shipmentRouteSegment.getRelatedOne("OriginPostalAddress");
             if (UtilValidate.isEmpty(originPostalAddress)) {
@@ -492,7 +492,7 @@ public class FedexServices {
             }
             String originAddressCountryCode = originCountryGeo.getString("geoCode");
             String originAddressStateOrProvinceCode = null;
- 
+
             // Only add the StateOrProvinceCode element if the address is in USA or Canada
             if (originAddressCountryCode.equals("CA") || originAddressCountryCode.equals("US")) {
                 if (UtilValidate.isEmpty(originPostalAddress.getString("stateProvinceGeoId"))) {
@@ -501,20 +501,20 @@ public class FedexServices {
                 GenericValue stateProvinceGeo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", originPostalAddress.getString("stateProvinceGeoId")));
                 originAddressStateOrProvinceCode = stateProvinceGeo.getString("geoCode");
             }
- 
+
             // Get and validate origin telecom number
             GenericValue originTelecomNumber = shipmentRouteSegment.getRelatedOne("OriginTelecomNumber");
             if (UtilValidate.isEmpty(originTelecomNumber)) {
                 return ServiceUtil.returnError("OriginTelecomNumber not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
             String originContactPhoneNumber = originTelecomNumber.getString("areaCode") + originTelecomNumber.getString("contactNumber");
- 
+
             // Fedex doesn't want the North American country code
             if (UtilValidate.isNotEmpty(originTelecomNumber.getString("countryCode")) && !(originAddressCountryCode.equals("CA") || originAddressCountryCode.equals("US"))) {
                 originContactPhoneNumber = originTelecomNumber.getString("countryCode") + originContactPhoneNumber;
             }
             originContactPhoneNumber = originContactPhoneNumber.replaceAll("[^+\\d]", "");
- 
+
             // Get the origin contact name from the owner of the origin facility
             GenericValue partyFrom = null;
             GenericValue originFacility = shipment.getRelatedOne("OriginFacility");
@@ -526,13 +526,13 @@ public class FedexServices {
                     return ServiceUtil.returnError("Facility.ownerPartyId is required for Fedex shipments: shipmentId " + shipmentId + ", shipmentRouteSegmentId " + shipmentRouteSegmentId + ", facilityId " + originFacility.getString("facilityId"));
                 }
             }
- 
+
             String originContactKey = "PERSON".equals(partyFrom.getString("partyTypeId")) ? "OriginContactPersonName" : "OriginContactCompanyName";
             String originContactName = PartyHelper.getPartyName(partyFrom, false);
             if (UtilValidate.isEmpty(originContactName)) {
                 return ServiceUtil.returnError("partyIdFrom for shipmentId " + shipmentId + ", shipmentRouteSegmentId " + shipmentRouteSegmentId + " has no name (required for Fedex shipments)" );
             }
- 
+
             // Get and validate destination postal address
             GenericValue destinationPostalAddress = shipmentRouteSegment.getRelatedOne("DestPostalAddress");
             if (UtilValidate.isEmpty(destinationPostalAddress)) {
@@ -549,7 +549,7 @@ public class FedexServices {
             }
             String destinationAddressCountryCode = destinationCountryGeo.getString("geoCode");
             String destinationAddressStateOrProvinceCode = null;
- 
+
             // Only add the StateOrProvinceCode element if the address is in USA or Canada
             if (destinationAddressCountryCode.equals("CA") || destinationAddressCountryCode.equals("US")) {
                 if (UtilValidate.isEmpty(destinationPostalAddress.getString("stateProvinceGeoId"))) {
@@ -558,7 +558,7 @@ public class FedexServices {
                 GenericValue stateProvinceGeo = delegator.findByPrimaryKeyCache("Geo", UtilMisc.toMap("geoId", destinationPostalAddress.getString("stateProvinceGeoId")));
                 destinationAddressStateOrProvinceCode = stateProvinceGeo.getString("geoCode");
             }
- 
+
             // Get and validate destination telecom number
             GenericValue destinationTelecomNumber = shipmentRouteSegment.getRelatedOne("DestTelecomNumber");
             if (UtilValidate.isEmpty(destinationTelecomNumber)) {
@@ -571,7 +571,7 @@ public class FedexServices {
                 destinationContactPhoneNumber = destinationTelecomNumber.getString("countryCode") + destinationContactPhoneNumber;
             }
             destinationContactPhoneNumber = destinationContactPhoneNumber.replaceAll("[^+\\d]", "");
- 
+
             // Get the destination contact name
             String destinationPartyId = shipment.getString("partyIdTo");
             if (UtilValidate.isEmpty(destinationPartyId)) {
@@ -587,7 +587,7 @@ public class FedexServices {
             String homeDeliveryType = null;
             Timestamp homeDeliveryDate = null;
             if ("GROUNDHOMEDELIVERY".equals(service)) {
- 
+
                 // Determine the home-delivery instructions
                 homeDeliveryType = shipmentRouteSegment.getString("homeDeliveryType");
                 if (UtilValidate.isNotEmpty(homeDeliveryType)) {
@@ -602,7 +602,7 @@ public class FedexServices {
                     return ServiceUtil.returnError("homeDeliveryDate is before the current time for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
                 }
             }
- 
+
             List<GenericValue> shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", UtilMisc.toList("+shipmentPackageSeqId"));
             if (UtilValidate.isEmpty(shipmentPackageRouteSegs)) {
                 return ServiceUtil.returnError("No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
@@ -610,7 +610,7 @@ public class FedexServices {
             if (shipmentPackageRouteSegs.size() != 1) {
                return ServiceUtil.returnError("Cannot confirm shipment: fedexShipRequest service does not currently support more than one package per shipment.");
             }
- 
+
             // TODO: Multi-piece shipments, including logic to cancel packages 1-n if FDXShipRequest n+1 fails
 
             // Populate the Freemarker context with the non-package-related information
@@ -667,13 +667,13 @@ public class FedexServices {
                     Debug.logWarning("Shipment Route Segment missing billingWeightUomId in shipmentId " + shipmentId + ", assuming default shipment.fedex.weightUomId of " + weightUomId + " from " + shipmentPropertiesFile,  module);
                     billingWeightUomId = weightUomId;
                 }
- 
+
                 // Convert the weight if necessary
                 if (! billingWeightUomId.equals(weightUomId)) {
                     Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", billingWeightUomId, "uomIdTo", weightUomId, "originalValue", billingWeight));
                     if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                         Debug.logWarning("Unable to convert billing weights for shipmentId " + shipmentId , module);
- 
+
                         // Try getting the weight from package instead
                         hasBillingWeight = false;
                     } else {
@@ -691,7 +691,7 @@ public class FedexServices {
                 String packaging = null;
                 if (UtilValidate.isEmpty(shipmentBoxType)) {
                     Debug.logWarning("Package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipment " + shipmentId + " has no packaging type set - defaulting to " + shipmentPropertiesFile + ":shipment.fedex.default.packagingType", module);
- 
+
                     // Try to get the default packaging type
                     packaging = UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.fedex.default.packagingType");
                     if (UtilValidate.isEmpty(packaging)) {
@@ -709,7 +709,7 @@ public class FedexServices {
                     return ServiceUtil.returnError("Cannot confirm shipment: Package type for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipment " + shipmentId + " is missing packagingTypeCode.");
                 }
                 packaging = carrierShipmentBoxType.getString("packagingTypeCode");
- 
+
                 // Determine the dimensions of the package
                 BigDecimal dimensionsLength = null;
                 BigDecimal dimensionsWidth = null;
@@ -737,7 +737,7 @@ public class FedexServices {
                                 dimensionsLength = (BigDecimal) results.get("convertedValue");
                             }
                         }
- 
+
                     }
                     if (dimensionsWidth != null && dimensionsWidth.compareTo(BigDecimal.ZERO) > 0) {
                         if (! boxDimensionsUomId.equals(dimensionsUomId)) {
@@ -749,7 +749,7 @@ public class FedexServices {
                                 dimensionsWidth = (BigDecimal) results.get("convertedValue");
                             }
                         }
- 
+
                     }
                     if (dimensionsHeight != null && dimensionsHeight.compareTo(BigDecimal.ZERO) > 0) {
                         if (! boxDimensionsUomId.equals(dimensionsUomId)) {
@@ -761,7 +761,7 @@ public class FedexServices {
                                 dimensionsHeight = (BigDecimal) results.get("convertedValue");
                             }
                         }
- 
+
                     }
                 }
 
@@ -780,7 +780,7 @@ public class FedexServices {
                             packageWeight = BigDecimal.ONE;
                         }
                     }
- 
+
                     // Convert weight if necessary
                     String packageWeightUomId = shipmentPackage.getString("weightUomId");
                     if (UtilValidate.isEmpty(packageWeightUomId)) {
@@ -800,7 +800,7 @@ public class FedexServices {
                 if (weight == null || weight.compareTo(BigDecimal.ZERO) < 0) {
                     ServiceUtil.returnError("Unable to determine weight for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId);
                 }
- 
+
                 // Populate the Freemarker context with package-related information
                 shipRequestContext.put("CustomerReference", shipmentId + ":" + shipmentRouteSegmentId + ":" + shipmentPackage.getString("shipmentPackageSeqId"));
                 shipRequestContext.put("DropoffType", dropoffType);
@@ -816,7 +816,7 @@ public class FedexServices {
                 }
                 shipRequestContext.put("Weight", weight.setScale(1, BigDecimal.ROUND_UP).toString());
             }
- 
+
             StringWriter outWriter = new StringWriter();
             try {
                 FreeMarkerWorker.renderTemplateAtLocation(templateLocation, shipRequestContext, outWriter);
@@ -825,7 +825,7 @@ public class FedexServices {
                 Debug.logError(e, errorMessage, module);
                 return ServiceUtil.returnError(errorMessage + ": " + e.getMessage());
             }
- 
+
             // Pass the request string to the sending method
             String fDXShipRequestString = outWriter.toString();
             String fDXShipReplyString = null;
@@ -839,7 +839,7 @@ public class FedexServices {
                 Debug.logError(e, errorMessage, module);
                 return ServiceUtil.returnError(errorMessage + e.toString());
             }
- 
+
             // Pass the reply to the handler method
             return handleFedexShipReply(fDXShipReplyString, shipmentRouteSegment, shipmentPackageRouteSegs);
 
@@ -879,11 +879,11 @@ public class FedexServices {
             Debug.logError(ioe, errorMessage, module);
             // TODO Cancel the package
         }
- 
+
         if (UtilValidate.isEmpty(fdxShipReplyDocument)) {
             return ServiceUtil.returnError("Error parsing the FDXShipReply.");
         }
- 
+
         // Tracking number: Tracking/TrackingNumber
         Element rootElement = fdxShipReplyDocument.getDocumentElement();
 
@@ -895,7 +895,7 @@ public class FedexServices {
 
         Element trackingElement = UtilXml.firstChildElement(rootElement, "Tracking");
         String trackingNumber = UtilXml.childElementValue(trackingElement, "TrackingNumber");
- 
+
         // Label: Labels/OutboundLabel
         Element labelElement = UtilXml.firstChildElement(rootElement, "Labels");
         String encodedImageString = UtilXml.childElementValue(labelElement, "OutboundLabel");
@@ -903,30 +903,30 @@ public class FedexServices {
             Debug.logError("Cannot find FDXShipReply label. FDXShipReply document is: " + fDXShipReplyString, module);
             return ServiceUtil.returnError("Cannot get FDXShipReply label for shipment package route segment " + shipmentPackageRouteSeg + ".  FedEx response is: " + fDXShipReplyString);
         }
- 
+
         byte[] labelBytes = Base64.base64Decode(encodedImageString.getBytes());
- 
+
         if (labelBytes != null) {
- 
+
             // Store in db blob
             shipmentPackageRouteSeg.setBytes("labelImage", labelBytes);
         } else {
             Debug.log("Failed to either decode returned FedEx label or no data found in Labels/OutboundLabel.");
             // TODO: Cancel the package
         }
- 
+
         shipmentPackageRouteSeg.set("trackingCode", trackingNumber);
         shipmentPackageRouteSeg.set("labelHtml", encodedImageString);
         shipmentPackageRouteSeg.store();
- 
+
         shipmentRouteSegment.set("trackingIdNumber", trackingNumber);
         shipmentRouteSegment.put("carrierServiceStatusId", "SHRSCS_CONFIRMED");
         shipmentRouteSegment.store();
- 
+
         return ServiceUtil.returnSuccess("FedEx Shipment Confirmed.");
 
     }
- 
+
     public static void handleErrors(Element rootElement, List<Object> errorList) {
         Element errorElement = null;
         if ("Error".equalsIgnoreCase(rootElement.getNodeName())) {

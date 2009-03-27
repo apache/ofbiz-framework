@@ -89,7 +89,7 @@ public class ProductStoreWorker {
         }
         return null;
     }
- 
+
     public static String getStoreCurrencyUomId(HttpServletRequest request) {
         GenericValue productStore = getProductStore(request);
         return UtilHttp.getCurrencyUom(request.getSession(), productStore.getString("defaultCurrencyUomId"));
@@ -131,7 +131,7 @@ public class ProductStoreWorker {
     public static String getProductStorePayToPartyId(String productStoreId, GenericDelegator delegator) {
         return getProductStorePayToPartyId(getProductStore(productStoreId, delegator));
     }
- 
+
     public static String getProductStorePayToPartyId(GenericValue productStore) {
         String payToPartyId = "Company"; // default value
         if (productStore != null && productStore.get("payToPartyId") != null) {
@@ -718,13 +718,13 @@ public class ProductStoreWorker {
 
         defaultProductStoreEmailScreenLocation.put("PRDS_GC_PURCHASE", "component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardPurchase");
         defaultProductStoreEmailScreenLocation.put("PRDS_GC_RELOAD", "component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardReload");
- 
+
         defaultProductStoreEmailScreenLocation.put("PRDS_QUO_CONFIRM", "component://order/widget/ordermgr/QuoteScreens.xml#ViewQuoteSimple");
- 
+
         defaultProductStoreEmailScreenLocation.put("PRDS_PWD_RETRIEVE", "component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail");
- 
+
         defaultProductStoreEmailScreenLocation.put("PRDS_TELL_FRIEND", "component://ecommerce/widget/EmailProductScreens.xml#TellFriend");
- 
+
         defaultProductStoreEmailScreenLocation.put("PRDS_CUST_REGISTER", "component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail");
     }
 

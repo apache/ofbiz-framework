@@ -53,7 +53,7 @@ import org.ofbiz.service.ModelService;
  * Product Worker class to reduce code in JSPs.
  */
 public class ProductWorker {
- 
+
     public static final String module = ProductWorker.class.getName();
     public static final String resource = "ProductUiLabels";
 
@@ -73,7 +73,7 @@ public class ProductWorker {
                 return false;
             }
             Boolean chargeShipping = product.getBoolean("chargeShipping");
- 
+
             if (chargeShipping == null) {
                 return true;
             } else {
@@ -127,7 +127,7 @@ public class ProductWorker {
                     return true;
                 }
             }
- 
+
         } else {
             throw new IllegalArgumentException("product and postalAddress cannot be null.");
         }
@@ -138,7 +138,7 @@ public class ProductWorker {
         String errMsg = "";
         if (product != null) {
             Boolean taxable = product.getBoolean("taxable");
- 
+
             if (taxable == null) {
                 return true;
             } else {
@@ -148,7 +148,7 @@ public class ProductWorker {
             throw new IllegalArgumentException(errMsg);
         }
     }
- 
+
     /** @deprecated */
     public static void getProduct(PageContext pageContext, String attributeName, String productId) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
@@ -174,7 +174,7 @@ public class ProductWorker {
 
     public static String getInstanceAggregatedId(GenericDelegator delegator, String instanceProductId) throws GenericEntityException {
         GenericValue instanceProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", instanceProductId));
- 
+
         if (UtilValidate.isNotEmpty(instanceProduct) && "AGGREGATED_CONF".equals(instanceProduct.getString("productTypeId"))) {
             GenericValue productAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(instanceProduct.getRelatedByAnd("AssocProductAssoc",
                     UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF"))));
@@ -197,10 +197,10 @@ public class ProductWorker {
         }
         return null;
     }
- 
+
     public static List<GenericValue> getAggregatedAssocs(GenericDelegator delegator, String  aggregatedProductId) throws GenericEntityException {
         GenericValue aggregatedProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", aggregatedProductId));
- 
+
         if (UtilValidate.isNotEmpty(aggregatedProduct) && "AGGREGATED".equals(aggregatedProduct.getString("productTypeId"))) {
             List<GenericValue> productAssocs = EntityUtil.filterByDate(aggregatedProduct.getRelatedByAnd("MainProductAssoc",
                     UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF")));
@@ -208,7 +208,7 @@ public class ProductWorker {
         }
         return null;
     }
- 
+
     public static String getVariantVirtualId(GenericValue variantProduct) throws GenericEntityException {
         List<GenericValue> productAssocs = getVariantVirtualAssocs(variantProduct);
         if (productAssocs == null) {
@@ -328,7 +328,7 @@ public class ProductWorker {
             Debug.logWarning(e, module);
         }
     }
- 
+
     /**
      * Gets ProductFeature GenericValue for all distinguishing features of a variant product.
      * Distinguishing means all features that are selectable on the corresponding virtual product and standard on the variant plus all DISTINGUISHING_FEAT assoc type features on the variant.
@@ -342,10 +342,10 @@ public class ProductWorker {
         }
         GenericDelegator delegator = variantProduct.getDelegator();
         String virtualProductId = getVariantVirtualId(variantProduct);
- 
+
         // find all selectable features on the virtual product that are also standard features on the variant
         Set<GenericValue> distFeatures = FastSet.newInstance();
- 
+
         List<GenericValue> variantDistinguishingFeatures = delegator.findByAndCache("ProductFeatureAndAppl", UtilMisc.toMap("productId", variantProduct.get("productId"), "productFeatureApplTypeId", "DISTINGUISHING_FEAT"));
         // Debug.logInfo("Found variantDistinguishingFeatures: " + variantDistinguishingFeatures, module);
 
@@ -362,7 +362,7 @@ public class ProductWorker {
         for (GenericValue virtualSelectableFeature: EntityUtil.filterByDate(virtualSelectableFeatures)) {
             virtualSelectableFeatureIds.add(virtualSelectableFeature.getString("productFeatureId"));
         }
- 
+
         List<GenericValue> variantStandardFeatures = delegator.findByAndCache("ProductFeatureAndAppl", UtilMisc.toMap("productId", variantProduct.get("productId"), "productFeatureApplTypeId", "STANDARD_FEATURE"));
         // Debug.logInfo("Found variantStandardFeatures: " + variantStandardFeatures, module);
 
@@ -373,7 +373,7 @@ public class ProductWorker {
                 distFeatures.add(dummyFeature);
             }
         }
- 
+
         return distFeatures;
     }
 
@@ -389,7 +389,7 @@ public class ProductWorker {
                     Set<GenericValue> distFeatures = getVariantDistinguishingFeatures(alternativeOptionProduct);
                     if (UtilValidate.isNotEmpty(distFeatures)) {
                         // Debug.logInfo("Found distinguishing features: " + distFeatures, module);
- 
+
                         StringBuilder nameBuf = new StringBuilder();
                         for (GenericValue productFeature: distFeatures) {
                             if (nameBuf.length() > 0) {
@@ -479,7 +479,7 @@ public class ProductWorker {
             return null;
         }
     }
- 
+
     /**
      *
      * @param product
@@ -567,7 +567,7 @@ public class ProductWorker {
     }
 
     // product calc methods
- 
+
     public static BigDecimal calcOrderAdjustments(List<GenericValue> orderHeaderAdjustments, BigDecimal subTotal, boolean includeOther, boolean includeTax, boolean includeShipping) {
         BigDecimal adjTotal = BigDecimal.ZERO;
 
@@ -579,7 +579,7 @@ public class ProductWorker {
         }
         return adjTotal;
     }
- 
+
     public static BigDecimal calcOrderAdjustment(GenericValue orderAdjustment, BigDecimal orderSubTotal) {
         BigDecimal adjustment = BigDecimal.ZERO;
 
@@ -591,7 +591,7 @@ public class ProductWorker {
         }
         return adjustment;
     }
- 
+
     public static List<GenericValue> filterOrderAdjustments(List<GenericValue> adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
         List<GenericValue> newOrderAdjustmentsList = FastList.newInstance();
 
@@ -628,7 +628,7 @@ public class ProductWorker {
     public static BigDecimal getAverageProductRating(GenericDelegator delegator, String productId) {
         return getAverageProductRating(delegator, productId, null);
     }
- 
+
     public static BigDecimal getAverageProductRating(GenericDelegator delegator, String productId, String productStoreId) {
         GenericValue product = null;
         try {
@@ -735,7 +735,7 @@ public class ProductWorker {
         }
         return categories;
     }
- 
+
     //get parent product
     public static GenericValue getParentProduct(String productId, GenericDelegator delegator) {
         GenericValue _parentProduct = null;
@@ -804,7 +804,7 @@ public class ProductWorker {
 
         return false;
     }
- 
+
     public static boolean isAmountRequired(GenericDelegator delegator, String productI) {
         try {
             GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productI));
@@ -830,8 +830,8 @@ public class ProductWorker {
 
         return null;
     }
- 
- 
+
+
     /**
      * Generic service to find product by id.
      * By default return the product find by productId
@@ -848,12 +848,12 @@ public class ProductWorker {
     public static List<GenericValue> findProductsById( GenericDelegator delegator,
             String idToFind, String goodIdentificationTypeId,
             boolean searchProductFirst, boolean searchAllId) throws GenericEntityException {
- 
+
         if (Debug.verboseOn()) Debug.logVerbose("Analyze goodIdentification: entered id = " + idToFind + ", goodIdentificationTypeId = " + goodIdentificationTypeId, module);
- 
+
         GenericValue product = null;
         List<GenericValue> productsFound = null;
- 
+
         // 1) look if the idToFind given is a real productId
         if (searchProductFirst) {
             product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", idToFind));
@@ -867,11 +867,11 @@ public class ProductWorker {
             }
             productsFound = delegator.findByAndCache("GoodIdentificationAndProduct", conditions, UtilMisc.toList("productId"));
         }
- 
+
         if (! searchProductFirst) {
             product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", idToFind));
         }
- 
+
         if (UtilValidate.isNotEmpty(product)) {
             if (UtilValidate.isNotEmpty(productsFound)) productsFound.add(product);
             else productsFound = UtilMisc.toList(product);
@@ -884,7 +884,7 @@ public class ProductWorker {
     throws GenericEntityException {
         return findProductsById(delegator, idToFind, goodIdentificationTypeId, true, false);
     }
- 
+
     public static String findProductId(GenericDelegator delegator, String idToFind, String goodIdentificationTypeId) throws GenericEntityException {
         GenericValue product = findProduct(delegator, idToFind, goodIdentificationTypeId);
         if (UtilValidate.isNotEmpty(product)) {
@@ -914,7 +914,7 @@ public class ProductWorker {
                 if (! "Product".equals(product.getEntityName())) {
                     productToAdd = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", product.get("productId")));
                 }
- 
+
                 if (UtilValidate.isEmpty(products)) {
                     products = UtilMisc.toList(productToAdd);
                 }
@@ -958,7 +958,7 @@ public class ProductWorker {
         }
         return false;
     }
- 
+
     public static Set<String> getRefurbishedProductIdSet(String productId, GenericDelegator delegator) throws GenericEntityException {
         Set<String> productIdSet = FastSet.newInstance();
 
@@ -968,19 +968,19 @@ public class ProductWorker {
         for (GenericValue refubProductAssoc: refubProductAssocs) {
             productIdSet.add(refubProductAssoc.getString("productIdTo"));
         }
- 
+
         // see if this is a refurb productId to, and find product(s) it is a refurb of
         List<GenericValue> refubProductToAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc",
                 UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", "PRODUCT_REFURB")));
         for (GenericValue refubProductToAssoc: refubProductToAssocs) {
             productIdSet.add(refubProductToAssoc.getString("productId"));
         }
- 
+
         return productIdSet;
     }
- 
+
     public static String getVariantFromFeatureTree(String productId, List<String> selectedFeatures, GenericDelegator delegator) {
- 
+
         //  all method code moved here from ShoppingCartEvents.addToCart event
         String variantProductId = null;
         try {
@@ -1095,21 +1095,21 @@ nextProd:
                 productAssoc.put("fromDate", UtilDateTime.nowTimestamp());
                 productAssoc.create();
                 Debug.log("set the productId to: " + product.getString("productId"));
- 
+
                 // copy the supplier
                 List<GenericValue> supplierProducts = delegator.findByAndCache("SupplierProduct", UtilMisc.toMap("productId", productId));
                 for (GenericValue supplierProduct: supplierProducts) {
                     supplierProduct.set("productId",  product.getString("productId"));
                     supplierProduct.create();
                 }
- 
+
                 // copy the content
                 List<GenericValue> productContents = delegator.findByAndCache("ProductContent", UtilMisc.toMap("productId", productId));
                 for (GenericValue productContent: productContents) {
                     productContent.set("productId",  product.getString("productId"));
                     productContent.create();
                 }
- 
+
                 // finally use the new productId to be added to the cart
                 variantProductId = product.getString("productId"); // set to the new product
             }
@@ -1117,7 +1117,7 @@ nextProd:
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
- 
+
         return variantProductId;
     }
 }

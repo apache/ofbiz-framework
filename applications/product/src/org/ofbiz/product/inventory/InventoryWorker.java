@@ -38,7 +38,7 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityOperator;
 
 public class InventoryWorker {
- 
+
     public final static String module = InventoryWorker.class.getName();
 
     /**
@@ -65,7 +65,7 @@ public class InventoryWorker {
             return null;
         }
     }
- 
+
     /**
      * Finds the net outstanding ordered quantity for a productId, netting quantity on outstanding purchase orders against cancelQuantity
      * @param productId

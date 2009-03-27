@@ -47,36 +47,36 @@ import org.ofbiz.service.LocalDispatcher;
  */
 @SuppressWarnings("serial")
 public class ProductConfigItemContentWrapper implements java.io.Serializable {
- 
+
     public static final String module = ProductConfigItemContentWrapper.class.getName();
 
     protected LocalDispatcher dispatcher;
     protected GenericValue productConfigItem;
     protected Locale locale;
     protected String mimeTypeId;
- 
+
     public static ProductConfigItemContentWrapper makeProductConfigItemContentWrapper(GenericValue productConfigItem, HttpServletRequest request) {
         return new ProductConfigItemContentWrapper(productConfigItem, request);
     }
- 
+
     public ProductConfigItemContentWrapper(LocalDispatcher dispatcher, GenericValue productConfigItem, Locale locale, String mimeTypeId) {
         this.dispatcher = dispatcher;
         this.productConfigItem = productConfigItem;
         this.locale = locale;
         this.mimeTypeId = mimeTypeId;
     }
- 
+
     public ProductConfigItemContentWrapper(GenericValue productConfigItem, HttpServletRequest request) {
         this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         this.productConfigItem = productConfigItem;
         this.locale = UtilHttp.getLocale(request);
         this.mimeTypeId = "text/html";
     }
- 
+
     public String get(String confItemContentTypeId) {
         return getProductConfigItemContentAsText(productConfigItem, confItemContentTypeId, locale, mimeTypeId, productConfigItem.getDelegator(), dispatcher);
     }
- 
+
     public static String getProductConfigItemContentAsText(GenericValue productConfigItem, String confItemContentTypeId, HttpServletRequest request) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         return getProductConfigItemContentAsText(productConfigItem, confItemContentTypeId, UtilHttp.getLocale(request), "text/html", productConfigItem.getDelegator(), dispatcher);
@@ -85,7 +85,7 @@ public class ProductConfigItemContentWrapper implements java.io.Serializable {
     public static String getProductConfigItemContentAsText(GenericValue productConfigItem, String confItemContentTypeId, Locale locale, LocalDispatcher dispatcher) {
         return getProductConfigItemContentAsText(productConfigItem, confItemContentTypeId, locale, null, null, dispatcher);
     }
- 
+
     public static String getProductConfigItemContentAsText(GenericValue productConfigItem, String confItemContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher) {
         String candidateFieldName = ModelUtil.dbNameToVarName(confItemContentTypeId);
         try {
@@ -105,20 +105,20 @@ public class ProductConfigItemContentWrapper implements java.io.Serializable {
             return productConfigItem.getString(candidateFieldName);
         }
     }
- 
+
     public static void getProductConfigItemContentAsText(String configItemId, GenericValue productConfigItem, String confItemContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
         if (configItemId == null && productConfigItem != null) {
             configItemId = productConfigItem.getString("configItemId");
         }
- 
+
         if (delegator == null && productConfigItem != null) {
             delegator = productConfigItem.getDelegator();
         }
- 
+
         if (UtilValidate.isEmpty(mimeTypeId)) {
             mimeTypeId = "text/html";
         }
- 
+
         String candidateFieldName = ModelUtil.dbNameToVarName(confItemContentTypeId);
         //Debug.logInfo("candidateFieldName=" + candidateFieldName, module);
         ModelEntity productConfigItemModel = delegator.getModelEntity("ProductConfigItem");
@@ -134,7 +134,7 @@ public class ProductConfigItemContentWrapper implements java.io.Serializable {
                 }
             }
         }
- 
+
         List<GenericValue> productConfigItemContentList = delegator.findByAndCache("ProdConfItemContent", UtilMisc.toMap("configItemId", configItemId, "confItemContentTypeId", confItemContentTypeId), UtilMisc.toList("-fromDate"));
         productConfigItemContentList = EntityUtil.filterByDate(productConfigItemContentList);
         GenericValue productConfigItemContent = EntityUtil.getFirst(productConfigItemContentList);

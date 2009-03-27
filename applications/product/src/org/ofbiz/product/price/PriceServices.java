@@ -96,7 +96,7 @@ public class PriceServices {
         String checkIncludeVat = (String) context.get("checkIncludeVat");
         String surveyResponseId = (String) context.get("surveyResponseId");
         Map<String, Object> customAttributes = UtilGenerics.checkMap(context.get("customAttributes"));
- 
+
         String findAllQuantityPricesStr = (String) context.get("findAllQuantityPrices");
         boolean findAllQuantityPrices = "Y".equals(findAllQuantityPricesStr);
 
@@ -139,7 +139,7 @@ public class PriceServices {
                 productStoreGroupId = "_NA_";
             }
         }
- 
+
         // if currencyUomId is null get from properties file, if nothing there assume USD (USD: American Dollar) for now
         String currencyUomId = (String) context.get("currencyUomId");
         if (UtilValidate.isEmpty(currencyUomId)) {
@@ -151,7 +151,7 @@ public class PriceServices {
         if (UtilValidate.isEmpty(productPricePurposeId)) {
             productPricePurposeId = "PURCHASE";
         }
- 
+
         // termUomId, for things like recurring prices specifies the term (time/frequency measure for example) of the recurrence
         // if this is empty it will simply not be used to constrain the selection
         String termUomId = (String) context.get("termUomId");
@@ -566,7 +566,7 @@ public class PriceServices {
                     nonQuantityProductPriceRules = FastList.newInstance();
                     for (GenericValue productPriceRule: allProductPriceRules) {
                         List<GenericValue> productPriceCondList = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("productPriceRuleId", productPriceRule.get("productPriceRuleId")));
- 
+
                         boolean foundQuantityInputParam = false;
                         // only consider a rule if all conditions except the quantity condition are true
                         boolean allExceptQuantTrue = true;
@@ -579,7 +579,7 @@ public class PriceServices {
                                 }
                             }
                         }
- 
+
                         if (foundQuantityInputParam && allExceptQuantTrue) {
                             quantityProductPriceRules.add(productPriceRule);
                         } else {
@@ -590,14 +590,14 @@ public class PriceServices {
 
                 if (findAllQuantityPrices) {
                     List<Map<String, Object>> allQuantityPrices = FastList.newInstance();
- 
+
                     // if findAllQuantityPrices then iterate through quantityProductPriceRules
                     // foreach create an entry in the out list and eval that rule and all nonQuantityProductPriceRules rather than a single rule
                     for (GenericValue quantityProductPriceRule: quantityProductPriceRules) {
                         List<GenericValue> ruleListToUse = FastList.newInstance();
                         ruleListToUse.add(quantityProductPriceRule);
                         ruleListToUse.addAll(nonQuantityProductPriceRules);
- 
+
                         Map<String, Object> quantCalcResults = calcPriceResultFromRules(ruleListToUse, listPrice, defaultPrice, promoPrice,
                             wholesalePrice, maximumPriceValue, minimumPriceValue, validPriceFound,
                             averageCostValue, productId, virtualProductId, prodCatalogId, productStoreGroupId,
@@ -605,10 +605,10 @@ public class PriceServices {
                         Map<String, Object> quantErrorResult = addGeneralResults(quantCalcResults, competitivePriceValue, specialPromoPriceValue, productStore,
                             checkIncludeVat, currencyUomId, productId, quantity, partyId, dispatcher);
                         if (quantErrorResult != null) return quantErrorResult;
- 
+
                         // also add the quantityProductPriceRule to the Map so it can be used for quantity break information
                         quantCalcResults.put("quantityProductPriceRule", quantityProductPriceRule);
- 
+
                         allQuantityPrices.add(quantCalcResults);
                     }
                     result.put("allQuantityPrices", allQuantityPrices);
@@ -659,7 +659,7 @@ public class PriceServices {
         // utilTimer.timerString("Finished price calc [productId=" + productId + "]", module);
         return result;
     }
- 
+
     public static Map<String, Object> addGeneralResults(Map<String, Object> result, GenericValue competitivePriceValue, GenericValue specialPromoPriceValue, GenericValue productStore,
         String checkIncludeVat, String currencyUomId, String productId, BigDecimal quantity, String partyId, LocalDispatcher dispatcher) {
         result.put("competitivePrice", competitivePriceValue != null ? competitivePriceValue.getBigDecimal("price") : null);
@@ -674,7 +674,7 @@ public class PriceServices {
             if (UtilValidate.isNotEmpty(partyId)) {
                 calcTaxForDisplayContext.put("billToPartyId", partyId);
             }
- 
+
             try {
                 Map<String, Object> calcTaxForDisplayResult = dispatcher.runSync("calcTaxForDisplay", calcTaxForDisplayContext);
                 if (ServiceUtil.isError(calcTaxForDisplayResult)) {
@@ -707,10 +707,10 @@ public class PriceServices {
                 return ServiceUtil.returnError(errMsg);
             }
         }
- 
+
         return null;
     }
- 
+
     public static List<GenericValue> makeProducePriceRuleList(GenericDelegator delegator, boolean optimizeForLargeRuleSet, String productId, String virtualProductId, String prodCatalogId, String productStoreGroupId, String webSiteId, String partyId, String currencyUomId) throws GenericEntityException {
         List<GenericValue> productPriceRules = null;
 
@@ -856,20 +856,20 @@ public class PriceServices {
             productPriceRules = delegator.findList("ProductPriceRule", null, null, null, null, true);
             if (productPriceRules == null) productPriceRules = FastList.newInstance();
         }
- 
+
         return productPriceRules;
     }
- 
+
     public static Map<String, Object> calcPriceResultFromRules(List<GenericValue> productPriceRules, BigDecimal listPrice, BigDecimal defaultPrice, BigDecimal promoPrice,
         BigDecimal wholesalePrice, GenericValue maximumPriceValue, GenericValue minimumPriceValue, boolean validPriceFound,
         GenericValue averageCostValue, String productId, String virtualProductId, String prodCatalogId, String productStoreGroupId,
         String webSiteId, String partyId, BigDecimal quantity, String currencyUomId, GenericDelegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
- 
+
         Map<String, Object> calcResults = FastMap.newInstance();
 
         List<GenericValue> orderItemPriceInfos = FastList.newInstance();
         boolean isSale = false;
- 
+
         // ========= go through each price rule by id and eval all conditions =========
         // utilTimer.timerString("Before eval rules", module);
         int totalConds = 0;
@@ -882,7 +882,7 @@ public class PriceServices {
 
         // calculate running sum based on listPrice and rules found
         BigDecimal price = listPrice;
- 
+
         for (GenericValue productPriceRule: productPriceRules) {
             String productPriceRuleId = productPriceRule.getString("productPriceRuleId");
 
@@ -1102,7 +1102,7 @@ public class PriceServices {
         calcResults.put("orderItemPriceInfos", orderItemPriceInfos);
         calcResults.put("isSale", Boolean.valueOf(isSale));
         calcResults.put("validPriceFound", Boolean.valueOf(validPriceFound));
- 
+
         return calcResults;
     }
 
@@ -1143,7 +1143,7 @@ public class PriceServices {
             }
         } else if ("PRIP_PROD_FEAT_ID".equals(productPriceCond.getString("inputParamEnumId"))) {
             // NOTE: DEJ20070130 don't retry this condition with the virtualProductId as well; this breaks various things you might want to do with price rules, like have different pricing for a variant products with a certain distinguishing feature
- 
+
             // if a ProductFeatureAppl exists for this productId and the specified productFeatureId
             String productFeatureId = productPriceCond.getString("condValue");
             List<GenericValue> productFeatureAppls = delegator.findByAndCache("ProductFeatureAppl",
@@ -1297,7 +1297,7 @@ public class PriceServices {
         String currencyUomId = (String)context.get("currencyUomId");
         String partyId = (String)context.get("partyId");
         BigDecimal quantity = (BigDecimal)context.get("quantity");
- 
+
         // a) Get the Price from the Agreement* data model
         // TODO: Implement this
 

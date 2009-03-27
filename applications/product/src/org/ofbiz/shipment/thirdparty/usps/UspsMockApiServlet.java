@@ -84,7 +84,7 @@ public class UspsMockApiServlet extends HttpServlet {
             Debug.logError(xmlReadException, module);
             return;
         }
- 
+
         if (requestDocument == null) {
             Debug.logError("In UspsMockApiSerlvet No XML document found in request, quiting now; XML parameter is: " + xmlValue, module);
             return;

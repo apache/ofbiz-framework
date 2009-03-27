@@ -44,7 +44,7 @@ import org.ofbiz.entity.GenericEntityException;
 public class CatalogUrlServlet extends HttpServlet {
 
     public static final String module = CatalogUrlServlet.class.getName();
- 
+
     public static final String CATALOG_URL_MOUNT_POINT = "products";
     public static final String CONTROL_MOUNT_POINT = "control";
     public static final String PRODUCT_REQUEST = "product";
@@ -73,10 +73,10 @@ public class CatalogUrlServlet extends HttpServlet {
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         GenericDelegator delegator = (GenericDelegator) getServletContext().getAttribute("delegator");
- 
+
         String pathInfo = request.getPathInfo();
         List<String> pathElements = StringUtil.split(pathInfo, "/");
- 
+
         // look for productId
         String productId = null;
         try {
@@ -92,7 +92,7 @@ public class CatalogUrlServlet extends HttpServlet {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up product info for ProductUrl with path info [" + pathInfo + "]: " + e.toString(), module);
         }
- 
+
         // get category info going with the IDs that remain
         String categoryId = null;
         if (pathElements.size() == 1) {
@@ -106,7 +106,7 @@ public class CatalogUrlServlet extends HttpServlet {
             if (trail == null) {
                 trail = FastList.newInstance();
             }
- 
+
             if (trail.contains(pathElements.get(0))) {
                 // first category is in the trail, so remove it everything after that and fill it in with the list from the pathInfo
                 int firstElementIndex = trail.indexOf(pathElements.get(0));
@@ -122,7 +122,7 @@ public class CatalogUrlServlet extends HttpServlet {
             CategoryWorker.setTrail(request, trail);
             categoryId = pathElements.get(pathElements.size() - 1);
         }
- 
+
         if (categoryId != null) {
             request.setAttribute("productCategoryId", categoryId);
         }
@@ -130,7 +130,7 @@ public class CatalogUrlServlet extends HttpServlet {
         if (productId != null) {
             request.setAttribute("product_id", productId);
         }
- 
+
         RequestDispatcher rd = request.getRequestDispatcher("/" + CONTROL_MOUNT_POINT + "/" + (productId != null ? PRODUCT_REQUEST : CATEGORY_REQUEST));
         rd.forward(request, response);
     }
@@ -141,7 +141,7 @@ public class CatalogUrlServlet extends HttpServlet {
     public void destroy() {
         super.destroy();
     }
- 
+
     public static String makeCatalogUrl(HttpServletRequest request, String productId, String currentCategoryId, String previousCategoryId) {
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append(request.getSession().getServletContext().getContextPath());
@@ -149,7 +149,7 @@ public class CatalogUrlServlet extends HttpServlet {
             urlBuilder.append("/");
         }
         urlBuilder.append(CATALOG_URL_MOUNT_POINT);
- 
+
         if (UtilValidate.isNotEmpty(currentCategoryId)) {
             List<String> trail = CategoryWorker.getTrail(request);
             trail = CategoryWorker.adjustTrail(trail, currentCategoryId, previousCategoryId);
@@ -159,12 +159,12 @@ public class CatalogUrlServlet extends HttpServlet {
                 urlBuilder.append(trailCategoryId);
             }
         }
- 
+
         if (UtilValidate.isNotEmpty(productId)) {
             urlBuilder.append("/p_");
             urlBuilder.append(productId);
         }
- 
+
         return urlBuilder.toString();
     }
 }

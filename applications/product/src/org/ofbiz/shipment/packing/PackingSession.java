@@ -161,7 +161,7 @@ public class PackingSession implements java.io.Serializable {
                 } else if (!update) {
                     resQty = resQty.subtract(resPackedQty);
                 }
- 
+
                 BigDecimal thisQty = resQty.compareTo(qtyRemain) > 0 ? qtyRemain : resQty;
 
                 int thisCheck = this.checkLineForAdd(res, orderId, orderItemSeqId, shipGroupSeqId, productId, thisQty, packageSeqId, update);
@@ -236,7 +236,7 @@ public class PackingSession implements java.io.Serializable {
 
         // Add the line weight to the package weight
         if (weight.compareTo(BigDecimal.ZERO) > 0) this.addToPackageWeight(packageSeqId, weight);
- 
+
         // update the package sequence
         if (packageSeqId > packageSeq) {
             this.packageSeq = packageSeqId;
@@ -566,7 +566,7 @@ public class PackingSession implements java.io.Serializable {
             this.clear();
             return packageSeq;
         }
- 
+
         List<PackingSessionLine> currentLines = UtilMisc.makeListWritable(this.packLines);
         for (PackingSessionLine line: currentLines) {
             if (line.getPackageSeq() == packageSeq) {
@@ -751,7 +751,7 @@ public class PackingSession implements java.io.Serializable {
 
         return true;
     }
- 
+
     protected void createPackages() throws GeneralException {
         for (int i = 0; i < packageSeq; i++) {
             String shipmentPackageSeqId = UtilFormatOut.formatPaddedNumber(i+1, 5);
@@ -789,7 +789,7 @@ public class PackingSession implements java.io.Serializable {
             getDelegator().storeAll(shipmentRouteSegments);
         }
     }
- 
+
     protected void setShipmentToPacked() throws GeneralException {
         Map<String, Object> packedCtx = UtilMisc.toMap("shipmentId", shipmentId, "statusId", "SHIPMENT_PACKED", "userLogin", userLogin);
         Map<String, Object> packedResp = this.getDispatcher().runSync("updateShipment", packedCtx);
@@ -831,7 +831,7 @@ public class PackingSession implements java.io.Serializable {
     public void setAdditionalShippingCharge(BigDecimal additionalShippingCharge) {
         this.additionalShippingCharge = additionalShippingCharge;
     }
- 
+
     public BigDecimal getTotalWeight() {
         BigDecimal total = BigDecimal.ZERO;
         for (int i = 0; i < packageSeq; i++) {
@@ -848,13 +848,13 @@ public class PackingSession implements java.io.Serializable {
                                        orderItemShipGroup.getString("carrierPartyId"), orderItemShipGroup.getString("carrierRoleTypeId"),
                                        productStoreId, shippableItemInfo, shippableTotal, shippableWeight, shippableQuantity);
     }
- 
+
     public BigDecimal getShipmentCostEstimate(GenericValue orderItemShipGroup, String productStoreId) {
         return getShipmentCostEstimate(orderItemShipGroup.getString("contactMechId"), orderItemShipGroup.getString("shipmentMethodTypeId"),
                                        orderItemShipGroup.getString("carrierPartyId"), orderItemShipGroup.getString("carrierRoleTypeId"),
                                        productStoreId, null, null, null, null);
     }
- 
+
     public BigDecimal getShipmentCostEstimate(String shippingContactMechId, String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String productStoreId, List<GenericValue> shippableItemInfo, BigDecimal shippableTotal, BigDecimal shippableWeight, BigDecimal shippableQuantity) {
 
         BigDecimal shipmentCostEstimate = null;
@@ -866,7 +866,7 @@ public class PackingSession implements java.io.Serializable {
             serviceContext.put("carrierPartyId", carrierPartyId);
             serviceContext.put("carrierRoleTypeId", carrierRoleTypeId);
             serviceContext.put("productStoreId", productStoreId);
- 
+
             if (UtilValidate.isEmpty(shippableItemInfo)) {
                 shippableItemInfo = FastList.newInstance();
                 for (PackingSessionLine line: getLines()) {
@@ -890,22 +890,22 @@ public class PackingSession implements java.io.Serializable {
                 shippableTotal = BigDecimal.ZERO;
             }
             serviceContext.put("shippableTotal", shippableTotal);
- 
+
             serviceResult = getDispatcher().runSync("calcShipmentCostEstimate", serviceContext);
         } catch ( GenericEntityException e ) {
             Debug.logError(e, module);
         } catch ( GenericServiceException e ) {
             Debug.logError(e, module);
         }
- 
+
         if (! UtilValidate.isEmpty(serviceResult.get("shippingEstimateAmount"))) {
             shipmentCostEstimate = (BigDecimal) serviceResult.get("shippingEstimateAmount");
         }
- 
+
         return shipmentCostEstimate;
- 
+
     }
- 
+
     public String getWeightUomId() {
         return weightUomId;
     }
@@ -913,7 +913,7 @@ public class PackingSession implements java.io.Serializable {
     public void setWeightUomId(String weightUomId) {
         this.weightUomId = weightUomId;
     }
- 
+
     public List<Integer> getPackageSeqIds() {
         Set<Integer> packageSeqIds = new TreeSet<Integer>();
         if (! UtilValidate.isEmpty(this.getLines())) {
@@ -923,7 +923,7 @@ public class PackingSession implements java.io.Serializable {
         }
         return UtilMisc.makeListWritable(packageSeqIds);
     }
- 
+
     public void setPackageWeight(int packageSeqId, BigDecimal packageWeight) {
         if (UtilValidate.isEmpty(packageWeight)) {
             packageWeights.remove(Integer.valueOf(packageSeqId));
@@ -931,7 +931,7 @@ public class PackingSession implements java.io.Serializable {
             packageWeights.put(Integer.valueOf(packageSeqId), packageWeight);
         }
     }
- 
+
     public BigDecimal getPackageWeight(int packageSeqId) {
         if (this.packageWeights == null) return null;
         BigDecimal packageWeight = null;
@@ -941,7 +941,7 @@ public class PackingSession implements java.io.Serializable {
         }
         return packageWeight;
     }
- 
+
     public void addToPackageWeight(int packageSeqId, BigDecimal weight) {
         if (UtilValidate.isEmpty(weight)) return;
         BigDecimal packageWeight = getPackageWeight(packageSeqId);

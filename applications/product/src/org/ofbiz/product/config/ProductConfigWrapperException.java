@@ -20,10 +20,10 @@
 package org.ofbiz.product.config;
 
 public class ProductConfigWrapperException extends Exception {
- 
+
     /** Creates a new instance of ProductConfigWrapperException */
     public ProductConfigWrapperException(String message) {
         super(message);
     }
- 
+
 }
