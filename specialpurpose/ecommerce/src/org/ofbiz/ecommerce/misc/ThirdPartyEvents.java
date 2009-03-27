@@ -39,7 +39,7 @@ import org.ofbiz.entity.util.EntityUtil;
 
 
 public class ThirdPartyEvents {
- 
+
     public static final String module = ThirdPartyEvents.class.getName();
 
     public final static String DISTRIBUTOR_ID = "_DISTRIBUTOR_ID_";
