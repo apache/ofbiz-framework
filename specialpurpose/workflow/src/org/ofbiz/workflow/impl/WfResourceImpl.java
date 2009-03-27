@@ -83,21 +83,21 @@ public class WfResourceImpl implements WfResource {
         if (roleTypeId == null)
             roleTypeId = "_NA_";
     }
- 
+
     /**
      * @see org.ofbiz.workflow.WfResource#howManyWorkItem()
      */
     public int howManyWorkItem() throws WfException {
         return workItems().size();
     }
- 
+
     /**
      * @see org.ofbiz.workflow.WfResource#getIteratorWorkItem()
      */
     public Iterator getIteratorWorkItem() throws WfException {
         return workItems().iterator();
     }
- 
+
     /**
      * @see org.ofbiz.workflow.WfResource#getSequenceWorkItem(int)
      */

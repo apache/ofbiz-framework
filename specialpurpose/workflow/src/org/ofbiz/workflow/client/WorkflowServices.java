@@ -46,7 +46,7 @@ import org.ofbiz.workflow.WfProcess;
  * Workflow Services - 'Services' and 'Workers' for interaction with Workflow API
  */
 public class WorkflowServices {
- 
+
     public static final String module = WorkflowServices.class.getName();
 
     // -------------------------------------------------------------------
@@ -59,7 +59,7 @@ public class WorkflowServices {
         GenericDelegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         String workEffortId = (String) context.get("workEffortId");
- 
+
         // if we passed in an activity id, lets get the process id instead
         try {
             GenericValue testObject = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId));
@@ -82,7 +82,7 @@ public class WorkflowServices {
             result.put(ModelService.ERROR_MESSAGE, "Problems looking up runtime object; invalid id");
             return result;
         }
- 
+
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         if (!hasPermission(security, workEffortId, userLogin)) {
@@ -100,7 +100,7 @@ public class WorkflowServices {
         }
         return result;
     }
- 
+
     /** Suspend activity */
     public static Map suspendActivity(DispatchContext ctx, Map context) {
         Map result = new HashMap();
@@ -125,7 +125,7 @@ public class WorkflowServices {
         }
         return result;
     }
- 
+
     /** Resume activity */
     public static Map resumeActivity(DispatchContext ctx, Map context) {
         Map result = new HashMap();
@@ -281,7 +281,7 @@ public class WorkflowServices {
         String partyId = (String) context.get("partyId");
         String roleType = (String) context.get("roleTypeId");
         Timestamp fromDate = (Timestamp) context.get("fromDate");
- 
+
         try {
             WorkflowClient client = WfFactory.getClient(ctx);
             client.acceptAndStart(workEffortId, partyId, roleType, fromDate);
@@ -294,7 +294,7 @@ public class WorkflowServices {
         return result;
 
     }
- 
+
     /** Delegate an assignment */
     public static Map delegateAssignment(DispatchContext ctx, Map context) {
         Map result = new HashMap();
@@ -305,7 +305,7 @@ public class WorkflowServices {
         String toParty = (String) context.get("toPartyId");
         String toRole = (String) context.get("toRoleTypeId");
         Timestamp toFromDate = (Timestamp) context.get("toFromDate");
- 
+
         // optional fromDate (default now)
         if (toFromDate == null)
             toFromDate = UtilDateTime.nowTimestamp();
@@ -321,7 +321,7 @@ public class WorkflowServices {
         }
         return result;
     }
- 
+
     /** Delegate, accept an assignment */
     public static Map delegateAcceptAssignment(DispatchContext ctx, Map context) {
         Map result = new HashMap();
@@ -333,16 +333,16 @@ public class WorkflowServices {
         String toRole = (String) context.get("toRoleTypeId");
         Timestamp toFromDate = (Timestamp) context.get("toFromDate");
         Boolean startObj = (Boolean) context.get("startActivity");
- 
+
         // optional start activity (default false)
         boolean start = false;
         if (startObj != null)
             start = startObj.booleanValue();
- 
+
         // optional fromDate (default now)
         if (toFromDate == null)
             toFromDate = UtilDateTime.nowTimestamp();
- 
+
         try {
             WorkflowClient client = new WorkflowClient(ctx);
             client.delegateAndAccept(workEffortId, fromParty, fromRole, fromFromDate, toParty, toRole, toFromDate, start);
@@ -354,7 +354,7 @@ public class WorkflowServices {
         }
         return result;
     }
- 
+
     /** Accept a role assignment and attempt to start the activity */
     public static Map acceptRoleAssignment(DispatchContext ctx, Map context) {
         Map result = new HashMap();
@@ -362,7 +362,7 @@ public class WorkflowServices {
         String partyId = (String) context.get("partyId");
         String roleType = (String) context.get("roleTypeId");
         Timestamp fromDate = (Timestamp) context.get("fromDate");
- 
+
         try {
             WorkflowClient client = new WorkflowClient(ctx);
             client.delegateAndAccept(workEffortId, "_NA_", roleType, fromDate, partyId, roleType, fromDate, true);
@@ -392,7 +392,7 @@ public class WorkflowServices {
             result.put(ModelService.ERROR_MESSAGE, "You do not have permission to access this assignment");
             return result;
         }
- 
+
         try {
             WorkflowClient client = WfFactory.getClient(ctx);
             client.complete(workEffortId, partyId, roleType, fromDate, actResults);

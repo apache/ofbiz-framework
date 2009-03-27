@@ -43,11 +43,11 @@ import org.ofbiz.workflow.WfRequester;
  * WfRequesterImpl - Workflow Requester implementation
  */
 public class WfRequesterImpl implements WfRequester {
- 
+
     public static final String module = WfRequesterImpl.class.getName();
 
     protected Map performers = null;
- 
+
     /**
      * Method WfRequesterImpl.
      */
@@ -79,7 +79,7 @@ public class WfRequesterImpl implements WfRequester {
         Map localContext = new HashMap(context);
         localContext.putAll(mgr.getInitialContext());
         process.setProcessContext(localContext);
- 
+
         // Set the source reference id if one was passed
         GenericValue processDefinition = process.getDefinitionObject();
         String sourceReferenceField = processDefinition.getString("sourceReferenceField");
@@ -94,7 +94,7 @@ public class WfRequesterImpl implements WfRequester {
                 }
             }
         }
- 
+
     }
 
     /**
@@ -103,14 +103,14 @@ public class WfRequesterImpl implements WfRequester {
     public int howManyPerformer() throws WfException {
         return performers.size();
     }
- 
+
     /**
      * @see org.ofbiz.workflow.WfRequester#getIteratorPerformer()
      */
     public Iterator getIteratorPerformer() throws WfException {
         return performers.keySet().iterator();
     }
- 
+
     /**
      * @see org.ofbiz.workflow.WfRequester#getSequencePerformer(int)
      */
@@ -119,14 +119,14 @@ public class WfRequesterImpl implements WfRequester {
             return new ArrayList(performers.keySet()).subList(0, (maxNumber - 1));
         return new ArrayList(performers.keySet());
     }
- 
+
     /**
      * @see org.ofbiz.workflow.WfRequester#isMemberOfPerformer(org.ofbiz.workflow.WfProcess)
      */
     public boolean isMemberOfPerformer(WfProcess member) throws WfException {
         return performers.containsKey(member);
     }
- 
+
     /**
      * @see org.ofbiz.workflow.WfRequester#receiveEvent(org.ofbiz.workflow.WfEventAudit)
      */

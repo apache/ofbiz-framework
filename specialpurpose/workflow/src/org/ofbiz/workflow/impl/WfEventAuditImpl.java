@@ -43,14 +43,14 @@ public class WfEventAuditImpl implements WfEventAudit {
         this.eventType = eventType;
         this.timeStamp = new Timestamp(new Date().getTime());
     }
- 
+
     /**
      * @see org.ofbiz.workflow.WfEventAudit#source()
      */
     public WfExecutionObject source() throws WfException, SourceNotAvailable {
         return object;
     }
- 
+
     /**
      * @see org.ofbiz.workflow.WfEventAudit#timeStamp()
      */

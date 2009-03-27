@@ -109,7 +109,7 @@ public class WfAssignmentImpl implements WfAssignment {
         if (value == null)
             throw new WfException("No existing assignment found or create failed");
     }
- 
+
     /**
      * @see org.ofbiz.workflow.WfAssignment#accept()
      */
@@ -148,7 +148,7 @@ public class WfAssignmentImpl implements WfAssignment {
         // set this assignment as accepted
         changeStatus("CAL_ACCEPTED");
     }
- 
+
     /**
      * @see org.ofbiz.workflow.WfAssignment#setResult(java.util.Map)
      */
@@ -175,7 +175,7 @@ public class WfAssignmentImpl implements WfAssignment {
         // check and make sure we are not already delegated
         if (status().equals("CAL_DELEGATED"))
             throw new WfException("Assignment has already been delegated");
- 
+
         // set the thru-date
         GenericValue valueObject = valueObject();
         try {
@@ -186,7 +186,7 @@ public class WfAssignmentImpl implements WfAssignment {
             e.printStackTrace();
             throw new WfException(e.getMessage(), e);
         }
- 
+
         // change the status 
         changeStatus("CAL_DELEGATED");
     }
@@ -273,18 +273,18 @@ public class WfAssignmentImpl implements WfAssignment {
             throw new WfException("Invalid assignment; no runtime entity");
         return value;
     }
- 
+
     private boolean isEqual(WfAssignment asgn) throws WfException {
         // compare this to null = different assignment
         if (asgn == null) {
             return false;
         }
- 
+
         // if status is different; we must be different
         if (!this.status().equals(asgn.status())) {
             return false;
         }
- 
+
         // different activity = different assignment
         WfActivity thisActivity = this.activity();
         WfActivity compActivity = asgn.activity();
@@ -299,7 +299,7 @@ public class WfAssignmentImpl implements WfAssignment {
                 return false;
             }
         }
- 
+
         // different participantId = different assignment - the rest doesn't matter
         WfResource thisResource = this.assignee();
         WfResource compResource = asgn.assignee();
@@ -314,7 +314,7 @@ public class WfAssignmentImpl implements WfAssignment {
                 return false;
             }
         }
- 
+
         // same status, same activity, same participantId = same assignement
         return true;
     }

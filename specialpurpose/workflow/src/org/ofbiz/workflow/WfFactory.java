@@ -38,12 +38,12 @@ import org.ofbiz.workflow.impl.WfResourceImpl;
  * WfFactory - Workflow Factory Class
  */
 public class WfFactory {
- 
+
     public static final String module = WfFactory.class.getName();
- 
+
     protected static UtilCache wfProcessMgrCache = new UtilCache("workflow.processmgr");
     protected static UtilCache wfClientCache = new UtilCache("workflow.client");
- 
+
     /**
      * Creates a new {@link WfActivity} instance.
      * @param value GenericValue object defining this activity.
@@ -135,7 +135,7 @@ public class WfFactory {
         if (delegator == null) throw new WfException("Delegator cannot be null");
         if (pkg == null) throw new WfException("Workflow package id cannot be null.");
         if (pid == null) throw new WfException("Workflow process id cannot be null");
- 
+
         String key = delegator.getDelegatorName() + ":" + pkg + ":" + pkver + ":" + pid + ":" + pver;
         if (!wfProcessMgrCache.containsKey(key)) {
             synchronized (WfFactory.class) {
