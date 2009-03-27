@@ -45,12 +45,12 @@ import org.ofbiz.service.LocalDispatcher;
  *
  */
 public class OrderContentWrapper {
- 
+
     public static final String module = OrderContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
- 
+
     public static UtilCache orderContentCache;
- 
+
     public static OrderContentWrapper makeOrderContentWrapper(GenericValue order, HttpServletRequest request) {
         return new OrderContentWrapper(order, request);
     }
@@ -59,7 +59,7 @@ public class OrderContentWrapper {
     protected GenericValue order;
     protected Locale locale;
     protected String mimeTypeId;
- 
+
     public OrderContentWrapper(LocalDispatcher dispatcher, GenericValue order, Locale locale, String mimeTypeId) {
         this.dispatcher = dispatcher;
         this.order = order;
@@ -69,7 +69,7 @@ public class OrderContentWrapper {
             orderContentCache = new UtilCache("order.content", true);     // use soft reference to free up memory if needed
         }
     }
- 
+
     public OrderContentWrapper(GenericValue order, HttpServletRequest request) {
         this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         this.order = order;
@@ -79,11 +79,11 @@ public class OrderContentWrapper {
             orderContentCache = new UtilCache("order.content", true);     // use soft reference to free up memory if needed
         }
     }
- 
+
     public String get(String orderContentTypeId) {
         return getOrderContentAsText(order, orderContentTypeId, locale, mimeTypeId, order.getDelegator(), dispatcher);
     }
- 
+
     public static String getOrderContentAsText(GenericValue order, String orderContentTypeId, HttpServletRequest request) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         return getOrderContentAsText(order, orderContentTypeId, UtilHttp.getLocale(request), "text/html", order.getDelegator(), dispatcher);
@@ -92,19 +92,19 @@ public class OrderContentWrapper {
     public static String getOrderContentAsText(GenericValue order, String orderContentTypeId, Locale locale, LocalDispatcher dispatcher) {
         return getOrderContentAsText(order, orderContentTypeId, locale, null, null, dispatcher);
     }
- 
+
     public static String getOrderContentAsText(GenericValue order, String orderContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher) {
         /* caching: there is one cache created, "order.content"  Each order's content is cached with a key of
          * contentTypeId::locale::mimeType::orderId::orderItemSeqId, or whatever the SEPARATOR is defined above to be.
          */
         String orderItemSeqId = (order.getEntityName().equals("OrderItem")? order.getString("orderItemSeqId"): "_NA_");
- 
+
         String cacheKey = orderContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + order.get("orderId") + SEPARATOR + orderItemSeqId;
         try {
             if (orderContentCache != null && orderContentCache.get(cacheKey) != null) {
                 return (String) orderContentCache.get(cacheKey);
             }
- 
+
             Writer outWriter = new StringWriter();
             getOrderContentAsText(null, null, order, orderContentTypeId, locale, mimeTypeId, delegator, dispatcher, outWriter);
             String outString = outWriter.toString();
@@ -123,7 +123,7 @@ public class OrderContentWrapper {
             return "";
         }
     }
- 
+
     public static void getOrderContentAsText(String orderId, String orderItemSeqId, GenericValue order, String orderContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher, Writer outWriter) throws GeneralException, IOException {
         if (orderId == null && order != null) {
             orderId = order.getString("orderId");
@@ -131,15 +131,15 @@ public class OrderContentWrapper {
         if (orderItemSeqId == null && order != null) {
             orderItemSeqId = (order.getEntityName().equals("OrderItem")? order.getString("orderItemSeqId"): "_NA_");
         }
- 
+
         if (delegator == null && order != null) {
             delegator = order.getDelegator();
         }
- 
+
         if (UtilValidate.isEmpty(mimeTypeId)) {
             mimeTypeId = "text/html";
         }
- 
+
         List orderContentList = delegator.findByAndCache("OrderContent", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "orderContentTypeId", orderContentTypeId), UtilMisc.toList("-fromDate"));
         orderContentList = EntityUtil.filterByDate(orderContentList);
         GenericValue orderContent = EntityUtil.getFirst(orderContentList);

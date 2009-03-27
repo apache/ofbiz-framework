@@ -190,7 +190,7 @@ public class OrderChangeHelper {
                         GenericValue orderItem = (GenericValue) oii.next();
                         String orderItemSeqId = orderItem.getString("orderItemSeqId");
                         GenericValue product = null;
- 
+
                         try {
                             product = orderItem.getRelatedOne("Product");
                         } catch (GenericEntityException e) {

@@ -123,7 +123,7 @@ public class ShippingEvents {
         if (shipAddr == null) {
             return UtilMisc.toMap("shippingTotal", BigDecimal.ZERO);
         }
- 
+
         String contactMechId = shipAddr.getString("contactMechId");
         String partyId = null;
         GenericValue partyObject = orh.getPlacingParty();

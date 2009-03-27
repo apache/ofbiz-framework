@@ -99,7 +99,7 @@ public class OrderManagerEvents {
                         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                         return "error";
                     }
- 
+
                     if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
                         Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
                         request.setAttribute("_ERROR_MESSAGE_", (String) results.get(ModelService.ERROR_MESSAGE));
@@ -204,7 +204,7 @@ public class OrderManagerEvents {
                     if (userLogin != null) {
                         paymentPreference.set("createdByUserLogin", userLogin.getString("userLoginId"));
                     }
- 
+
                     try {
                         delegator.create(paymentPreference);
                     } catch (GenericEntityException ex) {
@@ -224,7 +224,7 @@ public class OrderManagerEvents {
                         request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                         return "error";
                     }
- 
+
                     if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR))) {
                         Debug.logError((String) results.get(ModelService.ERROR_MESSAGE), module);
                         request.setAttribute("_ERROR_MESSAGE_", (String) results.get(ModelService.ERROR_MESSAGE));

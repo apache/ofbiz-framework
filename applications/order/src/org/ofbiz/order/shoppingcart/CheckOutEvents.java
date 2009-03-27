@@ -74,7 +74,7 @@ public class CheckOutEvents {
         if ("error".equals(CheckOutEvents.cartNotEmpty(request, response)) == true) {
             return "error";
         }
- 
+
         HttpSession session = request.getSession();
 
         //Locale locale = UtilHttp.getLocale(request);
@@ -98,7 +98,7 @@ public class CheckOutEvents {
             cart.cleanUpShipGroups();
         }
         CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
- 
+
         if ("shippingaddress".equals(curPage) == true) {
             // Set the shipping address options
             String shippingContactMechId = request.getParameter("shipping_contact_mech_id");
@@ -106,7 +106,7 @@ public class CheckOutEvents {
             String taxAuthPartyGeoIds = request.getParameter("taxAuthPartyGeoIds");
             String partyTaxId = request.getParameter("partyTaxId");
             String isExempt = request.getParameter("isExempt");
- 
+
             List errorMessages = new ArrayList();
             Map errorMaps = new HashMap();
             for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
@@ -134,7 +134,7 @@ public class CheckOutEvents {
                     return "error";
                 }
             }
- 
+
             Map callResult = checkOutHelper.setCheckOutShippingAddress(shippingContactMechId);
             ServiceUtil.getMessages(request, callResult, null);
 
@@ -154,7 +154,7 @@ public class CheckOutEvents {
             String shipBeforeDate =  request.getParameter("shipBeforeDate");
             String shipAfterDate = request.getParameter("shipAfterDate");
             Map callResult = ServiceUtil.returnSuccess();
- 
+
             for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
                 callResult = checkOutHelper.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, orderAdditionalEmails);
                 ServiceUtil.getMessages(request, callResult, null);
@@ -294,7 +294,7 @@ public class CheckOutEvents {
         if (paymentMethods != null) {
             for (int i = 0; i < paymentMethods.length; i++) {
                 Map paymentMethodInfo = FastMap.newInstance();
- 
+
                 String securityCode = request.getParameter("securityCode_" + paymentMethods[i]);
                 if (UtilValidate.isNotEmpty(securityCode)) {
                     paymentMethodInfo.put("securityCode", securityCode);
@@ -348,11 +348,11 @@ public class CheckOutEvents {
 
         String shippingMethod = request.getParameter("shipping_method");
         String shippingContactMechId = request.getParameter("shipping_contact_mech_id");
- 
+
         String taxAuthPartyGeoIds = request.getParameter("taxAuthPartyGeoIds");
         String partyTaxId = request.getParameter("partyTaxId");
         String isExempt = request.getParameter("isExempt");
- 
+
         String shippingInstructions = request.getParameter("shipping_instructions");
         String orderAdditionalEmails = request.getParameter("order_additional_emails");
         String maySplit = request.getParameter("may_split");
@@ -362,7 +362,7 @@ public class CheckOutEvents {
         String shipBeforeDate = request.getParameter("shipBeforeDate");
         String shipAfterDate = request.getParameter("shipAfterDate");
         String cancelBackOrderDate = request.getParameter("cancelBackOrderDate");
- 
+
         List singleUsePayments = new ArrayList();
 
         // get a request map of parameters
@@ -383,7 +383,7 @@ public class CheckOutEvents {
                 return "error";
             }
         }
- 
+
         // check for gift card not on file
         Map gcResult = checkOutHelper.checkGiftCard(params, selectedPaymentMethods);
         ServiceUtil.getMessages(request, gcResult, null);
@@ -482,7 +482,7 @@ public class CheckOutEvents {
         }
         return productStore.getBoolean("explodeOrderItems").booleanValue();
     }
- 
+
     public static String checkShipmentNeeded(HttpServletRequest request, HttpServletResponse response) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         ShoppingCart cart = ShoppingCartEvents.getCartObject(request);
@@ -492,7 +492,7 @@ public class CheckOutEvents {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting ProductStore: " + e.toString(), module);
         }
- 
+
         Debug.logInfo("checkShipmentNeeded: reqShipAddrForDigItems=" + productStore.getString("reqShipAddrForDigItems"), module);
         if (productStore != null && "N".equals(productStore.getString("reqShipAddrForDigItems"))) {
             Debug.logInfo("checkShipmentNeeded: cart.containOnlyDigitalGoods()=" + cart.containOnlyDigitalGoods(), module);
@@ -501,7 +501,7 @@ public class CheckOutEvents {
                 return "shipmentNotNeeded";
             }
         }
- 
+
         return "shipmentNeeded";
     }
 
@@ -695,7 +695,7 @@ public class CheckOutEvents {
                 Debug.logError(e, module);
             }
         }
- 
+
         // set the customer info
         if (mode != null && mode.equals("default")) {
             cart.setDefaultCheckoutOptions(dispatcher);
@@ -780,7 +780,7 @@ public class CheckOutEvents {
                     shipBeforeDate = request.getParameter(shipGroupIndex + "_shipBeforeDate");
                     shipAfterDate = request.getParameter(shipGroupIndex + "_shipAfterDate");
                     cancelBackOrderDate = request.getParameter("cancelBackOrderDate");
- 
+
                     callResult = checkOutHelper.finalizeOrderEntryOptions(shipGroupIndex, shippingMethod, shippingInstructions, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate, cancelBackOrderDate);
                     ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
                 }
@@ -851,7 +851,7 @@ public class CheckOutEvents {
                     selectedPaymentMethods.put(newPaymentMethodId, UtilMisc.toMap("amount", null, "securityCode", null));
                 }
             }
- 
+
             // The selected payment methods are set
             errorMessages.addAll(checkOutHelper.setCheckOutPaymentInternal(selectedPaymentMethods, null, billingAccountId));
             // Verify if a gift card has been selected during order entry
@@ -943,7 +943,7 @@ public class CheckOutEvents {
                 shippingOptionsSet = false;
             }
         }
- 
+
         String customerPartyId = cart.getPartyId();
 
         String[] processOrder = {"customer", "shipping", "shipGroups", "options", "term", "payment",

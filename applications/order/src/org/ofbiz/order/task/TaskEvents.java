@@ -44,15 +44,15 @@ import org.ofbiz.service.ModelService;
  * Order Processing Task Events
  */
 public class TaskEvents {
- 
+
     public static final String module = TaskEvents.class.getName();
     public static final String resource_error = "OrderErrorUiLabels";
- 
+
     /** Complete assignment event */
     public static String completeAssignment(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
- 
+
         Map parameterMap = UtilHttp.getParameterMap(request);
         String workEffortId = (String) parameterMap.remove("workEffortId");
         String partyId = (String) parameterMap.remove("partyId");
@@ -60,14 +60,14 @@ public class TaskEvents {
         String fromDateStr = (String) parameterMap.remove("fromDate");
         java.sql.Timestamp fromDate = null;
         Locale locale = UtilHttp.getLocale(request);
- 
+
         try {
             fromDate = (java.sql.Timestamp) ObjectType.simpleTypeConvert(fromDateStr, "java.sql.Timestamp", null, null);
         } catch (GeneralException e) {
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderInvalidDateFormatForFromDate", locale));
             return "error";
         }
- 
+
         Map result = null;
         try {
             Map context = UtilMisc.toMap("workEffortId", workEffortId, "partyId", partyId, "roleTypeId", roleTypeId,
@@ -84,13 +84,13 @@ public class TaskEvents {
 
         return "success";
     }
- 
+
     /** Accept role assignment event */
     public static String acceptRoleAssignment(HttpServletRequest request, HttpServletResponse response) {
         ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
         Locale locale = UtilHttp.getLocale(request);
- 
+
         if (addToOrderRole(request)) {
             try {
                 EventHandler eh = rh.getEventFactory().getEventHandler("service");
@@ -104,13 +104,13 @@ public class TaskEvents {
         }
         return "error";
     }
- 
+
     /** Delegate and accept assignment event */
     public static String delegateAndAcceptAssignment(HttpServletRequest request, HttpServletResponse response) {
         ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
         Locale locale = UtilHttp.getLocale(request);
- 
+
         if (addToOrderRole(request)) {
             try {
                 EventHandler eh = rh.getEventFactory().getEventHandler("service");
@@ -124,7 +124,7 @@ public class TaskEvents {
         }
         return "error";
     }
- 
+
     private static boolean addToOrderRole(HttpServletRequest request) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         String partyId = request.getParameter("partyId");

@@ -49,21 +49,21 @@ public class OrderEvents {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String dataResourceId = request.getParameter("dataResourceId");
- 
+
         try {
             // has the userLogin.partyId ordered a product with DIGITAL_DOWNLOAD content associated for the given dataResourceId?
             List orderRoleAndProductContentInfoList = delegator.findByAnd("OrderRoleAndProductContentInfo",
                     UtilMisc.toMap("partyId", userLogin.get("partyId"), "dataResourceId", dataResourceId, "productContentTypeId", "DIGITAL_DOWNLOAD", "statusId", "ITEM_COMPLETED"));
- 
+
             if (orderRoleAndProductContentInfoList.size() == 0) {
                 request.setAttribute("_ERROR_MESSAGE_", "No record of purchase for digital download found (dataResourceId=[" + dataResourceId + "]).");
                 return "error";
             }
- 
+
             GenericValue orderRoleAndProductContentInfo = (GenericValue) orderRoleAndProductContentInfoList.get(0);
- 
+
             // TODO: check validity based on ProductContent fields: useCountLimit, useTime/useTimeUomId
- 
+
             if (orderRoleAndProductContentInfo.getString("mimeTypeId") != null) {
                 response.setContentType(orderRoleAndProductContentInfo.getString("mimeTypeId"));
             }
@@ -86,7 +86,7 @@ public class OrderEvents {
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
- 
+
         return "success";
     }
 }

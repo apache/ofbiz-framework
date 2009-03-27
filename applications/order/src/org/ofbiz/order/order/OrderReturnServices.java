@@ -440,7 +440,7 @@ public class OrderReturnServices {
                             Debug.logError(e, "Problems looking up returnable product type information", module);
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetTheItemReturnableProduct", locale));
                         }
- 
+
                     }
                     Map serviceResult = null;
                     try {
@@ -481,7 +481,7 @@ public class OrderReturnServices {
                         returnInfo.put("itemTypeKey", itemTypeKey);
 
                         returnable.put(item, returnInfo);
- 
+
                         // Order item adjustments
                         List itemAdjustments = null;
                         try {
@@ -629,14 +629,14 @@ public class OrderReturnServices {
             Debug.logError(e, "Problems looking up return information", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorGettingReturnHeaderItemInformation", locale));
         }
- 
+
         BigDecimal adjustments = getReturnAdjustmentTotal(delegator, UtilMisc.toMap("returnId", returnId, "returnTypeId", "RTN_CREDIT"));
 
         if (returnHeader != null && ((returnItems != null && returnItems.size() > 0) || adjustments.compareTo(ZERO) > 0)) {
             String billingAccountId = returnHeader.getString("billingAccountId");
             String fromPartyId = returnHeader.getString("fromPartyId");
             String toPartyId = returnHeader.getString("toPartyId");
- 
+
             // make sure total refunds on a return don't exceed amount of returned orders
             Map serviceResult = null;
             try {
@@ -887,7 +887,7 @@ public class OrderReturnServices {
             }
 
             groupReturnItemsByOrder(returnItems, itemsByOrder, totalByOrder, delegator, returnId, "RTN_REFUND");
- 
+
             // process each one by order
             Set itemSet = itemsByOrder.entrySet();
             Iterator itemByOrderIt = itemSet.iterator();
@@ -927,7 +927,7 @@ public class OrderReturnServices {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsWithGetPartyAcctgPreferences", locale));
                     }
                     orgAcctgPref = (GenericValue) acctgPreferencesResult.get("partyAccountingPreference");
- 
+
                     if (UtilValidate.isNotEmpty(orgAcctgPref)) {
                         try {
                             refundPaymentMethod = orgAcctgPref.getRelatedOne("PaymentMethod");
@@ -1064,7 +1064,7 @@ public class OrderReturnServices {
                                     input.put("paymentMethodId", orderPaymentPreference.get("paymentMethodId"));
                                     input.put("paymentMethodTypeId", orderPaymentPreference.get("paymentMethodTypeId"));
                                     input.put("paymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"));
- 
+
                                     serviceResult = dispatcher.runSync("createPayment", input);
 
                                     if (ServiceUtil.isError(serviceResult) || ServiceUtil.isFailure(serviceResult)) {
@@ -1234,12 +1234,12 @@ public class OrderReturnServices {
                 }
             }
         }
- 
+
         Map result = ServiceUtil.returnSuccess();
         result.put("paymentId", paymentId);
         return result;
     }
- 
+
     public static Map createPaymentApplicationsFromReturnItemResponse(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
@@ -1376,7 +1376,7 @@ public class OrderReturnServices {
 
                 // create the replacement order
                 Map orderMap = UtilMisc.toMap("userLogin", userLogin);
- 
+
                 String placingPartyId = null;
                 GenericValue placingParty = null;
                 if ("CUSTOMER_RETURN".equals(returnHeaderTypeId)) {
@@ -1499,7 +1499,7 @@ public class OrderReturnServices {
                                         }
                                     }
                                 }
- 
+
                                 GenericValue newItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderItemSeqId", UtilFormatOut.formatPaddedNumber(itemCount++, 5)));
                                 if (UtilValidate.isEmpty(refurbItem)) {
                                     newItem.set("productId", orderItem.get("productId"));
@@ -1740,7 +1740,7 @@ public class OrderReturnServices {
                 // since there is no payments required; order is ready for processing/shipment
                 if (createdOrderId != null) {
                     OrderChangeHelper.approveOrder(dispatcher, userLogin, createdOrderId);
- 
+
                     // create a ReturnItemResponse and attach to each ReturnItem
                     Map itemResponse = FastMap.newInstance();
                     itemResponse.put("replacementOrderId", createdOrderId);
@@ -1758,7 +1758,7 @@ public class OrderReturnServices {
                         Debug.logError(e, "Problem creating ReturnItemResponse record", module);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemCreatingReturnItemResponseRecord", locale));
                     }
- 
+
                     Iterator updateReturnItemIter = returnItemList.iterator();
                     while (updateReturnItemIter.hasNext()) {
                         GenericValue returnItem = (GenericValue) updateReturnItemIter.next();
@@ -1907,7 +1907,7 @@ public class OrderReturnServices {
                 }
             }
         }
- 
+
         // We may also have some order-level adjustments, so we need to go through each order again and add those as well
         if ((totalByOrder != null) && (totalByOrder.keySet() != null)) {
             Iterator orderIterator = totalByOrder.keySet().iterator();
@@ -1923,7 +1923,7 @@ public class OrderReturnServices {
         }
     }
 
- 
+
     public static Map getReturnAmountByOrder(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         String returnId = (String) context.get("returnId");
@@ -1932,7 +1932,7 @@ public class OrderReturnServices {
         Map returnAmountByOrder = new HashMap();
         try {
             returnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId));
- 
+
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up return information", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "OrderErrorGettingReturnHeaderItemInformation", locale));
@@ -2018,16 +2018,16 @@ public class OrderReturnServices {
         String returnId = (String) context.get("returnId");
         String returnItemSeqId = (String) context.get("returnItemSeqId");
         String description = (String) context.get("description");
- 
+
         GenericValue returnItemTypeMap = null;
         GenericValue orderAdjustment = null;
         GenericValue returnAdjustmentType = null;
         GenericValue orderItem = null;
         GenericValue returnItem = null;
         GenericValue returnHeader = null;
- 
+
         BigDecimal amount;
- 
+
         // if orderAdjustment is not empty, then copy most return adjustment information from orderAdjustment's
         if (orderAdjustmentId != null) {
             try {
@@ -2190,7 +2190,7 @@ public class OrderReturnServices {
             return ServiceUtil.returnError(e.getMessage());
         }
     }
- 
+
     //  used as a dispatch service, invoke different service based on the parameters passed in
     public static Map updateReturnItemOrAdjustment(DispatchContext dctx, Map context) {
         Debug.logInfo("updateReturnItemOrAdjustment's context:" + context, module);
@@ -2207,7 +2207,7 @@ public class OrderReturnServices {
             return ServiceUtil.returnError(e.getMessage());
         }
     }
- 
+
     /**
      * These return adjustment types need to be recalculated when the return item is updated
      * @param returnAdjustmentTypeId
@@ -2267,7 +2267,7 @@ public class OrderReturnServices {
         while (modelParmInIter.hasNext()) {
             ModelParam modelParam = (ModelParam) modelParmInIter.next();
             String paramName =  modelParam.name;
- 
+
             Object value = context.get(paramName);
             if (value != null) {
                 serviceContext.put(paramName, value);

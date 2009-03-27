@@ -187,11 +187,11 @@ public class OrderListState {
     public Map getOrderStatusState() { return orderStatusState; };
     public Map getOrderTypeState() { return orderTypeState; }
     public Map getorderFilterState() { return orderFilterState; }
- 
+
     public boolean hasStatus(String param) { return ("Y".equals(orderStatusState.get(param))); }
     public boolean hasType(String param) { return ("Y".equals(orderTypeState.get(param))); }
     public boolean hasFilter(String param) { return ("Y".equals(orderFilterState.get(param))); }
- 
+
     public boolean hasAllStatus() {
         for (Iterator iter = orderStatusState.values().iterator(); iter.hasNext(); ) {
             if (!"Y".equals(iter.next())) return false;
@@ -228,7 +228,7 @@ public class OrderListState {
             if (!hasType(type)) continue;
             typeConditions.add( EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, parameterToOrderTypeId.get(type)) );
         }
- 
+
         EntityCondition statusConditionsList = EntityCondition.makeCondition(statusConditions,  EntityOperator.OR);
         EntityCondition typeConditionsList = EntityCondition.makeCondition(typeConditions, EntityOperator.OR);
         if ((typeConditions.size() > 0) && (statusConditions.size() > 0)) {

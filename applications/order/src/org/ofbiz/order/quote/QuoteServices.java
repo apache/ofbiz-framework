@@ -132,7 +132,7 @@ public class QuoteServices {
     public static Map storeQuote(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
- 
+
         String quoteTypeId = (String) context.get("quoteTypeId");
         String partyId = (String) context.get("partyId");
         Timestamp issueDate = (Timestamp) context.get("issueDate");
@@ -167,15 +167,15 @@ public class QuoteServices {
             if (userLogin != null) {
                 quoteIn.put("userLogin", userLogin);
             }
- 
- 
+
+
             // create Quote
             Map quoteOut = dispatcher.runSync("createQuote", quoteIn);
- 
+
             if (UtilValidate.isNotEmpty(quoteOut) && UtilValidate.isNotEmpty(quoteOut.get("quoteId"))) {
                 String quoteId = (String)quoteOut.get("quoteId");
                 result.put("quoteId", quoteId);
- 
+
                 // create Quote Items
                 if (UtilValidate.isNotEmpty(quoteItems)) {
                     Iterator quoteIt = quoteItems.iterator();
@@ -184,11 +184,11 @@ public class QuoteServices {
                         quoteItem.set("quoteId", quoteId);
                         Map quoteItemIn = quoteItem.getAllFields();
                         quoteItemIn.put("userLogin", userLogin);
- 
+
                         dispatcher.runSync("createQuoteItem", quoteItemIn);
                     }
                 }
- 
+
                 // create Quote Attributes
                 if (UtilValidate.isNotEmpty(quoteAttributes)) {
                     Iterator quoteAttrIt = quoteAttributes.iterator();
@@ -197,11 +197,11 @@ public class QuoteServices {
                         quoteAttr.set("quoteId", quoteId);
                         Map quoteAttrIn = quoteAttr.getAllFields();
                         quoteAttrIn.put("userLogin", userLogin);
- 
+
                         dispatcher.runSync("createQuoteAttribute", quoteAttrIn);
                     }
                 }
- 
+
                 // create Quote Coefficients
                 if (UtilValidate.isNotEmpty(quoteCoefficients)) {
                     Iterator quoteCoefficientIt = quoteCoefficients.iterator();
@@ -210,11 +210,11 @@ public class QuoteServices {
                         quoteCoefficient.set("quoteId", quoteId);
                         Map quoteCoefficientIn = quoteCoefficient.getAllFields();
                         quoteCoefficientIn.put("userLogin", userLogin);
- 
+
                         dispatcher.runSync("createQuoteCoefficient", quoteCoefficientIn);
                     }
                 }
- 
+
                 // create Quote Roles
                 if (UtilValidate.isNotEmpty(quoteRoles)) {
                     Iterator quoteRoleIt = quoteRoles.iterator();
@@ -223,7 +223,7 @@ public class QuoteServices {
                         quoteRole.set("quoteId", quoteId);
                         Map quoteRoleIn = quoteRole.getAllFields();
                         quoteRoleIn.put("userLogin", userLogin);
- 
+
                         dispatcher.runSync("createQuoteRole", quoteRoleIn);
                     }
                 }
@@ -236,11 +236,11 @@ public class QuoteServices {
                         quoteWorkEffort.set("quoteId", quoteId);
                         Map quoteWorkEffortIn = quoteWorkEffort.getAllFields();
                         quoteWorkEffortIn.put("userLogin", userLogin);
- 
+
                         dispatcher.runSync("createQuoteWorkEffort", quoteWorkEffortIn);
                     }
                 }
- 
+
                 // create Quote Adjustments
                 if (UtilValidate.isNotEmpty(quoteAdjustments)) {
                     Iterator quoteAdjustmentIt = quoteAdjustments.iterator();
@@ -249,11 +249,11 @@ public class QuoteServices {
                         quoteAdjustment.set("quoteId", quoteId);
                         Map quoteAdjustmentIn = quoteAdjustment.getAllFields();
                         quoteAdjustmentIn.put("userLogin", userLogin);
- 
+
                         dispatcher.runSync("createQuoteAdjustment", quoteAdjustmentIn);
                     }
                 }
- 
+
                 //TODO create Quote Terms still to be implemented the base service createQuoteTerm
                 //TODO create Quote Term Attributes still to be implemented the base service createQuoteTermAttribute
             } else {

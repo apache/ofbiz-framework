@@ -77,7 +77,7 @@ public class RequirementServices {
             } else {
                 conditions.add( EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SUPPLIER") );
             }
- 
+
             EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
             List requirementAndRoles = delegator.findList("RequirementAndRole", ecl, null, orderBy, null, false);
 

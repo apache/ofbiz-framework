@@ -165,7 +165,7 @@ public class OrderReadHelper {
             return null;
         }
     }
- 
+
     public String getOrderTypeId() {
         return orderHeader.getString("orderTypeId");
     }
@@ -177,7 +177,7 @@ public class OrderReadHelper {
     public String getOrderName() {
         return orderHeader.getString("orderName");
     }
- 
+
     public List getAdjustments() {
         if (adjustments == null) {
             try {
@@ -391,7 +391,7 @@ public class OrderReadHelper {
         }
         return false;
     }
- 
+
     public boolean hasPhysicalProductItems() throws GenericEntityException {
         Iterator orderItemIter = this.getOrderItems().iterator();
         while (orderItemIter.hasNext()) {
@@ -1047,7 +1047,7 @@ public class OrderReadHelper {
         }
         return shippableSizes;
     }
- 
+
     /**
      * Get the total payment preference amount by payment type.  Specify null to get amount
      * for all preference types.  TODO: filter by status as well?
@@ -1998,7 +1998,7 @@ public class OrderReadHelper {
                 EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, orderItem.getString("orderItemSeqId")),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PICKLIST_CANCELLED")),
                 EntityOperator.AND);
- 
+
         List picked = null;
         try {
             picked = orderHeader.getDelegator().findList("PicklistAndBinAndItem", pickedConditions, null, null, null, false);
@@ -2306,11 +2306,11 @@ public class OrderReadHelper {
         List contraints1 = UtilMisc.toList(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null));
         contraints1.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
         contraints1.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, ""));
- 
+
         List contraints2 = UtilMisc.toList(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null));
         contraints2.add(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
         contraints2.add(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, ""));
- 
+
         List newOrderStatuses = FastList.newInstance();
         newOrderStatuses.addAll(EntityUtil.filterByOr(orderStatuses, contraints1));
         return EntityUtil.orderBy(EntityUtil.filterByOr(newOrderStatuses, contraints2), UtilMisc.toList("-statusDatetime"));
@@ -2474,18 +2474,18 @@ public class OrderReadHelper {
         // add tax and shipping to subtotal
         return getOrderItemSubTotal(orderItem, adjustments).add(getOrderItemAdjustmentsTotal(orderItem, adjustments, false, true, true));
     }
- 
+
     public static BigDecimal calcOrderPromoAdjustmentsBd(List allOrderAdjustments) {
         BigDecimal promoAdjTotal = ZERO;
- 
+
         List promoAdjustments = EntityUtil.filterByAnd(allOrderAdjustments, UtilMisc.toMap("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT"));
- 
+
         if (!promoAdjustments.isEmpty()) {
- 
+
             Iterator promoAdjIter = promoAdjustments.iterator();
             while (promoAdjIter.hasNext()) {
                 GenericValue promoAdjustment = (GenericValue) promoAdjIter.next();
- 
+
                 if (promoAdjustment != null) {
                     BigDecimal amount = promoAdjustment.getBigDecimal("amount").setScale(taxCalcScale, taxRounding);
                     promoAdjTotal = promoAdjTotal.add(amount);
@@ -2502,7 +2502,7 @@ public class OrderReadHelper {
         }
         return length;
     }
- 
+
     public static BigDecimal getWorkEffortRentalQuantity(GenericValue workEffort) {
         BigDecimal persons = BigDecimal.ONE;
         if (workEffort.get("reservPersons") != null)
@@ -2567,7 +2567,7 @@ public class OrderReadHelper {
         List contraints2 = UtilMisc.toList(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null));
         contraints2.add(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
         contraints2.add(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, ""));
- 
+
         List newOrderStatuses = FastList.newInstance();
         newOrderStatuses.addAll(EntityUtil.filterByAnd(orderStatuses, contraints1));
         return EntityUtil.orderBy(EntityUtil.filterByOr(newOrderStatuses, contraints2), UtilMisc.toList("-statusDatetime"));
@@ -2818,11 +2818,11 @@ public class OrderReadHelper {
        List contraints1 = UtilMisc.toList(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null));
        contraints1.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, DataModelConstants.SEQ_ID_NA));
        contraints1.add(EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, ""));
- 
+
        List contraints2 = UtilMisc.toList(EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.NOT_EQUAL, null));
        List newOrderStatuses = FastList.newInstance();
        newOrderStatuses.addAll(EntityUtil.filterByOr(orderStatuses, contraints1));
- 
+
        return EntityUtil.orderBy(EntityUtil.filterByAnd(newOrderStatuses, contraints2), UtilMisc.toList("-statusDatetime"));
    }
 }

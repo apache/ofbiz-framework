@@ -110,7 +110,7 @@ public class ShoppingCartHelper {
                 reservStart,reservLength,reservPersons,null,null,shipBeforeDate,shipAfterDate,
                 configWrapper,itemGroupNumber,context,parentProductId);
     }
- 
+
     /** Event to add an item to the shopping cart with accommodation. */
     public Map addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
             String productCategoryId, String itemType, String itemDescription,
@@ -201,7 +201,7 @@ public class ShoppingCartHelper {
             Debug.logInfo("parent productid " + pProductId,module);
             //if (product != null && !"Y".equals(product.getString("isVariant")))
             //    pProductId = null;
- 
+
         }
 
         // Get the additional features selected for the product (if any)
@@ -227,16 +227,16 @@ public class ShoppingCartHelper {
                 additionalFeaturesMap.put(selectedFeatureType, productFeatureAndAppl);
             }
         }
- 
+
         // add or increase the item to the cart
         try {
             int itemId = -1;
             if (productId != null) {
- 
+
                        itemId = cart.addOrIncreaseItem(productId, amount, quantity, reservStart, reservLength,
                                                 reservPersons, accommodationMapId, accommodationSpotId, shipBeforeDate, shipAfterDate, additionalFeaturesMap, attributes,
                                                 catalogId, configWrapper, itemType, itemGroupNumber, pProductId, dispatcher);
- 
+
             } else {
                 itemId = cart.addNonProductItem(itemType, itemDescription, productCategoryId, price, quantity, attributes, catalogId, itemGroupNumber, dispatcher);
             }
@@ -259,7 +259,7 @@ public class ShoppingCartHelper {
             result = ServiceUtil.returnError(e.getMessage());
             return result;
         }
- 
+
         // Indicate there were no critical errors
         result = ServiceUtil.returnSuccess();
         return result;
@@ -290,7 +290,7 @@ public class ShoppingCartHelper {
         if (UtilValidate.isNotEmpty(itemIdList)) {
             itemIter = itemIdList.iterator();
         }
- 
+
         String orderItemTypeId = null;
         String productId = null;
         if (itemIter != null && itemIter.hasNext()) {
@@ -322,7 +322,7 @@ public class ShoppingCartHelper {
                         } catch (GenericEntityException e) {
                             errorMsgs.add(e.getMessage());
                         }
- 
+
                     }
                     try {
                         this.cart.addOrIncreaseItem(UtilValidate.isNotEmpty(aggregatedProdId) ? aggregatedProdId :  productId, amount, orderItem.getBigDecimal("quantity"),
@@ -370,10 +370,10 @@ public class ShoppingCartHelper {
         String keyPrefix = "quantity_";
         // use this prefix for a different structure, useful for radio buttons; can have any suffix, name="product_${whatever}" value="${productId}" and quantity is always 1
         String productQuantityKeyPrefix = "product_";
- 
+
         // If a _ign_${itemGroupNumber} is appended to the name it will be put in that group instead of the default in the request parameter in itemGroupNumber
         String ignSeparator = "_ign_";
- 
+
         // iterate through the context and find all keys that start with "quantity_"
         Iterator entryIter = context.entrySet().iterator();
         while (entryIter.hasNext()) {
@@ -390,7 +390,7 @@ public class ShoppingCartHelper {
                     itemGroupNumberToUse = key.substring(ignIndex + ignSeparator.length());
                     key = key.substring(0, ignIndex);
                 }
- 
+
                 if (key.startsWith(keyPrefix)) {
                     productId = key.substring(keyPrefix.length());
                     quantStr = (String) entry.getValue();
@@ -438,11 +438,11 @@ public class ShoppingCartHelper {
         // check if we are using per row submit
         boolean useRowSubmit = (!context.containsKey("_useRowSubmit"))? false :
                 "Y".equalsIgnoreCase((String)context.get("_useRowSubmit"));
- 
+
         // check if we are to also look in a global scope (no delimiter)
         //boolean checkGlobalScope = (!context.containsKey("_checkGlobalScope"))? false :
         //        "Y".equalsIgnoreCase((String)context.get("_checkGlobalScope"));
- 
+
         // The number of multi form rows is retrieved
         int rowCount = UtilHttp.getMultiFormRowCount(context);
 
@@ -451,7 +451,7 @@ public class ShoppingCartHelper {
         if (UtilValidate.isNotEmpty(facilityId)) {
             cart.setFacilityId(facilityId);
         }
- 
+
         // now loop throw the rows and prepare/invoke the service for each
         for (int i = 0; i < rowCount; i++) {
             String productId = null;
@@ -460,12 +460,12 @@ public class ShoppingCartHelper {
             String thisSuffix = UtilHttp.MULTI_ROW_DELIMITER + i;
             boolean rowSelected = (!context.containsKey("_rowSubmit" + thisSuffix))? false :
                     "Y".equalsIgnoreCase((String)context.get("_rowSubmit" + thisSuffix));
- 
+
             // make sure we are to process this row
             if (useRowSubmit && !rowSelected) {
                 continue;
             }
- 
+
             // build the context
             if (context.containsKey("productId" + thisSuffix)) {
                 productId = (String) context.get("productId" + thisSuffix);

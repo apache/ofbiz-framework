@@ -47,13 +47,13 @@ import org.ofbiz.product.category.CategoryWorker;
 
 
 public class ProductDisplayWorker {
- 
+
     public static final String module = ProductDisplayWorker.class.getName();
 
     /* ========================================================================================*/
- 
+
     /* ============================= Special Data Retreival Methods ===========================*/
- 
+
     public static List getRandomCartProductAssoc(ServletRequest request, boolean checkViewAllow) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -73,7 +73,7 @@ public class ProductDisplayWorker {
                 List complementProducts = delegator.findByAndCache("ProductAssoc", UtilMisc.toMap("productId", item.getProductId(), "productAssocTypeId", "PRODUCT_COMPLEMENT"), null);
                 // since ProductAssoc records have a fromDate and thruDate, we can filter by now so that only assocs in the date range are included
                 complementProducts = EntityUtil.filterByDate(complementProducts);
- 
+
                 List productsCategories = delegator.findByAndCache("ProductCategoryMember", UtilMisc.toMap("productId", item.getProductId()), null);
                 productsCategories = EntityUtil.filterByDate(productsCategories, true);
                 if (productsCategories != null) {
@@ -126,7 +126,7 @@ public class ProductDisplayWorker {
                     cartAssocs = new ArrayList(tempList);
                 }
             }
- 
+
             if (cartAssocs == null) {
                 cartAssocs = new ArrayList(products.values());
             }
@@ -139,14 +139,14 @@ public class ProductDisplayWorker {
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
         }
- 
+
         if (UtilValidate.isNotEmpty(cartAssocs)) {
             return cartAssocs;
         } else {
             return null;
         }
     }
- 
+
     public static Map getQuickReorderProducts(ServletRequest request) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -262,7 +262,7 @@ public class ProductDisplayWorker {
                     }
                 }
             //}
- 
+
             List reorderProds = new ArrayList(products.values());
 
             /*
@@ -300,10 +300,10 @@ public class ProductDisplayWorker {
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
         }
- 
+
         return results;
     }
- 
+
     public static List productOrderByMap(Collection values, Map orderByMap, boolean descending) {
         if (values == null)  return null;
         if (values.size() == 0) return UtilMisc.toList(values);

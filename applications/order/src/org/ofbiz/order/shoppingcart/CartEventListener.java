@@ -54,7 +54,7 @@ public class CartEventListener implements HttpSessionListener {
             Debug.logInfo("No cart to save, doing nothing.", module);
             return;
         }
- 
+
         String delegatorName = (String) session.getAttribute("delegatorName");
         GenericDelegator delegator = null;
         if (UtilValidate.isNotEmpty(delegatorName)) {
@@ -64,17 +64,17 @@ public class CartEventListener implements HttpSessionListener {
             Debug.logError("Could not find delegator with delegatorName in session, not saving abandoned cart info.", module);
             return;
         }
- 
+
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
- 
+
             GenericValue visit = VisitHandler.getVisit(session);
             if (visit == null) {
                 Debug.logError("Could not get the current visit, not saving abandoned cart info.", module);
                 return;
             }
- 
+
             Debug.logInfo("Saving abandoned cart", module);
             Iterator cartItems = cart.iterator();
             int seqId = 1;
