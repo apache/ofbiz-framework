@@ -44,19 +44,19 @@ public class ModelField implements Serializable {
 
     /** Free form description of the Field */
     public String description = "";
- 
+
     /** Default value for the Field */
     public Object defaultValue = null;
 
     /** boolean which specifies whether or not the Field is a Primary Key */
     public boolean isPk = false;
- 
+
     /** boolean which specifies whether or not the Field is ignored */
     public boolean ignored = false;
 
     /** boolean which specifies whether or not the Field is taken from the input file */
     public boolean expression = false;
- 
+
     /** Referenced field */
     public String refField = null;
 

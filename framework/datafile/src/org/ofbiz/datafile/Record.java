@@ -501,7 +501,7 @@ public class Record implements Serializable {
         for (ModelField modelField: modelRecord.fields) {
             String strVal = null;
 
- 
+
             try {
                 strVal = line.substring(modelField.position, modelField.position + modelField.length);
             } catch (IndexOutOfBoundsException ioobe) {
@@ -521,7 +521,7 @@ public class Record implements Serializable {
         }
         return record;
     }
- 
+
     /**
      * @param line
      * @param lineNum
