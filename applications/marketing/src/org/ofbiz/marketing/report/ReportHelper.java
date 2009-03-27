@@ -31,7 +31,7 @@ import javolution.util.FastMap;
 public class ReportHelper {
 
     public static final String module = ReportHelper.class.getName();
- 
+
 /**
  * Calculate conversion rates based on a List of visits and orders.  Designed to be used for reporting on
  * tracking code or marketing campaigns
@@ -43,16 +43,16 @@ public class ReportHelper {
  */
     public static List<Map<String, Object>> calcConversionRates(List<GenericValue> visits, List<GenericValue> orders, String keyFieldName) {
         List<Map<String, Object>> conversionRates = FastList.newInstance();
- 
+
         // loop through all the visits
         for (GenericValue visit: visits) {
             Map<String, Object> reportValue = FastMap.newInstance();
             reportValue.put(keyFieldName, visit.getString(keyFieldName));
             reportValue.put("visits", visit.getLong("visitId")); // actually # of visits
- 
+
             // find the matching entry in orders for the given key field
             List<GenericValue> ordersForThisKey = EntityUtil.filterByAnd(orders, UtilMisc.toMap(keyFieldName, visit.getString(keyFieldName)));
- 
+
             // if there are matching orders, then calculate orders, order amount, and conversion rate
             if ((ordersForThisKey != null) && (ordersForThisKey.size() > 0)) {
                 // note: there should be only one line of order stats per key, so .get(0) should work
@@ -76,10 +76,10 @@ public class ReportHelper {
                 reportValue.put("orderAmount", Double.valueOf(0));
                 reportValue.put("conversionRate", Double.valueOf(0));
             }
- 
+
             conversionRates.add(reportValue);
         }
- 
+
         return conversionRates;
     }
 }
