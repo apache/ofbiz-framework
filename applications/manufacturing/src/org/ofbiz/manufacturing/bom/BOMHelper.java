@@ -39,13 +39,13 @@ import org.ofbiz.base.util.Debug;
  * These methods are also available as services (see {@link BOMServices}).
  */
 public class BOMHelper {
- 
+
     public static final String module = BOMHelper.class.getName();
- 
+
     /** Creates a new instance of BOMHelper */
     public BOMHelper() {
     }
- 
+
     /** Returns the product's low level code (llc) i.e. the maximum depth
      * in which the productId can be found in any of the
      * bills of materials of bomType type.
@@ -83,7 +83,7 @@ public class BOMHelper {
                 maxDepth = depth;
             }
         }
- 
+
         return maxDepth;
     }
 
@@ -104,7 +104,7 @@ public class BOMHelper {
     public static GenericValue searchDuplicatedAncestor(String productId, String productIdKey, String bomType, Date inDate, GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
         return searchDuplicatedAncestor(productId, productIdKey, null, bomType, inDate, delegator, dispatcher, userLogin);
     }
- 
+
     private static GenericValue searchDuplicatedAncestor(String productId, String productIdKey, ArrayList productIdKeys, String bomType, Date inDate, GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
         // If the date is null, set it to today.
         if (inDate == null) inDate = new Date();
@@ -148,7 +148,7 @@ public class BOMHelper {
         while (shipmentPlansIt.hasNext()) {
             GenericValue shipmentPlan = (GenericValue)shipmentPlansIt.next();
             GenericValue orderItem = shipmentPlan.getRelatedOne("OrderItem");
- 
+
             List productionRuns = delegator.findByAndCache("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId")));
             if (UtilValidate.isNotEmpty(productionRuns)) {
                 Debug.logError("Production Run for order item (" + orderItem.getString("orderId") + "/" + orderItem.getString("orderItemSeqId") + ") not created.", module);

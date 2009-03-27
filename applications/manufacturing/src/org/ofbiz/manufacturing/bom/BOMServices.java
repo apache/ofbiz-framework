@@ -51,7 +51,7 @@ public class BOMServices {
 
     public static final String module = BOMServices.class.getName();
     public static final String resource = "ManufacturingUiLabels";
- 
+
     /** Returns the product's low level code (llc) i.e. the maximum depth
      * in which the productId can be found in any of the
      * bills of materials of bomType type.
@@ -67,7 +67,7 @@ public class BOMServices {
         String productId = (String) context.get("productId");
         String fromDateStr = (String) context.get("fromDate");
         String bomType = (String) context.get("bomType");
- 
+
         Date fromDate = null;
         if (UtilValidate.isNotEmpty(fromDateStr)) {
             try {
@@ -92,7 +92,7 @@ public class BOMServices {
         } else {
             bomTypes.add(bomType);
         }
- 
+
         int depth = 0;
         int maxDepth = 0;
         Iterator bomTypesIt = bomTypes.iterator();
@@ -253,7 +253,7 @@ public class BOMServices {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
- 
+
         String productId = (String) context.get("productId");
         String productIdKey = (String) context.get("productIdTo");
         Timestamp fromDate = (Timestamp) context.get("fromDate");
@@ -296,7 +296,7 @@ public class BOMServices {
         if (type == null) {
             type = new Integer(0);
         }
- 
+
         Date fromDate = null;
         if (UtilValidate.isNotEmpty(fromDateStr)) {
             try {
@@ -307,7 +307,7 @@ public class BOMServices {
         if (fromDate == null) {
             fromDate = new Date();
         }
- 
+
         BOMTree tree = null;
         try {
             tree = new BOMTree(productId, bomType, fromDate, type.intValue(), delegator, dispatcher, userLogin);
@@ -344,7 +344,7 @@ public class BOMServices {
         BigDecimal amount = (BigDecimal) context.get("amount");
         String fromDateStr = (String) context.get("fromDate");
         Boolean excludeWIPs = (Boolean) context.get("excludeWIPs");
- 
+
         if (quantity == null) {
             quantity = BigDecimal.ONE;
         }
@@ -365,7 +365,7 @@ public class BOMServices {
         if (excludeWIPs == null) {
             excludeWIPs = Boolean.TRUE;
         }
- 
+
         //
         // Components
         //
@@ -446,7 +446,7 @@ public class BOMServices {
         if (fromDate == null) {
             fromDate = new Date();
         }
- 
+
         BOMTree tree = null;
         ArrayList components = new ArrayList();
         ArrayList notAssembledComponents = new ArrayList();
@@ -468,7 +468,7 @@ public class BOMServices {
         result.put("notAssembledComponents" , notAssembledComponents);
         return result;
     }
- 
+
     // ---------------------------------------------
     // Service for the Product (Shipment) component
     //
@@ -681,7 +681,7 @@ public class BOMServices {
                     if (productDepth == null) {
                         productDepth = BigDecimal.ONE;
                     }
- 
+
                     BigDecimal firstMaxNumOfProducts = boxWidth.subtract(totalWidth).divide(productDepth, 0, BigDecimal.ROUND_FLOOR);
                     if (firstMaxNumOfProducts.compareTo(BigDecimal.ZERO) == 0) firstMaxNumOfProducts = BigDecimal.ONE;
                     //
@@ -752,11 +752,11 @@ public class BOMServices {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue)context.get("userLogin");
- 
+
         String productId = (String) context.get("productId");
         BigDecimal quantity = (BigDecimal) context.get("quantity");
         String fromDateStr = (String) context.get("fromDate");
- 
+
         if (quantity == null) {
             quantity = BigDecimal.ONE;
         }
@@ -770,7 +770,7 @@ public class BOMServices {
         if (fromDate == null) {
             fromDate = new Date();
         }
- 
+
         //
         // Components
         //
@@ -783,7 +783,7 @@ public class BOMServices {
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError("Error creating bill of materials tree: " + gee.getMessage());
         }
- 
+
         result.put("productsInPackages", components);
 
         return result;

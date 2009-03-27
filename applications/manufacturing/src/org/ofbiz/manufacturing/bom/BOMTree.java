@@ -40,7 +40,7 @@ import org.ofbiz.product.store.ProductStoreWorker;
      * component is an BOMNode)
      * Useful for tree traversal (breakdown, explosion, implosion).
      */
- 
+
 public class BOMTree {
     public static final int EXPLOSION = 0;
     public static final int EXPLOSION_SINGLE_LEVEL = 1;
@@ -72,7 +72,7 @@ public class BOMTree {
     public BOMTree(String productId, String bomTypeId, Date inDate, GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
         this(productId, bomTypeId, inDate, EXPLOSION, delegator, dispatcher, userLogin);
     }
- 
+
     /** Creates a new instance of BOMTree by reading
      * the productId's bill of materials (upward or downward).
      * If virtual products are found, it tries to configure them by running
@@ -98,7 +98,7 @@ public class BOMTree {
 
         this.delegator = delegator;
         this.dispatcher = dispatcher;
- 
+
         inputProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
 
         String productIdForRules = productId;
@@ -112,7 +112,7 @@ public class BOMTree {
             oneProductFeatureAppl = (GenericValue)productFeaturesAppl.get(i);
             productFeatures.add(delegator.findByPrimaryKey("ProductFeature",
                                        UtilMisc.toMap("productFeatureId", oneProductFeatureAppl.getString("productFeatureId"))));
- 
+
         }
         // If the product is manufactured as a different product,
         // load the new product
@@ -165,7 +165,7 @@ public class BOMTree {
     public GenericValue getInputProduct() {
         return inputProduct;
     }
- 
+
     private GenericValue manufacturedAsProduct(String productId, Date inDate) throws GenericEntityException {
         List manufacturedAsProducts = delegator.findByAnd("ProductAssoc",
                                          UtilMisc.toMap("productId", productId,
@@ -177,7 +177,7 @@ public class BOMTree {
         }
         return manufacturedAsProduct;
     }
- 
+
     private boolean hasBom(GenericValue product, Date inDate) throws GenericEntityException {
         List children = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", bomTypeId));
         children = EntityUtil.filterByDate(children, inDate);
@@ -195,7 +195,7 @@ public class BOMTree {
         root.isConfigured(notConfiguredParts);
         return (notConfiguredParts.size() == 0);
     }
- 
+
     /** Getter for property rootQuantity.
      * @return Value of property rootQuantity.
      *
@@ -203,7 +203,7 @@ public class BOMTree {
     public BigDecimal getRootQuantity() {
         return rootQuantity;
     }
- 
+
     /** Setter for property rootQuantity.
      * @param rootQuantity New value of property rootQuantity.
      *
@@ -219,7 +219,7 @@ public class BOMTree {
     public BigDecimal getRootAmount() {
         return rootAmount;
     }
- 
+
     /** Setter for property rootAmount.
      * @param rootAmount New value of property rootAmount.
      *
@@ -227,7 +227,7 @@ public class BOMTree {
     public void setRootAmount(BigDecimal rootAmount) {
         this.rootAmount = rootAmount;
     }
- 
+
     /** Getter for property root.
      * @return Value of property root.
      *
@@ -235,7 +235,7 @@ public class BOMTree {
     public BOMNode getRoot() {
         return root;
     }
- 
+
     /** Getter for property inDate.
      * @return Value of property inDate.
      *
@@ -243,7 +243,7 @@ public class BOMTree {
     public Date getInDate() {
         return inDate;
     }
- 
+
     /** Getter for property bomTypeId.
      * @return Value of property bomTypeId.
      *
@@ -251,7 +251,7 @@ public class BOMTree {
     public String getBomTypeId() {
         return bomTypeId;
     }
- 
+
     /** It visits the in-memory tree that represents a bill of materials
      * and it collects info of its nodes in the StringBuffer.
      * Method used for debug purposes.
@@ -272,13 +272,13 @@ public class BOMTree {
     public void print(ArrayList arr, int initialDepth) {
         print(arr, initialDepth, true);
     }
- 
+
     public void print(ArrayList arr, int initialDepth, boolean excludeWIPs) {
         if (root != null) {
             root.print(arr, getRootQuantity(), initialDepth, excludeWIPs);
         }
     }
- 
+
     /** It visits the in-memory tree that represents a bill of materials
      * and it collects info of its nodes in the ArrayList.
      * Method used for bom breakdown (explosion/implosion).
@@ -302,7 +302,7 @@ public class BOMTree {
             root.sumQuantity(quantityPerNode);
         }
     }
- 
+
     /** It visits the in-memory tree that represents a bill of materials
      * and it collects all the productId it contains.
      * @return ArrayLsit conatining all the tree's productId.
@@ -316,7 +316,7 @@ public class BOMTree {
         }
         return productsId;
     }
- 
+
     /** It visits the in-memory tree that represents a bill of materials
      * and it creates a manufacturing order for each of the nodes that needs
      * to be manufactured.

@@ -36,11 +36,11 @@ import org.ofbiz.service.LocalDispatcher;
  *
  */
 public class ProductionRunHelper {
- 
+
     public static final String module = ProductionRunHelper.class.getName();
     public static final String resource = "ManufacturingUiLabels";
- 
- 
+
+
     /**
      * Get a Production Run.
      *  <li> check if routing - product link exist
@@ -53,7 +53,7 @@ public class ProductionRunHelper {
     public static Map getProductionRun(GenericDelegator delegator, String productionRunId) {
         Map result = new HashMap();
         //        Timestamp now = UtilDateTime.nowTimestamp();
- 
+
         try {
             if (productionRunId != null ) {
                 GenericValue productionRun = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", productionRunId));
@@ -63,7 +63,7 @@ public class ProductionRunHelper {
                     GenericValue productProduced = productionRunProduct.getRelatedOneCache("Product");
                     List productionRunComponents = productionRun.getRelated("WorkEffortGoodStandard", UtilMisc.toMap("workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED"),null);
                     List productionRunRoutingTasks = productionRun.getRelated("FromWorkEffortAssoc",UtilMisc.toMap("workEffortTypeId","PROD_ORDER_TASK"),null);
- 
+
                 }
             }
         } catch (GenericEntityException e) {
