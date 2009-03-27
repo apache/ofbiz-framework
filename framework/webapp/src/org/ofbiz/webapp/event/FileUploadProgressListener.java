@@ -50,7 +50,7 @@ public class FileUploadProgressListener implements ProgressListener, Serializabl
     public long getBytesRead() {
         return bytesRead;
     }
- 
+
     public int getItems() {
         return items;
     }

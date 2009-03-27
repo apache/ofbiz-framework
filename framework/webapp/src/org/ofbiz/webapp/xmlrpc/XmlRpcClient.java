@@ -33,7 +33,7 @@ import java.security.KeyStore;
 public class XmlRpcClient extends org.apache.xmlrpc.client.XmlRpcClient {
 
     public static final String module = XmlRpcClient.class.getName();
- 
+
     protected String keyStoreComponent;
     protected String keyStoreName;
     protected String keyAlias;

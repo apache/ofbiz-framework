@@ -65,12 +65,12 @@ public class ControlEventListener implements HttpSessionListener {
 
     public void sessionDestroyed(HttpSessionEvent event) {
         HttpSession session = event.getSession();
- 
+
         // Finalize the Visit
         boolean beganTransaction = false;
         try {
             beganTransaction = TransactionUtil.begin();
- 
+
             // instead of using this message, get directly from session attribute so it won't create a new one: GenericValue visit = VisitHandler.getVisit(session);
             GenericValue visit = (GenericValue) session.getAttribute("visit");
             if (visit != null) {

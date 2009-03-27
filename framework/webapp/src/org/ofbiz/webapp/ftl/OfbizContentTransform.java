@@ -38,9 +38,9 @@ import freemarker.template.TemplateTransformModel;
  * OfbizContentTransform - Freemarker Transform for content links
  */
 public class OfbizContentTransform implements TemplateTransformModel {
- 
+
     public final static String module = OfbizUrlTransform.class.getName();
- 
+
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         return new Writer(out) {
@@ -57,9 +57,9 @@ public class OfbizContentTransform implements TemplateTransformModel {
                     Environment env = Environment.getCurrentEnvironment();
                     BeanModel req = (BeanModel)env.getVariable("request");
                     HttpServletRequest request = req == null ? null : (HttpServletRequest) req.getWrappedObject();
- 
+
                     String requestUrl = buf.toString();
- 
+
                     // make the link
                     StringBuffer newURL = new StringBuffer();
                     ContentUrlTag.appendContentPrefix(request, newURL);

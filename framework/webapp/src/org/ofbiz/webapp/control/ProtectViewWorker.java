@@ -41,13 +41,13 @@ import org.ofbiz.service.ServiceUtil;
  * Common Workers
  */
 public class ProtectViewWorker {
- 
+
     private final static String module = ProtectViewWorker.class.getName();
     private static final String resourceWebapp = "WebappUiLabels";
     private static final FastMap<String, Long> hitsByViewAccessed = FastMap.newInstance();
     private static final FastMap<String, Long> durationByViewAccessed = FastMap.newInstance();
     private static final Long one = new Long(1);
- 
+
     /**
      * An HTTP WebEvent handler that checks to see if an userLogin should be tarpitted
      * The decision is made in regard of number of hits in last period of time
@@ -62,7 +62,7 @@ public class ProtectViewWorker {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         String  returnValue = "success";
- 
+
         if (userLogin != null) {
             String userLoginId = userLogin.getString("userLoginId");
             try {
@@ -71,7 +71,7 @@ public class ProtectViewWorker {
                 // Any views to deal with ?
                 if (UtilValidate.isNotEmpty(protectedViews)) {
                     Long now = System.currentTimeMillis(); // we are not in a margin of some milliseconds 
- 
+
                     // Is this login/view couple already tarpitted ? (ie denied access to view for login for a period of time)
                     List<GenericValue> tarpittedLoginViews = delegator.findByAnd("TarpittedLoginView",
                             UtilMisc.toMap("userLoginId", userLoginId, "viewNameId", viewNameId));
@@ -102,9 +102,9 @@ public class ProtectViewWorker {
                             if (newMaxHits > maxHits) { // yes : block and set tarpitReleaseDateTime
                                 String blockedMessage = UtilProperties.getMessage(resourceWebapp, "protectedviewevents.blocked_message", UtilHttp.getLocale(request));
                                 returnValue = ":_protect_:" + blockedMessage;
- 
+
                                 Long tarpitDuration = (Long) protectedView.get("tarpitDuration") * 1000;
- 
+
                                 GenericValue tarpittedLoginView = delegator.makeValue("TarpittedLoginView");
                                 tarpittedLoginView.set("userLoginId", userLoginId);
                                 tarpittedLoginView.set("viewNameId", viewNameId);
@@ -135,7 +135,7 @@ public class ProtectViewWorker {
                 Debug.logError(e, errMsg, module);
             }
         }
- 
+
         return returnValue;
     }
 }

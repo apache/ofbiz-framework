@@ -71,7 +71,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
 
     private Boolean enabledForExtensions = null;
     private Boolean enabledForExceptions = null;
- 
+
     public void init(ServletContext context) throws EventHandlerException {
         String delegatorName = context.getInitParameter("entityDelegatorName");
         this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
@@ -204,7 +204,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
         public ServiceRpcHandler() {
             this.setAuthenticationHandler(new OfbizRpcAuthHandler());
         }
- 
+
         public XmlRpcHandler getHandler(String method) throws XmlRpcNoSuchHandlerException, XmlRpcException {
             ModelService model = null;
             try {

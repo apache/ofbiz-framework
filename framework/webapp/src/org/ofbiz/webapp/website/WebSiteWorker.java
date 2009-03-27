@@ -31,7 +31,7 @@ import org.ofbiz.entity.GenericValue;
  * WebSiteWorker - Worker class for web site related functionality
  */
 public class WebSiteWorker {
- 
+
     public static final String module = WebSiteWorker.class.getName();
 
     public static String getWebSiteId(ServletRequest request) {
@@ -40,7 +40,7 @@ public class WebSiteWorker {
         if (application == null) return null;
         return application.getInitParameter("webSiteId");
     }
- 
+
     public static GenericValue getWebSite(ServletRequest request) {
         String webSiteId = getWebSiteId(request);
         if (webSiteId == null) {

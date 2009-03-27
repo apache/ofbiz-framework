@@ -40,7 +40,7 @@ public class UrlTag extends BodyTagSupport {
     public int doEndTag() throws JspException {
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();
- 
+
         ServletContext context = (ServletContext) request.getAttribute("servletContext");
         RequestHandler rh = (RequestHandler) context.getAttribute("_REQUEST_HANDLER_");
 
@@ -48,7 +48,7 @@ public class UrlTag extends BodyTagSupport {
 
         String baseURL = body.getString();
         String newURL = rh.makeLink(request, response, baseURL);
- 
+
         body.clearBody();
 
         try {

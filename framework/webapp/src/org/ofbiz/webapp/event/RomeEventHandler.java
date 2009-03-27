@@ -53,7 +53,7 @@ public class RomeEventHandler implements EventHandler {
         if (this.handler == null) {
             throw new EventHandlerException("No request handler found in servlet context!");
         }
- 
+
         // get the service event handler
         this.service = new ServiceEventHandler();
         this.service.init(context);
@@ -92,7 +92,7 @@ public class RomeEventHandler implements EventHandler {
         } catch (FeedException e) {
             throw new EventHandlerException("Unable to write RSS feed", e);
         }
- 
+
         return respCode;
     }
 }

@@ -31,7 +31,7 @@ import org.ofbiz.entity.GenericEntityException;
  * EntityFieldTag - Tag to Print Localized Entity Fields.
  */
 public class EntityFieldTag extends TagSupport {
- 
+
     public static final String module = EntityFieldTag.class.getName();
 
     protected String field = null;

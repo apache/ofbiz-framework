@@ -52,7 +52,7 @@ import freemarker.template.TemplateException;
  * WfsViewHandler - View Handler
  */
 public class WfsViewHandler extends AbstractViewHandler {
- 
+
     public static final String module = WfsViewHandler.class.getName();
     public static final String FormatTemplateUrl ="component://webapp/script/org/ofbiz/webapp/event/formatWfs.ftl";
 
@@ -74,7 +74,7 @@ public class WfsViewHandler extends AbstractViewHandler {
         if (Debug.infoOn()) Debug.logInfo("Retreiving HTTP resource at: " + page, module);
         try {
             String result = null;
- 
+
             List entityList = (List)request.getAttribute("entityList");
             SimpleSequence simpleList = new SimpleSequence(entityList);
             Map<String, Object> ctx = FastMap.newInstance();
@@ -96,7 +96,7 @@ public class WfsViewHandler extends AbstractViewHandler {
             throw new ViewHandlerException(e.getMessage(), e);
         }
     }
- 
+
     public static Template getDocTemplate(String fileUrl)  throws FileNotFoundException, IOException, TemplateException, URISyntaxException {
         Template template = null;
         URL screenFileUrl = FlexibleLocation.resolveLocation(fileUrl, null);

@@ -75,7 +75,7 @@ public class ServiceStreamHandler implements EventHandler {
         context.put("outputStream", out);
 
         if (Debug.infoOn()) Debug.logInfo("Running service with context: " + context, module);
- 
+
         Map<String, Object> resp;
         try {
             resp = dispatcher.runSync(event.invoke, context);
@@ -100,7 +100,7 @@ public class ServiceStreamHandler implements EventHandler {
                 throw new EventHandlerException(ServiceUtil.getErrorMessage(resp));
             }
         }
- 
+
         return null;
     }
 

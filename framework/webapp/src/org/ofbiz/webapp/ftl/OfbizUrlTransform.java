@@ -44,7 +44,7 @@ import freemarker.template.TemplateTransformModel;
 public class OfbizUrlTransform implements TemplateTransformModel {
 
     public final static String module = OfbizUrlTransform.class.getName();
- 
+
     public boolean checkArg(Map args, String key, boolean defaultValue) {
         if (!args.containsKey(key)) {
             return defaultValue;
@@ -57,13 +57,13 @@ public class OfbizUrlTransform implements TemplateTransformModel {
             return defaultValue;
         }
     }
- 
+
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
         final boolean fullPath = checkArg(args, "fullPath", false);
         final boolean secure = checkArg(args, "secure", false);
         final boolean encode = checkArg(args, "encode", true);
- 
+
         return new Writer(out) {
             public void write(char cbuf[], int off, int len) {
                 buf.append(cbuf, off, len);
@@ -86,9 +86,9 @@ public class OfbizUrlTransform implements TemplateTransformModel {
                         if (res != null) {
                             response = (HttpServletResponse) res.getWrappedObject();
                         }
- 
+
                         String requestUrl = buf.toString();
- 
+
                         // make the link
                         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                         out.write(rh.makeLink(request, response, requestUrl, fullPath, secure, encode));

@@ -63,7 +63,7 @@ import freemarker.template.TemplateException;
 public class WfsEventHandler implements EventHandler {
 
     public static final String module = WfsEventHandler.class.getName();
- 
+
     public static final String InputTemplateUrl ="component://webapp/script/org/ofbiz/webapp/event/processWfs.ftl";
 
     /**
@@ -71,7 +71,7 @@ public class WfsEventHandler implements EventHandler {
      */
     public void init(ServletContext context) throws EventHandlerException {
     }
- 
+
     /** Invoke the web event
      *@param eventPath The path or location of this event
      *@param eventMethod The method to invoke
@@ -103,7 +103,7 @@ public class WfsEventHandler implements EventHandler {
             // Take "ogc:filter" element and transform it to a Simple Method query script
             String inputTmplUrl = UtilProperties.getPropertyValue("wfs", "input.template.path", WfsEventHandler.InputTemplateUrl);
             String xmlScript = processWfsEntity(typeName, queryElem, inputTmplUrl);
- 
+
             // run simple method script to get a list of entities
             Document simpleDoc = UtilXml.readXmlDocument(xmlScript);
             Element simpleElem = simpleDoc.getDocumentElement();
@@ -112,7 +112,7 @@ public class WfsEventHandler implements EventHandler {
             String retStr = meth.exec(methodContext); //Need to check return string
             List entityList = (List) request.getAttribute("entityList");
             request.setAttribute("entityList", entityList);
- 
+
         } catch (TemplateException ioe) {
             sendError(response, "Problem handling event");
             throw new EventHandlerException("Problem processing template", ioe);
@@ -170,7 +170,7 @@ public class WfsEventHandler implements EventHandler {
 //        uri.append(reqInfo);
         return uri.toString();
     }
- 
+
     public static String processWfsEntity(String entityName, Node domNode, String templatePath) throws TemplateException, FileNotFoundException, IOException, URISyntaxException {
         String result = null;
         NodeModel nodeModel = NodeModel.wrap(domNode);

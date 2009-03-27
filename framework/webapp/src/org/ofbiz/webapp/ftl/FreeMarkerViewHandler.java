@@ -44,11 +44,11 @@ import freemarker.template.TemplateException;
 /** FreemarkerViewHandler - Freemarker Template Engine View Handler.
  */
 public class FreeMarkerViewHandler extends AbstractViewHandler {
- 
+
     public static final String module = FreeMarkerViewHandler.class.getName();
     protected ServletContext servletContext = null;
     protected Configuration config = (Configuration) FreeMarkerWorker.getDefaultOfbizConfig().clone();
- 
+
     public void init(ServletContext context) throws ViewHandlerException {
         this.servletContext = context;
         config.setCacheStorage(new OfbizCacheStorage("unknown"));
@@ -58,16 +58,16 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
             throw new ViewHandlerException("Could not create file for webapp root path", e);
         }
     }
- 
+
     public void render(String name, String page, String info, String contentType, String encoding,
             HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
         if (page == null || page.length() == 0)
             throw new ViewHandlerException("Invalid template source");
- 
+
         // make the root context (data model) for freemarker
         MapStack<String> context = MapStack.create();
         prepOfbizRoot(context, request, response);
- 
+
         // process the template & flush the output
         try {
             if (page.startsWith("component://")) {
@@ -84,13 +84,13 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
             throw new ViewHandlerException("Problems writing to output stream", ie);
         }
     }
- 
+
     public static void prepOfbizRoot(Map<String, Object> root, HttpServletRequest request, HttpServletResponse response) {
         ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
         HttpSession session = request.getSession();
- 
+
         BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
- 
+
         // add in the OFBiz objects
         root.put("delegator", request.getAttribute("delegator"));
         root.put("dispatcher", request.getAttribute("dispatcher"));
@@ -99,13 +99,13 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
 
         // add the response object (for transforms) to the context as a BeanModel
         root.put("response", response);
- 
+
         // add the application object (for transforms) to the context as a BeanModel
         root.put("application", servletContext);
- 
+
         // add the servlet context -- this has been deprecated, and now requires servlet, do we really need it?
         //root.put("applicationAttributes", new ServletContextHashModel(servletContext, BeansWrapper.getDefaultInstance()));
- 
+
         // add the session object (for transforms) to the context as a BeanModel
         root.put("session", session);
 
@@ -121,7 +121,7 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
         // add the request parameters -- this now uses a Map from UtilHttp
         Map<String, Object> requestParameters = UtilHttp.getParameterMap(request);
         root.put("requestParameters", requestParameters);
- 
+
         // add the TabLibFactory
         TaglibFactory JspTaglibs = new TaglibFactory(servletContext);
         root.put("JspTaglibs", JspTaglibs);

@@ -65,7 +65,7 @@ public class SOAPEventHandler implements EventHandler {
      */
     public void init(ServletContext context) throws EventHandlerException {
     }
- 
+
     /**
      * @see org.ofbiz.webapp.event.EventHandler#invoke(Event, org.ofbiz.webapp.control.ConfigXMLReader.RequestMap, HttpServletRequest, HttpServletResponse)
      */
@@ -145,7 +145,7 @@ public class SOAPEventHandler implements EventHandler {
         }
         MessageContext mctx = new MessageContext(axisServer);
         mctx.setEncodingStyle(Constants.URI_LITERAL_ENC); // sets the response encoding
- 
+
         // get the SOAP message
         Message msg = null;
 
@@ -183,7 +183,7 @@ public class SOAPEventHandler implements EventHandler {
             sendError(response, "Problem processing the service");
             throw new EventHandlerException("Cannot get the envelope", e);
         }
- 
+
         List<Object> bodies = null;
 
         try {
@@ -319,7 +319,7 @@ public class SOAPEventHandler implements EventHandler {
         uri.append(reqInfo);
         return uri.toString();
     }
- 
+
     public static String messageToString(Message msg) throws SOAPException, IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         msg.writeTo(out);

@@ -35,7 +35,7 @@ import org.ofbiz.base.util.UtilValidate;
  * content in a web page.
  */
 public class I18nMessageTag extends BodyTagSupport {
- 
+
     public static final String module = I18nMessageTag.class.getName();
 
     private String key = null;

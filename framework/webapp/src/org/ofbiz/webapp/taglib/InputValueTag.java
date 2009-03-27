@@ -33,7 +33,7 @@ import org.ofbiz.webapp.pseudotag.InputValue;
  *     attribute is false, always tries to use the request parameter and ignores the entity field.
  */
 public class InputValueTag extends TagSupport {
- 
+
     public static final String module = InputValueTag.class.getName();
 
     private String field = null;

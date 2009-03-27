@@ -31,7 +31,7 @@ import org.apache.fop.apps.FopFactory;
 public class ApacheFopFactory {
 
     public static final String module = ApacheFopFactory.class.getName();
- 
+
     /** @deprecated use ApacheFopWorker.getFactoryInstance() */
     public static FopFactory instance() {
         return ApacheFopWorker.getFactoryInstance();

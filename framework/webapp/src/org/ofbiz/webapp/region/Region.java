@@ -37,7 +37,7 @@ import org.ofbiz.base.util.UtilJ2eeCompat;
  * <br/>Implements abstract render(PageContext) from Content
  */
 public class Region extends Content {
- 
+
     public static final String module = Region.class.getName();
 
     private Map<String, Section> sections = FastMap.newInstance();

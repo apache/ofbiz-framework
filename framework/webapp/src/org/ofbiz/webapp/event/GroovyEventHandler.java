@@ -34,7 +34,7 @@ import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
 
 public class GroovyEventHandler implements EventHandler {
- 
+
     public static final String module = GroovyEventHandler.class.getName();
 
     public void init(ServletContext context) throws EventHandlerException {

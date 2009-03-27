@@ -33,7 +33,7 @@ import org.ofbiz.webapp.control.ContextFilter;
  * JspViewHandler - Java Server Pages View Handler
  */
 public class JspViewHandler extends AbstractViewHandler {
- 
+
     public static final String module = JspViewHandler.class.getName();
 
     protected ServletContext context;
@@ -59,7 +59,7 @@ public class JspViewHandler extends AbstractViewHandler {
         // tell the ContextFilter we are forwarding
         request.setAttribute(ContextFilter.FORWARDED_FROM_SERVLET, Boolean.TRUE);
         RequestDispatcher rd = request.getRequestDispatcher(page);
- 
+
         if (rd == null) {
             Debug.logInfo("HttpServletRequest.getRequestDispatcher() failed; trying ServletContext", module);
             rd = context.getRequestDispatcher(page);

@@ -36,7 +36,7 @@ import org.ofbiz.webapp.view.AbstractViewHandler;
 public class JPublishViewHandler extends AbstractViewHandler {
 
     public static final String module = JPublishViewHandler.class.getName();
- 
+
     protected ServletContext servletContext = null;
     protected JPublishWrapper wrapper = null;
 

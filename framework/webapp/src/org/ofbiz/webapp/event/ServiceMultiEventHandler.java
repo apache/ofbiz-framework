@@ -63,9 +63,9 @@ public class ServiceMultiEventHandler implements EventHandler {
 
     public static final String SYNC = "sync";
     public static final String ASYNC = "async";
- 
+
     protected ServletContext servletContext;
- 
+
     /**
      * @see org.ofbiz.webapp.event.EventHandler#init(javax.servlet.ServletContext)
      */
@@ -78,7 +78,7 @@ public class ServiceMultiEventHandler implements EventHandler {
      */
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
         // TODO: consider changing this to use the new UtilHttp.parseMultiFormData method
- 
+
         // make sure we have a valid reference to the Service Engine
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         if (dispatcher == null) {
@@ -164,7 +164,7 @@ public class ServiceMultiEventHandler implements EventHandler {
         boolean eventGlobalTransaction = controllerConfig.requestMapMap.get(requestUri).event.globalTransaction;
 
         Set<String> urlOnlyParameterNames = UtilHttp.getUrlOnlyParameterMap(request).keySet();
- 
+
         // big try/finally to make sure commit or rollback are run
         boolean beganTrans = false;
         String returnString = null;
@@ -199,7 +199,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                 Map<String, Object> serviceContext = FastMap.newInstance();
                 for (ModelParam modelParam: modelService.getInModelParamList()) {
                     String paramName = modelParam.name;
- 
+
                     // Debug.logInfo("In ServiceMultiEventHandler processing input parameter [" + modelParam.name + (modelParam.optional?"(optional):":"(required):") + modelParam.mode + "] for service [" + serviceName + "]", module);
 
                     // don't include userLogin, that's taken care of below
@@ -223,7 +223,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                         // first check for request parameters
                         if (value == null) {
                             String name = paramName + curSuffix;
- 
+
                             // special case for security: if this is a request-map defined as secure in controller.xml then only accept body parameters coming in, ie don't allow the insecure URL parameters
                             // NOTE: the RequestHandler will check the HttpSerletRequest security to make sure it is secure if the request-map -> security -> https=true, but we can't just look at the request.isSecure() method here because it is allowed to send secure requests for request-map with https=false
                             if (requestMap != null && requestMap.securityHttps) {
@@ -234,7 +234,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                                     throw new EventHandlerException(errMsg);
                                 }
                             }
- 
+
                             String[] paramArr = request.getParameterValues(name);
                             if (paramArr != null) {
                                 if (paramArr.length > 1) {
@@ -337,7 +337,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                     if (UtilValidate.isNotEmpty(errorMessage)) {
                         errorMessages.add(errorMessage);
                     }
- 
+
                     // get the success messages
                     if (!UtilValidate.isEmpty((String)result.get(ModelService.SUCCESS_MESSAGE))) {
                         String newSuccessMessage = (String)result.get(ModelService.SUCCESS_MESSAGE);
@@ -403,7 +403,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                 returnString = "success";
             }
         }
- 
+
         return returnString;
     }
 }
