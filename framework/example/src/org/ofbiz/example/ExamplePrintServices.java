@@ -64,7 +64,7 @@ public class ExamplePrintServices {
         String reportScreenName = "ExampleReport";
         Map<String, Object> workContext = FastMap.newInstance();
         workContext.putAll(context);
- 
+
         // render a screen to get the XML document
         Writer reportWriter = new StringWriter();
         ScreenRenderer reportScreenRenderer = new ScreenRenderer(reportWriter, null, htmlScreenRenderer);
@@ -72,7 +72,7 @@ public class ExamplePrintServices {
 
         // put the exampleId in the screen context, is a parameter coming into the service
         //reportScreenRenderer.getContext().put("exampleId", context.get("exampleId"));
- 
+
         try {
             reportScreenRenderer.render(screenLocation, reportScreenName);
         } catch (GeneralException e) {
@@ -106,13 +106,13 @@ public class ExamplePrintServices {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
- 
- 
+
+
         /*
         // set the content type and length
         response.setContentType("application/pdf");
         response.setContentLength(out.size());
- 
+
         // write to the browser
         try {
             out.writeTo(response.getOutputStream());
@@ -121,14 +121,14 @@ public class ExamplePrintServices {
             throw new ViewHandlerException("Unable write to browser OutputStream", e);
         }
         */
- 
+
         DocFlavor docFlavor = DocFlavor.BYTE_ARRAY.PDF;
         Doc myDoc = new SimpleDoc(out.toByteArray(), docFlavor, null);
         PrintRequestAttributeSet aset = new HashPrintRequestAttributeSet();
         aset.add(new Copies(1));
         //aset.add(MediaSize.A4);
         aset.add(Sides.ONE_SIDED);
- 
+
         PrintService[] services = PrintServiceLookup.lookupPrintServices(docFlavor, aset);
         if (services.length > 0) {
             DocPrintJob job = services[0].createPrintJob();
