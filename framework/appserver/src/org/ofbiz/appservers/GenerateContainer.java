@@ -272,7 +272,7 @@ public class GenerateContainer implements Container {
                     env.put("GERONIMO_BATCH_PAUSE", "on");
                 }
                     processBuilder.directory(workingDir);
- 
+
                 try {
                     System.out.println("Currently undeploying " + ofbizName + ", using : <<" + command + ">>, please wait ...");
                         processBuilder.redirectErrorStream(true);
@@ -333,7 +333,7 @@ public class GenerateContainer implements Container {
                     env.put("GERONIMO_BATCH_PAUSE", "on");
                 }
                 processBuilder.directory(workingDir);
- 
+
                 try {
                     System.out.println("Currently deploying " + ofbizName + ", using : <<" + command + ">>, please wait ...");
                     processBuilder.redirectErrorStream(true);
