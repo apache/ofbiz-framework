@@ -31,7 +31,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 public class PeriodWorker {
 
     public static String module = PeriodWorker.class.getName();
- 
+
     /**
      * Method to get a condition that checks that the given fieldName is in a given timePeriod.
      */

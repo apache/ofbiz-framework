@@ -176,7 +176,7 @@ public class EmailServices {
         if (contentType == null) {
             contentType = "text/html";
         }
- 
+
         if (UtilValidate.isNotEmpty(bodyParts)) {
             contentType = "multipart/mixed";
         }
@@ -383,9 +383,9 @@ public class EmailServices {
                 return ServiceUtil.returnError(errMsg);
             }
         }
- 
+
         boolean isMultiPart = false;
- 
+
         // check if attachment screen location passed in
         if (UtilValidate.isNotEmpty(xslfoAttachScreenLocation)) {
             isMultiPart = true;
@@ -398,7 +398,7 @@ public class EmailServices {
                 screensAtt.populateContextForService(dctx, bodyParameters);
                 screenContextAtt.putAll(bodyParameters);
                 screensAtt.render(xslfoAttachScreenLocation);
- 
+
                 /*
                 try { // save generated fo file for debugging
                     String buf = writer.toString();
@@ -415,7 +415,7 @@ public class EmailServices {
 
                 // create the output stream for the generation
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
- 
+
                 Fop fop = ApacheFopWorker.createFopInstance(baos, MimeConstants.MIME_PDF);
                 ApacheFopWorker.transform(src, null, fop);
 
@@ -472,7 +472,7 @@ public class EmailServices {
                 serviceContext.put("contentType", "text/html");
             }
         }
- 
+
         // also expand the subject at this point, just in case it has the FlexibleStringExpander syntax in it...
         String subject = (String) serviceContext.remove("subject");
         subject = FlexibleStringExpander.expandString(subject, screenContext, locale);
@@ -496,12 +496,12 @@ public class EmailServices {
         result.put("body", bodyWriter.toString());
         return result;
     }
- 
+
     /** class to create a file in memory required for sending as an attachment */
     public static class StringDataSource implements DataSource {
         private String contentType;
         private ByteArrayOutputStream contentArray;
- 
+
         public StringDataSource(String content, String contentType) throws IOException {
             this.contentType = contentType;
             contentArray = new ByteArrayOutputStream();
@@ -509,19 +509,19 @@ public class EmailServices {
             contentArray.flush();
             contentArray.close();
         }
- 
+
         public String getContentType() {
             return contentType == null ? "application/octet-stream" : contentType;
         }
- 
+
         public InputStream getInputStream() throws IOException {
             return new ByteArrayInputStream(contentArray.toByteArray());
         }
- 
+
         public String getName() {
             return "stringDatasource";
         }
- 
+
         public OutputStream getOutputStream() throws IOException {
             throw new IOException("Cannot write to this read-only resource");
         }
@@ -531,24 +531,24 @@ public class EmailServices {
     public static class ByteArrayDataSource implements DataSource {
         private String contentType;
         private byte[] contentArray;
- 
+
         public ByteArrayDataSource(byte[] content, String contentType) throws IOException {
             this.contentType = contentType;
             this.contentArray = content;
         }
- 
+
         public String getContentType() {
             return contentType == null ? "application/octet-stream" : contentType;
         }
- 
+
         public InputStream getInputStream() throws IOException {
             return new ByteArrayInputStream(contentArray);
         }
- 
+
         public String getName() {
             return "ByteArrayDataSource";
         }
- 
+
         public OutputStream getOutputStream() throws IOException {
             throw new IOException("Cannot write to this read-only resource");
         }

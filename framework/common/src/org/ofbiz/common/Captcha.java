@@ -142,7 +142,7 @@ public class Captcha {
         //Adding this because we called response.getOutputStream() above. This will prevent and illegal state exception being thrown
         return true;
     }
- 
+
     public static void writeImage(BufferedImage image, HttpServletRequest request)
     {
         try {
@@ -162,7 +162,7 @@ public class Captcha {
             return;
         }
     }
- 
+
     public static void deleteFile() {
         if (CAPTCHA_FILE_PATH != null) {
                File file = new File(CAPTCHA_FILE_PATH);

@@ -37,16 +37,16 @@ import org.ofbiz.service.ServiceUtil;
  * StatusServices
  */
 public class StatusServices {
- 
+
     public static final String module = StatusServices.class.getName();
- 
+
     public static Map<String, Object> getStatusItems(DispatchContext ctx, Map<String, ?> context) {
         GenericDelegator delegator = ctx.getDelegator();
         List<String> statusTypes = checkList(context.get("statusTypeIds"), String.class);
         if (statusTypes == null || statusTypes.size() == 0) {
             return ServiceUtil.returnError("Parameter statusTypeIds can not be null and must contain at least one element");
         }
- 
+
         List<GenericValue> statusItems = FastList.newInstance();
         for (String statusTypeId: statusTypes) {
             try {

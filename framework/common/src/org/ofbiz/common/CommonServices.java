@@ -177,7 +177,7 @@ public class CommonServices {
         Debug.set(Debug.INFO, "Y".equalsIgnoreCase((String) context.get("info")));
         Debug.set(Debug.TIMING, "Y".equalsIgnoreCase((String) context.get("timing")));
         Debug.set(Debug.VERBOSE, "Y".equalsIgnoreCase((String) context.get("verbose")));
- 
+
         return ServiceUtil.returnSuccess();
     }
 
@@ -185,7 +185,7 @@ public class CommonServices {
         String name = (String) context.get("name");
         String level = (String) context.get("level");
         boolean additivity = "Y".equalsIgnoreCase((String) context.get("additivity"));
- 
+
         Logger logger = null;
         if ("root".equals(name)) {
             logger = Logger.getRootLogger();
@@ -194,7 +194,7 @@ public class CommonServices {
         }
         logger.setLevel(Level.toLevel(level));
         logger.setAdditivity(additivity);
- 
+
         return ServiceUtil.returnSuccess();
     }
 

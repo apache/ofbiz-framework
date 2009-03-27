@@ -119,16 +119,16 @@ public class NotificationServices {
     public static Map<String, Object> sendNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Map result = null;
- 
+
         try {
             // see whether the optional 'body' attribute was specified or needs to be processed
             // nulls are handled the same as not specified
             String body = (String) context.get("body");
- 
+
             if (body == null) {
                 // prepare the body of the notification email
                 Map bodyResult = prepareNotification(ctx, context);
- 
+
                 // ensure the body was generated successfully
                 if (bodyResult.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS)) {
                     body = (String) bodyResult.get("body");
@@ -138,7 +138,7 @@ public class NotificationServices {
                     body = null;
                 }
             }
- 
+
             // make sure we have a valid body before sending
             if (body != null) {
                 // retain only the required attributes for the sendMail service
@@ -152,7 +152,7 @@ public class NotificationServices {
                 emailContext.put("sendVia", context.get("sendVia"));
                 emailContext.put("sendType", context.get("sendType"));
                 emailContext.put("contentType", context.get("contentType"));
- 
+
                 // pass on to the sendMail service
                 result = dispatcher.runSync("sendMail", emailContext);
             } else {
@@ -187,24 +187,24 @@ public class NotificationServices {
         String templateName = (String) context.get("templateName");
         Map templateData = (Map) context.get("templateData");
         String webSiteId = (String) context.get("webSiteId");
- 
+
         Map result = null;
         if (templateData == null) {
             templateData = FastMap.newInstance();
         }
- 
+
         try {
             // ensure the baseURl is defined
             setBaseUrl(delegator, webSiteId, templateData);
- 
+
             // initialize the template reader and processor
             URL templateUrl = UtilURL.fromResource(templateName);
- 
+
             if (templateUrl == null) {
                 Debug.logError("Problem getting the template URL: " + templateName + " not found", module);
                 return ServiceUtil.returnError("Problem finding template; see logs");
             }
- 
+
             // process the template with the given data and write
             // the email body to the String buffer
             Writer writer = new StringWriter();
@@ -212,7 +212,7 @@ public class NotificationServices {
 
             // extract the newly created body for the notification email
             String notificationBody = writer.toString();
- 
+
             // generate the successfull reponse
             result = ServiceUtil.returnSuccess("Message body generated successfully");
             result.put("body", notificationBody);
@@ -253,9 +253,9 @@ public class NotificationServices {
         if (!context.containsKey("baseUrl")) {
             StringBuilder httpBase = null;
             StringBuilder httpsBase = null;
- 
+
             String localServer = null;
- 
+
             String httpsPort = null;
             String httpsServer = null;
             String httpPort = null;
@@ -287,7 +287,7 @@ public class NotificationServices {
                     Debug.logWarning(e, "Problems with WebSite entity; using global defaults", module);
                 }
             }
- 
+
             // fill in any missing properties with fields from the global file
             if (UtilValidate.isEmpty(httpsPort)) {
                 httpsPort = UtilProperties.getPropertyValue("url.properties", "port.https", "443");
@@ -304,7 +304,7 @@ public class NotificationServices {
             if (UtilValidate.isEmpty(enableHttps)) {
                 enableHttps = (UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y")) ? Boolean.TRUE : Boolean.FALSE;
             }
- 
+
             // prepare the (non-secure) URL
             httpBase = new StringBuilder("http://");
             httpBase.append(httpServer);
@@ -315,7 +315,7 @@ public class NotificationServices {
 
             // set the base (non-secure) URL for any messages requiring it
             context.put("baseUrl", httpBase.toString());
- 
+
             if (enableHttps.booleanValue()) {
                 // prepare the (secure) URL
                 httpsBase = new StringBuilder("https://");
@@ -324,7 +324,7 @@ public class NotificationServices {
                     httpsBase.append(":");
                     httpsBase.append(httpsPort);
                 }
- 
+
                 // set the base (secure) URL for any messages requiring it
                 context.put("baseSecureUrl", httpsBase.toString());
             } else {

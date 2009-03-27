@@ -34,9 +34,9 @@ import org.ofbiz.entity.GenericValue;
  * StatusWorker
  */
 public class StatusWorker {
- 
+
     public static final String module = StatusWorker.class.getName();
- 
+
     public static void getStatusItems(PageContext pageContext, String attributeName, String statusTypeId) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
 

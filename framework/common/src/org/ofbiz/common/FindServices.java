@@ -201,7 +201,7 @@ public class FindServices {
         }
         return normalizedFields;
     }
- 
+
     /**
      * createCondition, comparing the normalizedFields with the list of keys, .
      *
@@ -293,7 +293,7 @@ public class FindServices {
             } else {
                 fieldObject = fieldValue;
             }
- 
+
             if (ignoreCase != null && ignoreCase.equals("Y") && "java.lang.String".equals(fieldObject.getClass().getName())) {
                 cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), (EntityComparisonOperator) fieldOp, EntityFunction.UPPER(((String)fieldValue).toUpperCase()));
             } else {
@@ -354,7 +354,7 @@ public class FindServices {
         }
         return tmpList;
     }
- 
+
     /**
      *
      *  same as performFind but now returning a list instead of an iterator
@@ -369,12 +369,12 @@ public class FindServices {
      */
     public static Map<String, Object> performFindList(DispatchContext dctx, Map<String, ?> context) {
         Map<String, Object> result = performFind(dctx,context);
- 
+
         Integer viewSize = (Integer) context.get("viewSize");
         if (viewSize == null) viewSize = Integer.valueOf(20);       // default
         Integer viewIndex = (Integer) context.get("viewIndex");
         if (viewIndex == null)  viewIndex = Integer.valueOf(0);  // default
- 
+
         int start = viewIndex.intValue() * viewSize.intValue();
         List<GenericValue> list = null;
         Integer listSize = null;
@@ -387,13 +387,13 @@ public class FindServices {
         } catch (Exception e) {
             Debug.logInfo("Problem getting partial list" + e,module);
         }
- 
+
         result.put("listSize", listSize);
         result.put("list",list);
         result.remove("listIt");
         return result;
     }
- 
+
     /**
      * performFind
      *
@@ -433,7 +433,7 @@ public class FindServices {
         }
         EntityConditionList exprList = (EntityConditionList)prepareResult.get("entityConditionList");
         List<String> orderByList = checkList(prepareResult.get("orderByList"), String.class);
- 
+
         Map<String, Object> executeResult = null;
         try {
             executeResult = dispatcher.runSync("executeFind", UtilMisc.toMap("entityName", entityName, "orderByList", orderByList, "fieldList", fieldList, "entityConditionList", exprList, "noConditionFind", noConditionFind, "distinct", distinct, "locale", context.get("locale"), "timeZone", context.get("timeZone")));
@@ -444,14 +444,14 @@ public class FindServices {
         if (executeResult.get("listIt") == null) {
             if (Debug.verboseOn()) Debug.logVerbose("No list iterator found for query string + [" + prepareResult.get("queryString") + "]", module);
         }
- 
+
         Map<String, Object> results = ServiceUtil.returnSuccess();
         results.put("listIt", executeResult.get("listIt"));
         results.put("queryString", prepareResult.get("queryString"));
         results.put("queryStringMap", prepareResult.get("queryStringMap"));
         return results;
     }
- 
+
     /**
      * prepareFind
      *
@@ -512,7 +512,7 @@ public class FindServices {
         if (tmpList.size() > 0) {
             exprList = EntityCondition.makeCondition(tmpList);
         }
- 
+
         List<String> orderByList = null;
         if (UtilValidate.isNotEmpty(orderBy)) {
             orderByList = StringUtil.split(orderBy,"|");
@@ -526,7 +526,7 @@ public class FindServices {
         String queryString = UtilHttp.urlEncodeArgs(reducedQueryStringMap);
         results.put("queryString", queryString);
         results.put("queryStringMap", reducedQueryStringMap);
- 
+
         results.put("orderByList", orderByList);
         results.put("entityConditionList", exprList);
         return results;
@@ -564,7 +564,7 @@ public class FindServices {
         results.put("listIt", listIt);
         return results;
     }
- 
+
     private static String dayStart(String timeStampString, int daysLater) {
         String retValue = null;
         Timestamp ts = null;
@@ -657,7 +657,7 @@ public class FindServices {
      */
     public static Map<String, Object> performFindItem(DispatchContext dctx, Map<String, ?> context) {
         Map<String, Object> result = org.ofbiz.common.FindServices.performFind(dctx,context);
- 
+
         List<GenericValue> list = null;
         GenericValue item= null;
         try {
@@ -670,7 +670,7 @@ public class FindServices {
         } catch (Exception e) {
             Debug.logInfo("Problem getting list Item" + e,module);
         }
- 
+
         if (!UtilValidate.isEmpty(item)) {
             result.put("item",item);
         }
