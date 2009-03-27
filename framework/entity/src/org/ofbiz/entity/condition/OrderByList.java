@@ -68,7 +68,7 @@ public class OrderByList implements Comparator<GenericEntity> {
     public void addOrderBy(EntityConditionValue value, boolean descending) {
         addOrderBy(new OrderByItem(value, descending));
     }
- 
+
     public void addOrderBy(OrderByItem orderByItem) {
         orderByList.add(orderByItem);
     }

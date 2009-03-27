@@ -47,7 +47,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
 
     /** Module Name Used for debugging */
     public static final String module = EntityListIterator.class.getName();
- 
+
     protected SQLProcessor sqlp;
     protected ResultSet resultSet;
     protected ModelEntity modelEntity;
@@ -58,7 +58,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
     protected GenericDelegator delegator = null;
 
     private boolean haveShowHasNextWarning = false;
- 
+
     public EntityListIterator(SQLProcessor sqlp, ModelEntity modelEntity, List<ModelField> selectFields, ModelFieldTypeReader modelFieldTypeReader) {
         this.sqlp = sqlp;
         this.resultSet = sqlp.getResultSet();
@@ -237,10 +237,10 @@ public class EntityListIterator implements ListIterator<GenericValue> {
             // DEJ20050207 To further discourage use of this, and to find existing use, always log a big warning showing where it is used:
             Exception whereAreWe = new Exception();
             Debug.logWarning(whereAreWe, "WARNING: For performance reasons do not use the EntityListIterator.hasNext() method, just call next() until it returns null; see JavaDoc comments in the EntityListIterator class for details and an example", module);
- 
+
             haveShowHasNextWarning = true;
         }
- 
+
         try {
             if (resultSet.isLast() || resultSet.isAfterLast()) {
                 return false;
@@ -443,7 +443,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
         try {
             if (number == 0) return FastList.newInstance();
             List<GenericValue> list = FastList.newInstance();
- 
+
             // just in case the caller missed the 1 based thingy
             if (start == 0) start = 1;
 
@@ -488,7 +488,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
             throw new GenericEntityException(e.getNonNestedMessage(), e.getNested());
         }
     }
- 
+
     public int getResultsSizeAfterPartialList() throws GenericEntityException {
         if (this.last()) {
             return this.currentIndex();

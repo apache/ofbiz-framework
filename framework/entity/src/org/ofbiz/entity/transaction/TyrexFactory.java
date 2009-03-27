@@ -39,7 +39,7 @@ public class TyrexFactory {
 }
 /*
 public class TyrexFactory implements TransactionFactoryInterface {
- 
+
     public static final String module = TyrexFactory.class.getName();
 
     protected static TransactionDomain td = null;
@@ -131,11 +131,11 @@ public class TyrexFactory implements TransactionFactoryInterface {
             return null;
         }
     }
- 
+
     public String getTxMgrName() {
         return "tyrex";
     }
- 
+
     public Connection getConnection(String helperName) throws SQLException, GenericEntityException {
         EntityConfigUtil.DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
 
@@ -147,7 +147,7 @@ public class TyrexFactory implements TransactionFactoryInterface {
             } catch (Exception ex) {
                 Debug.logError(ex, "Tyrex is the configured transaction manager but there was an error getting a database Connection through Tyrex for the " + helperName + " datasource. Please check your configuration, class path, etc.", module);
             }
- 
+
             Connection otherCon = ConnectionFactory.tryGenericConnectionSources(helperName, datasourceInfo.inlineJdbcElement);
             return otherCon;
         } else if (datasourceInfo.tyrexDataSourceElement != null) {
@@ -176,7 +176,7 @@ public class TyrexFactory implements TransactionFactoryInterface {
             return null;
         }
     }
- 
+
     public void shutdown() {
         TyrexConnectionFactory.closeAll();
         if (td != null) {

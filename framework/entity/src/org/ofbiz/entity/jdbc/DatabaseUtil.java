@@ -583,7 +583,7 @@ public class DatabaseUtil {
             }
             if (Debug.infoOn()) Debug.logInfo("Created " + numIndicesCreated + " indices", module);
         }
- 
+
         if (datasourceInfo.checkIndicesOnStart) {
             int numIndicesCreated = 0;
             // TODO: check each key-map to make sure it exists in the index, if any differences warn and then remove the index and recreate it
@@ -665,10 +665,10 @@ public class DatabaseUtil {
                 }
             }
             if (Debug.infoOn()) Debug.logInfo("Created " + numIndicesCreated + " indices", module);
- 
+
         }
 
- 
+
         timer.timerString("Finished Checking Entity Database");
     }
 
@@ -1326,7 +1326,7 @@ public class DatabaseUtil {
                             pkCount += checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
                         }
                     }
- 
+
                     Debug.logInfo("Reviewed " + pkCount + " primary key fields from database.", module);
                 }
             } catch (SQLException e) {
@@ -1349,7 +1349,7 @@ public class DatabaseUtil {
             }
         }
     }
- 
+
     public int checkPrimaryKeyInfo(ResultSet rsPks, String lookupSchemaName, boolean needsUpperCase, Map<String, Map<String, ColumnCheckInfo>> colInfo, Collection<String> messages) throws SQLException {
         int pkCount = 0;
         try {
@@ -1372,11 +1372,11 @@ public class DatabaseUtil {
                         Debug.logWarning("Got primary key information for a column that we didn't get column information for: tableName=[" + tableName + "], columnName=[" + columnName + "]", module);
                         continue;
                     }
- 
- 
+
+
                     // KEY_SEQ short => sequence number within primary key
                     // PK_NAME String => primary key name (may be null)
- 
+
                     ccInfo.isPk = true;
                     ccInfo.pkSeq = rsPks.getShort("KEY_SEQ");
                     ccInfo.pkName = rsPks.getString("PK_NAME");

@@ -67,17 +67,17 @@ public class EntityDataAssert {
 
         return rowsChecked;
     }
- 
+
     public static void checkValueList(List valueList, GenericDelegator delegator, List<Object> errorMessages) throws GenericEntityException {
         if (valueList == null) return;
- 
+
         Iterator valueIter = valueList.iterator();
         while (valueIter.hasNext()) {
             GenericValue checkValue = (GenericValue) valueIter.next();
             checkSingleValue(checkValue, delegator, errorMessages);
         }
     }
- 
+
     public static void checkSingleValue(GenericValue checkValue, GenericDelegator delegator, List<Object> errorMessages) throws GenericEntityException {
         if (checkValue == null) {
             errorMessages.add("Got a value to check was null");
@@ -85,7 +85,7 @@ public class EntityDataAssert {
         }
         // to check get the PK, find by that, compare all fields
         GenericPK checkPK = null;
- 
+
         try {
             checkPK = checkValue.getPrimaryKey();
             GenericValue currentValue = delegator.findOne(checkPK.getEntityName(), checkPK, false);
@@ -101,7 +101,7 @@ public class EntityDataAssert {
                         ModelEntity.STAMP_FIELD.equals(nonpkFieldName) || ModelEntity.STAMP_TX_FIELD.equals(nonpkFieldName)) {
                     continue;
                 }
- 
+
                 Object checkField = checkValue.get(nonpkFieldName);
                 Object currentField = currentValue.get(nonpkFieldName);
 

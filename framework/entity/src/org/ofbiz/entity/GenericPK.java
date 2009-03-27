@@ -35,9 +35,9 @@ public class GenericPK extends GenericEntity {
             return new GenericPK();
         }
     };
- 
+
     protected GenericPK() { }
- 
+
     /** Creates new GenericPK */
     public static GenericPK create(ModelEntity modelEntity) {
         GenericPK newPK = genericPKFactory.object();

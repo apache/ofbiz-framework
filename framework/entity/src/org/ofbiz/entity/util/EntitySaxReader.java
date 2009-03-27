@@ -173,14 +173,14 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
     public boolean getDisableEeca() {
         return this.disableEeca;
     }
- 
+
     public List<Object> getMessageList() {
         if (this.checkDataOnly && this.messageList == null) {
             messageList = FastList.newInstance();
         }
         return this.messageList;
     }
- 
+
     public void setMessageList(List<Object> messageList) {
         this.messageList = messageList;
     }

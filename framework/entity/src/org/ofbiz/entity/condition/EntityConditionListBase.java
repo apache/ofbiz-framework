@@ -66,19 +66,19 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
     public EntityOperator getOperator() {
         return this.operator;
     }
- 
+
     public T getCondition(int index) {
         return this.conditionList.get(index);
     }
- 
+
     protected int getConditionListSize() {
         return this.conditionList.size();
     }
- 
+
     protected Iterator<T> getConditionIterator() {
         return this.conditionList.iterator();
     }
- 
+
     public void visit(EntityConditionVisitor visitor) {
         visitor.acceptEntityJoinOperator(operator, conditionList);
     }
@@ -108,11 +108,11 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
             cond.encryptConditionFields(modelEntity, delegator);
         }
     }
- 
+
     public boolean equals(Object obj) {
         if (!(obj instanceof EntityConditionListBase)) return false;
         EntityConditionListBase other = (EntityConditionListBase) obj;
- 
+
         boolean isEqual = conditionList.equals(other.conditionList) && operator.equals(other.operator);
         //if (!isEqual) {
         //    Debug.logWarning("EntityConditionListBase.equals is false:\n this.operator=" + this.operator + "; other.operator=" + other.operator +

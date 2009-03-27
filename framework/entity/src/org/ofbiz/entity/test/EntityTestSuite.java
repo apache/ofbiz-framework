@@ -65,7 +65,7 @@ public class EntityTestSuite extends TestCase {
     protected void setUp() throws Exception {
         this.delegator = GenericDelegator.getGenericDelegator(DELEGATOR_NAME);
     }
- 
+
     /*
      * Tests storing values with the delegator's .create, .makeValue, and .storeAll methods
      */
@@ -400,7 +400,7 @@ public class EntityTestSuite extends TestCase {
             return;
         }
     }
- 
+
     /*
      * This test will use the large number of unique items from above and test the EntityListIterator looping through the list
      */
@@ -464,7 +464,7 @@ public class EntityTestSuite extends TestCase {
             delegator.removeByAnd("Testing", "testingId", "timeout-test");
         }
     }
- 
+
     /*
      * This test will verify that the same transaction transaction which takes less time than timeout will be committed.
      */
@@ -512,7 +512,7 @@ public class EntityTestSuite extends TestCase {
           GenericValue testingBlob = delegator.makeValue("TestBlob", "testBlobId", "byte-blob");
           testingBlob.setBytes("testBlobField", b);
           testingBlob.create();
- 
+
           TestCase.assertTrue("Blob with byte value successfully created...", true);
       } catch (Exception ex) {
         TestCase.fail(ex.getMessage());

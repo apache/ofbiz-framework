@@ -43,9 +43,9 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
             return new EntityFieldValue();
         }
     };
- 
+
     protected String fieldName = null;
- 
+
     public static EntityFieldValue makeFieldValue(String fieldName) {
         EntityFieldValue efv = EntityFieldValue.entityFieldValueFactory.object();
         efv.init(fieldName);
@@ -53,16 +53,16 @@ public class EntityFieldValue extends EntityConditionValue implements Reusable {
     }
 
     protected EntityFieldValue() {}
- 
+
     /** @deprecated Use EntityFieldValue.makeFieldValue() instead */
     public EntityFieldValue(String fieldName) {
     this.init(fieldName);
     }
- 
+
     public void init(String fieldName) {
         this.fieldName = fieldName;
     }
- 
+
     public void reset() {
     this.fieldName = null;
     }

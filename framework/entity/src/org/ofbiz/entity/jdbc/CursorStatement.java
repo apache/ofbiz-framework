@@ -29,7 +29,7 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 
 
 public class CursorStatement extends AbstractCursorHandler {
- 
+
     protected ResultSet currentResultSet;
     protected Statement stmt;
     protected boolean beganTransaction;

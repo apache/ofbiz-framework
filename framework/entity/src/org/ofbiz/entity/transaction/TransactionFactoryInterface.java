@@ -31,10 +31,10 @@ public interface TransactionFactoryInterface {
     public TransactionManager getTransactionManager();
 
     public UserTransaction getUserTransaction();
- 
+
     public String getTxMgrName();
- 
+
     public Connection getConnection(String helperName) throws SQLException, GenericEntityException;
- 
+
     public void shutdown();
 }

@@ -31,7 +31,7 @@ public class DebugXaResource extends GenericXaResource {
     public DebugXaResource(String info) {
         this.ex = new Exception(info);
     }
- 
+
     public DebugXaResource() {
         this.ex = new Exception();
     }

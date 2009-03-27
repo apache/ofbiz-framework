@@ -27,7 +27,7 @@ import org.w3c.dom.Element;
  *
  */
 public class ModelInfo {
- 
+
     public static final String module = ModelInfo.class.getName();
 
     protected ModelInfo def;

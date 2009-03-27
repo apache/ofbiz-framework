@@ -47,7 +47,7 @@ public class EntityListCache extends AbstractEntityConditionCache<Object, List<G
             // the valueList was not found for the given ordering, so grab the first one and order it in memory
             Iterator<List<GenericValue>> it = conditionCache.values().iterator();
             if (it.hasNext()) valueList = it.next();
- 
+
             synchronized (conditionCache) {
                 if (valueList != null) {
                     valueList = EntityUtil.orderBy(valueList, orderBy);

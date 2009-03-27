@@ -882,7 +882,7 @@ public class GenericDAO {
             // put this inside an if statement so that we don't have to generate the string when not used...
             Debug.logVerbose("Doing selectListIteratorByCondition with whereEntityCondition: " + whereEntityCondition, module);
         }
- 
+
         boolean isGroupBy = false;
         ModelViewEntity modelViewEntity = null;
         String groupByString = null;
@@ -893,14 +893,14 @@ public class GenericDAO {
                 isGroupBy = true;
             }
         }
- 
+
         // To get a count of the rows that will be returned when there is a GROUP BY, must do something like:
         //     SELECT COUNT(1) FROM (SELECT COUNT(1) FROM OFBIZ.POSTAL_ADDRESS PA GROUP BY PA.CITY) TEMP_NAME
         // instead of a simple:
         //     SELECT COUNT(1) FROM OFBIZ.POSTAL_ADDRESS PA GROUP BY PA.CITY
 
         StringBuilder sqlBuffer = new StringBuilder("SELECT ");
- 
+
         if (isGroupBy) {
             sqlBuffer.append("COUNT(1) FROM (SELECT ");
         }
@@ -961,7 +961,7 @@ public class GenericDAO {
             sqlBuffer.append(" HAVING ");
             sqlBuffer.append(entityCondHavingString);
         }
- 
+
         if (isGroupBy) {
             sqlBuffer.append(") TEMP_NAME");
         }
@@ -998,7 +998,7 @@ public class GenericDAO {
                 count = resultSet.getLong(1);
             }
             return count;
- 
+
         } catch (SQLException e) {
             throw new GenericDataSourceException("Error getting count value", e);
         } finally {

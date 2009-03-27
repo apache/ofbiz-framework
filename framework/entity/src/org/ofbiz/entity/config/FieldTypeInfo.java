@@ -26,7 +26,7 @@ import org.w3c.dom.Element;
  */
 public class FieldTypeInfo extends NamedInfo {
     public Element resourceElement;
- 
+
     public FieldTypeInfo(Element element) {
         super(element);
         resourceElement = element;
