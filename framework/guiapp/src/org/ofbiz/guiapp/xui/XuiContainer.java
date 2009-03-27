@@ -83,7 +83,7 @@ public abstract class XuiContainer implements Container {
 
         // create and cache the session
         xuiSession = new XuiSession(xuiSessionId, delegator, dispatcher, this);
- 
+
         // configure the rest of the container
         this.configure(cc);
 
@@ -94,7 +94,7 @@ public abstract class XuiContainer implements Container {
         }
 
         String classPackageName = ContainerConfig.getPropertyValue(cc, "class-package-name", "net.xoetrope.swing");
- 
+
         JFrame jframe = new JFrame();
         jframe.setUndecorated(true);
         new XuiScreen(
@@ -131,7 +131,7 @@ public abstract class XuiContainer implements Container {
 
     class XuiScreen extends XApplet {
         protected String startupProperties = "";
- 
+
         public XuiScreen(String[] args, JFrame frame) {
             super(args, frame);
             if (args.length > 0) {
