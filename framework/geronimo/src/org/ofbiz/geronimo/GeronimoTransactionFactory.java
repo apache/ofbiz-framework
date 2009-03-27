@@ -44,7 +44,7 @@ import org.ofbiz.entity.transaction.TransactionFactoryInterface;
 public class GeronimoTransactionFactory implements TransactionFactoryInterface {
 
     public static final String module = GeronimoTransactionFactory.class.getName();
- 
+
     private static int defaultTransactionTimeoutSeconds = 60;
     private static TransactionLog transactionLog;
     private static Collection resourceManagers = null;
@@ -73,11 +73,11 @@ public class GeronimoTransactionFactory implements TransactionFactoryInterface {
     public UserTransaction getUserTransaction() {
         return geronimoTransactionManager;
     }
- 
+
     public String getTxMgrName() {
         return "geronimo";
     }
- 
+
     public Connection getConnection(String helperName) throws SQLException, GenericEntityException {
         DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
 
@@ -88,7 +88,7 @@ public class GeronimoTransactionFactory implements TransactionFactoryInterface {
             return null;
         }
     }
- 
+
     public void shutdown() {
         ConnectionFactory.closeAllManagedConnections();
         /*
