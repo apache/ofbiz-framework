@@ -33,15 +33,15 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webpos.session.WebPosSession;
 
 public class WebPosEvents {
- 
+
     public static String module = WebPosEvents.class.getName();
- 
+
     public static String posLogin(HttpServletRequest request, HttpServletResponse response) {
         String responseString = LoginEvents.storeLogin(request, response);
- 
+
         if ("success".equals(responseString)) {
             HttpSession session = request.getSession(true);
- 
+
             // get the posTerminalId
             String posTerminalId = (String) request.getParameter("posTerminalId");
             session.removeAttribute("shoppingCart");
@@ -50,12 +50,12 @@ public class WebPosEvents {
         }
         return responseString;
     }
- 
+
     public static String existsWebPosSession(HttpServletRequest request, HttpServletResponse response) {
         String responseString = "success";
         HttpSession session = request.getSession(true);
         WebPosSession webPosSession = (WebPosSession) session.getAttribute("webPosSession");
- 
+
         if (UtilValidate.isEmpty(webPosSession)) {
             responseString = "error";
         }
@@ -68,26 +68,26 @@ public class WebPosEvents {
         ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
- 
+
         if (UtilValidate.isEmpty(webPosSession)) {
             String productStoreId = ProductStoreWorker.getProductStoreId(request);
             GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
             String facilityId = null;
             String currencyUomId = request.getParameter("currencyUomId");
- 
+
             if (UtilValidate.isNotEmpty(productStore)) {
                 facilityId = productStore.getString("inventoryFacilityId");
                 if (UtilValidate.isEmpty(currencyUomId)) {
                     currencyUomId = productStore.getString("defaultCurrencyUomId");
                 }
             }
- 
+
             if (UtilValidate.isEmpty(cart)) {
                 cart = new ShoppingCart(delegator, productStoreId, request.getLocale(), currencyUomId);
                 session.setAttribute("shoppingCart", cart);
- 
+
             }
- 
+
             if (UtilValidate.isNotEmpty(posTerminalId)) {
                 webPosSession = new WebPosSession(posTerminalId, null, userLogin, request.getLocale(), productStoreId, facilityId, currencyUomId, delegator, dispatcher, cart);
                 session.setAttribute("webPosSession", webPosSession);
