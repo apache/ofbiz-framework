@@ -26,11 +26,11 @@ import org.ofbiz.base.util.UtilMisc;
  * WorkflowUtil - Workflow Engine Utilities
  */
 public final class WfUtil {
- 
+
     private static final Map typeMap = UtilMisc.toMap("WDT_BOOLEAN", "java.lang.Boolean",
         "WDT_STRING", "java.lang.String", "WDT_INTEGER", "java.lang.Long",
         "WDT_FLOAT", "java.lang.Double", "WDT_DATETIME", "java.sql.Timestamp");
- 
+
     /**
      * Gets the Java type from a XPDL datatype
      * @param xpdlType XPDL data type to be translated
@@ -42,7 +42,7 @@ public final class WfUtil {
         else
             return "java.lang.Object";
     }
- 
+
     /**
      * Returns the OFB status code which refers to the passed OMG status code
      * @param state
@@ -78,6 +78,6 @@ public final class WfUtil {
         }
         return null;
     }
- 
- 
+
+
 }

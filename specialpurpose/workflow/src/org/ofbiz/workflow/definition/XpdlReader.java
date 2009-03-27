@@ -62,7 +62,7 @@ public class XpdlReader {
      * datasource through the given delegator */
     public static void importXpdl(URL location, GenericDelegator delegator) throws DefinitionParserException {
         List values = readXpdl(location, delegator);
- 
+
         // attempt to start a transaction
         boolean beganTransaction = false;
         try {
@@ -70,7 +70,7 @@ public class XpdlReader {
         } catch (GenericTransactionException gte) {
             Debug.logError(gte, "Unable to begin transaction", module);
         }
- 
+
         try {
             delegator.storeAll(values);
             TransactionUtil.commit(beganTransaction);
@@ -520,7 +520,7 @@ public class XpdlReader {
         List transitions = UtilXml.childElementList(transitionsElement, "Transition");
 
         readTransitions(transitions, packageId, packageVersion, processId, processVersion);
- 
+
         // ExtendedAttributes?
         workflowProcessValue.set("defaultStartActivityId", getExtendedAttributeValue(workflowProcessElement, "defaultStartActivityId", workflowProcessValue.getString("defaultStartActivityId")));
         workflowProcessValue.set("sourceReferenceField", getExtendedAttributeValue(workflowProcessElement, "sourceReferenceField", "sourceReferenceId"));
@@ -912,7 +912,7 @@ public class XpdlReader {
 
         // Description?
         transitionValue.set("description", UtilXml.childElementValue(transitionElement, "Description"));
- 
+
         // ExtendedAttributes?
         Element extendedAttributesElement = UtilXml.firstChildElement(transitionElement, "ExtendedAttributes");
         List extendedAttributes = UtilXml.childElementList(extendedAttributesElement, "ExtendedAttribute");
@@ -1012,21 +1012,21 @@ public class XpdlReader {
         if (participants == null || participants.size() == 0)
             return;
         Iterator participantsIter = participants.iterator();
- 
+
         while (participantsIter.hasNext()) {
             Element participantElement = (Element) participantsIter.next();
             String participantId = participantElement.getAttribute("Id");
             GenericValue participantValue = delegator.makeValue("WorkflowParticipant");
- 
+
             values.add(participantValue);
- 
+
             participantValue.set("packageId", packageId);
             participantValue.set("packageVersion", packageVersion);
             participantValue.set("processId", processId);
             participantValue.set("processVersion", processVersion);
             participantValue.set("participantId", participantId);
             participantValue.set("participantName", participantElement.getAttribute("Name"));
- 
+
             // ParticipantType
             Element participantTypeElement = UtilXml.firstChildElement(participantElement, "ParticipantType");
 
@@ -1042,7 +1042,7 @@ public class XpdlReader {
             participantValue.set("roleTypeId", getExtendedAttributeValue(participantElement, "roleTypeId", null), false);
         }
     }
- 
+
     /*
     protected void readParticipants(List participants, String packageId, String packageVersion, String processId, String processVersion, GenericValue valueObject) throws DefinitionParserException {
         if (participants == null || participants.size() == 0)
@@ -1302,7 +1302,7 @@ public class XpdlReader {
         }
         return defaultValue;
     }
- 
+
     // ---------------------------------------------------------
     // RUNTIME, TEST, AND SAMPLE METHODS
     // ---------------------------------------------------------

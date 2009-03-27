@@ -54,14 +54,14 @@ public class WfProcessMgrImpl implements WfProcessMgr {
     public static final String module = WfProcessMgrImpl.class.getName();
 
     protected GenericValue processDef;
- 
+
     protected String state; // will probably move to a runtime entity for the manager
     protected List processList; // will probably be a related entity to the runtime entity
- 
+
     protected Map contextSignature = null;
     protected Map resultSignature = null;
     protected Map initialContext = null;
- 
+
     /**
      * Method WfProcessMgrImpl.
      * @param delegator
@@ -144,7 +144,7 @@ public class WfProcessMgrImpl implements WfProcessMgr {
     public Map contextSignature() throws WfException {
         return this.contextSignature;
     }
- 
+
     /**
      * @see org.ofbiz.workflow.WfProcessMgr#howManyProcess()
      */
@@ -194,7 +194,7 @@ public class WfProcessMgrImpl implements WfProcessMgr {
     public Map resultSignature() throws WfException {
         return this.resultSignature;
     }
- 
+
     /**
      * Method getInitialContext.
      * @return Map
@@ -252,7 +252,7 @@ public class WfProcessMgrImpl implements WfProcessMgr {
                 resultSignature.put(name, WfUtil.getJavaType(type));
         }
     }
- 
+
     private void buildInitialContext() throws WfException {
         GenericDelegator delegator = processDef.getDelegator();
         this.initialContext = new HashMap();
@@ -262,13 +262,13 @@ public class WfProcessMgrImpl implements WfProcessMgr {
             Map fields = new HashMap();
             fields.put("packageId", processDef.get("packageId"));
             fields.put("packageVersion", processDef.get("packageVersion"));
- 
+
             // first get all package fields
             fields.put("processId", "_NA_");
             fields.put("processVersion", "_NA_");
             List data1 = delegator.findByAnd("WorkflowDataField", fields);
             dataFields.addAll(data1);
- 
+
             // now get all process fields
             fields.put("processId", processDef.get("processId"));
             fields.put("processVersion", processDef.get("processVersion"));
@@ -281,13 +281,13 @@ public class WfProcessMgrImpl implements WfProcessMgr {
             return;
 
         Iterator i = dataFields.iterator();
- 
+
         while (i.hasNext()) {
             GenericValue dataField = (GenericValue) i.next();
             String name = dataField.getString("dataFieldName");
             String type = dataField.getString("dataTypeEnumId");
             String value = dataField.getString("initialValue");
- 
+
             try {
                 initialContext.put(name, ObjectType.simpleTypeConvert(value, WfUtil.getJavaType(type), null, null));
             } catch (GeneralException e) {

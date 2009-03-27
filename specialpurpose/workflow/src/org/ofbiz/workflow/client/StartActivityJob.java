@@ -30,7 +30,7 @@ import org.ofbiz.workflow.WfActivity;
  * Workflow Client API - Start Activity Async-Job
  */
 public class StartActivityJob extends AbstractJob {
- 
+
     public static final String module = StartActivityJob.class.getName();
 
     protected WfActivity activity = null;
@@ -39,7 +39,7 @@ public class StartActivityJob extends AbstractJob {
     public StartActivityJob(WfActivity activity) {
         this(activity, null);
     }
- 
+
     public StartActivityJob(WfActivity activity, GenericRequester requester) {
         super(activity.toString() + "." + System.currentTimeMillis(), activity.toString());
         this.activity = activity;

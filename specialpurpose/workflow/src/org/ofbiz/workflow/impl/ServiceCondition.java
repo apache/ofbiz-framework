@@ -45,16 +45,16 @@ public class ServiceCondition implements TransitionCondition {
         String serviceName = (String) attrs.get("serviceName");
         if (serviceName == null || serviceName.length() == 0)
             throw new EvaluationException("Invalid serviceName; be sure to set the serviceName ExtendedAttribute");
- 
+
         // get the dispatcher
         LocalDispatcher dispatcher = dctx.getDispatcher();
         if (dispatcher == null)
             throw new EvaluationException("Bad LocalDispatcher found in the DispatchContext");
- 
+
         // create a map of all context and extended attributes, attributes will overwrite context values
         Map newContext = new HashMap(context);
         newContext.putAll(attrs);
- 
+
         // build the context for the service
         Map serviceContext = null;
         ModelService model = null;
@@ -64,7 +64,7 @@ public class ServiceCondition implements TransitionCondition {
         } catch (GenericServiceException e) {
             throw new EvaluationException("Cannot get ModelService object for service named: " + serviceName, e);
         }
- 
+
         // invoke the service
         Map serviceResult = null;
         try {
@@ -72,7 +72,7 @@ public class ServiceCondition implements TransitionCondition {
         } catch (GenericServiceException e) {
             throw new EvaluationException("Cannot invoke the service named: " + serviceName, e);
         }
- 
+
         // get the evaluationResult object from the result
         Boolean evaluationResult = null;
         try {
@@ -80,7 +80,7 @@ public class ServiceCondition implements TransitionCondition {
         } catch (ClassCastException e) {
             throw new EvaluationException("Service did not return a valid evaluationResult object");
         }
- 
+
         return evaluationResult;
     }
 

@@ -52,7 +52,7 @@ public class WorkflowEngine extends AbstractEngine {
     public WorkflowEngine(ServiceDispatcher dispatcher) {
         super(dispatcher);
     }
- 
+
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
@@ -61,21 +61,21 @@ public class WorkflowEngine extends AbstractEngine {
         runAsync(localName, modelService, context, waiter, false);
         return waiter.waitForResult();
     }
- 
+
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
     public void runSyncIgnore(String localName, ModelService modelService, Map context) throws GenericServiceException {
         runAsync(localName, modelService, context, null, false);
     }
- 
+
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, boolean)
      */
     public void runAsync(String localName, ModelService modelService, Map context, boolean persist) throws GenericServiceException {
         runAsync(localName, modelService, context, null, persist);
     }
- 
+
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, org.ofbiz.service.GenericRequester, boolean)
      */
@@ -90,7 +90,7 @@ public class WorkflowEngine extends AbstractEngine {
             } catch (GenericTransactionException e) {
                 Debug.logError(e, "Cannot begin nested transaction: " + e.getMessage(), module);
             }
- 
+
             // Build the requester
             WfRequester req = null;
             try {
@@ -166,7 +166,7 @@ public class WorkflowEngine extends AbstractEngine {
                 Debug.logError(e, "Un-handled process exception", module);
                 throw new GenericServiceException(e.getMessage(), e);
             }
- 
+
             // Assign the owner of the process
             GenericValue userLogin = null;
             if (context.containsKey("userLogin")) {
@@ -198,10 +198,10 @@ public class WorkflowEngine extends AbstractEngine {
                     throw new GenericServiceException(errMsg);
                 }
             }
- 
+
             // Grab the locale from the context
             Locale locale = (Locale) context.remove("locale");
- 
+
             // Grab the starting activityId from the context
             String startActivityId = (String) context.remove("startWithActivityId");
 
@@ -221,7 +221,7 @@ public class WorkflowEngine extends AbstractEngine {
                 }
                 throw new GenericServiceException(wfe.getMessage(), wfe);
             }
- 
+
             // Set the initial locale - (in context)
             if (locale != null) {
                 try {
@@ -237,7 +237,7 @@ public class WorkflowEngine extends AbstractEngine {
                     throw new GenericServiceException(wfe.getMessage(), wfe);
                 }
             }
- 
+
             // Use the WorkflowRunner to start the workflow in a new thread
             try {
                 Job job = new WorkflowRunner(process, requester, startActivityId);
@@ -251,7 +251,7 @@ public class WorkflowEngine extends AbstractEngine {
                 }
                 throw new GenericServiceException(je.getMessage(), je);
             }
- 
+
             try {
                 TransactionUtil.commit(beganTransaction);
             } catch (GenericTransactionException e) {

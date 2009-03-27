@@ -103,7 +103,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
         if (Debug.verboseOn()) Debug.logVerbose(" Process ID: " + processId + " V: " + processVersion, module);
         if (Debug.verboseOn()) Debug.logVerbose("Activity ID: " + activityId, module);
     }
- 
+
     // creates the stored runtime workeffort data.
     private void createRuntime(String parentId) throws WfException {
         GenericValue valueObject = getDefinitionObject();
@@ -138,21 +138,21 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
         try {
             dataObject = getDelegator().makeValue("WorkEffort", dataMap);
             getDelegator().create(dataObject);
- 
+
             String objectId = activityId != null ? activityId : processId;
             if (Debug.verboseOn()) Debug.logVerbose("Created new runtime object [" + objectId + "] (Workeffort: " + runtimeKey() + ")", module);
         } catch (GenericEntityException e) {
             throw new WfException(e.getMessage(), e);
         }
     }
- 
+
     protected void parseDescriptions(Map parseContext) throws WfException {
         GenericValue runtime = getRuntimeObject();
         String name = runtime.getString("workEffortName");
         String desc = runtime.getString("description");
         String nameExp = FlexibleStringExpander.expandString(name, parseContext);
         String descExp = FlexibleStringExpander.expandString(desc, parseContext);
- 
+
         boolean changed = false;
         if (nameExp != null && !nameExp.equals(name)) {
             changed = true;
@@ -162,7 +162,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
             changed = true;
             runtime.set("description", descExp);
         }
- 
+
         if (changed) {
             try {
                 runtime.store();
@@ -178,7 +178,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
     public String name() throws WfException {
         return getRuntimeObject().getString("workEffortName");
     }
- 
+
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#setName(java.lang.String)
      */
@@ -192,7 +192,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
             throw new WfException(e.getMessage(), e);
         }
     }
- 
+
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#setPriority(long)
      */
@@ -233,7 +233,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
 
         if (stateStr == null)
             throw new WfException("Stored state is not a valid type.");
- 
+
         if (Debug.verboseOn()) Debug.logVerbose("Current state: " + stateStr, module);
         return stateStr;
     }
@@ -288,15 +288,15 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
     public void abort() throws WfException, CannotStop, NotRunning {
         Debug.logInfo("Aborting current state : " + state(), module);
         String stateStr = "closed.aborted";
- 
+
         if (!state().startsWith("open")) {
             throw new NotRunning();
         }
- 
+
         if (!validStates().contains(stateStr)) {
             throw new CannotStop();
         }
- 
+
         changeState(stateStr);
     }
 
@@ -372,7 +372,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
         else
             return getRuntimeObject().getString("runtimeDataId");
     }
- 
+
     /**
      * @see org.ofbiz.workflow.WfExecutionObject#processContext()
      */
@@ -623,7 +623,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
         }
         return context;
     }
- 
+
     private GenericValue getWorkEffort(String workEffortId) throws WfException {
         GenericValue we = null;
         try {
@@ -633,7 +633,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
         }
         return we;
     }
- 
+
     /**
      * Evaluate a condition expression using an implementation of TransitionCondition
      * @param className The class name of the TransitionCondition implementation
@@ -656,23 +656,23 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
             Debug.logError(e, "Cannot access class " + className, module);
             return false;
         }
- 
+
         // make sure we implement the TransitionCondition interface
         if (!ObjectType.instanceOf(conditionObject, "org.ofbiz.workflow.TransitionCondition")) {
             Debug.logError("Class " + className + " is not an instance of TransitionCondition", module);
             return false;
         }
- 
+
         // cast to the interface
         TransitionCondition cond = (TransitionCondition) conditionObject;
- 
+
         // trim up the expression if it isn't empty
         if (expression != null)
             expression = expression.trim();
- 
+
         // get a DispatchContext object to pass over to the eval
         DispatchContext dctx = this.getDispatcher().getDispatchContext();
- 
+
         // evaluate the condition
         Boolean evaluation = null;
         try {
@@ -680,7 +680,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
         } catch (EvaluationException e) {
             throw new WfException("Problems evaluating condition", e);
         }
- 
+
         return evaluation.booleanValue();
     }
 
@@ -696,7 +696,7 @@ public abstract class WfExecutionObjectImpl implements WfExecutionObject {
             Debug.logVerbose("Null or empty expression, returning true.", module);
             return true;
         }
- 
+
         Object o = null;
         try {
             o = BshUtil.eval(expression.trim(), context);

@@ -22,15 +22,15 @@ package org.ofbiz.workflow;
  * Transition Evaluation Workflow Exception
  */
 public class EvaluationException extends WfException {
- 
+
     public EvaluationException() {
         super();
     }
- 
+
     public EvaluationException(String msg) {
         super(msg);
     }
- 
+
     public EvaluationException(String msg, Throwable nested) {
         super(msg, nested);
     }

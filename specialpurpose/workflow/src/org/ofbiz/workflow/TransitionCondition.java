@@ -26,7 +26,7 @@ import org.ofbiz.service.DispatchContext;
  * TransitionCondition - Interface for implementing transition conditions
  */
 public interface TransitionCondition {
- 
+
     /**
      * Evaluate a condition and return the result as a Boolean
      * @param context Map of environment info (processContext) for use in evaluation
