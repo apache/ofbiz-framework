@@ -42,7 +42,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
 public class FixedAssetMaintServices {
- 
+
     public static final String module = FixedAssetMaintServices.class.getName();
 
     public static Map addPartFixedAssetMaint(DispatchContext ctx, Map context) {
@@ -55,7 +55,7 @@ public class FixedAssetMaintServices {
         String facilityId = (String)context.get("facilityId");
         Double quantity = (Double)context.get("quantity");
         double requestedQty = quantity.doubleValue();
- 
+
         try {
             GenericValue product = ProductWorker.findProduct(delegator, productId);
             if (product == null) {
