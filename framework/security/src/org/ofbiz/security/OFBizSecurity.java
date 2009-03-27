@@ -44,9 +44,9 @@ import org.ofbiz.entity.util.EntityUtil;
  * OFBizSecurity.
  */
 public class OFBizSecurity extends org.ofbiz.security.Security {
- 
+
     public static final String module = OFBizSecurity.class.getName();
- 
+
     public static final Map<String, Map<String, String>> simpleRoleEntity = UtilMisc.toMap(
         "ORDERMGR", UtilMisc.toMap("name", "OrderRole", "pkey", "orderId"),
         "FACILITY", UtilMisc.toMap("name", "FacilityParty", "pkey", "facilityId"),
@@ -175,7 +175,7 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
 
         return false;
     }
- 
+
     /**
      * @see org.ofbiz.security.Security#hasRolePermission(java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpSession)
      */
@@ -183,7 +183,7 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         return hasRolePermission(application, action, primaryKey, role, userLogin);
     }
- 
+
     /**
      * @see org.ofbiz.security.Security#hasRolePermission(java.lang.String, java.lang.String, java.lang.String, java.lang.String, org.ofbiz.entity.GenericValue)
      */
@@ -193,7 +193,7 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
             roles = UtilMisc.toList(role);
         return hasRolePermission(application, action, primaryKey, roles, userLogin);
     }
- 
+
     /**
      * @see org.ofbiz.security.Security#hasRolePermission(java.lang.String, java.lang.String, java.lang.String, java.util.List, javax.servlet.http.HttpSession)
      */
@@ -201,23 +201,23 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         return hasRolePermission(application, action, primaryKey, roles, userLogin);
     }
- 
+
     /**
      * @see org.ofbiz.security.Security#hasRolePermission(java.lang.String, java.lang.String, java.lang.String, java.util.List, org.ofbiz.entity.GenericValue)
      */
     public boolean hasRolePermission(String application, String action, String primaryKey, List<String> roles, GenericValue userLogin) {
         String entityName = null;
         EntityCondition condition = null;
- 
+
         if (userLogin == null)
             return false;
- 
+
         // quick test for special cases where were just want to check the permission (find screens)
         if (primaryKey.equals("") && roles == null) {
             if (hasEntityPermission(application, action, userLogin)) return true;
             if (hasEntityPermission(application + "_ROLE", action, userLogin)) return true;
         }
- 
+
         Map<String, String> simpleRoleMap = OFBizSecurity.simpleRoleEntity.get(application);
         if (simpleRoleMap != null && roles != null) {
             entityName = simpleRoleMap.get("name");
@@ -232,12 +232,12 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
                 EntityExpr partyExpr = EntityCondition.makeCondition("partyId", userLogin.getString("partyId"));
                 condition = EntityCondition.makeCondition(exprList, keyExpr, partyExpr);
             }
- 
+
         }
- 
+
         return hasRolePermission(application, action, entityName, condition, userLogin);
     }
- 
+
     /**
      * Like hasEntityPermission above, this checks the specified action, as well as for "_ADMIN" to allow for simplified
      * general administration permission, but also checks action_ROLE and validates the user is a member for the
@@ -252,13 +252,13 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
      */
     public boolean hasRolePermission(String application, String action, String entityName, EntityCondition condition, GenericValue userLogin) {
         if (userLogin == null) return false;
- 
+
         // first check the standard permission
         if (hasEntityPermission(application, action, userLogin)) return true;
- 
+
         // make sure we have what's needed for role security
         if (entityName == null || condition == null) return false;
- 
+
         // now check the user for the role permission
         if (hasEntityPermission(application + "_ROLE", action, userLogin)) {
             // we have the permission now, we check to make sure we are allowed access
@@ -270,13 +270,13 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
                 Debug.logError(e, "Problems doing role security lookup on entity [" + entityName + "] using [" + condition + "]", module);
                 return false;
             }
- 
+
             // if we pass all tests
             //Debug.logInfo("Found (" + (roleTest == null ? 0 : roleTest.size()) + ") matches :: " + roleTest, module);
             if (roleTest != null && roleTest.size() > 0) return true;
         }
- 
+
         return false;
     }
- 
+
 }
