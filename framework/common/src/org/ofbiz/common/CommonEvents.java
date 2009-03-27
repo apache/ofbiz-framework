@@ -45,33 +45,33 @@ import org.ofbiz.security.Security;
  * Common Services
  */
 public class CommonEvents {
- 
+
     public static final String module = CommonEvents.class.getName();
- 
+
     public static UtilCache<String, Map<String, String>> appletSessions = new UtilCache<String, Map<String, String>>("AppletSessions", 0, 600000, true);
- 
+
     public static String checkAppletRequest(HttpServletRequest request, HttpServletResponse response) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         String sessionId = request.getParameter("sessionId");
         String visitId = request.getParameter("visitId");
         sessionId = sessionId.trim();
         visitId = visitId.trim();
- 
+
         String responseString = "";
- 
+
         GenericValue visit = null;
         try {
             visit = delegator.findOne("Visit", false, "visitId", visitId);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot Visit Object", module);
         }
- 
+
         if (visit != null && visit.getString("sessionId").equals(sessionId) && appletSessions.containsKey(sessionId)) {
             Map<String, String> sessionMap = appletSessions.get(sessionId);
             if (sessionMap != null && sessionMap.containsKey("followPage"))
                 responseString = sessionMap.remove("followPage");
         }
- 
+
         try {
             PrintWriter out = response.getWriter();
             response.setContentType("text/plain");
@@ -80,26 +80,26 @@ public class CommonEvents {
         } catch (IOException e) {
             Debug.logError(e, "Problems writing servlet output!", module);
         }
- 
+
         return "success";
     }
- 
+
     public static String receiveAppletRequest(HttpServletRequest request, HttpServletResponse response) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         String sessionId = request.getParameter("sessionId");
         String visitId = request.getParameter("visitId");
         sessionId = sessionId.trim();
         visitId = visitId.trim();
- 
+
         String responseString = "ERROR";
- 
+
         GenericValue visit = null;
         try {
             visit = delegator.findOne("Visit", false, "visitId", visitId);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot Visit Object", module);
         }
- 
+
         if (visit.getString("sessionId").equals(sessionId)) {
             String currentPage = request.getParameter("currentPage");
             if (appletSessions.containsKey(sessionId)) {
@@ -122,10 +122,10 @@ public class CommonEvents {
         } catch (IOException e) {
             Debug.logError(e, "Problems writing servlet output!", module);
         }
- 
+
         return "success";
     }
- 
+
     public static String setAppletFollower(HttpServletRequest request, HttpServletResponse response) {
         Security security = (Security) request.getAttribute("security");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");

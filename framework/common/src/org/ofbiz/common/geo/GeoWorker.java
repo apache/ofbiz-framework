@@ -84,7 +84,7 @@ public class GeoWorker {
 
         return geoList;
     }
- 
+
     public static Set<String> expandGeoRegionDeep(Set<String> geoIdSet, GenericDelegator delegator) throws GenericEntityException {
         if (geoIdSet == null || geoIdSet.size() == 0) {
             return geoIdSet;
@@ -120,7 +120,7 @@ public class GeoWorker {
         //Debug.log("Contains Geo : " + geoList.contains(geo));
         return geoList.contains(geo);
     }
- 
+
     public static GenericValue findLatestGeoPoint(GenericDelegator delegator, String Entity, String mainId, String mainValueId, String secondId, String secondValueId) {
         List<GenericValue> gptList = null;
         if (UtilValidate.isNotEmpty(secondId) && UtilValidate.isNotEmpty(secondValueId)) {

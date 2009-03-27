@@ -38,7 +38,7 @@ import org.ofbiz.entity.condition.EntityOperator;
  * Common Workers
  */
 public class CommonWorkers {
- 
+
     public final static String module = CommonWorkers.class.getName();
 
     public static List<GenericValue> getCountryList(GenericDelegator delegator) {
@@ -65,7 +65,7 @@ public class CommonWorkers {
         }
         return geoList;
     }
- 
+
     public static List<GenericValue> getStateList(GenericDelegator delegator) {
         List<GenericValue> geoList = FastList.newInstance();
         EntityCondition condition = EntityCondition.makeCondition(EntityOperator.OR,
@@ -102,7 +102,7 @@ public class CommonWorkers {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot lookup Geo", module);
         }
- 
+
         return geoList;
     }
 }

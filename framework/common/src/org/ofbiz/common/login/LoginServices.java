@@ -77,7 +77,7 @@ public class LoginServices {
                 }
             }
         }
- 
+
         Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = ctx.getDelegator();
         boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
@@ -122,7 +122,7 @@ public class LoginServices {
                     String encodedPassword = useEncryption ? HashCrypt.getDigestHash(password, getHashType()) : password;
                     String encodedPasswordOldFunnyHexEncode = useEncryption ? HashCrypt.getDigestHashOldFunnyHexEncode(password, getHashType()) : password;
                     String encodedPasswordUsingDbHashType = encodedPassword;
- 
+
                     String currentPassword = userLogin.getString("currentPassword");
                     if (useEncryption && currentPassword != null && currentPassword.startsWith("{")) {
                         // get encode according to the type in the database
@@ -131,7 +131,7 @@ public class LoginServices {
                             encodedPasswordUsingDbHashType = HashCrypt.getDigestHash(password, dbHashType);
                         }
                     }
- 
+
                     String ldmStr = UtilProperties.getPropertyValue("security.properties", "login.disable.minutes");
                     long loginDisableMinutes = 30;
 
@@ -210,7 +210,7 @@ public class LoginServices {
                             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
                         } else {
                             Debug.logInfo("Entered password [" + encodedPassword + "], Entered password OldFunnyHexEncode [" + encodedPasswordOldFunnyHexEncode + "], db password [" + userLogin.getString("currentPassword") + "]", module);
- 
+
                             // password is incorrect, but this may be the result of a stale cache entry,
                             // so lets clear the cache and try again if this is the first pass
                             if (isServiceAuth && passNumber <= 1) {
@@ -266,33 +266,33 @@ public class LoginServices {
 
                             try {
                                 beganTransaction = TransactionUtil.begin();
- 
+
                                 if (doStore) {
                                     userLogin.store();
                                 }
- 
+
                                 if ("true".equals(UtilProperties.getPropertyValue("security.properties", "store.login.history"))) {
                                     boolean createHistory = true;
- 
+
                                     // only save info on service auth if option set to true to do so
                                     if (isServiceAuth && !"true".equals(UtilProperties.getPropertyValue("security.properties", "store.login.history.on.service.auth"))) {
                                         createHistory = false;
                                     }
- 
+
                                     if (createHistory) {
                                         Map<String, Object> ulhCreateMap = UtilMisc.toMap("userLoginId", username, "visitId", visitId,
                                                 "fromDate", UtilDateTime.nowTimestamp(), "successfulLogin", successfulLogin);
- 
+
                                         ModelEntity modelUserLogin = userLogin.getModelEntity();
                                         if (modelUserLogin.isField("partyId")) {
                                             ulhCreateMap.put("partyId", userLogin.get("partyId"));
                                         }
- 
+
                                         // ONLY save the password if it was incorrect
                                         if ("N".equals(successfulLogin) && !"false".equals(UtilProperties.getPropertyValue("security.properties", "store.login.history.incorrect.password"))) {
                                             ulhCreateMap.put("passwordUsed", password);
                                         }
- 
+
                                         //Debug.logInfo(new Exception(), "=================== Creating new UserLoginHistory at " + UtilDateTime.nowTimestamp(), module);
                                         delegator.create("UserLoginHistory", ulhCreateMap);
                                     }
@@ -308,7 +308,7 @@ public class LoginServices {
                                 } catch (GenericTransactionException e2) {
                                     Debug.logError(e2, "Could not rollback nested transaction: " + e2.getMessage(), module);
                                 }
- 
+
                                 // if doStore is true then this error should not be ignored and we shouldn't consider it a successful login if this happens as there is something very wrong lower down that will bite us again later
                                 if (doStore) {
                                     return ServiceUtil.returnError(geeErrMsg);
@@ -370,7 +370,7 @@ public class LoginServices {
         }
         return result;
     }
- 
+
     private static void createUserLoginPasswordHistory(GenericDelegator delegator,String userLoginId, String currentPassword) throws GenericEntityException{
         int passwordChangeHistoryLimit = 0;
         try {
@@ -383,7 +383,7 @@ public class LoginServices {
             // Not saving password history, so return from here.
             return;
         }
- 
+
         EntityFindOptions efo = new EntityFindOptions();
         efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
         EntityListIterator eli = delegator.find("UserLoginPasswordHistory", EntityCondition.makeConditionMap("userLoginId", userLoginId), null, null, UtilMisc.toList("-fromDate"), efo);
@@ -403,14 +403,14 @@ public class LoginServices {
             }
         }
         eli.close();
- 
+
         // save this password in history
         GenericValue userLoginPwdHistToCreate = delegator.makeValue("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId", userLoginId,"fromDate", nowTimestamp));
         boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
         userLoginPwdHistToCreate.set("currentPassword", useEncryption ? HashCrypt.getDigestHash(currentPassword, getHashType()) : currentPassword);
         userLoginPwdHistToCreate.create();
     }
- 
+
     /** Creates a UserLogin
      *@param ctx The DispatchContext that this service is operating in
      *@param context Map containing the input parameters
@@ -746,7 +746,7 @@ public class LoginServices {
             errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_userlogin_with_id_not_exist", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
         }
- 
+
         boolean wasEnabled = !"N".equals(userLoginToUpdate.get("enabled"));
 
         if (context.containsKey("enabled")) {
@@ -790,11 +790,11 @@ public class LoginServices {
         String errMsg = null;
 
         if (!ignoreCurrentPassword) {
- 
+
             String encodedPassword = useEncryption ? HashCrypt.getDigestHash(currentPassword, getHashType()) : currentPassword;
             String encodedPasswordOldFunnyHexEncode = useEncryption ? HashCrypt.getDigestHashOldFunnyHexEncode(currentPassword, getHashType()) : currentPassword;
             String encodedPasswordUsingDbHashType = encodedPassword;
- 
+
             String oldPassword = userLogin.getString("currentPassword");
             if (useEncryption && oldPassword != null && oldPassword.startsWith("{")) {
                 // get encode according to the type in the database
@@ -861,7 +861,7 @@ public class LoginServices {
                 Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
                 errMsg = UtilProperties.getMessage(resource,"loginevents.error_accessing_password_change_history", messageMap, locale);
             }
- 
+
         }
 
         int minPasswordLength = 0;
@@ -896,7 +896,7 @@ public class LoginServices {
             Debug.logWarning("Password encrypt hash type is not specified in security.properties, use SHA", module);
             hashType = "SHA";
         }
- 
+
         return hashType;
     }
 }
