@@ -393,7 +393,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
             } else {
                 this.println(toPrint);
             }
- 
+
             if (trans.isAggregatedItem(((String)expandMap.get("productId")).trim())) {
                 List<Map> maps = trans.getItemConfigInfo(i);
                 for (Map map: maps) {
@@ -439,7 +439,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
         expandMap.put("nameOnCard", UtilFormatOut.padString((String) expandMap.get("nameOnCard"), infoLength[type], false, ' '));
         expandMap.put("payInfo", UtilFormatOut.padString((String) expandMap.get("payInfo"), infoLength[type], false, ' '));
         expandMap.put("amount", UtilFormatOut.padString((String) expandMap.get("amount"), priceLength[type], false, ' '));
- 
+
         String toPrint = FlexibleStringExpander.expandString(template, expandMap);
         if (toPrint.indexOf("\n") > -1) {
             String[] lines = toPrint.split("\\n");

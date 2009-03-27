@@ -242,7 +242,7 @@ public class PosTransaction implements Serializable {
         itemInfo.put("quantity", UtilFormatOut.formatQuantity(item.getQuantity()));
         itemInfo.put("subtotal", UtilFormatOut.formatPrice(item.getItemSubTotal()));
         itemInfo.put("isTaxable", item.taxApplies() ? "T" : " ");
- 
+
         itemInfo.put("discount", "");
         itemInfo.put("adjustments", "");
         if (item.getOtherAdjustments().compareTo(BigDecimal.ZERO) != 0) {
@@ -250,7 +250,7 @@ public class PosTransaction implements Serializable {
                     UtilProperties.getMessage(PosTransaction.resource,"PosItemDiscount",defaultLocale), Receipt.pridLength[0] + 1, true, ' '));
             itemInfo.put("adjustments", UtilFormatOut.formatPrice(item.getOtherAdjustments()));
         }
- 
+
         if (isAggregatedItem(item.getProductId())) {
             ProductConfigWrapper pcw = null;
             pcw = item.getConfigWrapper();
@@ -375,7 +375,7 @@ public class PosTransaction implements Serializable {
                 payInfo.put("payInfo", infoString);
                 payInfo.putAll(cc);
                 payInfo.put("cardNumber", cardStr);  // masked cardNumber
- 
+
             } else if ("GIFT_CARD".equals(paymentMethodTypeId)) {
                 GenericValue gc = null;
                 try {
@@ -458,7 +458,7 @@ public class PosTransaction implements Serializable {
         }
         return pcw;
     }
- 
+
     public void addItem(String productId, BigDecimal quantity) throws CartItemModifyException, ItemNotFoundException {
         trace("add item", productId + "/" + quantity);
         try {
@@ -527,7 +527,7 @@ public class PosTransaction implements Serializable {
         }
         return;
     }
- 
+
     public void modifyQty(String productId, BigDecimal quantity) throws CartItemModifyException {
         trace("modify item quantity", productId + "/" + quantity);
         ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
@@ -602,7 +602,7 @@ public class PosTransaction implements Serializable {
     public BigDecimal GetTotalDiscount() {
         return cart.getOrderOtherAdjustmentTotal();
     }
- 
+
     public void voidItem(String productId) throws CartItemModifyException {
         trace("void item", productId);
         ShoppingCartItem item = cart.findCartItem(productId, null, null, null, BigDecimal.ZERO);
@@ -659,7 +659,7 @@ public class PosTransaction implements Serializable {
         }
         currentTx = null;
     }
- 
+
     public void calcTax() {
         try {
             ch.calcAndAddTax(this.getStoreOrgAddress());
@@ -809,7 +809,7 @@ public class PosTransaction implements Serializable {
              output.print(UtilProperties.getMessage(PosTransaction.resource,"PosSaving",defaultLocale));
              Map orderRes = ch.createOrder(session.getUserLogin());
              //Debug.log("Create Order Resp : " + orderRes, module);
- 
+
              if (orderRes != null && ServiceUtil.isError(orderRes)) {
                  throw new GeneralException(ServiceUtil.getErrorMessage(orderRes));
              } else if (orderRes != null) {
@@ -820,14 +820,14 @@ public class PosTransaction implements Serializable {
                      UtilMisc.toMap("reasonEnumId", "EnumIdHere"), // TODO: where does this come from?
                      "itemCommentMap",
                      UtilMisc.toMap("changeComments", "change Comments here")); //TODO
- 
+
              Map svcCtx = FastMap.newInstance();
              svcCtx.put("userLogin", session.getUserLogin());
              svcCtx.put("orderId", orderId);
              svcCtx.put("shoppingCart", cart);
              svcCtx.put("locale", this.locale);
              svcCtx.put("changeMap", changeMap);
- 
+
              Map svcRes = null;
              try {
                  LocalDispatcher dispatcher = session.getDispatcher();
@@ -898,7 +898,7 @@ public class PosTransaction implements Serializable {
             if (facility == null) {
                 return null;
             }
- 
+
             GenericDelegator delegator = session.getDelegator();
             GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
             if (facilityContactMech != null) {
@@ -956,7 +956,7 @@ public class PosTransaction implements Serializable {
                         }
                     }
                 }
- 
+
                 if (adjustment.compareTo(BigDecimal.ZERO) != 0) {
                     // append the promo info
                     XModel promo = Journal.appendNode(model, "tr", "itemadjustment", "");
@@ -984,7 +984,7 @@ public class PosTransaction implements Serializable {
                     itemsAdjustmentsAmount = itemsAdjustmentsAmount.add(adjustment);
                 }
             }
- 
+
             if (UtilValidate.isNotEmpty(adjustments)) {
                 Iterator iter = adjustments.iterator();
                 while (iter.hasNext()) {
@@ -1021,7 +1021,7 @@ public class PosTransaction implements Serializable {
             Journal.appendNode(taxLine, "td", "qty", "");
             Journal.appendNode(taxLine, "td", "price", UtilFormatOut.formatPrice(taxAmount));
             Journal.appendNode(taxLine, "td", "index", "-1");
- 
+
             XModel totalLine = Journal.appendNode(model, "tr", "total", "");
             Journal.appendNode(totalLine, "td", "sku", "");
             Journal.appendNode(totalLine, "td", "desc", UtilProperties.getMessage(PosTransaction.resource,"PosGrandTotal",defaultLocale));
@@ -1186,7 +1186,7 @@ public class PosTransaction implements Serializable {
             pos.showDialog("dialog/error/nosales");
         }
     }
- 
+
     public void loadOrder(PosScreen pos) {
         List<GenericValue> orders = findOrders();
         if (!orders.isEmpty()) {
@@ -1196,7 +1196,7 @@ public class PosTransaction implements Serializable {
             pos.showDialog("dialog/error/nosales");
         }
     }
- 
+
     private List<GenericValue> findOrders() {
         LocalDispatcher dispatcher = session.getDispatcher();
 
@@ -1216,7 +1216,7 @@ public class PosTransaction implements Serializable {
         } catch (GenericServiceException e) {
             Debug.logError(e, module);
         }
- 
+
         if (svcRes == null) {
             Debug.log(UtilProperties.getMessage("EcommerceUiLabels","EcommerceNoShoppingListsCreate",locale), module);
         } else if (ServiceUtil.isError(svcRes)) {
@@ -1372,12 +1372,12 @@ public class PosTransaction implements Serializable {
         return true;
     }
 
- 
+
     public void saveSale(PosScreen pos) {
         SaveSale SaveSale = new SaveSale(this, pos);
         SaveSale.openDlg();
     }
- 
+
     public void saveOrder(String shoppingListName, PosScreen pos) {
         if (cart.size() == 0 ) {
             pos.showDialog("dialog/error/exception", UtilProperties.getMessage("OrderErrorUiLabels", "OrderUnableToCreateNewShoppingList",locale));
@@ -1397,7 +1397,7 @@ public class PosTransaction implements Serializable {
             //cart.setInternalCode("Internal Code");
             //ch.setCheckOutOptions(null, null, null, null, null, "shipping instructions", null, null, null, "InternalId", null, null, null);
             Map orderRes = ch.createOrder(session.getUserLogin());
- 
+
             if (orderRes != null && ServiceUtil.isError(orderRes)) {
                 Debug.logError(ServiceUtil.getErrorMessage(orderRes), module);
                 //throw new GeneralException(ServiceUtil.getErrorMessage(orderRes));

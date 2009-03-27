@@ -44,7 +44,7 @@ public class LoadSale extends XPage {
     /**
      * To load a sale from a shopping list. 2 modes : add to or replace the current sale. Also a button to delete a sale (aka shopping list)
      */
- 
+
     public static final String module = LoadSale.class.getName();
     protected static PosScreen m_pos = null;
     protected XDialog m_dialog = null;

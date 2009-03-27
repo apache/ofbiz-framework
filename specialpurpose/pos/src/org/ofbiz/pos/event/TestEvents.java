@@ -36,7 +36,7 @@ public class TestEvents {
         Journal journal = pos.getJournal();
         Debug.log("Selected IDX - " + journal.getSelectedIdx(), module);
     }
- 
+
     public static synchronized void testMsr(PosScreen pos) {
         try {
             org.ofbiz.pos.jpos.service.MsrTestService.sendTest();
@@ -45,9 +45,9 @@ public class TestEvents {
             pos.showDialog("dialog/error/exception", e.getMessage());
         }
     }
- 
+
     public static synchronized void testNumericKeypad(PosScreen pos) {
- 
+
         try {
             NumericKeypad numericKeypad = new NumericKeypad(pos);
             numericKeypad.setMinus(true);
@@ -56,9 +56,9 @@ public class TestEvents {
         } catch (Exception e) {
             Debug.logError(e, module);
         }
- 
+
         pos.refresh();
         return;
     }
- 
+
 }

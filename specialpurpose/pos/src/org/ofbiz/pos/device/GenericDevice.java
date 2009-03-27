@@ -79,6 +79,6 @@ public abstract class GenericDevice implements JposDevice {
         MenuEvents.triggerEnter(PosScreen.currentScreen, null);
         MenuEvents.triggerClear(PosScreen.currentScreen);
     }
- 
+
     protected abstract void initialize() throws JposException;
 }

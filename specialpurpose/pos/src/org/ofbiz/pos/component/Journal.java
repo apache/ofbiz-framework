@@ -42,7 +42,7 @@ public class Journal {
 
     public static final String module = Journal.class.getName();
     protected XProject currentProject = (XProject)XProjectManager.getCurrentProject();
- 
+
     private static String[] field = { "sku", "desc", "qty", "price" };
     private static String[] name = { "PosSku", "PosItem", "PosQty", "PosAmt" };
     private static int[] width = { 100, 170, 50, 90};
@@ -55,7 +55,7 @@ public class Journal {
     public Journal(PosScreen page) {
         jpanel = (XScrollPane) page.findComponent("journal_panel");
         jpanel.setVisible(false);
- 
+
         this.jtable = (XTable) page.findComponent("jtable");
 
         // set the table as selectable
@@ -64,14 +64,14 @@ public class Journal {
         jtable.setDragEnabled(false);
         jtable.setColumnSelectionAllowed(false);
         jtable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
- 
+
 
         // set the styles
         jtable.setBorderStyle("journalBorder");
         jtable.setHeaderStyle("journalHeader");
         jtable.setStyle("journalData");
         jtable.setSelectedStyle("journalSelected");
- 
+
         // some settings needed for XUI 3.2rc2b update
         jtable.setRowHeight(30); // Better to catch the line on a touch screen (minimal height I think)
         XStyle style = currentProject.getStyleManager().getStyle("journalBorder");
@@ -155,7 +155,7 @@ public class Journal {
 
         // make sure we are at the last item in the journal
         jtable.setSelectedRow(0);
- 
+
         try {
             jtable.update();
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -168,7 +168,7 @@ public class Journal {
         XModel jmodel = (XModel)currentProject.getModel().get("table/items");
         // clear the list
         jmodel.clear();
- 
+
         if (field.length == 0) {
             return null;
         }
@@ -197,7 +197,7 @@ public class Journal {
         }
         return newNode;
     }
- 
+
     private String getModelText(XModel model)
     {
         StringWriter sw = new StringWriter();

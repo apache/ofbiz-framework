@@ -41,7 +41,7 @@ public class SaveSale extends XPage {
     /**
      * To save a sale. 2 modes : save and keep the current sale or save and clear the current sale.
      */
- 
+
     public static final String module = SaveSale.class.getName();
     protected static PosScreen m_pos = null;
     protected XDialog m_dialog = null;

@@ -32,7 +32,7 @@ import java.util.Locale;
 
 public class PaymentEvents {
 
- 
+
     public static final String module = PaymentEvents.class.getName();
 
     public static synchronized void payCash(PosScreen pos) {
@@ -115,7 +115,7 @@ public class PaymentEvents {
         String[] securityCodeInfo = input.getFunction("SECURITYCODE");
         String[] postalCodeInfo = input.getFunction("POSTALCODE");
         String[] creditExpirationInfo = input.getFunction("CREDITEXP");
- 
+
         // check for no/external payment processing
         int paymentCheck = trans.checkPaymentMethodType("CREDIT_CARD");
         if (paymentCheck == PosTransaction.NO_PAYMENT) {
@@ -255,7 +255,7 @@ public class PaymentEvents {
             }
         }
     }
- 
+
     private static synchronized void processNoPayment(PosScreen pos, String paymentMethodTypeId) {
         PosTransaction trans = PosTransaction.getCurrentTx(pos.getSession());
 

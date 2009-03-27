@@ -28,7 +28,7 @@ import java.util.Map;
 import net.xoetrope.swing.XButton;
 import net.xoetrope.xui.helper.SwingWorker;
 import net.xoetrope.xui.events.XEventHelper;
- 
+
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
@@ -149,7 +149,7 @@ public class PosButton {
                 }
             }
         }
- 
+
         return cl;
     }
 }

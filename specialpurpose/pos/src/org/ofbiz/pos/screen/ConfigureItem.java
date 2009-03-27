@@ -51,7 +51,7 @@ public class ConfigureItem extends XPage {
     /**
      * To create or configure a configurable item
      */
- 
+
     public static final String module = ConfigureItem.class.getName();
     protected PosScreen m_pos = null;
     protected ConfigureItem m_configureItem = null;
@@ -78,7 +78,7 @@ public class ConfigureItem extends XPage {
         m_pos = page;
         m_configureItem = this;
     }
- 
+
     public ProductConfigWrapper openDlg() {
         // cache must be set to false because there's no method to remove actionhandlers
         m_dialog = (XDialog) pageMgr.loadPage(
@@ -103,13 +103,13 @@ public class ConfigureItem extends XPage {
 
         return m_pcw;
     }
- 
+
     public synchronized void ok() {
         if (wasMouseClicked()) {
             closeDlg();
         }
     }
- 
+
     public synchronized void reset() {
         if (wasMouseClicked()) {
             m_pcw.setDefaultConfig();
@@ -137,12 +137,12 @@ public class ConfigureItem extends XPage {
         m_dialog.repaint();
         return;
     }
- 
- 
+
+
     private void closeDlg() {
         m_dialog.closeDlg();
     }
- 
+
     private void resetButtons() {
         Object[] questions = questionHashMap.values().toArray();
         for(Object question : questions) {
@@ -150,14 +150,14 @@ public class ConfigureItem extends XPage {
         }
         return;
     }
- 
+
     private void showItem() {
         DefaultListModel listModel = null;
         listModel = new DefaultListModel();
- 
+
         GenericValue gv = m_pcw.getProduct();
         listModel.addElement(gv.get("description"));
- 
+
         List questions = m_pcw.getQuestions();
         if (questions==null) ; // no questions, we shouldn't be here
         else{
@@ -182,7 +182,7 @@ public class ConfigureItem extends XPage {
 
         QuestionFactory qf = new QuestionFactory();
         questionHashMap = new Hashtable();
- 
+
         List questions = m_pcw.getQuestions();
         if (questions==null) ; // no questions, we shouldn't be here
         else{
@@ -201,7 +201,7 @@ public class ConfigureItem extends XPage {
         }
         return;
     }
- 
+
     private void getButtons() {
         ArrayList buttonList = new ArrayList();
         for(String[] buttonSingleArray : buttonArray ) {
@@ -213,16 +213,16 @@ public class ConfigureItem extends XPage {
         }
         m_buttonList = buttonList;
     }
- 
+
     private void debugQuestions() {
         //Debug.logInfo("debugQuestions",module);
         GenericValue gv = m_pcw.getProduct();
 
         //Debug.logInfo("Product: " +gv.get("description"), module);
- 
+
         List questions = m_pcw.getQuestions();
         if (questions==null) return; // no questions, return
- 
+
         Iterator iter = questions.iterator();
         while (iter.hasNext()) {
             ConfigItem question = (ConfigItem)iter.next();
@@ -232,10 +232,10 @@ public class ConfigureItem extends XPage {
                     ", IsSelected: "+question.isSelected()+
                     ", IsSingleChoice: "+question.isSingleChoice()+
                     ", IsStandard: "+question.isStandard(), module);*/
- 
+
             List options = question.getOptions();
             Iterator itero = options.iterator();
- 
+
             while (itero.hasNext()) {
                 ConfigOption configoption = (ConfigOption)itero.next();
                 /*Debug.logInfo("Found option " + configoption.getDescription(), module);
@@ -266,9 +266,9 @@ public class ConfigureItem extends XPage {
         What is isStandard? Maybe I can key off IsStandard for using buttons, others get a list.
 
         */
- 
+
     protected class QuestionFactory{
- 
+
         public Question get(ConfigItem question) {
 
             List options = question.getOptions();
@@ -293,16 +293,16 @@ public class ConfigureItem extends XPage {
         public void buttonClicked();
         public void reset();
     }
- 
+
     protected interface ListQuestion{
         public void setupListPane(XScrollPane m_optionListPane);
     }
- 
+
     protected class SingleButtonQuestion implements Question{
         private XButton button = null;
         private ConfigItem question = null;
         private int showOption = 0;
- 
+
         public SingleButtonQuestion(ConfigItem question) {
             this.question = question;
             return;
@@ -335,7 +335,7 @@ public class ConfigureItem extends XPage {
             button.setText(selectedoption.getDescription());
             return;
         }
- 
+
         public void reset() {
             showOption = 0;
             List options = question.getOptions();
@@ -353,7 +353,7 @@ public class ConfigureItem extends XPage {
         private XButton button = null;
         private XScrollPane scrollpane = null;
         private ConfigItem question = null;
- 
+
         public ListButtonQuestion(ConfigItem question) {
             this.question = question;
             return;
@@ -370,12 +370,12 @@ public class ConfigureItem extends XPage {
             scrollpane = m_optionListPane;
             return;
         }
- 
+
         public void buttonClicked() {
             Iterator options = question.getOptions().iterator();
- 
+
             DefaultListModel listModel = new DefaultListModel();
- 
+
             while (options.hasNext()) {
                 ConfigOption configoption = (ConfigOption)options.next();
                 listModel.addElement(configoption.getDescription());
@@ -383,7 +383,7 @@ public class ConfigureItem extends XPage {
                 //Debug.logInfo("IsAvailable: "+configoption.isAvailable()+
                 //    ", IsSelected: "+configoption.isSelected(), module);
             }
- 
+
             //Create the list and put it in a scroll pane.
             JList list = new JList(listModel);
             list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -394,19 +394,19 @@ public class ConfigureItem extends XPage {
             scrollpane.add(list);
             return;
         }
- 
+
         public void reset() {
             return;
         }
     }
- 
+
     protected class LBQSelectionHandler implements ListSelectionListener {
         private ConfigItem question = null;
- 
+
         public void setQuestion(ConfigItem question) {
             this.question = question;
         }
- 
+
         public void valueChanged(ListSelectionEvent event) {
             try {
                 JList jlist = (JList)event.getSource();

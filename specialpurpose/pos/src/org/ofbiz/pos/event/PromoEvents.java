@@ -29,7 +29,7 @@ import org.ofbiz.pos.screen.PosScreen;
 
 public class PromoEvents {
 
- 
+
     public static final String module = PromoEvents.class.getName();
 
     public static synchronized void addPromoCode(PosScreen pos) {

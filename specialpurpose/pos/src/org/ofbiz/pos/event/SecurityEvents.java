@@ -32,7 +32,7 @@ import org.ofbiz.entity.GenericValue;
 
 public class SecurityEvents {
 
- 
+
     public static final String module = SecurityEvents.class.getName();
 
     public static synchronized void login(PosScreen pos) {

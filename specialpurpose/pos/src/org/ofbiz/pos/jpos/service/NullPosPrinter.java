@@ -32,7 +32,7 @@ public class NullPosPrinter extends BaseService implements jpos.services.POSPrin
     public int getDeviceServiceVersion() throws JposException {
         return 1002000;
     }
- 
+
     public int getCapCharacterSet() throws JposException {
         return 0;
     }

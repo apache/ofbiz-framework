@@ -41,7 +41,7 @@ public class SelectProduct extends XPage {
     /**
      * To choose a product in a list of products whith the same bar code
      */
- 
+
     public static final String module = SelectProduct.class.getName();
     protected static PosScreen m_pos = null;
     protected XDialog m_dialog = null;
@@ -71,7 +71,7 @@ public class SelectProduct extends XPage {
 
         m_cancel = (XButton) dlg.findComponent("BtnCancel");
         m_select = (XButton) dlg.findComponent("BtnSelect");
- 
+
         XEventHelper.addMouseHandler(this, m_cancel, "cancel");
         XEventHelper.addMouseHandler(this, m_select, "selectProduct");
 

@@ -54,7 +54,7 @@ public class JposDeviceContainer implements Container {
             Debug.logInfo("******************************************************", module);
             throw new ContainerException(e);
         }
- 
+
         return true;
     }
 

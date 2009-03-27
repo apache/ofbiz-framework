@@ -48,7 +48,7 @@ public class MenuEvents {
     public static final int scale = UtilNumber.getBigDecimalScale("order.decimals");
     public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
     public static final BigDecimal ZERO = (BigDecimal.ZERO).setScale(scale, rounding);
- 
+
     // extended number events
     public static synchronized void triggerClear(PosScreen pos) {
         // clear the pieces
@@ -209,7 +209,7 @@ public class MenuEvents {
                 Debug.logError(e, module);
                 pos.showDialog("dialog/error/producterror");
             }
- 
+
             // add the item to the cart; report any errors to the user
             if (productId != null) {
                 try {
@@ -431,7 +431,7 @@ public class MenuEvents {
         String index = journal.getSelectedIdx();
         String productId = journal.getSelectedSku();
         //trans.configureItem(index, pos);
- 
+
         boolean aggregatedItem = false;
         ProductConfigWrapper pcw = null;
         try {
@@ -449,12 +449,12 @@ public class MenuEvents {
             Debug.logError(e, module);
             pos.showDialog("dialog/error/producterror");
         }
- 
+
         trans.calcTax();
         pos.refresh();
- 
+
         return;
     }
 
- 
+
 }

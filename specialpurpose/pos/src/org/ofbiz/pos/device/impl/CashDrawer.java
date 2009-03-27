@@ -54,7 +54,7 @@ public class CashDrawer extends GenericDevice implements Runnable, DialogCallbac
     public void resetComError() {
         this.comError = 0;
     }
- 
+
     public void openDrawer() {
         if (this.comError > 2) {
             // only attempt this 3 times
