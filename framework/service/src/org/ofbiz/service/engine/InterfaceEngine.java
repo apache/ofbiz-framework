@@ -29,7 +29,7 @@ import org.ofbiz.service.ServiceDispatcher;
  * InterfaceEngine.java
  */
 public class InterfaceEngine implements GenericEngine {
- 
+
     public InterfaceEngine(ServiceDispatcher dispatcher) { }
 
     /**

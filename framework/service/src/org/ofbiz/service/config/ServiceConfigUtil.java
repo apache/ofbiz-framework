@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
  * Misc. utility method for dealing with the serviceengine.xml file
  */
 public class ServiceConfigUtil implements Serializable {
- 
+
     public static final String module = ServiceConfigUtil.class.getName();
     public static final String engine = "default";
     public static final String SERVICE_ENGINE_XML_FILENAME = "serviceengine.xml";
@@ -58,7 +58,7 @@ public class ServiceConfigUtil implements Serializable {
         }
         return  UtilXml.firstChildElement(rootElement, elementName);
     }
- 
+
     public static String getElementAttr(String elementName, String attrName) {
         Element element = getElement(elementName);
 
@@ -69,10 +69,10 @@ public class ServiceConfigUtil implements Serializable {
     public static String getSendPool() {
         return getElementAttr("thread-pool", "send-to-pool");
     }
- 
+
     public static List<String> getRunPools() {
         List<String> readPools = null;
- 
+
         Element threadPool = getElement("thread-pool");
         List<? extends Element> readPoolElements = UtilXml.childElementList(threadPool, "run-from-pool");
         if (readPoolElements != null) {
@@ -83,7 +83,7 @@ public class ServiceConfigUtil implements Serializable {
         }
         return readPools;
     }
- 
+
     public static int getPurgeJobDays() {
         String days = getElementAttr("thread-pool", "purge-job-days");
         int purgeDays;
@@ -144,7 +144,7 @@ public class ServiceConfigUtil implements Serializable {
 
         return null;
     }
- 
+
     public static class NotificationGroup implements Serializable {
         protected Notification notification;
         protected List<Notify> notify;

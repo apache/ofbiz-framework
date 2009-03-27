@@ -27,12 +27,12 @@ import java.util.TreeSet;
 /** Temporal expression abstract class. */
 public abstract class TemporalExpression implements Serializable, Comparable<TemporalExpression> {
     protected TemporalExpression() {}
- 
+
     /** Field used to sort expressions. Expression evaluation depends
      * on correct ordering. Expressions are evaluated from lowest value
      * to highest value. */
     protected int sequence = Integer.MAX_VALUE;
- 
+
     /** Field used to sort expressions. Expression evaluation depends
      * on correct ordering. Expressions are evaluated from lowest value
      * to highest value. */
@@ -41,14 +41,14 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
     /** A unique ID for this expression. This field is intended to be used by
      * persistence classes. */
     protected String id = null;
- 
+
     /** Returns true if this expression includes the specified date.
      * @param cal A date to evaluate
      * @return true if this expression includes the date represented by
      * <code>cal</code>
      */
     public abstract boolean includesDate(Calendar cal);
- 
+
     /** Returns a date representing the first occurrence of this expression
      * on or after a specified date. Returns <code>null</code> if there
      * is no matching date.
@@ -57,7 +57,7 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
      * or <code>null</code> if no matching date is found
      */
     public abstract Calendar first(Calendar cal);
- 
+
     /** Returns a date representing the next occurrence of this expression
      * after a specified date. Returns <code>null</code> if there
      * is no matching date.

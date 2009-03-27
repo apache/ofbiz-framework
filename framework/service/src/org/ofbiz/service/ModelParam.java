@@ -48,13 +48,13 @@ public class ModelParam implements Serializable {
 
     /** Parameter mode (IN/OUT/INOUT) */
     public String mode;
- 
+
     /** The form label */
     public String formLabel;
- 
+
     /** The entity name */
     public String entityName;
- 
+
     /** The entity field name */
     public String fieldName;
 
@@ -77,15 +77,15 @@ public class ModelParam implements Serializable {
     /** Is this parameter to be displayed via the form tool? */
     public boolean formDisplay = true;
     public boolean overrideFormDisplay = false;
- 
+
     /** Default value */
     public String allowHtml = null;
- 
+
     /** Is this Parameter set internally? */
     public boolean internal = false;
- 
+
     public ModelParam() {}
- 
+
     public ModelParam(ModelParam param) {
         this.name = param.name;
         this.type = param.type;
@@ -120,35 +120,35 @@ public class ModelParam implements Serializable {
             return null;
         }
     }
- 
+
     public String getShortDisplayDescription() {
         return this.name + "[" + this.type + "-" + this.mode + "]" + (optional ? "" : "*");
     }
- 
+
     public String getName() {
         return this.name;
     }
- 
+
     public String getType() {
         return this.type;
     }
- 
+
     public String getMode() {
         return this.mode;
     }
- 
+
     public boolean isIn() {
         return "IN".equals(this.mode) || "INOUT".equals(this.mode);
     }
- 
+
     public boolean isOut() {
         return "OUT".equals(this.mode) || "INOUT".equals(this.mode);
     }
- 
+
     public boolean isOptional() {
         return this.optional;
     }
- 
+
     public Object getDefaultValue() {
         Object defaultValueObj = null;
         if (this.type != null) {
@@ -180,7 +180,7 @@ public class ModelParam implements Serializable {
     public boolean equals(ModelParam model) {
         return model.name.equals(this.name);
     }
- 
+
     public String toString() {
         StringBuilder buf = new StringBuilder();
         buf.append(name).append("::");

@@ -54,14 +54,14 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     public void schedule(String poolName, String serviceName, long startTime, int frequency, int interval, int count, long endTime, int maxRetry, Object... context) throws GenericServiceException {
         schedule(poolName, serviceName, ServiceUtil.makeContext(context), startTime, frequency, interval, count, endTime, maxRetry);
     }
- 
+
     /**
      * @see org.ofbiz.service.LocalDispatcher#schedule(java.lang.String, java.lang.String, java.lang.String, java.util.Map, long, int, int, int, long, int)
      */
     public void schedule(String jobName, String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException {
         try {
             getJobManager().schedule(jobName, poolName, serviceName, context, startTime, frequency, interval, count, endTime, maxRetry);
- 
+
             if (Debug.verboseOn()) {
                 Debug.logVerbose("[LocalDispatcher.schedule] : Current time : " + (new Date()).getTime(), module);
                 Debug.logVerbose("[LocalDispatcher.schedule] : Runtime      : " + startTime, module);
@@ -71,7 +71,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
                 Debug.logVerbose("[LocalDispatcher.schedule] : EndTime      : " + endTime, module);
                 Debug.logVerbose("[LocalDispatcher.schedule] : MazRetry     : " + maxRetry, module);
             }
- 
+
         } catch (JobManagerException e) {
             throw new GenericServiceException(e.getMessage(), e);
         }
@@ -139,7 +139,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     public void schedule(String serviceName, long startTime, int frequency, int interval, int count, Object... context) throws GenericServiceException {
         schedule(serviceName, ServiceUtil.makeContext(context), startTime, frequency, interval, count);
     }
- 
+
     /**
      * @see org.ofbiz.service.LocalDispatcher#schedule(java.lang.String, java.util.Map, long, int, int, long)
      */
@@ -168,28 +168,28 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     public JobManager getJobManager() {
         return dispatcher.getJobManager();
     }
- 
+
     /**
      * @see org.ofbiz.service.LocalDispatcher#getJMSListeneFactory()
      */
     public JmsListenerFactory getJMSListeneFactory() {
         return dispatcher.getJMSListenerFactory();
     }
- 
+
     /**
      * @see org.ofbiz.service.LocalDispatcher#getDelegator()
      */
     public GenericDelegator getDelegator() {
         return dispatcher.getDelegator();
     }
- 
+
     /**
      * @see org.ofbiz.service.LocalDispatcher#getSecurity()
      */
     public Security getSecurity() {
         return dispatcher.getSecurity();
     }
- 
+
     /**
      * @see org.ofbiz.service.LocalDispatcher#getName()
      */
@@ -203,7 +203,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     public DispatchContext getDispatchContext() {
         return ctx;
     }
- 
+
     /**
      * @see org.ofbiz.service.LocalDispatcher#deregister()
      */

@@ -48,7 +48,7 @@ import org.ofbiz.service.job.JobManager;
  * Generic Asynchronous Engine
  */
 public abstract class GenericAsyncEngine extends AbstractEngine {
- 
+
     public static final String module = GenericAsyncEngine.class.getName();
 
     protected GenericAsyncEngine(ServiceDispatcher dispatcher) {
@@ -59,7 +59,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
      * @see org.ofbiz.service.engine.GenericEngine#runSync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
     public abstract Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException;
- 
+
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runSyncIgnore(java.lang.String, org.ofbiz.service.ModelService, java.util.Map)
      */
@@ -71,7 +71,7 @@ public abstract class GenericAsyncEngine extends AbstractEngine {
     public void runAsync(String localName, ModelService modelService, Map<String, Object> context, boolean persist) throws GenericServiceException {
         runAsync(localName, modelService, context, null, persist);
     }
- 
+
     /**
      * @see org.ofbiz.service.engine.GenericEngine#runAsync(java.lang.String, org.ofbiz.service.ModelService, java.util.Map, org.ofbiz.service.GenericRequester, boolean)
      */

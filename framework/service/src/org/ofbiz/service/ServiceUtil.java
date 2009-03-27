@@ -563,7 +563,7 @@ public class ServiceUtil {
         Timestamp thruDate = (Timestamp) context.get("thruDate");
         Timestamp now = UtilDateTime.nowTimestamp();
         boolean reply = true;
- 
+
         if (fromDate != null && fromDate.after(now)) reply = false;
         if (thruDate != null && thruDate.before(now)) reply = false;
 

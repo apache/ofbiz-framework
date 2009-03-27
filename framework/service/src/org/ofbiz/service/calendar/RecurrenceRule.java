@@ -35,7 +35,7 @@ import org.ofbiz.entity.GenericValue;
  * Recurrence Rule Object
  */
 public class RecurrenceRule {
- 
+
     public static final String module = RecurrenceRule.class.getName();
 
     // **********************
@@ -133,7 +133,7 @@ public class RecurrenceRule {
         byMonthList = StringUtil.split(rule.getString("byMonthList"), ",");
         bySetPosList = StringUtil.split(rule.getString("bySetPosList"), ",");
     }
- 
+
     // Checks for a valid frequency property.
     private boolean checkFreq(String freq) {
         if (freq == null)
@@ -169,7 +169,7 @@ public class RecurrenceRule {
 
         stamp = rule.getTimestamp("untilDateTime");
         Debug.logVerbose("Stamp value: " + stamp, module);
- 
+
         if (stamp != null) {
             long nanos = (long) stamp.getNanos();
             time = stamp.getTime();
@@ -255,12 +255,12 @@ public class RecurrenceRule {
             startTime = RecurrenceUtil.now();
         if (fromTime == 0)
             fromTime = startTime;
- 
+
         // Test the end time of the recurrence.
         if (getEndTime() != 0 && getEndTime() <= RecurrenceUtil.now())
             return 0;
         Debug.logVerbose("Rule NOT expired by end time.", module);
- 
+
         // Test the recurrence limit.
         if (getCount() != -1 && currentCount >= getCount())
             return 0;
@@ -299,24 +299,24 @@ public class RecurrenceRule {
         if (checkTime == 0) {
             checkTime = startTime;
         }
- 
+
         // Test the end time of the recurrence.
         if (getEndTime() != 0 && getEndTime() <= RecurrenceUtil.now()) {
             return 0;
         }
- 
+
         // Test the recurrence limit.
         if (getCount() != -1 && currentCount >= getCount()) {
             return 0;
         }
- 
+
         // Get the next frequency from checkTime
         Date nextRun = getNextFreq(startTime, checkTime);
         Calendar cal = Calendar.getInstance();
         Calendar checkTimeCal = Calendar.getInstance();
         cal.setTime(nextRun);
         checkTimeCal.setTime(new Date(checkTime));
- 
+
         // Get previous frequency and update its values from checkTime
         switch (getFrequency()) {
         case YEARLY:
@@ -324,7 +324,7 @@ public class RecurrenceRule {
             if (cal.get(Calendar.YEAR) != checkTimeCal.get(Calendar.YEAR)) {
                 return 0;
             }
- 
+
         case MONTHLY:
             if (MONTHLY == getFrequency()) {
                 cal.add(Calendar.MONTH, -getIntervalInt());
@@ -334,7 +334,7 @@ public class RecurrenceRule {
             } else {
                 cal.set(Calendar.MONTH, checkTimeCal.get(Calendar.MONTH));
             }
- 
+
         case WEEKLY:
             if (WEEKLY == getFrequency()) {
                 cal.add(Calendar.WEEK_OF_YEAR, -getIntervalInt());
@@ -390,10 +390,10 @@ public class RecurrenceRule {
         if (validByRule(cal.getTime())) {
              return cal.getTime().getTime();
         }
- 
+
         return 0;
     }
- 
+
     /**
      * Tests the date to see if it falls within the rules
      *@param startDate date object to test
@@ -751,7 +751,7 @@ public class RecurrenceRule {
             throws RecurrenceRuleException {
         return makeRule(delegator, frequency, interval, -1, endTime);
     }
- 
+
     public static RecurrenceRule makeRule(GenericDelegator delegator, int frequency, int interval, int count, long endTime)
             throws RecurrenceRuleException {
         String freq[] = {"", "SECONDLY", "MINUTELY", "HOURLY", "DAILY", "WEEKLY", "MONTHLY", "YEARLY"};
@@ -760,7 +760,7 @@ public class RecurrenceRule {
             throw new RecurrenceRuleException("Invalid frequency");
         if (interval < 0)
             throw new RecurrenceRuleException("Invalid interval");
- 
+
         String freqStr = freq[frequency];
 
         try {

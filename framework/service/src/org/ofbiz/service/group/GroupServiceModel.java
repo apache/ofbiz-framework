@@ -34,13 +34,13 @@ import org.w3c.dom.Element;
  * GroupServiceModel.java
  */
 public class GroupServiceModel {
- 
+
     public static final String module = GroupServiceModel.class.getName();
 
     private String serviceName, serviceMode;
     private boolean resultToContext = false;
     private boolean optionalParams = false;
- 
+
     /**
      * Constructor using DOM element
      * @param service DOM element for the service
@@ -51,7 +51,7 @@ public class GroupServiceModel {
         this.resultToContext = service.getAttribute("result-to-context").equalsIgnoreCase("true");
         this.optionalParams = service.getAttribute("parameters").equalsIgnoreCase("optional");
     }
- 
+
     /**
      * Basic constructor
      * @param serviceName name of the service
@@ -61,7 +61,7 @@ public class GroupServiceModel {
         this.serviceName = serviceName;
         this.serviceMode = serviceMode;
     }
- 
+
     /**
      * Getter for the service mode
      * @return String
@@ -69,7 +69,7 @@ public class GroupServiceModel {
     public String getMode() {
         return this.serviceMode;
     }
- 
+
     /**
      * Getter for the service name
      * @return String
@@ -77,7 +77,7 @@ public class GroupServiceModel {
     public String getName() {
         return this.serviceName;
     }
- 
+
     /**
      * Returns true if the results of this service are to go back into the context
      * @return boolean
@@ -93,7 +93,7 @@ public class GroupServiceModel {
     public boolean isOptional() {
         return this.optionalParams;
     }
- 
+
     /**
      * Invoker method to invoke this service
      * @param dispatcher ServiceDispatcher used for this invocation
@@ -107,7 +107,7 @@ public class GroupServiceModel {
         ModelService model = dctx.getModelService(getName());
         if (model == null)
             throw new GenericServiceException("Group defined service (" + getName() + ") is not a defined service.");
- 
+
         Map<String, Object> thisContext = model.makeValid(context, ModelService.IN_PARAM);
         Debug.logInfo("Running grouped service [" + serviceName + "]", module);
         if (getMode().equals("async")) {
@@ -123,7 +123,7 @@ public class GroupServiceModel {
             return dispatcher.runSync(localName, model, thisContext);
         }
     }
- 
+
     /**
      * @see java.lang.Object#toString()
      */

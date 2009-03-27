@@ -187,7 +187,7 @@ public class JobPoller implements Runnable {
      */
     public void queueNow(Job job) {
         //Debug.logInfo("[" + Thread.currentThread().getId() + "] Begin queueNow; holds run lock? " + Thread.holdsLock(run), module);
- 
+
         // NOTE DEJ20071201 MUST use a different object for the lock here because the "this" object is always held by the poller thread in the run method above (which sleeps and runs)
         synchronized (run) {
             run.add(job);
@@ -198,7 +198,7 @@ public class JobPoller implements Runnable {
                 if (run.size() > pool.size() && pool.size() < maxThreads()) {
                     int calcSize = (run.size() / jobsPerThread()) - (pool.size());
                     int addSize = calcSize > maxThreads() ? maxThreads() : calcSize;
- 
+
                     for (int i = 0; i < addSize; i++) {
                         JobInvoker iv = new JobInvoker(this, invokerWaitTime());
                         pool.add(iv);

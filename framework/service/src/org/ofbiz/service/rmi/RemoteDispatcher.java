@@ -30,7 +30,7 @@ import org.ofbiz.service.GenericServiceException;
  * Generic Services Remote Dispatcher
  */
 public interface RemoteDispatcher extends Remote {
- 
+
     /**
      * Run the service synchronously and return the result.
      * @param serviceName Name of the service to run.
@@ -158,7 +158,7 @@ public interface RemoteDispatcher extends Remote {
      * @throws RemoteException
      */
     public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime) throws GenericServiceException, RemoteException;
- 
+
     /**
      * Schedule a service to run asynchronously at a specific start time.
      * @param serviceName Name of the service to invoke.
@@ -171,7 +171,7 @@ public interface RemoteDispatcher extends Remote {
      * @throws RemoteException
      */
     public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count) throws GenericServiceException, RemoteException;
- 
+
     /**
      * Schedule a service to run asynchronously at a specific start time.
      * @param serviceName Name of the service to invoke.
@@ -184,7 +184,7 @@ public interface RemoteDispatcher extends Remote {
      * @throws RemoteException
      */
     public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, long endTime) throws GenericServiceException, RemoteException;
- 
+
     /**
      * Schedule a service to run asynchronously at a specific start time.
      * @param serviceName Name of the service to invoke.

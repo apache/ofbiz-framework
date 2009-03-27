@@ -22,7 +22,7 @@ package org.ofbiz.service.job;
  * Job Scheduler Exception
  */
 public class JobManagerException extends org.ofbiz.base.util.GeneralException {
- 
+
     /**
      * Creates new <code>JobManagerException</code> without detail message.
      */

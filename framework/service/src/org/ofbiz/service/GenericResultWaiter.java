@@ -28,14 +28,14 @@ import org.ofbiz.base.util.Debug;
 public class GenericResultWaiter implements GenericRequester {
 
     public static final String module = GenericResultWaiter.class.getName();
- 
+
     /** Status code for a running service */
     public static final int SERVICE_RUNNING = -1;
     /** Status code for a failed service */
     public static final int SERVICE_FAILED = 0;
     /** Status code for a successful service */
     public static final int SERVICE_FINISHED = 1;
- 
+
     private boolean completed = false;
     private int status = -1;
     private Map<String, Object> result = null;
@@ -52,7 +52,7 @@ public class GenericResultWaiter implements GenericRequester {
         if (Debug.verboseOn())
             Debug.logVerbose("Received Result (" + completed + ") -- " + result, module);
     }
- 
+
     /**
      * @see org.ofbiz.service.GenericRequester#receiveThrowable(java.lang.Throwable)
      */
@@ -62,7 +62,7 @@ public class GenericResultWaiter implements GenericRequester {
         status = SERVICE_FAILED;
         notify();
     }
- 
+
     /**
      * Returns the status of the service.
      * @return int Status code
@@ -70,7 +70,7 @@ public class GenericResultWaiter implements GenericRequester {
     public synchronized int status() {
         return this.status;
     }
- 
+
     /**
      * If the service has completed return true
      * @return boolean
@@ -78,7 +78,7 @@ public class GenericResultWaiter implements GenericRequester {
     public synchronized boolean isCompleted() {
         return completed;
     }
- 
+
     /**
      * Returns the exception which was thrown or null if none
      * @return Exception

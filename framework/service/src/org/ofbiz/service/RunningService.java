@@ -50,7 +50,7 @@ public class RunningService {
     public String getLocalName() {
         return this.name;
     }
- 
+
     public int getMode() {
         return mode;
     }

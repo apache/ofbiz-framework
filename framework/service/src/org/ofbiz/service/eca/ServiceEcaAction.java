@@ -65,7 +65,7 @@ public class ServiceEcaAction implements java.io.Serializable {
         // support the old, inconsistent attribute name
         if (UtilValidate.isEmail(this.runAsUser)) this.runAsUser = action.getAttribute("runAsUser");
         this.resultMapName = action.getAttribute("result-map-name");
- 
+
         // default is true, so anything but false is true
         this.resultToContext = !"false".equals(action.getAttribute("result-to-context"));
         // default is false, so anything but true is false
@@ -75,15 +75,15 @@ public class ServiceEcaAction implements java.io.Serializable {
         this.ignoreError = !"false".equals(action.getAttribute("ignore-error"));
         this.persist = "true".equals(action.getAttribute("persist"));
     }
- 
+
     public String getServiceName() {
         return this.serviceName;
     }
- 
+
     public String getServiceMode() {
         return this.serviceMode;
     }
- 
+
     public boolean isPersist() {
         return this.persist;
     }
@@ -91,7 +91,7 @@ public class ServiceEcaAction implements java.io.Serializable {
     public String getShortDisplayDescription() {
         return this.serviceName + "[" + this.serviceMode + (this.persist ? "-persist" : "") + "]";
     }
- 
+
     public boolean runAction(String selfService, DispatchContext dctx, Map<String, Object> context, Map<String, Object> result) throws GenericServiceException {
         if (serviceName.equals(selfService)) {
             throw new GenericServiceException("Cannot invoke self on ECA.");
@@ -102,7 +102,7 @@ public class ServiceEcaAction implements java.io.Serializable {
 
         // set the userLogin object in the context
         actionContext.put("userLogin", ServiceUtil.getUserLogin(dctx, actionContext, runAsUser));
- 
+
         Map<String, Object> actionResult = null;
         LocalDispatcher dispatcher = dctx.getDispatcher();
         // if SECAs have been turned off, then just return true which has same effect as if secas ran successfully
@@ -238,7 +238,7 @@ public class ServiceEcaAction implements java.io.Serializable {
 
         return success;
     }
- 
+
     public boolean equals(Object obj) {
         if (obj instanceof ServiceEcaAction) {
             ServiceEcaAction other = (ServiceEcaAction) obj;
@@ -248,14 +248,14 @@ public class ServiceEcaAction implements java.io.Serializable {
             if (!UtilValidate.areEqual(this.serviceMode, other.serviceMode)) return false;
             if (!UtilValidate.areEqual(this.resultMapName, other.resultMapName)) return false;
             if (!UtilValidate.areEqual(this.runAsUser, other.runAsUser)) return false;
- 
+
             if (this.newTransaction != other.newTransaction) return false;
             if (this.resultToContext != other.resultToContext) return false;
             if (this.resultToResult != other.resultToResult) return false;
             if (this.ignoreFailure != other.ignoreFailure) return false;
             if (this.ignoreError != other.ignoreError) return false;
             if (this.persist != other.persist) return false;
- 
+
             return true;
         } else {
             return false;

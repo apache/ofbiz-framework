@@ -96,7 +96,7 @@ public interface LocalDispatcher {
      */
     public void runSyncIgnore(String serviceName, Map<String, ? extends Object> context, int transactionTimeout, boolean requireNewTransaction) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
     public void runSyncIgnore(String serviceName, int transactionTimeout, boolean requireNewTransaction, Object... context) throws ServiceAuthException, ServiceValidationException, GenericServiceException;
- 
+
     /**
      * Run the service asynchronously, passing an instance of GenericRequester that will receive the result.
      * @param serviceName Name of the service to run.

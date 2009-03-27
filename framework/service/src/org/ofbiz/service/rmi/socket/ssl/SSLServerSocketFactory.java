@@ -89,7 +89,7 @@ public class SSLServerSocketFactory implements RMIServerSocketFactory, Serializa
         if (alias == null) {
             throw new IOException("SSL certificate alias cannot be null; MUST be set for SSLServerSocketFactory!");
         }
- 
+
         javax.net.ssl.SSLServerSocketFactory factory = null;
         try {
             if (ks != null) {

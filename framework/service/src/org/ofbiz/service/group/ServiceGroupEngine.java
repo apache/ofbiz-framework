@@ -49,7 +49,7 @@ public class ServiceGroupEngine extends GenericAsyncEngine {
         if (groupModel == null) {
             throw new GenericServiceException("GroupModel was null; not a valid ServiceGroup!");
         }
- 
+
         return groupModel.run(dispatcher, localName, context);
     }
 

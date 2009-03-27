@@ -89,7 +89,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
         }
 
         if (Debug.verboseOn()) Debug.logVerbose("Running service: " + serviceName, module);
- 
+
         Map<String, Object> result = null;
         if (context != null) {
             try {
@@ -109,7 +109,7 @@ public abstract class AbstractJmsListener implements GenericMessageListener, Exc
         MapMessage mapMessage = null;
 
         if (Debug.verboseOn()) Debug.logVerbose("JMS Message Received --> " + message, module);
- 
+
         if (message instanceof MapMessage) {
             mapMessage = (MapMessage) message;
         } else {
