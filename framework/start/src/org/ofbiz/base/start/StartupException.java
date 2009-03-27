@@ -26,7 +26,7 @@ import java.io.PrintWriter;
  *
  */
 public class StartupException extends Exception {
- 
+
     Throwable nested = null;
 
     /**

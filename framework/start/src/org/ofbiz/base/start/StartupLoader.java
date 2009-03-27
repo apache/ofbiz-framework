@@ -23,7 +23,7 @@ package org.ofbiz.base.start;
  *
  */
 public interface StartupLoader {
- 
+
     /**
      * Load a startup class
      *
