@@ -47,7 +47,7 @@ public class EntityWhereString extends EntityCondition {
             return new EntityWhereString();
         }
     };
- 
+
     protected String sqlString;
 
     protected EntityWhereString() {}
@@ -56,11 +56,11 @@ public class EntityWhereString extends EntityCondition {
     public EntityWhereString(String sqlString) {
         init(sqlString);
     }
- 
+
     public void init(String sqlString) {
         this.sqlString = sqlString;
     }
- 
+
     public void reset() {
         this.sqlString = null;
     }

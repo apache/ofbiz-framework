@@ -53,7 +53,7 @@ public class GenericValue extends GenericEntity implements Reusable {
             return new GenericValue();
         }
     };
- 
+
     /** Map to cache various related entity collections */
     public transient Map<String, List<GenericValue>> relatedCache = null;
 
@@ -102,7 +102,7 @@ public class GenericValue extends GenericEntity implements Reusable {
         newValue.init(primaryKey);
         return newValue;
     }
- 
+
     public void reset() {
         // from GenericEntity
         super.reset();

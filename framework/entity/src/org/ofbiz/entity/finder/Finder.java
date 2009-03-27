@@ -34,7 +34,7 @@ public abstract class Finder implements Serializable {
         this.entityNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
         this.useCacheStrExdr = FlexibleStringExpander.getInstance(element.getAttribute("use-cache"));
     }
- 
+
     public String getEntityName() {
         String entName = this.entityNameExdr.getOriginal();
         // if there is expansion syntax

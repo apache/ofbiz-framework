@@ -35,7 +35,7 @@ public class EntityConditionList<T extends EntityCondition> extends EntityCondit
             return new EntityConditionList();
         }
     };
- 
+
     protected EntityConditionList() {
         super();
     }
@@ -49,15 +49,15 @@ public class EntityConditionList<T extends EntityCondition> extends EntityCondit
     public EntityConditionList(List<T> conditionList, EntityJoinOperator operator) {
         init(conditionList, operator);
     }
- 
+
     public int getConditionListSize() {
         return super.getConditionListSize();
     }
- 
+
     public Iterator<T> getConditionIterator() {
         return super.getConditionIterator();
     }
- 
+
     public void accept(EntityConditionVisitor visitor) {
         visitor.acceptEntityConditionList(this);
     }

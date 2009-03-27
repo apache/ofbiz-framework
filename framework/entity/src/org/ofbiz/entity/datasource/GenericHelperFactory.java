@@ -30,7 +30,7 @@ import org.ofbiz.entity.config.EntityConfigUtil;
  *
  */
 public class GenericHelperFactory {
- 
+
     public static final String module = GenericHelperFactory.class.getName();
 
     // protected static UtilCache helperCache = new UtilCache("entity.GenericHelpers", 0, 0);

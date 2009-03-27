@@ -38,7 +38,7 @@ import org.w3c.dom.Element;
  *
  */
 public class EntityConfigUtil {
- 
+
     public static final String module = EntityConfigUtil.class.getName();
     public static final String ENTITY_ENGINE_XML_FILENAME = "entityengine.xml";
 
@@ -233,7 +233,7 @@ public class EntityConfigUtil {
     public static DatasourceInfo getDatasourceInfo(String name) {
         return datasourceInfos.get(name);
     }
- 
+
     public static Map<String, DatasourceInfo> getDatasourceInfos() {
         return datasourceInfos;
     }

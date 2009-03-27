@@ -61,13 +61,13 @@ public abstract class ListFinder extends Finder {
     public static final String module = ListFinder.class.getName();
 
     protected String label;
- 
+
     protected FlexibleStringExpander filterByDateStrExdr;
     protected FlexibleStringExpander distinctStrExdr;
     protected FlexibleStringExpander delegatorNameExdr;
     protected FlexibleMapAccessor<Object> listAcsr;
     protected FlexibleStringExpander resultSetTypeExdr;
- 
+
     protected List<FlexibleStringExpander> selectFieldExpanderList;
     protected List<FlexibleStringExpander> orderByExpanderList;
     protected OutputHandler outputHandler;
@@ -88,7 +88,7 @@ public abstract class ListFinder extends Finder {
 
         // process select-field
         selectFieldExpanderList = EntityFinderUtil.makeSelectFieldExpanderList(element);
- 
+
         // process order-by
         List<? extends Element> orderByElementList = UtilXml.childElementList(element, "order-by");
         if (orderByElementList.size() > 0) {
@@ -125,18 +125,18 @@ public abstract class ListFinder extends Finder {
         String delegatorName = this.delegatorNameExdr.expandString(context);
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
         String resultSetTypeString = this.resultSetTypeExdr.expandString(context);
- 
+
         if (modelEntity == null) {
             throw new IllegalArgumentException("In find entity by " + label + " could not find definition for entity with name [" + entityName + "].");
         }
- 
+
         boolean useCache = "true".equals(useCacheStr);
         boolean filterByDate = "true".equals(filterByDateStr);
         boolean distinct = "true".equals(distinctStr);
         int resultSetType = ResultSet.TYPE_SCROLL_INSENSITIVE;
         if ("forward".equals(resultSetTypeString))
             resultSetType = ResultSet.TYPE_FORWARD_ONLY;
- 
+
         if (delegatorName != null && delegatorName.length() > 0) {
             delegator = GenericDelegator.getGenericDelegator(delegatorName);
         }
@@ -156,8 +156,8 @@ public abstract class ListFinder extends Finder {
                 throw new IllegalArgumentException("In find entity by " + label + " cannot have use-cache set to true and specify a having-condition-list (can only use a where condition with condition-expr or condition-list).");
             }
         }
- 
- 
+
+
         // get the list of fieldsToSelect from selectFieldExpanderList
         Set<String> fieldsToSelect = EntityFinderUtil.makeFieldsToSelect(selectFieldExpanderList, context);
 
@@ -168,7 +168,7 @@ public abstract class ListFinder extends Finder {
 
         // get the list of orderByFields from orderByExpanderList
         List<String> orderByFields = EntityFinderUtil.makeOrderByFieldList(this.orderByExpanderList, context);
- 
+
         try {
             // if filterByDate, do a date filter on the results based on the now-timestamp
             if (filterByDate) {
@@ -179,7 +179,7 @@ public abstract class ListFinder extends Finder {
                     whereEntityCondition = filterByDateCondition;
                 }
             }
- 
+
             if (useCache) {
                 List<GenericValue> results = delegator.findList(entityName, whereEntityCondition, fieldsToSelect, orderByFields, null, true);
                 this.outputHandler.handleOutput(results, context, listAcsr);
@@ -190,7 +190,7 @@ public abstract class ListFinder extends Finder {
                     Debug.logError(newE, "ERROR: Cannot do a by " + label + " find that returns an EntityListIterator with no transaction in place. Wrap this call in a transaction.", module);
                     useTransaction = false;
                 }
- 
+
                 EntityFindOptions options = new EntityFindOptions();
                 options.setDistinct(distinct);
                 options.setResultSetType(resultSetType);

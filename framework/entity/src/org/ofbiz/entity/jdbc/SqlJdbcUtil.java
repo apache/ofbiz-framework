@@ -69,7 +69,7 @@ import org.ofbiz.entity.model.ModelViewEntity;
  */
 public class SqlJdbcUtil {
     public static final String module = GenericDAO.class.getName();
- 
+
     public static final int CHAR_BUFFER_SIZE = 4096;
 
     /** Makes the FROM clause and when necessary the JOIN clause(s) as well */
@@ -162,7 +162,7 @@ public class SqlJdbcUtil {
                         if (condBuffer.length() > 0) {
                             condBuffer.append(" AND ");
                         }
- 
+
                         condBuffer.append(viewLink.getEntityAlias());
                         condBuffer.append(".");
                         condBuffer.append(filterColName(linkField.getColName()));
@@ -497,20 +497,20 @@ public class SqlJdbcUtil {
             int typeValue = getType(fieldType);
             ResultSetMetaData rsmd = rs.getMetaData();
             int colType = rsmd.getColumnType(ind);
- 
+
             if (typeValue <= 4 || typeValue >= 11) {
                 switch (typeValue) {
                 case 1:
                     if (java.sql.Types.CLOB == colType) {
                         // Debug.logInfo("For field " + curField.getName() + " of entity " + entity.getEntityName() + " getString is a CLOB, trying getCharacterStream", module);
                         // if the String is empty, try to get a text input stream, this is required for some databases for larger fields, like CLOBs
- 
+
                         Clob valueClob = rs.getClob(ind);
                         Reader valueReader = null;
                         if (valueClob != null) {
                             valueReader = valueClob.getCharacterStream();
                         }
- 
+
                         //Reader valueReader = rs.getCharacterStream(ind);
                         if (valueReader != null) {
                             char[] inCharBuffer = new char[CHAR_BUFFER_SIZE];
@@ -551,7 +551,7 @@ public class SqlJdbcUtil {
 
                     byte[] originalBytes = rs.getBytes(ind);
                     obj = deserializeField(originalBytes, ind, curField);
- 
+
                     if (obj != null) {
                         entity.dangerousSetNoCheckButFast(curField, obj);
                     } else {
@@ -570,7 +570,7 @@ public class SqlJdbcUtil {
                         fieldBytes = rs.getBytes(ind);
                         originalObject = fieldBytes;
                     }
- 
+
                     if (originalObject != null) {
                         // for backward compatibility, check to see if there is a serialized object and if so return that
                         Object blobObject = deserializeField(fieldBytes, ind, curField);
@@ -585,7 +585,7 @@ public class SqlJdbcUtil {
                             }
                         }
                     }
- 
+
                     break;
                 case 13:
                     entity.dangerousSetNoCheckButFast(curField, new SerialClob(rs.getClob(ind)));
@@ -656,7 +656,7 @@ public class SqlJdbcUtil {
             throw new GenericDataSourceException("SQL Exception while getting value : " + curField.getName() + " [" + curField.getColName() + "] (" + ind + ")", sqle);
         }
     }
- 
+
     private static Object deserializeField(byte[] fieldBytes, int ind, ModelField curField) throws GenericDataSourceException {
         // NOTE DEJ20071022: the following code is to convert the byte[] back into an object; if that fails 
         //just return the byte[]; this was for the ByteWrapper thing which is now deprecated, so this may
@@ -697,7 +697,7 @@ public class SqlJdbcUtil {
                 }
             }
         }
- 
+
         return null;
     }
 
@@ -714,7 +714,7 @@ public class SqlJdbcUtil {
             throw new GenericModelException("GenericDAO.getValue: definition fieldType " + modelField.getType() + " not found, cannot setValue for field " +
                     entityName + "." + modelField.getName() + ".");
         }
- 
+
         // if the value is the GenericEntity.NullField, treat as null
         if (fieldValue == GenericEntity.NULL_FIELD) {
             fieldValue = null;
@@ -843,16 +843,16 @@ public class SqlJdbcUtil {
         fieldTypeMap.put("BigDecimal", 9);
         fieldTypeMap.put("java.lang.Boolean", 10);
         fieldTypeMap.put("Boolean", 10);
- 
+
         fieldTypeMap.put("java.lang.Object", 11);
         fieldTypeMap.put("Object", 11);
- 
+
         fieldTypeMap.put("java.sql.Blob", 12);
         fieldTypeMap.put("Blob", 12);
         fieldTypeMap.put("byte[]", 12);
         fieldTypeMap.put("java.nio.ByteBuffer", 12);
         fieldTypeMap.put("java.nio.HeapByteBuffer", 12);
- 
+
         fieldTypeMap.put("java.sql.Clob", 13);
         fieldTypeMap.put("Clob", 13);
 

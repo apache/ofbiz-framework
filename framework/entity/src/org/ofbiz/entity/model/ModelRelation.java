@@ -56,7 +56,7 @@ public class ModelRelation extends ModelChild {
 
     /** the main entity of this relation */
     protected ModelEntity mainEntity = null;
- 
+
     protected boolean isAutoRelation = false;
 
     /** Default Constructor */
@@ -100,7 +100,7 @@ public class ModelRelation extends ModelChild {
             }
         }
     }
- 
+
     public String getCombinedName() {
         return this.title + this.relEntityName;
     }
@@ -162,7 +162,7 @@ public class ModelRelation extends ModelChild {
     public Iterator<ModelKeyMap> getKeyMapsIterator() {
         return this.keyMaps.iterator();
     }
- 
+
     public List<ModelKeyMap> getKeyMapsClone() {
         List<ModelKeyMap> kmList = FastList.newInstance();
         kmList.addAll(this.keyMaps);
@@ -273,20 +273,20 @@ public class ModelRelation extends ModelChild {
     public void setAutoRelation(boolean isAutoRelation) {
         this.isAutoRelation = isAutoRelation;
     }
- 
+
     // FIXME: CCE
     public boolean equals(Object other) {
         ModelRelation otherRel = (ModelRelation) other;
- 
+
         if (!otherRel.type.equals(this.type)) return false;
         if (!otherRel.title.equals(this.title)) return false;
         if (!otherRel.relEntityName.equals(this.relEntityName)) return false;
- 
+
         Set<ModelKeyMap> thisKeyNames = new HashSet<ModelKeyMap>(this.keyMaps);
         Set<ModelKeyMap> otherKeyNames = new HashSet<ModelKeyMap>(otherRel.keyMaps);
         if (!thisKeyNames.containsAll(otherKeyNames)) return false;
         if (!otherKeyNames.containsAll(thisKeyNames)) return false;
- 
+
         return true;
     }
 

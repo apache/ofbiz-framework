@@ -26,19 +26,19 @@ import org.ofbiz.entity.*;
  *
  */
 public interface EntityEcaHandler<T> {
- 
+
     public static final String EV_VALIDATE = "validate";
     public static final String EV_RUN = "run";
     public static final String EV_RETURN = "return";
     public static final String EV_CACHE_CLEAR = "cache-clear";
     public static final String EV_CACHE_CHECK = "cache-check";
     public static final String EV_CACHE_PUT = "cache-put";
- 
+
     public static final String OP_CREATE = "create";
     public static final String OP_STORE = "store";
     public static final String OP_REMOVE = "remove";
     public static final String OP_FIND = "find";
- 
+
 
     public void setDelegator(GenericDelegator delegator);
 

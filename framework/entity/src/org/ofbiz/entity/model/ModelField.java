@@ -45,7 +45,7 @@ public class ModelField extends ModelChild {
     protected boolean isNotNull = false;
     protected boolean isAutoCreatedInternal = false;
     protected boolean enableAuditLog = false;
- 
+
     /** validators to be called when an update is done */
     protected List<String> validators = new ArrayList<String>();
 
@@ -135,7 +135,7 @@ public class ModelField extends ModelChild {
     public void setIsPk(boolean isPk) {
         this.isPk = isPk;
     }
- 
+
     public boolean getIsNotNull() {
         return this.isNotNull;
     }
@@ -151,7 +151,7 @@ public class ModelField extends ModelChild {
     public void setEncrypt(boolean encrypt) {
         this.encrypt = encrypt;
     }
- 
+
     public boolean getEnableAuditLog() {
         return this.enableAuditLog;
     }
@@ -163,7 +163,7 @@ public class ModelField extends ModelChild {
     public void setIsAutoCreatedInternal(boolean isAutoCreatedInternal) {
         this.isAutoCreatedInternal = isAutoCreatedInternal;
     }
- 
+
     /** validators to be called when an update is done */
     public String getValidator(int index) {
         return this.validators.get(index);

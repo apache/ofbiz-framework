@@ -44,7 +44,7 @@ public class GenericValueHtmlWrapper extends GenericValue {
             return new GenericValueHtmlWrapper();
         }
     };
- 
+
     /** Creates new GenericValueHtmlWrapper from existing GenericValue */
     public static GenericValueHtmlWrapper create(GenericValue value) {
         GenericValueHtmlWrapper newValue = genericValueHtmlWrapperFactory.object();
@@ -76,13 +76,13 @@ public class GenericValueHtmlWrapper extends GenericValue {
             return value;
         }
     }
- 
+
     // another experimental object, this one specifically for FTL
     public static class GenericValueHtmlWrapperForFtl extends MapModel {
         public GenericValueHtmlWrapperForFtl(GenericValue gv, BeansWrapper wrapper) {
             super(gv, wrapper);
         }
- 
+
         public TemplateModel get(String key) {
             TemplateModel tm = null;
             try {

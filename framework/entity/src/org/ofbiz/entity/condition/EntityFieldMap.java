@@ -40,7 +40,7 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
             return new EntityFieldMap();
         }
     };
- 
+
     protected Map<String, ? extends Object> fieldMap = null;
 
     protected EntityFieldMap() {
@@ -60,7 +60,7 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
         return list;
     }
 
- 
+
     /** @deprecated Use EntityCondition.makeCondition() instead */
     public EntityFieldMap(EntityComparisonOperator compOp, EntityJoinOperator joinOp, Object... keysValues) {
         this.init(compOp, joinOp, keysValues);
@@ -80,7 +80,7 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
     public EntityFieldMap(Map<String, ? extends Object> fieldMap, EntityJoinOperator operator) {
         this.init(fieldMap, EntityOperator.EQUALS, operator);
     }
- 
+
     public void init(EntityComparisonOperator compOp, EntityJoinOperator joinOp, Object... keysValues) {
         super.init(makeConditionList(EntityUtil.makeFields(keysValues), compOp), joinOp);
         this.fieldMap = EntityUtil.makeFields(keysValues);
@@ -103,19 +103,19 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
     public Object getField(String name) {
         return this.fieldMap.get(name);
     }
- 
+
     public boolean containsField(String name) {
         return this.fieldMap.containsKey(name);
     }
- 
+
     public Iterator<String> getFieldKeyIterator() {
         return Collections.unmodifiableSet(this.fieldMap.keySet()).iterator();
     }
- 
+
     public Iterator<Map.Entry<String, Object>> getFieldEntryIterator() {
         return Collections.unmodifiableMap(this.fieldMap).entrySet().iterator();
     }
- 
+
     public void accept(EntityConditionVisitor visitor) {
         visitor.acceptEntityFieldMap(this);
     }

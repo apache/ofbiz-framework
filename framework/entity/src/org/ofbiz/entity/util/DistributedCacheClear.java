@@ -38,6 +38,6 @@ public interface DistributedCacheClear {
     public void distributedClearCacheLineByCondition(String entityName, EntityCondition condition);
 
     public void distributedClearCacheLine(GenericPK primaryKey);
- 
+
     public void clearAllCaches();
 }

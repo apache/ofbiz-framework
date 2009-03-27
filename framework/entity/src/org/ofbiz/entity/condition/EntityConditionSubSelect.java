@@ -38,9 +38,9 @@ public class EntityConditionSubSelect extends EntityConditionValue {
     protected String keyFieldName = null;
     protected EntityCondition whereCond = null;
     protected Boolean requireAll = null;
- 
+
     protected EntityConditionSubSelect() { }
- 
+
     public EntityConditionSubSelect(String entityName, String keyFieldName, EntityCondition whereCond, boolean requireAll, GenericDelegator delegator) {
         this(delegator.getModelEntity(entityName), keyFieldName, whereCond, requireAll);
     }
@@ -101,7 +101,7 @@ public class EntityConditionSubSelect extends EntityConditionValue {
         } catch (GenericEntityException e) {
             String errMsg = "Could not generate sub-select SQL: " + e.toString();
             Debug.logError(e, errMsg, module);
- 
+
         }
     }
 

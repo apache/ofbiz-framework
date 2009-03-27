@@ -55,7 +55,7 @@ public abstract class EntityConditionFunction extends EntityCondition {
     protected EntityConditionFunction(int id, String code, EntityCondition condition) {
         init(id, code, condition);
     }
- 
+
     public void init(int id, String code, EntityCondition condition) {
         idInt = id;
         codeString = code;

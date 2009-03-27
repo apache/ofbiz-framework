@@ -35,14 +35,14 @@ import org.w3c.dom.Element;
  *
  */
 public class ByAndFinder extends ListFinder {
- 
+
     public static final String module = ByAndFinder.class.getName();
- 
+
     protected Map<FlexibleMapAccessor<Object>, Object> fieldMap;
 
     public ByAndFinder(Element element) {
         super(element, "and");
- 
+
         // process field-map
         this.fieldMap = EntityFinderUtil.makeFieldMap(element);
     }

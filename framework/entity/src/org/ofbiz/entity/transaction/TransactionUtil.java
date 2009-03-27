@@ -162,7 +162,7 @@ public class TransactionUtil implements Status {
             return STATUS_NO_TRANSACTION;
         }
     }
- 
+
     public static String getStatusString() throws GenericTransactionException {
         return getTransactionStateString(getStatus());
     }
@@ -216,7 +216,7 @@ public class TransactionUtil implements Status {
                     clearTransactionStamps();
                     clearTransactionBeginStack();
                     clearSetRollbackOnlyCause();
- 
+
                     Debug.logError(e, "Rollback Only was set when trying to commit transaction here; throwing rollbackOnly cause exception", module);
                     throw new GenericTransactionException("Roll back error, could not commit transaction, was rolled back instead because of: " + rollbackOnlyCause.getCauseMessage(), rollbackOnlyCause.getCauseThrowable());
                 } else {
@@ -246,7 +246,7 @@ public class TransactionUtil implements Status {
         Debug.logWarning("WARNING: called rollback without debug/error info; it is recommended to always pass this to make otherwise tricky bugs much easier to track down.", module);
         rollback(beganTransaction, null, null);
     }
- 
+
     /** Rolls back transaction in the current thread IF transactions are available
      *  AND if beganTransaction is true; if beganTransaction is not true,
      *  setRollbackOnly is called to insure that the transaction will be rolled back
@@ -563,7 +563,7 @@ public class TransactionUtil implements Status {
             transactionBeginStackSave.set(el);
         }
         el.add(0, e);
- 
+
         Long curThreadId = Thread.currentThread().getId();
         List<Exception> ctEl = allThreadsTransactionBeginStackSave.get(curThreadId);
         if (ctEl == null) {
@@ -579,7 +579,7 @@ public class TransactionUtil implements Status {
         if (UtilValidate.isNotEmpty(ctEl)) {
             ctEl.remove(0);
         }
- 
+
         // then do the more reliable ThreadLocal one
         List<Exception> el = transactionBeginStackSave.get();
         if (UtilValidate.isNotEmpty(el)) {
@@ -612,14 +612,14 @@ public class TransactionUtil implements Status {
         if (!Debug.infoOn()) {
             return;
         }
- 
+
         for (Map.Entry<Long, Exception> attbsMapEntry : allThreadsTransactionBeginStack.entrySet()) {
             Long curThreadId = (Long) attbsMapEntry.getKey();
             Exception transactionBeginStack = attbsMapEntry.getValue();
             List<Exception> txBeginStackList = allThreadsTransactionBeginStackSave.get(curThreadId);
- 
+
             Debug.logInfo(transactionBeginStack, "===================================================\n===================================================\n Current tx begin stack for thread [" + curThreadId + "]:", module);
- 
+
             if (UtilValidate.isNotEmpty(txBeginStackList)) {
                 int stackLevel = 0;
                 for (Exception stack : txBeginStackList) {
@@ -631,7 +631,7 @@ public class TransactionUtil implements Status {
             }
         }
     }
- 
+
     private static void setTransactionBeginStack() {
         Exception e = new Exception("Tx Stack Placeholder");
         setTransactionBeginStack(e);
@@ -650,7 +650,7 @@ public class TransactionUtil implements Status {
     private static Exception clearTransactionBeginStack() {
         Long curThreadId = Thread.currentThread().getId();
         allThreadsTransactionBeginStack.remove(curThreadId);
- 
+
         Exception e = transactionBeginStack.get();
         if (e == null) {
             Exception e2 = new Exception("Current Stack Trace");
@@ -685,7 +685,7 @@ public class TransactionUtil implements Status {
         public void logError(String message) { Debug.logError(this.getCauseThrowable(), (message == null ? "" : message) + this.getCauseMessage(), module); }
         public boolean isEmpty() { return (UtilValidate.isEmpty(this.getCauseMessage()) && this.getCauseThrowable() == null); }
     }
- 
+
     private static void pushSetRollbackOnlyCauseSave(RollbackOnlyCause e) {
         List<RollbackOnlyCause> el = setRollbackOnlyCauseSave.get();
         if (el == null) {
@@ -742,7 +742,7 @@ public class TransactionUtil implements Status {
     // =======================================
     // SUSPENDED TRANSACTIONS START TIMESTAMPS
     // =======================================
- 
+
     /**
      * Maintain the suspended transactions together with their timestamps
      */
@@ -751,7 +751,7 @@ public class TransactionUtil implements Status {
             return UtilGenerics.checkMap(new ListOrderedMap());
         }
     };
- 
+
     /**
     * Put the stamp to remember later
     * @param t transaction just suspended

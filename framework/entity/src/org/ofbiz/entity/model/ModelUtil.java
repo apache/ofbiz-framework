@@ -27,9 +27,9 @@ import org.ofbiz.base.util.*;
  *
  */
 public class ModelUtil {
- 
+
     public static final String module = ModelUtil.class.getName();
- 
+
     /**
      * Changes the first letter of the passed String to upper case.
      * @param string The passed String
@@ -153,22 +153,22 @@ public class ModelUtil {
                 if (dbBuf.charAt(i - 1) == '_') {
                     continue;
                 }
- 
+
                 char curChar = dbBuf.charAt(i);
                 if (vowelBag.indexOf(curChar) > 0) {
                     dbBuf.deleteCharAt(i);
                 }
             }
         }
- 
+
         // remove all double underscores
         while (dbBuf.indexOf("__") > 0) {
             dbBuf.deleteCharAt(dbBuf.indexOf("__"));
         }
- 
+
         while (dbBuf.length() > desiredLength) {
             boolean removedChars = false;
- 
+
             int usIndex = dbBuf.lastIndexOf("_");
             while (usIndex > 0 && dbBuf.length() > desiredLength) {
                 // if this is the first word in the group, don't pull letters off unless it is 4 letters or more
@@ -176,13 +176,13 @@ public class ModelUtil {
                 if (prevUsIndex < 0 && usIndex < 4) {
                     break;
                 }
- 
+
                 // don't remove characters to reduce the size two less than three characters between underscores
                 if (prevUsIndex >= 0 && (usIndex - prevUsIndex) <= 4) {
                     usIndex = prevUsIndex;
                     continue;
                 }
- 
+
                 // delete the second to last character instead of the last, better chance of being unique
                 dbBuf.deleteCharAt(usIndex - 2);
                 removedChars = true;
@@ -192,7 +192,7 @@ public class ModelUtil {
                     break;
                 }
             }
- 
+
             // now delete the char at the end of the string if necessary
             if (dbBuf.length() > desiredLength) {
                 int removeIndex = dbBuf.length() - 1;
@@ -204,24 +204,24 @@ public class ModelUtil {
                     removedChars = true;
                 }
             }
- 
+
             // remove all double underscores
             while (dbBuf.indexOf("__") > 0) {
                 dbBuf.deleteCharAt(dbBuf.indexOf("__"));
                 removedChars = true;
             }
- 
+
             // if we didn't remove anything break out to avoid an infinite loop
             if (!removedChars) {
                 break;
             }
         }
- 
+
         // remove all double underscores
         while (dbBuf.indexOf("__") > 0) {
             dbBuf.deleteCharAt(dbBuf.indexOf("__"));
         }
- 
+
         while (dbBuf.length() > desiredLength) {
             // still not short enough, get more aggressive
             // don't remove the first segment, just remove the second over and over until we are short enough
@@ -234,7 +234,7 @@ public class ModelUtil {
                 }
             }
         }
- 
+
         //Debug.logInfo("Shortened " + dbName + " to " + dbBuf.toString(), module);
         return dbBuf.toString();
     }

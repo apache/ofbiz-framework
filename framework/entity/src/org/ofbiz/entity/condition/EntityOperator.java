@@ -214,7 +214,7 @@ public abstract class EntityOperator<T> extends EntityConditionBase {
         }
         whereStringBuilder.append(')');
     }
- 
+
     protected void appendRHSBetweenList(List<EntityConditionParam> entityConditionParams, StringBuilder whereStringBuilder, ModelField field, Object rhs) {
         if (rhs instanceof Collection) {
             Iterator rhsIter = ((Collection) rhs).iterator();

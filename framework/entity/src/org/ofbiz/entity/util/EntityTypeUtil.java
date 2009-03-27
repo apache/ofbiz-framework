@@ -32,7 +32,7 @@ import org.ofbiz.entity.GenericValue;
  * extensibility pattern and that can be of various types as identified in the database.
  */
 public class EntityTypeUtil {
- 
+
     public static final String module = EntityTypeUtil.class.getName();
 
     public static boolean isType(Collection<GenericValue> thisCollection, String typeRelation, GenericValue targetType) {

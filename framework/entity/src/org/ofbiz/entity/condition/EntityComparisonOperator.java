@@ -43,7 +43,7 @@ import org.ofbiz.entity.model.ModelField;
  * Encapsulates operations between entities and entity fields. This is a immutable class.
  */
 public class EntityComparisonOperator extends EntityOperator<Boolean> {
- 
+
     public static final String module = EntityComparisonOperator.class.getName();
 
     protected static PatternMatcher matcher = new Perl5Matcher();
@@ -86,13 +86,13 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
 
     public void addSqlValue(StringBuilder sql, ModelEntity entity, List<EntityConditionParam> entityConditionParams, boolean compat, Object lhs, Object rhs, DatasourceInfo datasourceInfo) {
         //Debug.logInfo("EntityComparisonOperator.addSqlValue field=" + lhs + ", value=" + rhs + ", value type=" + (rhs == null ? "null object" : rhs.getClass().getName()), module);
- 
+
         // if this is an IN operator and the rhs Object isEmpty, add "1=0" instead of the normal SQL.  Note that "FALSE" does not work with all databases.
         if (this.idInt == EntityOperator.ID_IN && UtilValidate.isEmpty(rhs)) {
             sql.append("1=0");
             return;
         }
- 
+
         ModelField field;
         if (lhs instanceof EntityConditionValue) {
             EntityConditionValue ecv = (EntityConditionValue) lhs;
@@ -126,7 +126,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
             addValue(sql, field, rhs, entityConditionParams);
         }
     }
- 
+
     public boolean compare(Comparable lhs, Object rhs) {
         throw new UnsupportedOperationException(codeString);
     }

@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 public abstract class AbstractCursorHandler implements InvocationHandler {
- 
+
     protected String cursorName;
     protected int fetchSize;
 

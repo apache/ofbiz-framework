@@ -84,7 +84,7 @@ public class TyrexConnectionFactory {
 
         return null;
     }
- 
+
     public static void closeAll() {
         Set cacheKeys = dsCache.keySet();
         Iterator i = cacheKeys.iterator();

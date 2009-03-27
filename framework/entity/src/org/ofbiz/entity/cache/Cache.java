@@ -82,7 +82,7 @@ public class Cache {
         }
         return oldEntity;
     }
- 
+
     public GenericValue put(GenericPK pk, GenericValue entity) {
         GenericValue oldEntity = entityCache.put(pk, entity);
         if (pk.getModelEntity().getAutoClearCache()) {

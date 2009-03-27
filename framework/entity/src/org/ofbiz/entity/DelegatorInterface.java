@@ -138,11 +138,11 @@ public interface DelegatorInterface {
     EntityListIterator find(String entityName, EntityCondition whereEntityCondition,
             EntityCondition havingEntityCondition, Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
             throws GenericEntityException;
- 
+
     List<GenericValue> findList(String entityName, EntityCondition entityCondition,
             Set<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions, boolean useCache)
             throws GenericEntityException;
- 
+
     int removeByAnd(String entityName, Object... fields) throws GenericEntityException;
 
     int removeByAnd(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException;

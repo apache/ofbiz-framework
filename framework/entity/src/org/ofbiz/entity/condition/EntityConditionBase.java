@@ -85,7 +85,7 @@ public abstract class EntityConditionBase implements Serializable {
                 return modelAlias.getColAlias();
             }
         }
- 
+
         String colName = getColName(modelField, fieldName);
         if (includeTableNamePrefix && datasourceInfo != null) {
             String tableName = modelEntity.getTableName(datasourceInfo);

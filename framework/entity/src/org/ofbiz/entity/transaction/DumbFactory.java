@@ -42,9 +42,9 @@ import org.ofbiz.entity.jdbc.ConnectionFactory;
  * A dumb, non-working transaction manager.
  */
 public class DumbFactory implements TransactionFactoryInterface {
- 
+
     public static final String module = DumbFactory.class.getName();
- 
+
     public TransactionManager getTransactionManager() {
         return new TransactionManager() {
             public void begin() throws NotSupportedException, SystemException {
@@ -101,11 +101,11 @@ public class DumbFactory implements TransactionFactoryInterface {
             }
         };
     }
- 
+
     public String getTxMgrName() {
         return "dumb";
     }
- 
+
     public Connection getConnection(String helperName) throws SQLException, GenericEntityException {
         DatasourceInfo datasourceInfo = EntityConfigUtil.getDatasourceInfo(helperName);
 
@@ -117,6 +117,6 @@ public class DumbFactory implements TransactionFactoryInterface {
             return null;
         }
     }
- 
+
     public void shutdown() {}
 }

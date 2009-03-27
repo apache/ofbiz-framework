@@ -44,7 +44,7 @@ public class SQLProcessor {
 
     /** Module Name Used for debugging */
     public static final String module = SQLProcessor.class.getName();
- 
+
     /** Used for testing connections when test is enabled */
     public static List<String> CONNECTION_TEST_LIST = new ArrayList<String>();
     public static int MAX_CONNECTIONS = 1000;
@@ -64,7 +64,7 @@ public class SQLProcessor {
 
     // / The database resources to be used
     private ResultSet _rs = null;
- 
+
     private ResultSetMetaData _rsmd = null;
 
     // / The SQL String used. Use for debugging only
@@ -78,10 +78,10 @@ public class SQLProcessor {
 
     // / true in case the connection shall be closed.
     private boolean _bDeleteConnection = false;
- 
+
     private Map<String, String> _needClobWorkAroundWrite = null;
     private Map<String, String> _needBlobWorkAroundWrite = null;
- 
+
     /**
      * Construct an object based on the helper/datasource
      *
@@ -108,7 +108,7 @@ public class SQLProcessor {
             _manualTX = false;
         }
     }
- 
+
     ResultSetMetaData getResultSetMetaData() {
         if (_rsmd == null) {
             // try the ResultSet, if not null, or try the PreparedStatement, also if not null
@@ -135,7 +135,7 @@ public class SQLProcessor {
         if (_connection == null) {
             return;
         }
- 
+
         if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:commit() _manualTX=" + _manualTX, module);
 
         if (_manualTX) {
@@ -161,7 +161,7 @@ public class SQLProcessor {
         if (_connection == null) {
             return;
         }
- 
+
         if (Debug.verboseOn()) Debug.logVerbose("SQLProcessor:rollback() _manualTX=" + _manualTX, module);
 
         try {
@@ -269,7 +269,7 @@ public class SQLProcessor {
 
         // test the connection
         testConnection(_connection);
- 
+
         /* causes problems w/ postgres ??
         if (Debug.verboseOn()) {
             int isoLevel = -999;
@@ -291,7 +291,7 @@ public class SQLProcessor {
             }
         }
         */
- 
+
         // always try to set auto commit to false, but if we can't then later on we won't commit
         try {
             if (_connection.getAutoCommit()) {
@@ -318,7 +318,7 @@ public class SQLProcessor {
         }
 
         if (Debug.verboseOn()) Debug.logVerbose("[SQLProcessor.getConnection] : con=" + _connection, module);
- 
+
         _bDeleteConnection = true;
         return _connection;
     }
@@ -781,7 +781,7 @@ public class SQLProcessor {
                 ObjectOutputStream oos = new ObjectOutputStream(os);
                 oos.writeObject(field);
                 oos.close();
- 
+
                 byte[] buf = os.toByteArray();
                 os.close();
                 ByteArrayInputStream is = new ByteArrayInputStream(buf);
@@ -801,7 +801,7 @@ public class SQLProcessor {
 
         _ind++;
     }
- 
+
     /**
      * Set the next binding variable of the currently active prepared statement
      * to write the serialized data of 'field' to a Blob with the given bytes.
@@ -832,7 +832,7 @@ public class SQLProcessor {
         }
         super.finalize();
     }
- 
+
     protected void testConnection(Connection con) throws GenericEntityException {
         if (SQLProcessor.ENABLE_TEST) {
             if (SQLProcessor.CONNECTION_TEST_LIST.contains(con.toString())) {
@@ -864,10 +864,10 @@ public class SQLProcessor {
             stmt.setFetchSize(fetchSize);
         }
     }
- 
+
     private void checkLockWaitInfo(Exception sqle) {
         String eMsg = sqle.getMessage();
- 
+
         // see if there is a lock wait timeout error, if so try to get and print more info about it
         //   the string for Derby is "A lock could not be obtained within the time requested"
         //   the string for MySQL is "Lock wait timeout exceeded; try restarting transaction"

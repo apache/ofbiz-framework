@@ -55,7 +55,7 @@ public abstract class AbstractEntityConditionCache<K, V> extends AbstractCache<E
             Debug.logWarning("Tried to put a value of the " + entityName + " entity in the cache but this entity has never-cache set to true, not caching.", module);
             return null;
         }
- 
+
         Map<K, V> conditionCache = getOrCreateConditionCache(entityName, condition);
         synchronized (conditionCache) {
             return conditionCache.put(key, value);

@@ -43,7 +43,7 @@ import org.ofbiz.entity.model.ModelEntity;
  *
  */
 public abstract class EntityCondition extends EntityConditionBase implements Reusable {
- 
+
     public static EntityExpr makeCondition(Object lhs, EntityComparisonOperator operator, Object rhs) {
         EntityExpr expr = EntityExpr.entityExprFactory.object();
         expr.init(lhs, operator, rhs);
@@ -163,7 +163,7 @@ public abstract class EntityCondition extends EntityConditionBase implements Reu
     abstract public EntityCondition freeze();
 
     abstract public void encryptConditionFields(ModelEntity modelEntity, GenericDelegator delegator);
- 
+
     public void visit(EntityConditionVisitor visitor) {
         throw new IllegalArgumentException(getClass().getName() + ".visit not implemented");
     }
