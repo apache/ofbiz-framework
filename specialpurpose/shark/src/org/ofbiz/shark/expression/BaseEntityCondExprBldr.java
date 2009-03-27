@@ -144,7 +144,7 @@ public abstract class BaseEntityCondExprBldr implements ExpressionBuilder, Seria
     protected synchronized void addLink(String entityAlias, String relEntityAlias, boolean opt, List keyMap) {
         this.viewLinks.add(new ViewLink(entityAlias, relEntityAlias, opt, keyMap));
     }
- 
+
     protected GenericDelegator getDelegator() {
         return SharkContainer.getDelegator();
     }

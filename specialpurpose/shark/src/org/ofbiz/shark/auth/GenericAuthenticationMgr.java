@@ -49,7 +49,7 @@ public class GenericAuthenticationMgr implements AuthenticationManager {
         } catch (GenericEntityException e) {
             throw new RootException(e);
         }
- 
+
         if (sharkUser != null) {
             String registeredPwd = sharkUser.getString(org.ofbiz.shark.SharkConstants.passwd);
             if (password.equals(registeredPwd)) {
@@ -62,7 +62,7 @@ public class GenericAuthenticationMgr implements AuthenticationManager {
                 return false;
             }
         }
- 
+
         return false;
     }
 }

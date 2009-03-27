@@ -38,12 +38,12 @@ public class LoggingRequester extends AbstractRequester {
     public static final String module = LoggingRequester.class.getName();
 
     static GenericValue gv = null;
- 
- 
+
+
     public LoggingRequester() {
         super(gv);
     }
- 
+
     // new requester
     public LoggingRequester(GenericValue userLogin) {
         super(userLogin);

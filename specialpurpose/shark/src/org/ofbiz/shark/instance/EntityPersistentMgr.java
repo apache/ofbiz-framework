@@ -70,7 +70,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     public static final String module = EntityPersistentMgr.class.getName();
 
     protected CallbackUtilities callBackUtil = null;
- 
+
     public void configure(CallbackUtilities callbackutilities) throws RootException {
         this.callBackUtil = callbackutilities;
     }
@@ -121,7 +121,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
 
     public void persist(AssignmentPersistenceInterface assignmentpersistenceinterface, String s, SharkTransaction sharktransaction) throws PersistenceException {
         persist(assignmentpersistenceinterface, true ,sharktransaction);
- 
+
     }
 
     public void persist(ProcessVariablePersistenceInterface processvariablepersistenceinterface, boolean flag, SharkTransaction sharktransaction) throws PersistenceException {
@@ -233,7 +233,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
             }
             try {
                 delegator.removeByAnd(org.ofbiz.shark.SharkConstants.WfActivity, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.subFlowId, processId));
- 
+
                 process.remove();
             } catch (Exception e) {
                 throw new PersistenceException(e);
@@ -319,7 +319,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         Debug.logInfo("Call : delete(ActivityVariablePersistenceInterface activityVariable, SharkTransaction trans)",module);
     }
 
- 
+
     public List getProcessMgrsWhere(SharkTransaction trans, String sqlWhere) throws PersistenceException {
         StringTokenizer st = null;
         StringTokenizer strtoc = null;
@@ -494,7 +494,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
     }
 
     protected List findFinishedProcesses(SharkTransaction trans, String packageId, String processDefId, String packageVer, Date finishedBefore) throws PersistenceException {
- 
+
         GenericDelegator delegator = SharkContainer.getDelegator();
         List finsihedStates = UtilMisc.toList("closed.completed", "closed.terminated", "closed.aborted");
         List order = UtilMisc.toList(org.ofbiz.shark.SharkConstants.lastStateTime);
@@ -647,7 +647,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         if (at.getState().startsWith("closed")) {
             return new ArrayList();
         } else {
- 
+
             List createdList = getAllAssignmentsForActivity(activityId, trans);
             return createdList;
         }
@@ -1019,7 +1019,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
                 createdList.add(Process.getInstance(this, v));
             }
         }
- 
+
         return createdList;
     }
     public List getActivitiesWhere(SharkTransaction trans, String sqlWhere) throws PersistenceException {
@@ -1062,7 +1062,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
                 continue;
             }
             act_list = getAllActivitiesForProcess(ProcessId, trans);
- 
+
             for(int i = 0; i < act_list.size(); i ++)
             {
                 if ((state == null) && (defId  != null)) {
@@ -1159,7 +1159,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         }
         return createdList;
     }
- 
+
     public List getProcessVariables(String processId,List varList, SharkTransaction trans) throws PersistenceException {
         List createdList = new ArrayList();
         List tmpList = null;

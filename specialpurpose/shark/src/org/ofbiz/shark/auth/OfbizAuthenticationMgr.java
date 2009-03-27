@@ -68,7 +68,7 @@ public class OfbizAuthenticationMgr implements AuthenticationManager {
             } else {
                 return false;
             }
- 
+
         }
         return false;
     }
