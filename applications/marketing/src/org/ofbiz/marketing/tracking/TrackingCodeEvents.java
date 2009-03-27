@@ -54,7 +54,7 @@ public class TrackingCodeEvents {
     public static String checkTrackingCodeUrlParam(HttpServletRequest request, HttpServletResponse response) {
         String trackingCodeId = request.getParameter("autoTrackingCode");
         if (UtilValidate.isEmpty(trackingCodeId)) trackingCodeId = request.getParameter("atc");
- 
+
         if (UtilValidate.isNotEmpty(trackingCodeId)) {
             //tracking code is specified on the request, get the TrackingCode value and handle accordingly
             GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
@@ -65,7 +65,7 @@ public class TrackingCodeEvents {
                 Debug.logError(e, "Error looking up TrackingCode with trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId", module);
                 return "error";
             }
- 
+
             if (trackingCode == null) {
                 Debug.logError("TrackingCode not found for trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId.", module);
                 //this return value will be ignored, but we'll designate this as an error anyway
@@ -91,7 +91,7 @@ public class TrackingCodeEvents {
      */
     public static String checkPartnerTrackingCodeUrlParam(HttpServletRequest request, HttpServletResponse response) {
         String trackingCodeId = request.getParameter("ptc");
- 
+
         if (UtilValidate.isNotEmpty(trackingCodeId)) {
             //partner managed tracking code is specified on the request
             GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
@@ -102,10 +102,10 @@ public class TrackingCodeEvents {
                 Debug.logError(e, "Error looking up TrackingCode with trackingCodeId [" + trackingCodeId + "], ignoring this trackingCodeId", module);
                 return "error";
             }
- 
+
             if (trackingCode == null) {
                 //create new TrackingCode with default values from a "dtc" parameter or from a properties file
- 
+
                 String dtc = request.getParameter("dtc");
                 if (UtilValidate.isEmpty(dtc)) {
                     dtc = UtilProperties.getPropertyValue("general", "partner.trackingCodeId.default");
@@ -117,7 +117,7 @@ public class TrackingCodeEvents {
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Error looking up Default values TrackingCode with trackingCodeId [" + dtc + "], not using the dtc value for new TrackingCode defaults", module);
                     }
- 
+
                     if (defaultTrackingCode != null) {
                         defaultTrackingCode.set("trackingCodeId", trackingCodeId);
                         defaultTrackingCode.set("trackingCodeTypeId", "PARTNER_MGD");
@@ -126,7 +126,7 @@ public class TrackingCodeEvents {
                         defaultTrackingCode.set("createdByUserLogin", null);
                         defaultTrackingCode.set("lastModifiedDate", UtilDateTime.nowTimestamp());
                         defaultTrackingCode.set("lastModifiedByUserLogin", null);
- 
+
                         trackingCode = defaultTrackingCode;
                         try {
                             trackingCode.create();
@@ -136,7 +136,7 @@ public class TrackingCodeEvents {
                         }
                     }
                 }
- 
+
                 //if trackingCode is still null then the defaultTrackingCode thing didn't work out, use empty TrackingCode
                 if (trackingCode == null) {
                     trackingCode = delegator.makeValue("TrackingCode");
@@ -152,9 +152,9 @@ public class TrackingCodeEvents {
                     trackingCode.set("billableLifetime", Long.valueOf(2592000));
 
                     trackingCode.set("comments", "This TrackingCode has default values because no default TrackingCode could be found.");
- 
+
                     Debug.logWarning("No default TrackingCode record was found, using a TrackingCode with hard coded default values: " + trackingCode, module);
- 
+
                     try {
                         trackingCode.create();
                     } catch (GenericEntityException e) {
@@ -173,7 +173,7 @@ public class TrackingCodeEvents {
     private static String processTrackingCode(GenericValue trackingCode, HttpServletRequest request, HttpServletResponse response) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         String trackingCodeId = trackingCode.getString("trackingCodeId");
- 
+
         //check effective dates
         java.sql.Timestamp nowStamp = UtilDateTime.nowTimestamp();
         if (trackingCode.get("fromDate") != null && nowStamp.before(trackingCode.getTimestamp("fromDate"))) {
@@ -184,7 +184,7 @@ public class TrackingCodeEvents {
             if (Debug.infoOn()) Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has expired, ignoring this trackingCodeId", module);
             return "success";
         }
- 
+
         //persist that info by associating with the current visit
         GenericValue visit = VisitHandler.getVisit(request.getSession());
         if (visit == null) {
@@ -200,13 +200,13 @@ public class TrackingCodeEvents {
             }
         }
 
- 
+
         // write trackingCode cookies with the value set to the trackingCodeId
         // NOTE: just write these cookies and if others exist from other tracking codes they will be overwritten, ie only keep the newest
- 
+
         // load the properties from the website entity
         String cookieDomain = null;
- 
+
         String webSiteId = WebSiteWorker.getWebSiteId(request);
         if (webSiteId != null) {
             try {
@@ -232,7 +232,7 @@ public class TrackingCodeEvents {
             if (cookieDomain.length() > 0) trackableCookie.setDomain(cookieDomain);
             response.addCookie(trackableCookie);
         }
- 
+
         // if trackingCode.billableLifetime not null and is > 0 write a billable cookie with name in the form: TKCDB_{trackingCode.trackingCodeTypeId} and timeout will be trackingCode.billableLifetime
         Long billableLifetime = trackingCode.getLong("billableLifetime");
         if (billableLifetime != null && (billableLifetime.longValue() > 0 || billableLifetime.longValue() == -1)) {
@@ -242,7 +242,7 @@ public class TrackingCodeEvents {
             if (cookieDomain.length() > 0) billableCookie.setDomain(cookieDomain);
             response.addCookie(billableCookie);
         }
- 
+
         // if site id exist in cookies then not req to create it if exist with diffrent site then create it
         int siteIdCookieAge = (60 * 60 * 24 * 365); // should this be configurable?
         String siteId = request.getParameter("siteId");
@@ -289,7 +289,7 @@ public class TrackingCodeEvents {
             session.setAttribute("CURRENT_CATALOG_ID", prodCatalogId);
             CategoryWorker.setTrail(request, new ArrayList());
         }
- 
+
         // if forward/redirect is needed, do a response.sendRedirect and return null to tell the control servlet to not do any other requests/views
         String redirectUrl = trackingCode.getString("redirectUrl");
         if (UtilValidate.isNotEmpty(redirectUrl)) {
@@ -300,10 +300,10 @@ public class TrackingCodeEvents {
             }
             return null;
         }
- 
+
         return "success";
     }
- 
+
     /** If attaching TrackingCode Cookies to the visit is desired this event should be added to the list
      * of events that run on the first hit in a visit.
      */
@@ -344,7 +344,7 @@ public class TrackingCodeEvents {
                             if (Debug.infoOn()) Debug.logInfo("The TrackingCode with ID [" + trackingCodeId + "] has expired, ignoring this trackingCodeId", module);
                             continue;
                         }
- 
+
                         // for each trackingCodeId found in this way attach to the visit with the TKCDSRC_COOKIE sourceEnumId
                         GenericValue trackingCodeVisit = delegator.makeValue("TrackingCodeVisit",
                                 UtilMisc.toMap("trackingCodeId", trackingCodeId, "visitId", visit.get("visitId"),
@@ -360,7 +360,7 @@ public class TrackingCodeEvents {
                 }
             }
         }
- 
+
         return "success";
     }
 
@@ -439,7 +439,7 @@ public class TrackingCodeEvents {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         java.sql.Timestamp nowStamp = UtilDateTime.nowTimestamp();
         List trackingCodeOrders = new LinkedList();
- 
+
         Cookie[] cookies = request.getCookies();
         Timestamp affiliateReferredTimeStamp = null;
         String siteId = null;
@@ -478,7 +478,7 @@ public class TrackingCodeEvents {
                     isBillable = "N";
                     trackingCodeId = cookies[i].getValue();
                 }
- 
+
             }
         }
         GenericValue trackingCode = null;
@@ -500,7 +500,7 @@ public class TrackingCodeEvents {
                     UtilMisc.toMap("trackingCodeTypeId", trackingCode.get("trackingCodeTypeId"),
                     "trackingCodeId", trackingCodeId, "isBillable", isBillable, "siteId", siteId,
                     "hasExported", "N", "affiliateReferredTimeStamp",affiliateReferredTimeStamp ));
- 
+
             Debug.logInfo(" trackingCodeOrder is " + trackingCodeOrder, module);
             trackingCodeOrders.add(trackingCodeOrder);
         } else {
