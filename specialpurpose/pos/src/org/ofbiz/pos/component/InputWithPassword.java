@@ -22,10 +22,10 @@ import net.xoetrope.swing.XPassword;
 import org.ofbiz.pos.screen.PosScreen;
 
 public class InputWithPassword extends Input {
- 
+
     protected javax.swing.JTextField savedInput;
     protected XPassword password = null;
- 
+
     public InputWithPassword( PosScreen page) {
         super( page);
         this.savedInput = super.input;

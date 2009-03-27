@@ -49,7 +49,7 @@ public class PaidInOut extends XPage {
     /**
      * To allow creating or choising a reason for a PAID IN or OUT
      */
- 
+
     public static final String module = PaidInOut.class.getName();
     protected static PosScreen m_pos = null;
     protected XDialog m_dialog = null;

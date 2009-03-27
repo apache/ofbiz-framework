@@ -39,7 +39,7 @@ public class Input implements KeyboardReceiver, KeyListener {
                                                 "MSRINFO", "OPEN", "PAID", "PAID_IN", "PAID_OUT", "PROMOCODE", "QTY",
                                                 "REFNUM", "SHIFT", "TOTAL", "UNLOCK", "VOID", "TRACK2", "SECURITYCODE",
                                                 "CREDITEXP", "POSTALCODE"};
- 
+
 
     protected Stack functionStack = new Stack();
     protected Component[] pageComs = null;

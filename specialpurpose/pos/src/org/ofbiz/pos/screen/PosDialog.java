@@ -345,5 +345,5 @@ public class PosDialog {
           }
       );
     }
- 
+
 }

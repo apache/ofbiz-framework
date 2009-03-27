@@ -62,7 +62,7 @@ public class Scanner extends GenericDevice {
                         Debug.logWarning("Scanner driver does not support decoding data; the raw result is used instead", module);
                         scanData = scanner.getScanData();
                     }
- 
+
                     scanner.clearInput();
                 } catch (jpos.JposException e) {
                     Debug.logError(e, module);
@@ -79,7 +79,7 @@ public class Scanner extends GenericDevice {
             if (!"main/pospanel".equals(PosScreen.currentScreen.getName())) {
                 PosScreen.currentScreen.showPage("pospanel");
             }
- 
+
             // we can add some type checking here if needed (i.e. type of barcode; type of SKU, etc)
             if (dataType == ScannerConst.SCAN_SDT_UNKNOWN) {
                 Debug.logWarning("Scanner type checking problems - check scanner driver", module);
@@ -100,10 +100,10 @@ public class Scanner extends GenericDevice {
                 // stuff the data to the Input component
                 PosScreen.currentScreen.getInput().clearInput();
                 PosScreen.currentScreen.getInput().appendString(toInput.substring(0, posCR));
- 
+
                 // At least one product recognized
                 MenuEvents.addItem(PosScreen.currentScreen, null);
- 
+
                 if (!MULTI_BARCODES_ALLOWED) {
                     break;
                 }

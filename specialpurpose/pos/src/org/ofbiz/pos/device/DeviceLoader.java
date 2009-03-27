@@ -194,7 +194,7 @@ public class DeviceLoader {
         if (receipt != null) {
             receipt.enable(enable);
         }
- 
+
         // cash drawers and journal printer are
         // never able to be disabled so we can
         // notify when the drawer is open and

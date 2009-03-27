@@ -49,7 +49,7 @@ import org.ofbiz.pos.device.DeviceLoader;
 
 public class PosScreen extends XPage implements Runnable, DialogCallback, FocusListener {
 
- 
+
     public static final String module = PosScreen.class.getName();
     public static final Frame appFrame = XProjectManager.getCurrentProject().getAppFrame();
     public static final Window appWin = XProjectManager.getCurrentProject().getAppWindow();
@@ -75,7 +75,7 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
     protected boolean inDialog = false;
 
     private Locale defaultLocale = Locale.getDefault();
- 
+
     public PosScreen() {
         super();
         this.classLoader = Thread.currentThread().getContextClassLoader();
@@ -99,9 +99,9 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
 
         if (!firstInit) {
             firstInit = true;
- 
+
             // pre-load a few screens
- 
+
             currentProject.getPageManager().loadPage(this.getScreenLocation() + "/paypanel");
             currentProject.getPageManager().loadPage(this.getScreenLocation() + "/mgrpanel");
             currentProject.getPageManager().loadPage(this.getScreenLocation() + "/promopanel");
@@ -392,7 +392,7 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
         }
         return this.scrLocation;
     }
- 
+
     public void setWaitCursor() {
         setCursor(java.awt.Cursor.getPredefinedCursor(java.awt.Cursor.WAIT_CURSOR));
     }
