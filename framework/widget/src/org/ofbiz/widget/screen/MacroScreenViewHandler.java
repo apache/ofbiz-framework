@@ -49,7 +49,7 @@ import freemarker.template.TemplateException;
 import freemarker.template.utility.StandardCompress;
 
 public class MacroScreenViewHandler extends AbstractViewHandler {
- 
+
     public static final String module = MacroScreenViewHandler.class.getName();
 
     protected ServletContext servletContext = null;
@@ -86,7 +86,7 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
                 // to speed up output.
                 writer = new StandardCompress().getWriter(writer, null);
             }
- 
+
             ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(UtilProperties.getPropertyValue("widget", getName() + ".screenrenderer"), writer);
             FormStringRenderer formStringRenderer = new MacroFormRenderer(UtilProperties.getPropertyValue("widget", getName() + ".formrenderer"), writer, request, response);
 

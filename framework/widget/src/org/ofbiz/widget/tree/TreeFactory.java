@@ -44,12 +44,12 @@ import org.xml.sax.SAXException;
  * Widget Library - Tree factory class
  */
 public class TreeFactory {
- 
+
     public static final String module = TreeFactory.class.getName();
 
     public static final UtilCache<String, Map<String, ModelTree>> treeLocationCache = new UtilCache<String, Map<String, ModelTree>>("widget.tree.locationResource", 0, 0, false);
     public static final UtilCache<String, Map<String, ModelTree>> treeWebappCache = new UtilCache<String, Map<String, ModelTree>>("widget.tree.webappResource", 0, 0, false);
- 
+
     public static ModelTree getTreeFromLocation(String resourceName, String treeName, GenericDelegator delegator, LocalDispatcher dispatcher)
             throws IOException, SAXException, ParserConfigurationException {
         Map<String, ModelTree> modelTreeMap = treeLocationCache.get(resourceName);
@@ -61,7 +61,7 @@ public class TreeFactory {
                     if (loader == null) {
                         loader = TreeFactory.class.getClassLoader();
                     }
- 
+
                     URL treeFileUrl = null;
                     treeFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
                     Document treeFileDoc = UtilXml.readXmlDocument(treeFileUrl, true);
@@ -70,20 +70,20 @@ public class TreeFactory {
                 }
             }
         }
- 
+
         ModelTree modelTree = (ModelTree) modelTreeMap.get(treeName);
         if (modelTree == null) {
             throw new IllegalArgumentException("Could not find tree with name [" + treeName + "] in class resource [" + resourceName + "]");
         }
         return modelTree;
     }
- 
+
     public static ModelTree getTreeFromWebappContext(String resourceName, String treeName, HttpServletRequest request)
             throws IOException, SAXException, ParserConfigurationException {
         String webappName = UtilHttp.getApplicationName(request);
         String cacheKey = webappName + "::" + resourceName;
- 
- 
+
+
         Map<String, ModelTree> modelTreeMap = treeWebappCache.get(cacheKey);
         if (modelTreeMap == null) {
             synchronized (TreeFactory.class) {
@@ -92,7 +92,7 @@ public class TreeFactory {
                     ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
                     GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
                     LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
- 
+
                     URL treeFileUrl = servletContext.getResource(resourceName);
                     Document treeFileDoc = UtilXml.readXmlDocument(treeFileUrl, true);
                     modelTreeMap = readTreeDocument(treeFileDoc, delegator, dispatcher, cacheKey);
@@ -100,14 +100,14 @@ public class TreeFactory {
                 }
             }
         }
- 
+
         ModelTree modelTree = (ModelTree) modelTreeMap.get(treeName);
         if (modelTree == null) {
             throw new IllegalArgumentException("Could not find tree with name [" + treeName + "] in webapp resource [" + resourceName + "] in the webapp [" + webappName + "]");
         }
         return modelTree;
     }
- 
+
     public static Map<String, ModelTree> readTreeDocument(Document treeFileDoc, GenericDelegator delegator, LocalDispatcher dispatcher, String treeLocation) {
         Map<String, ModelTree> modelTreeMap = new HashMap<String, ModelTree>();
         if (treeFileDoc != null) {

@@ -93,7 +93,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     protected HttpServletResponse response;
     protected boolean javaScriptEnabled = false;
     protected boolean renderPagination = true;
-    
+
     public MacroFormRenderer(String macroLibraryPath, Appendable writer, HttpServletRequest request, HttpServletResponse response) throws TemplateException, IOException {
         macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         Map<String, Object> input = UtilMisc.toMap("key", null);
@@ -104,7 +104,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         this.rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
         this.javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
     }
-    
+
     public boolean getRenderPagination() {
         return this.renderPagination;
     }
@@ -112,7 +112,7 @@ public class MacroFormRenderer implements FormStringRenderer {
     public void setRenderPagination(boolean renderPagination) {
         this.renderPagination = renderPagination;
     }
-    
+
 
     private void executeMacro(Appendable writer, String macro) throws IOException {
         try {
@@ -181,11 +181,11 @@ public class MacroFormRenderer implements FormStringRenderer {
     	// FIXME copy from HtmlFormRenderer.java
         this.request.setAttribute("image", hyperlinkField.getImage());
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
-         
+
         WidgetWorker.makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context), 
                 hyperlinkField.getParameterList(), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context), modelFormField, 
                 this.request, this.response, context);
-         
+
         this.appendTooltip(writer, context, modelFormField);
     }
 
@@ -211,15 +211,15 @@ public class MacroFormRenderer implements FormStringRenderer {
         String action = modelFormField.getAction(context);
         String id = modelFormField.getIdName();
         String clientAutocomplete = "false";
-        
+
         List<ModelForm.UpdateArea> updateAreas = modelFormField.getOnChangeUpdateAreas();
         boolean ajaxEnabled = updateAreas != null && this.javaScriptEnabled;
         if (!textField.getClientAutocompleteField() || ajaxEnabled) {
             clientAutocomplete = "true";
         }
-        
+
         String ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, null, context);
-        
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderTextField ");
         sr.append("name=\"");
@@ -248,7 +248,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(Boolean.toString(ajaxEnabled));
         sr.append(" />");
         executeMacro(writer, sr.toString());
-        
+
         ModelFormField.SubHyperlink subHyperlink = textField.getSubHyperlink();
         if (subHyperlink != null && subHyperlink.shouldUse(context)) {
         	makeHyperlinkString(writer,subHyperlink,context);
@@ -340,7 +340,7 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         // whether the date field is short form, yyyy-mm-dd
         boolean shortDateInput = ("date".equals(dateTimeField.getType()) || "time-dropdown".equals(dateTimeField.getInputMethod()) ? true : false);
-        
+
         if ("time-dropdown".equals(dateTimeField.getInputMethod())) {
             name = UtilHttp.makeCompositeParam(paramName, "date");
         } else {
@@ -366,7 +366,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                 localizedInputTitle = (String) uiLabelMap.get("CommonFormatDateTime");
             }
         }
-               
+
         String value = modelFormField.getEntry(context, dateTimeField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
             if (value.length() > maxlength) {
@@ -389,7 +389,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (uiLabelMap != null) {
             localizedIconTitle = (String) uiLabelMap.get("CommonViewCalendar");
         }
-        
+
         if (!"time".equals(dateTimeField.getType())) {
             String tempParamName;
             if ("time-dropdown".equals(dateTimeField.getInputMethod())) {
@@ -419,7 +419,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                 Debug.logWarning("Form widget field [" + paramName + "] with input-method=\"time-dropdown\" was not able to understand the default time ["
                         + defaultDateTimeString + "]. The parsing error was: " + e.getMessage(), module);
             }
-            
+
             timeHourName = UtilHttp.makeCompositeParam(paramName, "hour");
             if( cal != null){
                 int hour = cal.get(Calendar.HOUR_OF_DAY);
@@ -439,7 +439,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                 pmSelected = ((cal != null && cal.get(Calendar.AM_PM) == Calendar.PM) ? "selected" : "");
                 ampmName = UtilHttp.makeCompositeParam(paramName, "ampm");
             }
-          
+
         }
         StringWriter sr = new StringWriter();
         sr.append("<@renderDateTimeField ");
@@ -574,7 +574,7 @@ public class MacroFormRenderer implements FormStringRenderer {
        // Adapted from work by Yucca Korpela
        // http://www.cs.tut.fi/~jkorpela/forms/combo.html
        if (otherFieldSize > 0) {
-        
+
           fieldName = modelFormField.getParameterName(context);
           Map dataMap = modelFormField.getMap(context);
           if (dataMap == null) {
@@ -631,7 +631,7 @@ public class MacroFormRenderer implements FormStringRenderer {
           makeHyperlinkString(writer,subHyperlink,context);
       }
       this.appendTooltip(writer, context, modelFormField);
-    
+
     }
 
     public void renderCheckField(Appendable writer, Map<String, Object> context, CheckField checkField) throws IOException {
@@ -651,7 +651,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                 alert = "true";
             }
         }
-        
+
         List allOptionValues = checkField.getAllOptionValues(context, modelForm.getDelegator(context));
         Iterator<ModelFormField.OptionValue> optionValueIter = allOptionValues.iterator();
         items.append("[");
@@ -665,7 +665,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             items.append("'}");
         }
         items.append("]");
-        
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderCheckField ");
         sr.append("items=");
@@ -686,7 +686,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(action);
         sr.append("\" />");
         executeMacro(writer, sr.toString());
-        
+
         this.appendTooltip(writer, context, modelFormField);
     }
 
@@ -708,7 +708,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                 alert = "true";
             }
         }
-        
+
         String noCurrentSelectedKey = radioField.getNoCurrentSelectedKey(context);
         Iterator<ModelFormField.OptionValue> optionValueIter = allOptionValues.iterator();
         items.append("[");
@@ -722,7 +722,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             items.append("'}");
         }
         items.append("]");
-        
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderRadioField ");
         sr.append("items=");
@@ -743,7 +743,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(action);
         sr.append("\" />");
         executeMacro(writer, sr.toString());
-        
+
         this.appendTooltip(writer, context, modelFormField);
     }
 
@@ -802,7 +802,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             }
         }
         String title = modelFormField.getTitle(context);
-        
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderResetField ");
         sr.append(" className=\"");
@@ -815,7 +815,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(title);
         sr.append("\" />");
         executeMacro(writer, sr.toString());
-        
+
         this.appendTooltip(writer, context, modelFormField);
     }
 
@@ -854,7 +854,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             } else {
                 renderHyperlinkTitle(sb, context, modelFormField, titleText);
             }
-            
+
         }
         StringWriter sr = new StringWriter();
         sr.append("<@renderFieldTitle ");
@@ -952,7 +952,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         writer.append("</form>");
         appendWhitespace(writer);
- 
+
         // see if there is anything that needs to be added outside of the multi-form
         Map<String, Object> wholeFormContext = UtilGenerics.checkMap(context.get("wholeFormContext"));
         Appendable postMultiFormWriter = wholeFormContext != null ? (Appendable) wholeFormContext.get("postMultiFormWriter") : null;
@@ -960,7 +960,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             writer.append(postMultiFormWriter.toString());
             appendWhitespace(writer);
         }
- 
+
         renderEndingBoundaryComment(writer, "Form Widget - Form Element (Multi)", modelForm);
     }
 
@@ -987,7 +987,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(modelForm.getDefaultTableStyle());
         sr.append("\" />");
         executeMacro(writer, sr.toString());
-       
+
     }
 
     public void renderFormatListWrapperClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
@@ -1049,7 +1049,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("<@renderFormatHeaderRowFormCellClose />");
         executeMacro(writer, sr.toString());
     }
-    
+
 
     public void renderFormatHeaderRowFormCellTitleSeparator(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, boolean isLast) throws IOException {
         String titleStyle = modelFormField.getTitleStyle();
@@ -1187,7 +1187,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(areaStyle);
         sr.append("\" />");
         executeMacro(writer, sr.toString());
-        
+
     }
 
     public void renderFormatFieldRowWidgetCellClose(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) throws IOException {
@@ -1244,12 +1244,12 @@ public class MacroFormRenderer implements FormStringRenderer {
     public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) {
         // TODO
     }
- 
+
     public void renderBanner(Appendable writer, Map<String, Object> context, ModelForm.Banner banner) {
         // TODO
     }
- 
-  
+
+
     /**
      * Renders the beginning boundary comment string.
      * @param writer The writer to write to
@@ -1318,7 +1318,7 @@ public class MacroFormRenderer implements FormStringRenderer {
              writer.append(titleText);
         }
     }
-    
+
     public void renderSortField(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText) throws IOException {
         boolean ajaxEnabled = false;
         ModelForm modelForm = modelFormField.getModelForm();
@@ -1340,7 +1340,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String str = (String) context.get("_QBESTRING_");
         String oldSortField = modelForm.getSortField(context);
         String sortFieldStyle = modelFormField.getSortFieldStyle();
- 
+
         // if the entry-name is defined use this instead of field name
         String columnField = modelFormField.getEntryName();
         if (UtilValidate.isEmpty(columnField)) {
@@ -1387,7 +1387,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         } else {
             linkUrl = rh.makeLink(this.request, this.response, urlPath + prepLinkText);
         }
-        
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderSortField ");
         sr.append(" style=\"");
@@ -1400,7 +1400,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(Boolean.toString(ajaxEnabled));
         sr.append(" />");
         executeMacro(writer, sr.toString());
-       
+
     }
     /** Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
      * <code>selectall.js</code>.

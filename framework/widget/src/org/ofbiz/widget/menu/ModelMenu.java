@@ -100,10 +100,10 @@ public class ModelMenu extends ModelWidget {
      * with conditions is not possible.
      */
     protected Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
- 
+
     protected List<ModelMenuAction> actions;
 
- 
+
    // ===== CONSTRUCTORS =====
     /** Default Constructor */
     public ModelMenu() {}
@@ -484,7 +484,7 @@ public class ModelMenu extends ModelWidget {
     public String getBoundaryCommentName() {
         return menuLocation + "#" + name;
     }
- 
+
     public Interpreter getBshInterpreter(Map<String, Object> context) throws EvalError {
         Interpreter bsh = (Interpreter) context.get("bshInterpreter");
         if (bsh == null) {

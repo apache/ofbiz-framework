@@ -90,17 +90,17 @@ public class ModelMenuCondition {
         }
         return cond;
     }
- 
+
     public static abstract class MenuCondition {
         protected ModelMenuItem modelMenuItem;
 
         public MenuCondition(ModelMenuItem modelMenuItem, Element conditionElement) {
             this.modelMenuItem = modelMenuItem;
         }
- 
+
         public abstract boolean eval(Map<String, Object> context);
     }
- 
+
     public static List<MenuCondition> readSubConditions(ModelMenuItem modelMenuItem, Element conditionElement) {
         List<MenuCondition> condList = FastList.newInstance();
         List<? extends Element> subElementList = UtilXml.childElementList(conditionElement);
@@ -109,7 +109,7 @@ public class ModelMenuCondition {
         }
         return condList;
     }
- 
+
     public static MenuCondition readCondition(ModelMenuItem modelMenuItem, Element conditionElement) {
         if (conditionElement == null) {
             return null;
@@ -142,15 +142,15 @@ public class ModelMenuCondition {
             throw new IllegalArgumentException("Condition element not supported with name: " + conditionElement.getNodeName());
         }
     }
- 
+
     public static class And extends MenuCondition {
         protected List<MenuCondition> subConditions;
- 
+
         public And(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
             this.subConditions = readSubConditions(modelMenuItem, condElement);
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             // return false for the first one in the list that is false, basic and algo
             for (MenuCondition subCondition: this.subConditions) {
@@ -161,15 +161,15 @@ public class ModelMenuCondition {
             return true;
         }
     }
- 
+
     public static class Xor extends MenuCondition {
         protected List<MenuCondition> subConditions;
- 
+
         public Xor(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
             this.subConditions = readSubConditions(modelMenuItem, condElement);
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             // if more than one is true stop immediately and return false; if all are false return false; if only one is true return true
             boolean foundOneTrue = false;
@@ -186,15 +186,15 @@ public class ModelMenuCondition {
             return foundOneTrue;
         }
     }
- 
+
     public static class Or extends MenuCondition {
         protected List<MenuCondition> subConditions;
- 
+
         public Or(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
             this.subConditions = readSubConditions(modelMenuItem, condElement);
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             // return true for the first one in the list that is true, basic or algo
             for (MenuCondition subCondition: this.subConditions) {
@@ -205,16 +205,16 @@ public class ModelMenuCondition {
             return false;
         }
     }
- 
+
     public static class Not extends MenuCondition {
         protected MenuCondition subCondition;
- 
+
         public Not(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
             Element firstChildElement = UtilXml.firstChildElement(condElement);
             this.subCondition = readCondition(modelMenuItem, firstChildElement);
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             return !this.subCondition.eval(context);
         }
@@ -294,20 +294,20 @@ public class ModelMenuCondition {
     public static class IfHasPermission extends MenuCondition {
         protected FlexibleStringExpander permissionExdr;
         protected FlexibleStringExpander actionExdr;
- 
+
         public IfHasPermission(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
             this.permissionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("permission"));
             this.actionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("action"));
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             // if no user is logged in, treat as if the user does not have permission
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             if (userLogin != null) {
                 String permission = permissionExdr.expandString(context);
                 String action = actionExdr.expandString(context);
- 
+
                 Security security = (Security) context.get("security");
                 if (action != null && action.length() > 0) {
                     // run hasEntityPermission
@@ -329,7 +329,7 @@ public class ModelMenuCondition {
         protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander methodExdr;
         protected FlexibleStringExpander classExdr;
- 
+
         public IfValidateMethod(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
             this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
@@ -337,11 +337,11 @@ public class ModelMenuCondition {
             this.methodExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("method"));
             this.classExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("class"));
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             String methodName = this.methodExdr.expandString(context);
             String className = this.classExdr.expandString(context);
- 
+
             Object fieldVal = this.fieldAcsr.get(context);
             String fieldString = null;
             if (fieldVal != null) {
@@ -384,7 +384,7 @@ public class ModelMenuCondition {
             return resultBool.booleanValue();
         }
     }
- 
+
     public static class IfCompare extends MenuCondition {
         protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander valueExdr;
@@ -392,25 +392,25 @@ public class ModelMenuCondition {
         protected String operator;
         protected String type;
         protected FlexibleStringExpander formatExdr;
- 
+
         public IfCompare(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
             this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
             if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.valueExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("value"));
- 
+
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
 
             this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             String value = this.valueExdr.expandString(context);
             String format = this.formatExdr.expandString(context);
- 
+
             Object fieldVal = this.fieldAcsr.get(context);
- 
+
             // always use an empty string by default
             if (fieldVal == null) {
                 fieldVal = "";
@@ -429,11 +429,11 @@ public class ModelMenuCondition {
 
                 throw new IllegalArgumentException(fullString.toString());
             }
- 
+
             return resultBool.booleanValue();
         }
     }
- 
+
     public static class IfCompareField extends MenuCondition {
         protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleMapAccessor<Object> toFieldAcsr;
@@ -441,26 +441,26 @@ public class ModelMenuCondition {
         protected String operator;
         protected String type;
         protected FlexibleStringExpander formatExdr;
- 
+
         public IfCompareField(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
             this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
             if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field"));
             if (this.toFieldAcsr.isEmpty()) this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field-name"));
- 
+
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
 
             this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             String format = this.formatExdr.expandString(context);
- 
+
             Object fieldVal = this.fieldAcsr.get(context);
             Object toFieldVal = this.toFieldAcsr.get(context);
- 
+
             // always use an empty string by default
             if (fieldVal == null) {
                 fieldVal = "";
@@ -479,25 +479,25 @@ public class ModelMenuCondition {
 
                 throw new IllegalArgumentException(fullString.toString());
             }
- 
+
             return resultBool.booleanValue();
         }
     }
- 
+
     public static class IfRegexp extends MenuCondition {
         static PatternMatcher matcher = new Perl5Matcher();
         static PatternCompiler compiler = new Perl5Compiler();
 
         protected FlexibleMapAccessor<Object> fieldAcsr;
         protected FlexibleStringExpander exprExdr;
- 
+
         public IfRegexp(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
             this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
             if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.exprExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("expr"));
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
             String expr = this.exprExdr.expandString(context);
@@ -518,20 +518,20 @@ public class ModelMenuCondition {
             }
             // always use an empty string by default
             if (fieldString == null) fieldString = "";
- 
+
             return matcher.matches(fieldString, pattern);
         }
     }
- 
+
     public static class IfEmpty extends MenuCondition {
         protected FlexibleMapAccessor<Object> fieldAcsr;
- 
+
         public IfEmpty(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
             this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field"));
             if (this.fieldAcsr.isEmpty()) this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
         }
- 
+
         public boolean eval(Map<String, Object> context) {
             Object fieldVal = this.fieldAcsr.get(context);
             return ObjectType.isEmpty(fieldVal);
@@ -539,14 +539,14 @@ public class ModelMenuCondition {
     }
     public static class IfEntityPermission extends MenuCondition {
         protected EntityPermissionChecker permissionChecker;
- 
+
         public IfEntityPermission(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
             this.permissionChecker = new EntityPermissionChecker(condElement);
         }
- 
+
         public boolean eval(Map<String, Object> context) {
- 
+
             boolean passed = permissionChecker.runPermissionCheck(context);
             return passed;
         }

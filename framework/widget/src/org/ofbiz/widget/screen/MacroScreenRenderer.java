@@ -74,7 +74,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     private Template macroLibrary;
     private Environment environment;
     private int elementId = 999;
- 
+
     public MacroScreenRenderer(String macroLibraryPath, Appendable writer) throws TemplateException, IOException {
         macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         Map<String, Object> input = UtilMisc.toMap("key", null);
@@ -175,7 +175,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
         String targetWindow = link.getTargetWindow(context);
         String target = link.getTarget(context);
-        
+
         String uniqueItemName = link.getModelScreen().getName() + "_LF_" + UtilMisc.<String>addToBigDecimalInMap(context, "screenUniqueItemIndex", BigDecimal.ONE);
 
         String linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
@@ -200,7 +200,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 parameters.append("'}");
             }
             parameters.append("]");
-           
+
         }
         String id = link.getId(context);
         String style = link.getStyle(context);
@@ -314,9 +314,9 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          String editContainerStyle = content.getEditContainerStyle(context);
          String enableEditName = content.getEnableEditName(context);
          String enableEditValue = (String)context.get(enableEditName);
-         
+
          if (Debug.verboseOn()) Debug.logVerbose("directEditRequest:" + editRequest, module);
-         
+
          StringWriter sr = new StringWriter();
          sr.append("<@renderContentBegin ");
          sr.append("editRequest=\"");
@@ -345,7 +345,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         contentContext.putAll(context);
         String dataResourceId = (String)contentContext.get("dataResourceId");
         if (Debug.verboseOn()) Debug.logVerbose("expandedContentId:" + expandedContentId, module);
-        
+
         try {
             if (UtilValidate.isNotEmpty(dataResourceId)) {
                 if (WidgetDataResourceWorker.dataresourceWorker != null) {
@@ -379,7 +379,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 if (content.xmlEscape()) {
                     renderedContent = UtilFormatOut.encodeXmlValue(renderedContent);
                 }
-                
+
                 writer.append(renderedContent);
             }
 
@@ -405,7 +405,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (editRequest != null && editRequest.toUpperCase().indexOf("IMAGE") > 0) {
             editMode += " Image";
         }
-            
+
         if (UtilValidate.isNotEmpty(editRequest) && "true".equals(enableEditValue)) {
             HttpServletResponse response = (HttpServletResponse) context.get("response");
             HttpServletRequest request = (HttpServletRequest) context.get("request");
@@ -417,7 +417,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                 urlString = rh.makeLink(request, response, editRequest, false, false, false);
             }
-            
+
             StringWriter sr = new StringWriter();
             sr.append("<@renderContentEnd ");
             sr.append("urlString=\"");
@@ -468,7 +468,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          String editContainerStyle = content.getEditContainerStyle(context);
          String enableEditName = content.getEnableEditName(context);
          String enableEditValue = (String)context.get(enableEditName);
-         
+
          StringWriter sr = new StringWriter();
          sr.append("<@renderSubContentBegin ");
          sr.append(" editContainerStyle=\"");
@@ -515,7 +515,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                  if (content.xmlEscape()) {
                      renderedContent = UtilFormatOut.encodeXmlValue(renderedContent);
                  }
-                     
+
                  writer.append(renderedContent);
              }
 
@@ -557,7 +557,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                  urlString = rh.makeLink(request, response, editRequest, false, false, false);
              }
          }
-         
+
          StringWriter sr = new StringWriter();
          sr.append("<@renderSubContentEnd ");
          sr.append("urlString=\"");
@@ -574,7 +574,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          executeMacro(writer, sr.toString());
     }
 
-   
+
     public void renderScreenletBegin(Appendable writer, Map<String, Object> context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
@@ -583,7 +583,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (tabMenu != null) {
             tabMenu.renderWidgetString(writer, context, this);
         }
-       
+
         String title = screenlet.getTitle(context);
         boolean collapsible = screenlet.collapsible();
         ModelScreenWidget.Menu navMenu = screenlet.getNavigationMenu();
@@ -626,7 +626,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 menuString = sb.toString();
             }
         }
-        
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderScreenletBegin ");
         sr.append("id=\"");
@@ -758,7 +758,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
         String linkText;
 
-      
+
         // The current screenlet title bar navigation syling requires rendering
         // these links in reverse order
         // Last button
@@ -792,7 +792,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             linkText = prepLinkText + 0 + anchor;
             firstLinkUrl = rh.makeLink(request, response, linkText);
         }
-        
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderScreenletPaginateMenu ");
         sr.append("lowIndex=\"");

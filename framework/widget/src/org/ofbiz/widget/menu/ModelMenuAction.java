@@ -63,19 +63,19 @@ public abstract class ModelMenuAction {
         this.modelMenu = modelMenu;
         if (Debug.verboseOn()) Debug.logVerbose("Reading Screen action with name: " + actionElement.getNodeName(), module);
     }
- 
+
     public ModelMenuAction(ModelMenuItem modelMenuItem, Element actionElement) {
         this.modelMenuItem = modelMenuItem;
         this.modelMenu = modelMenuItem.getModelMenu();
         if (Debug.verboseOn()) Debug.logVerbose("Reading Screen action with name: " + actionElement.getNodeName(), module);
     }
- 
+
     public abstract void runAction(Map<String, Object> context);
- 
+
     public static List<ModelMenuAction> readSubActions(ModelMenuItem modelMenuItem, Element parentElement) {
         return readSubActions(modelMenuItem.getModelMenu(), parentElement);
     }
- 
+
     public static List<ModelMenuAction> readSubActions(ModelMenu modelMenu, Element parentElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
         ArrayList<ModelMenuAction> actions = new ArrayList<ModelMenuAction>(actionElementList.size());
@@ -103,7 +103,7 @@ public abstract class ModelMenuAction {
         actions.trimToSize();
         return actions;
     }
- 
+
     public static void runSubActions(List<ModelMenuAction> actions, Map<String, Object> context) {
         if (actions == null) return;
         for (ModelMenuAction action : actions) {
@@ -111,7 +111,7 @@ public abstract class ModelMenuAction {
             action.runAction(context);
         }
     }
- 
+
     public static class SetField extends ModelMenuAction {
         protected FlexibleMapAccessor<Object> field;
         protected FlexibleMapAccessor<Object> fromField;
@@ -121,7 +121,7 @@ public abstract class ModelMenuAction {
         protected String type;
         protected String toScope;
         protected String fromScope;
- 
+
         public SetField(ModelMenu modelMenu, Element setElement) {
             super (modelMenu, setElement);
             this.field = FlexibleMapAccessor.getInstance(setElement.getAttribute("field"));
@@ -136,12 +136,12 @@ public abstract class ModelMenuAction {
                 throw new IllegalArgumentException("Cannot specify a from-field [" + setElement.getAttribute("from-field") + "] and a value [" + setElement.getAttribute("value") + "] on the set action in a screen widget");
             }
         }
- 
+
         public void runAction(Map<String, Object> context) {
             String globalStr = this.globalExdr.expandString(context);
             // default to false
             boolean global = "true".equals(globalStr);
- 
+
             Object newValue = null;
             if (this.fromScope != null && this.fromScope.equals("user")) {
                 if (!this.fromField.isEmpty()) {
@@ -154,7 +154,7 @@ public abstract class ModelMenuAction {
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expandString(context);
                 }
- 
+
             } else if (this.fromScope != null && this.fromScope.equals("application")) {
                 if (!this.fromField.isEmpty()) {
                     String originalName = this.fromField.getOriginalName();
@@ -166,7 +166,7 @@ public abstract class ModelMenuAction {
                 } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expandString(context);
                 }
- 
+
             } else {
                 if (!this.fromField.isEmpty()) {
                     newValue = this.fromField.get(context);
@@ -182,7 +182,7 @@ public abstract class ModelMenuAction {
                     newValue = this.defaultExdr.expandString(context);
                    }
             }
- 
+
             if (UtilValidate.isNotEmpty(this.type)) {
                 try {
                     newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
@@ -191,7 +191,7 @@ public abstract class ModelMenuAction {
                     Debug.logError(e, errMsg, module);
                     throw new IllegalArgumentException(errMsg);
                 }
- 
+
             }
             if (this.toScope != null && this.toScope.equals("user")) {
                     String originalName = this.field.getOriginalName();
@@ -200,7 +200,7 @@ public abstract class ModelMenuAction {
                     HttpSession session = (HttpSession)context.get("session");
                     session.setAttribute(newKey, newValue);
                     if (Debug.verboseOn()) Debug.logVerbose("In user setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
- 
+
             } else if (this.toScope != null && this.toScope.equals("application")) {
                     String originalName = this.field.getOriginalName();
                     String currentWidgetTrail = (String)context.get("_WIDGETTRAIL_");
@@ -208,19 +208,19 @@ public abstract class ModelMenuAction {
                     ServletContext servletContext = (ServletContext)context.get("application");
                     servletContext.setAttribute(newKey, newValue);
                     if (Debug.verboseOn()) Debug.logVerbose("In application setting value for field from [" + this.field.getOriginalName() + "]: " + newValue, module);
- 
+
             } else {
                 if (Debug.verboseOn()) Debug.logVerbose("In screen setting field [" + this.field.getOriginalName() + "] to value: " + newValue, module);
                 this.field.put(context, newValue);
             }
- 
+
             if (global) {
                 Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
                 if (globalCtx != null) {
                     this.field.put(globalCtx, newValue);
                 }
             }
- 
+
             // this is a hack for backward compatibility with the JPublish page object
             Map<String, Object> page = UtilGenerics.checkMap(context.get("page"));
             if (page != null) {
@@ -228,19 +228,19 @@ public abstract class ModelMenuAction {
             }
         }
     }
- 
+
     public static class PropertyMap extends ModelMenuAction {
         protected FlexibleStringExpander resourceExdr;
         protected FlexibleMapAccessor<Map<String, Object>> mapNameAcsr;
         protected FlexibleStringExpander globalExdr;
- 
+
         public PropertyMap(ModelMenu modelMenu, Element setElement) {
             super (modelMenu, setElement);
             this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
             this.mapNameAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("map-name"));
             this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
- 
+
         public void runAction(Map<String, Object> context) {
             String globalStr = this.globalExdr.expandString(context);
             // default to false
@@ -259,9 +259,9 @@ public abstract class ModelMenuAction {
             }
         }
     }
- 
+
     public static class PropertyToField extends ModelMenuAction {
- 
+
         protected FlexibleStringExpander resourceExdr;
         protected FlexibleStringExpander propertyExdr;
         protected FlexibleMapAccessor<Object> fieldAcsr;
@@ -280,14 +280,14 @@ public abstract class ModelMenuAction {
             this.argListAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("arg-list-name"));
             this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
- 
+
         public void runAction(Map<String, Object> context) {
             // default to false
 
             Locale locale = (Locale) context.get("locale");
             String resource = this.resourceExdr.expandString(context, locale);
             String property = this.propertyExdr.expandString(context, locale);
- 
+
             String value = null;
             if (noLocale) {
                 value = UtilProperties.getPropertyValue(resource, property);
@@ -297,7 +297,7 @@ public abstract class ModelMenuAction {
             if (value == null || value.length() == 0) {
                 value = this.defaultExdr.expandString(context);
             }
- 
+
             // note that expanding the value string here will handle defaultValue and the string from
             //  the properties file; if we decide later that we don't want the string from the properties 
             //  file to be expanded we should just expand the defaultValue at the beginning of this method.
@@ -313,15 +313,15 @@ public abstract class ModelMenuAction {
             fieldAcsr.put(context, value);
         }
     }
- 
+
     public static class Script extends ModelMenuAction {
         protected String location;
- 
+
         public Script(ModelMenu modelMenu, Element scriptElement) {
             super (modelMenu, scriptElement);
             this.location = scriptElement.getAttribute("location");
         }
- 
+
         public void runAction(Map<String, Object> context) {
             if (location.endsWith(".bsh")) {
                 try {
@@ -350,13 +350,13 @@ public abstract class ModelMenuAction {
         protected FlexibleMapAccessor<Map<String, Object>> resultMapNameAcsr;
         protected FlexibleStringExpander autoFieldMapExdr;
         protected Map<FlexibleMapAccessor<Object>, FlexibleMapAccessor<Object>> fieldMap;
- 
+
         public Service(ModelMenu modelMenu, Element serviceElement) {
             super (modelMenu, serviceElement);
             this.serviceNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("service-name"));
             this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map-name"));
             this.autoFieldMapExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("auto-field-map"));
- 
+
             List<? extends Element> fieldMapElementList = UtilXml.childElementList(serviceElement, "field-map");
             if (fieldMapElementList.size() > 0) {
                 this.fieldMap = FastMap.newInstance();
@@ -368,16 +368,16 @@ public abstract class ModelMenuAction {
                 }
             }
         }
- 
+
         public void runAction(Map<String, Object> context) {
             String serviceNameExpanded = this.serviceNameExdr.expandString(context);
             if (UtilValidate.isEmpty(serviceNameExpanded)) {
                 throw new IllegalArgumentException("Service name was empty, expanded from: " + this.serviceNameExdr.getOriginal());
             }
- 
+
             String autoFieldMapString = this.autoFieldMapExdr.expandString(context);
             boolean autoFieldMapBool = !"false".equals(autoFieldMapString);
- 
+
             try {
                 Map<String, Object> serviceContext = null;
                 if (autoFieldMapBool) {
@@ -385,7 +385,7 @@ public abstract class ModelMenuAction {
                 } else {
                     serviceContext = FastMap.newInstance();
                 }
- 
+
                 if (this.fieldMap != null) {
                     for (Map.Entry<FlexibleMapAccessor<Object>, FlexibleMapAccessor<Object>> entry: this.fieldMap.entrySet()) {
                         FlexibleMapAccessor<Object> serviceContextFieldAcsr = entry.getKey();
@@ -393,9 +393,9 @@ public abstract class ModelMenuAction {
                         serviceContextFieldAcsr.put(serviceContext, contextEnvAcsr.get(context));
                     }
                 }
- 
+
                 Map<String, Object> result = this.modelMenu.getDispacher().runSync(serviceNameExpanded, serviceContext);
- 
+
                 if (!this.resultMapNameAcsr.isEmpty()) {
                     this.resultMapNameAcsr.put(context, result);
                 } else {
@@ -411,12 +411,12 @@ public abstract class ModelMenuAction {
 
     public static class EntityOne extends ModelMenuAction {
         protected PrimaryKeyFinder finder;
- 
+
         public EntityOne(ModelMenu modelMenu, Element entityOneElement) {
             super (modelMenu, entityOneElement);
             finder = new PrimaryKeyFinder(entityOneElement);
         }
- 
+
         public void runAction(Map<String, Object> context) {
             try {
                 finder.runFind(context, this.modelMenu.getDelegator());
@@ -430,12 +430,12 @@ public abstract class ModelMenuAction {
 
     public static class EntityAnd extends ModelMenuAction {
         protected ByAndFinder finder;
- 
+
         public EntityAnd(ModelMenu modelMenu, Element entityAndElement) {
             super (modelMenu, entityAndElement);
             finder = new ByAndFinder(entityAndElement);
         }
- 
+
         public void runAction(Map<String, Object> context) {
             try {
                 finder.runFind(context, this.modelMenu.getDelegator());
@@ -449,12 +449,12 @@ public abstract class ModelMenuAction {
 
     public static class EntityCondition extends ModelMenuAction {
         ByConditionFinder finder;
- 
+
         public EntityCondition(ModelMenu modelMenu, Element entityConditionElement) {
             super (modelMenu, entityConditionElement);
             finder = new ByConditionFinder(entityConditionElement);
         }
- 
+
         public void runAction(Map<String, Object> context) {
             try {
                 finder.runFind(context, this.modelMenu.getDelegator());

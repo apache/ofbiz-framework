@@ -31,7 +31,7 @@ import org.ofbiz.entity.GenericDelegator;
 public interface DataResourceWorkerInterface {
     public String renderDataResourceAsTextExt(GenericDelegator delegator, String dataResourceId, Map templateContext,
             Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException;
- 
+
     public void renderDataResourceAsTextExt(GenericDelegator delegator, String dataResourceId, Appendable out, Map templateContext,
             Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException;
 }

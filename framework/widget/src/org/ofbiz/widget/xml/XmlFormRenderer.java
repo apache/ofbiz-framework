@@ -57,7 +57,7 @@ import org.ofbiz.widget.form.ModelFormField.TextareaField;
 public class XmlFormRenderer implements FormStringRenderer {
 
     public static final String module = XmlFormRenderer.class.getName();
- 
+
     HttpServletRequest request;
     HttpServletResponse response;
 
@@ -328,11 +328,11 @@ public class XmlFormRenderer implements FormStringRenderer {
     public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
         // TODO
     }
- 
+
     public void renderBanner(Appendable writer, Map<String, Object> context, ModelForm.Banner banner) throws IOException {
         // TODO
     }
- 
+
     public void renderHyperlinkTitle(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText) throws IOException {
     }
 }

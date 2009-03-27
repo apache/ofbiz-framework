@@ -45,18 +45,18 @@ import org.xml.sax.SAXException;
  * Widget Library - Menu factory class
  */
 public class MenuFactory {
- 
+
     public static final String module = MenuFactory.class.getName();
 
     public static final UtilCache<String, Map<String, ModelMenu>> menuWebappCache = new UtilCache<String, Map<String, ModelMenu>>("widget.menu.webappResource", 0, 0, false);
     public static final UtilCache<String, Map<String, ModelMenu>> menuLocationCache = new UtilCache<String, Map<String, ModelMenu>>("widget.menu.locationResource", 0, 0, false);
- 
+
     public static ModelMenu getMenuFromWebappContext(String resourceName, String menuName, HttpServletRequest request)
             throws IOException, SAXException, ParserConfigurationException {
         String webappName = UtilHttp.getApplicationName(request);
         String cacheKey = webappName + "::" + resourceName;
- 
- 
+
+
         Map<String, ModelMenu> modelMenuMap = menuWebappCache.get(cacheKey);
         if (modelMenuMap == null) {
             synchronized (MenuFactory.class) {
@@ -65,7 +65,7 @@ public class MenuFactory {
                     ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
                     GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
                     LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
- 
+
                     URL menuFileUrl = servletContext.getResource(resourceName);
                     Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true);
                     modelMenuMap = readMenuDocument(menuFileDoc, delegator, dispatcher, cacheKey);
@@ -73,18 +73,18 @@ public class MenuFactory {
                 }
             }
         }
- 
+
         if (UtilValidate.isEmpty(modelMenuMap)) {
             throw new IllegalArgumentException("Could not find menu file in webapp resource [" + resourceName + "] in the webapp [" + webappName + "]");
         }
- 
+
         ModelMenu modelMenu = (ModelMenu) modelMenuMap.get(menuName);
         if (modelMenu == null) {
             throw new IllegalArgumentException("Could not find menu with name [" + menuName + "] in webapp resource [" + resourceName + "] in the webapp [" + webappName + "]");
         }
         return modelMenu;
     }
- 
+
     public static Map<String, ModelMenu> readMenuDocument(Document menuFileDoc, GenericDelegator delegator, LocalDispatcher dispatcher, String menuLocation) {
         Map<String, ModelMenu> modelMenuMap = new HashMap<String, ModelMenu>();
         if (menuFileDoc != null) {
@@ -113,7 +113,7 @@ public class MenuFactory {
                     if (loader == null) {
                         loader = MenuFactory.class.getClassLoader();
                     }
- 
+
                     URL menuFileUrl = null;
                     menuFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
                     Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true);
@@ -126,12 +126,12 @@ public class MenuFactory {
         if (UtilValidate.isEmpty(modelMenuMap)) {
             throw new IllegalArgumentException("Could not find menu file in location [" + resourceName + "]");
         }
- 
+
         ModelMenu modelMenu = (ModelMenu) modelMenuMap.get(menuName);
         if (modelMenu == null) {
             throw new IllegalArgumentException("Could not find menu with name [" + menuName + "] in location [" + resourceName + "]");
         }
         return modelMenu;
     }
- 
+
 }

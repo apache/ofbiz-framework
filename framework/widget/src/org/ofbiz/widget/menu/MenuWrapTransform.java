@@ -55,7 +55,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
     public static final String module = MenuWrapTransform.class.getName();
     public static final String [] upSaveKeyNames = {"globalNodeTrail"};
     public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "renderOnStart", "renderOnClose", "menuDefFile", "menuName", "associatedContentId", "wrapperClassName"};
- 
+
     /**
      * A wrapper for the FreeMarkerWorker version.
      */
@@ -168,7 +168,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
             }
 
             public void renderMenu() throws IOException {
- 
+
                 String menuDefFile = (String)templateCtx.get("menuDefFile");
                 String menuName = (String)templateCtx.get("menuName");
                 String menuWrapperClassName = (String)templateCtx.get("menuWrapperClassName");
@@ -183,7 +183,7 @@ public class MenuWrapTransform implements TemplateTransformModel {
                 String menuStr = menuWrapper.renderMenuString();
                 out.write(menuStr);
             }
- 
+
         };
     }
 }

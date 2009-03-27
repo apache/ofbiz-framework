@@ -141,7 +141,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
     }
 
     public void renderMenuItem(Appendable writer, Map<String, Object> context, ModelMenuItem menuItem) throws IOException {
- 
+
         //Debug.logInfo("in renderMenuItem, menuItem:" + menuItem.getName() + " context:" + context ,"");
         boolean hideThisItem = isHideIfSelected(menuItem, context);
         //if (Debug.infoOn()) Debug.logInfo("in HtmlMenuRendererImage, hideThisItem:" + hideThisItem,"");
@@ -149,18 +149,18 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             return;
 
         String style = null;
- 
+
         if (menuItem.isSelected(context)) {
             style = menuItem.getSelectedStyle();
             if (UtilValidate.isEmpty(style)) {
                 style = "selected";
             }
         }
- 
+
         if (menuItem.getDisabled()) {
             style = menuItem.getDisabledTitleStyle();
         }
- 
+
         writer.append("  <li");
         String alignStyle = menuItem.getAlignStyle();
         if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(alignStyle)) {
@@ -178,7 +178,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             writer.append(" title=\"" + toolTip + "\"");
         }
         writer.append(">");
- 
+
         Link link = menuItem.getLink();
         //if (Debug.infoOn()) Debug.logInfo("in HtmlMenuRendererImage, link(0):" + link,"");
         if (link != null) {
@@ -186,7 +186,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         }
 
         writer.append("</li>");
- 
+
         appendWhitespace(writer);
     }
 
@@ -249,7 +249,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         }
         appendWhitespace(writer);
         writer.append(" <ul>");
- 
+
         appendWhitespace(writer);
     }
 
@@ -273,7 +273,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         writer.append("</div>");
         appendWhitespace(writer);
         renderEndingBoundaryComment(writer, "Menu Widget", modelMenu);
- 
+
         userLoginIdHasChanged = userLoginIdHasChanged();
         GenericValue userLogin = (GenericValue)request.getSession().getAttribute("userLogin");
         if (userLogin != null) {
@@ -368,7 +368,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         if (menuItem.getDisabled()) {
             target = null;
         }
- 
+
         if (UtilValidate.isNotEmpty(target)) {
             HttpServletResponse response = (HttpServletResponse) context.get("response");
             HttpServletRequest request = (HttpServletRequest) context.get("request");
@@ -404,10 +404,10 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                     writer.append(parameter.getValue(context));
                     writer.append("\" type=\"hidden\"/>");
                 }
- 
+
                 writer.append("</form>");
             }
- 
+
             writer.append("<a");
             String id = link.getId(context);
             if (UtilValidate.isNotEmpty(id)) {
@@ -415,7 +415,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
                 writer.append(id);
                 writer.append("\"");
             }
- 
+
             String style = link.getStyle(context);
             if (UtilValidate.isNotEmpty(style)) {
                 writer.append(" class=\"");
@@ -445,7 +445,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             }
             writer.append("\">");
         }
- 
+
         // the text
         Image img = link.getImage();
         if (img == null) {
@@ -453,17 +453,17 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         } else {
             renderImage(writer, context, img);
         }
- 
+
         if (UtilValidate.isNotEmpty(target)) {
             // close tag
             writer.append("</a>");
         }
- 
+
         /* NOTE DEJ20090316: This was here as a comment and not sure what it is for or if it is useful... can probably be safely removed in the future if still not used/needed
         boolean isSelected = menuItem.isSelected(context);
- 
+
         String style = null;
- 
+
         if (isSelected) {
         style = menuItem.getSelectedStyle();
         } else {
@@ -473,11 +473,11 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         if (UtilValidate.isEmpty(style))
         style = menuItem.getWidgetStyle();
         }
- 
+
         if (menuItem.getDisabled()) {
         style = menuItem.getDisabledTitleStyle();
         }
- 
+
         if (UtilValidate.isNotEmpty(style)) {
         writer.append(" class=\"");
         writer.append(style);

@@ -44,7 +44,7 @@ import org.xml.sax.SAXException;
  * Widget Library - Screen factory class
  */
 public class ScreenFactory {
- 
+
     public static final String module = ScreenFactory.class.getName();
 
     public static final UtilCache<String, Map<String, ModelScreen>> screenLocationCache = new UtilCache<String, Map<String, ModelScreen>>("widget.screen.locationResource", 0, 0, false);
@@ -60,7 +60,7 @@ public class ScreenFactory {
         }
         return true;
     }
- 
+
     public static String getResourceNameFromCombined(String combinedName) {
         // split out the name on the last "#"
         int numSignIndex = combinedName.lastIndexOf("#");
@@ -73,7 +73,7 @@ public class ScreenFactory {
         String resourceName = combinedName.substring(0, numSignIndex);
         return resourceName;
     }
- 
+
     public static String getScreenNameFromCombined(String combinedName) {
         // split out the name on the last "#"
         int numSignIndex = combinedName.lastIndexOf("#");
@@ -86,14 +86,14 @@ public class ScreenFactory {
         String screenName = combinedName.substring(numSignIndex + 1);
         return screenName;
     }
- 
+
     public static ModelScreen getScreenFromLocation(String combinedName)
             throws IOException, SAXException, ParserConfigurationException {
         String resourceName = getResourceNameFromCombined(combinedName);
         String screenName = getScreenNameFromCombined(combinedName);
         return getScreenFromLocation(resourceName, screenName);
     }
- 
+
     public static ModelScreen getScreenFromLocation(String resourceName, String screenName)
             throws IOException, SAXException, ParserConfigurationException {
         Map<String, ModelScreen> modelScreenMap = getScreensFromLocation(resourceName);
@@ -116,7 +116,7 @@ public class ScreenFactory {
                     if (loader == null) {
                         loader = ScreenFactory.class.getClassLoader();
                     }
- 
+
                     URL screenFileUrl = null;
                     screenFileUrl = FlexibleLocation.resolveLocation(resourceName, loader);
                     if (screenFileUrl == null) {
@@ -130,7 +130,7 @@ public class ScreenFactory {
                 }
             }
         }
- 
+
         if (modelScreenMap == null) {
             throw new IllegalArgumentException("Could not find screen file with name [" + resourceName + "]");
         }
@@ -141,15 +141,15 @@ public class ScreenFactory {
             throws IOException, SAXException, ParserConfigurationException {
         String webappName = UtilHttp.getApplicationName(request);
         String cacheKey = webappName + "::" + resourceName;
- 
- 
+
+
         Map<String, ModelScreen> modelScreenMap = screenWebappCache.get(cacheKey);
         if (modelScreenMap == null) {
             synchronized (ScreenFactory.class) {
                 modelScreenMap = screenWebappCache.get(cacheKey);
                 if (modelScreenMap == null) {
                     ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
- 
+
                     URL screenFileUrl = servletContext.getResource(resourceName);
                     Document screenFileDoc = UtilXml.readXmlDocument(screenFileUrl, true);
                     modelScreenMap = readScreenDocument(screenFileDoc, resourceName);
@@ -157,14 +157,14 @@ public class ScreenFactory {
                 }
             }
         }
- 
+
         ModelScreen modelScreen = (ModelScreen) modelScreenMap.get(screenName);
         if (modelScreen == null) {
             throw new IllegalArgumentException("Could not find screen with name [" + screenName + "] in webapp resource [" + resourceName + "] in the webapp [" + webappName + "]");
         }
         return modelScreen;
     }
- 
+
     public static Map<String, ModelScreen> readScreenDocument(Document screenFileDoc, String sourceLocation) {
         Map<String, ModelScreen> modelScreenMap = FastMap.newInstance();
         if (screenFileDoc != null) {
