@@ -73,7 +73,7 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
 
         final Map savedValues = FastMap.newInstance();
- 
+
         return new Writer(out) {
 
             public void write(char cbuf[], int off, int len) {
@@ -111,7 +111,7 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
 //                           if ("true".equals(xmlEscape)) {
 //                                txt = UtilFormatOut.encodeXmlValue(txt);
 //                            }
- 
+
                             out.write(txt);
 
 //                            if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, after renderContentAsTextCache:", module);
@@ -131,7 +131,7 @@ public class RenderContentAndSubContent implements TemplateTransformModel {
                         }
                         //FreeMarkerWorker.reloadValues(templateRoot, savedValues, env);
                         //FreeMarkerWorker.reloadValues(templateRoot, savedValuesUp, env);
- 
+
                     } catch (GeneralException e) {
                         String errMsg = "Error rendering thisContentId:" + (String)templateRoot.get("contentId") + " msg:" + e.toString();
                         Debug.logError(e, errMsg, module);

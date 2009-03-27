@@ -33,7 +33,7 @@ import com.sun.star.io.NotConnectedException;
 public class OpenOfficeByteArrayOutputStream extends ByteArrayOutputStream implements XOutputStream {
 
     public static final String module = OpenOfficeByteArrayOutputStream.class.getName();
- 
+
     public OpenOfficeByteArrayOutputStream() {
         super();
         // TODO Auto-generated constructor stub
@@ -63,7 +63,7 @@ public class OpenOfficeByteArrayOutputStream extends ByteArrayOutputStream imple
               throw(new com.sun.star.io.IOException(e.getMessage()));
           }
       }
- 
+
       public void flush()
       {
           try {

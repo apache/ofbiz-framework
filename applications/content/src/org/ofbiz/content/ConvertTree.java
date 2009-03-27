@@ -93,7 +93,7 @@ In order ta make this service active add the following to the service definition
                         Entity.set("createdStamp",UtilDateTime.nowTimestamp());
                         Entity.set("createdTxStamp",UtilDateTime.nowTimestamp());
                         delegator.create(Entity);
- 
+
                         Entity = null;
                         Entity = delegator.makeValue("Content");
                         Entity.set("contentId", "HOME_DUCUMENT");
@@ -132,7 +132,7 @@ In order ta make this service active add the following to the service definition
                                 //Debug.log("======Data======"+data);
                                 size = data.length();
                                 List<GenericValue> contents = null;
- 
+
                                 for(int index = 0; index< size; index++) {//start character in line
                                     boolean contentNameMatch = false;
                                     int contentAssocSize=0;
@@ -168,11 +168,11 @@ In order ta make this service active add the following to the service definition
                                             } else {
                                                 rootContent = "HOME_DUCUMENT";
                                                 contentAssocs= delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId",contentId, "contentIdTo", rootContent));
- 
+
                                             }
                                             contentAssocSize=contentAssocs.size();
                                         }
- 
+
                                         if ( contentAssocSize == 0 && contentNameMatch==false) {//New Root Content
                                             Entity = null;
                                             contentId = delegator.getNextSeqId("Content");
@@ -253,7 +253,7 @@ In order ta make this service active add the following to the service definition
                     return ServiceUtil.returnError(errMsg);
                 }
     }
- 
+
     public static  Map<String,Object> createSubContent(int index,String line,String rootContent, Map context, DispatchContext dctx) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -317,7 +317,7 @@ In order ta make this service active add the following to the service definition
                         Entity.set("createdStamp",UtilDateTime.nowTimestamp());
                         Entity.set("createdTxStamp",UtilDateTime.nowTimestamp());
                         delegator.create(Entity);
- 
+
                         //Relation Content
                         Map<String,Object> contentAssoc = FastMap.newInstance();
                         contentAssoc.put("contentId", contentId);
@@ -329,7 +329,7 @@ In order ta make this service active add the following to the service definition
                     contentName ="";
                     contentNameInprogress="";
                 }
- 
+
                    if ((subContents.charAt(index))!= check.charAt(0)) {
                         contentNameInprogress = contentNameInprogress.concat(Character.toString(subContents.charAt(index)));
                         if (contentNameInprogress.length() > 99) {
@@ -377,7 +377,7 @@ In order ta make this service active add the following to the service definition
                         Entity.set("createdStamp",UtilDateTime.nowTimestamp());
                         Entity.set("createdTxStamp",UtilDateTime.nowTimestamp());
                         delegator.create(Entity);
- 
+
                         //create ContentAssoc
                         Map<String,Object> contentAssoc = FastMap.newInstance();
                         contentAssoc.put("contentId", contentId);
@@ -387,7 +387,7 @@ In order ta make this service active add the following to the service definition
                         dispatcher.runSync("createContentAssoc", contentAssoc);
                     }
                    }
- 
+
             }
         return ServiceUtil.returnSuccess(sucMsg);
         } catch (GenericEntityException e) {

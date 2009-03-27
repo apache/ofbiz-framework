@@ -104,7 +104,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                     //Debug.logInfo("in CheckPermission, trailCsv(2):" + trailCsv,"");
                     //Debug.logInfo("in CheckPermission, contentId(2):" + templateCtx.get("contentId"),"");
                     //Debug.logInfo("in CheckPermission, subContentId(2):" + templateCtx.get("subContentId"),"");
- 
+
                 GenericValue currentContent = null;
         String contentAssocPredicateId = (String)templateCtx.get("contentAssocPredicateId");
                 String strNullThruDatesOnly = (String)templateCtx.get("nullThruDatesOnly");
@@ -126,12 +126,12 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                     currentContent.put("ownerContentId", templateCtx.get("ownerContentId"));
                 }
                     //Debug.logInfo("in CheckPermission, currentContent(1):" + currentContent.get("contentId"),"");
- 
+
                 Security security = null;
                 if (request != null) {
                     security = (Security) request.getAttribute("security");
                 }
- 
+
                 String statusId = (String)currentContent.get("statusId");
                 String passedStatusId = (String)templateCtx.get("statusId");
                 List statusList = StringUtil.split(passedStatusId, "|");
@@ -155,7 +155,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                     throw new IOException("targetOperationList has zero size.");
                 }
                 List roleList = FastList.newInstance();
- 
+
                 String privilegeEnumId = (String)currentContent.get("privilegeEnumId");
                 Map results = EntityPermissionChecker.checkPermission(currentContent, statusList, userLogin, purposeList, targetOperationList, roleList, delegator, security, entityOperation, privilegeEnumId, quickCheckContentId);
 
@@ -167,7 +167,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                 String permissionStatus = (String) results.get("permissionStatus");
 
                 if (UtilValidate.isEmpty(permissionStatus) || !permissionStatus.equals("granted")) {
- 
+
                     String errorMessage = "Permission to add response is denied (2)";
                     PermissionRecorder recorder = (PermissionRecorder)results.get("permissionRecorder");
                         //Debug.logInfo("recorder(0):" + recorder, "");

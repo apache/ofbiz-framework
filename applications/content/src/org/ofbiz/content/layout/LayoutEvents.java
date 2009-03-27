@@ -115,10 +115,10 @@ public class LayoutEvents {
             if (UtilValidate.isNotEmpty(contentPurposeTypeId)) {
                 context.put("contentPurposeList", UtilMisc.toList(contentPurposeTypeId));
             }
- 
+
             Map result = dispatcher.runSync("persistContentAndAssoc", context);
         //Debug.logVerbose("in createLayoutImage, result:" + result, module);
- 
+
             String dataResourceId = (String)result.get("dataResourceId");
             String activeContentId = (String)result.get("contentId");
             if (UtilValidate.isNotEmpty(activeContentId)) {
@@ -127,14 +127,14 @@ public class LayoutEvents {
                 //context2.put("dataResourceId", dataResourceId);
                 context2.put("contentAssocTypeId", result.get("contentAssocTypeId"));
                 context2.put("fromDate", result.get("fromDate"));
- 
+
                 request.setAttribute("contentId", result.get("contentId"));
                 request.setAttribute("drDataResourceId", dataResourceId);
                 request.setAttribute("currentEntityName", "SubContentDataResourceId");
- 
+
                 context2.put("contentIdTo", formInput.get("contentIdTo"));
                 context2.put("mapKey", formInput.get("mapKey"));
- 
+
             //Debug.logVerbose("in createLayoutImage, context2:" + context2, module);
                 Map result2 = dispatcher.runSync("deactivateAssocs", context2);
             }
@@ -196,7 +196,7 @@ public class LayoutEvents {
             context.put("objectInfo", context.get("drobjectInfo"));
             context.put("drObjectInfo", null);
             context.put("drDataResourceTypeId", null);
- 
+
             String dataResourceId = (String)context.get("drDataResourceId");
             Debug.logVerbose("in createLayoutImage(java), dataResourceId:" + dataResourceId, "");
 
@@ -281,7 +281,7 @@ public class LayoutEvents {
             context.put("contentIdTo", contentIdTo);
             context.put("mapKey", mapKey);
             context.put("contentAssocTypeId", "SUB_CONTENT");
- 
+
             try {
                 Map result = dispatcher.runSync("persistContentAndAssoc", context);
         //Debug.logVerbose("in replaceSubContent, result:" + result, module);
@@ -291,13 +291,13 @@ public class LayoutEvents {
                 //context2.put("dataResourceId", dataResourceId);
                 context2.put("contentAssocTypeId", "SUB_CONTENT");
                 context2.put("fromDate", result.get("fromDate"));
- 
+
                 request.setAttribute("drDataResourceId", null);
                 request.setAttribute("currentEntityName", "ContentDataResourceView");
- 
+
                 context2.put("contentIdTo", contentIdTo);
                 context2.put("mapKey", mapKey);
- 
+
                 //Debug.logVerbose("in replaceSubContent, context2:" + context2, module);
                 Map result2 = dispatcher.runSync("deactivateAssocs", context2);
             } catch ( GenericServiceException e) {
@@ -400,7 +400,7 @@ public class LayoutEvents {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";
         }
- 
+
         serviceIn = FastMap.newInstance();
         serviceIn.put("userLogin", session.getAttribute("userLogin"));
 
@@ -519,7 +519,7 @@ public class LayoutEvents {
             context2.put("fromDate", result.get("fromDate"));
             context2.put("contentIdTo", contentIdTo);
             context2.put("mapKey", mapKey);
- 
+
             //Debug.logVerbose("in replaceSubContent, context2:" + context2, module);
             Map result2 = dispatcher.runSync("deactivateAssocs", context2);
         } catch ( GenericServiceException e) {
@@ -590,7 +590,7 @@ public class LayoutEvents {
             context2.put("fromDate", result.get("fromDate"));
             context2.put("contentIdTo", contentIdTo);
             context2.put("mapKey", mapKey);
- 
+
             //Debug.logVerbose("in replaceSubContent, context2:" + context2, module);
             Map result2 = dispatcher.runSync("deactivateAssocs", context2);
             */
@@ -606,7 +606,7 @@ public class LayoutEvents {
         Map paramMap = UtilHttp.getParameterMap(request);
         String entityName = (String)paramMap.get("entityName");
         Locale locale = UtilHttp.getLocale(request);
- 
+
         if (UtilValidate.isEmpty(entityName) ) {
             String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.entityname_empty", locale);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);

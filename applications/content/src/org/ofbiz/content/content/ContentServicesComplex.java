@@ -258,7 +258,7 @@ public class ContentServicesComplex {
             fieldMap.putAll(UtilMisc.toMap("thruDate", null));
         }
         List contentAssocsUnfiltered = null;
- 
+
             //if (Debug.infoOn()) Debug.logInfo("in getAssocAndContent...Cache, fieldMap:" + fieldMap, module);
         contentAssocsUnfiltered = delegator.findByAndCache("ContentAssoc", fieldMap, UtilMisc.toList("-fromDate"));
 

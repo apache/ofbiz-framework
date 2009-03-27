@@ -91,7 +91,7 @@ public class ContentPermissionServices {
      */
     public static Map<String, Object> checkContentPermission(DispatchContext dctx, Map<String, ? extends Object> context) {
         Debug.logWarning(new Exception(), "This service has been depricated in favor of [genericContentPermission]", module);
- 
+
         Security security = dctx.getSecurity();
         GenericDelegator delegator = dctx.getDelegator();
         String statusId = (String) context.get("statusId");
@@ -132,7 +132,7 @@ public class ContentPermissionServices {
             partyId = userLogin.getString("partyId");
         }
 
- 
+
         // Do entity permission check. This will pass users with administrative permissions.
         boolean passed = false;
         // I realized, belatedly, that I wanted to be able to pass parameters in as
@@ -148,7 +148,7 @@ public class ContentPermissionServices {
             }
             passedPurposes.addAll(purposesFromString);
         }
- 
+
         EntityPermissionChecker.StdAuxiliaryValueGetter auxGetter = new EntityPermissionChecker.StdAuxiliaryValueGetter("ContentPurpose",  "contentPurposeTypeId", "contentId");
         // Sometimes permissions need to be checked before an entity is created, so
         // there needs to be a method for setting a purpose list
@@ -168,7 +168,7 @@ public class ContentPermissionServices {
         //Debug.logInfo("targetOperations(c):" + targetOperations, "");
         EntityPermissionChecker.StdPermissionConditionGetter permCondGetter = new EntityPermissionChecker.StdPermissionConditionGetter("ContentPurposeOperation",  "contentOperationId", "roleTypeId", "statusId", "contentPurposeTypeId", "privilegeEnumId");
         permCondGetter.setOperationList(targetOperations);
- 
+
         EntityPermissionChecker.StdRelatedRoleGetter roleGetter = new EntityPermissionChecker.StdRelatedRoleGetter("Content",  "roleTypeId", "contentId", "partyId", "ownerContentId", "ContentRole");
         //Debug.logInfo("targetOperations(b):" + targetOperations, "");
         List passedRoles = (List) context.get("roleTypeList");
@@ -179,13 +179,13 @@ public class ContentPermissionServices {
             passedRoles.addAll(rolesFromString);
         }
         roleGetter.setList(passedRoles);
- 
+
         String entityAction = (String) context.get("entityOperation");
         if (entityAction == null) entityAction = "_ADMIN";
         if (userLogin != null && entityAction != null) {
             passed = security.hasEntityPermission("CONTENTMGR", entityAction, userLogin);
         }
- 
+
         StringBuilder errBuf = new StringBuilder();
         String permissionStatus = null;
         List entityIds = FastList.newInstance();
@@ -195,7 +195,7 @@ public class ContentPermissionServices {
             if (displayPassCond) {
                  errBuf.append("\n    hasEntityPermission(" + entityAction + "): PASSED" );
             }
- 
+
         } else {
             if (displayFailCond) {
                  errBuf.append("\n    hasEntityPermission(" + entityAction + "): FAILED" );
@@ -222,7 +222,7 @@ public class ContentPermissionServices {
             errBuf.append("\n    permissionStatus:" );
             errBuf.append(permissionStatus);
         }
- 
+
         if ((permissionStatus.equals("granted") && displayPassCond)
             || (permissionStatus.equals("rejected") && displayFailCond)) {
             // Don't show this if passed on 'hasEntityPermission'
@@ -238,27 +238,27 @@ public class ContentPermissionServices {
                  errBuf.append(partyId);
                  errBuf.append("\n    entityIds:" );
                  errBuf.append(entityIds);
- 
+
                  if (auxGetter != null) {
                      errBuf.append("\n    auxList:" );
                      errBuf.append(auxGetter.getList());
                  }
- 
+
                  if (roleGetter != null) {
                      errBuf.append("\n    roleList:" );
                      errBuf.append(roleGetter.getList());
                  }
               }
- 
+
             }
         }
         Debug.logInfo("displayPass/FailCond(0), errBuf:" + errBuf.toString(), "");
         results.put(ModelService.ERROR_MESSAGE, errBuf.toString());
         return results;
     }
- 
+
     public static Map<String, Object> checkAssocPermission(DispatchContext dctx, Map<String, ? extends Object> context) {
- 
+
         Map results = FastMap.newInstance();
         Security security = dctx.getSecurity();
         GenericDelegator delegator = dctx.getDelegator();
@@ -271,7 +271,7 @@ public class ContentPermissionServices {
         if (entityAction == null) entityAction = "_ADMIN";
         List roleIds = null;
         String permissionStatus = null;
- 
+
         GenericValue contentTo = null;
         GenericValue contentFrom = null;
         try {
@@ -285,12 +285,12 @@ public class ContentPermissionServices {
         }
         Map resultsMap = null;
         boolean isMatch = false;
- 
+
         boolean isMatchTo = false;
         boolean isMatchFrom = false;
         Map permResults = FastMap.newInstance();
         String skipPermissionCheck = null;
- 
+
         if (skipPermissionCheck == null
             || skipPermissionCheck.length() == 0
             || (!skipPermissionCheck.equalsIgnoreCase("true") && !skipPermissionCheck.equalsIgnoreCase("granted"))) {
@@ -303,7 +303,7 @@ public class ContentPermissionServices {
             serviceInMap.put("contentPurposeList", relatedPurposesTo);
             serviceInMap.put("currentContent", contentTo);
             serviceInMap.put("displayFailCond", bDisplayFailCond);
- 
+
             try {
                 permResults = dispatcher.runSync("checkContentPermission", serviceInMap);
             } catch (GenericServiceException e) {
@@ -339,5 +339,5 @@ public class ContentPermissionServices {
         }
         return results;
     }
- 
+
 }

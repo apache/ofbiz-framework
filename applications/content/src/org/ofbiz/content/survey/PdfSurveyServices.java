@@ -69,7 +69,7 @@ import com.lowagie.text.pdf.PdfWriter;
  */
 
 public class PdfSurveyServices {
- 
+
     public static final String module = PdfSurveyServices.class.getName();
 
     /**
@@ -89,7 +89,7 @@ public class PdfSurveyServices {
             PdfStamper pdfStamper = new PdfStamper(pdfReader, os);
             AcroFields acroFields = pdfStamper.getAcroFields();
             Map acroFieldMap = acroFields.getFields();
- 
+
             String contentId = (String) context.get("contentId");
             GenericValue survey = null;
             surveyId = (String) context.get("surveyId");
@@ -101,12 +101,12 @@ public class PdfSurveyServices {
                 survey = delegator.createSetNextSeqId(survey);
                 surveyId = survey.getString("surveyId");
             }
- 
+
             // create a SurveyQuestionCategory to put the questions in
             Map createCategoryResultMap = dispatcher.runSync("createSurveyQuestionCategory",
                     UtilMisc.<String, Object>toMap("description", "From AcroForm in Content [" + contentId + "] for Survey [" + surveyId + "]", "userLogin", userLogin));
             String surveyQuestionCategoryId = (String) createCategoryResultMap.get("surveyQuestionCategoryId");
- 
+
             pdfStamper.setFormFlattening(true);
             Iterator i = acroFieldMap.keySet().iterator();
             while (i.hasNext()) {
@@ -135,13 +135,13 @@ public class PdfSurveyServices {
                     surveyQuestion.set("surveyQuestionTypeId", "TEXT_SHORT");
                     Debug.logWarning("Building Survey from PDF, fieldName=[" + fieldName + "]: don't know how to handle field type: " + type + "; defaulting to short text", module);
                 }
- 
+
                 // ==== create a good sequenceNum based on tab order or if no tab order then the page location
- 
+
                 Integer tabPage = (Integer) item.page.get(0);
                 Integer tabOrder = (Integer) item.tabOrder.get(0);
                 Debug.logInfo("tabPage=" + tabPage + ", tabOrder=" + tabOrder, module);
- 
+
                 //array of float  multiple of 5. For each of this groups the values are: [page, llx, lly, urx, ury]
                 float[] fieldPositions = acroFields.getFieldPositions(fieldName);
                 float fieldPage = fieldPositions[0];
@@ -159,15 +159,15 @@ public class PdfSurveyServices {
                     sequenceNum = Long.valueOf((long) fieldPage * 10000 + (long) fieldLly * 1000 + (long) fieldLlx);
                     Debug.logInfo("fieldPage=" + fieldPage + ", fieldLlx=" + fieldLlx + ", fieldLly=" + fieldLly + ", fieldUrx=" + fieldUrx + ", fieldUry=" + fieldUry + ", sequenceNum=" + sequenceNum, module);
                 }
- 
+
                 // TODO: need to find something better to put into these fields...
                 String annotation = null;
                 Iterator widgetIter = item.widgets.iterator();
                 while (widgetIter.hasNext()) {
                     PdfDictionary dict = (PdfDictionary) widgetIter.next();
- 
+
                     // if the "/Type" value is "/Annot", then get the value of "/TU" for the annotation
- 
+
                     /* Interesting... this doesn't work, I guess we have to iterate to find the stuff...
                     PdfObject typeValue = dict.get(new PdfName("/Type"));
                     if (typeValue != null && "/Annot".equals(typeValue.toString())) {
@@ -175,16 +175,16 @@ public class PdfSurveyServices {
                         annotation = tuValue.toString();
                     }
                     */
- 
+
                     PdfObject typeValue = null;
                     PdfObject tuValue = null;
- 
+
                     Set dictKeys = dict.getKeys();
                     Iterator dictKeyIter = dictKeys.iterator();
                     while (dictKeyIter.hasNext()) {
                         PdfName dictKeyName = (PdfName) dictKeyIter.next();
                         PdfObject dictObject = dict.get(dictKeyName);
- 
+
                         if ("/Type".equals(dictKeyName.toString())) {
                             typeValue = dictObject;
                         } else if ("/TU".equals(dictKeyName.toString())) {
@@ -196,7 +196,7 @@ public class PdfSurveyServices {
                         annotation = tuValue.toString();
                     }
                 }
- 
+
                 surveyQuestion.set("description", fieldName);
                 if (UtilValidate.isNotEmpty(annotation)) {
                     surveyQuestion.set("question", annotation);
@@ -233,12 +233,12 @@ public class PdfSurveyServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
- 
+
         Map results = ServiceUtil.returnSuccess();
         results.put("surveyId", surveyId);
         return results;
     }
- 
+
     /**
      *
      */
@@ -246,7 +246,7 @@ public class PdfSurveyServices {
 
         String surveyResponseId = null;
         try {
- 
+
             GenericDelegator delegator = dctx.getDelegator();
             String partyId = (String)context.get("partyId");
             String surveyId = (String)context.get("surveyId");
@@ -264,15 +264,15 @@ public class PdfSurveyServices {
                 surveyResponse.set("lastModifiedDate", UtilDateTime.nowTimestamp());
                 surveyResponse.create();
             }
- 
+
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             ByteBuffer byteBuffer = getInputByteBuffer(context, delegator);
             PdfReader r = new PdfReader(byteBuffer.array());
             PdfStamper s = new PdfStamper(r,os);
             AcroFields fs = s.getAcroFields();
             Map hm = fs.getFields();
- 
- 
+
+
             s.setFormFlattening(true);
             Iterator i = hm.keySet().iterator();
             while (i.hasNext()) {
@@ -280,13 +280,13 @@ public class PdfSurveyServices {
                 //AcroFields.Item item = fs.getFieldItem(fieldName);
                 //int type = fs.getFieldType(fieldName);
                 String value = fs.getField(fieldName);
- 
+
                 List questions = delegator.findByAnd("SurveyQuestionAndAppl", UtilMisc.toMap("surveyId", surveyId, "externalFieldRef", fieldName));
                 if (questions.size() == 0 ) {
                     Debug.logInfo("No question found for surveyId:" + surveyId + " and externalFieldRef:" + fieldName, module);
                     continue;
                 }
- 
+
                 GenericValue surveyQuestionAndAppl = (GenericValue)questions.get(0);
                 String surveyQuestionId = (String)surveyQuestionAndAppl.get("surveyQuestionId");
                 String surveyQuestionTypeId = (String)surveyQuestionAndAppl.get("surveyQuestionTypeId");
@@ -310,7 +310,7 @@ public class PdfSurveyServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
- 
+
         Map results = ServiceUtil.returnSuccess();
         results.put("surveyResponseId", surveyResponseId);
         return results;
@@ -319,7 +319,7 @@ public class PdfSurveyServices {
     /**
      */
     public static Map<String, Object> getAcroFieldsFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
- 
+
         Map acroFieldMap = FastMap.newInstance();
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -329,21 +329,21 @@ public class PdfSurveyServices {
             PdfStamper s = new PdfStamper(r,os);
             AcroFields fs = s.getAcroFields();
             Map map = fs.getFields();
- 
+
             s.setFormFlattening(true);
- 
+
             // Debug code to get the values for setting TDP
     //        String[] sa = fs.getAppearanceStates("TDP");
     //        for (int i=0;i<sa.length;i++)
     //            Debug.log("Appearance="+sa[i]);
- 
+
             Iterator iter = map.keySet().iterator();
             while (iter.hasNext()) {
                 String fieldName=(String)iter.next();
                 String parmValue = fs.getField(fieldName);
                 acroFieldMap.put(fieldName, parmValue);
             }
- 
+
         } catch (DocumentException e) {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
@@ -354,16 +354,16 @@ public class PdfSurveyServices {
             System.err.println(ioe.getMessage());
             ServiceUtil.returnError(ioe.getMessage());
         }
- 
+
     Map results = ServiceUtil.returnSuccess();
     results.put("acroFieldMap", acroFieldMap);
     return results;
     }
- 
+
     /**
      */
     public static Map<String, Object> setAcroFields(DispatchContext dctx, Map<String, ? extends Object> context) {
- 
+
         Map results = ServiceUtil.returnSuccess();
         GenericDelegator delegator = dctx.getDelegator();
         try {
@@ -374,14 +374,14 @@ public class PdfSurveyServices {
             PdfStamper s = new PdfStamper(r, baos);
             AcroFields fs = s.getAcroFields();
             Map map = fs.getFields();
- 
+
             s.setFormFlattening(true);
- 
+
             // Debug code to get the values for setting TDP
     //      String[] sa = fs.getAppearanceStates("TDP");
     //      for (int i=0;i<sa.length;i++)
     //          Debug.log("Appearance="+sa[i]);
- 
+
             Iterator iter = map.keySet().iterator();
             while (iter.hasNext()) {
                 String fieldName=(String)iter.next();
@@ -399,11 +399,11 @@ public class PdfSurveyServices {
                 }   else {
                     fieldValue=(String)obj;
                 }
- 
+
                 if (UtilValidate.isNotEmpty(fieldValue))
                     fs.setField(fieldName, fieldValue);
             }
- 
+
             s.close();
             baos.close();
             ByteBuffer outByteBuffer = ByteBuffer.wrap(baos.toByteArray());
@@ -424,11 +424,11 @@ public class PdfSurveyServices {
             System.err.println(ioe.getMessage());
             ServiceUtil.returnError(ioe.getMessage());
         }
- 
+
     return results;
     }
- 
- 
+
+
     /**
      */
     public static Map<String, Object> buildPdfFromSurveyResponse(DispatchContext dctx, Map<String, ? extends Object> rcontext) {
@@ -457,10 +457,10 @@ public class PdfSurveyServices {
                     }
                 }
             }
- 
+
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PdfWriter.getInstance(document, baos);
- 
+
             List responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId));
             Iterator iter = responses.iterator();
             while (iter.hasNext()) {
@@ -497,10 +497,10 @@ public class PdfSurveyServices {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
         }
- 
+
         return results;
     }
- 
+
     /**
      * Returns list of maps with "question"->SurveyQuestion and "response"->SurveyResponseAnswer
      */
@@ -520,7 +520,7 @@ public class PdfSurveyServices {
                     surveyId = surveyResponse.getString("surveyId");
                 }
             }
- 
+
             List responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId));
             Iterator iter = responses.iterator();
             while (iter.hasNext()) {
@@ -535,10 +535,10 @@ public class PdfSurveyServices {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
         }
- 
+
         return results;
     }
- 
+
     /**
      */
     public static Map<String, Object> setAcroFieldsFromSurveyResponse(DispatchContext dctx, Map<String, ? extends Object> context) {
@@ -548,7 +548,7 @@ public class PdfSurveyServices {
         Map acroFieldMap = FastMap.newInstance();
         String surveyResponseId = (String)context.get("surveyResponseId");
         String acroFormContentId = null;
- 
+
         try {
             String surveyId = null;
             if (UtilValidate.isNotEmpty(surveyResponseId)) {
@@ -564,7 +564,7 @@ public class PdfSurveyServices {
                     acroFormContentId = survey.getString("acroFormContentId");
                 }
             }
- 
+
             List responses = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", surveyResponseId));
             Iterator iter = responses.iterator();
             while (iter.hasNext()) {
@@ -573,10 +573,10 @@ public class PdfSurveyServices {
                 String surveyQuestionId = (String) surveyResponseAnswer.get("surveyQuestionId");
 
                 GenericValue surveyQuestion = delegator.findByPrimaryKeyCache("SurveyQuestion", UtilMisc.toMap("surveyQuestionId", surveyQuestionId));
- 
+
                 List surveyQuestionApplList = EntityUtil.filterByDate(delegator.findByAndCache("SurveyQuestionAppl", UtilMisc.toMap("surveyId", surveyId, "surveyQuestionId", surveyQuestionId), UtilMisc.toList("-fromDate")), false);
                 GenericValue surveyQuestionAppl = EntityUtil.getFirst(surveyQuestionApplList);
- 
+
                 String questionType = surveyQuestion.getString("surveyQuestionTypeId");
                 String fieldName = surveyQuestionAppl.getString("externalFieldRef");
                 if ("OPTION".equals(questionType)) {
@@ -599,7 +599,7 @@ public class PdfSurveyServices {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
         }
- 
+
         try {
             ModelService modelService = dispatcher.getDispatchContext().getModelService("setAcroFields");
             Map ctx = modelService.makeValid(context, "IN");
@@ -629,14 +629,14 @@ public class PdfSurveyServices {
             System.err.println(e.getMessage());
             ServiceUtil.returnError(e.getMessage());
         }
- 
+
     return results;
     }
- 
+
     public static ByteBuffer getInputByteBuffer(Map context, GenericDelegator delegator) throws GeneralException {
- 
+
         ByteBuffer inputByteBuffer = (ByteBuffer)context.get("inputByteBuffer");
- 
+
         if (inputByteBuffer == null) {
             String pdfFileNameIn = (String)context.get("pdfFileNameIn");
             String contentId = (String)context.get("contentId");

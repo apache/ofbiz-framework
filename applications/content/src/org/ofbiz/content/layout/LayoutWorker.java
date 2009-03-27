@@ -53,7 +53,7 @@ public class LayoutWorker {
 
         //Debug.logVerbose("in uploadAndStoreImage", "");
         Locale locale = UtilHttp.getLocale(request);
- 
+
         Map results = FastMap.newInstance();
         Map formInput = FastMap.newInstance();
         results.put("formInput", formInput);
@@ -104,7 +104,7 @@ public class LayoutWorker {
         ByteBuffer byteWrap = ByteBuffer.wrap(imageBytes);
         results.put("imageData", byteWrap);
         results.put("imageFileName", imageFi.getName());
- 
+
         //Debug.logVerbose("in uploadAndStoreImage, results:" + results, "");
         return results;
     }

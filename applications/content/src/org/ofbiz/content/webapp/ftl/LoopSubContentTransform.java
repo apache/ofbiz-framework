@@ -143,13 +143,13 @@ public class LoopSubContentTransform implements TemplateTransformModel {
         final GenericDelegator delegator = (GenericDelegator) FreeMarkerWorker.getWrappedObject("delegator", env);
         final Map savedValues = FreeMarkerWorker.saveValues(templateCtx, saveKeyNames);
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
- 
+
         String contentAssocTypeId = (String) templateCtx.get("contentAssocTypeId");
         if (UtilValidate.isEmpty(contentAssocTypeId)) {
             contentAssocTypeId = "SUB_CONTENT";
             templateCtx.put("contentAssocTypeId ", contentAssocTypeId);
         }
- 
+
         List assocTypes = UtilMisc.toList(contentAssocTypeId);
         templateCtx.put("assocTypes", assocTypes);
         Locale locale = (Locale) templateCtx.get("locale");
@@ -164,12 +164,12 @@ public class LoopSubContentTransform implements TemplateTransformModel {
             fromDate = UtilDateTime.toTimestamp(fromDateStr);
         }
         if (fromDate == null) fromDate = UtilDateTime.nowTimestamp();
- 
+
         String thisContentId = (String) templateCtx.get("contentId");
- 
+
         //DEJ20080730 Should always use contentId, not subContentId since we're searching for that and it is confusing
         //if (UtilValidate.isEmpty(thisContentId)) thisContentId = (String)templateCtx.get("subContentId");
- 
+
         String thisMapKey = (String)templateCtx.get("mapKey");
         //GenericValue subContentDataResourceView = null;
         Map results = ContentServicesComplex.getAssocAndContentAndDataResourceMethod(delegator, thisContentId, thisMapKey, null, fromDate, null, null, null, assocTypes, null);
@@ -216,14 +216,14 @@ public class LoopSubContentTransform implements TemplateTransformModel {
                 String wrapTemplateId = (String)templateCtx.get("wrapTemplateId");
                 if (UtilValidate.isNotEmpty(wrapTemplateId)) {
                     templateCtx.put("wrappedFTL", wrappedFTL);
- 
+
                     Map templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
- 
+
                     templateRoot.put("wrapDataResourceTypeId", templateCtx.get("subDataResourceTypeId"));
                     templateRoot.put("wrapContentIdTo", templateCtx.get("contentId"));
                     templateRoot.put("wrapMimeTypeId", templateCtx.get("mimeTypeId"));
                     templateRoot.put("context", templateCtx);
- 
+
                     Locale locale = (Locale) templateCtx.get("locale");
                     if (locale == null) locale = Locale.getDefault();
                     String mimeTypeId = (String) templateCtx.get("mimeTypeId");

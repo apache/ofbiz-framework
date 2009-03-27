@@ -56,7 +56,7 @@ import org.ofbiz.webapp.event.CoreEvents;
  */
 public class CompDocEvents {
     public static final String module = CompDocEvents.class.getName();
- 
+
     /**
      *
      * @param request
@@ -78,7 +78,7 @@ public class CompDocEvents {
         GenericValue userLogin = (GenericValue)session.getAttribute("userLogin");
         String contentId = (String)paramMap.get("contentId");
         //String instanceContentId = null;
- 
+
         boolean contentExists = true;
         if (UtilValidate.isEmpty(contentId)) {
             contentExists = false;
@@ -93,7 +93,7 @@ public class CompDocEvents {
                 return "error";
            }
         }
- 
+
         ModelService modelService = null;
         try {
             modelService = dispatcher.getDispatchContext().getModelService("persistContentAndAssoc");
@@ -136,7 +136,7 @@ public class CompDocEvents {
                 request.setAttribute("_ERROR_MESSAGE_", "<li>" + errMsg + "</li>");
                 return "error";
             }
- 
+
         } catch (GenericServiceException e) {
             String errMsg = "Error running serviceName, 'persistContentAndAssoc'. " + e.toString();
             Debug.logError(errMsg, module);
@@ -145,7 +145,7 @@ public class CompDocEvents {
         }
         return "success";
     }
- 
+
     public static String padNumberWithLeadingZeros(Long num, Integer padLen) {
         String s = UtilFormatOut.formatPaddedNumber(num.longValue(), padLen.intValue());
         return s;
@@ -164,7 +164,7 @@ public class CompDocEvents {
         String rootDir = null;
         String webSiteId = null;
         String https = null;
- 
+
         if (UtilValidate.isEmpty(rootDir)) {
             rootDir = servletContext.getRealPath("/");
         }
@@ -174,7 +174,7 @@ public class CompDocEvents {
         if (UtilValidate.isEmpty(https)) {
             https = (String) servletContext.getAttribute("https");
         }
- 
+
         Map mapIn = FastMap.newInstance();
         mapIn.put("contentId", contentId);
         mapIn.put("locale", locale);
@@ -182,7 +182,7 @@ public class CompDocEvents {
         mapIn.put("webSiteId", webSiteId);
         mapIn.put("https", https);
         mapIn.put("userLogin", userLogin);
- 
+
         Map results = null;
         try {
             results = dispatcher.runSync("renderCompDocPdf", mapIn);
@@ -196,19 +196,19 @@ public class CompDocEvents {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
         }
- 
+
         if (ServiceUtil.isError(results)) {
             request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(results));
             return "error";
         }
- 
+
         ByteBuffer outByteBuffer = (ByteBuffer) results.get("outByteBuffer");
 
         // setup content type
         String contentType = "application/pdf; charset=ISO-8859-1";
 
         ByteArrayInputStream bais = new ByteArrayInputStream(outByteBuffer.array());
- 
+
         /*
         try {
             FileOutputStream fos = new FileOutputStream(FileUtil.getFile("/home/byersa/pdftest.pdf"));
@@ -238,7 +238,7 @@ public class CompDocEvents {
         String rootDir = null;
         String webSiteId = null;
         String https = null;
- 
+
         if (UtilValidate.isEmpty(rootDir)) {
             rootDir = servletContext.getRealPath("/");
         }
@@ -248,7 +248,7 @@ public class CompDocEvents {
         if (UtilValidate.isEmpty(https)) {
             https = (String) servletContext.getAttribute("https");
         }
- 
+
         Map mapIn = FastMap.newInstance();
         mapIn.put("contentId", contentId);
         mapIn.put("locale", locale);
@@ -256,7 +256,7 @@ public class CompDocEvents {
         mapIn.put("webSiteId", webSiteId);
         mapIn.put("https", https);
         mapIn.put("userLogin", userLogin);
- 
+
         Map results = null;
         try {
             results = dispatcher.runSync("renderContentPdf", mapIn);
@@ -270,19 +270,19 @@ public class CompDocEvents {
             request.setAttribute("_ERROR_MESSAGE_", e.toString());
             return "error";
         }
- 
+
         if (ServiceUtil.isError(results)) {
             request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(results));
             return "error";
         }
- 
+
         ByteBuffer outByteBuffer = (ByteBuffer) results.get("outByteBuffer");
 
         // setup content type
         String contentType = "application/pdf; charset=ISO-8859-1";
 
         ByteArrayInputStream bais = new ByteArrayInputStream(outByteBuffer.array());
- 
+
         /*
         try {
             FileOutputStream fos = new FileOutputStream(FileUtil.getFile("/home/byersa/pdftest.pdf"));

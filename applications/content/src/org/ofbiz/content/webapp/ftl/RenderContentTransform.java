@@ -58,7 +58,7 @@ public class RenderContentTransform implements TemplateTransformModel {
         final LocalDispatcher dispatcher = (LocalDispatcher) FreeMarkerWorker.getWrappedObject("dispatcher", env);
         final HttpServletRequest request = (HttpServletRequest) FreeMarkerWorker.getWrappedObject("request", env);
         final HttpServletResponse response = (HttpServletResponse) FreeMarkerWorker.getWrappedObject("response", env);
- 
+
         final Map templateRoot = MapStack.create(FreeMarkerWorker.createEnvironmentMap(env));
         ((MapStack)templateRoot).push(args);
         final String xmlEscape =  (String)templateRoot.get("xmlEscape");
@@ -96,7 +96,7 @@ public class RenderContentTransform implements TemplateTransformModel {
 
                 try {
                     String txt = null;
- 
+
                     String mapKey = (String)templateRoot.get("mapKey");
                     if ( UtilValidate.isEmpty(mapKey)) {
                         txt = ContentWorker.renderContentAsText(dispatcher, delegator, thisContentId, templateRoot, locale, mimeTypeId, true);
@@ -106,9 +106,9 @@ public class RenderContentTransform implements TemplateTransformModel {
                     if ("true".equals(xmlEscape)) {
                         txt = UtilFormatOut.encodeXmlValue(txt);
                     }
- 
+
                     out.write(txt);
- 
+
                 } catch (GeneralException e) {
                     String errMsg = "Error rendering thisContentId:" + thisContentId + " msg:" + e.toString();
                     Debug.logError(e, errMsg, module);
@@ -133,7 +133,7 @@ public class RenderContentTransform implements TemplateTransformModel {
                     fullRequest += delim + "contentId=" + thisContentId;
                     delim = "&";
                 }
- 
+
                 out.write("<a href=\"");
                 ServletContext servletContext = (ServletContext) request.getSession().getServletContext();
                 RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");

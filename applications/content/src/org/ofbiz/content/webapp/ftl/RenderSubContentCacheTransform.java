@@ -208,7 +208,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                 String contentAssocTypeId = null;
                 String mapKey = null;
                 String fromDate = null;
- 
+
                 if (!directAssocMode) {
                     contentIdTo = (String)templateRoot.get("contentId");
                     contentAssocTypeId = (String)templateRoot.get("contentAssocTypeId");
@@ -263,7 +263,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                     fullRequest += delim + "fromDate=" + fromDate;
                     delim = "&";
                 }
- 
+
                 if (Debug.infoOn()) Debug.logInfo("in Render(2), contentIdTo ." + contentIdTo , module);
                 out.write("<a href=\"");
                 ServletContext servletContext = (ServletContext) request.getSession().getServletContext();
@@ -284,7 +284,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
                 return editStyle;
             }
         };
- 
+
     }
 
 }
