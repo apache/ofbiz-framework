@@ -95,7 +95,7 @@ public class EntityEcaRule implements java.io.Serializable {
         if (!"any".equals(this.operationName) && this.operationName.indexOf(currentOperation) == -1) {
             return;
         }
- 
+
         Map<String, Object> context = FastMap.newInstance();
         context.putAll(value);
 

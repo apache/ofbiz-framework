@@ -51,7 +51,7 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
         this.delegatorName = delegator.getDelegatorName();
         this.entityEcaReaderName = EntityEcaUtil.getEntityEcaReaderName(this.delegatorName);
         this.dctx = EntityServiceFactory.getDispatchContext(delegator);
- 
+
         //preload the cache
         EntityEcaUtil.getEntityEcaCache(this.entityEcaReaderName);
     }
@@ -72,11 +72,11 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
 
         List<EntityEcaRule> rules = eventMap.get(event);
         //Debug.logInfo("Handler.evalRules for entity " + value.getEntityName() + ", event " + event + ", num rules=" + (rules == null ? 0 : rules.size()), module);
- 
+
         if (rules == null || rules.size() == 0) {
             return;
         }
- 
+
         if (!rules.isEmpty() && Debug.verboseOn()) Debug.logVerbose("Running ECA (" + event + ").", module);
         Set<String> actionsRun = new TreeSet<String>();
         for (EntityEcaRule eca: rules) {

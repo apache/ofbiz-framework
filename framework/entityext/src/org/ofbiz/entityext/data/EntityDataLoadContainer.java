@@ -95,7 +95,7 @@ public class EntityDataLoadContainer implements Container {
                     }
                     argument = argument.substring(subIdx);
                 }
- 
+
                 // parse the arguments
                 String argumentName;
                 String argumentVal;
@@ -145,7 +145,7 @@ public class EntityDataLoadContainer implements Container {
                     Debug.log("-help ................ display this information", module);
                     System.exit(1);
                 }
- 
+
                 // special case
                 if (this.readers == null && (!this.files.isEmpty() || this.directory != null)) {
                     this.readers = "none";
@@ -244,7 +244,7 @@ public class EntityDataLoadContainer implements Container {
         NumberFormat changedFormat = NumberFormat.getIntegerInstance();
         changedFormat.setMinimumIntegerDigits(5);
         changedFormat.setGroupingUsed(false);
- 
+
         List<Object> errorMessages = FastList.newInstance();
         List<String> infoMessages = FastList.newInstance();
         int totalRowsChanged = 0;
@@ -275,7 +275,7 @@ public class EntityDataLoadContainer implements Container {
               Debug.logImportant(message, module);
             }
         }
- 
+
         if (errorMessages.size() > 0) {
             Debug.logImportant("The following errors occured in the data load:", module);
             for (Object message: errorMessages) {
@@ -284,7 +284,7 @@ public class EntityDataLoadContainer implements Container {
         }
 
         Debug.logImportant("=-=-=-=-=-=-= Finished the data load with " + totalRowsChanged + " rows changed.", module);
- 
+
         return true;
     }
 

@@ -34,7 +34,7 @@ import org.w3c.dom.Element;
  * EntityEcaCondition
  */
 public class EntityEcaCondition implements java.io.Serializable {
- 
+
     public static final String module = EntityEcaCondition.class.getName();
 
     protected String lhsValueName, rhsValueName;
