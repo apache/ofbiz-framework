@@ -65,7 +65,7 @@ public class ArtifactInfoFactory {
     public static final String module = ArtifactInfoFactory.class.getName();
 
     protected static UtilCache<String, ArtifactInfoFactory> artifactInfoFactoryCache = new UtilCache<String, ArtifactInfoFactory>("ArtifactInfoFactory");
- 
+
     public static final String EntityInfoTypeId = "entity";
     public static final String ServiceInfoTypeId = "service";
     public static final String ServiceEcaInfoTypeId = "serviceEca";
@@ -73,13 +73,13 @@ public class ArtifactInfoFactory {
     public static final String ScreenWidgetInfoTypeId = "screen";
     public static final String ControllerRequestInfoTypeId = "request";
     public static final String ControllerViewInfoTypeId = "view";
- 
+
     protected String delegatorName;
     protected ModelReader entityModelReader;
     protected DispatchContext dispatchContext;
     protected Map<String, Map<String, List<EntityEcaRule>>> entityEcaCache;
     protected Map<String, Map<String, List<ServiceEcaRule>>> serviceEcaCache;
- 
+
     public Map<String, EntityArtifactInfo> allEntityInfos = FastMap.newInstance();
     public Map<String, ServiceArtifactInfo> allServiceInfos = FastMap.newInstance();
     public Map<ServiceEcaRule, ServiceEcaArtifactInfo> allServiceEcaInfos = FastMap.newInstance();
@@ -95,7 +95,7 @@ public class ArtifactInfoFactory {
     public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosBasedOnServiceName = FastMap.newInstance();
     public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToServiceName = FastMap.newInstance();
     public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToServiceName = FastMap.newInstance();
- 
+
     public Map<String, Set<ServiceArtifactInfo>> allServiceInfosReferringToEntityName = FastMap.newInstance();
     public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToEntityName = FastMap.newInstance();
     public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToEntityName = FastMap.newInstance();
@@ -104,22 +104,22 @@ public class ArtifactInfoFactory {
 
     public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosExtendingForm = FastMap.newInstance();
     public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToForm = FastMap.newInstance();
- 
+
     public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToScreen = FastMap.newInstance();
     public Map<String, Set<ControllerViewArtifactInfo>> allViewInfosReferringToScreen = FastMap.newInstance();
- 
+
     public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToView = FastMap.newInstance();
- 
+
     public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosTargetingRequest = FastMap.newInstance();
     public Map<String, Set<FormWidgetArtifactInfo>> allFormInfosReferringToRequest = FastMap.newInstance();
     public Map<String, Set<ScreenWidgetArtifactInfo>> allScreenInfosReferringToRequest = FastMap.newInstance();
     public Map<String, Set<ControllerRequestArtifactInfo>> allRequestInfosReferringToRequest = FastMap.newInstance();
- 
+
     public static ArtifactInfoFactory getArtifactInfoFactory(String delegatorName) throws GeneralException {
         if (UtilValidate.isEmpty(delegatorName)) {
             delegatorName = "default";
         }
- 
+
         ArtifactInfoFactory aif = artifactInfoFactoryCache.get(delegatorName);
         if (aif == null) {
             aif = new ArtifactInfoFactory(delegatorName);
@@ -127,28 +127,28 @@ public class ArtifactInfoFactory {
         }
         return aif;
     }
- 
+
     protected ArtifactInfoFactory(String delegatorName) throws GeneralException {
         this.delegatorName = delegatorName;
         this.entityModelReader = ModelReader.getModelReader(delegatorName);
         this.dispatchContext = new DispatchContext("ArtifactInfoDispCtx", null, this.getClass().getClassLoader(), null);
         this.entityEcaCache = EntityEcaUtil.getEntityEcaCache(EntityEcaUtil.getEntityEcaReaderName(delegatorName));
         this.serviceEcaCache = ServiceEcaUtil.ecaCache;
- 
+
         this.prepareAll();
     }
- 
+
     public void prepareAll() throws GeneralException {
         Set<String> entityNames = this.getEntityModelReader().getEntityNames();
         for (String entityName: entityNames) {
             this.getEntityArtifactInfo(entityName);
         }
- 
+
         Set<String> serviceNames = this.getDispatchContext().getAllServiceNames();
         for (String serviceName: serviceNames) {
             this.getServiceArtifactInfo(serviceName);
         }
- 
+
         // how to get all Service ECAs to prepare? don't worry about it, will be populated from service load, ie all ECAs for each service
 
         Collection<ComponentConfig> componentConfigs = ComponentConfig.getAllComponents();
@@ -230,34 +230,34 @@ public class ArtifactInfoFactory {
             }
         }
     }
- 
+
     public ModelReader getEntityModelReader() {
         return this.entityModelReader;
     }
- 
+
     public DispatchContext getDispatchContext() {
         return this.dispatchContext;
     }
- 
+
     public ModelEntity getModelEntity(String entityName) throws GenericEntityException {
         return this.getEntityModelReader().getModelEntity(entityName);
     }
- 
+
     public ModelService getModelService(String serviceName) throws GenericServiceException {
         return this.getDispatchContext().getModelService(serviceName);
     }
- 
+
     public ModelForm getModelForm(String formNameAndLocation) throws ParserConfigurationException, SAXException, IOException {
         return getModelForm(formNameAndLocation.substring(formNameAndLocation.indexOf("#") + 1), formNameAndLocation.substring(0, formNameAndLocation.indexOf("#")));
     }
     public ModelForm getModelForm(String formName, String formLocation) throws ParserConfigurationException, SAXException, IOException {
         return FormFactory.getFormFromLocation(formLocation, formName, this.entityModelReader, this.dispatchContext);
     }
- 
+
     public ModelScreen getModelScreen(String screenName, String screenLocation) throws ParserConfigurationException, SAXException, IOException {
         return ScreenFactory.getScreenFromLocation(screenLocation, screenName);
     }
- 
+
     public ConfigXMLReader.RequestMap getControllerRequestMap(URL controllerXmlUrl, String requestUri) {
         return ConfigXMLReader.getControllerConfig(controllerXmlUrl).requestMapMap.get(requestUri);
     }
@@ -276,7 +276,7 @@ public class ArtifactInfoFactory {
         }
         return curInfo;
     }
- 
+
     public ServiceArtifactInfo getServiceArtifactInfo(String serviceName) throws GeneralException {
         ServiceArtifactInfo curInfo = this.allServiceInfos.get(serviceName);
         if (curInfo == null) {
@@ -286,7 +286,7 @@ public class ArtifactInfoFactory {
         }
         return curInfo;
     }
- 
+
     public ServiceEcaArtifactInfo getServiceEcaArtifactInfo(ServiceEcaRule ecaRule) throws GeneralException {
         ServiceEcaArtifactInfo curInfo = this.allServiceEcaInfos.get(ecaRule);
         if (curInfo == null) {
@@ -296,7 +296,7 @@ public class ArtifactInfoFactory {
         }
         return curInfo;
     }
- 
+
     public FormWidgetArtifactInfo getFormWidgetArtifactInfo(String formNameAndLocation) throws GeneralException {
         return getFormWidgetArtifactInfo(formNameAndLocation.substring(formNameAndLocation.indexOf("#") + 1), formNameAndLocation.substring(0, formNameAndLocation.indexOf("#")));
     }
@@ -309,7 +309,7 @@ public class ArtifactInfoFactory {
         }
         return curInfo;
     }
- 
+
     public ScreenWidgetArtifactInfo getScreenWidgetArtifactInfo(String screenName, String screenLocation) throws GeneralException {
         ScreenWidgetArtifactInfo curInfo = this.allScreenInfos.get(screenLocation + "#" + screenName);
         if (curInfo == null) {
@@ -324,7 +324,7 @@ public class ArtifactInfoFactory {
         }
         return curInfo;
     }
- 
+
     public ControllerRequestArtifactInfo getControllerRequestArtifactInfo(URL controllerXmlUrl, String requestUri) throws GeneralException {
         ControllerRequestArtifactInfo curInfo = this.allControllerRequestInfos.get(controllerXmlUrl.toExternalForm() + "#" + requestUri);
         if (curInfo == null) {
@@ -334,7 +334,7 @@ public class ArtifactInfoFactory {
         }
         return curInfo;
     }
- 
+
     public ControllerViewArtifactInfo getControllerViewArtifactInfo(URL controllerXmlUrl, String viewUri) throws GeneralException {
         ControllerViewArtifactInfo curInfo = this.allControllerViewInfos.get(controllerXmlUrl.toExternalForm() + "#" + viewUri);
         if (curInfo == null) {
@@ -343,7 +343,7 @@ public class ArtifactInfoFactory {
         }
         return curInfo;
     }
- 
+
     public ArtifactInfoBase getArtifactInfoByUniqueIdAndType(String uniqueId, String type) {
         if (uniqueId.contains("#")) {
             int poundIndex = uniqueId.indexOf('#');
@@ -352,7 +352,7 @@ public class ArtifactInfoFactory {
             return getArtifactInfoByNameAndType(uniqueId, null, type);
         }
     }
- 
+
     public ArtifactInfoBase getArtifactInfoByNameAndType(String artifactName, String artifactLocation, String type) {
         try {
             if ("entity".equals(type)) {
@@ -375,14 +375,14 @@ public class ArtifactInfoFactory {
         }
         return null;
     }
- 
+
     public Set<ArtifactInfoBase> getAllArtifactInfosByNamePartial(String artifactNamePartial, String type) {
         Set<ArtifactInfoBase> aiBaseSet = FastSet.newInstance();
- 
+
         if (UtilValidate.isEmpty(artifactNamePartial)) {
             return aiBaseSet;
         }
- 
+
         if (UtilValidate.isEmpty(type) || "entity".equals(type)) {
             for (Map.Entry<String, EntityArtifactInfo> curEntry: allEntityInfos.entrySet()) {
                 if (curEntry.getKey().toUpperCase().contains(artifactNamePartial.toUpperCase())) {
@@ -425,7 +425,7 @@ public class ArtifactInfoFactory {
                 }
             }
         }
- 
+
         return aiBaseSet;
     }
 }

@@ -28,11 +28,11 @@ import java.net.URL;
  */
 public abstract class ArtifactInfoBase implements Comparable<ArtifactInfoBase> {
     protected ArtifactInfoFactory aif;
- 
+
     public ArtifactInfoBase(ArtifactInfoFactory aif) {
         this.aif = aif;
     }
- 
+
     public boolean equals(Object obj) {
         if (obj instanceof ArtifactInfoBase) {
             return this.equals(obj);
@@ -40,21 +40,21 @@ public abstract class ArtifactInfoBase implements Comparable<ArtifactInfoBase> {
             return false;
         }
     }
- 
+
     public int compareTo(ArtifactInfoBase that) {
         if (that == null) return -1;
         String thisName = this.getDisplayType() + ":" + this.getDisplayName();
         String thatName = that.getDisplayType() + ":" + that.getDisplayName();
         return thisName.compareTo(thatName);
     }
- 
+
     abstract public String getDisplayName();
     abstract public String getDisplayType();
     abstract public String getType();
     abstract public String getUniqueId();
     abstract public URL getLocationURL() throws MalformedURLException;
- 
- 
+
+
     //public static List<ArtifactInfoBase> sortArtifactInfoSetByDisplayName(Set<ArtifactInfoBase> artifactInfoSet) {
         //SortedMap<String, ArtifactInfoBase> sortedMap = FastMap.newInstance();
     //}

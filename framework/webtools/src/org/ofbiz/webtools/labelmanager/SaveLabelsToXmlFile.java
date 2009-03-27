@@ -67,7 +67,7 @@ public class SaveLabelsToXmlFile {
                 Document resourceDocument = UtilXml.makeEmptyXmlDocument("resource");
                 Element resourceElem = resourceDocument.getDocumentElement();
                 resourceElem.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
- 
+
                 for (String labelKey : labelsList) {
                     LabelInfo labelInfo = (LabelInfo)labels.get(labelKey);
 
@@ -77,7 +77,7 @@ public class SaveLabelsToXmlFile {
 
                     Element propertyElem = UtilXml.addChildElement(resourceElem, "property", resourceDocument);
                     propertyElem.setAttribute("key", StringUtil.fromHtmlToSpecialChars(labelInfo.getLabelKey(), true, true, false));
- 
+
                     if (UtilValidate.isNotEmpty(labelInfo.getLabelKeyComment())) {
                         Comment labelKeyComment = resourceDocument.createComment(StringUtil.fromHtmlToSpecialChars(labelInfo.getLabelKeyComment(), true, true, false));
                         Node parent = propertyElem.getParentNode();
@@ -90,7 +90,7 @@ public class SaveLabelsToXmlFile {
                         if (UtilValidate.isNotEmpty(labelValue)) {
                              Element valueElem = UtilXml.addChildElementValue(propertyElem, "value", StringUtil.fromHtmlToSpecialChars(labelValue.getLabelValue(), true, true, false), resourceDocument);
                             valueElem.setAttribute("xml:lang", localeFound);
- 
+
                             if (UtilValidate.isNotEmpty(labelValue.getLabelComment())) {
                                 Comment labelComment = resourceDocument.createComment(StringUtil.fromHtmlToSpecialChars(labelValue.getLabelComment(), true, true, false));
                                 Node parent = valueElem.getParentNode();
@@ -104,7 +104,7 @@ public class SaveLabelsToXmlFile {
                     File outFile = new File(new URI(uri));
                     FileOutputStream fos = new FileOutputStream(outFile);
                     OutputFormat format = new OutputFormat(resourceDocument.getDocumentElement().getOwnerDocument(), "UTF-8", true);
- 
+
                     try {
                         format.setIndent(4);
                         format.setOmitXMLDeclaration(true);
@@ -112,23 +112,23 @@ public class SaveLabelsToXmlFile {
                     } finally {
                         if (UtilValidate.isNotEmpty(fos)) {
                                fos.close();
- 
+
                             // workaround to insert the Apache License Header at top of the file
                             // because the comment on top the xml file has been not written
                             String outBuffer = FileUtil.readString("UTF-8", outFile);
                             String basePath = System.getProperty("ofbiz.home");
- 
+
                             if (UtilValidate.isNotEmpty(basePath)) {
                                 String apacheHeaderFileName = basePath + "/framework/webtools/config/APACHE2_HEADER_FOR_XML";
                                 String apacheHeaderBuffer = "";
                                 File apacheHeaderFile = new File(apacheHeaderFileName);
- 
+
                                 if (UtilValidate.isNotEmpty(apacheHeaderFile)) {
                                     apacheHeaderBuffer = FileUtil.readString("UTF-8", apacheHeaderFile);
                                 }
- 
+
                                 FileUtil.writeString("UTF-8", apacheHeaderBuffer + outBuffer, outFile);
- 
+
                                 // clear cache to see immediately the new labels and translations in OFBiz
                                 UtilCache.clearCache("properties.UtilPropertiesBundleCache");
                             }

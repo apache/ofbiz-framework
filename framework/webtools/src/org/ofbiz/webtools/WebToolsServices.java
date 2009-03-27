@@ -273,7 +273,7 @@ public class WebToolsServices {
                                 "maintainTimeStamps", maintainTimeStamps,
                                 "txTimeout", txTimeout,
                                 "userLogin", userLogin);
- 
+
                         try {
                             URL furl = f.toURI().toURL();
                             parseEntityXmlFileArgs.put("url", furl);
@@ -331,7 +331,7 @@ public class WebToolsServices {
         boolean maintainTxs = "true".equals((String) context.get("maintainTimeStamps"));
         boolean tryInserts = "true".equals((String) context.get("mostlyInserts"));
         boolean checkDataOnly = "true".equals((String) context.get("checkDataOnly"));
- 
+
         Integer txTimeoutInt = (Integer) context.get("txTimeout");
         int txTimeout = txTimeoutInt != null ? txTimeoutInt.intValue() : -1;
 
@@ -373,7 +373,7 @@ public class WebToolsServices {
         NumberFormat changedFormat = NumberFormat.getIntegerInstance();
         changedFormat.setMinimumIntegerDigits(5);
         changedFormat.setGroupingUsed(false);
- 
+
         List<Object> errorMessages = FastList.newInstance();
         List<String> infoMessages = FastList.newInstance();
         int totalRowsChanged = 0;
@@ -416,19 +416,19 @@ public class WebToolsServices {
             messages.add("=-=-=-=-=-=-= Here is a summary of the data " + (checkDataOnly ? "check" : "load") + ":");
             messages.addAll(infoMessages);
         }
- 
+
         if (errorMessages.size() > 0) {
             messages.add("=-=-=-=-=-=-= The following errors occured in the data " + (checkDataOnly ? "check" : "load") + ":");
             messages.addAll(errorMessages);
         }
 
         messages.add("=-=-=-=-=-=-= Finished the data " + (checkDataOnly ? "check" : "load") + " with " + totalRowsChanged + " rows " + (checkDataOnly ? "checked" : "changed") + ".");
- 
+
         Map<String, Object> resultMap = ServiceUtil.returnSuccess();
         resultMap.put("messages", messages);
         return resultMap;
     }
-    
+
     public static Map<String, Object> parseEntityXmlFile(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
 
@@ -554,7 +554,7 @@ public class WebToolsServices {
         Map<String, Object> resp = UtilMisc.<String, Object>toMap("results", results);
         return resp;
     }
- 
+
     /** Get entity reference data. Returns the number of entities in
      * <code>numberOfEntities</code> and a List of Maps -
      * <code>packagesList</code>.<br/> Each Map contains:<br/>
@@ -611,12 +611,12 @@ public class WebToolsServices {
         Locale locale = (Locale) context.get("locale");
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Map<String, Object> resultMap = ServiceUtil.returnSuccess();
- 
+
         ModelReader reader = delegator.getModelReader();
         Map<String, TreeSet<String>> entitiesByPackage = FastMap.newInstance();
         TreeSet<String> packageNames = new TreeSet<String>();
         TreeSet<String> tableNames = new TreeSet<String>();
- 
+
         //put the entityNames TreeSets in a HashMap by packageName
         try {
             Collection<String> ec = reader.getEntityNames();
@@ -638,7 +638,7 @@ public class WebToolsServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("ERROR: getting entity names: " + e.getMessage());
         }
- 
+
         String search = (String) context.get("search");
         List<Map<String, Object>> packagesList = FastList.newInstance();
         Iterator piter = packageNames.iterator();
@@ -735,19 +735,19 @@ public class WebToolsServices {
                         List<Map<String, Object>> indexList = FastList.newInstance();
                         for (int r = 0; r < entity.getIndexesSize(); r++) {
                             List<String> fieldNameList = FastList.newInstance();
- 
+
                             ModelIndex index = entity.getIndex(r);
                             for (Iterator<String> fieldIterator = index.getIndexFieldsIterator(); fieldIterator.hasNext();) {
                                 fieldNameList.add(fieldIterator.next());
                             }
- 
+
                             Map<String, Object> indexMap = FastMap.newInstance();
                             indexMap.put("name", index.getName());
                             indexMap.put("description", index.getDescription());
                             indexMap.put("fieldNameList", fieldNameList);
                             indexList.add(indexMap);
                         }
- 
+
                         entityMap.put("entityName", entityName);
                         entityMap.put("helperName", helperName);
                         entityMap.put("groupName", groupName);
@@ -770,27 +770,27 @@ public class WebToolsServices {
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError("ERROR: getting entity info: " + e.getMessage());
         }
- 
+
         resultMap.put("packagesList", packagesList);
         return resultMap;
     }
- 
+
     public static Map<String, Object> exportEntityEoModelBundle(DispatchContext dctx, Map<String, ? extends Object> context) {
         String eomodeldFullPath = (String) context.get("eomodeldFullPath");
         String entityPackageNameOrig = (String) context.get("entityPackageName");
         String entityGroupId = (String) context.get("entityGroupId");
         String datasourceName = (String) context.get("datasourceName");
         String entityNamePrefix = (String) context.get("entityNamePrefix");
- 
+
         if (datasourceName == null) datasourceName = "localderby";
- 
+
         ModelReader reader = dctx.getDelegator().getModelReader();
- 
+
         try {
             if (!eomodeldFullPath.endsWith(".eomodeld")) {
                 eomodeldFullPath = eomodeldFullPath + ".eomodeld";
             }
- 
+
             File outdir = new File(eomodeldFullPath);
             if (!outdir.exists()) {
                 outdir.mkdir();
@@ -801,12 +801,12 @@ public class WebToolsServices {
             if (!outdir.canWrite()) {
                 return ServiceUtil.returnError("eomodel Full Path is not write-able: " + eomodeldFullPath);
             }
- 
+
             Set<String> entityNames = new TreeSet<String>();
             if (UtilValidate.isNotEmpty(entityPackageNameOrig)) {
                 Set<String> entityPackageNameSet = FastSet.newInstance();
                 entityPackageNameSet.addAll(StringUtil.split(entityPackageNameOrig, ","));
- 
+
                 Debug.logInfo("Exporting with entityPackageNameSet: " + entityPackageNameSet, module);
 
                 Map<String, TreeSet<String>> entitiesByPackage = reader.getEntitiesByPackage(entityPackageNameSet, null);
@@ -830,7 +830,7 @@ public class WebToolsServices {
                     filterEntityNameIter.remove();
                 }
             }
- 
+
             // write the index.eomodeld file
             Map<String, Object> topLevelMap = FastMap.newInstance();
             topLevelMap.put("EOModelVersion", "\"2.1\"");
@@ -843,13 +843,13 @@ public class WebToolsServices {
                 entitiesMap.put("name", entityName);
             }
             UtilPlist.writePlistFile(topLevelMap, eomodeldFullPath, "index.eomodeld", true);
- 
+
             // write each <EntityName>.plist file
             for (String curEntityName: entityNames) {
                 ModelEntity modelEntity = reader.getModelEntity(curEntityName);
                 UtilPlist.writePlistFile(modelEntity.createEoModelMap(entityNamePrefix, datasourceName, entityNames, reader), eomodeldFullPath, curEntityName +".plist", true);
             }
- 
+
             return ServiceUtil.returnSuccess("Exported eomodeld file for " + entityNames.size() + " entities to: " + eomodeldFullPath);
         } catch (UnsupportedEncodingException e) {
             return ServiceUtil.returnError("ERROR saving file: " + e.toString());
@@ -880,20 +880,20 @@ public class WebToolsServices {
         }
         return resultMap;
     }
- 
- 
+
+
     public static Map<String, Object> exportServiceEoModelBundle(DispatchContext dctx, Map<String, ? extends Object> context) {
         String eomodeldFullPath = (String) context.get("eomodeldFullPath");
         String serviceName = (String) context.get("serviceName");
- 
+
         if (eomodeldFullPath.endsWith("/")) {
             eomodeldFullPath = eomodeldFullPath + serviceName + ".eomodeld";
         }
- 
+
         if (!eomodeldFullPath.endsWith(".eomodeld")) {
             eomodeldFullPath = eomodeldFullPath + ".eomodeld";
         }
- 
+
         File outdir = new File(eomodeldFullPath);
         if (!outdir.exists()) {
             outdir.mkdir();
@@ -904,7 +904,7 @@ public class WebToolsServices {
         if (!outdir.canWrite()) {
             return ServiceUtil.returnError("eomodel Full Path is not write-able: " + eomodeldFullPath);
         }
- 
+
         try {
             ArtifactInfoFactory aif = ArtifactInfoFactory.getArtifactInfoFactory("default");
             ServiceArtifactInfo serviceInfo = aif.getServiceArtifactInfo(serviceName);
@@ -917,7 +917,7 @@ public class WebToolsServices {
         } catch (FileNotFoundException e) {
             return ServiceUtil.returnError("ERROR: file/directory not found: " + e.toString());
         }
- 
+
         return ServiceUtil.returnSuccess();
     }
 }

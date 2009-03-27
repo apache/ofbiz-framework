@@ -43,14 +43,14 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
     protected ServiceEcaRule serviceEcaRule;
     protected String displayPrefix = null;
     protected int displaySuffixNum = 0;
- 
+
     protected Set<ServiceArtifactInfo> servicesCalledByThisServiceEca = new TreeSet<ServiceArtifactInfo>();
- 
+
     public ServiceEcaArtifactInfo(ServiceEcaRule serviceEcaRule, ArtifactInfoFactory aif) throws GeneralException {
         super(aif);
         this.serviceEcaRule = serviceEcaRule;
     }
- 
+
     /**
      * This must be called after creation from the ArtifactInfoFactory after this class has been put into the global Map in order to avoid recursive initialization
      *
@@ -63,47 +63,47 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
             UtilMisc.addToSortedSetInMap(this, aif.allServiceEcaInfosReferringToServiceName, ecaAction.getServiceName());
         }
     }
- 
+
     public String getDisplayName() {
         return this.getDisplayPrefixedName();
     }
- 
+
     public String getDisplayType() {
         return "Service ECA";
     }
- 
+
     public String getType() {
         return ArtifactInfoFactory.ServiceEcaInfoTypeId;
     }
- 
+
     public String getUniqueId() {
         return this.serviceEcaRule.toString();
     }
- 
+
     public URL getLocationURL() throws MalformedURLException {
         return FlexibleLocation.resolveLocation(this.serviceEcaRule.getDefinitionLocation(), null);
     }
- 
+
     public ServiceEcaRule getServiceEcaRule() {
         return this.serviceEcaRule;
     }
- 
+
     public void setDisplayPrefix(String displayPrefix) {
         this.displayPrefix = displayPrefix;
     }
- 
+
     public void setDisplaySuffixNum(int displaySuffixNum) {
         this.displaySuffixNum = displaySuffixNum;
     }
- 
+
     public String getDisplayPrefixedName() {
         return (this.displayPrefix != null ? this.displayPrefix : "") + this.serviceEcaRule.getServiceName() + "_" + this.serviceEcaRule.getEventName() + "_" + displaySuffixNum;
     }
- 
+
     public Set<ServiceArtifactInfo> getServicesCalledByServiceEcaActions() {
         return this.servicesCalledByThisServiceEca;
     }
- 
+
     public Set<ServiceArtifactInfo> getServicesTriggeringServiceEca() {
         return aif.allServiceInfosReferringToServiceEcaRule.get(this.serviceEcaRule);
     }
@@ -131,7 +131,7 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
                 classPropertiesList.add(ecaAction.getServiceName());
             }
         }
- 
+
         /* going to try this without any attributes...
         // attributes
         List<Map<String, Object>> attributesList = FastList.newInstance();
@@ -139,7 +139,7 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
         for (ModelParam param: this.modelService.getModelParamList()) {
             Map<String, Object> attributeMap = FastMap.newInstance();
             attributesList.add(attributeMap);
- 
+
             if (useMoreDetailedNames) {
                 attributeMap.put("name", param.getShortDisplayDescription());
             } else {
@@ -149,14 +149,14 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
             attributeMap.put("externalType", param.type);
         }
         */
- 
+
         // relationships
         List<Map<String, Object>> relationshipsMapList = FastList.newInstance();
- 
+
         for (ServiceArtifactInfo sai: triggeringServiceSet) {
             Map<String, Object> relationshipMap = FastMap.newInstance();
             relationshipsMapList.add(relationshipMap);
- 
+
             relationshipMap.put("name", sai.getDisplayPrefixedName());
             relationshipMap.put("destination", sai.getDisplayPrefixedName());
             relationshipMap.put("isToMany", "N");
@@ -165,20 +165,20 @@ public class ServiceEcaArtifactInfo extends ArtifactInfoBase {
         for (ServiceArtifactInfo sai: triggeredServiceSet) {
             Map<String, Object> relationshipMap = FastMap.newInstance();
             relationshipsMapList.add(relationshipMap);
- 
+
             relationshipMap.put("name", sai.getDisplayPrefixedName());
             relationshipMap.put("destination", sai.getDisplayPrefixedName());
             relationshipMap.put("isToMany", "Y");
             relationshipMap.put("isMandatory", "Y");
         }
- 
+
         if (relationshipsMapList.size() > 0) {
             topLevelMap.put("relationships", relationshipsMapList);
         }
- 
+
         return topLevelMap;
     }
- 
+
     public boolean equals(Object obj) {
         if (obj instanceof ServiceEcaArtifactInfo) {
             ServiceEcaArtifactInfo that = (ServiceEcaArtifactInfo) obj;
