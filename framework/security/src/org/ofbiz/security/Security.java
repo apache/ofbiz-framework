@@ -114,7 +114,7 @@ public abstract class Security {
      * @return Returns true if the currently logged in userLogin has the specified permission, otherwise returns false.
      */
     public abstract boolean hasEntityPermission(String entity, String action, GenericValue userLogin);
- 
+
     /**
      * Like hasEntityPermission above, this checks the specified action, as well as for "_ADMIN" to allow for simplified
      * general administration permission, but also checks action_ROLE and validates the user is a member for the
@@ -142,7 +142,7 @@ public abstract class Security {
      * @return Returns true if the currently logged in userLogin has the specified permission, otherwise returns false.
      */
     public abstract boolean hasRolePermission(String application, String action, String primaryKey, String role, GenericValue userLogin);
- 
+
     /**
      * Like hasEntityPermission above, this checks the specified action, as well as for "_ADMIN" to allow for simplified
      * general administration permission, but also checks action_ROLE and validates the user is a member for the
@@ -156,7 +156,7 @@ public abstract class Security {
      * @return Returns true if the currently logged in userLogin has the specified permission, otherwise returns false.
      */
     public abstract boolean hasRolePermission(String application, String action, String primaryKey, List<String> roles, GenericValue userLogin);
- 
+
     /**
      * Like hasEntityPermission above, this checks the specified action, as well as for "_ADMIN" to allow for simplified
      * general administration permission, but also checks action_ROLE and validates the user is a member for the
@@ -170,5 +170,5 @@ public abstract class Security {
      * @return Returns true if the currently logged in userLogin has the specified permission, otherwise returns false.
      */
     public abstract boolean hasRolePermission(String application, String action, String primaryKey, List<String> roles, HttpSession session);
- 
+
 }

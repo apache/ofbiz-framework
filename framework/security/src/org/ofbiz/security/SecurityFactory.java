@@ -35,10 +35,10 @@ import org.w3c.dom.Element;
  * If no customiz security name is given, the default implementation will be used (OFBizSecurity)
  */
 public class SecurityFactory {
- 
+
     public static final String module = SecurityFactory.class.getName();
     public static final String DEFAULT_SECURITY = "org.ofbiz.security.OFBizSecurity";
- 
+
     private static String securityName = null;
     private static Element rootElement = null;
     private static SecurityConfigUtil.SecurityInfo securityInfo = null;
