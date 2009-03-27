@@ -65,7 +65,7 @@ public class SharkContainer implements Container, Runnable
     protected String configFile = null;
     private SharkCORBAServer corbaServer = null;
     private Thread orbThread = null;
- 
+
     /**
      * @see org.ofbiz.base.container.Container#init(java.lang.String[], java.lang.String)
      */
@@ -132,7 +132,7 @@ public class SharkContainer implements Container, Runnable
         // set the Shark configuration
         Properties props = UtilProperties.getProperties("shark.properties");
         Shark.configure(props);
- 
+
         String java_home = System.getenv("JAVA_HOME");
         if ((java_home == null) && (java_home.length() > 0))
         {
@@ -157,7 +157,7 @@ public class SharkContainer implements Container, Runnable
             }
             else
                 Debug.logError("OUT : Error in iiop host property", module);
- 
+
         SharkContainer.shark = Shark.getInstance();
         Debug.logInfo("Started Shark workflow service", module);
 

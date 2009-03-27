@@ -116,7 +116,7 @@ public class ThreadedToolAgentManager implements ToolAgentManager {
               e.printStackTrace();
               throw new BaseException(e);
         }
- 
+
          while (tools.hasNext()) {
             Tool tool = (Tool)tools.next();
             cus.info("Activity"+activity.toString()+" - Executing tool [id="+tool.getId()+"]");

@@ -212,7 +212,7 @@ public class EntityRepositoryMgr implements RepositoryPersistenceManager {
         List refs = null;
         try {
             refs = delegator.findByAnd(org.ofbiz.shark.SharkConstants.WfRepositoryRef, UtilMisc.toMap(org.ofbiz.shark.SharkConstants.refXpdlId, referredXPDLId));
- 
+
         } catch (GenericEntityException e) {
             throw new RepositoryException(e);
         }
