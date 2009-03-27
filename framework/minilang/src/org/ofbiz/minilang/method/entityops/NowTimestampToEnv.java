@@ -45,7 +45,7 @@ public class NowTimestampToEnv extends MethodOperation {
             return "now-timestamp";
         }
     }
- 
+
     ContextAccessor<java.sql.Timestamp> envAcsr;
 
     public NowTimestampToEnv(Element element, SimpleMethod simpleMethod) {

@@ -38,7 +38,7 @@ public class MakeValue extends MethodOperation {
             return "make-value";
         }
     }
- 
+
     ContextAccessor<GenericValue> valueAcsr;
     String entityName;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
@@ -56,7 +56,7 @@ public class MakeValue extends MethodOperation {
         valueAcsr.put(methodContext, methodContext.getDelegator().makeValidValue(entityName, ctxMap));
         return true;
     }
- 
+
     public String getEntityName() {
         return this.entityName;
     }

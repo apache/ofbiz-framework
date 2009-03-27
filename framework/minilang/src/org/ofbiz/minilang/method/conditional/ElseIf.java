@@ -39,11 +39,11 @@ public class ElseIf {
         Element conditionElement = UtilXml.firstChildElement(element, "condition");
         Element conditionChildElement = UtilXml.firstChildElement(conditionElement);
         this.condition = ConditionalFactory.makeConditional(conditionChildElement, simpleMethod);
- 
+
         Element thenElement = UtilXml.firstChildElement(element, "then");
         SimpleMethod.readOperations(thenElement, thenSubOps, simpleMethod);
     }
- 
+
     public List<MethodOperation> getThenSubOps() {
         return this.thenSubOps;
     }
@@ -51,7 +51,7 @@ public class ElseIf {
     public boolean checkCondition(MethodContext methodContext) {
         return condition.checkCondition(methodContext);
     }
- 
+
     public boolean runSubOps(MethodContext methodContext) {
         return SimpleMethod.runSubOps(thenSubOps, methodContext);
     }

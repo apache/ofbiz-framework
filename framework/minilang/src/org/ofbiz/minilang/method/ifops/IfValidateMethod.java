@@ -42,7 +42,7 @@ public class IfValidateMethod extends MethodOperation {
             return "if-validate-method";
         }
     }
- 
+
     public static final String module = IfValidateMethod.class.getName();
 
     List<MethodOperation> subOps = FastList.newInstance();

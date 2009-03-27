@@ -51,9 +51,9 @@ public class EntityData extends MethodOperation {
             return "entity-data";
         }
     }
- 
+
     public static final String module = EntityData.class.getName();
- 
+
     protected FlexibleStringExpander locationExdr;
     protected FlexibleStringExpander delegatorNameExdr;
     protected FlexibleStringExpander timeoutExdr;
@@ -66,7 +66,7 @@ public class EntityData extends MethodOperation {
         delegatorNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
         timeoutExdr = FlexibleStringExpander.getInstance(element.getAttribute("timeout"));
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
- 
+
         mode = element.getAttribute("mode");
         if (UtilValidate.isEmpty(mode)) {
             mode = "load";
@@ -97,7 +97,7 @@ public class EntityData extends MethodOperation {
         if (dataUrl == null) {
             messages.add("Could not find Entity Data document in resource: " + location);
         }
- 
+
         String timeout = this.timeoutExdr.expandString(methodContext.getEnvMap());
         int txTimeout = -1;
         if (UtilValidate.isNotEmpty(timeout)) {

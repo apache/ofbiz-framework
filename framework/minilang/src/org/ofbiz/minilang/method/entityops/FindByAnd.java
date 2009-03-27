@@ -47,9 +47,9 @@ public class FindByAnd extends MethodOperation {
             return "find-by-and";
         }
     }
- 
+
     public static final String module = FindByAnd.class.getName();
- 
+
     ContextAccessor<Object> listAcsr;
     String entityName;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
@@ -75,10 +75,10 @@ public class FindByAnd extends MethodOperation {
         String delegatorName = methodContext.expandString(this.delegatorName);
         String useCacheStr = methodContext.expandString(this.useCacheStr);
         String useIteratorStr = methodContext.expandString(this.useIteratorStr);
- 
+
         boolean useCache = "true".equals(useCacheStr);
         boolean useIterator = "true".equals(useIteratorStr);
- 
+
         List<String> orderByNames = null;
         if (!orderByListAcsr.isEmpty()) {
             orderByNames = orderByListAcsr.get(methodContext);

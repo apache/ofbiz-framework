@@ -43,7 +43,7 @@ public class CreateObject extends MethodOperation {
             return "create-object";
         }
     }
- 
+
     public static final String module = CreateObject.class.getName();
 
     String className;
@@ -56,11 +56,11 @@ public class CreateObject extends MethodOperation {
     public CreateObject(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         className = element.getAttribute("class-name");
- 
+
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
- 
+
         List<? extends Element> parameterElements = UtilXml.childElementList(element);
         if (parameterElements.size() > 0) {
             parameters = FastList.newInstance();
@@ -94,7 +94,7 @@ public class CreateObject extends MethodOperation {
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         }
- 
+
         Object[] args = null;
         Class<?>[] parameterTypes = null;
         if (parameters != null) {
@@ -117,12 +117,12 @@ public class CreateObject extends MethodOperation {
                 i++;
             }
         }
- 
+
         try {
             Constructor constructor = methodClass.getConstructor(parameterTypes);
             try {
                 Object newObject = constructor.newInstance(args);
- 
+
                 //if fieldAcsr is empty, ignore return value
                 if (!fieldAcsr.isEmpty()) {
                     if (!mapAcsr.isEmpty()) {
@@ -165,18 +165,18 @@ public class CreateObject extends MethodOperation {
             }
         } catch (NoSuchMethodException e) {
             Debug.logError(e, "Could not find constructor to execute in simple-method create-object operation", module);
- 
+
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Could not find constructor to execute: " + e.toString() + "]";
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         } catch (SecurityException e) {
             Debug.logError(e, "Security exception finding constructor to execute in simple-method create-object operation", module);
- 
+
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [Security exception finding constructor to execute: " + e.toString() + "]";
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         }
- 
+
         return true;
     }
 

@@ -50,14 +50,14 @@ public class MasterIf extends MethodOperation {
 
     public MasterIf(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
- 
+
         Element conditionElement = UtilXml.firstChildElement(element, "condition");
         Element conditionChildElement = UtilXml.firstChildElement(conditionElement);
         this.condition = ConditionalFactory.makeConditional(conditionChildElement, simpleMethod);
- 
+
         Element thenElement = UtilXml.firstChildElement(element, "then");
         SimpleMethod.readOperations(thenElement, thenSubOps, simpleMethod);
- 
+
         List<? extends Element> elseIfElements = UtilXml.childElementList(element, "else-if");
         if (UtilValidate.isNotEmpty(elseIfElements)) {
             elseIfs = FastList.newInstance();
@@ -65,7 +65,7 @@ public class MasterIf extends MethodOperation {
                 elseIfs.add(new ElseIf(elseIfElement, simpleMethod));
             }
         }
- 
+
         Element elseElement = UtilXml.firstChildElement(element, "else");
         if (elseElement != null) {
             elseSubOps = FastList.newInstance();
@@ -92,7 +92,7 @@ public class MasterIf extends MethodOperation {
                     }
                 }
             }
- 
+
             if (elseSubOps != null) {
                 return SimpleMethod.runSubOps(elseSubOps, methodContext);
             } else {
@@ -110,7 +110,7 @@ public class MasterIf extends MethodOperation {
                 allSubOps.addAll(elseIf.getThenSubOps());
             }
         }
- 
+
         return allSubOps;
     }
 

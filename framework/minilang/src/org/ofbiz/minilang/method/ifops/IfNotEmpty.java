@@ -40,7 +40,7 @@ public class IfNotEmpty extends MethodOperation {
             return "if-not-empty";
         }
     }
- 
+
     public static final String module = IfNotEmpty.class.getName();
 
     protected List<MethodOperation> subOps = FastList.newInstance();

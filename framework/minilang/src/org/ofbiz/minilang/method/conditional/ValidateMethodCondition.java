@@ -39,14 +39,14 @@ public class ValidateMethodCondition implements Conditional {
         }
     }
 
- 
+
     public static final String module = ValidateMethodCondition.class.getName();
- 
+
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
     String methodName;
     String className;
- 
+
     public ValidateMethodCondition(Element element) {
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
@@ -85,12 +85,12 @@ public class ValidateMethodCondition implements Conditional {
         } catch (Exception e) {
             Debug.logError(e, "Error in IfValidationMethod " + methodName + " of class " + className + ", not processing sub-ops ", module);
         }
- 
+
         if (resultBool != null) return resultBool.booleanValue();
- 
+
         return false;
     }
- 
+
     protected String getFieldString(MethodContext methodContext) {
         String fieldString = null;
         Object fieldVal = null;

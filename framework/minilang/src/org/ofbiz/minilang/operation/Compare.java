@@ -25,7 +25,7 @@ import org.w3c.dom.*;
  * Compares an in-field to the specified value
  */
 public class Compare extends BaseCompare {
- 
+
     String value;
 
     public Compare(Element element, SimpleMapProcess simpleMapProcess) {

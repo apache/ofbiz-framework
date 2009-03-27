@@ -45,7 +45,7 @@ public class NowDateToEnv extends MethodOperation {
             return "now-date";
         }
     }
- 
+
     ContextAccessor<java.sql.Date> envAcsr;
 
     public NowDateToEnv(Element element, SimpleMethod simpleMethod) {

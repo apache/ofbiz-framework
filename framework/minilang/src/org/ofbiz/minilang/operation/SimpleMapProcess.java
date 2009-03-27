@@ -29,9 +29,9 @@ import org.ofbiz.base.util.*;
  * A complete string process for a given field; contains multiple string operations
  */
 public class SimpleMapProcess {
- 
+
     public static final String module = SimpleMapProcess.class.getName();
- 
+
     List<SimpleMapOperation> simpleMapOperations = FastList.newInstance();
     String field = "";
 

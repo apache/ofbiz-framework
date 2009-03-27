@@ -41,7 +41,7 @@ public class OrderValueList extends MethodOperation {
             return "order-value-list";
         }
     }
- 
+
     ContextAccessor<List<? extends GenericEntity>> listAcsr;
     ContextAccessor<List<? extends GenericEntity>> toListAcsr;
     ContextAccessor<List<String>> orderByListAcsr;

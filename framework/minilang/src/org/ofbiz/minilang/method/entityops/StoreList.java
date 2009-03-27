@@ -42,9 +42,9 @@ public class StoreList extends MethodOperation {
             return "store-list";
         }
     }
- 
+
     public static final String module = StoreList.class.getName();
- 
+
     ContextAccessor<List<GenericValue>> listAcsr;
     String doCacheClearStr;
 
@@ -56,7 +56,7 @@ public class StoreList extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
- 
+
         List<GenericValue> values = listAcsr.get(methodContext);
         if (values == null) {
             String errMsg = "In store-list a value list was not found with the specified listAcsr: " + listAcsr + ", not storing";

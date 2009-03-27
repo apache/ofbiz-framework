@@ -49,11 +49,11 @@ public class While extends MethodOperation {
 
     public While(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
- 
+
         Element conditionElement = UtilXml.firstChildElement(element, "condition");
         Element conditionChildElement = UtilXml.firstChildElement(conditionElement);
         this.condition = ConditionalFactory.makeConditional(conditionChildElement, simpleMethod);
- 
+
         Element thenElement = UtilXml.firstChildElement(element, "then");
         SimpleMethod.readOperations(thenElement, thenSubOps, simpleMethod);
     }

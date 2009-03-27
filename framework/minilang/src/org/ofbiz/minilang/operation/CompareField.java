@@ -25,7 +25,7 @@ import org.w3c.dom.*;
  * Compares the current field to another field
  */
 public class CompareField extends BaseCompare {
- 
+
     String compareName;
 
     public CompareField(Element element, SimpleMapProcess simpleMapProcess) {

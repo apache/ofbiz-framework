@@ -41,7 +41,7 @@ public class CheckErrors extends MethodOperation {
             return "check-errors";
         }
     }
- 
+
     ContextAccessor<List<Object>> errorListAcsr;
     String errorCode;
 
@@ -54,7 +54,7 @@ public class CheckErrors extends MethodOperation {
         super(element, simpleMethod);
         errorCode = element.getAttribute("error-code");
         if (errorCode == null || errorCode.length() == 0) errorCode = "error";
- 
+
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
 
         errorPrefix = new FlexibleMessage(UtilXml.firstChildElement(element, "error-prefix"), "check.error.prefix");
@@ -68,7 +68,7 @@ public class CheckErrors extends MethodOperation {
 
         if (UtilValidate.isNotEmpty(messages)) {
             String errorCode = methodContext.expandString(this.errorCode);
- 
+
             if (methodContext.getMethodType() == MethodContext.EVENT) {
                 /* The OLD way, now puts formatting control in the template...
                 String errMsg = errorPrefix.getMessage(methodContext.getLoader(), methodContext) +

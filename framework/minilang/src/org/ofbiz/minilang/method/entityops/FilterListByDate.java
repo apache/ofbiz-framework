@@ -44,7 +44,7 @@ public class FilterListByDate extends MethodOperation {
             return "filter-list-by-date";
         }
     }
- 
+
     ContextAccessor<List<GenericEntity>> listAcsr;
     ContextAccessor<List<GenericEntity>> toListAcsr;
     ContextAccessor<Timestamp> validDateAcsr;

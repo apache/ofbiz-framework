@@ -25,7 +25,7 @@ import org.w3c.dom.*;
  * Copies a field in the in-map to the out-map
  */
 public class Copy extends SimpleMapOperation {
- 
+
     boolean replace = true;
     boolean setIfNull = true;
     String toField;

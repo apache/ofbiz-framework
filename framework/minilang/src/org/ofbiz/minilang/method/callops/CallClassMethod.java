@@ -42,7 +42,7 @@ public class CallClassMethod extends MethodOperation {
             return "call-class-method";
         }
     }
- 
+
     public static final String module = CallClassMethod.class.getName();
 
     String className;
@@ -60,11 +60,11 @@ public class CallClassMethod extends MethodOperation {
         // the schema for this element now just has the "ret-field" attribute, though the old "ret-field-name" and "ret-map-name" pair is still supported
         retFieldAcsr = new ContextAccessor<Object>(element.getAttribute("ret-field"), element.getAttribute("ret-field-name"));
         retMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("ret-map-name"));
- 
+
         List<? extends Element> parameterElements = UtilXml.childElementList(element);
         if (parameterElements.size() > 0) {
             parameters = FastList.newInstance();
- 
+
             for (Element parameterElement: parameterElements) {
                 MethodObject<?> methodObject = null;
                 if ("string".equals(parameterElement.getNodeName())) {
@@ -85,7 +85,7 @@ public class CallClassMethod extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         String className = methodContext.expandString(this.className);
         String methodName = methodContext.expandString(this.methodName);
- 
+
         Class<?> methodClass = null;
         try {
             methodClass = ObjectType.loadClass(className, methodContext.getLoader());
@@ -96,7 +96,7 @@ public class CallClassMethod extends MethodOperation {
             methodContext.setErrorReturn(errMsg, simpleMethod);
             return false;
         }
- 
+
         return CallObjectMethod.callMethod(simpleMethod, methodContext, parameters, methodClass, null, methodName, retFieldAcsr, retMapAcsr);
     }
 

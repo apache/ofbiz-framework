@@ -39,9 +39,9 @@ public class CloneValue extends MethodOperation {
             return "clone-value";
         }
     }
- 
+
     public static final String module = CloneValue.class.getName();
- 
+
     ContextAccessor<GenericValue> valueAcsr;
     ContextAccessor<GenericValue> newValueAcsr;
 

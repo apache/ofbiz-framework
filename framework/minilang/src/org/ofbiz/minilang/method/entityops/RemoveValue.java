@@ -40,9 +40,9 @@ public class RemoveValue extends MethodOperation {
             return "remove-value";
         }
     }
- 
+
     public static final String module = RemoveValue.class.getName();
- 
+
     ContextAccessor<GenericValue> valueAcsr;
     String doCacheClearStr;
 
@@ -54,7 +54,7 @@ public class RemoveValue extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
- 
+
         GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             String errMsg = "In remove-value a value was not found with the specified valueAcsr: " + valueAcsr + ", not removing";

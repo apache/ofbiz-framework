@@ -68,7 +68,7 @@ public class CombinedCondition implements Conditional {
             return "not";
         }
     }
- 
+
     public static final int OR = 1;
     public static final int XOR = 2;
     public static final int AND = 3;
@@ -77,7 +77,7 @@ public class CombinedCondition implements Conditional {
     SimpleMethod simpleMethod;
     int conditionType;
     List<Conditional> subConditions = FastList.newInstance();
- 
+
     public CombinedCondition(Element element, int conditionType, SimpleMethod simpleMethod) {
         this.simpleMethod = simpleMethod;
         this.conditionType = conditionType;
@@ -88,7 +88,7 @@ public class CombinedCondition implements Conditional {
 
     public boolean checkCondition(MethodContext methodContext) {
         if (subConditions.size() == 0) return true;
- 
+
         Iterator<Conditional> subCondIter = subConditions.iterator();
         switch (this.conditionType) {
             case OR:

@@ -41,9 +41,9 @@ public class ToString extends MethodOperation {
             return "to-string";
         }
     }
- 
+
     public static final String module = ToString.class.getName();
- 
+
     ContextAccessor<Map<String, Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
     String format;
@@ -55,9 +55,9 @@ public class ToString extends MethodOperation {
         // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
- 
+
         format = element.getAttribute("format");
- 
+
         String npStr = element.getAttribute("numeric-padding");
         if (UtilValidate.isNotEmpty(npStr)) {
             try {
@@ -93,7 +93,7 @@ public class ToString extends MethodOperation {
 
         return true;
     }
- 
+
     public String doToString(Object obj, MethodContext methodContext) {
         String outStr = null;
         try {
@@ -106,11 +106,11 @@ public class ToString extends MethodOperation {
             Debug.logError(e, "", module);
             outStr = obj.toString();
         }
- 
+
         if (this.numericPadding != null) {
             outStr = StringUtil.padNumberString(outStr, this.numericPadding.intValue());
         }
- 
+
         return outStr;
     }
 

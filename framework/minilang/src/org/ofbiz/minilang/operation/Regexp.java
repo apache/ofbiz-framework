@@ -29,9 +29,9 @@ import org.ofbiz.base.util.*;
  * Validates the current field using a regular expression
  */
 public class Regexp extends SimpleMapOperation {
- 
+
     public static final String module = Regexp.class.getName();
- 
+
     static PatternMatcher matcher = new Perl5Matcher();
     static PatternCompiler compiler = new Perl5Compiler();
     Pattern pattern = null;

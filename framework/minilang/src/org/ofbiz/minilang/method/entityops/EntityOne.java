@@ -40,9 +40,9 @@ public class EntityOne extends MethodOperation {
             return "entity-one";
         }
     }
- 
+
     public static final String module = EntityOne.class.getName();
- 
+
     protected PrimaryKeyFinder finder;
 
     public EntityOne(Element element, SimpleMethod simpleMethod) {
@@ -69,7 +69,7 @@ public class EntityOne extends MethodOperation {
         }
         return true;
     }
- 
+
     public String getEntityName() {
         return this.finder.getEntityName();
     }

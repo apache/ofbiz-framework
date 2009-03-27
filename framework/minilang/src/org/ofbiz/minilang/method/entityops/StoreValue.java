@@ -40,9 +40,9 @@ public class StoreValue extends MethodOperation {
             return "store-value";
         }
     }
- 
+
     public static final String module = StoreValue.class.getName();
- 
+
     ContextAccessor<GenericValue> valueAcsr;
     String doCacheClearStr;
 
@@ -54,7 +54,7 @@ public class StoreValue extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(methodContext.expandString(doCacheClearStr));
- 
+
         GenericValue value = valueAcsr.get(methodContext);
         if (value == null) {
             String errMsg = "In store-value a value was not found with the specified valueAcsr: " + valueAcsr + ", not storing";

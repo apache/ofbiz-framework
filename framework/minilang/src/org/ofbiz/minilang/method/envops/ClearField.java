@@ -41,9 +41,9 @@ public class ClearField extends MethodOperation {
             return "clear-field";
         }
     }
- 
+
     public static final String module = ClearField.class.getName();
- 
+
     ContextAccessor<Map<String, Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
 

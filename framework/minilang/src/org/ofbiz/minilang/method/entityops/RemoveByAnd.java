@@ -41,9 +41,9 @@ public class RemoveByAnd extends MethodOperation {
             return "remove-by-and";
         }
     }
- 
+
     public static final String module = RemoveByAnd.class.getName();
- 
+
     String entityName;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     String doCacheClearStr;
@@ -58,7 +58,7 @@ public class RemoveByAnd extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(doCacheClearStr);
         String entityName = methodContext.expandString(this.entityName);
- 
+
         try {
             methodContext.getDelegator().removeByAnd(entityName, mapAcsr.get(methodContext), doCacheClear);
         } catch (GenericEntityException e) {

@@ -27,7 +27,7 @@ import org.ofbiz.base.util.*;
  * A single operation, does the specified operation on the given field
  */
 public abstract class SimpleMapOperation {
- 
+
     String message = null;
     String propertyResource = null;
     boolean isProperty = false;

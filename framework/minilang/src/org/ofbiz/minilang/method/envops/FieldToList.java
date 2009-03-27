@@ -40,9 +40,9 @@ public class FieldToList extends MethodOperation {
             return "field-to-list";
         }
     }
- 
+
     public static final String module = FieldToList.class.getName();
- 
+
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
     ContextAccessor<List<Object>> listAcsr;

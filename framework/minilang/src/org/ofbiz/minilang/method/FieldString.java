@@ -28,9 +28,9 @@ import org.ofbiz.minilang.*;
  * A type of MethodString that represents a String constant value
  */
 public class FieldString extends MethodString {
- 
+
     public static final String module = FieldString.class.getName();
- 
+
     ContextAccessor<Object> fieldAcsr;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
 
@@ -58,7 +58,7 @@ public class FieldString extends MethodString {
             if (Debug.infoOn()) Debug.logInfo("Field value not found with name " + fieldAcsr + " in Map with name " + mapAcsr + ", not getting string value", module);
             return "";
         }
- 
+
         return fieldVal.toString();
     }
 }

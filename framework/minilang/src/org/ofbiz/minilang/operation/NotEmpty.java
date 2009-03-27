@@ -27,7 +27,7 @@ import org.ofbiz.base.util.*;
  * Checks to see if the current field is empty (null or zero length)
  */
 public class NotEmpty extends SimpleMapOperation {
- 
+
     public NotEmpty(Element element, SimpleMapProcess simpleMapProcess) {
         super(element, simpleMapProcess);
     }

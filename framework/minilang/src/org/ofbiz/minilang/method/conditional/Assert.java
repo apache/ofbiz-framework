@@ -59,7 +59,7 @@ public class Assert extends MethodOperation {
 
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
         titleExdr = FlexibleStringExpander.getInstance(element.getAttribute("title"));
- 
+
         for (Element conditionalElement: UtilXml.childElementList(element)) {
             this.conditionalList.add(ConditionalFactory.makeConditional(conditionalElement, simpleMethod));
         }
@@ -73,11 +73,11 @@ public class Assert extends MethodOperation {
         }
 
         String title = this.titleExdr.expandString(methodContext.getEnvMap());
- 
+
         //  check each conditional and if fails generate a message to add to the error list
         for (Conditional condition: conditionalList) {
             boolean conditionTrue = condition.checkCondition(methodContext);
- 
+
             if (!conditionTrue) {
                 // pretty print condition
                 StringBuilder messageBuffer = new StringBuilder();
@@ -99,7 +99,7 @@ public class Assert extends MethodOperation {
     public String rawString() {
         return expandedString(null);
     }
- 
+
     public String expandedString(MethodContext methodContext) {
         String title = this.titleExdr.expandString(methodContext.getEnvMap());
 

@@ -27,9 +27,9 @@ import org.ofbiz.base.util.*;
  * A MakeInStringOperation that inserts the value of an in-field
  */
 public class InFieldOper extends MakeInStringOperation {
- 
+
     public static final String module = InFieldOper.class.getName();
- 
+
     String fieldName;
 
     public InFieldOper(Element element) {

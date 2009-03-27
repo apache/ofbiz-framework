@@ -25,7 +25,7 @@ import org.ofbiz.minilang.*;
  * A single String value, generally meant to be combined with others
  */
 public abstract class MethodString {
- 
+
     protected SimpleMethod simpleMethod;
 
     public MethodString(Element element, SimpleMethod simpleMethod) {

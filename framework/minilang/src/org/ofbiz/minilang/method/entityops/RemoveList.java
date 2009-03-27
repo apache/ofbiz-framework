@@ -42,7 +42,7 @@ public class RemoveList extends MethodOperation {
             return "remove-list";
         }
     }
- 
+
     public static final String module = RemoveList.class.getName();
 
     ContextAccessor<List<GenericValue>> listAcsr;
@@ -56,7 +56,7 @@ public class RemoveList extends MethodOperation {
 
     public boolean exec(MethodContext methodContext) {
         boolean doCacheClear = !"false".equals(doCacheClearStr);
- 
+
         List<GenericValue> values = listAcsr.get(methodContext);
         if (values == null) {
             String errMsg = "In remove-list a value list was not found with the specified listAcsr: " + listAcsr + ", not removing";

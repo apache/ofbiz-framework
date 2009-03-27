@@ -49,11 +49,11 @@ public class CheckPermission extends MethodOperation {
             return "check-permission";
         }
     }
- 
+
     String message = null;
     String propertyResource = null;
     boolean isProperty = false;
- 
+
     /** If null no partyId env-name will be checked against the userLogin.partyId and accepted as permission */
     ContextAccessor<String> acceptUlPartyIdEnvNameAcsr = null;
 
@@ -107,7 +107,7 @@ public class CheckPermission extends MethodOperation {
             if (this.permissionInfo.hasPermission(methodContext, userLogin, security)) {
                 hasPermission = true;
             }
- 
+
             // if failed, check alternate permissions
             if (!hasPermission && altPermissions != null) {
                 for (PermissionInfo altPermInfo: altPermissions) {
@@ -118,7 +118,7 @@ public class CheckPermission extends MethodOperation {
                 }
             }
         }
- 
+
         if (!hasPermission && acceptUlPartyIdEnvNameAcsr != null) {
             String acceptPartyId = (String) acceptUlPartyIdEnvNameAcsr.get(methodContext);
             if (UtilValidate.isEmpty(acceptPartyId)) {
@@ -132,7 +132,7 @@ public class CheckPermission extends MethodOperation {
                 hasPermission = true;
             }
         }
- 
+
         if (!hasPermission) {
             this.addMessage(messages, methodContext);
         }
@@ -141,10 +141,10 @@ public class CheckPermission extends MethodOperation {
     }
 
     public void addMessage(List<Object> messages, MethodContext methodContext) {
- 
+
         String message = methodContext.expandString(this.message);
         String propertyResource = methodContext.expandString(this.propertyResource);
- 
+
         if (!isProperty && message != null) {
             messages.add(message);
             // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] Adding message: " + message, module);
@@ -162,20 +162,20 @@ public class CheckPermission extends MethodOperation {
             // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] ERROR: No message found", module);
         }
     }
- 
+
     public static class PermissionInfo {
         String permission;
         String action;
- 
+
         public PermissionInfo(Element altPermissionElement) {
             this.permission = altPermissionElement.getAttribute("permission");
             this.action = altPermissionElement.getAttribute("action");
         }
- 
+
         public boolean hasPermission(MethodContext methodContext, GenericValue userLogin, Security security) {
             String permission = methodContext.expandString(this.permission);
             String action = methodContext.expandString(this.action);
- 
+
             if (action != null && action.length() > 0) {
                 // run hasEntityPermission
                 return security.hasEntityPermission(permission, action, userLogin);

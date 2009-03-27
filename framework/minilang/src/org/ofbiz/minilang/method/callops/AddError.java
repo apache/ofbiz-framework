@@ -78,7 +78,7 @@ public class AddError extends MethodOperation {
     public void addMessage(List<Object> messages, ClassLoader loader, MethodContext methodContext) {
         String message = methodContext.expandString(this.message);
         String propertyResource = methodContext.expandString(this.propertyResource);
- 
+
         if (!isProperty && message != null) {
             messages.add(message);
             // if (Debug.infoOn()) Debug.logInfo("[SimpleMapOperation.addMessage] Adding message: " + message, module);

@@ -42,9 +42,9 @@ public class RequestToField extends MethodOperation {
             return "request-to-field";
         }
     }
- 
+
     public static final String module = RequestToField.class.getName();
- 
+
     ContextAccessor<Map<String, Object>> mapAcsr;
     ContextAccessor<Object> fieldAcsr;
     FlexibleServletAccessor<Object> requestAcsr;
@@ -56,7 +56,7 @@ public class RequestToField extends MethodOperation {
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
         fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
         requestAcsr = new FlexibleServletAccessor<Object>(element.getAttribute("request-name"), fieldAcsr.toString());
- 
+
         defaultVal = element.getAttribute("default");
     }
 

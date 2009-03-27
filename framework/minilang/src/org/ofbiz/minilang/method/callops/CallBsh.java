@@ -43,9 +43,9 @@ public class CallBsh extends MethodOperation {
             return "call-bsh";
         }
     }
- 
+
     public static final String module = CallBsh.class.getName();
- 
+
     public static final int bufferLength = 4096;
 
     String inline = null;

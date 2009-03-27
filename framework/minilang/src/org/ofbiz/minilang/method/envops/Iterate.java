@@ -48,7 +48,7 @@ public class Iterate extends MethodOperation {
             return "iterate";
         }
     }
- 
+
     public static final String module = Iterate.class.getName();
 
     protected List<MethodOperation> subOps = FastList.newInstance();
@@ -125,7 +125,7 @@ public class Iterate extends MethodOperation {
         entryAcsr.put(methodContext, oldEntryValue);
         return true;
     }
- 
+
     public List<MethodOperation> getSubOps() {
         return this.subOps;
     }

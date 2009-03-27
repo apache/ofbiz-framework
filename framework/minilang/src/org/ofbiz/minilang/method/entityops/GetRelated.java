@@ -43,9 +43,9 @@ public class GetRelated extends MethodOperation {
             return "get-related";
         }
     }
- 
+
     public static final String module = GetRelated.class.getName();
- 
+
     ContextAccessor<GenericValue> valueAcsr;
     ContextAccessor<Map<String, ? extends Object>> mapAcsr;
     ContextAccessor<List<String>> orderByListAcsr;
@@ -68,7 +68,7 @@ public class GetRelated extends MethodOperation {
         String relationName = methodContext.expandString(this.relationName);
         String useCacheStr = methodContext.expandString(this.useCacheStr);
         boolean useCache = "true".equals(useCacheStr);
- 
+
         List<String> orderByNames = null;
         if (!orderByListAcsr.isEmpty()) {
             orderByNames = orderByListAcsr.get(methodContext);

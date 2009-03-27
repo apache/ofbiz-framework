@@ -40,7 +40,7 @@ public class IfEmpty extends MethodOperation {
             return "if-empty";
         }
     }
- 
+
     public static final String module = IfEmpty.class.getName();
 
     List<MethodOperation> subOps = FastList.newInstance();
@@ -88,7 +88,7 @@ public class IfEmpty extends MethodOperation {
             // no map name, try the env
             fieldVal = fieldAcsr.get(methodContext);
         }
- 
+
         runSubOps = ObjectType.isEmpty(fieldVal);
 
         if (runSubOps) {

@@ -40,9 +40,9 @@ public class GetRelatedOne extends MethodOperation {
             return "get-related-one";
         }
     }
- 
+
     public static final String module = GetRelatedOne.class.getName();
- 
+
     ContextAccessor<Object> valueAcsr;
     ContextAccessor<GenericValue> toValueAcsr;
     String relationName;

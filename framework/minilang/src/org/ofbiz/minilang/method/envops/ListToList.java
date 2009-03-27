@@ -40,9 +40,9 @@ public class ListToList extends MethodOperation {
             return "list-to-list";
         }
     }
- 
+
     public static final String module = ListToList.class.getName();
- 
+
     ContextAccessor<List<Object>> listAcsr;
     ContextAccessor<List<Object>> toListAcsr;
 

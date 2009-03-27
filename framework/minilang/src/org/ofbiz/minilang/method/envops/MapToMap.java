@@ -40,9 +40,9 @@ public class MapToMap extends MethodOperation {
             return "map-to-map";
         }
     }
- 
+
     public static final String module = MapToMap.class.getName();
- 
+
     ContextAccessor<Map<String, Object>> mapAcsr;
     ContextAccessor<Map<String, Object>> toMapAcsr;
 
