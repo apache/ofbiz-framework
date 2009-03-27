@@ -50,7 +50,7 @@ public class ConfigXMLReader {
 
     public static final String module = ConfigXMLReader.class.getName();
     public static final String controllerXmlFileName = "/WEB-INF/controller.xml";
- 
+
     public static UtilCache<URL, ControllerConfig> controllerCache = new UtilCache<URL, ControllerConfig>("webapp.ControllerConfig");
     public static UtilCache<String, List<ControllerConfig>> controllerSearchResultsCache = new UtilCache<String, List<ControllerConfig>>("webapp.ControllerSearchResults");
 
@@ -62,7 +62,7 @@ public class ConfigXMLReader {
             return null;
         }
     }
- 
+
     public static ControllerConfig getControllerConfig(URL url) {
         ControllerConfig controllerConfig = controllerCache.get(url);
         if (controllerConfig == null) { // don't want to block here
@@ -77,22 +77,22 @@ public class ConfigXMLReader {
         }
         return controllerConfig;
     }
- 
+
     public static class ControllerConfig {
         public URL url;
- 
+
         public String errorpage;
         public String protectView;
         public String owner;
         public String securityClass;
         public String defaultRequest;
- 
+
         public List<Event> firstVisitEventList = FastList.newInstance();
         public List<Event> preprocessorEventList = FastList.newInstance();
         public List<Event> postprocessorEventList = FastList.newInstance();
         public List<Event> afterLoginEventList = FastList.newInstance();
         public List<Event> beforeLogoutEventList = FastList.newInstance();
- 
+
         public Map<String, String> eventHandlerMap = FastMap.newInstance();
         public Map<String, String> viewHandlerMap = FastMap.newInstance();
 
@@ -101,17 +101,17 @@ public class ConfigXMLReader {
 
         public ControllerConfig(URL url) {
             this.url = url;
- 
+
             Element rootElement = loadDocument(url);
             if (rootElement != null) {
                 long startTime = System.currentTimeMillis();
- 
+
                 loadIncludes(rootElement);
                 loadGeneralConfig(rootElement);
                 loadHandlerMap(rootElement);
                 loadRequestMap(rootElement);
                 loadViewMap(rootElement);
- 
+
                 if (Debug.infoOn()) {
                     double totalSeconds = (System.currentTimeMillis() - startTime)/1000.0;
                     String locString = this.url.toExternalForm();
@@ -119,29 +119,29 @@ public class ConfigXMLReader {
                 }
             }
         }
- 
+
         protected void absorbControllerConfig(ControllerConfig controllerConfig) {
             // copy/add all data except the url
- 
+
             this.errorpage = controllerConfig.errorpage;
             this.protectView = controllerConfig.protectView;
             this.owner = controllerConfig.owner;
             this.securityClass = controllerConfig.securityClass;
             this.defaultRequest = controllerConfig.defaultRequest;
- 
+
             this.firstVisitEventList.addAll(controllerConfig.firstVisitEventList);
             this.preprocessorEventList.addAll(controllerConfig.preprocessorEventList);
             this.postprocessorEventList.addAll(controllerConfig.postprocessorEventList);
             this.afterLoginEventList.addAll(controllerConfig.afterLoginEventList);
             this.beforeLogoutEventList.addAll(controllerConfig.beforeLogoutEventList);
- 
+
             this.eventHandlerMap.putAll(controllerConfig.eventHandlerMap);
             this.viewHandlerMap.putAll(controllerConfig.viewHandlerMap);
- 
+
             this.requestMapMap.putAll(controllerConfig.requestMapMap);
             this.viewMapMap.putAll(controllerConfig.viewMapMap);
         }
- 
+
         protected void loadIncludes(Element rootElement) {
             for (Element includeElement: UtilXml.childElementList(rootElement, "include")) {
                 String includeLocation = includeElement.getAttribute("location");
@@ -160,7 +160,7 @@ public class ConfigXMLReader {
             if (rootElement == null) {
                 rootElement = loadDocument(this.url);
             }
- 
+
             this.errorpage = UtilXml.childElementValue(rootElement, "errorpage");
             Element protectElement = UtilXml.firstChildElement(rootElement, "protect");
             if (protectElement != null) {
@@ -172,7 +172,7 @@ public class ConfigXMLReader {
             if (defaultRequestElement != null) {
                 this.defaultRequest = defaultRequestElement.getAttribute("request-uri");
             }
- 
+
             // first visit event
             Element firstvisitElement = UtilXml.firstChildElement(rootElement, "firstvisit");
             if (firstvisitElement != null) {
@@ -213,7 +213,7 @@ public class ConfigXMLReader {
                 }
             }
         }
- 
+
         public void loadHandlerMap(Element rootElement) {
             if (rootElement == null) {
                 rootElement = loadDocument(this.url);
@@ -224,7 +224,7 @@ public class ConfigXMLReader {
                 String name = handlerElement.getAttribute("name");
                 String type = handlerElement.getAttribute("type");
                 String className = handlerElement.getAttribute("class");
- 
+
                 if ("view".equals(type)) {
                     this.viewHandlerMap.put(name, className);
                 } else {
@@ -244,7 +244,7 @@ public class ConfigXMLReader {
                 this.requestMapMap.put(requestMap.uri, requestMap);
             }
         }
- 
+
         public void loadViewMap(Element rootElement) {
             if (rootElement == null) {
                 rootElement = loadDocument(this.url);
@@ -259,22 +259,22 @@ public class ConfigXMLReader {
         }
 
     }
- 
+
     public static Set<String> findControllerFilesWithRequest(String requestUri, String controllerPartialPath) throws GeneralException {
         Set<String> allControllerRequestSet = FastSet.newInstance();
- 
+
         if (UtilValidate.isEmpty(requestUri)) {
             return allControllerRequestSet;
         }
- 
+
         String cacheId = controllerPartialPath != null ? controllerPartialPath : "NOPARTIALPATH";
         List<ControllerConfig> controllerConfigs = (List<ControllerConfig>) controllerSearchResultsCache.get(cacheId);
- 
+
         if (controllerConfigs == null) {
             try {
                 // find controller.xml file with webappMountPoint + "/WEB-INF" in the path
                 List<File> controllerFiles = FileUtil.findXmlFiles(null, controllerPartialPath, "site-conf", "site-conf.xsd");
- 
+
                 controllerConfigs = FastList.newInstance();
                 for (File controllerFile: controllerFiles) {
                     URL controllerUrl = null;
@@ -286,13 +286,13 @@ public class ConfigXMLReader {
                     ControllerConfig cc = ConfigXMLReader.getControllerConfig(controllerUrl);
                     controllerConfigs.add(cc);
                 }
- 
+
                 controllerSearchResultsCache.put(cacheId, controllerConfigs);
             } catch (IOException e) {
                 throw new GeneralException("Error finding controller XML files to lookup request references: " + e.toString(), e);
             }
         }
- 
+
         if (controllerConfigs != null) {
             for (ControllerConfig cc: controllerConfigs) {
                 // make sure it has the named request in it
@@ -303,26 +303,26 @@ public class ConfigXMLReader {
                 }
             }
         }
- 
+
         return allControllerRequestSet;
     }
- 
+
     public static Set<String> findControllerRequestUniqueForTargetType(String target, String urlMode) throws GeneralException {
         if (UtilValidate.isEmpty(urlMode)) {
             urlMode = "intra-app";
         }
- 
+
         int indexOfDollarSignCurlyBrace = target.indexOf("${");
         int indexOfQuestionMark = target.indexOf("?");
         if (indexOfDollarSignCurlyBrace >= 0 && (indexOfQuestionMark < 0 || indexOfQuestionMark > indexOfDollarSignCurlyBrace)) {
             // we have an expanded string in the requestUri part of the target, not much we can do about that...
             return null;
         }
- 
+
         if ("intra-app".equals(urlMode)) {
             // look through all controller.xml files and find those with the request-uri referred to by the target
             String requestUri = UtilHttp.getRequestUriFromTarget(target);
- 
+
             Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerFilesWithRequest(requestUri, null);
             // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, module);
             return controllerLocAndRequestSet;
@@ -330,7 +330,7 @@ public class ConfigXMLReader {
             String webappMountPoint = UtilHttp.getWebappMountPointFromTarget(target);
             if (webappMountPoint != null) webappMountPoint += "/WEB-INF";
             String requestUri = UtilHttp.getRequestUriFromTarget(target);
- 
+
             Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerFilesWithRequest(requestUri, webappMountPoint);
             // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, module);
             return controllerLocAndRequestSet;
@@ -353,22 +353,22 @@ public class ConfigXMLReader {
         }
         return null;
     }
- 
+
     public static class RequestMap {
         public String uri;
         public boolean edit = true;
         public boolean trackVisit = true;
         public boolean trackServerHit = true;
         public String description;
- 
+
         public Event event;
- 
+
         public boolean securityHttps = false;
         public boolean securityAuth = false;
         public boolean securityCert = false;
         public boolean securityExternalView = true;
         public boolean securityDirectRequest = true;
- 
+
         public Map<String, RequestResponse> requestResponseMap = FastMap.newInstance();
 
         public RequestMap(Element requestMapElement) {
@@ -405,7 +405,7 @@ public class ConfigXMLReader {
             }
         }
     }
- 
+
     public static class Event {
         public String type;
         public String path;
@@ -426,7 +426,7 @@ public class ConfigXMLReader {
             this.globalTransaction = globalTransaction;
         }
     }
- 
+
     public static final RequestResponse emptyNoneRequestResponse = RequestResponse.createEmptyNoneRequestResponse();
     public static class RequestResponse {
         public String name;
@@ -436,7 +436,7 @@ public class ConfigXMLReader {
         public boolean saveCurrentView = false;
         public boolean saveHomeView = false;
         public Map<String, String> redirectParameterMap = FastMap.newInstance();
- 
+
         public RequestResponse(Element responseElement) {
             this.name = responseElement.getAttribute("name");
             this.type = responseElement.getAttribute("type");
@@ -450,9 +450,9 @@ public class ConfigXMLReader {
                 this.redirectParameterMap.put(redirectParameterElement.getAttribute("name"), from);
             }
         }
- 
+
         public RequestResponse() { }
- 
+
         public static RequestResponse createEmptyNoneRequestResponse() {
             RequestResponse requestResponse = new RequestResponse();
             requestResponse.name = "empty-none";
@@ -461,7 +461,7 @@ public class ConfigXMLReader {
             return requestResponse;
         }
     }
- 
+
     public static class ViewMap {
         public String viewMap;
         public String name;

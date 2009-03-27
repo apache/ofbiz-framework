@@ -44,7 +44,7 @@ public class OfbizAmountTransform implements TemplateTransformModel {
 
     public static final String module = OfbizAmountTransform.class.getName();
     public static final String SPELLED_OUT_FORMAT = "spelled-out";
- 
+
     private static String getArg(Map args, String key) {
         String  result = "";
         Object o = args.get(key);
@@ -90,7 +90,7 @@ public class OfbizAmountTransform implements TemplateTransformModel {
         }
         return Double.valueOf(0.00);
     }
- 
+
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
 

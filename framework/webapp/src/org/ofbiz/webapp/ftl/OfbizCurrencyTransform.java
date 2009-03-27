@@ -109,7 +109,7 @@ public class OfbizCurrencyTransform implements TemplateTransformModel {
         }
         return 0;
     }
- 
+
     public Writer getWriter(final Writer out, Map args) {
         final StringBuilder buf = new StringBuilder();
 

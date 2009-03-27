@@ -30,7 +30,7 @@ import org.ofbiz.base.util.HttpClient;
 public class TestEvent {
 
     public static final String module = TestEvent.class.getName();
- 
+
     public static String test(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("MESSAGE", "Test Event Ran Fine.");
         Debug.log("Test Event Ran Fine.", module);

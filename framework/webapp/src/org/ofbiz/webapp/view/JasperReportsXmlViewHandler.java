@@ -45,7 +45,7 @@ import org.ofbiz.entity.jdbc.ConnectionFactory;
  * Handles JasperReports PDF view rendering
  */
 public class JasperReportsXmlViewHandler extends AbstractViewHandler {
- 
+
     public static final String module = JasperReportsXmlViewHandler.class.getName();
 
     protected ServletContext context;

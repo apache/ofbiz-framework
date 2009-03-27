@@ -35,22 +35,22 @@ import org.w3c.dom.Element;
  * A class to manage the region cache and read a region XML file
  */
 public class RegionManager {
- 
+
     public static final String module = RegionManager.class.getName();
 
     protected static UtilCache<URL, Map<String, Region>> regionCache = new UtilCache<URL, Map<String, Region>>("webapp.Regions.Config", 0, 0);
- 
+
     protected URL regionFile = null;
- 
+
     public RegionManager(URL regionFile) {
         this.regionFile = regionFile;
         if (regionFile == null) throw new IllegalArgumentException("regionFile cannot be null");
- 
+
         //This may seem a bit funny, but we want to keep it in the cache so that it can be reloaded easily
         // Also note that we do not check to see if it is already there, in all cases we want to re-load the definition
         regionCache.put(regionFile, readRegionXml(regionFile));
     }
- 
+
     public Map<String, Region> getRegions() {
         Map<String, Region> regions = regionCache.get(regionFile);
         if (regions == null) {

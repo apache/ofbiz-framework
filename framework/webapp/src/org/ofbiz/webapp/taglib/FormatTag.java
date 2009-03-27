@@ -31,7 +31,7 @@ import org.ofbiz.base.util.UtilJ2eeCompat;
  * FormatTag - JSP Tag to format numbers and dates.
  */
 public class FormatTag extends BodyTagSupport {
- 
+
     public static final String module = FormatTag.class.getName();
 
     private String type = "N";

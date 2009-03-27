@@ -54,12 +54,12 @@ import org.jpublish.util.URLUtilities;
  * JPublishWrapper - Used for calling pages through JPublish
  */
 public class JPublishWrapper {
- 
+
     public static final String module = JPublishWrapper.class.getName();
- 
+
     protected ServletContext servletContext = null;
     protected SiteContext siteContext = null;
- 
+
     public JPublishWrapper(ServletContext context) {
         this.servletContext = context;
         // find the WEB-INF root
@@ -86,11 +86,11 @@ public class JPublishWrapper {
         } catch (Exception e) {
             Debug.logError(e, "Problems executing JPublish startup actions", module);
         }
- 
+
         // set this wrapper in the ServletContext for use by the ViewHandler
         servletContext.setAttribute("jpublishWrapper", this);
     }
- 
+
     protected void configureClasspath(File webInfPath) {
         File webLibPath = new File(webInfPath, "lib");
         File webClassPath = new File(webInfPath, "classes");
@@ -162,7 +162,7 @@ public class JPublishWrapper {
         }
         return false;
     }
- 
+
     /**
      * Renders a page and returns the string containing the content of the rendered page
      * @param path Path to the page
@@ -183,11 +183,11 @@ public class JPublishWrapper {
         }
         return content;
     }
- 
+
     public void render(String path, HttpServletRequest request, HttpServletResponse response, Writer writer) throws GeneralException {
         render(path, request, response, writer, null, false);
     }
- 
+
     public void render(String path, HttpServletRequest request, HttpServletResponse response, Writer writer, OutputStream outputStream) throws GeneralException {
         render(path, request, response, writer, outputStream, false);
     }
@@ -258,7 +258,7 @@ public class JPublishWrapper {
                     // execute path actions
                     if (executePathActions(request, response, context, path, allowRedirect))
                         return;
- 
+
                     // execute parameter actions
                     if (executeParameterActions(request, response, context, path, allowRedirect))
                         return;
@@ -271,7 +271,7 @@ public class JPublishWrapper {
                     throw new GeneralException("Cannot load static resource with a null OutputStream");
                 }
             }
- 
+
             // check and make sure we have a writer
             if (writer == null)
                 throw new GeneralException("Cannot load dynamic content with a null Writer");
@@ -310,7 +310,7 @@ public class JPublishWrapper {
 
             // get the template
             Template template = siteContext.getTemplateManager().getTemplate(page.getFullTemplateName());
- 
+
             // merge the template
             template.merge(context, page, writer);
             writer.flush();

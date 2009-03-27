@@ -48,7 +48,7 @@ import org.ofbiz.entity.jdbc.ConnectionFactory;
  * Handles JasperReports JXls view rendering
  */
 public class JasperReportsJXlsViewHandler extends AbstractViewHandler {
- 
+
     public static final String module = JasperReportsJXlsViewHandler.class.getName();
 
     protected ServletContext context;
@@ -91,7 +91,7 @@ public class JasperReportsJXlsViewHandler extends AbstractViewHandler {
                     }
                 }
             }
- 
+
             response.setContentType("application/xls");
 
             Map parameters = (Map) request.getAttribute("jrParameters");

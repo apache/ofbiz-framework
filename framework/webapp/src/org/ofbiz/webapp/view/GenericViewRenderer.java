@@ -53,11 +53,11 @@ import org.jpublish.view.ViewRenderer;
  * Generic JPublish View Renderer - This is in testing; for use in wrapping other renderers
  */
 public class GenericViewRenderer extends AbstractViewRenderer {
- 
+
     public static final String module = GenericViewRenderer.class.getName();
     public static final String DEFAULT_RENDERER = "freemarker";
     public Map renderers = null;
- 
+
     protected SiteContext siteContext = null;
 
     /**
@@ -88,15 +88,15 @@ public class GenericViewRenderer extends AbstractViewRenderer {
         HttpSession session = context.getSession();
         Security security = (Security) request.getAttribute("security");
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
- 
+
         Page parent = (Page) context.get("page");
         Page page = getPage(path);
- 
+
         // decorate the content w/ edit images if we have permission
         if (userLogin != null && security.hasEntityPermission("CONTENTMGR", "_UPDATE", userLogin)) {
             out.write("<a href='/content/control/editContent?filePath=" + path + "'>*</a>");
         }
- 
+
         /* this loops -- not good
         // if this page has a template, lets render the template
         if (page != null && parent != null && page.getPath() != parent.getPath()) {
@@ -109,7 +109,7 @@ public class GenericViewRenderer extends AbstractViewRenderer {
             }
         }
         */
- 
+
         // get the view renderer for this page
         if (Debug.verboseOn()) Debug.logVerbose("Getting renderer for: " + path, module);
         String rendererName = DEFAULT_RENDERER;
@@ -118,16 +118,16 @@ public class GenericViewRenderer extends AbstractViewRenderer {
             if (rendererName == null)
                 rendererName = DEFAULT_RENDERER;
         }
- 
+
         ViewRenderer renderer = (ViewRenderer) renderers.get(rendererName);
         if (renderer == null)
             renderer = (ViewRenderer) renderers.get(DEFAULT_RENDERER);
- 
+
         // call the renderer to render the rest of the page.
         Debug.logVerbose("Calling render", module);
         renderer.render(context, path, in, out);
     }
- 
+
     private void renderTemplate(JPublishContext context, Page page, Writer out) throws IOException, ViewRenderException {
         context.disableCheckReservedNames(this);
         context.put("page", page);
@@ -142,7 +142,7 @@ public class GenericViewRenderer extends AbstractViewRenderer {
             throw new ViewRenderException(e);
         }
     }
- 
+
     private JPublishContext cloneContext(JPublishContext context) {
         JPublishContext newContext = new JPublishContext(this);
         context.disableCheckReservedNames(this);
@@ -167,7 +167,7 @@ public class GenericViewRenderer extends AbstractViewRenderer {
      */
     public void loadConfiguration(Configuration config) throws ConfigurationException {
     }
- 
+
     private Page getPage(String path) {
         Page page = null;
         try {
@@ -177,12 +177,12 @@ public class GenericViewRenderer extends AbstractViewRenderer {
         } catch (Exception e) {}
         return page;
     }
- 
+
     private void loadCustom() throws Exception {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         InputStream in = new FileInputStream(siteContext.getConfigurationFile());
         Configuration configuration = new XMLConfiguration(in);
- 
+
         Iterator renderElements = configuration.getChildren("page-renderer").iterator();
         while (renderElements.hasNext()) {
             Configuration viewRendererConfiguration = (Configuration) renderElements.next();

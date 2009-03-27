@@ -43,7 +43,7 @@ import org.ofbiz.entity.model.ModelEntity;
 public class VisitHandler {
     // Debug module name
     public static final String module = VisitHandler.class.getName();
- 
+
     public static final String visitorCookieName = "OFBiz.Visitor";
 
     public static void setUserLogin(HttpSession session, GenericValue userLogin, boolean userCreated) {
@@ -62,7 +62,7 @@ public class VisitHandler {
                 Debug.logError(e, "Could not update visitor: ", module);
             }
         }
- 
+
         GenericValue visit = getVisit(session);
         if (visit != null) {
             visit.set("userLoginId", userLogin.get("userLoginId"));
@@ -70,12 +70,12 @@ public class VisitHandler {
                 visit.set("partyId", userLogin.get("partyId"));
             }
             visit.set("userCreated", Boolean.valueOf(userCreated));
- 
+
             // make sure the visitorId is still in place
             if (visitor != null) {
                 visit.set("visitorId", visitor.get("visitorId"));
             }
- 
+
             try {
                 visit.store();
             } catch (GenericEntityException e) {
@@ -103,18 +103,18 @@ public class VisitHandler {
                     visit = (GenericValue) session.getAttribute("visit");
                     if (visit == null) {
                         GenericDelegator delegator = null;
- 
+
                         // first try the session attribute delegatorName
                         String delegatorName = (String) session.getAttribute("delegatorName");
                         if (UtilValidate.isNotEmpty(delegatorName)) {
                             delegator = GenericDelegator.getGenericDelegator(delegatorName);
                         }
- 
+
                         // then try the ServletContext attribute delegator, should always be there...
                         if (delegator == null) {
                             delegator = (GenericDelegator) session.getServletContext().getAttribute("delegator");
                         }
- 
+
                         if (delegator == null) {
                             Debug.logError("Could not find delegator with delegatorName [" + delegatorName + "] in session, or a delegator attribute in the ServletContext, not creating Visit entity", module);
                         } else {
@@ -125,11 +125,11 @@ public class VisitHandler {
                             String initialUserAgent = (String) session.getAttribute("_CLIENT_USER_AGENT_");
 
                             String initialLocale = initialLocaleObj != null ? initialLocaleObj.toString() : "";
- 
+
                             if (UtilValidate.isEmpty(webappName)) {
                                 Debug.logInfo(new Exception(), "The webappName was empty, somehow the initial request settings were missing.", module);
                             }
- 
+
                             visit = delegator.makeValue("Visit");
                             visit.set("sessionId", session.getId());
                             visit.set("fromDate", new Timestamp(session.getCreationTime()));
@@ -146,7 +146,7 @@ public class VisitHandler {
                             }
                             visit.set("clientHostName", session.getAttribute("_CLIENT_REMOTE_HOST_"));
                             visit.set("clientUser", session.getAttribute("_CLIENT_REMOTE_USER_"));
- 
+
                             // get the visitorId
                             GenericValue visitor = (GenericValue) session.getAttribute("visitor");
                             if (visitor != null) {
@@ -176,7 +176,7 @@ public class VisitHandler {
                     }
                 }
             }
- 
+
             if (visit == null) {
                 Debug.logWarning("Could not find or create the visit...", module);
             }
@@ -217,9 +217,9 @@ public class VisitHandler {
                                     }
                                 }
                             }
- 
+
                             if (Debug.infoOn()) Debug.logInfo("Found visitorId [" + cookieVisitorId + "] in cookie", module);
- 
+
                             if (UtilValidate.isEmpty(cookieVisitorId)) {
                                 // no visitor cookie? create visitor and send back cookie too
                                 visitor = delegator.makeValue("Visitor");
@@ -244,11 +244,11 @@ public class VisitHandler {
                                 }
                             }
                         }
- 
+
                         if (visitor != null) {
                             // we got one, and it's a new one since it was null before
                             session.setAttribute("visitor", visitor);
- 
+
                             // create the cookie and send it back, this may be done over and over, in effect frequently refreshing the cookie
                             Cookie visitorCookie = new Cookie(visitorCookieName, visitor.getString("visitorId"));
                             visitorCookie.setMaxAge(60 * 60 * 24 * 365);

@@ -112,7 +112,7 @@ public class DojoJSONServiceEventHandler implements EventHandler {
         if (jsonStr == null) {
             throw new EventHandlerException("JSON Object was empty; fatal error!");
         }
- 
+
         String htmlJsonStr = "<html><head></head><body><textarea style=\"width: 100%%; height: 100px;\">" + jsonStr + "</textarea></body></html>";
         // set the X-JSON content type
         response.setContentType("text/html");

@@ -30,7 +30,7 @@ public class EventHandlerException extends org.ofbiz.base.util.GeneralException 
     public EventHandlerException(Throwable t) {
         super(t);
     }
- 
+
     public EventHandlerException(String str) {
         super(str);
     }

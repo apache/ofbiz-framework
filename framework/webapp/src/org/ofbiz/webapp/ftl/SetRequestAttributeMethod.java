@@ -33,7 +33,7 @@ import freemarker.template.TemplateScalarModel;
  * SetRequestAttributeMethod - Freemarker Method for setting request attributes
  */
 public class SetRequestAttributeMethod implements TemplateMethodModelEx {
- 
+
     public static final String module = SetRequestAttributeMethod.class.getName();
 
     /*
@@ -46,11 +46,11 @@ public class SetRequestAttributeMethod implements TemplateMethodModelEx {
             throw new TemplateModelException("First argument not an instance of TemplateScalarModel");
         if (!(args.get(1) instanceof BeanModel) && !(args.get(1) instanceof TemplateNumberModel) && !(args.get(1) instanceof TemplateScalarModel))
             throw new TemplateModelException("Second argument not an instance of BeanModel nor TemplateNumberModel nor TemplateScalarModel");
- 
+
         Environment env = Environment.getCurrentEnvironment();
         BeanModel req = (BeanModel)env.getVariable("request");
         HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
- 
+
         String name = ((TemplateScalarModel) args.get(0)).getAsString();
         Object value = null;
         if (args.get(1) instanceof TemplateScalarModel)
@@ -59,7 +59,7 @@ public class SetRequestAttributeMethod implements TemplateMethodModelEx {
             value = ((TemplateNumberModel) args.get(1)).getAsNumber();
         if (args.get(1) instanceof BeanModel)
             value = ((BeanModel) args.get(1)).getWrappedObject();
- 
+
         request.setAttribute(name, value);
         return new SimpleScalar("");
     }

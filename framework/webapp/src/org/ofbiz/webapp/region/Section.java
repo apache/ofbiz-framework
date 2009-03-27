@@ -45,7 +45,7 @@ public class Section extends Content {
     protected final String name;
     protected final String info;
     protected RegionManager regionManager;
- 
+
     public final static String module = Section.class.getName();
 
     public Section(String name, String info, String content, String type, RegionManager regionManager) {

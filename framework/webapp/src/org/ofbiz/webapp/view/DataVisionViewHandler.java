@@ -37,7 +37,7 @@ import org.ofbiz.entity.jdbc.ConnectionFactory;
  * Handles DataVision type view rendering
  */
 public class DataVisionViewHandler extends AbstractViewHandler {
- 
+
     public static final String module = DataVisionViewHandler.class.getName();
 
     protected ServletContext context;

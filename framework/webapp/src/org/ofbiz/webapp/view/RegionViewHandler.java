@@ -36,7 +36,7 @@ import org.ofbiz.webapp.region.RegionStack;
  * Handles Region type view rendering
  */
 public class RegionViewHandler extends AbstractViewHandler {
- 
+
     public static final String module = RegionViewHandler.class.getName();
 
     protected ServletContext context;

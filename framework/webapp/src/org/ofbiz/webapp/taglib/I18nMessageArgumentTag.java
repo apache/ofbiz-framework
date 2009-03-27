@@ -29,9 +29,9 @@ import org.ofbiz.base.util.UtilJ2eeCompat;
  * ordered list of arguments to use with java.text.MessageFormat.
  */
 public class I18nMessageArgumentTag extends TagSupport {
- 
+
     public static final String module = I18nMessageArgumentTag.class.getName();
- 
+
     public void setValue(Object argumentValue) throws JspException {
         try {
             I18nMessageTag messageTag = (I18nMessageTag) this.getParent();

@@ -46,7 +46,7 @@ public class SimpleEventHandler implements EventHandler {
      */
     public void init(ServletContext context) throws EventHandlerException {
     }
- 
+
     /**
      * @see org.ofbiz.webapp.event.EventHandler#invoke(Event, org.ofbiz.webapp.control.ConfigXMLReader.RequestMap, HttpServletRequest, HttpServletResponse)
      */
@@ -54,7 +54,7 @@ public class SimpleEventHandler implements EventHandler {
         String xmlResource = event.path;
         String eventName = event.invoke;
         Locale locale = UtilHttp.getLocale(request);
- 
+
         if (Debug.verboseOn()) Debug.logVerbose("[Set path/method]: " + xmlResource + " / " + eventName, module);
 
         if (xmlResource == null) {

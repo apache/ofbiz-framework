@@ -45,7 +45,7 @@ public class JavaEventHandler implements EventHandler {
      */
     public void init(ServletContext context) throws EventHandlerException {
     }
- 
+
     /**
      * @see org.ofbiz.webapp.event.EventHandler#invoke(Event, org.ofbiz.webapp.control.ConfigXMLReader.RequestMap, HttpServletRequest, HttpServletResponse)
      */

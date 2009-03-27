@@ -37,7 +37,7 @@ import org.ofbiz.webapp.control.ConfigXMLReader;
  * BsfEventHandler - BSF Event Handler
  */
 public class BsfEventHandler implements EventHandler {
- 
+
     public static final String module = BsfEventHandler.class.getName();
     public static UtilCache<String, String> eventCache = new UtilCache<String, String>("webapp.BsfEvents");
 
@@ -55,23 +55,23 @@ public class BsfEventHandler implements EventHandler {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         if (cl == null)
             cl = this.getClass().getClassLoader();
- 
+
         if (context == null) {
             throw new EventHandlerException("Problem getting ServletContext");
         }
- 
+
         try {
             // create the BSF manager
             BSFManager bsfManager = new BSFManager();
             bsfManager.setClassLoader(cl);
- 
+
             // expose the event objects to the script
             bsfManager.declareBean("request", request, HttpServletRequest.class);
             bsfManager.declareBean("response", response, HttpServletResponse.class);
- 
+
             // get the script type
             String scriptType = BSFManager.getLangFromFilename(event.invoke);
- 
+
             // load the script
             InputStream scriptStream = null;
             String scriptString = null;
@@ -110,15 +110,15 @@ public class BsfEventHandler implements EventHandler {
                     }
                 }
             }
- 
+
             // execute the script
             Object result = bsfManager.eval(scriptType, cacheName, 0, 0, scriptString);
- 
+
             // check the result
             if (result != null && !(result instanceof String)) {
                 throw new EventHandlerException("Event did not return a String result, it returned a " + result.getClass().getName());
             }
- 
+
             return (String) result;
         } catch (BSFException e) {
             throw new EventHandlerException("BSF Error", e);

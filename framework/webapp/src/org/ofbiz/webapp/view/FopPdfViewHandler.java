@@ -37,9 +37,9 @@ import org.ofbiz.base.util.GeneralException;
  * This handler will use JPublish to generate the XSL-FO
  */
 public class FopPdfViewHandler extends JPublishViewHandler {
- 
+
     public static final String module = FopPdfViewHandler.class.getName();
- 
+
     /**
      * @see org.ofbiz.webapp.view.ViewHandler#render(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
@@ -54,7 +54,7 @@ public class FopPdfViewHandler extends JPublishViewHandler {
         if (Debug.verboseOn()) {
             Debug.logVerbose("XSL-FO : " + writer.toString(), module);
         }
- 
+
         // render the byte array
         ByteArrayOutputStream out = null;
         Reader reader = new StringReader(writer.toString());
@@ -64,11 +64,11 @@ public class FopPdfViewHandler extends JPublishViewHandler {
         } catch (GeneralException e) {
             throw new ViewHandlerException(e.getMessage(), e.getNested());
         }
- 
+
         // set the content type and length
         response.setContentType("application/pdf");
         response.setContentLength(out.size());
- 
+
         // write to the browser
         try {
             out.writeTo(response.getOutputStream());

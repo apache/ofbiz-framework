@@ -32,7 +32,7 @@ import org.ofbiz.base.util.Debug;
  * IfTag - Conditional Tag.
  */
 public class IfTag extends BodyTagSupport {
- 
+
     public static final String module = IfTag.class.getName();
 
     private String name = null;
