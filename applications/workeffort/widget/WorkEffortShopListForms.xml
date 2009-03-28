@@ -36,7 +36,7 @@ under the License.
         <field name="description"><display/></field>
         <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${lastName} ${groupName} [${partyId}]"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteShoppingListWorkEffort" also-hidden="false" description="${uiLabelMap.CommonDelete">
+            <hyperlink target="deleteShoppingListWorkEffort" also-hidden="false" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="workEffortId" from-field="workEffortId"/>
                 <parameter param-name="shoppingListId" from-field="shoppingListId"/>
             </hyperlink>

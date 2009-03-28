@@ -302,7 +302,7 @@ under the License.
        </row-actions>
        <field name="invoiceId"><hidden/></field>
        <field name="invoiceItemSeqId" widget-style="buttontext">
-           <hyperlink target="listInvoiceItems"  description="${invoiceItemSeqId">
+           <hyperlink target="listInvoiceItems"  description="${invoiceItemSeqId}">
                 <parameter param-name="invoiceId" from-field="invoiceId"/>
                 <parameter param-name="invoiceItemSeqId" from-field="invoiceItemSeqId"/>
             </hyperlink>

@@ -415,7 +415,7 @@ under the License.
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext"><hyperlink target="invoiceOverview?invoiceId=${invoiceId}" description="${invoiceId}"/></field>
         <field name="invoiceItemSeqId" widget-style="buttontext">
-            <hyperlink target="listInvoiceItems" description="${invoiceItemSeqId">
+            <hyperlink target="listInvoiceItems" description="${invoiceItemSeqId}">
                 <parameter param-name="invoiceId" from-field="invoiceId"/>
                 <parameter param-name="invoiceItemSeqId" from-field="invoiceItemSeqId"/>
             </hyperlink>

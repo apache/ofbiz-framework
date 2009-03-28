@@ -204,7 +204,7 @@ under the License.
         target="" header-row-style="header-row-2" paginate="true">
         <auto-fields-entity entity-name="ProductConfigOption" default-field-type="display" />
         <field name="configItemId" widget-style="buttontext" title="${uiLabelMap.ProductConfigItem}">
-            <hyperlink target="EditProductConfigOptions" description="${configOptionId} - ${configOptionName">
+            <hyperlink target="EditProductConfigOptions" description="${configOptionId} - ${configOptionName}">
                 <parameter param-name="configItemId" from-field="configItemId"/>
                 <parameter param-name="configOptionId" from-field="configOptionId"/>
             </hyperlink>

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- Routing forms -->
     <form name="FindRoutings" type="single" target="FindRouting" title=""
@@ -200,7 +200,7 @@ under the License.
             <hyperlink target="EditRouting?workEffortId=${workEffortIdFrom}" description="${uiLabelMap.ManufacturingEditRouting}" also-hidden="false"/>
         </field>
     </form>
-    
+
     <!-- Routing Task Assoc Forms -->
     <form name="ListRoutingTaskAssoc" type="list" target="EditRoutingTaskAssoc" title="" list-name="allRoutingTasks"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -230,7 +230,7 @@ under the License.
             <sort-field name="sequenceNum"/>
         </sort-order>
     </form>
- 
+
      <form name="UpdateRoutingTaskAssoc" type="single" target="UpdateRoutingTaskAssoc" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateWorkEffortAssoc" map-name="routingTaskAssoc"/>
@@ -281,16 +281,16 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display/></field>
-        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" description="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink target="EditRoutingProductLink" also-hidden="false">
+       <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
+            <hyperlink target="EditRoutingProductLink" description="${uiLabelMap.CommonEdit}" also-hidden="false">
                 <parameter param-name="workEffortId" from-field="workEffortId"/>
                 <parameter param-name="productId" from-field="productId"/>
                 <parameter param-name="fromDate" from-field="fromDate"/>
                 <parameter param-name="workEffortGoodStdTypeId" value="ROU_PROD_TEMPLATE"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" description="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="removeRoutingProductLink" also-hidden="false">
+       <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="removeRoutingProductLink" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="workEffortId" from-field="workEffortId"/>
                 <parameter param-name="productId" from-field="productId"/>
                 <parameter param-name="fromDate" from-field="fromDate"/>
@@ -341,7 +341,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
+
     <!-- RoutingTask-FixedAsset association (WorkEffortFixedAssetStd) -->
     <form name="ListRoutingTaskFixedAssets" type="list" title="" target="updateRoutingTaskFixedAsset" list-name="allFixedAssets"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
@@ -354,7 +354,7 @@ under the License.
             <submit button-type="button" />
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeRoutingTaskFixedAsset?workEffortId=${workEffortId}&amp;fixedAssetTypeId=${fixedAssetTypeId}" 
+            <hyperlink target="removeRoutingTaskFixedAsset?workEffortId=${workEffortId}&amp;fixedAssetTypeId=${fixedAssetTypeId}"
                     description="${uiLabelMap.CommonDelete}" also-hidden="false" />
         </field>
     </form>
