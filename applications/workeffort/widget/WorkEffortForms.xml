@@ -881,7 +881,11 @@ under the License.
             </hyperlink>
         </field>
         <field name="internalNote" title="${uiLabelMap.WorkEffortPrivatePublic}" widget-style="buttontext" use-when="internalNote.equals(&quot;Y&quot;)">
-            <hyperlink target="updateWorkEffortNote?workEffortId=${workEffortId}&amp;noteId=${noteId}&amp;internalNote=N" description="${uiLabelMap.OrderNotesPublic}"/>
+            <hyperlink target="updateWorkEffortNote" description="${uiLabelMap.OrderNotesPublic}">
+				<parameter param-name="workEffortId" from-field="workEffortId"/>
+				<parameter param-name="noteId" from-field="noteId"/>
+				<parameter param-name="internalNote" value="N"/>
+			</hyperlink>
         </field>
     </form>
 
