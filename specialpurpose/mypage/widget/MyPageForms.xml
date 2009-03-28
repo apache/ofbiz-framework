@@ -252,7 +252,11 @@ under the License.
             </entity-condition>
         </actions>        
         <field name="subject">
-            <hyperlink description="${subject}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION&amp;partyId=${userLogin.partyId}"/>
+            <hyperlink description="${subject}" target="EditCommunicationEvent">
+				<parameter param-name="communicationEventId" from-field="communicationEventId"/>
+				<parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
+				<parameter param-name="partyId" from-field="userLogin.partyId"/>
+			</hyperlink>
         </field>
         <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent">

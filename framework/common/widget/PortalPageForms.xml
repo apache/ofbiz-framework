@@ -33,10 +33,34 @@ under the License.
         <field name="bot" title="${uiLabelMap.CommonEmptyHeader}" use-when="(ownerUserLoginId.equals(&quot;_NA_&quot;))||(sequenceNum &gt;= ${parameters.sequenceNumMax})"><hyperlink target="" description=""/></field>
         <field name="up" title="${uiLabelMap.CommonEmptyHeader}" use-when="(ownerUserLoginId.equals(&quot;_NA_&quot;))||(sequenceNum == ${parameters.sequenceNumMin})"><hyperlink target="" description=""/></field>
         <field name="dwn" title="${uiLabelMap.CommonEmptyHeader}" use-when="(ownerUserLoginId.equals(&quot;_NA_&quot;))||(sequenceNum &gt;= ${parameters.sequenceNumMax})"><hyperlink target="" description=""/></field>       
-        <field name="top" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &gt; ${parameters.sequenceNumMin})"><hyperlink target="updatePortalPageSeq?mode=TOP&amp;portalPageId=${portalPageId}&amp;parentPortalPageId=${parameters.parentPortalPageId}" image-location="/images/arrow-end-up-green.png"/></field>
-        <field name="bot" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &lt; ${parameters.sequenceNumMax})"><hyperlink target="updatePortalPageSeq?mode=BOT&amp;portalPageId=${portalPageId}&amp;parentPortalPageId=${parameters.parentPortalPageId}" image-location="/images/arrow-end-down-green.png"/></field>
-        <field name="up" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &gt; ${parameters.sequenceNumMin})"><hyperlink target="updatePortalPageSeq?mode=UP&amp;portalPageId=${portalPageId}&amp;parentPortalPageId=${parameters.parentPortalPageId}" image-location="/images/arrow-single-up-green.png"/></field>
-        <field name="dwn" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &lt; ${parameters.sequenceNumMax})"><hyperlink target="updatePortalPageSeq?mode=DWN&amp;portalPageId=${portalPageId}&amp;parentPortalPageId=${parameters.parentPortalPageId}" image-location="/images/arrow-single-down-green.png"/></field>
+        <field name="top" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &gt; ${parameters.sequenceNumMin})">
+			<hyperlink target="updatePortalPageSeq" image-location="/images/arrow-end-up-green.png">
+				<parameter param-name="mode" value="TOP"/>
+				<parameter param-name="portalPageId" from-field="portalPageId"/>
+				<parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
+			</hyperlink>
+		</field>
+        <field name="bot" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &lt; ${parameters.sequenceNumMax})">
+			<hyperlink target="updatePortalPageSeq" image-location="/images/arrow-end-down-green.png">
+				<parameter param-name="mode" value="BOT"/>
+				<parameter param-name="portalPageId" from-field="portalPageId"/>
+				<parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
+			</hyperlink>
+		</field>
+        <field name="up" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &gt; ${parameters.sequenceNumMin})">
+			<hyperlink target="updatePortalPageSeq" image-location="/images/arrow-single-up-green.png">
+				<parameter param-name="mode" value="UP"/>
+				<parameter param-name="portalPageId" from-field="portalPageId"/>
+				<parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
+			</hyperlink>
+		</field>
+        <field name="dwn" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &lt; ${parameters.sequenceNumMax})">
+			<hyperlink target="updatePortalPageSeq" image-location="/images/arrow-single-down-green.png">
+				<parameter param-name="mode" value="DWN"/>
+				<parameter param-name="portalPageId" from-field="portalPageId"/>
+				<parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
+			</hyperlink>
+		</field>
         <field name="portalPageName" use-when="ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonName}" sort-field="true"><display/></field>
         <field name="portalPageName" use-when="!ownerUserLoginId.equals(&quot;_NA_&quot;)" title="${uiLabelMap.CommonName}" id-name="portalPageName" widget-style="tabletext" sort-field="true">
             <display>
