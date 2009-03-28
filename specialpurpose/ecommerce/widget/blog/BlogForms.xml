@@ -67,7 +67,11 @@
         </actions>
 
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;contentIdTo=${contentIdTo}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit">
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="drDataResourceId" from-field="drDataResourceId"/>
+                <parameter param-name="contentIdTo" from-field="contentIdTo"/>
+             </hyperlink>
         </field>
         <field name="contentId" title="${uiLabelMap.ContentContent}">
             <display/>

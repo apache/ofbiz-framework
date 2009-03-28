@@ -584,7 +584,11 @@ under the License.
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteAcctgTransEntry?acctgTransId=${acctgTransId}&amp;acctgTransEntrySeqId=${acctgTransEntrySeqId}&amp;organizationPartyId=${organizationPartyId}"/>
+           <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteAcctgTransEntry">
+                <parameter param-name="acctgTransId" from-field="acctgTransId"/>
+                <parameter param-name="acctgTransEntrySeqId" from-field="acctgTransEntrySeqId"/>
+                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="CreateAcctgTrans" type="single" target="createAcctgTrans"

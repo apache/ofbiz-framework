@@ -216,7 +216,11 @@ under the License.
             </drop-down>
         </field>
         <field name="cancel" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCancel}" target="cancelFixedAssetStdCost?fixedAssetId=${fixedAssetId}&amp;fixedAssetStdCostTypeId=${fixedAssetStdCostTypeId}&amp;fromDate=${fromDate}"/>
+           <hyperlink also-hidden="false" description="${uiLabelMap.CommonCancel}" target="cancelFixedAssetStdCost">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetStdCostTypeId" from-field="fixedAssetStdCostTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

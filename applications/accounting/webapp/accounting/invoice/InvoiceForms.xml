@@ -448,7 +448,11 @@ under the License.
         <field name="percentage"><display/></field>
         <field name="datetimePerformed"><display/></field>
         <field name="removeButton" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoiceRole?invoiceId=${invoiceId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}"/>
+           <hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoiceRole">
+                <parameter param-name="invoiceId" from-field="invoiceId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditInvoiceRole" type="single" target="createInvoiceRole" title=""

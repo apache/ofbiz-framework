@@ -444,7 +444,11 @@ under the License.
         </field>
         
         <field name="deleteLink" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteCustRequestItemWorkEffort?custRequestId=${custRequestId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}"/>
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteCustRequestItemWorkEffort">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddCustRequestItemWorkEffort" type="single" target="createCustRequestItemWorkEffort" title=""
@@ -552,7 +556,11 @@ under the License.
         <field name="mimeTypeId"><display/></field>
         <field name="fromDate"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="tabButtonItem.equals(&quot;custRequestContent&quot;)">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteCustRequestContent?custRequestId=${custRequestId}&amp;contentId=${contentId}&amp;fromDate=${fromDate}"/>
+           <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteCustRequestContent">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                </hyperlink>
         </field>
     </form>
 </forms>

@@ -585,7 +585,11 @@ under the License.
             <display-entity entity-name="DataResource" description="${dataResourceName}"/>
         </field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditPartyContents?contentId=${contentId}&amp;partyId=${partyId}&amp;dataResourceId=${dataResourceId}"/>
+           <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditPartyContents">
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="dataResourceId" from-field="dataResourceId"/>
+            </hyperlink>
         </field>
     </form>    
 

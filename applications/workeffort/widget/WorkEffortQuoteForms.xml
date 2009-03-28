@@ -66,7 +66,11 @@ under the License.
         <field name="estimatedDeliveryDate"><display/></field>
         <field name="comments"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortQuoteItem?workEffortId=${workEffortId}&amp;quoteId=${quoteId}&amp;quoteItemSeqId=${quoteItemSeqId}"/>
+           <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortQuoteItem">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="quoteId" from-field="quoteId"/>
+                <parameter param-name="quoteItemSeqId" from-field="quoteItemSeqId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddWorkEffortQuoteItem" target="createWorkEffortQuoteItem" title="" type="single"
