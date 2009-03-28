@@ -748,7 +748,13 @@ under the License.
         <field name="estimatedQuantity"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink target="deleteProductionRunComponent?workEffortId=${workEffortId}&amp;fromDate=${fromDate}&amp;productId=${productId}&amp;workEffortGoodStdTypeId=${workEffortGoodStdTypeId}&amp;productionRunId=${productionRunId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteProductionRunComponent"  description="${uiLabelMap.CommonDelete" also-hidden="false">
+				<parameter param-name="workEffortId" from-field="workEffortId"/>
+				<parameter param-name="fromDate" from-field="fromDate"/>
+				<parameter param-name="productId" from-field="productId"/>
+				<parameter param-name="workEffortGoodStdTypeId" from-field="workEffortGoodStdTypeId"/>
+				<parameter param-name="productionRunId" from-field="productionRunId}"/>
+			</hyperlink>
         </field>
     </form>
     <form name="ProductionRunTaskActualComponents" type="list" target="updateProductionRunComponent" paginate-target="ProductionRunActualComponents" title="" list-name="records"

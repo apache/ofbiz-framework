@@ -28,9 +28,25 @@ under the License.
         </field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="/projectmgr/control/projectView?projectId=${resultProject.projectId}"  target-type="inter-app" target-window="_BLANK" description="${resultProject.projectName}"/></field>
         <field name="roleTypeId" parameter-name="newRoleTypeId" title="${uiLabelMap.PartyRole}"><hidden value="${roleTypeId}"/></field>
-        <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED&amp;portalPageId=${parameters.portalPageId}" description="${uiLabelMap.CommonRemove}"/></field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment" description="${uiLabelMap.CommonRemove}">
+				<parameter param-name="workEffortId" from-field="workEffortId"/>
+				<parameter param-name="partyId" from-field="partyId"/>
+				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
+				<parameter param-name="fromDate" from-field="fromDate"/>
+				<parameter param-name="statusId" value="PAS_ENDED"/>
+				<parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
+			</hyperlink>
+        </field>
         <!-- better set to complete on the timesheet -->
-        <!-- field name="toComplete" title="${uiLabelMap.MyPortalToComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED&amp;donePage=${parameters.donePage}" description="${uiLabelMap.MyPortalToComplete}"/></field-->
+        <!-- field name="toComplete" title="${uiLabelMap.MyPortalToComplete}"><hyperlink target="updateTaskAssigment" description="${uiLabelMap.MyPortalToComplete}">
+				<parameter param-name="workEffortId" from-field="workEffortId"/>
+				<parameter param-name="partyId" from-field="partyId"/>
+				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
+				<parameter param-name="fromDate" from-field="fromDate"/>
+				<parameter param-name="statusId" value="PAS_COMPLETED"/>
+				<parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
+			</hyperlink>
+        </field-->
     </form>
     
     <form name="EditWeekTimesheet" extends="EditWeekTimesheet" extends-resource="component://projectmgr/widget/forms/TimeSheetForms.xml">
