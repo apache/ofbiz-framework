@@ -25,9 +25,9 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="portalPageId" title="${uiLabelMap.CommonEdit}">
             <hyperlink description="${uiLabelMap.CommonEdit}" target="ManagePortalPages">
-				<parameter param-name="portalPageId" from-field="portalPageId"/>
-				<parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
-			</hyperlink>
+                <parameter param-name="portalPageId" from-field="portalPageId"/>
+                <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
+            </hyperlink>
         </field>
         <field name="top" title="${uiLabelMap.CommonEmptyHeader}" use-when="(ownerUserLoginId.equals(&quot;_NA_&quot;))||(sequenceNum == ${parameters.sequenceNumMin})"><hyperlink target="" description=""/></field>
         <field name="bot" title="${uiLabelMap.CommonEmptyHeader}" use-when="(ownerUserLoginId.equals(&quot;_NA_&quot;))||(sequenceNum &gt;= ${parameters.sequenceNumMax})"><hyperlink target="" description=""/></field>

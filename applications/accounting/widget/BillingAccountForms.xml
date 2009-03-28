@@ -93,9 +93,9 @@ under the License.
         <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="capture" use-when="${bsh:!paidInvoice}" widget-style="buttontext">
             <hyperlink target="capturePaymentsByInvoice" description="${uiLabelMap.AccountingCapture}">
-				<parameter param-name="invoiceId" from-field="invoiceId"/>
-				<parameter param-name="billingAccountId" from-field="billingAccountId"/>
-			</hyperlink>
+                <parameter param-name="invoiceId" from-field="invoiceId"/>
+                <parameter param-name="billingAccountId" from-field="billingAccountId"/>
+            </hyperlink>
         </field>
         <field name="capture" use-when="${bsh:paidInvoice}"><display/></field>
     </form>
@@ -206,15 +206,15 @@ under the License.
         </field>
         <field name="billingAccountTermId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonEdit}" target="EditBillingAccountTerms">
-				<parameter param-name="billingAccountId" from-field="billingAccountId"/>
-				<parameter param-name="billingAccountTermId" from-field="billingAccountTermId"/>
-			</hyperlink>
+                <parameter param-name="billingAccountId" from-field="billingAccountId"/>
+                <parameter param-name="billingAccountTermId" from-field="billingAccountTermId"/>
+            </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="removeBillingAccountTerm">
-				<parameter param-name="billingAccountId" from-field="billingAccountId"/>
-				<parameter param-name="billingAccountTermId" from-field="billingAccountTermId"/>
-			</hyperlink>
+                <parameter param-name="billingAccountId" from-field="billingAccountId"/>
+                <parameter param-name="billingAccountTermId" from-field="billingAccountTermId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditBillingAccountTerms" type="single" target="updateBillingAccountTerm" title="" default-map-name="billingAccountTerm"

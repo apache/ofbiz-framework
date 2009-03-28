@@ -903,10 +903,10 @@ under the License.
         <field name="parentTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/></field>
         <field name="remove">
             <hyperlink target="deleterole" description="${uiLabelMap.CommonRemove">
-				<parameter param-name="partyId" from-field="partyId"/>
-				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
-			</hyperlink>
-		</field>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+            </hyperlink>
+        </field>
     </form>
     <form name="AddPartyRole" type="single" title="Add a role to party" target="addrole/viewroles">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>

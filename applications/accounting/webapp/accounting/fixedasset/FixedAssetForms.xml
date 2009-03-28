@@ -326,9 +326,9 @@ under the License.
         </actions>
         <field name="maintHistSeqId">
             <hyperlink also-hidden="false" description="${maintHistSeqId}" target="EditFixedAssetMaint">
-				<parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
-				<parameter param-name="maintHistSeqId" from-field="maintHistSeqId"/>
-			</hyperlink>
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="maintHistSeqId"/>
+            </hyperlink>
         </field>
         <field name="productMaintTypeId" ><display-entity entity-name="ProductMaintType"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>

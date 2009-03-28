@@ -37,10 +37,10 @@ under the License.
         <field name="requirementDescription"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteWorkEffortRequirement" also-hidden="false" description="${uiLabelMap.CommonDelete">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="requirementId" from-field="requirementId"/>
-			</hyperlink>
-		</field>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="requirementId" from-field="requirementId"/>
+            </hyperlink>
+        </field>
     </form>
     <form name="AddWorkEffortRequirement" default-map-name="workRequirementFulfillment" target="createWorkEffortRequirement" title="" type="single" extends="EditRequirement"
         extends-resource="component://order/webapp/ordermgr/requirement/RequirementForms.xml" header-row-style="header-row" default-table-style="basic-table">

@@ -205,18 +205,18 @@ under the License.
         <auto-fields-entity entity-name="ProductConfigOption" default-field-type="display" />
         <field name="configItemId" widget-style="buttontext" title="${uiLabelMap.ProductConfigItem}">
             <hyperlink target="EditProductConfigOptions" description="${configOptionId} - ${configOptionName">
-				<parameter param-name="configItemId" from-field="configItemId"/>
-				<parameter param-name="configOptionId" from-field="configOptionId"/>
-			</hyperlink>
-		</field>
+                <parameter param-name="configItemId" from-field="configItemId"/>
+                <parameter param-name="configOptionId" from-field="configOptionId"/>
+            </hyperlink>
+        </field>
         <field name="configOptionId" ><hidden/></field>
         <field name="configOptionName" ><hidden/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}" widget-style="buttontext" >
             <hyperlink target="deleteProductConfigOption" description="${uiLabelMap.CommonRemove">
-				<parameter param-name="configItemId" from-field="configItemId"/>
-				<parameter param-name="configOptionId" from-field="configOptionId"/>
-			</hyperlink>
-		</field>
+                <parameter param-name="configItemId" from-field="configItemId"/>
+                <parameter param-name="configOptionId" from-field="configOptionId"/>
+            </hyperlink>
+        </field>
     </form>
 
     <form name="ProductConfigList" type="list" list-name="configProducts"

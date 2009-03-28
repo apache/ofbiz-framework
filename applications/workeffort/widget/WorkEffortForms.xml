@@ -611,9 +611,9 @@ under the License.
         </actions>
         <field name="communicationEventId">
             <hyperlink description="${communicationEventId}" target="EditWorkEffortCommEvent" target-type="intra-app">
-				<parameter param-name="communicationEventId" from-field="communicationEventId"/>
-				<parameter param-name="DONE_PAGE" from-field="donePage"/>
-			</hyperlink>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="DONE_PAGE" from-field="donePage"/>
+            </hyperlink>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyId} ${uiLabelMap.CommonFrom}">
             <display-entity description="${firstName} ${lastName} ${groupName} [${partyId}]" entity-name="PartyNameView" key-field-name="partyId"/>
@@ -875,7 +875,7 @@ under the License.
         <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${noteDateTime}"/></field>
         <field name="internalNote" title="${uiLabelMap.WorkEffortPrivatePublic}" widget-style="buttontext" use-when="internalNote.equals(&quot;N&quot;)">
             <hyperlink target="updateWorkEffortNote" description="${uiLabelMap.OrderNotesPrivate">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
                 <parameter param-name="noteId" from-field="noteId"/>
                 <parameter param-name="internalNote" value="Y"/>
             </hyperlink>
@@ -1081,9 +1081,9 @@ under the License.
         <field name="relevancyWeight" header-link="createWorkEffortKeywords?workEffortId=${workEffortId}" title="${uiLabelMap.ProductReInduceKeywords}" header-link-style="buttontext" ><display/></field>
         <field name="deleteLink" title="${uiLabelMap.ProductDeleteAllKeywords}" header-link="deleteWorkEffortKeywords?workEffortId=${workEffortId}" widget-style="buttontext" header-link-style="buttontext" >
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortKeyword">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="keyword" from-field="keyword"/>
-			</hyperlink>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="keyword" from-field="keyword"/>
+            </hyperlink>
         </field>
     </form>
 
@@ -1115,9 +1115,9 @@ under the License.
         <field name="contactMechId" use-when="telecomNumber == null &amp;&amp; postalAddress == null" title="${uiLabelMap.CommonDescription}"><display description="${contactMech.infoString}"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortContactMech">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="contactMechId" from-field="contactMechId"/>
-			</hyperlink>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="contactMechId" from-field="contactMechId"/>
+            </hyperlink>
         </field>
     </form>
     <!-- Agreement WorkEffort Appl-->

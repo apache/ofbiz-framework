@@ -158,15 +158,15 @@ under the License.
         </field>
         <field name="tree" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)">
             <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocInstanceTree">
-				<parameter param-name="rootContentId" from-field="contentId"/>
-				<parameter param-name="rootContentRevisionSeqId" from-field="contentRevisionSeqId"/>
-			</hyperlink>
+                <parameter param-name="rootContentId" from-field="contentId"/>
+                <parameter param-name="rootContentRevisionSeqId" from-field="contentRevisionSeqId"/>
+            </hyperlink>
         </field>
         <field name="tree" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="&quot;COMPDOC_TEMPLATE&quot;.equals(contentTypeId)">
             <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocTemplateTree">
-				<parameter param-name="rootContentId" from-field="contentId"/>
-				<parameter param-name="rootContentRevisionSeqId" from-field="contentRevisionSeqId"/>
-			</hyperlink>
+                <parameter param-name="rootContentId" from-field="contentId"/>
+                <parameter param-name="rootContentRevisionSeqId" from-field="contentRevisionSeqId"/>
+            </hyperlink>
         </field>
     </form>
     

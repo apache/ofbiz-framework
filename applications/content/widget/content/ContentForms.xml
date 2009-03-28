@@ -390,9 +390,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurpose">
-				<parameter param-name="contentId" from-field="contentId"/>
-				<parameter param-name="contentPurposeTypeId" from-field="contentPurposeTypeId"/>
-			</hyperlink>
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="contentPurposeTypeId" from-field="contentPurposeTypeId"/>
+            </hyperlink>
         </field>
     </form>
     
@@ -417,9 +417,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAttribute">
-				<parameter param-name="contentId" from-field="contentId"/>
-				<parameter param-name="attrName" from-field="attrName"/>
-			</hyperlink>
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="attrName" from-field="attrName"/>
+            </hyperlink>
         </field>
     </form>
     
@@ -455,9 +455,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentMetaData">
-				<parameter param-name="contentId" from-field="contentId"/>
-				<parameter param-name="metaDataPredicateId" from-field="metaDataPredicateId"/>
-			</hyperlink>
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="metaDataPredicateId" from-field="metaDataPredicateId"/>
+            </hyperlink>
         </field>
     </form>
     
@@ -537,9 +537,9 @@ under the License.
         </row-actions>
         <field name="contentId">
             <hyperlink also-hidden="false" description="${content.contentName} [${content.contentId}]" target="ViewSimpleContent">
-				<parameter param-name="contentId" from-field="content.contentId"/>
-				<parameter param-name="dataResourceId" from-field="content.dataResourceId"/>
-			</hyperlink> 
+                <parameter param-name="contentId" from-field="content.contentId"/>
+                <parameter param-name="dataResourceId" from-field="content.dataResourceId"/>
+            </hyperlink> 
         </field>
         <field name="contentTypeId">
             <display-entity entity-name="ContentType" key-field-name="contentTypeId" description="${description}"/>

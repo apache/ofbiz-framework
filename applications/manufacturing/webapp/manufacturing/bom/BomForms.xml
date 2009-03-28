@@ -139,9 +139,9 @@ under the License.
         default-table-style="basic-table hover-bar"  paginate-target="FindBom">
         <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="">
             <hyperlink target="EditProductBom" description="${productId}">
-				<parameter param-name="productId" from-field="productId"/>
-				<parameter param-name="productAssocTypeId" from-field="productAssocTypeId"/>
-			</hyperlink>
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="productAssocTypeId" from-field="productAssocTypeId"/>
+            </hyperlink>
         </field>
         <field name="internalName" title="${uiLabelMap.ProductProductName}"><display/></field>
         <field name="productAssocTypeId" title="${uiLabelMap.ManufacturingBomType}">
