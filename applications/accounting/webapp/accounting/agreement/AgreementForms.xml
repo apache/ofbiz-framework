@@ -124,7 +124,10 @@ under the License.
         <auto-fields-entity entity-name="AgreementItem" default-field-type="display"/>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
         <field name="agreementItemSeqId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${agreementItemSeqId}" target="EditAgreementItem?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}"/>
+            <hyperlink also-hidden="false" description="${agreementItemSeqId}" target="EditAgreementItem">
+				<parameter param-name="agreementId" from-field="agreementId"/>
+				<parameter param-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
+			</hyperlink>
         </field>
         <field name="agreementItemTypeId" title="${uiLabelMap.AccountingAgreementItemTypeId}">
             <display-entity entity-name="AgreementItemType"/>

@@ -144,7 +144,10 @@ under the License.
         extends="ListMyUnknownPartyEmails" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" use-row-submit="true">
         <field name="donePage"><hidden/></field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;donePage=${parameters.donePage}"/>
+            <hyperlink description="${subject}" target="ViewCommunicationEvent">
+				<parameter param-name="communicationEventId" from-field="communicationEventId"/>
+				<parameter param-name="donePage" from-field="parameters.donePage"/>
+			</hyperlink>
         </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonYes}">
             <check />
@@ -252,7 +255,10 @@ under the License.
             <hyperlink description="${subject}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION&amp;partyId=${userLogin.partyId}"/>
         </field>
         <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent">
+				<parameter param-name="partyId" from-field="partyId"/>
+				<parameter param-name="communicationEventId" from-field="communicationEventId"/>
+			</hyperlink>
         </field>
     </form>
 

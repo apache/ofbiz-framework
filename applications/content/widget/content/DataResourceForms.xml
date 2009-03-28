@@ -341,7 +341,10 @@ under the License.
         <field name="attrValue" widget-style="tabletext"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceAttribute?dataResourceId=${dataResourceId}&amp;attrName=${attrName}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceAttribute">
+				<parameter param-name="dataResourceId" from-field="dataResourceId"/>
+				<parameter param-name="attrName" from-field="attrName"/>
+			</hyperlink>
         </field>
     </form>
 
@@ -397,7 +400,10 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="ProductFeatureDataResource" default-field-type="display"/>       
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceProductFeature?dataResourceId=${dataResourceId}&amp;productFeatureId=${productFeatureId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceProductFeature">
+				<parameter param-name="dataResourceId" from-field="dataResourceId"/>
+				<parameter param-name="productFeatureId" from-field="productFeatureId"/>
+			</hyperlink>
         </field>
     </form>
     <form name="lookupProductFeature" target="LookupProductFeature" title="" type="single"

@@ -389,7 +389,10 @@ under the License.
         <auto-fields-service service-name="updateContentPurpose" default-field-type="display" />
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurpose?contentId=${contentId}&amp;contentPurposeTypeId=${contentPurposeTypeId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurpose">
+				<parameter param-name="contentId" from-field="contentId"/>
+				<parameter param-name="contentPurposeTypeId" from-field="contentPurposeTypeId"/>
+			</hyperlink>
         </field>
     </form>
     
@@ -413,7 +416,10 @@ under the License.
         <field name="attrValue" widget-style="buttontext"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAttribute?contentId=${contentId}&amp;attrName=${attrName}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAttribute">
+				<parameter param-name="contentId" from-field="contentId"/>
+				<parameter param-name="attrName" from-field="attrName"/>
+			</hyperlink>
         </field>
     </form>
     
@@ -448,7 +454,10 @@ under the License.
         <field name="metaDataPredicateId" widget-style="buttontext"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentMetaData?contentId=${contentId}&amp;metaDataPredicateId=${metaDataPredicateId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentMetaData">
+				<parameter param-name="contentId" from-field="contentId"/>
+				<parameter param-name="metaDataPredicateId" from-field="metaDataPredicateId"/>
+			</hyperlink>
         </field>
     </form>
     
@@ -527,7 +536,10 @@ under the License.
             <set field="mimeTypeId" from-field="dataResource.mimeTypeId"/>
         </row-actions>
         <field name="contentId">
-            <hyperlink also-hidden="false" description="${content.contentName} [${content.contentId}]" target="ViewSimpleContent?contentId=${content.contentId}&amp;dataResourceId=${content.dataResourceId}"/> 
+            <hyperlink also-hidden="false" description="${content.contentName} [${content.contentId}]" target="ViewSimpleContent">
+				<parameter param-name="contentId" from-field="content.contentId"/>
+				<parameter param-name="dataResourceId" from-field="content.dataResourceId"/>
+			</hyperlink> 
         </field>
         <field name="contentTypeId">
             <display-entity entity-name="ContentType" key-field-name="contentTypeId" description="${description}"/>

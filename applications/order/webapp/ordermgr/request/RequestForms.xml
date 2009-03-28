@@ -101,7 +101,10 @@ under the License.
         <field name="sequenceNum"></field>
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestItemSeqId" widget-style="buttontext">
-            <hyperlink description="${custRequestItemSeqId}" target="requestitem?custRequestId=${custRequestId}&amp;custRequestItemSeqId=${custRequestItemSeqId}"/>
+            <hyperlink description="${custRequestItemSeqId}" target="requestitem">
+				<parameter param-name="custRequestId" from-field="custRequestId"/>
+				<parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
+			</hyperlink>
         </field>
         <field name="story"></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}">
