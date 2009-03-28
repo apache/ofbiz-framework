@@ -874,7 +874,7 @@ under the License.
         <field name="noteInfo" title="${uiLabelMap.CommonNote}"><display/></field>
         <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${noteDateTime}"/></field>
         <field name="internalNote" title="${uiLabelMap.WorkEffortPrivatePublic}" widget-style="buttontext" use-when="internalNote.equals(&quot;N&quot;)">
-            <hyperlink target="updateWorkEffortNote" description="${uiLabelMap.OrderNotesPrivate">
+            <hyperlink target="updateWorkEffortNote" description="${uiLabelMap.OrderNotesPrivate}">
                 <parameter param-name="workEffortId" from-field="workEffortId"/>
                 <parameter param-name="noteId" from-field="noteId"/>
                 <parameter param-name="internalNote" value="Y"/>

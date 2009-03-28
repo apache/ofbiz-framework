@@ -38,7 +38,7 @@ under the License.
         <field name="description"><text size="40"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteCommunicationEventWorkEff" also-hidden="false" description="${uiLabelMap.CommonDelete">
+            <hyperlink target="deleteCommunicationEventWorkEff" also-hidden="false" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="workEffortId" from-field="workEffortId"/>
                 <parameter param-name="communicationEventId" from-field="communicationEventId"/>
             </hyperlink>
