@@ -16,7 +16,7 @@
 	<classpathentry kind="src" path="framework/geronimo/src"/>
 	<classpathentry excluding="org/ofbiz/accounting/thirdparty/clearcommerce/**|org/ofbiz/accounting/thirdparty/cybersource/**|org/ofbiz/accounting/thirdparty/verisign/**|org/ofbiz/accounting/thirdparty/worldpay/**" kind="src" path="applications/accounting/src"/>
 	<classpathentry excluding="org/ofbiz/content/openoffice/|org/ofbiz/content/report/" kind="src" path="applications/content/src"/>
-	<classpathentry kind="src" path="applications/ecommerce/src"/>
+	<classpathentry kind="src" path="specialpurpose/ecommerce/src"/>
 	<classpathentry kind="src" path="applications/manufacturing/src"/>
 	<classpathentry kind="src" path="applications/marketing/src"/>
 	<classpathentry excluding="org/ofbiz/order/thirdparty/taxware/**" kind="src" path="applications/order/src"/>
@@ -44,7 +44,6 @@
 	<classpathentry kind="src" path="specialpurpose/workflow/src"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/velocity-1.6.1.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/DataVision-1.0.0.jar"/>
-	<classpathentry kind="lib" path="framework/webapp/lib/batik-all-1.7.jar"/>
 	<classpathentry kind="lib" path="framework/service/lib/wsdl4j.jar"/>
 	<classpathentry kind="lib" path="framework/service/lib/axis-ant.jar"/>
 	<classpathentry kind="lib" path="framework/service/lib/axis.jar"/>
@@ -73,7 +72,8 @@
 	<classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-2.1.1.jar"/>
 	<classpathentry kind="lib" path="framework/entity/lib/ofbiz-minerva.jar"/>
 	<classpathentry kind="lib" path="framework/entity/lib/commons-dbcp-1.3-20080708-r674758.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/ical4j-1.0-beta5.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/batik-all-1.7.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ical4j-1.0-beta5.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/Tidy.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/mx4j-remote-3.0.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/mx4j-3.0.1.jar"/>
@@ -144,7 +144,7 @@
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/jpos18-controls.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/jcl.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/ldap/lib/cas-server-core-3.3.jar"/>
-	<classpathentry kind="lib" path="framework/webapp/lib/xmlgraphics-commons-1.3.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/xmlgraphics-commons-1.3.1.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/rome-0.9.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/barcode4j-fop-ext-0.93.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/ws-commons-java5-1.0.1.jar"/>
