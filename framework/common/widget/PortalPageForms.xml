@@ -79,12 +79,12 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="portletCategoryId" title="Category">
             <hyperlink description="${portletCategoryId}" target="AddPortlet">
-				<parameter param-name="portletCategoryId" from-field="portletCategoryId"/>
-				<parameter param-name="portalPortletId" from-field="portalPortletId"/>
-				<parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
-				<parameter param-name="columnSeqId" from-field="parameters.columnSeqId"/>
-				<parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
-			</hyperlink>
+                <parameter param-name="portletCategoryId" from-field="portletCategoryId"/>
+                <parameter param-name="portalPortletId" from-field="portalPortletId"/>
+                <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
+                <parameter param-name="columnSeqId" from-field="parameters.columnSeqId"/>
+                <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
+            </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}" field-name="${description}"><display/></field>
     </form>

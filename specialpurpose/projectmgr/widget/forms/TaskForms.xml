@@ -504,13 +504,13 @@
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <field name="deleteButton" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="complete"><hyperlink description="${uiLabelMap.ProjectMgrToComplete}" target="updateTaskPartyAssign">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="partyId" from-field="partyId"/>
-				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
-				<parameter param-name="fromDate" from-field="fromDate"/>
-				<parameter param-name="statusId" value="PAS_COMPLETED"/>
-				<parameter param-name="thruDate" from-field="nowDate"/>
-			</hyperlink>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="statusId" value="PAS_COMPLETED"/>
+                <parameter param-name="thruDate" from-field="nowDate"/>
+            </hyperlink>
     </field>
     </form>
     <form name="ListTaskParties" type="list" list-name="taskParties"
