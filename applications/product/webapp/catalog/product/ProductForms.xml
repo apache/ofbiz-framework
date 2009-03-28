@@ -930,10 +930,20 @@ under the License.
         <!-- <display-entity entity-name="FixedAsset" description="${fixedAssetName}[${fixedAssetId}]"/> -->
 
         <field name="edit" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"> 
-            <hyperlink description="${uiLabelMap.CommonEdit}" target="showFixedAssetProduct?fixedAssetId=${fixedAssetId}&amp;productId=${productId}&amp;fixedAssetProductTypeId=${fixedAssetProductTypeId}&amp;fromDate=${fromDate}"/>
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="showFixedAssetProduct">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="fixedAssetProductTypeId" from-field="fixedAssetProductTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <field name="del" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" separate-column="false"> 
-            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeFixedAssetProduct?fixedAssetId=${fixedAssetId}&amp;productId=${productId}&amp;fixedAssetProductTypeId=${fixedAssetProductTypeId}&amp;fromDate=${fromDate}"/>
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeFixedAssetProduct">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="fixedAssetProductTypeId" from-field="fixedAssetProductTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <field name="fixedAssetId" title="${uiLabelMap.AccountingFixedAsset} [${uiLabelMap.AccountingFixedAssetId}]" widget-style="buttontext" > 
             <display-entity entity-name="FixedAsset" description="${fixedAssetName} [${fixedAssetId}]"/>

@@ -240,8 +240,24 @@
         <field name="workEffortId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="updateButton"><submit/></field>
-        <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
-        <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}">
+        <hyperlink target="updateTaskAssigment" description="${uiLabelMap.CommonRemove}">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="statusId" value="PAS_ENDED"/>
+            </hyperlink>
+        </field>
+        <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}">
+            <hyperlink target="updateTaskAssigment" description="${uiLabelMap.CommonStatustoComplete">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="statusId" value="PAS_COMPLETED"/>
+            </hyperlink>
+        </field>
     </form>
     <form name="assignTaskToMe" type="single" target="addTaskAssignment"
         header-row-style="header-row" default-table-style="basic-table">
@@ -533,7 +549,12 @@
             </entity-and>
         </actions>
         <field name="contentName" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="ViewSimpleContent?contentId=${contentId}&amp;dataResourceId=${dataResourceId}&amp;communicationEventId=${communicationEventId}&amp;fromDate=${fromDate}"/>
+            <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="ViewSimpleContent">
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="dataResourceId" from-field="dataResourceId"/>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <field name="contentTypeId"><display-entity entity-name="ContentType" description="${description}"/></field>
         <field name="workEffortContentTypeId"><display-entity entity-name="WorkEffortContentType" description="${description}"/></field>

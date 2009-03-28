@@ -108,10 +108,22 @@ under the License.
         <field name="donePage"><hidden/></field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field> 
         <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="RemoveCommunicationEventRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y&amp;donePage=${parameters.donePage}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="RemoveCommunicationEventRole">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="deleteCommEventIfLast" value="Y"/>
+                <parameter param-name="delContentDataResource value="Y"/>
+                <parameter param-name="donePage" from-field="parameters.donePage"/>
+            </hyperlink>
         </field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;donePage=${parameters.donePage}"/>
+            <hyperlink description="${subject} " target="ViewCommunicationEvent">
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="donePage" from-field="parameters.donePage"/>
+            </hyperlink>
         </field>
         <field name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
             <display-entity entity-name="StatusItem" description="${description}">

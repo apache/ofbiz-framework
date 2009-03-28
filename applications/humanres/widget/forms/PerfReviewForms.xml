@@ -76,7 +76,12 @@ under the License.
         </actions>
         <auto-fields-service default-field-type="display" service-name="updatePerfReviewItem"/>        
         <field name="perfReviewItemSeqId" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${perfReviewItemSeqId}" target="EditPerfReviewItem?perfReviewItemSeqId=${perfReviewItemSeqId}&amp;employeePartyId=${employeePartyId}&amp;employeeRoleTypeId=${employeeRoleTypeId}&amp;perfReviewId=${perfReviewId}"/>
+            <hyperlink also-hidden="false" description="${perfReviewItemSeqId}" target="EditPerfReviewItem">
+                <parameter param-name="perfReviewItemSeqId" from-field="perfReviewItemSeqId"/>
+                <parameter param-name="employeePartyId" from-field="employeePartyId"/>
+                <parameter param-name="employeeRoleTypeId" from-field="employeeRoleTypeId"/>
+                <parameter param-name="perfReviewId" from-field="perfReviewId"/>
+            </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deletePerfReviewItem" description="${uiLabelMap.CommonDelete}" also-hidden="false">

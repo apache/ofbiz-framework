@@ -130,7 +130,12 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="RequestItemQuotes">
         <auto-fields-entity entity-name="QuoteItem" default-field-type="display"/>
         <field name="quoteId" widget-style="buttontext">
-            <hyperlink description="${quoteItemSeqId}" target="EditQuoteItemForRequest?custRequestId=${custRequestId}&amp;custRequestItemSeqId=${custRequestItemSeqId}&amp;quoteId=${quoteId}&amp;quoteItemSeqId=${quoteItemSeqId}"/>
+            <hyperlink description="${quoteItemSeqId}" target="EditQuoteItemForRequest">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
+                <parameter param-name="quoteId" from-field="quoteId"/>
+                <parameter param-name="quoteItemSeqId" from-field="quoteItemSeqId"/>
+            </hyperlink>
         </field>
         <field name="productId" title="${uiLabelMap.ProductProductId}">
             <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
@@ -396,7 +401,12 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>        
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteCustRequestParty?custRequestId=${custRequestId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"/>
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteCustRequestParty">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>    
     </form>
 
