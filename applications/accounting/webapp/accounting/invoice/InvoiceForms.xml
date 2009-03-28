@@ -301,7 +301,12 @@ under the License.
                return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(quantity.multiply(amount)));}"/>
        </row-actions>
        <field name="invoiceId"><hidden/></field>
-       <field name="invoiceItemSeqId" widget-style="buttontext"><hyperlink target="listInvoiceItems?invoiceId=${invoiceId}&amp;invoiceItemSeqId=${invoiceItemSeqId}" description="${invoiceItemSeqId}"/></field>
+       <field name="invoiceItemSeqId" widget-style="buttontext">
+			<hyperlink target="listInvoiceItems">
+				<parameter param-name="invoiceId" from-field="invoiceId"/>
+				<parameter param-name="invoiceItemSeqId" from-field="invoiceItemSeqId}" description="${invoiceItemSeqId"/>
+			</hyperlink>
+		</field>
        <field name="quantity"><text size="3"/></field>
        <field name="invoiceItemTypeId">
            <drop-down allow-empty="false">

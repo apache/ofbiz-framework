@@ -203,10 +203,20 @@ under the License.
         default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
         target="" header-row-style="header-row-2" paginate="true">
         <auto-fields-entity entity-name="ProductConfigOption" default-field-type="display" />
-        <field name="configItemId" widget-style="buttontext" title="${uiLabelMap.ProductConfigItem}"><hyperlink target="EditProductConfigOptions?configItemId=${configItemId}&amp;configOptionId=${configOptionId}" description="${configOptionId} - ${configOptionName}"/></field>
+        <field name="configItemId" widget-style="buttontext" title="${uiLabelMap.ProductConfigItem}">
+			<hyperlink target="EditProductConfigOptions">
+				<parameter param-name="configItemId" from-field="configItemId"/>
+				<parameter param-name="configOptionId" from-field="configOptionId}" description="${configOptionId} - ${configOptionName"/>
+			</hyperlink>
+		</field>
         <field name="configOptionId" ><hidden/></field>
         <field name="configOptionName" ><hidden/></field>
-        <field name="remove" title="${uiLabelMap.CommonRemove}" widget-style="buttontext" ><hyperlink target="deleteProductConfigOption?configItemId=${configItemId}&amp;configOptionId=${configOptionId}" description="${uiLabelMap.CommonRemove}"/></field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}" widget-style="buttontext" >
+			<hyperlink target="deleteProductConfigOption">
+				<parameter param-name="configItemId" from-field="configItemId"/>
+				<parameter param-name="configOptionId" from-field="configOptionId}" description="${uiLabelMap.CommonRemove"/>
+			</hyperlink>
+		</field>
     </form>
     
     <form name="ProductConfigList" type="list" list-name="configProducts" 

@@ -35,7 +35,12 @@ under the License.
         <field name="listName"><display/></field>
         <field name="description"><display/></field>
         <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${lastName} ${groupName} [${partyId}]"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><hyperlink target="deleteShoppingListWorkEffort?workEffortId=${workEffortId}&amp;shoppingListId=${shoppingListId}" also-hidden="false" description="${uiLabelMap.CommonDelete}"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+			<hyperlink target="deleteShoppingListWorkEffort">
+				<parameter param-name="workEffortId" from-field="workEffortId"/>
+				<parameter param-name="shoppingListId" from-field="shoppingListId}" also-hidden="false" description="${uiLabelMap.CommonDelete"/>
+			</hyperlink>
+		</field>
     </form>
     <form name="AddWorkEffortShopList" target="createShoppingListWorkEffort" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">

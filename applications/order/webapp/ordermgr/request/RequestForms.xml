@@ -114,7 +114,12 @@ under the License.
         <field name="statusId">
             <display-entity also-hidden="false" entity-name="StatusItem"/>
         </field>
-        <field name="addNote"><hyperlink description="${uiLabelMap.FormFieldTitle_addNote}" target="requestitemnotes?custRequestId=${custRequestId}&amp;custRequestItemSeqId=${custRequestItemSeqId}"/></field>
+        <field name="addNote">
+			<hyperlink description="${uiLabelMap.FormFieldTitle_addNote}" target="requestitemnotes">
+				<parameter param-name="custRequestId" from-field="custRequestId"/>
+				<parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
+			</hyperlink>
+		</field>
     </form>
     <form name="OverviewRequestItems" extends="ListRequestItems">
         <field name="priority"><ignored/></field>

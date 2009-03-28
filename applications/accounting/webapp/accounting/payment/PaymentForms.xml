@@ -414,7 +414,12 @@ under the License.
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext"><hyperlink target="invoiceOverview?invoiceId=${invoiceId}" description="${invoiceId}"/></field>
-        <field name="invoiceItemSeqId" widget-style="buttontext"><hyperlink target="listInvoiceItems?invoiceId=${invoiceId}&amp;invoiceItemSeqId=${invoiceItemSeqId}" description="${invoiceItemSeqId}"/></field>
+        <field name="invoiceItemSeqId" widget-style="buttontext">
+			<hyperlink target="listInvoiceItems">
+				<parameter param-name="invoiceId" from-field="invoiceId"/>
+				<parameter param-name="invoiceItemSeqId" from-field="invoiceItemSeqId}" description="${invoiceItemSeqId"/>
+			</hyperlink>
+		</field>
         <field name="toPaymentId" widget-style="buttontext"><hyperlink target="paymentOverview?paymentId=${toPaymentId}" description="${toPaymentId}"/></field>
         <field name="billingAccountId" widget-style="buttontext"><hyperlink target="EditBillingAccount?billingAccountId=${billingAccountId}" description="${billingAccountId}"/></field>
         <field name="taxAuthGeoId"><display-entity entity-name="Geo" key-field-name="geoId" description="${geoName}"></display-entity></field>
