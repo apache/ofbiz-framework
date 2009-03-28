@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <!-- ========= GlAccount methods ========= -->
@@ -34,7 +34,7 @@ under the License.
         </else>
         </if-empty>
         <field-to-result field="newEntity.glAccountId" result-name="glAccountId"/>
-        
+
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateGlAccount" short-description="Update an GlAccount">
@@ -50,7 +50,7 @@ under the License.
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- ========= GlAccountOrganization methods ========= -->
     <simple-method method-name="createGlAccountOrganization" short-description="Create GlAccountOrganization">
         <make-value entity-name="GlAccountOrganization" value-field="newEntity"/>
@@ -64,7 +64,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-       
+
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteGlAccountOrganization" short-description="Delete GlAccountOrganization">
@@ -77,7 +77,7 @@ under the License.
     <!-- ========= GlJournal methods ========= -->
     <simple-method method-name="quickCreateAcctgTransAndEntries" short-description="Creates an AcctgTrans and two offsetting AcctgTransEntry records">
         <!-- TODO: Do we need to create a GlJournal record here? -->
-    
+
         <!-- first, create the AcctgTrans -->
         <set-service-fields service-name="createAcctgTrans" to-map="createAcctgTransParams" map="parameters"/>
         <now-timestamp field="createAcctgTransParams.transactionDate"/>
@@ -94,7 +94,7 @@ under the License.
         <set field="createAcctgTransEntryParams.debitCreditFlag" value="D"/>
         <set field="createAcctgTransEntryParams.acctgTransEntryTypeId" value="_NA_"/>
         <call-service service-name="createAcctgTransEntry" in-map-name="createAcctgTransEntryParams"/>
-        
+
         <!-- now the credit AcctgTransEntry -->
         <set-service-fields service-name="createAcctgTransEntry" map="parameters" to-map="createAcctgTransEntryParams"/>
         <set field="createAcctgTransEntryParams.acctgTransId" from-field="acctgTransId"/>
@@ -102,15 +102,15 @@ under the License.
         <set field="createAcctgTransEntryParams.debitCreditFlag" value="C"/>
         <set field="createAcctgTransEntryParams.acctgTransEntryTypeId" value="_NA_"/>
         <call-service service-name="createAcctgTransEntry" in-map-name="createAcctgTransEntryParams"/>
-        
+
         <field-to-result field="acctgTransId" result-name="acctgTransId"/>
-    </simple-method> 
-       
+    </simple-method>
+
     <simple-method method-name="createGlJournal" short-description="Create an GlJournal">
         <make-value entity-name="GlJournal" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <!-- GlJournal uses a sequenced id, so get the next one now and set it... -->        
+        <!-- GlJournal uses a sequenced id, so get the next one now and set it... -->
         <sequenced-id sequence-name="GlJournal" field="newEntity.glJournalId"/>
         <field-to-result field="newEntity.glJournalId" result-name="glJournalId"/>
 
@@ -125,7 +125,7 @@ under the License.
         <entity-one entity-name="GlJournal" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-        
+
     <!-- GlJournal Trial Balance and Post routines -->
     <simple-method method-name="calculateGlJournalTrialBalance" short-description="Calculate Trial Balance for a GlJournal">
         <!-- iterate through all AcctgTrans in this journal and that are not yet posted, and get totals of all debits and of all credits -->
@@ -135,7 +135,7 @@ under the License.
                 <condition-expr field-name="isPosted" operator="not-equals" value="Y"/>
             </condition-list>
         </entity-condition>
-        
+
         <iterate entry="acctgTrans" list="acctgTransList">
             <clear-field field="callServiceMap"/>
             <clear-field field="serviceResults"/>
@@ -156,7 +156,7 @@ under the License.
                 <calcop operator="get" field="serviceResults.debitCreditDifference"/>
             </calculate>
         </iterate>
-        
+
         <field-to-result field="debitTotal"/>
         <field-to-result field="creditTotal"/>
         <field-to-result field="debitCreditDifference"/>
@@ -170,12 +170,12 @@ under the License.
         <call-service service-name="calculateGlJournalTrialBalance" in-map-name="trialBalanceCallMap">
             <results-to-map map-name="trialBalanceResultMap"/>
         </call-service>
-        
+
         <if-compare field="trialBalanceResultMap.debitCreditDifference" operator="not-equals" value="0" type="BigDecimal">
             <add-error><fail-message message="Not posting GL Journal with ID [${parameters.glJournalId}] because the trial balance failed: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}"/></add-error>
             <check-errors/>
         </if-compare>
-        
+
         <!-- iterate through all AcctgTrans in this journal and that are not yet posted, and post each one -->
         <entity-condition entity-name="AcctgTrans" list="acctgTransList">
             <condition-list combine="and">
@@ -195,19 +195,19 @@ under the License.
         <make-value entity-name="GlReconciliation" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <!-- GlReconciliation uses a sequenced id, so get the next one now and set it... -->        
+        <!-- GlReconciliation uses a sequenced id, so get the next one now and set it... -->
         <sequenced-id sequence-name="GlReconciliation" field="newEntity.glReconciliationId"/>
         <field-to-result field="newEntity.glReconciliationId" result-name="glReconciliationId"/>
-        
+
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
-        
+
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateGlReconciliation" short-description="Update an GlReconciliation">
         <entity-one entity-name="GlReconciliation" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        
+
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
@@ -221,7 +221,7 @@ under the License.
         <set from-field="userLogin.userLoginId" field="lookedUpGLR.lastModifiedByUserLogin"/>
         <store-value value-field="lookedUpGLR"/>
     </simple-method>
-    
+
     <!-- ========= GlReconciliationEntry methods ========= -->
     <simple-method method-name="createGlReconciliationEntry" short-description="Add Entry To GlReconciliation">
         <!-- first of all, make sure that the AcctgTransEntry is not already reconciled -->
@@ -250,7 +250,7 @@ under the License.
         <entity-one entity-name="GlReconciliationEntry" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
-        
+
         <!-- when changing entries, also update the last modified info for the GlReconciliation -->
         <call-simple-method method-name="updateGlReconciliationLastModified"/>
     </simple-method>
@@ -267,7 +267,7 @@ under the License.
         <entity-one entity-name="AcctgTrans" value-field="acctgTrans"/>
         <if-compare field="acctgTrans.isPosted" operator="equals" value="Y">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
-            <check-errors/>    
+            <check-errors/>
         </if-compare>
         <get-related value-field="acctgTrans" relation-name="AcctgTransEntry" list="acctgTransEntries"/>
         <iterate list="acctgTransEntries" entry="acctgTransEntry">
@@ -420,7 +420,7 @@ under the License.
             <log level="warning" message="Cannot process an accounting transactions with empty list of entries."/>
         </else>
         </if-not-empty>
-        
+
         <!-- all done -->
         <field-to-result field="acctgTransId"/>
     </simple-method>
@@ -494,7 +494,7 @@ under the License.
         </if>
         <if-not-empty field="parameters.productId">
             <call-simple-method method-name="getProductGlAccountInline"/>
-            <!-- if nothing found look if the parameters.productId is member of any ProductCategory in ProductCategoryGlAccount --> 
+            <!-- if nothing found look if the parameters.productId is member of any ProductCategory in ProductCategoryGlAccount -->
             <if-empty field="productGlAccount.glAccountId">
                 <entity-and entity-name="ProductCategoryMember" list="productCategoryMembers" filter-by-date="true">
                     <field-map field-name="productId" from-field="parameters.productId"/>
@@ -567,7 +567,7 @@ under the License.
         <if-empty field="lookedUpValue.glAccountId">
             <call-simple-method method-name="getGlAccountTypeDefaultInline"/>
         </if-empty>
-        <field-to-result field="lookedUpValue.glAccountId" result-name="glAccountId"/> 
+        <field-to-result field="lookedUpValue.glAccountId" result-name="glAccountId"/>
     </simple-method>
 
     <simple-method method-name="getInventoryItemOwner" short-description="Get an ownerPartyId from inventoryItemId">
@@ -636,7 +636,7 @@ under the License.
         <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getDescendantGlAccountClassIds" ret-field="equityAccountClassIds">
             <field field="equityGlAccountClass" type="GenericValue"/>
         </call-class-method>
-        
+
         <!-- Compute the total posted amount of the period -->
         <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries">
             <condition-list combine="and">
@@ -1390,7 +1390,7 @@ under the License.
             <result-to-field result-name="acctgTransId"/>
         </call-service>
         <field-to-result field="acctgTransId" result-name="acctgTransId"/>
-    </simple-method>    
+    </simple-method>
 
     <simple-method method-name="createAcctgTransForShipmentReceipt" short-description="Create an accounting transactions for a shipment receipt (D: INVENTORY_ACCOUNT, C: UNINVOICED_SHIP_RCPT or COGS_ACCOUNT for returns)">
         <!-- retrieve ledger rounding properties -->
@@ -1446,11 +1446,11 @@ under the License.
         <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
             <result-to-field result-name="acctgTransId"/>
         </call-service>
-        <field-to-result field="acctgTransId" result-name="acctgTransId"/>        
+        <field-to-result field="acctgTransId" result-name="acctgTransId"/>
     </simple-method>
 
     <simple-method method-name="createAcctgTransForInventoryItemCostChange" short-description="Create accounting transaction when item cost is changed (D: INV_ADJ_VAL, C: INVENTORY_ACCOUNT)">
-        <!-- retrieve ledger rounding properties -->        
+        <!-- retrieve ledger rounding properties -->
         <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
         <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
         <entity-one entity-name="InventoryItemDetail" value-field="newInventoryItemDetail"/>
@@ -1505,7 +1505,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createAcctgTransForPhysicalInventoryVariance" short-description="Create an Account Transaction For Physical Inventory Variance">
-        <!-- retrieve ledger rounding properties -->  
+        <!-- retrieve ledger rounding properties -->
         <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
         <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
         <entity-and entity-name="InventoryItemDetail" list="inventoryItemDetails">
@@ -1513,7 +1513,7 @@ under the License.
             <order-by field-name="inventoryItemId"/>
         </entity-and>
         <iterate list="inventoryItemDetails" entry="inventoryItemDetail">
-            <get-related-one value-field="inventoryItemDetail" relation-name="InventoryItem" to-value-field="inventoryItem"/>        
+            <get-related-one value-field="inventoryItemDetail" relation-name="InventoryItem" to-value-field="inventoryItem"/>
             <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="multiply">
                     <calcop operator="get" field="inventoryItemDetail.quantityOnHandDiff"/>
@@ -1537,7 +1537,7 @@ under the License.
             <set field="debitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
             <set field="debitEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
             <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
-            <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>            
+            <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
         </iterate>
         <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
@@ -1558,7 +1558,7 @@ under the License.
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
             <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
         </entity-one>
-        <get-related-one value-field="workEffortInventoryProduced" relation-name="InventoryItem" to-value-field="inventoryItem"/>  
+        <get-related-one value-field="workEffortInventoryProduced" relation-name="InventoryItem" to-value-field="inventoryItem"/>
         <!-- TODO: handle serialized inventory -->
         <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="multiply">
@@ -1583,7 +1583,7 @@ under the License.
         <set field="debitEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
         <set field="debitEntry.productId" from-field="inventoryItem.productId"/>
         <set field="debitEntry.origAmount" from-field="origAmount"/>
-        <set field="debitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>        
+        <set field="debitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
         <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
         <!-- Set header fields (AcctgTrans) -->
         <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
@@ -1592,15 +1592,15 @@ under the License.
         <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
             <result-to-field result-name="acctgTransId"/>
         </call-service>
-        <field-to-result field="acctgTransId" result-name="acctgTransId"/>        
-    </simple-method>            
+        <field-to-result field="acctgTransId" result-name="acctgTransId"/>
+    </simple-method>
 
     <simple-method method-name="createAcctgTransForWorkEffortCost"
                short-description="Create an accounting transaction for inventory that is issued to a work effort cost (Type: INVENTORY D: INVENTORY_ACCOUNT , C: UNINVOICED_SHIP_RCPT or COGS_ACCOUNT)">
         <entity-one entity-name="CostComponent" value-field="costComponent">
             <field-map field-name="costComponentId" from-field="parameters.costComponentId"/>
         </entity-one>
-        <get-related-one value-field="costComponent" relation-name="CostComponentCalc" to-value-field="costComponentCalc"/>    
+        <get-related-one value-field="costComponent" relation-name="CostComponentCalc" to-value-field="costComponentCalc"/>
         <entity-one entity-name="WorkEffort" value-field="workEffort">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
         </entity-one>
@@ -1614,7 +1614,7 @@ under the License.
                 </entity-and>
                <first-from-list list="workEffortGoodStandards" entry="workEffortGoodStandard"/>
             </if-not-empty>
-        </if-compare>   
+        </if-compare>
         <!-- Credit -->
         <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
         <set field="creditEntry.debitCreditFlag" value="C"/>
@@ -1622,7 +1622,7 @@ under the License.
         <set field="creditEntry.organizationPartyId" from-field="facility.ownerPartyId"/>
         <set field="creditEntry.productId" from-field="workEffortGoodStandard.productId"/>
         <set field="creditEntry.origAmount" from-field="costComponent.cost"/>
-        <set field="creditEntry.origCurrencyUomId" from-field="facility.currencyUomId"/>        
+        <set field="creditEntry.origCurrencyUomId" from-field="facility.currencyUomId"/>
         <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
         <!-- Debit -->
         <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
@@ -1636,7 +1636,7 @@ under the License.
         <set field="debitEntry.organizationPartyId" from-field="facility.ownerPartyId"/>
         <set field="debitEntry.productId" from-field="workEffortGoodStandard.productId"/>
         <set field="debitEntry.origAmount" from-field="costComponent.cost"/>
-        <set field="debitEntry.origCurrencyUomId" from-field="facility.currencyUomId"/>        
+        <set field="debitEntry.origCurrencyUomId" from-field="facility.currencyUomId"/>
         <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
         <!-- Set header fields (AcctgTrans) -->
         <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
@@ -1655,9 +1655,9 @@ under the License.
         <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
         <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
         <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
- 
+
         <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
-        
+
         <!-- TODO: handle serialized inventory -->
         <if-not-empty field="inventoryItem.quantityOnHandTotal">
             <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
@@ -1676,7 +1676,7 @@ under the License.
         <set field="oldPartyCreditEntry.origAmount" from-field="origAmount"/>
         <set field="oldPartyCreditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
         <set field="oldPartyCreditEntry.organizationPartyId" from-field="parameters.oldOwnerPartyId"/>
-                
+
         <!-- Debit -->
         <make-value entity-name="AcctgTransEntry" value-field="oldPartyDebitEntry"/>
         <set field="oldPartyDebitEntry.debitCreditFlag" value="D"/>
@@ -1694,7 +1694,7 @@ under the License.
         <set field="newPartyCreditEntry.origAmount" from-field="origAmount"/>
         <set field="newPartyCreditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
         <set field="newPartyCreditEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
-                
+
         <!-- Debit -->
         <make-value entity-name="AcctgTransEntry" value-field="newPartyDebitEntry"/>
         <set field="newPartyDebitEntry.debitCreditFlag" value="D"/>
@@ -1708,9 +1708,9 @@ under the License.
         <set field="acctgTransEntries[]" from-field="oldPartyDebitEntry" type="Object"/>
         <set field="acctgTransEntries[]" from-field="newPartyCreditEntry" type="Object"/>
         <set field="acctgTransEntries[]" from-field="newPartyDebitEntry" type="Object"/>
-        
+
         <!-- Set header fields (AcctgTrans) -->
-        
+
         <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="INVENTORY"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
         <set field="createAcctgTransAndEntriesInMap.inventoryItemId" from-field="parameters.inventoryItemId"/>
@@ -1721,7 +1721,7 @@ under the License.
         <field-to-result field="acctgTransId" result-name="acctgTransId"/>
     </simple-method>
     <!--automatic GL posting service triggered when inventory is issued to a work effort-->
-  
+
     <simple-method method-name="createAcctgTransForWorkEffortIssuance" short-description="Create an accounting transaction for inventory that is issued to a work effort (Type: INVENTORY D: RAWMAT_INVENTORY, C: WIP_INVENTORY)">
         <!-- retrieve ledger rounding properties -->
         <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
@@ -1743,7 +1743,7 @@ under the License.
         <entity-one entity-name="WorkEffortInventoryAssign" value-field="workEffortInventoryAssign">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
             <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
-        </entity-one>        
+        </entity-one>
         <get-related-one value-field="workEffortInventoryAssign" relation-name="InventoryItem" to-value-field="inventoryItem"/>
         <!-- TODO: handle serialized inventory -->
         <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
@@ -1759,7 +1759,7 @@ under the License.
         <set field="debitEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
         <set field="debitEntry.productId" from-field="workEffortGoodStandard.productId"/>
         <set field="debitEntry.origAmount" from-field="origAmount"/>
-        <set field="debitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>        
+        <set field="debitEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
         <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
         <!-- Credit -->
         <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
@@ -1768,7 +1768,7 @@ under the License.
         <set field="creditEntry.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
         <set field="creditEntry.productId" from-field="inventoryItem.productId"/>
         <set field="creditEntry.origAmount" from-field="origAmount"/>
-        <set field="creditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>        
+        <set field="creditEntry.origCurrencyUomId" from-field="inventoryItem.currencyUomId"/>
         <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
         <!-- Set header fields (AcctgTrans) -->
         <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
@@ -1777,7 +1777,7 @@ under the License.
         <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
             <result-to-field result-name="acctgTransId"/>
         </call-service>
-        <field-to-result field="acctgTransId" result-name="acctgTransId"/>        
+        <field-to-result field="acctgTransId" result-name="acctgTransId"/>
     </simple-method>
 
     <!-- Service for the automatic creation of accounting transaction for inventory that is issued for fixed asset maintenance -->
@@ -1785,7 +1785,7 @@ under the License.
         <!-- retrieve ledger rounding properties -->
         <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
         <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
-        
+
         <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
         <get-related-one value-field="itemIssuance" relation-name="InventoryItem" to-value-field="inventoryItem"/>
 
@@ -1795,7 +1795,7 @@ under the License.
                 <calcop operator="get" field="inventoryItem.unitCost"/>
             </calcop>
         </calculate>
-        
+
         <!-- prepare the double posting (D/C) entries (AcctgTransEntry) -->
         <!-- Credit -->
         <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
@@ -1823,46 +1823,46 @@ under the License.
         <call-service service-name="createAcctgTransAndEntries" in-map-name="createAcctgTransAndEntriesInMap">
             <result-to-field result-name="acctgTransId"/>
         </call-service>
-        <field-to-result field="acctgTransId" result-name="acctgTransId"/>        
+        <field-to-result field="acctgTransId" result-name="acctgTransId"/>
     </simple-method>
     <simple-method method-name="createAcctgTransAndEntriesForIncomingPayment" short-description="Create an accounting transaction for an incoming payment" >
         <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
         <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
         <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
-          
+
         <calculate field="amountAppliedTotal"><number value="0"/></calculate>
         <calculate field="diffAmount"><number value="0"/></calculate>
-         
+
         <entity-one entity-name="Payment" value-field="payment"/>
         <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isReceipt" ret-field="isReceiptValue">
             <field field="payment" type="org.ofbiz.entity.GenericValue"/>
         </call-class-method>
-     
+
         <if-compare field="isReceiptValue" operator="equals" value="true" type="Boolean">
             <set field="origCurrencyUomId" from-field="payment.currencyUomId"/>
             <set field="organizationPartyId" from-field="payment.partyIdTo"/>
             <set field="partyId" from-field="payment.partyIdFrom"/>
             <set field="paymentId" from-field="payment.paymentId"/>
-         
+
             <!-- Debit -->
             <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
             <set field="debitEntry.debitCreditFlag" value="D"/>
-            <!-- TODO --> 
+            <!-- TODO -->
             <!--set field="debitEntry.glAccountTypeId" value=""/-->
-            <set field="debitEntry.origAmount" from-field="payment.amount"/> 
+            <set field="debitEntry.origAmount" from-field="payment.amount"/>
             <set field="debitEntry.origCurrencyUomId" from-field="origCurrencyUomId"/>
             <set field="debitEntry.organizationPartyId" from-field="organizationPartyId"/>
             <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
-         
+
             <entity-one entity-name="PaymentGlAccountTypeMap" value-field="paymentGlAccountTypeMap">
                 <field-map field-name="paymentTypeId" from-field="payment.paymentTypeId"/>
                 <field-map field-name="organizationPartyId"/>
             </entity-one>
             <set field="creditGlAccountTypeId" from-field="paymentGlAccountTypeMap.glAccountTypeId"/>
-            
+
             <get-related value-field="payment" relation-name="PaymentApplication" list="paymentApplications"/>
             <iterate list="paymentApplications" entry="paymentApplication">
-             
+
                 <!-- credit -->
                 <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
                 <set field="creditEntry.debitCreditFlag" value="C"/>
@@ -1871,8 +1871,8 @@ under the License.
                 <if-not-empty field="paymentApplication.overrideGlAccountId">
                     <set field="creditEntry.glAccountId" from-field="paymentApplication.overrideGlAccountId"/>
                 <else>
-                    <set field="creditEntry.glAccountId" from-field="payment.overrideGlAccountId"/>                  
-                </else> 
+                    <set field="creditEntry.glAccountId" from-field="payment.overrideGlAccountId"/>
+                </else>
                 </if-not-empty>
                 <set field="creditEntry.organizationPartyId" from-field="organizationPartyId"/>
                 <set field="creditEntry.glAccountTypeId" from-field="creditGlAccountTypeId"/>
@@ -1884,7 +1884,7 @@ under the License.
                 </calculate>
                 <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
             </iterate>
-         
+
             <calculate field="diffAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="subtract">
                     <calcop operator="get" field="payment.amount"/>
@@ -1893,7 +1893,7 @@ under the License.
             </calculate>
             <if-compare field="diffAmount" operator="greater" value="0" type="BigDecimal">
                 <!-- credit for diff amount-->
-                <make-value entity-name="AcctgTransEntry" value-field="creditEntryWithDiffAmount"/> 
+                <make-value entity-name="AcctgTransEntry" value-field="creditEntryWithDiffAmount"/>
                 <set field="creditEntryWithDiffAmount.debitCreditFlag" value="C"/>
                 <set field="creditEntryWithDiffAmount.origAmount" from-field="diffAmount"/>
                 <set field="creditEntryWithDiffAmount.origCurrencyUomId" from-field="origCurrencyUomId"/>
@@ -1902,8 +1902,8 @@ under the License.
                 <set field="creditEntryWithDiffAmount.organizationPartyId" from-field="organizationPartyId"/>
                 <set field="acctgTransEntries[]" from-field="creditEntryWithDiffAmount" type="Object"/>
             </if-compare>
-         
-            <!-- Set header fields (AcctgTrans) -->        
+
+            <!-- Set header fields (AcctgTrans) -->
             <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
             <set field="createAcctgTransAndEntriesInMap.partyId" from-field="partyId"/>
             <set field="createAcctgTransAndEntriesInMap.roleTypeId" value="BILL_TO_CUSTOMER"/>
@@ -1914,9 +1914,9 @@ under the License.
                 <result-to-field result-name="acctgTransId"/>
             </call-service>
             <field-to-result field="acctgTransId" result-name="acctgTransId"/>
-        </if-compare>      
-    </simple-method> 
-    
+        </if-compare>
+    </simple-method>
+
     <!-- Service for the automatic creation of accounting transaction for Purchase Invoice -->
     <simple-method method-name="createAcctgTransForPurchaseInvoice" short-description="Create an accounting transaction for a purchase invoice">
         <!-- retrieve ledger rounding properties -->
@@ -1924,7 +1924,7 @@ under the License.
         <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
         <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
         <set field="totalAmountFromInvoice" type="BigDecimal" value="0"/>
-        
+
         <entity-one entity-name="Invoice" value-field="invoice"/>
         <if-compare field="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE">
             <entity-condition entity-name="InvoiceItem" list="invoiceItems" use-cache="true">
@@ -2011,12 +2011,38 @@ under the License.
                 <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
                 <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
             </iterate>
+            <!-- debit entry for SALES_TAX-->
+            <call-class-method method-name="getInvoiceTaxByTaxAuthGeoAndParty" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+                ret-field="invoiceTaxByTaxAuthGeoAndPartyResult">
+                <field field="invoice" type="org.ofbiz.entity.GenericValue"/>
+            </call-class-method>
+            <set field="taxByTaxAuthGeoAndPartyList" from-field="invoiceTaxByTaxAuthGeoAndPartyResult.taxByTaxAuthGeoAndPartyList"/>
+            <set field="invoiceTaxTotal" from-field="invoiceTaxByTaxAuthGeoAndPartyResult.taxGrandTotal"/>
+            <iterate list="taxByTaxAuthGeoAndPartyList" entry="taxByTaxAuthGeoAndParty">
+                <clear-field field="creditEntry"/>
+                <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
+                <set field="creditEntry.debitCreditFlag" value="D"/>
+                <set field="creditEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
+                <set field="creditEntry.origAmount" from-field="taxByTaxAuthGeoAndParty.totalAmount"/>
+                <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
+                <if-not-empty field="taxByTaxAuthGeoAndParty.taxAuthPartyId">
+                    <set field="creditEntry.partyId" from-field="taxByTaxAuthGeoAndParty.taxAuthPartyId"/>
+                    <set field="creditEntry.roleTypeId" value="TAX_AUTHORITY"/>
+                </if-not-empty>
+                <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+            </iterate>
 
             <!-- Credit -->
             <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
             <set field="creditEntry.debitCreditFlag" value="C"/>
             <set field="creditEntry.organizationPartyId" from-field="invoice.partyId"/>
             <set field="creditEntry.glAccountTypeId" value="ACCOUNTS_PAYABLE"/>
+            <calculate field="totalAmountFromInvoice" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calcop operator="add">
+                    <calcop operator="get" field="totalAmountFromInvoice"/>
+                    <calcop operator="get" field="invoiceTaxTotal"/>
+                </calcop>
+            </calculate>
             <set field="creditEntry.origAmount" from-field="totalAmountFromInvoice"/>
             <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
             <set field="creditEntry.partyId" from-field="invoice.partyIdFrom"/>
@@ -2036,14 +2062,14 @@ under the License.
             <field-to-result field="acctgTransId" result-name="acctgTransId"/>
         </if-compare>
     </simple-method>
-    
+
     <simple-method method-name="createAcctgTransForSalesInvoice" short-description="Create an accounting transaction for a sales invoice">
         <!-- retrieve ledger rounding properties -->
         <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
         <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
         <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
         <set field="totalOrigAmount" value="0"/>
-           
+
         <entity-one entity-name="Invoice" value-field="invoice"/>
         <if-compare field="invoice.invoiceTypeId" value="SALES_INVOICE" operator="equals">
             <entity-condition entity-name="InvoiceItem" list="invoiceItems" use-cache="true">
@@ -2057,7 +2083,7 @@ under the License.
                 <!-- TODO: handle serialized inventory -->
                 <if-empty field="invoiceItem.quantity">
                     <set field="invoiceItem.quantity" value="1"/>
-                </if-empty> 
+                </if-empty>
                 <calculate field="origAmount" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                     <calcop operator="multiply">
                         <calcop operator="get" field="invoiceItem.quantity"/>
@@ -2084,13 +2110,61 @@ under the License.
                     <set field="creditEntry.roleTypeId" value="TAX_AUTHORITY"/>
                 </if-not-empty>
                 <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
-            </iterate>        
+            </iterate>
+
+            <!-- credit entry for SALES_TAX-->
+            <call-class-method method-name="getInvoiceTaxByTaxAuthGeoAndParty" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+                ret-field="invoiceTaxByTaxAuthGeoAndPartyResult">
+                <field field="invoice" type="org.ofbiz.entity.GenericValue"/>
+            </call-class-method>
+            <set field="taxByTaxAuthGeoAndPartyList" from-field="invoiceTaxByTaxAuthGeoAndPartyResult.taxByTaxAuthGeoAndPartyList"/>
+            <set field="invoiceTaxTotal" from-field="invoiceTaxByTaxAuthGeoAndPartyResult.taxGrandTotal"/>
+            <iterate list="taxByTaxAuthGeoAndPartyList" entry="taxByTaxAuthGeoAndParty">
+                <clear-field field="creditEntry"/>
+                <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
+                <set field="creditEntry.debitCreditFlag" value="C"/>
+                <set field="creditEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
+                <set field="creditEntry.origAmount" from-field="taxByTaxAuthGeoAndParty.totalAmount"/>
+                <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
+                <if-not-empty field="taxByTaxAuthGeoAndParty.taxAuthPartyId">
+                    <set field="creditEntry.partyId" from-field="taxByTaxAuthGeoAndParty.taxAuthPartyId"/>
+                    <set field="creditEntry.roleTypeId" value="TAX_AUTHORITY"/>
+                </if-not-empty>
+                <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+            </iterate>
+
+            <!-- credit entry for SALES_TAX-->
+            <call-class-method method-name="getInvoiceTaxByTaxAuthGeoAndParty" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
+                ret-field="invoiceTaxByTaxAuthGeoAndPartyResult">
+                <field field="invoice" type="org.ofbiz.entity.GenericValue"/>
+            </call-class-method>
+            <set field="taxByTaxAuthGeoAndPartyList" from-field="invoiceTaxByTaxAuthGeoAndPartyResult.taxByTaxAuthGeoAndPartyList"/>
+            <set field="invoiceTaxTotal" from-field="invoiceTaxByTaxAuthGeoAndPartyResult.taxGrandTotal"/>
+            <iterate list="taxByTaxAuthGeoAndPartyList" entry="taxByTaxAuthGeoAndParty">
+                <clear-field field="creditEntry"/>
+                <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
+                <set field="creditEntry.debitCreditFlag" value="C"/>
+                <set field="creditEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
+                <set field="creditEntry.origAmount" from-field="taxByTaxAuthGeoAndParty.totalAmount"/>
+                <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
+                <if-not-empty field="taxByTaxAuthGeoAndParty.taxAuthPartyId">
+                    <set field="creditEntry.partyId" from-field="taxByTaxAuthGeoAndParty.taxAuthPartyId"/>
+                    <set field="creditEntry.roleTypeId" value="TAX_AUTHORITY"/>
+                </if-not-empty>
+                <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
+            </iterate>
 
             <!-- Debit -->
             <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
             <set field="debitEntry.debitCreditFlag" value="D"/>
             <set field="debitEntry.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
             <set field="debitEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
+            <calculate field="totalOrigAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                <calcop operator="add">
+                    <calcop operator="get" field="totalOrigAmount"/>
+                    <calcop operator="get" field="invoiceTaxTotal"/>
+                </calcop>
+            </calculate>
             <set field="debitEntry.origAmount" from-field="totalOrigAmount"/>
             <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
             <set field="debitEntry.partyId" from-field="invoice.partyId"/>
@@ -2104,20 +2178,20 @@ under the License.
                 <result-to-field result-name="acctgTransId"/>
             </call-service>
             <field-to-result field="acctgTransId" result-name="acctgTransId"/>
-        </if-compare>    
+        </if-compare>
     </simple-method>
     <!--automatic GL posting service triggered payment is created or when set payment status -->
     <simple-method method-name="createAcctgTransAndEntriesForOutgoingPayment" short-description="create accounting transactions and accounting transaction entries for outgoing payment">
         <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
         <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
         <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
-        
+
         <set field="amountAppliedTotal" type="BigDecimal" value="0"/>
         <entity-one entity-name="Payment" value-field="payment"/>
         <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isDisbursement" ret-field="isDisbursement">
             <field field="payment" type="org.ofbiz.entity.GenericValue"/>
         </call-class-method>
-        
+
         <if-compare value="true" field="isDisbursement" operator="equals" type="Boolean">
             <set field="organizationPartyId" from-field="payment.partyIdFrom"/>
             <set field="partyId" from-field="payment.partyIdTo"/>
@@ -2130,7 +2204,7 @@ under the License.
             <!-- Credit -->
             <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
             <set field="creditEntry.debitCreditFlag" value="C"/>
-            <!-- TODO --> 
+            <!-- TODO -->
             <!--set field="creditEntry.glAccountTypeId" from-field=""/-->
             <set field="creditEntry.origAmount" from-field="payment.amount"/>
             <set field="creditEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
@@ -2138,9 +2212,9 @@ under the License.
             <set field="creditEntry.partyId" from-field="payment.partyIdTo"/>
             <set field="creditEntry.roleTypeId" value="BILL_FROM_VENDOR"/>
             <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
-            
+
             <entity-and entity-name="PaymentApplication" list="paymentApplications">
-                <field-map field-name="paymentId" from-field="payment.paymentId"/> 
+                <field-map field-name="paymentId" from-field="payment.paymentId"/>
             </entity-and>
             <iterate list="paymentApplications" entry="paymentApplication">
                 <!-- Debit -->
@@ -2151,7 +2225,7 @@ under the License.
                 <set field="debitEntry.glAccountTypeId" from-field="debitGlAccountTypeId"/>
                 <set field="debitEntry.organizationPartyId" from-field="organizationPartyId"/>
                 <if-not-empty field="paymentApplication.overrideGlAccountId">
-                    <set field="debitEntry.glAccountId" from-field="paymentApplication.overrideGlAccountId"/>   
+                    <set field="debitEntry.glAccountId" from-field="paymentApplication.overrideGlAccountId"/>
                 <else>
                     <if-not-empty field="paymentApplication.taxAuthGeoId">
                         <entity-one entity-name="TaxAuthorityGlAccount" value-field="taxAuthorityGlAccount">
@@ -2159,10 +2233,10 @@ under the License.
                             <field-map field-name="taxAuthGeoId" from-field="paymentApplication.taxAuthGeoId"/>
                             <field-map field-name="taxAuthPartyId" from-field="partyId"/>
                         </entity-one>
-                        <set field="debitEntry.glAccountId" from-field="taxAuthorityGlAccount.glAccountId"/> 
+                        <set field="debitEntry.glAccountId" from-field="taxAuthorityGlAccount.glAccountId"/>
                     <else>
-                        <set field="debitEntry.glAccountId" from-field="payment.overrideGlAccountId"/>   
-                    </else>    
+                        <set field="debitEntry.glAccountId" from-field="payment.overrideGlAccountId"/>
+                    </else>
                     </if-not-empty>
                 </else>
                 </if-not-empty>
@@ -2203,7 +2277,7 @@ under the License.
             <field-to-result field="acctgTransId" result-name="acctgTransId"/>
         </if-compare>
     </simple-method>
-    
+
     <!--service to clone an existing accounting transaction and its entries-->
     <simple-method method-name="copyAcctgTransAndEntries" short-description="copy AcctgTransAndEntries">
         <entity-one entity-name="AcctgTrans" value-field="acctgTrans">
@@ -2216,8 +2290,8 @@ under the License.
         <set field="createAcctgTransInMap.transactionDate" from-field="nowTimestamp"/>
         <set field="createAcctgTransInMap.isPosted" value="N"/>
         <set field="originalAcctgTransId" from-field="parameters.fromAcctgTransId"/>
-        <field-to-result field="originalAcctgTransId" result-name="acctgTransId"/>        
-        
+        <field-to-result field="originalAcctgTransId" result-name="acctgTransId"/>
+
         <clear-field field="newAcctgTrans.acctgTransId"/>
         <call-service service-name="createAcctgTrans" in-map-name="createAcctgTransInMap">
             <result-to-field result-name="newAcctgTrans.acctgTransId"/>
@@ -2242,12 +2316,12 @@ under the License.
             <call-service service-name="createAcctgTransEntry" in-map-name="createAcctgTransAndEntryInMap"/>
         </iterate>
     </simple-method>
-    
+
     <!--service to create AcctgTransAndEntries For Payment Application-->
     <simple-method method-name="createAcctgTransAndEntriesForPaymentApplication" short-description="create AcctgTransAndEntries For PaymentApplication">
         <entity-one entity-name="PaymentApplication" value-field="paymentApplication">
             <field-map field-name="paymentApplicationId" from-field="parameters.paymentApplicationId"/>
-        </entity-one>  
+        </entity-one>
         <get-related-one value-field="paymentApplication" relation-name="Payment" to-value-field="payment"/>
         <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="isReceipt" ret-field="isReceipt">
             <field field="payment" type="org.ofbiz.entity.GenericValue"/>
@@ -2303,10 +2377,10 @@ under the License.
         </else>
         </if-compare>
         <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
-        <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>  
+        <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransEntries" from-field="acctgTransEntries"/>
         <set field="createAcctgTransAndEntriesInMap.acctgTransTypeId" value="PAYMENT_APPL"/>
-        <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>        
+        <set field="createAcctgTransAndEntriesInMap.glFiscalTypeId" value="ACTUAL"/>
         <set field="createAcctgTransAndEntriesInMap.paymentId" from-field="paymentApplication.paymentId"/>
         <set field="createAcctgTransAndEntriesInMap.invoiceId" from-field="paymentApplication.invoiceId"/>
         <if-compare field="isReceipt" operator="equals" type="Boolean" value="true">
@@ -2321,7 +2395,7 @@ under the License.
             <result-to-field result-name="acctgTransId"/>
         </call-service>
         <field-to-result field="acctgTransId" result-name="acctgTransId"/>
-    </simple-method>    
+    </simple-method>
 
     <!-- Party GlAccount services -->
      <simple-method method-name="createPartyGlAccount" short-description="Associate a party to a General Ledger Account">
@@ -2341,7 +2415,7 @@ under the License.
         <entity-one entity-name="PartyGlAccount" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Entity Specific Inline Methods -->
     <simple-method method-name="getVarianceReasonGlAccountInline" short-description="Gets VarianceReasonGlAccount on the basis of primary key">
         <entity-one entity-name="VarianceReasonGlAccount" value-field="varianceReasonGlAccount">
