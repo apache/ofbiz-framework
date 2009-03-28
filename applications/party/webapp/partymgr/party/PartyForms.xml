@@ -726,13 +726,13 @@ under the License.
         <field name="comments"><text/></field>
         <field name="updateButton"><submit button-type="button"/></field>
         <field name="deleteButton"><hyperlink description="${uiLabelMap.CommonDelete}" target="deletePartyRelationship">
-				<parameter param-name="partyId"/>
-				<parameter param-name="partyIdFrom"/>
-				<parameter param-name="partyIdTo"/>
-				<parameter param-name="roleTypeIdTo"/>
-				<parameter param-name="roleTypeIdFrom"/>
-				<parameter param-name="fromDate"/>
-			</hyperlink></field>
+                <parameter param-name="partyId"/>
+                <parameter param-name="partyIdFrom"/>
+                <parameter param-name="partyIdTo"/>
+                <parameter param-name="roleTypeIdTo"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink></field>
     </form>
 
     <form name="AddOtherPartyRelationship" type="single" target="createPartyRelationship">

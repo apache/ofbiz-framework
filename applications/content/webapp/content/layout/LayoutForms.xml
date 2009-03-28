@@ -161,12 +161,12 @@ under the License.
         </field>
         <field name="dummy" title="${uiLabelMap.ContentClip}" widget-style="buttontext" map-name="dummy">
             <hyperlink also-hidden="false" description="${contentId}" target="clipFindLayout">
-				<parameter param-name="contentId" from-field="contentId"/>
-				<parameter param-name="drDataResourceId" from-field="drDataResourceId"/>
-				<parameter param-name="viewSize" from-field="viewSize"/>
-				<parameter param-name="viewIndex" from-field="viewIndex"/>
-				<parameter param-name="entityName" from-field="entityName"/>
-			</hyperlink>
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="drDataResourceId" from-field="drDataResourceId"/>
+                <parameter param-name="viewSize" from-field="viewSize"/>
+                <parameter param-name="viewIndex" from-field="viewIndex"/>
+                <parameter param-name="entityName" from-field="entityName"/>
+            </hyperlink>
         </field>
         <field name="contentName"><display/></field>
         <field name="description"><display/></field>

@@ -29,23 +29,23 @@ under the License.
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="/projectmgr/control/projectView?projectId=${resultProject.projectId}"  target-type="inter-app" target-window="_BLANK" description="${resultProject.projectName}"/></field>
         <field name="roleTypeId" parameter-name="newRoleTypeId" title="${uiLabelMap.PartyRole}"><hidden value="${roleTypeId}"/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment" description="${uiLabelMap.CommonRemove}">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="partyId" from-field="partyId"/>
-				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
-				<parameter param-name="fromDate" from-field="fromDate"/>
-				<parameter param-name="statusId" value="PAS_ENDED"/>
-				<parameter param-name="statusId=donePage" from-field="parameters.donePage"/>
-			</hyperlink>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="statusId" value="PAS_ENDED"/>
+                <parameter param-name="statusId=donePage" from-field="parameters.donePage"/>
+            </hyperlink>
         </field>
         <!-- better set to complete on the timesheet -->
         <!-- field name="toComplete" title="${uiLabelMap.MyPageToComplete}">
             <hyperlink target="updateTaskAssigment" description="${uiLabelMap.MyPageToComplete}">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="partyId" from-field="partyId"/>
-				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
-				<parameter param-name="fromDate" from-field="fromDate"/>
-				<parameter param-name="statusId" value="PAS_COMPLETED"/>
-				<parameter param-name="statusId=donePage" from-field="parameters.donePage"/>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="statusId" value="PAS_COMPLETED"/>
+                <parameter param-name="statusId=donePage" from-field="parameters.donePage"/>
             </hyperlink>
         </field-->
     </form>
@@ -116,14 +116,14 @@ under the License.
         <field name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
             <display-entity entity-name="StatusItem" description="${description}">
                 <sub-hyperlink description="${uiLabelMap.MyPageToComplete}" target="setCommunicationEventRoleStatus">
-				<parameter param-name="communicationEventId"/>
-				<parameter param-name="partyId"/>
-				<parameter param-name="roleTypeId"/>
-				<parameter param-name="statusID" value="COM_ROLE_COMPLETED"/>
-				<parameter param-name="donePage" from-field="parameters.donePage"/>
-				<parameter param-name="VIEWSIZE" from-field="parameters.VIEWSIZE"/>
-				<parameter param-name="VIEW_INDEX" from-field="parameters.VIEW_INDEX"/>
-			</sub-hyperlink>
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="statusID" value="COM_ROLE_COMPLETED"/>
+                <parameter param-name="donePage" from-field="parameters.donePage"/>
+                <parameter param-name="VIEWSIZE" from-field="parameters.VIEWSIZE"/>
+                <parameter param-name="VIEW_INDEX" from-field="parameters.VIEW_INDEX"/>
+            </sub-hyperlink>
             </display-entity>
         </field>
         <field name="createdStamp" entry-name="entryDate"/>

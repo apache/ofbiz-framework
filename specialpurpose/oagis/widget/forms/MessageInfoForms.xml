@@ -70,12 +70,12 @@ under the License.
         <auto-fields-entity entity-name="OagisMessageErrorInfo" default-field-type="display"/>
         <field name="logicalId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${logicalId}" target="EditMessageErrorInfo">
-				<parameter param-name="logicalId" from-field="logicalId"/>
-				<parameter param-name="component" from-field="component"/>
-				<parameter param-name="task" from-field="task"/>
-				<parameter param-name="referenceId" from-field="referenceId"/>
-				<parameter param-name="errorSeqId" from-field="errorSeqId"/>
-			</hyperlink>
+                <parameter param-name="logicalId" from-field="logicalId"/>
+                <parameter param-name="component" from-field="component"/>
+                <parameter param-name="task" from-field="task"/>
+                <parameter param-name="referenceId" from-field="referenceId"/>
+                <parameter param-name="errorSeqId" from-field="errorSeqId"/>
+            </hyperlink>
         </field>
     </form>
     

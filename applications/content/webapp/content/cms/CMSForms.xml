@@ -43,12 +43,12 @@ under the License.
 
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditAddContent">
-				<parameter param-name="MASTER_contentId" from-field="contentId"/>
-				<parameter param-name="MASTER_drDataResourceId" from-field="drDataResourceId"/>
-				<parameter param-name="MASTER_caContentIdTo" from-field="caContentIdTo"/>
-				<parameter param-name="MASTER_caContentAssocTypeId" from-field="caContentAssocTypeId"/>
-				<parameter param-name="MASTER_caFromDate" from-field="caFromDate"/>
-			</hyperlink>
+                <parameter param-name="MASTER_contentId" from-field="contentId"/>
+                <parameter param-name="MASTER_drDataResourceId" from-field="drDataResourceId"/>
+                <parameter param-name="MASTER_caContentIdTo" from-field="caContentIdTo"/>
+                <parameter param-name="MASTER_caContentAssocTypeId" from-field="caContentAssocTypeId"/>
+                <parameter param-name="MASTER_caFromDate" from-field="caFromDate"/>
+            </hyperlink>
 <!--
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent">
                 <parameter param-name="caContentIdTo"/>
@@ -181,12 +181,12 @@ under the License.
         <auto-fields-service service-name="updateContentPurposeOperation" default-field-type="display"/>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurposeOperation">
-				<parameter param-name="contentPurposeTypeId" from-field="contentPurposeTypeId"/>
-				<parameter param-name="contentOperationId" from-field="contentOperationId"/>
-				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
-				<parameter param-name="statusId" from-field="statusId"/>
-				<parameter param-name="privilegeEnumId" from-field="privilegeEnumId"/>
-			</hyperlink>
+                <parameter param-name="contentPurposeTypeId" from-field="contentPurposeTypeId"/>
+                <parameter param-name="contentOperationId" from-field="contentOperationId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="statusId" from-field="statusId"/>
+                <parameter param-name="privilegeEnumId" from-field="privilegeEnumId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddContentPurposeOperation" target="addContentPurposeOperation" title="" type="single"

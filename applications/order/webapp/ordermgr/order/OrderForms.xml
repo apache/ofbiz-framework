@@ -117,7 +117,7 @@ under the License.
         </field>
         <field name="addButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-	<form name="LookupBulkAddSupplierProductsInApprovedOrder" type="multi" use-row-submit="true" list-name="productList" title="" target="bulkAddProductsInApprovedOrder"
+    <form name="LookupBulkAddSupplierProductsInApprovedOrder" type="multi" use-row-submit="true" list-name="productList" title="" target="bulkAddProductsInApprovedOrder"
             odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupBulkAddSupplierProductsInApprovedOrder" view-size="10">
         <actions>
             <set field="orderId" from-field="parameters.orderId"/>
