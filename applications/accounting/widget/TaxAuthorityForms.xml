@@ -38,7 +38,10 @@ under the License.
         </field>
 
         <field name="taxAuthorityEdit" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditTaxAuthority?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}" also-hidden="false"/>
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditTaxAuthority" also-hidden="false">
+                <parameter param-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+            </hyperlink>
         </field>
     </form>
     
