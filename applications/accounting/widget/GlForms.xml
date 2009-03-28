@@ -152,7 +152,11 @@ under the License.
         <field name="workEffortId"><display/></field>
         <field name="shipmentId"><display/></field>
         <field name="verify" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.AccountingVerifyTransaction}" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}&amp;verifyOnly=Y" also-hidden="false"/>
+            <hyperlink description="${uiLabelMap.AccountingVerifyTransaction}" target="postAcctgTrans" also-hidden="false">
+				<parameter param-name="acctgTransId" from-field="acctgTransId"/>
+				<parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+				<parameter param-name="verifyOnly" value="Y"/>
+			</hyperlink>
         </field>
         <field name="post" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.AccountingPostTransaction}" target="postAcctgTrans" also-hidden="false">
@@ -750,7 +754,10 @@ under the License.
             </entity-condition>
         </actions>
         <field name="glReconciliationId">
-            <hyperlink also-hidden="false" description="${glReconciliationId}" target="EditGlReconciliations?glReconciliationId=${glReconciliationId}&amp;organizationPartyId=${organizationPartyId}&amp;tabButtonItem=AccountReconciliations"/>
+            <hyperlink also-hidden="false" description="${glReconciliationId}" target="EditGlReconciliations">
+				<parameter param-name="glReconciliationId" from-field="glReconciliationId"/>
+				<parameter param-name="tabButtonItem" from-field="AccountReconciliations"/>
+			</hyperlink>
         </field>
         <field name="glReconciliationName"><display/></field>
         <field name="description"><display/></field>
