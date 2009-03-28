@@ -174,10 +174,10 @@ under the License.
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeAgreementItemTerm" description="${uiLabelMap.CommonRemove}" also-hidden="false">
-				<parameter param-name="agreementTermId" from-field="agreementTermId"/>
-				<parameter param-name="agreementId" from-field="agreementId"/>
-				<parameter param-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
-			</hyperlink>
+                <parameter param-name="agreementTermId" from-field="agreementTermId"/>
+                <parameter param-name="agreementId" from-field="agreementId"/>
+                <parameter param-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="ListAgreementTerms" target="updateAgreementTerm" list-name="agreementTerms" paginate-target="ListAgreementTerms" title="" type="list"
@@ -267,10 +267,10 @@ under the License.
         <field name="price" widget-area-style="align-text"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeAgreementItemProduct" description="${uiLabelMap.CommonRemove}" also-hidden="false">
-				<parameter param-name="productId" from-field="productId"/>
-				<parameter param-name="agreementId" from-field="agreementId"/>
-				<parameter param-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
-			</hyperlink>
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="agreementId" from-field="agreementId"/>
+                <parameter param-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="ListAgreementItemSupplierProducts" list-name="agreementProducts" target="" title="" type="list" paginate-target="ListAgreementItemSupplierProducts"
@@ -467,10 +467,10 @@ under the License.
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeAgreementItemParty" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-				<parameter param-name="partyId" from-field="partyId"/>
-				<parameter param-name="agreementId" from-field="agreementId"/>
-				<parameter param-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
-			</hyperlink>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="agreementId" from-field="agreementId"/>
+                <parameter param-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditAgreementItemParty" type="single" target="updateAgreementItemParty" title="" default-map-name="agreementPartyApplic"
@@ -497,10 +497,10 @@ under the License.
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeAgreementGeographicalApplic" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-				<parameter param-name="geoId" from-field="geoId"/>
-				<parameter param-name="agreementId" from-field="agreementId"/>
-				<parameter param-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
-			</hyperlink>
+                <parameter param-name="geoId" from-field="geoId"/>
+                <parameter param-name="agreementId" from-field="agreementId"/>
+                <parameter param-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditAgreementGeographicalApplic" type="single" target="updateAgreementGeographicalApplic" title="" default-map-name="agreementGeographicalApplic"
@@ -564,10 +564,10 @@ under the License.
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteAgreementRole" description="${uiLabelMap.CommonRemove}" also-hidden="false">
-				<parameter param-name="agreementId" from-field="agreementId"/>
-				<parameter param-name="partyId" from-field="partyId"/>
-				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
-			</hyperlink>
+                <parameter param-name="agreementId" from-field="agreementId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddAgreementRole" type="single" target="createAgreementRole" 

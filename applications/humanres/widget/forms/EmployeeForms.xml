@@ -161,10 +161,10 @@
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteEmployeeQualification" also-hidden="false" description="${uiLabelMap.CommonDelete}">
-				<parameter param-name="partyId" from-field="partyId"/>
-				<parameter param-name="partyQualTypeId" from-field="partyQualTypeId"/>
-				<parameter param-name="fromDate" from-field="fromDate"/>
-			</hyperlink>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyQualTypeId" from-field="partyQualTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
     </form>
@@ -196,10 +196,10 @@
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteEmployeeTraining" also-hidden="false" description="${uiLabelMap.CommonDelete}">
-				<parameter param-name="partyId" from-field="partyId"/>
-				<parameter param-name="trainingClassTypeId" from-field="trainingClassTypeId"/>
-				<parameter param-name="fromDate" from-field="fromDate"/>
-			</hyperlink>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="trainingClassTypeId" from-field="trainingClassTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddEmplLeave" type="single" target="createEmplLeave">
