@@ -169,8 +169,8 @@ under the License.
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <!--<hyperlink target="RemoveRoutingTaskAssoc"  description="[${uiLabelMap.CommonDelete}]" also-hidden="false">
-                <parameter param-name="workEffortIdFrom" from-field="{workEffortIdFrom}"/>
-                <parameter param-name="workEffortIdTo" from-field="{workEffortIdTo}"/>
+                <parameter param-name="workEffortIdFrom" from-field="workEffortIdFrom"/>
+                <parameter param-name="workEffortIdTo" from-field="workEffortIdTo"/>
                 <parameter param-name="fromDate" from-field="fromDate"/>
                 <parameter param-name="workEffortAssocTypeId" value="ROUTING_COMPONENT"/>
             </hyperlink>-->
