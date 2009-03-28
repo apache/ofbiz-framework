@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -31,10 +31,10 @@
             <drop-down allow-empty="true">
                 <entity-options entity-name="WorkEffort" description="${workEffortName}" key-field-name="workEffortId">
                     <entity-constraint name="workEffortTypeId" value="PROJECT_TEMPLATE"/>
-                </entity-options>        
+                </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortTypeId"><hidden value="PROJECT"/></field> 
+        <field name="workEffortTypeId"><hidden value="PROJECT"/></field>
         <field name="projectId"><hidden/></field>
         <field name="workEffortId"><hidden value="${projectId}"/></field>
         <field name="projectName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrProjectName}*"><text/></field>
@@ -44,7 +44,7 @@
         <field name="clientBillingPartyId"><lookup target-form-name="LookupPartyGroup"><sub-hyperlink target="viewprofile?partyId=${partyId}" description="${partyGroup.groupName}"/></lookup></field>
         <field name="organizationPartyId">
             <drop-down no-current-selected-key="defaultOrganizationPartyId">
-                <entity-options entity-name="PartyAcctgPrefAndGroup" description="${groupName}" key-field-name="partyId"/>        
+                <entity-options entity-name="PartyAcctgPrefAndGroup" description="${groupName}" key-field-name="partyId"/>
             </drop-down>
         </field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
@@ -60,7 +60,7 @@
             <drop-down allow-empty="true">
                 <entity-options entity-name="WorkEffort" description="${workEffortName}" key-field-name="workEffortId">
                     <entity-constraint name="workEffortTypeId" value="PROJECT"/>
-                    <entity-constraint name="workEffortId" operator="not-equals" env-name="projectId"/>                    
+                    <entity-constraint name="workEffortId" operator="not-equals" env-name="projectId"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -78,7 +78,7 @@
             <drop-down>
                 <entity-options entity-name="WorkEffort" description="${workEffortName}">
                     <entity-constraint name="workEffortTypeId" value="PROJECT"/>
-                    <entity-constraint name="workEffortId" operator="not-equals" env-name="projectId"/>                    
+                    <entity-constraint name="workEffortId" operator="not-equals" env-name="projectId"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -148,7 +148,7 @@
         <field name="plannedHours" map-name="resultProject.projectInfo" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
         <field name="actualHours" map-name="resultProject.projectInfo" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
         <field name="createdStamp" title="${uiLabelMap.FormFieldTitle_createdDate}"><display type="date"/></field>
-    </form>                                            
+    </form>
     <form name="ListCurrentProjects" type="list" list-name="projects" paginate-target="main"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -190,7 +190,7 @@
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
         <field name="createdStamp"><display type="date"/></field>
-        <!--field name="removeButton"><submit/></field--><!-- TODO: difficult to clear the workEffortParentId field in the record have to find solution-->    
+        <!--field name="removeButton"><submit/></field--><!-- TODO: difficult to clear the workEffortParentId field in the record have to find solution-->
     </form>
     <form name="ProjectInfo" type="single" default-map-name="project" paginate-target="FindProject"
         header-row-style="header-row" default-table-style="basic-table">
@@ -210,7 +210,7 @@
         <field name="plannedHours"><display/></field>
         <field name="originalActualHours"><display/></field>
         <field name="actualHours"><display/></field>
-    </form>                                         
+    </form>
     <form name="ListChildEfforts"  target="updateProjectAndAssoc" title="" list-name="projects" type="list" separate-columns="true" paginate-target="FindProject"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
@@ -225,7 +225,7 @@
         <field name="workEffortAssocTypeId"><hidden/></field>
         <field name="workEffortIdTo" entry-name="workEffortId"><hidden/></field>
         <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><display/></field>
-               
+
         <field name="currentStatusId">
             <drop-down allow-empty="false" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
@@ -247,12 +247,12 @@
                 <option key="8" description="${uiLabelMap.WorkEffortPriorityEight}"/>
                 <option key="9" description="${uiLabelMap.WorkEffortPriorityNine}"/>
             </drop-down>
-        </field>      
+        </field>
         <field name="actualStartDate" entry-name="workEffortToActualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><date-time/></field>
         <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
-   
+
     <form name="EditProjectTasks" target="updateProjectTaskOrPhase" title="" list-name="tasks" type="list" separate-columns="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
@@ -275,7 +275,7 @@
                     <entity-constraint name="workEffortTypeId" value="PHASE"/>
                     <entity-constraint name="workEffortParentId" value="${projectId}"/>
                     <entity-order-by field-name="workEffortName"/>
-                </entity-options>        
+                </entity-options>
             </drop-down>
         </field>
         <field name="priority" title="${uiLabelMap.CommonPriority}">
@@ -290,11 +290,11 @@
                 <option key="8" description="${uiLabelMap.WorkEffortPriorityEight}"/>
                 <option key="9" description="${uiLabelMap.WorkEffortPriorityNine}"/>
             </drop-down>
-        </field>      
+        </field>
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><date-time type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}"><date-time type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-    </form> 
+    </form>
     <form name="ListUnassignedTasks" target="updateTaskAndAssoc" title="" list-name="tasks" type="list" separate-columns="true" paginate-target="FindTask"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
@@ -303,7 +303,7 @@
             </entity-one>
         </row-actions>
         <field name="workEffortTypeId"><hidden/></field>
-        <field name="workEffortId"><hidden/></field>        
+        <field name="workEffortId"><hidden/></field>
         <field name="workEffortAssocTypeId"><hidden/></field>
         <field name="workEffortIdTo" entry-name="workEffortId"><hidden/></field>
         <field name="workEffortName" position="1" title="${uiLabelMap.CommonName}*"><display/></field>
@@ -332,7 +332,7 @@
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-    </form>       
+    </form>
     <form name="ListPhases" target="updateProjectPhase" title="" list-name="phases" type="list" separate-columns="true" paginate-target="FindPhase"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
@@ -390,7 +390,7 @@
                 <parameter param-name="workEffortId" from-field="projectId"/>
                 <parameter param-name="orderId" from-field="orderId"/>
                 <parameter param-name="projectId" from-field="projectId"/>
-            <hyperlink>
+            </hyperlink>
         </field>
     </form>
     <form name="projectAssoOrder"  type="list" list-name="listProjectAssoOrder"
@@ -490,7 +490,7 @@
                 <order-by field-name="lastName"/>
                 <order-by field-name="firstName"/>
                 <order-by field-name="groupName"/>
-            </entity-condition> 
+            </entity-condition>
             <entity-condition entity-name="WorkEffortPartyAssignView"  filter-by-date="true" distinct="true" list="taskResources">
                 <condition-expr field-name="workEffortId" from-field="projectId"/>
                 <select-field field-name="partyId"/>
@@ -500,7 +500,7 @@
                 <order-by field-name="lastName"/>
                 <order-by field-name="firstName"/>
                 <order-by field-name="groupName"/>
-            </entity-condition>        
+            </entity-condition>
         </actions>
         <alt-target use-when="workEffortId==projectId &amp;&amp; parameters.get(&quot;partyId&quot;)==null" target="ListWorkEffortPartyAssigns"/><!-- this used for project partyId not yet selected -->
         <alt-target use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)==null" target="EditTaskPartyAssigns"/><!-- this used for tasks , partyId not yet selected-->
@@ -510,12 +510,12 @@
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
         <field name="partyId" use-when="workEffortId==projectId &amp;&amp; parameters.get(&quot;partyId&quot;)!=null"><!-- project level -->
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}[${partyId}]">
-                <sub-hyperlink target="ListWorkEffortPartyAssigns?projectId=${workEffortId}" description="${uiLabelMap.CommonChange}"/>        
+                <sub-hyperlink target="ListWorkEffortPartyAssigns?projectId=${workEffortId}" description="${uiLabelMap.CommonChange}"/>
             </display-entity>
         </field>
         <field name="partyId" use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)!=null"><!-- task level -->
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}[${partyId}]">
-                <sub-hyperlink target="EditTaskPartyAssigns?workEffortId=${workEffortId}" description="${uiLabelMap.CommonChange}"/>        
+                <sub-hyperlink target="EditTaskPartyAssigns?workEffortId=${workEffortId}" description="${uiLabelMap.CommonChange}"/>
             </display-entity>
         </field>
         <field name="partyId" use-when="workEffortId==projectId &amp;&amp; parameters.get(&quot;partyId&quot;)==null" event="onChange" action="javascript:document.AddWorkEffortPartyAssign.submit();"><!-- project level -->
@@ -583,7 +583,7 @@
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}" widget-area-style="centered">
             <display description="${priority}"/>
-        </field>      
+        </field>
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}" widget-area-style="centered"><display type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.WorkEffortEstimatedCompletionDate}" widget-area-style="centered"><display type="date"/></field>
         <field name="actualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}" widget-area-style="centered"><display type="date"/></field>
@@ -627,7 +627,7 @@
         </row-actions>
         <field entry-name="workEffortName" name="projectName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}" widget-style="buttontext">
             <hyperlink target="projectView?projectId=${workEffortId}" description="${workEffortName}[${workEffortId}]"/>
-        </field> 
+        </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
@@ -646,11 +646,11 @@
         <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
         <field name="partyId"><hidden/></field>
-        <field use-when="workEffortId==projectId" name="workEffortId" entry-name="test" title="${uiLabelMap.ProjectMgrProjectName}"><!-- project level --> 
+        <field use-when="workEffortId==projectId" name="workEffortId" entry-name="test" title="${uiLabelMap.ProjectMgrProjectName}"><!-- project level -->
             <drop-down allow-empty="false">
                 <entity-options entity-name="WorkEffort" description="${workEffortName}" key-field-name="workEffortId">
                     <entity-constraint name="workEffortTypeId" value="PROJECT"/>
-                    <entity-constraint name="workEffortId" operator="not-equals" env-name="projectId"/>                    
+                    <entity-constraint name="workEffortId" operator="not-equals" env-name="projectId"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -679,7 +679,7 @@
                     <entity-constraint name="partyId" env-name="parameters.partyId"/>
                     <entity-constraint name="workEffortTypeId" value="TASK"/>
                     <entity-constraint name="currentStatusId" operator="equals" value="PTS_CREATED"/>
-                </entity-options>                
+                </entity-options>
             </drop-down>
         </field>
         <field entry-name="test" name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
@@ -700,12 +700,12 @@
                 <field-map field-name="workEffortId" from-field="parameters.projectId"/>
                 <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
             </entity-and>
-            <set field="partyIdFrom" value="${assignOrg[0].partyId}"/> 
+            <set field="partyIdFrom" value="${assignOrg[0].partyId}"/>
             <entity-and entity-name="WorkEffortPartyAssignment" list="assignBilling" filter-by-date="true">
                 <field-map field-name="workEffortId" from-field="parameters.projectId"/>
                 <field-map field-name="roleTypeId" value="CLIENT_BILLING"/>
             </entity-and>
-            <set field="partyId" value="${assignBilling[0].partyId}"/> 
+            <set field="partyId" value="${assignBilling[0].partyId}"/>
         </actions>
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.WorkEffortTimeBillFromParty}"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}"/></field>
@@ -770,11 +770,11 @@
                 <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
             </entity-one>
         </actions>
-        
+
         <alt-target use-when="content!=null&amp;&amp;headerItem.equals(&quot;EditTaskContents&quot;)" target="updateTaskContent"/>
         <alt-target use-when="content==null&amp;&amp;headerItem.equals(&quot;EditProjectContents&quot;)" target="createProjectContent"/>
         <alt-target use-when="content==null&amp;&amp;headerItem.equals(&quot;EditTaskContents&quot;)" target="createTaskContent"/>
-        
+
         <field name="workEffortId" map-name="parameters"><hidden/></field>
         <field name="projectId" map-name="parameters"><hidden/></field>
         <field use-when="content!=null" name="contentId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
@@ -784,7 +784,7 @@
             </drop-down>
         </field>
         <!-- note sure if these two are necessray, but they are kind of confusing in this context:
-            <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>        
+            <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>
             <field name="dataResourceId"><lookup target-form-name="LookupDataResource"/></field>
         -->
         <field name="contentTypeId">

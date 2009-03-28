@@ -41,7 +41,7 @@
                 <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
                 <parameter param-name="contactMechIdTo" from-field="contactMechId"/>
                 <parameter param-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
-            <hyperlink>
+            </hyperlink>
         </field>
         <field use-when="telResult.get(&quot;extension&quot;)!=null" name="telephone" title="${uiLabelMap.PartyPhoneNumber}"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber} Ext:${telResult.extension}"/></field>
         <field use-when="telResult.get(&quot;extension&quot;)==null" name="telephone" title="${uiLabelMap.PartyPhoneNumber}"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber}"/></field>

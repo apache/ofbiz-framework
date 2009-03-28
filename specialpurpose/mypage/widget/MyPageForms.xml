@@ -49,9 +49,9 @@ under the License.
             </hyperlink>
         </field-->
     </form>
-    
+
     <form name="EditWeekTimesheet" extends="EditWeekTimesheet" extends-resource="component://projectmgr/widget/forms/TimeSheetForms.xml">
-        <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="updateTimesheetKey"/>        
+        <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="updateTimesheetKey"/>
         <field name="updateButton"><submit/></field>
     </form>
 
@@ -74,7 +74,7 @@ under the License.
         <field name="actualStartDate" title="${uiLabelMap.MyPageTaskActStartDate}"><display type="date"/></field>
         <field name="delete" title="${uiLabelMap.FormFieldTitle_deleteButton}"><submit button-type="text-link"/></field>
     </form>
-    
+
     <form name="newEvent" type="single" target="createEvent">
         <field name="donePage"><hidden/></field>
         <field name="workEffortTypeId"><hidden value="COMPANY_EVENT"/></field>
@@ -94,26 +94,26 @@ under the License.
         <field name="myTimesheet" title="${uiLabelMap.MyPageTimeSheets}"><check/></field>
         <field name="updateButton"><submit/></field>
     </form>
-    
+
     <form name="custPreferences" type="single" target="updateCustPreferences" default-map-name="preferences.userPrefMap">
         <field name="userPrefGroupTypeId"><hidden value="MyPage"/></field>
         <field name="sendCustRequestEmail" title="${uiLabelMap.MyPageSendEmailToEveryCustomerRequestChange}"><check/></field>
         <field name="updateButton"><submit/></field>
     </form>
-    
+
     <form name="ListPartyCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" type="list">
         <row-actions>
             <set field="toComplete" value="${bsh:&quot;COM_ROLE_READ&quot;.equals(roleStatusId)?&quot;toComplete&quot;:&quot;&quot;}"/>
         </row-actions>
         <field name="donePage"><hidden/></field>
-        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field> 
+        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
         <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="RemoveCommunicationEventRole">
                 <parameter param-name="partyId" from-field="partyId"/>
                 <parameter param-name="communicationEventId" from-field="communicationEventId"/>
                 <parameter param-name="roleTypeId" from-field="roleTypeId"/>
                 <parameter param-name="deleteCommEventIfLast" value="Y"/>
-                <parameter param-name="delContentDataResource value="Y"/>
+                <parameter param-name="delContentDataResource" value="Y"/>
                 <parameter param-name="donePage" from-field="parameters.donePage"/>
             </hyperlink>
         </field>
@@ -246,11 +246,11 @@ under the License.
             <entity-condition entity-name="CommunicationEvent" list="commEvents">
                 <condition-list combine="and">
                     <condition-expr field-name="statusId" operator="equals" value="COM_PENDING"/>
-                    <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>                        
+                    <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>
                 </condition-list>
                 <order-by field-name="-lastUpdatedStamp"/>
             </entity-condition>
-        </actions>        
+        </actions>
         <field name="subject">
             <hyperlink description="${subject}" target="EditCommunicationEvent">
 				<parameter param-name="communicationEventId" from-field="communicationEventId"/>
@@ -268,7 +268,7 @@ under the License.
 
     <form name="MyPageNewEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
         <actions>
-            <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>            
+            <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
             <entity-condition entity-name="PartyContactWithPurpose" list="emailAddresses">
                 <condition-list combine="and">
                     <condition-expr field-name="partyId" value="${userLogin.partyId}"/>
@@ -290,8 +290,8 @@ under the License.
             <set field="communicationEventId" from-field="parameters.communicationEventId"/>
         </actions>
         <alt-target use-when="communicationEventId!=null" target="updateCommunicationEvent"/>
-        <field name="donePage"><hidden/></field>        
-        <field name="communicationEventId"  use-when="communicationEventId!=null"><hidden/></field> 
+        <field name="donePage"><hidden/></field>
+        <field name="communicationEventId"  use-when="communicationEventId!=null"><hidden/></field>
         <field name="communicationEventTypeId"><hidden value="AUTO_EMAIL_COMM"/></field>
         <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
         <field name="parentCommEventId" use-when="parentCommEventId != null"><hidden value="${parameters.parentCommEventId}"/></field>
@@ -331,5 +331,5 @@ under the License.
     <form name="ListTaskInfo" extends="ListTaskInfo" extends-resource="component://projectmgr/widget/forms/ProjectForms.xml">
         <field name="task"><display description="${workEffortName}"/></field>
     </form>
-    
+
 </forms>

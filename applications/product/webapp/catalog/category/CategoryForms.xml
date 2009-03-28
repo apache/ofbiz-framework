@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="CreateProductCategoryAttribute" header-row-style="header-row" default-table-style="basic-table" type="single" target="createProductCategoryAttribute" title="">
         <auto-fields-service service-name="createProductCategoryAttribute" default-field-type="edit"/>
@@ -72,12 +72,12 @@ under the License.
         <field name="productCategoryId"><hidden/></field>
         <field name="contentId" title="${uiLabelMap.ProductContent}">
             <display-entity entity-name="Content" description="${description}" also-hidden="true">
-                <sub-hyperlink target="EditCategoryContentContent" description="${contentId"} link-style="buttontext">
-                <parameter param-name="productCategoryId" from-field="productCategoryId"/>
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="prodCatContentTypeId" from-field="prodCatContentTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
-            </sub-hyperlink>
+                <sub-hyperlink target="EditCategoryContentContent" description="${contentId}" link-style="buttontext">
+                    <parameter param-name="productCategoryId" from-field="productCategoryId"/>
+                    <parameter param-name="contentId" from-field="contentId"/>
+                    <parameter param-name="prodCatContentTypeId" from-field="prodCatContentTypeId"/>
+                    <parameter param-name="fromDate" from-field="fromDate"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="prodCatContentTypeId" title="${uiLabelMap.ProductType}">
@@ -136,7 +136,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
 
-    
+
     <!-- ProductCategoryLink Forms-->
     <form name="ListProductCategoryLinks" type="list" list-name="productCategoryLinks" target="updateProductCategoryLink" separate-columns="true"
         title="" odd-row-style="alternate-row" default-table-style="basic-table">
@@ -147,7 +147,7 @@ under the License.
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updateProductCategoryLink"/>
-        
+
         <field name="productCategoryId"><hidden/></field>
         <field name="linkSeqId"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
@@ -160,7 +160,7 @@ under the License.
         <field name="linkInfo"><ignored/></field>
         <field name="detailSubScreen"><ignored/></field>
         <field name="imageUrl"><ignored/></field>
-        <field name="imageTwoUrl"><ignored/></field>      
+        <field name="imageTwoUrl"><ignored/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductCategoryLink?productCategoryId=${productCategoryId}&amp;linkSeqId=${linkSeqId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>

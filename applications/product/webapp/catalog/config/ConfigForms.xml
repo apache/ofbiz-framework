@@ -235,14 +235,14 @@ under the License.
                 <parameter param-name="configItemId" from-field="configItemId"/>
                 <parameter param-name="configOptionId" from-field="configOptionId"/>
                 <parameter param-name="productId" from-field="product.productId"/>
-            <hyperlink>
+            </hyperlink>
         </field>
         <field name="remove" widget-style="buttontext" >
             <hyperlink target="deleteProductConfigProduct" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="configItemId" from-field="configItemId"/>
                 <parameter param-name="configOptionId" from-field="configOptionId"/>
                 <parameter param-name="productId" from-field="product.productId"/>
-            <hyperlink>
+            </hyperlink>
         </field>
     </form>
 

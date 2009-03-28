@@ -164,7 +164,7 @@ under the License.
                 <parameter param-name="forumId" from-field="parameters.forumId"/>
                 <parameter param-name="forumMessageIdTo" from-field="contentId"/>
                 <parameter param-name="contentAssocTypeId" value="RESPONSE"/>
-            <hyperlink>
+            </hyperlink>
         </field>
     </form>
 
