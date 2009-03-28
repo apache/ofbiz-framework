@@ -149,7 +149,10 @@ under the License.
             <hyperlink description="${uiLabelMap.AccountingVerifyTransaction}" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}&amp;verifyOnly=Y" also-hidden="false"/>
         </field>
         <field name="post" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.AccountingPostTransaction}" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}" also-hidden="false"/>
+            <hyperlink description="${uiLabelMap.AccountingPostTransaction}" target="postAcctgTrans" also-hidden="false">
+				<parameter param-name="acctgTransId" from-field="acctgTransId"/>
+				<parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+			</hyperlink>
         </field>
     </form>
 

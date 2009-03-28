@@ -162,16 +162,22 @@ under the License.
         <!--<field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}" ><display/></field>-->
         <field name="estimatedTotalMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedTotalMilliSeconds}" ><display/></field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink target="ProductionRunTasks?routingTaskId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
+            <hyperlink target="ProductionRunTasks" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+                <parameter param-name="routingTaskId" from-field="workEffortId"/>
+                <parameter param-name="productionRunId" from-field="workEffortParentId"/>
+            </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <!--<hyperlink target="RemoveRoutingTaskAssoc"  description="[${uiLabelMap.CommonDelete}]" also-hidden="false">
-				<parameter param-name="workEffortIdFrom" from-field="{workEffortIdFrom}"/>
-				<parameter param-name="workEffortIdTo" from-field="{workEffortIdTo}"/>
-				<parameter param-name="fromDate" from-field="fromDate"/>
-				<parameter param-name="workEffortAssocTypeId" value="ROUTING_COMPONENT"/>
-				</hyperlink>-->
-            <hyperlink target="deleteProductionRunRoutingTask?workEffortId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+                <parameter param-name="workEffortIdFrom" from-field="{workEffortIdFrom}"/>
+                <parameter param-name="workEffortIdTo" from-field="{workEffortIdTo}"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="workEffortAssocTypeId" value="ROUTING_COMPONENT"/>
+            </hyperlink>-->
+            <hyperlink target="deleteProductionRunRoutingTask" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="productionRunId" from-field="workEffortParentId"/>
+            </hyperlink>
         </field>
     </form>
 
@@ -326,19 +332,34 @@ under the License.
         <field name="actualMilliSeconds" title="${uiLabelMap.ManufacturingTaskActualMilliSeconds}" ><display/></field>
         <field name="quantityProduced" title="${uiLabelMap.ManufacturingQuantityProduced}" ><display/></field>
         <field name="startLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" use-when="&quot;${startTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
-            <hyperlink target="changeProductionRunTaskStatus?workEffortId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.ManufacturingStartProductionRunTask}" also-hidden="false"/>
+            <hyperlink target="changeProductionRunTaskStatus" description="${uiLabelMap.ManufacturingStartProductionRunTask}" also-hidden="false">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="productionRunId" from-field="workEffortParentId"/>
+            </hyperlink>
         </field>
         <field name="issueLinkAtp" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" use-when="&quot;${issueTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
-            <hyperlink target="issueProductionRunRoutingTask?workEffortId=${workEffortId}&amp;productionRunId=${workEffortParentId}&amp;failIfItemsAreNotAvailable=Y" description="${uiLabelMap.ManufacturingIssueAvailableProductionRunTask}" also-hidden="false"/>
+            <hyperlink target="issueProductionRunRoutingTask" also-hidden="false">
+				<parameter param-name="workEffortId" from-field="workEffortId"/>
+				<parameter param-name="productionRunId" from-field="workEffortParentId}&amp;failIfItemsAreNotAvailable=Y" description="${uiLabelMap.ManufacturingIssueAvailableProductionRunTask"/>
+			</hyperlink>
         </field>
         <field name="issueLinkQoh" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" use-when="&quot;${issueTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
-            <hyperlink target="issueProductionRunRoutingTask?workEffortId=${workEffortId}&amp;productionRunId=${workEffortParentId}&amp;failIfItemsAreNotAvailable=N" description="${uiLabelMap.ManufacturingIssueProductionRunTask}" also-hidden="false"/>
+            <hyperlink target="issueProductionRunRoutingTask" also-hidden="false">
+				<parameter param-name="workEffortId" from-field="workEffortId"/>
+				<parameter param-name="productionRunId" from-field="workEffortParentId}&amp;failIfItemsAreNotAvailable=N" description="${uiLabelMap.ManufacturingIssueProductionRunTask"/>
+			</hyperlink>
         </field>
         <field name="declareLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" use-when="&quot;PRUN_RUNNING&quot;.equals(&quot;${currentStatusId}&quot;)">
-            <hyperlink target="ProductionRunDeclaration?actionForm=EditRoutingTask&amp;routingTaskId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.ManufacturingDeclareProductionRunTask}" also-hidden="false"/>
+            <hyperlink target="ProductionRunDeclaration" description="${uiLabelMap.ManufacturingDeclareProductionRunTask}" also-hidden="false">
+                <parameter param-name="actionForm=EditRoutingTask&amp;routingTaskId" from-field="workEffortId"/>
+                <parameter param-name="productionRunId" from-field="workEffortParentId"/>
+            </hyperlink>
         </field>
         <field name="completeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" use-when="&quot;${completeTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
-            <hyperlink target="changeProductionRunTaskStatus?workEffortId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.ManufacturingCompleteProductionRunTask}" also-hidden="false"/>
+            <hyperlink target="changeProductionRunTaskStatus" description="${uiLabelMap.ManufacturingCompleteProductionRunTask}" also-hidden="false">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="productionRunId" from-field="workEffortParentId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="ListIssueProductionRunDeclComponents" type="multi" target="issueProductionRunTaskComponents?productionRunId=${productionRunId}" title="" list-name="productionRunComponentsDataReadyForIssuance"

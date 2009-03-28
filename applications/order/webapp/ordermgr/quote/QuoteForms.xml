@@ -210,7 +210,10 @@ under the License.
         </field>
         <field name="custRequestItemSeqId"><hidden/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeQuoteItem?quoteItemSeqId=${quoteItemSeqId}&amp;quoteId=${quoteId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="removeQuoteItem" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="quoteItemSeqId" from-field="quoteItemSeqId"/>
+                <parameter param-name="quoteId" from-field="quoteId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditQuoteItem" type="single" target="updateQuoteItem" title="" default-map-name="quoteItem"
@@ -269,7 +272,10 @@ under the License.
         <field name="attrValue" title="${uiLabelMap.OrderOrderQuoteAttributeValue}"></field>
         <field name="quoteId"><hidden/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeQuoteAttribute?attrName=${attrName}&amp;quoteId=${quoteId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="removeQuoteAttribute" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="attrName" from-field="attrName"/>
+                <parameter param-name="quoteId" from-field="quoteId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditQuoteAttribute" type="single" target="updateQuoteAttribute" title="" default-map-name="quoteAttribute"
@@ -292,7 +298,10 @@ under the License.
         <field name="coeffValue" title="${uiLabelMap.OrderOrderQuoteCoeffValue}"></field>
         <field name="quoteId"><hidden/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeQuoteCoefficient?coeffName=${coeffName}&amp;quoteId=${quoteId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="removeQuoteCoefficient" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="coeffName" from-field="coeffName"/>
+                <parameter param-name="quoteId" from-field="quoteId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditQuoteCoefficient" type="single" target="updateQuoteCoefficient" title="" default-map-name="quoteCoefficient"
@@ -351,7 +360,10 @@ under the License.
             <display-entity entity-name="OrderAdjustmentType" key-field-name="orderAdjustmentTypeId"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeQuoteAdjustment?quoteAdjustmentId=${quoteAdjustmentId}&amp;quoteId=${quoteId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="removeQuoteAdjustment" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="quoteAdjustmentId" from-field="quoteAdjustmentId"/>
+                <parameter param-name="quoteId" from-field="quoteId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditQuoteAdjustment" type="single" target="updateQuoteAdjustment" title="" default-map-name="quoteAdjustment"

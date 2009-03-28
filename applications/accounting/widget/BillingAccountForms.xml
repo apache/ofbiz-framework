@@ -92,7 +92,10 @@ under the License.
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="capture" use-when="${bsh:!paidInvoice}" widget-style="buttontext">
-            <hyperlink target="capturePaymentsByInvoice?invoiceId=${invoiceId}&amp;billingAccountId=${billingAccountId}" description="${uiLabelMap.AccountingCapture}"/>
+            <hyperlink target="capturePaymentsByInvoice" description="${uiLabelMap.AccountingCapture}">
+				<parameter param-name="invoiceId" from-field="invoiceId"/>
+				<parameter param-name="billingAccountId" from-field="billingAccountId"/>
+			</hyperlink>
         </field>
         <field name="capture" use-when="${bsh:paidInvoice}"><display/></field>
     </form>

@@ -398,10 +398,16 @@
             <display-entity entity-name="Enumeration" description="${description}" key-field-name="enumId"/>
         </field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="RemoveProductStoreFinAccountSettings?productStoreId=${productStoreId}&amp;finAccountTypeId=${finAccountTypeId}" description="${uiLabelMap.CommonRemove}"/>
+            <hyperlink target="RemoveProductStoreFinAccountSettings" description="${uiLabelMap.CommonRemove}">
+				<parameter param-name="productStoreId" from-field="productStoreId"/>
+				<parameter param-name="finAccountTypeId" from-field="finAccountTypeId"/>
+			</hyperlink>
         </field>
         <field name="edit" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditProductStoreFinAccountSettings?productStoreId=${productStoreId}&amp;finAccountTypeId=${finAccountTypeId}" description="${uiLabelMap.CommonEdit}"/>
+            <hyperlink target="EditProductStoreFinAccountSettings" description="${uiLabelMap.CommonEdit}">
+				<parameter param-name="productStoreId" from-field="productStoreId"/>
+				<parameter param-name="finAccountTypeId" from-field="finAccountTypeId"/>
+			</hyperlink>
         </field>
     </form>
     <form name="EditProductStoreFinAccountSettings" type="single" target="UpdateProductStoreFinAccountSettings" default-map-name="finAccountSetting"
@@ -555,7 +561,10 @@
         <auto-fields-entity entity-name="ProductStoreShipmentMeth" default-field-type="display"/>
         <field name="productStoreId"><hidden/></field>
         <field name="productStoreShipMethId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditProductStoreShipSetup?productStoreId=${productStoreId}&amp;productStoreShipMethId=${productStoreShipMethId}" description="${productStoreShipMethId}" also-hidden="false"/>
+            <hyperlink target="EditProductStoreShipSetup" description="${productStoreShipMethId}" also-hidden="false">
+                <parameter param-name="productStoreId" from-field="productStoreId"/>
+                <parameter param-name="productStoreShipMethId" from-field="productStoreShipMethId"/>
+            </hyperlink>
         </field>
         <field name="shipmentMethodTypeId" title="${uiLabelMap.ProductMethod}">
             <display-entity entity-name="ShipmentMethodType" description="${description}" cache="true" also-hidden="true"/>
@@ -568,7 +577,10 @@
             <display-entity entity-name="Geo" key-field-name="geoId" description="${geoName} [${geoId}]"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="storeRemoveShipMeth?productStoreId=${productStoreId}&amp;productStoreShipMethId=${productStoreShipMethId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="storeRemoveShipMeth" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="productStoreId" from-field="productStoreId"/>
+                <parameter param-name="productStoreShipMethId" from-field="productStoreShipMethId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditProductStoreShipmentMeth" type="single" target="storeUpdateShipMeth" title="" default-map-name="productStoreShipmentMeth"
@@ -639,7 +651,10 @@
         <field name="productStoreId"><hidden/></field>
         <field name="carrierRoleTypeId"><hidden/></field>
         <field name="shipmentCostEstimateId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditProductStoreShipmentCostEstimates?productStoreId=${productStoreId}&amp;shipmentCostEstimateId=${shipmentCostEstimateId}" description="${shipmentCostEstimateId}" also-hidden="false"/>
+            <hyperlink target="EditProductStoreShipmentCostEstimates" description="${shipmentCostEstimateId}" also-hidden="false">
+                <parameter param-name="productStoreId" from-field="productStoreId"/>
+                <parameter param-name="shipmentCostEstimateId" from-field="shipmentCostEstimateId"/>
+            </hyperlink>
         </field>
         <field name="shipmentMethodTypeId" title="${uiLabelMap.ProductMethod}">
             <display-entity entity-name="ShipmentMethodType" description="${description}" cache="true" also-hidden="true"/>
@@ -669,7 +684,10 @@
             <display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="storeRemoveShipRate?productStoreId=${productStoreId}&amp;shipmentCostEstimateId=${shipmentCostEstimateId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="storeRemoveShipRate" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="productStoreId" from-field="productStoreId"/>
+                <parameter param-name="shipmentCostEstimateId" from-field="shipmentCostEstimateId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddShipmentCostEstimate" type="single" target="storeCreateShipRate" title=""

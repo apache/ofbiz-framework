@@ -428,7 +428,10 @@
         <field name="comments"><text size="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteTimeEntry?workEffortId=${workEffortId}&amp;timeEntryId=${timeEntryId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteTimeEntry" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="timeEntryId" from-field="timeEntryId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="createTimeEntry" type="single" target="createTimeEntry" header-row-style="header-row" default-table-style="basic-table">

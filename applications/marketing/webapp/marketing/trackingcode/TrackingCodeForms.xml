@@ -184,7 +184,10 @@ under the License.
             </service>
         </actions>
         <field name="visitId" title="${uiLabelMap.MarketingTrackingCodeVisitVisitId}">
-            <hyperlink description="${visitId}" target="/partymgr/control/visitdetail?visitId=${visitId}&amp;DONE_PAGE=${donePage}" target-type="inter-app"/>
+            <hyperlink description="${visitId}" target="/partymgr/control/visitdetail" target-type="inter-app">
+				<parameter param-name="visitId" from-field="visitId"/>
+				<parameter param-name="DONE_PAGE" from-field="donePage"/>
+			</hyperlink>
         </field>
         <field name="sourceEnumId" title="${uiLabelMap.MarketingTrackingCodeVisitSourceEnumId}">
             <display-entity description="${description} [${enumCode}]" entity-name="Enumeration" key-field-name="enumId"/>
