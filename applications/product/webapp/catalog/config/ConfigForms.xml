@@ -222,9 +222,9 @@ under the License.
         <field name="configOptionId" ><hidden/></field>
         <field name="productId" widget-style="buttontext">
             <hyperlink target="EditProductConfigOptions" description="${product.productId} - ${product.productName}">
-				<parameter param-name="configItemId" from-field="configItemId"/>
-				<parameter param-name="configOptionId" from-field="configOptionId"/>
-				<parameter param-name="productId" from-field="product.productId"/>
+                <parameter param-name="configItemId" from-field="configItemId"/>
+                <parameter param-name="configOptionId" from-field="configOptionId"/>
+                <parameter param-name="productId" from-field="product.productId"/>
             <hyperlink>
         </field>
         <field name="remove" widget-style="buttontext" ><hyperlink target="deleteProductConfigProduct?configItemId=${configItemId}&amp;configOptionId=${configOptionId}&amp;productId=${product.productId}" description="${uiLabelMap.CommonRemove}"/></field>

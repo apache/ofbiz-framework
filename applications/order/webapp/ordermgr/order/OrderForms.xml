@@ -102,10 +102,10 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeOrderTerm" description="${uiLabelMap.CommonRemove}" also-hidden="false">
-				<parameter param-name="orderId" from-field="orderId"/>
-				<parameter param-name="termTypeId" from-field="termTypeId"/>
-				<parameter param-name="orderItemSeqId" from-field="orderItemSeqId"/>
-			</hyperlink>
+                <parameter param-name="orderId" from-field="orderId"/>
+                <parameter param-name="termTypeId" from-field="termTypeId"/>
+                <parameter param-name="orderItemSeqId" from-field="orderItemSeqId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddOrderTerm" type="single" target="createOrderTerm" title=""

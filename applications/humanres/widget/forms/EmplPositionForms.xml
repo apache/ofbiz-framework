@@ -109,10 +109,10 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteEmplPositionFulfillment" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-				<parameter param-name="emplPositionId" from-field="emplPositionId"/>
-				<parameter param-name="partyId" from-field="partyId"/>
-				<parameter param-name="fromDate" from-field="fromDate"/>
-			</hyperlink>
+                <parameter param-name="emplPositionId" from-field="emplPositionId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddEmplPositionFulfillment" type="single" target="createEmplPositionFulfillment" title=""
@@ -205,10 +205,10 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteEmplPositionResponsibility" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-				<parameter param-name="emplPositionId" from-field="emplPositionId"/>
-				<parameter param-name="responsibilityTypeId" from-field="responsibilityTypeId"/>
-				<parameter param-name="fromDate" from-field="fromDate"/>
-			</hyperlink>
+                <parameter param-name="emplPositionId" from-field="emplPositionId"/>
+                <parameter param-name="responsibilityTypeId" from-field="responsibilityTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>        
     </form>
     <form name="AddEmplPositionResponsibility" type="single" target="createEmplPositionResponsibility" title=""
@@ -236,10 +236,10 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteValidResponsibility" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-				<parameter param-name="emplPositionTypeId" from-field="emplPositionId"/>
-				<parameter param-name="responsibilityTypeId" from-field="responsibilityTypeId"/>
-				<parameter param-name="fromDate" from-field="fromDate"/>
-			</hyperlink>
+                <parameter param-name="emplPositionTypeId" from-field="emplPositionId"/>
+                <parameter param-name="responsibilityTypeId" from-field="responsibilityTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddValidResponsibility" type="single" target="createValidResponsibility" title=""

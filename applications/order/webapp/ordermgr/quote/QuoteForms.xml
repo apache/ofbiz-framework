@@ -160,10 +160,10 @@ under the License.
         <field name="quoteId"><hidden/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeQuoteRole" description="${uiLabelMap.CommonRemove}" also-hidden="false">
-				<parameter param-name="partyId" from-field="partyId"/>
-				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
-				<parameter param-name="quoteId" from-field="quoteId"/>
-			</hyperlink>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="quoteId" from-field="quoteId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditQuoteRole" type="single" target="createQuoteRole" title="" default-map-name="quoteRole"
