@@ -127,7 +127,11 @@
         <field name="comments" position="1" title="${uiLabelMap.CommonComments}"><display/></field>
         <field name="description" position="1" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="returnPart" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
-            <hyperlink description="${uiLabelMap.CommonReturn}" target="returnPartIssuedToFixedAssetMaint?itemIssuanceId=${itemIssuanceId}&amp;fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}"/>
+            <hyperlink description="${uiLabelMap.CommonReturn}" target="returnPartIssuedToFixedAssetMaint">
+                <parameter param-name="itemIssuanceId" from-field="itemIssuanceId"/>
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="maintHistSeqId"/>
+            </hyperlink>
         </field>
     </form>
 </forms>

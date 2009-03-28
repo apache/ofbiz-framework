@@ -304,7 +304,11 @@ under the License.
         </row-actions>
         <field name="communicationEventId"><hidden/></field>
         <field name="subject">
-            <hyperlink description="${subject}" target="View${my}CommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}"/>
+            <hyperlink description="${subject}" target="View${my}CommunicationEvent">
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+            </hyperlink>
         </field>
         <field name="communicationEventTypeId" title="${uiLabelMap.CommonType}"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}">

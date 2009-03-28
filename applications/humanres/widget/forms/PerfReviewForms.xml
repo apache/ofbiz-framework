@@ -43,7 +43,11 @@ under the License.
         </actions>  
         <auto-fields-entity entity-name="PerfReview" default-field-type="display"/>
         <field name="perfReviewId">
-            <hyperlink also-hidden="false" description="${perfReviewId}" target="EditPerfReview?perfReviewId=${perfReviewId}&amp;employeePartyId=${employeePartyId}&amp;employeeRoleTypeId=${employeeRoleTypeId}"/>
+           <hyperlink also-hidden="false" description="${perfReviewId}" target="EditPerfReview">
+                <parameter param-name="perfReviewId" from-field="perfReviewId"/>
+                <parameter param-name="employeePartyId" from-field="employeePartyId"/>
+                <parameter param-name="employeeRoleTypeId" from-field="employeeRoleTypeId"/>
+            </hyperlink>
         </field>
     </form>     
     <form name="EditPerfReview" type="single" target="updatePerfReview" title="" default-map-name="perfReview"

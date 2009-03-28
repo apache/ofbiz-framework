@@ -153,7 +153,14 @@ under the License.
             </hyperlink></field>
         <field position="6" name="messageText" entry-name="contentData.resultData.electronicText.textData" parameter-name="textData"><textarea rows="8"/></field>
         <field position="7" name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field position="8" name="responseButton" title="${uiLabelMap.FormFieldTitle_reponse}" widget-style="buttontext"><hyperlink target="addForumMessage?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}&amp;forumMessageIdTo=${contentId}&amp;contentAssocTypeId=RESPONSE" description="${uiLabelMap.FormFieldTitle_reponse}"/></field>
+        <field position="8" name="responseButton" title="${uiLabelMap.FormFieldTitle_reponse}" widget-style="buttontext">
+            <hyperlink target="addForumMessage" description="${uiLabelMap.FormFieldTitle_reponse">
+                <parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
+                <parameter param-name="forumId" from-field="parameters.forumId"/>
+                <parameter param-name="forumMessageIdTo" from-field="contentId"/>
+                <parameter param-name="contentAssocTypeId" value="RESPONSE"/>
+            <hyperlink>
+        </field>
     </form>
 
     <form name="EditForumMessage" type="single" target="updateForumMessage" default-map-name="message"

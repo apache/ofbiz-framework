@@ -60,7 +60,11 @@ under the License.
         <field name="productId"><display/></field>
         <field name="description"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortRequestItem?workEffortId=${workEffortId}&amp;custRequestId=${custRequestId}&amp;custRequestItemSeqId=${custRequestItemSeqId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortRequestItem">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddWorkEffortRequestItem" target="createWorkEffortRequestItem" title="" type="single"
