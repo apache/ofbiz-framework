@@ -96,7 +96,10 @@
         <field name="rating"><text/></field>
         <field name="skillLevel"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmployeeSkill?skillTypeId=${skillTypeId}&amp;&amp;partyId=${partyId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteEmployeeSkill" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="skillTypeId" from-field="skillTypeId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>      

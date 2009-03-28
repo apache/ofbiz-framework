@@ -61,7 +61,10 @@
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteSalaryStep?salaryStepSeqId=${salaryStepSeqId}&amp;payGradeId=${payGradeId}" description="${uiLabelMap.CommonDelete}"/>
+            <hyperlink target="deleteSalaryStep" description="${uiLabelMap.CommonDelete}">
+				<parameter param-name="salaryStepSeqId" from-field="salaryStepSeqId"/>
+				<parameter param-name="payGradeId" from-field="payGradeId"/>
+			</hyperlink>
         </field>
     </form>
     <form name="AddSalaryStep" type="single" target="createSalaryStep"

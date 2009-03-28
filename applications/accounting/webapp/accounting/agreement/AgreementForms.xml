@@ -130,7 +130,10 @@ under the License.
             <display-entity entity-name="AgreementItemType"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeAgreementItem?agreementItemSeqId=${agreementItemSeqId}&amp;agreementId=${agreementId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="removeAgreementItem" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
+                <parameter param-name="agreementId" from-field="agreementId"/>
+            </hyperlink>
         </field>
     </form>
 
@@ -208,7 +211,10 @@ under the License.
             </drop-down>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteAgreementTerm?agreementTermId=${agreementTermId}&amp;agreementId=${agreementId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="deleteAgreementTerm" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="agreementTermId" from-field="agreementTermId"/>
+                <parameter param-name="agreementId" from-field="agreementId"/>
+            </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

@@ -138,7 +138,10 @@ under the License.
     <form name="ListBom"  type="list" list-name="ListProductBom" odd-row-style="alternate-row" 
         default-table-style="basic-table hover-bar"  paginate-target="FindBom">
         <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="">
-            <hyperlink target="EditProductBom?productId=${productId}&amp;productAssocTypeId=${productAssocTypeId}" description="${productId}"/>
+            <hyperlink target="EditProductBom" description="${productId}">
+				<parameter param-name="productId" from-field="productId"/>
+				<parameter param-name="productAssocTypeId" from-field="productAssocTypeId"/>
+			</hyperlink>
         </field>
         <field name="internalName" title="${uiLabelMap.ProductProductName}"><display/></field>
         <field name="productAssocTypeId" title="${uiLabelMap.ManufacturingBomType}">

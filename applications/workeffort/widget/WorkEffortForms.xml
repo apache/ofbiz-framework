@@ -610,7 +610,10 @@ under the License.
             </service>
         </actions>
         <field name="communicationEventId">
-            <hyperlink description="${communicationEventId}" target="EditWorkEffortCommEvent?communicationEventId=${communicationEventId}&amp;DONE_PAGE=${donePage}" target-type="intra-app"/>
+            <hyperlink description="${communicationEventId}" target="EditWorkEffortCommEvent" target-type="intra-app">
+				<parameter param-name="communicationEventId" from-field="communicationEventId"/>
+				<parameter param-name="DONE_PAGE" from-field="donePage"/>
+			</hyperlink>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyId} ${uiLabelMap.CommonFrom}">
             <display-entity description="${firstName} ${lastName} ${groupName} [${partyId}]" entity-name="PartyNameView" key-field-name="partyId"/>
@@ -807,7 +810,10 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteWorkEffortTimeEntry?workEffortId=${workEffortId}&amp;timeEntryId=${timeEntryId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteWorkEffortTimeEntry" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="timeEntryId" from-field="timeEntryId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddWorkEffortTimeEntry" type="single" target="createWorkEffortTimeEntry" title=""
@@ -857,7 +863,10 @@ under the License.
             </entity-condition>
         </actions>
         <field name="noteId">
-            <hyperlink target="EditWorkEffortNotes?workEffortId=${workEffortId}&amp;noteId=${noteId}" also-hidden="false" description="${noteId}"/>
+            <hyperlink target="EditWorkEffortNotes" also-hidden="false" description="${noteId}">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="noteId" from-field="noteId"/>
+            </hyperlink>
         </field>
         <field name="workEffortId" entity-name="WorkEffort" widget-style="buttontext">
            <hyperlink target="EditWorkEffort?workEffortId=${workEffortId}" also-hidden="false" description="${workEffortId}"/> 
@@ -865,7 +874,10 @@ under the License.
         <field name="noteInfo" title="${uiLabelMap.CommonNote}"><display/></field>
         <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${noteDateTime}"/></field>
         <field name="internalNote" title="${uiLabelMap.WorkEffortPrivatePublic}" widget-style="buttontext" use-when="internalNote.equals(&quot;N&quot;)">
-            <hyperlink target="updateWorkEffortNote?workEffortId=${workEffortId}&amp;noteId=${noteId}&amp;internalNote=Y" description="${uiLabelMap.OrderNotesPrivate}" />
+            <hyperlink target="updateWorkEffortNote" >
+				<parameter param-name="workEffortId" from-field="workEffortId"/>
+				<parameter param-name="noteId" from-field="noteId}&amp;internalNote=Y" description="${uiLabelMap.OrderNotesPrivate"/>
+			</hyperlink>
         </field>
         <field name="internalNote" title="${uiLabelMap.WorkEffortPrivatePublic}" widget-style="buttontext" use-when="internalNote.equals(&quot;Y&quot;)">
             <hyperlink target="updateWorkEffortNote?workEffortId=${workEffortId}&amp;noteId=${noteId}&amp;internalNote=N" description="${uiLabelMap.OrderNotesPublic}"/>

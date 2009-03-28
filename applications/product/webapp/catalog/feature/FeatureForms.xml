@@ -180,7 +180,10 @@
         <field name="productFeatureIactnTypeId"><display-entity entity-name="ProductFeatureIactnType"/></field>
         
         <field name="removeFeatureInterAction" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="removeProductFeatureIactn?productFeatureId=${productFeatureId}&amp;productFeatureIdTo=${productFeatureIdTo}" description="${uiLabelMap.CommonDelete}"/>
+            <hyperlink target="removeProductFeatureIactn" description="${uiLabelMap.CommonDelete}">
+				<parameter param-name="productFeatureId" from-field="productFeatureId"/>
+				<parameter param-name="productFeatureIdTo" from-field="productFeatureIdTo"/>
+			</hyperlink>
         </field>
         </form>    
     <form name="EditFeatureInterAction" type="single" target="createProductFeatureIactn" title="" default-map-name="productFeatureIactn"
