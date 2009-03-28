@@ -256,7 +256,11 @@
         <field name="fromDate"><display/></field>
         <field name="thruDate"><date-time/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deletePayrollPreference?partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;payrollPreferenceSeqId=${payrollPreferenceSeqId}" description="${uiLabelMap.CommonDelete}" also-hidden="true"/>
+            <hyperlink target="deletePayrollPreference" description="${uiLabelMap.CommonDelete}" also-hidden="true">
+				<parameter param-name="partyId" from-field="partyId"/>
+				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
+				<parameter param-name="payrollPreferenceSeqId" from-field="payrollPreferenceSeqId"/>
+			</hyperlink>
         </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>

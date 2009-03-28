@@ -448,7 +448,11 @@ under the License.
         </field>
         <field name="addSurveyResponse" map-name="dummy" widget-style="buttontext" 
             use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; dataResource!=null &amp;&amp; dataResource.get(&quot;relatedDetailId&quot;)==null &amp;&amp; templateDataResource!=null &amp;&amp; templateDataResource.get(&quot;relatedDetailId&quot;)!=null">
-            <hyperlink description="${uiLabelMap.CommonCreate} ${uiLabelMap.ContentSurveyResponse} (${uiLabelMap.CommonFor} ${uiLabelMap.ContentSurvey} ${templateDataResource.relatedDetailId})" target="EditSurveyResponse?surveyId=${templateDataResource.relatedDetailId}&amp;dataResourceId=${dataResource.dataResourceId}&amp;rootContentId=${rootContentId}" also-hidden="false" target-window="_blank"/>
+            <hyperlink description="${uiLabelMap.CommonCreate} ${uiLabelMap.ContentSurveyResponse} (${uiLabelMap.CommonFor} ${uiLabelMap.ContentSurvey} ${templateDataResource.relatedDetailId})" target="EditSurveyResponse" also-hidden="false" target-window="_blank">
+				<parameter param-name="surveyId" from-field="templateDataResource.relatedDetailId"/>
+				<parameter param-name="dataResourceId" from-field="dataResource.dataResourceId"/>
+				<parameter param-name="rootContentId" from-field="rootContentId"/>
+			</hyperlink>
         </field>
         <field name="updateSurveyResponse" map-name="dummy" widget-style="buttontext" 
             use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; dataResource!=null &amp;&amp; dataResource.get(&quot;relatedDetailId&quot;)!=null &amp;&amp; templateDataResource!=null &amp;&amp; templateDataResource.get(&quot;relatedDetailId&quot;)!=null">

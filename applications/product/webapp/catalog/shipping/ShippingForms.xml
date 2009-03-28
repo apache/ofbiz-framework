@@ -69,10 +69,18 @@
         <field name="shipmentMethodTypeId"><display-entity also-hidden="false" entity-name="ShipmentMethodType"/></field>
         <field name="roleTypeId"><display-entity also-hidden="false" entity-name="RoleType"/></field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="ListCarrierShipmentMethods?shipmentMethodTypeId=${shipmentMethodTypeId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
+            <hyperlink target="ListCarrierShipmentMethods" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+				<parameter param-name="shipmentMethodTypeId" from-field="shipmentMethodTypeId"/>
+				<parameter param-name="partyId" from-field="partyId"/>
+				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
+			</hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteCarrierShipmentMethod?shipmentMethodTypeId=${shipmentMethodTypeId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="deleteCarrierShipmentMethod" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+				<parameter param-name="shipmentMethodTypeId" from-field="shipmentMethodTypeId"/>
+				<parameter param-name="partyId" from-field="partyId"/>
+				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
+			</hyperlink>
         </field>
     </form>
     <form name="EditCarrierShipmentMethod" type="single" target="createCarrierShipmentMethod" title="" default-map-name="carrierShipmentMethod"

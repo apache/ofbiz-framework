@@ -1000,13 +1000,21 @@
         <field name="paymentPropertiesPath" title="${uiLabelMap.ProductPaymentProps}"><display/></field>
         <field name="applyToAllProducts" title="${uiLabelMap.ProductApplyToAll}"><display/></field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" use-when="${bsh:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_UPDATE&quot;, session);}" widget-style="buttontext">
-            <hyperlink target="EditProductStorePaySetup?productStoreId=${productStoreId}&amp;paymentMethodTypeId=${paymentMethodTypeId}&amp;paymentServiceTypeEnumId=${paymentServiceTypeEnumId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
+            <hyperlink target="EditProductStorePaySetup" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+				<parameter param-name="productStoreId" from-field="productStoreId"/>
+				<parameter param-name="paymentMethodTypeId" from-field="paymentMethodTypeId"/>
+				<parameter param-name="paymentServiceTypeEnumId" from-field="paymentServiceTypeEnumId"/>
+			</hyperlink>
         </field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" use-when="${bsh:!security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_UPDATE&quot;, session);}">
             <display/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" use-when="${bsh:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_DELETE&quot;, session);}" widget-style="buttontext">
-            <hyperlink target="storeRemovePaySetting?productStoreId=${productStoreId}&amp;paymentMethodTypeId=${paymentMethodTypeId}&amp;paymentServiceTypeEnumId=${paymentServiceTypeEnumId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="storeRemovePaySetting" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+				<parameter param-name="productStoreId" from-field="productStoreId"/>
+				<parameter param-name="paymentMethodTypeId" from-field="paymentMethodTypeId"/>
+				<parameter param-name="paymentServiceTypeEnumId" from-field="paymentServiceTypeEnumId"/>
+			</hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" use-when="${bsh:!security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_DELETE&quot;, session);}">
             <display/>

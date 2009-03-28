@@ -159,7 +159,11 @@ under the License.
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}"><display-entity also-hidden="false" entity-name="RoleType"/></field>
         <field name="quoteId"><hidden/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeQuoteRole?partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;quoteId=${quoteId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="removeQuoteRole" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+				<parameter param-name="partyId" from-field="partyId"/>
+				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
+				<parameter param-name="quoteId" from-field="quoteId"/>
+			</hyperlink>
         </field>
     </form>
     <form name="EditQuoteRole" type="single" target="createQuoteRole" title="" default-map-name="quoteRole"
