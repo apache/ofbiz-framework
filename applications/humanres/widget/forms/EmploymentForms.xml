@@ -66,7 +66,13 @@
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><display/></field>
         <field name="terminationTypeId"><display/></field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditEmployment?partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;fromDate=${fromDate}&amp;roleTypeIdTo=${roleTypeIdTo}" description="${uiLabelMap.CommonEdit}"/>
+            <hyperlink target="EditEmployment" description="${uiLabelMap.CommonEdit}">
+				<parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
+				<parameter param-name="partyIdTo" from-field="partyIdTo"/>
+				<parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
+				<parameter param-name="fromDate" from-field="fromDate"/>
+				<parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
+			</hyperlink>
         </field>
     </form>
     <form name="ListEmployments" type="list" paginate-target="FindEmployments" default-entity-name="EmploymentAndPerson" list-name="listIt" separate-columns="true"
@@ -86,7 +92,13 @@
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><display/></field>
         <field name="terminationTypeId"><display/></field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditEmployment?partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;fromDate=${fromDate}&amp;roleTypeIdTo=${roleTypeIdTo}" description="${uiLabelMap.CommonEdit}"/>
+            <hyperlink target="EditEmployment" description="${uiLabelMap.CommonEdit}">
+				<parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
+				<parameter param-name="partyIdTo" from-field="partyIdTo"/>
+				<parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
+				<parameter param-name="fromDate" from-field="fromDate"/>
+				<parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
+			</hyperlink>
         </field>
     </form>
     <form name="EditEmployment" type="single" target="updateEmployment" default-map-name="employment"
@@ -157,7 +169,13 @@
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deletePayHistory?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}"/>
+            <hyperlink target="deletePayHistory" description="${uiLabelMap.CommonDelete}">
+				<parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
+				<parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
+				<parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
+				<parameter param-name="partyIdTo" from-field="partyIdTo"/>
+				<parameter param-name="fromDate" from-field="fromDate"/>
+			</hyperlink>
         </field>
     </form>           
     <form name="ListPartyBenefits" type="multi" target="updatePartyBenefit?benefitTypeId=${benefitTypeId}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" title="" paginate-target="findPartyBenefits"
