@@ -338,16 +338,18 @@ under the License.
             </hyperlink>
         </field>
         <field name="issueLinkAtp" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" use-when="&quot;${issueTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
-            <hyperlink target="issueProductionRunRoutingTask" also-hidden="false">
+            <hyperlink target="issueProductionRunRoutingTask" description="${uiLabelMap.ManufacturingIssueAvailableProductionRunTask" also-hidden="false">
 				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="productionRunId" from-field="workEffortParentId}&amp;failIfItemsAreNotAvailable=Y" description="${uiLabelMap.ManufacturingIssueAvailableProductionRunTask"/>
-			</hyperlink>
+                <parameter param-name="productionRunId" from-field="workEffortParentId"/>
+                <parameter param-name="failIfItemsAreNotAvailable" value="Y"/>
+            </hyperlink>
         </field>
         <field name="issueLinkQoh" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" use-when="&quot;${issueTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
-            <hyperlink target="issueProductionRunRoutingTask" also-hidden="false">
+            <hyperlink target="issueProductionRunRoutingTask" description="${uiLabelMap.ManufacturingIssueProductionRunTask" also-hidden="false">
 				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="productionRunId" from-field="workEffortParentId}&amp;failIfItemsAreNotAvailable=N" description="${uiLabelMap.ManufacturingIssueProductionRunTask"/>
-			</hyperlink>
+                <parameter param-name="productionRunId" from-field="workEffortParentId"/>
+                <parameter param-name="failIfItemsAreNotAvailable" value="N"/>
+            </hyperlink>
         </field>
         <field name="declareLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" use-when="&quot;PRUN_RUNNING&quot;.equals(&quot;${currentStatusId}&quot;)">
             <hyperlink target="ProductionRunDeclaration" description="${uiLabelMap.ManufacturingDeclareProductionRunTask}" also-hidden="false">

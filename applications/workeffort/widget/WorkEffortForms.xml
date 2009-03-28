@@ -48,12 +48,12 @@ under the License.
         <field name="runtimeDataId"><hidden/></field>
         <field name="recurrenceInfoId"><hidden/></field>
     </form>
-    
+
     <form name="EditWorkEffort" default-map-name="workEffort" target="updateWorkEffort" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target target="createWorkEffort" use-when="workEffort==null"/>
         <auto-fields-service service-name="updateWorkEffort"/>
-        
+
         <field name="workEffortId" use-when="workEffort!=null" title="${uiLabelMap.WorkEffortWorkEffortId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="workEffortId" use-when="workEffort==null&amp;&amp;workEffortId==null" title="${uiLabelMap.WorkEffortWorkEffortId}"><ignored/></field>
         <field name="workEffortId" use-when="workEffort==null&amp;&amp;workEffortId!=null" title="${uiLabelMap.WorkEffortWorkEffortId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${workEffortId}]"><display also-hidden="false"/></field>
@@ -90,7 +90,7 @@ under the License.
             </drop-down>
         </field>
         <field name="percentComplete" position="2"/>
-        
+
         <field name="priority" position="1">
             <drop-down allow-empty="true">
                 <option key="1" description="${uiLabelMap.WorkEffortPriorityOne}"/>
@@ -112,7 +112,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="estimatedStartDate" position="1"/>
         <field name="estimatedCompletionDate" position="2"/>
         <field name="actualStartDate" position="1"/>
@@ -122,7 +122,7 @@ under the License.
                 <entity-options key-field-name="tempExprId" description="${tempExprId}" entity-name="TemporalExpression"/>
             </drop-down>
         </field>
-        
+
 
         <field name="workEffortParentId"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="facilityId"><lookup target-form-name="LookupFacility"/></field>
@@ -150,11 +150,11 @@ under the License.
         <field name="reservPersons" position="1"/>
         <field name="reserv2ndPPPerc" position="1"/>
         <field name="reservNthPPPerc" position="2"/>
-        
+
         <field use-when="workEffort==null" name="quickAssignPartyId"><lookup target-form-name="LookupPartyName" default-value="${userLogin.partyId}"/></field>
         <field use-when="workEffort==null" name="requirementId"><lookup target-form-name="LookupRequirement"/></field>
         <field name="communicationEventId" map-name="context"><lookup target-form-name="LookupCommEvent"/></field>
-        
+
         <field name="revisionNumber" use-when="workEffort!=null"><display/></field>
 
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit/></field>
@@ -167,7 +167,7 @@ under the License.
         <field name="recurrenceInfoId"><ignored/></field>
         <field name="runtimeDataId"><ignored/></field>
         <field name="noteId"><ignored/></field>
-        
+
         <sort-order>
             <sort-field name="quickAssignPartyId"/>
             <sort-field name="workEffortId"/>
@@ -185,7 +185,7 @@ under the License.
             <sort-field name="actualCompletionDate"/>
         </sort-order>
     </form>
-  
+
     <form name="FindWorkEffort" default-map-name="workEffort" target="ListWorkEfforts" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <!-- auto-fields-entity entity-name="WorkEffort" default-field-type="find"/-->
@@ -254,7 +254,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="workflowPackageId"><ignored/></field>
         <field name="workflowPackageVersion"><ignored/></field>
         <field name="workflowProcessId"><ignored/></field>
@@ -264,7 +264,7 @@ under the License.
         <field name="runtimeDataId"><ignored/></field>
         <field name="noteId"><ignored/></field>
 
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
     <form name="ListLookupWorkEffort" target="" title="" list-name="listIt" type="list"
@@ -285,7 +285,7 @@ under the License.
 
     <form name="AddWorkEffortAndAssoc" extends="EditWorkEffort" default-map-name="workEffort" target="createWorkEffortAndAssoc" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <!-- Commenting this field for now as the form widget cannot override useWhen fields from 
+        <!-- Commenting this field for now as the form widget cannot override useWhen fields from
              the form it is extending (results in two workEffortId fields in the form)
         <field name="workEffortId"><hidden value=""/></field>
         -->
@@ -354,7 +354,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit/></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
-  
+
     <form name="EditWorkEffortAndAssoc" extends="EditWorkEffort" default-map-name="workEffort" target="updateWorkEffortAndAssoc" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target target="createWorkEffortAndAssoc" use-when="workEffortAssoc==null"/>
@@ -386,8 +386,8 @@ under the License.
             <sort-field name="description"/>
         </sort-order>
     </form>
-  
-    <form name="ListWorkEfforts" type="list" list-name="listIt" paginate-target="ListWorkEfforts" 
+
+    <form name="ListWorkEfforts" type="list" list-name="listIt" paginate-target="ListWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -437,7 +437,7 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeWorkEffort?workEffortId=${workEffortId}"/>
         </field>
     </form>
-  
+
     <form name="EditWorkEffortParty" default-map-name="workEffortParty" target="updateWorkEffortParty" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target target="createWorkEffortParty" use-when="workEffortParty==null"/>
@@ -517,7 +517,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyId} ${uiLabelMap.CommonFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyId} ${uiLabelMap.CommonTo}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="statusId" use-when="communicationEvent==null" title="${uiLabelMap.CommonStatus}">
@@ -535,7 +535,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="contactMechTypeId" use-when="commEventContactMechType!=null&amp;&amp;parentCommEventContactMechType==null">
             <drop-down>
                 <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId">
@@ -557,7 +557,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="roleTypeIdFrom" use-when="commEventRoleTypeIdFrom!=null">
             <drop-down>
                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
@@ -573,7 +573,7 @@ under the License.
             </drop-down>
         </field>
 
-<!--        
+<!--
         <field name="custRequestId">
             <lookup size="20" target-form-name="LookupCustRequest">
                 <sub-hyperlink target="/ordermgr/control/EditRequest?custRequestId=${communicationEvent.custRequestId}" target-type="inter-app" link-style="buttontext"/>
@@ -789,7 +789,7 @@ under the License.
                 <sub-hyperlink target="EditTimesheet?timesheetId=${timesheetId}" link-style="buttontext" description="${uiLabelMap.WorkEffortTimesheet}:${timesheetId}"/>
             </lookup>
         </field>
-        
+
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup size="12" target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
         <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
@@ -798,17 +798,17 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="workEffortId"><hidden/></field>
-        
+
         <field name="invoiceId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
         <field name="invoiceItemSeqId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
         <field name="invoiceInfo"><display description="${invoiceId}:${invoiceItemSeqId}" also-hidden="false"/></field>
-        
+
         <field name="comments"><text size="60"/></field>
-        
+
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        
+
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteWorkEffortTimeEntry" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="workEffortId" from-field="workEffortId"/>
@@ -819,10 +819,10 @@ under the License.
     <form name="AddWorkEffortTimeEntry" type="single" target="createWorkEffortTimeEntry" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createTimeEntry"/>
-        
+
         <field name="timeEntryId"><ignored/><!-- don't pass, will be sequenced --></field>
         <field name="timesheetId"><lookup size="10" target-form-name="LookupTimesheet"/></field>
-        
+
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
         <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
@@ -831,12 +831,12 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="workEffortId"><hidden/></field>
-        
+
         <field name="invoiceId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
         <field name="invoiceItemSeqId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
-        
+
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="AddWorkEffortTimeToInvoice" target="addWorkEffortTimeToInvoice" title="" type="single"
@@ -852,7 +852,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.WorkEffortTimeBillToParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.clientPartyId}"/></field>
         <field name="submitButton" title="${uiLabelMap.PageTitleAddWorkEffortTimeToNewInvoice}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <!-- WorkEffort Note -->
     <form name="ListWorkEffortNotes" type="list" list-name="workEffortNotes"
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -869,21 +869,22 @@ under the License.
             </hyperlink>
         </field>
         <field name="workEffortId" entity-name="WorkEffort" widget-style="buttontext">
-           <hyperlink target="EditWorkEffort?workEffortId=${workEffortId}" also-hidden="false" description="${workEffortId}"/> 
+           <hyperlink target="EditWorkEffort?workEffortId=${workEffortId}" also-hidden="false" description="${workEffortId}"/>
         </field>
         <field name="noteInfo" title="${uiLabelMap.CommonNote}"><display/></field>
         <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${noteDateTime}"/></field>
         <field name="internalNote" title="${uiLabelMap.WorkEffortPrivatePublic}" widget-style="buttontext" use-when="internalNote.equals(&quot;N&quot;)">
-            <hyperlink target="updateWorkEffortNote" >
+            <hyperlink target="updateWorkEffortNote" description="${uiLabelMap.OrderNotesPrivate">
 				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="noteId" from-field="noteId}&amp;internalNote=Y" description="${uiLabelMap.OrderNotesPrivate"/>
-			</hyperlink>
+                <parameter param-name="noteId" from-field="noteId"/>
+                <parameter param-name="internalNote" value="Y"/>
+            </hyperlink>
         </field>
         <field name="internalNote" title="${uiLabelMap.WorkEffortPrivatePublic}" widget-style="buttontext" use-when="internalNote.equals(&quot;Y&quot;)">
             <hyperlink target="updateWorkEffortNote?workEffortId=${workEffortId}&amp;noteId=${noteId}&amp;internalNote=N" description="${uiLabelMap.OrderNotesPublic}"/>
         </field>
     </form>
-    
+
     <form name="AddWorkEffortNote" type="single" target="updateWorkEffortNote" title="" default-map-name="workEffortNoteAndData"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="noteId == null" target="createWorkEffortNote"/>
@@ -894,7 +895,7 @@ under the License.
         <field name="internalNote" title="${uiLabelMap.WorkEffortInternalNote}">
             <drop-down no-current-selected-key="">
                 <option key="Y" description="${uiLabelMap.CommonYes}"/>
-                <option key="N" description="${uiLabelMap.CommonNo}"/>                
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
             </drop-down>
         </field>
         <field name="noteParty"><hidden/></field>
@@ -928,7 +929,7 @@ under the License.
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateWorkEffortContent" default-field-type="edit" />
-        <field name="workEffortId"><hidden/></field>        
+        <field name="workEffortId"><hidden/></field>
         <field name="contentId">
             <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
                 <sub-hyperlink target="/content/control/editContent?contentId=${contentId}" description="${contentId}" link-style="buttontext" target-type="inter-app"/>
@@ -980,7 +981,7 @@ under the License.
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateWorkEffortGoodStandard" default-field-type="edit" />
-        <field name="workEffortId"><hidden/></field>        
+        <field name="workEffortId"><hidden/></field>
         <field name="workEffortGoodStdTypeId"><display-entity entity-name="WorkEffortGoodStandardType" description="${description}"/></field>
         <field name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${productName}" also-hidden="true">
@@ -1006,7 +1007,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- WorkEffort Reviews -->
     <form name="AddWorkEffortReview" target="createWorkEffortReview" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -1035,12 +1036,12 @@ under the License.
             </entity-and>
         </actions>
         <auto-fields-service service-name="updateWorkEffortReview" default-field-type="edit" />
-        <field name="workEffortId" widget-style="buttontext"><hidden/></field>        
+        <field name="workEffortId" widget-style="buttontext"><hidden/></field>
         <field name="userLoginId" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}" also-hidden="true">
                 <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" description="${userLoginId}" link-style="buttontext" target-type="inter-app"/>
             </display-entity>
-        </field>        
+        </field>
         <field name="reviewDate"><display/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}*">
             <drop-down>
@@ -1075,7 +1076,7 @@ under the License.
                 <field-map from-field="workEffortId" field-name="workEffortId" />
             </entity-and>
         </actions>
-        <field name="workEffortId" widget-style="buttontext"><hidden/></field>        
+        <field name="workEffortId" widget-style="buttontext"><hidden/></field>
         <field name="keyword"  title="${uiLabelMap.WorkEffortKeywords}" ><display/></field>
         <field name="relevancyWeight" header-link="createWorkEffortKeywords?workEffortId=${workEffortId}" title="${uiLabelMap.ProductReInduceKeywords}" header-link-style="buttontext" ><display/></field>
         <field name="deleteLink" title="${uiLabelMap.ProductDeleteAllKeywords}" header-link="deleteWorkEffortKeywords?workEffortId=${workEffortId}" widget-style="buttontext" header-link-style="buttontext" >
@@ -1128,7 +1129,7 @@ under the License.
         </field>
         <field name="agreementItemSeqId">
             <lookup target-form-name="LookupAgreementItem"/>
-        </field>        
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListAgreementWorkEffortAppls" type="list" target="updateAgreementWorkEffortAppl" list-name="agreementWorkEffortAppls"
@@ -1137,7 +1138,7 @@ under the License.
             <entity-and entity-name="AgreementWorkEffortAppl" use-cache="true" list="agreementWorkEffortAppls">
                 <field-map from-field="workEffortId" field-name="workEffortId" />
             </entity-and>
-        </actions>    
+        </actions>
         <field name="agreementId">
             <display-entity entity-name="Agreement" key-field-name="agreementId"  also-hidden="true">
                 <sub-hyperlink target="/accounting/control/FindAgreement?agreementId=${agreementId}" description="${agreementId}" link-style="buttontext" target-type="inter-app"/>
