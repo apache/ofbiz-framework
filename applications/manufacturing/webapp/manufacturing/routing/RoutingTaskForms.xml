@@ -159,7 +159,12 @@ under the License.
         </field>
         -->
         <field name="calcelWorkEffortCostCalc" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeRoutingTaskCost?costComponentCalcId=${costComponentCalcId}&amp;costComponentTypeId=${costComponentTypeId}&amp;fromDate=${fromDate}&amp;workEffortId=${workEffortId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="removeRoutingTaskCost" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="costComponentCalcId" from-field="costComponentCalcId"/>
+                <parameter param-name="costComponentTypeId" from-field="costComponentTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddRoutingTaskCost" type="single" target="addRoutingTaskCost" title=""
@@ -211,7 +216,13 @@ under the License.
         <field name="workEffortToSetup" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}" ><display/></field>
         <field name="workEffortToRun" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}" ><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="RemoveRoutingTaskAssoc?workEffortId=${workEffortIdFrom}&amp;workEffortIdFrom=${workEffortIdFrom}&amp;workEffortIdTo=${workEffortIdTo}&amp;fromDate=${fromDate}&amp;workEffortAssocTypeId=ROUTING_COMPONENT" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="RemoveRoutingTaskAssoc" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="workEffortId" from-field="workEffortIdFrom"/>
+                <parameter param-name="workEffortIdFrom" from-field="workEffortIdFrom"/>
+                <parameter param-name="workEffortIdTo" from-field="workEffortIdTo"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="workEffortAssocTypeId" value="ROUTING_COMPONENT"/>
+            </hyperlink>
         </field>
         <sort-order>
             <sort-field name="workEffortIdFrom"/>

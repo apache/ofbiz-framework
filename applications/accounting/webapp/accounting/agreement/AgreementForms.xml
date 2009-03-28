@@ -412,7 +412,12 @@ under the License.
             <display-entity entity-name="ProductPromo" key-field-name="productPromoId" description="${promoName}"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeAgreementPromoAppl?productPromoId=${productPromoId}&amp;agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="removeAgreementPromoAppl" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="productPromoId" from-field="productPromoId"/>
+                <parameter param-name="agreementId" from-field="agreementId"/>
+                <parameter param-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditAgreementPromoAppl" type="single" target="updateAgreementPromoAppl" title="" default-map-name="agreementPromoAppl"

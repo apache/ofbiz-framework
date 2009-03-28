@@ -321,7 +321,12 @@
         <field name="updateFeaturePrice" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="lastModifiedBy" title="${uiLabelMap.ProductLastModifiedBy}"><display description="[${lastModifiedByUserLogin}] ${uiLabelMap.CommonOn} ${lastModifiedDate}"/></field>
         <field name="deleteFeaturePrice" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteFeaturePrice?productFeatureId=${productFeatureId}&amp;productPriceTypeId=${productPriceTypeId}&amp;currencyUomId=${currencyUomId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteFeaturePrice" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="productFeatureId" from-field="productFeatureId"/>
+                <parameter param-name="productPriceTypeId" from-field="productPriceTypeId"/>
+                <parameter param-name="currencyUomId" from-field="currencyUomId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="CreateFeaturePrice" type="single" target="createFeaturePrice">

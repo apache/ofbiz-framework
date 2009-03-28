@@ -151,7 +151,12 @@ under the License.
         <field name="volume" title="${uiLabelMap.CommonVolume}"><display/></field>
         <field name="volumeUom" title="${uiLabelMap.CommonUom}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeOrderShipmentFromShipment?shipmentId=${shipmentId}&amp;shipmentItemSeqId=${shipmentItemSeqId}&amp;orderId=${orderId}&amp;orderItemSeqId=${orderItemSeqId}" description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>
+            <hyperlink target="removeOrderShipmentFromShipment" description="[${uiLabelMap.CommonDelete}]" also-hidden="false">
+                <parameter param-name="shipmentId" from-field="shipmentId"/>
+                <parameter param-name="shipmentItemSeqId" from-field="shipmentItemSeqId"/>
+                <parameter param-name="orderId" from-field="orderId"/>
+                <parameter param-name="orderItemSeqId" from-field="orderItemSeqId"/>
+            </hyperlink>
         </field>
     </form>
     <!-- Add entries to Shipment Plan -->

@@ -138,7 +138,12 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="userLogin_removeUserLoginFromSecurityGroup?partyId=${partyId}&amp;userLoginId=${userLoginId}&amp;groupId=${groupId}&amp;fromDate=${fromDate}" also-hidden="false"/>
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="userLogin_removeUserLoginFromSecurityGroup" also-hidden="false">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="userLoginId" from-field="userLoginId"/>
+                <parameter param-name="groupId" from-field="groupId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
 

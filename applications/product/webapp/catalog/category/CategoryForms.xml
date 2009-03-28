@@ -72,7 +72,12 @@ under the License.
         <field name="productCategoryId"><hidden/></field>
         <field name="contentId" title="${uiLabelMap.ProductContent}">
             <display-entity entity-name="Content" description="${description}" also-hidden="true">
-                <sub-hyperlink target="EditCategoryContentContent?productCategoryId=${productCategoryId}&amp;contentId=${contentId}&amp;prodCatContentTypeId=${prodCatContentTypeId}&amp;fromDate=${fromDate}" description="${contentId}" link-style="buttontext"/>
+                <sub-hyperlink target="EditCategoryContentContent" description="${contentId"} link-style="buttontext">
+                <parameter param-name="productCategoryId" from-field="productCategoryId"/>
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="prodCatContentTypeId" from-field="prodCatContentTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </sub-hyperlink>
             </display-entity>
         </field>
         <field name="prodCatContentTypeId" title="${uiLabelMap.ProductType}">
