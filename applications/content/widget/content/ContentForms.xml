@@ -520,7 +520,12 @@ under the License.
         </field>
         <field name="createdDate"><display description="${content.createdDate}"/></field>
         <field name="delete" title="${uiLabelMap.CommonDelete}">
-            <hyperlink target="removeDocumentFromTree?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}"/>
+            <hyperlink target="removeDocumentFromTree" description="${uiLabelMap.CommonDelete}">
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="contentIdTo" from-field="contentIdTo"/>
+                <parameter param-name="contentAssocTypeId" from-field="contentAssocTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddDocument"  target="addDocumentToTree" title="" type="single"

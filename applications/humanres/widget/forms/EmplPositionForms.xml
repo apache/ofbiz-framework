@@ -136,7 +136,12 @@ under the License.
         <field name="comments"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmplPositionReportingStruct?emplPositionIdReportingTo=${emplPositionIdReportingTo}&amp;emplPositionIdManagedBy=${emplPositionIdManagedBy}&amp;fromDate=${fromDate}&amp;emplPositionId=${parameters.emplPositionId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteEmplPositionReportingStruct"  description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="emplPositionIdReportingTo" from-field="emplPositionIdReportingTo"/>
+                <parameter param-name="emplPositionIdManagedBy" from-field="emplPositionIdManagedBy"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="emplPositionId" from-field="parameters.emplPositionId"/>
+            </hyperlink>
         </field>        
     </form>
     <form name="AddReportsToEmplPositionReportingStruct" type="single" target="createEmplPositionReportingStruct" title=""
@@ -164,7 +169,12 @@ under the License.
         <field name="comments"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmplPositionReportingStruct?emplPositionIdReportingTo=${emplPositionIdReportingTo}&amp;emplPositionIdManagedBy=${emplPositionIdManagedBy}&amp;fromDate=${fromDate}&amp;emplPositionId=${parameters.emplPositionId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteEmplPositionReportingStruct" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="emplPositionIdReportingTo" from-field="emplPositionIdReportingTo"/>
+                <parameter param-name="emplPositionIdManagedBy" from-field="emplPositionIdManagedBy"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="emplPositionId" from-field="parameters.emplPositionId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddReportedToEmplPositionReportingStruct" type="single" target="createEmplPositionReportingStruct" title=""
