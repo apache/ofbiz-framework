@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -47,19 +47,19 @@
         <field use-when="telResult.get(&quot;extension&quot;)==null" name="telephone" title="${uiLabelMap.PartyPhoneNumber}"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber}"/></field>
         <field name="contactMechPurposeTypeId" entry-name="telResult.contactMechPurposeTypeId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="ContactMechPurposeType"/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}">
-			<hyperlink target="removeResource">
+            <hyperlink target="removeResource" description="${uiLabelMap.CommonRemove">
 				<parameter param-name="partyId" from-field="partyId"/>
-				<parameter param-name="roleTypeId" from-field="roleTypeId}" description="${uiLabelMap.CommonRemove"/>
+				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
 			</hyperlink>
 		</field>
-    </form>                                         
+    </form>
     <form name="ListBillingHours" type="list" list-name="billingList" paginate-target="ListResourcesBillingHours"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="projectName"><hyperlink target="projectView?projectId=${projectId}" description="${projectName} [${projectId}]"/></field>
         <field name="originalActualHours"><display/></field>
         <field name="actualHours"><display/></field>
         <field name="actualNonBilledHours"><display/></field>
-    </form>                                         
+    </form>
     <form name="AddResource" type="single" target="addResource"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="PartyId" parameter-name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>

@@ -19,7 +19,7 @@ under the License.
 -->
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-  
+
     <form name="ListWorkEffortRequirements" separate-columns="true" target="" title="" type="list"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -36,13 +36,13 @@ under the License.
         <field name="statusItemDescription"><display/></field>
         <field name="requirementDescription"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-			<hyperlink target="deleteWorkEffortRequirement">
+            <hyperlink target="deleteWorkEffortRequirement" also-hidden="false" description="${uiLabelMap.CommonDelete">
 				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="requirementId" from-field="requirementId}" also-hidden="false" description="${uiLabelMap.CommonDelete"/>
+				<parameter param-name="requirementId" from-field="requirementId"/>
 			</hyperlink>
 		</field>
     </form>
-    <form name="AddWorkEffortRequirement" default-map-name="workRequirementFulfillment" target="createWorkEffortRequirement" title="" type="single" extends="EditRequirement" 
+    <form name="AddWorkEffortRequirement" default-map-name="workRequirementFulfillment" target="createWorkEffortRequirement" title="" type="single" extends="EditRequirement"
         extends-resource="component://order/webapp/ordermgr/requirement/RequirementForms.xml" header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortId"><hidden/></field>
         <field name="requirementId"><lookup target-form-name="/ordermgr/control/LookupRequirement"/></field>

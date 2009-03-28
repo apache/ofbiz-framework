@@ -18,12 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="FindProductConfigItems" type="list" list-name="listIt" 
+    <form name="FindProductConfigItems" type="list" list-name="listIt"
         default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
         target="" header-row-style="header-row-2" paginate="true">
-        <actions> 
+        <actions>
             <service service-name="performFind" result-map-list="listIt" result-map="performFindResult">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="ProductConfigItem"/>
@@ -39,7 +39,7 @@ under the License.
         </field>
         <field name="description"><display/></field>
     </form>
-    <form name="FindProductConfigItemsFrom" type="single" target="FindProductConfigItems" 
+    <form name="FindProductConfigItemsFrom" type="single" target="FindProductConfigItems"
         default-map-name="productconfigitems"  header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductConfigItem" default-field-type="find"/>
         <field name="configItemId" title="${uiLabelMap.ProductConfigItem}"/>
@@ -48,14 +48,14 @@ under the License.
         <field name="description"/>
         <field name="longDescription"><hidden/></field>
         <field name="imageUrl"><hidden/></field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="EditProductConfigItem" type="single" target="updateProductConfigItem" title="" default-map-name="configItem"
         header-row-style="header-row" default-table-style="basic-table">
-        
+
         <alt-target use-when="configItem==null" target="createProductConfigItem"/>
-        
+
         <auto-fields-service service-name="updateProductConfigItem"/>
         <field name="longDescription" title="${uiLabelMap.ProductLongDescription}"><ignored/></field>
         <field name="imageUrl"><ignored/></field>
@@ -68,12 +68,12 @@ under the License.
                 <option key="MULTIPLE" description="${uiLabelMap.ProductMultiChoice}"/>
             </drop-down>
         </field>
-       
+
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="EditConfigOption" type="list" target="updateProductConfigOption" title="" list-name="configOptionList" list-entry-name="configOption"
         odd-row-style="alternate-row" default-table-style="basic-table">
-        
+
         <auto-fields-service service-name="updateProductConfigOption" map-name="configOption"/>
         <field use-when="configOption!=null" name="configOptionId"><hidden/></field>
         <field name="configItemId"><hidden/></field>
@@ -104,7 +104,7 @@ under the License.
         <field use-when="productConfigProduct!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <!-- ProdConfItemContent -->
     <form name="AddProductConfigItemContentAssoc" type="single" target="addContentToProductConfigItem" title="Add ProdConfItemContent (select Content Id, enter From Date):"
         header-row-style="header-row" default-table-style="basic-table">
@@ -178,8 +178,8 @@ under the License.
         <field use-when="contentId == null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field use-when="contentId != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
-    <form name="ListProductConfigItem" type="list" list-name="productConfigs" 
+
+    <form name="ListProductConfigItem" type="list" list-name="productConfigs"
         default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
         target="" header-row-style="header-row-2" paginate="true">
         <actions>
@@ -198,28 +198,28 @@ under the License.
         <field name="productName" title="${uiLabelMap.ProductName}"><display description="${productName}"/></field>
         <field name="piecesIncluded" title="${uiLabelMap.ProductPiecesIncluded}"><display description="${piecesIncluded}"/></field>
     </form>
-    
-    <form name="ProductConfigOptionList" type="list" list-name="configOptionList" 
+
+    <form name="ProductConfigOptionList" type="list" list-name="configOptionList"
         default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
         target="" header-row-style="header-row-2" paginate="true">
         <auto-fields-entity entity-name="ProductConfigOption" default-field-type="display" />
         <field name="configItemId" widget-style="buttontext" title="${uiLabelMap.ProductConfigItem}">
-			<hyperlink target="EditProductConfigOptions">
+            <hyperlink target="EditProductConfigOptions" description="${configOptionId} - ${configOptionName">
 				<parameter param-name="configItemId" from-field="configItemId"/>
-				<parameter param-name="configOptionId" from-field="configOptionId}" description="${configOptionId} - ${configOptionName"/>
+				<parameter param-name="configOptionId" from-field="configOptionId"/>
 			</hyperlink>
 		</field>
         <field name="configOptionId" ><hidden/></field>
         <field name="configOptionName" ><hidden/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}" widget-style="buttontext" >
-			<hyperlink target="deleteProductConfigOption">
+            <hyperlink target="deleteProductConfigOption" description="${uiLabelMap.CommonRemove">
 				<parameter param-name="configItemId" from-field="configItemId"/>
-				<parameter param-name="configOptionId" from-field="configOptionId}" description="${uiLabelMap.CommonRemove"/>
+				<parameter param-name="configOptionId" from-field="configOptionId"/>
 			</hyperlink>
 		</field>
     </form>
-    
-    <form name="ProductConfigList" type="list" list-name="configProducts" 
+
+    <form name="ProductConfigList" type="list" list-name="configProducts"
         default-table-style="basic-table" odd-row-style="alternate-row" paginate-target="FindProductConfigItems"
         target="" header-row-style="header-row-2" paginate="true">
         <row-actions>
@@ -245,5 +245,5 @@ under the License.
             <hyperlink>
         </field>
     </form>
-    
+
 </forms>

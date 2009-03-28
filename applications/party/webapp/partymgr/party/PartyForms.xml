@@ -60,7 +60,7 @@ under the License.
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
             </drop-down>
-        </field>                
+        </field>
         <field name="existingCustomer">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
@@ -115,7 +115,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
-    
+
     <form name="ViewPartyGroup" type="single" default-map-name="lookupGroup">
         <auto-fields-entity entity-name="PartyGroup" default-field-type="display"/>
         <field name="partyTypeId"><ignored/></field>
@@ -126,27 +126,27 @@ under the License.
         <field name="externalId"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
     </form>
-    
+
     <form name="ViewPartyPerson" type="single" default-map-name="lookupPerson">
         <field name="partyId"><display/></field>
         <field name="name" title="${uiLabelMap.PartyName}"><display description="${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName}"/></field>
-        <field name="comments" title="${uiLabelMap.PartyComments}"><display/></field>        
+        <field name="comments" title="${uiLabelMap.PartyComments}"><display/></field>
         <field name="externalId"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
     </form>
-    
+
     <form name="ViewPartyPersonHistory" type="list" list-name="partyNameHistoryList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="was" title="${uiLabelMap.PartyHistoryWas}"><display description="${personalTitle} ${firstName} ${middleName} ${lastName} ${suffix}"/></field>
         <field name="changed" title="${uiLabelMap.PartyHistoryChanged}"><display description="${changeDate}"/></field>
     </form>
-    
+
     <form name="ViewPartyGroupHistory" type="list" list-name="partyNameHistoryList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="was" title="${uiLabelMap.PartyHistoryWas}"><display description="${groupName}"/></field>
         <field name="changed" title="${uiLabelMap.PartyHistoryChanged}"><display description="${changeDate}"/></field>
     </form>
-    
+
     <form name="AddUserLogin" type="single" target="createUserLogin"
         focus-field-name="userLoginId" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createUserLogin"/>
@@ -190,7 +190,7 @@ under the License.
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
 
-    <form name="EditVendor" type="single" target="updateVendor" default-map-name="vendor" 
+    <form name="EditVendor" type="single" target="updateVendor" default-map-name="vendor"
         focus-field-name="manifestCompanyName" header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="vendor==null" target="createVendor"/>
         <auto-fields-service service-name="updateVendor" map-name="vendor"/>
@@ -487,9 +487,9 @@ under the License.
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
-    
+
     <!-- Party Content Form -->
-    
+
     <form name="AddPartyContent" target="updatePartyContent" type="upload" default-map-name="content"
         focus-field-name="contentTypeId" header-row-style="header-row" default-table-style="basic-table">
         <actions>
@@ -500,10 +500,10 @@ under the License.
                 <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
             </entity-one>
         </actions>
-        
+
         <alt-target use-when="content==null" target="createPartyContent"/>
         <!-- <auto-fields-entity entity-name="Content"/> -->
-        
+
         <field name="partyId" map-name="parameters"><hidden/></field>
         <field use-when="content!=null" name="contentId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="partyContentTypeId">
@@ -512,7 +512,7 @@ under the License.
             </drop-down>
         </field>
         <!-- note sure if these two are necessray, but they are kind of confusing in this context:
-        <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>        
+        <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>
         <field name="dataResourceId"><lookup target-form-name="LookupDataResource"/></field>
         -->
         <field name="contentTypeId">
@@ -591,7 +591,7 @@ under the License.
                 <parameter param-name="dataResourceId" from-field="dataResourceId"/>
             </hyperlink>
         </field>
-    </form>    
+    </form>
 
     <form name="ApplyServiceCredit" type="single" target="applyServiceCredit" default-map-name="serviceCredit" focus-field-name="amount"
         header-row-style="header-row" default-table-style="basic-table">
@@ -621,17 +621,17 @@ under the License.
             </drop-down>
         </field>
         <field name="partyId"><hidden value="${partyId}"/></field>
-        <field name="finAccountTypeId"><ignored/></field> 
+        <field name="finAccountTypeId"><ignored/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="ListCarrierAccounts" type="list" target="updatePartyCarrierAccount"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         paginate="true"  view-size="3" paginate-target="viewprofile" paginate-target-anchor="ListCarrierAccounts">
         <actions>
             <entity-condition entity-name="PartyCarrierAccount" list="carrierAccounts" filter-by-date="true">
                 <condition-expr field-name="partyId" from-field="parameters.partyId"></condition-expr>
-                <order-by field-name="fromDate"/>                
+                <order-by field-name="fromDate"/>
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updatePartyCarrierAccount"/>
@@ -644,7 +644,7 @@ under the License.
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
-    
+
     <form name="EditCarrierAccount" type="single" target="createPartyCarrierAccount" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPartyCarrierAccount"/>
@@ -653,15 +653,15 @@ under the License.
             <drop-down allow-empty="false">
                 <entity-options entity-name="PartyRole" description="${partyId}" key-field-name="partyId">
                     <entity-constraint name="roleTypeId" operator="equals" value="CARRIER"/>
-                    <entity-constraint name="partyId" operator="not-equals" value="_NA_"/>                    
+                    <entity-constraint name="partyId" operator="not-equals" value="_NA_"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" tooltip="${uiLabelMap.CommonRequired}"/>
         <field name="accountNumber" title="${uiLabelMap.AccountingAccountNumber}" tooltip="${uiLabelMap.CommonRequired}"/>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
-    </form> 
-    
+    </form>
+
     <form name="ListSubscriptions" type="list" list-name="subscriptionList" default-table-style="basic-table">
         <field name="subscriptionId">
             <display-entity entity-name="Subscription" description="${description}">
@@ -783,8 +783,8 @@ under the License.
         </field>
         <field name="comments"><text/></field>
         <field name="submitButton"><submit button-type="button"/></field>
-    </form> 
-    
+    </form>
+
     <form name="AddAccount" type="single" target="createPartyRelationship">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="partyIdFrom"><lookup target-form-name="LookupAccount"/></field>
@@ -793,8 +793,8 @@ under the License.
         <field name="roleTypeIdTo"><hidden value="CONTACT"/></field>
         <field name="partyRelationshipTypeId"><hidden value="EMPLOYMENT"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
-    </form> 
-    
+    </form>
+
     <form name="AddContact" type="single" target="createPartyRelationship">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="partyIdFrom"><hidden value="${parameters.partyId}"/></field>
@@ -804,8 +804,8 @@ under the License.
         <field name="partyRelationshipTypeId"><hidden value="EMPLOYMENT"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    
-    <form name="ListInvoicesApplPayments" type="list" list-name="ListInvoicesApplPayments" 
+
+    <form name="ListInvoicesApplPayments" type="list" list-name="ListInvoicesApplPayments"
         default-title-style="tableheadtext" default-widget-style="tabletext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         default-tooltip-style="tabletext">
         <actions>
@@ -836,7 +836,7 @@ under the License.
         <field name="pmAmount" title="${uiLabelMap.AccountingPaymentAmount}" use-when="actualCurrency==false"><display type="currency" currency="${actualCurrencyUomId}"/></field>
         <field name="pmAmount" title="${uiLabelMap.AccountingPaymentAmount}" entry-name="pmActualCurrencyAmount" use-when="actualCurrency==true"><display type="currency" currency="${actualCurrencyUomId}"/></field>
     </form>
-    <form name="ListUnAppliedInvoices" type="list" list-name="ListUnAppliedInvoices" 
+    <form name="ListUnAppliedInvoices" type="list" list-name="ListUnAppliedInvoices"
         default-title-style="tableheadtext" default-widget-style="tabletext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         default-tooltip-style="tabletext">
         <actions>
@@ -855,7 +855,7 @@ under the License.
         <field name="amount"><display type="currency" currency="${invoiceCurrencyUomId}"/></field>
         <field name="unAppliedAmount"><display type="currency" currency="${invoiceCurrencyUomId}"/></field>
     </form>
-    <form name="ListUnAppliedPayments" type="list" list-name="paymentList" 
+    <form name="ListUnAppliedPayments" type="list" list-name="paymentList"
         default-title-style="tableheadtext" default-widget-style="tabletext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         default-tooltip-style="tabletext">
         <actions>
@@ -895,16 +895,16 @@ under the License.
         <field position="1" name="totalToBeReceived" use-when="finanSummary.get(&quot;totalToBeReceived&quot;)!=null" title="${uiLabelMap.PartyToBePaidTo} ${parameters.partyId}"><display type="currency" currency="${actualCurrencyUomId}"/></field>
     </form>
     <form name="ViewPartyRoles" type="list" list-name="partyRoles" target="viewroles"
-        default-title-style="tableheadtext" default-widget-style="tabletext" 
+        default-title-style="tableheadtext" default-widget-style="tabletext"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         default-tooltip-style="tabletext">
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.PartyRole}"><display/></field>
         <field name="parentTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/></field>
         <field name="remove">
-			<hyperlink target="deleterole">
+            <hyperlink target="deleterole" description="${uiLabelMap.CommonRemove">
 				<parameter param-name="partyId" from-field="partyId"/>
-				<parameter param-name="roleTypeId" from-field="roleTypeId}" description="${uiLabelMap.CommonRemove"/>
+				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
 			</hyperlink>
 		</field>
     </form>
@@ -924,7 +924,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}" required-field="true"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    <form name="ListPreference" type="list" target="updatePreference?partyId=${partyId}" list-name="userPreferenceList" 
+    <form name="ListPreference" type="list" target="updatePreference?partyId=${partyId}" list-name="userPreferenceList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true" use-row-submit="true" >
         <row-actions>
             <service service-name="getUserPreference" result-map="values">
@@ -948,7 +948,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="submit" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
 </forms>

@@ -23,7 +23,7 @@ under the License.
     <!-- Invoice forms -->
     <form name="FindInvoices" type="single" target="findInvoices" title="Find and list invoices"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="hideSearch"><hidden value="Y"/></field>
         <field name="invoiceId"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="description"><text-find default-option="contains" ignore-case="true"/></field>
@@ -44,7 +44,7 @@ under the License.
         <field name="billingAccountId"><lookup target-form-name="LookupBillingAccount"/></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-        
+
     <form name="ListInvoices" type="list" separate-columns="true" title="Invoice List" list-name="listIt" target="" default-entity-name="Invoice" paginate-target="findInvoices"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -68,7 +68,7 @@ under the License.
             <set field="amountToApply" value="${bsh:return(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId));}"/>
             <set field="total" value="${bsh:return(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId));}"/>
         </row-actions>
-        
+
         <field name="invoiceId" widget-style="buttontext" sort-field="true">
             <hyperlink description="${invoiceId}" target="invoiceOverview?invoiceId=${invoiceId}"/>
         </field>
@@ -141,7 +141,7 @@ under the License.
         <field name="productId" widget-style="linktext"><hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}"/></field>
         <field name="overrideGlAccountId" widget-area-style="align-text"><hyperlink target="GlAccountNavigate?glAccountId=${overrideGlAccountId}" description="${overrideGlAccountId}"/></field>
     </form>
-    
+
     <form name="invoiceRoles" type="list" use-row-submit="true" title="" list-name="invoiceRoles" paginate-target="invoiceRoles"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <!--auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/-->
@@ -183,7 +183,7 @@ under the License.
         <auto-fields-entity entity-name="AcctgTransAndEntries" default-field-type="display"/>
         <field name="paymentId"><hidden/></field>
     </form>
-    
+
     <form name="NewSalesInvoice" type="single" target="createInvoice" title="Edit Invoice Header" default-map-name="invoice"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="statusId"><hidden value="INVOICE_IN_PROCESS"/></field>
@@ -194,7 +194,7 @@ under the License.
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
-        </field> 
+        </field>
         <field position="1" name="organizationPartyId" parameter-name="partyIdFrom">
             <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyId}">
                 <entity-options description="${groupName}" entity-name="PartyAcctgPrefAndGroup" key-field-name="partyId">
@@ -217,7 +217,7 @@ under the License.
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
-        </field> 
+        </field>
         <field position="1" name="organizationPartyId" parameter-name="partyId">
             <drop-down allow-empty="false" no-current-selected-key="${defaultOrganizationPartyId}">
                 <entity-options description="${groupName}" entity-name="PartyAcctgPrefAndGroup" key-field-name="partyId">
@@ -244,7 +244,7 @@ under the License.
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
-        </field> 
+        </field>
         <field name="statusId" use-when="invoice==null"><hidden value="INVOICE_IN_PROCESS"/></field>
         <field position="2" name="statusId" use-when="invoice!=null"><display-entity entity-name="StatusItem"/></field>
         <field position="1" name="description"><text size="100"/></field>
@@ -290,7 +290,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
+
    <form name="EditInvoiceItems" type="list"  list-name="invoiceItems" default-entity-name="InvoiceItem" target="updateInvoiceItem" title="Edit Invoice Items" paginate-target="listInvoiceItems"
        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
        <row-actions>
@@ -302,9 +302,9 @@ under the License.
        </row-actions>
        <field name="invoiceId"><hidden/></field>
        <field name="invoiceItemSeqId" widget-style="buttontext">
-			<hyperlink target="listInvoiceItems">
+           <hyperlink target="listInvoiceItems"  description="${invoiceItemSeqId">
 				<parameter param-name="invoiceId" from-field="invoiceId"/>
-				<parameter param-name="invoiceItemSeqId" from-field="invoiceItemSeqId}" description="${invoiceItemSeqId"/>
+				<parameter param-name="invoiceItemSeqId" from-field="invoiceItemSeqId"/>
 			</hyperlink>
 		</field>
        <field name="quantity"><text size="3"/></field>
@@ -361,7 +361,7 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-order-by field-name="description"/>
-                </entity-options>            
+                </entity-options>
             </drop-down>
         </field>
         <field position="1" name="amount" title="${uiLabelMap.AccountingUnitPrice}"><text size="10"/></field>
@@ -378,7 +378,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
+
     <form name="ListInvoiceStatus" list-name="invoiceStatus" target="" title="" type="list" paginate-target="ListInvoiceStatus"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="invoiceId"><hidden/></field>
@@ -416,7 +416,7 @@ under the License.
 			</hyperlink>
         </field>
     </form>
-        
+
     <form name="AddPayment" type="single" target="updateInvoiceApplication" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="invoiceId"><hidden/></field>
@@ -442,7 +442,7 @@ under the License.
     </form>
 
     <form name="ListPaymentsNotAppliedForeignCurrency" extends="ListPaymentsNotApplied" list-name="paymentsActualCurrency"/>
-    
+
     <form name="ListInvoiceRoles" type="list" use-row-submit="true" title="" list-name="invoiceRoles" paginate-target="invoiceRoles"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <!--auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/-->
@@ -504,9 +504,9 @@ under the License.
     <form name="EditTimeEntries" type="list" list-name="timeEntries"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateTimeEntry" default-field-type="display"/>
-        
+
         <field name="invoiceId"><hidden/></field>
-        
+
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="unlinkInvoiceFromTimeEntry?timeEntryId=${timeEntryId}&amp;invoiceId=${invoiceId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
