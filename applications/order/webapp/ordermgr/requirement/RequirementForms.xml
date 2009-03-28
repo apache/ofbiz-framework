@@ -137,10 +137,16 @@ under the License.
         <auto-fields-entity entity-name="RequirementCustRequest" default-field-type="display"/>
         <field name="requirementId"><hidden/></field>
         <field name="custRequestId" widget-style="buttontext">
-            <hyperlink description="${custRequestId}" target="request?custRequestId=${custRequestId}&amp;custRequestItemSeqId=${custRequestItemSeqId}"/>
+            <hyperlink description="${custRequestId}" target="request">
+				<parameter param-name="custRequestId" from-field="custRequestId"/>
+				<parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
+			</hyperlink>
         </field>
         <field name="custRequestItemSeqId" widget-style="buttontext">
-            <hyperlink description="${custRequestItemSeqId}" target="requestitem?custRequestId=${custRequestId}&amp;custRequestItemSeqId=${custRequestItemSeqId}"/>
+            <hyperlink description="${custRequestItemSeqId}" target="requestitem">
+				<parameter param-name="custRequestId" from-field="custRequestId"/>
+				<parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
+			</hyperlink>
         </field>
     </form>
 

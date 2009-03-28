@@ -174,7 +174,10 @@ under the License.
         default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" 
         paginate-target="/FindContent">
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}"/> 
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent">
+				<parameter param-name="contentId" from-field="contentId"/>
+				<parameter param-name="drDataResourceId" from-field="drDataResourceId"/>
+			</hyperlink> 
 <!--
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent">
                 <parameter param-name="caContentIdTo"/>

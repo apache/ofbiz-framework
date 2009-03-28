@@ -1099,7 +1099,10 @@ under the License.
             <display/>
         </field>
         <field name="costComponentId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${costComponentId}" target="EditProductCosts?productId=${productId}&amp;productCostComponentId=${costComponentId}"/>
+            <hyperlink also-hidden="false" description="${costComponentId}" target="EditProductCosts">
+				<parameter param-name="productId" from-field="productId"/>
+				<parameter param-name="productCostComponentId" from-field="costComponentId"/>
+			</hyperlink>
         </field>
         <field name="productId"><hidden value="${productId}"/></field>
         <field name="costComponentTypeId">

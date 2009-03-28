@@ -186,10 +186,16 @@ under the License.
         <field name="quoteId"><hidden/></field>
         <field name="quoteItemSeqId"><hidden/></field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext" use-when="${bsh:isPromo==null}">
-            <hyperlink also-hidden="false" description="${quoteItemSeqId}" target="EditQuoteItem?quoteId=${quoteId}&amp;quoteItemSeqId=${quoteItemSeqId}"/>
+            <hyperlink also-hidden="false" description="${quoteItemSeqId}" target="EditQuoteItem">
+				<parameter param-name="quoteId" from-field="quoteId"/>
+				<parameter param-name="quoteItemSeqId" from-field="quoteItemSeqId"/>
+			</hyperlink>
         </field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext" use-when="${bsh:isPromo!=null&amp;&amp;isPromo.equals(&quot;N&quot;)}">
-            <hyperlink also-hidden="false" description="${quoteItemSeqId}" target="EditQuoteItem?quoteId=${quoteId}&amp;quoteItemSeqId=${quoteItemSeqId}"/>
+            <hyperlink also-hidden="false" description="${quoteItemSeqId}" target="EditQuoteItem">
+				<parameter param-name="quoteId" from-field="quoteId"/>
+				<parameter param-name="quoteItemSeqId" from-field="quoteItemSeqId"/>
+			</hyperlink>
         </field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" use-when="${bsh:isPromo!=null&amp;&amp;isPromo.equals(&quot;Y&quot;)}"><display/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}">
@@ -206,7 +212,10 @@ under the License.
         <field name="uomId"><hidden/></field>
         <!--<field name="custRequestId"><display description="${custRequestId} - ${custRequestItemSeqId}"/></field>-->
         <field name="custRequestId" title="${uiLabelMap.CommonViewRequest}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${custRequestId}-${custRequestItemSeqId}" target="requestitem?custRequestId=${custRequestId}&amp;custRequestItemSeqId=${custRequestItemSeqId}"/>
+            <hyperlink also-hidden="false" description="${custRequestId}-${custRequestItemSeqId}" target="requestitem">
+				<parameter param-name="custRequestId" from-field="custRequestId"/>
+				<parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
+			</hyperlink>
         </field>
         <field name="custRequestItemSeqId"><hidden/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -267,7 +276,10 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ListQuoteAttributes">
         <auto-fields-entity entity-name="QuoteAttribute" default-field-type="display"/>
         <field name="attrName" title="${uiLabelMap.OrderOrderQuoteAttributeName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${attrName}" target="EditQuoteAttribute?quoteId=${quoteId}&amp;attrName=${attrName}"/>
+            <hyperlink also-hidden="false" description="${attrName}" target="EditQuoteAttribute">
+				<parameter param-name="quoteId" from-field="quoteId"/>
+				<parameter param-name="attrName" from-field="attrName"/>
+			</hyperlink>
         </field>
         <field name="attrValue" title="${uiLabelMap.OrderOrderQuoteAttributeValue}"></field>
         <field name="quoteId"><hidden/></field>
@@ -293,7 +305,10 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ListQuoteCoefficients">
         <auto-fields-entity entity-name="QuoteCoefficient" default-field-type="display"/>
         <field name="coeffName" title="${uiLabelMap.OrderOrderQuoteCoeffName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${coeffName}" target="EditQuoteCoefficient?quoteId=${quoteId}&amp;coeffName=${coeffName}"/>
+            <hyperlink also-hidden="false" description="${coeffName}" target="EditQuoteCoefficient">
+				<parameter param-name="quoteId" from-field="quoteId"/>
+				<parameter param-name="coeffName" from-field="coeffName"/>
+			</hyperlink>
         </field>
         <field name="coeffValue" title="${uiLabelMap.OrderOrderQuoteCoeffValue}"></field>
         <field name="quoteId"><hidden/></field>
@@ -317,12 +332,18 @@ under the License.
     <form name="ManageQuotePrices"  title="" type="multi" list-name="quoteItemAndCostInfos" target="autoUpdateQuotePrices?quoteId=${quoteId}" use-row-submit="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ManageQuotePrices">
         <field name="custRequestId" title="${uiLabelMap.OrderOrderQuoteViewRequest}" widget-style="buttontext">
-            <hyperlink target-type="inter-app" also-hidden="false" description="${custRequestId}-${custRequestItemSeqId}" target="/workeffort/control/requestitem?custRequestId=${custRequestId}&amp;custRequestItemSeqId=${custRequestItemSeqId}"/>
+            <hyperlink target-type="inter-app" also-hidden="false" description="${custRequestId}-${custRequestItemSeqId}" target="/workeffort/control/requestitem">
+				<parameter param-name="custRequestId" from-field="custRequestId"/>
+				<parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
+			</hyperlink>
         </field>
         <field name="custRequestItemSeqId"><hidden/></field>
         <field name="quoteId"><hidden/></field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext">
-            <hyperlink also-hidden="true" description="${quoteItemSeqId}" target="EditQuoteItem?quoteId=${quoteId}&amp;quoteItemSeqId=${quoteItemSeqId}"/>
+            <hyperlink also-hidden="true" description="${quoteItemSeqId}" target="EditQuoteItem">
+				<parameter param-name="quoteId" from-field="quoteId"/>
+				<parameter param-name="quoteItemSeqId" from-field="quoteItemSeqId"/>
+			</hyperlink>
         </field>
         <field name="productId" title="${uiLabelMap.ProductProductId}">
             <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
@@ -353,7 +374,10 @@ under the License.
         <field name="createdDate"><hidden/></field>
         <field name="createdByUserLogin"><hidden/></field>
         <field name="quoteAdjustmentId" title="${uiLabelMap.OrderOrderQuoteAdjustmentId}" widget-style="buttontext" use-when="${bsh:productPromoId==null}">
-            <hyperlink also-hidden="false" description="${quoteAdjustmentId}" target="EditQuoteAdjustment?quoteId=${quoteId}&amp;quoteAdjustmentId=${quoteAdjustmentId}"/>
+            <hyperlink also-hidden="false" description="${quoteAdjustmentId}" target="EditQuoteAdjustment">
+				<parameter param-name="quoteId" from-field="quoteId"/>
+				<parameter param-name="quoteAdjustmentId" from-field="quoteAdjustmentId"/>
+			</hyperlink>
         </field>
         <field name="quoteAdjustmentId" title="${uiLabelMap.OrderOrderQuoteAdjustmentId}" use-when="${bsh:productPromoId!=null}"><display/></field>
         <field name="quoteAdjustmentTypeId" title="${uiLabelMap.OrderOrderQuoteAdjustmentType}">
@@ -397,12 +421,18 @@ under the License.
     <form name="ViewQuoteProfit" title="" type="list" list-name="quoteItemAndCostInfos" target="" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ViewQuoteProfit">
         <field name="custRequestId" title="${uiLabelMap.OrderOrderQuoteViewRequest}" widget-style="buttontext">
-            <hyperlink target-type="inter-app" also-hidden="false" description="${custRequestId}-${custRequestItemSeqId}" target="/workeffort/control/requestitem?custRequestId=${custRequestId}&amp;custRequestItemSeqId=${custRequestItemSeqId}"/>
+            <hyperlink target-type="inter-app" also-hidden="false" description="${custRequestId}-${custRequestItemSeqId}" target="/workeffort/control/requestitem">
+				<parameter param-name="custRequestId" from-field="custRequestId"/>
+				<parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
+			</hyperlink>
         </field>
         <field name="custRequestItemSeqId"><hidden/></field>
         <field name="quoteId"><hidden/></field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext">
-            <hyperlink also-hidden="true" description="${quoteItemSeqId}" target="EditQuoteItem?quoteId=${quoteId}&amp;quoteItemSeqId=${quoteItemSeqId}"/>
+            <hyperlink also-hidden="true" description="${quoteItemSeqId}" target="EditQuoteItem">
+				<parameter param-name="quoteId" from-field="quoteId"/>
+				<parameter param-name="quoteItemSeqId" from-field="quoteItemSeqId"/>
+			</hyperlink>
         </field>
         <field name="productId" title="${uiLabelMap.ProductProductId}">
             <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>

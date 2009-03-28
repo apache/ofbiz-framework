@@ -321,7 +321,10 @@ under the License.
        <field name="taxableFlag"><hidden/></field>
        <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" ><submit button-type="text-link"/></field>
        <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoiceItem?invoiceId=${invoiceId}&amp;invoiceItemSeqId=${invoiceItemSeqId}"/>
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoiceItem">
+				<parameter param-name="invoiceId" from-field="invoiceId"/>
+				<parameter param-name="invoiceItemSeqId" from-field="invoiceItemSeqId"/>
+			</hyperlink>
        </field>
     </form>
 
@@ -402,7 +405,10 @@ under the License.
         <field name="amountToApply"><text size="10" disabled="true"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="paymentApplicationId!=null">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoiceApplication?paymentApplicationId=${paymentApplicationId}&amp;invoiceId=${invoiceId}"/>
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeInvoiceApplication">
+				<parameter param-name="paymentApplicationId" from-field="paymentApplicationId"/>
+				<parameter param-name="invoiceId" from-field="invoiceId"/>
+			</hyperlink>
         </field>
     </form>
         

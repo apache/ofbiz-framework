@@ -97,7 +97,10 @@ under the License.
         </actions>
 
         <field name="acctgTransId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/> 
+            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans">
+				<parameter param-name="acctgTransId" from-field="acctgTransId"/>
+				<parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+			</hyperlink> 
         </field>                
         <field name="transactionDate"><display/></field>                
         <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
@@ -129,7 +132,10 @@ under the License.
     <form name="ListUnpostedAcctgTrans" type="list" title="Unposted Accounting Transactions" list-name="transactions"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="acctgTransId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/> 
+            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans">
+				<parameter param-name="acctgTransId" from-field="acctgTransId"/>
+				<parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+			</hyperlink> 
         </field>                
         <field name="transactionDate"><display/></field>                
         <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
@@ -253,7 +259,10 @@ under the License.
         </field>
         
         <field name="acctgTransId" widget-style="buttontext" position="2">
-            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/> 
+            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans">
+				<parameter param-name="acctgTransId" from-field="acctgTransId"/>
+				<parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+			</hyperlink> 
         </field>
         <field name="acctgTransEntrySeqId" widget-style="buttontext" position="2"><display/></field>
         <field name="transactionDate" position="2"><display/></field>
@@ -315,7 +324,10 @@ under the License.
         
         <field name="transactionDate"><display/></field>
         <field name="acctgTransId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/> 
+            <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans">
+				<parameter param-name="acctgTransId" from-field="acctgTransId"/>
+				<parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+			</hyperlink> 
         </field>
         <field name="acctgTransEntrySeqId" widget-style="buttontext"><display/></field>
         <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>

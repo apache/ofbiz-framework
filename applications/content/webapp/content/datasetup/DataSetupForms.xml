@@ -72,7 +72,10 @@ under the License.
             <display/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceTypeAttr?dataResourceTypeId=${dataResourceTypeId}&amp;attrName=${attrName}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceTypeAttr">
+				<parameter param-name="dataResourceTypeId" from-field="dataResourceTypeId"/>
+				<parameter param-name="attrName" from-field="attrName"/>
+			</hyperlink>
         </field>
     </form>
     

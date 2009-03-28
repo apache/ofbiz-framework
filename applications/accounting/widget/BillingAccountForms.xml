@@ -205,10 +205,16 @@ under the License.
             <display-entity entity-name="Uom" description="${description}"/>
         </field>
         <field name="billingAccountTermId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditBillingAccountTerms?billingAccountId=${billingAccountId}&amp;billingAccountTermId=${billingAccountTermId}"/>
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditBillingAccountTerms">
+				<parameter param-name="billingAccountId" from-field="billingAccountId"/>
+				<parameter param-name="billingAccountTermId" from-field="billingAccountTermId"/>
+			</hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeBillingAccountTerm?billingAccountId=${billingAccountId}&amp;billingAccountTermId=${billingAccountTermId}"/>
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="removeBillingAccountTerm">
+				<parameter param-name="billingAccountId" from-field="billingAccountId"/>
+				<parameter param-name="billingAccountTermId" from-field="billingAccountTermId"/>
+			</hyperlink>
         </field>
     </form>
     <form name="EditBillingAccountTerms" type="single" target="updateBillingAccountTerm" title="" default-map-name="billingAccountTerm"

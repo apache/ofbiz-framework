@@ -157,7 +157,10 @@ under the License.
               </service>
           </actions>
         <field name="contentId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${contentId}" target="EditLayout?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}"/>
+            <hyperlink also-hidden="false" description="${contentId}" target="EditLayout">
+				<parameter param-name="contentId" from-field="contentId"/>
+				<parameter param-name="drDataResourceId" from-field="drDataResourceId"/>
+			</hyperlink>
         </field>
         <field name="dummy" title="${uiLabelMap.ContentClip}" widget-style="buttontext" map-name="dummy">
             <hyperlink also-hidden="false" description="${contentId}" target="clipFindLayout">
@@ -186,7 +189,10 @@ under the License.
     <form name="listListLayout" default-entity-name="ContentAssocDataResourceViewFrom" list-name="layoutList" target="" title="" type="list" paginate-target="FindLayout"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${contentId}" target="EditLayout?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}"/>
+            <hyperlink also-hidden="false" description="${contentId}" target="EditLayout">
+				<parameter param-name="contentId" from-field="contentId"/>
+				<parameter param-name="drDataResourceId" from-field="drDataResourceId"/>
+			</hyperlink>
         </field>
         <field name="contentName"><display/></field>
         <field name="description"><display/></field>
@@ -385,7 +391,10 @@ under the License.
     <form name="ListRelatedLayouts" default-entity-name="ContentDataResourceView" list-name="entityList" target="" title="" type="list" paginate-target="FindLayout"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${contentId}" target="EditLayout?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}"/>
+            <hyperlink also-hidden="false" description="${contentId}" target="EditLayout">
+				<parameter param-name="contentId" from-field="contentId"/>
+				<parameter param-name="drDataResourceId" from-field="drDataResourceId"/>
+			</hyperlink>
         </field>
         <field name="contentName"><display/></field>
         <field name="description"><display/></field>
