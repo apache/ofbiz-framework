@@ -208,7 +208,13 @@ under the License.
         </actions>
         <auto-fields-service service-name="updateContentPurposeOperation" default-field-type="display"/>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurposeOperation?contentPurposeTypeId=${contentPurposeTypeId}&amp;contentOperationId=${contentOperationId}&amp;roleTypeId=${roleTypeId}&amp;statusId=${statusId}&amp;privilegeEnumId=${privilegeEnumId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurposeOperation">
+				<parameter param-name="contentPurposeTypeId" from-field="contentPurposeTypeId"/>
+				<parameter param-name="contentOperationId" from-field="contentOperationId"/>
+				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
+				<parameter param-name="statusId" from-field="statusId"/>
+				<parameter param-name="privilegeEnumId" from-field="privilegeEnumId"/>
+			</hyperlink>
         </field>
     </form>
 </forms>

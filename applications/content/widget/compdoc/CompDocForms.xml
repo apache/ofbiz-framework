@@ -153,7 +153,13 @@ under the License.
         <field name="oldDataResourceId"><display/></field>
         <field name="newDataResourceId"><display/></field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContentRevisionItem?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;itemContentId=${itemContentId}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContentRevisionItem">
+				<parameter param-name="contentId" from-field="contentId"/>
+				<parameter param-name="contentRevisionSeqId" from-field="contentRevisionSeqId"/>
+				<parameter param-name="itemContentId" from-field="itemContentId"/>
+				<parameter param-name="rootContentId" from-field="rootContentId"/>
+				<parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+			</hyperlink>
         </field>
         <field name="create" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreate}" target="EditContentRevisionItem?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
@@ -472,7 +478,13 @@ under the License.
         <field name="contentApprovalId"><display/></field>
 
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="approvalCount &gt; 0">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContentRevisionItem?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;itemContentId=${itemContentId}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContentRevisionItem">
+				<parameter param-name="contentId" from-field="contentId"/>
+				<parameter param-name="contentRevisionSeqId" from-field="contentRevisionSeqId"/>
+				<parameter param-name="itemContentId" from-field="itemContentId"/>
+				<parameter param-name="rootContentId" from-field="rootContentId"/>
+				<parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId/>
+			</hyperlink>
         </field>
         <field name="create" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="Create" target="EditContentRevisionItem"/>
