@@ -319,7 +319,11 @@ under the License.
             </service>
         </actions>
         <field name="communicationEventId" title="${uiLabelMap.MarketingContactListCommEventId}">
-            <hyperlink description="${communicationEventId}" target="EditContactListCommEvent?contactListId=${contactListId}&amp;communicationEventId=${communicationEventId}&amp;DONE_PAGE=${donePage}" target-type="intra-app"/>
+            <hyperlink description="${communicationEventId}" target="EditContactListCommEvent" target-type="intra-app">
+                <parameter param-name="contactListId" from-field="contactListId"/>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="DONE_PAGE" from-field="donePage"/>
+            </hyperlink>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}">
             <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>

@@ -385,7 +385,13 @@
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="orderDate"><display/></field>
         <field name="entryDate"><display/></field>
-        <field name="linkProjectOrder" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="headerItem.equals(&quot;editProjectOrders&quot;)"><hyperlink target="unLinkProjectOrder?workEffortId=${projectId}&amp;orderId=${orderId}&amp;projectId=${projectId}" description="${uiLabelMap.ProjectMgrRemoveLinkFromProject}"/></field>
+        <field name="linkProjectOrder" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="headerItem.equals(&quot;editProjectOrders&quot;)">
+            <hyperlink target="unLinkProjectOrder" description="${uiLabelMap.ProjectMgrRemoveLinkFromProject}">
+                <parameter param-name="workEffortId" from-field="projectId"/>
+                <parameter param-name="orderId" from-field="orderId"/>
+                <parameter param-name="projectId" from-field="projectId"/>
+            <hyperlink>
+        </field>
     </form>
     <form name="projectAssoOrder"  type="list" list-name="listProjectAssoOrder"
         extends="ListProjects" extends-resource="component://projectmgr/widget/forms/ProjectForms.xml">

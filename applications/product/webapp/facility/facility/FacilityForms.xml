@@ -455,7 +455,11 @@ under the License.
             <display-entity entity-name="ShipmentMethodType"/>
         </field>
         <field name="label" title="${uiLabelMap.ProductLabel}">
-          <hyperlink target="viewShipmentPackageRouteSegLabelImage?shipmentId=${shipmentId}&amp;shipmentRouteSegmentId=${shipmentRouteSegmentId}&amp;shipmentPackageSeqId=${shipmentPackageSeqId}" description="${uiLabelMap.ProductLabel}"/>
+          <hyperlink target="viewShipmentPackageRouteSegLabelImage" description="${uiLabelMap.ProductLabel}">
+                <parameter param-name="shipmentId" from-field="shipmentId"/>
+                <parameter param-name="shipmentRouteSegmentId" from-field="shipmentRouteSegmentId"/>
+                <parameter param-name="shipmentPackageSeqId" from-field="shipmentPackageSeqId"/>
+          </hyperlink>
         </field>
         <!-- this is for multi-submitting the mark as accepted action (see batchPrintMarkAsAccepted.ftl) -->
         <field name="carrierServiceStatusId"><hidden value="SHRSCS_ACCEPTED"/></field>
