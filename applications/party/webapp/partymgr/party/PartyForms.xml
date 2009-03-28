@@ -905,7 +905,7 @@ under the License.
         <field name="description" title="${uiLabelMap.PartyRole}"><display/></field>
         <field name="parentTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/></field>
         <field name="remove">
-            <hyperlink target="deleterole" description="${uiLabelMap.CommonRemove">
+            <hyperlink target="deleterole" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="partyId" from-field="partyId"/>
                 <parameter param-name="roleTypeId" from-field="roleTypeId"/>
             </hyperlink>
