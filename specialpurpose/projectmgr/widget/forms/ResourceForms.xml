@@ -47,7 +47,7 @@
         <field use-when="telResult.get(&quot;extension&quot;)==null" name="telephone" title="${uiLabelMap.PartyPhoneNumber}"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber}"/></field>
         <field name="contactMechPurposeTypeId" entry-name="telResult.contactMechPurposeTypeId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="ContactMechPurposeType"/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}">
-            <hyperlink target="removeResource" description="${uiLabelMap.CommonRemove">
+            <hyperlink target="removeResource" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="partyId" from-field="partyId"/>
                 <parameter param-name="roleTypeId" from-field="roleTypeId"/>
             </hyperlink>
