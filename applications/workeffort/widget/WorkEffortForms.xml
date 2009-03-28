@@ -922,7 +922,12 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortContent?workEffortContentTypeId=${workEffortContentTypeId}&amp;fromDate=${fromDate}&amp;workEffortId=${workEffortId}&amp;contentId=${contentId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortContent">
+                <parameter param-name="workEffortContentTypeId" from-field="workEffortContentTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="contentId" from-field="contentId"/>
+            </hyperlink>
         </field>
     </form>
 
@@ -977,7 +982,12 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeWorkEffortGoodStandard?workEffortGoodStdTypeId=${workEffortGoodStdTypeId}&amp;productId=${productId}&amp;fromDate=${fromDate}&amp;workEffortId=${workEffortId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeWorkEffortGoodStandard">
+                <parameter param-name="workEffortGoodStdTypeId" from-field="workEffortGoodStdTypeId"/>
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
     </form>
     

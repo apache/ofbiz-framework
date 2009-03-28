@@ -584,8 +584,24 @@
         <field name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}" widget-area-style="centered"><display type="date"/></field>
         <field name="plannedHours" widget-area-style="centered"><display/></field>
         <field name="actualHours" widget-area-style="centered"><display/></field>
-        <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateResourcesTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
-        <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateResourcesTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}">
+        <hyperlink target="updateResourcesTaskAssigment"  description="${uiLabelMap.CommonRemove}">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="statusId" value="PAS_ENDED"/>
+            </hyperlink>
+        </field>
+        <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}">
+            <hyperlink target="updateResourcesTaskAssigment" description="${uiLabelMap.CommonStatustoComplete}">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="statusId" value="PAS_COMPLETED"/>
+        </hyperlink>
+    </field>
     </form>
     <form name="listResourcesProjects" type="list" list-name="parties"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
@@ -712,10 +728,20 @@
         <field name="thruDate"><ignored/></field>
         <field name="submitButton"><ignored/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="headerItem.equals(&quot;EditProjectContents&quot;)">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteProjectContent?contentId=${contentId}&amp;workEffortId=${workEffortId}&amp;workEffortContentTypeId=${workEffortContentTypeId}&amp;fromDate=${fromDate}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteProjectContent">
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortContentTypeId" from-field="workEffortContentTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="headerItem.equals(&quot;EditTaskContents&quot;)">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteTaskContent?contentId=${contentId}&amp;workEffortId=${workEffortId}&amp;workEffortContentTypeId=${workEffortContentTypeId}&amp;fromDate=${fromDate}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteTaskContent">
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortContentTypeId" from-field="workEffortContentTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="UploadWorkEffortContent" type="upload" default-map-name="content"

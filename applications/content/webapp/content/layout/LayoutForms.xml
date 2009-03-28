@@ -173,7 +173,12 @@ under the License.
         <field name="drObjectInfo"><display/></field>
         <!--
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeLayout?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeLayout">
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="contentIdTo" from-field="contentIdTo"/>
+                <parameter param-name="contentAssocTypeId" from-field="contentAssocTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         -->
     </form>
@@ -187,7 +192,12 @@ under the License.
         <field name="description"><display/></field>
         <field name="drObjectInfo"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeLayout?contentId=${contentId}&amp;contentIdTo=${caContentIdTo}&amp;contentAssocTypeId=${caContentAssocTypeId}&amp;fromDate=${caFromDate}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeLayout">
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="contentIdTo" from-field="caContentIdTo"/>
+                <parameter param-name="contentAssocTypeId" from-field="caContentAssocTypeId"/>
+                <parameter param-name="fromDate" from-field="caFromDate"/>
+            </hyperlink>
         </field>
     </form>
 

@@ -276,7 +276,12 @@ under the License.
         <field name="mapKey"><display/></field>
         <field name="fromDate"><display description="${bsh:fromDate.toString().substring(0,10)}"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssoc?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssoc">
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="contentIdTo" from-field="contentIdTo"/>
+                <parameter param-name="contentAssocTypeId" from-field="contentAssocTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <field name="thruDate"><date-time/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext">
@@ -300,7 +305,12 @@ under the License.
         <field name="mapKey"><display/></field>
         <field name="fromDate"><display description="${bsh:fromDate.toString().substring(0,10)}"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssoc?contentId=${contentId}&amp;contentIdTo=${contentIdTo}&amp;contentAssocTypeId=${contentAssocTypeId}&amp;fromDate=${fromDate}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssoc">
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="contentIdTo" from-field="contentIdTo"/>
+                <parameter param-name="contentAssocTypeId" from-field="contentAssocTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <field name="thruDate"><date-time/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext">
@@ -346,7 +356,12 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="remove${contentRoleTarget}ContentRole?contentId=${contentId}&amp;roleTypeId=${roleTypeId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="remove${contentRoleTarget}ContentRole">
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     
@@ -490,7 +505,12 @@ under the License.
         <field name="fromDate" widget-style="tabletext"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortContent?workEffortContentTypeId=${workEffortContentTypeId}&amp;fromDate=${fromDate}&amp;workEffortId=${workEffortId}&amp;contentId=${contentId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortContent">
+                <parameter param-name="workEffortContentTypeId" from-field="workEffortContentTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="contentId" from-field="contentId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="ListDocument"  target="" type="list"  list-name="contentAssoc" paginate-target="navigateContent"

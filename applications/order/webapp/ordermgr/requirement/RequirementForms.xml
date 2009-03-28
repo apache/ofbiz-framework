@@ -158,10 +158,20 @@ under the License.
         <auto-fields-entity entity-name="RequirementRole" default-field-type="display"/>
         <field name="requirementId"><hidden/></field>
         <field name="editLink" widget-style="buttontext" title="${uiLabelMap.CommonEdit}">
-            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditRequirementRole?requirementId=${requirementId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"/>
+            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditRequirementRole">
+                <parameter param-name="requirementId" from-field="requirementId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <field name="removeLink" widget-style="buttontext" title="${uiLabelMap.CommonRemove}">
-            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeRequirementRole?requirementId=${requirementId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"/>
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeRequirementRole">
+                <parameter param-name="requirementId" from-field="requirementId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditRequirementRole" type="single" target="updateRequirementRole" title="" default-map-name="requirementRole"

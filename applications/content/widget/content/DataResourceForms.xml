@@ -370,7 +370,12 @@ under the License.
         <field name="thruDate" widget-style="buttontext"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceRole?dataResourceId=${dataResourceId}&amp;roleTypeId=${roleTypeId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceRole">
+                <parameter param-name="dataResourceId" from-field="dataResourceId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
 

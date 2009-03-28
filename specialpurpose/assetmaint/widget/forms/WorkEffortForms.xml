@@ -163,7 +163,12 @@
             </entity-condition>
         </actions>
         <field name="workEffortName" entry-name="workEffortToName" title="${uiLabelMap.CommonName}">
-            <hyperlink also-hidden="false" description="${workEffortToName}" target="EditWorkEfforts?workEffortId=${workEffortIdTo}&amp;workEffortIdFrom=${workEffortId}&amp;fromDate=${fromDate}&amp;workEffortAssocTypeId=${workEffortAssocTypeId}"/>
+            <hyperlink also-hidden="false" description="${workEffortToName}" target="EditWorkEfforts">
+                <parameter param-name="workEffortId" from-field="workEffortIdTo"/>
+                <parameter param-name="workEffortIdFrom" from-field="workEffortId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="workEffortAssocTypeId" from-field="workEffortAssocTypeId"/>
+            </hyperlink>
         </field>
         <field name="workEffortAssocTypeId">
             <display-entity entity-name="WorkEffortAssocType" description="${description}"/>

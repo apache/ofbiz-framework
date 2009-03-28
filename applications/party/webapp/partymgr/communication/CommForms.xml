@@ -333,7 +333,12 @@ under the License.
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field> 
         <field name="removeButton" widget-style="smallSubmit"><submit/></field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
-            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;my=${my}"/>
+            <hyperlink description="${subject} " target="ViewCommunicationEvent">
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="my" from-field="my"/>
+            </hyperlink>
         </field>
         <field name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
             <display-entity entity-name="StatusItem" description="${description}">
@@ -506,7 +511,12 @@ under the License.
             </entity-and>
         </actions>
         <field name="contentName" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="ViewSimpleContent?contentId=${contentId}&amp;dataResourceId=${dataResourceId}&amp;communicationEventId=${communicationEventId}&amp;fromDate=${fromDate}"/> 
+            <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="ViewSimpleContent">
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="dataResourceId" from-field="dataResourceId"/>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink> 
         </field>
         <field name="contentTypeId"><display-entity entity-name="ContentType" description="${description}"/></field>
         <field name="fromDate"><display/></field>
