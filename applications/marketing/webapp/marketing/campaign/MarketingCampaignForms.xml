@@ -112,7 +112,11 @@ under the License.
             </display-entity>-->
         </field>
         <field name="editLink" title="&amp;nbsp;" widget-style="buttontext">
-            <hyperlink target="EditMarketingCampaignRoles?marketingCampaignId=${marketingCampaignId}&amp;roleTypeId=${roleTypeId}&amp;partyId=${partyId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
+            <hyperlink target="EditMarketingCampaignRoles" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+				<parameter param-name="marketingCampaignId" from-field="marketingCampaignId"/>
+				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
+				<parameter param-name="partyId" from-field="partyId"/>
+			</hyperlink>
         </field>
         <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
             <hyperlink target="removeMarketingCampaignRole?marketingCampaignId=${marketingCampaignId}&amp;roleTypeId=${roleTypeId}&amp;partyId=${partyId}"
