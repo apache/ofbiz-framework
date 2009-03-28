@@ -35,9 +35,9 @@ under the License.
         <field name="issueDate"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortQuote">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="quoteId" from-field="quoteId"/>
-			</hyperlink>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="quoteId" from-field="quoteId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddWorkEffortQuote" target="createWorkEffortQuote" title="" type="single"

@@ -145,9 +145,9 @@ under the License.
         <field name="donePage"><hidden/></field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject}" target="ViewCommunicationEvent">
-				<parameter param-name="communicationEventId" from-field="communicationEventId"/>
-				<parameter param-name="donePage" from-field="parameters.donePage"/>
-			</hyperlink>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="donePage" from-field="parameters.donePage"/>
+            </hyperlink>
         </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonYes}">
             <check />
@@ -256,9 +256,9 @@ under the License.
         </field>
         <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent">
-				<parameter param-name="partyId" from-field="partyId"/>
-				<parameter param-name="communicationEventId" from-field="communicationEventId"/>
-			</hyperlink>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+            </hyperlink>
         </field>
     </form>
 

@@ -399,15 +399,15 @@
         </field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="RemoveProductStoreFinAccountSettings" description="${uiLabelMap.CommonRemove}">
-				<parameter param-name="productStoreId" from-field="productStoreId"/>
-				<parameter param-name="finAccountTypeId" from-field="finAccountTypeId"/>
-			</hyperlink>
+                <parameter param-name="productStoreId" from-field="productStoreId"/>
+                <parameter param-name="finAccountTypeId" from-field="finAccountTypeId"/>
+            </hyperlink>
         </field>
         <field name="edit" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditProductStoreFinAccountSettings" description="${uiLabelMap.CommonEdit}">
-				<parameter param-name="productStoreId" from-field="productStoreId"/>
-				<parameter param-name="finAccountTypeId" from-field="finAccountTypeId"/>
-			</hyperlink>
+                <parameter param-name="productStoreId" from-field="productStoreId"/>
+                <parameter param-name="finAccountTypeId" from-field="finAccountTypeId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditProductStoreFinAccountSettings" type="single" target="UpdateProductStoreFinAccountSettings" default-map-name="finAccountSetting"

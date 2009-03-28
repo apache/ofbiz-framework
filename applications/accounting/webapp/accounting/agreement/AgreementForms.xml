@@ -125,9 +125,9 @@ under the License.
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
         <field name="agreementItemSeqId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${agreementItemSeqId}" target="EditAgreementItem">
-				<parameter param-name="agreementId" from-field="agreementId"/>
-				<parameter param-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
-			</hyperlink>
+                <parameter param-name="agreementId" from-field="agreementId"/>
+                <parameter param-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
+            </hyperlink>
         </field>
         <field name="agreementItemTypeId" title="${uiLabelMap.AccountingAgreementItemTypeId}">
             <display-entity entity-name="AgreementItemType"/>

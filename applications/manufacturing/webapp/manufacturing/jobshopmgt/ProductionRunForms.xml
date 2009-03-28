@@ -339,14 +339,14 @@ under the License.
         </field>
         <field name="issueLinkAtp" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" use-when="&quot;${issueTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
             <hyperlink target="issueProductionRunRoutingTask" description="${uiLabelMap.ManufacturingIssueAvailableProductionRunTask" also-hidden="false">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
                 <parameter param-name="productionRunId" from-field="workEffortParentId"/>
                 <parameter param-name="failIfItemsAreNotAvailable" value="Y"/>
             </hyperlink>
         </field>
         <field name="issueLinkQoh" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" use-when="&quot;${issueTaskId}&quot;.equals(&quot;${workEffortId}&quot;)">
             <hyperlink target="issueProductionRunRoutingTask" description="${uiLabelMap.ManufacturingIssueProductionRunTask" also-hidden="false">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
                 <parameter param-name="productionRunId" from-field="workEffortParentId"/>
                 <parameter param-name="failIfItemsAreNotAvailable" value="N"/>
             </hyperlink>

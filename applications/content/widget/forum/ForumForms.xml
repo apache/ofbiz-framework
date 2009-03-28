@@ -43,10 +43,10 @@ under the License.
         <field name="contentTypeId"><hidden/></field>
         <field name="select" widget-style="buttontext" entry-name="contentId" parameter-name="contentId">
             <hyperlink target="findForumMessages" description="${uiLabelMap.ContentForumMessages">
-				<parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
-				<parameter param-name="forumId" from-field="contentId"/>
-			</hyperlink>
-		</field>
+                <parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
+                <parameter param-name="forumId" from-field="contentId"/>
+            </hyperlink>
+        </field>
         <field name="forumName" entry-name="contentName" parameter-name="contentName"><text/></field>
         <field name="forumDescription" entry-name="description" parameter-name="description"><text/></field>
         <field name="thruDate" entry-name="caThruDate"><date-time/></field>

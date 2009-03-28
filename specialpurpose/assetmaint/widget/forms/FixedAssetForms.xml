@@ -75,9 +75,9 @@
         </actions>
         <field name="maintHistSeqId" widget-style="linktext">
             <hyperlink also-hidden="false" description="${maintHistSeqId}" target="EditFixedAssetMaint">
-				<parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
-				<parameter param-name="maintHistSeqId" from-field="maintHistSeqId"/>
-			</hyperlink>
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="maintHistSeqId"/>
+            </hyperlink>
         </field>
         <field name="fixedAssetName" title="${uiLabelMap.AccountingFixedAssetName}"><display/></field>
         <field name="productMaintTypeId" title="${uiLabelMap.AccountingFixedAssetMaintType}"><display-entity entity-name="ProductMaintType"/></field>

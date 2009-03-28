@@ -183,9 +183,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeProtectedViewFromSecurityGroup" also-hidden="false">
-				<parameter param-name="groupId" from-field="groupId"/>
-				<parameter param-name="viewNameId" from-field="viewNameId"/>
-			</hyperlink>
+                <parameter param-name="groupId" from-field="groupId"/>
+                <parameter param-name="viewNameId" from-field="viewNameId"/>
+            </hyperlink>
         </field>
     </form>
     

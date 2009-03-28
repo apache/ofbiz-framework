@@ -102,9 +102,9 @@ under the License.
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestItemSeqId" widget-style="buttontext">
             <hyperlink description="${custRequestItemSeqId}" target="requestitem">
-				<parameter param-name="custRequestId" from-field="custRequestId"/>
-				<parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
-			</hyperlink>
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
+            </hyperlink>
         </field>
         <field name="story"></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}">
@@ -115,11 +115,11 @@ under the License.
             <display-entity also-hidden="false" entity-name="StatusItem"/>
         </field>
         <field name="addNote">
-			<hyperlink description="${uiLabelMap.FormFieldTitle_addNote}" target="requestitemnotes">
-				<parameter param-name="custRequestId" from-field="custRequestId"/>
-				<parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
-			</hyperlink>
-		</field>
+            <hyperlink description="${uiLabelMap.FormFieldTitle_addNote}" target="requestitemnotes">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
+            </hyperlink>
+        </field>
     </form>
     <form name="OverviewRequestItems" extends="ListRequestItems">
         <field name="priority"><ignored/></field>

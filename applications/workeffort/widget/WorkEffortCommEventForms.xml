@@ -39,10 +39,10 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteCommunicationEventWorkEff" also-hidden="false" description="${uiLabelMap.CommonDelete">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="communicationEventId" from-field="communicationEventId"/>
-			</hyperlink>
-		</field>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+            </hyperlink>
+        </field>
     </form>
     <form name="AddWorkEffortCommEvent" default-map-name="communicationEvent" target="createWorkEffortCommEvent" title="" type="single" extends="EditCommEvent"
         extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" header-row-style="header-row" default-table-style="basic-table">

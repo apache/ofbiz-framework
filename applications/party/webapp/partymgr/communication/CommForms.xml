@@ -451,9 +451,9 @@ under the License.
         </field>
         <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeCommunicationEventPurpose">
-				<parameter param-name="communicationEventPrpTypId" from-field="communicationEventPrpTypId"/>
-				<parameter param-name="communicationEventId" from-field="communicationEventId"/>
-			</hyperlink>
+                <parameter param-name="communicationEventPrpTypId" from-field="communicationEventPrpTypId"/>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+            </hyperlink>
         </field>
     </form>
 
@@ -748,9 +748,9 @@ under the License.
         </actions>        
         <field name="subject">
             <hyperlink description="${subject}" target="EditCommunicationEvent">
-				<parameter param-name="communicationEventId" from-field="communicationEventId"/>
-				<parameter param-name="my" from-field="my"/>
-			</hyperlink>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="my" from-field="my"/>
+            </hyperlink>
         </field>
         <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit/></field>
     </form>

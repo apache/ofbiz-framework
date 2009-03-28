@@ -34,9 +34,9 @@ under the License.
         <field name="statusItemDescription"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeWorkEffortRequest">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="custRequestId" from-field="custRequestId"/>
-			</hyperlink>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddWorkEffortRequest" target="createWorkEffortRequest" title="" type="single"
