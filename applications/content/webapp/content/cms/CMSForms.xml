@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="findContent" default-entity-name="ContentAssocDataResourceViewFrom" target="CMSContentFind" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -40,9 +40,15 @@ under the License.
                 <field-map field-name="entityName" from-field="entityName"/>
             </service>
         </actions>
-    
+
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditAddContent?MASTER_contentId=${contentId}&amp;MASTER_drDataResourceId=${drDataResourceId}&amp;MASTER_caContentIdTo=${caContentIdTo}&amp;MASTER_caContentAssocTypeId=${caContentAssocTypeId}&amp;MASTER_caFromDate=${caFromDate}"/> 
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditAddContent">
+				<parameter param-name="MASTER_contentId" from-field="contentId"/>
+				<parameter param-name="MASTER_drDataResourceId" from-field="drDataResourceId"/>
+				<parameter param-name="MASTER_caContentIdTo" from-field="caContentIdTo"/>
+				<parameter param-name="MASTER_caContentAssocTypeId" from-field="caContentAssocTypeId"/>
+				<parameter param-name="MASTER_caFromDate" from-field="caFromDate"/>
+			</hyperlink>
 <!--
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent">
                 <parameter param-name="caContentIdTo"/>
@@ -52,7 +58,7 @@ under the License.
                 <parameter param-name="caContentId"/>
                 <parameter param-name="contentIdStart"/>
                 <parameter param-name="caContentAssocTypeId"/>
-            </hyperlink> 
+            </hyperlink>
 -->
         </field>
         <field name="caContentIdTo"><display/></field>
@@ -174,7 +180,13 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateContentPurposeOperation" default-field-type="display"/>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurposeOperation?contentPurposeTypeId=${contentPurposeTypeId}&amp;contentOperationId=${contentOperationId}&amp;roleTypeId=${roleTypeId}&amp;statusId=${statusId}&amp;privilegeEnumId=${privilegeEnumId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurposeOperation">
+				<parameter param-name="contentPurposeTypeId" from-field="contentPurposeTypeId"/>
+				<parameter param-name="contentOperationId" from-field="contentOperationId"/>
+				<parameter param-name="roleTypeId" from-field="roleTypeId"/>
+				<parameter param-name="statusId" from-field="statusId"/>
+				<parameter param-name="privilegeEnumId" from-field="privilegeEnumId"/>
+			</hyperlink>
         </field>
     </form>
     <form name="AddContentPurposeOperation" target="addContentPurposeOperation" title="" type="single"
@@ -280,7 +292,7 @@ under the License.
         </field>
 <!--
         <field name="submitContentEdit" title="${uiLabelMap.CommonEmptyHeader}">
-            <hyperlink also-hidden="false" description="Submit" target="javascript:document.EditAddContent.action='${persistAction}'; document.EditAddContent.submit()" target-type="plain"/> 
+            <hyperlink also-hidden="false" description="Submit" target="javascript:document.EditAddContent.action='${persistAction}'; document.EditAddContent.submit()" target-type="plain"/>
         </field>
 -->
        <field name="deactivateExisting" >
@@ -370,7 +382,7 @@ under the License.
     </form>
     <form name="EditAddBioImage" target="persistBioImage" title="" type="upload" extends="EditAddImageMaster" header-row-style="header-row" default-table-style="basic-table">
     </form>
-   
+
     <form name="AdminIndex" target="AdminIndex" title="" type="single" header-row-style="header-row" default-table-style="basic-table">
         <field name="indexContentIds" position="1"><text size="50"/></field>
         <field name="submitButton" title="${uiLabelMap.ContentIndexEnteredIds}" widget-style="smallSubmit" position="2"><submit button-type="button"/></field>
@@ -388,7 +400,7 @@ under the License.
     <form name="searchList" type="list" target="" list-name="queryResults" paginate-target="/AdminSearch"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;contentIdTo=${contentIdTo}"/> 
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}&amp;contentIdTo=${contentIdTo}"/>
         </field>
         <field name="contentId"><display/></field>
         <field name="dataResourceId"><display/></field>
@@ -400,15 +412,15 @@ under the License.
         <field name="contentAssocTitle" title="${uiLabelMap.ContentAssoc}" title-style="h1" map-name="dummy">
             <display description=""/>
         </field>
-        <field name="caContentIdTo" position="1" 
+        <field name="caContentIdTo" position="1"
             use-when="&quot;${caContentIdTo}&quot;.length()>0" >
             <display />
         </field>
-        <field name="caContentIdTo" position="1" 
+        <field name="caContentIdTo" position="1"
             use-when="&quot;${caContentIdTo}&quot;.length()==0" >
             <text />
         </field>
-        <field name="caMapKey" position="2" 
+        <field name="caMapKey" position="2"
             use-when="&quot;${caMapKey}&quot;.length()==0" >
             <text />
         </field>
@@ -416,11 +428,11 @@ under the License.
             use-when="&quot;${caMapKey}&quot;.length()>0" >
             <display />
         </field>
-        <field name="caContentAssocTypeId" position="1" 
+        <field name="caContentAssocTypeId" position="1"
             use-when="&quot;${caContentAssocTypeId}&quot;.length()>0" >
             <display />
         </field>
-        <field name="caContentAssocTypeId" position="1" 
+        <field name="caContentAssocTypeId" position="1"
             use-when="&quot;${caContentAssocTypeId}&quot;.length()==0" >
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="ContentAssocType" key-field-name="contentAssocTypeId"/>
@@ -436,12 +448,12 @@ under the License.
         <field name="contentTitle" title="${uiLabelMap.ContentContent}" title-style="h1" map-name="dummy">
             <display description=""/>
         </field>
-        <field name="contentId" position="1" 
+        <field name="contentId" position="1"
             use-when="&quot;${currentValue.contentId}&quot;.length()>0" >
             <display />
         </field>
 
-        <field name="contentId" position="1" 
+        <field name="contentId" position="1"
             use-when="&quot;${currentValue.contentId}&quot;.length()==0" >
             <text />
         </field>
@@ -582,7 +594,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-        
+
         <field name="MASTER_contentId" ><hidden value="${MASTER_contentId}" /></field>
         <field name="MASTER_caContentId" ><hidden value="${MASTER_caContentId}" /></field>
         <field name="MASTER_caContentIdTo" ><hidden value="${MASTER_caContentIdTo}" /></field>
