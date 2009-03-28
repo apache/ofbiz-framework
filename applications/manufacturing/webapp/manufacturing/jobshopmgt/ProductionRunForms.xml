@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="CreateProductionRun" target="createProductionRun" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -80,7 +80,7 @@ under the License.
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
-        
+
         <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="facilityId" title="${uiLabelMap.ProductFacilityId}"><display/></field>
@@ -91,10 +91,10 @@ under the License.
         <field name="productionRunId"><hidden/></field>
         <field name="productId" title="${uiLabelMap.ProductProductName}">
             <display-entity entity-name="Product" description="${internalName} [${productId}]"/>
-        </field> 
+        </field>
         <field name="currentStatusId">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
-        </field> 
+        </field>
         <field name="facilityId" title="${uiLabelMap.ProductFacilityId}">
             <drop-down>
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
@@ -133,7 +133,7 @@ under the License.
         <field name="lotId" entry-name="inventoryItemId"><display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${lotId} "/></field>
         <field name="creationDate" entry-name="inventoryItemId"><display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${datetimeReceived}"/></field>
     </form>
-    
+
      <form name="ViewListProductionRunRoutingTasks" type="list" title="" list-name="productionRunRoutingTasks"
          odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
          <row-actions>
@@ -165,11 +165,16 @@ under the License.
             <hyperlink target="ProductionRunTasks?routingTaskId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <!--<hyperlink target="RemoveRoutingTaskAssoc?workEffortIdFrom=${workEffortIdFrom}&amp;workEffortIdTo=${workEffortIdTo}&amp;fromDate=${fromDate}&amp;workEffortAssocTypeId=ROUTING_COMPONENT" description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>-->
+            <!--<hyperlink target="RemoveRoutingTaskAssoc"  description="[${uiLabelMap.CommonDelete}]" also-hidden="false">
+				<parameter param-name="workEffortIdFrom" from-field="{workEffortIdFrom}"/>
+				<parameter param-name="workEffortIdTo" from-field="{workEffortIdTo}"/>
+				<parameter param-name="fromDate" from-field="fromDate"/>
+				<parameter param-name="workEffortAssocTypeId" value="ROUTING_COMPONENT"/>
+				</hyperlink>-->
             <hyperlink target="deleteProductionRunRoutingTask?workEffortId=${workEffortId}&amp;productionRunId=${workEffortParentId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
- 
+
     <form name="ListProductionRunComponents" type="list" target="EditProductionRun" title="" list-name="productionRunComponents"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}">
@@ -225,10 +230,10 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="productId" title="${uiLabelMap.ProductProductName}">
             <display-entity entity-name="Product" description="${internalName} [${productId}]"/>
-        </field> 
+        </field>
         <field name="currentStatusId">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
-        </field> 
+        </field>
         <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityToProduce}">
             <display/>
         </field>
@@ -282,7 +287,7 @@ under the License.
         </field>
         <field name="internalName" title="${uiLabelMap.ProductProductName}">
             <display description="${productName} [${productId}]" also-hidden="false"/>
-        </field> 
+        </field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display also-hidden="false"/></field>
         <field name="issuedQuantity" title="${uiLabelMap.ManufacturingIssuedQuantity}"><display also-hidden="false"/></field>
         <field name="locationSeqId">
@@ -304,7 +309,7 @@ under the License.
         <field name="_rowSubmit"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
-   
+
     <form name="ListProductionRunDeclRoutingTasks" type="list" target="ProductionRunDeclaration" title="" list-name="productionRunRoutingTasks"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="actionForm"><hidden value="EditRoutingTask"/></field>
@@ -353,7 +358,7 @@ under the License.
         </field>
         <field name="internalName" title="${uiLabelMap.ProductProductName}">
             <display description="${productName} [${productId}]" also-hidden="false"/>
-        </field> 
+        </field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display also-hidden="false"/></field>
         <field name="issuedQuantity" title="${uiLabelMap.ManufacturingIssuedQuantity}"><display also-hidden="false"/></field>
         <field name="locationSeqId">
@@ -385,7 +390,7 @@ under the License.
         </field>
         <field name="internalName" title="${uiLabelMap.ProductProductName}">
             <display description="${productName} [${productId}]" also-hidden="false"/>
-        </field> 
+        </field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display also-hidden="false"/></field>
         <field name="issuedQuantity" title="${uiLabelMap.ManufacturingIssuedQuantity}"><display also-hidden="false"/></field>
         <field name="returnedQuantity" title="${uiLabelMap.ManufacturingReturnedQuantity}"><display also-hidden="false"/></field>
@@ -393,7 +398,7 @@ under the License.
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelected}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
-    
+
      <form name="EditProductionRunDeclRoutingTask" type="single" target="updateProductionRunTask" title="" default-map-name="routingTaskData"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="actionForm">
@@ -536,7 +541,7 @@ under the License.
         <field name="noteId"><hidden/></field>
         <field name="noteParty"><hidden/></field>
         <field name="noteDateTime"><hidden/></field>
-    </form>     
+    </form>
     <form name="EditProductionRunTaskFixedAsset" type="single" target="EditProductionRun" title="" default-map-name="fixedAssetData"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="declarationScreen.equals(&quot;Y&quot;)" target="ProductionRunDeclaration" />
@@ -760,7 +765,7 @@ under the License.
     <form name="ProductionRunTaskActualComponents" type="list" target="updateProductionRunComponent" paginate-target="ProductionRunActualComponents" title="" list-name="records"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <set field="quantityOnHandDiff" value="${bsh:-1*quantityOnHandDiff}" type="BigDecimal"/> 
+            <set field="quantityOnHandDiff" value="${bsh:-1*quantityOnHandDiff}" type="BigDecimal"/>
         </row-actions>
         <field name="inventoryItemId" widget-style="buttontext">
             <hyperlink target="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItemId}" description="${inventoryItemId}" also-hidden="false" target-type="inter-app"/>
