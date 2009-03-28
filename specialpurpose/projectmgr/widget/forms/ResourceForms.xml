@@ -34,7 +34,15 @@
             <hyperlink also-hidden="false" description="${lastName}, ${firstName} ${middleName} ${groupName}" target="viewprofile?partyId=${partyId}"/>
         </field>
         <field name="roleTypeId"><hidden/></field>
-        <field name="emailAddess" title="${uiLabelMap.PartyEmailAddress}"><hyperlink target="/partymgr/control/EditCommunicationEvent?partyIdFrom=${userLogin.partyId}&amp;partyIdTo=${partyId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION&amp;contactMechIdTo=${contactMechId}&amp;contactMechTypeId=EMAIL_ADDRESS" description="${emailResult.emailAddress}" target-type="inter-app"/></field>
+        <field name="emailAddess" title="${uiLabelMap.PartyEmailAddress}">
+            <hyperlink target="/partymgr/control/EditCommunicationEvent" description="${emailResult.emailAddress}" target-type="inter-app">
+                <parameter param-name="partyIdFrom" from-field="userLogin.partyId"/>
+                <parameter param-name="partyIdTo" from-field="partyId"/>
+                <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
+                <parameter param-name="contactMechIdTo" from-field="contactMechId"/>
+                <parameter param-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
+            <hyperlink>
+        </field>
         <field use-when="telResult.get(&quot;extension&quot;)!=null" name="telephone" title="${uiLabelMap.PartyPhoneNumber}"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber} Ext:${telResult.extension}"/></field>
         <field use-when="telResult.get(&quot;extension&quot;)==null" name="telephone" title="${uiLabelMap.PartyPhoneNumber}"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber}"/></field>
         <field name="contactMechPurposeTypeId" entry-name="telResult.contactMechPurposeTypeId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="ContactMechPurposeType"/></field>

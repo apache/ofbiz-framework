@@ -281,11 +281,21 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display/></field>
-        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditRoutingProductLink?workEffortId=${workEffortId}&amp;productId=${productId}&amp;fromDate=${fromDate}&amp;workEffortGoodStdTypeId=ROU_PROD_TEMPLATE" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
+        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" description="${uiLabelMap.CommonEdit}" widget-style="buttontext">
+            <hyperlink target="EditRoutingProductLink" also-hidden="false">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="workEffortGoodStdTypeId" value="ROU_PROD_TEMPLATE"/>
+            </hyperlink>
         </field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeRoutingProductLink?workEffortId=${workEffortId}&amp;productId=${productId}&amp;fromDate=${fromDate}&amp;workEffortGoodStdTypeId=ROU_PROD_TEMPLATE" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" description="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="removeRoutingProductLink" also-hidden="false">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="workEffortGoodStdTypeId" value="ROU_PROD_TEMPLATE"/>
+            </hyperlink>
         </field>
     </form>
    <form name="ListRoutingTaskProducts" type="list" target="ListRoutingTaskProducts" title="" list-name="allProducts"
@@ -296,10 +306,20 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditRoutingTaskProduct?workEffortId=${workEffortId}&amp;productId=${productId}&amp;fromDate=${fromDate}&amp;workEffortGoodStdTypeId=PRUNT_PROD_DELIV" description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
+            <hyperlink target="EditRoutingTaskProduct" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="workEffortGoodStdTypeId" value="PRUNT_PROD_DELIV"/>
+                </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeRoutingTaskProduct?workEffortId=${workEffortId}&amp;productId=${productId}&amp;fromDate=${fromDate}&amp;workEffortGoodStdTypeId=PRUNT_PROD_DELIV" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="removeRoutingTaskProduct" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="workEffortGoodStdTypeId" value="PRUNT_PROD_DELIV"/>
+                </hyperlink>
         </field>
     </form>
     <form name="EditRoutingTaskProduct" type="single" target="updateRoutingTaskProduct" title="" default-map-name="routingProductLink"
