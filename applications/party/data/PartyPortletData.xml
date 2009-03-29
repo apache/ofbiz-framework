@@ -20,55 +20,85 @@
 <entity-engine-xml>
     
     <!-- party -->
-    <PortalPortlet portalPortletId="party" portletName="Party Info" screenName="Party" screenLocation="component://party/widget/partymgr/ProfileScreens.xml" description="General information about a person or party group" />
-
-    <!-- communications -->
-    <PortalPortlet portalPortletId="MyCommunications" portletName="My Communications"  description="Communication list" 
-        screenName="MyCommunicationEvents" 
-        screenLocation="component://party/widget/partymgr/CommunicationScreens.xml"
-        editFormName="EditPartyId" editFormLocation="component://party/webapp/partymgr/communication/CommForms.xml" />
+    <PortletCategory portletCategoryId="PROFILE" description="Profiles"/>
+    <PortalPortlet portalPortletId="party" 
+        portletName="Party Info" 
+        screenName="Party" 
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml" description="General information about a person or party group" />
+    <PortletPortletCategory portalPortletId="party" portletCategoryId="PROFILE"/>
+    
     <PortalPortlet portalPortletId="Attributes" portletName="Attributes" 
         screenName="Attributes" 
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
-        description="Attributes in myportal from party" />
+        description="Attributes of a party" />
+    <PortletPortletCategory portalPortletId="Attributes" portletCategoryId="PROFILE"/>
+
     <PortalPortlet portalPortletId="AvsSettings" portletName="Avs Settings" 
         screenName="AvsSettings" 
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
-        description="Avs Settings in myportal from party" />
+        description="Avs Settings of a party" />
+    <PortletPortletCategory portalPortletId="AvsSettings" portletCategoryId="PROFILE"/>
+
     <PortalPortlet portalPortletId="Content" portletName="Content" 
         screenName="Content" 
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
-        description="Content in myportal from party" />
+        description="Attached Content of a party" />
+    <PortletPortletCategory portalPortletId="Content" portletCategoryId="PROFILE"/>
+
     <PortalPortlet portalPortletId="LoyaltyPoints" portletName="Loyalty Points" 
         screenName="LoyaltyPoints" 
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
-        description="Loyalty Points in myportal from party" />
+        description="Loyalty Points of a party" />
+    <PortletPortletCategory portalPortletId="LoyaltyPoints" portletCategoryId="PROFILE"/>
+
     <PortalPortlet portalPortletId="MYTASKSPARTY" portletName="My Tasks From Party" 
         screenName="mytasks" 
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
-        description="My Tasks in myportal from party" />
+        description="Assigned Tasks of a party" />
+    <PortletPortletCategory portalPortletId="MYTASKSPARTY" portletCategoryId="PROFILE"/>
+
     <PortalPortlet portalPortletId="Notes" portletName="Notes" 
         screenName="Notes" 
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
-        description="Notes in myportal from party" />    
+        description="Notes of a party" />    
+    <PortletPortletCategory portalPortletId="Notes" portletCategoryId="PROFILE"/>
+
     <PortalPortlet portalPortletId="PaymentMethods" portletName="Payment Methods" 
         screenName="PaymentMethods" 
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
-        description="PaymentMethods in myportal from party" />
+        description="PaymentMethods of a party" />
+    <PortletPortletCategory portalPortletId="PaymentMethods" portletCategoryId="PROFILE"/>
+
     <PortalPortlet portalPortletId="ShipperAccount" portletName="Shipper Account" 
         screenName="ShipperAccount" 
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
-        description="Shipper Account in myportal from party" />
+        description="Shipper Accounts of a party" />
+    <PortletPortletCategory portalPortletId="ShipperAccount" portletCategoryId="PROFILE"/>
+
     <PortalPortlet portalPortletId="UserLogin" portletName="User Login" 
         screenName="UserLogin" 
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
-        description="User Login in myportal from party" />
+        description="User Logins of a party" />
+    <PortletPortletCategory portalPortletId="UserLogin" portletCategoryId="PROFILE"/>
+
     <PortalPortlet portalPortletId="Visits" portletName="Visits" 
         screenName="Visits" 
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
-        description="Visits in myportal from party" />
+        description="Visits of a certain party" />
+    <PortletPortletCategory portalPortletId="Visits" portletCategoryId="PROFILE"/>
+
     <PortalPortlet portalPortletId="contact" portletName="Contact" 
         screenName="Contact" 
         screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
-        description="contact in myportal from party" />
+        description="contact methods of a party" />
+    <PortletPortletCategory portalPortletId="contact" portletCategoryId="PROFILE"/>
+
+    <!-- communications -->
+    <PortletCategory portletCategoryId="COMMUNICATIONS" description="Communication(s)"/>
+    <PortalPortlet portalPortletId="MyCommunications" portletName="My Communications"  description="IN and outgoing Communication list of a party" 
+        screenName="MyCommunicationEvents" 
+        screenLocation="component://party/widget/partymgr/CommunicationScreens.xml"
+        editFormName="EditPartyId" editFormLocation="component://party/webapp/partymgr/communication/CommForms.xml" />
+    <PortletPortletCategory portalPortletId="MyCommunications" portletCategoryId="COMMUNICATIONS"/>
+    
 </entity-engine-xml>

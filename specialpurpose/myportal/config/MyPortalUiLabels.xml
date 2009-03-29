@@ -83,12 +83,6 @@
         <value xml:lang="it">Nome mancante</value>
         <value xml:lang="th">กรุณากรอกชื่อของท่าน</value>
     </property>
-    <property key="MyPortalIncomingCustRequests">
-        <value xml:lang="en">Incoming customer requests</value>
-        <value xml:lang="fr">Nouvelles demandes utilisateur</value>
-        <value xml:lang="it">Richiesta cliente in entrata</value>
-        <value xml:lang="th">แสดงรายรับของลูกค้า</value>
-    </property>
     <property key="MyPortalInformation">
         <value xml:lang="en">My Information</value>
         <value xml:lang="fr">Mes informations </value>

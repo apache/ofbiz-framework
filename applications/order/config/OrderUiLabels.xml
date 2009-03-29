@@ -3229,6 +3229,12 @@
         <value xml:lang="th">รวม</value>
         <value xml:lang="zh">包括</value>
     </property>
+    <property key="OrderIncomingCustRequests">
+        <value xml:lang="en">Incoming customer requests</value>
+        <value xml:lang="fr">Nouvelles demandes utilisateur</value>
+        <value xml:lang="it">Richiesta cliente in entrata</value>
+        <value xml:lang="th">แสดงรายรับของลูกค้า</value>
+    </property>
     <property key="OrderInformationAboutYou">
         <value xml:lang="de">Informationen zu Ihnen</value>
         <value xml:lang="en">Information about you</value>
