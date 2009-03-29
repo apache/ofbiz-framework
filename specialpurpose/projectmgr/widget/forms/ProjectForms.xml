@@ -118,7 +118,11 @@
         <field name="workEffortId"><hidden/></field>
         <field name="phaseName" position="1" use-when="showPosition1"><display/></field>
         <field name="workEffortName" position="1" use-when="showPosition1"><display/></field>
-        <field name="timesheetId" position="2"><hyperlink description="${timesheetId}" target="Timesheet?timesheetId=${timesheetId}"/></field>
+        <field name="timesheetId" position="2">
+            <hyperlink description="${timesheetId}" target="Timesheet">
+                <parameter param-name="timesheetId" from-field="timesheetId"/>
+            </hyperlink>
+        </field>
         <field name="hours" position="2"><display/></field>
         <field name="timesheetPartyId" position="2"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName}" key-field-name="partyId"/></field>
         <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}" position="2"><display-entity entity-name="RateType" description="${description}"/></field>
@@ -144,7 +148,9 @@
             </service>
         </row-actions>
         <field name="projectName" map-name="resultProject.projectInfo" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
-            <hyperlink description="${resultProject.projectInfo.projectName}" target="projectView?projectId=${resultProject.projectInfo.projectId}"/>
+            <hyperlink description="${resultProject.projectInfo.projectName}" target="projectView">
+                <parameter param-name="projectId" from-field="resultProject.projectInfo.projectId"/>
+            </hyperlink>
         </field>
         <field name="currentStatusId" map-name="resultProject.projectInfo" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="estimatedStartDate" map-name="resultProject.projectInfo" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><display type="date"/></field>
@@ -161,7 +167,9 @@
             <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListCurrentProjects.groovy"/>
         </actions>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
-            <hyperlink description="${projectName}" target="projectView?projectId=${projectId}"/>
+            <hyperlink description="${projectName}" target="projectView">
+                <parameter param-name="projectId" from-field="projectId"/>
+            </hyperlink>
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><display type="date"/></field>
@@ -185,7 +193,9 @@
         <field name="workEffortParentId"><hidden value=""/></field>
         <field name="workEffortId"><hidden value="${projectId}"/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortName}" target="projectView?projectId=${workEffortId}"/>
+            <hyperlink also-hidden="false" description="${workEffortName}" target="projectView">
+                <parameter param-name="projectId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}" parameter-name="dummy"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
@@ -425,7 +435,9 @@
             </service>
         </row-actions>
         <field name="projectName" map-name="resultProject.projectInfo" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
-            <hyperlink description="${resultProject.projectInfo.projectName}" target-type="inter-app" target="/projectmgr/control/projectView?projectId=${resultProject.projectInfo.projectId}"/>
+            <hyperlink description="${resultProject.projectInfo.projectName}" target-type="inter-app" target="/projectmgr/control/projectView">
+                <parameter param-name="projectId" from-field="resultProject.projectInfo.projectId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="ListProjectProviderParties" type="list" list-name="assigns"
@@ -612,7 +624,9 @@
             <set field="statusId" from-field="result.statusId"/>
         </row-actions>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortName}" target="taskView?workEffortId=${workEffortId}"/>
+            <hyperlink also-hidden="false" description="${workEffortName}" target="taskView">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${resultProject.phaseName}"/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">

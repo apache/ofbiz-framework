@@ -146,7 +146,11 @@ under the License.
             </service>
         </row-actions>
         <field name="custRequestId"><hidden/></field>
-        <field name="custRequestName"><hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest?custRequestId=${custRequestId}"/></field>
+        <field name="custRequestName">
+            <hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+            </hyperlink>
+        </field>
         <field name="custRequestDate" title="${uiLabelMap.CommonDate}"><display type="date"/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="priority">
@@ -206,7 +210,9 @@ under the License.
             <script location="component://myportal/webapp/myportal/WEB-INF/actions/ConvertInvoiceCurrency.groovy"/>
         </row-actions>
         <field name="invoiceId" widget-style="buttontext">
-            <hyperlink description="${invoiceId}" target="invoice.pdf?invoiceId=${invoiceId}"/>
+            <hyperlink description="${invoiceId}" target="invoice.pdf">
+                <parameter param-name="invoiceId" from-field="invoiceId"/>
+            </hyperlink>
         </field>
         <field name="invoiceTypeId"><display-entity entity-name="InvoiceType" description="${description}"/></field>
         <field name="invoiceDate"><display/></field>

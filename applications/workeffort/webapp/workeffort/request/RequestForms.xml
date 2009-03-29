@@ -23,7 +23,9 @@ under the License.
     <form name="ListRequests" type="list" use-row-submit="true" title="" list-name="custRequestAndRoles" paginate-target="requestlist"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="custRequestId" widget-style="buttontext">
-            <hyperlink description="${custRequestId}" target-type="inter-app" target="/ordermgr/control/ViewRequest?custRequestId=${custRequestId}"/>
+            <hyperlink description="${custRequestId}" target-type="inter-app" target="/ordermgr/control/ViewRequest">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+            </hyperlink>
         </field>
         <field name="custRequestName"><display/></field>
         <field name="priority"><display/></field>

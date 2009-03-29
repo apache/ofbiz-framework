@@ -24,7 +24,9 @@ under the License.
     <form name="ListBillingAccounts" type="list" list-name="billingAccounts" paginate-target="FindBillingAccount" default-entity-name="BillingAccount"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="billingAccountId" widget-style="buttontext">
-            <hyperlink description="${billingAccountId}" target="EditBillingAccount?billingAccountId=${billingAccountId}"/>
+            <hyperlink description="${billingAccountId}" target="EditBillingAccount">
+                <parameter param-name="billingAccountId" from-field="billingAccountId"/>
+            </hyperlink>
         </field>
         <field name="accountLimit">
             <display type="currency" currency="${billingAccount.accountCurrencyUomId}" />
@@ -37,7 +39,9 @@ under the License.
     <form name="ListBillingAccountsByParty" type="list" list-name="billingAccounts" paginate-target="FindBillingAccount" default-entity-name="BillingAccountAndRole"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="billingAccountId" widget-style="buttontext">
-            <hyperlink description="${billingAccountId}" target="EditBillingAccount?billingAccountId=${billingAccountId}"/>
+            <hyperlink description="${billingAccountId}" target="EditBillingAccount">
+                <parameter param-name="billingAccountId" from-field="billingAccountId"/>
+            </hyperlink>
         </field>
         <field name="accountLimit">
             <display type="currency" currency="${billingAccount.accountCurrencyUomId}" />
@@ -80,7 +84,9 @@ under the License.
         </row-actions>
         <field name="billingAccountId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext">
-            <hyperlink description="${invoiceId}" target="invoiceOverview?invoiceId=${invoiceId}"/>
+            <hyperlink description="${invoiceId}" target="invoiceOverview">
+                <parameter param-name="invoiceId" from-field="invoiceId"/>
+            </hyperlink>
         </field>
         <field name="invoiceTypeId"><display-entity entity-name="InvoiceType" description="${description}"/></field>
         <field name="invoiceDate"><display/></field>
@@ -250,7 +256,9 @@ under the License.
             </entity-condition>
         </actions>
         <field name="paymentId" widget-style="buttontext">
-            <hyperlink description="${paymentId}" target="paymentOverview?paymentId=${paymentId}"/>
+            <hyperlink description="${paymentId}" target="paymentOverview">
+                <parameter param-name="paymentId" from-field="paymentId"/>
+            </hyperlink>
         </field>
         <field name="paymentMethodTypeId" title="${uiLabelMap.CommonType}">
             <display-entity entity-name="PaymentMethodType" description="${description}"/>

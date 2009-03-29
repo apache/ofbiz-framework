@@ -48,7 +48,9 @@ under the License.
             </service>
         </actions>
         <auto-fields-entity entity-name="FinAccount" default-field-type="display"/>
-        <field name="finAccountId"> <hyperlink  description="${finAccountId}" target="EditFinAccount?finAccountId=${finAccountId}"/> </field>
+        field name="finAccountId"> <hyperlink  description="${finAccountId}" target="EditFinAccount">
+                <parameter param-name="finAccountId" from-field="finAccountId"/>
+            </field name="finAccountId"> <hyperlink> </field>
         <field name="finAccountTypeId"><display-entity entity-name="FinAccountType" description="${description}"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteFinAccount" description="${uiLabelMap.CommonDelete}" also-hidden="false">

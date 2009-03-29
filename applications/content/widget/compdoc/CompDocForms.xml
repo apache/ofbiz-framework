@@ -82,10 +82,14 @@ under the License.
             </hyperlink> 
         </field>
         <field name="tree" use-when="&quot;COMPDOC_TEMPLATE&quot;.equals(contentTypeId)" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocTemplateTree?rootContentId=${contentId}"/> 
+            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocTemplateTree">
+                <parameter param-name="rootContentId" from-field="contentId"/>
+            </hyperlink> 
         </field>
         <field name="tree" use-when="&quot;COMPDOC_INSTANCE&quot;.equals(contentTypeId)" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocInstanceTree?rootContentId=${contentId}"/> 
+            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocInstanceTree">
+                <parameter param-name="rootContentId" from-field="contentId"/>
+            </hyperlink> 
         </field>
     </form>
     
@@ -98,10 +102,14 @@ under the License.
         <field name="caFromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="caThruDate"><hidden/></field>
         <field name="editTemplate" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-           <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditRootCompDoc?rootContentId=${contentId}"/> 
+           <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditRootCompDoc">
+                <parameter param-name="rootContentId" from-field="contentId"/>
+            </hyperlink> 
         </field>
         <field name="templateTree" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocInstanceTree?rootContentId=${contentId}"/> 
+            <hyperlink also-hidden="false" description="${uiLabelMap.ContentTree}" target="ViewCompDocInstanceTree">
+                <parameter param-name="rootContentId" from-field="contentId"/>
+            </hyperlink> 
         </field>
     </form>
     

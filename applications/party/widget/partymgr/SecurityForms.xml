@@ -29,7 +29,9 @@ under the License.
             </entity-condition>
         </actions>
         <field name="groupId" title="${uiLabelMap.PartySecurityGroupId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${groupId}" target="EditSecurityGroup?groupId=${groupId}"/>
+            <hyperlink also-hidden="false" description="${groupId}" target="EditSecurityGroup">
+                <parameter param-name="groupId" from-field="groupId"/>
+            </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
     </form>

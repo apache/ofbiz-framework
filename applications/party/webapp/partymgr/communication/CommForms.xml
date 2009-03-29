@@ -209,7 +209,9 @@ under the License.
             </entity-one>
         </actions>
         <field name="communicationEventId">
-                <hyperlink description="${communicationEvent.communicationEventId}" target="ViewCommunicationEvent?communicationEventId=${communicationEvent.communicationEventId}"/>
+                <hyperlink description="${communicationEvent.communicationEventId}" target="ViewCommunicationEvent">
+                <parameter param-name="communicationEventId" from-field="communicationEvent.communicationEventId"/>
+            </hyperlink>
         </field>
         <field name="communicationEventTypeId"><display-entity entity-name="CommunicationEventType" description="${description}"/></field>
         <field name="partyIdFrom">

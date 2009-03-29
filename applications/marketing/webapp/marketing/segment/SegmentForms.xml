@@ -31,7 +31,9 @@ under the License.
             </service>
         </actions>
         <field name="segmentGroupId" widget-style="buttontext" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}">
-            <hyperlink also-hidden="false" description="${segmentGroupId}" target="viewSegmentGroup?segmentGroupId=${segmentGroupId}"/>
+            <hyperlink also-hidden="false" description="${segmentGroupId}" target="viewSegmentGroup">
+                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+            </hyperlink>
         </field>
         <field name="segmentGroupTypeId" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupTypeId}"><display-entity entity-name="SegmentGroupType" description="${description}"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>

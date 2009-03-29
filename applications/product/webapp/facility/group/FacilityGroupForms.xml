@@ -25,7 +25,9 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="FacilityGroup" default-field-type="display"/>
         <field name="facilityGroupId" widget-style="buttontext">
-            <hyperlink description="${facilityGroupId}" target="EditFacilityGroup?facilityGroupId=${facilityGroupId}"/>
+            <hyperlink description="${facilityGroupId}" target="EditFacilityGroup">
+                <parameter param-name="facilityGroupId" from-field="facilityGroupId"/>
+            </hyperlink>
         </field>
         <field name="facilityGroupTypeId"><display-entity entity-name="FacilityGroupType"/></field>
         <field name="description"><display/></field>

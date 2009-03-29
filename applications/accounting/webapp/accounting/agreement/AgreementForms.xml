@@ -61,7 +61,9 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="Agreement" default-field-type="display"/>
         <field name="agreementId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext" sort-field="true">
-            <hyperlink also-hidden="false" description="${agreementId}" target="EditAgreement?agreementId=${agreementId}"/>
+            <hyperlink also-hidden="false" description="${agreementId}" target="EditAgreement">
+                <parameter param-name="agreementId" from-field="agreementId"/>
+            </hyperlink>
         </field>
         <field name="productId" sort-field="true"></field>
         <field name="partyIdFrom" sort-field="true"></field>

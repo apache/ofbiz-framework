@@ -106,11 +106,15 @@ under the License.
         <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
         <field name="glFiscalTypeId"><display-entity entity-name="GlFiscalType" description="${description}"/></field>
         <field name="invoiceId" use-when="invoiceId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/>
+            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice">
+                <parameter param-name="invoiceId" from-field="invoiceId"/>
+            </hyperlink>
         </field>
         <field name="invoiceId" use-when="invoiceId==null"><display/></field>
         <field name="paymentId" use-when="paymentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/>
+            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment">
+                <parameter param-name="paymentId" from-field="paymentId"/>
+            </hyperlink>
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" use-when="workEffortId!=null" widget-style="buttontext">
@@ -147,11 +151,15 @@ under the License.
         <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
         <field name="glFiscalTypeId"><display-entity entity-name="GlFiscalType" description="${description}"/></field>
         <field name="invoiceId" use-when="invoiceId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/>
+            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice">
+                <parameter param-name="invoiceId" from-field="invoiceId"/>
+            </hyperlink>
         </field>
         <field name="invoiceId" use-when="invoiceId==null"><display/></field>
         <field name="paymentId" use-when="paymentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/>
+            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment">
+                <parameter param-name="paymentId" from-field="paymentId"/>
+            </hyperlink>
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
         <field name="partyId"><display/></field>
@@ -279,11 +287,15 @@ under the License.
         <field name="acctgTransTypeId" position="2"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
         <field name="glFiscalTypeId" position="2"><display-entity entity-name="GlFiscalType" description="${description}"/></field>
         <field name="invoiceId" position="2" use-when="invoiceId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/>
+            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice">
+                <parameter param-name="invoiceId" from-field="invoiceId"/>
+            </hyperlink>
         </field>
         <field name="invoiceId" position="2" use-when="invoiceId==null"><display/></field>
         <field name="paymentId" position="2" use-when="paymentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/>
+            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment">
+                <parameter param-name="paymentId" from-field="paymentId"/>
+            </hyperlink>
         </field>
         <field name="paymentId" position="2" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" position="2" use-when="workEffortId!=null" widget-style="buttontext">
@@ -358,11 +370,15 @@ under the License.
             <display-entity entity-name="GlAccountClass" />
         </field>
         <field name="invoiceId" use-when="invoiceId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/>
+            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice">
+                <parameter param-name="invoiceId" from-field="invoiceId"/>
+            </hyperlink>
         </field>
         <field name="invoiceId" use-when="invoiceId==null"><display/></field>
         <field name="paymentId" use-when="paymentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/>
+            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment">
+                <parameter param-name="paymentId" from-field="paymentId"/>
+            </hyperlink>
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" use-when="workEffortId!=null" widget-style="buttontext">

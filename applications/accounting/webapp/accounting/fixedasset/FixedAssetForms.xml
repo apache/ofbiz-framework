@@ -30,7 +30,9 @@ under the License.
             </service>
         </actions>
         <field name="fixedAssetId" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${fixedAssetId}" target="EditFixedAsset?fixedAssetId=${fixedAssetId}"/>
+            <hyperlink also-hidden="false" description="${fixedAssetId}" target="EditFixedAsset">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+            </hyperlink>
         </field>
         <field name="fixedAssetName" title="${uiLabelMap.AccountingFixedAssetName}">
             <display/>

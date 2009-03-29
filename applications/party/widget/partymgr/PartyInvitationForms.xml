@@ -50,7 +50,9 @@ under the License.
             </service>
         </actions>
         <field name="partyInvitationId" title="${uiLabelMap.PartyInvitationPartyInvitationId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${partyInvitationId}" target="editPartyInvitation?partyInvitationId=${partyInvitationId}"/>
+            <hyperlink also-hidden="false" description="${partyInvitationId}" target="editPartyInvitation">
+                <parameter param-name="partyInvitationId" from-field="partyInvitationId"/>
+            </hyperlink>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><display/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
@@ -95,7 +97,9 @@ under the License.
             </entity-condition>
         </actions>
         <field name="partyInvitationId" title="${uiLabelMap.PartyInvitationPartyInvitationId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${partyInvitationId}" target="editPartyInvitation?partyInvitationId=${partyInvitationId}"/>
+            <hyperlink also-hidden="false" description="${partyInvitationId}" target="editPartyInvitation">
+                <parameter param-name="partyInvitationId" from-field="partyInvitationId"/>
+            </hyperlink>
         </field>
         <field name="partyId" widget-style="buttontext" entry-name="partyIdTo">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
@@ -133,7 +137,9 @@ under the License.
             </entity-condition>
         </actions>
         <field name="partyInvitationId" title="${uiLabelMap.PartyInvitationPartyInvitationId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${partyInvitationId}" target="editPartyInvitation?partyInvitationId=${partyInvitationId}"/>
+            <hyperlink also-hidden="false" description="${partyInvitationId}" target="editPartyInvitation">
+                <parameter param-name="partyInvitationId" from-field="partyInvitationId"/>
+            </hyperlink>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display-entity entity-name="RoleType"/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">

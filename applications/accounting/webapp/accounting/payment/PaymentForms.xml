@@ -60,7 +60,9 @@ under the License.
             <set field="amountToApply" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(delegator,paymentId);}"/>
         </row-actions>
         <field name="paymentId" widget-style="buttontext">
-            <hyperlink description="${paymentId}" target="paymentOverview?paymentId=${paymentId}"/>
+            <hyperlink description="${paymentId}" target="paymentOverview">
+                <parameter param-name="paymentId" from-field="paymentId"/>
+            </hyperlink>
         </field>
         <field name="paymentTypeId"><display-entity entity-name="PaymentType" description="${description}"/></field>
         <field name="statusId"><display-entity entity-name="StatusItem"/></field>
