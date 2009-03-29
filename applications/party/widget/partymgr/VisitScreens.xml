@@ -31,7 +31,7 @@ under the License.
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/visit/ShowVisits.groovy"/>                
             </actions>
             <widgets>
-                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->

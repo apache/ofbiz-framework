@@ -72,7 +72,7 @@ under the License.
                             <condition>
                                 <and>
                                     <if-has-permission permission="PARTYMGR" action="_VIEW"/>
-                                    <not><if-empty field="partyId"/></not>
+                                    <not><if-empty field="party"/></not>
                                 </and>
                             </condition>
                             <widgets>

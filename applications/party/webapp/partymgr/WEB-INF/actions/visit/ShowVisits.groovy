@@ -91,6 +91,7 @@ try {
 }
 
 context.visitList = visitList;
+listSize = 0;
 if (visitList) {
     listSize = lowIndex + visitList.size();
 }
