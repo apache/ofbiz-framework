@@ -159,7 +159,11 @@ under the License.
                 <parameter param-name="productId" from-field="productId"/>
             </hyperlink>
         </field>
-        <field name="overrideGlAccountId" widget-area-style="align-text"><hyperlink target="GlAccountNavigate?glAccountId=${overrideGlAccountId}" description="${overrideGlAccountId}"/></field>
+        <field name="overrideGlAccountId" widget-area-style="align-text">
+			<hyperlink target="GlAccountNavigate" description="${overrideGlAccountId}">
+				<parameter param-name="glAccountId" from-field="overrideGlAccountId"/>
+			</hyperlink>
+		</field>
     </form>
 
     <form name="invoiceRoles" type="list" use-row-submit="true" title="" list-name="invoiceRoles" paginate-target="invoiceRoles"
@@ -187,7 +191,11 @@ under the License.
         <field name="description"><display/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="invoiceId"><hidden/></field>
-        <field name="paymentId" widget-style="linktext"><hyperlink target="paymentOverview?paymentId=${paymentId}" description="${paymentId}"/></field>
+        <field name="paymentId" widget-style="linktext">
+			<hyperlink target="paymentOverview" description="${paymentId}">
+				<parameter param-name="paymentId" from-field="paymentId"/>
+			</hyperlink>
+		</field>
         <field name="billingAccountId"><hidden/></field>
         <field name="paymentApplicationId"><hidden/></field>
         <field name="amountApplied" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
@@ -451,7 +459,11 @@ under the License.
     <form name="ListPaymentsNotApplied" type="list" list-name="payments" target="updateInvoiceApplication" title=""
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="invoiceId"><hidden/></field>
-        <field name="paymentId" widget-style="buttontext"><hyperlink target="paymentOverview?paymentId=${paymentId}" description="[${paymentId}]"/></field>
+        <field name="paymentId" widget-style="buttontext">
+			<hyperlink target="paymentOverview" description="[${paymentId}]">
+				<parameter param-name="paymentId" from-field="paymentId"/>
+			</hyperlink>
+		</field>
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="effectiveDate"><display type="date"/></field>
         <field name="amountApplied" parameter-name="dummy"><display type="currency" currency="${currencyUomId}"/></field>

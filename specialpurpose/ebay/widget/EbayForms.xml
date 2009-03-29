@@ -42,7 +42,11 @@ under the License.
         <field name="productStoreId"><hidden/></field>
         <field name="externalId" title="${uiLabelMap.EbayImportEbayItem}"><display/></field>
         <field name="transactionId"><display/></field>
-        <field name="orderId"><hyperlink target="orderview?orderId=${orderId}" description="${orderId}"/></field>
+        <field name="orderId">
+			<hyperlink target="orderview" description="${orderId}">
+				<parameter param-name="orderId" from-field="orderId"/>
+			</hyperlink>
+		</field>
         <field name="createdDate"><display/></field>
         <!--
         <field name="productId" use-when="!${allowProductIdChange}"><display/></field>
