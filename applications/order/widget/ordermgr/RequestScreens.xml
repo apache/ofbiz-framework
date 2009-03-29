@@ -496,4 +496,34 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="IncomingCustRequests">
+        <section>
+            <actions>
+                <entity-condition list="custRequests" entity-name="CustReqAndTypeAndPartyRel">
+                    <condition-list combine="and">
+                        <condition-expr field-name="statusId" operator="equals" value="CRQ_SUBMITTED"/>
+                        <condition-list combine="and">
+                            <condition-expr field-name="roleTypeIdTo" operator="equals" value="REQ_TAKER"/>
+                            <condition-expr field-name="partyIdTo" operator="equals" from-field="userLogin.partyId"/>
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="-custRequestDate"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not><if-empty field="custRequests"/></not>
+                    </condition>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.OrderIncomingCustRequests}" navigation-form-name="ListRequestList">
+                            <include-form name="ListRequestList" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        </screenlet>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>

@@ -73,16 +73,12 @@
     <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER2" columnSeqId="00001" />
     <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER3" columnSeqId="00001" />
     
-    <PortletCategory portletCategoryId="PROFILE" description="Profiles"/>
-    <PortletCategory portletCategoryId="COMMUNICATIONS" description="Communication(s)"/>
     <PortletCategory portletCategoryId="TASKS" description="Task(s)"/>
     <PortletCategory portletCategoryId="TIMESHEETS" description="Timesheet(s)"/>
-    <PortletCategory portletCategoryId="LIST_REQUEST" description="List(s) Request"/>
     <PortletCategory portletCategoryId="LIST_CUSTOMER" description="List(s) of Customer" />    
     
     <PortalPortlet portalPortletId="mycompanycomms" portletName="My Company Comms" screenName="MyCompanyComms" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Company Comms From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="mytasks" portletName="My Tasks" screenName="MyTasks" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Tasks From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />    
-    <PortalPortlet portalPortletId="listrequestlist" portletName="List Request List" screenName="ListRequestList" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Request List From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="mytimesheet" portletName="My Timesheet" screenName="MyTimesheet" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Timesheet From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="ListInvoices" portletName="List Invoices" screenName="ListInvoices" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Invoices From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="ListCustRequests" portletName="List Cust Requests" screenName="ListCustRequests" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Cust Requests From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
@@ -92,7 +88,7 @@
     
     <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0" />
     
-    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE" portalPortletId="listrequestlist" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>    
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE" portalPortletId="INCOM_CUST_REQUESTS" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>    
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE1" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
@@ -112,7 +108,7 @@
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE4" portalPortletId="mytimesheet" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE5" portalPortletId="mytasks" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     
-    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML" portalPortletId="listrequestlist" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>    
+    <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML" portalPortletId="INCOM_CUST_REQUESTS" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>    
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML1" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001"  sequenceNum="1"/>
@@ -142,25 +138,11 @@
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="MYTASKSPARTY" portletSeqId="00001" columnSeqId="00002"  sequenceNum="8"/>
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER2" portalPortletId="ListInvoices" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER3" portalPortletId="ListProjects" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
-
-    <PortletPortletCategory portalPortletId="Attributes" portletCategoryId="PROFILE"/>
-    <PortletPortletCategory portalPortletId="AvsSettings" portletCategoryId="PROFILE"/>
-    <PortletPortletCategory portalPortletId="Content" portletCategoryId="PROFILE"/>
-    <PortletPortletCategory portalPortletId="LoyaltyPoints" portletCategoryId="PROFILE"/>
-    <PortletPortletCategory portalPortletId="MYTASKSPARTY" portletCategoryId="PROFILE"/>
-    <PortletPortletCategory portalPortletId="Notes" portletCategoryId="PROFILE"/>
-    <PortletPortletCategory portalPortletId="PaymentMethods" portletCategoryId="PROFILE"/>
-    <PortletPortletCategory portalPortletId="ShipperAccount" portletCategoryId="PROFILE"/>
-    <PortletPortletCategory portalPortletId="UserLogin" portletCategoryId="PROFILE"/>
-    <PortletPortletCategory portalPortletId="Visits" portletCategoryId="PROFILE"/>
-    <PortletPortletCategory portalPortletId="contact" portletCategoryId="PROFILE"/>
-    <PortletPortletCategory portalPortletId="party" portletCategoryId="PROFILE"/>
     
     <PortletPortletCategory portalPortletId="mycompanycomms" portletCategoryId="COMMUNICATIONS"/>
     
     <PortletPortletCategory portalPortletId="mytasks" portletCategoryId="TASKS"/>
     <PortletPortletCategory portalPortletId="mytimesheet" portletCategoryId="TIMESHEETS"/>
-    <PortletPortletCategory portalPortletId="listrequestlist" portletCategoryId="LIST_REQUEST"/>
     
     <PortletPortletCategory portalPortletId="ListInvoices" portletCategoryId="LIST_CUSTOMER"/>
     <PortletPortletCategory portalPortletId="ListCustRequests" portletCategoryId="LIST_CUSTOMER"/>
