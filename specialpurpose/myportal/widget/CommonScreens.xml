@@ -55,7 +55,7 @@ under the License.
    <screen name="CommonPartyDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="viewprofile"/>
+                <set field="headerItem" value="${parameters.portalPageId}"/>
                 <set field="partyId" from-field="userLogin.partyId"/>
                 <set field="parameters.partyId" from-field="userLogin.partyId"/>
                 <entity-one entity-name="Party" value-field="party"/>

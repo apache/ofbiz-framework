@@ -121,7 +121,9 @@
     <screen name="Contact">
         <section>
             <actions>
+                <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/> 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetContactMechs.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
             <widgets>
                 <platform-specific>
@@ -151,8 +153,10 @@
     <screen name="Attributes">
         <section>
             <actions>
+                <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
+                <entity-one entity-name="Party" value-field="party"/>
                 <entity-and entity-name="PartyAttribute" list="attributes">
-                    <field-map field-name="partyId" from-field="parameters.partyId"/>
+                    <field-map field-name="partyId" from-field="partyId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -168,8 +172,10 @@
     <screen name="AvsSettings">
         <section>
             <actions>
+                <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
+                <entity-one entity-name="Party" value-field="party"/>
                 <entity-and entity-name="PartyIcsAvsOverride" list="avsOverride">
-                    <field-map field-name="partyId" from-field="parameters.partyId"/>
+                    <field-map field-name="partyId" from-field="partyId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -215,8 +221,10 @@
     <screen name="UserLogin">
         <section>
             <actions>
+                <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/> 
+                <entity-one entity-name="Party" value-field="party"/>
                 <entity-and entity-name="UserLogin" list="userLogins">
-                    <field-map field-name="partyId" from-field="parameters.partyId"/>
+                    <field-map field-name="partyId" from-field="partyId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -232,8 +240,9 @@
     <screen name="Visits">
         <section>
             <actions>
+                <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
                 <entity-and entity-name="Visit" list="visits">
-                    <field-map field-name="partyId" from-field="parameters.partyId"/>
+                    <field-map field-name="partyId" from-field="partyId"/>
                     <order-by field-name="-fromDate"/>
                     <limit-range start="0" size="5"/>
                 </entity-and>
@@ -405,10 +414,11 @@
     <screen name="ContentList">
         <section>
             <actions>
+                <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <entity-and entity-name="PartyContent" list="partyContent">
-                    <field-map field-name="partyId" from-field="parameters.partyId"/>
+                    <field-map field-name="partyId" from-field="partyId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -424,8 +434,9 @@
     <screen name="Notes">
         <section>
             <actions>
+                <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
                 <entity-and entity-name="PartyNoteView" list="notes">
-                    <field-map field-name="targetPartyId" from-field="parameters.partyId"/>
+                    <field-map field-name="targetPartyId" from-field="partyId"/>
                     <order-by field-name="-noteDateTime"/>
                 </entity-and>
             </actions>

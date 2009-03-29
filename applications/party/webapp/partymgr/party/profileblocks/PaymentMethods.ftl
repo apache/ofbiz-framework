@@ -22,9 +22,9 @@ under the License.
       <ul>
         <li class="h3">${uiLabelMap.PartyPaymentMethodInformation}</li>
         <#if security.hasEntityPermission("PAY_INFO", "_CREATE", session)>
-          <li><a href="<@ofbizUrl>editeftaccount?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewEftAccount}</a></li>
-          <li><a href="<@ofbizUrl>editgiftcard?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewGiftCard}</a></li>
-          <li><a href="<@ofbizUrl>editcreditcard?partyId=${party.partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewCreditCard}</a></li>
+          <li><a href="<@ofbizUrl>editeftaccount?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewEftAccount}</a></li>
+          <li><a href="<@ofbizUrl>editgiftcard?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewGiftCard}</a></li>
+          <li><a href="<@ofbizUrl>editcreditcard?partyId=${partyId}</@ofbizUrl>">${uiLabelMap.AccountingCreateNewCreditCard}</a></li>
         </#if>
       </ul>
       <br class="clear" />
@@ -65,7 +65,7 @@ under the License.
                     <a href="/accounting/control/manualETx?paymentMethodId=${paymentMethod.paymentMethodId}${externalKeyParam}">${uiLabelMap.PartyManualTx}</a>
                   </#if>
                   <#if security.hasEntityPermission("PAY_INFO", "_UPDATE", session)>
-                    <a href="<@ofbizUrl>editcreditcard?partyId=${party.partyId}&paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
+                    <a href="<@ofbizUrl>editcreditcard?partyId=${partyId}&paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
                   </#if>
                 <#-- </td> -->
               <#elseif "GIFT_CARD" == paymentMethod.paymentMethodTypeId>
@@ -101,7 +101,7 @@ under the License.
                 </td>
                 <td class="button-col">
                   <#if security.hasEntityPermission("PAY_INFO", "_UPDATE", session)>
-                    <a href="<@ofbizUrl>editgiftcard?partyId=${party.partyId}&paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
+                    <a href="<@ofbizUrl>editgiftcard?partyId=${partyId}&paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
                   </#if>
                 <#-- </td> -->
               <#elseif "EFT_ACCOUNT" == paymentMethod.paymentMethodTypeId>
@@ -117,7 +117,7 @@ under the License.
                 </td>
                 <td class="button-col">
                   <#if security.hasEntityPermission("PAY_INFO", "_UPDATE", session)>
-                    <a href="<@ofbizUrl>editeftaccount?partyId=${party.partyId}&paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
+                    <a href="<@ofbizUrl>editeftaccount?partyId=${partyId}&paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
                   </#if>
                 <#-- </td> -->
               <#elseif "COMPANY_CHECK" == paymentMethod.paymentMethodTypeId>
@@ -136,7 +136,7 @@ under the License.
                 <#-- </td> -->
               </#if>
               <#if security.hasEntityPermission("PAY_INFO", "_DELETE", session)>
-                <a href="<@ofbizUrl>deletePaymentMethod/viewprofile?partyId=${party.partyId}&paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonExpire}</a>
+                <a href="<@ofbizUrl>deletePaymentMethod/viewprofile?partyId=${partyId}&paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>">${uiLabelMap.CommonExpire}</a>
               <#else>
                 &nbsp;
               </#if>
