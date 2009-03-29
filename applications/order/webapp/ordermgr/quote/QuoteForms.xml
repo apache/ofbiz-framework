@@ -83,7 +83,9 @@ under the License.
           </actions>
         <auto-fields-entity entity-name="Quote" default-field-type="display"/>
         <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${quoteId}" target="ViewQuote?quoteId=${quoteId}"/>
+            <hyperlink also-hidden="false" description="${quoteId}" target="ViewQuote">
+                <parameter param-name="quoteId" from-field="quoteId"/>
+            </hyperlink>
         </field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}"><display-entity entity-name="QuoteType"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity also-hidden="false" entity-name="StatusItem"/></field>

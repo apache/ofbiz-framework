@@ -24,7 +24,9 @@ under the License.
     <form name="ListFacilities" type="list" list-name="facilities" paginate-target="main"
              default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="facilityId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${facilityId}" target="menu?facilityId=${facilityId}"/>
+            <hyperlink also-hidden="false" description="${facilityId}" target="menu">
+                <parameter param-name="facilityId" from-field="facilityId"/>
+            </hyperlink>
         </field>
         <field name="facilityName"><display/></field>
         <field name="description" title="${uiLabelMap.ProductProductDescription}"><display/></field>

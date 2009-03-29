@@ -82,7 +82,11 @@ under the License.
     </form>
     <form name="ListRequestList" type="list" use-row-submit="true" list-name="custRequests" title="List of customer requests" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="FindRequest">
-        <field name="custRequestName"><hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest?custRequestId=${custRequestId}"/></field>
+        <field name="custRequestName">
+            <hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+            </hyperlink>
+        </field>
         <field name="priority"><display/></field>
         <field name="responseRequiredDate"><display/></field>
         <field name="fromPartyId">
@@ -408,7 +412,9 @@ under the License.
         <auto-fields-entity entity-name="CustRequestParty" default-field-type="display"/>
         <field name="custRequestId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
-            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile?partyId=${partyId}"/>
+            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
         </field>
         <field name="name" entry-name="partyId">
             <display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}"/>
@@ -448,7 +454,9 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="RequestItemRequirements">
         <auto-fields-entity entity-name="Requirement" default-field-type="display"/>
         <field name="requirementId" widget-style="buttontext">
-            <hyperlink description="${requirementId}" target="EditRequirement?requirementId=${requirementId}"/>
+            <hyperlink description="${requirementId}" target="EditRequirement">
+                <parameter param-name="requirementId" from-field="requirementId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="ListCustRequestItemWorkEfforts" type="list" target="" title=""

@@ -66,12 +66,16 @@
             </service>
         </actions>
         <field name="productId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${productId}" target="EditProduct?productId=${productId}"/>
+            <hyperlink also-hidden="false" description="${productId}" target="EditProduct">
+                <parameter param-name="productId" from-field="productId"/>
+            </hyperlink>
         </field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
         <field name="searchVariants" title="" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
-            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct?productId=${productId}"/>
+            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct">
+                <parameter param-name="productId" from-field="productId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="lookupProduct" target="${submitTarget}" type="single"
@@ -100,7 +104,9 @@
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
         <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}"><display/></field>
         <field name="searchVariants" title="" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
-            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct?productId=${productId}"/>
+            <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct">
+                <parameter param-name="productId" from-field="productId"/>
+            </hyperlink>
         </field>
     </form>
 

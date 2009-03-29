@@ -202,7 +202,9 @@ under the License.
             </entity-and>
         </actions>
         <field name="contentId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${contentId}" target="/EditContent?contentId=${contentId}"/>
+            <hyperlink also-hidden="false" description="${contentId}" target="/EditContent">
+                <parameter param-name="contentId" from-field="contentId"/>
+            </hyperlink>
         </field>
         <field name="contentName"><display/></field>
         <field name="description"><display/></field>

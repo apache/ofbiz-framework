@@ -44,7 +44,9 @@ under the License.
             </service>
         </actions>
         <field name="workEffortId" widget-style="buttontext" title="${uiLabelMap.ManufacturingRoutingId}">
-            <hyperlink description="${workEffortId}" target="EditRouting?workEffortId=${workEffortId}"/>
+            <hyperlink description="${workEffortId}" target="EditRouting">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="workEffortName" title="${uiLabelMap.ManufacturingRoutingName}"><display/></field>
         <field name="description"><display/></field>
@@ -95,7 +97,9 @@ under the License.
             </service>
         </actions>
         <field name="workEffortId" title="${uiLabelMap.ManufacturingTaskId}" widget-style="buttontext">
-            <hyperlink description="${workEffortId}" target="EditRoutingTask?workEffortId=${workEffortId}"/>
+            <hyperlink description="${workEffortId}" target="EditRoutingTask">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}"><display/></field>
         <field name="description"><display/></field>

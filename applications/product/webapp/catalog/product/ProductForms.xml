@@ -1045,7 +1045,9 @@ under the License.
         <auto-fields-entity entity-name="ProductAssoc" default-field-type="display"/>
         <field name="productId"><hidden/></field>
         <field name="productIdTo" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${productIdTo}" target="EditProduct?productId=${productIdTo}"/>
+            <hyperlink also-hidden="false" description="${productIdTo}" target="EditProduct">
+                <parameter param-name="productId" from-field="productIdTo"/>
+            </hyperlink>
         </field>
 
     </form>
@@ -1054,7 +1056,9 @@ under the License.
         <auto-fields-entity entity-name="ProductAssoc" default-field-type="display"/>
         <field name="productIdTo"><hidden/></field>
         <field name="productId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${productId}" target="EditProduct?productId=${productId}"/>
+            <hyperlink also-hidden="false" description="${productId}" target="EditProduct">
+                <parameter param-name="productId" from-field="productId"/>
+            </hyperlink>
         </field>
     </form>
     -->
@@ -1068,7 +1072,9 @@ under the License.
         <field name="instruction"><hidden/></field>
         <field name="routingWorkEffortId"><hidden/></field>
         <field name="productIdTo" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${productIdTo}" target="ViewProductManufacturing?productId=${productIdTo}"/>
+            <hyperlink also-hidden="false" description="${productIdTo}" target="ViewProductManufacturing">
+                <parameter param-name="productId" from-field="productIdTo"/>
+            </hyperlink>
         </field>
         <field name="productName" title="${uiLabelMap.ProductProductName}" entry-name="productIdTo">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
@@ -1086,7 +1092,9 @@ under the License.
         <field name="productAssocTypeId"><hidden/></field>
         <field name="scrapFactor"><hidden/></field>
         <field name="productId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${productId}" target="ViewProductManufacturing?productId=${productId}"/>
+            <hyperlink also-hidden="false" description="${productId}" target="ViewProductManufacturing">
+                <parameter param-name="productId" from-field="productId"/>
+            </hyperlink>
         </field>
         <field name="productName" title="${uiLabelMap.ProductProductName}" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>

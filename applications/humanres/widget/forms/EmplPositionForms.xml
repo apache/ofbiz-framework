@@ -31,7 +31,9 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="EmplPosition" default-field-type="display"/>
         <field name="emplPositionId" title="${uiLabelMap.HumanResEmployeePositionId}" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${emplPositionId}" target="emplPositionView?emplPositionId=${emplPositionId}"/>
+            <hyperlink also-hidden="false" description="${emplPositionId}" target="emplPositionView">
+                <parameter param-name="emplPositionId" from-field="emplPositionId"/>
+            </hyperlink>
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">

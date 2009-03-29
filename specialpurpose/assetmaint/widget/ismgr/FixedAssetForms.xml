@@ -117,7 +117,9 @@ under the License.
             </service>
         </actions>
         <field name="fixedAssetId" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${fixedAssetName} ${fixedAssetId}" target="EditComputerHardware?fixedAssetId=${fixedAssetId}"/>
+            <hyperlink also-hidden="false" description="${fixedAssetName} ${fixedAssetId}" target="EditComputerHardware">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+            </hyperlink>
         </field>
         <field name="fixedAssetTypeId"><hidden/></field>
         <field name="classEnumId"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
@@ -145,7 +147,9 @@ under the License.
             </service>
         </actions>
         <field name="fixedAssetId" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${fixedAssetName} ${fixedAssetId}" target="EditComputerSoftware?fixedAssetId=${fixedAssetId}"/>
+            <hyperlink also-hidden="false" description="${fixedAssetName} ${fixedAssetId}" target="EditComputerSoftware">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+            </hyperlink>
         </field>
         <field name="fixedAssetTypeId"><hidden/></field>
         <field name="classEnumId"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
@@ -172,7 +176,9 @@ under the License.
             </entity-condition>
         </actions>
         <field name="fixedAssetId" widget-style="linktext">
-            <hyperlink also-hidden="false" description="${fixedAssetName} ${fixedAssetId}" target="EditComputerHardware?fixedAssetId=${fixedAssetId}"/>
+            <hyperlink also-hidden="false" description="${fixedAssetName} ${fixedAssetId}" target="EditComputerHardware">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+            </hyperlink>
         </field>
         <field name="fixedAssetTypeId"><hidden/></field>
         <field name="classEnumId"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>

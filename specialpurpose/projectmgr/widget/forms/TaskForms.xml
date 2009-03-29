@@ -177,11 +177,15 @@
             <set field="currentStatusId" from-field="result.taskInfo.currentStatusId"/>
         </row-actions>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortName}" target="taskView?workEffortId=${workEffortId}"/>
+            <hyperlink also-hidden="false" description="${workEffortName}" target="taskView">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
+            <hyperlink also-hidden="false" description="${projectName}" target="projectView">
+                <parameter param-name="projectId" from-field="projectId"/>
+            </hyperlink>
         </field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority"><display/></field>
@@ -208,7 +212,9 @@
         <field name="oldRoleTypeId" parameter-name="roleTypeId"><hidden value="${roleTypeId}"/></field>
         <field name="oldPartyId" parameter-name="partyId"><hidden value="${partyId}"/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortName}" target="taskView?workEffortId=${workEffortId}"/>
+            <hyperlink also-hidden="false" description="${workEffortName}" target="taskView">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${resultProject.phaseName}"/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">

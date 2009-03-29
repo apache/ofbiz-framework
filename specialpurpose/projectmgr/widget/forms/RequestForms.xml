@@ -23,7 +23,9 @@ under the License.
     <form name="ListRequests" type="list" extends="ListRequestList" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml"
             paginate-target="requestlist" >
         <field name="createTaskFromRequest" title="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" target="EditTaskFromRequest?custRequestId=${custRequestId}"/>
+            <hyperlink description="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" target="EditTaskFromRequest">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditCustRequest" type="single" target="updaterequest" title="Request" default-map-name="custRequest">
@@ -113,7 +115,9 @@ under the License.
         <field name="custRequestName"><display/></field>
         <field name="description"><display/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
-            <hyperlink also-hidden="false" description="${projectName}" target="projectView?projectId=${projectId}"/>
+            <hyperlink also-hidden="false" description="${projectName}" target="projectView">
+                <parameter param-name="projectId" from-field="projectId"/>
+            </hyperlink>
         </field>
         <field name="phaseName"><display description="${result.phaseName}"/></field>
         <field name="taskName">
@@ -138,7 +142,9 @@ under the License.
             </entity-one>
         </row-actions>
         <field name="partyId" widget-style="buttontext">
-            <hyperlink description="${partyId}" target="viewprofile?partyId=${partyId}"/>
+            <hyperlink description="${partyId}" target="viewprofile">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
         </field>
         <field name="RequestTaker"><display description="${person.personalTitle} ${person.firstName} ${person.middleName} ${person.lastName}"/></field>
     </form>

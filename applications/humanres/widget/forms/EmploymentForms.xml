@@ -57,7 +57,9 @@
         </actions>
         <field name="partyIdFrom" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}"><display></display></field>
         <field name="partyIdTo" title="${uiLabelMap.HumanResEmployeePartyIdTo}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${partyIdTo}" target="EmployeeProfile?partyId=${partyIdTo}"/>
+            <hyperlink also-hidden="false" description="${partyIdTo}" target="EmployeeProfile">
+                <parameter param-name="partyId" from-field="partyIdTo"/>
+            </hyperlink>
         </field>
         <field name="firstName"><display></display></field>
         <field name="lastName"><display></display></field>
@@ -85,7 +87,9 @@
         </actions>
         <field name="partyIdFrom" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}"><display></display></field>
         <field name="partyIdTo" title="${uiLabelMap.HumanResEmployeePartyIdTo}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${partyIdTo}" target="viewprofile?partyId=${partyIdTo}"/>
+            <hyperlink also-hidden="false" description="${partyIdTo}" target="viewprofile">
+                <parameter param-name="partyId" from-field="partyIdTo"/>
+            </hyperlink>
         </field>
         <field name="fromDate"><display also-hidden="true"/></field>
         <field name="thruDate"><display/></field>

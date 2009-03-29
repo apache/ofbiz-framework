@@ -70,7 +70,9 @@
             <set field="complete" value="${uiLabelMap.ProjectMgrToComplete}"/>
         </actions>
         <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${timesheetId}" target="${my}Timesheet?timesheetId=${timesheetId}"/>
+            <hyperlink also-hidden="false" description="${timesheetId}" target="${my}Timesheet">
+                <parameter param-name="timesheetId" from-field="timesheetId"/>
+            </hyperlink>
         </field>
         <field name="weekNumber" title="${uiLabelMap.ProjectMgrWeekNumber}"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
@@ -124,7 +126,9 @@
             <set field="completeLink" value="${bsh:&quot;TIMESHEET_IN_PROCESS&quot;.equals(statusId)?complete:&quot;&quot;}"/>
         </row-actions>
         <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${timesheetId}" target="Timesheet?timesheetId=${timesheetId}"/>
+            <hyperlink also-hidden="false" description="${timesheetId}" target="Timesheet">
+                <parameter param-name="timesheetId" from-field="timesheetId"/>
+            </hyperlink>
         </field>
         <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}"/></field>
         <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
@@ -133,7 +137,9 @@
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <!--field name="comments" title="${uiLabelMap.CommonComments}"><display/></field-->
         <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
-            <hyperlink target="TimeSheetStatusToComplete?timesheetId=${timesheetId}&amp;statusId=TIMESHEET_COMPLETED" description="${completeLink}"/>
+            <hyperlink target="TimeSheetStatusToComplete">
+                <parameter param-name="timesheetId" from-field="timesheetId}&amp;statusId=TIMESHEET_COMPLETED" description="${completeLink"/>
+            </hyperlink>
         </field>
     </form>
     
@@ -266,11 +272,15 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="timesheetId"><hidden/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}">
-            <hyperlink target="taskView?workEffortId=${workEffortId} " description="${workEffortName}"/>
+            <hyperlink target="taskView">
+                <parameter param-name="workEffortId" from-field="workEffortId} " description="${workEffortName"/>
+            </hyperlink>
         </field>
         <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
-            <hyperlink target="projectView?projectId=${projectId} " description="${projectName}"/>
+            <hyperlink target="projectView">
+                <parameter param-name="projectId" from-field="projectId} " description="${projectName"/>
+            </hyperlink>
         </field>
         <field name="checkComplete" title="${uiLabelMap.ProjectMgrCheckComplete}"><display/></field>
         <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}"><display-entity entity-name="RateType" description="${description}"/></field>

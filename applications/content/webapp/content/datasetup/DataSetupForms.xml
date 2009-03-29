@@ -41,7 +41,9 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceType?dataResourceTypeId=${dataResourceTypeId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceType">
+                <parameter param-name="dataResourceTypeId" from-field="dataResourceTypeId"/>
+            </hyperlink>
         </field>
     </form>
     
@@ -100,7 +102,9 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeCharacterSet?characterSetId=${characterSetId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeCharacterSet">
+                <parameter param-name="characterSetId" from-field="characterSetId"/>
+            </hyperlink>
         </field>
     </form>
     
@@ -137,7 +141,9 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataCategory?dataCategoryId=${dataCategoryId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataCategory">
+                <parameter param-name="dataCategoryId" from-field="dataCategoryId"/>
+            </hyperlink>
         </field>
     </form>
     
@@ -174,7 +180,9 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeFileExtension?fileExtensionId=${fileExtensionId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeFileExtension">
+                <parameter param-name="fileExtensionId" from-field="fileExtensionId"/>
+            </hyperlink>
         </field>
     </form>
     
@@ -199,7 +207,9 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMetaDataPredicate?metaDataPredicateId=${metaDataPredicateId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMetaDataPredicate">
+                <parameter param-name="metaDataPredicateId" from-field="metaDataPredicateId"/>
+            </hyperlink>
         </field>
     </form>
     
@@ -224,7 +234,9 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMimeType?mimeTypeId=${mimeTypeId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeMimeType">
+                <parameter param-name="mimeTypeId" from-field="mimeTypeId"/>
+            </hyperlink>
         </field>
     </form>
 

@@ -70,7 +70,9 @@ under the License.
         </row-actions>
 
         <field name="invoiceId" widget-style="buttontext" sort-field="true">
-            <hyperlink description="${invoiceId}" target="invoiceOverview?invoiceId=${invoiceId}"/>
+            <hyperlink description="${invoiceId}" target="invoiceOverview">
+                <parameter param-name="invoiceId" from-field="invoiceId"/>
+            </hyperlink>
         </field>
         <field name="invoiceTypeId" sort-field="true"><display-entity entity-name="InvoiceType" description="${description}"/></field>
         <field name="invoiceDate" sort-field="true"><display type="date"/></field>
@@ -171,7 +173,9 @@ under the License.
         <!--auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/-->
         <field name="invoiceId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
-            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile?partyId=${partyId}"/>
+            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
         </field>
         <field name="name" entry-name="partyId">
             <display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}"/>
@@ -480,7 +484,9 @@ under the License.
         <!--auto-fields-entity entity-name="InvoiceRole" default-field-type="display"/-->
         <field name="invoiceId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
-            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile?partyId=${partyId}"/>
+            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
         </field>
         <field name="name" entry-name="partyId">
             <display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}"/>

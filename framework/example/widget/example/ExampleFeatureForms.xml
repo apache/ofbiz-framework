@@ -38,7 +38,9 @@ under the License.
             </service>
         </actions>
         <field name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${exampleFeatureId}" target="EditExampleFeature?exampleFeatureId=${exampleFeatureId}"/>
+            <hyperlink also-hidden="false" description="${exampleFeatureId}" target="EditExampleFeature">
+                <parameter param-name="exampleFeatureId" from-field="exampleFeatureId"/>
+            </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
     </form>

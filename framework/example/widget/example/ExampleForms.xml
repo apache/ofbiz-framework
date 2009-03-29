@@ -55,7 +55,9 @@ under the License.
         <alt-row-style use-when="&quot;EXST_APPROVED&quot;.equals(statusId)" style="Validate"/>
         <alt-row-style use-when="&quot;EXST_CANCELLED&quot;.equals(statusId)" style="Warn"/>
         <field name="exampleId" title="${uiLabelMap.ExampleExampleId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${exampleId}" target="EditExample?exampleId=${exampleId}"/>
+            <hyperlink also-hidden="false" description="${exampleId}" target="EditExample">
+                <parameter param-name="exampleId" from-field="exampleId"/>
+            </hyperlink>
         </field>
         <field name="exampleName" title="${uiLabelMap.CommonName}" sort-field="true"><display/></field>
         <field name="exampleTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="ExampleType"/></field>

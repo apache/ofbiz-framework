@@ -316,7 +316,9 @@ under the License.
         </field>
         
         <field name="subscriptionResourceId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${subscriptionResourceId}" target="EditSubscriptionResource?subscriptionResourceId=${subscriptionResourceId}"/>
+            <hyperlink also-hidden="false" description="${subscriptionResourceId}" target="EditSubscriptionResource">
+                <parameter param-name="subscriptionResourceId" from-field="subscriptionResourceId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditSubscriptionResource" type="single" target="updateSubscriptionResource" default-map-name="subscriptionResource"

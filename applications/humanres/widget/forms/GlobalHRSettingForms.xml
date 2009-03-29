@@ -109,7 +109,9 @@ under the License.
         </actions>            
         <auto-fields-service service-name="updateEmplPositionType" default-field-type="hidden"/>        
         <field name="emplPositionTypeId" title="${uiLabelMap.HumanResEmplPositionType}">
-            <hyperlink also-hidden="false" description="${emplPositionTypeId}" target="EditEmplPositionTypes?emplPositionTypeId=${emplPositionTypeId}"/>
+            <hyperlink also-hidden="false" description="${emplPositionTypeId}" target="EditEmplPositionTypes">
+                <parameter param-name="emplPositionTypeId" from-field="emplPositionTypeId"/>
+            </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
     </form>            

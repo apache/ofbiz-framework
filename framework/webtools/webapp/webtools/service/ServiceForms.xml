@@ -85,12 +85,16 @@ under the License.
         <field name="runTime" title="${uiLabelMap.WebtoolsRunTime}" sort-field="true"><display/></field>
         <field name="startDateTime" title="${uiLabelMap.CommonStartDateTime}" sort-field="true"><display/></field>
         <field name="serviceName" title="${uiLabelMap.WebtoolsService}" sort-field="true">
-            <hyperlink also-hidden="false" description="${serviceName}" target="ServiceList?sel_service_name=${serviceName}"/>
+            <hyperlink also-hidden="false" description="${serviceName}" target="ServiceList">
+                <parameter param-name="sel_service_name" from-field="serviceName"/>
+            </hyperlink>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" sort-field="true"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="cancelDateTime" title="${uiLabelMap.CommonEndDateTime}" sort-field="true"><display/></field>
         <field name="cancelButton" title="${uiLabelMap.CommonEmptyHeader}" use-when="startDateTime==null&amp;&amp;finishDateTime==null&amp;&amp;cancelDateTime==null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsCancelJob}" target="cancelJob?jobId=${jobId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsCancelJob}" target="cancelJob">
+                <parameter param-name="jobId" from-field="jobId"/>
+            </hyperlink>
         </field>
     </form>
 </forms>

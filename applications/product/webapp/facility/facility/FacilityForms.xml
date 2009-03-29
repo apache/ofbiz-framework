@@ -551,7 +551,9 @@ under the License.
     <form name="ListPhysicalInventory" type="multi" list-name="physicalInventory" target="createPhysicalVariances?facilityId=${parameters.facilityId}&amp;productId=${parameters.productId}&amp;internalName=${parameters.internalName}" use-row-submit="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink description="${inventoryItemId}" target="EditInventoryItem?inventoryItemId=${inventoryItemId}"/>
+            <hyperlink description="${inventoryItemId}" target="EditInventoryItem">
+                <parameter param-name="inventoryItemId" from-field="inventoryItemId"/>
+            </hyperlink>
         </field>
         <field name="productId" widget-style="buttontext">
             <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">
