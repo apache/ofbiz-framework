@@ -23,7 +23,9 @@
     <form name="FindProductStore" type="list" list-name="productStores"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="ProductStoreNameId" title="${uiLabelMap.ProductStoreNameId}" widget-style="buttontext">
-            <hyperlink target="EditProductStore?productStoreId=${productStoreId}" description="${storeName} [${productStoreId}]"/>
+            <hyperlink target="EditProductStore" description="${storeName} [${productStoreId}]">
+                <parameter param-name="productStoreId" from-field="productStoreId"/>
+            </hyperlink>
         </field>
         <field name="title" title="${uiLabelMap.ProductTitle}"><display/></field>
         <field name="subtitle" title="${uiLabelMap.ProductSubTitle}"><display/></field>
@@ -457,7 +459,9 @@
         <field name="productStoreId"><hidden/></field>
         <field name="prodCatalogId" title="${uiLabelMap.ProductCatalogId}">
             <display-entity entity-name="ProdCatalog" description="${catalogName}" also-hidden="true">
-                <sub-hyperlink target="EditProdCatalog?prodCatalogId=${prodCatalogId}" description="${prodCatalogId}" link-style="buttontext"/>
+                <sub-hyperlink target="EditProdCatalog" description="${prodCatalogId}" link-style="buttontext">
+                    <parameter param-name="prodCatalogId" from-field="prodCatalogId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>

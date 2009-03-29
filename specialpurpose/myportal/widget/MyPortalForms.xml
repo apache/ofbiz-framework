@@ -24,13 +24,15 @@ under the License.
     <form name="MyTasks" extends="MyTasks" extends-resource="component://projectmgr/widget/forms/TaskForms.xml">
         <field name="portalPageId"><hidden value="${parameters.portalPageId}"/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortName}" target="/projectmgr/control/taskView?workEffortId=${workEffortId}" target-type="inter-app" target-window="_BLANK"/>
+            <hyperlink also-hidden="false" description="${workEffortName}" target="/projectmgr/control/taskView" target-type="inter-app" target-window="_BLANK">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
-			<hyperlink target="/projectmgr/control/projectView"  target-type="inter-app" target-window="_BLANK" description="${resultProject.projectName}">
-				<parameter param-name="projectId" from-field="resultProject.projectId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="/projectmgr/control/projectView"  target-type="inter-app" target-window="_BLANK" description="${resultProject.projectName}">
+                <parameter param-name="projectId" from-field="resultProject.projectId"/>
+            </hyperlink>
+        </field>
         <field name="roleTypeId" parameter-name="newRoleTypeId" title="${uiLabelMap.PartyRole}"><hidden value="${roleTypeId}"/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="workEffortId" from-field="workEffortId"/>
@@ -64,7 +66,9 @@ under the License.
                     <entity-order-by field-name="phaseName"/>
                     <entity-order-by field-name="workEffortName"/>
                 </entity-options>
-                <sub-hyperlink target="/projectmgr/control/taskView?workEffortId=${workEffortId}" target-type="inter-app" target-window="_BLANK" link-style="buttontext" description="${bsh:workEffortId != void &amp;&amp; !workEffortId.equals(&quot;Totals&quot;) ? workEffortId : &quot;&quot;}"/>
+                <sub-hyperlink target="/projectmgr/control/taskView" target-type="inter-app" target-window="_BLANK" link-style="buttontext" description="${bsh:workEffortId != void &amp;&amp; !workEffortId.equals(&quot;Totals&quot;) ? workEffortId : &quot;&quot;}">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </sub-hyperlink>
             </drop-down>
         </field>
         <field name="updateButton"><submit/></field>
@@ -74,11 +78,15 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="timesheetId"><hidden/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}">
-            <hyperlink target="/projectmgr/control/taskView?workEffortId=${workEffortId}" target-type="inter-app" target-window="_BLANK" description="${workEffortName}"/>
+            <hyperlink target="/projectmgr/control/taskView" target-type="inter-app" target-window="_BLANK" description="${workEffortName}">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
-            <hyperlink target="/projectmgr/control/projectView?projectId=${projectId}" target-type="inter-app" target-window="_BLANK" description="${projectName}"/>
+            <hyperlink target="/projectmgr/control/projectView" target-type="inter-app" target-window="_BLANK" description="${projectName}">
+                <parameter param-name="projectId" from-field="projectId"/>
+            </hyperlink>
         </field>
         <field name="checkComplete" title="${uiLabelMap.ProjectMgrCheckComplete}"><display/></field>
         <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}"><display-entity entity-name="RateType" description="${description}"/></field>
@@ -125,7 +133,9 @@ under the License.
     
     <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="workEffortId">
-            <hyperlink target="/projectmgr/control/taskView?workEffortId=${workEffortId}" description="${workEffortName} [${workEffortId}]" target-type="inter-app"/>
+            <hyperlink target="/projectmgr/control/taskView" description="${workEffortName} [${workEffortId}]" target-type="inter-app">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
     </form>
     

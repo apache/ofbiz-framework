@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
      <form name="EditMarketingCampaign" type="single" target="updateMarketingCampaign" title="" default-map-name="marketingCampaign"
         header-row-style="header-row" default-table-style="basic-table">
@@ -27,7 +27,7 @@ under the License.
         </actions>
         <alt-target use-when="marketingCampaign==null" target="createMarketingCampaign"/>
         <auto-fields-entity entity-name="MarketingCampaign"/>
-        
+
         <field use-when="marketingCampaign!=null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="marketingCampaign==null&amp;&amp;marketingCampaignId==null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}"><ignored/></field>
         <field use-when="marketingCampaign==null&amp;&amp;marketingCampaignId!=null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${marketingCampaignId}]"><display/></field>
@@ -47,7 +47,7 @@ under the License.
                 <entity-options description="${description}" entity-name="StatusItem">
                      <entity-constraint name="statusTypeId" value="MKTG_CAMP_STATUS"/>
                      <entity-order-by field-name="sequenceId"/>
-                </entity-options>        
+                </entity-options>
             </drop-down>
         </field>
         <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
@@ -61,7 +61,7 @@ under the License.
         <field name="DONE_PAGE">
             <hidden value="${donePage}"/>
         </field>
-        
+
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="cancelLink" widget-style="buttontext" title="${uiLabelMap.CommonCancel}"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}" target-type="inter-app"/></field>
     </form>
@@ -72,7 +72,9 @@ under the License.
             <entity-condition entity-name="MarketingCampaign"/>
         </actions>
         <field name="marketingCampaignId" widget-style="buttontext" title="${uiLabelMap.MarketingCampaignId}">
-            <hyperlink target="EditMarketingCampaign?marketingCampaignId=${marketingCampaignId}" description="${marketingCampaignId}" also-hidden="false"/>
+            <hyperlink target="EditMarketingCampaign" description="${marketingCampaignId}" also-hidden="false">
+                <parameter param-name="marketingCampaignId" from-field="marketingCampaignId"/>
+            </hyperlink>
         </field>
         <field name="campaignName" title="${uiLabelMap.MarketingCampaignName}"><display/></field>
         <field name="parentCampaignId" title="${uiLabelMap.MarketingParentCampaignId}">
@@ -96,19 +98,25 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="&quot;${lastName}&quot;!=null">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName}" also-hidden="true">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" description="${partyId}" link-style="buttontext" target-type="inter-app"/>
+                <sub-hyperlink target="/partymgr/control/viewprofile" description="${partyId}" link-style="buttontext" target-type="inter-app">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
 <!-- Currently not working for PartyGroup
         <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="&quot;${groupName}&quot;!=null">
             <display-entity entity-name="PartyNameView" description="${groupName}" also-hidden="true">
-                <sub-hyperlink target="/partymgr/control/viewProfile?partyId=${partyId}" description="${partyId}" link-style="buttontext"/>
+                <sub-hyperlink target="/partymgr/control/viewProfile" description="${partyId}" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         -->
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
             <display-entity entity-name="RoleType" description="${description}" also-hidden="true"/>
-<!--                 <sub-hyperlink target="/partymgr/control/viewProfile?partyId=${partyId}" description="${partyId}" link-style="buttontext"/>
+                <!--<sub-hyperlink target="/partymgr/control/viewProfile" description="${partyId}" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>-->
         </field>
         <field name="editLink" title="&amp;nbsp;" widget-style="buttontext">
@@ -128,7 +136,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="marketingCampaignRole==null" target="createMarketingCampaignRole"/>
         <auto-fields-service service-name="updateMarketingCampaignRole"/>
-        
+
         <field use-when="marketingCampaign!=null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="marketingCampaign==null&amp;&amp;marketingCampaignId==null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}"><ignored/></field>
         <field use-when="marketingCampaign==null&amp;&amp;marketingCampaignId!=null" name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${marketingCampaignId}]"><display/></field>
@@ -144,9 +152,9 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="cancelLink" widget-style="buttontext" title="${uiLabelMap.CommonCancel}">
-			<hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
-				<parameter param-name="marketingCampaignId" from-field="marketingCampaignId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+                <parameter param-name="marketingCampaignId" from-field="marketingCampaignId"/>
+            </hyperlink>
+        </field>
     </form>
 </forms>

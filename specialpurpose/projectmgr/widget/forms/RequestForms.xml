@@ -152,16 +152,22 @@ under the License.
             </service>
         </row-actions> 
         <field name="custRequestId">
-            <hyperlink target="ViewRequest?custRequestId=${custRequestId}" description="${custRequestName} [${custRequestId}]"/>
+            <hyperlink target="ViewRequest" description="${custRequestName} [${custRequestId}]">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+            </hyperlink>
          </field>
         <field name="projectId" title="${uiLabelMap.ProjectMgrProjectId}" map-name="sResult">
-            <hyperlink target="projectView?projectId=${sResult.projectId}" description="${sResult.projectName} [${sResult.projectId}]"/>
+            <hyperlink target="projectView" description="${sResult.projectName} [${sResult.projectId}]">
+                <parameter param-name="projectId" from-field="sResult.projectId"/>
+            </hyperlink>
         </field>
         <field name="phaseId" map-name="sResult">
             <display description="${sResult.phaseName} [${sResult.phaseId}]"/>
         </field>
         <field name="workEffortId">
-            <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName} [${workEffortId}]"/>
+            <hyperlink target="taskView" description="${workEffortName} [${workEffortId}]">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="priority"><display/></field>
         <field name="createdDate"><display type="date"/></field>
@@ -176,7 +182,9 @@ under the License.
     </form>
     <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="workEffortId">
-            <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName} [${workEffortId}]"/>
+            <hyperlink target="taskView" description="${workEffortName} [${workEffortId}]">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="OverviewRequestItems" extends="OverviewRequestItems" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">

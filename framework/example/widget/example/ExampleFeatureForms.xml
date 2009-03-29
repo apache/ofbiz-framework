@@ -78,7 +78,9 @@ under the License.
         <auto-fields-service service-name="updateExampleFeatureAppl"/>
         <field name="exampleId" title="${uiLabelMap.ExampleExample}">
             <display-entity entity-name="Example" description="${exampleName}">
-                <sub-hyperlink target="EditExample?exampleId=${exampleId}" description="${exampleId}" link-style="buttontext"/>
+                <sub-hyperlink target="EditExample" description="${exampleId}" link-style="buttontext">
+                    <parameter param-name="exampleId" from-field="exampleId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="exampleFeatureId"><hidden/></field>

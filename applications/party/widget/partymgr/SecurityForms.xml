@@ -101,7 +101,9 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="partyId" title="${uiLabelMap.PartyParty}">
             <display-entity entity-name="PartyNameView" also-hidden="false" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="viewprofile?partyId=${partyId}" description="${partyId}" link-style="buttontext"/>
+                <sub-hyperlink target="viewprofile" description="${partyId}" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
@@ -134,7 +136,9 @@ under the License.
         <field name="partyId"><hidden value="${partyId}"/></field>
         <field name="groupId" title="${uiLabelMap.CommonGroup}">
             <display-entity entity-name="SecurityGroup">
-                <sub-hyperlink target="EditSecurityGroup?groupId=${groupId}" description="${groupId}" link-style="buttontext"/>
+                <sub-hyperlink target="EditSecurityGroup" description="${groupId}" link-style="buttontext">
+                    <parameter param-name="groupId" from-field="groupId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="userLoginId"><hidden/></field>

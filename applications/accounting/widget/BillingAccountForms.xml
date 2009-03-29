@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="ListBillingAccounts" type="list" list-name="billingAccounts" paginate-target="FindBillingAccount" default-entity-name="BillingAccount"
@@ -50,7 +50,7 @@ under the License.
     </form>
 
     <form name="ListBillingAccountInvoices" type="list" list-name="billingAccountInvoices" paginate-target="BillingAccountInvoices" default-entity-name="Invoice"
-        odd-row-style="alternate-row"  header-row-style="header-row-2" default-table-style="basic-table hover-bar"> 
+        odd-row-style="alternate-row"  header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="Invoice" list="billingAccountInvoices">
                 <condition-list>
@@ -108,15 +108,15 @@ under the License.
         <alt-target use-when="billingAccount==null" target="createBillingAccount"/>
         <auto-fields-service service-name="updateBillingAccount" map-name="billingAccount"/>
 
-        <field name="description"><text size="60"/></field> 
-        
+        <field name="description"><text size="60"/></field>
+
         <field use-when="billingAccount!=null" name="billingAccountId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
 
         <field use-when="partyId != null" name="partyId"><hidden/></field>
         <field use-when="roleTypeId != null" name="roleTypeId"><hidden/></field>
         <field name="partyId"  use-when="partyId == null" title="${uiLabelMap.AccountingPartyBilledTo}"><lookup target-form-name="LookupPartyName"/></field>
         <field use-when="roleTypeId == null" name="roleTypeId"><hidden value="BILL_TO_CUSTOMER"/></field>
-        
+
         <field name="accountCurrencyUomId">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
@@ -154,20 +154,22 @@ under the License.
                 <order-by field-name="roleTypeId"/>
             </entity-condition>
         </actions>
-        
+
         <auto-fields-service service-name="updateBillingAccountRole" default-field-type="edit"/>
 
         <field name="billingAccountId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink description="${partyId}" target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" link-style="buttontext"/>
+                <sub-hyperlink description="${partyId}" target="/partymgr/control/viewprofile" target-type="inter-app" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
             <display-entity entity-name="RoleType" description="${description}"/>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
-        
+
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteBillingAccountRole?billingAccountId=${billingAccountId}&amp;roleTypeId=${roleTypeId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}"
@@ -175,7 +177,7 @@ under the License.
         </field>
     </form>
     <form name="AddBillingAccountRole" type="single" target="createBillingAccountRole" title="" default-map-name="billingAccountRole"
-        header-row-style="header-row" default-table-style="basic-table">        
+        header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createBillingAccountRole"/>
         <field name="billingAccountId"><hidden/></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
@@ -303,8 +305,10 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="billingAccountId"><hidden/></field>
         <field name="orderId" widget-style="buttontext">
-            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app" description="${orderId}" also-hidden="false"/>
-        </field>  
+            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}" also-hidden="false">
+                <parameter param-name="orderId" from-field="orderId"/>
+            </hyperlink>
+        </field>
         <field name="orderDate"><display/></field>
         <field name="paymentMethodTypeId" title="${uiLabelMap.CommonType}">
             <display-entity entity-name="PaymentMethodType" key-field-name="paymentMethodTypeId" description="${description}"/>

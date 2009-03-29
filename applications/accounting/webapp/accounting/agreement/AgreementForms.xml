@@ -79,7 +79,9 @@ under the License.
         <field name="textData" title="${uiLabelMap.AccountingTextData}"><hidden/></field>
         <field name="description" sort-field="true"></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="cancelAgreement?agreementId=${agreementId}" description="${uiLabelMap.CommonCancel}" also-hidden="false"/>
+            <hyperlink target="cancelAgreement" description="${uiLabelMap.CommonCancel}" also-hidden="false">
+                <parameter param-name="agreementId" from-field="agreementId"/>
+            </hyperlink>
         </field>
     </form>
 

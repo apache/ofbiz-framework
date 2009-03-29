@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-        
+
     <form name="ListCompanies" type="list" title="Internal Organizations" list-name="parties"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyId" title="${uiLabelMap.AccountingCompanies}"><display-entity entity-name="PartyGroup" description="${groupName}"/></field>
@@ -61,7 +61,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.AccountingCreateAssignment}"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="PartyAcctgPreference" type="single" target="createPartyAcctgPreference" default-service-name="createPartyAcctgPreference" default-map-name="agregatedPartyAcctgPreference"
             header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="partyAcctgPreference!=null" target="updatePartyAcctgPreference"/>
@@ -70,7 +70,7 @@ under the License.
         <!-- the partyId is always displayed -->
         <field name="partyId" title="${uiLabelMap.AccountingOrganizationPartyId}"><display/></field>
         <!-- if there is no partyAcctgPreference yet, then we show drop-downs for the fields and a submit button -->
-        <field name="fiscalYearStartMonth" use-when="partyAcctgPreference==null" 
+        <field name="fiscalYearStartMonth" use-when="partyAcctgPreference==null"
             tooltip="${uiLabelMap.${bsh:agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;fiscalYearStartMonth&quot;)!=null?&quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <drop-down>
                 <option key="1" description="${uiLabelMap.AccountingFiscalMonth01}"/>
@@ -99,7 +99,7 @@ under the License.
                 <option key="31"/>
             </drop-down>
         </field>
-        <field name="taxFormId" use-when="partyAcctgPreference==null" 
+        <field name="taxFormId" use-when="partyAcctgPreference==null"
             tooltip="${uiLabelMap.${bsh:agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;taxFormId&quot;)!=null?&quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <drop-down>
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
@@ -108,7 +108,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="cogsMethodId" use-when="partyAcctgPreference==null" 
+        <field name="cogsMethodId" use-when="partyAcctgPreference==null"
             tooltip="${uiLabelMap.${bsh:agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;cogsMethodId&quot;)!=null?&quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <drop-down>
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
@@ -139,17 +139,17 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="useInvoiceIdForReturns" use-when="partyAcctgPreference==null" 
+        <field name="useInvoiceIdForReturns" use-when="partyAcctgPreference==null"
             tooltip="${uiLabelMap.${bsh:agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;useInvoiceIdForReturns&quot;)!=null?&quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <drop-down allow-empty="true">
                 <option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/>
             </drop-down>
         </field>
-        <field name="quoteIdPrefix" use-when="partyAcctgPreference==null" 
+        <field name="quoteIdPrefix" use-when="partyAcctgPreference==null"
             tooltip="${uiLabelMap.${bsh:agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;quoteIdPrefix&quot;)!=null?&quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <text maxlength="10" size="5"/>
         </field>
-        <field name="quoteSequenceEnumId" use-when="partyAcctgPreference==null" 
+        <field name="quoteSequenceEnumId" use-when="partyAcctgPreference==null"
             tooltip="${uiLabelMap.${bsh:agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;quoteSequenceEnumId&quot;)!=null?&quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <drop-down>
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
@@ -173,95 +173,95 @@ under the License.
         </field>
         <field name="createButton" use-when="partyAcctgPreference==null" title="${uiLabelMap.CommonAdd}"><submit/></field>
         <field name="updateButton" use-when="partyAcctgPreference!=null" title="${uiLabelMap.CommonUpdate}"><submit/></field>
-        
+
         <!-- otherwise, we just display the fields.  there is no submit button because we shouldn't try to create it again and don't support an update option right now-->
-        <field name="fiscalYearStartMonth" use-when="partyAcctgPreference!=null" tooltip="${bsh: 
+        <field name="fiscalYearStartMonth" use-when="partyAcctgPreference!=null" tooltip="${bsh:
                 partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get(&quot;fiscalYearStartMonth&quot;)==null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;fiscalYearStartMonth&quot;)!=null?
                     &quot;AccountingInheritedValue&quot;:&quot;&quot;}">
             <display/>
         </field>
-        <field name="fiscalYearStartDay" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+        <field name="fiscalYearStartDay" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh:
             partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get(&quot;fiscalYearStartDay&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;fiscalYearStartDay&quot;)!=null?
                     &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <display/>
         </field>
-        <field name="taxFormId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
-                partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get(&quot;taxFormId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;taxFormId&quot;)!=null? 
+        <field name="taxFormId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh:
+                partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get(&quot;taxFormId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;taxFormId&quot;)!=null?
                     &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
-        <field name="cogsMethodId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+        <field name="cogsMethodId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh:
             partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get(&quot;cogsMethodId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;cogsMethodId&quot;)!=null?
                     &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
-        <field name="baseCurrencyUomId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+        <field name="baseCurrencyUomId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh:
                 partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get(&quot;baseCurrencyUomId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;baseCurrencyUomId&quot;)!=null?
                 &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <display/>
         </field>
-        <field name="invoiceIdPrefix" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+        <field name="invoiceIdPrefix" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh:
                 partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get(&quot;invoiceIdPrefix&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;invoiceIdPrefix&quot;)!=null?
                 &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <display/>
         </field>
-        <field name="invoiceSequenceEnumId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+        <field name="invoiceSequenceEnumId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh:
                 partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get(&quot;invoiceSequenceEnumId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;invoiceSequenceEnumId&quot;)!=null?
                 &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
-        <field name="useInvoiceIdForReturns" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+        <field name="useInvoiceIdForReturns" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh:
                 partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get(&quot;useInvoiceIdForReturns&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;useInvoiceIdForReturns&quot;)!=null?
                 &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <display/>
         </field>
-        <field name="quoteSequenceEnumId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+        <field name="quoteSequenceEnumId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh:
                 partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get(&quot;quoteSequenceEnumId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;quoteSequenceEnumId&quot;)!=null?
                 &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
-        <field name="quoteIdPrefix" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+        <field name="quoteIdPrefix" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh:
                 partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get(&quot;quoteIdPrefix&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;quoteIdPrefix&quot;)!=null?
                 &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <display/>
         </field>
-        <field name="lastQuoteNumber" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+        <field name="lastQuoteNumber" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh:
                 partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get(&quot;lastQuoteNumber&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;lastQuoteNumber&quot;)!=null?
                 &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <display/>
         </field>
-        <field name="orderSequenceEnumId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+        <field name="orderSequenceEnumId" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh:
                 partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get(&quot;orderSequenceEnumId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;orderSequenceEnumId&quot;)!=null?
                 &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <display-entity entity-name="Enumeration" key-field-name="enumId"/>
-        </field> 
-        <field name="orderIdPrefix" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+        </field>
+        <field name="orderIdPrefix" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh:
                 partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get(&quot;orderIdPrefix&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;orderIdPrefix&quot;)!=null?
                 &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <display/>
         </field>
-        <field name="lastOrderNumber" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh: 
+        <field name="lastOrderNumber" use-when="partyAcctgPreference!=null" tooltip="${uiLabelMap.${bsh:
                 partyAcctgPreference!= null&amp;&amp;partyAcctgPreference.get(&quot;lastOrderNumber&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;lastOrderNumber&quot;)!=null?
                 &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <display/>
         </field>
-        
+
         <!-- these 2 are ONLY displayed, never allow manual editing -->
-        <field name="lastInvoiceNumber" tooltip="${uiLabelMap.${bsh: 
+        <field name="lastInvoiceNumber" tooltip="${uiLabelMap.${bsh:
                 (partyAcctgPreference==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;lastInvoiceNumber&quot;)!=null) ||
                 (partyAcctgPreference!=null&amp;&amp;partyAcctgPreference.get(&quot;lastInvoiceNumber&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;lastInvoiceNumber&quot;)!=null)?
                     &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <display/>
         </field>
-        <field name="lastInvoiceRestartDate" tooltip="${uiLabelMap.${bsh: 
+        <field name="lastInvoiceRestartDate" tooltip="${uiLabelMap.${bsh:
                 (partyAcctgPreference==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;lastInvoiceRestartDate&quot;)!=null) ||
                 (partyAcctgPreference!=null&amp;&amp;partyAcctgPreference.get(&quot;lastInvoiceRestartDate&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;lastInvoiceRestartDate&quot;)!=null)?
                     &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
             <display/>
         </field>
-        
+
         <!-- these 2 are always can be updated -->
-        <field name="refundPaymentMethodId" tooltip="${uiLabelMap.${bsh: 
+        <field name="refundPaymentMethodId" tooltip="${uiLabelMap.${bsh:
                 (partyAcctgPreference==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;refundPaymentMethodId&quot;)!=null) ||
                 (partyAcctgPreference!=null&amp;&amp;partyAcctgPreference.get(&quot;refundPaymentMethodId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;refundPaymentMethodId&quot;)!=null)?
                 &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
@@ -271,7 +271,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="errorGlJournalId" tooltip="${uiLabelMap.${bsh: 
+        <field name="errorGlJournalId" tooltip="${uiLabelMap.${bsh:
             (partyAcctgPreference==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;errorGlJournalId&quot;)!=null) ||
             (partyAcctgPreference!=null&amp;&amp;partyAcctgPreference.get(&quot;errorGlJournalId&quot;)==null&amp;&amp;agregatedPartyAcctgPreference!= null&amp;&amp;agregatedPartyAcctgPreference.get(&quot;errorGlJournalId&quot;)!=null)?
             &quot;AccountingInheritedValue&quot;:&quot;&quot;}}">
@@ -283,7 +283,7 @@ under the License.
             </drop-down>
         </field>
     </form>
-     
+
     <!-- forms for managing FX rates -->
     <form name="ListConversions" type="list" list-name="conversions"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
@@ -294,7 +294,7 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThru}"><display/></field>
     </form>
-    
+
     <form name="updateFXConversion" type="single" target="updateFXConversion" default-service-name="updateFXConversion"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
@@ -316,17 +316,17 @@ under the License.
         </field>
         <field name="purposeEnumId" title="${uiLabelMap.CommonPurpose}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId"> 
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="CONVERSION_PURPOSE"/>
-                    <entity-order-by field-name="sequenceId"/> 
+                    <entity-order-by field-name="sequenceId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="conversionFactor"><text/></field>
         <field name="submitButton" title="${uiLabelMap.AccountingUpdateFX}"><submit/></field>
     </form>
-    
-    
+
+
     <form name="ListGlAccountTypeDefaults" type="list" target="" list-name="glAccountTypeDefaults"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -343,7 +343,7 @@ under the License.
         <field name="glAccountId">
             <display-entity entity-name="GlAccount" description="[${glAccountId}] ${accountCode} ${accountName}"/>
         </field>
-        <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">            
+        <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeGlAccountTypeDefault">
                 <parameter param-name="glAccountTypeId"/><parameter param-name="glAccountId"/><parameter param-name="organizationPartyId"/>
             </hyperlink>
@@ -416,10 +416,10 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    
+
     <!-- forms for Purchase invoice Itemtypes to GLAccount number -->
     <form name="ListPurInvoiceItemTypeGlAssignments" type="list" list-name="invoiceItemTypes" default-map-name="iTypes"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
@@ -468,7 +468,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    
+
     <!-- forms for payment types to GLAccount type -->
     <form name="ListPaymentTypeGlAssignments" type="list"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
@@ -488,7 +488,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <form name="AddPaymentTypeGlAssignment" type="single" target="addPaymentTypeGlAssignment"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addPaymentTypeGlAssignment"/>
@@ -507,7 +507,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
     <!-- forms for payment method Type to GLAccounts -->
@@ -536,7 +536,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <form name="AddPaymentMethodTypeGlAssignment" type="single" target="addPaymentMethodTypeGlAssignment"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addPaymentMethodTypeGlAssignment"/>
@@ -556,7 +556,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
 
@@ -564,7 +564,7 @@ under the License.
     <form name="ListClosedTimePeriods" type="list" list-name="closedTimePeriods"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="CustomTimePeriod" default-field-type="display"/>
-        <field name="organizationPartyId"><hidden/></field>    
+        <field name="organizationPartyId"><hidden/></field>
         <field name="isClosed"><hidden/></field>
         <field name="periodTypeId">
           <display-entity entity-name="PeriodType"/>
@@ -610,7 +610,7 @@ under the License.
                 <entity-options entity-name="PeriodType" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
-            </drop-down>  
+            </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit/></field>
     </form>
@@ -644,7 +644,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <form name="ListProductGlAccounts" type="list" target="updateProductGlAccount" list-name="productGlAccounts"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateProductGlAccount" default-field-type="display"/>
@@ -657,7 +657,7 @@ under the License.
                     <entity-order-by field-name="glAccountId"/>
                 </entity-options>
             </drop-down>
-        </field>     
+        </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductGlAccount" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="productId"/><parameter param-name="glAccountTypeId"/>
@@ -689,7 +689,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="ListFinAccountTypeGlAccounts" type="list" target="updateFinAccountTypeGlAccount" list-name="finAccountTypeGlAccounts"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateFinAccountTypeGlAccount"/>
@@ -702,7 +702,7 @@ under the License.
                     <entity-order-by field-name="glAccountId"/>
                 </entity-options>
             </drop-down>
-        </field>     
+        </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteFinAccountTypeGlAccount" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="finAccountTypeId"/>
@@ -729,7 +729,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="ListProductCategoryGlAccounts" type="list" target="updateProductCategoryGlAccount" list-name="productCategoryGlAccounts"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateProductCategoryGlAccount" default-field-type="display"/>
@@ -742,7 +742,7 @@ under the License.
                     <entity-order-by field-name="glAccountId"/>
                 </entity-options>
             </drop-down>
-        </field>     
+        </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductCategoryGlAccount" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="productCategoryId"/><parameter param-name="glAccountTypeId"/>
@@ -774,20 +774,20 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="ListVarianceReasonGlAccounts" type="list" target="updateVarianceReasonGlAccount" list-name="varianceReasonGlAccounts"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateVarianceReasonGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
         <field name="varianceReasonId"><display-entity entity-name="VarianceReason"/></field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
-            <drop-down allow-empty="false">                
+            <drop-down allow-empty="false">
                 <entity-options description="${glAccountId} ${accountName}" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
                     <entity-order-by field-name="glAccountId"/>
                 </entity-options>
             </drop-down>
-        </field>     
+        </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteVarianceReasonGlAccount" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="varianceReasonId"/>
@@ -795,7 +795,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="AddVarianceReasonGlAccount" type="single" target="createVarianceReasonGlAccount"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
@@ -816,12 +816,12 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="ListCreditCardTypeGlAccounts" type="list" target="updateCreditCardTypeGlAccount" list-name="creditCardTypeGlAccounts"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <auto-fields-service service-name="updateCreditCardTypeGlAccount" default-field-type="display"/> 
+        <auto-fields-service service-name="updateCreditCardTypeGlAccount" default-field-type="display"/>
         <field name="organizationPartyId"><hidden/></field>
-        <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}"> 
+        <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
                 <entity-options description="${glAccountId} ${accountName}" entity-name="GlAccountOrganizationAndClass">
                     <entity-constraint name="organizationPartyId" operator="equals" env-name="organizationPartyId"/>
@@ -834,17 +834,17 @@ under the License.
                 <parameter param-name="organizationPartyId"/><parameter param-name="cardType"/>
             </hyperlink>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field> 
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="AddCreditCardTypeGlAccount" type="single" target="createCreditCardTypeGlAccount"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="organizationPartyId"><hidden/></field> 
+        <field name="organizationPartyId"><hidden/></field>
         <field name="cardType">
             <drop-down allow-empty="false">
-                <entity-options entity-name="Enumeration" description="${enumCode}" key-field-name="enumId"> 
+                <entity-options entity-name="Enumeration" description="${enumCode}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="CREDIT_CARD_TYPE"/>
-                    <entity-order-by field-name="enumId"/> 
+                    <entity-order-by field-name="enumId"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -858,7 +858,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="ListTaxAuthorityGlAccounts" type="list" target="updateOrganizationTaxAuthorityGlAccount" list-name="taxAuthorityGlAccounts"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateTaxAuthorityGlAccount" default-field-type="display"/>
@@ -868,7 +868,9 @@ under the License.
         </field>
         <field name="taxAuthPartyId" title="${uiLabelMap.AccountingTaxAuthorityParty}">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink description="${taxAuthPartyId}" target="/partymgr/control/viewprofile?partyId=${taxAuthPartyId}" target-type="inter-app" link-style="buttontext"/>
+                <sub-hyperlink description="${taxAuthPartyId}" target="/partymgr/control/viewprofile" target-type="inter-app" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="taxAuthPartyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
@@ -878,7 +880,7 @@ under the License.
                     <entity-order-by field-name="glAccountId"/>
                 </entity-options>
             </drop-down>
-        </field>     
+        </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteOrganizationTaxAuthorityGlAccount" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="taxAuthGeoId"/><parameter param-name="taxAuthPartyId"/>
@@ -895,7 +897,9 @@ under the License.
         </field>
         <field name="taxAuthPartyId" title="${uiLabelMap.AccountingTaxAuthorityParty}">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink description="${taxAuthPartyId}" target="/partymgr/control/viewprofile?partyId=${taxAuthPartyId}" target-type="inter-app" link-style="buttontext"/>
+                <sub-hyperlink description="${taxAuthPartyId}" target="/partymgr/control/viewprofile" target-type="inter-app" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="taxAuthPartyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
@@ -912,7 +916,7 @@ under the License.
     <form name="ListPartyGlAccounts" type="list" target="updatePartyGlAccount" list-name="partyGlAccounts"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updatePartyGlAccount" default-field-type="display"/>
-        <field name="organizationPartyId"><hidden/></field>       
+        <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
             <drop-down allow-empty="false">
                 <entity-options description="${glAccountId} ${accountName}" entity-name="GlAccountOrganizationAndClass">
@@ -920,7 +924,7 @@ under the License.
                     <entity-order-by field-name="glAccountId"/>
                 </entity-options>
             </drop-down>
-        </field>     
+        </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deletePartyGlAccount" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="organizationPartyId"/><parameter param-name="partyId"/><parameter param-name="glAccountId"/><parameter param-name="roleTypeId"/><parameter param-name="glAccountTypeId"/>

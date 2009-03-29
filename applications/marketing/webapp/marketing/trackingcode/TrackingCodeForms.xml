@@ -73,7 +73,9 @@ under the License.
             <entity-condition entity-name="TrackingCode"/>
         </actions>
         <field name="trackingCodeId"  widget-style="buttontext" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}">
-            <hyperlink target="EditTrackingCode?trackingCodeId=${trackingCodeId}" description="${trackingCodeId}" also-hidden="false"/>
+            <hyperlink target="EditTrackingCode" description="${trackingCodeId}" also-hidden="false">
+                <parameter param-name="trackingCodeId" from-field="trackingCodeId"/>
+            </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.MarketingTrackingCodeDescription}"><display/></field>
         <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}"><display-entity entity-name="TrackingCodeType"/></field>
@@ -81,7 +83,9 @@ under the License.
         <field name="prodCatalogId"><display-entity description="${catalogName}" entity-name="ProdCatalog"/></field>
 
         <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
-            <hyperlink target="deleteTrackingCode?trackingCodeId=${trackingCodeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteTrackingCode" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="trackingCodeId" from-field="trackingCodeId"/>
+            </hyperlink>
         </field>
     </form>
     <!-- UNUSED FORM
@@ -294,12 +298,16 @@ under the License.
             <entity-condition entity-name="TrackingCodeType"/>
         </actions>
         <field name="trackingCodeTypeId"  widget-style="buttontext" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}">
-            <hyperlink target="EditTrackingCodeType?trackingCodeTypeId=${trackingCodeTypeId}" description="${trackingCodeTypeId}" also-hidden="false"/>
+            <hyperlink target="EditTrackingCodeType" description="${trackingCodeTypeId}" also-hidden="false">
+                <parameter param-name="trackingCodeTypeId" from-field="trackingCodeTypeId"/>
+            </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.MarketingTrackingCodeTypeDescription}"><display/></field>
 
         <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
-            <hyperlink target="deleteTrackingCodeType?trackingCodeTypeId=${trackingCodeTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteTrackingCodeType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="trackingCodeTypeId" from-field="trackingCodeTypeId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="LookupTrackingCodeType" default-map-name="trackingCode" target="LookupTrackingCodeType" title="" type="single"

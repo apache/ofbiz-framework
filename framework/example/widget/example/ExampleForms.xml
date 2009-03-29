@@ -214,7 +214,9 @@ under the License.
         <field name="exampleId"><hidden/></field>
         <field name="exampleFeatureId" title="${uiLabelMap.ExampleFeature}">
             <display-entity entity-name="ExampleFeature" description="${description}">
-                <sub-hyperlink target="EditExampleFeature?exampleFeatureId=${exampleFeatureId}" description="${exampleFeatureId}" link-style="buttontext"/>
+                <sub-hyperlink target="EditExampleFeature" description="${exampleFeatureId}" link-style="buttontext">
+                    <parameter param-name="exampleFeatureId" from-field="exampleFeatureId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="fromDate"><display/></field>

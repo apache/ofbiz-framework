@@ -72,7 +72,9 @@ under the License.
             </service>
         </actions>
         <field name="workEffortId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="ShowProductionRun?productionRunId=${workEffortId}" description="${workEffortId}" also-hidden="false"/>
+            <hyperlink target="ShowProductionRun" description="${workEffortId}" also-hidden="false">
+                <parameter param-name="productionRunId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="workEffortName" title="${uiLabelMap.ManufacturingProductionRunName}"><display/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}"><display/></field>
@@ -112,7 +114,9 @@ under the License.
     <form name="ListProductionRunOrderItems" type="list" target="EditProductionRun" title="" list-name="orderItems"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="orderId" widget-style="buttontext">
-            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" description="${orderId}/${orderItemSeqId}" also-hidden="false" target-type="inter-app"/>
+            <hyperlink target="/ordermgr/control/orderview" description="${orderId}/${orderItemSeqId}" also-hidden="false" target-type="inter-app">
+                <parameter param-name="orderId" from-field="orderId"/>
+            </hyperlink>
         </field>
         <!--
         <field name="orderItemSeqId"><display/></field>
@@ -128,7 +132,9 @@ under the License.
     <form name="ListProductionRunInventoryItems" type="list" title="" list-name="inventoryItems"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink target="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItemId}" description="${inventoryItemId}" also-hidden="false" target-type="inter-app"/>
+            <hyperlink target="/facility/control/EditInventoryItem"  description="${inventoryItemId}" also-hidden="false" target-type="inter-app">
+                <parameter param-name="inventoryItemId" from-field="inventoryItemId"/>
+            </hyperlink>
         </field>
         <field name="lotId" entry-name="inventoryItemId"><display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${lotId} "/></field>
         <field name="creationDate" entry-name="inventoryItemId"><display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${datetimeReceived}"/></field>
@@ -515,7 +521,9 @@ under the License.
     <form name="ProductionRunTaskInventoryProducedList" type="list" title="" list-name="prunInventoryProduced"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="inventoryItemId" title="${uiLabelMap.ProductInventoryItem}" widget-style="buttontext">
-            <hyperlink target="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItemId}" description="${inventoryItemId}" also-hidden="false" target-type="inter-app"/>
+            <hyperlink target="/facility/control/EditInventoryItem"  description="${inventoryItemId}" also-hidden="false" target-type="inter-app">
+                <parameter param-name="inventoryItemId" from-field="inventoryItemId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="ProductionRunTaskFixedAssets" type="list" target="updateWorkEffortFixedAssetAssign" paginate-target="" title="" list-name="records"
@@ -669,7 +677,9 @@ under the License.
         </field>
         <field name="estimatedShipDate"><display/></field>
         <field name="viewShipmentPlanLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="WorkWithShipmentPlans?shipmentId=${shipmentId}" description="${uiLabelMap.CommonView}" also-hidden="false"/>
+            <hyperlink target="WorkWithShipmentPlans" description="${uiLabelMap.CommonView}" also-hidden="false">
+                <parameter param-name="shipmentId" from-field="shipmentId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="SelectMrpName" type="single" target="ManufacturingReports" title=""
@@ -682,7 +692,9 @@ under the License.
     <form name="mandatoryWorkEfforts" type="list" target="" title="" list-name="mandatoryWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortIdFrom" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="ShowProductionRun?productionRunId=${workEffortIdFrom}" description="${workEffortIdFrom}" also-hidden="false"/>
+            <hyperlink target="ShowProductionRun" description="${workEffortIdFrom}" also-hidden="false">
+                <parameter param-name="productionRunId" from-field="workEffortIdFrom"/>
+            </hyperlink>
         </field>
         <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}" entry-name="workEffortIdFrom">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName} " cache="true"/>
@@ -709,7 +721,9 @@ under the License.
     <form name="dependentWorkEfforts" type="list" target="" title="" list-name="dependentWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortIdTo" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="ShowProductionRun?productionRunId=${workEffortIdTo}" description="${workEffortIdTo}" also-hidden="false"/>
+            <hyperlink target="ShowProductionRun" description="${workEffortIdTo}" also-hidden="false">
+                <parameter param-name="productionRunId" from-field="workEffortIdTo"/>
+            </hyperlink>
         </field>
         <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}" entry-name="workEffortIdTo">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName} " cache="true"/>
@@ -781,7 +795,7 @@ under the License.
                 <parameter param-name="fromDate" from-field="fromDate"/>
                 <parameter param-name="productId" from-field="productId"/>
                 <parameter param-name="workEffortGoodStdTypeId" from-field="workEffortGoodStdTypeId"/>
-                <parameter param-name="productionRunId" from-field="productionRunId}"/>
+                <parameter param-name="productionRunId" from-field="productionRunId"/>
             </hyperlink>
         </field>
     </form>
@@ -791,7 +805,9 @@ under the License.
             <set field="quantityOnHandDiff" value="${bsh:-1*quantityOnHandDiff}" type="BigDecimal"/>
         </row-actions>
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink target="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItemId}" description="${inventoryItemId}" also-hidden="false" target-type="inter-app"/>
+            <hyperlink target="/facility/control/EditInventoryItem" description="${inventoryItemId}" also-hidden="false" target-type="inter-app">
+                <parameter param-name="inventoryItemId" from-field="inventoryItemId"/>
+            </hyperlink>
         </field>
         <field name="productId" entry-name="inventoryItemId">
             <display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${productId}"/>

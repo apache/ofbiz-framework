@@ -99,7 +99,9 @@ under the License.
         </field>
         <field name="partyId" widget-style="buttontext" entry-name="partyIdTo">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyIdTo}" target-type="inter-app" description="${partyIdTo}" link-style="buttontext"/>
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyIdTo}" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="partyIdTo"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">

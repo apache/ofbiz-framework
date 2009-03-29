@@ -497,7 +497,9 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="partyId" title="${uiLabelMap.PartyParty}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName} ${groupName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.AccountingRoleType}"><display-entity entity-name="RoleType"/></field>
@@ -576,13 +578,17 @@ under the License.
 <!--
         <field name="custRequestId">
             <lookup size="20" target-form-name="LookupCustRequest">
-                <sub-hyperlink target="/ordermgr/control/EditRequest?custRequestId=${communicationEvent.custRequestId}" target-type="inter-app" link-style="buttontext"/>
+                <sub-hyperlink target="/ordermgr/control/EditRequest" target-type="inter-app" link-style="buttontext">
+                <parameter param-name="custRequestId" from-field="communicationEvent.custRequestId"/>
+            </sub-hyperlink>
             </lookup>
         </field>
 -->
         <field name="workEffortId">
             <lookup size="20" target-form-name="LookupWorkEffort">
-                <sub-hyperlink target="/marketing/control/EditWorkEffort?workEffortId=${communicationEvent.workEffortId}" target-type="inter-app" link-style="buttontext"/>
+                <sub-hyperlink target="/marketing/control/EditWorkEffort" target-type="inter-app" link-style="buttontext">
+                <parameter param-name="workEffortId" from-field="communicationEvent.workEffortId"/>
+            </sub-hyperlink>
             </lookup>
         </field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><date-time/></field>
@@ -786,7 +792,9 @@ under the License.
         <field name="timeEntryId"><hidden/></field>
         <field name="timesheetId">
             <lookup size="10" target-form-name="LookupTimesheet">
-                <sub-hyperlink target="EditTimesheet?timesheetId=${timesheetId}" link-style="buttontext" description="${uiLabelMap.WorkEffortTimesheet}:${timesheetId}"/>
+                <sub-hyperlink target="EditTimesheet" link-style="buttontext" description="${uiLabelMap.WorkEffortTimesheet}:${timesheetId}">
+                <parameter param-name="timesheetId" from-field="timesheetId"/>
+            </sub-hyperlink>
             </lookup>
         </field>
 
@@ -869,7 +877,9 @@ under the License.
             </hyperlink>
         </field>
         <field name="workEffortId" entity-name="WorkEffort" widget-style="buttontext">
-           <hyperlink target="EditWorkEffort?workEffortId=${workEffortId}" also-hidden="false" description="${workEffortId}"/>
+           <hyperlink target="EditWorkEffort" also-hidden="false" description="${workEffortId}">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="noteInfo" title="${uiLabelMap.CommonNote}"><display/></field>
         <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${noteDateTime}"/></field>
@@ -882,10 +892,10 @@ under the License.
         </field>
         <field name="internalNote" title="${uiLabelMap.WorkEffortPrivatePublic}" widget-style="buttontext" use-when="internalNote.equals(&quot;Y&quot;)">
             <hyperlink target="updateWorkEffortNote" description="${uiLabelMap.OrderNotesPublic}">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="noteId" from-field="noteId"/>
-				<parameter param-name="internalNote" value="N"/>
-			</hyperlink>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="noteId" from-field="noteId"/>
+                <parameter param-name="internalNote" value="N"/>
+            </hyperlink>
         </field>
     </form>
 
@@ -936,7 +946,9 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="contentId">
             <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
-                <sub-hyperlink target="/content/control/editContent?contentId=${contentId}" description="${contentId}" link-style="buttontext" target-type="inter-app"/>
+                <sub-hyperlink target="/content/control/editContent" description="${contentId}" link-style="buttontext" target-type="inter-app">
+                    <parameter param-name="contentId" from-field="contentId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="workEffortContentTypeId"><display-entity entity-name="WorkEffortContentType" description="${description}"/></field>
@@ -989,7 +1001,9 @@ under the License.
         <field name="workEffortGoodStdTypeId"><display-entity entity-name="WorkEffortGoodStandardType" description="${description}"/></field>
         <field name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${productName}" also-hidden="true">
-                <sub-hyperlink target="/catalog/control/EditProduct?productId=${productId}" description="${productId}" link-style="buttontext" target-type="inter-app"/>
+                <sub-hyperlink target="/catalog/control/EditProduct" description="${productId}" link-style="buttontext" target-type="inter-app">
+                    <parameter param-name="productId" from-field="productId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="fromDate"><display/></field>
@@ -1043,7 +1057,9 @@ under the License.
         <field name="workEffortId" widget-style="buttontext"><hidden/></field>
         <field name="userLoginId" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}" also-hidden="true">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" description="${userLoginId}" link-style="buttontext" target-type="inter-app"/>
+                <sub-hyperlink target="/partymgr/control/viewprofile" description="${userLoginId}" link-style="buttontext" target-type="inter-app">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="reviewDate"><display/></field>
@@ -1145,7 +1161,9 @@ under the License.
         </actions>
         <field name="agreementId">
             <display-entity entity-name="Agreement" key-field-name="agreementId"  also-hidden="true">
-                <sub-hyperlink target="/accounting/control/FindAgreement?agreementId=${agreementId}" description="${agreementId}" link-style="buttontext" target-type="inter-app"/>
+                <sub-hyperlink target="/accounting/control/FindAgreement" description="${agreementId}" link-style="buttontext" target-type="inter-app">
+                    <parameter param-name="agreementId" from-field="agreementId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="agreementItemSeqId"><display/></field>
@@ -1170,7 +1188,9 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="fixedAssetId" title="${uiLabelMap.AccountingFixedAsset}">
             <display-entity entity-name="FixedAsset" description="${fixedAssetName}">
-                <sub-hyperlink target="/accounting/control/EditFixedAsset?fixedAssetId=${fixedAssetId}" target-type="inter-app" description="${fixedAssetId}" link-style="buttontext"/>
+                <sub-hyperlink target="/accounting/control/EditFixedAsset" target-type="inter-app" description="${fixedAssetId}" link-style="buttontext">
+                    <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="fromDate"><display/></field>
@@ -1207,7 +1227,9 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="fixedAssetId" title="${uiLabelMap.AccountingFixedAsset}">
             <display-entity entity-name="FixedAsset" description="${fixedAssetName}">
-                <sub-hyperlink target="/accounting/control/EditFixedAsset?fixedAssetId=${fixedAssetId}" target-type="inter-app" description="${fixedAssetId}" link-style="buttontext"/>
+                <sub-hyperlink target="/accounting/control/EditFixedAsset" target-type="inter-app" description="${fixedAssetId}" link-style="buttontext">
+                    <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="fromDate"><display/></field>

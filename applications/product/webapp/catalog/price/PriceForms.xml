@@ -32,7 +32,9 @@
             </service>
         </actions>
         <field name="productPriceRuleId" title="${uiLabelMap.ProductPriceRuleNameId}" widget-style="buttontext">
-            <hyperlink target="EditProductPriceRules?productPriceRuleId=${productPriceRuleId}" description="${ruleName}[${productPriceRuleId}]" />
+            <hyperlink target="EditProductPriceRules" description="${ruleName}[${productPriceRuleId}]" >
+                <parameter param-name="productPriceRuleId" from-field="productPriceRuleId"/>
+            </hyperlink>
         </field>
         <field name="isSale" title="${uiLabelMap.ProductSaleRule}?"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>

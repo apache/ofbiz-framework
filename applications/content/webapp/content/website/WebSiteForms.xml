@@ -71,7 +71,9 @@ under the License.
         <field name="mapKey"><display/></field>
         <field name="contentId">
             <display-entity entity-name="Content" description="${contentName}">
-                <sub-hyperlink target="EditContent?contentId=${contentId}" description=" [${contentId}]"/>
+                <sub-hyperlink target="EditContent" description=" [${contentId}]">
+                    <parameter param-name="contentId" from-field="contentId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
     </form>
@@ -92,7 +94,9 @@ under the License.
         -->
         <field name="contentId">                                        
             <display-entity entity-name="Content" description="${contentName}" key-field-name="contentId">
-                <sub-hyperlink target="EditContent?contentId=${contentId}" description=" [${contentId}]" link-style="linktext"/>
+                <sub-hyperlink target="EditContent" description=" [${contentId}]" link-style="linktext">
+                    <parameter param-name="contentId" from-field="contentId"/>
+                </sub-hyperlink>
             </display-entity>
 
         </field>

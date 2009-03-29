@@ -27,7 +27,9 @@ under the License.
             <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
         </row-actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink target="viewprofile?partyId=${partyId}" description="${partyId}" target-type="inter-app"/>
+            <hyperlink target="viewprofile" description="${partyId}" target-type="inter-app">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
         </field>
         <field name="partyName" title="${uiLabelMap.PartyName}"><display description="${partyGroup.groupName}"/></field>
         <field name="partyTypeId" title="${uiLabelMap.PartyType}"><display-entity entity-name="PartyType"/></field>

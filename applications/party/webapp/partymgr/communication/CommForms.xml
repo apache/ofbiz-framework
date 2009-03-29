@@ -26,7 +26,9 @@ under the License.
         <field name="communicationEventId" use-when="communicationEvent!=null"><display/></field>
         <field name="parentCommEventId" position="2">
             <lookup target-form-name="LookupCommEvent">
-                <sub-hyperlink link-style="buttontext" target="EditCommunicationEvent?communicationEventId=${parentCommEventId}" description="${uiLabelMap.PartyGoToParent}" use-when="communicationEvent!=null&amp;&amp;communicationEvent.get(&quot;parentCommEventId&quot;)!=null"/>
+                <sub-hyperlink link-style="buttontext" target="EditCommunicationEvent" description="${uiLabelMap.PartyGoToParent}" use-when="communicationEvent!=null&amp;&amp;communicationEvent.get(&quot;parentCommEventId&quot;)!=null">
+                <parameter param-name="communicationEventId" from-field="parentCommEventId"/>
+            </sub-hyperlink>
             </lookup>
         </field>
         <field name="communicationEventTypeId" >
@@ -87,7 +89,9 @@ under the License.
         <!-- contact list -->
         <field name="contactListId">
             <lookup size="20" target-form-name="LookupContactList">
-                <sub-hyperlink target="/marketing/control/EditContactList?contactListId=${communicationEvent.contactListId}" target-type="inter-app" link-style="smallSubmit"/>
+                <sub-hyperlink target="/marketing/control/EditContactList" target-type="inter-app" link-style="smallSubmit">
+                <parameter param-name="contactListId" from-field="communicationEvent.contactListId"/>
+            </sub-hyperlink>
             </lookup>
         </field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><date-time/></field>
@@ -419,7 +423,9 @@ under the License.
         </actions>
         <field name="workEffortId" title="${uiLabelMap.WorkEffort}">
             <display-entity entity-name="WorkEffort" description="${workEffortName}">
-                <sub-hyperlink description="${workEffortId}" target="/workeffort/control/WorkEffortSummary?workEffortId=${workEffortId}" target-type="inter-app" link-style="smallSubmit"/>
+                <sub-hyperlink description="${workEffortId}" target="/workeffort/control/WorkEffortSummary" target-type="inter-app" link-style="smallSubmit">
+                    <parameter param-name="workEffortId" from-field="workEffortId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
     </form>
@@ -481,7 +487,9 @@ under the License.
         <field name="communicationEventId"><hidden/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-                <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" description="${partyId}"/>
+                <sub-hyperlink target="viewprofile" link-style="smallSubmit" description="${partyId}">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="contactMechId"><display-entity description="${infoString}" entity-name="ContactMech"/></field>
@@ -620,7 +628,9 @@ under the License.
         </field>
         <field name="surveyResponseLink" map-name="dummy" widget-style="smallSubmit" 
             use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; dataResource!=null &amp;&amp; dataResource.get(&quot;relatedDetailId&quot;)==null &amp;&amp; templateDataResource!=null &amp;&amp; templateDataResource.get(&quot;relatedDetailId&quot;)!=null">
-            <hyperlink description="Create Response (for Survey ${templateDataResource.relatedDetailId})" target="EditSurveyResponse?surveyId=${templateDataResource.relatedDetailId}" also-hidden="false" target-window="_blank"/>
+            <hyperlink description="Create Response (for Survey ${templateDataResource.relatedDetailId})" target="EditSurveyResponse" also-hidden="false" target-window="_blank">
+                <parameter param-name="surveyId" from-field="templateDataResource.relatedDetailId"/>
+            </hyperlink>
         </field>
         -->
     <!--

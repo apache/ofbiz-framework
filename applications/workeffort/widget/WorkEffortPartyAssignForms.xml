@@ -31,7 +31,9 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}"><display-entity entity-name="RoleType"/></field>

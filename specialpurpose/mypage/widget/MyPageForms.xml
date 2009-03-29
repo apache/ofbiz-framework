@@ -24,13 +24,15 @@ under the License.
     <form name="MyTasks" extends="MyTasks" extends-resource="component://projectmgr/widget/forms/TaskForms.xml">
         <field name="donePage"><hidden value="${parameters.donePage}"/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortName}" target="/projectmgr/control/taskView?workEffortId=${workEffortId}" target-type="inter-app" target-window="_BLANK"/>
+            <hyperlink also-hidden="false" description="${workEffortName}" target="/projectmgr/control/taskView" target-type="inter-app" target-window="_BLANK">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
-			<hyperlink target="/projectmgr/control/projectView"  target-type="inter-app" target-window="_BLANK" description="${resultProject.projectName}">
-				<parameter param-name="projectId" from-field="resultProject.projectId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="/projectmgr/control/projectView"  target-type="inter-app" target-window="_BLANK" description="${resultProject.projectName}">
+                <parameter param-name="projectId" from-field="resultProject.projectId"/>
+            </hyperlink>
+        </field>
         <field name="roleTypeId" parameter-name="newRoleTypeId" title="${uiLabelMap.PartyRole}"><hidden value="${roleTypeId}"/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="workEffortId" from-field="workEffortId"/>
@@ -138,8 +140,8 @@ under the License.
                 <parameter param-name="statusID" value="COM_ROLE_COMPLETED"/>
                 <parameter param-name="donePage" from-field="parameters.donePage"/>
                 <parameter param-name="VIEWSIZE" from-field="parameters.VIEWSIZE"/>
-                <parameter param-name="VIEW_INDEX" from-field="parameters.VIEW_INDEX"/>
-            </sub-hyperlink>
+                    <parameter param-name="VIEW_INDEX" from-field="parameters.VIEW_INDEX"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="createdStamp" entry-name="entryDate"/>
@@ -162,7 +164,9 @@ under the License.
     </form>
     <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="workEffortId">
-            <hyperlink target="/projectmgr/control/taskView?workEffortId=${workEffortId}" description="${workEffortName} [${workEffortId}]" target-type="inter-app"/>
+            <hyperlink target="/projectmgr/control/taskView" description="${workEffortName} [${workEffortId}]" target-type="inter-app">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="ListCustRequests" type="list"  list-name="custRequests" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" target="updateRequest">
@@ -257,10 +261,10 @@ under the License.
         </actions>
         <field name="subject">
             <hyperlink description="${subject}" target="EditCommunicationEvent">
-				<parameter param-name="communicationEventId" from-field="communicationEventId"/>
-				<parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
-				<parameter param-name="partyId" from-field="userLogin.partyId"/>
-			</hyperlink>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
+                <parameter param-name="partyId" from-field="userLogin.partyId"/>
+            </hyperlink>
         </field>
         <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent">

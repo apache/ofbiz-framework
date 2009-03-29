@@ -35,7 +35,9 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-                <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
+                <sub-hyperlink target="viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
@@ -67,7 +69,9 @@ under the License.
         </field>
         <field name="partyId" use-when="emplPosition!=null" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${groupName}" entity-name="PartyNameView">
-                <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
+                <sub-hyperlink target="viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
@@ -101,7 +105,9 @@ under the License.
         <auto-fields-service service-name="updateEmplPositionFulfillment"/>        
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-                <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
+                <sub-hyperlink target="viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="emplPositionId"><hidden/></field>

@@ -63,7 +63,9 @@ under the License.
         <auto-fields-service service-name="updatePartyQual"/>        
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-                <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
+                <sub-hyperlink target="viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="partyQualTypeId"><display-entity entity-name="PartyQualType" description="${description}"/></field>
