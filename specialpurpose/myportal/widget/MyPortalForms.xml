@@ -44,7 +44,7 @@ under the License.
             </hyperlink>
         </field>
         <!-- better set to complete on the timesheet -->
-        <!-- field name="toComplete" title="${uiLabelMap.MyPortalToComplete}"><hyperlink target="updateTaskAssigment" description="${uiLabelMap.MyPortalToComplete}">
+        <!-- <field name="toComplete" title="${uiLabelMap.MyPortalToComplete}"><hyperlink target="updateTaskAssigment" description="${uiLabelMap.MyPortalToComplete}">
                 <parameter param-name="workEffortId" from-field="workEffortId"/>
                 <parameter param-name="partyId" from-field="partyId"/>
                 <parameter param-name="roleTypeId" from-field="roleTypeId"/>
