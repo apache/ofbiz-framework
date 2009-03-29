@@ -57,7 +57,9 @@ under the License.
         <field name="facilityGroupId"><hidden value="${facilityGroupId}"/></field>
         <field name="parentFacilityGroupId">
             <display-entity entity-name="FacilityGroup" key-field-name="facilityGroupId" description="${facilityGroupName}">
-                <sub-hyperlink target="EditFacilityGroup?facilityGroupId=${parentFacilityGroupId}" description="[${parentFacilityGroupId}]"/>
+                <sub-hyperlink target="EditFacilityGroup" description="[${parentFacilityGroupId}]">
+                    <parameter param-name="facilityGroupId" from-field="parentFacilityGroupId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="fromDate"><display/></field>
@@ -87,7 +89,9 @@ under the License.
         <field name="parentFacilityGroupId"><hidden/></field>
         <field name="facilityGroupId">
             <display-entity entity-name="FacilityGroup" description="${facilityGroupName}">
-                <sub-hyperlink target="EditFacilityGroup?facilityGroupId=${facilityGroupId}" description="[${facilityGroupId}]"/>
+                <sub-hyperlink target="EditFacilityGroup" description="[${facilityGroupId}]">
+                    <parameter param-name="facilityGroupId" from-field="facilityGroupId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="fromDate"><display/></field>
@@ -117,7 +121,9 @@ under the License.
         <field name="facilityGroupId"><hidden value="${facilityGroupId}"/></field>
         <field name="facilityId">
             <display-entity entity-name="Facility" key-field-name="facilityId" description="${facilityName}">
-                <sub-hyperlink target="EditFacilityGroup?facilityId=${facilityId}" description="[${facilityId}]"/>
+                <sub-hyperlink target="EditFacilityGroup" description="[${facilityId}]">
+                    <parameter param-name="facilityId" from-field="facilityId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="fromDate"><display/></field>
@@ -146,7 +152,9 @@ under the License.
         <field name="facilityGroupId"><hidden value="${facilityGroupId}"/></field>
         <field name="partyId">
             <display-entity entity-name="Party" key-field-name="partyId" description="${partyId}">
-                <sub-hyperlink target="viewProfile?partyId=${partyId}" description="[${partyId}]"/>
+                <sub-hyperlink target="viewProfile" description="[${partyId}]">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="roleTypeId">

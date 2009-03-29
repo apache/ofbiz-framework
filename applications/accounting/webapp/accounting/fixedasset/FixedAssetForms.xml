@@ -38,7 +38,9 @@ under the License.
         <field name="fixedAssetTypeId"><display-entity entity-name="FixedAssetType"/></field>
         <field name="parentFixedAssetId">
             <display-entity entity-name="FixedAsset" key-field-name="fixedAssetId" description="${fixedAssetName}">
-                <sub-hyperlink target="EditFixedAsset?fixedAssetId=${parentFixedAssetId}" description="${parentFixedAssetId}"/>
+                <sub-hyperlink target="EditFixedAsset" description="${parentFixedAssetId}">
+                    <parameter param-name="fixedAssetId" from-field="parentFixedAssetId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="FixedAssetSearchResults"/>

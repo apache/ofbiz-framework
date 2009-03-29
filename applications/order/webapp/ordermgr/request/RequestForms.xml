@@ -87,7 +87,9 @@ under the License.
         <field name="responseRequiredDate"><display/></field>
         <field name="fromPartyId">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink description="[${fromPartyId}]" target="/partymgr/control/viewprofile?partyId=${fromPartyId}" target-type="inter-app"/>
+                <sub-hyperlink description="[${fromPartyId}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+                    <parameter param-name="partyId" from-field="fromPartyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="statusId">
@@ -162,7 +164,9 @@ under the License.
     <form name="ViewRequestCommunicationEvents" type="list" extends="ListCommEvents">   
             <!-- extends-resource="component://party/webapp/partymgr/communication/CommForms.xml"-->
         <field name="subject">
-            <hyperlink description="${subject}" target="/partymgr/control/ViewCommunicationEvent?communicationEventId=${communicationEventId}" target-type="inter-app"/>
+            <hyperlink description="${subject}" target="/partymgr/control/ViewCommunicationEvent" target-type="inter-app">
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+            </hyperlink>
         </field>
     </form>
     

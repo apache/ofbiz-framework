@@ -290,7 +290,9 @@ under the License.
             <hyperlink also-hidden="true" description="${requirementId}" target="EditRequirement?requirementId=${requirementId}"/>
         </field>
         <field name="productId" widget-style="buttontext">
-            <hyperlink also-hidden="true" target-type="inter-app" description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-window="top"/>
+            <hyperlink also-hidden="true" target-type="inter-app" description="${productId}" target="/catalog/control/EditProductInventoryItems" target-window="top">
+                <parameter param-name="productId" from-field="productId"/>
+            </hyperlink>
         </field>
         <field name="internalName" entry-name="productId">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
@@ -315,7 +317,9 @@ under the License.
             <hyperlink also-hidden="true" description="${requirementId}" target="EditRequirement?requirementId=${requirementId}"/>
         </field>
         <field name="productId" widget-style="buttontext">
-            <hyperlink also-hidden="true" target-type="inter-app" description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-window="top"/>
+            <hyperlink also-hidden="true" target-type="inter-app" description="${productId}" target="/catalog/control/EditProductInventoryItems" target-window="top">
+                <parameter param-name="productId" from-field="productId"/>
+            </hyperlink>
         </field>
         <field name="facilityId"><hidden value="${parameters.facilityId}"/></field>
         <field name="internalName" entry-name="productId">

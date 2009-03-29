@@ -300,7 +300,9 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="updateEmplPosition" default-field-type="display"/>
         <field name="emplPositionTypeId"><display-entity entity-name="EmplPositionType" description="${description}">
-            <sub-hyperlink target="EditEmplPositionTypes?emplPositionTypeId=${emplPosition.emplPositionTypeId}" description="[${emplPosition.emplPositionTypeId}]"/>
+            <sub-hyperlink target="EditEmplPositionTypes" description="[${emplPosition.emplPositionTypeId}]">
+                <parameter param-name="emplPositionTypeId" from-field="emplPosition.emplPositionTypeId"/>
+            </sub-hyperlink>
         </display-entity></field>
     </form>
     <form name="ListEmplPositionFulfilmentInfo" type="list" list-name="emplPositionFulfillments"

@@ -29,10 +29,10 @@ under the License.
         </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="custRequestId" widget-style="buttontext">
-			<hyperlink description="${custRequestId}" target="/ordermgr/control/EditRequest" target-type="inter-app">
-				<parameter param-name="custRequestId" from-field="custRequestId"/>
-			</hyperlink>
-		</field>
+            <hyperlink description="${custRequestId}" target="/ordermgr/control/EditRequest" target-type="inter-app">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+            </hyperlink>
+        </field>
         <field name="description"><display/></field>
         <field name="custRequestTypeDescription"><display/></field>
         <field name="statusItemDescription"><display/></field>
@@ -61,10 +61,10 @@ under the License.
         </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="custRequestId" widget-style="buttontext">
-			<hyperlink description="${custRequestId}" target="/ordermgr/control/EditRequest" target-type="inter-app">
-				<parameter param-name="custRequestId" from-field="custRequestId"/>
-			</hyperlink>
-		</field>
+            <hyperlink description="${custRequestId}" target="/ordermgr/control/EditRequest" target-type="inter-app">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+            </hyperlink>
+        </field>
         <field name="custRequestItemSeqId" widget-style="buttontext"><display/></field>
         <field name="statusItemDescription"><display/></field>
         <field name="priority"><display/></field>

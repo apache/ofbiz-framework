@@ -513,10 +513,16 @@ under the License.
         </field>
         <field name="dataResourceId">
             <lookup target-form-name="LookupDataResource">
-            <sub-hyperlink use-when="&quot;${currentValue.dataResourceId}&quot;.length()>0" link-style="buttontext" target-type="intra-app" target="gotoDataResource?dataResourceId=${currentValue.dataResourceId}" description="${uiLabelMap.ContentGoToDataResource}"/>
+            <sub-hyperlink use-when="&quot;${currentValue.dataResourceId}&quot;.length()>0" link-style="buttontext" target-type="intra-app" target="gotoDataResource" description="${uiLabelMap.ContentGoToDataResource}">
+                <parameter param-name="dataResourceId" from-field="currentValue.dataResourceId"/>
+            </sub-hyperlink>
 <!--
-            <sub-hyperlink link-style="buttontext" target-type="intra-app" target="gotoDataResource?dataResourceId=${currentValue.dataResourceId}" description="${uiLabelMap.ContentGoToDataResource}"/>
-            <sub-hyperlink use-when="&quot;${currentValue.dataResourceId}&quot;.length()>0" link-style="buttontext" target-type="intra-app" target="gotoDataResource?dataResourceId=${currentValue.dataResourceId}" description="${uiLabelMap.ContentGoToDataResource}"/>
+            <sub-hyperlink link-style="buttontext" target-type="intra-app" target="gotoDataResource" description="${uiLabelMap.ContentGoToDataResource}">
+                <parameter param-name="dataResourceId" from-field="currentValue.dataResourceId"/>
+            </sub-hyperlink>
+            <sub-hyperlink use-when="&quot;${currentValue.dataResourceId}&quot;.length()>0" link-style="buttontext" target-type="intra-app" target="gotoDataResource" description="${uiLabelMap.ContentGoToDataResource}">
+                <parameter param-name="dataResourceId" from-field="currentValue.dataResourceId"/>
+            </sub-hyperlink>
 -->
             </lookup>
         </field>

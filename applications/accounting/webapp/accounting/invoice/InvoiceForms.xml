@@ -160,10 +160,10 @@ under the License.
             </hyperlink>
         </field>
         <field name="overrideGlAccountId" widget-area-style="align-text">
-			<hyperlink target="GlAccountNavigate" description="${overrideGlAccountId}">
-				<parameter param-name="glAccountId" from-field="overrideGlAccountId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="GlAccountNavigate" description="${overrideGlAccountId}">
+                <parameter param-name="glAccountId" from-field="overrideGlAccountId"/>
+            </hyperlink>
+        </field>
     </form>
 
     <form name="invoiceRoles" type="list" use-row-submit="true" title="" list-name="invoiceRoles" paginate-target="invoiceRoles"
@@ -192,10 +192,10 @@ under the License.
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="invoiceId"><hidden/></field>
         <field name="paymentId" widget-style="linktext">
-			<hyperlink target="paymentOverview" description="${paymentId}">
-				<parameter param-name="paymentId" from-field="paymentId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="paymentOverview" description="${paymentId}">
+                <parameter param-name="paymentId" from-field="paymentId"/>
+            </hyperlink>
+        </field>
         <field name="billingAccountId"><hidden/></field>
         <field name="paymentApplicationId"><hidden/></field>
         <field name="amountApplied" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
@@ -460,10 +460,10 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="invoiceId"><hidden/></field>
         <field name="paymentId" widget-style="buttontext">
-			<hyperlink target="paymentOverview" description="[${paymentId}]">
-				<parameter param-name="paymentId" from-field="paymentId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="paymentOverview" description="[${paymentId}]">
+                <parameter param-name="paymentId" from-field="paymentId"/>
+            </hyperlink>
+        </field>
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="effectiveDate"><display type="date"/></field>
         <field name="amountApplied" parameter-name="dummy"><display type="currency" currency="${currencyUomId}"/></field>
@@ -577,7 +577,9 @@ under the License.
         <field name="rateTypeId"><display-entity entity-name="RateType" description="${description}"/></field>
         <field name="workEffortId">
             <display-entity entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]">
-                <sub-hyperlink description=" [${workEffortId}]" target="/workeffort/control/WorkEffortSummary?workEffortId=${workEffortId}" target-type="inter-app"/>
+                <sub-hyperlink description=" [${workEffortId}]" target="/workeffort/control/WorkEffortSummary" target-type="inter-app">
+                    <parameter param-name="workEffortId" from-field="workEffortId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="fromDate"><display type="date"/></field>

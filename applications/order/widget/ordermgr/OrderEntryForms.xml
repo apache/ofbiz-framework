@@ -143,7 +143,9 @@ under the License.
     <form name="LookupBulkAddProducts" type="multi" use-row-submit="true" list-name="productList" title="" target="BulkAddProducts" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupBulkAddProducts">
         <field name="productId"  title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
-            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-type="inter-app"/>
+            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">
+                <parameter param-name="productId" from-field="productId"/>
+            </hyperlink>
         </field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
         <field name="internalName"><display/></field>
@@ -163,7 +165,9 @@ under the License.
     <form name="LookupBulkAddSupplierProducts" type="multi" use-row-submit="true" list-name="productList" title="" target="BulkAddProducts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupBulkAddSupplierProducts">
         <field name="productId" widget-style="buttontext">
-            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-type="inter-app"/>
+            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">
+                <parameter param-name="productId" from-field="productId"/>
+            </hyperlink>
         </field>
         <field name="supplierProductId"><display/></field>
         <field name="supplierProductName"><display/></field>

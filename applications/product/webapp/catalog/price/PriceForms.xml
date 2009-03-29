@@ -40,7 +40,9 @@
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditProductPriceRules?productPriceRuleId=${productPriceRuleId}" description="${uiLabelMap.CommonEdit}"/>
+            <hyperlink target="EditProductPriceRules" description="${uiLabelMap.CommonEdit}">
+                <parameter param-name="productPriceRuleId" from-field="productPriceRuleId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddPriceRules" type="single" target="createProductPriceRule">

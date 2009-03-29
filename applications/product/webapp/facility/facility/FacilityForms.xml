@@ -29,7 +29,9 @@ under the License.
             </service>
         </actions>
         <field name="facilityId">
-            <hyperlink target="EditFacility?facilityId=${facilityId}" description="${facilityId}"/>
+            <hyperlink target="EditFacility" description="${facilityId}">
+                <parameter param-name="facilityId" from-field="facilityId"/>
+            </hyperlink>
         </field>
         <field name="facilityName"><display/></field>
         <field name="facilityTypeId" title="${uiLabelMap.ProductFacilityType}">
@@ -459,7 +461,9 @@ under the License.
     <form name="SchedulingList" type="multi" use-row-submit="true" list-name="shipmentRouteSegments" title="${uiLabelMap.PageTitlePackageShipmentScheduling}" target="BatchScheduleShipmentRouteSegments?facilityId=${facilityId}"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <field name="shipmentId" title="${uiLabelMap.ProductShipmentId}">
-            <hyperlink target="ViewShipment?shipmentId=${shipmentId}" description="${shipmentId}"/>
+            <hyperlink target="ViewShipment" description="${shipmentId}">
+                <parameter param-name="shipmentId" from-field="shipmentId"/>
+            </hyperlink>
         </field>
         <field name="primaryOrderId" title="${uiLabelMap.ProductOrderId}">
             <hyperlink target="/ordermgr/control/orderview" description="${primaryOrderId}" target-type="inter-app">
@@ -467,7 +471,9 @@ under the License.
             </hyperlink>
         </field>
         <field name="shipmentRouteSegmentId">
-            <hyperlink target="EditShipmentRouteSegments?shipmentId=${shipmentId}" description="${shipmentRouteSegmentId}"/>
+            <hyperlink target="EditShipmentRouteSegments" description="${shipmentRouteSegmentId}">
+                <parameter param-name="shipmentId" from-field="shipmentId"/>
+            </hyperlink>
         </field>
         <field name="carrierPartyId" title="${uiLabelMap.ProductCarrier}">
             <display-entity description="${groupName}" entity-name="PartyNameView" key-field-name="partyId"/>
@@ -497,7 +503,9 @@ under the License.
     <form name="Labels" type="multi" use-row-submit="true" list-name="shipmentPackageRouteSegments" title="" target="BatchPrintShippingLabels" separate-columns="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="shipmentId" title="${uiLabelMap.ProductShipmentId}">
-            <hyperlink target="ViewShipment?shipmentId=${shipmentId}" description="${shipmentId}"/>
+            <hyperlink target="ViewShipment" description="${shipmentId}">
+                <parameter param-name="shipmentId" from-field="shipmentId"/>
+            </hyperlink>
         </field>
         <field name="primaryOrderId" title="${uiLabelMap.ProductOrderId}">
             <hyperlink target="/ordermgr/control/orderview" description="${primaryOrderId}" target-type="inter-app">
@@ -546,7 +554,9 @@ under the License.
             <hyperlink description="${inventoryItemId}" target="EditInventoryItem?inventoryItemId=${inventoryItemId}"/>
         </field>
         <field name="productId" widget-style="buttontext">
-            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems?productId=${productId}" target-type="inter-app"/>
+            <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">
+                <parameter param-name="productId" from-field="productId"/>
+            </hyperlink>
         </field>
         <field name="internalName"><display/></field>
         <field name="availableToPromiseTotal" title="${uiLabelMap.ProductItemATP}"><display/></field>
@@ -572,7 +582,9 @@ under the License.
         <field name="facilityId"><hidden/></field>
         <field name="facilityGroupId" title="${uiLabelMap.ProductFacilityGroupId}">
             <display-entity entity-name="FacilityGroup" key-field-name="facilityGroupId" description="${facilityGroupName}">
-                <sub-hyperlink target="EditFacilityGroup?facilityGroupId=${facilityGroupId}" description="[${facilityGroupId}]"/>
+                <sub-hyperlink target="EditFacilityGroup" description="[${facilityGroupId}]">
+                    <parameter param-name="facilityGroupId" from-field="facilityGroupId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="fromDate"><display/></field>
@@ -718,13 +730,19 @@ under the License.
         </row-actions>
 
         <field name="inventoryTransferId" title="${uiLabelMap.ProductInventoryTransfer}" widget-style="buttontext">
-            <hyperlink target="TransferInventoryItem?inventoryTransferId=${inventoryTransferId}" description="${inventoryTransferId}"/>
+            <hyperlink target="TransferInventoryItem" description="${inventoryTransferId}">
+                <parameter param-name="inventoryTransferId" from-field="inventoryTransferId"/>
+            </hyperlink>
         </field>
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink target="EditInventoryItem?inventoryItemId=${inventoryItemId}" description="${inventoryItemId}"/>
+            <hyperlink target="EditInventoryItem" description="${inventoryItemId}">
+                <parameter param-name="inventoryItemId" from-field="inventoryItemId"/>
+            </hyperlink>
         </field>
         <field name="facilityId" widget-style="buttontext">
-            <hyperlink target="EditFacility?facilityId=${facilityId}" description="${facilityId}"/>
+            <hyperlink target="EditFacility" description="${facilityId}">
+                <parameter param-name="facilityId" from-field="facilityId"/>
+            </hyperlink>
         </field>
         <field name="facilityName" entry-name="facilityId">
             <display-entity entity-name="Facility" key-field-name="facilityId" description="${facilityName}"/>
@@ -756,13 +774,19 @@ under the License.
             </entity-one>
         </row-actions>
         <field name="inventoryTransferId" title="${uiLabelMap.ProductInventoryTransfer}" widget-style="buttontext">
-            <hyperlink target="TransferInventoryItem?inventoryTransferId=${inventoryTransferId}" description="${inventoryTransferId}"/>
+            <hyperlink target="TransferInventoryItem" description="${inventoryTransferId}">
+                <parameter param-name="inventoryTransferId" from-field="inventoryTransferId"/>
+            </hyperlink>
         </field>
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink target="EditInventoryItem?inventoryItemId=${inventoryItemId}" description="${inventoryItemId}"/>
+            <hyperlink target="EditInventoryItem" description="${inventoryItemId}">
+                <parameter param-name="inventoryItemId" from-field="inventoryItemId"/>
+            </hyperlink>
         </field>
         <field name="facilityIdTo" widget-style="buttontext">
-            <hyperlink target="EditFacility?facilityId=${facilityIdTo}" description="${facilityIdTo}"/>
+            <hyperlink target="EditFacility" description="${facilityIdTo}">
+                <parameter param-name="facilityId" from-field="facilityIdTo"/>
+            </hyperlink>
         </field>
         <field name="facilityName" entry-name="facilityIdTo">
             <display-entity entity-name="Facility" key-field-name="facilityId" description="${facilityName}"/>
@@ -795,10 +819,14 @@ under the License.
             </entity-one>
         </row-actions>
         <field name="inventoryTransferId" title="${uiLabelMap.ProductInventoryTransfer}" widget-style="buttontext">
-            <hyperlink target="TransferInventoryItem?inventoryTransferId=${inventoryTransferId}" description="${inventoryTransferId}"/>
+            <hyperlink target="TransferInventoryItem" description="${inventoryTransferId}">
+                <parameter param-name="inventoryTransferId" from-field="inventoryTransferId"/>
+            </hyperlink>
         </field>
         <field name="inventoryItemId" widget-style="buttontext">
-            <hyperlink target="EditInventoryItem?inventoryItemId=${inventoryItemId}" description="${inventoryItemId}"/>
+            <hyperlink target="EditInventoryItem" description="${inventoryItemId}">
+                <parameter param-name="inventoryItemId" from-field="inventoryItemId"/>
+            </hyperlink>
         </field>
         <field name="facilityIdTo" widget-style="buttontext">
             <hyperlink target="EditFacility" description="${facilityIdTo}" also-hidden="false">

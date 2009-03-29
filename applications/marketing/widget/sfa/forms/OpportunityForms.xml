@@ -54,13 +54,17 @@ under the License.
         </actions>
         <field name="salesOpportunityId"><hidden/></field>
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}">
-            <hyperlink target="ViewOpportunity?salesOpportunityId=${salesOpportunityId}" description="${opportunityName}"/>
+            <hyperlink target="ViewOpportunity" description="${opportunityName}">
+                <parameter param-name="salesOpportunityId" from-field="salesOpportunityId"/>
+            </hyperlink>
         </field>
         <field name="opportunityStageId" title="${uiLabelMap.SfaInitialStage}"><display/></field>
         <field name="estimatedAmount" title="${uiLabelMap.SfaEstimatedAmount}"><display/></field>
         <field name="estimatedCloseDate" title="${uiLabelMap.SfaCloseDate}"><display/></field>
         <field name="editButton" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink target="EditOpportunity?salesOpportunityId=${salesOpportunityId}" description="${uiLabelMap.CommonEdit}"/>
+            <hyperlink target="EditOpportunity" description="${uiLabelMap.CommonEdit}">
+                <parameter param-name="salesOpportunityId" from-field="salesOpportunityId"/>
+            </hyperlink>
         </field>
     </form>
     

@@ -140,13 +140,17 @@ under the License.
         </field>
         <field name="dataResourceId">
             <lookup target-form-name="LookupDataResource">
-                <sub-hyperlink link-style="buttontext" target="EditDataResource?dataResourceId=${currentValue.dataResourceId}" description="${uiLabelMap.ContentGoToDataResource}"/>
+                <sub-hyperlink link-style="buttontext" target="EditDataResource" description="${uiLabelMap.ContentGoToDataResource}">
+                    <parameter param-name="dataResourceId" from-field="currentValue.dataResourceId"/>
+                </sub-hyperlink>
             </lookup>
         </field>
         <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>
         <field name="decoratorContentId">
             <lookup target-form-name="LookupContent">
-                <sub-hyperlink use-when="&quot;${currentValue.decoratorContentId}&quot;.length()>0" link-style="buttontext" target="EditContent?contentId=${currentValue.decoratorContentId}" description="${uiLabelMap.ContentGoToContent}"/>
+                <sub-hyperlink use-when="&quot;${currentValue.decoratorContentId}&quot;.length()>0" link-style="buttontext" target="EditContent" description="${uiLabelMap.ContentGoToContent}">
+                    <parameter param-name="contentId" from-field="currentValue.decoratorContentId"/>
+                </sub-hyperlink>
             </lookup>
         </field>
         <field name="mimeTypeId">

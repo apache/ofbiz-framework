@@ -114,17 +114,23 @@ under the License.
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" use-when="workEffortId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app"/>
+            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort" target-type="inter-app">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="workEffortId" use-when="workEffortId==null"><display/></field>
         <field name="shipmentId" use-when="shipmentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment?shipmentId=${shipmentId}" target-type="inter-app"/>
+            <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment" target-type="inter-app">
+                <parameter param-name="shipmentId" from-field="shipmentId"/>
+            </hyperlink>
         </field>
         <field name="shipmentId" use-when="shipmentId==null"><display/></field>
         <field name="isPosted"><display/></field>
         <field name="postedDate"><display/></field>
         <field name="postAcctgTrans" title="${uiLabelMap.CommonEmptyHeader}" use-when="&quot;N&quot;.equals(isPosted)" widget-style="buttontext">
-            <hyperlink target="postAcctgTrans?acctgTransId=${acctgTransId}" description="${uiLabelMap.AccountingPostTransaction}"/>
+            <hyperlink target="postAcctgTrans" description="${uiLabelMap.AccountingPostTransaction}">
+                <parameter param-name="acctgTransId" from-field="acctgTransId"/>
+            </hyperlink>
         </field>
         <field name="postAcctgTrans" title="${uiLabelMap.CommonEmptyHeader}" use-when="!&quot;N&quot;.equals(isPosted)"><display/></field>
     </form>
@@ -281,19 +287,27 @@ under the License.
         </field>
         <field name="paymentId" position="2" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" position="2" use-when="workEffortId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app"/>
+            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort" target-type="inter-app">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="workEffortId" position="2" use-when="workEffortId==null"><display/></field>
         <field name="shipmentId" position="2" use-when="shipmentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment?shipmentId=${shipmentId}" target-type="inter-app"/>
+            <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment" target-type="inter-app">
+                <parameter param-name="shipmentId" from-field="shipmentId"/>
+            </hyperlink>
         </field>
         <field name="shipmentId" position="2" use-when="shipmentId==null"><display/></field>
         <field name="partyId" position="2" use-when="partyId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${partyId}" target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app"/>
+            <hyperlink also-hidden="false" description="${partyId}" target="/partymgr/control/viewprofile" target-type="inter-app">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
         </field>
         <field name="partyId" position="2" use-when="partyId==null"><display/></field>
         <field name="productId" position="2" use-when="productId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${productId}" target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app"/>
+            <hyperlink also-hidden="false" description="${productId}" target="/catalog/control/EditProduct" target-type="inter-app">
+                <parameter param-name="productId" from-field="productId"/>
+            </hyperlink>
         </field>
         <field name="productId" position="2" use-when="productId==null"><display/></field>
         <field name="isPosted" position="2"><display/></field>
@@ -352,19 +366,27 @@ under the License.
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" use-when="workEffortId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app"/>
+            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort" target-type="inter-app">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="workEffortId" use-when="workEffortId==null"><display/></field>
         <field name="shipmentId" use-when="shipmentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment?shipmentId=${shipmentId}" target-type="inter-app"/>
+            <hyperlink also-hidden="false" description="${shipmentId}" target="/facility/control/EditShipment" target-type="inter-app">
+                <parameter param-name="shipmentId" from-field="shipmentId"/>
+            </hyperlink>
         </field>
         <field name="shipmentId" use-when="shipmentId==null"><display/></field>
         <field name="partyId" use-when="partyId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${partyId}" target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app"/>
+            <hyperlink also-hidden="false" description="${partyId}" target="/partymgr/control/viewprofile" target-type="inter-app">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
         </field>
         <field name="partyId" use-when="partyId==null"><display/></field>
         <field name="productId" use-when="productId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${productId}" target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app"/>
+            <hyperlink also-hidden="false" description="${productId}" target="/catalog/control/EditProduct" target-type="inter-app">
+                <parameter param-name="productId" from-field="productId"/>
+            </hyperlink>
         </field>
         <field name="productId" use-when="productId==null"><display/></field>
         <field name="isPosted"><display/></field>
