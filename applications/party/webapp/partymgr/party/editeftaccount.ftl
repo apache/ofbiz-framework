@@ -170,7 +170,7 @@ under the License.
         </table>
       </form>
       <div class="button-bar">
-        <a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
+        <a href="<@ofbizUrl>backHome</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
         <a href="javascript:document.editeftaccountform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
       </div>
   </div>

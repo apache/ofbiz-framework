@@ -158,7 +158,7 @@ under the License.
             <drop-down allow-empty="false" no-current-selected-key="N"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
-        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+        <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="backHome" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
 
     <form name="updatePassword" type="single" target="updatePassword"
