@@ -50,7 +50,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <!-- field name="organizationPartyId" title="Party" -->
+        <!-- <field name="organizationPartyId" title="Party" -->
         <field name="partyId" parameter-name="organizationPartyId"> 
             <drop-down>
                 <entity-options entity-name="PartyRoleAndPartyDetail" description="${partyId}" > 

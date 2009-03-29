@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -17,9 +17,9 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="EditWeekTimesheet" type="multi" list-name="timeEntries" use-row-submit="true" 
+    <form name="EditWeekTimesheet" type="multi" list-name="timeEntries" use-row-submit="true"
         separate-columns="true" target="update${my}Timesheet" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <service service-name="getProjectIdAndNameFromTask" result-map="result">
@@ -87,7 +87,7 @@
     </form>
     <form name="FindTimeSheet" target="FindTimeSheet" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="timesheetId"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="comments"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="partyId" title="${uiLabelMap.PartyParty}">
@@ -109,7 +109,7 @@
             </drop-down>
         </field>
         <field name="fromDate"><date-find/></field>
-        <field name="${uiLabelMap.CommonFind}" title="${uiLabelMap.CommonFind}"><submit/></field>    
+        <field name="${uiLabelMap.CommonFind}" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
     <form name="ListFindTimeSheet" type="list" list-name="listIt" paginate-target="FindTimeSheet"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -137,19 +137,20 @@
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <!--field name="comments" title="${uiLabelMap.CommonComments}"><display/></field-->
         <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
-            <hyperlink target="TimeSheetStatusToComplete">
-                <parameter param-name="timesheetId" from-field="timesheetId}&amp;statusId=TIMESHEET_COMPLETED" description="${completeLink"/>
+            <hyperlink target="TimeSheetStatusToComplete" description="${completeLink}">
+                <parameter param-name="timesheetId" from-field="timesheetId" />
+                <parameter param-name="statusId" value="TIMESHEET_COMPLETED" />
             </hyperlink>
         </field>
     </form>
-    
+
     <form name="AddMyWeeklyTimesheet" type="single" target="createMyWeeklyTimesheet" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="partyId"><hidden value="${userLogin.partyId}"/></field>
         <field entry-name="dummy" name="requiredDate" title="${uiLabelMap.ProjectMgrSelectedDate}"><date-time type="date"/></field>
         <field name="addButton"><submit/></field>
     </form>
-    
+
     <form name="AddWeeklyTimesheet" type="single" target="createWeeklyTimesheet" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="partyId" title="${uiLabelMap.PartyParty}">
@@ -164,14 +165,14 @@
         <field entry-name="dummy" name="requiredDate" title="${uiLabelMap.ProjectMgrSelectedDate}"><date-time type="date"/></field>
         <field name="addButton"><submit/></field>
     </form>
-    
+
     <form name="AddTimesheetEntry" type="single" target="createTimesheetEntry" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createTimeEntry"/>
-        
+
         <field name="timeEntryId"><ignored/><!-- don't pass, will be sequenced --></field>
         <field name="timesheetId"><hidden/></field>
-        
+
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
         <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
@@ -191,7 +192,7 @@
         </field>
         <field name="invoiceId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
         <field name="invoiceItemSeqId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
-        
+
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="QuickCreateTimeEntry" target="createQuickTimeEntry" title="" type="single"
@@ -233,10 +234,10 @@
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updateTimeEntry"/>
-        
+
         <field name="timeEntryId"><hidden/></field>
         <field name="timesheetId"><hidden/></field>
-        
+
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup size="12" target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
         <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
             <drop-down>
@@ -245,7 +246,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ProjectAndPhaseAndTask" key-field-name="workEffortId" description="${projectName}--${phaseName}--${workEffortName}">
@@ -255,14 +256,14 @@
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="invoiceId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
         <field name="invoiceItemSeqId"><ignored/><!-- don't pass, will be populated when this is added to an invoice later --></field>
-        
+
         <field name="comments"><text size="60"/></field>
-        
+
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        
+
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteTimesheetEntry?timesheetId=${timesheetId}&amp;timeEntryId=${timeEntryId}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
@@ -272,14 +273,14 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="timesheetId"><hidden/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}">
-            <hyperlink target="taskView">
-                <parameter param-name="workEffortId" from-field="workEffortId} " description="${workEffortName"/>
+            <hyperlink target="taskView" description="${workEffortName}">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
             </hyperlink>
         </field>
         <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
-            <hyperlink target="projectView">
-                <parameter param-name="projectId" from-field="projectId} " description="${projectName"/>
+            <hyperlink target="projectView"  description="${projectName}">
+                <parameter param-name="projectId" from-field="projectId"/>
             </hyperlink>
         </field>
         <field name="checkComplete" title="${uiLabelMap.ProjectMgrCheckComplete}"><display/></field>
