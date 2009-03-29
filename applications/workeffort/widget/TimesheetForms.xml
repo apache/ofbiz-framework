@@ -126,7 +126,11 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyParty}"/>
         <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}"><display-entity entity-name="RateType"/></field>
         <field name="workEffortId"><display-entity entity-name="WorkEffort" description="${workEffortName}"><sub-hyperlink target="WorkEffortSummary?workEffortId=${workEffortId}" description="${workEffortId}" link-style="buttontext"/></display-entity></field>
-        <field name="invoiceId" widget-style="buttontext"><hyperlink target="/accounting/control/invoiceOverview?invoiceId=${invoiceId}" target-type="inter-app" description="${invoiceId}"/></field>
+        <field name="invoiceId" widget-style="buttontext">
+			<hyperlink target="/accounting/control/invoiceOverview" target-type="inter-app" description="${invoiceId}">
+				<parameter param-name="invoiceId" from-field="invoiceId"/>
+			</hyperlink>
+		</field>
     </form>
     <form name="AddTimesheetToInvoice" target="addTimesheetToInvoice" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">

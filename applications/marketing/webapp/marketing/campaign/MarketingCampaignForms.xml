@@ -143,6 +143,10 @@ under the License.
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="buttontext"><submit button-type="text-link"/></field>
-        <field name="cancelLink" widget-style="buttontext" title="${uiLabelMap.CommonCancel}"><hyperlink target="${donePage}?marketingCampaignId=${marketingCampaignId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+        <field name="cancelLink" widget-style="buttontext" title="${uiLabelMap.CommonCancel}">
+			<hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+				<parameter param-name="marketingCampaignId" from-field="marketingCampaignId"/>
+			</hyperlink>
+		</field>
     </form>
 </forms>

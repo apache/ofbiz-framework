@@ -194,6 +194,10 @@ under the License.
         <field name="detailSubScreen" tooltip="${uiLabelMap.ProductDetailSubScreenTooltip}"><text size="60" maxlength="255"/></field>
         <field name="submitButton" use-when="productCategoryLink==null" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
         <field name="submitButton" use-when="productCategoryLink!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="clearFormButton" title="${uiLabelMap.CommonEmptyHeader}" use-when="productCategoryLink!=null"><hyperlink target="EditProductCategoryLinks?productCategoryId=${productCategoryId}" target-type="intra-app" description="${uiLabelMap.CommonClear}"/></field>
+        <field name="clearFormButton" title="${uiLabelMap.CommonEmptyHeader}" use-when="productCategoryLink!=null">
+			<hyperlink target="EditProductCategoryLinks" target-type="intra-app" description="${uiLabelMap.CommonClear}">
+				<parameter param-name="productCategoryId" from-field="productCategoryId"/>
+			</hyperlink>
+		</field>
     </form>
 </forms>

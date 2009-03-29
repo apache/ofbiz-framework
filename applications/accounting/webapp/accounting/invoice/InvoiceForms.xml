@@ -108,8 +108,16 @@ under the License.
         <field position="2" name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field position="1" name="description"><display/></field>
         <field position="2" name="invoiceMessage"><display/></field>
-        <field position="1" name="partyIdFrom"><hyperlink target="/partymgr/control/viewprofile?partyId=${invoice.partyIdFrom}" target-type="inter-app" description="${partyNameResultFrom.fullName} [${invoice.partyIdFrom}]"/></field>
-        <field position="2" name="partyIdTo" entry-name="partyId"><hyperlink target="/partymgr/control/viewprofile?partyId=${invoice.partyId}" target-type="inter-app" description="${partyNameResultTo.fullName} [${invoice.partyId}]"/></field>
+        <field position="1" name="partyIdFrom">
+			<hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultFrom.fullName} [${invoice.partyIdFrom}]">
+				<parameter param-name="partyId" from-field="invoice.partyIdFrom"/>
+			</hyperlink>
+		</field>
+        <field position="2" name="partyIdTo" entry-name="partyId">
+			<hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultTo.fullName} [${invoice.partyId}]">
+				<parameter param-name="partyId" from-field="invoice.partyId"/>
+			</hyperlink>
+		</field>
         <field position="1" name="roleTypeId"><display/></field>
         <field position="2" name="billingAccountId"><display/></field>
         <field position="1" name="invoiceDate"><display description="${bsh:if(invoice.get(&quot;invoiceDate&quot;)!=null)return(invoice.getString(&quot;invoiceDate&quot;).substring(0,10));}"/></field>
@@ -133,12 +141,20 @@ under the License.
         <field name="invoiceId"><hidden/></field>
         <field name="invoiceItemSeqId"><display/></field>
         <field name="invoiceItemTypeId"><display-entity description="${description}" entity-name="InvoiceItemType"/></field>
-        <field name="orderId" widget-style="linktext"><hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app" description="${orderId}"/></field>
+        <field name="orderId" widget-style="linktext">
+			<hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}">
+				<parameter param-name="orderId" from-field="orderId"/>
+			</hyperlink>
+		</field>
         <field name="inventoryItemId" widget-area-style="align-text"><display/></field>
         <field name="quantity" widget-area-style="align-text"><display/></field>
         <field name="amount" title="${uiLabelMap.AccountingUnitPrice}" widget-area-style="align-text"><display type="currency" currency="${invoice.currencyUomId}"/></field>
         <field name="total"><display type="currency" currency="${invoice.currencyUomId}"/></field>
-        <field name="productId" widget-style="linktext"><hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}"/></field>
+        <field name="productId" widget-style="linktext">
+			<hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${productId}">
+				<parameter param-name="productId" from-field="productId"/>
+			</hyperlink>
+		</field>
         <field name="overrideGlAccountId" widget-area-style="align-text"><hyperlink target="GlAccountNavigate?glAccountId=${overrideGlAccountId}" description="${overrideGlAccountId}"/></field>
     </form>
 
@@ -522,7 +538,11 @@ under the License.
         <field name="invoiceId"><hidden/></field>
         <field name="invoiceItemSeqId"><display/></field>
         <field name="timeEntryId"><display/></field>
-        <field name="timesheetId" entry-name="timesheet.timesheetId"><hyperlink target="/workeffort/control/EditTimesheet?timesheetId=${timesheetId}" target-type="inter-app" description="${timesheetId}"/></field>
+        <field name="timesheetId" entry-name="timesheet.timesheetId">
+			<hyperlink target="/workeffort/control/EditTimesheet" target-type="inter-app" description="${timesheetId}">
+				<parameter param-name="timesheetId" from-field="timesheetId"/>
+			</hyperlink>
+		</field>
         <field name="partyId" entry-name="partyId">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${middleName} ${lastName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app"  description=" [${partyId}]"/>

@@ -92,7 +92,11 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
-        <!-- <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${donePage}?segmentGroupId=${segmentGroupId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field> -->
+        <!-- <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+			<hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+				<parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+			</hyperlink>
+		</field> -->
     </form>
 
     <form name="AddPartyClassificationParty" type="single" target="createPartyClassificationParty" default-map-name="partyClassification"
@@ -104,7 +108,11 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
-        <!-- <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${donePage}?segmentGroupId=${segmentGroupId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field> -->
+        <!-- <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+			<hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+				<parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+			</hyperlink>
+		</field> -->
     </form>
 
     <form name="ListPartyClassificationGroupParties" type="list" target="updatePartyClassificationParty"

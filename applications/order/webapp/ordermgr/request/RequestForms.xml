@@ -483,7 +483,11 @@ under the License.
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="CustRequestType" description="${description}"/></field>  
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
-        <field name="fromPartyId" title="${uiLabelMap.PartyPartyId}"><hyperlink target="/partymgr/control/viewprofile?partyId=${custRequest.fromPartyId}" target-type="inter-app" description="${partyNameResultTo.fullName} [${custRequest.fromPartyId}]"/></field>
+        <field name="fromPartyId" title="${uiLabelMap.PartyPartyId}">
+			<hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultTo.fullName} [${custRequest.fromPartyId}]">
+				<parameter param-name="partyId" from-field="custRequest.fromPartyId"/>
+			</hyperlink>
+		</field>
         <field name="custRequestName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="productStoreId" title="${uiLabelMap.ProductProductStore}"><display-entity entity-name="ProductStore" description="${storeName}"/></field>
