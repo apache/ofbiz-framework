@@ -24,8 +24,51 @@
 
     <!-- communications -->
     <PortalPortlet portalPortletId="MyCommunications" portletName="My Communications"  description="Communication list" 
-        screenName="MyCommunicationEvents" screenLocation="component://party/widget/partymgr/CommunicationScreens.xml"
+        screenName="MyCommunicationEvents" 
+        screenLocation="component://party/widget/partymgr/CommunicationScreens.xml"
         editFormName="EditPartyId" editFormLocation="component://party/webapp/partymgr/communication/CommForms.xml" />
-    
-
+    <PortalPortlet portalPortletId="Attributes" portletName="Attributes" 
+        screenName="Attributes" 
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
+        description="Attributes in myportal from party" />
+    <PortalPortlet portalPortletId="AvsSettings" portletName="Avs Settings" 
+        screenName="AvsSettings" 
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
+        description="Avs Settings in myportal from party" />
+    <PortalPortlet portalPortletId="Content" portletName="Content" 
+        screenName="Content" 
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
+        description="Content in myportal from party" />
+    <PortalPortlet portalPortletId="LoyaltyPoints" portletName="Loyalty Points" 
+        screenName="LoyaltyPoints" 
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
+        description="Loyalty Points in myportal from party" />
+    <PortalPortlet portalPortletId="MYTASKSPARTY" portletName="My Tasks From Party" 
+        screenName="mytasks" 
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
+        description="My Tasks in myportal from party" />
+    <PortalPortlet portalPortletId="Notes" portletName="Notes" 
+        screenName="Notes" 
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
+        description="Notes in myportal from party" />    
+    <PortalPortlet portalPortletId="PaymentMethods" portletName="Payment Methods" 
+        screenName="PaymentMethods" 
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
+        description="PaymentMethods in myportal from party" />
+    <PortalPortlet portalPortletId="ShipperAccount" portletName="Shipper Account" 
+        screenName="ShipperAccount" 
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
+        description="Shipper Account in myportal from party" />
+    <PortalPortlet portalPortletId="UserLogin" portletName="User Login" 
+        screenName="UserLogin" 
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
+        description="User Login in myportal from party" />
+    <PortalPortlet portalPortletId="Visits" portletName="Visits" 
+        screenName="Visits" 
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
+        description="Visits in myportal from party" />
+    <PortalPortlet portalPortletId="contact" portletName="Contact" 
+        screenName="Contact" 
+        screenLocation="component://party/widget/partymgr/ProfileScreens.xml"
+        description="contact in myportal from party" />
 </entity-engine-xml>

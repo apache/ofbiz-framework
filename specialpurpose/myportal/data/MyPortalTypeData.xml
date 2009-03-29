@@ -80,17 +80,6 @@
     <PortletCategory portletCategoryId="LIST_REQUEST" description="List(s) Request"/>
     <PortletCategory portletCategoryId="LIST_CUSTOMER" description="List(s) of Customer" />    
     
-    <PortalPortlet portalPortletId="Attributes" portletName="Attributes" screenName="Attributes" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Attributes in myportal from party" />
-    <PortalPortlet portalPortletId="AvsSettings" portletName="Avs Settings" screenName="AvsSettings" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Avs Settings in myportal from party" />
-    <PortalPortlet portalPortletId="Content" portletName="Content" screenName="Content" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Content in myportal from party" />
-    <PortalPortlet portalPortletId="LoyaltyPoints" portletName="Loyalty Points" screenName="LoyaltyPoints" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Loyalty Points in myportal from party" />
-    <PortalPortlet portalPortletId="MYTASKSPARTY" portletName="My Tasks From Party" screenName="mytasksParty" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Tasks in myportal from party" />
-    <PortalPortlet portalPortletId="Notes" portletName="Notes" screenName="Notes" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Notes in myportal from party" />    
-    <PortalPortlet portalPortletId="PaymentMethods" portletName="Payment Methods" screenName="PaymentMethods" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="PaymentMethods in myportal from party" />
-    <PortalPortlet portalPortletId="ShipperAccount" portletName="Shipper Account" screenName="ShipperAccount" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Shipper Account in myportal from party" />
-    <PortalPortlet portalPortletId="UserLogin" portletName="User Login" screenName="UserLogin" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="User Login in myportal from party" />
-    <PortalPortlet portalPortletId="Visits" portletName="Visits" screenName="Visits" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Visits in myportal from party" />
-    <PortalPortlet portalPortletId="contact" portletName="Contact" screenName="Contact" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="contact in myportal from party" />
     <PortalPortlet portalPortletId="mycompanycomms" portletName="My Company Comms" screenName="MyCompanyComms" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Company Comms From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="mytasks" portletName="My Tasks" screenName="MyTasks" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Tasks From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />    
     <PortalPortlet portalPortletId="listrequestlist" portletName="List Request List" screenName="ListRequestList" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Request List From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
