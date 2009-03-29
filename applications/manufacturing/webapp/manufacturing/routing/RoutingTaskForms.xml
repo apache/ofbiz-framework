@@ -155,7 +155,9 @@ under the License.
         </field>
         <!--
         <field name="costComponentCalcView" entry-name="costComponentCalcId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="viewCostComponentCalc?costComponentCalcId=${costComponentCalcId}" description="${uiLabelMap.CommonViewFormula}" also-hidden="false"/>
+            <hyperlink target="viewCostComponentCalc" description="${uiLabelMap.CommonViewFormula}" also-hidden="false">
+                <parameter param-name="costComponentCalcId" from-field="costComponentCalcId"/>
+            </hyperlink>
         </field>
         -->
         <field name="calcelWorkEffortCostCalc" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -197,7 +199,9 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
         <field name="editRouting" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditRouting?workEffortId=${workEffortIdFrom}" description="${uiLabelMap.ManufacturingEditRouting}" also-hidden="false"/>
+            <hyperlink target="EditRouting" description="${uiLabelMap.ManufacturingEditRouting}" also-hidden="false">
+                <parameter param-name="workEffortId" from-field="workEffortIdFrom"/>
+            </hyperlink>
         </field>
     </form>
 
@@ -208,7 +212,9 @@ under the License.
         <field name="workEffortIdFrom"><hidden/></field>
         <field name="sequenceNum" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
         <field name="workEffortIdTo"  title="${uiLabelMap.ManufacturingTaskName}" widget-style="buttontext">
-            <hyperlink target="EditRoutingTask?workEffortId=${workEffortIdTo}" description="[${workEffortIdTo}] ${workEffortToName}" also-hidden="false"/>
+            <hyperlink target="EditRoutingTask" description="[${workEffortIdTo}] ${workEffortToName}" also-hidden="false">
+                <parameter param-name="workEffortId" from-field="workEffortIdTo"/>
+            </hyperlink>
         </field>
         <field name="workEffortAssocTypeId" ><hidden/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}" ><display/></field>
@@ -273,7 +279,9 @@ under the License.
    <form name="ListRoutingProductLink" type="list" target="EditRoutingProductLink" title="" list-name="allRoutingProductLinks"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="productId" widget-style="buttontext">
-            <hyperlink description="${productId}" target="/catalog/control/ViewProductManufacturing?productId=${productId}" also-hidden="false" target-type="inter-app"/>
+            <hyperlink description="${productId}" target="/catalog/control/ViewProductManufacturing" also-hidden="false" target-type="inter-app">
+                <parameter param-name="productId" from-field="productId"/>
+            </hyperlink>
         </field>
         <field name="productName" entry-name="productId" title="${uiLabelMap.ProductProductName}">
             <display-entity key-field-name="productId" entity-name="Product" description="${internalName}"/>

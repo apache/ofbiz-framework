@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditReturn" type="single" target="updateReturn" default-map-name="returnHeader" id="editReturn"
         header-row-style="header-row" default-table-style="basic-table">
@@ -27,8 +27,8 @@ under the License.
                 <field-map field-name="statusId" from-field="returnHeader.statusId"/>
             </entity-one>
         </actions>
-        <alt-target use-when="returnHeader==null" target="createReturn"/>     
-        <auto-fields-service service-name="updateReturnHeader"/>        
+        <alt-target use-when="returnHeader==null" target="createReturn"/>
+        <auto-fields-service service-name="updateReturnHeader"/>
         <field use-when="returnHeader!=null" name="returnId" tooltip="${uiLabelMap.OrderReturnCannotBeChanged}"><display/></field>
         <field use-when="returnHeader==null&amp;&amp;returnId!=null" name="returnId" tooltip="${uiLabelMap.OrderReturnCannotBeFound} ${returnId}"><text size="20" maxlength="20"/></field>
         <field use-when="returnHeader==null&amp;&amp;returnId==null" name="returnId"><ignored/></field>
@@ -94,7 +94,9 @@ under the License.
             </drop-down>
         </field>
         <field name="newCreditCard" widget-style="buttontext" use-when="returnHeader!=null&amp;&amp;returnHeader.getString(&quot;fromPartyId&quot;)!=null">
-            <hyperlink also-hidden="false" target="/partymgr/control/editcreditcard?partyId=${returnHeader.fromPartyId}${externalKeyParam}" target-window="partymgr" description="${uiLabelMap.AccountingCreateNewCreditCard}" target-type="inter-app"/>
+            <hyperlink also-hidden="false" target="/partymgr/control/editcreditcard" target-window="partymgr" description="${uiLabelMap.AccountingCreateNewCreditCard}" target-type="inter-app">
+                <parameter param-name="partyId" value="=${returnHeader.fromPartyId}${externalKeyParam}"/>
+            </hyperlink>
         </field>
         <field name="needsInventoryReceive" tooltip="${uiLabelMap.OrderReturnNecessaryReceiveInventoryMessage}">
             <drop-down no-current-selected-key="N"><option key="N"/><option key="Y"/></drop-down>
@@ -103,7 +105,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <!-- UNUSED FORM
-    <form name="ReturnItems" type="multi" list-name="orderItems" target="createReturnItem" 
+    <form name="ReturnItems" type="multi" list-name="orderItems" target="createReturnItem"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="createReturnItem"/>
         <field name="itemDescription"><display/></field>
@@ -162,7 +164,7 @@ under the License.
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${lastName}">
                 <sub-hyperlink link-style="buttontext" target-type="inter-app" description="${fromPartyId}" target="/partymgr/control/viewprofile?partyId=${fromPartyId}${externalKeyParam}"/>
             </display-entity>
-        </field>        
+        </field>
         <field name="destinationFacilityId" widget-style="buttontext" title="${uiLabelMap.OrderReturnDestinationFacility}">
             <hyperlink target-type="inter-app" description="${destinationFacilityId}" target="/facility/control/EditFacility?facilityId=${destinationFacilityId}${externalKeyParam}"/>
         </field>

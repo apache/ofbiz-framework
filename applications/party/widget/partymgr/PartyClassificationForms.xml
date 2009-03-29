@@ -93,10 +93,10 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <!-- <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-			<hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
-				<parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
-			</hyperlink>
-		</field> -->
+            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+            </hyperlink>
+        </field> -->
     </form>
 
     <form name="AddPartyClassificationParty" type="single" target="createPartyClassificationParty" default-map-name="partyClassification"
@@ -109,10 +109,10 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <!-- <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-			<hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
-				<parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
-			</hyperlink>
-		</field> -->
+            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+            </hyperlink>
+        </field> -->
     </form>
 
     <form name="ListPartyClassificationGroupParties" type="list" target="updatePartyClassificationParty"
@@ -127,7 +127,9 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.Party}">
            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${lastName} ${groupName}">
-                   <sub-hyperlink target="viewprofile?partyId=${partyId}" description="${partyId}" link-style="smallSubmit"/>
+                   <sub-hyperlink target="viewprofile" description="${partyId}" link-style="smallSubmit">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </sub-hyperlink>
            </display-entity>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>

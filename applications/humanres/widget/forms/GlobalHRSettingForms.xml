@@ -29,7 +29,9 @@ under the License.
         <field name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteSkillType?skillTypeId=${skillTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteSkillType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="skillTypeId" from-field="skillTypeId"/>
+            </hyperlink>
         </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
@@ -49,7 +51,9 @@ under the License.
         <auto-fields-service service-name="updateResponsibilityType" default-field-type="hidden"/>
         <field name="responsibilityTypeId" title="${uiLabelMap.HumanResResponsibilityTypeId}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteResponsibilityType?responsibilityTypeId=${responsibilityTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteResponsibilityType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="responsibilityTypeId" from-field="responsibilityTypeId"/>
+            </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
@@ -70,7 +74,9 @@ under the License.
         <field name="terminationTypeId" title="${uiLabelMap.HumanResTerminationTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteTerminationType?terminationTypeId=${terminationTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteTerminationType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="terminationTypeId" from-field="terminationTypeId"/>
+            </hyperlink>
         </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
@@ -189,7 +195,9 @@ under the License.
         <field name="description"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteTerminationReason?terminationReasonId=${terminationReasonId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteTerminationReason" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="terminationReasonId" from-field="terminationReasonId"/>
+            </hyperlink>
         </field>    
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
     </form>

@@ -200,7 +200,9 @@
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
         <field name="parentProjectId" title="${uiLabelMap.ProjectMgrParentProjectName}">
             <display-entity entity-name="WorkEffort" description="${workEffortName} ${workEffortId}" key-field-name="workEffortId">
-                <sub-hyperlink target="projectView?projectId=${workEffortId}" description="${workEffortId}" link-style="buttontext"/>
+                <sub-hyperlink target="projectView" description="${workEffortId}" link-style="buttontext">
+                    <parameter param-name="projectId" from-field="workEffortId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
@@ -380,10 +382,10 @@
     </form>
     <form name="ListOrderInfo" target="EditProjectOrders?projectId=${projectId}" type="list" list-name="listOrderAssoProject" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="orderId">
-			<hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}">
-				<parameter param-name="orderId" from-field="orderId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}">
+                <parameter param-name="orderId" from-field="orderId"/>
+            </hyperlink>
+        </field>
         <field name="orderName"><display/></field>
         <field name="orderTypeId"><display-entity entity-name="OrderType" description="${description}"/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
@@ -436,8 +438,8 @@
         <field name="projectId"><hidden/></field>
         <field name="partyName" title="${uiLabelMap.CommonName}">
             <hyperlink target="viewprofile"  description="${lastName}, ${firstName ${middleName} ${groupName} [${partyId}]">
-				<parameter param-name="partyId" from-field="partyId"/>
-			</hyperlink>
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
         </field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
         <field name="actualHours" entry-name="actualHours" map-name="result.projectInfo"><display/></field>
@@ -448,8 +450,8 @@
         <field name="projectId"><hidden/></field>
         <field name="partyName" title="${uiLabelMap.CommonName}">
             <hyperlink target="viewprofile"  description="${lastName}, ${firstName ${middleName} ${groupName} [${partyId}]">
-				<parameter param-name="partyId" from-field="partyId"/>
-			</hyperlink>
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
         </field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
     </form>
@@ -463,7 +465,9 @@
         </row-actions>
         <field name="projectId"><hidden/></field>
         <field name="partyName" title="${uiLabelMap.CommonName}">
-            <hyperlink target="viewprofile?partyId=${partyId}" description="${groupName} [${partyId}]"/>
+            <hyperlink target="viewprofile" description="${groupName} [${partyId}]">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
         </field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
         <field name="currencyUomId"><display-entity entity-name="Uom" key-field-name="uomId" description="${description}"></display-entity></field>
@@ -480,8 +484,8 @@
         <field name="projectId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
             <hyperlink target="viewprofile"  description="${firstName ${middleName} ${lastName} ${groupName}">
-				<parameter param-name="partyId" from-field="partyId"/>
-            <hyperlink>
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
             <display-entity entity-name="RoleType"/>

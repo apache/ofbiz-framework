@@ -83,10 +83,10 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-			<hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
-				<parameter param-name="partyId" from-field="partyId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
+        </field>
     </form>
 
     <form name="EditPartyGroup" type="single" target="updatePartyGroup" default-map-name="partyGroup"
@@ -118,10 +118,10 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-			<hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
-				<parameter param-name="partyId" from-field="partyId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
+        </field>
     </form>
 
     <form name="ViewPartyGroup" type="single" default-map-name="lookupGroup">
@@ -182,10 +182,10 @@ under the License.
         <field name="newPasswordVerify"><password/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-			<hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
-				<parameter param-name="partyId" from-field="partyId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
+        </field>
     </form>
 
     <form name="updateUserLoginSecurity" type="single" target="updateUserLoginSecurity" default-map-name="editUserLogin"
@@ -200,10 +200,10 @@ under the License.
         <field name="userLdapDn" use-when="!&quot;true&quot;.equals(ldapEnabled)"><ignored/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-			<hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
-				<parameter param-name="partyId" from-field="partyId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
+        </field>
     </form>
 
     <form name="EditVendor" type="single" target="updateVendor" default-map-name="vendor"
@@ -298,7 +298,9 @@ under the License.
         <field name="taxAuthGeoId"><display-entity entity-name="Geo" key-field-name="geoId" description="[${geoId}] ${geoName}" also-hidden="true"/></field>
         <field name="taxAuthPartyId">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}" also-hidden="true">
-                <sub-hyperlink target="viewprofile?partyId=${taxAuthPartyId}" description="${taxAuthPartyId}" link-style="smallSubmit"/>
+                <sub-hyperlink target="viewprofile" description="${taxAuthPartyId}" link-style="smallSubmit">
+                    <parameter param-name="partyId" from-field="taxAuthPartyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
@@ -324,10 +326,10 @@ under the License.
         <field name="note"><textarea cols="70" rows="10"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-			<hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
-				<parameter param-name="partyId" from-field="partyId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
+        </field>
     </form>
 
     <!-- PartyRate -->
@@ -471,7 +473,9 @@ under the License.
         </actions>
         <field name="segmentGroupId" title="${uiLabelMap.PartySegmentGroupId}">
             <display-entity entity-name="SegmentGroup">
-                <sub-hyperlink description="${segmentGroupId}" target="/marketing/control/viewSegmentGroup?segmentGroupId=${segmentGroupId}" target-type="inter-app" link-style="smallSubmit"/>
+                <sub-hyperlink description="${segmentGroupId}" target="/marketing/control/viewSegmentGroup" target-type="inter-app" link-style="smallSubmit">
+                    <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRole}">
@@ -498,10 +502,10 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <!-- <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-			<hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
-				<parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
-			</hyperlink>
-		</field> -->
+            <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
+                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+            </hyperlink>
+        </field> -->
     </form>
 
     <form name="EditPartyAttribute" type="single" target="updatePartyAttribute" default-map-name="attribute"
@@ -596,9 +600,9 @@ under the License.
         <field name="contentName">
             <display-entity entity-name="Content" description="${contentName}" key-field-name="contentId">
                 <sub-hyperlink target="EditPartyContents" description="${contentId}" link-style="smallSubmit">
-    				<parameter param-name="contentId" from-field="contentId"/>
-    				<parameter param-name="partyId" from-field="partyId"/>
-    			</sub-hyperlink>
+                    <parameter param-name="contentId" from-field="contentId"/>
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="partyContentTypeId"><display-entity entity-name="PartyContentType"/></field>
@@ -704,7 +708,9 @@ under the License.
         <field name="description"><display/></field>
         <field name="productId">
             <display-entity entity-name="Product" description="${productName}">
-                <sub-hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}" link-style="buttontext"/>
+                <sub-hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${productId}" link-style="buttontext">
+                    <parameter param-name="productId" from-field="productId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="fromDate"><display/></field>
@@ -846,7 +852,9 @@ under the License.
         </row-actions>
         <field name="invoiceId">
             <display-entity entity-name="Invoice" description=" " also-hidden="true">
-                <sub-hyperlink target="/accounting/control/invoiceOverview?invoiceId=${invoiceId}" description="[${invoiceId}]" target-type="inter-app"/>
+                <sub-hyperlink target="/accounting/control/invoiceOverview" description="[${invoiceId}]" target-type="inter-app">
+                    <parameter param-name="invoiceId" from-field="invoiceId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="invoiceTypeId"><display-entity entity-name="InvoiceType" description="${description}"/></field>
@@ -856,7 +864,9 @@ under the License.
         <field name="amountApplied"><display type="currency" currency="${actualCurrencyUomId}"/></field>
         <field name="paymentId">
             <display-entity entity-name="Payment" description=" " also-hidden="true">
-                <sub-hyperlink target="/accounting/control/paymentOverview?paymentId=${paymentId}" description="[${paymentId}]" target-type="inter-app"/>
+                <sub-hyperlink target="/accounting/control/paymentOverview" description="[${paymentId}]" target-type="inter-app">
+                    <parameter param-name="paymentId" from-field="paymentId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="pmEffectiveDate" title="${uiLabelMap.AccountingEffectiveDate}"><display type="date"/></field>
@@ -872,7 +882,9 @@ under the License.
         </actions>
         <field name="invoiceId">
             <display-entity entity-name="Invoice" description="${description}">
-                <sub-hyperlink target="/accounting/control/invoiceOverview?invoiceId=${invoiceId}" description="[${invoiceId}]" target-type="inter-app"/>
+                <sub-hyperlink target="/accounting/control/invoiceOverview" description="[${invoiceId}]" target-type="inter-app">
+                    <parameter param-name="invoiceId" from-field="invoiceId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="invoiceParentTypeId">
@@ -892,7 +904,9 @@ under the License.
         <field name="paymentId"><hidden/></field>
         <field name="paymentId">
             <display-entity entity-name="Payment" description=" ">
-                <sub-hyperlink target="/accounting/control/paymentOverview?paymentId=${paymentId}" description="[${paymentId}]" target-type="inter-app"/>
+                <sub-hyperlink target="/accounting/control/paymentOverview" description="[${paymentId}]" target-type="inter-app">
+                    <parameter param-name="paymentId" from-field="paymentId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="effectiveDate"><display type="date"/></field>

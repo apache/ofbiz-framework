@@ -368,7 +368,9 @@
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}">
             <display-entity entity-name="WorkEffort" description="${workEffortName}">
-                <sub-hyperlink target="EditTask?workEffortId=${workEffortId}" description="${workEffortId}" link-style="buttontext"/>
+                <sub-hyperlink target="EditTask" description="${workEffortId}" link-style="buttontext">
+                    <parameter param-name="workEffortId" from-field="workEffortId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="skillTypeId" title="${uiLabelMap.ProjectMgrSkillType}"><display-entity entity-name="SkillType" description="${description}"/></field>
@@ -487,7 +489,9 @@
         <field name="taskName" title="${uiLabelMap.ProjectMgrTaskName}"><display description="${task.taskName} [${task.taskId}]"/></field>
         <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${projectResult.phaseName} [${projectResult.phaseId}]"/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
-            <hyperlink target="projectView?projectId=${projectResult.projectId}" description="${projectResult.projectName} [${projectResult.projectId}]"/>
+            <hyperlink target="projectView" description="${projectResult.projectName} [${projectResult.projectId}]">
+                <parameter param-name="projectId" from-field="projectResult.projectId"/>
+            </hyperlink>
         </field>
         <field name="taskDescription" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"></display-entity></field>
@@ -512,7 +516,9 @@
         <field name="projectId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="viewprofile?partyId=${partyId}" description="${partyId}" link-style="buttontext"/>
+                <sub-hyperlink target="viewprofile" description="${partyId}" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">

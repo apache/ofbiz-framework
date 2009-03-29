@@ -47,7 +47,9 @@ under the License.
         <alt-target use-when="insideEmployee==null" target="updatePersonTrainings"/>
         <auto-fields-service default-field-type="display" service-name="updatePersonTraining"/>
         <field name="partyId" widget-style="linktext">
-            <hyperlink also-hidden="true" target="viewprofile?partyId=${partyId}" target-type="plain" description="${partyId}"/>
+            <hyperlink also-hidden="true" target="viewprofile" target-type="plain" description="${partyId}">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
         </field>
         <field name="trainingClassTypeId"><display-entity description="${description}" entity-name="TrainingClassType"/></field>
         <field name="thruDate"><date-time type="timestamp"/></field>

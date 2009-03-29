@@ -50,7 +50,9 @@ under the License.
         </field>
         <field name="productId">
             <text>
-                <sub-hyperlink use-when="productId!=null" target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${uiLabelMap.ProductEditProduct} [${productId}]"/>
+                <sub-hyperlink use-when="productId!=null" target="/catalog/control/EditProduct" target-type="inter-app" description="${uiLabelMap.ProductEditProduct} [${productId}]">
+                <parameter param-name="productId" from-field="productId"/>
+            </sub-hyperlink>
             </text>
         </field>
         <field name="statusId" use-when="inventoryItem==null">
@@ -83,7 +85,9 @@ under the License.
                 <entity-options entity-name="Facility" description="${facilityName}" key-field-name="facilityId">
                     <entity-order-by field-name="facilityName"/>
                 </entity-options>
-                <sub-hyperlink use-when="facilityId!=null" target="EditFacility?facilityId=${facilityId}" description="${uiLabelMap.ProductEditFacility} [${facilityId}]"/>
+                <sub-hyperlink use-when="facilityId!=null" target="EditFacility" description="${uiLabelMap.ProductEditFacility} [${facilityId}]">
+                <parameter param-name="facilityId" from-field="facilityId"/>
+            </sub-hyperlink>
             </drop-down>                         
         </field>
         <field name="lotId" title="${uiLabelMap.ProductLotId}"/>
@@ -156,10 +160,14 @@ under the License.
         <auto-fields-entity entity-name="InventoryItemDetail" map-name="inventoryItemDetail" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field> <!-- this field is redundant -->
         <field name="orderId" widget-style="buttontext">
-            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app" description="${orderId}" />
+            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}" >
+                <parameter param-name="orderId" from-field="orderId"/>
+            </hyperlink>
         </field>
         <field name="shipmentId" widget-style="buttontext">
-            <hyperlink target="ViewShipment?shipmentId=${shipmentId}" description="${shipmentId}" />
+            <hyperlink target="ViewShipment" description="${shipmentId}" >
+                <parameter param-name="shipmentId" from-field="shipmentId"/>
+            </hyperlink>
         </field>
         <field name="reasonEnumId">
             <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
@@ -172,7 +180,9 @@ under the License.
         <auto-fields-entity entity-name="OrderItemShipGrpInvRes" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field>
         <field name="orderId" widget-style="buttontext">
-            <hyperlink target="/ordermgr/control/orderview?orderId=${orderId}" target-type="inter-app" description="${orderId}" />
+            <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}" >
+                <parameter param-name="orderId" from-field="orderId"/>
+            </hyperlink>
         </field>
     </form>
     <!-- Inventory Item Labels -->
@@ -180,7 +190,9 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateInventoryItemLabelAppl"/>
         <field name="inventoryItemLabelId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditInventoryItemLabel?inventoryItemLabelId=${inventoryItemLabelId}" description="${inventoryItemLabelId}" also-hidden="true"/>
+            <hyperlink target="EditInventoryItemLabel" description="${inventoryItemLabelId}" also-hidden="true">
+                <parameter param-name="inventoryItemLabelId" from-field="inventoryItemLabelId"/>
+            </hyperlink>
         </field>
         <field name="facilityId"><hidden/></field>
         <field name="inventoryItemId"><hidden/></field>

@@ -75,7 +75,9 @@
         <field name="leaveTypeId"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmplLeaveType?leaveTypeId=${leaveTypeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteEmplLeaveType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="leaveTypeId" from-field="leaveTypeId"/>
+            </hyperlink>
         </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>

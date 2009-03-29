@@ -25,11 +25,15 @@
         paginate-target="ListQuantityBreaks" odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="QuantityBreak" default-field-type="display"/>
         <field name="quantityBreakId" widget-style="buttontext">
-            <hyperlink target="ListQuantityBreaks?quantityBreakId=${quantityBreakId}" description="${quantityBreakId}" also-hidden="false"/>
+            <hyperlink target="ListQuantityBreaks" description="${quantityBreakId}" also-hidden="false">
+                <parameter param-name="quantityBreakId" from-field="quantityBreakId"/>
+            </hyperlink>
         </field>
         <field name="quantityBreakTypeId" title="${uiLabelMap.CommonType}"><display-entity also-hidden="false" entity-name="QuantityBreakType"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteQuantityBreak?quantityBreakId=${quantityBreakId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="deleteQuantityBreak" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="quantityBreakId" from-field="quantityBreakId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditQuantityBreak" type="single" target="createQuantityBreak" title="" default-map-name="quantityBreak"
@@ -50,10 +54,14 @@
         paginate-target="ListShipmentMethodTypes" odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShipmentMethodType" default-field-type="display"/>
         <field name="shipmentMethodTypeId" widget-style="buttontext">
-            <hyperlink target="ListShipmentMethodTypes?shipmentMethodTypeId=${shipmentMethodTypeId}" description="${shipmentMethodTypeId}" also-hidden="false"/>
+            <hyperlink target="ListShipmentMethodTypes" description="${shipmentMethodTypeId}" also-hidden="false">
+                <parameter param-name="shipmentMethodTypeId" from-field="shipmentMethodTypeId"/>
+            </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteShipmentMethodType?shipmentMethodTypeId=${shipmentMethodTypeId}" description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="deleteShipmentMethodType" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="shipmentMethodTypeId" from-field="shipmentMethodTypeId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditShipmentMethodType" type="single" target="createShipmentMethodType" title="" default-map-name="shipmentMethodType"

@@ -56,10 +56,10 @@
     <form name="ListBillingHours" type="list" list-name="billingList" paginate-target="ListResourcesBillingHours"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="projectName">
-			<hyperlink target="projectView" description="${projectName} [${projectId}]">
-				<parameter param-name="projectId" from-field="projectId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="projectView" description="${projectName} [${projectId}]">
+                <parameter param-name="projectId" from-field="projectId"/>
+            </hyperlink>
+        </field>
         <field name="originalActualHours"><display/></field>
         <field name="actualHours"><display/></field>
         <field name="actualNonBilledHours"><display/></field>

@@ -43,11 +43,15 @@ under the License.
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-               <sub-hyperlink target="viewprofile?partyId=${partyId}" link-style="smallSubmit" target-type="inter-app" description="${partyId}"/>
+               <sub-hyperlink target="viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </sub-hyperlink>
            </display-entity>
        </field>
        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-           <hyperlink target="deletePartyResume?resumeId=${resumeId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+           <hyperlink target="deletePartyResume" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="resumeId" from-field="resumeId"/>
+            </hyperlink>
        </field>
     </form>     
     <form name="EditPartyResume" type="single" target="createPartyResume" title="" default-map-name="partyResume"

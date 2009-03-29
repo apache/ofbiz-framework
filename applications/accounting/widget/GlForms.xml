@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="FindAcctgTrans" target="FindAcctgTrans" type="single" title="" default-map-name="journal"
@@ -100,21 +100,21 @@ under the License.
             <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans">
                 <parameter param-name="acctgTransId" from-field="acctgTransId"/>
                 <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
-            </hyperlink> 
-        </field>                
-        <field name="transactionDate"><display/></field>                
+            </hyperlink>
+        </field>
+        <field name="transactionDate"><display/></field>
         <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
         <field name="glFiscalTypeId"><display-entity entity-name="GlFiscalType" description="${description}"/></field>
         <field name="invoiceId" use-when="invoiceId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/> 
+            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/>
         </field>
         <field name="invoiceId" use-when="invoiceId==null"><display/></field>
         <field name="paymentId" use-when="paymentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/> 
+            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/>
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" use-when="workEffortId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app"/> 
+            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app"/>
         </field>
         <field name="workEffortId" use-when="workEffortId==null"><display/></field>
         <field name="shipmentId" use-when="shipmentId!=null" widget-style="buttontext">
@@ -135,17 +135,17 @@ under the License.
             <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans">
                 <parameter param-name="acctgTransId" from-field="acctgTransId"/>
                 <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
-            </hyperlink> 
-        </field>                
-        <field name="transactionDate"><display/></field>                
+            </hyperlink>
+        </field>
+        <field name="transactionDate"><display/></field>
         <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
         <field name="glFiscalTypeId"><display-entity entity-name="GlFiscalType" description="${description}"/></field>
         <field name="invoiceId" use-when="invoiceId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/> 
+            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/>
         </field>
         <field name="invoiceId" use-when="invoiceId==null"><display/></field>
         <field name="paymentId" use-when="paymentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/> 
+            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/>
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
         <field name="partyId"><display/></field>
@@ -153,10 +153,10 @@ under the License.
         <field name="shipmentId"><display/></field>
         <field name="verify" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.AccountingVerifyTransaction}" target="postAcctgTrans" also-hidden="false">
-				<parameter param-name="acctgTransId" from-field="acctgTransId"/>
-				<parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
-				<parameter param-name="verifyOnly" value="Y"/>
-			</hyperlink>
+                <parameter param-name="acctgTransId" from-field="acctgTransId"/>
+                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="verifyOnly" value="Y"/>
+            </hyperlink>
         </field>
         <field name="post" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.AccountingPostTransaction}" target="postAcctgTrans" also-hidden="false">
@@ -206,7 +206,7 @@ under the License.
                 <option description="${uiLabelMap.CommonNo}" key="N"/>
                 <option description="${uiLabelMap.CommonYes}" key="Y"/>
             </drop-down>
-        </field> 
+        </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <lookup target-form-name="LookupPartyName" size="20" maxlength="20"/>
         </field>
@@ -217,13 +217,13 @@ under the License.
         <field name="shipmentId"><lookup target-form-name="LookupShipment" size="20" maxlength="20"/></field>
         <field name="fromDate"><date-time/></field>
         <field name="thruDate"><date-time/></field>
-        <field name="performSearch"><hidden value="Y"/></field> 
+        <field name="performSearch"><hidden value="Y"/></field>
         <field name="reportType">
             <drop-down allow-empty="false">
                 <option description="${uiLabelMap.AccountingByAccount}" key="byAccount"/>
                 <option description="${uiLabelMap.AccountingByDate}" key="byDate"/>
             </drop-down>
-        </field> 
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
     <form name="ListFindAcctgTransEntriesByAccount" type="list" title="List Accounting Transaction Entries" list-name="acctgTransEntryList"
@@ -261,27 +261,27 @@ under the License.
         <field name="glAccountClassId" position="1" use-when="showPosition1">
             <display-entity entity-name="GlAccountClass" />
         </field>
-        
+
         <field name="acctgTransId" widget-style="buttontext" position="2">
             <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans">
                 <parameter param-name="acctgTransId" from-field="acctgTransId"/>
                 <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
-            </hyperlink> 
+            </hyperlink>
         </field>
         <field name="acctgTransEntrySeqId" widget-style="buttontext" position="2"><display/></field>
         <field name="transactionDate" position="2"><display/></field>
         <field name="acctgTransTypeId" position="2"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
         <field name="glFiscalTypeId" position="2"><display-entity entity-name="GlFiscalType" description="${description}"/></field>
         <field name="invoiceId" position="2" use-when="invoiceId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/> 
+            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/>
         </field>
         <field name="invoiceId" position="2" use-when="invoiceId==null"><display/></field>
         <field name="paymentId" position="2" use-when="paymentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/> 
+            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/>
         </field>
         <field name="paymentId" position="2" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" position="2" use-when="workEffortId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app"/> 
+            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app"/>
         </field>
         <field name="workEffortId" position="2" use-when="workEffortId==null"><display/></field>
         <field name="shipmentId" position="2" use-when="shipmentId!=null" widget-style="buttontext">
@@ -325,13 +325,13 @@ under the License.
                 <order-by field-name="-transactionDate"/>
             </entity-condition>
         </actions>
-        
+
         <field name="transactionDate"><display/></field>
         <field name="acctgTransId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${acctgTransId}" target="EditAcctgTrans">
                 <parameter param-name="acctgTransId" from-field="acctgTransId"/>
                 <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
-            </hyperlink> 
+            </hyperlink>
         </field>
         <field name="acctgTransEntrySeqId" widget-style="buttontext"><display/></field>
         <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType" description="${description}"/></field>
@@ -344,15 +344,15 @@ under the License.
             <display-entity entity-name="GlAccountClass" />
         </field>
         <field name="invoiceId" use-when="invoiceId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/> 
+            <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice?invoiceId=${invoiceId}"/>
         </field>
         <field name="invoiceId" use-when="invoiceId==null"><display/></field>
         <field name="paymentId" use-when="paymentId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/> 
+            <hyperlink also-hidden="false" description="${paymentId}" target="editPayment?paymentId=${paymentId}"/>
         </field>
         <field name="paymentId" use-when="paymentId==null"><display/></field>
         <field name="workEffortId" use-when="workEffortId!=null" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app"/> 
+            <hyperlink also-hidden="false" description="${workEffortId}" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app"/>
         </field>
         <field name="workEffortId" use-when="workEffortId==null"><display/></field>
         <field name="shipmentId" use-when="shipmentId!=null" widget-style="buttontext">
@@ -448,7 +448,7 @@ under the License.
 
     <form name="EditAcctgTrans" type="single" target="updateAcctgTrans" default-map-name="acctgTrans"
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="updateAcctgTrans"/>        
+        <auto-fields-service service-name="updateAcctgTrans"/>
         <field name="acctgTransId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="organizationPartyId" map-name="parameter"><hidden/></field>
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
@@ -472,7 +472,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName" size="20" maxlength="20"/></field> 
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName" size="20" maxlength="20"/></field>
         <field name="workEffortId"><lookup target-form-name="LookupWorkEffort" size="20" maxlength="20"/></field>
         <field name="invoiceId"><lookup target-form-name="LookupInvoice" size="20" maxlength="20"/></field>
         <field name="paymentId"><lookup target-form-name="LookupPayment" size="20" maxlength="20"/></field>
@@ -496,7 +496,7 @@ under the License.
         <field name="createdByUserLogin"><hidden/></field>
         <field name="lastModifiedByUserLogin"><hidden/></field>
         <field name="transactionDate"><date-time/></field>
-        <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field> 
+        <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 
     <form name="EditAcctgTransEntry" type="single" target="updateAcctgTransEntry" default-map-name="acctgTransEntry" default-entity-name="AcctgTransEntry"
@@ -550,7 +550,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="organizationPartyId"><hidden/></field>
         <field name="acctgTransId"><hidden/></field>
-        <field name="acctgTransEntrySeqId"><display/></field>     
+        <field name="acctgTransEntrySeqId"><display/></field>
         <field name="glAccountTypeId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="GlAccountType" description="${description}">
@@ -575,7 +575,7 @@ under the License.
             </drop-down>
         </field>
         <field name="settlementTermId"><display/></field>
-        -->    
+        -->
         <field name="description"><display/></field>
         <field name="voucherRef"><display/></field>
         <field name="partyId">
@@ -642,7 +642,7 @@ under the License.
                     <entity-order-by field-name="fixedAssetId"/>
                 </entity-options>
             </drop-down>
-        </field> 
+        </field>
         <field name="paymentId">
             <lookup target-form-name="LookupPayment" size="20" maxlength="20"/>
         </field>
@@ -674,7 +674,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="performSearch"><hidden value="Y"/></field> 
+        <field name="performSearch"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSearch}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
     <form name="ListGlAccountReconciliation" type="multi" use-row-submit="true" target="EditGlReconciliation?organizationPartyId=${organizationPartyId}&amp;tabButtonItem=AccountReconciliation"
@@ -689,7 +689,7 @@ under the License.
                 <order-by field-name="-lastUpdatedStamp"/>
             </entity-condition>
         </actions>
-       
+
         <field name="acctgTransId"><display/></field>
         <field name="acctgTransEntrySeqId"><display/></field>
         <field name="glAccountId"><display/></field>
@@ -739,7 +739,7 @@ under the License.
         </field>
         <field name="fromDate"><date-time/></field>
         <field name="thruDate"><date-time/></field>
-        <field name="performSearch"><hidden value="Y"/></field> 
+        <field name="performSearch"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSearch}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
     <form name="ListGlAccountReconciliations" type="list" default-entity-name="GlReconciliation"
@@ -755,9 +755,9 @@ under the License.
         </actions>
         <field name="glReconciliationId">
             <hyperlink also-hidden="false" description="${glReconciliationId}" target="EditGlReconciliations">
-				<parameter param-name="glReconciliationId" from-field="glReconciliationId"/>
-				<parameter param-name="tabButtonItem" from-field="AccountReconciliations"/>
-			</hyperlink>
+                <parameter param-name="glReconciliationId" from-field="glReconciliationId"/>
+                <parameter param-name="tabButtonItem" from-field="AccountReconciliations"/>
+            </hyperlink>
         </field>
         <field name="glReconciliationName"><display/></field>
         <field name="description"><display/></field>
@@ -787,7 +787,7 @@ under the License.
            default-table-style="basic-table">
         <field name="organizationPartyId"><hidden/></field>
         <field name="acctgTransId"><hidden/></field>
-        <field name="acctgTransEntrySeqId"><display/></field>     
+        <field name="acctgTransEntrySeqId"><display/></field>
         <field name="glAccountTypeId">
             <display-entity entity-name="GlAccountType" description="${description}"/>
         </field>
@@ -798,14 +798,18 @@ under the License.
         <field name="voucherRef"><display/></field>
         <field name="partyId" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="productId" widget-style="buttontext">
             <display-entity entity-name="Product" description="${internalName}">
-                <sub-hyperlink target="/catalog/control/EditProduct?productId=${productId}" target-type="inter-app" description="${productId}" link-style="buttontext"/>
+                <sub-hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${productId}" link-style="buttontext">
+                    <parameter param-name="productId" from-field="productId"/>
+                </sub-hyperlink>
             </display-entity>
-        </field>      
+        </field>
         <field name="reconcileStatusId">
             <display-entity entity-name="StatusItem"  key-field-name="statusId" description="${description}"/>
         </field>

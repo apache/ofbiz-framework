@@ -31,7 +31,9 @@ under the License.
         </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="communicationEventId"  widget-style="buttontext">
-            <hyperlink target="/partymgr/control/EditCommunicationEvent?communicationEventId=${communicationEventId}" target-type="inter-app" description="${communicationEventId}"/>
+            <hyperlink target="/partymgr/control/EditCommunicationEvent" target-type="inter-app" description="${communicationEventId}">
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+            </hyperlink>
         </field>
         <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="contactMechTypeId"><display-entity entity-name="ContactMechType"/></field>

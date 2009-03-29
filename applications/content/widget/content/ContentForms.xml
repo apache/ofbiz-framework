@@ -20,7 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    
+
     <form name="FindContent" target="findContent" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <!--auto-fields-entity entity-name="Content" default-field-type="find" /-->
@@ -69,11 +69,13 @@ under the License.
                 <field-map field-name="orderBy" value="contentId"/>
             </service>
         </actions>
-        
+
         <field name="contentId"><hidden/></field>
         <field name="contentName" widget-style="tabletext">
             <display-entity entity-name="Content" description="${contentName}" key-field-name="contentId">
-                <sub-hyperlink target="editContent?contentId=${contentId}" description="[${contentId}]" link-style="buttontext"/>
+                <sub-hyperlink target="editContent" description="[${contentId}]" link-style="buttontext">
+                    <parameter param-name="contentId" from-field="contentId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="description"><display/></field>
@@ -84,19 +86,23 @@ under the License.
         <field name="dataResourceId" use-when="dataResourceId==null"><display/></field>
         <field name="dataResourceId" use-when="dataResourceId!=null">
                 <display-entity entity-name="DataResource" description="${dataResourceName}">
-                    <sub-hyperlink target="EditDataResource?dataResourceId=${dataResourceId}" link-style="buttontext" description="[${dataResourceId}]"/>
+                    <sub-hyperlink target="EditDataResource" link-style="buttontext" description="[${dataResourceId}]">
+                    <parameter param-name="dataResourceId" from-field="dataResourceId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="ownerContentId">
             <display-entity entity-name="Content" description="${contentName}" key-field-name="contentId">
-                <sub-hyperlink target="editContent?contentId=${contentId}" description="[${contentId}]" link-style="buttontext"/>
+                <sub-hyperlink target="editContent" description="[${contentId}]" link-style="buttontext">
+                    <parameter param-name="contentId" from-field="contentId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="findContentSearchResults"/>
     </form>
 
     <form name="LookupContent" target="LookupContent" title="" type="single" extends="FindContent" header-row-style="header-row" default-table-style="basic-table"/>
-        
+
     <form name="ListLookupContent" extends="ListContent" type="list" list-name="listIt" paginate-target="LookupContent"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -108,11 +114,11 @@ under the License.
         </actions>
         <field name="contentId">
             <hyperlink also-hidden="false" target-type="plain" description="${contentId}" target="javascript:set_value('${contentId}')"/>
-        </field> 
+        </field>
         <field name="contentName" widget-style="tabletext"><display/></field>
         <field name="createdByUserLogin"><ignored/></field>
     </form>
-    
+
     <form name="EditContent" target="updateContent" title="" type="single" default-map-name="currentValue"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
@@ -167,7 +173,7 @@ under the License.
         <field name="createButton" title="${uiLabelMap.CommonCreate}" use-when="currentValue==null" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" use-when="currentValue!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <!-- form name="AddContent" target="createContent" title="" type="single"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="Content" />
@@ -202,11 +208,11 @@ under the License.
         <field name="lastModifiedByUserLogin" position="1"><display/></field>
         <field name="lastModifiedDate" position="2"><display/></field>
     </form -->
-        
+
     <!-- Content Lookup forms -->
     <form name="mruLookupContent" default-entity-name="Content" list-name="mruList" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        
+
         <field name="contentId" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${contentId}" target="javascript:set_value('${contentId}')"/>
         </field>
@@ -269,7 +275,9 @@ under the License.
         <field name="contentId"><hidden/></field>
         <field name="contentIdTo">
             <display-entity entity-name="Content" description="${contentName},${description}" key-field-name="contentId">
-                <sub-hyperlink target="EditContentAssoc?contentId=${contentIdTo}" description="${contentIdTo}" link-style="tabletext"/>
+                <sub-hyperlink target="EditContentAssoc" description="${contentIdTo}" link-style="tabletext">
+                    <parameter param-name="contentId" from-field="contentIdTo"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType" description="${description}"></display-entity></field>
@@ -297,7 +305,9 @@ under the License.
         </actions>
         <field name="contentId">
             <display-entity entity-name="Content" description="${contentName},${description}">
-                <sub-hyperlink target="EditContentAssoc?contentId=${contentId}" description="${contentId}" link-style="tabletext"/>
+                <sub-hyperlink target="EditContentAssoc" description="${contentId}" link-style="tabletext">
+                    <parameter param-name="contentId" from-field="contentId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="contentIdTo"><hidden/></field>
@@ -317,12 +327,12 @@ under the License.
             <submit button-type="text-link"/>
         </field>
     </form>
-    
+
     <!-- ContentRole forms -->
     <form name="AddContentRole" target="addContentRole" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentRole"/>
-        <field name="contentId" widget-style="buttontext" > 
+        <field name="contentId" widget-style="buttontext" >
             <lookup target-form-name="LookupContent" />
         </field>
         <field name="partyId" widget-style="buttontext"><lookup target-form-name="LookupPerson"/></field>
@@ -364,7 +374,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- ContentPurpose forms -->
     <form name="AddContentPurpose" target="addContentPurpose" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -395,18 +405,18 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- ContentAttribute forms -->
     <form name="AddContentAttribute" target="addContentAttribute" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentAttribute"/>
-        <field name="contentId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" > 
+        <field name="contentId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
             <lookup target-form-name="LookupContent" />
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListContentAttribute" target="updateContentAttribute" title="" type="list"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">  
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="ContentAttribute" use-cache="true">
                 <field-map from-field="contentId" field-name="contentId" />
@@ -422,12 +432,12 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- ContentMetaData forms -->
     <form name="AddContentMetaData" target="addContentMetaData" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createContentMetaData"/>
-        <field name="contentId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" > 
+        <field name="contentId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
             <lookup target-form-name="LookupContent" />
         </field>
         <field name="metaDataPredicateId">
@@ -460,10 +470,10 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- Person Lookup forms -->
     <form name="mruLookupPerson" list-name="mruList" target="" title="" type="list"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar"> 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
         </field>
@@ -506,9 +516,11 @@ under the License.
         <auto-fields-service service-name="updateWorkEffortContent" default-field-type="edit" />
         <field name="workEffortId" widget-style="tabletext">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}" also-hidden="true">
-                <sub-hyperlink target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" description="${workEffortId}" link-style="buttontext" target-type="inter-app"/>
+                <sub-hyperlink target="/workeffort/control/EditWorkEffort"  description="${workEffortId}" link-style="buttontext" target-type="inter-app">
+                    <parameter param-name="workEffortId" from-field="workEffortId"/>
+                </sub-hyperlink>
             </display-entity>
-        </field>        
+        </field>
         <field name="contentId" widget-style="tabletext"><hidden/></field>
         <field name="workEffortContentTypeId" widget-style="tabletext"><display-entity entity-name="WorkEffortContentType" description="${description}"/></field>
         <field name="fromDate" widget-style="tabletext"><display/></field>
@@ -539,7 +551,7 @@ under the License.
             <hyperlink also-hidden="false" description="${content.contentName} [${content.contentId}]" target="ViewSimpleContent">
                 <parameter param-name="contentId" from-field="content.contentId"/>
                 <parameter param-name="dataResourceId" from-field="content.dataResourceId"/>
-            </hyperlink> 
+            </hyperlink>
         </field>
         <field name="contentTypeId">
             <display-entity entity-name="ContentType" key-field-name="contentTypeId" description="${description}"/>

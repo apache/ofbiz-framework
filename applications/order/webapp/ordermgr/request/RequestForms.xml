@@ -170,12 +170,16 @@ under the License.
     <form name="ListCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml">
         <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyIdFrom}" target-type="inter-app" description="[${partyIdFrom}]"/>
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdFrom}]">
+                    <parameter param-name="partyId" from-field="partyIdFrom"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyIdTo}" target-type="inter-app" description="[${partyIdTo}]"/>
+                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdTo}]">
+                    <parameter param-name="partyId" from-field="partyIdTo"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
     </form>
@@ -183,7 +187,9 @@ under the License.
     <form name="ViewRequestWorkEfforts" type="list" list-name="requestWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortId">
-            <hyperlink target="/workeffort/control/WorkEffortSummary?workEffortId=${workEffortId}" description="${workEffortName} [${workEffortId}]" target-type="inter-app"/>
+            <hyperlink target="/workeffort/control/WorkEffortSummary" description="${workEffortName} [${workEffortId}]" target-type="inter-app">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="startDate"><display type="date"/></field>
@@ -447,7 +453,9 @@ under the License.
         <field name="custRequestItemSeqId"><hidden/></field>
         <field name="workEffortId">
             <display-entity entity-name="WorkEffort" description="${workEffortName}">
-                <sub-hyperlink description="[${workEffortId}]" target="/workeffort/control/EditWorkEffort?workEffortId=${workEffortId}" target-type="inter-app" link-style="buttontext"/>
+                <sub-hyperlink description="[${workEffortId}]" target="/workeffort/control/EditWorkEffort" target-type="inter-app" link-style="buttontext">
+                    <parameter param-name="workEffortId" from-field="workEffortId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         
@@ -484,10 +492,10 @@ under the License.
         <field name="custRequestTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="CustRequestType" description="${description}"/></field>  
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="fromPartyId" title="${uiLabelMap.PartyPartyId}">
-			<hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultTo.fullName} [${custRequest.fromPartyId}]">
-				<parameter param-name="partyId" from-field="custRequest.fromPartyId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultTo.fullName} [${custRequest.fromPartyId}]">
+                <parameter param-name="partyId" from-field="custRequest.fromPartyId"/>
+            </hyperlink>
+        </field>
         <field name="custRequestName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="productStoreId" title="${uiLabelMap.ProductProductStore}"><display-entity entity-name="ProductStore" description="${storeName}"/></field>
@@ -562,7 +570,9 @@ under the License.
         <field name="custRequestId"><hidden/></field>
         <field name="contentId">
             <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
-                <sub-hyperlink target="/content/control/ViewSimpleContent?contentId=${contentId}" description="[${contentId}]" link-style="buttontext" target-type="inter-app"/>
+                <sub-hyperlink target="/content/control/ViewSimpleContent" description="[${contentId}]" link-style="buttontext" target-type="inter-app">
+                    <parameter param-name="contentId" from-field="contentId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="mimeTypeId"><display/></field>
