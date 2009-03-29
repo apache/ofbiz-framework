@@ -382,8 +382,16 @@ under the License.
         <field name="paymentMethodTypeId" position="2"><display-entity entity-name="PaymentMethodType"/></field>
         <field name="statusId" position="1"><display-entity entity-name="StatusItem"/></field>
         <field name="paymentMethodId" position="2"><display-entity entity-name="PaymentMethod" description="${paymentMethodId}[${paymentMethodTypeId}]"/></field>
-        <field name="partyIdFrom" position="1"><hyperlink target="/partymgr/control/viewprofile?partyId=${payment.partyIdFrom}" target-type="inter-app" description="${partyNameResultFrom.fullName} [${payment.partyIdFrom}]"/></field>
-        <field name="partyIdTo" position="2"><hyperlink target="/partymgr/control/viewprofile?partyId=${payment.partyIdTo}" target-type="inter-app" description="${partyNameResultTo.fullName} [${payment.partyIdTo}]"/></field>
+        <field name="partyIdFrom" position="1">
+			<hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultFrom.fullName} [${payment.partyIdFrom}]">
+				<parameter param-name="partyId" from-field="payment.partyIdFrom"/>
+			</hyperlink>
+		</field>
+        <field name="partyIdTo" position="2">
+			<hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultTo.fullName} [${payment.partyIdTo}]">
+				<parameter param-name="partyId" from-field="payment.partyIdTo"/>
+			</hyperlink>
+		</field>
         <field name="paymentRefNum" position="1"><display/></field>
         <field name="paymentPreferenceId" position="2"><display/></field>
         <field name="amount" position="1"><display type="currency" currency="${payment.currencyUomId}"/></field>

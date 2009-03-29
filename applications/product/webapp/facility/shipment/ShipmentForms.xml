@@ -81,9 +81,17 @@ under the License.
             </drop-down>
         </field>
 
-        <field name="estimatedShipWorkEffId" title="${uiLabelMap.ProductEstimatedShipWorkEffId}" widget-style="buttontext"><hyperlink target="/workeffort/control/WorkEffortSummary?workEffortId=${shipment.estimatedShipWorkEffId}" also-hidden="false" description="${shipment.estimatedShipWorkEffId}" target-type="inter-app"/></field>
+        <field name="estimatedShipWorkEffId" title="${uiLabelMap.ProductEstimatedShipWorkEffId}" widget-style="buttontext">
+			<hyperlink target="/workeffort/control/WorkEffortSummary" also-hidden="false" description="${shipment.estimatedShipWorkEffId}" target-type="inter-app">
+				<parameter param-name="workEffortId" from-field="shipment.estimatedShipWorkEffId"/>
+			</hyperlink>
+		</field>
         <field name="estimatedArrivalDate" title="${uiLabelMap.ProductEstimatedArrivalDate}"><date-time/></field>
-        <field name="estimatedArrivalWorkEffId" title="${uiLabelMap.ProductEstimatedArrivalWorkEffId}" widget-style="buttontext"><hyperlink target="/workeffort/control/WorkEffortSummary?workEffortId=${shipment.estimatedArrivalWorkEffId}" also-hidden="false" description="${shipment.estimatedArrivalWorkEffId}" target-type="inter-app"/></field>
+        <field name="estimatedArrivalWorkEffId" title="${uiLabelMap.ProductEstimatedArrivalWorkEffId}" widget-style="buttontext">
+			<hyperlink target="/workeffort/control/WorkEffortSummary" also-hidden="false" description="${shipment.estimatedArrivalWorkEffId}" target-type="inter-app">
+				<parameter param-name="workEffortId" from-field="shipment.estimatedArrivalWorkEffId"/>
+			</hyperlink>
+		</field>
         <field name="latestCancelDate" title="${uiLabelMap.ProductLatestCancelDate}"><date-time/></field>
         <field name="estimatedShipCost" title="${uiLabelMap.ProductEstimatedShipCost}"><text/></field>
         <field name="currencyUomId" title="${uiLabelMap.ProductCurrencyUomId}">
