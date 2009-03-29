@@ -118,7 +118,7 @@ under the License.
                 <#if partyContactMech.thruDate?has_content><div><b>${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${partyContactMech.thruDate}</b></div></#if>
                 <#-- create cust request -->
                 <#if custRequestTypes?exists>
-                  <form name="createCustRequestForm" action="<@ofbizUrl>createCustRequest</@ofbizUrl>" method="POST">
+                  <form name="createCustRequestForm" action="<@ofbizUrl>createCustRequest</@ofbizUrl>" method="POST" onSubmit="javascript:submitFormDisableSubmits(this)">
                     <input type="hidden" name="partyId" value="${party.partyId}"/>
                     <input type="hidden" name="fromPartyId" value="${party.partyId}"/>
                     <input type="hidden" name="fulfillContactMechId" value="${contactMech.contactMechId}"/>
@@ -137,7 +137,11 @@ under the License.
                   <a href="<@ofbizUrl>editcontactmech?partyId=${party.partyId}&contactMechId=${contactMech.contactMechId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>
                 </#if>
                 <#if security.hasEntityPermission("PARTYMGR", "_DELETE", session) || userLogin.partyId == party.partyId>
-                  <form name="deleteContact" target="<@ofbizUrl>deleteContactMech</@ofbizUrl>"><input name="partyId" value="${party.partyId}" type="hidden"/><input name="contactMechId" value="${contactMech.contactMechId}" type="hidden"/><a href="javascript:document.deleteContact.submit()">${uiLabelMap.CommonExpire}</a>
+                  <form name="partyDeleteContact" method="post" action="<@ofbizUrl>deleteContactMech</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)">
+                    <input name="partyId" value="${party.partyId}" type="hidden"/>
+                    <input name="contactMechId" value="${contactMech.contactMechId}" type="hidden"/>
+                    <input type="submit" class="smallSubmit" value="${uiLabelMap.CommonExpire}"/>
+                  </form>
                 </#if>
               </td>
             </tr>
