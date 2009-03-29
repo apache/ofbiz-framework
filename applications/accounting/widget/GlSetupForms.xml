@@ -25,15 +25,15 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyId" title="${uiLabelMap.AccountingCompanies}"><display-entity entity-name="PartyGroup" description="${groupName}"/></field>
         <field name="setup" title="${uiLabelMap.CommonEmptyHeader}" use-when="hasPrefPermission" widget-style="buttontext">
-			<hyperlink target="AdminMain" description="${uiLabelMap.AccountingSetup}">
-				<parameter param-name="organizationPartyId" from-field="partyId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="AdminMain" description="${uiLabelMap.AccountingSetup}">
+                <parameter param-name="organizationPartyId" from-field="partyId"/>
+            </hyperlink>
+        </field>
         <field name="accounting" title="${uiLabelMap.CommonEmptyHeader}" use-when="hasBasicPermission" widget-style="buttontext">
-			<hyperlink target="PartyAccountsSummary" description="${uiLabelMap.AccountingAccounting}">
-				<parameter param-name="organizationPartyId" from-field="partyId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="PartyAccountsSummary" description="${uiLabelMap.AccountingAccounting}">
+                <parameter param-name="organizationPartyId" from-field="partyId"/>
+            </hyperlink>
+        </field>
     </form>
 
     <form name="ListGlAccountOrganization" list-name="listIt" target="" title="" type="list" view-size="50"

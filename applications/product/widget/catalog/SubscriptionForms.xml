@@ -170,7 +170,9 @@ under the License.
         <field name="purchaseThruDate"><ignored/></field>        
         
         <field name="subscriptionId" widget-style="buttontext">
-            <hyperlink description="${subscriptionId}" target="EditSubscription?subscriptionId=${subscriptionId}" also-hidden="false"/>
+            <hyperlink description="${subscriptionId}" target="EditSubscription" also-hidden="false">
+                <parameter param-name="subscriptionId" from-field="subscriptionId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditSubscription" type="single" target="updateSubscription" default-map-name="subscription"
@@ -426,7 +428,9 @@ under the License.
         </actions>     
         <field name="subscriptionId"><hidden/></field>
         <field name="communicationEventId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent?communicationEventId=${communicationEventId}" target-type="inter-app"/>
+            <hyperlink also-hidden="false" description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent" target-type="inter-app">
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+            </hyperlink>
         </field>
         <field name="partyIdFrom">
             <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>

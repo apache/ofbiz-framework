@@ -337,12 +337,16 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortIdFrom" map-name="workEffortAssoc">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}">
-                <sub-hyperlink description="${workEffortIdFrom}" target="EditWorkEffort?workEffortId=${workEffortIdFrom}" link-style="buttontext"/>
+                <sub-hyperlink description="${workEffortIdFrom}" target="EditWorkEffort" link-style="buttontext">
+                    <parameter param-name="workEffortId" from-field="workEffortIdFrom"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="workEffortIdTo" map-name="workEffortAssoc">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}">
-                <sub-hyperlink description="${workEffortIdTo}" target="EditWorkEffort?workEffortId=${workEffortIdTo}" link-style="buttontext"/>
+                <sub-hyperlink description="${workEffortIdTo}" target="EditWorkEffort" link-style="buttontext">
+                    <parameter param-name="workEffortId" from-field="workEffortIdTo"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="workEffortAssocTypeId" map-name="workEffortAssoc">
@@ -360,12 +364,16 @@ under the License.
         <alt-target target="createWorkEffortAndAssoc" use-when="workEffortAssoc==null"/>
         <field name="workEffortIdFrom" map-name="workEffortAssoc">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}">
-                <sub-hyperlink description="${workEffortIdFrom}" target="EditWorkEffort?workEffortId=${workEffortIdFrom}" link-style="buttontext"/>
+                <sub-hyperlink description="${workEffortIdFrom}" target="EditWorkEffort" link-style="buttontext">
+                    <parameter param-name="workEffortId" from-field="workEffortIdFrom"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="workEffortIdTo" map-name="workEffortAssoc">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}">
-                <sub-hyperlink description="${workEffortIdTo}" target="EditWorkEffort?workEffortId=${workEffortIdTo}" link-style="buttontext"/>
+                <sub-hyperlink description="${workEffortIdTo}" target="EditWorkEffort" link-style="buttontext">
+                    <parameter param-name="workEffortId" from-field="workEffortIdTo"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="workEffortId"><hidden/></field>

@@ -32,11 +32,15 @@ under the License.
             </entity-one>
         </row-actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink target="viewprofile?partyId=${partyRow.partyId}" description="${partyRow.partyId}"/>
+            <hyperlink target="viewprofile" description="${partyRow.partyId}">
+                <parameter param-name="partyId" from-field="partyRow.partyId"/>
+            </hyperlink>
         </field>
         <field name="partyName" title="${uiLabelMap.PartyName}"><display description="${person.lastName}, ${person.firstName}"/></field>
         <field name="export" title="${uiLabelMap.SfaVCard}">
-            <hyperlink target="createVCardFromContact?partyId=${partyRow.partyId}" description="${uiLabelMap.SfaVCard}"/>
+            <hyperlink target="createVCardFromContact" description="${uiLabelMap.SfaVCard}">
+                <parameter param-name="partyId" from-field="partyRow.partyId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="CreateContact" type="single" target="createContact" header-row-style="header-row" default-table-style="basic-table">

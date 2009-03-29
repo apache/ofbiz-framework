@@ -39,7 +39,9 @@
                     <entity-order-by field-name="phaseName"/>
                     <entity-order-by field-name="workEffortName"/>
                 </entity-options>
-                <sub-hyperlink target="taskView?workEffortId=${result.taskId}" description="[${result.taskId}]"/>
+                <sub-hyperlink target="taskView" description="[${result.taskId}]">
+                <parameter param-name="workEffortId" from-field="result.taskId"/>
+            </sub-hyperlink>
             </drop-down>
         </field>
         <field name="checkComplete" title="${uiLabelMap.ProjectMgrCheckComplete}"><check/></field>

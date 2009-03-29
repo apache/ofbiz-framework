@@ -132,7 +132,9 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="OpenOrderItemsReport">
         <field name="orderDate" title="${uiLabelMap.OrderDate}"><display/></field>
         <field name="orderId" title="${uiLabelMap.OrderOrderId}" widget-style="buttontext">
-            <hyperlink target="orderview?orderId=${orderId}" description="${orderId}"/>
+            <hyperlink target="orderview" description="${orderId}">
+                <parameter param-name="orderId" from-field="orderId"/>
+            </hyperlink>
         </field>
         <field name="productId" title="${uiLabelMap.ProductProduct}"><display/></field>
         <field name="itemDescription" title="${uiLabelMap.CommonDescription}"><display/></field>

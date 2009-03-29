@@ -696,7 +696,9 @@ under the License.
     <form name="ListSubscriptions" type="list" list-name="subscriptionList" default-table-style="basic-table">
         <field name="subscriptionId">
             <display-entity entity-name="Subscription" description="${description}">
-                <sub-hyperlink description="[${subscriptionId}]" target="/catalog/control/EditSubscription?subscriptionId=${subscriptionId}" target-type="inter-app"/>
+                <sub-hyperlink description="[${subscriptionId}]" target="/catalog/control/EditSubscription" target-type="inter-app">
+                    <parameter param-name="subscriptionId" from-field="subscriptionId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="subscriptionTypeId" title="${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonType}">

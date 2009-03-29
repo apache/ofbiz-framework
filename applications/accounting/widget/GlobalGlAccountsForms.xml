@@ -147,7 +147,9 @@ under the License.
         <field name="acctgTransEntrySeqId"><display/></field>     
         <field name="glAccountId">
             <display-entity entity-name="GlAccount" description="${accountName}">
-                <sub-hyperlink target="ListGlAccountEntries?glAccountId=${glAccountId}" description="[${glAccountId}]"/>
+                <sub-hyperlink target="ListGlAccountEntries" description="[${glAccountId}]">
+                <parameter param-name="glAccountId" from-field="glAccountId"/>
+            </sub-hyperlink>
              </display-entity>
         </field>
         <field name="description"><display/></field>

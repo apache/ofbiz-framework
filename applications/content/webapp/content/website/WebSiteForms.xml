@@ -43,7 +43,9 @@ under the License.
                 <entity-options entity-name="ProductStore" description="${storeName}">
                     <entity-order-by field-name="storeName"/>
                 </entity-options>
-                <sub-hyperlink use-when="&quot;${webSite.productStoreId}&quot;.length()>0" link-style="buttontext" target-type="inter-app" target="/catalog/control/EditProductStore?productStoreId=${webSite.productStoreId}" description="${uiLabelMap.ContentEditProductStore}"/>
+                <sub-hyperlink use-when="&quot;${webSite.productStoreId}&quot;.length()>0" link-style="buttontext" target-type="inter-app" target="/catalog/control/EditProductStore" description="${uiLabelMap.ContentEditProductStore}">
+                <parameter param-name="productStoreId" from-field="webSite.productStoreId"/>
+            </sub-hyperlink>
             </drop-down>
         </field>
         <field name="visualThemeSetId">
@@ -58,7 +60,9 @@ under the License.
     <form name="ListWebSites" target="" title="" type="list" list-name="webSites" paginate-target="FindWebSite" paginate="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="webSiteId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
-            <hyperlink description="${webSiteId}" target="EditWebSite?webSiteId=${webSiteId}" also-hidden="false"/>
+            <hyperlink description="${webSiteId}" target="EditWebSite" also-hidden="false">
+                <parameter param-name="webSiteId" from-field="webSiteId"/>
+            </hyperlink>
         </field>
         <field name="siteName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="httpHost"><display/></field>
@@ -89,7 +93,9 @@ under the License.
         <field name="webSiteId"><display also-hidden="true"/></field>
         <!--
         <field name="contentId" title="Content ID" widget-style="linktext">
-            <hyperlink description="${contentId}" target="EditContent?contentId=${contentId}" also-hidden="true"/>
+            <hyperlink description="${contentId}" target="EditContent" also-hidden="true">
+                <parameter param-name="contentId" from-field="contentId"/>
+            </hyperlink>
         </field>
         -->
         <field name="contentId">                                        

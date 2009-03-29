@@ -691,10 +691,10 @@ under the License.
         <field name="description" title="${uiLabelMap.ProductProductDescription}" map-name="content"><text size="40"/></field>
         <field use-when="contentId == null" name="contentId" title="${uiLabelMap.ProductContentId}" tooltip="${uiLabelMap.ProductOptional}"><text maxlength="20"/></field>
         <field use-when="contentId != null" name="contentId" title="${uiLabelMap.ProductContentId}" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="productContentData" >
-			<hyperlink description="${contentId} ${contentName}" target="/content/control/editContent" target-type="inter-app">
-				<parameter param-name="contentId" from-field="contentId"/>
-			</hyperlink>
-		</field>
+            <hyperlink description="${contentId} ${contentName}" target="/content/control/editContent" target-type="inter-app">
+                <parameter param-name="contentId" from-field="contentId"/>
+            </hyperlink>
+        </field>
         <field name="imageData" title="${uiLabelMap.ProductFile}"><file/></field>
         <field name="fileDataResourceId" map-name="downloadData"><hidden/></field>
         <field name="productId"><hidden/></field>
@@ -1102,7 +1102,9 @@ under the License.
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}"/>
         </field>
         <field name="workEffortId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="/manufacturing/control/EditRoutingProductLink?workEffortId=${workEffortId}" target-type="inter-app"/>
+            <hyperlink also-hidden="false" description="${workEffortId}" target="/manufacturing/control/EditRoutingProductLink" target-type="inter-app">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
     </form>
 
@@ -1177,10 +1179,10 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="orderDate"><display/></field>
         <field name="orderId">
-			<hyperlink also-hidden="false" description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app">
-				<parameter param-name="orderId" from-field="orderId"/>
-			</hyperlink>
-		</field>
+            <hyperlink also-hidden="false" description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app">
+                <parameter param-name="orderId" from-field="orderId"/>
+            </hyperlink>
+        </field>
         <field name="orderItemSeqId"><display/></field>
         <field name="quantity"><display/></field>
         <field name="cancelQuantity"><display/></field>
@@ -1368,12 +1370,16 @@ under the License.
         <field name="productId"><hidden/></field>
         <field name="productFeatureId">
             <display-entity entity-name="ProductFeature" description="${description}">
-                <sub-hyperlink target="EditFeature?productFeatureId=${productFeatureId}" description="[${productFeatureId}]"/>
+                <sub-hyperlink target="EditFeature" description="[${productFeatureId}]">
+                    <parameter param-name="productFeatureId" from-field="productFeatureId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="productFeatureIdTo">
             <display-entity entity-name="ProductFeature" description="${description}" key-field-name="productFeatureId">
-                <sub-hyperlink target="EditFeature?productFeatureId=${productFeatureIdTo}" description="[${productFeatureIdTo}]"/>
+                <sub-hyperlink target="EditFeature" description="[${productFeatureIdTo}]">
+                    <parameter param-name="productFeatureId" from-field="productFeatureIdTo"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="productFeatureIactnTypeId"><display-entity entity-name="ProductFeatureIactnType"/></field>

@@ -105,7 +105,9 @@ under the License.
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="fromPartyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
-                <sub-hyperlink target="viewprofile?partyId=${fromPartyId}" description="[${fromPartyId}]"/>
+                <sub-hyperlink target="viewprofile" description="[${fromPartyId}]">
+                    <parameter param-name="partyId" from-field="fromPartyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="custRequestName"><display/></field>
@@ -115,7 +117,9 @@ under the License.
         </field>
         <field name="phaseName"><display description="${result.phaseName}"/></field>
         <field name="taskName">
-            <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffort.workEffortName}"/>
+            <hyperlink target="taskView" description="${workEffort.workEffortName}">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="custRequestDate" title="${uiLabelMap.OrderRequestDate}"><display type="date"/></field>
         <field name="createdDate"><display type="date"/></field>
@@ -173,7 +177,9 @@ under the License.
         <field name="createdDate"><display type="date"/></field>
         <field name="fromPartyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
-                <sub-hyperlink target="viewprofile?partyId=${fromPartyId}" description="[${fromPartyId}]"/>
+                <sub-hyperlink target="viewprofile" description="[${fromPartyId}]">
+                    <parameter param-name="partyId" from-field="fromPartyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>      
         <field name="statusId">

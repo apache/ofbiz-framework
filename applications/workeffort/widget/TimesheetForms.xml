@@ -29,7 +29,9 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="Timesheet"/>
         <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
-            <hyperlink description="${timesheetId}" target="EditTimesheet?timesheetId=${timesheetId}" also-hidden="false"/>
+            <hyperlink description="${timesheetId}" target="EditTimesheet" also-hidden="false">
+                <parameter param-name="timesheetId" from-field="timesheetId"/>
+            </hyperlink>
         </field>
         <field name="partyId"><hidden/></field>
         <field name="clientPartyId"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
@@ -82,7 +84,9 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="Timesheet"/>
         <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
-            <hyperlink description="${timesheetId}" target="EditTimesheet?timesheetId=${timesheetId}" also-hidden="false"/>
+            <hyperlink description="${timesheetId}" target="EditTimesheet" also-hidden="false">
+                <parameter param-name="timesheetId" from-field="timesheetId"/>
+            </hyperlink>
         </field>
         <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
     </form>

@@ -249,7 +249,9 @@ under the License.
         </actions>
         <auto-fields-service service-name="updateMimeTypeHtmlTemplate"/>
         <field name="mimeTypeId" widget-style="tabletext">
-            <hyperlink target-type="intra-app" target="editMimeType?mimeTypeId=${mimeTypeId}" description="${mimeTypeId}"/>                
+            <hyperlink target-type="intra-app" target="editMimeType" description="${mimeTypeId}">
+                <parameter param-name="mimeTypeId" from-field="mimeTypeId"/>
+            </hyperlink>                
         </field>        
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>

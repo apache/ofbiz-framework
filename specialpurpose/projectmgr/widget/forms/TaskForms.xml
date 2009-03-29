@@ -212,10 +212,10 @@
         </field>
         <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${resultProject.phaseName}"/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
-			<hyperlink target="projectView" description="${resultProject.projectName}">
-				<parameter param-name="projectId" from-field="resultProject.projectId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="projectView" description="${resultProject.projectName}">
+                <parameter param-name="projectId" from-field="resultProject.projectId"/>
+            </hyperlink>
+        </field>
         <!--field entry-name="result.taskInfo.currentStatusId" name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field-->
         <field name="priority"><display/></field>
         <field name="estimatedStartDate"><display type="date"/></field>
@@ -306,10 +306,10 @@
         <field name="fromDate"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortIdFrom" title="${uiLabelMap.CommonName}">
-			<hyperlink target="Dependencies" description="${r.taskInfo.taskName}">
-				<parameter param-name="workEffortId" from-field="workEffortIdFrom"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="Dependencies" description="${r.taskInfo.taskName}">
+                <parameter param-name="workEffortId" from-field="workEffortIdFrom"/>
+            </hyperlink>
+        </field>
         <field name="workEffortParentId" entry-name="r.taskInfo.workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}"/></field>
         <field name="currentStatusId" entry-name="r.taskInfo.currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="estimatedStartDate" entry-name="r.taskInfo.estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
@@ -330,10 +330,10 @@
         <field name="fromDate"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortIdTo" title="${uiLabelMap.CommonName}">
-			<hyperlink target="Dependencies" description="${r.taskInfo.taskName}">
-				<parameter param-name="workEffortId" from-field="workEffortIdTo"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="Dependencies" description="${r.taskInfo.taskName}">
+                <parameter param-name="workEffortId" from-field="workEffortIdTo"/>
+            </hyperlink>
+        </field>
         <field name="workEffortParentId" entry-name="r.taskInfo.workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}"/></field>
         <field name="currentStatusId" entry-name="r.taskInfo.currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="estimatedStartDate" entry-name="r.taskInfo.estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
@@ -420,10 +420,10 @@
         <field name="timeEntryId"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="timesheetId">
-			<hyperlink target="Timesheet" description="${timesheetId}">
-				<parameter param-name="timesheetId" from-field="timesheetId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="Timesheet" description="${timesheetId}">
+                <parameter param-name="timesheetId" from-field="timesheetId"/>
+            </hyperlink>
+        </field>
         <field name="partyId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${middleName} ${lastName}">
@@ -557,7 +557,9 @@
     <form name="ListTaskParties" type="list" list-name="taskParties"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyId" title="${uiLabelMap.CommonName}">
-            <hyperlink target="viewprofile?partyId=${partyId}" description="${partyName}"/>
+            <hyperlink target="viewprofile" description="${partyName}">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.ProjectMgrPartyRoleTypeId}"><display-entity entity-name="RoleType" description="${description}"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
@@ -595,10 +597,10 @@
         </actions>
         <field name="workEffortId"><hidden/></field>
         <field name="custRequestId" widget-style="buttontext">
-			<hyperlink description="${custRequestName} [${custRequestId}]" target="/projectmgr/control/ViewRequest" target-type="inter-app">
-				<parameter param-name="custRequestId" from-field="custRequestId"/>
-			</hyperlink>
-		</field>
+            <hyperlink description="${custRequestName} [${custRequestId}]" target="/projectmgr/control/ViewRequest" target-type="inter-app">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+            </hyperlink>
+        </field>
         <field name="description"><display/></field>
         <field name="custRequestTypeDescription"><display/></field>
         <field name="statusItemDescription"><display/></field>
@@ -619,10 +621,10 @@
         <field name="fromDate"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortIdFrom" title="${uiLabelMap.CommonName}">
-			<hyperlink target="Dependencies" description="${result.taskInfo.taskName}">
-				<parameter param-name="workEffortId" from-field="workEffortIdFrom"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="Dependencies" description="${result.taskInfo.taskName}">
+                <parameter param-name="workEffortId" from-field="workEffortIdFrom"/>
+            </hyperlink>
+        </field>
         <field name="workEffortParentId" entry-name="result.taskInfo.workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}"/></field>
         <field name="currentStatusId" entry-name="result.taskInfo.currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="estimatedStartDate" entry-name="result.taskInfo.estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>
@@ -646,10 +648,10 @@
         <field name="fromDate"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortIdTo" title="${uiLabelMap.CommonName}">
-			<hyperlink target="Dependencies" description="${result.taskInfo.taskName}">
-				<parameter param-name="workEffortId" from-field="workEffortIdFrom"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="Dependencies" description="${result.taskInfo.taskName}">
+                <parameter param-name="workEffortId" from-field="workEffortIdFrom"/>
+            </hyperlink>
+        </field>
         <field name="workEffortParentId" entry-name="result.taskInfo.workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}"><display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}"/></field>
         <field name="currentStatusId" entry-name="result.taskInfo.currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="estimatedStartDate" entry-name="result.taskInfo.estimatedStartDate" title="${uiLabelMap.WorkEffortEstimatedStartDate}"><display type="date"/></field>

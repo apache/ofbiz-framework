@@ -41,7 +41,13 @@
         <field name="projectDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field use-when="project!=null" name="currentStatusId" title="${uiLabelMap.CommonStatus}" parameter-name="dummy"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field use-when="project==null" name="currentStatusId"><hidden value="_NA_"/></field>
-        <field name="clientBillingPartyId"><lookup target-form-name="LookupPartyGroup"><sub-hyperlink target="viewprofile?partyId=${partyId}" description="${partyGroup.groupName}"/></lookup></field>
+        <field name="clientBillingPartyId">
+            <lookup target-form-name="LookupPartyGroup">
+                <sub-hyperlink target="viewprofile" description="${partyGroup.groupName}">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                </sub-hyperlink>
+            </lookup>
+        </field>
         <field name="organizationPartyId">
             <drop-down no-current-selected-key="defaultOrganizationPartyId">
                 <entity-options entity-name="PartyAcctgPrefAndGroup" description="${groupName}" key-field-name="partyId"/>
@@ -268,10 +274,10 @@
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
         <field name="projectId"><hidden/></field>
         <field entry-name="workEffortName" name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}">
-			<hyperlink target="taskView" description="${workEffortName}">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="taskView" description="${workEffortName}">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
+        </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"></display-entity></field>
         <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
         <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
@@ -359,10 +365,10 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="projectId"><hidden value="parameters.projectId"/></field>
         <field name="phase">
-			<hyperlink target="FindPhase" description="${phaseName}">
-				<parameter param-name="projectId" from-field="projectId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="FindPhase" description="${phaseName}">
+                <parameter param-name="projectId" from-field="projectId"/>
+            </hyperlink>
+        </field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority"><display/></field>
         <field name="startDate"><display type="date"/></field>
@@ -374,10 +380,10 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="projectId"><hidden value="parameters.projectId"/></field>
         <field name="task">
-			<hyperlink target="taskView" description="${workEffortName}">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="taskView" description="${workEffortName}">
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+            </hyperlink>
+        </field>
         <field name="phaseName"><display/></field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority"><display/></field>
@@ -538,12 +544,16 @@
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
         <field name="partyId" use-when="workEffortId==projectId &amp;&amp; parameters.get(&quot;partyId&quot;)!=null"><!-- project level -->
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}[${partyId}]">
-                <sub-hyperlink target="ListWorkEffortPartyAssigns?projectId=${workEffortId}" description="${uiLabelMap.CommonChange}"/>
+                <sub-hyperlink target="ListWorkEffortPartyAssigns" description="${uiLabelMap.CommonChange}">
+                    <parameter param-name="projectId" from-field="workEffortId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="partyId" use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)!=null"><!-- task level -->
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}[${partyId}]">
-                <sub-hyperlink target="EditTaskPartyAssigns?workEffortId=${workEffortId}" description="${uiLabelMap.CommonChange}"/>
+                <sub-hyperlink target="EditTaskPartyAssigns" description="${uiLabelMap.CommonChange}">
+                    <parameter param-name="workEffortId" from-field="workEffortId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="partyId" use-when="workEffortId==projectId &amp;&amp; parameters.get(&quot;partyId&quot;)==null" event="onChange" action="javascript:document.AddWorkEffortPartyAssign.submit();"><!-- project level -->
@@ -606,10 +616,10 @@
         </field>
         <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${resultProject.phaseName}"/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
-			<hyperlink target="projectView" description="${resultProject.projectName}">
-				<parameter param-name="projectId" from-field="resultProject.projectId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="projectView" description="${resultProject.projectName}">
+                <parameter param-name="projectId" from-field="resultProject.projectId"/>
+            </hyperlink>
+        </field>
         <field entry-name="currentStatusId" name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field entry-name="statusId" name="Status" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
@@ -658,7 +668,9 @@
             <set field="ActualCompletionDate" from-field="result.projectInfo.actualCompletionDate"/>
         </row-actions>
         <field entry-name="workEffortName" name="projectName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}" widget-style="buttontext">
-            <hyperlink target="projectView?projectId=${workEffortId}" description="${workEffortName}[${workEffortId}]"/>
+            <hyperlink target="projectView" description="${workEffortName}[${workEffortId}]">
+                <parameter param-name="projectId" from-field="workEffortId"/>
+            </hyperlink>
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>

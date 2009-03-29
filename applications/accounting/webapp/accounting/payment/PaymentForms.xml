@@ -257,7 +257,9 @@ under the License.
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId">
             <display-entity entity-name="Invoice" description="${description}">
-                <sub-hyperlink target="invoiceOverview?invoiceId=${invoiceId}" description="[${invoiceId}]"/>
+                <sub-hyperlink target="invoiceOverview" description="[${invoiceId}]">
+                    <parameter param-name="invoiceId" from-field="invoiceId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="invoiceItemSeqId"><display/></field>
@@ -317,10 +319,10 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext">
-			<hyperlink target="invoiceOverview" description="${invoiceId}">
-				<parameter param-name="invoiceId" from-field="invoiceId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="invoiceOverview" description="${invoiceId}">
+                <parameter param-name="invoiceId" from-field="invoiceId"/>
+            </hyperlink>
+        </field>
         <field name="description"><display/></field>
         <field name="invoiceDate"><display type="date"/></field>
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
@@ -339,10 +341,10 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentId"><hidden/></field>
         <field name="toPaymentId" widget-style="buttontext">
-			<hyperlink target="paymentOverview" description="[${toPaymentId}]">
-				<parameter param-name="paymentId" from-field="toPaymentId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="paymentOverview" description="[${toPaymentId}]">
+                <parameter param-name="paymentId" from-field="toPaymentId"/>
+            </hyperlink>
+        </field>
         <field name="effectiveDate"><display/></field>
         <field name="amount"><display  type="currency" currency="${currencyUomId}"/></field>
         <field name="amountApplied" parameter-name="dummy"><display  type="currency" currency="${currencyUomId}"/></field>
@@ -434,10 +436,10 @@ under the License.
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext">
-			<hyperlink target="invoiceOverview" description="${invoiceId}">
-				<parameter param-name="invoiceId" from-field="invoiceId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="invoiceOverview" description="${invoiceId}">
+                <parameter param-name="invoiceId" from-field="invoiceId"/>
+            </hyperlink>
+        </field>
         <field name="invoiceItemSeqId" widget-style="buttontext">
             <hyperlink target="listInvoiceItems" description="${invoiceItemSeqId}">
                 <parameter param-name="invoiceId" from-field="invoiceId"/>
@@ -445,15 +447,15 @@ under the License.
             </hyperlink>
         </field>
         <field name="toPaymentId" widget-style="buttontext">
-			<hyperlink target="paymentOverview" description="${toPaymentId}">
-				<parameter param-name="paymentId" from-field="toPaymentId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="paymentOverview" description="${toPaymentId}">
+                <parameter param-name="paymentId" from-field="toPaymentId"/>
+            </hyperlink>
+        </field>
         <field name="billingAccountId" widget-style="buttontext">
-			<hyperlink target="EditBillingAccount" description="${billingAccountId}">
-				<parameter param-name="billingAccountId" from-field="billingAccountId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="EditBillingAccount" description="${billingAccountId}">
+                <parameter param-name="billingAccountId" from-field="billingAccountId"/>
+            </hyperlink>
+        </field>
         <field name="taxAuthGeoId"><display-entity entity-name="Geo" key-field-name="geoId" description="${geoName}"></display-entity></field>
         <field name="amountApplied"><display type="currency" currency="${payment.currencyUomId}"/></field>
     </form>
@@ -473,7 +475,9 @@ under the License.
     <form name="ListChecksToPrint" type="multi" list-name="payments" target="printChecks" separate-columns="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentId">
-            <hyperlink target="paymentOverview?paymentId=${paymentId}" description="${paymentId}"/>
+            <hyperlink target="paymentOverview" description="${paymentId}">
+                <parameter param-name="paymentId" from-field="paymentId"/>
+            </hyperlink>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
           <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId"/>
@@ -489,7 +493,9 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentId"><hidden/></field>
         <field name="paymentId">
-            <hyperlink target="paymentOverview?paymentId=${paymentId}" description="${paymentId}"/>
+            <hyperlink target="paymentOverview" description="${paymentId}">
+                <parameter param-name="paymentId" from-field="paymentId"/>
+            </hyperlink>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
           <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId"/>
@@ -538,10 +544,10 @@ under the License.
     <form name="ListInvoicesByDueDate" type="list" list-name="invoicePaymentInfoList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="invoiceId" widget-style="buttontext">
-			<hyperlink target="invoiceOverview" description="${invoiceId}">
-				<parameter param-name="invoiceId" from-field="invoiceId"/>
-			</hyperlink>
-		</field>
+            <hyperlink target="invoiceOverview" description="${invoiceId}">
+                <parameter param-name="invoiceId" from-field="invoiceId"/>
+            </hyperlink>
+        </field>
         <field name="termTypeId">
             <display-entity entity-name="TermType" description="${description}"/>
         </field>

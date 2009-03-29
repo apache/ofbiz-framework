@@ -30,7 +30,9 @@
         <field name="title" title="${uiLabelMap.ProductTitle}"><display/></field>
         <field name="subtitle" title="${uiLabelMap.ProductSubTitle}"><display/></field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditProductStore?productStoreId=${productStoreId}" description="${uiLabelMap.CommonEdit}"/>
+            <hyperlink target="EditProductStore" description="${uiLabelMap.CommonEdit}">
+                <parameter param-name="productStoreId" from-field="productStoreId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditProductStore" type="single" target="updateProductStore" title="" default-map-name="productStore"

@@ -73,7 +73,9 @@ under the License.
         <!-- three possibilities for the Party: person, partyGroup, neither... just print everything and if it's empty, no biggie -->
         <field name="partyId" title="${uiLabelMap.PartyParty}">
             <display-entity entity-name="PartyNameView" description="${personalTitle} ${firstName} ${middleName} ${lastName} ${suffix} ${groupName}" also-hidden="true" cache="false">
-                <sub-hyperlink target-type="inter-app" link-style="buttontext" target="/partymgr/control/viewprofile?party_id=${partyId}" description="${partyId}"/>
+                <sub-hyperlink target-type="inter-app" link-style="buttontext" target="/partymgr/control/viewprofile" description="${partyId}">
+                    <parameter param-name="party_id" from-field="partyId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRole}"><display-entity entity-name="RoleType"/></field>
@@ -104,7 +106,9 @@ under the License.
         <field name="prodCatalogId"><hidden/></field>
         <field name="productStoreId" title="${uiLabelMap.ProductStoreId}">
             <display-entity entity-name="ProductStore" description="${storeName}" also-hidden="true" cache="true">
-                <sub-hyperlink link-style="buttontext" target="EditProductStore?productStoreId=${productStoreId}" description="${productStoreId}"/>
+                <sub-hyperlink link-style="buttontext" target="EditProductStore" description="${productStoreId}">
+                    <parameter param-name="productStoreId" from-field="productStoreId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
@@ -121,7 +125,9 @@ under the License.
         <field name="prodCatalogId"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductCategoryId}">
             <display-entity entity-name="ProductCategory" description="${description}" also-hidden="true" cache="true">
-                <sub-hyperlink link-style="buttontext" target="EditCategory?productCategoryId=${productCategoryId}" description="${productCategoryId}"/>
+                <sub-hyperlink link-style="buttontext" target="EditCategory" description="${productCategoryId}">
+                    <parameter param-name="productCategoryId" from-field="productCategoryId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="prodCatalogCategoryTypeId" title="${uiLabelMap.ProductCatalogCategoryType}"><display-entity entity-name="ProdCatalogCategoryType" also-hidden="true" cache="true"/></field>

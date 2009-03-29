@@ -45,7 +45,9 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="Survey" default-field-type="display"/>
         <field name="surveyId" title="${uiLabelMap.ContentSurveySurveyId}" widget-style="buttontext">
-            <hyperlink description="${surveyId}" target="EditSurvey?surveyId=${surveyId}" also-hidden="false"/>
+            <hyperlink description="${surveyId}" target="EditSurvey" also-hidden="false">
+                <parameter param-name="surveyId" from-field="surveyId"/>
+            </hyperlink>
         </field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="ListFindSurveySearchResults"/>
     </form>

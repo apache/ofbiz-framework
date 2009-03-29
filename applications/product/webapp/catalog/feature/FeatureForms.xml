@@ -122,16 +122,22 @@
             </service>
         </actions>       
         <field name="productFeatureTypeId" widget-style="buttontext">
-            <hyperlink target="EditFeatureType?productFeatureTypeId=${productFeatureTypeId}" description="${productFeatureTypeId}"/>            
+            <hyperlink target="EditFeatureType" description="${productFeatureTypeId}">
+                <parameter param-name="productFeatureTypeId" from-field="productFeatureTypeId"/>
+            </hyperlink>            
         </field>
         <field name="description"><display/></field>
         <field name="parentTypeId">
             <display-entity entity-name="ProductFeatureType" description="${description}" key-field-name="productFeatureTypeId">
-                <sub-hyperlink target="EditFeatureType?productFeatureTypeId=${parentTypeId}" description="${parentTypeId}"/>
+                <sub-hyperlink target="EditFeatureType" description="${parentTypeId}">
+                    <parameter param-name="productFeatureTypeId" from-field="parentTypeId"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="removeFeatureType" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="removeProductFeatureType?productFeatureTypeId=${productFeatureTypeId}" description="${uiLabelMap.CommonDelete}"/>
+            <hyperlink target="removeProductFeatureType" description="${uiLabelMap.CommonDelete}">
+                <parameter param-name="productFeatureTypeId" from-field="productFeatureTypeId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditFeatureType" type="single" target="updateProductFeatureType" title="" default-map-name="productFeatureType"
@@ -169,12 +175,16 @@
         
         <field name="productFeatureId">
             <display-entity entity-name="ProductFeature" description="${description}">
-                <sub-hyperlink target="EditFeature?productFeatureId=${productFeatureId}" description="[${productFeatureId}]"/>    
+                <sub-hyperlink target="EditFeature" description="[${productFeatureId}]">
+                <parameter param-name="productFeatureId" from-field="productFeatureId"/>
+            </sub-hyperlink>    
             </display-entity>
         </field>
         <field name="productFeatureIdTo">
             <display-entity entity-name="ProductFeature" description="${description}" key-field-name="productFeatureId">
-                <sub-hyperlink target="EditFeature?productFeatureId=${productFeatureIdTo}" description="[${productFeatureIdTo}]"/>    
+                <sub-hyperlink target="EditFeature" description="[${productFeatureIdTo}]">
+                <parameter param-name="productFeatureId" from-field="productFeatureIdTo"/>
+            </sub-hyperlink>    
             </display-entity>
         </field>
         <field name="productFeatureIactnTypeId"><display-entity entity-name="ProductFeatureIactnType"/></field>
@@ -291,7 +301,9 @@
             </service>
         </actions>
         <field name="productFeatureCategoryId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
-            <hyperlink target="EditFeatureCategoryFeatures?productFeatureCategoryId=${productFeatureCategoryId}" description="${productFeatureCategoryId}"/>
+            <hyperlink target="EditFeatureCategoryFeatures" description="${productFeatureCategoryId}">
+                <parameter param-name="productFeatureCategoryId" from-field="productFeatureCategoryId"/>
+            </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
      
