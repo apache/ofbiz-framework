@@ -267,7 +267,11 @@
         </row-actions>
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
         <field name="projectId"><hidden/></field>
-        <field entry-name="workEffortName" name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}"><hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName}"/></field>
+        <field entry-name="workEffortName" name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}">
+			<hyperlink target="taskView" description="${workEffortName}">
+				<parameter param-name="workEffortId" from-field="workEffortId"/>
+			</hyperlink>
+		</field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"></display-entity></field>
         <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
         <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
@@ -354,7 +358,11 @@
     <form name="ListPhaseInfo" type="list" list-name="phases"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="projectId"><hidden value="parameters.projectId"/></field>
-        <field name="phase"><hyperlink target="FindPhase?projectId=${projectId}" description="${phaseName}"/></field>
+        <field name="phase">
+			<hyperlink target="FindPhase" description="${phaseName}">
+				<parameter param-name="projectId" from-field="projectId"/>
+			</hyperlink>
+		</field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority"><display/></field>
         <field name="startDate"><display type="date"/></field>
@@ -365,7 +373,11 @@
     <form name="ListTaskInfo" type="list" list-name="tasks"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="projectId"><hidden value="parameters.projectId"/></field>
-        <field name="task"><hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName}"/></field>
+        <field name="task">
+			<hyperlink target="taskView" description="${workEffortName}">
+				<parameter param-name="workEffortId" from-field="workEffortId"/>
+			</hyperlink>
+		</field>
         <field name="phaseName"><display/></field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority"><display/></field>
@@ -593,7 +605,11 @@
             <hyperlink also-hidden="false" description="${workEffortName}" target="taskView?workEffortId=${workEffortId}"/>
         </field>
         <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${resultProject.phaseName}"/></field>
-        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="projectView?projectId=${resultProject.projectId}" description="${resultProject.projectName}"/></field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
+			<hyperlink target="projectView" description="${resultProject.projectName}">
+				<parameter param-name="projectId" from-field="resultProject.projectId"/>
+			</hyperlink>
+		</field>
         <field entry-name="currentStatusId" name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field entry-name="statusId" name="Status" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
