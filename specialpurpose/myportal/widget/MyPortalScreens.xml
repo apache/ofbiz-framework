@@ -43,7 +43,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="MyTimesheet">
+    <!--screen name="MyTimesheet">
         <section>
             <actions>
                 <set field="headerItem" value="myTimesheet"/>
@@ -91,7 +91,7 @@ under the License.
                 </section>
             </widgets>
         </section>
-    </screen>
+    </screen-->
     <screen name="MyTasks">
         <section>
             <actions>

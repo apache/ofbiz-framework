@@ -620,13 +620,13 @@ under the License.
         <prim-key field="portalPortletId"/>
     </entity>
     <entity entity-name="PortletCategory" package-name="org.ofbiz.common.portal" title="Portlet Category Entity">
-      <field name="portletCategoryId" type="id-ne"></field>
-      <field name="description" type="id"></field>
+      <field name="portletCategoryId" type="id-ne"/>
+      <field name="description" type="description"/>
       <prim-key field="portletCategoryId"/>
     </entity>
     <entity entity-name="PortletPortletCategory" package-name="org.ofbiz.common.portal" title="Defines Portlets included into Categories">
-      <field name="portalPortletId" type="id-ne"></field>
-      <field name="portletCategoryId" type="id-ne"></field>
+      <field name="portalPortletId" type="id-ne"/>
+      <field name="portletCategoryId" type="id-ne"/>
       <prim-key field="portalPortletId"/>
       <prim-key field="portletCategoryId"/>
       <relation type="one" fk-name="PPTLTCAT_PTPL" rel-entity-name="PortalPortlet">

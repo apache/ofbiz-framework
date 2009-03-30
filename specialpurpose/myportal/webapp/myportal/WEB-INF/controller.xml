@@ -43,30 +43,6 @@
         <response name="resultPage" type="view" value="newRegisterLogin"/>
     </request-map>
     
-    <!-- TIMESHEET -->
-    <request-map uri="myTimesheet">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="myTimesheet"/>
-    </request-map>
-    <request-map uri="updateTimesheet">
-        <security https="true" auth="true"/>
-        <event type="service-multi" invoke="updateTimeEntryByWorkeffort"/>
-        <response name="success" type="view" value="getToNextDonePage"/>
-        <response name="error" type="view" value="getToNextDonePage"/>
-    </request-map>
-    <request-map uri="updateTimesheetKey">
-        <security https="true" auth="true"/>
-        <event type="service-multi" invoke="updateTimeEntryByWorkeffort"/>
-        <response name="success" type="view" value="myTimesheet"/>
-        <response name="error" type="view" value="myTimesheet"/>
-    </request-map>
-    <request-map uri="statusToCompleteKey">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateTimesheet"/>
-        <response name="success" type="request" value="myTimesheet"/>
-        <response name="error" type="request" value="getToNextDonePage"/>
-    </request-map>
-    
     <!-- MY TASKS -->
     <request-map uri="myTasks">
         <security https="true" auth="true"/>
@@ -100,86 +76,6 @@
         <response name="success" type="request" value="myCompanyComms"/>
     </request-map>
     
-    <!-- MY COMMUNICATIONS -->
-    <!--request-map uri="myCommunications">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="myCommunications"/>
-    </request-map>
-    <request-map uri="createCommunicationEvent">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createCommunicationEvent"/>
-        <response name="success" type="request" value="myCommunications"/>
-        <response name="error" type="request-redirect" value="showPortalPage"/>
-    </request-map>
-    <request-map uri="deletePartyCommunicationEvent">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteCommunicationEvent"/>
-        <response name="success" type="request" value="myCommunications"/>
-    </request-map>
-    <request-map uri="RemoveCommunicationEventRole">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="removeCommunicationEventRole"/>
-        <response name="success" type="request" value="myCommunications"/>
-        <response name="error" type="request" value="getToNextDonePage"/>
-    </request-map>
-    <request-map uri="allocateMsgToParty">
-        <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="allocateMsgToParty"/>
-        <response name="success" type="request" value="getToNextDonePage"/>
-        <response name="error" type="view" value="ViewCommunicationEvent"/>
-    </request-map>
-    
-    <request-map uri="deleteCommunicationEvents">
-        <security https="true" auth="true"/>
-        <event type="service-multi" invoke="deleteCommunicationEventWorkEffort"/>
-        <response name="success" type="request" value="myCommunications"/>
-    </request-map-->
-    
-    <!-- OTHER COMMUNICATIONS -->
-    <!--request-map uri="otherCommunications">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="otherCommunications"/>
-    </request-map>
-    <request-map uri="setCommunicationEventRoleStatus">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="setCommunicationEventRoleStatus"/>
-        <response name="success" type="request" value="getToNextDonePage"/>
-        <response name="error" type="request-redirect-noparam" value="showPortalPage"/>
-    </request-map>
-    <request-map uri="ViewCommunicationEvent">
-        <security https="true" auth="true"/>
-        <event  type="simple" invoke="setCommEventToRead" path="org/ofbiz/myportal/Events.xml"/>
-        <response name="success" type="view" value="ViewCommunicationEvent"/>
-        <response name="error" type="request" value="getToNextDonePage"/>
-    </request-map>
-    
-    <request-map uri="deleteUnknownCommunicationEvent">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteCommunicationEvent"/>
-        <response name="success" type="request" value="getToNextDonePage"/>
-        <response name="error" type="view" value="ViewCommunicationEvent"/>
-    </request-map-->
-    
-    <!-- to clean up old data -->
-    <!--request-map uri="createCommEventRoles">
-        <security https="true" auth="true"/>
-        <event type="simple" invoke="createCommunicationEventRoles" path="org/ofbiz/myportal/Events.xml"/>
-        <response name="success" type="request" value="getToNextDonePage"/>
-        <response name="error" type="request-redirect-noparam" value="showPortalPage"/>
-    </request-map>
-    
-    <request-map uri="getToNextDonePage">
-        <security https="true" auth="true"/>
-        <event type="simple" invoke="getToNextDonePage" path="org/ofbiz/myportal/Events.xml"/>
-        <response name="main" type="request-redirect" value="showPortalPage"/>
-        <response name="ViewCommunicationEvent" type="request" value="ViewCommunicationEvent"/>
-        <response name="otherCommunications" type="request" value="otherCommunications"/>
-        <response name="myTimesheet" type="request" value="myTimesheet"/>
-        <response name="myTasks" type="request" value="myTasks"/>
-        <response name="myCompanyComms" type="request" value="myCompanyComms"/>
-        <response name="error" type="request-redirect-noparam" value="showPortalPage"/>
-    </request-map-->
-    
     <!-- Create Customer Request-->
     <request-map uri="newrequest">
         <security https="true" auth="true"/>
@@ -206,56 +102,6 @@
         <response name="success" type="view" value="ListProjects"/>
     </request-map>    
     
-    <!-- EMAIL COMMUNICATIONS -->
-    <!--request-map uri="NewCommunicationEvents">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditCommunicationEvent"/>
-    </request-map>
-    
-    <request-map uri="NewCommunicationEvent">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createCommunicationEvent"/>
-        <response name="success" type="view" value="EditCommunicationEvent"/>
-    </request-map>
-    
-    <request-map uri="updateCommunicationEvent">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateCommunicationEvent"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="ViewCommunicationEvent"/>
-    </request-map>
-    
-    <request-map uri="addAttachmentEmail">
-        <security https="true" auth="true"/>        
-        <response name="success" type="view" value="addAttachmentEmail"/>
-    </request-map>
-    
-    <request-map uri="addContentToCommEvent">
-        <security https="true" auth="true"/>        
-        <event type="simple" path="org/ofbiz/myportal/Events.xml" invoke="addContentToCommEvent"/>
-        <response name="success" type="request" value="NewCommunicationEvents"/>
-        <response name="error" type="view" value="EditCommunicationEvent"/>
-    </request-map>
-    
-    <request-map uri="uploadAttachFiletoEmail">
-        <security https="true" auth="true"/>        
-        <event type="simple" path="org/ofbiz/myportal/Events.xml" invoke="createCommunicationContent"/>
-        <response name="success" type="request" value="NewCommunicationEvents"/>
-        <response name="error" type="view" value="EditCommunicationEvent"/>
-    </request-map>
-    
-    <request-map uri="removeAttachFile">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="removeCommEventContentAssoc"/>        
-        <response name="success" type="request" value="NewCommunicationEvents"/>
-        <response name="error" type="view" value="EditCommunicationEvent"/>
-    </request-map>
-    
-    <request-map uri="EditCommunicationEvent">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditCommunicationEvent"/>
-    </request-map-->
-    
     <!-- CustRequest Content -->
     <request-map uri="EditCustRequestContent">
         <security https="true" auth="true"/>
@@ -281,13 +127,9 @@
     <view-map name="newRegisterLogin" type="screen" page="component://myportal/widget/CommonScreens.xml#newRegisterLogin"/>
     <view-map name="myTasks" type="screen" page="component://myportal/widget/CommonScreens.xml#MyTasks"/>
     <view-map name="myCompanyComms" type="screen" page="component://myportal/widget/CommonScreens.xml#MyCompanyComms"/>
-    <view-map name="myTimesheet" type="screen" page="component://myportal/widget/CommonScreens.xml#MyTimesheet"/>
     <view-map name="newEvent" type="screen" page="component://myportal/widget/MyPortalScreens.xml#newEvent"/>
     <view-map name="ViewRequest" type="screen" page="component://myportal/widget/MyPortalScreens.xml#ViewRequest"/>
     <view-map name="EditRequest" type="screen" page="component://myportal/widget/MyPortalScreens.xml#EditRequest"/>
     <view-map name="ListInvoices" type="screen" page="component://myportal/widget/MyPortalScreens.xml#ListInvoices"/>
     <view-map name="ListProjects" type="screen" page="component://myportal/widget/MyPortalScreens.xml#ListProjects"/>
-    <!--view-map name="EditCommunicationEvent" type="screen" page="component://myportal/widget/MyPortalScreens.xml#EditCommunicationEvent"/>
-    <view-map name="addAttachmentEmail" type="screen" page="component://myportal/widget/MyPortalScreens.xml#addAttachmentEmail"/>
-    <view-map name="EditCustRequestContent" type="screen" page="component://myportal/widget/MyPortalScreens.xml#EditCustRequestContent"/-->   
 </site-conf>

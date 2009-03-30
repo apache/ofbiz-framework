@@ -34,14 +34,14 @@
     <PortalPage portalPageId="MYPORTAL_EMPLOYEE1" sequenceNum="100" portalPageName="My Profile" description="The OFBiz My Portal Profile page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
     <PortalPage portalPageId="MYPORTAL_EMPLOYEE2" sequenceNum="200" portalPageName="Other Party Comms" description="The OFBiz My Portal other commmunication page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
     <PortalPage portalPageId="MYPORTAL_EMPLOYEE3" sequenceNum="300" portalPageName="Company Events" description="The OFBiz My Portal Company Events page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
-    <PortalPage portalPageId="MYPORTAL_EMPLOYEE4" sequenceNum="400" portalPageName="My Time Sheets" description="The OFBiz My Portal Timesheet page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
+    <PortalPage portalPageId="MYPORTAL_EMPLOYEE4" sequenceNum="400" portalPageName="My Time Sheet" description="The OFBiz My Portal Timesheet page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
     <PortalPage portalPageId="MYPORTAL_EMPLOYEE5" sequenceNum="500" portalPageName="My Tasks" description="The OFBiz My Portal My Task page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPLOYEE"/>
     
     <PortalPage portalPageId="MYPORTAL_EMPL-NOEML" sequenceNum="0" portalPageName="Main" description="The default OFBiz portal page" ownerUserLoginId="_NA_" securityGroupId="MYPORTAL_EMPL-NOEML" />
     <PortalPage portalPageId="MYPORTAL_EMPL-NOEML1" sequenceNum="100" portalPageName="My Profile" description="The OFBiz My Portal Profile page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
     <PortalPage portalPageId="MYPORTAL_EMPL-NOEML2" sequenceNum="200" portalPageName="Other Party Comms" description="The OFBiz My Portal other commmunication page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
     <PortalPage portalPageId="MYPORTAL_EMPL-NOEML3" sequenceNum="300" portalPageName="Company Events" description="The OFBiz My Portal Company Events page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
-    <PortalPage portalPageId="MYPORTAL_EMPL-NOEML4" sequenceNum="400" portalPageName="My Time Sheets" description="The OFBiz My Portal Timesheet page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
+    <PortalPage portalPageId="MYPORTAL_EMPL-NOEML4" sequenceNum="400" portalPageName="My Time Sheet" description="The OFBiz My Portal Timesheet page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
     <PortalPage portalPageId="MYPORTAL_EMPL-NOEML5" sequenceNum="500" portalPageName="My Tasks" description="The OFBiz My Portal My Task page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_EMPL-NOEML"/>
     
     <PortalPage portalPageId="MYPORTAL_CUSTOMER" sequenceNum="0" portalPageName="Main" description="The default OFBiz portal page for a customers" ownerUserLoginId="_NA_" securityGroupId="MYPORTAL_CUSTOMER" />
@@ -74,12 +74,10 @@
     <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER3" columnSeqId="00001" />
     
     <PortletCategory portletCategoryId="TASKS" description="Task(s)"/>
-    <PortletCategory portletCategoryId="TIMESHEETS" description="Timesheet(s)"/>
     <PortletCategory portletCategoryId="LIST_CUSTOMER" description="List(s) of Customer" />    
     
     <PortalPortlet portalPortletId="mycompanycomms" portletName="My Company Comms" screenName="MyCompanyComms" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Company Comms From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="mytasks" portletName="My Tasks" screenName="MyTasks" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Tasks From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />    
-    <PortalPortlet portalPortletId="mytimesheet" portletName="My Timesheet" screenName="MyTimesheet" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Timesheet From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="ListInvoices" portletName="List Invoices" screenName="ListInvoices" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Invoices From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="ListCustRequests" portletName="List Cust Requests" screenName="ListCustRequests" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Cust Requests From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="ListCustRequestsComp" portletName="List Cust Requests Completed" screenName="ListCustRequestsCompleted" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Cust Requests Completed From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
@@ -142,7 +140,6 @@
     <PortletPortletCategory portalPortletId="mycompanycomms" portletCategoryId="COMMUNICATIONS"/>
     
     <PortletPortletCategory portalPortletId="mytasks" portletCategoryId="TASKS"/>
-    <PortletPortletCategory portalPortletId="mytimesheet" portletCategoryId="TIMESHEETS"/>
     
     <PortletPortletCategory portalPortletId="ListInvoices" portletCategoryId="LIST_CUSTOMER"/>
     <PortletPortletCategory portalPortletId="ListCustRequests" portletCategoryId="LIST_CUSTOMER"/>
