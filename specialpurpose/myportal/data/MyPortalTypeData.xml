@@ -73,11 +73,9 @@
     <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER2" columnSeqId="00001" />
     <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER3" columnSeqId="00001" />
     
-    <PortletCategory portletCategoryId="TASKS" description="Task(s)"/>
     <PortletCategory portletCategoryId="LIST_CUSTOMER" description="List(s) of Customer" />    
     
     <PortalPortlet portalPortletId="mycompanycomms" portletName="My Company Comms" screenName="MyCompanyComms" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Company Comms From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
-    <PortalPortlet portalPortletId="mytasks" portletName="My Tasks" screenName="MyTasks" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Tasks From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />    
     <PortalPortlet portalPortletId="ListInvoices" portletName="List Invoices" screenName="ListInvoices" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Invoices From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="ListCustRequests" portletName="List Cust Requests" screenName="ListCustRequests" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Cust Requests From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="ListCustRequestsComp" portletName="List Cust Requests Completed" screenName="ListCustRequestsCompleted" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Cust Requests Completed From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
@@ -139,7 +137,6 @@
     
     <PortletPortletCategory portalPortletId="mycompanycomms" portletCategoryId="COMMUNICATIONS"/>
     
-    <PortletPortletCategory portalPortletId="mytasks" portletCategoryId="TASKS"/>
     
     <PortletPortletCategory portalPortletId="ListInvoices" portletCategoryId="LIST_CUSTOMER"/>
     <PortletPortletCategory portalPortletId="ListCustRequests" portletCategoryId="LIST_CUSTOMER"/>

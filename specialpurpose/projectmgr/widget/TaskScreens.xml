@@ -314,7 +314,6 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="ProjectMgrTaskSummary"/>
-                <set field="headerItem" value="task"/>
                 <set field="tabButtonItem" value="taskView"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="projectId" from-field="parameters.workEffortId"/>
@@ -327,12 +326,10 @@ under the License.
                 </service>
             </actions>                        
             <widgets>
-                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="Common${parameters.my}TaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="lefthalf">
-                            <screenlet title="${uiLabelMap.PageTitleTaskInformation}">
-                                <include-form name="TaskInfo" location="component://projectmgr/widget/forms/TaskForms.xml"/>  
-                            </screenlet>
+                            <include-screen name="taskInfo"/>
                             <include-screen name="taskBefore"/>
                             <include-screen name="taskAfter"/>
                         </container>
@@ -347,12 +344,12 @@ under the License.
             </widgets>            
         </section>
     </screen>
-    <screen name="TaskInfo">
+    <screen name="taskInfo">
         <section>
             <widgets>
-                <platform-specific>
-                    <html><html-template location="component://projectmgr/webapp/projectmgr/project/summary/projectinfo.ftl"/></html>
-                </platform-specific>
+                <screenlet title="${uiLabelMap.PageTitleTaskInformation}">
+                    <include-form name="TaskInfo" location="component://projectmgr/widget/forms/TaskForms.xml"/>  
+                </screenlet>
             </widgets>
         </section>
     </screen>

@@ -43,18 +43,6 @@
         <response name="resultPage" type="view" value="newRegisterLogin"/>
     </request-map>
     
-    <!-- MY TASKS -->
-    <request-map uri="myTasks">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="myTasks"/>
-    </request-map>
-    <request-map uri="updateTaskAssigment">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateTaskAssigment"/>
-        <response name="success" type="request" value="myTasks"/>
-        <response name="error" type="request" value="getToNextDonePage"/>
-    </request-map>
-    
     <!-- COMPANY COMMUNICATION -->    
     <request-map uri="myCompanyComms">
         <security https="true" auth="true"/>

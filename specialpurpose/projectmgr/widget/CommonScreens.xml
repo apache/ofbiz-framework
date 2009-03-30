@@ -45,6 +45,7 @@ under the License.
                 <set field="applicationMenuName" value="ProjectMgrAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://projectmgr/widget/Menus.xml" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.ProjectMgrApplication}" global="true"/>
+                <set field="my" value="My" global="true"/>
             </actions>
             <widgets>
                 <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
@@ -96,17 +97,6 @@ under the License.
     </screen>
     <screen name="CommonTaskDecorator">
         <section>
-            <actions>
-                <set field="headerItem" value="task"/>
-                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-                <service service-name="getProjectIdAndNameFromTask" result-map="result">
-                    <field-map field-name="taskId" from-field="parameters.workEffortId"/>
-                </service>
-                <set field="projectId" from-field="result.projectId"/>
-                <set field="projectName" from-field="result.projectName"/>
-                <set field="phaseId" from-field="result.phaseId"/>
-                <set field="phaseName" from-field="result.phaseName"/>
-            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
