@@ -43,7 +43,7 @@ import org.xml.sax.SAXException;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
 import org.ofbiz.widget.screen.MacroScreenRenderer;
-import org.ofbiz.widget.screen.MacroFormRenderer;
+import org.ofbiz.widget.form.MacroFormRenderer;
 
 import freemarker.template.TemplateException;
 import freemarker.template.utility.StandardCompress;

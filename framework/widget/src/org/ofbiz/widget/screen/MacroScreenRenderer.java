@@ -646,7 +646,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         sr.append("\" padded=");
         sr.append(Boolean.toString(padded));
         sr.append(" menuString=\"");
-        sr.append(menuString);
+        sr.append(menuString.replaceAll("\"", "'"));//FIXME change the " to ' for fix the macro invoke 
         sr.append("\" showMore=");
         sr.append(Boolean.toString(showMore));
         sr.append(" collapsed=");

@@ -66,10 +66,11 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         elementId++;
         return "hsr" + elementId;
     }
-
+//TODO
     public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
         renderBeginningBoundaryComment(writer, section.isMainSection?"Screen":"Section Widget", section);
     }
+//TODO
     public void renderSectionEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
         renderEndingBoundaryComment(writer, section.isMainSection?"Screen":"Section Widget", section);
     }
@@ -130,7 +131,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         writer.append("/>");
         appendWhitespace(writer);
     }
-
+//HERE
     public void renderScreenletBegin(Appendable writer, Map<String, Object> context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
