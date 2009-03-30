@@ -1998,7 +1998,6 @@ under the License.
                 <set field="debitEntry.partyId" from-field="invoice.partyIdFrom"/>
                 <set field="debitEntry.roleTypeId" value="BILL_FROM_VENDOR"/>
                 <set field="debitEntry.productId" from-field="invoiceItem.productId"/>
-                <log level="always" message="**************invoiceItemTypeId***********=${invoiceItemTypeId}"></log>
                 <set field="debitEntry.glAccountTypeId" from-field="invoiceItem.invoiceItemTypeId"/>
                 <set field="debitEntry.glAccountId" from-field="invoiceItem.overrideGlAccountId"/>
                 <if-compare field="amountFromOrder" operator="greater" value="0" type="BigDecimal">
@@ -2091,12 +2090,6 @@ under the License.
             <set field="debitEntry.debitCreditFlag" value="D"/>
             <set field="debitEntry.glAccountTypeId" value="ACCOUNTS_RECEIVABLE"/>
             <set field="debitEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
-            <calculate field="totalOrigAmount" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
-                <calcop operator="add">
-                    <calcop operator="get" field="totalOrigAmount"/>
-                    <calcop operator="get" field="invoiceTaxTotal"/>
-                </calcop>
-            </calculate>
             <set field="debitEntry.origAmount" from-field="totalOrigAmount"/>
             <set field="debitEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
             <set field="debitEntry.partyId" from-field="invoice.partyId"/>
