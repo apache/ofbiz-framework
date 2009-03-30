@@ -266,13 +266,9 @@
     </request-map>
     <request-map uri="MyTasks">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="MyTasks"/>
+        <response name="success" type="view" value="MyTasks" save-current-view="true"/>
     </request-map>
 
-    <!--request-map uri="EditTaskListAndAssoc">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditTaskListAndAssoc"/>
-    </request-map-->
     <request-map uri="createTaskListAndAssoc">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
@@ -285,13 +281,6 @@
         <response name="success" type="view" value="Dependencies"/>
         <response name="error" type="view" value="Dependencies"/>
     </request-map>
-
-    <!-- TO DO
-    <request-map uri="ChildTaskWorkEfforts">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ChildTaskWorkEfforts"/>
-    </request-map>
-    -->
 
     <request-map uri="FindPhase">
         <security https="true" auth="true"/>
@@ -347,7 +336,7 @@
     </request-map>
     <request-map uri="MyTimesheet">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="MyTimesheet"/>
+        <response name="success" type="view" value="MyTimesheet" save-current-view="true"/>
     </request-map>
     <request-map uri="EditTimeEntries">
         <security https="true" auth="true"/>

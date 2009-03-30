@@ -289,7 +289,7 @@ public class WidgetWorker {
         public String getValue(Map<String, Object> context) {
             if (this.value != null) {
                 return this.value.expandString(context);
-            } else if (this.fromField != null) {
+            } else if (this.fromField != null && this.fromField.get(context) != null) {
                 Object contextVal = this.fromField.get(context);
                 return contextVal.toString();
             } else {
