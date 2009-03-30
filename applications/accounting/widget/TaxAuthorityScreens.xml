@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    
+
     <screen name="FindTaxAuthority">
         <section>
             <actions>
@@ -38,7 +38,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <container><link target="EditTaxAuthority" text="${uiLabelMap.AccountingNewTaxAuthority}" style="buttontext"/></container>
                                         <include-form name="FindTaxAuthority" location="component://accounting/widget/TaxAuthorityForms.xml"/>
                                     </widgets>
@@ -57,7 +57,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTaxAuthority"/>
                 <set field="tabButtonItem" value="EditTaxAuthority"/>
                 <set field="labelTitleProperty" value="PageTitleEditTaxAuthority"/>
-                
+
                 <set field="taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
                 <set field="taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
                 <entity-one entity-name="TaxAuthority" value-field="taxAuthority"/>
@@ -73,18 +73,18 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditTaxAuthority" location="component://accounting/widget/TaxAuthorityForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditTaxAuthorityCategories">
         <section>
             <actions>
@@ -113,7 +113,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTaxAuthorityAssocs"/>
                 <set field="tabButtonItem" value="EditTaxAuthorityAssocs"/>
                 <set field="labelTitleProperty" value="PageTitleEditTaxAuthorityAssocs"/>
-                
+
                 <set field="taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
                 <set field="taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
             </actions>
@@ -135,7 +135,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTaxAuthorityGlAccounts"/>
                 <set field="tabButtonItem" value="EditTaxAuthorityGlAccounts"/>
                 <set field="labelTitleProperty" value="PageTitleEditTaxAuthorityGlAccounts"/>
-                
+
                 <set field="taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
                 <set field="taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
             </actions>
@@ -157,7 +157,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTaxAuthorityRateProducts"/>
                 <set field="tabButtonItem" value="EditTaxAuthorityRateProducts"/>
                 <set field="labelTitleProperty" value="PageTitleEditTaxAuthorityRateProducts"/>
-                
+
                 <set field="taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
                 <set field="taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
             </actions>
@@ -173,7 +173,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ListTaxAuthorityParties">
         <section>
             <actions>
@@ -195,13 +195,13 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <container><link target="EditTaxAuthorityPartyInfo?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}" text="${uiLabelMap.AccountingNewTaxAuthorityPartyInfo}" style="buttontext"/></container>
-                                        <include-form name="FindTaxAuthorityParties" location="component://accounting/widget/TaxAuthorityForms.xml"/>                                        
+                                        <include-form name="FindTaxAuthorityParties" location="component://accounting/widget/TaxAuthorityForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>        
+                        </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
@@ -210,12 +210,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>                                        
-                                        <include-form name="ListTaxAuthorityParties" location="component://accounting/widget/TaxAuthorityForms.xml"/>                                        
+                                    <widgets>
+                                        <include-form name="ListTaxAuthorityParties" location="component://accounting/widget/TaxAuthorityForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -226,12 +226,12 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditTaxAuthorityPartyInfo"/>
                 <set field="tabButtonItem" value="EditTaxAuthorityPartyInfo"/>
-                
+
                 <set field="taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
                 <set field="taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
-                
+
                 <entity-one entity-name="PartyTaxAuthInfo" value-field="partyTaxAuthInfo"/>
             </actions>
             <widgets>
@@ -245,7 +245,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <container><link target="EditTaxAuthorityPartyInfo?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}" text="${uiLabelMap.AccountingNewTaxAuthorityPartyInfo}" style="buttontext"/></container>
                                         <include-form name="EditTaxAuthorityPartyInfo" location="component://accounting/widget/TaxAuthorityForms.xml"/>
                                     </widgets>
