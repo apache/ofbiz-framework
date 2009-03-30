@@ -1927,14 +1927,7 @@ under the License.
 
         <entity-one entity-name="Invoice" value-field="invoice"/>
         <if-compare field="invoice.invoiceTypeId" operator="equals" value="PURCHASE_INVOICE">
-            <entity-condition entity-name="InvoiceItem" list="invoiceItems" use-cache="true">
-                <condition-list>
-                    <condition-expr field-name="invoiceItemTypeId" operator="not-equals" value="PINV_SALES_TAX"/>
-                    <condition-expr field-name="invoiceItemTypeId" operator="not-equals" value="PITM_SALES_TAX"/>
-                    <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId"/>
-                </condition-list>
-            </entity-condition>
-
+            <get-related value-field="invoice" relation-name="InvoiceItem" list="invoiceItems"/>
             <iterate list="invoiceItems" entry="invoiceItem">
                 <set field="amountFromOrder" type="BigDecimal" value="0"/>
                 <set field="amountFromInvoice" type="BigDecimal" value="0"/>
@@ -2045,13 +2038,9 @@ under the License.
 
         <entity-one entity-name="Invoice" value-field="invoice"/>
         <if-compare field="invoice.invoiceTypeId" value="SALES_INVOICE" operator="equals">
-            <entity-condition entity-name="InvoiceItem" list="invoiceItems" use-cache="true">
-                <condition-list>
-                    <condition-expr field-name="invoiceItemTypeId" operator="not-equals" value="INV_SALES_TAX"/>
-                    <condition-expr field-name="invoiceItemTypeId" operator="not-equals" value="ITM_SALES_TAX"/>
-                    <condition-expr field-name="invoiceId" operator="equals" from-field="parameters.invoiceId"/>
-                </condition-list>
-            </entity-condition>
+            <entity-and entity-name="InvoiceItem" list="invoiceItems">
+                <field-map field-name="invoiceId" from-field="parameters.invoiceId" />
+            </entity-and>
             <iterate list="invoiceItems" entry="invoiceItem">
                 <!-- TODO: handle serialized inventory -->
                 <if-empty field="invoiceItem.quantity">
