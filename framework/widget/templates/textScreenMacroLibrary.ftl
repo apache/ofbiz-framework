@@ -30,7 +30,7 @@ under the License.
 <#macro renderSubContentEnd></#macro>
 
 <#macro renderHorizontalSeparator id style></#macro>
-<#macro renderLabel text id style><#if text?exists>${text}</#if></#macro>
+<#macro renderLabel text><#if text?exists>${text}</#if></#macro>
 <#macro renderLink></#macro>
 <#macro renderImage></#macro>
 
