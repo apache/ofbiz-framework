@@ -2086,27 +2086,6 @@ under the License.
                 <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
             </iterate>
 
-            <!-- credit entry for SALES_TAX-->
-            <call-class-method method-name="getInvoiceTaxByTaxAuthGeoAndParty" class-name="org.ofbiz.accounting.invoice.InvoiceWorker"
-                ret-field="invoiceTaxByTaxAuthGeoAndPartyResult">
-                <field field="invoice" type="org.ofbiz.entity.GenericValue"/>
-            </call-class-method>
-            <set field="taxByTaxAuthGeoAndPartyList" from-field="invoiceTaxByTaxAuthGeoAndPartyResult.taxByTaxAuthGeoAndPartyList"/>
-            <set field="invoiceTaxTotal" from-field="invoiceTaxByTaxAuthGeoAndPartyResult.taxGrandTotal"/>
-            <iterate list="taxByTaxAuthGeoAndPartyList" entry="taxByTaxAuthGeoAndParty">
-                <clear-field field="creditEntry"/>
-                <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
-                <set field="creditEntry.debitCreditFlag" value="C"/>
-                <set field="creditEntry.organizationPartyId" from-field="invoice.partyIdFrom"/>
-                <set field="creditEntry.origAmount" from-field="taxByTaxAuthGeoAndParty.totalAmount"/>
-                <set field="creditEntry.origCurrencyUomId" from-field="invoice.currencyUomId"/>
-                <if-not-empty field="taxByTaxAuthGeoAndParty.taxAuthPartyId">
-                    <set field="creditEntry.partyId" from-field="taxByTaxAuthGeoAndParty.taxAuthPartyId"/>
-                    <set field="creditEntry.roleTypeId" value="TAX_AUTHORITY"/>
-                </if-not-empty>
-                <set field="acctgTransEntries[]" from-field="creditEntry" type="Object"/>
-            </iterate>
-
             <!-- Debit -->
             <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
             <set field="debitEntry.debitCreditFlag" value="D"/>
