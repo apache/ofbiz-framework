@@ -161,7 +161,6 @@ under the License.
                 <set field="tabButtonItem" value="edittimesheet"/>
                 <set field="labelTitleProperty" value="PageTitleAddTimesheet"/>
                 <set field="my" value="My"/><!-- change link and target -->
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonMyTimeDecorator" location="${parameters.mainDecoratorLocation}">
@@ -238,6 +237,9 @@ under the License.
     </screen>
     <screen name="CurrentTimesheet">
         <section>
+            <actions>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.groovy"/>
+            </actions>
             <widgets>
                     <section>
                         <condition>

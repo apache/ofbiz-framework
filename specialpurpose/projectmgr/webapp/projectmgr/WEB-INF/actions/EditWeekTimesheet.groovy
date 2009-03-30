@@ -37,21 +37,20 @@ if (!partyId) {
 // show the requested timesheet, otherwise the current , if not exist create
 timesheet = null;
 timesheetId = parameters.timesheetId;
-//Debug.logInfo("====editweek: " + partyId + " timesheetId: " + timesheetId +"==========");
 if (timesheetId) {
     timesheet = delegator.findByPrimaryKey("Timesheet", ["timesheetId" : timesheetId]);
     partyId = timesheet.partyId; // use the party from this timesheet
-    } else { 
-        start = UtilDateTime.getWeekStart(UtilDateTime.nowTimestamp());
-        timesheets = delegator.findByAnd("Timesheet", ["partyId" : partyId, "fromDate" : start]);
-        if (timesheets) {
-            timesheet = timesheets[0];
-        } else {
-            result = dispatcher.runSync("createProjectTimesheet", ["userLogin" : parameters.userLogin, "partyId" : partyId]);
-            if (result && result.timesheetId) {
-                timesheet = delegator.findByPrimaryKey("Timesheet", ["timesheetId" : result.timesheetId]);
-            }
+} else { 
+    start = UtilDateTime.getWeekStart(UtilDateTime.nowTimestamp());
+    timesheets = delegator.findByAnd("Timesheet", ["partyId" : partyId, "fromDate" : start]);
+    if (timesheets) {
+        timesheet = timesheets[0];
+    } else {
+    	result = dispatcher.runSync("createProjectTimesheet", ["userLogin" : parameters.userLogin, "partyId" : partyId]);
+        if (result && result.timesheetId) {
+            timesheet = delegator.findByPrimaryKey("Timesheet", ["timesheetId" : result.timesheetId]);
         }
+    }
 }
 if (!timesheet) return;
 context.timesheet = timesheet;

@@ -85,7 +85,7 @@ under the License.
         </section>
     </screen>
     
-    <screen name="CommonTimesheetDecorator">
+    <screen name="CommonMyTimeDecorator">
         <section>
             <actions>
                 <set field="headerItem" value="${parameters.portalPageId}"/>
