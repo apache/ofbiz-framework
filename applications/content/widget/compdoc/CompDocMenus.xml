@@ -126,10 +126,20 @@ under the License.
         
     <menu name="childTemplateLine" menu-container-style="button-bar button-style-1" default-menu-item-name="content" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="edit-inplace" title="${contentName} [${contentId}]">
-            <link target="EditChildCompDoc?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caFromDate=${fromDate}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <link target="EditChildCompDoc">
+				<parameter param-name="contentId" from-field="contentId"/>
+				<parameter param-name="rootContentId" from-field="rootContentId"/>
+				<parameter param-name="caFromDate" from-field="fromDate"/>
+				<parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+			</link>
         </menu-item>
         <menu-item name="edit-link" title="${uiLabelMap.CommonEdit}">
-            <link target="EditChildCompDoc?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caFromDate=${fromDate}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <link target="EditChildCompDoc">
+				<parameter param-name="contentId" from-field="contentId"/>
+				<parameter param-name="rootContentId" from-field="rootContentId"/>
+				<parameter param-name="caFromDate" from-field="fromDate"/>
+				<parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+			</link>
         </menu-item>
         <!--  only one level for now, ie don't worry about an hierarchy, still not sure what that will mean or look like 
         <menu-item name="child" title="+Child">
