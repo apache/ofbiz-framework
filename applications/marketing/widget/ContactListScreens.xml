@@ -182,7 +182,11 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link  text="${uiLabelMap.MarketingContactListPartyCreate}" target="EditContactListParty?contactListId=${contactListId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <container>
+                                            <link  text="${uiLabelMap.MarketingContactListPartyCreate}" target="EditContactListParty" DONE_PAGE>
+                                                <parameter param-name="contactListId" from-field="contactListId"/>
+                                            </link>
+                                        </container>
                                         <include-form name="EditContactListParty" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>                        
                                         <container><label style="h2" text="${uiLabelMap.CommonStatusHistory}"/></container>
                                         <iterate-section entry="contactListPartyStatus" list="contactListPartyStatusList">
@@ -228,7 +232,11 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link  text="${uiLabelMap.MarketingContactListPartyCreate}" target="EditContactListParty?contactListId=${contactListId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <container>
+                                            <link  text="${uiLabelMap.MarketingContactListPartyCreate}" target="EditContactListParty" DONE_PAGE>
+                                                <parameter param-name="contactListId" from-field="contactListId"/>
+                                            </link>
+                                        </container>
                                         <include-form name="ListContactListParties" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
                                     </widgets>
                                 </section>
@@ -261,7 +269,11 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link  text="${uiLabelMap.MarketingContactListPartyCreate}" target="EditContactListParty?contactListId=${contactListId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <container>
+                                            <link  text="${uiLabelMap.MarketingContactListPartyCreate}" target="EditContactListParty" DONE_PAGE>
+                                                <parameter param-name="contactListId" from-field="contactListId"/>
+                                            </link>
+                                        </container>
                                         <include-form name="FindContactListParties" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
                                     </widgets>
                                 </section>
@@ -300,7 +312,11 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link  text="${uiLabelMap.MarketingContactListCommEventCreate}" target="EditContactListCommEvent?contactListId=${contactListId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <container>
+                                            <link  text="${uiLabelMap.MarketingContactListCommEventCreate}" target="EditContactListCommEvent" DONE_PAGE>
+                                                <parameter param-name="contactListId" from-field="contactListId"/>
+                                            </link>
+                                        </container>
                                         <include-form name="EditContactListCommEvent" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
                                     </widgets>
                                 </section>
@@ -337,7 +353,11 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link  text="${uiLabelMap.MarketingContactListCommEventCreate}" target="EditContactListCommEvent?contactListId=${contactListId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <container>
+                                            <link  text="${uiLabelMap.MarketingContactListCommEventCreate}" target="EditContactListCommEvent" DONE_PAGE>
+                                                <parameter param-name="contactListId" from-field="contactListId"/>
+                                            </link>
+                                        </container>
                                         <include-form name="ListContactListCommEvents" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
                                     </widgets>
                                 </section>
@@ -370,7 +390,11 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link  text="${uiLabelMap.MarketingContactListCommEventCreate}" target="EditContactListCommEvent?contactListId=${contactListId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <container>
+                                            <link  text="${uiLabelMap.MarketingContactListCommEventCreate}" target="EditContactListCommEvent" DONE_PAGE>
+                                                <parameter param-name="contactListId" from-field="contactListId"/>
+                                            </link>
+                                        </container>
                                         <include-form name="FindContactListCommEvents" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
                                     </widgets>
                                 </section>
