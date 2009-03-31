@@ -95,7 +95,7 @@ under the License.
         </field>
         <field name="newCreditCard" widget-style="buttontext" use-when="returnHeader!=null&amp;&amp;returnHeader.getString(&quot;fromPartyId&quot;)!=null">
             <hyperlink also-hidden="false" target="/partymgr/control/editcreditcard" target-window="partymgr" description="${uiLabelMap.AccountingCreateNewCreditCard}" target-type="inter-app">
-                <parameter param-name="partyId" value="${returnHeader.fromPartyId}${externalKeyParam}"/>
+                <parameter param-name="partyId" from-field="returnHeader.fromPartyId/>
             </hyperlink>
         </field>
         <field name="needsInventoryReceive" tooltip="${uiLabelMap.OrderReturnNecessaryReceiveInventoryMessage}">
@@ -165,13 +165,13 @@ under the License.
         <field name="fromPartyId" title="${uiLabelMap.OrderReturnFromParty}">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${lastName}">
                 <sub-hyperlink link-style="buttontext" target-type="inter-app" description="${fromPartyId}" target="/partymgr/control/viewprofile">
-                    <parameter param-name="partyId" value="fromPartyId}${externalKeyParam"/>
+                    <parameter param-name="partyId" from-field="fromPartyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="destinationFacilityId" widget-style="buttontext" title="${uiLabelMap.OrderReturnDestinationFacility}">
             <hyperlink target-type="inter-app" description="${destinationFacilityId}" target="/facility/control/EditFacility">
-                <parameter param-name="facilityId" value="destinationFacilityId}${externalKeyParam"/>
+                <parameter param-name="facilityId" from-field="destinationFacilityId"/>
             </hyperlink>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
