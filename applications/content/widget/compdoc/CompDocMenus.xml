@@ -84,7 +84,13 @@ under the License.
             <link target="ViewCompDocInstanceTree?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
         </menu-item>
         <menu-item name="edit" title="${uiLabelMap.CommonEdit}">
-            <link target="EditChildCompDoc?contentId=${contentId}&amp;itemContentRevisionSeqId=${itemContentRevisionSeqId}&amp;rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp;caFromDate=${parameters.caFromDate}"/>
+            <link target="EditChildCompDoc" >
+				<parameter param-name="contentId" from-field="contentId"/>
+				<parameter param-name="itemContentRevisionSeqId" from-field="itemContentRevisionSeqId"/>
+				<parameter param-name="rootContentId" from-field="rootContentId"/>
+				<parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+				<parameter param-name="caFromDate" from-field="parameters.caFromDate"/>
+			</link>
         </menu-item>
     </menu>
      
@@ -134,13 +140,25 @@ under the License.
             <condition>
                 <if-compare-field field="mostRecentRevisionSeqId" operator="equals" to-field="rootContentRevisionSeqId"/>
             </condition>
-            <link target="AddChildCompDocTemplate?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caContentAssocTypeId=${contentAssocTypeId}&amp;caSequenceNum=${seqNumBefore}&amp;caFromDate=${fromDate}"/> <!-- &amp;contentRevisionSeqId=${contentRevisionSeqId} -->
+            <link target="AddChildCompDocTemplate" >
+				<parameter param-name="contentId" from-field="contentId"/>
+				<parameter param-name="rootContentId" from-field="rootContentId"/>
+				<parameter param-name="caContentAssocTypeId" from-field="contentAssocTypeId"/>
+				<parameter param-name="caSequenceNum" from-field="seqNumBefore"/>
+				<parameter param-name="caFromDate" from-field="fromDate"/>
+			</link> <!-- &amp;contentRevisionSeqId=${contentRevisionSeqId} -->
         </menu-item>
         <menu-item name="aft" title="${uiLabelMap.ContentCompDocAfter}">
             <condition>
                 <if-compare-field field="mostRecentRevisionSeqId" operator="equals" to-field="rootContentRevisionSeqId"/>
             </condition>
-            <link target="AddChildCompDocTemplate?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caContentAssocTypeId=${contentAssocTypeId}&amp;caSequenceNum=${seqNumAfter}&amp;caFromDate=${fromDate}"/> <!-- &amp;contentRevisionSeqId=${contentRevisionSeqId} -->
+            <link target="AddChildCompDocTemplate" >
+				<parameter param-name="contentId" from-field="contentId"/>
+				<parameter param-name="rootContentId" from-field="rootContentId"/>
+				<parameter param-name="caContentAssocTypeId" from-field="contentAssocTypeId"/>
+				<parameter param-name="caSequenceNum" from-field="seqNumAfter"/>
+				<parameter param-name="caFromDate" from-field="fromDate"/>
+			</link> <!-- &amp;contentRevisionSeqId=${contentRevisionSeqId} -->
         </menu-item>
         <menu-item name="up" title="${uiLabelMap.ContentCompDocUp}">
             <condition>
