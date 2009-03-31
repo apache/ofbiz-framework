@@ -312,10 +312,22 @@
                                                 <if-compare field="parameters.edit" operator="not-equals" value="Y"/>
                                             </condition>
                                             <widgets>
-                                                <link text="${uiLabelMap.CommonEdit}" target="ViewResponse?contentId=${content.contentId}&amp;ownerContentId=${content.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${blogContentId}&amp;edit=Y" style="buttontext"/>
+                                                <link text="${uiLabelMap.CommonEdit}" target="ViewResponse" style="buttontext">
+                                    				<parameter param-name="contentId" from-field="content.contentId"/>
+                                    				<parameter param-name="ownerContentId" from-field="content.ownerContentId"/>
+                                    				<parameter param-name="articleContentId" from-field="articleContentId"/>
+                                    				<parameter param-name="blogContentId" from-field="blogContentId"/>
+                                    				<parameter param-name="edit" value="Y"/>
+                                    			</link>
                                             </widgets>
                                             <fail-widgets>
-                                                <link text="${uiLabelMap.CommonView}" target="ViewResponse?contentId=${content.contentId}&amp;ownerContentId=${content.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${blogContentId}&amp;edit=N" style="buttontext"/>
+                                                <link text="${uiLabelMap.CommonView}" target="ViewResponse" style="buttontext">
+                                    				<parameter param-name="contentId" from-field="content.contentId"/>
+                                    				<parameter param-name="ownerContentId" from-field="content.ownerContentId"/>
+                                    				<parameter param-name="articleContentId" from-field="articleContentId"/>
+                                    				<parameter param-name="blogContentId" from-field="blogContentId"/>
+                                    				<parameter param-name="edit" value="N"/>
+                                			     </link>
                                             </fail-widgets>
                                         </section>
                                     </container>
