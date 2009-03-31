@@ -307,8 +307,8 @@ under the License.
                 </entity-condition>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <set field="communicationEventTypeId" from-field="parameters.communicationEventTypeId"/>
-                <set field="partyId" from-field="userLogin.partyId"/>                    
-            </actions> 
+                <set field="partyId" from-field="userLogin.partyId"/>
+            </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.PartyAttachContent}">
                     <platform-specific>
@@ -317,9 +317,9 @@ under the License.
                         </html>
                     </platform-specific>
                 </screenlet>
-            </widgets>                   
+            </widgets>
         </section>
-    </screen>    
+    </screen>
     <screen name="AttachFileList">
         <section>
             <actions>
@@ -527,7 +527,12 @@ under the License.
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                             <screenlet title="${uiLabelMap.PartyCommEventPurposes}">
-                                <container style="button-bar"><link style="smallSubmit" target="AddCommContent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" text="${uiLabelMap.PartyNewCommPurpose}"/></container>
+                                <container style="button-bar">
+                                    <link style="smallSubmit" target="AddCommContent" text="${uiLabelMap.PartyNewCommPurpose}">
+                                        <parameter param-name="communicationEventId"/>
+                                        <parameter param-name="partyId"/>
+                                    </link>
+                                </container>
                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListCommPurposes"/>
                             </screenlet>
                     </decorator-section>
@@ -553,7 +558,12 @@ under the License.
                 <decorator-screen name="CommonCommunicationEventDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PartyCommWorkEfforts}">
-                            <container style="button-bar"><link style="smallSubmit" target="AddCommEventWorkEffort?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" text="${uiLabelMap.PartyNewCommWorkEffort}"/></container>
+                            <container style="button-bar">
+                                <link style="smallSubmit" target="AddCommEventWorkEffort">
+                                    <parameter param-name="communicationEventId"/>
+                                    <parameter param-name="partyId"/>
+                                </link>
+                            </container>
                             <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListCommWorkEfforts"/>
                         </screenlet>
                     </decorator-section>
@@ -623,7 +633,12 @@ under the License.
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyCommContent}">
-                                    <container style="button-bar"><link style="smallSubmit" target="AddCommContent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}" text="${uiLabelMap.PartyAddCommContent}"/></container>
+                                    <container style="button-bar">
+                                        <link style="smallSubmit" target="AddCommContent">
+                                            <parameter param-name="communicationEventId"/>
+                                            <parameter param-name="partyId"/>
+                                        </link>
+                                    </container>
                                     <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="listCommContent"/>
                                 </screenlet>
                             </widgets>
@@ -764,7 +779,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="PartyCommunicationEvents">
         <section>
             <actions>
@@ -815,10 +830,10 @@ under the License.
                 </entity-condition>
                 <entity-condition entity-name="CommunicationEventAndRole" list="commEventDraft">
                     <condition-list combine="and">
-                        <condition-expr field-name="statusId" operator="equals" 
+                        <condition-expr field-name="statusId" operator="equals"
                             value="COM_PENDING"/>
-                        <condition-expr field-name="partyId" operator="equals" 
-                            value="${partyId}"/>                        
+                        <condition-expr field-name="partyId" operator="equals"
+                            value="${partyId}"/>
                     </condition-list>
                     <order-by field-name="-datetimeStarted" />
                 </entity-condition>
