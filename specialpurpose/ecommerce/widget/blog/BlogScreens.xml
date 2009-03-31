@@ -457,8 +457,18 @@
                     </condition>
                     <widgets>
                         <container>
-                            <link text="${rsp.contentName}[${rsp.contentId}]" target="ViewResponse?contentId=${rsp.contentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${parameters.blogContentId}" style="responseheader"/>
-                            <link text="${uiLabelMap.CommonView}" target="ViewResponse?contentId=${rsp.contentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${parameters.blogContentId}" style="buttontext"/>
+                            <link text="${rsp.contentName}[${rsp.contentId}]" target="ViewResponse" style="responseheader">
+                				<parameter param-name="contentId" from-field="rsp.contentId"/>
+                				<parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
+                				<parameter param-name="articleContentId" from-field="articleContentId"/>
+                				<parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+                			</link>
+                                            <link text="${uiLabelMap.CommonView}" target="ViewResponse" style="buttontext">
+                				<parameter param-name="contentId" from-field="rsp.contentId"/>
+                				<parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
+                				<parameter param-name="articleContentId" from-field="articleContentId"/>
+                				<parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+                			</link>
                             <container style="responsetext">
                                 <label text="${rsp.description}" style="responsetext"/>
                                 <label text="(${uiLabelMap.EcommerceBlogPostedOn}: ${rsp.createdDate})" style="responsetext"/>
@@ -472,8 +482,18 @@
                     </condition>
                     <widgets>
                         <container style="responseSelected">
-                            <link text="${rsp.contentName}[${rsp.contentId}]" target="ViewResponse?contentId=${rsp.contentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${parameters.blogContentId}" style="responseheader"/>
-                            <link text="${uiLabelMap.CommonView}" target="ViewResponse?contentId=${rsp.contentId}&amp;ownerContentId=${rsp.ownerContentId}&amp;articleContentId=${articleContentId}&amp;blogContentId=${parameters.blogContentId}" style="buttontext"/>
+                            <link text="${rsp.contentName}[${rsp.contentId}]" target="ViewResponse" style="responseheader">
+                				<parameter param-name="contentId" from-field="rsp.contentId"/>
+                				<parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
+                				<parameter param-name="articleContentId" from-field="articleContentId"/>
+                				<parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+                			</link>
+                                            <link text="${uiLabelMap.CommonView}" target="ViewResponse" style="buttontext">
+                				<parameter param-name="contentId" from-field="rsp.contentId"/>
+                				<parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
+                				<parameter param-name="articleContentId" from-field="articleContentId"/>
+                				<parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+                			</link>
                             <container style="responsetext">
                                 <label text="${rsp.description}" style="responsetext"/>
                                 <label text="(${uiLabelMap.EcommerceBlogPostedOn}: ${rsp.createdDate})" style="responsetext"/>
