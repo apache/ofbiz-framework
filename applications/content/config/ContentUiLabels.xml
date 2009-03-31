@@ -438,6 +438,10 @@
         <value xml:lang="fr">Créer un nouvel article</value>
         <value xml:lang="it">Creare nuovo articolo</value>
     </property>
+    <property key="ContentCreateNewRootCompDocTemplate">
+        <value xml:lang="en">Create New Root CompDoc Template</value>
+        <value xml:lang="fr">Créer une nouvelle racine de modèle de document composite</value>
+    </property>
     <property key="ContentDataBaseText">
         <value xml:lang="en">DataBase Text</value>
         <value xml:lang="fr">Texte de base de données</value>
