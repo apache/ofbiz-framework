@@ -782,7 +782,7 @@ under the License.
                         <!-- link on form
                         <container>
                             <link target="EditSurvey" text="${uiLabelMap.PageTitleViewCompDocContent}" style="buttontext">
-                                <parameter param-name="surveyId from-field="dataResource.relatedDetailId&amp;rootContentId/>
+                                <parameter param-name="surveyId from-field="dataResource.relatedDetailId"/>
                                 <parameter param-name="rootContentId"/>
                             </link>
                         </container>

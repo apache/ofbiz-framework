@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
    <screen name="CommonMarketingCampaignDecorator">
         <section>
@@ -55,7 +55,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
    <screen name="EditMarketingCampaign">
         <section>
             <actions>
@@ -106,7 +106,7 @@ under the License.
                                             </widgets>
                                         </section>
                                     </container>
-                                </container>                                
+                                </container>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -114,13 +114,13 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
    <screen name="ListMarketingCampaign">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListMarketingCampaign"/>
                 <set field="labelTitleProperty" value="PageTitleListMarketingCampaign"/>
-                
+
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindListMarketingCampaign"/>
                 <set field="marketingCampaignId" from-field="parameters.marketingCampaignId"/>
                 <set field="entityName" value="MarketingCampaign"/>
@@ -175,8 +175,9 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="/EditMarketingCampaignRoles" DONE_PAGE>
-                                                <parameter param-name="marketingCampaignId" from-field="marketingCampaignId"/>
+                                            <link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="/EditMarketingCampaignRoles">
+                                                <parameter param-name="marketingCampaignId"/>
+                                                <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                             </link>
                                         </container>
                                         <include-form name="EditMarketingCampaignRoles" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
@@ -213,15 +214,16 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="/EditMarketingCampaignRoles" DONE_PAGE>
-                                                <parameter param-name="marketingCampaignId" from-field="marketingCampaignId"/>
+                                            <link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="/EditMarketingCampaignRoles">
+                                                <parameter param-name="marketingCampaignId"/>
+                                                <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                             </link>
                                         </container>
                                         <include-form name="ListMarketingCampaignRoles" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
