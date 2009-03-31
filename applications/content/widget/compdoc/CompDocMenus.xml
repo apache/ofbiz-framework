@@ -85,12 +85,12 @@ under the License.
         </menu-item>
         <menu-item name="edit" title="${uiLabelMap.CommonEdit}">
             <link target="EditChildCompDoc" >
-				<parameter param-name="contentId" from-field="contentId"/>
-				<parameter param-name="itemContentRevisionSeqId" from-field="itemContentRevisionSeqId"/>
-				<parameter param-name="rootContentId" from-field="rootContentId"/>
-				<parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
-				<parameter param-name="caFromDate" from-field="parameters.caFromDate"/>
-			</link>
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="itemContentRevisionSeqId" from-field="itemContentRevisionSeqId"/>
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+                <parameter param-name="caFromDate" from-field="parameters.caFromDate"/>
+            </link>
         </menu-item>
     </menu>
      
@@ -127,19 +127,19 @@ under the License.
     <menu name="childTemplateLine" menu-container-style="button-bar button-style-1" default-menu-item-name="content" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="edit-inplace" title="${contentName} [${contentId}]">
             <link target="EditChildCompDoc">
-				<parameter param-name="contentId" from-field="contentId"/>
-				<parameter param-name="rootContentId" from-field="rootContentId"/>
-				<parameter param-name="caFromDate" from-field="fromDate"/>
-				<parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
-			</link>
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="caFromDate" from-field="fromDate"/>
+                <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="edit-link" title="${uiLabelMap.CommonEdit}">
             <link target="EditChildCompDoc">
-				<parameter param-name="contentId" from-field="contentId"/>
-				<parameter param-name="rootContentId" from-field="rootContentId"/>
-				<parameter param-name="caFromDate" from-field="fromDate"/>
-				<parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
-			</link>
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="caFromDate" from-field="fromDate"/>
+                <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
         <!--  only one level for now, ie don't worry about an hierarchy, still not sure what that will mean or look like 
         <menu-item name="child" title="+Child">
@@ -151,56 +151,56 @@ under the License.
                 <if-compare-field field="mostRecentRevisionSeqId" operator="equals" to-field="rootContentRevisionSeqId"/>
             </condition>
             <link target="AddChildCompDocTemplate" >
-				<parameter param-name="contentId" from-field="contentId"/>
-				<parameter param-name="rootContentId" from-field="rootContentId"/>
-				<parameter param-name="caContentAssocTypeId" from-field="contentAssocTypeId"/>
-				<parameter param-name="caSequenceNum" from-field="seqNumBefore"/>
-				<parameter param-name="caFromDate" from-field="fromDate"/>
-			</link> <!-- &amp;contentRevisionSeqId=${contentRevisionSeqId} -->
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="caContentAssocTypeId" from-field="contentAssocTypeId"/>
+                <parameter param-name="caSequenceNum" from-field="seqNumBefore"/>
+                <parameter param-name="caFromDate" from-field="fromDate"/>
+            </link> <!-- &amp;contentRevisionSeqId=${contentRevisionSeqId} -->
         </menu-item>
         <menu-item name="aft" title="${uiLabelMap.ContentCompDocAfter}">
             <condition>
                 <if-compare-field field="mostRecentRevisionSeqId" operator="equals" to-field="rootContentRevisionSeqId"/>
             </condition>
             <link target="AddChildCompDocTemplate" >
-				<parameter param-name="contentId" from-field="contentId"/>
-				<parameter param-name="rootContentId" from-field="rootContentId"/>
-				<parameter param-name="caContentAssocTypeId" from-field="contentAssocTypeId"/>
-				<parameter param-name="caSequenceNum" from-field="seqNumAfter"/>
-				<parameter param-name="caFromDate" from-field="fromDate"/>
-			</link> <!-- &amp;contentRevisionSeqId=${contentRevisionSeqId} -->
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="caContentAssocTypeId" from-field="contentAssocTypeId"/>
+                <parameter param-name="caSequenceNum" from-field="seqNumAfter"/>
+                <parameter param-name="caFromDate" from-field="fromDate"/>
+            </link> <!-- &amp;contentRevisionSeqId=${contentRevisionSeqId} -->
         </menu-item>
         <menu-item name="up" title="${uiLabelMap.ContentCompDocUp}">
             <condition>
                 <if-compare-field field="mostRecentRevisionSeqId" operator="equals" to-field="rootContentRevisionSeqId"/>
             </condition>
             <link target="resequenceCompDocPart">
-				<parameter param-name="contentId" from-field="contentId"/>
-				<parameter param-name="dir" value="up"/>
-				<parameter param-name="contentAssocTypeId" value="COMPDOC_PART"
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="dir" value="up"/>
+                <parameter param-name="contentAssocTypeId" value="COMPDOC_PART"
                 <parameter param-name="contentIdTo" from-field="contentIdTo"/>
-				<parameter param-name="caContentAssocTypeId" from-field="contentAssocTypeId"/>
-				<parameter param-name="caSequenceNum" from-field="seqNumBefore"/>
-				<parameter param-name="caFromDate" from-field="fromDate"/>
-				<parameter param-name="rootContentId" from-field="rootContentId"/>
-				<parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
-			</link>
+                <parameter param-name="caContentAssocTypeId" from-field="contentAssocTypeId"/>
+                <parameter param-name="caSequenceNum" from-field="seqNumBefore"/>
+                <parameter param-name="caFromDate" from-field="fromDate"/>
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="down" title="${uiLabelMap.ContentCompDocDown}">
             <condition>
                 <if-compare-field field="mostRecentRevisionSeqId" operator="equals" to-field="rootContentRevisionSeqId"/>
             </condition>
             <link target="resequenceCompDocPart">
-				<parameter param-name="contentId" from-field="contentId"/>
-				<parameter param-name="dir" value="down"/>
-				<parameter param-name="contentAssocTypeId" value="COMPDOC_PART"
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="dir" value="down"/>
+                <parameter param-name="contentAssocTypeId" value="COMPDOC_PART"
                 <parameter param-name="contentIdTo" from-field="contentIdTo"/>
-				<parameter param-name="caContentAssocTypeId" from-field="contentAssocTypeId"/>
-				<parameter param-name="caSequenceNum" from-field="seqNumBefore"/>
-				<parameter param-name="caFromDate" from-field="fromDate"/>
-				<parameter param-name="rootContentId" from-field="rootContentId"/>
-				<parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
-			</link>
+                <parameter param-name="caContentAssocTypeId" from-field="contentAssocTypeId"/>
+                <parameter param-name="caSequenceNum" from-field="seqNumBefore"/>
+                <parameter param-name="caFromDate" from-field="fromDate"/>
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
     </menu>
         

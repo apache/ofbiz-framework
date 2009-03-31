@@ -3932,6 +3932,14 @@
         <value xml:lang="fr">Voir le contenu du document composite</value>
         <value xml:lang="it">Mostra contenuto composizione documenti</value>
     </property>
+    <property key="PageTitleViewCompDocContentBinary">
+        <value xml:lang="en">View CompDoc Content Binary</value>
+        <value xml:lang="fr">Voir le contenu du document composite au format binaire</value>
+    </property>
+    <property key="PageTitleViewCompDocContentHtml">
+        <value xml:lang="en">View CompDoc Content Html</value>
+        <value xml:lang="fr">Voir le contenu du document composite au format HTML</value>
+    </property>
     <property key="PageTitleViewCompDocTemplateTree">
         <value xml:lang="en">View Template Tree</value>
         <value xml:lang="fr">Voir l'arborescence modèle</value>

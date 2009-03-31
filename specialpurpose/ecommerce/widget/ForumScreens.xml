@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <!-- Column Included Screens -->
@@ -73,7 +73,7 @@ under the License.
                         </condition-list>
                     </condition-list>
                     <order-by field-name="createdDate"/>
-                    
+
                 </entity-condition>
             </actions>
             <widgets>
@@ -87,7 +87,14 @@ under the License.
                                         <if-has-permission permission="CONTENTMGR" action="CREATE"/>
                                     </condition>
                                     <widgets>
-                                        <link style="buttontext" target="AddForumThread?forumId=${parameters.forumId}&amp;forumMessageIdTo=&amp;threadView=${parameters.threadView?if_exists}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}" text="${uiLabelMap.PageTitleNewMessage}"/>
+                                        <!-- old link converted during URLs securing, seems busted... no time to look at detail...-->
+                                        <!--link style="buttontext" target="AddForumThread?forumId=${parameters.forumId}&amp;forumMessageIdTo=&amp;threadView=${parameters.threadView?if_exists}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}" text="${uiLabelMap.PageTitleNewMessage}"/-->
+                                        <link style="buttontext" target="AddForumThread" text="${uiLabelMap.PageTitleNewMessage}">
+                                    <parameter param-name="forumId" from-field="parameters.forumId"/>
+                                    <parameter param-name="forumMessageIdTo" value=""/>
+                                    <parameter param-name="threadView" from-field="parameters.threadView"/>
+                                    <parameter param-name="VIEW_INDEX" from-field="parameters.VIEW_INDEX"/>
+                                  </link>
                                     </widgets>
                                 </section>
                                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/forumPaging.ftl"/></html></platform-specific>
@@ -109,7 +116,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleForumArticle"/>
                 <set field="contentAssoc.contentId" from-field="parameters.responseContentId"/>
                 <set field="contentAssoc.contentAssocTypeId" value="RESPONSE"/>
-                
+
                 <entity-one entity-name="Content" value-field="content">
                     <field-map field-name="contentId" from-field="parameters.responseContentId"/>
                 </entity-one>
@@ -143,7 +150,7 @@ under the License.
                         <container>
                         <label style="blogheader">${uiLabelMap.EcommerceBlogMessageTree}:</label>
                         </container>
-                        <include-tree name="ResponseTree" location="component://ecommerce/widget/ForumTrees.xml" /> 
+                        <include-tree name="ResponseTree" location="component://ecommerce/widget/ForumTrees.xml" />
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -322,7 +329,7 @@ under the License.
                 <set field="contentPurposeTypeId" value="RESPONSE"/>
                 <set field="contentAssocTypeId" value="RESPONSE"/>
                 <set field="statusId" value="CTNT_PUBLISHED"/>
-                
+
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/CurrentValPrep.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/HtmlAreaPrep.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/NodeTrailPrep.groovy"/>
@@ -363,7 +370,7 @@ under the License.
                 <set field="requiredRoles" value="BLOG_AUTHOR|BLOG_EDITOR|BLOG_ADMIN|BLOG_PUBLISHER"/>
                 <set field="contentPurposeTypeId" value="ARTICLE"/>
                 <set field="statusId" value="CTNT_PUBLISHED"/>
-                
+
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/CurrentValPrep.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/PermPrep.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/FormPrep.groovy"/>
@@ -416,7 +423,7 @@ under the License.
                 <set field="menuDefFile" value="/admin/AdminMenus.xml"/>
                 <set field="menuName" value="admin"/>
                 <set field="menuNameAux" value="backToContent"/>
-                
+
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/CurrentValPrep.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/PermPrep.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/forum/HtmlAreaPrep.groovy"/>
@@ -543,14 +550,14 @@ under the License.
                             <label text="${rsp.contentName}" style="responseheader" />
                             <label text=" - ${rsp.description} [${rsp.contentId}]" style="responsetext" />
                             <link  text="${uiLabelMap.CommonView}" target="ViewForumMessage?forumId=${parameters.forumId}&amp;threadContentId=${parameters.threadContentId}&amp;responseContentId=${rsp.contentId}&amp;contentAssocTypeId=RESPONSE" style="buttontext"/>
-                        </container>    
+                        </container>
                     </widgets>
                     <fail-widgets>
                         <container>
                             <label text="${rsp.contentName}" style="responseheader" />
                             <label text=" - ${rsp.description} [${rsp.contentId}]" style="responsetext" />
                             <link  text="${uiLabelMap.CommonView}" target="ViewForumMessage?forumId=${parameters.forumId}&amp;threadContentId=${parameters.threadContentId}&amp;responseContentId=${rsp.contentId}&amp;contentAssocTypeId=RESPONSE" style="buttontext"/>
-                        </container>    
+                        </container>
                     </fail-widgets>
                 </section>
             </widgets>
