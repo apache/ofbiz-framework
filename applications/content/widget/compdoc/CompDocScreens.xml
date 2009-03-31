@@ -417,8 +417,22 @@ under the License.
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <container>
-                            <link target="FindCompDoc?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;rootTemplateContentId=${rootTemplateContentId}&amp;rootTemplateRevSeqId=${rootTemplateRevSeqId}&amp;rootInstanceContentId=${rootInstanceContentId}&amp;rootInstanceRevSeqId=${rootInstanceRevSeqId}" text="${uiLabelMap.CommonFind}"  style="buttontext"/>
-                            <link target="AddRootCompDocTemplate?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}&amp;rootTemplateContentId=${rootTemplateContentId}&amp;rootTemplateRevSeqId=${rootTemplateRevSeqId}&amp;rootInstanceContentId=${rootInstanceContentId}&amp;rootInstanceRevSeqId=${rootInstanceRevSeqId}" text="Create New Root CompDoc Template" style="buttontext"/>
+                            <link target="FindCompDoc" style="buttontext" text="${uiLabelMap.CommonFind">
+                				<parameter param-name="contentId" from-field="contentId"/>
+                				<parameter param-name="contentRevisionSeqId" from-field="contentRevisionSeqId"/>
+                				<parameter param-name="rootTemplateContentId" from-field="rootTemplateContentId"/>
+                				<parameter param-name="rootTemplateRevSeqId" from-field="rootTemplateRevSeqId"/>
+                				<parameter param-name="rootInstanceContentId" from-field="rootInstanceContentId"/>
+                				<parameter param-name="rootInstanceRevSeqId" from-field="rootInstanceRevSeqId}"/>
+                			</link>
+                            <link target="AddRootCompDocTemplate"  text="${ContentCreateNewRootCompDocTemplate}" style="buttontext">
+                				<parameter param-name="contentId" from-field="contentId"/>
+                				<parameter param-name="contentRevisionSeqId" from-field="contentRevisionSeqId"/>
+                				<parameter param-name="rootTemplateContentId" from-field="rootTemplateContentId"/>
+                				<parameter param-name="rootTemplateRevSeqId" from-field="rootTemplateRevSeqId"/>
+                				<parameter param-name="rootInstanceContentId" from-field="rootInstanceContentId"/>
+                				<parameter param-name="rootInstanceRevSeqId" from-field="rootInstanceRevSeqId"/>
+                			</link>
                         </container>
                     </decorator-section>
                 </decorator-screen>
