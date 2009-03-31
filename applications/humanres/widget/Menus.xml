@@ -51,7 +51,16 @@
             <link target="EditUnemploymentClaims?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
         </menu-item>
         <menu-item name="EditAgreementEmploymentAppls" title="${uiLabelMap.HumanResAgreementEmploymentAppl}">
-            <link target="EditAgreementEmploymentAppls?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/></menu-item>
+            <link target="EditAgreementEmploymentAppls">
+				<parameter param-name="agreementId" from-field="agreementId"/>
+				<parameter param-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
+				<parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
+				<parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
+				<parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
+				<parameter param-name="partyIdTo" from-field="partyIdTo"/>
+				<parameter param-name="fromDate" from-field="fromDate"/>
+			</link>
+    </menu-item>
     </menu>
     <menu name="EmplPostionBar" default-menu-item-name="EmplPositionView" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EmplPositionView" title="${uiLabelMap.CommonSummary}">
