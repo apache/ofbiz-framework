@@ -36,19 +36,49 @@
     <menu name="EmploymentBar" default-menu-item-name="EditPartyBenefit" default-selected-style="selected"
         type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditEmployment" title="${uiLabelMap.HumanResEmployment}">
-            <link target="EditEmployment?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
+            <link target="EditEmployment" >
+				<parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
+				<parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
+				<parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
+				<parameter param-name="partyIdTo" from-field="partyIdTo"/>
+				<parameter param-name="fromDate" from-field="fromDate"/>
+			</link>
         </menu-item>
         <menu-item name="EditPartyBenefit" title="${uiLabelMap.HumanResEditPartyBenefit}">
-            <link target="EditPartyBenefits?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
+            <link target="EditPartyBenefits" >
+				<parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
+				<parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
+				<parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
+				<parameter param-name="partyIdTo" from-field="partyIdTo"/>
+				<parameter param-name="fromDate" from-field="fromDate"/>
+			</link>
         </menu-item>
         <menu-item name="EditPayrollPreference" title="${uiLabelMap.HumanResEditPayrollPreference}">
-            <link target="EditPayrollPreferences?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
+            <link target="EditPayrollPreferences" >
+				<parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
+				<parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
+				<parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
+				<parameter param-name="partyIdTo" from-field="partyIdTo"/>
+				<parameter param-name="fromDate" from-field="fromDate"/>
+			</link>
         </menu-item>        
         <menu-item name="EditPayHistory" title="${uiLabelMap.HumanResEditPayHistory}">
-            <link target="ListPayHistories?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
+            <link target="ListPayHistories" >
+				<parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
+				<parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
+				<parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
+				<parameter param-name="partyIdTo" from-field="partyIdTo"/>
+				<parameter param-name="fromDate" from-field="fromDate"/>
+			</link>
         </menu-item>
         <menu-item name="EditUnemploymentClaims" title="${uiLabelMap.HumanResEditUnemploymentClaim}">
-            <link target="EditUnemploymentClaims?roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}"/>
+            <link target="EditUnemploymentClaims" >
+				<parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
+				<parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
+				<parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
+				<parameter param-name="partyIdTo" from-field="partyIdTo"/>
+				<parameter param-name="fromDate" from-field="fromDate"/>
+			</link>
         </menu-item>
         <menu-item name="EditAgreementEmploymentAppls" title="${uiLabelMap.HumanResAgreementEmploymentAppl}">
             <link target="EditAgreementEmploymentAppls">
