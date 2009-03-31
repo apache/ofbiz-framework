@@ -924,7 +924,11 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link target="EditPartyContents?partyId=${partyId}" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit"/></container> 
+                                        <container>
+                                            <link target="EditPartyContents" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit">
+                                                <parameter param-name="partyId" from-field="partyId"/>
+                                            </link>
+                                        </container> 
                                         <include-form name="ListPartyContents" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                     </widgets>
                                 </section>

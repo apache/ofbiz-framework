@@ -50,7 +50,12 @@ under the License.
             <widgets>
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <container><link target="ListWaitingContentApproval?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}" text="${uiLabelMap.ContentCompDocViewWaitingApprovals}" style="buttontext"/></container>
+                        <container>
+                            <link target="ListWaitingContentApproval" text="${uiLabelMap.ContentCompDocViewWaitingApprovals}" style="buttontext">
+                                <parameter param-name="contentId" from-field="contentId"/>
+                                <parameter param-name="contentRevisionSeqId" from-field="contentRevisionSeqId"/>
+                            </link>
+                        </container>
                         <section>
                             <condition><if-compare field="content.contentTypeId" operator="equals" value="COMPDOC_INSTANCE"/></condition>
                             <widgets><include-screen name="rootInstanceApprovalStatus"/></widgets>
@@ -473,7 +478,12 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link target="AddRootCompDocTemplate?contentId=${contentId}&amp;contentRevisionSeqId=${contentRevisionSeqId}" text="${uiLabelMap.PageTitleCreateNewRootCompDocTemplate}" style="buttontext"/></container>
+                                        <container>
+                                            <link target="AddRootCompDocTemplate" text="${uiLabelMap.PageTitleCreateNewRootCompDocTemplate}" style="buttontext">
+                                                <parameter param-name="contentId" from-field="contentId"/>
+                                                <parameter param-name="contentRevisionSeqId" from-field="contentRevisionSeqId"/>
+                                            </link>
+                                           </container>
                                         <include-form name="ListCompDocInstances" location="component://content/widget/compdoc/CompDocForms.xml"/>
                                     </widgets>
                                 </section>
@@ -757,7 +767,7 @@ under the License.
                         <link target="ViewCompDocContentHtml" text="${uiLabelMap.PageTitleViewCompDocContentHtml}" style="buttontext">
                             <parameter param-name="contentId" from-field="contentId"/>
                             <parameter param-name="contentRevisionSeqId" from-field="itemContentRevisionSeqId"/>
-                            <parameter param-name="rootContentId" from-field="rootContentId"/>
+                            <parameter param-name="rootContentId"/>
                        </link>
                         </container>
                     </widgets>
@@ -770,7 +780,12 @@ under the License.
                     </actions>
                     <widgets>
                         <!-- link on form
-                        <container><link target="EditSurvey?surveyId=${dataResource.relatedDetailId}&amp;rootContentId=${rootContentId}" text="${uiLabelMap.PageTitleViewCompDocContent}" style="buttontext"/></container>
+                        <container>
+                            <link target="EditSurvey" text="${uiLabelMap.PageTitleViewCompDocContent}" style="buttontext">
+                                <parameter param-name="surveyId from-field="dataResource.relatedDetailId&amp;rootContentId/>
+                                <parameter param-name="rootContentId"/>
+                            </link>
+                        </container>
                             -->
                     </widgets>
                 </section>
@@ -782,7 +797,12 @@ under the License.
                     </actions>
                     <widgets>
                         <!-- link on form
-                        <container><link target="EditSurveyResponse?surveyResponseId=${dataResource.relatedDetailId}&amp;rootContentId=${rootContentId}" text="${uiLabelMap.PageTitleViewCompDocContent}" style="buttontext"/></container>
+                        <container>
+                            <link target="EditSurveyResponse" text="${uiLabelMap.PageTitleViewCompDocContent}" style="buttontext">
+                                <parameter param-name="surveyResponseId from-field="dataResource.relatedDetailId"/>
+                                <parameter param-name="rootContentId"/>
+                            </link>
+                        </container>
                             -->
                     </widgets>
                 </section>
@@ -1119,7 +1139,12 @@ under the License.
             <widgets>
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                       <container><link target="GenCompDocPdf?contentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}" text="${uiLabelMap.ContentCompDocGeneratePDF}" style="buttontext"/></container>
+                       <container>
+                            <link target="GenCompDocPdf" text="${uiLabelMap.ContentCompDocGeneratePDF}" style="buttontext">
+                                <parameter param-name="contentId" from-field="rootContentId"/>
+                                <parameter param-name="contentRevisionSeqId"/>
+                            </link>
+                        </container>
                        <include-tree name="CompDocInstanceTree" location="component://content/widget/compdoc/CompDocTemplateTree.xml"/>
                     </decorator-section>
                 </decorator-screen>

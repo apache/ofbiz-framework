@@ -196,7 +196,12 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link target="EditTaxAuthorityPartyInfo?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}" text="${uiLabelMap.AccountingNewTaxAuthorityPartyInfo}" style="buttontext"/></container>
+                                        <container>
+                              <link target="EditTaxAuthorityPartyInfo" text="${uiLabelMap.AccountingNewTaxAuthorityPartyInfo}" style="buttontext">
+                                <parameter param-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
+                                <parameter param-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+                              </link>
+                            </container>
                                         <include-form name="FindTaxAuthorityParties" location="component://accounting/widget/TaxAuthorityForms.xml"/>
                                     </widgets>
                                 </section>
@@ -246,7 +251,12 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link target="EditTaxAuthorityPartyInfo?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}" text="${uiLabelMap.AccountingNewTaxAuthorityPartyInfo}" style="buttontext"/></container>
+                                        <container>
+                              <link target="EditTaxAuthorityPartyInfo" text="${uiLabelMap.AccountingNewTaxAuthorityPartyInfo}" style="buttontext">
+                                <parameter param-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
+                                <parameter param-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+                              </link>
+                            </container>
                                         <include-form name="EditTaxAuthorityPartyInfo" location="component://accounting/widget/TaxAuthorityForms.xml"/>
                                     </widgets>
                                 </section>
