@@ -37,13 +37,25 @@
 
     <menu name="FixedAssetMaintTabBar" extends="FixedAssetMaintTabBar" extends-resource="component://accounting/widget/Menus.xml">
         <menu-item name="EditWorkEfforts" title="${uiLabelMap.WorkEffortAllTasks}">
-            <link target="EditWorkEfforts?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}&amp;workEffortId=${fixedAssetMaint.scheduleWorkEffortId}"/>
+            <link target="EditWorkEfforts">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
+                <parameter param-name="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
+            </link>
         </menu-item>
         <menu-item name="EditWorkEffortTimeEntries" title="${uiLabelMap.WorkEffortTimesheetTimeEntries}">
-            <link target="EditWorkEffortTimeEntries?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}&amp;workEffortId=${fixedAssetMaint.scheduleWorkEffortId}"/>
+            <link target="EditWorkEffortTimeEntries">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
+                <parameter param-name="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
+            </link>
         </menu-item>
         <menu-item name="EditWorkEffortNotes" title="${uiLabelMap.WorkEffortNotes}">
-            <link target="EditWorkEffortNotes?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}&amp;workEffortId=${fixedAssetMaint.scheduleWorkEffortId}"/>
+            <link target="EditWorkEffortNotes">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
+                <parameter param-name="workEffortId" from-field="fixedAssetMaint.scheduleWorkEffortId"/>
+            </link>
         </menu-item>
         <menu-item name="EditItemIssuances" title="${uiLabelMap.AssetMaintItemIssuance}">
             <link target="EditItemIssuances?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>

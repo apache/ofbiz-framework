@@ -378,7 +378,11 @@ under the License.
             <link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
         </menu-item>
         <menu-item name="EditFixedAssetMeters" title="${uiLabelMap.AccountingFixedAssetMeters}">
-            <link target="EditFixedAssetMeters?fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}&amp;productMeterTypeId=${fixedAssetMaint.intervalMeterTypeId}"/>
+            <link target="EditFixedAssetMeters">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="maintHistSeqId"/>
+                <parameter param-name="productMeterTypeId" from-field="fixedAssetMaint.intervalMeterTypeId"/>
+            </link>
         </menu-item>
         <menu-item name="EditFixedAssetMaintOrders" title="${uiLabelMap.AccountingFixedAssetMaintOrders}">
             <link target="EditFixedAssetMaintOrders?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
