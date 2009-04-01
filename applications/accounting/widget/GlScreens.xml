@@ -326,7 +326,11 @@ under the License.
                                                     <parameter param-name="acctgTransId" from-field="acctgTransId"/>
                                                     <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
                                                 </link>
-                                                <link text="${uiLabelMap.AccountingVerifyTransaction}" style="buttontext" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}&amp;verifyOnly=Y"/>
+                                                <link text="${uiLabelMap.AccountingVerifyTransaction}" style="buttontext" target="postAcctgTrans">
+                                                    <parameter param-name="acctgTransId"/>
+                                                    <parameter param-name="organizationPartyId"/>
+                                                    <parameter param-name="verifyOnly" value="Y"/>
+                                                </link>
                                                 <link text="${uiLabelMap.AccountingPostTransaction}" style="buttontext" target="postAcctgTrans">
                                                     <parameter param-name="acctgTransId" from-field="acctgTransId"/>
                                                     <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>

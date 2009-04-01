@@ -549,14 +549,24 @@ under the License.
                         <container style="responseSelected">
                             <label text="${rsp.contentName}" style="responseheader" />
                             <label text=" - ${rsp.description} [${rsp.contentId}]" style="responsetext" />
-                            <link  text="${uiLabelMap.CommonView}" target="ViewForumMessage?forumId=${parameters.forumId}&amp;threadContentId=${parameters.threadContentId}&amp;responseContentId=${rsp.contentId}&amp;contentAssocTypeId=RESPONSE" style="buttontext"/>
+                            <link  text="${uiLabelMap.CommonView}" target="ViewForumMessage" style="buttontext">
+                                <parameter param-name="forumId" from-field="parameters.forumId"/>
+                                <parameter param-name="threadContentId" from-field="parameters.threadContentId"/>
+                                <parameter param-name="responseContentId" from-field="rsp.contentId"/>
+                                <parameter param-name="contentAssocTypeId" value="RESPONSE"/>
+                            </link>
                         </container>
                     </widgets>
                     <fail-widgets>
                         <container>
                             <label text="${rsp.contentName}" style="responseheader" />
                             <label text=" - ${rsp.description} [${rsp.contentId}]" style="responsetext" />
-                            <link  text="${uiLabelMap.CommonView}" target="ViewForumMessage?forumId=${parameters.forumId}&amp;threadContentId=${parameters.threadContentId}&amp;responseContentId=${rsp.contentId}&amp;contentAssocTypeId=RESPONSE" style="buttontext"/>
+                            <link  text="${uiLabelMap.CommonView}" target="ViewForumMessage" style="buttontext">
+                                <parameter param-name="forumId" from-field="parameters.forumId"/>
+                                <parameter param-name="threadContentId" from-field="parameters.threadContentId"/>
+                                <parameter param-name="responseContentId" from-field="rsp.contentId"/>
+                                <parameter param-name="contentAssocTypeId" value="RESPONSE"/>
+                            </link>
                         </container>
                     </fail-widgets>
                 </section>
