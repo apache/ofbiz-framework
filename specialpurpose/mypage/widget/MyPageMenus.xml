@@ -154,7 +154,10 @@ under the License.
             <condition>
                 <if-compare field="parameters.all" operator="equals" value="true" />
             </condition>
-            <link target="${parameters.donePage}?donePage=${parameters.donePage}&amp;all=false" />
+            <link target="${parameters.donePage}" >
+                <parameter param-name="donePage" from-field="parameters.donePage"/>
+                <parameter param-name="all" value="false"/>
+            </link>
         </menu-item>
         <menu-item name="allOtherEvents" title="${uiLabelMap.MyPageAllEvents}">
             <condition>
@@ -163,7 +166,10 @@ under the License.
                     <if-empty field="parameters.all"/>
                 </or>
             </condition>
-            <link target="${parameters.donePage}?donePage=${parameters.donePage}&amp;all=true" />
+            <link target="${parameters.donePage}" >
+                <parameter param-name="donePage" from-field="parameters.donePage"/>
+                <parameter param-name="all" value="true"/>
+            </link>
         </menu-item>
     </menu>    
     
