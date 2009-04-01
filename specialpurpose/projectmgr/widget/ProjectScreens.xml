@@ -287,7 +287,11 @@ under the License.
                                     </widgets>
                                     <!-- Edit an existing SubTask -->
                                     <fail-widgets>
-                                        <container><link  text="${uiLabelMap.CommonGoBack}" target="FindTask?workEffortId=${task.workEffortParentId}&amp;workEffortTypeId=TASK" style="buttontext"/></container>
+                                        <container>
+                                            <link  text="${uiLabelMap.CommonGoBack}" target="FindTask" style="buttontext">
+                                                <parameter param-name="workEffortId" from-field="task.workEffortParentId"/>
+                                            </link>
+                                        </container>
                                         <label style="h1">${uiLabelMap.ProjectMgrSubTaskName}: ${task.workEffortName}</label>
                                         <container><label style="h1">${uiLabelMap.PageTitleEditSubTask}</label></container>
                                         <platform-specific>
