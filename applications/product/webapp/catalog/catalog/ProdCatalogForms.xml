@@ -83,8 +83,12 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeProdCatalogFromParty?prodCatalogId=${prodCatalogId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="removeProdCatalogFromParty" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+              <parameter param-name="prodCatalogId" from-field="prodCatalogId" />
+              <parameter param-name="partyId" from-field="partyId" />
+              <parameter param-name="roleTypeId" from-field="roleTypeId" />
+              <parameter param-name="fromDate" from-field="fromDate" />
+            </hyperlink>  
         </field>
     </form>
     <form name="CreateProductStoreCatalog" type="single" target="createProdCatalogStore" title=""
@@ -115,9 +119,12 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteProdCatalogStore?prodCatalogId=${prodCatalogId}&amp;productStoreId=${productStoreId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
-        </field>
+            <hyperlink target="deleteProdCatalogStore" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+              <parameter param-name="prodCatalogId" from-field="prodCatalogId" />
+              <parameter param-name="productStoreId" from-field="productStoreId" />
+              <parameter param-name="fromDate" from-field="fromDate" />
+            </hyperlink>  
+        </field>        
     </form>
     <form name="EditProdCatalogCategories" type="list" target="updateProductCategoryToProdCatalog" title="" list-name="prodCatalogCategories"
         odd-row-style="alternate-row" default-table-style="basic-table">
@@ -135,8 +142,13 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDateTime}"></field>
         <field name="sequenceNum" title="${uiLabelMap.CommonSequenceNum}"></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeProductCategoryFromProdCatalog?prodCatalogId=${prodCatalogId}&amp;productCategoryId=${productCategoryId}&amp;fromDate=${fromDate}&amp;prodCatalogCategoryTypeId=${prodCatalogCategoryTypeId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="removeProductCategoryFromProdCatalog" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+              <parameter param-name="prodCatalogId" from-field="prodCatalogId" />
+              <parameter param-name="productCategoryId" from-field="productCategoryId" />
+              <parameter param-name="partyId" from-field="partyId" />
+              <parameter param-name="fromDate" from-field="fromDate" />
+              <parameter param-name="prodCatalogCategoryTypeId" from-field="prodCatalogCategoryTypeId" />
+            </hyperlink>  
         </field>
         <field name="makeTopLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditCategory?CATALOG_TOP_CATEGORY=${productCategoryId}&amp;productCategoryId=${productCategoryId}"
