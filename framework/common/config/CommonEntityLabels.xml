@@ -2821,6 +2821,7 @@
         <value xml:lang="th">AB</value>
     </property>
     <property key="Geo.geoName.ABW">
+        <value xml:lang="es">Aruba</value>
         <value xml:lang="de">Aruba</value>
         <value xml:lang="en">Aruba</value>
         <value xml:lang="fr">Aruba</value>
@@ -2832,6 +2833,7 @@
         <value xml:lang="zh">阿鲁巴</value>
     </property>
     <property key="Geo.geoName.AFG">
+        <value xml:lang="es">Afganistán</value>
         <value xml:lang="de">Afghanistan</value>
         <value xml:lang="en">Afghanistan</value>
         <value xml:lang="fr">Afghanistan</value>
@@ -2843,6 +2845,7 @@
         <value xml:lang="zh">阿富汗</value>
     </property>
     <property key="Geo.geoName.AGO">
+        <value xml:lang="es">Angola</value>
         <value xml:lang="de">Angola</value>
         <value xml:lang="en">Angola</value>
         <value xml:lang="fr">Angola</value>
@@ -2854,6 +2857,7 @@
         <value xml:lang="zh">安哥拉</value>
     </property>
     <property key="Geo.geoName.AIA">
+        <value xml:lang="es">Anguilla</value>
         <value xml:lang="de">Anguilla</value>
         <value xml:lang="en">Anguilla</value>
         <value xml:lang="fr">Anguilla</value>
@@ -2865,6 +2869,7 @@
         <value xml:lang="zh">安圭拉</value>
     </property>
     <property key="Geo.geoName.ALB">
+        <value xml:lang="es">Albania</value>
         <value xml:lang="de">Albanien</value>
         <value xml:lang="en">Albania</value>
         <value xml:lang="fr">Albanie</value>
@@ -2876,6 +2881,7 @@
         <value xml:lang="zh">阿尔巴尼亚</value>
     </property>
     <property key="Geo.geoName.AND">
+        <value xml:lang="es">Andorra</value>
         <value xml:lang="de">Andorra</value>
         <value xml:lang="en">Andorra</value>
         <value xml:lang="fr">Andorre</value>
@@ -2887,6 +2893,7 @@
         <value xml:lang="zh">安道尔</value>
     </property>
     <property key="Geo.geoName.ANT">
+        <value xml:lang="es">Antillas Holandesas</value>
         <value xml:lang="de">Niederländische Antillen</value>
         <value xml:lang="en">Netherlands Antilles</value>
         <value xml:lang="fr">Antilles néerlandaises</value>
@@ -2900,6 +2907,7 @@
     <property key="Geo.geoName.ARE">
         <value xml:lang="de">Vereinigte Arabische Emirate</value>
         <value xml:lang="en">United Arab Emirates</value>
+        <value xml:lang="es">Emiratos Árabes Unidos</value>
         <value xml:lang="fr">Emirats Arabes Unis</value>
         <value xml:lang="it">Emirati Arabi Uniti</value>
         <value xml:lang="pt">United Arab Emirates</value>
@@ -2909,6 +2917,7 @@
         <value xml:lang="zh">阿联酋</value>
     </property>
     <property key="Geo.geoName.ARG">
+        <value xml:lang="es">Argentina</value>
         <value xml:lang="de">Argentinien</value>
         <value xml:lang="en">Argentina</value>
         <value xml:lang="fr">Argentine</value>
@@ -2920,6 +2929,7 @@
         <value xml:lang="zh">阿根廷</value>
     </property>
     <property key="Geo.geoName.ARM">
+        <value xml:lang="es">Armenia</value>
         <value xml:lang="de">Armenien</value>
         <value xml:lang="en">Armenia</value>
         <value xml:lang="fr">Arménie</value>
@@ -2932,6 +2942,7 @@
     <property key="Geo.geoName.ASM">
         <value xml:lang="de">Amerikanisch-Samoa</value>
         <value xml:lang="en">American Samoa</value>
+        <value xml:lang="es">Samoa Americana</value>
         <value xml:lang="fr">Samoa américaines</value>
         <value xml:lang="it">Samoa Americana</value>
         <value xml:lang="pt">American Samoa</value>
@@ -2941,6 +2952,7 @@
         <value xml:lang="zh">美属萨摩亚</value>
     </property>
     <property key="Geo.geoName.ATA">
+        <value xml:lang="es">Antártida</value>
         <value xml:lang="de">Antarktis</value>
         <value xml:lang="en">Antarctica</value>
         <value xml:lang="fr">Antarctique</value>
@@ -2954,6 +2966,7 @@
     <property key="Geo.geoName.ATF">
         <value xml:lang="de">Französische Süd- und Antarktisgebiete</value>
         <value xml:lang="en">French Southern Territories</value>
+        <value xml:lang="es">Territorios Australes Franceses</value>
         <value xml:lang="fr">Terres australes françaises,</value>
         <value xml:lang="it">Territori del Sud Francesi</value>
         <value xml:lang="pt">French Southern Territories</value>
@@ -2963,6 +2976,7 @@
         <value xml:lang="zh">法属南半球领地</value>
     </property>
     <property key="Geo.geoName.ATG">
+        <value xml:lang="es">Antigua y Barbuda</value>
         <value xml:lang="de">Antigua und Barbuda</value>
         <value xml:lang="en">Antigua And Barbuda</value>
         <value xml:lang="fr">Antigua et Barbuda</value>
@@ -2974,6 +2988,7 @@
         <value xml:lang="zh">安提瓜和巴布达</value>
     </property>
     <property key="Geo.geoName.AUS">
+            <value xml:lang="es">Australia</value>
         <value xml:lang="de">Australien</value>
         <value xml:lang="en">Australia</value>
         <value xml:lang="fr">Australie</value>
@@ -2985,6 +3000,7 @@
         <value xml:lang="zh">澳大利亚</value>
     </property>
     <property key="Geo.geoName.AUT">
+        <value xml:lang="es">Austria</value>
         <value xml:lang="de">Österreich</value>
         <value xml:lang="en">Austria</value>
         <value xml:lang="fr">Autriche</value>
@@ -2996,6 +3012,7 @@
         <value xml:lang="zh">奥地利</value>
     </property>
     <property key="Geo.geoName.AZE">
+        <value xml:lang="es">Azerbaiyán</value>
         <value xml:lang="de">Aserbaidschan</value>
         <value xml:lang="en">Azerbaijan</value>
         <value xml:lang="fr">Azerbadjian</value>
@@ -3016,6 +3033,7 @@
     <property key="Geo.geoName.BDI">
         <value xml:lang="de">Burundi</value>
         <value xml:lang="en">Burundi</value>
+        <value xml:lang="es">Burundi</value>
         <value xml:lang="fr">Burundi</value>
         <value xml:lang="it">Burundi</value>
         <value xml:lang="pt">Burundi</value>
@@ -3025,6 +3043,7 @@
         <value xml:lang="zh">布隆迪</value>
     </property>
     <property key="Geo.geoName.BEL">
+        <value xml:lang="es">Bélgica</value>
         <value xml:lang="de">Belgien</value>
         <value xml:lang="en">Belgium</value>
         <value xml:lang="fr">Belgique</value>
@@ -3036,6 +3055,7 @@
         <value xml:lang="zh">比利时</value>
     </property>
     <property key="Geo.geoName.BEN">
+        <value xml:lang="es">Benin</value>
         <value xml:lang="de">Benin</value>
         <value xml:lang="en">Benin</value>
         <value xml:lang="fr">Bénin</value>
@@ -3047,6 +3067,7 @@
         <value xml:lang="zh">贝宁</value>
     </property>
     <property key="Geo.geoName.BFA">
+        <value xml:lang="es">Burkina Faso</value>
         <value xml:lang="de">Burkina Faso</value>
         <value xml:lang="en">Burkina Faso</value>
         <value xml:lang="fr">Burkina Faso</value>
@@ -3058,6 +3079,7 @@
         <value xml:lang="zh">布基纳法索</value>
     </property>
     <property key="Geo.geoName.BGD">
+        <value xml:lang="es">Bangladesh</value>
         <value xml:lang="de">Bangladesch</value>
         <value xml:lang="en">Bangladesh</value>
         <value xml:lang="fr">Bengladesh</value>
@@ -3068,6 +3090,7 @@
         <value xml:lang="zh">孟加拉</value>
     </property>
     <property key="Geo.geoName.BGR">
+        <value xml:lang="es">Bulgaria</value>
         <value xml:lang="de">Bulgarien</value>
         <value xml:lang="en">Bulgaria</value>
         <value xml:lang="fr">Bulgarie</value>
@@ -3079,6 +3102,7 @@
         <value xml:lang="zh">保加利亚</value>
     </property>
     <property key="Geo.geoName.BHR">
+        <value xml:lang="es">Bahréin</value>
         <value xml:lang="de">Bahrain</value>
         <value xml:lang="en">Bahrain</value>
         <value xml:lang="fr">Barhain</value>
@@ -3090,6 +3114,7 @@
         <value xml:lang="zh">巴林</value>
     </property>
     <property key="Geo.geoName.BHS">
+        <value xml:lang="es">Bahamas</value>
         <value xml:lang="de">Bahamas</value>
         <value xml:lang="en">Bahamas</value>
         <value xml:lang="fr">Bahamas</value>
@@ -3101,6 +3126,7 @@
         <value xml:lang="zh">巴哈马</value>
     </property>
     <property key="Geo.geoName.BIH">
+        <value xml:lang="es">Bosnia y Herzegovina</value>
         <value xml:lang="de">Bosnien und Herzegowina</value>
         <value xml:lang="en">Bosnia And Herzegowina</value>
         <value xml:lang="fr">Bosnie-Herzégovine</value>
@@ -3112,6 +3138,7 @@
         <value xml:lang="zh">玻利尼亚和黑塞各维</value>
     </property>
     <property key="Geo.geoName.BLR">
+        <value xml:lang="es">Bielorrusia</value>
         <value xml:lang="de">Belarus</value>
         <value xml:lang="en">Belarus</value>
         <value xml:lang="fr">Biélorussie</value>
@@ -3123,6 +3150,7 @@
         <value xml:lang="zh">白俄罗斯</value>
     </property>
     <property key="Geo.geoName.BLZ">
+        <value xml:lang="es">Belice</value>
         <value xml:lang="de">Belize</value>
         <value xml:lang="en">Belize</value>
         <value xml:lang="fr">Bélize</value>
@@ -3134,6 +3162,7 @@
         <value xml:lang="zh">贝里斯</value>
     </property>
     <property key="Geo.geoName.BMU">
+           <value xml:lang="es">Bermudas</value>
         <value xml:lang="de">Bermuda</value>
         <value xml:lang="en">Bermuda</value>
         <value xml:lang="fr">Bermudes</value>
@@ -3145,6 +3174,7 @@
         <value xml:lang="zh">百慕大</value>
     </property>
     <property key="Geo.geoName.BOL">
+        <value xml:lang="es">Bolivia</value>
         <value xml:lang="de">Bolivien</value>
         <value xml:lang="en">Bolivia</value>
         <value xml:lang="fr">Bolivie</value>
@@ -3156,6 +3186,7 @@
         <value xml:lang="zh">玻利维亚</value>
     </property>
     <property key="Geo.geoName.BRA">
+        <value xml:lang="es">Brasil</value>
         <value xml:lang="de">Brasilien</value>
         <value xml:lang="en">Brazil</value>
         <value xml:lang="fr">Brésil</value>
@@ -3167,6 +3198,7 @@
         <value xml:lang="zh">巴西</value>
     </property>
     <property key="Geo.geoName.BRB">
+        <value xml:lang="es">Barbados</value>
         <value xml:lang="de">Barbados</value>
         <value xml:lang="en">Barbados</value>
         <value xml:lang="fr">Barbade</value>
@@ -3178,6 +3210,7 @@
         <value xml:lang="zh">巴巴多斯</value>
     </property>
     <property key="Geo.geoName.BRN">
+        <value xml:lang="es">Brunéi</value>
         <value xml:lang="de">Brunei Darussalam</value>
         <value xml:lang="en">Brunei Darussalam</value>
         <value xml:lang="fr">Brunéi Darusalam</value>
@@ -3189,6 +3222,7 @@
         <value xml:lang="zh">文莱</value>
     </property>
     <property key="Geo.geoName.BTN">
+        <value xml:lang="es">Bhután</value>
         <value xml:lang="de">Bhutan</value>
         <value xml:lang="en">Bhutan</value>
         <value xml:lang="fr">Bhutan</value>
@@ -3200,6 +3234,7 @@
         <value xml:lang="zh">不丹</value>
     </property>
     <property key="Geo.geoName.BVT">
+        <value xml:lang="es">Isla Bouvet</value>
         <value xml:lang="de">Bouvetinsel</value>
         <value xml:lang="en">Bouvet Island</value>
         <value xml:lang="fr">Île Bouvet</value>
@@ -3211,6 +3246,7 @@
         <value xml:lang="zh">波维特岛</value>
     </property>
     <property key="Geo.geoName.BWA">
+        <value xml:lang="es">Botsuana</value>
         <value xml:lang="de">Botswana</value>
         <value xml:lang="en">Botswana </value>
         <value xml:lang="fr">Botswana </value>
@@ -3222,6 +3258,7 @@
     <property key="Geo.geoName.CAF">
         <value xml:lang="de">Zentralafrikanische Republik</value>
         <value xml:lang="en">Central African Republic</value>
+        <value xml:lang="es">República Centroafricana</value>
         <value xml:lang="fr">République Centrafricaine</value>
         <value xml:lang="it">Repubblica Centrale Africana</value>
         <value xml:lang="pt">Central African Republic</value>
@@ -3233,6 +3270,7 @@
     <property key="Geo.geoName.CAN">
         <value xml:lang="de">Kanada</value>
         <value xml:lang="en">Canada</value>
+        <value xml:lang="es">Canadá</value>
         <value xml:lang="fr">Canada</value>
         <value xml:lang="it">Canada</value>
         <value xml:lang="pt">Canada</value>
@@ -3244,6 +3282,7 @@
     <property key="Geo.geoName.CCK">
         <value xml:lang="de">Kokosinseln</value>
         <value xml:lang="en">Cocos (keeling) Islands</value>
+        <value xml:lang="es">Islas Cocos</value>
         <value xml:lang="fr">Île de Cocos (keeling)</value>
         <value xml:lang="it">Isole Cocos (keeling)</value>
         <value xml:lang="pt">Cocos (keeling) Islands</value>
@@ -3255,6 +3294,7 @@
     <property key="Geo.geoName.CHE">
         <value xml:lang="de">Schweiz</value>
         <value xml:lang="en">Switzerland</value>
+        <value xml:lang="es">Suiza</value>
         <value xml:lang="fr">Suisse</value>
         <value xml:lang="it">Svizzera</value>
         <value xml:lang="pt">Switzerland</value>
@@ -3266,6 +3306,7 @@
     <property key="Geo.geoName.CHL">
         <value xml:lang="de">Chile</value>
         <value xml:lang="en">Chile</value>
+        <value xml:lang="es">Chile</value>
         <value xml:lang="fr">Chili</value>
         <value xml:lang="it">Cile</value>
         <value xml:lang="pt">Chile</value>
@@ -3277,6 +3318,7 @@
     <property key="Geo.geoName.CHN">
         <value xml:lang="de">China</value>
         <value xml:lang="en">China</value>
+        <value xml:lang="es">China</value>
         <value xml:lang="fr">Chine</value>
         <value xml:lang="it">Cina</value>
         <value xml:lang="pt">China</value>
@@ -3288,6 +3330,7 @@
     <property key="Geo.geoName.CIV">
         <value xml:lang="de">Elfenbeinküste</value>
         <value xml:lang="en">Cote D'ivoire</value>
+        <value xml:lang="es">Costa de Marfil</value>
         <value xml:lang="fr">Côte D'ivoire</value>
         <value xml:lang="it">Costa D'Avorio</value>
         <value xml:lang="pt">Cote D'ivoire</value>
@@ -3299,6 +3342,7 @@
     <property key="Geo.geoName.CMR">
         <value xml:lang="de">Kamerun</value>
         <value xml:lang="en">Cameroon</value>
+        <value xml:lang="es">Camerún</value>
         <value xml:lang="fr">Cameroun</value>
         <value xml:lang="it">Cameroon</value>
         <value xml:lang="pt">Cameroon</value>
@@ -3310,6 +3354,7 @@
     <property key="Geo.geoName.COD">
         <value xml:lang="de">Demokratische Republik Kongo</value>
         <value xml:lang="en">Congo, The Democratic Republic Of The</value>
+        <value xml:lang="es">República Democrática del Congo</value>
         <value xml:lang="fr">République Démocratique du Congo</value>
         <value xml:lang="it">Repubblica Democratica del Congo</value>
         <value xml:lang="pt">Congo, The Democratic Republic Of The</value>
@@ -3321,6 +3366,7 @@
     <property key="Geo.geoName.COG">
         <value xml:lang="de">Kongo</value>
         <value xml:lang="en">Congo</value>
+        <value xml:lang="es">Congo</value>
         <value xml:lang="fr">Congo</value>
         <value xml:lang="it">Congo</value>
         <value xml:lang="pt">Congo</value>
@@ -3332,6 +3378,7 @@
     <property key="Geo.geoName.COK">
         <value xml:lang="de">Cookinseln</value>
         <value xml:lang="en">Cook Islands</value>
+        <value xml:lang="es">Islas Cook</value>
         <value xml:lang="fr">Les îles Cook</value>
         <value xml:lang="it">Isole Cook</value>
         <value xml:lang="pt">Cook Islands</value>
@@ -3343,6 +3390,7 @@
     <property key="Geo.geoName.COL">
         <value xml:lang="de">Kolumbien</value>
         <value xml:lang="en">Colombia</value>
+        <value xml:lang="es">Colombia</value>
         <value xml:lang="fr">Colombie</value>
         <value xml:lang="it">Colombia</value>
         <value xml:lang="pt">Colombia</value>
@@ -3354,6 +3402,7 @@
     <property key="Geo.geoName.COM">
         <value xml:lang="de">Komoren</value>
         <value xml:lang="en">Comoros</value>
+        <value xml:lang="es">Comoras</value>
         <value xml:lang="fr">Les Comores</value>
         <value xml:lang="it">Comoros</value>
         <value xml:lang="pt">Comoros</value>
@@ -3365,6 +3414,7 @@
     <property key="Geo.geoName.CPV">
         <value xml:lang="de">Kap Verde</value>
         <value xml:lang="en">Cape Verde</value>
+        <value xml:lang="es">Cabo Verde</value>
         <value xml:lang="fr">Cap Vert</value>
         <value xml:lang="it">Capo Verde</value>
         <value xml:lang="pt">Cape Verde</value>
@@ -3376,6 +3426,7 @@
     <property key="Geo.geoName.CRI">
         <value xml:lang="de">Costa Rica</value>
         <value xml:lang="en">Costa Rica</value>
+        <value xml:lang="es">Costa Rica</value>
         <value xml:lang="fr">Costa Rica</value>
         <value xml:lang="it">Costa Rica</value>
         <value xml:lang="pt">Costa Rica</value>
@@ -3387,6 +3438,7 @@
     <property key="Geo.geoName.CUB">
         <value xml:lang="de">Kuba</value>
         <value xml:lang="en">Cuba</value>
+        <value xml:lang="es">Cuba</value>
         <value xml:lang="fr">Cuba</value>
         <value xml:lang="it">Cuba</value>
         <value xml:lang="pt">Cuba</value>
@@ -3398,6 +3450,7 @@
     <property key="Geo.geoName.CXR">
         <value xml:lang="de">Weihnachtsinseln</value>
         <value xml:lang="en">Christmas Island</value>
+        <value xml:lang="es">Isla de Navidad</value>
         <value xml:lang="fr">Île Christmas</value>
         <value xml:lang="it">Isola Di Natale</value>
         <value xml:lang="pt">Christmas Island</value>
@@ -3409,6 +3462,7 @@
     <property key="Geo.geoName.CYM">
         <value xml:lang="de">Kaimaninseln</value>
         <value xml:lang="en">Cayman Islands</value>
+        <value xml:lang="es">Islas Caimán</value>
         <value xml:lang="fr">Îles Cayman</value>
         <value xml:lang="it">Isole Cayman</value>
         <value xml:lang="pt">Cayman Islands</value>
@@ -3420,6 +3474,7 @@
     <property key="Geo.geoName.CYP">
         <value xml:lang="de">Zypern</value>
         <value xml:lang="en">Cyprus</value>
+        <value xml:lang="es">Chipre</value>
         <value xml:lang="fr">Chypre</value>
         <value xml:lang="it">Cipro</value>
         <value xml:lang="pt">Cyprus</value>
@@ -3431,6 +3486,7 @@
     <property key="Geo.geoName.CZE">
         <value xml:lang="de">Tschechische Republik</value>
         <value xml:lang="en">Czech Republic</value>
+        <value xml:lang="es">República Checa</value>
         <value xml:lang="fr">République Tchèque</value>
         <value xml:lang="it">Repubblica Ceca</value>
         <value xml:lang="pt">Czech Republic</value>
@@ -3440,6 +3496,7 @@
         <value xml:lang="zh">捷克</value>
     </property>
     <property key="Geo.geoName.DEU">
+        <value xml:lang="es">Alemania</value>
         <value xml:lang="de">Deutschland</value>
         <value xml:lang="en">Germany</value>
         <value xml:lang="fr">Allemagne</value>
@@ -3453,6 +3510,7 @@
     <property key="Geo.geoName.DJI">
         <value xml:lang="de">Djibouti</value>
         <value xml:lang="en">Djibouti</value>
+        <value xml:lang="es">Yibuti</value>
         <value xml:lang="fr">Djibouti</value>
         <value xml:lang="it">Djibouti</value>
         <value xml:lang="pt">Djibouti</value>
@@ -3464,6 +3522,7 @@
     <property key="Geo.geoName.DMA">
         <value xml:lang="de">Dominica</value>
         <value xml:lang="en">Dominica</value>
+        <value xml:lang="es">Dominica</value>
         <value xml:lang="fr">Dominique</value>
         <value xml:lang="it">Domenicana</value>
         <value xml:lang="pt">Dominica</value>
@@ -3475,6 +3534,7 @@
     <property key="Geo.geoName.DNK">
         <value xml:lang="de">Dänemark</value>
         <value xml:lang="en">Denmark</value>
+        <value xml:lang="es">Dinamarca</value>
         <value xml:lang="fr">Danemark</value>
         <value xml:lang="it">Danimarca</value>
         <value xml:lang="pt">Denmark</value>
@@ -3486,6 +3546,7 @@
     <property key="Geo.geoName.DOM">
         <value xml:lang="de">Dominikanische Republik</value>
         <value xml:lang="en">Dominican Republic</value>
+        <value xml:lang="es">República Dominicana</value>
         <value xml:lang="fr">République Dominicaine</value>
         <value xml:lang="it">Repubblica Domenicana</value>
         <value xml:lang="pt">Dominican Republic</value>
@@ -3495,6 +3556,7 @@
         <value xml:lang="zh">多米尼加共和国</value>
     </property>
     <property key="Geo.geoName.DZA">
+        <value xml:lang="es">Argelia</value>
         <value xml:lang="de">Algerien</value>
         <value xml:lang="en">Algeria</value>
         <value xml:lang="fr">Algérie</value>
@@ -3508,6 +3570,7 @@
     <property key="Geo.geoName.ECU">
         <value xml:lang="de">Equador</value>
         <value xml:lang="en">Ecuador</value>
+        <value xml:lang="es">Ecuador</value>
         <value xml:lang="fr">Equateur</value>
         <value xml:lang="it">Ecuador</value>
         <value xml:lang="pt">Ecuador</value>
@@ -3519,6 +3582,7 @@
     <property key="Geo.geoName.EGY">
         <value xml:lang="de">Ägypten</value>
         <value xml:lang="en">Egypt</value>
+        <value xml:lang="es">Egipto</value>
         <value xml:lang="fr">Egypte</value>
         <value xml:lang="it">Egitto</value>
         <value xml:lang="pt">Egypt</value>
@@ -3548,6 +3612,7 @@
     <property key="Geo.geoName.ERI">
         <value xml:lang="de">Eritrea</value>
         <value xml:lang="en">Eritrea</value>
+        <value xml:lang="es">Eritrea</value>
         <value xml:lang="fr">Erytrée</value>
         <value xml:lang="it">Eritrea</value>
         <value xml:lang="pt">Eritrea</value>
@@ -3559,6 +3624,7 @@
     <property key="Geo.geoName.ESH">
         <value xml:lang="de">Westliche Sahara</value>
         <value xml:lang="en">Western Sahara</value>
+        <value xml:lang="es">Sahara Occidental</value>
         <value xml:lang="fr">Sahara occidental</value>
         <value xml:lang="it">Sahara Occidentale</value>
         <value xml:lang="pt">Western Sahara</value>
@@ -3581,6 +3647,7 @@
     <property key="Geo.geoName.EST">
         <value xml:lang="de">Estland</value>
         <value xml:lang="en">Estonia</value>
+        <value xml:lang="es">Estonia</value>
         <value xml:lang="fr">Estonie</value>
         <value xml:lang="it">Estonia</value>
         <value xml:lang="pt">Estonia</value>
@@ -3592,6 +3659,7 @@
     <property key="Geo.geoName.ETH">
         <value xml:lang="de">Äthiopien</value>
         <value xml:lang="en">Ethiopia</value>
+        <value xml:lang="es">Etiopía</value>
         <value xml:lang="fr">Ethiopie</value>
         <value xml:lang="it">Etiopia</value>
         <value xml:lang="pt">Ethiopia</value>
@@ -3603,6 +3671,7 @@
     <property key="Geo.geoName.FIN">
         <value xml:lang="de">Finnland</value>
         <value xml:lang="en">Finland</value>
+        <value xml:lang="es">Finlandia</value>
         <value xml:lang="fr">Finlande</value>
         <value xml:lang="it">Finlandia</value>
         <value xml:lang="pt">Finland</value>
@@ -3614,6 +3683,7 @@
     <property key="Geo.geoName.FJI">
         <value xml:lang="de">Fidschi</value>
         <value xml:lang="en">Fiji</value>
+        <value xml:lang="es">Fiyi</value>
         <value xml:lang="fr">Îles Fidgi</value>
         <value xml:lang="it">Fiji</value>
         <value xml:lang="pt">Fiji</value>
@@ -3625,6 +3695,7 @@
     <property key="Geo.geoName.FLK">
         <value xml:lang="de">Falklandinseln (Malwinen)</value>
         <value xml:lang="en">Falkland Islands (malvinas)</value>
+        <value xml:lang="es">Islas Malvinas</value>
         <value xml:lang="fr">Îles Falkland (Malouines)</value>
         <value xml:lang="it">Isole Falkland (malvinas)</value>
         <value xml:lang="pt">Falkland Islands (malvinas)</value>
@@ -3636,6 +3707,7 @@
     <property key="Geo.geoName.FRA">
         <value xml:lang="de">Frankreich</value>
         <value xml:lang="en">France</value>
+        <value xml:lang="es">Francia</value>
         <value xml:lang="fr">France</value>
         <value xml:lang="it">Francia</value>
         <value xml:lang="pt">France</value>
@@ -3647,6 +3719,7 @@
     <property key="Geo.geoName.FRO">
         <value xml:lang="de">Färöer Inseln</value>
         <value xml:lang="en">Faroe Islands</value>
+        <value xml:lang="es">Islas Feroe</value>
         <value xml:lang="fr">Îles Féroé</value>
         <value xml:lang="it">Isole Faroe</value>
         <value xml:lang="pt">Faroe Islands</value>
@@ -3658,6 +3731,7 @@
     <property key="Geo.geoName.FSM">
         <value xml:lang="de">Föderierte Staaten von Mikronesien</value>
         <value xml:lang="en">Micronesia, Federated States Of</value>
+        <value xml:lang="es">Micronesia</value>
         <value xml:lang="fr">États fédérés de Micronésie</value>
         <value xml:lang="it">Stato Federale Della Micronesia</value>
         <value xml:lang="pt">Micronesia, Federated States Of</value>
@@ -3680,6 +3754,7 @@
     <property key="Geo.geoName.GAB">
         <value xml:lang="de">Gabun</value>
         <value xml:lang="en">Gabon</value>
+        <value xml:lang="es">Gabón</value>
         <value xml:lang="fr">Gabon</value>
         <value xml:lang="it">Gabon</value>
         <value xml:lang="pt">Gabon</value>
@@ -3691,6 +3766,7 @@
     <property key="Geo.geoName.GBR">
         <value xml:lang="de">Vereinigtes Königreich</value>
         <value xml:lang="en">United Kingdom</value>
+        <value xml:lang="es">Reino Unido</value>
         <value xml:lang="fr">Royaume-Uni</value>
         <value xml:lang="it">Regno Unito</value>
         <value xml:lang="pt">United Kingdom</value>
@@ -3702,6 +3778,7 @@
     <property key="Geo.geoName.GEO">
         <value xml:lang="de">Georgien</value>
         <value xml:lang="en">Georgia</value>
+        <value xml:lang="es">Georgia</value>
         <value xml:lang="fr">Georgie</value>
         <value xml:lang="it">Georgia</value>
         <value xml:lang="pt">Georgia</value>
@@ -3713,6 +3790,7 @@
     <property key="Geo.geoName.GHA">
         <value xml:lang="de">Ghana</value>
         <value xml:lang="en">Ghana</value>
+        <value xml:lang="es">Ghana</value>
         <value xml:lang="fr">Ghana</value>
         <value xml:lang="it">Ghana</value>
         <value xml:lang="pt">Ghana</value>
@@ -3724,6 +3802,7 @@
     <property key="Geo.geoName.GIB">
         <value xml:lang="de">Gibraltar</value>
         <value xml:lang="en">Gibraltar</value>
+        <value xml:lang="es">Gibraltar</value>
         <value xml:lang="fr">Gibraltar</value>
         <value xml:lang="it">Gibilterra</value>
         <value xml:lang="pt">Gibraltar</value>
@@ -3735,6 +3814,7 @@
     <property key="Geo.geoName.GIN">
         <value xml:lang="de">Guinea</value>
         <value xml:lang="en">Guinea</value>
+        <value xml:lang="es">Guinea</value>
         <value xml:lang="fr">Guinée</value>
         <value xml:lang="it">Guinea</value>
         <value xml:lang="pt">Guinea</value>
@@ -3746,6 +3826,7 @@
     <property key="Geo.geoName.GLP">
         <value xml:lang="de">Guadeloupe</value>
         <value xml:lang="en">Guadeloupe</value>
+        <value xml:lang="es">Guadalupe</value>
         <value xml:lang="fr">Guadeloupe</value>
         <value xml:lang="it">Guadalupe</value>
         <value xml:lang="pt">Guadeloupe</value>
@@ -3757,6 +3838,7 @@
     <property key="Geo.geoName.GMB">
         <value xml:lang="de">Gambia</value>
         <value xml:lang="en">Gambia</value>
+        <value xml:lang="es">Gambia</value>
         <value xml:lang="fr">Gambie</value>
         <value xml:lang="it">Gambia</value>
         <value xml:lang="pt">Gambia</value>
@@ -3768,6 +3850,7 @@
     <property key="Geo.geoName.GNB">
         <value xml:lang="de">Guinea-Bissau</value>
         <value xml:lang="en">Guinea-bissau</value>
+        <value xml:lang="es">Guinea-Bissau</value>
         <value xml:lang="fr">Guinée-Bissau</value>
         <value xml:lang="it">Guinea-bissau</value>
         <value xml:lang="pt">Guinea-bissau</value>
@@ -3779,6 +3862,7 @@
     <property key="Geo.geoName.GNQ">
         <value xml:lang="de">Äquatorialguinea</value>
         <value xml:lang="en">Equatorial Guinea</value>
+        <value xml:lang="es">Guinea Ecuatorial</value>
         <value xml:lang="fr">Guinée équatoriale</value>
         <value xml:lang="it">Guinea Equatoriale</value>
         <value xml:lang="pt">Equatorial Guinea</value>
@@ -3790,6 +3874,7 @@
     <property key="Geo.geoName.GRC">
         <value xml:lang="de">Griechenland</value>
         <value xml:lang="en">Greece</value>
+        <value xml:lang="es">Grecia</value>
         <value xml:lang="fr">Grèce</value>
         <value xml:lang="it">Grecia</value>
         <value xml:lang="pt">Greece</value>
@@ -3801,6 +3886,7 @@
     <property key="Geo.geoName.GRD">
         <value xml:lang="de">Grenada</value>
         <value xml:lang="en">Grenada</value>
+        <value xml:lang="es">Granada</value>
         <value xml:lang="fr">Grenade</value>
         <value xml:lang="it">Grenada</value>
         <value xml:lang="pt">Grenada</value>
@@ -3812,6 +3898,7 @@
     <property key="Geo.geoName.GRL">
         <value xml:lang="de">Grönland</value>
         <value xml:lang="en">Greenland</value>
+        <value xml:lang="es">Groenlandia</value>
         <value xml:lang="fr">Groënland</value>
         <value xml:lang="it">Groenlandia</value>
         <value xml:lang="pt">Greenland</value>
@@ -3823,6 +3910,7 @@
     <property key="Geo.geoName.GTM">
         <value xml:lang="de">Guatemala</value>
         <value xml:lang="en">Guatemala</value>
+        <value xml:lang="es">Guatemala</value>
         <value xml:lang="fr">Guatémala</value>
         <value xml:lang="it">Guatemala</value>
         <value xml:lang="pt">Guatemala</value>
@@ -3834,6 +3922,7 @@
     <property key="Geo.geoName.GUF">
         <value xml:lang="de">Französisch Guayana</value>
         <value xml:lang="en">French Guiana</value>
+        <value xml:lang="es">Guayana Francesa</value>
         <value xml:lang="fr">Guyane Française</value>
         <value xml:lang="it">Guinea Francese</value>
         <value xml:lang="pt">French Guiana</value>
@@ -3845,6 +3934,7 @@
     <property key="Geo.geoName.GUM">
         <value xml:lang="de">Guam</value>
         <value xml:lang="en">Guam</value>
+        <value xml:lang="es">Guam</value>
         <value xml:lang="fr">Guam</value>
         <value xml:lang="it">Guam</value>
         <value xml:lang="pt">Guam</value>
@@ -3856,6 +3946,7 @@
     <property key="Geo.geoName.GUY">
         <value xml:lang="de">Guyana</value>
         <value xml:lang="en">Guyana</value>
+        <value xml:lang="es">Guyana</value>
         <value xml:lang="fr">Guyane</value>
         <value xml:lang="it">Guyana</value>
         <value xml:lang="pt">Guyana</value>
@@ -3867,6 +3958,7 @@
     <property key="Geo.geoName.HKG">
         <value xml:lang="de">Hongkong</value>
         <value xml:lang="en">Hong Kong</value>
+        <value xml:lang="es">Hong Kong</value>
         <value xml:lang="fr">Hong Kong</value>
         <value xml:lang="it">Hong Kong</value>
         <value xml:lang="pt">Hong Kong</value>
@@ -3878,6 +3970,7 @@
     <property key="Geo.geoName.HMD">
         <value xml:lang="de">Heard-Insel und McDonald-Inseln</value>
         <value xml:lang="en">Heard And Mc Donald Islands</value>
+        <value xml:lang="es">Islas Heard y McDonald</value>
         <value xml:lang="fr">Îles Heard et McDonald</value>
         <value xml:lang="it">Isole Heard e Mc Donald</value>
         <value xml:lang="pt">Heard And Mc Donald Islands</value>
@@ -3889,6 +3982,7 @@
     <property key="Geo.geoName.HND">
         <value xml:lang="de">Honduras</value>
         <value xml:lang="en">Honduras</value>
+        <value xml:lang="es">Honduras</value>
         <value xml:lang="fr">Honduras</value>
         <value xml:lang="it">Honduras</value>
         <value xml:lang="pt">Honduras</value>
@@ -3900,6 +3994,7 @@
     <property key="Geo.geoName.HRV">
         <value xml:lang="de">Kroatien</value>
         <value xml:lang="en">Croatia (local Name: Hrvatska)</value>
+        <value xml:lang="es">Croacia</value>
         <value xml:lang="fr">Croatie</value>
         <value xml:lang="it">Croazia</value>
         <value xml:lang="pt">Croatia (local Name: Hrvatska)</value>
@@ -3911,6 +4006,7 @@
     <property key="Geo.geoName.HTI">
         <value xml:lang="de">Haiti</value>
         <value xml:lang="en">Haiti</value>
+        <value xml:lang="es">Haití</value>
         <value xml:lang="fr">Haïti</value>
         <value xml:lang="it">Haiti</value>
         <value xml:lang="pt">Haiti</value>
@@ -3922,6 +4018,7 @@
     <property key="Geo.geoName.HUN">
         <value xml:lang="de">Ungarn</value>
         <value xml:lang="en">Hungary</value>
+        <value xml:lang="es">Hungría</value>
         <value xml:lang="fr">Hongrie</value>
         <value xml:lang="it">Ungheria</value>
         <value xml:lang="pt">Hungary</value>
@@ -3933,6 +4030,7 @@
     <property key="Geo.geoName.IDN">
         <value xml:lang="de">Indonesien</value>
         <value xml:lang="en">Indonesia</value>
+        <value xml:lang="es">Indonesia</value>
         <value xml:lang="fr">Indonésie</value>
         <value xml:lang="it">Indonesia</value>
         <value xml:lang="pt">Indonesia</value>
@@ -3944,6 +4042,7 @@
     <property key="Geo.geoName.IND">
         <value xml:lang="de">Indien</value>
         <value xml:lang="en">India</value>
+        <value xml:lang="es">India</value>
         <value xml:lang="fr">Inde</value>
         <value xml:lang="it">India</value>
         <value xml:lang="pt">India</value>
@@ -3955,6 +4054,7 @@
     <property key="Geo.geoName.IOT">
         <value xml:lang="de">Britisches Territorium im Indischen Ozean</value>
         <value xml:lang="en">British Indian Ocean Territory</value>
+        <value xml:lang="es">Territorio Británico del Océano Índico</value>
         <value xml:lang="fr">Territoire britannique de l'Océan Indien</value>
         <value xml:lang="it">Territorio Oceano Indiano Inglese</value>
         <value xml:lang="pt">British Indian Ocean Territory</value>
@@ -3966,6 +4066,7 @@
     <property key="Geo.geoName.IRL">
         <value xml:lang="de">Irland</value>
         <value xml:lang="en">Ireland</value>
+        <value xml:lang="es">Irlanda</value>
         <value xml:lang="fr">Irlande</value>
         <value xml:lang="it">Irlanda</value>
         <value xml:lang="pt">Ireland</value>
@@ -3977,6 +4078,7 @@
     <property key="Geo.geoName.IRN">
         <value xml:lang="de">Iran, Islamische Republik</value>
         <value xml:lang="en">Iran (islamic Republic Of)</value>
+        <value xml:lang="es">Irán</value>
         <value xml:lang="fr">Iran (République islamique d')</value>
         <value xml:lang="it">Repubblica Islamica Dell'Iran</value>
         <value xml:lang="pt">Iran (islamic Republic Of)</value>
@@ -3988,6 +4090,7 @@
     <property key="Geo.geoName.IRQ">
         <value xml:lang="de">Irak</value>
         <value xml:lang="en">Iraq</value>
+        <value xml:lang="es">Iraq</value>
         <value xml:lang="fr">Irak</value>
         <value xml:lang="it">Iraq</value>
         <value xml:lang="pt">Iraq</value>
@@ -3999,6 +4102,7 @@
     <property key="Geo.geoName.ISL">
         <value xml:lang="de">Island</value>
         <value xml:lang="en">Iceland</value>
+        <value xml:lang="es">Islandia</value>
         <value xml:lang="fr">Islande</value>
         <value xml:lang="it">Islanda</value>
         <value xml:lang="pt">Iceland</value>
@@ -4010,6 +4114,7 @@
     <property key="Geo.geoName.ISR">
         <value xml:lang="de">Israel</value>
         <value xml:lang="en">Israel</value>
+        <value xml:lang="es">Israel</value>
         <value xml:lang="fr">Israël</value>
         <value xml:lang="it">Israele</value>
         <value xml:lang="pt">Israel</value>
@@ -4021,6 +4126,7 @@
     <property key="Geo.geoName.ITA">
         <value xml:lang="de">Italien</value>
         <value xml:lang="en">Italy</value>
+        <value xml:lang="es">Italia</value>
         <value xml:lang="fr">Italie</value>
         <value xml:lang="it">Italia</value>
         <value xml:lang="pt">Italy</value>
@@ -4032,6 +4138,7 @@
     <property key="Geo.geoName.JAM">
         <value xml:lang="de">Jamaika</value>
         <value xml:lang="en">Jamaica</value>
+        <value xml:lang="es">Jamaica</value>
         <value xml:lang="fr">Jamaïque</value>
         <value xml:lang="it">Giamaica</value>
         <value xml:lang="pt">Jamaica</value>
@@ -4043,6 +4150,7 @@
     <property key="Geo.geoName.JOR">
         <value xml:lang="de">Jordanien</value>
         <value xml:lang="en">Jordan</value>
+        <value xml:lang="es">Jordania</value>
         <value xml:lang="fr">Jordanie</value>
         <value xml:lang="it">Giordania</value>
         <value xml:lang="pt">Jordan</value>
@@ -4054,6 +4162,7 @@
     <property key="Geo.geoName.JPN">
         <value xml:lang="de">Japan</value>
         <value xml:lang="en">Japan</value>
+        <value xml:lang="es">Japón</value>
         <value xml:lang="fr">Japon</value>
         <value xml:lang="it">Giappone</value>
         <value xml:lang="pt">Japan</value>
@@ -4065,6 +4174,7 @@
     <property key="Geo.geoName.KAZ">
         <value xml:lang="de">Kasachstan</value>
         <value xml:lang="en">Kazakhstan</value>
+        <value xml:lang="es">Kazajstán</value>
         <value xml:lang="fr">Kazakhstan</value>
         <value xml:lang="it">Kazakhstan</value>
         <value xml:lang="pt">Kazakhstan</value>
@@ -4076,6 +4186,7 @@
     <property key="Geo.geoName.KEN">
         <value xml:lang="de">Kenia</value>
         <value xml:lang="en">Kenya</value>
+        <value xml:lang="es">Kenia</value>
         <value xml:lang="fr">Kenya</value>
         <value xml:lang="it">Kenia</value>
         <value xml:lang="pt">Kenya</value>
@@ -4087,6 +4198,7 @@
     <property key="Geo.geoName.KGZ">
         <value xml:lang="de">Kirgisistan</value>
         <value xml:lang="en">Kyrgyzstan</value>
+        <value xml:lang="es">Kirguistán</value>
         <value xml:lang="fr">Kyrgyzstan</value>
         <value xml:lang="it">Kyrgyzstan</value>
         <value xml:lang="pt">Kyrgyzstan</value>
@@ -4098,6 +4210,7 @@
     <property key="Geo.geoName.KHM">
         <value xml:lang="de">Kambodscha</value>
         <value xml:lang="en">Cambodia</value>
+        <value xml:lang="es">Camboya</value>
         <value xml:lang="fr">Cambodge</value>
         <value xml:lang="it">Cambogia</value>
         <value xml:lang="pt">Cambodia</value>
@@ -4109,6 +4222,7 @@
     <property key="Geo.geoName.KIR">
         <value xml:lang="de">Kiribati</value>
         <value xml:lang="en">Kiribati</value>
+        <value xml:lang="es">Kiribati</value>
         <value xml:lang="fr">Kiribati</value>
         <value xml:lang="it">Kiribati</value>
         <value xml:lang="pt">Kiribati</value>
@@ -4120,6 +4234,7 @@
     <property key="Geo.geoName.KNA">
         <value xml:lang="de">St. Kitts und Nevis</value>
         <value xml:lang="en">Saint Kitts And Nevis</value>
+        <value xml:lang="es">San Cristóbal y Nevis</value>
         <value xml:lang="fr">Saint-Christophe-et-Niéviès</value>
         <value xml:lang="it">Saint Kitts e Nevis</value>
         <value xml:lang="pt">Saint Kitts And Nevis</value>
@@ -4131,6 +4246,7 @@
     <property key="Geo.geoName.KOR">
         <value xml:lang="de">Korea, Republik</value>
         <value xml:lang="en">Korea, Republic Of</value>
+        <value xml:lang="es">Corea del Sur</value>
         <value xml:lang="fr">Korée, République de</value>
         <value xml:lang="it">Repubblica Di Korea</value>
         <value xml:lang="pt">Korea, Republic Of</value>
@@ -4142,6 +4258,7 @@
     <property key="Geo.geoName.KWT">
         <value xml:lang="de">Kuwait</value>
         <value xml:lang="en">Kuwait</value>
+        <value xml:lang="es">Kuwait</value>
         <value xml:lang="fr">Koweït</value>
         <value xml:lang="it">Kuwait</value>
         <value xml:lang="pt">Kuwait</value>
@@ -4153,6 +4270,7 @@
     <property key="Geo.geoName.LAO">
         <value xml:lang="de">Laos, Demokratische Volksrepublik</value>
         <value xml:lang="en">Lao People's Democratic Republic</value>
+        <value xml:lang="es">Laos</value>
         <value xml:lang="fr">Laos (République démocratique populaire Lao)</value>
         <value xml:lang="it">Repubblica Democratica Popolare del Laos</value>
         <value xml:lang="pt">Lao People's Democratic Republic</value>
@@ -4164,6 +4282,7 @@
     <property key="Geo.geoName.LBN">
         <value xml:lang="de">Libanon</value>
         <value xml:lang="en">Lebanon</value>
+        <value xml:lang="es">Líbano</value>
         <value xml:lang="fr">Liban</value>
         <value xml:lang="it">Libano</value>
         <value xml:lang="pt">Lebanon</value>
@@ -4175,6 +4294,7 @@
     <property key="Geo.geoName.LBR">
         <value xml:lang="de">Liberia</value>
         <value xml:lang="en">Liberia</value>
+        <value xml:lang="es">Liberia</value>
         <value xml:lang="fr">Libéria</value>
         <value xml:lang="it">Liberia</value>
         <value xml:lang="pt">Liberia</value>
@@ -4186,6 +4306,7 @@
     <property key="Geo.geoName.LBY">
         <value xml:lang="de">Libysch-Arabische Dschamahirjia</value>
         <value xml:lang="en">Libyan Arab Jamahiriya</value>
+        <value xml:lang="es">Libia</value>
         <value xml:lang="fr">Libye</value>
         <value xml:lang="it">Libia</value>
         <value xml:lang="pt">Libyan Arab Jamahiriya</value>
@@ -4197,6 +4318,7 @@
     <property key="Geo.geoName.LCA">
         <value xml:lang="de">St. Lucia</value>
         <value xml:lang="en">Saint Lucia</value>
+        <value xml:lang="es">Santa Lucía</value>
         <value xml:lang="fr">Sainte Lucie</value>
         <value xml:lang="it">Santa Lucia</value>
         <value xml:lang="pt">Saint Lucia</value>
@@ -4208,6 +4330,7 @@
     <property key="Geo.geoName.LIE">
         <value xml:lang="de">Liechtenstein</value>
         <value xml:lang="en">Liechtenstein</value>
+        <value xml:lang="es">Liechtenstein</value>
         <value xml:lang="fr">Liechtenstein</value>
         <value xml:lang="it">Liechtenstein</value>
         <value xml:lang="pt">Liechtenstein</value>
@@ -4219,6 +4342,7 @@
     <property key="Geo.geoName.LKA">
         <value xml:lang="de">Sri Lanka</value>
         <value xml:lang="en">Sri Lanka</value>
+        <value xml:lang="es">Sri Lanka</value>
         <value xml:lang="fr">Sri Lanka</value>
         <value xml:lang="it">Sri Lanka</value>
         <value xml:lang="pt">Sri Lanka</value>
@@ -4230,6 +4354,7 @@
     <property key="Geo.geoName.LSO">
         <value xml:lang="de">Lesotho</value>
         <value xml:lang="en">Lesotho</value>
+        <value xml:lang="es">Lesotho</value>
         <value xml:lang="fr">Lesotho</value>
         <value xml:lang="it">Lesotho</value>
         <value xml:lang="pt">Lesotho</value>
@@ -4241,6 +4366,7 @@
     <property key="Geo.geoName.LTU">
         <value xml:lang="de">Litauen</value>
         <value xml:lang="en">Lithuania</value>
+        <value xml:lang="es">Lituania</value>
         <value xml:lang="fr">Lituanie</value>
         <value xml:lang="it">Lituania</value>
         <value xml:lang="pt">Lithuania</value>
@@ -4252,6 +4378,7 @@
     <property key="Geo.geoName.LUX">
         <value xml:lang="de">Luxemburg</value>
         <value xml:lang="en">Luxembourg</value>
+        <value xml:lang="es">Luxemburgo</value>
         <value xml:lang="fr">Luxembourg</value>
         <value xml:lang="it">Lussemburgo</value>
         <value xml:lang="pt">Luxembourg</value>
@@ -4263,6 +4390,7 @@
     <property key="Geo.geoName.LVA">
         <value xml:lang="de">Lettland</value>
         <value xml:lang="en">Latvia</value>
+        <value xml:lang="es">Letonia</value>
         <value xml:lang="fr">Lettonie</value>
         <value xml:lang="it">Lettonia</value>
         <value xml:lang="pt">Latvia</value>
@@ -4274,6 +4402,7 @@
     <property key="Geo.geoName.MAC">
         <value xml:lang="de">Macao</value>
         <value xml:lang="en">Macau</value>
+        <value xml:lang="es">Macao</value>
         <value xml:lang="fr">Macao</value>
         <value xml:lang="it">Macao</value>
         <value xml:lang="pt">Macau</value>
@@ -4285,6 +4414,7 @@
     <property key="Geo.geoName.MAR">
         <value xml:lang="de">Marokko</value>
         <value xml:lang="en">Morocco</value>
+        <value xml:lang="es">Marruecos</value>
         <value xml:lang="fr">Maroc</value>
         <value xml:lang="it">Marocco</value>
         <value xml:lang="pt">Morocco</value>
@@ -4303,6 +4433,7 @@
     <property key="Geo.geoName.MCO">
         <value xml:lang="de">Monaco</value>
         <value xml:lang="en">Monaco</value>
+        <value xml:lang="es">Mónaco</value>
         <value xml:lang="fr">Monaco</value>
         <value xml:lang="it">Monaco</value>
         <value xml:lang="pt">Monaco</value>
@@ -4314,6 +4445,7 @@
     <property key="Geo.geoName.MDA">
         <value xml:lang="de">Moldawien</value>
         <value xml:lang="en">Moldova, Republic Of</value>
+        <value xml:lang="es">Moldavia</value>
         <value xml:lang="fr">Moldavie (République de)</value>
         <value xml:lang="it">Repubblica Di Moldova</value>
         <value xml:lang="pt">Moldova, Republic Of</value>
@@ -4325,6 +4457,7 @@
     <property key="Geo.geoName.MDG">
         <value xml:lang="de">Madagaskar</value>
         <value xml:lang="en">Madagascar</value>
+        <value xml:lang="es">Madagascar</value>
         <value xml:lang="fr">Madagascar</value>
         <value xml:lang="it">Madagascar</value>
         <value xml:lang="pt">Madagascar</value>
@@ -4336,6 +4469,7 @@
     <property key="Geo.geoName.MDV">
         <value xml:lang="de">Malediven</value>
         <value xml:lang="en">Maldives</value>
+        <value xml:lang="es">Maldivas</value>
         <value xml:lang="fr">Maldives (Îles des)</value>
         <value xml:lang="it">Isole Maldive</value>
         <value xml:lang="pt">Maldives</value>
@@ -4347,6 +4481,7 @@
     <property key="Geo.geoName.MEX">
         <value xml:lang="de">Mexiko</value>
         <value xml:lang="en">Mexico</value>
+        <value xml:lang="es">México</value>
         <value xml:lang="fr">Mexico</value>
         <value xml:lang="it">Messico</value>
         <value xml:lang="pt">Mexico</value>
@@ -4358,6 +4493,7 @@
     <property key="Geo.geoName.MHL">
         <value xml:lang="de">Marshallinseln</value>
         <value xml:lang="en">Marshall Islands</value>
+        <value xml:lang="es">Islas Marshall</value>
         <value xml:lang="fr">Marshall (Îles)</value>
         <value xml:lang="it">Isole Marshall</value>
         <value xml:lang="pt">Marshall Islands</value>
@@ -4369,6 +4505,7 @@
     <property key="Geo.geoName.MKD">
         <value xml:lang="de">Mazedonien, ehem. jugoslawische Republik</value>
         <value xml:lang="en">Macedonia, The Former Yugoslav Republic Of</value>
+        <value xml:lang="es">ARY Macedonia</value>
         <value xml:lang="fr">Macédoine</value>
         <value xml:lang="it">Macedonia</value>
         <value xml:lang="pt">Macedonia, The Former Yugoslav Republic Of</value>
@@ -4380,6 +4517,7 @@
     <property key="Geo.geoName.MLI">
         <value xml:lang="de">Mali</value>
         <value xml:lang="en">Mali</value>
+        <value xml:lang="es">Malí</value>
         <value xml:lang="fr">Mali</value>
         <value xml:lang="it">Mali</value>
         <value xml:lang="pt">Mali</value>
@@ -4391,6 +4529,7 @@
     <property key="Geo.geoName.MLT">
         <value xml:lang="de">Malta</value>
         <value xml:lang="en">Malta</value>
+        <value xml:lang="es">Malta</value>
         <value xml:lang="fr">Malte</value>
         <value xml:lang="it">Malta</value>
         <value xml:lang="pt">Malta</value>
@@ -4402,6 +4541,7 @@
     <property key="Geo.geoName.MMR">
         <value xml:lang="de">Myanmar</value>
         <value xml:lang="en">Myanmar</value>
+        <value xml:lang="es">Myanmar</value>
         <value xml:lang="fr">Birmanie</value>
         <value xml:lang="it">Myanmar</value>
         <value xml:lang="pt">Myanmar</value>
@@ -4413,6 +4553,7 @@
     <property key="Geo.geoName.MNG">
         <value xml:lang="de">Mongolei</value>
         <value xml:lang="en">Mongolia</value>
+        <value xml:lang="es">Mongolia</value>
         <value xml:lang="fr">Mongolie</value>
         <value xml:lang="it">Mongolia</value>
         <value xml:lang="pt">Mongolia</value>
@@ -4424,6 +4565,7 @@
     <property key="Geo.geoName.MNP">
         <value xml:lang="de">Nördliche Marianen</value>
         <value xml:lang="en">Northern Mariana Islands</value>
+        <value xml:lang="es">Islas Marianas del Norte</value>
         <value xml:lang="fr">Îles Mariannes du nord</value>
         <value xml:lang="it">Isole del Nord Mariana</value>
         <value xml:lang="pt">Northern Mariana Islands</value>
@@ -4435,6 +4577,7 @@
     <property key="Geo.geoName.MOZ">
         <value xml:lang="de">Mosambik</value>
         <value xml:lang="en">Mozambique</value>
+        <value xml:lang="es">Mozambique</value>
         <value xml:lang="fr">Mozambique</value>
         <value xml:lang="it">Mozambico</value>
         <value xml:lang="pt">Mozambique</value>
@@ -4446,6 +4589,7 @@
     <property key="Geo.geoName.MRT">
         <value xml:lang="de">Mauretanien</value>
         <value xml:lang="en">Mauritania</value>
+        <value xml:lang="es">Mauritania</value>
         <value xml:lang="fr">Mauritanie</value>
         <value xml:lang="it">Mauritania</value>
         <value xml:lang="pt">Mauritania</value>
@@ -4457,6 +4601,7 @@
     <property key="Geo.geoName.MSR">
         <value xml:lang="de">Montserrat</value>
         <value xml:lang="en">Montserrat</value>
+        <value xml:lang="es">Montserrat</value>
         <value xml:lang="fr">Montserrat</value>
         <value xml:lang="it">Montserrat</value>
         <value xml:lang="pt">Montserrat</value>
@@ -4468,6 +4613,7 @@
     <property key="Geo.geoName.MTQ">
         <value xml:lang="de">Martinique</value>
         <value xml:lang="en">Martinique</value>
+        <value xml:lang="es">Martinica</value>
         <value xml:lang="fr">Martinique</value>
         <value xml:lang="it">Martinique</value>
         <value xml:lang="pt">Martinique</value>
@@ -4479,6 +4625,7 @@
     <property key="Geo.geoName.MUS">
         <value xml:lang="de">Mauritius</value>
         <value xml:lang="en">Mauritius</value>
+        <value xml:lang="es">Mauricio</value>
         <value xml:lang="fr">Île Maurice</value>
         <value xml:lang="it">Mauritius</value>
         <value xml:lang="pt">Mauritius</value>
@@ -4490,6 +4637,7 @@
     <property key="Geo.geoName.MWI">
         <value xml:lang="de">Malawi</value>
         <value xml:lang="en">Malawi</value>
+        <value xml:lang="es">Malawi</value>
         <value xml:lang="fr">Malawi</value>
         <value xml:lang="it">Malawi</value>
         <value xml:lang="pt">Malawi</value>
@@ -4501,6 +4649,7 @@
     <property key="Geo.geoName.MYS">
         <value xml:lang="de">Malaysia</value>
         <value xml:lang="en">Malaysia</value>
+        <value xml:lang="es">Malasia</value>
         <value xml:lang="fr">Malaisie</value>
         <value xml:lang="it">Malaysia</value>
         <value xml:lang="pt">Malaysia</value>
@@ -4512,6 +4661,7 @@
     <property key="Geo.geoName.MYT">
         <value xml:lang="de">Mayotte</value>
         <value xml:lang="en">Mayotte</value>
+        <value xml:lang="es">Mayotte</value>
         <value xml:lang="fr">Mayotte</value>
         <value xml:lang="it">Mayotte</value>
         <value xml:lang="pt">Mayotte</value>
@@ -4523,6 +4673,7 @@
     <property key="Geo.geoName.NAM">
         <value xml:lang="de">Namibia</value>
         <value xml:lang="en">Namibia</value>
+        <value xml:lang="es">Namibia</value>
         <value xml:lang="fr">Namibie</value>
         <value xml:lang="it">Namibia</value>
         <value xml:lang="pt">Namibia</value>
@@ -4541,6 +4692,7 @@
     <property key="Geo.geoName.NCL">
         <value xml:lang="de">Neukaledonien</value>
         <value xml:lang="en">New Caledonia</value>
+        <value xml:lang="es">Nueva Caledonia</value>
         <value xml:lang="fr">Nouvelle Calédonie</value>
         <value xml:lang="it">Nuova Caledonia</value>
         <value xml:lang="pt">New Caledonia</value>
@@ -4552,6 +4704,7 @@
     <property key="Geo.geoName.NER">
         <value xml:lang="de">Niger</value>
         <value xml:lang="en">Niger</value>
+        <value xml:lang="es">Níger</value>
         <value xml:lang="fr">Niger</value>
         <value xml:lang="it">Niger</value>
         <value xml:lang="pt">Niger</value>
@@ -4563,6 +4716,7 @@
     <property key="Geo.geoName.NFK">
         <value xml:lang="de">Norfolkinseln</value>
         <value xml:lang="en">Norfolk Island</value>
+        <value xml:lang="es">Isla Norfolk</value>
         <value xml:lang="fr">Île Norfolk</value>
         <value xml:lang="it">Isola Norfolk</value>
         <value xml:lang="pt">Norfolk Island</value>
@@ -4574,6 +4728,7 @@
     <property key="Geo.geoName.NGA">
         <value xml:lang="de">Nigeria</value>
         <value xml:lang="en">Nigeria</value>
+        <value xml:lang="es">Nigeria</value>
         <value xml:lang="fr">Nigéria</value>
         <value xml:lang="it">Nigeria</value>
         <value xml:lang="pt">Nigeria</value>
@@ -4614,6 +4769,7 @@
     <property key="Geo.geoName.NIU">
         <value xml:lang="de">Niue</value>
         <value xml:lang="en">Niue</value>
+        <value xml:lang="es">Niue</value>
         <value xml:lang="fr">Niue</value>
         <value xml:lang="it">Niue</value>
         <value xml:lang="pt">Niue</value>
@@ -4631,6 +4787,7 @@
     <property key="Geo.geoName.NLD">
         <value xml:lang="de">Niederlande</value>
         <value xml:lang="en">Netherlands</value>
+        <value xml:lang="es">Países Bajos</value>
         <value xml:lang="fr">Pays-Bas</value>
         <value xml:lang="it">Paesi Bassi</value>
         <value xml:lang="pt">Netherlands</value>
@@ -4642,6 +4799,7 @@
     <property key="Geo.geoName.NOR">
         <value xml:lang="de">Norwegen</value>
         <value xml:lang="en">Norway</value>
+        <value xml:lang="es">Noruega</value>
         <value xml:lang="fr">Norvège</value>
         <value xml:lang="it">Norvegia</value>
         <value xml:lang="pt">Norway</value>
@@ -4653,6 +4811,7 @@
     <property key="Geo.geoName.NPL">
         <value xml:lang="de">Nepal</value>
         <value xml:lang="en">Nepal</value>
+        <value xml:lang="es">Nepal</value>
         <value xml:lang="fr">Népal</value>
         <value xml:lang="it">Nepal</value>
         <value xml:lang="pt">Nepal</value>
@@ -4664,6 +4823,7 @@
     <property key="Geo.geoName.NRU">
         <value xml:lang="de">Nauru</value>
         <value xml:lang="en">Nauru</value>
+        <value xml:lang="es">Nauru</value>
         <value xml:lang="fr">Nauru</value>
         <value xml:lang="it">Nauru</value>
         <value xml:lang="pt">Nauru</value>
@@ -4693,6 +4853,7 @@
     <property key="Geo.geoName.NZL">
         <value xml:lang="de">Neuseeland</value>
         <value xml:lang="en">New Zealand</value>
+        <value xml:lang="es">Nueva Zelanda</value>
         <value xml:lang="fr">Nouvelle-Zélande</value>
         <value xml:lang="it">Nuova Zelanda</value>
         <value xml:lang="pt">New Zealand</value>
@@ -4704,6 +4865,7 @@
     <property key="Geo.geoName.OMN">
         <value xml:lang="de">Oman</value>
         <value xml:lang="en">Oman</value>
+        <value xml:lang="es">Omán</value>
         <value xml:lang="fr">Oman</value>
         <value xml:lang="it">Oman</value>
         <value xml:lang="pt">Oman</value>
@@ -4721,6 +4883,7 @@
     <property key="Geo.geoName.PAK">
         <value xml:lang="de">Pakistan</value>
         <value xml:lang="en">Pakistan</value>
+        <value xml:lang="es">Pakistán</value>
         <value xml:lang="fr">Pakistan</value>
         <value xml:lang="it">Pakistan</value>
         <value xml:lang="pt">Pakistan</value>
@@ -4732,6 +4895,7 @@
     <property key="Geo.geoName.PAN">
         <value xml:lang="de">Panama</value>
         <value xml:lang="en">Panama</value>
+        <value xml:lang="es">Panamá</value>
         <value xml:lang="fr">Panama</value>
         <value xml:lang="it">Panama</value>
         <value xml:lang="pt">Panama</value>
@@ -4743,6 +4907,7 @@
     <property key="Geo.geoName.PCN">
         <value xml:lang="de">Pitcairninseln</value>
         <value xml:lang="en">Pitcairn</value>
+        <value xml:lang="es">Islas Pitcairn</value>
         <value xml:lang="fr">Île de Pitcairn</value>
         <value xml:lang="it">Pitcairn</value>
         <value xml:lang="pt">Pitcairn</value>
@@ -4760,6 +4925,7 @@
     <property key="Geo.geoName.PER">
         <value xml:lang="de">Peru</value>
         <value xml:lang="en">Peru</value>
+        <value xml:lang="es">Perú</value>
         <value xml:lang="fr">Pérou</value>
         <value xml:lang="it">Perù</value>
         <value xml:lang="pt">Peru</value>
@@ -4771,6 +4937,7 @@
     <property key="Geo.geoName.PHL">
         <value xml:lang="de">Philippinen</value>
         <value xml:lang="en">Philippines</value>
+        <value xml:lang="es">Filipinas</value>
         <value xml:lang="fr">Philippines</value>
         <value xml:lang="it">Filippine</value>
         <value xml:lang="pt">Philippines</value>
@@ -4782,6 +4949,7 @@
     <property key="Geo.geoName.PLW">
         <value xml:lang="de">Palau</value>
         <value xml:lang="en">Palau</value>
+        <value xml:lang="es">Palau</value>
         <value xml:lang="fr">Palau</value>
         <value xml:lang="it">Palau</value>
         <value xml:lang="pt">Palau</value>
@@ -4793,6 +4961,7 @@
     <property key="Geo.geoName.PNG">
         <value xml:lang="de">Papua-Neuguinea</value>
         <value xml:lang="en">Papua New Guinea</value>
+        <value xml:lang="es">Papúa Nueva Guinea</value>
         <value xml:lang="fr">Papouasie Nouvelle Guinée</value>
         <value xml:lang="it">Papua Nuova Guinea</value>
         <value xml:lang="pt">Papua New Guinea</value>
@@ -4804,6 +4973,7 @@
     <property key="Geo.geoName.POL">
         <value xml:lang="de">Polen</value>
         <value xml:lang="en">Poland</value>
+        <value xml:lang="es">Polonia</value>
         <value xml:lang="fr">Pologne</value>
         <value xml:lang="it">Polonia</value>
         <value xml:lang="pt">Poland</value>
@@ -4815,6 +4985,7 @@
     <property key="Geo.geoName.PRI">
         <value xml:lang="de">Puerto Rico</value>
         <value xml:lang="en">Puerto Rico</value>
+        <value xml:lang="es">Puerto Rico</value>
         <value xml:lang="fr">Porto Rico</value>
         <value xml:lang="it">Portorico</value>
         <value xml:lang="pt">Puerto Rico</value>
@@ -4826,6 +4997,7 @@
     <property key="Geo.geoName.PRK">
         <value xml:lang="de">Korea, Demokratische Volksrepublik</value>
         <value xml:lang="en">Korea, Democratic People's Republic Of</value>
+        <value xml:lang="es">Corea del Norte</value>
         <value xml:lang="fr">Corée du Nord</value>
         <value xml:lang="it">Repubblica Democratica Popolare della Korea</value>
         <value xml:lang="pt">Korea, Democratic People's Republic Of</value>
@@ -4837,6 +5009,7 @@
     <property key="Geo.geoName.PRT">
         <value xml:lang="de">Portugal</value>
         <value xml:lang="en">Portugal</value>
+        <value xml:lang="es">Portugal</value>
         <value xml:lang="fr">Portugal</value>
         <value xml:lang="it">Portogallo</value>
         <value xml:lang="pt">Portugal</value>
@@ -4848,6 +5021,7 @@
     <property key="Geo.geoName.PRY">
         <value xml:lang="de">Paraguay</value>
         <value xml:lang="en">Paraguay</value>
+        <value xml:lang="es">Paraguay</value>
         <value xml:lang="fr">Paraguay</value>
         <value xml:lang="it">Paraguay</value>
         <value xml:lang="pt">Paraguay</value>
@@ -4859,6 +5033,7 @@
     <property key="Geo.geoName.PSE">
         <value xml:lang="de">Palästinensische Autonomiegebiete</value>
         <value xml:lang="en">Palestinian Territory, Occupied</value>
+        <value xml:lang="es">Palestina</value>
         <value xml:lang="fr">Palestine (Territoire occupé)</value>
         <value xml:lang="it">Territori Occupati Palestina</value>
         <value xml:lang="pt">Palestinian Territory, Occupied</value>
@@ -4870,6 +5045,7 @@
     <property key="Geo.geoName.PYF">
         <value xml:lang="de">Französisch-Polynesien</value>
         <value xml:lang="en">French Polynesia</value>
+        <value xml:lang="es">Polinesia Francesa</value>
         <value xml:lang="fr">Polynésie Française</value>
         <value xml:lang="it">Polinesia Francese</value>
         <value xml:lang="pt">French Polynesia</value>
@@ -4881,6 +5057,7 @@
     <property key="Geo.geoName.QAT">
         <value xml:lang="de">Katar</value>
         <value xml:lang="en">Qatar</value>
+        <value xml:lang="es">Qatar</value>
         <value xml:lang="fr">Qatar</value>
         <value xml:lang="it">Qatar</value>
         <value xml:lang="pt">Qatar</value>
@@ -4898,6 +5075,7 @@
     <property key="Geo.geoName.REU">
         <value xml:lang="de">Réunion</value>
         <value xml:lang="en">Reunion</value>
+        <value xml:lang="es">Reunión</value>
         <value xml:lang="fr">Réunion</value>
         <value xml:lang="it">Reunion</value>
         <value xml:lang="pt">Reunion</value>
@@ -4909,6 +5087,7 @@
     <property key="Geo.geoName.ROU">
         <value xml:lang="de">Rumänien</value>
         <value xml:lang="en">Romania</value>
+        <value xml:lang="es">Rumania</value>
         <value xml:lang="fr">Roumanie</value>
         <value xml:lang="it">Romania</value>
         <value xml:lang="pt">Romania</value>
@@ -4920,6 +5099,7 @@
     <property key="Geo.geoName.RUS">
         <value xml:lang="de">Russische Föderation</value>
         <value xml:lang="en">Russian Federation</value>
+        <value xml:lang="es">Rusia</value>
         <value xml:lang="fr">Fédération de Russie</value>
         <value xml:lang="it">Federazione Russa</value>
         <value xml:lang="pt">Russian Federation</value>
@@ -4931,6 +5111,7 @@
     <property key="Geo.geoName.RWA">
         <value xml:lang="de">Ruanda</value>
         <value xml:lang="en">Rwanda</value>
+        <value xml:lang="es">Ruanda</value>
         <value xml:lang="fr">Rwanda</value>
         <value xml:lang="it">Rwanda</value>
         <value xml:lang="pt">Rwanda</value>
@@ -4940,6 +5121,7 @@
         <value xml:lang="zh">卢旺达</value>
     </property>
     <property key="Geo.geoName.SAU">
+        <value xml:lang="es">Arabia Saudí</value>
         <value xml:lang="de">Saudi-Arabien</value>
         <value xml:lang="en">Saudi Arabia</value>
         <value xml:lang="fr">Arabie Saoudite</value>
@@ -4971,6 +5153,7 @@
     <property key="Geo.geoName.SDN">
         <value xml:lang="de">Sudan</value>
         <value xml:lang="en">Sudan</value>
+        <value xml:lang="es">Sudán</value>
         <value xml:lang="fr">Soudan</value>
         <value xml:lang="it">Sudan</value>
         <value xml:lang="pt">Sudan</value>
@@ -4982,6 +5165,7 @@
     <property key="Geo.geoName.SEN">
         <value xml:lang="de">Senegal</value>
         <value xml:lang="en">Senegal</value>
+        <value xml:lang="es">Senegal</value>
         <value xml:lang="fr">Sénégal</value>
         <value xml:lang="it">Senegal</value>
         <value xml:lang="pt">Senegal</value>
@@ -4993,6 +5177,7 @@
     <property key="Geo.geoName.SGP">
         <value xml:lang="de">Singapur</value>
         <value xml:lang="en">Singapore</value>
+        <value xml:lang="es">Singapur</value>
         <value xml:lang="fr">Singapour</value>
         <value xml:lang="it">Singapore</value>
         <value xml:lang="pt">Singapore</value>
@@ -5004,6 +5189,7 @@
     <property key="Geo.geoName.SGS">
         <value xml:lang="de">Südgeorgien und die Südlichen Sandwichinseln</value>
         <value xml:lang="en">South Georgia And The South Sandwich Islands</value>
+        <value xml:lang="es">Islas Georgias del Sur y Sandwich del Sur</value>
         <value xml:lang="fr">Georgie du Sud et îles Sandwich</value>
         <value xml:lang="it">Georgia Sud e Isole Sandwich</value>
         <value xml:lang="pt">South Georgia And The South Sandwich Islands</value>
@@ -5015,6 +5201,7 @@
     <property key="Geo.geoName.SHN">
         <value xml:lang="de">St. Helena</value>
         <value xml:lang="en">St. Helena</value>
+        <value xml:lang="es">Santa Helena</value>
         <value xml:lang="fr">Île de Sainte-Hélène</value>
         <value xml:lang="it">Santa Helena</value>
         <value xml:lang="pt">St. Helena</value>
@@ -5026,6 +5213,7 @@
     <property key="Geo.geoName.SJM">
         <value xml:lang="de">Svalbard und Jan Mayen</value>
         <value xml:lang="en">Svalbard And Jan Mayen Islands</value>
+        <value xml:lang="es">Svalbard y Jan Mayen</value>
         <value xml:lang="fr">Îles Svalbard et Jan Mayen</value>
         <value xml:lang="it">Isole Svalbard e Jan Mayen</value>
         <value xml:lang="pt">Svalbard And Jan Mayen Islands</value>
@@ -5043,6 +5231,7 @@
     <property key="Geo.geoName.SLB">
         <value xml:lang="de">Salomonen</value>
         <value xml:lang="en">Solomon Islands</value>
+        <value xml:lang="es">Islas Salomón</value>
         <value xml:lang="fr">Îles Salomon</value>
         <value xml:lang="it">Isole Solomon</value>
         <value xml:lang="pt">Solomon Islands</value>
@@ -5054,6 +5243,7 @@
     <property key="Geo.geoName.SLE">
         <value xml:lang="de">Sierra Leone</value>
         <value xml:lang="en">Sierra Leone</value>
+        <value xml:lang="es">Sierra Leona</value>
         <value xml:lang="fr">Sierra Leone</value>
         <value xml:lang="it">Sierra Leone</value>
         <value xml:lang="pt">Sierra Leone</value>
@@ -5065,6 +5255,7 @@
     <property key="Geo.geoName.SLV">
         <value xml:lang="de">El Salvador</value>
         <value xml:lang="en">El Salvador</value>
+        <value xml:lang="es">El Salvador</value>
         <value xml:lang="fr">Le Salvador</value>
         <value xml:lang="it">El Salvador</value>
         <value xml:lang="pt">El Salvador</value>
@@ -5076,6 +5267,7 @@
     <property key="Geo.geoName.SMR">
         <value xml:lang="de">San Marino</value>
         <value xml:lang="en">San Marino</value>
+        <value xml:lang="es">San Marino</value>
         <value xml:lang="fr">Saint-Marin</value>
         <value xml:lang="it">San Marino</value>
         <value xml:lang="pt">San Marino</value>
@@ -5087,6 +5279,7 @@
     <property key="Geo.geoName.SOM">
         <value xml:lang="de">Somalia</value>
         <value xml:lang="en">Somalia</value>
+        <value xml:lang="es">Somalia</value>
         <value xml:lang="fr">Somalie</value>
         <value xml:lang="it">Somalia</value>
         <value xml:lang="pt">Somalia</value>
@@ -5098,6 +5291,7 @@
     <property key="Geo.geoName.SPM">
         <value xml:lang="de">Saint-Pierre und Miquelon</value>
         <value xml:lang="en">St. Pierre And Miquelon</value>
+        <value xml:lang="es">San Pedro y Miquelón</value>
         <value xml:lang="fr">Saints Pierre et Miquelon</value>
         <value xml:lang="it">St. Pierre e Miquelon</value>
         <value xml:lang="pt">St. Pierre And Miquelon</value>
@@ -5109,6 +5303,7 @@
     <property key="Geo.geoName.STP">
         <value xml:lang="de">Sao Tome und Principe</value>
         <value xml:lang="en">Sao Tome And Principe</value>
+        <value xml:lang="es">Santo Tomé y Príncipe</value>
         <value xml:lang="fr">Sao Tomé et Principe</value>
         <value xml:lang="it">Sao Tome e Principe</value>
         <value xml:lang="pt">Sao Tome And Principe</value>
@@ -5120,6 +5315,7 @@
     <property key="Geo.geoName.SUR">
         <value xml:lang="de">Suriname</value>
         <value xml:lang="en">Suriname</value>
+        <value xml:lang="es">Surinam</value>
         <value xml:lang="fr">Surinam</value>
         <value xml:lang="it">Suriname</value>
         <value xml:lang="pt">Suriname</value>
@@ -5131,6 +5327,7 @@
     <property key="Geo.geoName.SVK">
         <value xml:lang="de">Slovakei</value>
         <value xml:lang="en">Slovakia (slovak Republic)</value>
+        <value xml:lang="es">Eslovaquia</value>
         <value xml:lang="fr">Slovaquie (République slovaque</value>
         <value xml:lang="it">Repubblica Slovacca</value>
         <value xml:lang="pt">Slovakia (slovak Republic)</value>
@@ -5142,6 +5339,7 @@
     <property key="Geo.geoName.SVN">
         <value xml:lang="de">Slowenien</value>
         <value xml:lang="en">Slovenia</value>
+        <value xml:lang="es">Eslovenia</value>
         <value xml:lang="fr">Slovénie</value>
         <value xml:lang="it">Slovenia</value>
         <value xml:lang="pt">Slovenia</value>
@@ -5153,6 +5351,7 @@
     <property key="Geo.geoName.SWE">
         <value xml:lang="de">Schweden</value>
         <value xml:lang="en">Sweden</value>
+        <value xml:lang="es">Suecia</value>
         <value xml:lang="fr">Suède</value>
         <value xml:lang="it">Svezia</value>
         <value xml:lang="pt">Sweden</value>
@@ -5164,6 +5363,7 @@
     <property key="Geo.geoName.SWZ">
         <value xml:lang="de">Swasiland</value>
         <value xml:lang="en">Swaziland</value>
+        <value xml:lang="es">Suazilandia</value>
         <value xml:lang="fr">Swaziland</value>
         <value xml:lang="it">Swaziland</value>
         <value xml:lang="pt">Swaziland</value>
@@ -5175,6 +5375,7 @@
     <property key="Geo.geoName.SYC">
         <value xml:lang="de">Seychellen</value>
         <value xml:lang="en">Seychelles</value>
+        <value xml:lang="es">Seychelles</value>
         <value xml:lang="fr">Seychelles</value>
         <value xml:lang="it">Seychelles</value>
         <value xml:lang="pt">Seychelles</value>
@@ -5186,6 +5387,7 @@
     <property key="Geo.geoName.SYR">
         <value xml:lang="de">Syrien, Arabische Republik</value>
         <value xml:lang="en">Syrian Arab Republic</value>
+        <value xml:lang="es">Siria</value>
         <value xml:lang="fr">République Arabe Syrienne</value>
         <value xml:lang="it">Repubblica Araba della Siria</value>
         <value xml:lang="pt">Syrian Arab Republic</value>
@@ -5197,6 +5399,7 @@
     <property key="Geo.geoName.TCA">
         <value xml:lang="de">Turks- und Caicosinseln</value>
         <value xml:lang="en">Turks And Caicos Islands</value>
+        <value xml:lang="es">Islas Turcas y Caicos</value>
         <value xml:lang="fr">Îles Turques et Caïques</value>
         <value xml:lang="it">Isole Turks e Caicos</value>
         <value xml:lang="pt">Turks And Caicos Islands</value>
@@ -5208,6 +5411,7 @@
     <property key="Geo.geoName.TCD">
         <value xml:lang="de">Tschad</value>
         <value xml:lang="en">Chad</value>
+        <value xml:lang="es">Chad</value>
         <value xml:lang="fr">Tchad</value>
         <value xml:lang="it">Chad</value>
         <value xml:lang="pt">Chad</value>
@@ -5219,6 +5423,7 @@
     <property key="Geo.geoName.TGO">
         <value xml:lang="de">Togo</value>
         <value xml:lang="en">Togo</value>
+        <value xml:lang="es">Togo</value>
         <value xml:lang="fr">Togo</value>
         <value xml:lang="it">Togo</value>
         <value xml:lang="pt">Togo</value>
@@ -5230,6 +5435,7 @@
     <property key="Geo.geoName.THA">
         <value xml:lang="de">Thailand</value>
         <value xml:lang="en">Thailand</value>
+        <value xml:lang="es">Tailandia</value>
         <value xml:lang="fr">Thaïlande</value>
         <value xml:lang="it">Tailandia</value>
         <value xml:lang="pt">Thailand</value>
@@ -5241,6 +5447,7 @@
     <property key="Geo.geoName.TJK">
         <value xml:lang="de">Tadschikistan</value>
         <value xml:lang="en">Tajikistan</value>
+        <value xml:lang="es">Tayikistán</value>
         <value xml:lang="fr">Tajikistan</value>
         <value xml:lang="it">Tajikistan</value>
         <value xml:lang="pt">Tajikistan</value>
@@ -5252,6 +5459,7 @@
     <property key="Geo.geoName.TKL">
         <value xml:lang="de">Tokelau</value>
         <value xml:lang="en">Tokelau</value>
+        <value xml:lang="es">Tokelau</value>
         <value xml:lang="fr">Tokelau</value>
         <value xml:lang="it">Tokelau</value>
         <value xml:lang="pt">Tokelau</value>
@@ -5263,6 +5471,7 @@
     <property key="Geo.geoName.TKM">
         <value xml:lang="de">Turkmenistan</value>
         <value xml:lang="en">Turkmenistan</value>
+        <value xml:lang="es">Turkmenistán</value>
         <value xml:lang="fr">Turkmenistan</value>
         <value xml:lang="it">Turkmenistan</value>
         <value xml:lang="pt">Turkmenistan</value>
@@ -5274,6 +5483,7 @@
     <property key="Geo.geoName.TLS">
         <value xml:lang="de">Osttimor</value>
         <value xml:lang="en">East Timor</value>
+        <value xml:lang="es">Timor Oriental</value>
         <value xml:lang="fr">Timor-Est</value>
         <value xml:lang="it">Timor Est</value>
         <value xml:lang="pt">East Timor</value>
@@ -5285,6 +5495,7 @@
     <property key="Geo.geoName.TON">
         <value xml:lang="de">Tonga</value>
         <value xml:lang="en">Tonga</value>
+        <value xml:lang="es">Tonga</value>
         <value xml:lang="fr">Tonga</value>
         <value xml:lang="it">Tonga</value>
         <value xml:lang="pt">Tonga</value>
@@ -5296,6 +5507,7 @@
     <property key="Geo.geoName.TTO">
         <value xml:lang="de">Trinidad und Tobago</value>
         <value xml:lang="en">Trinidad And Tobago</value>
+        <value xml:lang="es">Trinidad y Tobago</value>
         <value xml:lang="fr">Trinité et Tobago</value>
         <value xml:lang="it">Trinidad e Tobago</value>
         <value xml:lang="pt">Trinidad And Tobago</value>
@@ -5307,6 +5519,7 @@
     <property key="Geo.geoName.TUN">
         <value xml:lang="de">Tunesien</value>
         <value xml:lang="en">Tunisia</value>
+        <value xml:lang="es">Túnez</value>
         <value xml:lang="fr">Tunisie</value>
         <value xml:lang="it">Tunisia</value>
         <value xml:lang="pt">Tunisia</value>
@@ -5318,6 +5531,7 @@
     <property key="Geo.geoName.TUR">
         <value xml:lang="de">Türkei</value>
         <value xml:lang="en">Turkey</value>
+        <value xml:lang="es">Turquía</value>
         <value xml:lang="fr">Turkie</value>
         <value xml:lang="it">Turchia</value>
         <value xml:lang="pt">Turkey</value>
@@ -5329,6 +5543,7 @@
     <property key="Geo.geoName.TUV">
         <value xml:lang="de">Tuvalu</value>
         <value xml:lang="en">Tuvalu</value>
+        <value xml:lang="es">Tuvalu</value>
         <value xml:lang="fr">Tuvalu</value>
         <value xml:lang="it">Tuvalu</value>
         <value xml:lang="pt">Tuvalu</value>
@@ -5340,6 +5555,7 @@
     <property key="Geo.geoName.TWN">
         <value xml:lang="de">Taiwan (Republik China)</value>
         <value xml:lang="en">Taiwan, Province Of China</value>
+        <value xml:lang="es">Taiwán</value>
         <value xml:lang="fr">Taïwan, Province de Chine</value>
         <value xml:lang="it">Taiwan, Provincia della Cina</value>
         <value xml:lang="pt">Taiwan, Province Of China</value>
@@ -5351,6 +5567,7 @@
     <property key="Geo.geoName.TZA">
         <value xml:lang="de">Tansania, Vereinigte Republik</value>
         <value xml:lang="en">Tanzania, United Republic Of</value>
+        <value xml:lang="es">Tanzania</value>
         <value xml:lang="fr">Tanzanie, République unie de </value>
         <value xml:lang="it">Repubblica Unita Della Tanzania</value>
         <value xml:lang="pt">Tanzania, United Republic Of</value>
@@ -5362,6 +5579,7 @@
     <property key="Geo.geoName.UGA">
         <value xml:lang="de">Uganda</value>
         <value xml:lang="en">Uganda</value>
+        <value xml:lang="es">Uganda</value>
         <value xml:lang="fr">Ouganda</value>
         <value xml:lang="it">Uganda</value>
         <value xml:lang="pt">Uganda</value>
@@ -5373,6 +5591,7 @@
     <property key="Geo.geoName.UKR">
         <value xml:lang="de">Ukraine</value>
         <value xml:lang="en">Ukraine</value>
+        <value xml:lang="es">Ucrania</value>
         <value xml:lang="fr">Ukraine</value>
         <value xml:lang="it">Ucraina</value>
         <value xml:lang="pt">Ukraine</value>
@@ -5384,6 +5603,7 @@
     <property key="Geo.geoName.UMI">
         <value xml:lang="de">United States Minor Outlying Islands</value>
         <value xml:lang="en">United States Minor Outlying Islands</value>
+        <value xml:lang="es">Islas ultramarinas de Estados Unidos</value>
         <value xml:lang="fr">Îles périphériques mineures des Etats-Unis</value>
         <value xml:lang="it">Isole Minori Stati Uniti</value>
         <value xml:lang="pt">United States Minor Outlying Islands</value>
@@ -5395,6 +5615,7 @@
     <property key="Geo.geoName.URY">
         <value xml:lang="de">Uruguay</value>
         <value xml:lang="en">Uruguay</value>
+        <value xml:lang="es">Uruguay</value>
         <value xml:lang="fr">Uruguay</value>
         <value xml:lang="it">Uruguay</value>
         <value xml:lang="pt">Uruguay</value>
@@ -5406,6 +5627,7 @@
     <property key="Geo.geoName.USA">
         <value xml:lang="de">Vereinigte Staaten von Amerika</value>
         <value xml:lang="en">United States</value>
+        <value xml:lang="es">Estados Unidos</value>
         <value xml:lang="fr">Etats-Unis</value>
         <value xml:lang="it">Stati Uniti d'America</value>
         <value xml:lang="pt">United States</value>
@@ -5417,6 +5639,7 @@
     <property key="Geo.geoName.UZB">
         <value xml:lang="de">Usbekistan</value>
         <value xml:lang="en">Uzbekistan</value>
+        <value xml:lang="es">Uzbekistán</value>
         <value xml:lang="fr">Uzbekistan</value>
         <value xml:lang="it">Uzbekistan</value>
         <value xml:lang="pt">Uzbekistan</value>
@@ -5428,6 +5651,7 @@
     <property key="Geo.geoName.VAT">
         <value xml:lang="de">Vatikanstadt</value>
         <value xml:lang="en">Holy See (vatican City State)</value>
+        <value xml:lang="es">Ciudad del Vaticano</value>
         <value xml:lang="fr">Saint-Siège (Etat Ville du Vatican)</value>
         <value xml:lang="it">Città del Vaticano</value>
         <value xml:lang="pt">Holy See (vatican City State)</value>
@@ -5439,6 +5663,7 @@
     <property key="Geo.geoName.VCT">
         <value xml:lang="de">St. Vincent und die Grenadinen</value>
         <value xml:lang="en">Saint Vincent And The Grenadines</value>
+        <value xml:lang="es">San Vicente y las Granadinas</value>
         <value xml:lang="fr">Saint-Vincent et les Grenadines</value>
         <value xml:lang="it">Saint Vincent e The Grenadines</value>
         <value xml:lang="pt">Saint Vincent And The Grenadines</value>
@@ -5450,6 +5675,7 @@
     <property key="Geo.geoName.VEN">
         <value xml:lang="de">Venezuela</value>
         <value xml:lang="en">Venezuela</value>
+        <value xml:lang="es">Venezuela</value>
         <value xml:lang="fr">Vénézuela</value>
         <value xml:lang="it">Venezuela</value>
         <value xml:lang="pt">Venezuela</value>
@@ -5461,6 +5687,7 @@
     <property key="Geo.geoName.VGB">
         <value xml:lang="de">Britische Jungferninseln</value>
         <value xml:lang="en">Virgin Islands (british)</value>
+        <value xml:lang="es">Islas Vírgenes Británicas</value>
         <value xml:lang="fr">Îles Vierges (britaniques)</value>
         <value xml:lang="it">Isole Vergini (inglesi)</value>
         <value xml:lang="pt">Virgin Islands (british)</value>
@@ -5472,6 +5699,7 @@
     <property key="Geo.geoName.VIR">
         <value xml:lang="de">Amerikanische Jungferninseln</value>
         <value xml:lang="en">Virgin Islands (u.s.)</value>
+        <value xml:lang="es">Islas Vírgenes de los Estados Unidos</value>
         <value xml:lang="fr">Îles Vierges (américaines)</value>
         <value xml:lang="it">Isole Vergini (americane)</value>
         <value xml:lang="pt">Virgin Islands (u.s.)</value>
@@ -5483,6 +5711,7 @@
     <property key="Geo.geoName.VNM">
         <value xml:lang="de">Vietnam</value>
         <value xml:lang="en">Viet Nam</value>
+        <value xml:lang="es">Vietnam</value>
         <value xml:lang="fr">Vietnam</value>
         <value xml:lang="it">Vietnam</value>
         <value xml:lang="pt">Viet Nam</value>
@@ -5494,6 +5723,7 @@
     <property key="Geo.geoName.VUT">
         <value xml:lang="de">Vanuatu</value>
         <value xml:lang="en">Vanuatu</value>
+        <value xml:lang="es">Vanuatu</value>
         <value xml:lang="fr">Vanuatu</value>
         <value xml:lang="it">Vanuatu</value>
         <value xml:lang="pt">Vanuatu</value>
@@ -5523,6 +5753,7 @@
     <property key="Geo.geoName.WLF">
         <value xml:lang="de">Wallis und Futuna</value>
         <value xml:lang="en">Wallis And Futuna Islands</value>
+        <value xml:lang="es">Wallis y Futuna</value>
         <value xml:lang="fr">Îles Wallis et Futuna</value>
         <value xml:lang="it">Isole Wallis e Futuna</value>
         <value xml:lang="pt">Wallis And Futuna Islands</value>
@@ -5534,6 +5765,7 @@
     <property key="Geo.geoName.WSM">
         <value xml:lang="de">Samoa</value>
         <value xml:lang="en">Samoa</value>
+        <value xml:lang="es">Samoa</value>
         <value xml:lang="fr">Samoa</value>
         <value xml:lang="it">Samoa</value>
         <value xml:lang="pt">Samoa</value>
@@ -5545,6 +5777,7 @@
     <property key="Geo.geoName.YEM">
         <value xml:lang="de">Jemen</value>
         <value xml:lang="en">Yemen</value>
+        <value xml:lang="es">Yemen</value>
         <value xml:lang="fr">Yémen</value>
         <value xml:lang="it">Yemen</value>
         <value xml:lang="pt">Yemen</value>
@@ -5599,7 +5832,7 @@
     <property key="Geo.geoName.ZWE">
         <value xml:lang="de">Simbabwe</value>
         <value xml:lang="en">Zimbabwe</value>
-        <value xml:lang="es">Zimbabwe</value>
+        <value xml:lang="es">Zimbabue</value>
         <value xml:lang="fr">Zimbabwe</value>
         <value xml:lang="it">Zimbabwe</value>
         <value xml:lang="pt">Zimbabwe</value>
