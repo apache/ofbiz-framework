@@ -201,11 +201,20 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <label style="h3">${uiLabelMap.CommonView} </label>
-                            <link target="FindFacilityTransfers?facilityId=${facilityId}&amp;activeOnly=true" text="${uiLabelMap.ProductActiveOnly}" style="buttontext"/>
-                            <link target="FindFacilityTransfers?facilityId=${facilityId}&amp;activeOnly=false" text="${uiLabelMap.CommonAll}" style="buttontext"/>
+                            <link target="FindFacilityTransfers" text="${uiLabelMap.ProductActiveOnly}" style="buttontext">
+                                <parameter param-name="facilityId" from-field="facilityId"/>
+                                <parameter param-name="activeOnly" value="true"/>
+                            </link>
+                            <link target="FindFacilityTransfers" text="${uiLabelMap.CommonAll}" style="buttontext">
+                                <parameter param-name="facilityId" from-field="facilityId"/>
+                                <parameter param-name="activeOnly" value="false"/>
+                            </link>
                         </container>
                         <container>
-                            <link target="FindFacilityTransfers?facilityId=${facilityId}&amp;completeRequested=true" text="${uiLabelMap.ProductCompleteRequestedTransfers}" style="buttontext"/>
+                            <link target="FindFacilityTransfers" text="${uiLabelMap.ProductCompleteRequestedTransfers}" style="buttontext">
+                                <parameter param-name="facilityId" from-field="facilityId"/>
+                                <parameter param-name="completeRequested" value="true"/>
+                            </link>
                             <link target="TransferInventoryItem?facilityId=${facilityId}" text="${uiLabelMap.ProductInventoryTransfer}" style="buttontext"/>
                         </container>
                         <container style="screenlet">
@@ -412,9 +421,18 @@ under the License.
                                     <!--<link target="ViewFacilityInventoryByProductSimple?facilityId=${facilityId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>-->
                                     <link target="ViewFacilityInventoryByProductReport?${searchParameterString}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
                                     <link target="ViewFacilityInventoryByProductExport?${searchParameterString}" text="${uiLabelMap.CommonExport}" style="buttontext"/>
-                                    <link target="InventoryItemTotals?facilityId=${facilityId}&amp;action=Y" text="${uiLabelMap.ProductInventoryItemTotals}" style="buttontext"/>
-                                    <link target="InventoryItemGrandTotals?facilityId=${facilityId}&amp;action=Y" text="${uiLabelMap.ProductInventoryItemGrandTotals}" style="buttontext"/>
-                                    <link target="InventoryItemTotalsExport.csv?facilityId=${facilityId}&amp;action=Y" text="${uiLabelMap.ProductInventoryItemTotalsExport}" style="buttontext"/>
+                                    <link target="InventoryItemTotals" text="${uiLabelMap.ProductInventoryItemTotals}" style="buttontext">
+                                        <parameter param-name="facilityId" from-field="facilityId"/>
+                                        <parameter param-name="action" value="Y"/>
+                                    </link>
+                                    <link target="InventoryItemGrandTotals" text="${uiLabelMap.ProductInventoryItemGrandTotals}" style="buttontext">
+                                        <parameter param-name="facilityId" from-field="facilityId"/>
+                                        <parameter param-name="action" value="Y"/>
+                                    </link>
+                                    <link target="InventoryItemTotalsExport.csv" text="${uiLabelMap.ProductInventoryItemTotalsExport}" style="buttontext">
+                                        <parameter param-name="facilityId" from-field="facilityId"/>
+                                        <parameter param-name="action" value="Y"/>
+                                    </link>
                                     <link target="InventoryAverageCosts?facilityId=${facilityId}" text="${uiLabelMap.ProductInventoryAverageCosts}" style="buttontext"/>                                    
                                 </container>
                             </decorator-section>

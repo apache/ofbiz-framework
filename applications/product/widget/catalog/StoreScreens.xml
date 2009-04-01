@@ -142,14 +142,31 @@ under the License.
                         <container>
                             <label style="h3">${uiLabelMap.CommonView}</label>
                             <link target="EditProductStorePromos?productStoreId=${productStoreId}" text="${uiLabelMap.CommonAll}" style="buttontext"/>
-                            <link target="EditProductStorePromos?productStoreId=${productStoreId}&amp;userEntered=Y" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext"/>
-                            <link target="EditProductStorePromos?productStoreId=${productStoreId}&amp;userEntered=N" text="${uiLabelMap.ProductPromotionImported}" style="buttontext"/>
+                            <link target="EditProductStorePromos" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext">
+                                        <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                        <parameter param-name="userEntered" value="Y"/>
+                                    </link>
+                            <link target="EditProductStorePromos" text="${uiLabelMap.ProductPromotionImported}" style="buttontext">
+                                        <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                        <parameter param-name="userEntered" value="N"/>
+                                    </link>
                         </container>
                         <container>
                             <label style="h3">${uiLabelMap.CommonView} ${uiLabelMap.CommonActiveInactive}</label>
-                            <link target="EditProductStorePromos?productStoreId=${productStoreId}&amp;activeOnly=N" text="${uiLabelMap.CommonAll}" style="buttontext"/>
-                            <link target="EditProductStorePromos?productStoreId=${productStoreId}&amp;activeOnly=N&amp;userEntered=Y" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext"/>
-                            <link target="EditProductStorePromos?productStoreId=${productStoreId}&amp;activeOnly=N&amp;userEntered=N" text="${uiLabelMap.ProductPromotionImported}" style="buttontext"/>
+                            <link target="EditProductStorePromos" text="${uiLabelMap.CommonAll}" style="buttontext">
+                                        <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                        <parameter param-name="activeOnly" value="N"/>
+                                    </link>
+                            <link target="EditProductStorePromos" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext">
+                                        <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                        <parameter param-name="activeOnly" value="N"/>
+                                        <parameter param-name="userEntered" value="Y"/>
+                                    </link>
+                            <link target="EditProductStorePromos" text="${uiLabelMap.ProductPromotionImported}" style="buttontext">
+                                        <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                        <parameter param-name="activeOnly" value="N"/>
+                                        <parameter param-name="userEntered" value="N"/>
+                                    </link>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
