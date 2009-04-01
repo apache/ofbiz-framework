@@ -253,8 +253,16 @@ under the License.
                                             </container>
                                         </container>
                                         <container style="screenlet-body">
-                                            <link text="${uiLabelMap.AccountingDuplicateAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries?revert=N&amp;fromAcctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
-                                            <link text="${uiLabelMap.AccountingRevertAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries?revert=Y&amp;fromAcctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
+                                            <link text="${uiLabelMap.AccountingDuplicateAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries">
+                                                <parameter param-name="revert" value="N"/>
+                                                <parameter param-name="fromAcctgTransId" from-field="acctgTransId"/>
+                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                            </link>
+                                            <link text="${uiLabelMap.AccountingRevertAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries">
+                                                <parameter param-name="revert" value="Y"/>
+                                                <parameter param-name="fromAcctgTransId" from-field="acctgTransId"/>
+                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                            </link>
                                             <section>
                                                 <condition>
                                                     <if-compare field="acctgTrans.isPosted" operator="equals" value="Y"/>
@@ -314,9 +322,15 @@ under the License.
                                         </container>
                                         <container style="screenlet-body">
                                             <container>
-                                                <link text="${uiLabelMap.AccountingCompleteAcctgTransFields}" style="buttontext" target="completeAcctgTransEntries?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
+                                                <link text="${uiLabelMap.AccountingCompleteAcctgTransFields}" style="buttontext" target="completeAcctgTransEntries">
+                                                    <parameter param-name="acctgTransId" from-field="acctgTransId"/>
+                                                    <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                                </link>
                                                 <link text="${uiLabelMap.AccountingVerifyTransaction}" style="buttontext" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}&amp;verifyOnly=Y"/>
-                                                <link text="${uiLabelMap.AccountingPostTransaction}" style="buttontext" target="postAcctgTrans?acctgTransId=${acctgTransId}&amp;organizationPartyId=${organizationPartyId}"/>
+                                                <link text="${uiLabelMap.AccountingPostTransaction}" style="buttontext" target="postAcctgTrans">
+                                                    <parameter param-name="acctgTransId" from-field="acctgTransId"/>
+                                                    <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                                </link>
                                             </container>
                                             <container>
                                                 <include-form name="EditAcctgTransEntry" location="component://accounting/widget/GlForms.xml"/>

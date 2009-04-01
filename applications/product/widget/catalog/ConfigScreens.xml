@@ -194,13 +194,19 @@ under the License.
                     </condition>
                     <widgets>
                         <screenlet title="${uiLabelMap.CommonEdit} ${uiLabelMap.ProductConfigs}">
-                            <link style="buttontext" text="${uiLabelMap.CommonNew} ${uiLabelMap.ProductConfigs}" target="EditProductConfigOptions?configItemId=${configItemId}&amp;configOptionId=${configOptionId}"/>
+                            <link style="buttontext" text="${uiLabelMap.CommonNew} ${uiLabelMap.ProductConfigs}" target="EditProductConfigOptions">
+                                <parameter param-name="configItemId" from-field="configItemId"/>
+                                <parameter param-name="configOptionId" from-field="configOptionId"/>
+                            </link>
                             <include-form name="CreateProductConfigProduct" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
                         </screenlet>
                     </widgets>
                     <fail-widgets>
                         <screenlet title="${uiLabelMap.CommonAddA} ${uiLabelMap.ProductConfigs}">
-                            <link style="buttontext" text="${uiLabelMap.CommonNew} ${uiLabelMap.ProductConfigs}" target="EditProductConfigOptions?configItemId=${configItemId}&amp;configOptionId=${configOptionId}"/>
+                            <link style="buttontext" text="${uiLabelMap.CommonNew} ${uiLabelMap.ProductConfigs}" target="EditProductConfigOptions">
+                                <parameter param-name="configItemId" from-field="configItemId"/>
+                                <parameter param-name="configOptionId" from-field="configOptionId"/>
+                            </link>
                             <include-form name="CreateProductConfigProduct" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
                         </screenlet>
                     </fail-widgets>
