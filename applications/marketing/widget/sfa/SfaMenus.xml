@@ -52,16 +52,28 @@ under the License.
     
     <menu name="LeadTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
-            <link target="viewprofile?partyId=${parameters.partyId}&amp;partyGroupId=${parameters.partyGroupId}"/>
+            <link target="viewprofile">
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="partyGroupId" from-field="parameters.partyGroupId"/>
+            </link>
         </menu-item>
         <menu-item name="ConvertLead" title="${uiLabelMap.SfaConvertLead}">
-            <link target="ConvertLead?partyId=${parameters.partyId}&amp;partyGroupId=${parameters.partyGroupId}"/>
+            <link target="ConvertLead">
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="partyGroupId" from-field="parameters.partyGroupId"/>
+            </link>
         </menu-item>
         <menu-item name="CloneLead" title="${uiLabelMap.SfaCloneLead}">
-            <link target="CloneLead?partyId=${parameters.partyId}&amp;partyGroupId=${parameters.partyGroupId}"/>
+            <link target="CloneLead">
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="partyGroupId" from-field="parameters.partyGroupId"/>
+            </link>
         </menu-item>
         <menu-item name="MergeLeads" title="${uiLabelMap.SfaMergeLeads}">
-            <link target="MergeLeads?partyId=${parameters.partyId}&amp;partyGroupId=${parameters.partyGroupId}"/>
+            <link target="MergeLeads">
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="partyGroupId" from-field="parameters.partyGroupId"/>
+            </link>
         </menu-item>      
     </menu>
     

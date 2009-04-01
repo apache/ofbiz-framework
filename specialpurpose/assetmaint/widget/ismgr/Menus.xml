@@ -55,7 +55,10 @@ under the License.
             <link target="EditComputerHardware?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
         <menu-item name="ListHardwareAccessories" title="${uiLabelMap.IsMgrHardwareAccessories}">
-            <link target="ListHardwareAccessories?fixedAssetId=${fixedAssetId}&amp;trail=${fixedAssetId}"/>
+            <link target="ListHardwareAccessories">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="trail" from-field="fixedAssetId"/>
+            </link>
         </menu-item>
         <menu-item name="ListInstalledSoftware" title="${uiLabelMap.IsMgrInstalledSoftware}">
             <link target="ListInstalledSoftware?fixedAssetId=${fixedAssetId}"/>

@@ -31,7 +31,10 @@
     <menu name="FixedAssetTabBar" extends="FixedAssetTabBar" extends-resource="component://accounting/widget/Menus.xml">
         <menu-item name="EditProductMaints" title="${uiLabelMap.AssetMaintProductMaint}">
             <condition><not><if-empty field="fixedAsset.instanceOfProductId"/></not></condition>
-            <link target="EditProductMaints?fixedAssetId=${fixedAsset.fixedAssetId}&amp;productId=${fixedAsset.instanceOfProductId}"/>
+            <link target="EditProductMaints">
+                <parameter param-name="fixedAssetId" from-field="fixedAsset.fixedAssetId"/>
+                <parameter param-name="productId" from-field="fixedAsset.instanceOfProductId"/>
+            </link>
         </menu-item>
     </menu>
 
@@ -58,7 +61,10 @@
             </link>
         </menu-item>
         <menu-item name="EditItemIssuances" title="${uiLabelMap.AssetMaintItemIssuance}">
-            <link target="EditItemIssuances?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
+            <link target="EditItemIssuances">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
+            </link>
         </menu-item>
     </menu>  
     

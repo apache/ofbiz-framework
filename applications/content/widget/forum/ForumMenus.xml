@@ -31,7 +31,17 @@ under the License.
     <menu name="ForumMessagesTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="forumGroups" title="${uiLabelMap.FormFieldTitle_forumGroups}"><link target="findForumGroups"/></menu-item>
         <menu-item name="forums" title="${uiLabelMap.FormFieldTitle_forums}"><link target="findForums?forumGroupId=${parameters.forumGroupId}"/></menu-item>
-        <menu-item name="messageList" title="${uiLabelMap.FormFieldTitle_messageList}"><link target="findForumMessages?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}"/></menu-item>
-        <menu-item name="messageThread" title="${uiLabelMap.FormFieldTitle_messageThread}"><link target="findForumThreads?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}"/></menu-item>
+        <menu-item name="messageList" title="${uiLabelMap.FormFieldTitle_messageList}">
+            <link target="findForumMessages">
+                <parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
+                <parameter param-name="forumId" from-field="parameters.forumId"/>
+            </link>
+        </menu-item>
+        <menu-item name="messageThread" title="${uiLabelMap.FormFieldTitle_messageThread}">
+            <link target="findForumThreads">
+                <parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
+                <parameter param-name="forumId" from-field="parameters.forumId"/>
+            </link>
+        </menu-item>
     </menu>
 </menus>

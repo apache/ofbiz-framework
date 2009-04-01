@@ -543,7 +543,10 @@ under the License.
                                                         <parameter param-name="contentId" from-field="rootContentId"/>
                                                         <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
                                                     </link>
-                                                    <link target="ViewInstances?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+                                                    <link target="ViewInstances">
+                                        <parameter param-name="rootContentId" from-field="rootContentId"/>
+                                        <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+                                    </link>
                                                 </container>
                                                 <include-form name="EditRootCompDocTemplate" location="component://content/widget/compdoc/CompDocForms.xml"/>
                                             </widgets>
@@ -1197,7 +1200,10 @@ under the License.
                             </and>
                         </condition>
                         <widgets>
-                            <link text="${uiLabelMap.ContentCompDocStartApprovalProcess}" target="prepForApproval?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}" style="buttontext"/>
+                            <link text="${uiLabelMap.ContentCompDocStartApprovalProcess}" target="prepForApproval" style="buttontext">
+                                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                                <parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+                            </link>
                         </widgets>
                     </section>
                 </container>

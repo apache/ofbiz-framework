@@ -23,23 +23,41 @@ under the License.
           default-menu-item-name="EditTaxAuthority">
                 
         <menu-item name="EditTaxAuthority" title="${uiLabelMap.AccountingTaxAuthority}">
-            <link target="EditTaxAuthority?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}"/>
+            <link target="EditTaxAuthority">
+                <parameter param-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+            </link>
         </menu-item>
 
         <menu-item name="EditTaxAuthorityCategories" title="${uiLabelMap.ProductCategories}">
-            <link target="EditTaxAuthorityCategories?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}"/>
+            <link target="EditTaxAuthorityCategories">
+                <parameter param-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+            </link>
         </menu-item>
         <menu-item name="EditTaxAuthorityAssocs" title="${uiLabelMap.CommonAssocs}">
-            <link target="EditTaxAuthorityAssocs?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}"/>
+            <link target="EditTaxAuthorityAssocs">
+                <parameter param-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+            </link>
         </menu-item>
         <menu-item name="EditTaxAuthorityGlAccounts" title="${uiLabelMap.AccountingGlAccs}">
-            <link target="EditTaxAuthorityGlAccounts?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}"/>
+            <link target="EditTaxAuthorityGlAccounts">
+                <parameter param-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+            </link>
         </menu-item>
         <menu-item name="EditTaxAuthorityRateProducts" title="${uiLabelMap.AccountingProductRates}">
-            <link target="EditTaxAuthorityRateProducts?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}"/>
+            <link target="EditTaxAuthorityRateProducts">
+                <parameter param-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+            </link>
         </menu-item>
         <menu-item name="ListTaxAuthorityParties" title="${uiLabelMap.PartyParties}">
-            <link target="ListTaxAuthorityParties?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}"/>
+            <link target="ListTaxAuthorityParties">
+                <parameter param-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+            </link>
         </menu-item>
     </menu>
 </menus>

@@ -148,7 +148,10 @@ under the License.
                     <if-compare-field field="invoice.currencyUomId" operator="not-equals" to-field="defaultOrganizationPartyCurrencyUomId"/>
                 </and>
             </condition>
-            <link target="invoice.pdf?invoiceId=${invoice.invoiceId}&amp;currency=${defaultOrganizationPartyCurrencyUomId}" target-window="_BLANK"/>
+            <link target="invoice.pdf" target-window="_BLANK">
+                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
+                <parameter param-name="currency" from-field="defaultOrganizationPartyCurrencyUomId"/>
+            </link>
         </menu-item>
         <menu-item name="statusToApproved" title="${uiLabelMap.AccountingInvoiceStatusToApproved}">
             <condition>
@@ -263,7 +266,10 @@ under the License.
                    </or>
                 </and>
             </condition>
-            <link target="copyInvoiceToTemplate?invoiceId=${invoice.invoiceId}&amp;invoiceTypeId=${invoice.invoiceTypeId}"/>
+            <link target="copyInvoiceToTemplate">
+                <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
+                <parameter param-name="invoiceTypeId" from-field="invoice.invoiceTypeId"/>
+            </link>
         </menu-item>
     </menu>
 
@@ -375,7 +381,10 @@ under the License.
     <menu name="FixedAssetMaintTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           selected-menuitem-context-field-name="tabButtonItemFixedAssetMaint" default-menu-item-name="EditFixedAssetMaint">
         <menu-item name="EditFixedAssetMaint" title="${uiLabelMap.AccountingFixedAssetMaint}">
-            <link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
+            <link target="EditFixedAssetMaint">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="EditFixedAssetMeters" title="${uiLabelMap.AccountingFixedAssetMeters}">
             <link target="EditFixedAssetMeters">
@@ -385,7 +394,10 @@ under the License.
             </link>
         </menu-item>
         <menu-item name="EditFixedAssetMaintOrders" title="${uiLabelMap.AccountingFixedAssetMaintOrders}">
-            <link target="EditFixedAssetMaintOrders?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
+            <link target="EditFixedAssetMaintOrders">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
+            </link>
         </menu-item>
     </menu>
 
@@ -395,7 +407,10 @@ under the License.
             <link target="EditFixedAsset?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
         <menu-item name="FixedAssetChildren" title="${uiLabelMap.CommonEntityChildren}">
-            <link target="FixedAssetChildren?fixedAssetId=${fixedAssetId}&amp;trail=${fixedAssetId}"/>
+            <link target="FixedAssetChildren">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="trail" from-field="fixedAssetId"/>
+            </link>
         </menu-item>
         <menu-item name="ListFixedAssetProducts" title="${uiLabelMap.AccountingFixedAssetProducts}">
             <link target="ListFixedAssetProducts?fixedAssetId=${fixedAssetId}"/>
@@ -632,34 +647,55 @@ under the License.
     <menu name="AgreementItemTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           selected-menuitem-context-field-name="buttonBarItem">
         <menu-item name="EditAgreementItem" title="${uiLabelMap.AccountingAgreementItem}">
-            <link target="EditAgreementItem?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
+            <link target="EditAgreementItem">
+                <parameter param-name="agreementId" from-field="agreementItem.agreementId"/>
+                <parameter param-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="ListAgreementPromoAppls" title="${uiLabelMap.AccountingAgreementPromoAppls}">
-            <link target="ListAgreementPromoAppls?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
+            <link target="ListAgreementPromoAppls">
+                <parameter param-name="agreementId" from-field="agreementItem.agreementId"/>
+                <parameter param-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="ListAgreementItemTerms" title="${uiLabelMap.AccountingAgreementItemTerms}">
-            <link target="ListAgreementItemTerms?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
+            <link target="ListAgreementItemTerms">
+                <parameter param-name="agreementId" from-field="agreementItem.agreementId"/>
+                <parameter param-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
+            </link>
         </menu-item>
 
         <menu-item name="ListAgreementItemSupplierProducts" title="${uiLabelMap.ProductProducts}">
             <condition>
                 <if-compare field="agreement.agreementTypeId" operator="equals" value="PURCHASE_AGREEMENT"/>
             </condition>
-            <link target="ListAgreementItemSupplierProducts?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
+            <link target="ListAgreementItemSupplierProducts">
+                <parameter param-name="agreementId" from-field="agreementItem.agreementId"/>
+                <parameter param-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
+            </link>
         </menu-item>
 
         <menu-item name="ListAgreementItemProducts" title="${uiLabelMap.ProductProducts}">
             <condition>
                 <if-compare field="agreement.agreementTypeId" operator="not-equals" value="PURCHASE_AGREEMENT"/>
             </condition>
-            <link target="ListAgreementItemProducts?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
+            <link target="ListAgreementItemProducts">
+                <parameter param-name="agreementId" from-field="agreementItem.agreementId"/>
+                <parameter param-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
+            </link>
         </menu-item>
 
         <menu-item name="ListAgreementItemParties" title="${uiLabelMap.Party}">
-            <link target="ListAgreementItemParties?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
+            <link target="ListAgreementItemParties">
+                <parameter param-name="agreementId" from-field="agreementItem.agreementId"/>
+                <parameter param-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="ListAgreementGeographicalApplic" title="${uiLabelMap.CommonGeo}">
-            <link target="ListAgreementGeographicalApplic?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
+            <link target="ListAgreementGeographicalApplic">
+                <parameter param-name="agreementId" from-field="agreementItem.agreementId"/>
+                <parameter param-name="agreementItemSeqId" from-field="agreementItem.agreementItemSeqId"/>
+            </link>
         </menu-item>
     </menu>
 

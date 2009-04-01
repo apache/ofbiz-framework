@@ -171,10 +171,16 @@ under the License.
             <link target="blogContent?blogContentId=${parameters.blogContentId}"/>
         </menu-item>
         <menu-item name="ViewBlogArt" title="${uiLabelMap.CommonView}">
-            <link target="ViewBlogArticle?articleContentId=${parameters.articleContentId}&amp;blogContentId=${parameters.blogContentId}"/>
+            <link target="ViewBlogArticle">
+                <parameter param-name="articleContentId" from-field="parameters.articleContentId"/>
+                <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+            </link>
         </menu-item>
         <menu-item name="EditBlogArt" title="${uiLabelMap.CommonEdit}">
-            <link target="EditBlogArticle?articleContentId=${parameters.articleContentId}&amp;blogContentId=${parameters.blogContentId}"/>
+            <link target="EditBlogArticle">
+                <parameter param-name="articleContentId" from-field="parameters.articleContentId"/>
+                <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+            </link>
         </menu-item>
         <menu-item name="Owners" title="${uiLabelMap.FormFieldTitle_roles}">
             <link target="EditContentRole?contentId=${parameters.articleContentId}"/>
