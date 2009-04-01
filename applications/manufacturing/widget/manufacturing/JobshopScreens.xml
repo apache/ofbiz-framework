@@ -258,8 +258,14 @@ under the License.
                                 <widgets>
                                     <link target="quickStartAllProductionRunTasks?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingQuickStartAllTasks}" style="buttontext"/>
                                     <link target="quickRunAllProductionRunTasks?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingQuickRunAllTasks}" style="buttontext"/>
-                                    <link target="quickChangeProductionRunStatus?productionRunId=${productionRunId}&amp;statusId=PRUN_COMPLETED" text="${uiLabelMap.ManufacturingQuickComplete}" style="buttontext"/>
-                                    <link target="quickChangeProductionRunStatus?productionRunId=${productionRunId}&amp;statusId=PRUN_CLOSED" text="${uiLabelMap.ManufacturingQuickClose}" style="buttontext"/>
+                                    <link target="quickChangeProductionRunStatus" text="${uiLabelMap.ManufacturingQuickComplete}" style="buttontext">
+                                        <parameter param-name="productionRunId" from-field="productionRunId"/>
+                                        <parameter param-name="statusId" value="PRUN_COMPLETED"/>
+                                    </link>
+                                    <link target="quickChangeProductionRunStatus" text="${uiLabelMap.ManufacturingQuickClose}" style="buttontext">
+                                        <parameter param-name="productionRunId" from-field="productionRunId"/>
+                                        <parameter param-name="statusId" value="PRUN_CLOSED"/>
+                                    </link>
                                     <link target="cancelProductionRun?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingCancel}" style="buttontext"/>
                                 </widgets>
                             </section>

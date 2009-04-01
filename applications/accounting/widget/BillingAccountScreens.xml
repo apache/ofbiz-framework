@@ -88,7 +88,10 @@ under the License.
                                     </actions>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.PageTitleFindBillingAccount}">
-                                            <link target="EditBillingAccount?partyId=${parameters.partyId}&amp;roleTypeId=BILL_TO_CUSTOMER" text="${uiLabelMap.CommonNew} " style="buttontext"/>
+                                            <link target="EditBillingAccount" text="${uiLabelMap.CommonNew} " style="buttontext">
+                                                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                                                <parameter param-name="roleTypeId" value="BILL_TO_CUSTOMER"/>
+                                            </link>
                                             <include-form name="ListBillingAccountsByParty" location="component://accounting/widget/BillingAccountForms.xml"/>
                                         </screenlet>
                                     </widgets>

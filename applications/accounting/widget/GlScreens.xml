@@ -45,11 +45,21 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <container>
-                                            <link target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CURRENT_ASSET&amp;creditGlAccountClassId=REVENUE&amp;acctgTransTypeId=SALES" text="${uiLabelMap.AccountingCreateSalesAcctgTrans}" style="buttontext"/>
+                                            <link target="CreateAcctgTransAndEntries" text="${uiLabelMap.AccountingCreateSalesAcctgTrans}" style="buttontext">
+                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                                <parameter param-name="debitGlAccountClassId" from-field="CURRENT_ASSET"/>
+                                                <parameter param-name="creditGlAccountClassId" from-field="REVENUE"/>
+                                                <parameter param-name="acctgTransTypeId" value="SALES"/>
+                                            </link>
                                             <link target="TrialBalance?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingTrialBalance}" style="buttontext"/>
                                         </container>
                                         <container>
-                                            <link target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}&amp;debitGlAccountClassId=CASH_EQUIVALENT&amp;creditGlAccountClassId=CURRENT_LIABILITY&amp;acctgTransTypeId=PAYMENT_ACCTG_TRANS" text="${uiLabelMap.AccountingCreatePaymentAcctgTrans}" style="buttontext"/>
+                                            <link target="CreateAcctgTransAndEntries" text="${uiLabelMap.AccountingCreatePaymentAcctgTrans}" style="buttontext">
+                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                                <parameter param-name="debitGlAccountClassId" from-field="CASH_EQUIVALENT"/>
+                                                <parameter param-name="creditGlAccountClassId" from-field="CURRENT_LIABILITY"/>
+                                                <parameter param-name="acctgTransTypeId" value="PAYMENT_ACCTG_TRANS"/>
+                                            </link>
                                             <link target="IncomeStatement?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingIncomeStatement}" style="buttontext"/>
                                         </container>
                                         <container>
