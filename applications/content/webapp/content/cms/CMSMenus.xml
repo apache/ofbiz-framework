@@ -55,7 +55,10 @@ under the License.
             </link>
        </menu-item>
        <menu-item name="contentedit" title="${uiLabelMap.CommonEdit}" >
-            <link id="CMSContentEdit" target="CMSContentEdit?contentId=${content.currentValue.contentId}&amp;dataResourceId=${content.currentValue.dataResourceId}"/>
+            <link id="CMSContentEdit" target="CMSContentEdit">
+                <parameter param-name="contentId" from-field="content.currentValue.contentId"/>
+                <parameter param-name="dataResourceId" from-field="content.currentValue.dataResourceId"/>
+            </link>
        </menu-item>
        <menu-item name="contentadd" title="${uiLabelMap.CommonAdd}" >
             <link id="CMSContentAdd" target="CMSContentAdd">

@@ -41,7 +41,10 @@ under the License.
                     <if-compare value="TEMPLATE" field="contentTypeId" operator="equals"></if-compare>
                 </or>
             </condition>
-            <link target="ViewCompDocTemplateTree?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <link target="ViewCompDocTemplateTree">
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="viewtree2" title="${uiLabelMap.ContentCompDocViewTree}">
             <condition>
@@ -50,16 +53,28 @@ under the License.
                     <if-compare value="DOCUMENT" field="contentTypeId" operator="equals"></if-compare>
                 </or>
             </condition>
-            <link target="ViewCompDocInstanceTree?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <link target="ViewCompDocInstanceTree">
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="edit" title="${uiLabelMap.CommonEdit}">
-            <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <link target="EditRootCompDoc">
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="approval" title="${uiLabelMap.ContentCompDocApprovals}">
-            <link target="ListContentApproval?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <link target="ListContentApproval">
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="revision" title="${uiLabelMap.ContentCompDocRevisions}">
-            <link target="ListContentRevisions?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <link target="ListContentRevisions">
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
     </menu>
         
@@ -72,7 +87,10 @@ under the License.
                     <if-compare value="TEMPLATE" field="contentTypeId" operator="equals"></if-compare>
                 </or>
             </condition>
-            <link target="ViewCompDocTemplateTree?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <link target="ViewCompDocTemplateTree">
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="viewtree2" title="${uiLabelMap.PageTitleViewCompDocTree}">
             <condition>
@@ -81,7 +99,10 @@ under the License.
                     <if-compare value="DOCUMENT" field="contentTypeId" operator="equals"></if-compare>
                 </or>
             </condition>
-            <link target="ViewCompDocInstanceTree?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <link target="ViewCompDocInstanceTree">
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="edit" title="${uiLabelMap.CommonEdit}">
             <link target="EditChildCompDoc" >
@@ -97,10 +118,16 @@ under the License.
     <menu name="rootTemplateLine" menu-container-style="button-bar button-style-1" default-menu-item-name="content"
         selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="edit-inplace" title="${contentName}[${contentId}]" widget-style="h2">
-            <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <link target="EditRootCompDoc">
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="edit-link" title="${uiLabelMap.CommonEdit}">
-            <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <link target="EditRootCompDoc">
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="child" title="${uiLabelMap.ContentCompDocChild}">
             <condition>
@@ -116,10 +143,16 @@ under the License.
         </menu-item>
         <!-- on page
         <menu-item name="viewinst" title="View Instances">
-            <link target="ViewInstances?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <link target="ViewInstances">
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="addinst" title="Add Instance">
-            <link target="AddRootCompDocInstance?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <link target="AddRootCompDocInstance">
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
             -->
     </menu>
@@ -206,13 +239,22 @@ under the License.
         
     <menu name="rootInstanceLine" menu-container-style="button-bar button-style-1" default-menu-item-name="content" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="edit-inplace" title="${instanceContent.contentName}[${instanceContent.contentId}]"  widget-style="h2">
-            <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <link target="EditRootCompDoc">
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="edit" title="${uiLabelMap.CommonEdit}">
-            <link target="EditRootCompDoc?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
+            <link target="EditRootCompDoc">
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+            </link>
         </menu-item>
         <menu-item name="viewtree" title="${uiLabelMap.PageTitleViewCompDocTemplateTree}">
-            <link target="ViewCompDocTemplateTree?rootContentRevisionSeqId=${templateContentRevisionSeqId}&amp;rootContentId=${templateContentId}"/>
+            <link target="ViewCompDocTemplateTree">
+                <parameter param-name="rootContentRevisionSeqId" from-field="templateContentRevisionSeqId"/>
+                <parameter param-name="rootContentId" from-field="templateContentId"/>
+            </link>
         </menu-item>
         <menu-item name="latest" title="${uiLabelMap.ContentCompDocCurrentInstance}">
             <condition>

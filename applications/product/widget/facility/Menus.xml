@@ -118,13 +118,22 @@ under the License.
     <menu name="InventoryItemTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="EditInventoryItem" selected-menuitem-context-field-name="subTabButtonItem">
         <menu-item name="EditInventoryItem" title="${uiLabelMap.ProductInventoryItem}">
-            <link target="EditInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}"/>
+            <link target="EditInventoryItem">
+                <parameter param-name="inventoryItemId" from-field="inventoryItemId"/>
+                <parameter param-name="facilityId" from-field="facilityId"/>
+            </link>
         </menu-item>
         <menu-item name="ViewInventoryItemDetail" title="${uiLabelMap.ProductInventoryDetails}">
-            <link target="ViewInventoryItemDetail?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}"/>
+            <link target="ViewInventoryItemDetail">
+                <parameter param-name="inventoryItemId" from-field="inventoryItemId"/>
+                <parameter param-name="facilityId" from-field="facilityId"/>
+            </link>
         </menu-item>
         <menu-item name="EditInventoryItemLabels" title="${uiLabelMap.ProductInventoryItemLabelAppl}">
-            <link target="EditInventoryItemLabels?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}"/>
+            <link target="EditInventoryItemLabels">
+                <parameter param-name="inventoryItemId" from-field="inventoryItemId"/>
+                <parameter param-name="facilityId" from-field="facilityId"/>
+            </link>
         </menu-item>
     </menu>
 </menus>

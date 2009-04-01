@@ -103,7 +103,10 @@ under the License.
             <link target="EditPartyResumes?partyId=${partyId}"/>
         </menu-item>
         <menu-item name="EditEmploymentApps" title="${uiLabelMap.HumanResEmploymentApp}">
-            <link target="EditEmploymentApps?partyId=${partyId}&amp;&amp;referredByPartyId=${partyId}"/>
+            <link target="EditEmploymentApps">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="&amp;referredByPartyId" from-field="partyId"/>
+            </link>
         </menu-item>
         <menu-item name="FinancialHistory" title="${uiLabelMap.PartyFinancialHistory}">
             <condition>
@@ -136,13 +139,19 @@ under the License.
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
-            <link target="/ordermgr/control/FindRequest?lookupFlag=Y&amp;fromPartyId=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app"/> 
+            <link target="/ordermgr/control/FindRequest" url-mode="inter-app">
+                <parameter param-name="lookupFlag=Y&amp;fromPartyId" from-field="partyId"/>
+                <parameter param-name="externaLoginKey" from-field="externalLoginKey"/>
+            </link> 
         </menu-item>
         <menu-item name="findQuote" title="${uiLabelMap.OrderOrderQuotes}" >
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
-            <link target="/ordermgr/control/FindQuote?partyId=${partyId}&amp;externalLoginKey=${externalLoginKey}" url-mode="inter-app"/> 
+            <link target="/ordermgr/control/FindQuote" url-mode="inter-app">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="externalLoginKey" from-field="externalLoginKey"/>
+            </link> 
         </menu-item>
         <menu-item name="searchOrder" title="${uiLabelMap.OrderOrders}" >
             <condition>
@@ -154,13 +163,19 @@ under the License.
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_CREATE"/>
             </condition>
-            <link target="/ordermgr/control/EditQuote?partyId=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app"/> 
+            <link target="/ordermgr/control/EditQuote" url-mode="inter-app">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="externaLoginKey" from-field="externalLoginKey"/>
+            </link> 
         </menu-item>
         <menu-item name="newOrder" title="${uiLabelMap.OrderNewOrder}">
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_CREATE"/>
             </condition>
-            <link target="/ordermgr/control/checkinits?partyId=${partyId}&amp;externaLoginKey=${externalLoginKey}" url-mode="inter-app"/> 
+            <link target="/ordermgr/control/checkinits" url-mode="inter-app">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="externaLoginKey" from-field="externalLoginKey"/>
+            </link> 
         </menu-item>
     </menu>
     <menu name="create-new-party" type="simple" menu-container-style="basic-nav">
@@ -321,7 +336,10 @@ under the License.
                     <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
                 </and>
             </condition>
-            <link target="editRequestFromCommEvent?communicationEventId=${communicationEvent.communicationEventId}&amp;my=${parameters.my}"/>
+            <link target="editRequestFromCommEvent">
+                <parameter param-name="communicationEventId" from-field="communicationEvent.communicationEventId"/>
+                <parameter param-name="my" from-field="parameters.my"/>
+            </link>
         </menu-item>
         <menu-item name="close" title="${uiLabelMap.CommonClose}">
             <condition>
@@ -379,7 +397,10 @@ under the License.
         </menu-item>
         <!-- TODO! 
             <menu-item name="ListCommCustRequests" title="CustRequests">
-            <link target="ListCommCustRequests?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
+            <link target="ListCommCustRequests">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+            </link>
             </menu-item>
         -->
         <menu-item name="ListUnknownPartyComms" title="${uiLabelMap.PartyEmailFromUnknownParties}">
@@ -389,13 +410,22 @@ under the License.
     <menu name="CommFindTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         default-menu-item-name="find">
         <menu-item name="find" title="${uiLabelMap.CommonFind}">
-            <link target="findCommunications?partyId=${partyId}&amp;communicationEventId=${communicationEventId}" url-mode="intra-app"/>
+            <link target="findCommunications" url-mode="intra-app">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+            </link>
         </menu-item>
         <menu-item name="showall" title="${uiLabelMap.CommonShowAll}">
-            <link target="listCommunications?partyId=${partyId}&amp;communicationEventId=${communicationEventId}" url-mode="intra-app"/>
+            <link target="listCommunications" url-mode="intra-app">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+            </link>
         </menu-item>
         <menu-item name="pending" title="${uiLabelMap.PartyPending}">
-            <link target="pendingCommunications?partyId=${partyId}&amp;communicationEventId=${communicationEventId}" url-mode="intra-app"/>
+            <link target="pendingCommunications" url-mode="intra-app">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+            </link>
         </menu-item>
     </menu>
     
