@@ -231,7 +231,10 @@ under the License.
                             </label>
                         </container>
                         <container>
-                            <link target="quickInitDataWarehouse?fromDate=${fromDate}&amp;thruDate=${thruDate}" text="${uiLabelMap.BusinessIntelligenceQuickInitDataWarehouse}" style="buttontext"/>
+                            <link target="quickInitDataWarehouse" text="${uiLabelMap.BusinessIntelligenceQuickInitDataWarehouse}" style="buttontext">
+                                <parameter param-name="fromDate" from-field="fromDate"/>
+                                <parameter param-name="thruDate" from-field="thruDate"/>
+                            </link>
                             <label> (${uiLabelMap.CommonFromDate} ${fromDate} ${uiLabelMap.CommonThruDate} ${thruDate})</label>
                         </container>
                         <container>

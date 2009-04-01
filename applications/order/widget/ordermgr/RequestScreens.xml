@@ -297,7 +297,10 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link target="EditRequirement?custRequestId=${custRequestItem.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}" text="${uiLabelMap.OrderNewRequirement}" style="buttontext"/>
+                                            <link target="EditRequirement" text="${uiLabelMap.OrderNewRequirement}" style="buttontext">
+                                                <parameter param-name="custRequestId" from-field="custRequestItem.custRequestId"/>
+                                                <parameter param-name="custRequestItemSeqId" from-field="custRequestItem.custRequestItemSeqId"/>
+                                            </link>
                                         </container>
                                         <include-form name="ListRequestItemRequirements" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                                     </widgets>
