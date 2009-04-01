@@ -897,7 +897,10 @@ under the License.
                                 </container>
                                 <container style="widget-container">
                                     <link target="EditInventoryItem?facilityId=${facilityId}" text="${uiLabelMap.ProductNewInventoryItem}" style="buttontext"/>
-                                    <link target="TransferInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}" text="${uiLabelMap.ProductTransferItem}" style="buttontext"/>
+                                    <link target="TransferInventoryItem" text="${uiLabelMap.ProductTransferItem}" style="buttontext">
+                                        <parameter param-name="inventoryItemId" from-field="inventoryItemId"/>
+                                        <parameter param-name="facilityId" from-field="facilityId"/>
+                                    </link>
                                 </container>
                             </widgets>
                             <fail-widgets>

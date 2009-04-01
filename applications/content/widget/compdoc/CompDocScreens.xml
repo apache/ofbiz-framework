@@ -539,7 +539,10 @@ under the License.
                                         <section>
                                             <widgets>
                                                 <container>
-                                                    <link target="AddRootCompDocInstance?contentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}" text="${uiLabelMap.PageTitleCreateInstanceOfThisTemplate}" style="buttontext"/>
+                                                    <link target="AddRootCompDocInstance" text="${uiLabelMap.PageTitleCreateInstanceOfThisTemplate}" style="buttontext">
+                                                        <parameter param-name="contentId" from-field="rootContentId"/>
+                                                        <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+                                                    </link>
                                                     <link target="ViewInstances?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}"/>
                                                 </container>
                                                 <include-form name="EditRootCompDocTemplate" location="component://content/widget/compdoc/CompDocForms.xml"/>
@@ -1095,8 +1098,14 @@ under the License.
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
                                 <container>
-                                    <link target="ViewInstances?rootContentId=${rootContentId}&amp;contentRevisionSeqId=${rootContentRevisionSeqId}" text="${uiLabelMap.ContentCompDocViewInstances}" style="buttontext"/>
-                                    <link target="AddRootCompDocInstance?rootContentId=${rootContentId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}" text="${uiLabelMap.PageTitleCreateInstanceOfThisTemplate}" style="buttontext"/>
+                                    <link target="ViewInstances" text="${uiLabelMap.ContentCompDocViewInstances}" style="buttontext">
+                                        <parameter param-name="rootContentId" from-field="rootContentId"/>
+                                        <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+                                    </link>
+                                    <link target="AddRootCompDocInstance" text="${uiLabelMap.PageTitleCreateInstanceOfThisTemplate}" style="buttontext">
+                                        <parameter param-name="rootContentId" from-field="rootContentId"/>
+                                        <parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+                                    </link>
                                 </container>
                         <include-tree name="CompDocTemplateTree" location="component://content/widget/compdoc/CompDocTemplateTree.xml"/>
                     </decorator-section>

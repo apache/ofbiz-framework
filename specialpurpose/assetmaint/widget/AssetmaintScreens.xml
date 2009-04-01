@@ -122,7 +122,10 @@
                             <widgets>
                                 <container style="button-bar">
                                     <link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetId}" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/>
-                                    <link target="printFixedAssetMaint.pdf?fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
+                                    <link target="printFixedAssetMaint.pdf" text="${uiLabelMap.CommonPrint}" style="buttontext">
+                                        <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                                        <parameter param-name="maintHistSeqId" from-field="maintHistSeqId"/>
+                                    </link>
                                 </container>
                             </widgets>
                         </section>

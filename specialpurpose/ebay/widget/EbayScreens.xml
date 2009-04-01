@@ -73,7 +73,10 @@ under the License.
                                             <link target="EditProduct" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
                                             <link target="CreateVirtualWithVariantsForm" text="${uiLabelMap.ProductNewVirtualProduct}" style="buttontext"/>
                                             <link target="/ecommerce/control/product?product_id=${productId}" url-mode="inter-app" text="${uiLabelMap.ProductProductPage}" style="buttontext"/>
-                                            <link target="ProductBarCode.pdf?productId=${productId}&amp;productName=${productName}" target-window="_blank" text="${uiLabelMap.ProductBarcode}" style="buttontext"/>
+                                            <link target="ProductBarCode.pdf" target-window="_blank" text="${uiLabelMap.ProductBarcode}" style="buttontext">
+                                                <parameter param-name="productId" from-field="productId"/>
+                                                <parameter param-name="productName" from-field="productName"/>
+                                            </link>
                                         </container>
                                     </widgets>
                                 </section>
