@@ -24,7 +24,7 @@ under the License.
     <screen name="main-decorator">
         <section>
             <actions>
-                <!-- base/top/specific map first, then more common map added for shared labels --> 
+                <!-- base/top/specific map first, then more common map added for shared labels -->
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
@@ -33,10 +33,10 @@ under the License.
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.ContentCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ContentCompanySubtitle" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/content/images/contentForum.css" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>                
+                <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
                 <set field="activeApp" value="contentmgr" global="true"/>
                 <set field="applicationMenuName" value="ContentAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://content/widget/content/ContentMenus.xml" global="true"/> 
+                <set field="applicationMenuLocation" value="component://content/widget/content/ContentMenus.xml" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.ContentContentManagerApplication}"/>
             </actions>
             <widgets>
@@ -111,7 +111,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="contentDecorator">
         <section>
             <actions>
@@ -125,7 +125,7 @@ under the License.
                                 <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
                             </condition>
                             <widgets>
-                                <include-menu name="contentTopMenu" location="component://content/widget/content/ContentMenus.xml"/>  
+                                <include-menu name="contentTopMenu" location="component://content/widget/content/ContentMenus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -137,8 +137,8 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
-    
+
+
     <screen name="commonDataResourceDecorator">
         <section>
             <actions>
@@ -177,7 +177,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="commonCompDocDecorator">
         <section>
             <actions>
@@ -194,7 +194,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="commonContentSetupDecorator">
         <section>
             <actions>
@@ -283,7 +283,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="commonLayoutDecorator">
         <section>
             <actions>
@@ -344,20 +344,30 @@ under the License.
                     <widgets>
                         <container style="responseSelected">
                             <label text="${rsp.contentName} - ${rsp.description} [${rsp.contentId}]" style="responseheader" />
-                            <link  text="${uiLabelMap.PartyReply}" target="addForumThreadMessage?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}&amp;forumMessageIdTo=${rsp.contentId}&amp;contentAssocTypeId=RESPONSE" style="buttontext"/>
+                            <link  text="${uiLabelMap.PartyReply}" target="addForumThreadMessage" style="buttontext">
+                                <parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
+                                <parameter param-name="forumId" from-field="parameters.forumId"/>
+                                <parameter param-name="forumMessageIdTo" from-field="rsp.contentId"/>
+                                <parameter param-name="contentAssocTypeId" value="RESPONSE" />
+                            </link>
                             <container style="responsetext">
                                 <include-form name="EditForumThreadMessage" location="component://content/widget/forum/ForumForms.xml"/>
                             </container>
-                        </container>    
+                        </container>
                     </widgets>
                     <fail-widgets>
                         <container>
                             <label text="${rsp.contentName} - ${rsp.description} [${rsp.contentId}]" style="responseheader" />
-                            <link  text="${uiLabelMap.PartyReply}" target="addForumThreadMessage?forumGroupId=${parameters.forumGroupId}&amp;forumId=${parameters.forumId}&amp;forumMessageIdTo=${rsp.contentId}&amp;contentAssocTypeId=RESPONSE" style="buttontext"/>
+                            <link  text="${uiLabelMap.PartyReply}" target="addForumThreadMessage" style="buttontext">
+                                <parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
+                                <parameter param-name="forumId" from-field="parameters.forumId"/>
+                                <parameter param-name="forumMessageIdTo" from-field="rsp.contentId"/>
+                                <parameter param-name="contentAssocTypeId" value="RESPONSE" />
+                            </link>
                             <container style="responsetext">
                                 <include-form name="EditForumThreadMessage" location="component://content/widget/forum/ForumForms.xml"/>
                             </container>
-                        </container>    
+                        </container>
                     </fail-widgets>
                 </section>
             </widgets>

@@ -157,7 +157,14 @@ under the License.
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
-            <link target="/ordermgr/control/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;externalLoginKey=${externalLoginKey}&amp;viewIndex=1&amp;viewSize=20" url-mode="inter-app"/> 
+            <link target="/ordermgr/control/searchorders" url-mode="inter-app">
+                <parameter param-name="lookupFlag" value="Y"/>
+                <parameter param-name="hideFields" value="Y"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="externalLoginKey" from-field="externalLoginKey"/>
+                <parameter param-name="viewIndex" value="1"/>
+                <parameter param-name="viewSize" value="20"/>
+            </link> 
         </menu-item>
         <menu-item name="newQuote" title="${uiLabelMap.OrderNewQuote}">
             <condition>
@@ -349,7 +356,12 @@ under the License.
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
                 </and>
             </condition>
-            <link target="setCommunicationEventRoleStatus?communicationEventId=${communicationEvent.communicationEventId}&amp;partyId=${myCommunicationEventRole.partyId&amp;roleType=${myCommunicationEventRole.roleTypeId}&amp;statusId=COM_ROLE_COMPLETED"/>
+            <link target="setCommunicationEventRoleStatus">
+                <parameter param-name="communicationEventId" from-field="communicationEvent.communicationEventId"/>
+                <parameter param-name="partyId" from-field="myCommunicationEventRole.partyId"/>
+                <parameter param-name="roleType" from-field="myCommunicationEventRole.roleTypeId"/>
+                <parameter param-name="statusId" value="COM_ROLE_COMPLETED""/>
+            </link>
         </menu-item>
         <menu-item name="delete" title="${uiLabelMap.CommonDelete}">
             <condition>

@@ -207,7 +207,12 @@ under the License.
             <condition>
                 <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
             </condition>
-            <link target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;donePage=${parameters.donePage}&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING"/>
+            <link target="NewCommunicationEvent">
+                <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
+                <parameter param-name="donePage" from-field="parameters.donePage"/>
+                <parameter param-name="partyIdFrom" from-field="userLogin.partyId"/>
+                <parameter param-name="statusId" value="COM_PENDING"/>
+            </link>
         </menu-item>
         <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
             <condition>
@@ -263,7 +268,12 @@ under the License.
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
                 </and>
             </condition>
-            <link target="setCommunicationEventRoleStatus?communicationEventId=${parameters.communicationEventId}&amp;partyId=${userLogin.partyId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;statusId=COM_ROLE_COMPLETED"/>
+            <link target="setCommunicationEventRoleStatus">
+                <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
+                <parameter param-name="partyId" from-field="userLogin.partyId"/>
+                <parameter param-name="roleTypeId" from-field="communicationEventRole.roleTypeId"/>
+                <parameter param-name="statusId" value="COM_ROLE_COMPLETED"/>
+            </link>
         </menu-item>
         <menu-item name="send" title="${uiLabelMap.CommonSend}">
             <condition>
@@ -282,7 +292,13 @@ under the License.
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_DELETE"/>
                 </and>
             </condition>
-            <link target="RemoveCommunicationEventRole?communicationEventId=${parameters.communicationEventId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;partyId=${userLogin.partyId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y"/>
+            <link target="RemoveCommunicationEventRole">
+                <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
+                <parameter param-name="roleTypeId" from-field="communicationEventRole.roleTypeId"/>
+                <parameter param-name="partyId" from-field="userLogin.partyId"/>
+                <parameter param-name="deleteCommEventIfLast" value="Y"/>
+                <parameter param-name="delContentDataResource" value="Y"/>
+            </link>
         </menu-item>
     </menu>
     <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
