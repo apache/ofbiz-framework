@@ -214,7 +214,10 @@ under the License.
             <link target="EditProductFacilityLocations?productId=${productId}"/>
         </menu-item>
         <menu-item name="EditProductInventoryItems" title="${uiLabelMap.ProductInventory}">
-            <link target="EditProductInventoryItems?productId=${productId}&amp;showAllFacilities=Y"/>
+            <link target="EditProductInventoryItems">
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="showAllFacilities" value="Y"/>
+            </link>
         </menu-item>
         <menu-item name="EditSupplierProduct" title="${uiLabelMap.ProductSuppliers}">
             <link target="EditProductSuppliers?productId=${productId}"/>

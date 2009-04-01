@@ -133,7 +133,10 @@ under the License.
             <condition>
                 <if-compare-field field="mostRecentRevisionSeqId" operator="equals" to-field="rootContentRevisionSeqId"/>
             </condition>
-            <link target="AddChildCompDocTemplate?rootContentId=${contentId}&amp;sequenceNum=9999"/> <!-- rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp; -->
+            <link target="AddChildCompDocTemplate">
+                <parameter param-name="rootContentId" from-field="contentId"/>
+                <parameter param-name="sequenceNum" value="9999"/>
+            </link> <!-- rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp; -->
         </menu-item>
         <menu-item name="latest" title="${uiLabelMap.ContentCompDocCurrentTemplate}">
             <condition>
@@ -176,7 +179,10 @@ under the License.
         </menu-item>
         <!--  only one level for now, ie don't worry about an hierarchy, still not sure what that will mean or look like 
         <menu-item name="child" title="+Child">
-            <link target="AddChildCompDocTemplate?contentIdTo=${contentId}&amp;sequenceNum=9999"/>
+            <link target="AddChildCompDocTemplate">
+                <parameter param-name="contentIdTo" from-field="contentId"/>
+                <parameter param-name="sequenceNum" value="9999"/>
+            </link>
         </menu-item>
         -->
         <menu-item name="bef" title="${uiLabelMap.ContentCompDocBefore}">
