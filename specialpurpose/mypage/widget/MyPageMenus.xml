@@ -185,7 +185,10 @@ under the License.
                     <if-compare field="headerItem" operator="equals" value="main"/>
                 </and>
             </condition>
-            <link target="statusToComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
+            <link target="statusToComplete">
+                <parameter param-name="timesheetId" from-field="timesheet.timesheetId"/>
+                <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
+            </link>
         </menu-item>
         <menu-item name="setToCompleteKey" title="${uiLabelMap.MyPageToComplete}">
             <condition>
@@ -194,7 +197,10 @@ under the License.
                     <if-compare field="headerItem" operator="not-equals" value="main"/>
                 </and>
             </condition>
-            <link target="statusToCompleteKey?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
+            <link target="statusToCompleteKey">
+                <parameter param-name="timesheetId" from-field="timesheet.timesheetId"/>
+                <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
+            </link>
         </menu-item>
         <menu-item name="myTime" title="${uiLabelMap.WorkEffortTimesheetMyTime}"><link target="/projectmgr/control/MyTimesheet" url-mode="inter-app"/></menu-item>
     </menu>
@@ -289,7 +295,10 @@ under the License.
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
                 </and>
             </condition>
-            <link target="updateCommunicationEvent/main?communicationEventId=${parameters.communicationEventId}&amp;statusId=COM_IN_PROGRESS"/>
+            <link target="updateCommunicationEvent/main">
+                <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
+                <parameter param-name="statusId" value="COM_IN_PROGRESS"/>
+            </link>
         </menu-item>
         <menu-item name="delete" title="${uiLabelMap.CommonDelete}">
             <condition>
@@ -325,7 +334,10 @@ under the License.
                     <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
             </condition>
-            <link target="setCustRequestStatus?custRequestId=${custRequestId}&amp;statusId=CRQ_CANCELLED"/>
+            <link target="setCustRequestStatus">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="statusId" value="CRQ_CANCELLED"/>
+            </link>
         </menu-item>
         <menu-item name="addContent" title="${uiLabelMap.PageTitleAddContent}">
             <condition>
