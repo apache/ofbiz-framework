@@ -276,7 +276,10 @@ under the License.
                                     </widgets>
                                     <fail-widgets>
                                         <container style="button-bar button-style-2">
-                                            <link target="viewprofile?partyId=${party.partyId}&amp;SHOW_OLD=true" text="${uiLabelMap.PartyShowOld}"/>
+                                            <link target="viewprofile" text="${uiLabelMap.PartyShowOld}">
+        										<parameter param-name="partyId" from-field="party.partyId"/>
+        										<parameter param-name="SHOW_OLD" value="true"/>
+        									</link>
                                         </container>
                                     </fail-widgets>
                                 </section>
