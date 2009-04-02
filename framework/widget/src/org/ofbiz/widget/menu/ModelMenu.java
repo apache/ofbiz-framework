@@ -359,26 +359,28 @@ public class ModelMenu extends ModelWidget {
                                     EntityOperator.OR)),
                             EntityOperator.AND);
                     portalPages = delegator.findList("PortalPage", cond, null, null, null, false);
-                    String userLoginId = ((GenericValue)context.get("userLogin")).getString("userLoginId");
-                    // replace with private pages
-                       for (GenericValue portalPage : portalPages) {
-                           cond = EntityCondition.makeCondition(UtilMisc.toList(
-                                      EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
-                                      EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, portalPage.getString("portalPageId"))),
-                                   EntityOperator.AND);
-                           List <GenericValue> privatePortalPages = delegator.findList("PortalPage", cond, null, null, null, false);
-                        if (UtilValidate.isNotEmpty(privatePortalPages)) {
-                            portalPages.remove(portalPage);
-                            portalPages.add(privatePortalPages.get(0));
-                        }
+                    if (UtilValidate.isNotEmpty(context.get("userLogin"))) { // check if a user is logged in
+                    	String userLoginId = ((GenericValue)context.get("userLogin")).getString("userLoginId");
+                    	// replace with private pages
+                    	for (GenericValue portalPage : portalPages) {
+                    		cond = EntityCondition.makeCondition(UtilMisc.toList(
+                    				EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
+                    				EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, portalPage.getString("portalPageId"))),
+                    				EntityOperator.AND);
+                    		List <GenericValue> privatePortalPages = delegator.findList("PortalPage", cond, null, null, null, false);
+                    		if (UtilValidate.isNotEmpty(privatePortalPages)) {
+                    			portalPages.remove(portalPage);
+                    			portalPages.add(privatePortalPages.get(0));
+                    		}
+                    	}
+                    	// add any other created private pages
+                    	cond = EntityCondition.makeCondition(UtilMisc.toList(
+                    			EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
+                    			EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, null),
+                    			EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId)),
+                    			EntityOperator.AND);
+                    	portalPages.addAll(delegator.findList("PortalPage", cond, null, null, null, false));
                     }
-                    // add any other created private pages
-                        cond = EntityCondition.makeCondition(UtilMisc.toList(
-                                   EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, userLoginId),
-                                   EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, null),
-                                   EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId)),
-                                EntityOperator.AND);
-                        portalPages.addAll(delegator.findList("PortalPage", cond, null, null, null, false));
                     portalPages = EntityUtil.orderBy(portalPages, UtilMisc.toList("sequenceNum"));
                 } catch (GenericEntityException e) {
                     Debug.logError("Could not retrieve portalpages in the menu:" + e.getMessage(), module);
