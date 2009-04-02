@@ -101,7 +101,9 @@ under the License.
                                             <link target="ExampleReportPdf" text="${uiLabelMap.CommonPdf}" style="buttontext">
                                                 <parameter param-name="exampleId" from-field="exampleId"/>
                                             </link>
-                                            <link target="help?topic=ExampleEditHelp" text="${uiLabelMap.CommonHelp}" style="buttontext" target-window="_blank"/>
+                                            <link target="help" text="${uiLabelMap.CommonHelp}" style="buttontext" target-window="_blank">
+                                                <parameter param-name="topic" value="ExampleEditHelp"/>
+                                            </link>
                                         </container>
                                     </widgets>
                                     <fail-widgets>

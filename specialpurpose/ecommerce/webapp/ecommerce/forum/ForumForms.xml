@@ -82,7 +82,9 @@ under the License.
             <text size="24"/>
         </field>
         <field name="createTopic" title="${uiLabelMap.CommonEmptyHeader}"  position="4">
-            <hyperlink also-hidden="false" target="createTopic${pageName}?mode=restore" description="Create Topic"/>
+            <hyperlink also-hidden="false" target="createTopic${pageName}" description="Create Topic">
+                <parameter param-name="mode" value="restore"/>
+            </hyperlink>
         </field>
         -->
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit">
@@ -262,7 +264,9 @@ under the License.
             <text size="24"/>
         </field>
         <field name="createTopic" title="${uiLabelMap.CommonEmptyHeader}"  position="4">
-            <hyperlink also-hidden="false" target="createTopic${pageName}?mode=restore" description="Create Topic"/>
+            <hyperlink also-hidden="false" target="createTopic${pageName}" description="Create Topic">
+                <parameter param-name="mode" value="restore"/>
+            </hyperlink>
         </field>
         -->
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit">

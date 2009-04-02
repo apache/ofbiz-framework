@@ -107,7 +107,9 @@ under the License.
             <link target="entityref" target-window="_BLANK"/>
         </menu-item>
         <menu-item name="entityrefStatic" title="${uiLabelMap.WebtoolsEntityReference} - ${uiLabelMap.WebtoolsEntityReferenceStaticVersion}">
-            <link target="entityref?forstatic=true" target-window="_BLANK"/>
+            <link target="entityref" target-window="_BLANK">
+                <parameter param-name="forstatic" value="true"/>
+            </link>
         </menu-item>
         <menu-item name="entityrefReport" title="${uiLabelMap.WebtoolsEntityReferencePdf}">
             <link target="entityrefReport" target-window="_BLANK"/>
