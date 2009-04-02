@@ -36,7 +36,12 @@ under the License.
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="menu-bar">
-                                        <container style="button-bar"><link target="EditLayoutSubContent?mode=add&amp;contentIdTo=TEMPLATE_MASTER" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/></container>
+                                        <container style="button-bar">
+                                            <link target="EditLayoutSubContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext">
+                                                <parameter param-name="mode" value="add"/>
+                                                <parameter param-name="contentIdTo" value="TEMPLATE_MASTER"/>
+                                            </link>
+                                        </container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form name="findLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
