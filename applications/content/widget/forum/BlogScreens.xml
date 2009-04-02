@@ -65,7 +65,9 @@ under the License.
                                 <include-menu name="blog" location="component://content/widget/content/ContentMenus.xml"/>
                                 <include-menu name="blogSub" location="component://content/widget/content/ContentMenus.xml"/>
                                 <label style="h1" text="${blogContent.contentName}"/>
-                                <link style="h1" text=" [${blogContent.contentId}]" target="blogContent?blogContentId=${parameters.blogContentId}"/>
+                                <link style="h1" text=" [${blogContent.contentId}]" target="blogContent">
+                                    <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+                                </link>
                             </widgets>
                         </section>
                         <decorator-section-include name="body"/>
@@ -92,7 +94,9 @@ under the License.
                                 <include-menu name="blogArt" location="component://content/widget/content/ContentMenus.xml"/>
                                 <include-menu name="blogArtSub" location="component://content/widget/content/ContentMenus.xml"/>
                                 <label style="h1" text="${blogContent.contentName}"/>
-                                <link style="h1" text=" [${blogContent.contentId}]" target="blogContent?blogContentId=${parameters.blogContentId}"/>
+                                <link style="h1" text=" [${blogContent.contentId}]" target="blogContent">
+                                    <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+                                </link>
                             </widgets>
                         </section>
                         <decorator-section-include name="body"/>

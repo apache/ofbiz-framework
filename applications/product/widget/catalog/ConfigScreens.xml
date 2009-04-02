@@ -163,7 +163,9 @@ under the License.
                     <condition><not><if-empty field="configOptionId"/></not></condition>
                     <widgets>
                         <screenlet title="${uiLabelMap.PageTitleEditConfigOptions}">
-                            <link style="buttontext" text="${uiLabelMap.ProductCreateNewConfigOptions}" target="EditProductConfigOptions?configItemId=${configItemId}"/>
+                            <link style="buttontext" text="${uiLabelMap.ProductCreateNewConfigOptions}" target="EditProductConfigOptions">
+                                <parameter param-name="configItemId" from-field="configItemId"/>
+                            </link>
                             <include-form name="CreateConfigOption" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
                         </screenlet>
                     </widgets>
