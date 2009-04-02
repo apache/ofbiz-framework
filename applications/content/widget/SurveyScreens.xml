@@ -277,7 +277,11 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>    
-                                        <container><link  text="${uiLabelMap.ContentSurveyCreateResponse}" target="EditSurveyResponse?surveyId=${surveyId}" style="buttontext"/></container>
+                                        <container>
+                                            <link  text="${uiLabelMap.ContentSurveyCreateResponse}" target="EditSurveyResponse" style="buttontext">
+                                                <parameter param-name="surveyId" from-field="surveyId"/>
+                                            </link>
+                                        </container>
                                         <include-form name="FindSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                     </widgets>
                                 </section>
@@ -331,7 +335,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonSurveyDecorator">
                     <decorator-section name="body">
-                        <container><link  text="${uiLabelMap.ContentSurveyCreateResponse}" target="EditSurveyResponse?surveyId=${surveyId}" style="buttontext"/></container>
+                        <container>
+                            <link  text="${uiLabelMap.ContentSurveyCreateResponse}" target="EditSurveyResponse" style="buttontext">
+                                <parameter param-name="surveyId" from-field="surveyId"/>
+                            </link>
+                        </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
@@ -343,7 +351,11 @@ under the License.
                                     <widgets>    
                                         <section>
                                             <condition><not><if-empty field="parameters.rootContentId"/></not></condition>
-                                            <widgets><container><link text="${uiLabelMap.ContentCompDocGoBack} [${parameters.rootContentId}]" target="ViewCompDocInstanceTree?rootContentId=${parameters.rootContentId}" style="buttontext"/></container></widgets>
+                                            <widgets><container>
+                                                <link text="${uiLabelMap.ContentCompDocGoBack} [${parameters.rootContentId}]" target="ViewCompDocInstanceTree" style="buttontext">
+                                                    <parameter param-name="rootContentId" from-field="parameters.rootContentId"/>
+                                                </link>
+                                            </container></widgets>
                                         </section>
                                         <platform-specific><html><html-template location="component://content/webapp/content/survey/ViewSurveyResponses.ftl"/></html></platform-specific>
                                     </widgets>
@@ -388,7 +400,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupSurvey}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupSurvey"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
@@ -412,7 +424,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupSurveyResponse}"/>
+                <set field="title" from-field="uiLabelMap.PageTitleLookupSurveyResponse"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>

@@ -48,7 +48,11 @@ under the License.
                                 </section>
                                 <include-menu location="component://party/widget/partymgr/PartyMenus.xml" name="CommFindTabBar"/>
                                 <container><label style="h1" text="${uiLabelMap.PartyPendingCommunicationEvents}"/></container>
-                                <container><link style="smallSubmit" target="ViewCommunicationEvent?partyId=${partyId}" text="${uiLabelMap.PartyNewCommunication}"/></container>
+                                <container>
+                                    <link style="smallSubmit" target="ViewCommunicationEvent" text="${uiLabelMap.PartyNewCommunication}">
+                                        <parameter param-name="partyId" from-field="partyId"/>
+                                    </link>
+                                </container>
                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListPendingCommEvents"/>
                             </widgets>
                             <fail-widgets>
