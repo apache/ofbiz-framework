@@ -124,13 +124,17 @@ under the License.
             <condition>
                 <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
             </condition>
-            <link target="/accounting/control/FindBillingAccount?partyId=${partyId}" url-mode="inter-app"/>
+            <link target="/accounting/control/FindBillingAccount" url-mode="inter-app">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </link>
         </menu-item>
         <menu-item name="finAccounts" title="${uiLabelMap.AccountingFinAccounts}">
             <condition>
                 <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
             </condition>
-            <link target="/accounting/control/FindFinAccount?ownerPartyId=${partyId}" url-mode="inter-app"/> 
+            <link target="/accounting/control/FindFinAccount" url-mode="inter-app">
+                <parameter param-name="ownerPartyId" from-field="partyId"/>
+            </link> 
         </menu-item>
         <menu-item name="PartyCommEvents" title="${uiLabelMap.PartyCommunications}" >
             <link target="ListPartyCommEvents?partyId=${partyId}"/>

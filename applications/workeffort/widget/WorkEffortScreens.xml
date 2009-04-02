@@ -195,7 +195,9 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>    
-                                        <link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort?DONE_PAGE=${donePage}" style="buttontext"/>
+                                        <link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort" style="buttontext">
+                                            <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                        </link>
                                         <link  text="${uiLabelMap.CommonAdvancedSearch}" target="WorkEffortSearchOptions" style="buttontext"/>
                                         <include-form name="FindWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                     </widgets>

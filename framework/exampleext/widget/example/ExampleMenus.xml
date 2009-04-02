@@ -22,7 +22,9 @@ under the License.
 
     <menu name="EditExample" extends="EditExample" extends-resource="component://example/widget/example/ExampleMenus.xml">
         <menu-item name="EditExampleOriginal" title="${uiLabelMap.ExampleOriginalExample}">
-            <link target="/example/control/EditExample?exampleId=${exampleId}" url-mode="inter-app"/>
+            <link target="/example/control/EditExample" url-mode="inter-app">
+                <parameter param-name="exampleId" from-field="exampleId"/>
+            </link>
         </menu-item>
     </menu>
 
