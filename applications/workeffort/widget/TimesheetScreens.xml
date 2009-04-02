@@ -50,8 +50,12 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <link text="${uiLabelMap.PageTitleCreateWeekTimesheet}" target="createTimesheetForThisWeek?partyId=${userLogin.partyId}" style="buttontext"/>
-                                <link text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet?partyId=${userLogin.partyId}" style="buttontext"/>
+                                <link text="${uiLabelMap.PageTitleCreateWeekTimesheet}" target="createTimesheetForThisWeek" style="buttontext">
+                                    <parameter param-name="partyId" from-field="userLogin.partyId"/>
+                                </link>
+                                <link text="${uiLabelMap.WorkEffortTimesheetCreate}" target="EditTimesheet" style="buttontext">
+                                    <parameter param-name="partyId" from-field="userLogin.partyId"/>
+                                </link>
                                 <iterate-section entry="currentTimesheet" list="currentTimesheetList">
                                     <section>
                                         <actions>

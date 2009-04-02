@@ -41,7 +41,9 @@
             <widgets>
                 <container style="bloghr">
                     <container style="leftjustify">
-                        <link text="${blogContent.contentName} - ${blogContent.description}" target="MainBlog?blogContentId=${blogContentId}" style="blogtitle"/>                                                    
+                        <link text="${blogContent.contentName} - ${blogContent.description}" target="MainBlog" style="blogtitle">
+                            <parameter param-name="blogContentId" from-field="blogContentId"/>
+                        </link>                                                    
                     </container>                        
                     <container style="rightjustify">
                         <section>
@@ -49,7 +51,9 @@
                                 <if-service-permission service-name="genericContentPermission" main-action="CREATE" context-map="crPerm"/>
                             </condition>
                             <widgets>
-                                <link text="${uiLabelMap.CommonAddNew}" target="NewBlogArticle?blogContentId=${blogContentId}" style="buttontext"/>
+                                <link text="${uiLabelMap.CommonAddNew}" target="NewBlogArticle" style="buttontext">
+                                    <parameter param-name="blogContentId" from-field="blogContentId"/>
+                                </link>
                             </widgets>
                         </section>
 
@@ -116,7 +120,9 @@
                                             <parameter param-name="blogContentId" from-field="blogContentId"/>
                                         </link>
                                         <!--
-                                            <link text="Latest" target="LatestResponses?ownerContentId=${blog.ownerContentId}" />
+                                            <link text="Latest" target="LatestResponses" >
+                                                <parameter param-name="ownerContentId" from-field="blog.ownerContentId"/>
+                                            </link>
                                         -->
                                         <label text="&lt;br/&gt;"/>
                                         <container style="blogtext">
@@ -139,7 +145,9 @@
                                             <parameter param-name="blogContentId" from-field="blogContentId"/>
                                         </link>
                                         <!--
-                                            <link text="Latest" target="LatestResponses?ownerContentId=${blog.ownerContentId}" />
+                                            <link text="Latest" target="LatestResponses" >
+                                                <parameter param-name="ownerContentId" from-field="blog.ownerContentId"/>
+                                            </link>
                                         -->
                                         <label text="&lt;br/&gt;"/>
                                         <container style="blogtext">
@@ -268,7 +276,9 @@
                         <include-screen name="BlogResponses"/>
                         <label text="&lt;p/&gt;"/>
                         <!--
-                            <link text="Latest" target="LatestResponses?ownerContentId=${webPubPt}" />
+                            <link text="Latest" target="LatestResponses" >
+                                <parameter param-name="ownerContentId" from-field="webPubPt"/>
+                            </link>
                         -->
                         <include-screen name="AddBlogResponse"/>
                         <label text="&lt;p/&gt;"/>                                                

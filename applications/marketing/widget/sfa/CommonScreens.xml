@@ -271,7 +271,9 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <container style="button-bar button-style-2">
-                                            <link target="viewprofile?partyId=${party.partyId}" text="${uiLabelMap.PartyHideOld}"/>
+                                            <link target="viewprofile" text="${uiLabelMap.PartyHideOld}">
+                                                <parameter param-name="partyId" from-field="party.partyId"/>
+                                            </link>
                                         </container>
                                     </widgets>
                                     <fail-widgets>

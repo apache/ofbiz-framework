@@ -216,7 +216,9 @@ under the License.
         <field name="communicationEventTypeId"><display-entity entity-name="CommunicationEventType" description="${description}"/></field>
         <field name="partyIdFrom" use-when="partyIdFrom!=void">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} (${contactMechFrom.infoString})">
-                <sub-hyperlink description=" [${communicationEvent.partyIdFrom}]" target="/partymgr/control/viewprofile?partyIdFrom=${partyIdFrom}" target-type="inter-app"/>
+                <sub-hyperlink description=" [${communicationEvent.partyIdFrom}]" target="/partymgr/control/viewprofile" target-type="inter-app">
+                    <parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="partyIdTo">
@@ -238,7 +240,9 @@ under the License.
         <field name="communicationEventId"><display/></field>
         <field name="partyIdFrom" use-when="&quot;my&quot;==void" title="${uiLabelMap.PartyPartyFrom}">
             <display-entity entity-name="PartyNameView"  key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="viewprofile?partyId=${partyIdFrom}" description="[${partyIdFrom}]"/>
+                <sub-hyperlink target="viewprofile" description="[${partyIdFrom}]">
+                    <parameter param-name="partyId" from-field="partyIdFrom"/>
+                </sub-hyperlink>
             </display-entity>
         </field>
         <field name="partyIdTo" use-when="&quot;my&quot;==void" title="${uiLabelMap.PartyPartyTo}">
