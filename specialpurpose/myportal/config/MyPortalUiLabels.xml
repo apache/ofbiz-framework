@@ -141,12 +141,6 @@
         <value xml:lang="it">Usare l'utente 'DemoCustomer' o 'DemoEmployee' per una dimostrazione.</value>
         <value xml:lang="th">จำลองผู้ใช้เป็น DemoCustomer และ DemoEmployee ในการทำงาน</value>
     </property>
-    <property key="MyPortalOpenCustomerRequests">
-        <value xml:lang="en">My Open Customer Requests</value>
-        <value xml:lang="fr">Mes demandes de clients en-cours</value>
-        <value xml:lang="it">Proprie richieste clienti aperte</value>
-        <value xml:lang="th">ความต้องการของลูกค้า</value>
-    </property>
     <property key="MyPortalOtherCommunications">
         <value xml:lang="en">Other Communications</value>
         <value xml:lang="fr">Autres communications</value>

@@ -49,7 +49,8 @@
     <PortalPage portalPageId="MYPORTAL_CUSTOMER2" sequenceNum="200" portalPageName="Invoices" description="The OFBiz My Portal Invoices page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_CUSTOMER" />
     <PortalPage portalPageId="MYPORTAL_CUSTOMER3" sequenceNum="300" portalPageName="Projects" description="The OFBiz My Portal Project page" ownerUserLoginId="_NA_" parentPortalPageId="MYPORTAL_CUSTOMER" />
     
-    <PortalPageColumn portalPageId="MYPORTAL_NONE" sequenceNum="0" columnSeqId="00001" />
+    <PortalPageColumn portalPageId="MYPORTAL_NONE" columnSeqId="00001" />
+    <PortalPageColumn portalPageId="MYPORTAL_NONE" columnSeqId="00002" columnWidthPercentage="50" />
     
     <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE" columnSeqId="00001" />
     <PortalPageColumn portalPageId="MYPORTAL_EMPLOYEE1" columnSeqId="00001" columnWidthPercentage="50" />
@@ -73,16 +74,15 @@
     <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER2" columnSeqId="00001" />
     <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER3" columnSeqId="00001" />
     
-    <PortletCategory portletCategoryId="LIST_CUSTOMER" description="List(s) of Customer" />    
-    
     <PortalPortlet portalPortletId="mycompanycomms" portletName="My Company Comms" screenName="MyCompanyComms" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Company Comms From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="ListInvoices" portletName="List Invoices" screenName="ListInvoices" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Invoices From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
-    <PortalPortlet portalPortletId="ListCustRequests" portletName="List Cust Requests" screenName="ListCustRequests" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Cust Requests From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
-    <PortalPortlet portalPortletId="ListCustRequestsComp" portletName="List Cust Requests Completed" screenName="ListCustRequestsCompleted" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Cust Requests Completed From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
-    <PortalPortlet portalPortletId="ListPartyCommEvents" portletName="List Party Comm Events" screenName="ListPartyCommEvents" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Party Comm Events in myportal from party" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="ListProjects" portletName="List Projects" screenName="ListProjects" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Projects From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
     
     <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0" />
+    <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="UserLogin" portletSeqId="00001" columnSeqId="00002" sequenceNum="5"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002" sequenceNum="8"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002" sequenceNum="10"/>
     
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE" portalPortletId="INCOM_CUST_REQUESTS" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>    
     <PortalPagePortlet portalPageId="MYPORTAL_EMPLOYEE" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001" sequenceNum="1"/>
@@ -121,11 +121,16 @@
     <PortalPagePortlet portalPageId="MYPORTAL_EMPL-NOEML5" portalPortletId="mytasks" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
     
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
-    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequestsComp" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
-    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListPartyCommEvents" portletSeqId="00001" columnSeqId="00001"  sequenceNum="1"/>
-    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="party" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
-    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001"  sequenceNum="1"/>
-    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="PaymentMethods" portletSeqId="00001" columnSeqId="00001"  sequenceNum="2"/>
+    <PortletAttribute portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00001" attrName="statusGroup" attrValue="OPEN"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00002" columnSeqId="00001"  sequenceNum="2"/>
+    <PortletAttribute portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00002" attrName="statusGroup" attrValue="COMPLETED"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00002" columnSeqId="00001"  sequenceNum="2"/>
+    <PortletAttribute portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00002" attrName="statusGroup" attrValue="OPEN" />
+    <PortletAttribute portalPageId="MYPORTAL_CUSTOMER" portalPortletId="ListCustRequests" portletSeqId="00002" attrName="otherContacts" attrValue="Y" />
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER" portalPortletId="MyCommunications" portletSeqId="00001" columnSeqId="00001"  sequenceNum="4"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="party" portletSeqId="00001" columnSeqId="00001"  sequenceNum="6"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="contact" portletSeqId="00001" columnSeqId="00001"  sequenceNum="8"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="PaymentMethods" portletSeqId="00001" columnSeqId="00001"  sequenceNum="10"/>
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="UserLogin" portletSeqId="00001" columnSeqId="00002" sequenceNum="3" />
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="Attributes" portletSeqId="00001" columnSeqId="00002"  sequenceNum="4"/>
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002"  sequenceNum="5"/>
@@ -139,9 +144,6 @@
     
     
     <PortletPortletCategory portalPortletId="ListInvoices" portletCategoryId="LIST_CUSTOMER"/>
-    <PortletPortletCategory portalPortletId="ListCustRequests" portletCategoryId="LIST_CUSTOMER"/>
-    <PortletPortletCategory portalPortletId="ListCustRequestsComp" portletCategoryId="LIST_CUSTOMER"/>
-    <PortletPortletCategory portalPortletId="ListPartyCommEvents" portletCategoryId="LIST_CUSTOMER"/>
     <PortletPortletCategory portalPortletId="ListProjects" portletCategoryId="LIST_CUSTOMER"/>
     
     <WebSite webSiteId="MYPORTAL" siteName="My Portal" visualThemeSetId="BACKOFFICE" />

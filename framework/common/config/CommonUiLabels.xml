@@ -8011,6 +8011,10 @@
         <value xml:lang="th">จำนวน</value>
         <value xml:lang="zh">数量</value>
     </property>
+    <property key="FormFieldTitle_rejectButton">
+        <value xml:lang="ar">إضافة</value>
+        <value xml:lang="en">Reject</value>
+    </property>
     <property key="FormFieldTitle_removeButton">
         <value xml:lang="ar">نزع</value>
         <value xml:lang="de">Entfernen</value>
