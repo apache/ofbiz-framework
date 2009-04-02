@@ -237,10 +237,14 @@ under the License.
     </menu>
     <menu name="create-new-party" type="simple" menu-container-style="basic-nav">
         <menu-item name="create-party-group" title="${uiLabelMap.PartyCreateNewPartyGroup}">
-            <link target="editpartygroup?create_new=Y"/>
+            <link target="editpartygroup">
+                                        <parameter param-name="create_new" value="Y"/>
+                                    </link>
         </menu-item>
         <menu-item name="create-person" title="${uiLabelMap.PartyCreateNewPerson}">
-            <link target="editperson?create_new=Y"/>
+            <link target="editperson">
+                                        <parameter param-name="create_new" value="Y"/>
+                                    </link>
         </menu-item>
         <menu-item name="create-customer" title="${uiLabelMap.PartyCreateNewCustomer}">
             <link target="NewCustomer"/>
@@ -525,10 +529,14 @@ under the License.
             <link target="EditCommunicationEvent"/>
         </menu-item>
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
-            <link target="EditCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION"/>
+            <link target="EditCommunicationEvent">
+                                        <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
+                                    </link>
         </menu-item>
         <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
-            <link target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE"/>
+            <link target="EditCommunicationEvent">
+                                        <parameter param-name="communicationEventTypeId" value="COMMENT_NOTE"/>
+                                    </link>
         </menu-item>
         <menu-item name="reply" title="${uiLabelMap.PartyReply}">
             <condition>
