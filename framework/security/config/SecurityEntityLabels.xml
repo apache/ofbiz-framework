@@ -425,7 +425,7 @@
         <value xml:lang="th">ลบการทำงานในการจัดการหมวดหมู่</value>
     </property>
     <property key="SecurityPermission.description.CATALOG_PRICE_MAINT">
-        <value xml:lang="en">Permission required, in addition to other applicable permissions, to maintain product price information including prices, promotions, and price rules.</value>
+        <value xml:lang="en">Permission required, in addition to other applicable permissions, to maintain product prices, promotions, and price rules.</value>
         <value xml:lang="es">Se requiere un permiso, además de otros permisos aplicables, para mantener la información de precios de productos incluyendo, precios, promociones y reglas de precios.</value>
         <value xml:lang="fr">Autorisation exigée, en plus d'autres autorisations applicables, pour mettre à jour l'information sur les prix de produit, comprenant des prix, des promotions, et des règles de prix.</value>
         <value xml:lang="it">Permesso richiesto, in aggiunya agli altri permessi applicabili, per manutenere le informazioni sui prezzi prodotti, promozioni, e regole prezzi.</value>
