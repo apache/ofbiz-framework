@@ -339,13 +339,17 @@ under the License.
                             <widgets>
                                 <container style="lefthalf">
                                     <screenlet title="${uiLabelMap.AccountingPaymentHeader}">
-                                        <link target="editPayment?paymentId=${paymentId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/>
+                                        <link target="editPayment" text="${uiLabelMap.CommonUpdate}" style="buttontext">
+                                            <parameter param-name="paymentId" from-field="paymentId"/>
+                                        </link>
                                         <include-form name="paymentHeader" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
                                     </screenlet>
                                 </container>                                
                                 <container style="righthalf">
                                     <screenlet title="${uiLabelMap.AccountingPaymentsApplied} ${appliedAmount?currency(${payment.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${payment.currencyUomId})}">
-                                        <link target="editPaymentApplications?paymentId=${paymentId}" text="${uiLabelMap.CommonUpdate}" style="buttontext"/>
+                                        <link target="editPaymentApplications" text="${uiLabelMap.CommonUpdate}" style="buttontext">
+                                            <parameter param-name="paymentId" from-field="paymentId"/>
+                                        </link>
                                         <include-form name="paymentApplications" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
                                     </screenlet>
                                 </container>

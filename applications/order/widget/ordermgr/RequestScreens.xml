@@ -190,7 +190,9 @@ under the License.
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleRequestItems}">
-                            <link target="requestitem?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext"/>
+                            <link target="requestitem" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext">
+                                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                            </link>
                             <include-form name="ListRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -225,7 +227,9 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link target="requestitem?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext"/>
+                                            <link target="requestitem" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext">
+                                                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                                            </link>
                                         </container>
                                         <include-form name="EditCustRequestItem" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                                         <platform-specific>
@@ -465,7 +469,9 @@ under the License.
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="AddCustRequestItemWorkEffortPanel" title="${uiLabelMap.CommonId}:${custRequestItem.custRequestItemSeqId} ${custRequestItem.description}" collapsible="true">
-                            <link  target="EditRequestItem?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext"/>
+                            <link  target="EditRequestItem" text="${uiLabelMap.OrderNewRequestItem}" style="buttontext">
+                                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                            </link>
                             <include-form name="AddCustRequestItemWorkEffort" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                         </screenlet>
                         <include-form name="ListCustRequestItemWorkEfforts" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>

@@ -46,9 +46,15 @@ under the License.
                                         
                                         <container>
                                             <link target="EditCategory" text="${uiLabelMap.ProductNewCategory}" style="buttontext"/>
-                                            <link target="createProductInCategoryStart?productCategoryId=${productCategoryId}" text="${uiLabelMap.ProductCreateProductInCategory}" style="buttontext"/>
-                                            <link target="advancedsearch?SEARCH_CATEGORY_ID=${productCategoryId}" text="${uiLabelMap.ProductSearchInCategory}" style="buttontext"/>
-                                            <link target="/ecommerce/control/category?category_id=${productCategoryId}" url-mode="plain" text="${uiLabelMap.ProductCategoryPage}" style="buttontext"/>
+                                            <link target="createProductInCategoryStart" text="${uiLabelMap.ProductCreateProductInCategory}" style="buttontext">
+                                                <parameter param-name="productCategoryId" from-field="productCategoryId"/>
+                                            </link>
+                                            <link target="advancedsearch" text="${uiLabelMap.ProductSearchInCategory}" style="buttontext">
+                                                <parameter param-name="SEARCH_CATEGORY_ID" from-field="productCategoryId"/>
+                                            </link>
+                                            <link target="/ecommerce/control/category" url-mode="plain" text="${uiLabelMap.ProductCategoryPage}" style="buttontext">
+                                                <parameter param-name="category_id" from-field="productCategoryId"/>
+                                            </link>
                                         </container>
                                     </widgets>
                                 </section>

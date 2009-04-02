@@ -85,7 +85,9 @@ under the License.
                 <decorator-screen name="CommonQuoteDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <link target="QuoteReport?quoteId=${quote.quoteId}" text="${uiLabelMap.CommonReports}" style="buttontext"/>
+                            <link target="QuoteReport" text="${uiLabelMap.CommonReports}" style="buttontext">
+                                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+                            </link>
                             <link target="EditQuoteReportMail" text="${uiLabelMap.CommonSendReportByMail}" style="buttontext">
                                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                 <parameter param-name="emailType" value="PRDS_QUO_CONFIRM"/>
@@ -270,7 +272,9 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link target="EditQuoteRole?quoteId=${quote.quoteId}" text="${uiLabelMap.OrderCreateOrderQuoteRole}" style="buttontext"/>
+                                            <link target="EditQuoteRole" text="${uiLabelMap.OrderCreateOrderQuoteRole}" style="buttontext">
+                                                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+                                            </link>
                                         </container>
                                         <include-form name="ListQuoteRoles" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>                                        
                                     </widgets>
@@ -308,7 +312,9 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link target="EditQuoteRole?quoteId=${quote.quoteId}" text="${uiLabelMap.OrderCreateOrderQuoteRole}" style="buttontext"/>
+                                            <link target="EditQuoteRole" text="${uiLabelMap.OrderCreateOrderQuoteRole}" style="buttontext">
+                                                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+                                            </link>
                                         </container>
                                         <include-form name="EditQuoteRole" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
                                     </widgets>
@@ -349,7 +355,9 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link target="EditQuoteItem?quoteId=${quote.quoteId}" text="${uiLabelMap.OrderCreateOrderQuoteItem}" style="buttontext"/>
+                                            <link target="EditQuoteItem" text="${uiLabelMap.OrderCreateOrderQuoteItem}" style="buttontext">
+                                                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+                                            </link>
                                         </container>
                                         <include-form name="ListQuoteItems" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
                                     </widgets>
@@ -387,7 +395,9 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link target="EditQuoteItem?quoteId=${quote.quoteId}" text="${uiLabelMap.OrderCreateOrderQuoteItem}" style="buttontext"/>
+                                            <link target="EditQuoteItem" text="${uiLabelMap.OrderCreateOrderQuoteItem}" style="buttontext">
+                                                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+                                            </link>
                                         </container>
                                         <include-form name="EditQuoteItem" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
                                     </widgets>
@@ -424,7 +434,9 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link target="EditQuoteAttribute?quoteId=${quote.quoteId}" text="${uiLabelMap.OrderCreateOrderQuoteAttribute}" style="buttontext"/>
+                                            <link target="EditQuoteAttribute" text="${uiLabelMap.OrderCreateOrderQuoteAttribute}" style="buttontext">
+                                                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+                                            </link>
                                         </container>
                                         <include-form name="ListQuoteAttributes" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
                                     </widgets>
@@ -462,7 +474,9 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link target="EditQuoteAttribute?quoteId=${quote.quoteId}" text="${uiLabelMap.OrderCreateOrderQuoteAttribute}" style="buttontext"/>
+                                            <link target="EditQuoteAttribute" text="${uiLabelMap.OrderCreateOrderQuoteAttribute}" style="buttontext">
+                                                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+                                            </link>
                                         </container>
                                         <include-form name="EditQuoteAttribute" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
                                     </widgets>
@@ -499,7 +513,9 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link target="EditQuoteCoefficient?quoteId=${quote.quoteId}" text="${uiLabelMap.OrderCreateOrderQuoteCoefficient}" style="buttontext"/>
+                                            <link target="EditQuoteCoefficient" text="${uiLabelMap.OrderCreateOrderQuoteCoefficient}" style="buttontext">
+                                                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+                                            </link>
                                         </container>
                                         <include-form name="ListQuoteCoefficients" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
                                     </widgets>
@@ -537,7 +553,9 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link target="EditQuoteCoefficient?quoteId=${quote.quoteId}" text="${uiLabelMap.OrderCreateOrderQuoteCoefficient}" style="buttontext"/>
+                                            <link target="EditQuoteCoefficient" text="${uiLabelMap.OrderCreateOrderQuoteCoefficient}" style="buttontext">
+                                                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+                                            </link>
                                         </container>
                                         <include-form name="EditQuoteCoefficient" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
                                     </widgets>
@@ -641,8 +659,12 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link target="autoCreateQuoteAdjustments?quoteId=${quoteId}" text="${uiLabelMap.OrderRunStorePromotions}" style="buttontext"/>
-                                            <link target="EditQuoteAdjustment?quoteId=${quote.quoteId}" text="${uiLabelMap.OrderCreateOrderQuoteAdjustment}" style="buttontext"/>
+                                            <link target="autoCreateQuoteAdjustments" text="${uiLabelMap.OrderRunStorePromotions}" style="buttontext">
+                                                <parameter param-name="quoteId" from-field="quoteId"/>
+                                            </link>
+                                            <link target="EditQuoteAdjustment" text="${uiLabelMap.OrderCreateOrderQuoteAdjustment}" style="buttontext">
+                                                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+                                            </link>
                                         </container>
                                         <include-form name="ListQuoteAdjustments" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
                                     </widgets>
@@ -680,7 +702,9 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link target="EditQuoteAdjustment?quoteId=${quote.quoteId}" text="${uiLabelMap.OrderCreateOrderQuoteAdjustment}" style="buttontext"/>
+                                            <link target="EditQuoteAdjustment" text="${uiLabelMap.OrderCreateOrderQuoteAdjustment}" style="buttontext">
+                                                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+                                            </link>
                                         </container>
                                         <include-form name="EditQuoteAdjustment" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
                                     </widgets>

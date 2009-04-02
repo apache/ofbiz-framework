@@ -104,7 +104,9 @@ under the License.
                                         <section>
                                             <widgets>
                                                 <container>
-                                                    <link target="/partymgr/control/EditCommunicationEvent?communicationEventId=${commEvent.communicationEventId}" url-mode="inter-app" text="${commEvent.communicationEventId}" style="buttontext"/>
+                                                    <link target="/partymgr/control/EditCommunicationEvent" url-mode="inter-app" text="${commEvent.communicationEventId}" style="buttontext">
+                                                        <parameter param-name="communicationEventId" from-field="commEvent.communicationEventId"/>
+                                                    </link>
                                                     <label text="${commEvent.subject}"/>
                                                 </container>
                                             </widgets>
@@ -125,7 +127,9 @@ under the License.
                                         <section>
                                             <widgets>
                                                 <container>
-                                                    <link target="/partymgr/control/editShoppingList?shoppingListId=${shopList.shoppingListId}" url-mode="inter-app" text="${shopList.shoppingListId}" style="buttontext"/>
+                                                    <link target="/partymgr/control/editShoppingList" url-mode="inter-app" text="${shopList.shoppingListId}" style="buttontext">
+                                                        <parameter param-name="shoppingListId" from-field="shopList.shoppingListId"/>
+                                                    </link>
                                                     <label text="${shopList.listName} ${shopList.description}"/>
                                                 </container>
                                             </widgets>
@@ -146,7 +150,9 @@ under the License.
                                         <section>
                                             <widgets>
                                                 <container>
-                                                    <link target="/ordermgr/control/EditQuote?quoteId=${quote.quoteId}" url-mode="inter-app" text="${quote.quoteId}" style="buttontext"/>
+                                                    <link target="/ordermgr/control/EditQuote" url-mode="inter-app" text="${quote.quoteId}" style="buttontext">
+                                                        <parameter param-name="quoteId" from-field="quote.quoteId"/>
+                                                    </link>
                                                     <label text="${quote.quoteName} ${quote.description}"/>
                                                 </container>
                                             </widgets>
@@ -167,7 +173,9 @@ under the License.
                                         <section>
                                             <widgets>
                                                 <container>
-                                                    <link target="/ordermgr/control/orderview?orderId=${orderHeader.orderId}" url-mode="inter-app" text="${orderHeader.orderId}" style="buttontext"/>
+                                                    <link target="/ordermgr/control/orderview" url-mode="inter-app" text="${orderHeader.orderId}" style="buttontext">
+                                                        <parameter param-name="orderId" from-field="orderHeader.orderId"/>
+                                                    </link>
                                                     <label text="${uiLabelMap.CommonType} " style="label"/><label text="${orderHeader.orderTypeDescription}"/>
                                                     <label text="${uiLabelMap.CommonStatus} " style="label"/><label text="${orderHeader.statusItemDescription}"/>
                                                     <label text="${uiLabelMap.CommonTotal} " style="label"/><label text="${orderHeader.grandTotal}"/>

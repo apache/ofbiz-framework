@@ -95,8 +95,12 @@ under the License.
                                         <container style="h1"><label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${example.exampleName} [${exampleId}]</label></container>
                                         <container style="button-bar">
                                             <link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/>
-                                            <link target="ExampleReportHtml?exampleId=${exampleId}" text="${uiLabelMap.CommonPrinterFriendly}" style="buttontext"/>
-                                            <link target="ExampleReportPdf?exampleId=${exampleId}" text="${uiLabelMap.CommonPdf}" style="buttontext"/>
+                                            <link target="ExampleReportHtml" text="${uiLabelMap.CommonPrinterFriendly}" style="buttontext">
+                                                <parameter param-name="exampleId" from-field="exampleId"/>
+                                            </link>
+                                            <link target="ExampleReportPdf" text="${uiLabelMap.CommonPdf}" style="buttontext">
+                                                <parameter param-name="exampleId" from-field="exampleId"/>
+                                            </link>
                                             <link target="help?topic=ExampleEditHelp" text="${uiLabelMap.CommonHelp}" style="buttontext" target-window="_blank"/>
                                         </container>
                                     </widgets>

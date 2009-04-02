@@ -141,7 +141,9 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <label style="h3">${uiLabelMap.CommonView}</label>
-                            <link target="EditProductStorePromos?productStoreId=${productStoreId}" text="${uiLabelMap.CommonAll}" style="buttontext"/>
+                            <link target="EditProductStorePromos" text="${uiLabelMap.CommonAll}" style="buttontext">
+                                <parameter param-name="productStoreId" from-field="productStoreId"/>
+                            </link>
                             <link target="EditProductStorePromos" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext">
                                         <parameter param-name="productStoreId" from-field="productStoreId"/>
                                         <parameter param-name="userEntered" value="Y"/>
@@ -641,7 +643,9 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <link target="/marketing/control/viewSegmentGroup?productStoreId=${productStoreId}" text="${uiLabelMap.ProductNewSegment}" style="buttontext" url-mode="inter-app"/>
+                            <link target="/marketing/control/viewSegmentGroup" style="buttontext" url-mode="inter-app">
+                                <parameter param-name="productStoreId" from-field="productStoreId}" text="${uiLabelMap.ProductNewSegment"/>
+                            </link>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">

@@ -277,7 +277,9 @@ under the License.
                 <decorator-screen name="CommonPromoDecorator">
                     <decorator-section name="body">
                         <container>
-                            <link target="EditProductPromoCode?productPromoId=${productPromoId}" text="${uiLabelMap.ProductNewPromotionCode}" style="buttontext"/>
+                            <link target="EditProductPromoCode" text="${uiLabelMap.ProductNewPromotionCode}" style="buttontext">
+                                <parameter param-name="productPromoId" from-field="productPromoId"/>
+                            </link>
                         </container>
                         <section>
                             <condition>
@@ -285,12 +287,16 @@ under the License.
                             </condition>
                             <widgets>
                                 <container>
-                                    <link target="FindProductPromoCode?manualOnly=N&amp;productPromoId=${productPromoId}" text="${uiLabelMap.ProductPromotionManualImported}" style="buttontext"/>
+                                    <link target="FindProductPromoCode" text="${uiLabelMap.ProductPromotionManualImported}" style="buttontext">
+                                        <parameter param-name="manualOnly=N&amp;productPromoId" from-field="productPromoId"/>
+                                    </link>
                                 </container>
                             </widgets>
                             <fail-widgets>
                                 <container>
-                                    <link target="FindProductPromoCode?manualOnly=Y&amp;productPromoId=${productPromoId}" text="${uiLabelMap.ProductPromotionManual}" style="buttontext"/>
+                                    <link target="FindProductPromoCode" text="${uiLabelMap.ProductPromotionManual}" style="buttontext">
+                                        <parameter param-name="manualOnly=Y&amp;productPromoId" from-field="productPromoId"/>
+                                    </link>
                                 </container>
                             </fail-widgets>
                         </section>

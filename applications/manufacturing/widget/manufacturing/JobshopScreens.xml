@@ -238,13 +238,17 @@ under the License.
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
                     <decorator-section name="body">
                         <container>
-                            <link target="PrintProductionRun?productionRunId=${productionRunId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
+                            <link target="PrintProductionRun" text="${uiLabelMap.CommonPrint}" style="buttontext">
+                                <parameter param-name="productionRunId" from-field="productionRunId"/>
+                            </link>
                             <section>
                                 <condition>
                                     <if-compare field="productionRun.currentStatusId" operator="equals" value="PRUN_COMPLETED"/>
                                 </condition>
                                 <widgets>
-                                    <link target="changeProductionRunStatusToClosed?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingProductionRunClose}" style="buttontext"/>
+                                    <link target="changeProductionRunStatusToClosed" text="${uiLabelMap.ManufacturingProductionRunClose}" style="buttontext">
+                                        <parameter param-name="productionRunId" from-field="productionRunId"/>
+                                    </link>
                                 </widgets>
                             </section>
                             <section>
@@ -256,8 +260,12 @@ under the License.
                                     </and>
                                 </condition>
                                 <widgets>
-                                    <link target="quickStartAllProductionRunTasks?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingQuickStartAllTasks}" style="buttontext"/>
-                                    <link target="quickRunAllProductionRunTasks?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingQuickRunAllTasks}" style="buttontext"/>
+                                    <link target="quickStartAllProductionRunTasks" text="${uiLabelMap.ManufacturingQuickStartAllTasks}" style="buttontext">
+                                        <parameter param-name="productionRunId" from-field="productionRunId"/>
+                                    </link>
+                                    <link target="quickRunAllProductionRunTasks" text="${uiLabelMap.ManufacturingQuickRunAllTasks}" style="buttontext">
+                                        <parameter param-name="productionRunId" from-field="productionRunId"/>
+                                    </link>
                                     <link target="quickChangeProductionRunStatus" text="${uiLabelMap.ManufacturingQuickComplete}" style="buttontext">
                                         <parameter param-name="productionRunId" from-field="productionRunId"/>
                                         <parameter param-name="statusId" value="PRUN_COMPLETED"/>
@@ -266,7 +274,9 @@ under the License.
                                         <parameter param-name="productionRunId" from-field="productionRunId"/>
                                         <parameter param-name="statusId" value="PRUN_CLOSED"/>
                                     </link>
-                                    <link target="cancelProductionRun?productionRunId=${productionRunId}" text="${uiLabelMap.ManufacturingCancel}" style="buttontext"/>
+                                    <link target="cancelProductionRun" text="${uiLabelMap.ManufacturingCancel}" style="buttontext">
+                                <parameter param-name="productionRunId" from-field="productionRunId"/>
+                            </link>
                                 </widgets>
                             </section>
                         </container>

@@ -121,7 +121,9 @@
                             <condition><not><if-empty field="maintHistSeqId"/></not></condition>
                             <widgets>
                                 <container style="button-bar">
-                                    <link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetId}" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext"/>
+                                    <link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext">
+                                        <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                                    </link>
                                     <link target="printFixedAssetMaint.pdf" text="${uiLabelMap.CommonPrint}" style="buttontext">
                                         <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
                                         <parameter param-name="maintHistSeqId" from-field="maintHistSeqId"/>
@@ -154,7 +156,9 @@
                             </condition>
                             <widgets>
                                 <container style="button-bar">
-                                    <link target="EditWorkEfforts?workEffortId=${parameters.workEffortIdFrom}" text="${uiLabelMap.AssetMaintParentWorkEffort}" style="buttontext"/>
+                                    <link target="EditWorkEfforts" text="${uiLabelMap.AssetMaintParentWorkEffort}" style="buttontext">
+                                        <parameter param-name="workEffortId" from-field="parameters.workEffortIdFrom"/>
+                                    </link>
                                 </container>
                             </widgets>
                         </section>

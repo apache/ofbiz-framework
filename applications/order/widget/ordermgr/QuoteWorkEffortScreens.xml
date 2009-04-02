@@ -116,7 +116,9 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>
-                                            <link target="AddQuoteWorkEffort?quoteId=${quoteId}" text="${uiLabelMap.OrderCreateQuoteWorkEffort}" style="buttontext"/>
+                                            <link target="AddQuoteWorkEffort" text="${uiLabelMap.OrderCreateQuoteWorkEffort}" style="buttontext">
+                                                <parameter param-name="quoteId" from-field="quoteId"/>
+                                            </link>
                                         </container>
                                         <include-form name="ListQuoteWorkEfforts" location="component://order/widget/ordermgr/QuoteWorkEffortForms.xml"/>
                                     </widgets>

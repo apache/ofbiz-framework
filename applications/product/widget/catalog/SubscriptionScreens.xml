@@ -208,7 +208,9 @@ under the License.
                                         <container style="h1"><label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} "${subscriptionResource.description}" [${subscriptionResourceId}]</label></container>
                                         <container style="button-bar">
                                             <link target="EditSubscriptionResource" text="${uiLabelMap.ProductNewSubscriptionResource}" style="buttontext"/>
-                                            <link target="FindSubscription?subscriptionResourceId=${subscriptionResourceId}" text="${uiLabelMap.ProductFindResourceSubscriptions}" style="buttontext"/>
+                                            <link target="FindSubscription" text="${uiLabelMap.ProductFindResourceSubscriptions}" style="buttontext">
+                                                <parameter param-name="subscriptionResourceId" from-field="subscriptionResourceId"/>
+                                            </link>
                                         </container>
                                     </widgets>
                                     <fail-widgets>
