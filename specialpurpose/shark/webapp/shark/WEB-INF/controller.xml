@@ -38,12 +38,12 @@ under the License.
         
     <preprocessor>
         <!-- Events to run on every request before security (chains exempt) -->
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="check509CertLogin"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
+        <event name="check509CertLogin" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="check509CertLogin"/>
+        <event name="checkExternalLoginKey" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
     </preprocessor>
     <postprocessor>
         <!-- Events to run on every request after all other processing (chains exempt) -->
-        <!-- <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
+        <!-- <event name="test" type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/> -->
     </postprocessor>
 
     <!-- Security Mappings -->

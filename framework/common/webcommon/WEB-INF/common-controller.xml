@@ -46,14 +46,14 @@ under the License.
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
     <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>   
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
-    
+
     <preprocessor>
         <!-- Events to run on every request before security (chains exempt) -->
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="check509CertLogin"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkRequestHeaderLogin"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkServletRequestRemoteUserLogin"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
-        <event type="java" path="org.ofbiz.webapp.control.ProtectViewWorker" invoke="checkProtectedView"/>
+        <event name="check509CertLogin" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="check509CertLogin"/>
+        <event name="checkRequestHeaderLogin" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkRequestHeaderLogin"/>
+        <event name="checkServletRequestRemoteUserLogin" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkServletRequestRemoteUserLogin"/>
+        <event name="checkExternalLoginKey" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkExternalLoginKey"/>
+        <event name="checkProtectedView" type="java" path="org.ofbiz.webapp.control.ProtectViewWorker" invoke="checkProtectedView"/>
     </preprocessor>
     <postprocessor>
         <!-- Events to run on every request after all other processing (chains exempt) -->
