@@ -27,7 +27,7 @@ under the License.
     <DataSourceType dataSourceTypeId="ADVERTISEMENT" description="Advertisement"/>
     <DataSourceType dataSourceTypeId="WEB" description="Web"/>
     <DataSourceType dataSourceTypeId="PARTNER" description="Partner"/>
-    <DataSourceType dataSourceTypeId="MY_PORTAL" description="Partner"/>
+    <DataSourceType dataSourceTypeId="MY_PORTAL" description="My Portal"/>
     
     <DataSource dataSourceId="ECOMMERCE_SITE" dataSourceTypeId="WEBSITE_ENTRY" description="eCommerce Site Profile Maintenance"/>
     <DataSource dataSourceId="MY_PORTAL" dataSourceTypeId="MY_PORTAL" description="My Portal Registration"/>
