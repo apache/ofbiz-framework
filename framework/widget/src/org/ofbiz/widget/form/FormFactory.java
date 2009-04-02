@@ -79,6 +79,9 @@ public class FormFactory {
                     */
                     URL formFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
                     Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true);
+                    if (formFileDoc == null) {
+                        throw new IllegalArgumentException("Could not find resource [" + resourceName + "]");
+                    }
                     modelForm = createModelForm(formFileDoc, entityModelReader, dispatchContext, resourceName, formName);
                     formLocationCache.put(cacheKey, modelForm);
                 }
