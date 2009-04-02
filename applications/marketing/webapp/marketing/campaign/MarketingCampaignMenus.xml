@@ -22,10 +22,14 @@ under the License.
     <menu name="MarketingCampaignTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="MarketingCampaign" selected-menuitem-context-field-name="campaignTabButtonItem">
         <menu-item name="MarketingCampaign" title="${uiLabelMap.MarketingCampaign}">
-            <link target="/EditMarketingCampaign?marketingCampaignId=${marketingCampaignId}"/>
+            <link target="/EditMarketingCampaign">
+                <parameter param-name="marketingCampaignId" from-field="marketingCampaignId"/>
+            </link>
         </menu-item>
         <menu-item name="MarketingCampaignRole" title="${uiLabelMap.PartyRoles}">
-            <link target="/ListMarketingCampaignRoles?marketingCampaignId=${marketingCampaignId}"/>
+            <link target="/ListMarketingCampaignRoles">
+                <parameter param-name="marketingCampaignId" from-field="marketingCampaignId"/>
+            </link>
         </menu-item>
     </menu>
 </menus>

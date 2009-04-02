@@ -142,7 +142,9 @@ under the License.
             <condition>
                 <if-compare-field field="mostRecentRevisionSeqId" operator="greater" to-field="rootContentRevisionSeqId"/>
             </condition>
-            <link target="ViewCompDocTemplateTree?rootContentId=${contentId}"/> <!-- rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp; -->
+            <link target="ViewCompDocTemplateTree">
+                <parameter param-name="rootContentId" from-field="contentId"/>
+            </link> <!-- rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp; -->
         </menu-item>
         <!-- on page
         <menu-item name="viewinst" title="View Instances">
@@ -266,7 +268,9 @@ under the License.
             <condition>
                 <if-compare-field field="mostRecentRevisionSeqId" operator="greater" to-field="rootContentRevisionSeqId"/>
             </condition>
-            <link target="ViewCompDocInstanceTree?rootContentId=${rootContentId}"/> <!-- rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp; -->
+            <link target="ViewCompDocInstanceTree">
+                <parameter param-name="rootContentId" from-field="rootContentId"/>
+            </link> <!-- rootContentRevisionSeqId=${rootContentRevisionSeqId}&amp; -->
         </menu-item>
     </menu>
 </menus>

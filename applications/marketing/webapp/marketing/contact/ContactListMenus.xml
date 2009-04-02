@@ -22,13 +22,19 @@ under the License.
     <menu name="ContactListTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="ContactList" selected-menuitem-context-field-name="contactListTabButtonItem">
         <menu-item name="ContactList" title="${uiLabelMap.MarketingContactList}">
-            <link target="/EditContactList?contactListId=${contactListId}"/>
+            <link target="/EditContactList">
+                <parameter param-name="contactListId" from-field="contactListId"/>
+            </link>
         </menu-item>
         <menu-item name="ContactListParty" title="${uiLabelMap.PartyParties}">
-            <link target="/FindContactListParties?contactListId=${contactListId}"/>
+            <link target="/FindContactListParties">
+                <parameter param-name="contactListId" from-field="contactListId"/>
+            </link>
         </menu-item>
         <menu-item name="ContactListCommEvent" title="${uiLabelMap.PartyCommEvents}">
-            <link target="/FindContactListCommEvents?contactListId=${contactListId}"/>
+            <link target="/FindContactListCommEvents">
+                <parameter param-name="contactListId" from-field="contactListId"/>
+            </link>
         </menu-item>
     </menu>
 </menus>

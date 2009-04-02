@@ -52,7 +52,9 @@ under the License.
           default-menu-item-name="EditComputerHardware">
         <!-- Tab Bar customized for Fixed Assets of type Computer Hardware  -->
         <menu-item name="EditComputerHardware" title="${uiLabelMap.IsMgrComputerHardware}">
-            <link target="EditComputerHardware?fixedAssetId=${fixedAssetId}"/>
+            <link target="EditComputerHardware">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+            </link>
         </menu-item>
         <menu-item name="ListHardwareAccessories" title="${uiLabelMap.IsMgrHardwareAccessories}">
             <link target="ListHardwareAccessories">
@@ -61,23 +63,35 @@ under the License.
             </link>
         </menu-item>
         <menu-item name="ListInstalledSoftware" title="${uiLabelMap.IsMgrInstalledSoftware}">
-            <link target="ListInstalledSoftware?fixedAssetId=${fixedAssetId}"/>
+            <link target="ListInstalledSoftware">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+            </link>
         </menu-item>
         <!-- Will add soon 
         <menu-item name="EditFaComputerHardwareStdCosts" title="${uiLabelMap.AccountingFixedAssetStdCosts}">
-            <link target="EditFaComputerHardwareStdCosts?fixedAssetId=${fixedAssetId}"/>
+            <link target="EditFaComputerHardwareStdCosts">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+            </link>
         </menu-item>
         <menu-item name="EditFaComputerHardwareIdents" title="${uiLabelMap.AccountingFixedAssetIdents}">
-            <link target="EditFaComputerHardwareIdents?fixedAssetId=${fixedAssetId}"/>
+            <link target="EditFaComputerHardwareIdents">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+            </link>
         </menu-item>
         <menu-item name="EditFaComputerHardwareRegistrations" title="${uiLabelMap.AccountingFixedAssetRegistrations}">
-            <link target="EditFaComputerHardwareRegistrations?fixedAssetId=${fixedAssetId}"/>
+            <link target="EditFaComputerHardwareRegistrations">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+            </link>
         </menu-item>
         <menu-item name="ListFaComputerHardwareMaints" title="${uiLabelMap.AccountingFixedAssetMaints}">
-            <link target="ListFaComputerHardwareMaints?fixedAssetId=${fixedAssetId}"/>
+            <link target="ListFaComputerHardwareMaints">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+            </link>
         </menu-item>
         <menu-item name="EditPartyFixedAssetAssignments" title="${uiLabelMap.AccountingPartyFixedAssetAssignments}">
-            <link target="EditPartyFixedAssetAssignments?fixedAssetId=${fixedAssetId}"/>
+            <link target="EditPartyFixedAssetAssignments">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+            </link>
         </menu-item>
          -->
     </menu>

@@ -93,7 +93,9 @@ under the License.
             <condition>
                 <not><if-empty field="temporalExpression"/></not>
             </condition>
-            <link target="editTemporalExpression?tempExprId=${temporalExpression.tempExprId}"/>
+            <link target="editTemporalExpression">
+                <parameter param-name="tempExprId" from-field="temporalExpression.tempExprId"/>
+            </link>
         </menu-item>
     </menu>
 

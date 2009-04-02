@@ -24,12 +24,16 @@ under the License.
         extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="main" parent-portal-page-value="${parameters.parentPortalPageId}"/>
         <menu-item name="Preferences" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
-            <link target="ManagePortalPages?parentPortalPageId=${parameters.parentPortalPageId}"/>
+            <link target="ManagePortalPages">
+                <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
+            </link>
         </menu-item>
     </menu>
     <menu name="MyCompanyCommsMenu">
         <menu-item name="newEvent" title="${uiLabelMap.WorkEffortNewEvent}">
-            <link target="newEvent?portalPageId=${parameters.portalPageId}"/>
+            <link target="newEvent">
+                <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
+            </link>
         </menu-item>
     </menu>
     
@@ -66,10 +70,14 @@ under the License.
     </menu>
     <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ViewRequest" title="${uiLabelMap.OrderRequestOverview}" >
-            <link target="ViewRequest?custRequestId=${custRequest.custRequestId}"/>
+            <link target="ViewRequest">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+            </link>
         </menu-item>
         <menu-item name="custRequestContent" title="${uiLabelMap.ContentContent}">
-            <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>
+            <link target="EditCustRequestContent">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+            </link>
         </menu-item>
     </menu>
     <menu name="RequestSubTabBar" type="simple" menu-container-style="button-bar button-style-2">
@@ -94,7 +102,9 @@ under the License.
                     <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
                 </and>
             </condition>
-            <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>
+            <link target="EditCustRequestContent">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+            </link>
         </menu-item>
     </menu>
 </menus>
