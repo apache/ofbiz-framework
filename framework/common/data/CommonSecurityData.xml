@@ -21,6 +21,7 @@
 <entity-engine-xml>
     <!-- Common Services security -->
     <SecurityPermission description="View operations in the Common Component." permissionId="COMMON_VIEW"/>
+    <SecurityPermission description="Admin operations in the Common Component." permissionId="COMMON_ADMIN"/>
     <SecurityPermission description="Create operations in the Common Component." permissionId="COMMON_CREATE"/>
     <SecurityPermission description="Update operations in the Common Component." permissionId="COMMON_UPDATE"/>
     <SecurityPermission description="Delete operations in the Common Component." permissionId="COMMON_DELETE"/>
@@ -38,7 +39,8 @@
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="VISUALTHEME_DELETE"/>
 
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="VISUALTHEME_ADMIN"/>
-
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="COMMON_ADMIN"/>
+    
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="COMMON_VIEW"/>
 
     <!-- User preferences security -->
