@@ -517,11 +517,14 @@ public class RequestHandler {
                 // check for an override view, only used if "success" = eventReturn
                 String viewName = (UtilValidate.isNotEmpty(overrideViewUri) && (eventReturn == null || "success".equals(eventReturn))) ? overrideViewUri : nextRequestResponse.value;
 
-                // as a further override, look for the _SAVED and then _LAST session attributes
+                // as a further override, look for the _SAVED and then _HOME and then _LAST session attributes
                 Map<String, Object> urlParams = null;
                 if (session.getAttribute("_SAVED_VIEW_NAME_") != null) {
                     viewName = (String) session.getAttribute("_SAVED_VIEW_NAME_");
                     urlParams = (Map<String, Object>) UtilGenerics.<String, Object>checkMap(session.getAttribute("_SAVED_VIEW_PARAMS_"));
+                } else if (session.getAttribute("_HOME_VIEW_NAME_") != null) {
+                    viewName = (String) session.getAttribute("_HOME_VIEW_NAME_");
+                    urlParams = (Map<String, Object>) UtilGenerics.<String, Object>checkMap(session.getAttribute("_HOME_VIEW_PARAMS_"));
                 } else if (session.getAttribute("_LAST_VIEW_NAME_") != null) {
                     viewName = (String) session.getAttribute("_LAST_VIEW_NAME_");
                     urlParams = (Map<String, Object>) UtilGenerics.<String, Object>checkMap(session.getAttribute("_LAST_VIEW_PARAMS_"));
