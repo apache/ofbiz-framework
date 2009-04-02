@@ -27,8 +27,10 @@ under the License.
     <DataSourceType dataSourceTypeId="ADVERTISEMENT" description="Advertisement"/>
     <DataSourceType dataSourceTypeId="WEB" description="Web"/>
     <DataSourceType dataSourceTypeId="PARTNER" description="Partner"/>
-
+    <DataSourceType dataSourceTypeId="MY_PORTAL" description="Partner"/>
+    
     <DataSource dataSourceId="ECOMMERCE_SITE" dataSourceTypeId="WEBSITE_ENTRY" description="eCommerce Site Profile Maintenance"/>
+    <DataSource dataSourceId="MY_PORTAL" dataSourceTypeId="MY_PORTAL" description="My Portal Registration"/>
     <DataSource dataSourceId="GENERAL_MAILING" dataSourceTypeId="MAILING_LIST_SIGNUP" description="General Interest Mailing List Signup"/>
     <DataSource dataSourceId="CSR_ENTRY" dataSourceTypeId="ADMIN_ENTRY" description="Customer Service Rep Data Entry"/>
     <DataSource dataSourceId="GEN_ADMIN" dataSourceTypeId="ADMIN_ENTRY" description="General Administrative Data Entry"/>
