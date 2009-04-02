@@ -47,15 +47,15 @@ under the License.
         </field>
         <field use-when="&quot;ESR_PENDING&quot;.equals(runStatusId)" name="acceptOffline" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsSyncAcceptOffline}" target="updateOfflineEntitySync">
-				<parameter param-name="entitySyncId" from-field="entitySyncId"/>
-				<parameter param-name="updateType" value="ACCEPT"/>
-			</hyperlink>
+                <parameter param-name="entitySyncId" from-field="entitySyncId"/>
+                <parameter param-name="updateType" value="ACCEPT"/>
+            </hyperlink>
         </field>
         <field use-when="&quot;ESR_PENDING&quot;.equals(runStatusId)" name="rejectOffline" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsSyncRejectOffline}" target="updateOfflineEntitySync">
-				<parameter param-name="entitySyncId" from-field="entitySyncId"/>
-				<parameter param-name="updateType" value="REJECT"/>
-			</hyperlink>
+                <parameter param-name="entitySyncId" from-field="entitySyncId"/>
+                <parameter param-name="updateType" value="REJECT"/>
+            </hyperlink>
         </field>
     </form>
 
