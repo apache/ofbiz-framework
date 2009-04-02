@@ -378,7 +378,9 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <container>
-                                    <link target="newFixedAssetProduct?productId=${productId}" text="${uiLabelMap.PageTitleCreateProductAssetUsage}" style="buttontext"/>
+                                    <link target="newFixedAssetProduct" text="${uiLabelMap.PageTitleCreateProductAssetUsage}" style="buttontext">
+                                        <parameter param-name="productId" from-field="productId"/>
+                                    </link>
                                 </container>
                                 <section>
                                     <widgets>
@@ -414,7 +416,9 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <container>
-                                    <link target="newFixedAssetProduct?productId=${productId}" text="${uiLabelMap.AccountingFixedAssetNew}" style="buttontext"/>
+                                    <link target="newFixedAssetProduct" text="${uiLabelMap.AccountingFixedAssetNew}" style="buttontext">
+                                        <parameter param-name="productId" from-field="productId"/>
+                                    </link>
                                 </container>
                                 <section>
                                     <widgets>
@@ -801,8 +805,12 @@ under the License.
                 <decorator-screen name="CommonProductDecorator"  location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <link target="forceIndexProductKeywords?productId=${productId}" text="${uiLabelMap.ProductReInduceKeywords}" style="buttontext"/>
-                            <link target="deleteProductKeywords?productId=${productId}" text="${uiLabelMap.ProductDeleteAllKeywords}" style="buttontext"/>
+                            <link target="forceIndexProductKeywords" text="${uiLabelMap.ProductReInduceKeywords}" style="buttontext">
+                                <parameter param-name="productId" from-field="productId"/>
+                            </link>
+                            <link target="deleteProductKeywords" text="${uiLabelMap.ProductDeleteAllKeywords}" style="buttontext">
+                                <parameter param-name="productId" from-field="productId"/>
+                            </link>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -1186,7 +1194,11 @@ under the License.
                         </container>
                         <section>
                             <condition><not><if-empty field="supplierProduct"/></not></condition>
-                            <widgets><link target="EditProductSuppliers?productId=${productId}" style="buttontext" text="${uiLabelMap.ProductNewProductSupplier}"/></widgets>
+                            <widgets>
+                                <link target="EditProductSuppliers" style="buttontext" text="${uiLabelMap.ProductNewProductSupplier}">
+                                    <parameter param-name="productId" from-field="productId"/>
+                                 </link>
+                            </widgets>
                         </section>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">

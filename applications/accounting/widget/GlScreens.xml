@@ -51,7 +51,9 @@ under the License.
                                                 <parameter param-name="creditGlAccountClassId" from-field="REVENUE"/>
                                                 <parameter param-name="acctgTransTypeId" value="SALES"/>
                                             </link>
-                                            <link target="TrialBalance?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingTrialBalance}" style="buttontext"/>
+                                            <link target="TrialBalance" text="${uiLabelMap.AccountingTrialBalance}" style="buttontext">
+                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                            </link>
                                         </container>
                                         <container>
                                             <link target="CreateAcctgTransAndEntries" text="${uiLabelMap.AccountingCreatePaymentAcctgTrans}" style="buttontext">
@@ -60,11 +62,15 @@ under the License.
                                                 <parameter param-name="creditGlAccountClassId" from-field="CURRENT_LIABILITY"/>
                                                 <parameter param-name="acctgTransTypeId" value="PAYMENT_ACCTG_TRANS"/>
                                             </link>
-                                            <link target="IncomeStatement?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingIncomeStatement}" style="buttontext"/>
+                                            <link target="IncomeStatement" text="${uiLabelMap.AccountingIncomeStatement}" style="buttontext">
+                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                            </link>
                                         </container>
                                         <container>
                                             <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
-                                            <link target="BalanceSheet?organizationPartyId=${organizationPartyId}" text="${uiLabelMap.AccountingBalanceSheet}" style="buttontext"/>
+                                            <link target="BalanceSheet" text="${uiLabelMap.AccountingBalanceSheet}" style="buttontext">
+                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                            </link>
                                         </container>     
                                     </container>
                                 </container>

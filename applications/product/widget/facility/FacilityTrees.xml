@@ -31,7 +31,9 @@ under the License.
             </sub-node>
         </node>
         <node name="node-body">
-            <link target="EditFacility?facilityId=${facilityId}" text="${facilityName} [${facilityId}]"/>
+            <link target="EditFacility" text="${facilityName} [${facilityId}]">
+                <parameter param-name="facilityId" from-field="facilityId"/>
+            </link>
             <sub-node node-name="node-body">
                 <entity-and entity-name="Facility">
                     <field-map field-name="parentFacilityId" from-field="facilityId"/>

@@ -163,7 +163,9 @@ under the License.
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="button-bar">
-                            <link target="EditAgreementItem?agreementId=${agreement.agreementId}" text="${uiLabelMap.AccountingNewAgreementItem}" style="buttontext"/>
+                            <link target="EditAgreementItem" text="${uiLabelMap.AccountingNewAgreementItem}" style="buttontext">
+                                <parameter param-name="agreementId" from-field="agreement.agreementId"/>
+                            </link>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -202,7 +204,9 @@ under the License.
                 <decorator-screen name="CommonAgreementDecorator" location="${parameters.agreementDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="button-bar">
-                            <link target="EditAgreementItem?agreementId=${agreement.agreementId}" text="${uiLabelMap.AccountingNewAgreementItem}" style="buttontext"/>
+                            <link target="EditAgreementItem" text="${uiLabelMap.AccountingNewAgreementItem}" style="buttontext">
+                                <parameter param-name="agreementId" from-field="agreement.agreementId"/>
+                            </link>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">

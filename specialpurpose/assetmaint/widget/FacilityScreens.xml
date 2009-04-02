@@ -53,8 +53,12 @@
                             <label style="h2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
                         </container>
                         <container>
-                            <link target="EditFacilityInventoryItems?facilityId=${facilityId}" text="${uiLabelMap.ProductInventoryItems}" style="buttontext"/>
-                            <!--<link target="ViewFacilityInventoryByProductSimple?facilityId=${facilityId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>-->
+                            <link target="EditFacilityInventoryItems" text="${uiLabelMap.ProductInventoryItems}" style="buttontext">
+                                <parameter param-name="facilityId" from-field="facilityId"/>
+                            </link>
+                            <!--<link target="ViewFacilityInventoryByProductSimple" text="${uiLabelMap.CommonPrint}" style="buttontext">
+                                <parameter param-name="facilityId" from-field="facilityId"/>
+                            </link>-->
                             <link target="ViewFacilityInventoryByProductReport?${searchParameterString}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
                             <link target="ViewFacilityInventoryByProductExport?${searchParameterString}" text="${uiLabelMap.CommonExport}" style="buttontext"/>
                         </container>

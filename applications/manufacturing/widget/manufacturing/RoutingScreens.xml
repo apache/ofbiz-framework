@@ -318,7 +318,9 @@ under the License.
                 <decorator-screen name="CommonRoutingTaskDecorator">
                     <decorator-section name="body">
                         <screenlet id="EditRoutingTaskProductPanel" title="${uiLabelMap.PageTitleListRoutingTaskProducts}">
-                            <link target="EditRoutingTaskProduct?workEffortId=${workEffortId}" text="${uiLabelMap.ManufacturingNewRoutingTaskProduct}" style="buttontext"/>
+                            <link target="EditRoutingTaskProduct" text="${uiLabelMap.ManufacturingNewRoutingTaskProduct}" style="buttontext">
+                                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                            </link>
                             <include-form name="ListRoutingTaskProducts" location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskForms.xml"/>
                         </screenlet>
                     </decorator-section>

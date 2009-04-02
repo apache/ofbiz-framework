@@ -215,7 +215,9 @@ under the License.
                                 <parameter param-name="facilityId" from-field="facilityId"/>
                                 <parameter param-name="completeRequested" value="true"/>
                             </link>
-                            <link target="TransferInventoryItem?facilityId=${facilityId}" text="${uiLabelMap.ProductInventoryTransfer}" style="buttontext"/>
+                            <link target="TransferInventoryItem" text="${uiLabelMap.ProductInventoryTransfer}" style="buttontext">
+                                <parameter param-name="facilityId" from-field="facilityId"/>
+                            </link>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -324,8 +326,12 @@ under the License.
                             <decorator-section name="menu-bar">
                                 <container style="button-bar">
                                     <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
-                                    <link target="EditInventoryItem?facilityId=${parameters.facilityId}" text="${uiLabelMap.ProductNewInventoryItem}" style="buttontext"/>
-                                    <link target="SearchInventoryItemsByLabels?facilityId=${parameters.facilityId}" text="${uiLabelMap.ProductSearchInventoryItemsByLabels}" style="buttontext"/>
+                                    <link target="EditInventoryItem" text="${uiLabelMap.ProductNewInventoryItem}" style="buttontext">
+                                        <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                                    </link>
+                                    <link target="SearchInventoryItemsByLabels" text="${uiLabelMap.ProductSearchInventoryItemsByLabels}" style="buttontext">
+                                        <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                                    </link>
                                 </container>
                             </decorator-section>
                             <decorator-section name="search-options">
@@ -363,8 +369,12 @@ under the License.
                         </container>
                         <container>
                             <link target="EditFacility" text="${uiLabelMap.ProductNewFacility}" style="buttontext"/>
-                            <link target="EditInventoryItem?facilityId=${parameters.facilityId}" text="${uiLabelMap.ProductCreateNewInventoryItemFacility}" style="buttontext"/>
-                            <link target="EditFacilityInventoryItems?facilityId=${parameters.facilityId}" text="${uiLabelMap.ProductInventoryItems}" style="buttontext"/>
+                            <link target="EditInventoryItem" text="${uiLabelMap.ProductCreateNewInventoryItemFacility}" style="buttontext">
+                                <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                            </link>
+                            <link target="EditFacilityInventoryItems" text="${uiLabelMap.ProductInventoryItems}" style="buttontext">
+                                <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                            </link>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -418,7 +428,9 @@ under the License.
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="menu-bar">
                                 <container style="button-bar">
-                                    <!--<link target="ViewFacilityInventoryByProductSimple?facilityId=${facilityId}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>-->
+                                    <!--<link target="ViewFacilityInventoryByProductSimple" text="${uiLabelMap.CommonPrint}" style="buttontext">
+                                        <parameter param-name="facilityId" from-field="facilityId"/>
+                                    </link>-->
                                     <link target="ViewFacilityInventoryByProductReport?${searchParameterString}" text="${uiLabelMap.CommonPrint}" style="buttontext"/>
                                     <link target="ViewFacilityInventoryByProductExport?${searchParameterString}" text="${uiLabelMap.CommonExport}" style="buttontext"/>
                                     <link target="InventoryItemTotals" text="${uiLabelMap.ProductInventoryItemTotals}" style="buttontext">
@@ -433,7 +445,9 @@ under the License.
                                         <parameter param-name="facilityId" from-field="facilityId"/>
                                         <parameter param-name="action" value="Y"/>
                                     </link>
-                                    <link target="InventoryAverageCosts?facilityId=${facilityId}" text="${uiLabelMap.ProductInventoryAverageCosts}" style="buttontext"/>                                    
+                                    <link target="InventoryAverageCosts" text="${uiLabelMap.ProductInventoryAverageCosts}" style="buttontext">
+                                        <parameter param-name="facilityId" from-field="facilityId"/>
+                                    </link>                                    
                                 </container>
                             </decorator-section>
                             <decorator-section name="search-options">
@@ -486,7 +500,9 @@ under the License.
                             <label style="h2">${facility.facilityName} [${uiLabelMap.CommonId}:${facilityId}]</label>
                         </container>
                         <container>
-                            <link target="ViewFacilityInventoryByProduct?facilityId=${facilityId}" text="${uiLabelMap.CommonBack}" style="buttontext"/>
+                            <link target="ViewFacilityInventoryByProduct" text="${uiLabelMap.CommonBack}" style="buttontext">
+                                <parameter param-name="facilityId" from-field="facilityId"/>
+                            </link>
                         </container>
 
                         <include-form name="FindFacilityInventoryByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
@@ -914,7 +930,9 @@ under the License.
                                     <label text="${uiLabelMap.PageTitleEditInventoryItem}"/>
                                 </container>
                                 <container style="widget-container">
-                                    <link target="EditInventoryItem?facilityId=${facilityId}" text="${uiLabelMap.ProductNewInventoryItem}" style="buttontext"/>
+                                    <link target="EditInventoryItem" text="${uiLabelMap.ProductNewInventoryItem}" style="buttontext">
+                                        <parameter param-name="facilityId" from-field="facilityId"/>
+                                    </link>
                                     <link target="TransferInventoryItem" text="${uiLabelMap.ProductTransferItem}" style="buttontext">
                                         <parameter param-name="inventoryItemId" from-field="inventoryItemId"/>
                                         <parameter param-name="facilityId" from-field="facilityId"/>
