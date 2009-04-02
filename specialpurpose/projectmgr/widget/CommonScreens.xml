@@ -114,7 +114,9 @@ under the License.
                                         <include-menu name="TaskSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
                                         <container style="clear"/>
                                         <label style="h1" text="${uiLabelMap.ProjectMgrTaskCurrent}: ${workEffort.workEffortName}[${workEffort.workEffortId}] ${uiLabelMap.ProjectMgrPhaseName}: ${phaseName} ${uiLabelMap.ProjectMgrProjectName}: ${projectName}"/>
-                                        <link style="h1" text="[${projectId}]" target="projectView?projectId=${projectId}"/>
+                                        <link style="h1" text="[${projectId}]" target="projectView">
+                                            <parameter param-name="projectId" from-field="projectId"/>
+                                        </link>
                                     </widgets>                                    
                                 </section>
                                 <decorator-section-include name="body"/>

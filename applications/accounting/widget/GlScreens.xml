@@ -67,7 +67,9 @@ under the License.
                                             </link>
                                         </container>
                                         <container>
-                                            <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
+                                            <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans">
+                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                            </link>
                                             <link target="BalanceSheet" text="${uiLabelMap.AccountingBalanceSheet}" style="buttontext">
                                                 <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
                                             </link>
@@ -101,9 +103,15 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                  <container>
-                                    <link text="${uiLabelMap.AccountingCreateAnAccountingTransaction}" style="buttontext" target="newAcctgTrans?organizationPartyId=${organizationPartyId}"/>
-                                    <link text="${uiLabelMap.AccountingCreateAcctgTransAndEntries}" style="buttontext" target="CreateAcctgTransAndEntries?organizationPartyId=${organizationPartyId}"/>
-                                    <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans?organizationPartyId=${organizationPartyId}"/>
+                                    <link text="${uiLabelMap.AccountingCreateAnAccountingTransaction}" style="buttontext" target="newAcctgTrans">
+                                        <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                    </link>
+                                    <link text="${uiLabelMap.AccountingCreateAcctgTransAndEntries}" style="buttontext" target="CreateAcctgTransAndEntries">
+                                        <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                    </link>
+                                    <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans">
+                                        <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                    </link>
                                 </container>
                                 <include-form name="FindAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
                             </container>

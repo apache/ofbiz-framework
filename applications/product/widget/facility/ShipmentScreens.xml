@@ -91,7 +91,9 @@ under the License.
                         <decorator-screen name="CommonShipmentDecorator">
                             <decorator-section name="body">
                                 <container>
-                                    <link style="buttontext" text="${uiLabelMap.ProductGenerateShipmentManifestReport}" target="ShipmentManifest.pdf?shipmentId=${shipment.shipmentId}"/>
+                                    <link style="buttontext" text="${uiLabelMap.ProductGenerateShipmentManifestReport}" target="ShipmentManifest.pdf">
+                                        <parameter param-name="shipmentId" from-field="shipment.shipmentId"/>
+                                    </link>
                                 </container>
                                 <platform-specific>
                                     <html><html-template location="component://product/webapp/facility/shipment/ViewShipmentInfo.ftl"/></html>
