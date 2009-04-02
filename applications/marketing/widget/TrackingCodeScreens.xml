@@ -83,7 +83,11 @@ under the License.
                                     <container style="screenlet-body">
                                         <section>
                                             <widgets>
-                                                <container><link  text="${uiLabelMap.MarketingTrackingCodeCreate}" target="/EditTrackingCode?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                                <container>
+                                                    <link  text="${uiLabelMap.MarketingTrackingCodeCreate}" target="/EditTrackingCode" style="buttontext">
+                                                        <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                                    </link>
+                                                </container>
                                                 <include-form name="EditTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
                                             </widgets>
                                         </section>
@@ -135,7 +139,11 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link text="${uiLabelMap.MarketingTrackingCodeCreate}" target="/EditTrackingCode?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <container>
+                                            <link text="${uiLabelMap.MarketingTrackingCodeCreate}" target="/EditTrackingCode" style="buttontext">
+                                                <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                            </link>
+                                        </container>
                                         <include-form name="ListTrackingCode" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
                                     </widgets>
                                 </section>
@@ -456,7 +464,11 @@ under the License.
                                     <container style="screenlet-body">
                                         <section>
                                             <widgets>
-                                                <container><link  text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                                <container>
+                                                    <link  text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType" style="buttontext">
+                                                        <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                                    </link>
+                                                </container>
                                                 <include-form name="EditTrackingCodeType" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
                                             </widgets>
                                         </section>
@@ -509,7 +521,11 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <container>
+                                            <link text="${uiLabelMap.MarketingTrackingCodeTypeCreate}" target="/EditTrackingCodeType" style="buttontext">
+                                                <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                            </link>
+                                        </container>
                                         <include-form name="ListTrackingCodeType" location="component://marketing/webapp/marketing/trackingcode/TrackingCodeForms.xml"/>
                                     </widgets>
                                 </section>

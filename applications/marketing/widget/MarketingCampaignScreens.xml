@@ -85,7 +85,11 @@ under the License.
                                     <container style="screenlet-body">
                                         <section>
                                             <widgets>
-                                                <container><link  text="${uiLabelMap.MarketingCampaignCreate}" target="/EditMarketingCampaign?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                                <container>
+                                                    <link  text="${uiLabelMap.MarketingCampaignCreate}" target="/EditMarketingCampaign" style="buttontext">
+                                                        <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                                    </link>
+                                                </container>
                                                 <include-form name="EditMarketingCampaign" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
                                             </widgets>
                                         </section>
@@ -137,7 +141,11 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link text="${uiLabelMap.MarketingCampaignCreate}" target="/EditMarketingCampaign?DONE_PAGE=${donePage}" style="buttontext"/></container>
+                                        <container>
+                                            <link text="${uiLabelMap.MarketingCampaignCreate}" target="/EditMarketingCampaign" style="buttontext">
+                                                <parameter param-name="DONE_PAGE" from-field="donePage"/>
+                                            </link>
+                                        </container>
                                         <include-form name="ListMarketingCampaign" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
                                     </widgets>
                                 </section>
