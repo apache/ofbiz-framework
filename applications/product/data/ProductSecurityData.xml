@@ -28,7 +28,7 @@ under the License.
     <SecurityPermission description="Limited Create operations in the Catalog Manager." permissionId="CATALOG_ROLE_CREATE"/>
     <SecurityPermission description="Limited Update operations in the Catalog Manager." permissionId="CATALOG_ROLE_UPDATE"/>
     <SecurityPermission description="Limited Delete operations in the Catalog Manager." permissionId="CATALOG_ROLE_DELETE"/>
-    <SecurityPermission description="Permission required, in addition to other applicable permissions, to maintain product price information including prices, promotions, and price rules." permissionId="CATALOG_PRICE_MAINT"/>
+    <SecurityPermission description="To be able to maintain product prices, promotions, and price rules." permissionId="CATALOG_PRICE_MAINT"/>
     <SecurityPermission description="Allow create/update of 'View Allow' in the Catalog Manager." permissionId="CATALOG_VIEW_ALLOW"/>
     <SecurityPermission description="Allow create/update of 'Purchase Allow' in the Catalog Manager." permissionId="CATALOG_PURCHASE_ALLOW"/>
 

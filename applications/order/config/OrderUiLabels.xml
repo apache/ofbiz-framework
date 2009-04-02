@@ -4579,6 +4579,15 @@
         <value xml:lang="th">ขาย</value>
         <value xml:lang="zh">销售中</value>
     </property>
+    <property key="OrderOpenMyCustomerRequests">
+        <value xml:lang="en">My Open Customer Requests</value>
+        <value xml:lang="fr">Mes demandes de clients en-cours</value>
+        <value xml:lang="it">Proprie richieste clienti aperte</value>
+        <value xml:lang="th">ความต้องการของลูกค้า</value>
+    </property>
+    <property key="OrderOpenCompanyCustomerRequests">
+        <value xml:lang="en">Other Customer Requests from the same company</value>
+    </property>
     <property key="OrderOptions">
         <value xml:lang="de">Bestelloptionen</value>
         <value xml:lang="en">Order options</value>

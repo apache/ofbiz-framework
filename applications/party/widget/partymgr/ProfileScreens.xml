@@ -43,7 +43,10 @@
                     <widgets>
                         <section>
                             <condition>
-                                <if-has-permission permission="PARTYMGR" action="_GRP_UPDATE"/>
+                                <or>
+                                    <if-has-permission permission="PARTYMGR" action="_GRP_UPDATE"/>
+                                    <if-compare-field field="parameters.partyId" operator="equals" to-field="userLogin.partyId"/>
+                                </or>
                             </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyPersonalInformation}" navigation-menu-name="personUpdate" id="PartyPersonalInformationPanel">

@@ -80,8 +80,10 @@ under the License.
           </service>
         </actions>
     </form>
+    
     <form name="ListRequestList" type="list" use-row-submit="true" list-name="custRequests" title="List of customer requests" 
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="FindRequest">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="custRequestId"><hidden/></field>
         <field name="custRequestName">
             <hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest">
                 <parameter param-name="custRequestId" from-field="custRequestId"/>
@@ -100,6 +102,13 @@ under the License.
             <display-entity also-hidden="false" entity-name="StatusItem"/>
         </field>
         <field name="lastModifiedDate"><display/></field>
+        <!--field name="statusId"><hidden value="CRQ_REJECTED"/></field-->
+        <field name="reject">
+            <hyperlink target="setCustRequestStatus" description="${uiLabelMap.FormFieldTitle_rejectButton}">
+                <parameter param-name="custRequestId"/>
+                <parameter param-name="statusId" value="CRQ_REJECTED"/>
+            </hyperlink>
+        </field>
     </form>
     <form name="ListRequestItems" type="list" use-row-submit="true"  title="" list-name="custRequestItems"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="RequestItems">
@@ -165,8 +174,8 @@ under the License.
         <field name="custRequestItemSeqId"><hidden/></field>
     </form>
 
-    <form name="ViewRequestCommunicationEvents" type="list" extends="ListCommEvents">   
-            <!-- extends-resource="component://party/webapp/partymgr/communication/CommForms.xml"-->
+    <form name="ViewRequestCommunicationEvents" type="list" extends="ListCommEvents"
+            extends-resource="component://party/webapp/partymgr/communication/CommForms.xml">
         <field name="subject">
             <hyperlink description="${subject}" target="/partymgr/control/ViewCommunicationEvent" target-type="inter-app">
                 <parameter param-name="communicationEventId" from-field="communicationEventId"/>
@@ -174,24 +183,6 @@ under the License.
         </field>
     </form>
     
-    <!-- copy of form from CommForms.xml because of loop problem see jira issue: OFBIZ-1914 -->
-    <form name="ListCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml">
-        <field name="partyIdFrom" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonFrom}">
-            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
-                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdFrom}]">
-                    <parameter param-name="partyId" from-field="partyIdFrom"/>
-                </sub-hyperlink>
-            </display-entity>
-        </field>
-        <field name="partyIdTo" title="${uiLabelMap.CommonPartyID} ${uiLabelMap.CommonTo}">
-            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">
-                <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="[${partyIdTo}]">
-                    <parameter param-name="partyId" from-field="partyIdTo"/>
-                </sub-hyperlink>
-            </display-entity>
-        </field>
-    </form>
-
     <form name="ViewRequestWorkEfforts" type="list" list-name="requestWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortId">
@@ -209,7 +200,6 @@ under the License.
         <alt-target use-when="custRequest==null" target="createrequest"/>
         <auto-fields-service service-name="updateCustRequest" default-field-type="edit"/>
         <field name="custRequestId"><hidden/></field>
-        <field name="custRequestName"/>
         <field name="custRequestTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="CustRequestType" description="${description}"/>
@@ -229,14 +219,7 @@ under the License.
             </drop-down>
         </field>
 
-        <field use-when="custRequest==null" name="statusId">
-            <drop-down allow-empty="false" current="first-in-list">
-                <entity-options entity-name="StatusItem" description="${description}">
-                    <entity-constraint name="statusTypeId" value="CUSTREQ_STTS"/>
-                    <entity-order-by field-name="sequenceId"/>
-                </entity-options>
-            </drop-down>
-        </field>
+        <field use-when="custRequest==null" name="statusId"><hidden value="CRQ_SUBMITTED"/></field>
         <field use-when="custRequest!=null" name="statusId">
             <drop-down allow-empty="false" current="first-in-list" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
@@ -246,16 +229,16 @@ under the License.
             </drop-down>
         </field>
         <field name="priority">
-            <drop-down allow-empty="false">
-                <option key="9"/>
-                <option key="8"/>
-                <option key="7"/>
-                <option key="6"/>
-                <option key="5"/>
-                <option key="4"/>
-                <option key="3"/>
+            <drop-down allow-empty="true">
+                <option key="1(Highest)"/>
                 <option key="2"/>
-                <option key="1"/>
+                <option key="3"/>
+                <option key="4"/>
+                <option key="5"/>
+                <option key="6"/>
+                <option key="7"/>
+                <option key="8"/>
+                <option key="9(Lowest)"/>
             </drop-down>
         </field>
         <field name="maximumAmountUomId">
@@ -293,6 +276,18 @@ under the License.
         <field name="lastModifiedDate"><hidden/></field>
         <field name="lastModifiedByUserLogin"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="EditSmallCustRequest" extends="EditCustRequest">
+        <field name="salesChannelEnumId"><ignored/></field>
+        <field name="custRequestCategoryId"><ignored/></field>
+        <field name="maximumAmountUomId"><ignored/></field>
+        <field name="productStoreId"><ignored/></field>
+        <field name="fulfillContactMechId"><ignored/></field>
+        <field name="currencyUomId"><ignored/></field>
+        <field name="openDateTime"><ignored/></field>
+        <field name="closedDateTime"><ignored/></field>
+        <field name="internalComment"><ignored/></field>
+        <field name="reason"><ignored/></field>
     </form>
     <form name="EditCustRequestItem" type="single" target="updaterequestitem" title="" default-map-name="custRequestItem"
         header-row-style="header-row" default-table-style="basic-table">
@@ -597,4 +592,59 @@ under the License.
                 </hyperlink>
         </field>
     </form>
+    <form name="EditCustReqStatusId" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
+        <field name="statusGroup" entry-name="attributeMap.statusGroup">
+            <drop-down>
+                <option key="OPEN" description="Open"/>
+                <option key="COMPLETED" description="Completed"/>
+                <option key="CANCELLED" description="Cancelled"/>
+            </drop-down>
+        </field>
+        <field name="otherContacts" entry-name="attributeMap.otherContacts"><drop-down allow-empty="false"><option key="Y" description="Yes"/><option key="N" description="No"/></drop-down></field>
+        <field name="saveButton"><submit/></field>
+    </form>
+    <form name="ListCustRequests" type="list"  list-name="custRequests" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" target="updateRequest">
+        <row-actions>
+            <service service-name="getProjectTask" result-map="taskResult">
+                <field-map field-name="taskId" from-field="workEffortId"/>
+            </service>
+        </row-actions>
+        <field name="custRequestId"><hidden/></field>
+        <field name="custRequestName">
+            <hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest">
+                <parameter param-name="custRequestId" from-field="custRequestId"/>
+            </hyperlink>
+        </field>
+        <field name="custRequestDate" title="${uiLabelMap.CommonDate}"><display type="date"/></field>
+        <field name="fromPartyId">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} [${fromPartyId}])"/>
+        </field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="priority" use-when="statusGroup!=&quot;OPEN&quot;"><display/></field>
+        <field name="currentStatusId" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPortalTaskStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="estimatedStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPortalTaskPlanStartDate}"><display type="date"/></field>
+        <field name="estimatedCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPortalTaskPlanEndDate}"><display type="date"/></field>
+        <field name="actualStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPortalTaskActStartDate}"><display type="date"/></field>
+        <field name="actualCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPortalTaskActEndDate}"><display type="date"/></field>
+        <field name="plannedHours" map-name="taskResult.taskInfo"><display/></field>
+        <field name="actualHours" map-name="taskResult.taskInfo"><display/></field>
+    </form>
+    <form name="ListMyCustRequests" extends="ListCustRequests">
+        <field name="fromPartyId"><ignored/></field>
+        <field name="priority">
+            <drop-down allow-empty="true">
+                <option key="9"/>
+                <option key="8"/>
+                <option key="7"/>
+                <option key="6"/>
+                <option key="5"/>
+                <option key="4"/>
+                <option key="3"/>
+                <option key="2"/>
+                <option key="1"/>
+            </drop-down>
+        </field>
+        <field name="updateButton" widget-style="smallSubmit"><submit /></field>
+    </form>
+    
 </forms>

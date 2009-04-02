@@ -87,7 +87,7 @@ under the License.
 	               ${custRequestItemNoteViewList.noteInfo}
 	            </td>
 	            <td>
-	               ${custRequestItemNoteViewList.noteDateTime}
+	               ${custRequestItemNoteViewList.noteDateTime.toString().substring(0,10)}
 	            </td>
 			</tr>
 			</#if>

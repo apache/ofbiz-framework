@@ -1140,7 +1140,12 @@ under the License.
         <response name="success" type="view" value="EditRequest"/>
         <response name="error" type="view" value="EditRequest"/>
     </request-map>
-
+    <request-map uri="setCustRequestStatus">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setCustRequestStatus"/>
+        <response name="success" type="view-last"/>
+        <response name="error" type="view" value="EditRequest"/>
+    </request-map>
     <request-map uri="requestroles"><security https="true" auth="true"/><response name="success" type="view" value="RequestRoles"/></request-map>
     <request-map uri="createCustRequestParty">
         <security https="true" auth="true"/>

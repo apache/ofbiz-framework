@@ -88,21 +88,6 @@ under the License.
         </iterate>
     </simple-method>
 
-    <simple-method method-name="getToNextDonePage"
-        short-description="return the requestValue 'donePage' as a resultcode to the controller">
-        <set field="donePage" from-field="parameters.donePage"
-            default-value="${parameters.DONE_PAGE}"/>
-        <if-not-empty field="donePage">
-            <log level="info" message="Next request: ${donePage}"/>
-            <return response-code="${donePage}"/>
-            <else>
-                <log level="info" message="Next 'donePage' variable not provided, returning 'error'"/>
-                <return response-code="error"/>
-            </else>
-        </if-not-empty>
-    </simple-method>
-
-    
     <simple-method method-name="createRegister"
         short-description="Create person when new register" login-required="false">
         <call-bsh><![CDATA[
@@ -116,7 +101,6 @@ under the License.
         <check-errors error-list-name="error_list" error-code="resultPage"/>
         
         <!-- set parameter of person to personContext Map -->
-        <set field="personContext.partyId" from-field="parameters.USERNAME"/>
         <set field="personContext.salutation" from-field="parameters.salutation"/>
         <set field="personContext.firstName" from-field="parameters.firstName"/>
         <set field="personContext.middleName" from-field="parameters.middleName"/>
@@ -155,7 +139,7 @@ under the License.
                 
                 <!-- create the PartyDataSource entry to track where this info came from... -->
                 <make-value entity-name="PartyDataSource" value-field="partyDataSource"/>
-                <set value="ECOMMERCE_SITE" field="partyDataSource.dataSourceId"/>
+                <set value="MY_PORTAL" field="partyDataSource.dataSourceId"/>
                 <set from-field="nowStamp" field="partyDataSource.fromDate"/>
                 <set value="Y" field="partyDataSource.isCreate"/>
                 <set from-field="partyId" field="partyDataSource.partyId"/>
@@ -164,9 +148,8 @@ under the License.
                 <create-value value-field="partyDataSource"/>
                 
                 <!-- Create E-mail address -->
-                <set field="emailContext.infoString" from-field="parameters.USER_EMAIL"/>
-                <set field="emailContext.contactMechTypeId" value="EMAIL_ADDRESS"/>
-                <call-service service-name="createContactMech" in-map-name="emailContext">
+                <set field="emailContext.emailAddress" from-field="parameters.USER_EMAIL"/>
+                <call-service service-name="createPartyEmailAddress" in-map-name="emailContext">
                     <result-to-field result-name="contactMechId" field="emailPurposeContext.contactMechId"/>
                 </call-service>
                 <set from-field="partyId" field="emailPurposeContext.partyId"/>
@@ -181,7 +164,7 @@ under the License.
                 <get-related-one value-field="createdUserLogin" relation-name="Person" to-value-field="person"/>
                 <set field="bodyParameters.person" from-field="person"/>
                 <set field="emailParams.bodyParameters" from-field="bodyParameters"/>  
-                <set field="emailParams.sendTo" from-field="emailContext.infoString"/>
+                <set field="emailParams.sendTo" from-field="emailContext.emailAddress"/>
                 <set field="emailParams.subject" from-field="storeEmail.subject"/>
                 <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
                 <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
@@ -192,12 +175,17 @@ under the License.
                 <set field="emailParams.emailType" from-field="storeEmail.emailType"/>
                 <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
                 
-                <!-- Create Customer Request -->
+                <!-- Create Customer Request to show new registration-->
                 <set field="custRequest.custRequestTypeId" value="RF_SUPPORT"/>
                 <set field="custRequest.fromPartyId" from-field="partyId"/>
-                <set field="custRequest.custRequestName" value="New user account"/>
+                <set field="custRequest.custRequestName" value="New user account created by registration"/>
                 <set field="custRequest.productStoreId" from-field="webSite.productStoreId"/>
-                <call-service service-name="createCustRequest" in-map-name="custRequest"/>
+                <call-service service-name="createCustRequest" in-map-name="custRequest">
+                    <result-to-field result-name="custRequestId"/>
+                </call-service>
+                <set field="custRequestItem.custRequestId" from-field="custRequestId"/>
+                <set field="custRequestItem.story" from-field="parameters.whyWouldYouLikeToRegister"/>
+                <call-service service-name="createCustRequestItem" in-map-name="custRequestItem"/>
                 
                 <!-- set field to request -->
                 <field-to-request field="partyId" request-name="partyId"/>

@@ -21,7 +21,6 @@ under the License.
   <#if !preContactMechTypeId?has_content>
     <h1>${uiLabelMap.PartyCreateNewContact}</h1>
     <form method="post" action="<@ofbizUrl>editcontactmech</@ofbizUrl>" name="createcontactmechform">
-      <input type="hidden" name="DONE_PAGE" value="${donePage}">
       <input type="hidden" name="partyId" value="${partyId}">
       <table class="basic-table" cellspacing="0">
         <tr>

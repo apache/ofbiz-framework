@@ -368,22 +368,9 @@ under the License.
     </screen>
     <screen name="CommonRequestDecorator">
         <section>
-            <actions>
-            </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <widgets>
-                                <include-menu location="component://projectmgr/widget/Menus.xml" name="RequestTabBar"/>
-                                <include-menu name="RequestSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
-                                <container>
-                                    <label style="h1">[${uiLabelMap.CommonId}:${custRequest.custRequestId}] ${custRequest.custRequestName}</label>
-                                </container>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
+                <decorator-screen name="CommonRequestDecorator" location="component://order/widget/ordermgr/CommonScreens.xml">
+                    <decorator-section name="body"/>
                 </decorator-screen>
             </widgets>
         </section>

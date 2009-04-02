@@ -20,10 +20,13 @@
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <!-- take care: later requests/views will overwrite earlier ones in the controller.xml list -->
+    <!-- so the order should be from most common to most specific-->
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
     <include location="component://common/webcommon/WEB-INF/portal-controller.xml"/>    
-    <include location="component://projectmgr/webapp/projectmgr/WEB-INF/controller.xml"/>    
     <include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>    
+    <include location="component://order/webapp/ordermgr/WEB-INF/controller.xml"/>    
+    <include location="component://projectmgr/webapp/projectmgr/WEB-INF/controller.xml"/>    
     
     <description>Show personal information in the system</description>
     
@@ -43,7 +46,7 @@
         <response name="resultPage" type="view" value="newRegisterLogin"/>
     </request-map>
     
-    <!-- COMPANY COMMUNICATION -->    
+    <!-- COMPANY Events -->    
     <request-map uri="myCompanyComms">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="myCompanyComms"/>
@@ -64,60 +67,12 @@
         <response name="success" type="request" value="myCompanyComms"/>
     </request-map>
     
-    <!-- Create Customer Request-->
-    <request-map uri="newrequest">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditRequest"/>
-    </request-map>
-    <request-map uri="createrequest">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createCustRequest"/>
-        <response name="error" type="request-redirect-noparam" value="showPortalPage"/>
-        <response name="error" type="view" value="EditRequest"/>
-    </request-map>
-    <request-map uri="updateRequest">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updateCustRequest"/>
-        <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="main"/>
-    </request-map>
-    <request-map uri="listInvoices">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListInvoices"/>
-    </request-map>    
-    <request-map uri="listProjects">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListProjects"/>
-    </request-map>    
-    
-    <!-- CustRequest Content -->
-    <request-map uri="EditCustRequestContent">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditCustRequestContent"/>
-    </request-map>
-    
-    <request-map uri="createCustRequestContent">
-        <security auth="true" https="true"/>
-        <event path="org/ofbiz/order/request/CustRequestEvents.xml" type="simple"  invoke="createCustRequestContent"/>
-        <response name="success" type="request-redirect" value="EditCustRequestContent"/>
-        <response name="error" type="view" value="EditCustRequestContent"/>
-    </request-map>
-    
-    <request-map uri="deleteCustRequestContent">
-        <security auth="true" https="true"/>
-        <event invoke="deleteCustRequestContent" type="service"/>
-        <response name="success" type="request-redirect" value="EditCustRequestContent"/>
-        <response name="error" type="view" value="EditCustRequestContent"/>
-    </request-map>
     
     <view-map name="main" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
     <view-map name="login" type="screen" page="component://myportal/widget/CommonScreens.xml#login"/>
     <view-map name="newRegisterLogin" type="screen" page="component://myportal/widget/CommonScreens.xml#newRegisterLogin"/>
-    <view-map name="myTasks" type="screen" page="component://myportal/widget/CommonScreens.xml#MyTasks"/>
     <view-map name="myCompanyComms" type="screen" page="component://myportal/widget/CommonScreens.xml#MyCompanyComms"/>
     <view-map name="newEvent" type="screen" page="component://myportal/widget/MyPortalScreens.xml#newEvent"/>
-    <view-map name="ViewRequest" type="screen" page="component://myportal/widget/MyPortalScreens.xml#ViewRequest"/>
-    <view-map name="EditRequest" type="screen" page="component://myportal/widget/MyPortalScreens.xml#EditRequest"/>
     <view-map name="ListInvoices" type="screen" page="component://myportal/widget/MyPortalScreens.xml#ListInvoices"/>
     <view-map name="ListProjects" type="screen" page="component://myportal/widget/MyPortalScreens.xml#ListProjects"/>
 </site-conf>
