@@ -25,7 +25,9 @@ under the License.
             <condition>
                 <not><if-empty field="userLogin"/></not>
             </condition>
-            <link target="main?donePage=main"/>
+            <link target="main">
+                <parameter param-name="donePage" value="main"/>
+            </link>
         </menu-item>
         <menu-item name="viewprofile" title="${uiLabelMap.MyPageProfile}">
             <condition>
@@ -42,7 +44,9 @@ under the License.
                     <if-compare field="preferences.userPrefMap.myCommunications" operator="not-equals" value="Y"/>
                 </and>
             </condition>
-            <link target="myCommunications?donePage=myCommunications"/>
+            <link target="myCommunications">
+                <parameter param-name="donePage" value="myCommunications"/>
+            </link>
         </menu-item>
         <menu-item name="otherCommunications" title="${uiLabelMap.MyPageOtherCommunications}">
             <condition>
@@ -55,7 +59,9 @@ under the License.
                     </or>
                 </and>
             </condition>
-            <link target="otherCommunications?donePage=otherCommunications"/>
+            <link target="otherCommunications">
+                <parameter param-name="donePage" value="otherCommunications"/>
+            </link>
         </menu-item>
         <menu-item name="myCompanyComms" title="${uiLabelMap.MyPageCompanyComms}">
             <condition>
@@ -81,7 +87,9 @@ under the License.
                     </or>
                 </and>
             </condition>
-            <link target="myTimesheet?donePage=myTimeSheet"/>
+            <link target="myTimesheet">
+                <parameter param-name="donePage" value="myTimeSheet"/>
+            </link>
         </menu-item>
         <menu-item name="myTasks" title="${uiLabelMap.MyPageTasks}">
             <condition>
@@ -94,7 +102,9 @@ under the License.
                     </or>
                 </and>
             </condition>
-            <link target="myTasks?donePage=myTasks"/>
+            <link target="myTasks">
+                <parameter param-name="donePage" value="myTasks"/>
+            </link>
         </menu-item>
         <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}">
             <condition>
