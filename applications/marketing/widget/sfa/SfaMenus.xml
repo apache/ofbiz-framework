@@ -31,16 +31,22 @@ under the License.
     
     <menu name="OpportunityTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ViewOpportunity" title="${uiLabelMap.SfaOpportunitySummary}">
-            <link target="ViewOpportunity?salesOpportunityId=${parameters.salesOpportunityId}"/>
+            <link target="ViewOpportunity">
+                <parameter param-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+            </link>
         </menu-item>
         <menu-item name="EditOpportunity" title="${uiLabelMap.SfaEditOpportunity}">
-            <link target="EditOpportunity?salesOpportunityId=${parameters.salesOpportunityId}"/>
+            <link target="EditOpportunity">
+                <parameter param-name="salesOpportunityId" from-field="parameters.salesOpportunityId"/>
+            </link>
         </menu-item>
     </menu>
     
     <menu name="AccountTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
-            <link target="viewprofile?partyId=${parameters.partyId}"/>
+            <link target="viewprofile">
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+            </link>
         </menu-item>
     </menu>    
     <menu name="AccountSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
@@ -89,7 +95,9 @@ under the License.
 
     <menu name="ContactTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
-            <link target="viewprofile?partyId=${parameters.partyId}"/>
+            <link target="viewprofile">
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+            </link>
         </menu-item>
         <menu-item name="MergeContacts" title="${uiLabelMap.SfaMergeContacts}">
             <link target="MergeContacts"/>
@@ -106,10 +114,14 @@ under the License.
     </menu>    
     <menu name="SalesForecastTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditSalesForecast" title="${uiLabelMap.SfaSalesForecast}">
-            <link target="EditSalesForecast?salesForecastId=${parameters.salesForecastId}"/>
+            <link target="EditSalesForecast">
+                <parameter param-name="salesForecastId" from-field="parameters.salesForecastId"/>
+            </link>
         </menu-item>
         <menu-item name="EditSalesForecastDetail" title="${uiLabelMap.ProductPickingDetail}">
-            <link target="EditSalesForecastDetail?salesForecastId=${parameters.salesForecastId}"/>
+            <link target="EditSalesForecastDetail">
+                <parameter param-name="salesForecastId" from-field="parameters.salesForecastId"/>
+            </link>
         </menu-item>
     </menu>
 </menus>

@@ -23,23 +23,33 @@ under the License.
     <menu name="EditSubscription" default-selected-style="selected" type="simple" 
         menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditSubscription" title="${uiLabelMap.ProductSubscription}">
-            <link target="EditSubscription?subscriptionId=${subscriptionId}"/>
+            <link target="EditSubscription">
+                <parameter param-name="subscriptionId" from-field="subscriptionId"/>
+            </link>
         </menu-item>
         <menu-item name="EditSubscriptionAttributes" title="${uiLabelMap.ProductSubscriptionAttributes}">
-            <link target="EditSubscriptionAttributes?subscriptionId=${subscriptionId}"/>
+            <link target="EditSubscriptionAttributes">
+                <parameter param-name="subscriptionId" from-field="subscriptionId"/>
+            </link>
         </menu-item>
         
         <menu-item name="EditSubscriptionCommEvent" title="${uiLabelMap.ProductSubscriptionCommEvent}">
-            <link target="EditSubscriptionCommEvent?subscriptionId=${subscriptionId}"/>
+            <link target="EditSubscriptionCommEvent">
+                <parameter param-name="subscriptionId" from-field="subscriptionId"/>
+            </link>
         </menu-item>
     </menu>
     <menu name="EditSubscriptionResource" default-selected-style="selected" type="simple"
         menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditSubscriptionResource" title="${uiLabelMap.ProductSubscriptionResource}">
-            <link target="EditSubscriptionResource?subscriptionResourceId=${subscriptionResourceId}"/>
+            <link target="EditSubscriptionResource">
+                <parameter param-name="subscriptionResourceId" from-field="subscriptionResourceId"/>
+            </link>
         </menu-item>
         <menu-item name="EditSubscriptionResourceProducts" title="${uiLabelMap.ProductProducts}">
-            <link target="EditSubscriptionResourceProducts?subscriptionResourceId=${subscriptionResourceId}"/>
+            <link target="EditSubscriptionResourceProducts">
+                <parameter param-name="subscriptionResourceId" from-field="subscriptionResourceId"/>
+            </link>
         </menu-item>
     </menu>
 </menus>

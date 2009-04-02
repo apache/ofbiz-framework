@@ -106,70 +106,98 @@ under the License.
 
     <menu name="RequirementTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditRequirement" title="${uiLabelMap.OrderRequirement}">
-            <link target="EditRequirement?requirementId=${requirement.requirementId}"/>
+            <link target="EditRequirement">
+                <parameter param-name="requirementId" from-field="requirement.requirementId"/>
+            </link>
         </menu-item>
         <menu-item name="ListRequirementCustRequests" title="${uiLabelMap.OrderRequests}">
-            <link target="ListRequirementCustRequests?requirementId=${requirement.requirementId}"/>
+            <link target="ListRequirementCustRequests">
+                <parameter param-name="requirementId" from-field="requirement.requirementId"/>
+            </link>
         </menu-item>
         <menu-item name="ListRequirementOrdersTab" title="${uiLabelMap.OrderOrders}">
-            <link target="ListRequirementOrders?requirementId=${requirement.requirementId}"/>
+            <link target="ListRequirementOrders">
+                <parameter param-name="requirementId" from-field="requirement.requirementId"/>
+            </link>
         </menu-item>
         <menu-item name="ListRequirementRolesTab" title="${uiLabelMap.PartyRoles}">
-            <link target="ListRequirementRoles?requirementId=${requirement.requirementId}"/>
+            <link target="ListRequirementRoles">
+                <parameter param-name="requirementId" from-field="requirement.requirementId"/>
+            </link>
         </menu-item>
     </menu>
     
     <menu name="QuoteTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ViewQuote" title="${uiLabelMap.OrderViewQuote}">
-            <link target="ViewQuote?quoteId=${quote.quoteId}"/>
+            <link target="ViewQuote">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
         </menu-item>
 
         <menu-item name="EditQuote" title="${uiLabelMap.OrderOrderQuote}">
-            <link target="EditQuote?quoteId=${quote.quoteId}"/>
+            <link target="EditQuote">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
         </menu-item>
 
         <menu-item name="ListQuoteRoles" title="${uiLabelMap.OrderOrderQuoteRoles}">
-            <link target="ListQuoteRoles?quoteId=${quote.quoteId}"/>
+            <link target="ListQuoteRoles">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
         </menu-item>
 
         <menu-item name="ListQuoteItems" title="${uiLabelMap.OrderOrderQuoteItems}">
-            <link target="ListQuoteItems?quoteId=${quote.quoteId}"/>
+            <link target="ListQuoteItems">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
         </menu-item>
 
         <menu-item name="ListQuoteAttributes" title="${uiLabelMap.OrderOrderQuoteAttributes}">
-            <link target="ListQuoteAttributes?quoteId=${quote.quoteId}"/>
+            <link target="ListQuoteAttributes">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
         </menu-item>
 
         <menu-item name="ListQuoteCoefficients" title="${uiLabelMap.OrderOrderQuoteCoefficients}">
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
             </condition>
-            <link target="ListQuoteCoefficients?quoteId=${quote.quoteId}"/>
+            <link target="ListQuoteCoefficients">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
         </menu-item>
 
         <menu-item name="ManageQuotePrices" title="${uiLabelMap.OrderOrderQuotePrices}">
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
             </condition>
-            <link target="ManageQuotePrices?quoteId=${quote.quoteId}"/>
+            <link target="ManageQuotePrices">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
         </menu-item>
 
         <menu-item name="ListQuoteAdjustments" title="${uiLabelMap.OrderOrderQuoteAdjustments}">
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
             </condition>
-            <link target="ListQuoteAdjustments?quoteId=${quote.quoteId}"/>
+            <link target="ListQuoteAdjustments">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
         </menu-item>
 
         <menu-item name="ViewQuoteProfit" title="${uiLabelMap.OrderViewQuoteProfit}">
             <condition>
                 <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
             </condition>
-            <link target="ViewQuoteProfit?quoteId=${quote.quoteId}"/>
+            <link target="ViewQuoteProfit">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
         </menu-item>
 
         <menu-item name="QuoteWorkEfforts" title="${uiLabelMap.OrderOrderQuoteWorkEfforts}">
-            <link target="ListQuoteWorkEfforts?quoteId=${quote.quoteId}"/>
+            <link target="ListQuoteWorkEfforts">
+                <parameter param-name="quoteId" from-field="quote.quoteId"/>
+            </link>
         </menu-item>
     </menu>
 

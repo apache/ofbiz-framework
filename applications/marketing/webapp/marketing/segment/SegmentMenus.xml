@@ -22,16 +22,24 @@ under the License.
     <menu name="SegmentGroupTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="Segment" selected-menuitem-context-field-name="segmentTabButtonItem">
         <menu-item name="SegmentGroup" title="${uiLabelMap.MarketingSegmentGroupSegmentGroup}">
-            <link target="viewSegmentGroup?segmentGroupId=${segmentGroupId}"/>
+            <link target="viewSegmentGroup">
+                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+            </link>
         </menu-item>
         <menu-item name="SegmentGroupClassification" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupClassification}">
-            <link target="listSegmentGroupClass?segmentGroupId=${segmentGroupId}"/>
+            <link target="listSegmentGroupClass">
+                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+            </link>
         </menu-item>
         <menu-item name="SegmentGroupGeo" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupGeo}">
-            <link target="listSegmentGroupGeo?segmentGroupId=${segmentGroupId}"/>
+            <link target="listSegmentGroupGeo">
+                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+            </link>
         </menu-item>
         <menu-item name="SegmentGroupRole" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupRole}">
-            <link target="listSegmentGroupRole?segmentGroupId=${segmentGroupId}"/>
+            <link target="listSegmentGroupRole">
+                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+            </link>
         </menu-item>
     </menu>
 </menus>

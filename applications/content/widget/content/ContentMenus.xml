@@ -41,21 +41,27 @@ under the License.
             <condition>
                 <not><if-empty field="currentValue.contentId"/></not>
             </condition>
-            <link target="EditContent?contentId=${parameters.contentId}"/>
+            <link target="EditContent">
+                <parameter param-name="contentId" from-field="parameters.contentId"/>
+            </link>
         </menu-item>
         
         <menu-item name="association" title="${uiLabelMap.ContentAssociation}">
             <condition>
                 <not><if-empty field="currentValue.contentId"/></not>
             </condition>
-            <link target="EditContentAssoc?contentId=${parameters.contentId}"/>
+            <link target="EditContentAssoc">
+                <parameter param-name="contentId" from-field="parameters.contentId"/>
+            </link>
         </menu-item>
         
         <menu-item name="role" title="${uiLabelMap.FormFieldTitle_roles}" >
             <condition>
                 <not><if-empty field="currentValue.contentId"/></not>
             </condition>
-            <link target="EditContentRole?contentId=${parameters.contentId}"/>
+            <link target="EditContentRole">
+                <parameter param-name="contentId" from-field="parameters.contentId"/>
+            </link>
         </menu-item>
         
         <menu-item name="purpose" title="${uiLabelMap.FormFieldTitle_purposes}" >
@@ -64,35 +70,45 @@ under the License.
                     <if-empty field="currentValue.contentId" />
                 </not>
             </condition>
-            <link target="EditContentPurpose?contentId=${parameters.contentId}"/>
+            <link target="EditContentPurpose">
+                <parameter param-name="contentId" from-field="parameters.contentId"/>
+            </link>
         </menu-item>
         
         <menu-item name="attribute" title="${uiLabelMap.ContentAttribute}" >
             <condition>
                 <not><if-empty field="currentValue.contentId"/></not>
             </condition>
-            <link target="EditContentAttribute?contentId=${parameters.contentId}"/>
+            <link target="EditContentAttribute">
+                <parameter param-name="contentId" from-field="parameters.contentId"/>
+            </link>
         </menu-item>
         
         <menu-item name="websites" title="${uiLabelMap.ContentWebSites}">
             <condition>
                 <not><if-empty field="currentValue.contentId"/></not>
             </condition>
-            <link target="ListWebSite?contentId=${parameters.contentId}"/>
+            <link target="ListWebSite">
+                <parameter param-name="contentId" from-field="parameters.contentId"/>
+            </link>
         </menu-item>
 
         <menu-item name="metaData" title="${uiLabelMap.ContentMetadata}" >
             <condition>
                 <not><if-empty field="currentValue.contentId"/></not>
             </condition>
-            <link target="EditContentMetaData?contentId=${parameters.contentId}"/>
+            <link target="EditContentMetaData">
+                <parameter param-name="contentId" from-field="parameters.contentId"/>
+            </link>
         </menu-item>
         
         <menu-item name="workEffort" title="${uiLabelMap.WorkEffortWorkEffort}" >
             <condition>
                 <not><if-empty field="currentValue.contentId"/></not>
             </condition>
-            <link target="EditContentWorkEfforts?contentId=${parameters.contentId}"/>
+            <link target="EditContentWorkEfforts">
+                <parameter param-name="contentId" from-field="parameters.contentId"/>
+            </link>
         </menu-item>
         
     </menu>
@@ -110,7 +126,9 @@ under the License.
             <condition>
                 <if-compare field="tabButtonItem" operator="equals" value="association"/>
             </condition>
-            <link target="EditContentAssoc?contentId=${parameters.contentId}"/>
+            <link target="EditContentAssoc">
+                <parameter param-name="contentId" from-field="parameters.contentId"/>
+            </link>
         </menu-item>
     </menu>
     
@@ -118,19 +136,29 @@ under the License.
         default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="tabButtonItem"
         title="" type="simple">
         <menu-item name="EditWebSite" title="${uiLabelMap.ContentWebSite}">
-            <link target="EditWebSite?webSiteId=${parameters.webSiteId}"/>
+            <link target="EditWebSite">
+                <parameter param-name="webSiteId" from-field="parameters.webSiteId"/>
+            </link>
         </menu-item>
         <menu-item name="ListWebSiteContent" title="${uiLabelMap.ContentContent}">
-            <link target="ListWebSiteContent?webSiteId=${parameters.webSiteId}"/>
+            <link target="ListWebSiteContent">
+                <parameter param-name="webSiteId" from-field="parameters.webSiteId"/>
+            </link>
         </menu-item>
         <menu-item name="PathAlias" title="${uiLabelMap.ContentPathAlias}">
-            <link target="WebSiteAliases?webSiteId=${parameters.webSiteId}"/>
+            <link target="WebSiteAliases">
+                <parameter param-name="webSiteId" from-field="parameters.webSiteId"/>
+            </link>
         </menu-item>
         <menu-item name="EditWebSiteParties" title="${uiLabelMap.PartyParties}">
-            <link target="EditWebSiteParties?webSiteId=${parameters.webSiteId}"/>
+            <link target="EditWebSiteParties">
+                <parameter param-name="webSiteId" from-field="parameters.webSiteId"/>
+            </link>
         </menu-item>
         <menu-item name="WebSiteCMS" title="${uiLabelMap.ContentCMS}">
-            <link target="WebSiteCms?webSiteId=${parameters.webSiteId}"/>
+            <link target="WebSiteCms">
+                <parameter param-name="webSiteId" from-field="parameters.webSiteId"/>
+            </link>
         </menu-item>
     </menu>
     <menu name="blog"  menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content" default-permission-operation="CONTENT_ADMIN"
@@ -140,13 +168,19 @@ under the License.
             <link target="blogMain"/>
         </menu-item>
         <menu-item name="EditBlog" title="${uiLabelMap.CommonEdit}">
-            <link target="editBlog?blogContentId=${parameters.blogContentId}"/>
+            <link target="editBlog">
+                <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+            </link>
         </menu-item>
         <menu-item name="Articles" title="${uiLabelMap.ContentBlogArticleList}">
-            <link target="blogContent?blogContentId=${parameters.blogContentId}"/>
+            <link target="blogContent">
+                <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+            </link>
         </menu-item>
         <menu-item name="Owners" title="${uiLabelMap.FormFieldTitle_roles}">
-            <link target="EditContentRole?contentId=${parameters.blogContentId}"/>
+            <link target="EditContentRole">
+                <parameter param-name="contentId" from-field="parameters.blogContentId"/>
+            </link>
         </menu-item>
     </menu>
 
@@ -160,7 +194,9 @@ under the License.
             <condition>
                 <if-compare field="tabButtonItem" operator="equals" value="Articles"/>
             </condition>
-            <link target="EditBlogArticle?blogContentId=${parameters.blogContentId}"/>
+            <link target="EditBlogArticle">
+                <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+            </link>
         </menu-item>
     </menu>
 
@@ -168,7 +204,9 @@ under the License.
         default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="tabButtonItem"
         title="" type="simple">
         <menu-item name="ListlogArt" title="${uiLabelMap.CommonList}">
-            <link target="blogContent?blogContentId=${parameters.blogContentId}"/>
+            <link target="blogContent">
+                <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+            </link>
         </menu-item>
         <menu-item name="ViewBlogArt" title="${uiLabelMap.CommonView}">
             <link target="ViewBlogArticle">
@@ -183,14 +221,18 @@ under the License.
             </link>
         </menu-item>
         <menu-item name="Owners" title="${uiLabelMap.FormFieldTitle_roles}">
-            <link target="EditContentRole?contentId=${parameters.articleContentId}"/>
+            <link target="EditContentRole">
+                <parameter param-name="contentId" from-field="parameters.articleContentId"/>
+            </link>
         </menu-item>
     </menu>
     <menu name="blogArtSub" menu-container-style="button-bar button-style-2" default-menu-item-name="content" default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"
         default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName"
         title="" type="simple">
         <menu-item name="NewBlogArticle" title="${uiLabelMap.ContentCreateNewBlogArticle}">
-            <link target="EditBlogArticle?blogContentId=${parameters.blogContentId}"/>
+            <link target="EditBlogArticle">
+                <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
+            </link>
         </menu-item>
     </menu>
     <menu name="contentTopMenu" menu-container-style="button-bar tab-bar" default-selected-style="selected" type="simple" selected-menuitem-context-field-name="tabButtonItem">

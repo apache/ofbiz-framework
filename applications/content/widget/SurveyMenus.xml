@@ -22,19 +22,29 @@ under the License.
     <menu name="SurveyTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="Survey">
         <menu-item name="Survey" title="${uiLabelMap.ContentSurveySurveyId}">
-            <link target="EditSurvey?surveyId=${surveyId}"/>
+            <link target="EditSurvey">
+                <parameter param-name="surveyId" from-field="surveyId"/>
+            </link>
         </menu-item>
         <menu-item name="SurveyMultiResps" title="${uiLabelMap.ContentSurveyMultiResps}">
-            <link target="EditSurveyMultiResps?surveyId=${surveyId}"/>
+            <link target="EditSurveyMultiResps">
+                <parameter param-name="surveyId" from-field="surveyId"/>
+            </link>
         </menu-item>
         <menu-item name="SurveyQuestions" title="${uiLabelMap.ContentSurveyQuestions}">
-            <link target="EditSurveyQuestions?surveyId=${surveyId}"/>
+            <link target="EditSurveyQuestions">
+                <parameter param-name="surveyId" from-field="surveyId"/>
+            </link>
         </menu-item>
         <menu-item name="FindSurveyResponse" title="${uiLabelMap.ContentSurveyFindResponse}">
-            <link target="FindSurveyResponse?surveyId=${surveyId}"/>
+            <link target="FindSurveyResponse">
+                <parameter param-name="surveyId" from-field="surveyId"/>
+            </link>
         </menu-item>
         <menu-item name="SurveyResponses" title="${uiLabelMap.ContentSurveyResponseSummary}">
-            <link target="ViewSurveyResponses?surveyId=${surveyId}"/>
+            <link target="ViewSurveyResponses">
+                <parameter param-name="surveyId" from-field="surveyId"/>
+            </link>
         </menu-item>
     </menu>
 </menus>
