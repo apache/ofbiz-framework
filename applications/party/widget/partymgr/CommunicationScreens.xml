@@ -847,37 +847,26 @@ under the License.
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.PartyCommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
-                    navigation-menu-name="communicationsMenu" navigation-form-name="ListPartyCommEvents"
-                    name="myComms">
-                    <include-menu name="communicationsMenu"
-                        location="component://party/widget/partymgr/PartyMenus.xml" />
+                    navigation-menu-name="communicationsMenu" navigation-form-name="ListPartyCommEvents" name="myComms">
+                    <include-menu name="communicationsMenu" location="component://party/widget/partymgr/PartyMenus.xml" />
                     <section>
                         <condition>
-                            <not>
-                                <if-empty field="commEventsUnknown" />
-                            </not>
+                            <not><if-empty field="commEventsUnknown" /></not>
                         </condition>
                         <widgets>
                             <label style="h2" text="${uiLabelMap.PartyEmailsFromUnknownOrigin}"></label>
-                            <include-form
-                                location="component://party/webapp/partymgr/communication/CommForms.xml"
-                                name="ListMyUnknownPartyEmails" />
+                            <include-form name="ListMyUnknownPartyEmails" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                         </widgets>
                     </section>
                     <label style="h2" text="${uiLabelMap.PartyEmailsFromKnownOrigin}"></label>
-                    <include-form name="ListPartyCommEvents"
-                        location="component://party/webapp/partymgr/communication/CommForms.xml"/>
+                    <include-form name="ListPartyCommEvents" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                     <section>
                         <condition>
-                            <not>
-                                <if-empty field="commEventDraft" />
-                            </not>
+                            <not><if-empty field="commEventDraft" /></not>
                         </condition>
                         <widgets>
                             <label style="h2" text="${uiLabelMap.PartyDraftEmails}"></label>
-                            <include-form
-                                location="component://party/webapp/partymgr/communication/CommForms.xml"
-                                name="ListDraftEmails" />
+                            <include-form name="ListDraftEmails" location="component://party/webapp/partymgr/communication/CommForms.xml" />
                         </widgets>
                     </section>
                 </screenlet>
