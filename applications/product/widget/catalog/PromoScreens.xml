@@ -89,8 +89,12 @@ under the License.
                             <container>
                                 <label style="label">${uiLabelMap.CommonView}</label>
                                 <link target="FindProductPromo" text="${uiLabelMap.CommonAll}" style="buttontext"/>
-                                <link target="FindProductPromo?userEntered=Y" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext"/>
-                                <link target="FindProductPromo?userEntered=N" text="${uiLabelMap.ProductPromotionImported}" style="buttontext"/>
+                                <link target="FindProductPromo" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext">
+                                    <parameter param-name="userEntered" value="Y"/>
+                                </link>
+                                <link target="FindProductPromo" text="${uiLabelMap.ProductPromotionImported}" style="buttontext">
+                                    <parameter param-name="userEntered" value="N"/>
+                                </link>
                             </container>
                             <container style="screenlet-body">
                                 <section>

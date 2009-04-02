@@ -82,7 +82,10 @@ under the License.
                                 <section>
                                     <widgets>    
                                         <container>
-                                            <link target="EditLayoutSubContent?mode=add&amp;contentIdTo=TEMPLATE_MASTER" text="${uiLabelMap.CommonCreateNew}" style="buttontext"/>
+                                            <link target="EditLayoutSubContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext">
+                                                <parameter param-name="mode" value="add"/>
+                                                <parameter param-name="contentIdTo" value="TEMPLATE_MASTER"/>
+                                            </link>
                                         </container>
                                         <include-form name="listListLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
                                     </widgets>
