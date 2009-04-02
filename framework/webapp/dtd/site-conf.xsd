@@ -218,6 +218,7 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.event">
         <xs:attribute name="type" type="xs:string" use="required"/>
+        <xs:attribute name="name" type="xs:string"/>
         <xs:attribute name="path" type="xs:string"/>
         <xs:attribute name="invoke" type="xs:string"/>
         <xs:attribute name="global-transaction" default="true">

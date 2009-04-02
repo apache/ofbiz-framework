@@ -239,7 +239,7 @@ public class RequestHandler {
                 // This isn't an event because it is required to run. We do not want to make it optional.
                 GenericValue visit = VisitHandler.getVisit(session);
                 if (visit != null) {
-                    for (ConfigXMLReader.Event event: controllerConfig.firstVisitEventList) {
+                    for (ConfigXMLReader.Event event: controllerConfig.firstVisitEventList.values()) {
                         try {
                             String returnString = this.runEvent(request, response, event, null, "firstvisit");
                             if (returnString != null && !returnString.equalsIgnoreCase("success")) {
@@ -255,7 +255,7 @@ public class RequestHandler {
             }
 
             // Invoke the pre-processor (but NOT in a chain)
-            for (ConfigXMLReader.Event event: controllerConfig.preprocessorEventList) {
+            for (ConfigXMLReader.Event event: controllerConfig.preprocessorEventList.values()) {
                 try {
                     String returnString = this.runEvent(request, response, event, null, "preprocessor");
                     if (returnString != null && !returnString.equalsIgnoreCase("success")) {
@@ -480,7 +480,7 @@ public class RequestHandler {
             // ======== handle views ========
 
             // first invoke the post-processor events.
-            for (ConfigXMLReader.Event event: controllerConfig.postprocessorEventList) {
+            for (ConfigXMLReader.Event event: controllerConfig.postprocessorEventList.values()) {
                 try {
                     String returnString = this.runEvent(request, response, event, requestMap, "postprocessor");
                     if (returnString != null && !returnString.equalsIgnoreCase("success")) {
@@ -1020,7 +1020,7 @@ public class RequestHandler {
     }
 
     public void runAfterLoginEvents(HttpServletRequest request, HttpServletResponse response) {
-        for (ConfigXMLReader.Event event: getControllerConfig().afterLoginEventList) {
+        for (ConfigXMLReader.Event event: getControllerConfig().afterLoginEventList.values()) {
             try {
                 String returnString = this.runEvent(request, response, event, null, "after-login");
                 if (returnString != null && !returnString.equalsIgnoreCase("success")) {
@@ -1033,7 +1033,7 @@ public class RequestHandler {
     }
 
     public void runBeforeLogoutEvents(HttpServletRequest request, HttpServletResponse response) {
-        for (ConfigXMLReader.Event event: getControllerConfig().beforeLogoutEventList) {
+        for (ConfigXMLReader.Event event: getControllerConfig().beforeLogoutEventList.values()) {
             try {
                 String returnString = this.runEvent(request, response, event, null, "before-logout");
                 if (returnString != null && !returnString.equalsIgnoreCase("success")) {

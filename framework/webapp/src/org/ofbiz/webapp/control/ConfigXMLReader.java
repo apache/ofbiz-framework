@@ -87,11 +87,11 @@ public class ConfigXMLReader {
         public String securityClass;
         public String defaultRequest;
 
-        public List<Event> firstVisitEventList = FastList.newInstance();
-        public List<Event> preprocessorEventList = FastList.newInstance();
-        public List<Event> postprocessorEventList = FastList.newInstance();
-        public List<Event> afterLoginEventList = FastList.newInstance();
-        public List<Event> beforeLogoutEventList = FastList.newInstance();
+        public Map<String, Event> firstVisitEventList = FastMap.newInstance();
+        public Map<String, Event> preprocessorEventList = FastMap.newInstance();
+        public Map<String, Event> postprocessorEventList = FastMap.newInstance();
+        public Map<String, Event> afterLoginEventList = FastMap.newInstance();
+        public Map<String, Event> beforeLogoutEventList = FastMap.newInstance();
 
         public Map<String, String> eventHandlerMap = FastMap.newInstance();
         public Map<String, String> viewHandlerMap = FastMap.newInstance();
@@ -129,11 +129,11 @@ public class ConfigXMLReader {
             this.securityClass = controllerConfig.securityClass;
             this.defaultRequest = controllerConfig.defaultRequest;
 
-            this.firstVisitEventList.addAll(controllerConfig.firstVisitEventList);
-            this.preprocessorEventList.addAll(controllerConfig.preprocessorEventList);
-            this.postprocessorEventList.addAll(controllerConfig.postprocessorEventList);
-            this.afterLoginEventList.addAll(controllerConfig.afterLoginEventList);
-            this.beforeLogoutEventList.addAll(controllerConfig.beforeLogoutEventList);
+            this.firstVisitEventList.putAll(controllerConfig.firstVisitEventList);
+            this.preprocessorEventList.putAll(controllerConfig.preprocessorEventList);
+            this.postprocessorEventList.putAll(controllerConfig.postprocessorEventList);
+            this.afterLoginEventList.putAll(controllerConfig.afterLoginEventList);
+            this.beforeLogoutEventList.putAll(controllerConfig.beforeLogoutEventList);
 
             this.eventHandlerMap.putAll(controllerConfig.eventHandlerMap);
             this.viewHandlerMap.putAll(controllerConfig.viewHandlerMap);
@@ -177,7 +177,7 @@ public class ConfigXMLReader {
             Element firstvisitElement = UtilXml.firstChildElement(rootElement, "firstvisit");
             if (firstvisitElement != null) {
                 for (Element eventElement: UtilXml.childElementList(firstvisitElement, "event")) {
-                    this.firstVisitEventList.add(new Event(eventElement));
+                    this.firstVisitEventList.put(eventElement.getAttribute("name"), new Event(eventElement));
                 }
             }
 
@@ -185,7 +185,7 @@ public class ConfigXMLReader {
             Element preprocessorElement = UtilXml.firstChildElement(rootElement, "preprocessor");
             if (preprocessorElement != null) {
                 for (Element eventElement: UtilXml.childElementList(preprocessorElement, "event")) {
-                    this.preprocessorEventList.add(new Event(eventElement));
+                    this.preprocessorEventList.put(eventElement.getAttribute("name"), new Event(eventElement));
                 }
             }
 
@@ -193,7 +193,7 @@ public class ConfigXMLReader {
             Element postprocessorElement = UtilXml.firstChildElement(rootElement, "postprocessor");
             if (postprocessorElement != null) {
                 for (Element eventElement: UtilXml.childElementList(postprocessorElement, "event")) {
-                    this.postprocessorEventList.add(new Event(eventElement));
+                    this.postprocessorEventList.put(eventElement.getAttribute("name"), new Event(eventElement));
                 }
             }
 
@@ -201,7 +201,7 @@ public class ConfigXMLReader {
             Element afterLoginElement = UtilXml.firstChildElement(rootElement, "after-login");
             if (afterLoginElement != null) {
                 for (Element eventElement: UtilXml.childElementList(afterLoginElement, "event")) {
-                    this.afterLoginEventList.add(new Event(eventElement));
+                    this.afterLoginEventList.put(eventElement.getAttribute("name"), new Event(eventElement));
                 }
             }
 
@@ -209,7 +209,7 @@ public class ConfigXMLReader {
             Element beforeLogoutElement = UtilXml.firstChildElement(rootElement, "before-logout");
             if (beforeLogoutElement != null) {
                 for (Element eventElement: UtilXml.childElementList(beforeLogoutElement, "event")) {
-                    this.beforeLogoutEventList.add(new Event(eventElement));
+                    this.beforeLogoutEventList.put(eventElement.getAttribute("name"), new Event(eventElement));
                 }
             }
         }
