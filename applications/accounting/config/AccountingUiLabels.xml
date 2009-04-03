@@ -859,6 +859,7 @@
         <value xml:lang="zh">支付用途</value>
     </property>
     <property key="AccountingApplyServiceCredit">
+        <value xml:lang="de">Kreditkarte zuweisen</value>
         <value xml:lang="en">Apply Service Credit</value>
         <value xml:lang="fr">Alimenter le crédit</value>
         <value xml:lang="it">Applica servizio credito</value>
@@ -946,6 +947,7 @@
         <value xml:lang="zh">为这张发票指定支付额</value>
     </property>
     <property key="AccountingAssignPurchaseInvoiceToRevenue">
+        <value xml:lang="de">Einkaufsrechnungs-Art zu Ertragskonto zuweisen</value>
         <value xml:lang="en">Assign Purchase Invoice type to Revenue GL Account Number</value>
         <value xml:lang="fr">Assigner le type facture d'achat au n° du compte de produit</value>
         <value xml:lang="it">Assegna Tipo Fattura Acquisto al Numero Conto Profitti Gl</value>
@@ -954,6 +956,7 @@
     </property>
     <property key="AccountingAssignSalesInvoiceToRevenue">
         <value xml:lang="ar">تعيين نوع فاتورة البيع إلى رقم حساب العائدات</value>
+        <value xml:lang="de">Kundenrechnungsart zu Ertragskonto zuweisen</value>
         <value xml:lang="en">Assign Sales Invoice type to Revenue GL Account Number</value>
         <value xml:lang="es">Asignar tipo de factura de venta a ingresos número de cuenta de LM de ingresos</value>
         <value xml:lang="fr">Allouer un type de facture de vente au compte comptable no.</value>
@@ -979,6 +982,7 @@
     </property>
     <property key="AccountingAvailableInternalOrganizations">
         <value xml:lang="ar">المؤسسات الداخلية المتوفرة</value>
+        <value xml:lang="de">Verfügbare interne Organisationen</value>
         <value xml:lang="en">Available Internal Organizations</value>
         <value xml:lang="es">Organizaciones internas disponibles</value>
         <value xml:lang="fr">Organisations internes disponibles</value>
@@ -996,6 +1000,7 @@
     </property>
     <property key="AccountingBalanceDue">
         <value xml:lang="ar">العجز المالي</value>
+        <value xml:lang="de">Soll</value>
         <value xml:lang="en">Balance Due</value>
         <value xml:lang="es">Balance de débito</value>
         <value xml:lang="fr">Solde dû</value>
@@ -1008,6 +1013,7 @@
     </property>
     <property key="AccountingBalanceSheet">
         <value xml:lang="ar">مذكرة الميزانية</value>
+        <value xml:lang="de">Bilanz</value>
         <value xml:lang="en">Balance Sheet</value>
         <value xml:lang="es">Hoja de Balance</value>
         <value xml:lang="fr">Bilan</value>
@@ -1052,6 +1058,7 @@
     </property>
     <property key="AccountingBillToAddress1">
         <value xml:lang="ar">وضع المستحقات على العنوان 1</value>
+        <value xml:lang="de">Rechnung an Addresse1</value>
         <value xml:lang="en">Bill-To Address1</value>
         <value xml:lang="es">Facturar a dirección 1</value>
         <value xml:lang="fr">Adresse de facturation 1</value>
@@ -1064,6 +1071,7 @@
     </property>
     <property key="AccountingBillToAddress2">
         <value xml:lang="ar">وضع المستحقات على العنوان 2</value>
+        <value xml:lang="de">Rechnung an Addresse2</value>
         <value xml:lang="en">Bill-To Address2</value>
         <value xml:lang="es">Facturar a dirección 2</value>
         <value xml:lang="fr">Adresse de facturation 2</value>
@@ -1089,6 +1097,7 @@
     </property>
     <property key="AccountingBilling">
         <value xml:lang="ar">الفوترة</value>
+        <value xml:lang="de">Fakturierung</value>
         <value xml:lang="en">Billing</value>
         <value xml:lang="es">Facturación</value>
         <value xml:lang="fr">Facturation</value>
@@ -1117,6 +1126,7 @@
     </property>
     <property key="AccountingBillingAccountBalanceNotFound">
         <value xml:lang="ar">حساب الفوترة [${billingAccountId}] ميزانية غير موجودة...(</value>
+        <value xml:lang="de">Saldo für Rechnungskonto [${billingAccountId}] nicht gefunden...(</value>
         <value xml:lang="en">Billing Account [${billingAccountId}] balance not found...(</value>
         <value xml:lang="es">Cuenta de facturación [${billingAccountId}] balance no encontrado...(</value>
         <value xml:lang="fr">Pas trouvé le solde du compte de facturation [${billingAccountId}]...</value>
@@ -1129,6 +1139,7 @@
     </property>
     <property key="AccountingBillingAccountBalanceProblem">
         <value xml:lang="ar">حساب الفوترة [${billingAccountId}] لا يعتد بميزانية إيجابية: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
+        <value xml:lang="de">Rechnungskonto [${billingAccountId}] hat kein positives Saldo: ${billingAccountAvailableBalance?currency(${isoCode})}</value>
         <value xml:lang="en">Billing Account [${billingAccountId}] doesn't have a positive balance: ${billingAccountAvailableBalance?currency(${isoCode})}</value>
         <value xml:lang="es">Cuenta de facturación [${billingAccountId}] no tiene un balance positivo: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
         <value xml:lang="fr">Le compte de facturation [${billingAccountId}] n'a pas un solde positif: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
@@ -1141,6 +1152,7 @@
     </property>
     <property key="AccountingBillingAccountCurrencyProblem">
         <value xml:lang="ar">العملات لا تتطابق, حساب الفوترة [${billingAccountId}] عملته: ${accountCurrencyUomId} و التسديد [${paymentId}] عملته: ${paymentCurrencyUomId}</value>
+        <value xml:lang="de">Währungen sind unterschiedlich, Rechnungskonto [${billingAccountId}] hat Währung: ${accountCurrencyUomId} und die Zahlung [${paymentId}] hat Währung: ${paymentCurrencyUomId}</value>
         <value xml:lang="en">Currencies are not the same, Billing Account [${billingAccountId}] has currency: ${accountCurrencyUomId} and Payment [${paymentId}] has currency: ${paymentCurrencyUomId}</value>
         <value xml:lang="es">Monedas no son las mismas, Cuenta de facturación [${billingAccountId}] tiene moneda: ${accountCurrencyUomId} y pago [${paymentId}] tiene moneda: ${paymentCurrencyUomId}</value>
         <value xml:lang="fr">Les monnaies ne sont pas identiques, le compte de facturation [${billingAccountId}] est en monnaie ${accountCurrencyUomId} et le paiement [${paymentId}] est en monnaie ${paymentCurrencyUomId}</value>
@@ -1153,6 +1165,7 @@
     </property>
     <property key="AccountingBillingAccountId">
         <value xml:lang="ar">رمز حساب الفوترة</value>
+        <value xml:lang="de">Rechnungskonto</value>
         <value xml:lang="en">Billing Acct ID</value>
         <value xml:lang="es">Id cta facturación</value>
         <value xml:lang="fr">Compte de facturation</value>
@@ -1165,6 +1178,7 @@
     </property>
     <property key="AccountingBillingAccountInvoices">
         <value xml:lang="ar">فواتير حساب الفوترة</value>
+        <value xml:lang="de">Rechnungen zu Rechnungskonto</value>
         <value xml:lang="en">Billing Account Invoices</value>
         <value xml:lang="es">Facturas de cuenta de facturación</value>
         <value xml:lang="fr">Factures du compte de facturation</value>
@@ -1177,6 +1191,7 @@
     </property>
     <property key="AccountingBillingAccountLessRequested">
         <value xml:lang="ar">حساب الفوترة  [${billingAccountId}]لديه ${billingAccountApplyAvailable?currency(${isoCode})} للتطبيق لكن ${amountApplied?currency(${isoCode})}مطلوبة</value>
+        <value xml:lang="de">Rechnungskonto [${billingAccountId}] hat ${billingAccountApplyAvailable?currency(${isoCode})} zuzuweisen, aber ${amountApplied?currency(${isoCode})} wird gefordert</value>
         <value xml:lang="en">Billing Account [${billingAccountId}] has ${billingAccountApplyAvailable?currency(${isoCode})} to apply but ${amountApplied?currency(${isoCode})} is requested</value>
         <value xml:lang="es">Cuenta de facturación [${billingAccountId}] tiene ${billingAccountApplyAvailable?currency(${isoCode})} por aplicar pero ${amountApplied?currency(${isoCode})} es requerido</value>
         <value xml:lang="fr">Le compte de facturation [${billingAccountId}] a un solde de ${billingAccountApplyAvailable?currency(${isoCode})}; un montant de ${amountApplied?currency(${isoCode})} trop élevé ne peut être alloué</value>
@@ -1189,6 +1204,7 @@
     </property>
     <property key="AccountingBillingAccountNotEnough">
         <value xml:lang="ar">حساب الفوترة [${billingAccountId}] لديه سوى  ${newBillingAccountApplyAvailable?currency(${isoCode})} متوفرة إذن ${amountApplied?currency(${isoCode})} أكثر من اللازم</value>
+        <value xml:lang="de">Rechnungskonto [${billingAccountId}] hat nur  ${newBillingAccountApplyAvailable?currency(${isoCode})} verfügbar, deswegen ist ${amountApplied?currency(${isoCode})} zu viel</value>
         <value xml:lang="en">Billing Account [${billingAccountId}] has only  ${newBillingAccountApplyAvailable?currency(${isoCode})} available so ${amountApplied?currency(${isoCode})} is too much</value>
         <value xml:lang="es">Cuenta de facturación [${billingAccountId}] tiene solo ${newBillingAccountApplyAvailable?currency(${isoCode})} disponible asi que ${amountApplied?currency(${isoCode})} es demasiado</value>
         <value xml:lang="fr">Le compte de facturation [${billingAccountId}] est limité à  ${newBillingAccountApplyAvailable?currency(${isoCode})} donc ${amountApplied?currency(${isoCode})} est trop élevé</value>
@@ -1201,6 +1217,7 @@
     </property>
     <property key="AccountingBillingAccountNotFound">
         <value xml:lang="ar">حساب الفوترة ${billingAccountId}] عير موجود...</value>
+        <value xml:lang="de">Rechnungskonto [${billingAccountId}] nicht gefunden...</value>
         <value xml:lang="en">Billing Account [${billingAccountId}] not found...</value>
         <value xml:lang="es">Cuenta de facturación [${billingAccountId}] no encontrada...</value>
         <value xml:lang="fr">Compte de facturation [${billingAccountId}] pas trouvé...</value>
@@ -1226,6 +1243,7 @@
     </property>
     <property key="AccountingBillingAccountPayments">
         <value xml:lang="ar">تسديدات حساب الفوترة</value>
+        <value xml:lang="de">Zahlungen für Rechnungskonto</value>
         <value xml:lang="en">Billing Account Payments</value>
         <value xml:lang="es">Pago con cuenta de facturación</value>
         <value xml:lang="fr">Paiements compte de facturation</value>
@@ -1255,6 +1273,7 @@
     </property>
     <property key="AccountingBillingAcct">
         <value xml:lang="ar">حساب الفوترة</value>
+        <value xml:lang="de">Rechnungskonto</value>
         <value xml:lang="en">Billing Acct</value>
         <value xml:lang="es">Cta Facturación</value>
         <value xml:lang="fr">Cptes facturation</value>
@@ -1267,6 +1286,7 @@
     </property>
     <property key="AccountingBillingAddress">
         <value xml:lang="ar">عنوان الفوترة</value>
+        <value xml:lang="de">Rechnugsadresse</value>
         <value xml:lang="en">Billing Address</value>
         <value xml:lang="es">Dirección de facturación</value>
         <value xml:lang="fr">Adresse de facturation</value>
@@ -1292,6 +1312,7 @@
     </property>
     <property key="AccountingBillingAvailableBalanceMessage">
         <value xml:lang="ar">هذا هو المبلغ الممكن استعماله للطلبيات الجديدة</value>
+        <value xml:lang="de">Dieser Betrag kann für neue Aufträge genutzt werden.</value>
         <value xml:lang="en">This is the amount which can be used for new orders.</value>
         <value xml:lang="es">Esta es la cantidad la cual puede ser usada para nuevas ordenes.</value>
         <value xml:lang="fr">Ce montant peut être utilisé pour de nouvelles commandes.</value>
@@ -1304,6 +1325,7 @@
     </property>
     <property key="AccountingBillingContactMechId">
         <value xml:lang="ar">رقم الإحداثيات</value>
+        <value xml:lang="de">Kontaktmechanismus für Fakturierung</value>
         <value xml:lang="en">Billing Contact Mech</value>
         <value xml:lang="es">Contacto mercantil de facturación</value>
         <value xml:lang="fr">Coordonnées de contact</value>
@@ -1318,6 +1340,7 @@
     </property>
     <property key="AccountingBillingContactMechIdMessage">
         <value xml:lang="ar">عنوان الفوترة; أضف طرف/دور أولا; ثم اختر من القائمة المسدلة</value>
+        <value xml:lang="de">Rechnungsadresse; Bitte zuerst Aktuer/Rolle hinzufügen und dann auswählen</value>
         <value xml:lang="en">Billing Address; Add Party/Role first, then select from drop-down</value>
         <value xml:lang="es">Dirección de facturación; Agregar Grupo/Rol primero, despues seleccionar de la lista desplegable</value>
         <value xml:lang="fr">Adresse de facturation; Ajouter un Acteur/Rôle, puis choisir dans le menu déroulant</value>
@@ -1330,6 +1353,7 @@
     </property>
     <property key="AccountingBillingInformation">
         <value xml:lang="ar">معلومات محاسبية</value>
+        <value xml:lang="de">Rechnungsinformationen</value>
         <value xml:lang="en">AccountingBilling Information</value>
         <value xml:lang="es">Información de cuenta de facturación</value>
         <value xml:lang="fr">Informations comptables</value>
@@ -1355,6 +1379,7 @@
     </property>
     <property key="AccountingBillingNetBalance">
         <value xml:lang="ar">الميزانية الصافية</value>
+        <value xml:lang="de">Nettobilanz</value>
         <value xml:lang="en">Net Balance</value>
         <value xml:lang="es">Balance neto</value>
         <value xml:lang="fr">Solde net</value>
@@ -1367,6 +1392,7 @@
     </property>
     <property key="AccountingBillingNetBalanceMessage">
         <value xml:lang="ar">هذا هو المبلغ الفائض حاليا فوق حساب الفوترة</value>
+        <value xml:lang="de">Dieser Betrag steht noch offen bei diesem Rechnungskonto.</value>
         <value xml:lang="en">This is the amount which is currently outstanding on the billing account.</value>
         <value xml:lang="es">Esta es la cantidad la cual esta actualmente sobresaliendo en la cuenta de facturación.</value>
         <value xml:lang="fr">Ceci est le solde actuel du compte de facturation</value>
@@ -1378,12 +1404,14 @@
         <value xml:lang="zh">账单账户上未付的金额。</value>
     </property>
     <property key="AccountingBothInvoiceIdBillingAccountIdEmptyError">
+        <value xml:lang="de">Rechnungs-Nr. und Rechnungskonto-Nr. sind beide leer</value>
         <value xml:lang="en">Both InvoiceId and BillingAccountId Empty</value>
         <value xml:lang="fr">Les réf. de facture et de compte de facturation sont toutes les 2 vides</value>
         <value xml:lang="it">Entrambi InvoiceId e BillingAccountId sono vuoti</value>
         <value xml:lang="th">ผิดพลาดตรงรหัสใบกำกับสินค้าและรหัสบัญชีทั้งคู่เป็นค่าว่าง</value>
     </property>
     <property key="AccountingByAccount">
+        <value xml:lang="de">Nach Konto</value>
         <value xml:lang="en">By Account</value>
         <value xml:lang="fr">Par compte</value>
         <value xml:lang="it">Per conto</value>
@@ -1391,6 +1419,7 @@
         <value xml:lang="th">โดยบัญชี</value>
     </property>
     <property key="AccountingByDate">
+        <value xml:lang="de">Nach Datum</value>
         <value xml:lang="en">By Date</value>
         <value xml:lang="fr">Par date</value>
         <value xml:lang="it">Per data</value>
@@ -1503,6 +1532,7 @@
     </property>
     <property key="AccountingCheckAmount">
         <value xml:lang="ar">قيمة الصك</value>
+        <value xml:lang="de">Scheckbetrag</value>
         <value xml:lang="en">Check Amount</value>
         <value xml:lang="es">Cantidad del cheque</value>
         <value xml:lang="fr">Vérifier le montant</value>
@@ -1529,6 +1559,7 @@
     </property>
     <property key="AccountingChecks">
         <value xml:lang="ar">صكوك</value>
+        <value xml:lang="de">Schecks</value>
         <value xml:lang="en">Checks</value>
         <value xml:lang="es">Cheques</value>
         <value xml:lang="fr">Chèques</value>
@@ -1540,6 +1571,7 @@
         <value xml:lang="zh">支票</value>
     </property>
     <property key="AccountingClosedTimePeriods">
+        <value xml:lang="de">Abgeschlossener Buchungszeitraum</value>
         <value xml:lang="en">Closed Time Periods</value>
         <value xml:lang="fr">Périodes de clôture fiscale</value>
         <value xml:lang="it">Periodi Fiscali Chiusi</value>
@@ -1574,6 +1606,7 @@
     </property>
     <property key="AccountingCompanyName">
         <value xml:lang="ar">أوفبيز: مسير المحاسبة</value>
+        <value xml:lang="de">OFBiz: Buchhaltung</value>
         <value xml:lang="en">OFBiz: Accounting Manager</value>
         <value xml:lang="es">OFBiz: Administrador de cuentas</value>
         <value xml:lang="fr">OFBiz: Gestion comptable</value>
@@ -1661,6 +1694,7 @@
         <value xml:lang="zh_CN">OFBiz的一部分</value>
     </property>
     <property key="AccountingComparativeBalanceSheet">
+        <value xml:lang="de">Vergleichsbilanz</value>
         <value xml:lang="en">Comparative Balance Sheet</value>
         <value xml:lang="fr">Bilan comparatif</value>
         <value xml:lang="it">Bilancio Comparativo</value>
@@ -1675,6 +1709,7 @@
     </property>
     <property key="AccountingCopyAgreement">
         <value xml:lang="ar">نسخ الإتفاقية</value>
+        <value xml:lang="de">Vereinbarung kopieren</value>
         <value xml:lang="en">Copy Agreement</value>
         <value xml:lang="es">Copia de acuerdo</value>
         <value xml:lang="fr">Copier l'accord commercial</value>
@@ -1687,6 +1722,7 @@
     </property>
     <property key="AccountingCouldNotFindGlAccount">
         <value xml:lang="ar">لا يمكن إيجاد الحساب ذي الدليل</value>
+        <value xml:lang="de">Hauptkonto konnte nicht gefunden werden</value>
         <value xml:lang="en">Could not find GlAccount with ID</value>
         <value xml:lang="es">No fue posible encontrar la cuenta de LM con el Id</value>
         <value xml:lang="fr">Pas trouvé le compte comptable correspondant à cette réf.</value>
@@ -1698,6 +1734,7 @@
         <value xml:lang="zh">没有在总账中找到相应的编号</value>
     </property>
     <property key="AccountingCreateAcctRecons">
+        <value xml:lang="de">Kontenabstimmung erstellen</value>
         <value xml:lang="en">Create Account Reconciliation</value>
         <value xml:lang="fr">Créer le rapprochement de compte</value>
         <value xml:lang="it">Crea Riconciliazione</value>
@@ -1705,6 +1742,7 @@
         <value xml:lang="th">สร้างการเช็คยอดบัญชี</value>
     </property>
     <property key="AccountingCreateAcctgTransAndEntries">
+        <value xml:lang="de">Schnellerstellung Kontenbuchung</value>
         <value xml:lang="en">Quick Create an Accounting Transaction</value>
         <value xml:lang="fr">Créer rapidement une transaction comptable</value>
         <value xml:lang="it">Creazione Veloce Prima Nota</value>
@@ -1712,6 +1750,7 @@
         <value xml:lang="th">สร้างรายการบัญชีอย่างรวดเร็ว</value>
     </property>
     <property key="AccountingCreateAnAccountingTransaction">
+        <value xml:lang="de">Kontenbuchung erstellen</value>
         <value xml:lang="en">Create an Accounting Transaction</value>
         <value xml:lang="fr">Créer une transaction comptable</value>
         <value xml:lang="it">Crea una Prima Nota</value>
@@ -1733,6 +1772,7 @@
     </property>
     <property key="AccountingCreateBillingAccount">
         <value xml:lang="ar">استحداث حساب فوترة</value>
+        <value xml:lang="de">Rechnungskonto erstellen</value>
         <value xml:lang="en">Create Billing Account</value>
         <value xml:lang="es">Crear cuenta de facturación</value>
         <value xml:lang="fr">Créer un compte de facturation</value>
@@ -1747,6 +1787,7 @@
     </property>
     <property key="AccountingCreateBillingAccountRole">
         <value xml:lang="ar">استحداث دور حساب فوترة</value>
+        <value xml:lang="de">Rechnungskontorolle erstellen</value>
         <value xml:lang="en">Create Billing Account Role</value>
         <value xml:lang="es">Rol de creación de cuenta de facturacón</value>
         <value xml:lang="fr">Associer un rôle à ce compte de facturation</value>
@@ -1833,6 +1874,7 @@
         <value xml:lang="zh">新建礼品卡</value>
     </property>
     <property key="AccountingCreateNewInvoice">
+        <value xml:lang="de">Neue Rechnung erstellen</value>
         <value xml:lang="en">Create New Invoice</value>
         <value xml:lang="fr">Créer une nouvelle facture</value>
         <value xml:lang="it">Creare nuova fattura</value>
@@ -1840,6 +1882,7 @@
         <value xml:lang="th">สร้างใบกำกับสินค้าใหม่</value>
     </property>
     <property key="AccountingCreateNewPurchaseInvoice">
+        <value xml:lang="de">Neue Einkaufsrechnung</value>
         <value xml:lang="en">New Purchase Invoice</value>
         <value xml:lang="fr">Nouvelle facture d'achat</value>
         <value xml:lang="it">Nuova Fattura di Acquisto</value>
@@ -1870,6 +1913,7 @@
         <value xml:lang="zh">新建支付</value>
     </property>
     <property key="AccountingCreatePaymentAcctgTrans">
+        <value xml:lang="de">Zahlungs-Kontenbuchung erstellen</value>
         <value xml:lang="en">Create Payment Accounting Transaction</value>
         <value xml:lang="fr">Créer la transaction de paiement</value>
         <value xml:lang="it">Creazione Prima Nota Per Pagamento</value>
@@ -1903,6 +1947,7 @@
         <value xml:lang="zh">安全错误：要运行新建总账账户，你必须具有ACCOUNTING_CREATE或ACCOUNTING_ADMIN权限</value>
     </property>
     <property key="AccountingCreateSalesAcctgTrans">
+        <value xml:lang="de">Verkaufs-Kontenbuchung erstellen</value>
         <value xml:lang="en">Create Sales Accounting Transaction</value>
         <value xml:lang="fr">Créer la transaction de vente</value>
         <value xml:lang="it">Creazione Prima Nota Per Vendite</value>
@@ -1928,6 +1973,7 @@
         <value xml:lang="zh">信用卡</value>
     </property>
     <property key="AccountingCreditCardBillingAddNotFoundError">
+        <value xml:lang="de">Die zur Kreditkarte zugeordnete Rechnungsadresse wurde nicht gefunden.</value>
         <value xml:lang="en">Billing Address associated with Credit Card not found.</value>
         <value xml:lang="fr">Adresse de facturation associée à la carte de crédit non trouvée</value>
         <value xml:lang="it">Indirizzo di spedizione associato alla carta di credito non trovato.</value>
@@ -1935,6 +1981,7 @@
         <value xml:lang="th">ไม่พบบัตรเครดิตที่เกี่ยวข้องกับใบแจ้งค่าบริการ</value>
     </property>
     <property key="AccountingCreditCardEmailAddNotFoundError">
+        <value xml:lang="de">Rechnungs-Emai-Adresse nicht gefunden.</value>
         <value xml:lang="en">Bill To Email Address not found.</value>
         <value xml:lang="fr">Adresse courriel de facturation non trouvée</value>
         <value xml:lang="it">Indirizzo email carta di credito non trovato.</value>
@@ -1956,6 +2003,7 @@
         <value xml:lang="zh">信用卡信息</value>
     </property>
     <property key="AccountingCreditCardManualAuthFailedError">
+        <value xml:lang="de">Kreditkarte wurde nicht erstellt. Kreditkarte nicht überprüft, Authentifizierung fehlgeschlagen.</value>
         <value xml:lang="en">Not creating credit card.  Credit card not verified, authentication failed.</value>
         <value xml:lang="fr">Pas de création de carte de crédit,  carte non vérifiée, l'authentification a échoué.</value>
         <value xml:lang="it">Non creata carta di credito.  Carta di credito non verificata, autenticazione fallita.</value>
@@ -1963,6 +2011,7 @@
         <value xml:lang="th">ไม่สร้างบัตรเครดิต. บัตรเครดิตไม่ถูกต้อง, เครื่องหมายผิดพลาด</value>
     </property>
     <property key="AccountingCreditCardTypeGlAccount">
+        <value xml:lang="de">Kreditkarten-Buchungskonto</value>
         <value xml:lang="en">Credit Card Type GlAccount</value>
         <value xml:lang="fr">Compte de carte de crédit</value>
         <value xml:lang="it">Conto Gl Tipo Carta di Credito</value>
@@ -2013,6 +2062,7 @@
     </property>
     <property key="AccountingCustNr">
         <value xml:lang="ar">رقم الزبون</value>
+        <value xml:lang="de">Kunden-Nr.</value>
         <value xml:lang="en">Cust.Nr</value>
         <value xml:lang="es">Nr Cliente</value>
         <value xml:lang="fr">No. de Client</value>
@@ -2025,6 +2075,7 @@
     </property>
     <property key="AccountingCustomer">
         <value xml:lang="ar">زبون</value>
+        <value xml:lang="de">Kunde</value>
         <value xml:lang="en">Customer</value>
         <value xml:lang="es">Cliente</value>
         <value xml:lang="fr">Client</value>
@@ -2056,6 +2107,7 @@
         <value xml:lang="th">Field dateAcquired is empty in FixedAsset data.</value>
     </property>
     <property key="AccountingDateFilter">
+        <value xml:lang="de">Datumsfilter</value>
         <value xml:lang="en">Date Filter</value>
         <value xml:lang="fr">Filtre de date</value>
         <value xml:lang="it">Data filtro</value>
@@ -2064,6 +2116,7 @@
     </property>
     <property key="AccountingDebitCreditMustEqual">
         <value xml:lang="ar"> مجاميع الدين و القرض يجب أن يكونا متساويان</value>
+        <value xml:lang="de">Soll und Haben müssen beim buchen auf dass Hauptkonto gleich sein.</value>
         <value xml:lang="en">Debit and Credit Totals must be equal to post to GL.</value>
         <value xml:lang="es">Totales de Débito y Crédito deben ser iguales para enviar a LM.</value>
         <value xml:lang="fr">Les montants du débit et du crédit doivent être égaux</value>
@@ -2084,6 +2137,7 @@
     </property>
     <property key="AccountingDescr">
         <value xml:lang="ar">وصف</value>
+        <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Descr</value>
         <value xml:lang="es">Descr</value>
         <value xml:lang="fr">Descr</value>
@@ -2108,6 +2162,7 @@
         <value xml:lang="zh">支付日</value>
     </property>
     <property key="AccountingDuplicateAccountingTransaction">
+        <value xml:lang="de">Doppelte Buchung</value>
         <value xml:lang="en">Duplicate Accounting Transaction</value>
         <value xml:lang="fr">Transaction comptable en double</value>
         <value xml:lang="it">Duplicazione Prima Nota</value>
@@ -2161,6 +2216,7 @@
         <value xml:lang="zh">指定的电子资金转账账户不属于你，你不能浏览或编辑它</value>
     </property>
     <property key="AccountingEditAcctRecon">
+        <value xml:lang="de">Kontenabstimmung bearbeiten</value>
         <value xml:lang="en">Edit Account Reconciliation</value>
         <value xml:lang="fr">Modifier le rapprochement de compte</value>
         <value xml:lang="it">Modifica Riconciliazione</value>
@@ -2192,6 +2248,7 @@
         <value xml:lang="zh">编辑定制时间段</value>
     </property>
     <property key="AccountingEditFinAccount">
+        <value xml:lang="de">Finanzkonto bearbeiten</value>
         <value xml:lang="en">Create/Update Financial Account</value>
         <value xml:lang="fr">Créer/ mettre à jour un compte financier</value>
         <value xml:lang="it">Crea/Aggiorna Conto Finanziario</value>
@@ -2216,6 +2273,7 @@
     </property>
     <property key="AccountingEditPayment">
         <value xml:lang="ar">تحرير التسديد</value>
+        <value xml:lang="de">Zahlung bearbeiten</value>
         <value xml:lang="en">Edit Payment</value>
         <value xml:lang="es">Editar Pago</value>
         <value xml:lang="fr">Modifier un paiement</value>
@@ -2227,6 +2285,7 @@
         <value xml:lang="zh">编辑支付</value>
     </property>
     <property key="AccountingEditTaxAuthorityGlAccounts">
+        <value xml:lang="de">Steuerkonten bearbeiten</value>
         <value xml:lang="en">Edit TaxAuthority GL Accounts</value>
         <value xml:lang="fr">Modifier les comptes de l'administration fiscale</value>
         <value xml:lang="it">Aggiorna conti Gl autorità tasse</value>
@@ -2235,6 +2294,7 @@
     </property>
     <property key="AccountingEffective">
         <value xml:lang="ar">فعالة</value>
+        <value xml:lang="de">Ist-</value>
         <value xml:lang="en">Effective</value>
         <value xml:lang="es">Efectivo</value>
         <value xml:lang="fr">Effectif</value>
@@ -2260,6 +2320,7 @@
     </property>
     <property key="AccountingEmailScheduledToSend">
         <value xml:lang="ar">رسالة البريد الإلكتروني مع الفاتورة المعلقة: ${parameters.invoiceId} مبرمجة للإرسال ...</value>
+        <value xml:lang="de">Email mit angehängter Rechnung: ${parameters.invoiceId} ist zum Versand eingeplant....</value>
         <value xml:lang="en">Email message with attached invoice: ${parameters.invoiceId} scheduled to be sent....</value>
         <value xml:lang="es">Mensaje de correo electrónico con factura adjunta: ${parameters.invoiceId} programado para ser enviado....</value>
         <value xml:lang="fr">Courriel avec facture en pièce jointe: ${parameters.invoiceId} prêt à être envoyé....</value>
@@ -2272,6 +2333,7 @@
     </property>
     <property key="AccountingEmptyForMaxAmount">
         <value xml:lang="ar">أتركه فارغا لأقصى المبلغ</value>
+        <value xml:lang="de">Leer lassen für maximalen Betrag</value>
         <value xml:lang="en">Leave empty for maximum amount</value>
         <value xml:lang="es">Dejar vacio para cantidad máxima</value>
         <value xml:lang="fr">Laisser vide pour un montant maximum</value>
@@ -2312,6 +2374,7 @@
     </property>
     <property key="AccountingEntityDataProblemCreatingInvoiceFromOrderItems">
         <value xml:lang="ar">  كينونة/معلومات مشكل أثناء إستحداث الفاتورة من بنود الطلبية: ${reason}</value>
+        <value xml:lang="de">Problem bei der Erstellung einer Rechnung aus Auftragspositionen: ${reason} </value>
         <value xml:lang="en">Entity/data problem creating invoice from order items: ${reason} </value>
         <value xml:lang="es">Problema Entidad/datos creando factura desde orden de elmentos: ${reason}</value>
         <value xml:lang="fr">Problème d'entité/données en créant une facture à partir des lignes de la commande: ${reason} </value>
@@ -2324,6 +2387,7 @@
     </property>
     <property key="AccountingEquities">
         <value xml:lang="ar">متراجحات</value>
+        <value xml:lang="de">Eigenkapital</value>
         <value xml:lang="en">Equities</value>
         <value xml:lang="es">Acciones</value>
         <value xml:lang="fr">Actions</value>
@@ -2336,6 +2400,7 @@
     </property>
     <property key="AccountingErrorCreatingInvoiceContactMechFromOrder">
         <value xml:lang="ar">مشكل أثناء استحداث إحداثيات الصلة على الفاتورة من الطلبية</value>
+        <value xml:lang="de">Fehler bei der Erstellung von Rechnungs-Kontaktdaten aus Auftrag</value>
         <value xml:lang="en">Error creating InvoiceContactMech from order</value>
         <value xml:lang="fr">Erreur lors de la création d'un InvoiceContactMech à partir de la commande</value>
         <value xml:lang="it">Errore durante la creazione di InvoiceContactMech dall'ordine</value>
@@ -2346,6 +2411,7 @@
     </property>
     <property key="AccountingErrorCreatingInvoiceForReturn">
         <value xml:lang="ar">مشكل أثناء استحداث فاتورة الرجوع [${returnId}]</value>
+        <value xml:lang="de">Fehler bei der Erstellung einer Rechnung für Retoure [${returnId}]</value>
         <value xml:lang="en">Error creating invoice for return [${returnId}]</value>
         <value xml:lang="es">Error creando factura para devolución [${returnId}]</value>
         <value xml:lang="fr">Erreur lors de la création d'une facture pour le retour [${returnId}]</value>
@@ -2358,6 +2424,7 @@
     </property>
     <property key="AccountingErrorCreatingInvoiceForShipment">
         <value xml:lang="ar">مشكل أثناء استحداث الفاتورة للشحن  [${shipmentId}]</value>
+        <value xml:lang="de">Fehler bei der Erstellung einer Rechnung für Auslieferung [${shipmentId}]</value>
         <value xml:lang="en">Error creating invoice for shipment [${shipmentId}].</value>
         <value xml:lang="es">Error creando factura para envío  [${shipmentId}].</value>
         <value xml:lang="fr">Erreur lors de la création d'une facture pour l'expédition  [${shipmentId}].</value>
@@ -2370,6 +2437,7 @@
     </property>
     <property key="AccountingErrorCreatingInvoiceFromOrder">
         <value xml:lang="ar">مشكل أثناء استحداث الفاتورة من الطلبية</value>
+        <value xml:lang="de">Fehler bei der Erstellung einer Rechnung aus Auftrag</value>
         <value xml:lang="en">Error creating invoice from order</value>
         <value xml:lang="es">Error creando factura a partir de orden</value>
         <value xml:lang="fr">Erreur lors de la création d'une facture à partir de la commande</value>
@@ -2382,6 +2450,7 @@
     </property>
     <property key="AccountingErrorCreatingInvoiceFromOrderCheckPaymentAppl">
         <value xml:lang="ar">مشكل أثناء استحداث الفاتورة من الطلبية مع تفقد تطبيقات التسديدات</value>
+        <value xml:lang="de">Fehler bei der Erstellung einer Rechnung aus Auftrag während der Überprüfung von Zahlungen</value>
         <value xml:lang="en">Error creating invoice from order while checking payment applications</value>
         <value xml:lang="es">Error creando factura a partir de orden mientras se verificaba la aplicación de pago</value>
         <value xml:lang="fr">Erreur lors de la création d'une facture à partir de la commande; problème avec les allocations de paiements</value>
@@ -2394,6 +2463,7 @@
     </property>
     <property key="AccountingErrorCreatingInvoiceItemFromOrder">
         <value xml:lang="ar">مشكل أثناء استحداث بند الفاتورة من الطلبية</value>
+        <value xml:lang="de">Fehler bei der Erstellung einer Rechnungsposition aus Auftrag</value>
         <value xml:lang="en">Error creating InvoiceItem from order</value>
         <value xml:lang="fr">Erreur lors de la création d'une ligne de facturation à partir de la commande</value>
         <value xml:lang="it">Errore durante la creazione di InvoiceItem dall'ordine</value>
@@ -2404,6 +2474,7 @@
     </property>
     <property key="AccountingErrorCreatingInvoiceRoleFromOrder">
         <value xml:lang="ar">مشكل أثناء استحداث دور الفاتورة من الطلبية</value>
+        <value xml:lang="de">Fehler bei der Erstellung einer Rechnungs-Rolle aus Auftrag</value>
         <value xml:lang="en">Error creating InvoiceRole from order</value>
         <value xml:lang="fr">Erreur lors de la création d'un rôle de facturation à partir de la commande</value>
         <value xml:lang="it">Errore durante la creazione di InvoiceRole dall'ordine</value>
@@ -2414,6 +2485,7 @@
     </property>
     <property key="AccountingErrorCreatingInvoiceTermFromOrder">
         <value xml:lang="ar">مشكل أثناء استحداث بند الفاتورة من الطلبية</value>
+        <value xml:lang="de">Fehler bei der Erstellung einer Rechnungs-Kondition aus Auftrag</value>
         <value xml:lang="en">Error creating InvoiceTerm from order</value>
         <value xml:lang="fr">Erreur lors de la création d'un terme de facturation à partir de la commande</value>
         <value xml:lang="it">Errore durante la creazione di InvoiceTerm dall'ordine</value>
