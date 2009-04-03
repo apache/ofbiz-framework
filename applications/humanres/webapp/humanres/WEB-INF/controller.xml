@@ -536,7 +536,7 @@ under the License.
     </request-map>
     <request-map uri="EmployeeProfile">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EmployeeProfile"/>
+        <response name="success" type="view" value="EmployeeProfile" save-home-view="true"/>
     </request-map>
     <request-map uri="findSkillTypes">
         <security https="true" auth="true"/>
