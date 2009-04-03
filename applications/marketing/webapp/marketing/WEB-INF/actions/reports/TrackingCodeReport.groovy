@@ -30,15 +30,15 @@ trackingCodeIdStr = request.getParameter("trackingCodeId");
 visitConditionList = [] as LinkedList;
 orderConditionList = [] as LinkedList;
 
-if (fromDate) {
+if (parameters.fromDate) {
     visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
     orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 }
-if (thruDate) {
+if (parameters.thruDate) {
      visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
      orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
 }
-if (trackingCodeIdSt) {
+if (parameters.trackingCodeId) {
      visitConditionList.add(EntityCondition.makeCondition("trackingCodeId", EntityOperator.EQUALS, trackingCodeIdStr));
      orderConditionList.add(EntityCondition.makeCondition("trackingCodeId", EntityOperator.EQUALS, trackingCodeIdStr));
 }
