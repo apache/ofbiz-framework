@@ -5688,7 +5688,7 @@
         <value xml:lang="de">Lieferung anzeigen</value>
         <value xml:lang="en">View Shipment</value>
         <value xml:lang="es">Ver Envío</value>
-        <value xml:lang="fr">Voir l'expédition</value>
+        <value xml:lang="fr">L'expédition</value>
         <value xml:lang="it">Mostra Spedizione</value>
         <value xml:lang="ro">Afiseaza Expediere </value>
         <value xml:lang="ru">Просмотреть поставку</value>
@@ -5699,7 +5699,7 @@
         <value xml:lang="de">Lieferposition Informationen anzeigen</value>
         <value xml:lang="en">View Shipment Item Info</value>
         <value xml:lang="es">Ver información de ítem de envío</value>
-        <value xml:lang="fr">Voir les informations d'expédition</value>
+        <value xml:lang="fr">Les informations d'expédition</value>
         <value xml:lang="it">Mostra Righe Spedizione</value>
         <value xml:lang="th">แสดงข้อมูลรายการการขนส่งสินค้า</value>
     </property>
@@ -13106,7 +13106,7 @@
         <value xml:lang="de">es sollten keine Positionen mehr übrig sein zur Ausgabe für diesen Auftrag</value>
         <value xml:lang="en">there should be no items left to issue from this order</value>
         <value xml:lang="es">no hay más artículos que emitir para este pedido</value>
-        <value xml:lang="fr">Il n'y pas de ligne correspondante à cet ordre</value>
+        <value xml:lang="fr">Il n'y pas de ligne correspondant à cet ordre</value>
         <value xml:lang="it">non ci dovrebbero essere righe lasciate a prelievi per questo ordine</value>
         <value xml:lang="ro">nu ar trebui sa fie linii lasate la preluari pentru aceasta comanda</value>
         <value xml:lang="ru">для выдачи по этому заказу не осталось позиций</value>

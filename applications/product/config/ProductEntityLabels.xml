@@ -2398,7 +2398,7 @@
         <value xml:lang="de">Verkauf Retoure</value>
         <value xml:lang="en">Sales Return</value>
         <value xml:lang="es">Devolución de ventas</value>
-        <value xml:lang="fr">Retour des ventes</value>
+        <value xml:lang="fr">Retour de vente</value>
         <value xml:lang="it">Reso di vendita</value>
         <value xml:lang="ro">Returnare din Vanzari</value>
         <value xml:lang="ru">Возврат проданного</value>
@@ -2409,7 +2409,7 @@
         <value xml:lang="de">Verkauf Lieferung</value>
         <value xml:lang="en">Sales Shipment</value>
         <value xml:lang="es">Envío de ventas</value>
-        <value xml:lang="fr">Expédition des ventes</value>
+        <value xml:lang="fr">Expédition de vente</value>
         <value xml:lang="it">Spedizione di vendita</value>
         <value xml:lang="ro">Expediere Vanzari</value>
         <value xml:lang="ru">Поставка проданного</value>
