@@ -69,10 +69,10 @@ under the License.
                                 <not><if-empty field="custRequest"/></not>
                             </condition>
                             <widgets>
-                                 <include-menu name="RequestTabBar" location="component://order/widget/ordermgr/RequestMenus.xml"/>
+                                <include-menu name="RequestTabBar" location="component://order/widget/ordermgr/Menus.xml"/>
                             </widgets>
                         </section>
-                        <include-menu name="RequestSubTabBar" location="component://order/widget/ordermgr/RequestMenus.xml"/>
+                        <include-menu name="RequestSubTabBar" location="component://order/widget/ordermgr/Menus.xml"/>
                         <container>
                             <section>
                                 <condition>
