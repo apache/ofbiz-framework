@@ -31,16 +31,16 @@ visitConditionList = [] as LinkedList;
 orderConditionList = [] as LinkedList;
 
 if (parameters.fromDate) {
-    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
-    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, parameters.fromDate));
+    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, parameters.fromDate));
 }
 if (parameters.thruDate) {
-     visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
-     orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+     visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, parameters.thruDate));
+     orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, parameters.thruDate));
 }
 if (parameters.trackingCodeId) {
-     visitConditionList.add(EntityCondition.makeCondition("trackingCodeId", EntityOperator.EQUALS, trackingCodeIdStr));
-     orderConditionList.add(EntityCondition.makeCondition("trackingCodeId", EntityOperator.EQUALS, trackingCodeIdStr));
+     visitConditionList.add(EntityCondition.makeCondition("trackingCodeId", EntityOperator.EQUALS, parameters.trackingCodeId));
+     orderConditionList.add(EntityCondition.makeCondition("trackingCodeId", EntityOperator.EQUALS, parameters.trackingCodeId));
 }
 
 visitConditions = EntityCondition.makeCondition(visitConditionList, EntityOperator.AND);
