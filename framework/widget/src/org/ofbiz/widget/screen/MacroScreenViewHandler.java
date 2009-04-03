@@ -40,10 +40,14 @@ import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.xml.sax.SAXException;
 
+import org.ofbiz.widget.menu.MenuStringRenderer;
+//import org.ofbiz.widget.menu.MacroMenuRenderer;
+import org.ofbiz.widget.tree.TreeStringRenderer;
+//import org.ofbiz.widget.tree.MacroTreeRenderer;
 import org.ofbiz.widget.form.FormStringRenderer;
+import org.ofbiz.widget.form.MacroFormRenderer;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
 import org.ofbiz.widget.screen.MacroScreenRenderer;
-import org.ofbiz.widget.form.MacroFormRenderer;
 
 import freemarker.template.TemplateException;
 import freemarker.template.utility.StandardCompress;
@@ -89,6 +93,9 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
 
             ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(UtilProperties.getPropertyValue("widget", getName() + ".screenrenderer"), writer);
             FormStringRenderer formStringRenderer = new MacroFormRenderer(UtilProperties.getPropertyValue("widget", getName() + ".formrenderer"), writer, request, response);
+            // TODO: uncomment these lines when the renderers are implemented
+            //TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(UtilProperties.getPropertyValue("widget", getName() + ".treerenderer"), writer);
+            //MenuStringRenderer menuStringRenderer = new MacroMenuRenderer(UtilProperties.getPropertyValue("widget", getName() + ".menurenderer"), writer);
 
             ScreenRenderer screens = new ScreenRenderer(writer, null, screenStringRenderer);
             screens.populateContextForRequest(request, response, servletContext);
