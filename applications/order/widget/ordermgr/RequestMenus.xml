@@ -27,7 +27,7 @@ under the License.
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
         </menu-item>
-        <menu-item name="request" title="${uiLabelMap.OrderRequest}">
+        <menu-item name="editRequest" title="${uiLabelMap.OrderRequest}">
             <link target="request">
                 <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
             </link>
