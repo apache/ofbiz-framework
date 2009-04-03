@@ -186,6 +186,22 @@ ${item.description}</div>
 <#macro renderFormatFieldRowWidgetCellOpen positionSpan style>   <td<#if positionSpan?has_content && positionSpan gt 0> colspan="${1+positionSpan*3}"</#if><#if style?has_content> class="${style}"</#if>></#macro>
 <#macro renderFormatFieldRowWidgetCellClose></td></#macro>
 
+<#--
+    Initial work to convert table based layout for "single" form to divs.
+<#macro renderFormatSingleWrapperOpen style> <div <#if style?has_content>class="${style}"</#if> ></#macro>
+<#macro renderFormatSingleWrapperClose> </div></#macro>
+
+<#macro renderFormatFieldRowOpen>  <div></#macro>
+<#macro renderFormatFieldRowClose>  </div></#macro>
+<#macro renderFormatFieldRowTitleCellOpen style>   <div class="<#if style?has_content>${style}<#else>label</#if>"></#macro>
+<#macro renderFormatFieldRowTitleCellClose></div></#macro>
+<#macro renderFormatFieldRowSpacerCell></#macro>
+<#macro renderFormatFieldRowWidgetCellOpen positionSpan style>   <div<#if positionSpan?has_content && positionSpan gt 0> colspan="${1+positionSpan*3}"</#if><#if style?has_content> class="${style}"</#if>></#macro>
+<#macro renderFormatFieldRowWidgetCellClose></div></#macro>
+
+-->
+
+
 <#macro renderFormatEmptySpace>&nbsp;</#macro>
 
 <#macro renderTextFindField name value defaultOption opEquals opBeginsWith opContains opIsEmpty opNotEqual className alert size maxlength autocomplete titleStyle hideIgnoreCase ignCase ignoreCase>
