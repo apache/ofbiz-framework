@@ -1135,7 +1135,7 @@
     </property>
     <property key="GlAccountType.description.SALES_RETURNS">
         <value xml:lang="en">Customer Returns</value>
-        <value xml:lang="fr">Retours des ventes</value>
+        <value xml:lang="fr">Retours de ventes</value>
         <value xml:lang="it">Resi Cliente</value>
         <value xml:lang="ro">Returnari Clienti</value>
         <value xml:lang="ru">Возвраты заказчиков</value>
