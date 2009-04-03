@@ -1848,6 +1848,10 @@
         <value xml:lang="th">ตัวอักษร XML</value>
         <value xml:lang="zh">XML文本</value>
     </property>
+    <property key="MimeType.description.text/x-vcard">
+        <value xml:lang="en">electronic business card</value>
+        <value xml:lang="it">carta business elettronica</value>
+    </property>
     <property key="MimeType.description.video/avi">
         <value xml:lang="en">AVI Video</value>
         <value xml:lang="it">Video AVI</value>
