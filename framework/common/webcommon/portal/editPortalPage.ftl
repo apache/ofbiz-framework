@@ -26,19 +26,17 @@ under the License.
           <li id="delete-column"><form method="post" action="<@ofbizUrl>deletePortalPageColumn</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)" name="delPortalPageId_${portalPageColumn_index}"><input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/><input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/></form><a class="buttontext" href="javascript:document.delPortalPageId_${portalPageColumn_index}.submit()">${uiLabelMap.CommonRemove}</a></li>
           <li id="add-portlet"><form method="post" action="<@ofbizUrl>AddPortlet</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)" name="addPortlet_${portalPageColumn_index}"><input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/><input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/><input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/></form><a class="buttontext" href="javascript:document.addPortlet_${portalPageColumn_index}.submit()">${uiLabelMap.CommonAddAPortlet}</a></li>
           <li id="column-width">
-	        <select name="setColWidth" onchange="window.location=this.value;">
+           <form method="post" action="<@ofbizUrl>updatePortalPageColumn</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)" name="updatePortalPageColum_${portalPageColumn_index}">
+            <input name="portalPageId" value="${portalPage.portalPageId}" type="hidden"/>
+            <input name="columnSeqId" value="${portalPageColumn.columnSeqId}" type="hidden"/>
+            <input name="parentPortalPageId" value="${parameters.parentPortalPageId}" type="hidden"/>
+	        <select name="columnWidthPercentage" onchange="javascript:document.updatePortalPageColum_${portalPageColumn_index}.submit()">
 	          <option value="">${uiLabelMap.CommonSetColumnWidth}</option>
-	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 10> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${portalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=10&parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>">10%</option>
-	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 20> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${portalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=20&parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>">20%</option>
-	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 30> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${portalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=30&parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>">30%</option>
-	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 40> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${portalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=40&parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>">40%</option>
-	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 50> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${portalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=50&parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>">50%</option>
-	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 60> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${portalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=60&parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>">60%</option>
-	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 70> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${portalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=70&parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>">70%</option>
-	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 80> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${portalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=80&parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>">80%</option>
-	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 90> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${portalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=90&parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>">90%</option>
-	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 100> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${portalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=100&parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>">100%</option>
+	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 10> selected</#if> value="25">25%</option>
+	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 20> selected</#if> value="50">50%</option>
+	          <option <#if portalPageColumn.columnWidthPercentage?default(0) == 30> selected</#if> value="75">75%</option>
 	        </select>
+	       </form>
 	      </li>
 	    </ul>
       </td>
