@@ -201,4 +201,91 @@ under the License.
         </menu-item>
     </menu>
 
+    <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="ViewRequest" title="${uiLabelMap.OrderRequestOverview}">
+            <link target="ViewRequest">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+            </link>
+        </menu-item>
+        <menu-item name="editRequest" title="${uiLabelMap.OrderRequest}">
+            <link target="request">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+            </link>
+        </menu-item>
+        <menu-item name="requestroles" title="${uiLabelMap.OrderRequestRoles}">
+            <link target="requestroles">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+            </link>
+        </menu-item>
+        <menu-item name="requestitems" title="${uiLabelMap.OrderRequestItems}">
+            <link target="/requestitems">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+            </link>
+        </menu-item>
+        <menu-item name="custRequestContent" title="${uiLabelMap.OrderRequestContent}">
+            <condition>
+                <and>
+                    <not><if-empty field="custRequest"/></not>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="EditCustRequestContent">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+            </link>
+        </menu-item>
+    </menu>
+    
+    <menu name="RequestSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+        menu-container-style="button-bar button-style-2 no-clear">
+        <menu-item name="newRequest" title="${uiLabelMap.OrderNewRequest}">
+            <link target="EditRequest"/>
+        </menu-item>
+        <menu-item name="createQuoteFromRequest" title="${uiLabelMap.OrderCreateQuoteFromRequest}">
+            <condition>
+                <and>
+                    <not><if-empty field="custRequest"/></not>
+                    <if-compare field="custRequest" operator="equals" value="RF_QUOTE"/>
+                </and>
+            </condition>
+            <link target="createQuoteFromCustRequest">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+            </link>
+        </menu-item>
+    </menu>
+    
+    <menu name="RequestScreenletMenu" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+        menu-container-style="button-bar button-style-2 no-clear">
+        <menu-item name="newRequest" title="${uiLabelMap.OrderNewRequest}">
+            <link target="EditRequest"/>
+        </menu-item>
+    </menu>
+    
+    <menu name="editrequestitemmenu" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="requestitem" title="${uiLabelMap.OrderRequestItem}">
+            <link id="requestitem" target="requestitem">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+                <parameter param-name="custRequestItemSeqId" from-field="custRequestItem.custRequestItemSeqId"/>
+            </link>
+        </menu-item>
+        <menu-item name="requestitemnotes" title="${uiLabelMap.OrderRequestItemNotes}">
+            <link id="requestitemnotes" target="requestitemnotes">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+                <parameter param-name="custRequestItemSeqId" from-field="custRequestItem.custRequestItemSeqId"/>
+            </link>
+        </menu-item>
+        <menu-item name="requestitemquotes" title="${uiLabelMap.OrderRequestItemQuotes}">
+            <link id="requestitemquotes" target="RequestItemQuotes">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+                <parameter param-name="custRequestItemSeqId" from-field="custRequestItem.custRequestItemSeqId"/>
+            </link>
+        </menu-item>
+        <menu-item name="workeffortrequirements" title="${uiLabelMap.OrderRequestItemWorkEffort}">
+            <link id="workeffortrequirements" target="requestitemrequirements">
+                <parameter param-name="custRequestId" from-field="custRequest.custRequestId"/>
+                <parameter param-name="custRequestItemSeqId" from-field="custRequestItem.custRequestItemSeqId"/>
+            </link>
+        </menu-item>
+    </menu>
+    
 </menus>
