@@ -592,8 +592,11 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeGroupFromFacility?facilityId=${facilityId}&amp;facilityGroupId=${facilityGroupId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="removeGroupFromFacility" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="facilityId" from-field="facilityId"/>
+                <parameter param-name="facilityGroupId" from-field="facilityGroupId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="addGroupToFacility" type="single" target="addGroupToFacility" title=""

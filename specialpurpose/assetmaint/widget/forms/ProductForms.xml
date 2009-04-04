@@ -139,8 +139,11 @@
         <field name="maintTemplateWorkEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteProductMaint?fixedAssetId=${parameters.fixedAssetId}&amp;productId=${productId}&amp;productMaintSeqId=${productMaintSeqId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteProductMaint" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="productMaintSeqId" from-field="productMaintSeqId"/>
+            </hyperlink>
         </field>
     </form>
 

@@ -139,8 +139,11 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeFacilityFromGroup?facilityGroupId=${facilityGroupId}&amp;facilityId=${facilityId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="removeFacilityFromGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="facilityGroupId" from-field="facilityGroupId"/>
+                <parameter param-name="facilityId" from-field="facilityId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddFacilityGroupMember" target="addFacilityToGroup" title="" type="single"
@@ -171,8 +174,11 @@ under the License.
             <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removePartyFromFacilityGroup?facilityGroupId=${facilityGroupId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="removePartyFromFacilityGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="facilityGroupId" from-field="facilityGroupId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddFacilityGroupRole" target="addPartyToFacilityGroup" title="" type="single"
