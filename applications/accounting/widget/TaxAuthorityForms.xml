@@ -143,8 +143,13 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteTaxAuthorityAssoc?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;toTaxAuthPartyId=${toTaxAuthPartyId}&amp;toTaxAuthGeoId=${toTaxAuthGeoId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteTaxAuthorityAssoc" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+                <parameter param-name="toTaxAuthPartyId" from-field="toTaxAuthPartyId"/>
+                <parameter param-name="toTaxAuthGeoId" from-field="toTaxAuthGeoId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddTaxAuthorityAssoc" type="single" target="createTaxAuthorityAssoc" title="" default-map-name="taxAuthorityAssoc"
