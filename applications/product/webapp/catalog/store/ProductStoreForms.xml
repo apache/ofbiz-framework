@@ -64,8 +64,9 @@
             </drop-down>
         </field>
         <field use-when="productStore!=null&amp;&amp;productStore.getString(&quot;inventoryFacilityId&quot;)!=null" name="inventoryFacilityLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="/facility/control/EditFacility?facilityId=${productStore.inventoryFacilityId}" target-type="inter-app"
-                description="${uiLabelMap.CommonEdit} ${uiLabelMap.ProductFacility} ${productStore.inventoryFacilityId}" also-hidden="false"/>
+            <hyperlink target="/facility/control/EditFacility" target-type="inter-app" description="${uiLabelMap.CommonEdit} ${uiLabelMap.ProductFacility} ${productStore.inventoryFacilityId}" also-hidden="false">
+				<parameter param-name="facilityId" from-field="productStore.inventoryFacilityId"/>
+			</hyperlink>
         </field>
 
         <field name="manualAuthIsCapture">

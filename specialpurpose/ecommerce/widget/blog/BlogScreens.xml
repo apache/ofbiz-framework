@@ -32,7 +32,7 @@
                 <entity-one entity-name="Content" value-field="blogContent">
                     <field-map field-name="contentId" from-field="parameters.blogContentId"/>
                 </entity-one>
-                
+
                 <!-- permission fields -->
                 <set field="crPerm.ownerContentId" from-field="blogContentId"/>
                 <set field="crPerm.contentOperationId" value="CONTENT_CREATE"/>
@@ -43,8 +43,8 @@
                     <container style="leftjustify">
                         <link text="${blogContent.contentName} - ${blogContent.description}" target="MainBlog" style="blogtitle">
                             <parameter param-name="blogContentId" from-field="blogContentId"/>
-                        </link>                                                    
-                    </container>                        
+                        </link>
+                    </container>
                     <container style="rightjustify">
                         <section>
                             <condition>
@@ -56,8 +56,10 @@
                                 </link>
                             </widgets>
                         </section>
-
-                        <link target="ViewBlogRss?blogContentId=${blogContent.contentId}&amp;mainLinkReq=MainBlog&amp;entryLinkReq=ViewBlogArticle" target-window="_blank">
+                        <link target="ViewBlogRss=" target-window="_blank">
+                            <parameter param-name="blogContentId" from-field="blogContent.contentId"/>
+                            <parameter param-name="mainLinkReq" value="MainBlog"/>
+                            <parameter param-name="entryLinkReq" value="ViewBlogArticle"/>
                             <image src="/images/feed-icon-14x14.png" id="feedIcon" height="12px"/>
                         </link>
                     </container>
@@ -67,7 +69,7 @@
                 <label text="${uiLabelMap.EcommerceBlogContentNotFound}" style="blogtitle"/>
             </fail-widgets>
         </section>
-    </screen>    
+    </screen>
 
     <screen name="MainBlog">
         <section>
@@ -87,7 +89,7 @@
                 <!-- permission fields -->
                 <set field="upPerm.contentId" from-field="blogContentId"/>
                 <set field="upPerm.contentOperationId" value="CONTENT_UPDATE"/>
-                <set field="upPerm.contentPurposeTypeId" value="ARTICLE"/> 
+                <set field="upPerm.contentPurposeTypeId" value="ARTICLE"/>
             </actions>
             <widgets>
                 <section>
@@ -178,7 +180,7 @@
                     <widgets>
                         <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                             <decorator-section name="body">
-                                <include-form name="EditArticle" location="component://ecommerce/widget/blog/BlogForms.xml"/>                                
+                                <include-form name="EditArticle" location="component://ecommerce/widget/blog/BlogForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </widgets>
@@ -211,7 +213,7 @@
                         <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
                             <decorator-section name="body">
                                 <sub-content content-id="${parameters.contentId}" map-key="IMAGE"/>
-                                <include-form name="EditArticle" location="component://ecommerce/widget/blog/BlogForms.xml"/>                                
+                                <include-form name="EditArticle" location="component://ecommerce/widget/blog/BlogForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </widgets>
@@ -240,7 +242,7 @@
                 <set field="upPerm.contentOperationId" value="CONTENT_UPDATE"/>
                 <set field="upPerm.contentPurposeTypeId" value="ARTICLE"/>
                 <set field="upPerm.ownerContentId" from-field="ownerContentId"/>
-                <set field="upPerm.contentId" from-field="articleContentId"/>                 
+                <set field="upPerm.contentId" from-field="articleContentId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBlog" location="${parameters.mainDecoratorLocation}">
@@ -252,7 +254,7 @@
                             </container>
                             <section>
                                 <condition>
-                                    <if-service-permission service-name="genericContentPermission" main-action="UPDATE" context-map="upPerm"/>                                    
+                                    <if-service-permission service-name="genericContentPermission" main-action="UPDATE" context-map="upPerm"/>
                                 </condition>
                                 <widgets>
                                     <container style="rightjustify">
@@ -271,7 +273,7 @@
                             </container>
                             <content content-id="${articleContentId}"/>
                         </container>
-                        
+
                         <label text="&lt;p/&gt;"/>
                         <include-screen name="BlogResponses"/>
                         <label text="&lt;p/&gt;"/>
@@ -281,7 +283,7 @@
                             </link>
                         -->
                         <include-screen name="AddBlogResponse"/>
-                        <label text="&lt;p/&gt;"/>                                                
+                        <label text="&lt;p/&gt;"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -302,7 +304,7 @@
                 <entity-one entity-name="Content" value-field="article">
                     <field-map field-name="contentId" from-field="articleContentId"/>
                 </entity-one>
-                
+
                 <set field="trail" from-field="articleContentId"/>
                 <set field="enableEdit" value="false"/>
                 <property-to-field property="root.publish.point.blog" field="webPubPt" resource="blog"/>
@@ -354,7 +356,7 @@
                                         </section>
                                     </container>
                                 </widgets>
-                            </section>                                                                
+                            </section>
                         </container>
                         <container style="blogcontentwrapper">
                             <content content-id="${contentId}"/>
@@ -363,7 +365,7 @@
 
                         <include-screen name="AddBlogResponse"/>
                         <label text="&lt;p/&gt;"/>
-                        
+
                         <container style="bloghr">
                             <label text="${uiLabelMap.ContentForumThread}: " style="blogtitle"/>
                         </container>
@@ -472,7 +474,7 @@
                         <iterate-section list="responseList" entry="rsp">
                             <section name="BlogResponses">
                                 <widgets>
-                                    <include-screen name="responseTreeLine"/> 
+                                    <include-screen name="responseTreeLine"/>
                                 </widgets>
                             </section>
                         </iterate-section>
@@ -594,7 +596,7 @@
                         <set field="rsp.contentPurposeTypeId" value="RESPONSE"/>
                         <set field="rsp.articleContentId" from-field="articleContentId"/>
                         <set field="rsp.ownerContentId" from-field="content.contentId"/>
-                        <set field="rsp.blogContentId" from-field="parameters.blogContentId"/> 
+                        <set field="rsp.blogContentId" from-field="parameters.blogContentId"/>
                         <set field="useRequestParameters" value="false" type="Boolean"/>
 
                         <!-- used for permission check -->
@@ -606,7 +608,7 @@
                         <container style="bloghr">
                             <label text="${uiLabelMap.CommonAdd} ${uiLabelMap.CommonComment} ${content.contentId}: " style="blogtitle"/>
                             <section>
-                                <condition>                                                                        
+                                <condition>
                                     <if-service-permission service-name="genericContentPermission" main-action="CREATE"/>
                                 </condition>
 
@@ -632,7 +634,7 @@
                     </widgets>
                 </section>
             </widgets>
-        </section>                        
+        </section>
     </screen>
 
     <screen name="EditBlogResponse">
@@ -682,7 +684,7 @@
     <screen name="blogs">
         <section>
             <actions>
-                <entity-condition entity-name="ContentAssocViewTo" list="blogs" use-cache="true">                                  
+                <entity-condition entity-name="ContentAssocViewTo" list="blogs" use-cache="true">
                     <condition-list combine="and">
                         <condition-expr field-name="contentIdStart" operator="equals" value="BLOGROOT"/>
                         <condition-list combine="or">
