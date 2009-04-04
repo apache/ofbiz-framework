@@ -19786,6 +19786,15 @@
         <value xml:lang="it">Spedizionieri del Fornitore</value>
         <value xml:lang="th">การขนส่งผู้จำหน่าย</value>
     </property>
+    <property key="ProductVerified">
+        <value xml:lang="en">Verified</value>
+    </property>
+    <property key="ProductVerify">
+        <value xml:lang="en">Verify</value>
+    </property>
+    <property key="ProductVerifyPick"> 
+        <value xml:lang="en">Verify Pick</value>
+    </property>
     <property key="ProductViewEstimates">
         <value xml:lang="en">Shipping Estimates</value>
         <value xml:lang="es">Ver estimaciones</value>

@@ -118,6 +118,11 @@ under the License.
                 <parameter param-name="facilityId" from-field="facilityId"/>
             </link>
         </menu-item>
+        <menu-item name="VerifyPick" title="${uiLabelMap.ProductVerifyPick}">
+            <link target="VerifyPick">
+                <parameter param-name="facilityId" from-field="facilityId"/>
+            </link>
+        </menu-item>
         <menu-item name="PackOrder" title="${uiLabelMap.ProductPacking}">
             <link target="PackOrder">
                 <parameter param-name="facilityId" from-field="facilityId"/>
