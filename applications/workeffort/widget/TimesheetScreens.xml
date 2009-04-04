@@ -70,8 +70,8 @@ under the License.
                                             <container>
                                                 <label style="tableheadtext" text="${uiLabelMap.WorkEffortTimesheet}: ${currentTimesheet.fromDate} ${uiLabelMap.CommonThru} ${currentTimesheet.thruDate} ${currentTimesheet.comments}"/>
                                                 <link target="EditTimesheet" text="${currentTimesheet.timesheetId}" style="buttontext">
-                                    				<parameter param-name="timesheetId" from-field="currentTimesheet.timesheetId"/>
-                                    			</link>
+                                                    <parameter param-name="timesheetId" from-field="currentTimesheet.timesheetId"/>
+                                                </link>
                                             </container>
                                             <iterate-section entry="currentTimeEntry" list="currentTimeEntryList">
                                                 <section>
@@ -105,11 +105,11 @@ under the License.
                                                 <fail-widgets>
                                                     <container>
                                                         <link target="MyTimesheets" text="${uiLabelMap.WorkEffortTimesheetQuickTimeEntry}" style="buttontext">
-                                            				<parameter param-name="showQuickEntry" from-field="currentTimesheet.timesheetId"/>
-                                            			</link>
+                                                            <parameter param-name="showQuickEntry" from-field="currentTimesheet.timesheetId"/>
+                                                        </link>
                                                         <link target="EditTimesheetEntries" text="${uiLabelMap.WorkEffortTimesheetTimeEntries}" style="buttontext">
-                                            				<parameter param-name="timesheetId" from-field="currentTimesheet.timesheetId"/>
-                                            			</link>
+                                                            <parameter param-name="timesheetId" from-field="currentTimesheet.timesheetId"/>
+                                                        </link>
                                                     </container>
                                                 </fail-widgets>
                                             </section>

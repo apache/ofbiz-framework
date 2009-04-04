@@ -96,9 +96,9 @@ under the License.
         <field name="locationSeqId" title="${uiLabelMap.ProductFacilityLocation}">
             <lookup target-form-name="LookupFacilityLocation">
                 <sub-hyperlink use-when="locationSeqId!=null" target="EditFacilityLocation">
-				<parameter param-name="facilityId" from-field="facilityId"/>
-				<parameter param-name="locationSeqId" from-field="locationSeqId"/>
-			</sub-hyperlink>
+                <parameter param-name="facilityId" from-field="facilityId"/>
+                <parameter param-name="locationSeqId" from-field="locationSeqId"/>
+            </sub-hyperlink>
             </lookup>
         </field>        
         <field name="partyId">

@@ -49,8 +49,8 @@
         </field>
         <field use-when="productFeature!=null&amp;&amp;productFeature.getString(&quot;productFeatureCategoryId&quot;)!=null" name="categoryLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="/EditFeatureCategoryFeatures" target-type="intra-app" description="${uiLabelMap.ProductGoToFeatureCategory} ${productFeature.productFeatureCategoryId}" also-hidden="false">
-				<parameter param-name="productFeatureCategoryId" from-field="productFeature.productFeatureCategoryId"/>
-			</hyperlink>
+                <parameter param-name="productFeatureCategoryId" from-field="productFeature.productFeatureCategoryId"/>
+            </hyperlink>
         </field>
 
         <field name="description" title="${uiLabelMap.CommonDescription}"/>

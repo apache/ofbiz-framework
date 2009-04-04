@@ -502,17 +502,17 @@
 
         <field name="Private/Public" widget-style="buttontext" title="${uiLabelMap.ProjectMgrPrivateOrPublic}" use-when="internalNote.equals(&quot;N&quot;)">
             <hyperlink target="updateTaskNote" description="${uiLabelMap.OrderNotesPrivate}">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="noteId" from-field="noteId"/>
-				<parameter param-name="internalNote" value="Y"/>
-			</hyperlink>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="noteId" from-field="noteId"/>
+                <parameter param-name="internalNote" value="Y"/>
+            </hyperlink>
         </field>
         <field name="Private/Public" widget-style="buttontext" title="${uiLabelMap.ProjectMgrPrivateOrPublic}" use-when="internalNote.equals(&quot;Y&quot;)">
             <hyperlink target="updateTaskNote" description="${uiLabelMap.OrderNotesPublic}">
-				<parameter param-name="workEffortId" from-field="workEffortId"/>
-				<parameter param-name="noteId" from-field="noteId"/>
-				<parameter param-name="internalNote" value="N"/>
-			</hyperlink>
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="noteId" from-field="noteId"/>
+                <parameter param-name="internalNote" value="N"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddTaskNote" extends="AddWorkEffortNote" extends-resource="component://workeffort/widget/WorkEffortForms.xml" type="single" target="createTaskNote"/>
