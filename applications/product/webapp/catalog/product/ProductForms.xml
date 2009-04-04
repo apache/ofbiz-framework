@@ -865,8 +865,13 @@ under the License.
         </field>
         <!-- not usable : no fields modifiable -->
         <!--field name="updateLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditProductSuppliers?productId=${productId}&amp;partyId=${partyId}&amp;currencyUomId=${currencyUomId}&amp;minimumOrderQuantity=${minimumOrderQuantity}&amp;availableFromDate=${availableFromDate}"
-                description="${uiLabelMap.CommonUpdate}" also-hidden="false"/>
+            <hyperlink target="EditProductSuppliers" description="${uiLabelMap.CommonUpdate}" also-hidden="false">
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="currencyUomId" from-field="currencyUomId"/>
+                <parameter param-name="minimumOrderQuantity" from-field="minimumOrderQuantity"/>
+                <parameter param-name="availableFromDate" from-field="availableFromDate"/>
+            </hyperlink>
         </field-->
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeSupplierProduct" description="${uiLabelMap.CommonDelete}" also-hidden="false">
