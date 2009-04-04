@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,15 +18,15 @@
     under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditProductFeature" type="single" target="updateProductFeature" title="" default-map-name="productFeature"
         header-row-style="header-row" default-table-style="basic-table">
-        
+
         <alt-target use-when="productFeature==null" target="createProductFeature"/>
-        
+
         <auto-fields-service service-name="updateProductFeature" map-name=""/>
-        
+
         <field use-when="productFeature!=null" name="productFeatureId" title="${uiLabelMap.ProductFeatureId}" tooltip="${uiLabelMap.ProductChangeWithoutProductCatalog}"><display/></field>
         <field use-when="productFeature==null&amp;&amp;productFeatureId!=null" name="productFeatureId" title="${uiLabelMap.ProductFeatureId}" tooltip="${uiLabelMap.ProductCouldNotFindProductConfigItem} [${productFeatureId}]"><text size="20" maxlength="20"/></field>
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
@@ -48,8 +48,9 @@
             </drop-down>
         </field>
         <field use-when="productFeature!=null&amp;&amp;productFeature.getString(&quot;productFeatureCategoryId&quot;)!=null" name="categoryLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="/EditFeatureCategoryFeatures?productFeatureCategoryId=${productFeature.productFeatureCategoryId}" target-type="intra-app"
-                description="${uiLabelMap.ProductGoToFeatureCategory} ${productFeature.productFeatureCategoryId}" also-hidden="false"/>
+            <hyperlink target="/EditFeatureCategoryFeatures" target-type="intra-app" description="${uiLabelMap.ProductGoToFeatureCategory} ${productFeature.productFeatureCategoryId}" also-hidden="false">
+				<parameter param-name="productFeatureCategoryId" from-field="productFeature.productFeatureCategoryId"/>
+			</hyperlink>
         </field>
 
         <field name="description" title="${uiLabelMap.CommonDescription}"/>
@@ -107,7 +108,7 @@
             </hyperlink>
         </field>
     </form>
-    <form name="FindFeatureType" type="single" target="EditFeatureTypes" 
+    <form name="FindFeatureType" type="single" target="EditFeatureTypes"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productFeatureTypeId"><text-find size="25" default-option="contains"></text-find></field>
         <field name="description"><text-find size="25" default-option="contains"></text-find></field>
@@ -122,11 +123,11 @@
                 <field-map field-name="entityName" value="ProductFeatureType"/>
                 <field-map field-name="orderBy" value="productFeatureTypeId"/>
             </service>
-        </actions>       
+        </actions>
         <field name="productFeatureTypeId" widget-style="buttontext">
             <hyperlink target="EditFeatureType" description="${productFeatureTypeId}">
                 <parameter param-name="productFeatureTypeId" from-field="productFeatureTypeId"/>
-            </hyperlink>            
+            </hyperlink>
         </field>
         <field name="description"><display/></field>
         <field name="parentTypeId">
@@ -158,12 +159,12 @@
         <field name="hasTable"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="FindFeatureInterAction" type="single" target="EditFeatureInterActions" 
+    <form name="FindFeatureInterAction" type="single" target="EditFeatureInterActions"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productFeatureId"><text-find size="25" default-option="contains"></text-find></field>
         <field name="productFeatureIdTo"><text-find size="25" default-option="contains"></text-find></field>
         <field name="searchButton" widget-style="smallSubmit"><submit/></field>
-        </form>    
+        </form>
     <form name="ListFeatureInterActions" list-name="listIt" target="" title="" type="list" paginate-target="EditFeatureInterAction"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
@@ -173,31 +174,31 @@
                 <field-map field-name="entityName" value="ProductFeatureIactn"/>
                 <field-map field-name="orderBy" value="productFeatureId"/>
                 </service>
-            </actions>       
-        
+            </actions>
+
         <field name="productFeatureId">
             <display-entity entity-name="ProductFeature" description="${description}">
                 <sub-hyperlink target="EditFeature" description="[${productFeatureId}]">
                 <parameter param-name="productFeatureId" from-field="productFeatureId"/>
-            </sub-hyperlink>    
+            </sub-hyperlink>
             </display-entity>
         </field>
         <field name="productFeatureIdTo">
             <display-entity entity-name="ProductFeature" description="${description}" key-field-name="productFeatureId">
                 <sub-hyperlink target="EditFeature" description="[${productFeatureIdTo}]">
                 <parameter param-name="productFeatureId" from-field="productFeatureIdTo"/>
-            </sub-hyperlink>    
+            </sub-hyperlink>
             </display-entity>
         </field>
         <field name="productFeatureIactnTypeId"><display-entity entity-name="ProductFeatureIactnType"/></field>
-        
+
         <field name="removeFeatureInterAction" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="removeProductFeatureIactn" description="${uiLabelMap.CommonDelete}">
                 <parameter param-name="productFeatureId" from-field="productFeatureId"/>
                 <parameter param-name="productFeatureIdTo" from-field="productFeatureIdTo"/>
             </hyperlink>
         </field>
-        </form>    
+        </form>
     <form name="EditFeatureInterAction" type="single" target="createProductFeatureIactn" title="" default-map-name="productFeatureIactn"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productFeatureId">
@@ -222,9 +223,9 @@
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
-        </field>        
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>   
+    </form>
     <form name="ListFeatureGroupAppls" type="multi" use-row-submit="false" list-name="productFeatureGroupAndAppls" target="UpdateProductFeatureGroupAppl?productFeatureGroupId=${productFeatureGroupId}" title=""
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productFeatureGroupId"><hidden/></field>
@@ -284,15 +285,15 @@
           <submit/>
         </field>
     </form>
-    
-    <form name="FindProductFeature" type="single" target="EditFeatureCategories" 
+
+    <form name="FindProductFeature" type="single" target="EditFeatureCategories"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productFeatureCategoryId" title="${uiLabelMap.CommonId}"><text-find size="25" default-option="contains"></text-find></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find size="25" default-option="contains"></text-find></field>
         <field name="searchButton" widget-style="smallSubmit"><submit/></field>
     </form>
-    
-    <form name="ListProductFeature" type="list" list-name="listIt" paginate-target="EditFeatureCategories" 
+
+    <form name="ListProductFeature" type="list" list-name="listIt" paginate-target="EditFeatureCategories"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
             <set field="parameters.noConditionFind" value="Y"/>
@@ -308,9 +309,9 @@
             </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-     
+
     </form>
-    
+
     <form name="CreateProductFeature" type="single" target="CreateFeatureCategory">
         <field name="description" title="${uiLabelMap.CommonDescription}*"><text size="25"></text></field>
         <field name="parentCategory" title="${uiLabelMap.ProductParentCategory}">
@@ -320,7 +321,7 @@
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    
+
     </form>
     <form name="ListFeaturePrice" type="list" target="updateFeaturePrice"  list-name="productFeaturePrice"
         odd-row-style="alternate-row" default-table-style="basic-table">
