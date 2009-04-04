@@ -151,8 +151,10 @@ under the License.
             </hyperlink>  
         </field>
         <field name="makeTopLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="EditCategory?CATALOG_TOP_CATEGORY=${productCategoryId}&amp;productCategoryId=${productCategoryId}"
-                description="${uiLabelMap.ProductMakeTop}" also-hidden="false"/>
+            <hyperlink target="EditCategory" description="${uiLabelMap.ProductMakeTop}" also-hidden="false">
+                <parameter param-name="CATALOG_TOP_CATEGORY" from-field="productCategoryId"/>
+                <parameter param-name="productCategoryId" from-field="productCategoryId"/>
+            </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

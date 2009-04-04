@@ -546,8 +546,10 @@ under the License.
         <field name="invoiceId"><hidden/></field>
 
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="unlinkInvoiceFromTimeEntry?timeEntryId=${timeEntryId}&amp;invoiceId=${invoiceId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="unlinkInvoiceFromTimeEntry" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="timeEntryId" from-field="timeEntryId"/>
+                <parameter param-name="invoiceId" from-field="invoiceId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="ListTimeEntries" type="list" list-name="timeEntries"

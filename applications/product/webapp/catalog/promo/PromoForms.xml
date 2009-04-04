@@ -110,8 +110,10 @@ under the License.
                 description="${productPromoCodeId}" also-hidden="false"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteProductPromoCode?productPromoCodeId=${productPromoCodeId}&amp;productPromoId=${productPromoId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteProductPromoCode" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="productPromoCodeId" from-field="productPromoCodeId"/>
+                <parameter param-name="productPromoId" from-field="productPromoId"/>
+            </hyperlink>
         </field>
     </form>
 </forms>

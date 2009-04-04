@@ -101,8 +101,10 @@
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeSupplierProductFeature?productFeatureId=${productFeatureId}&amp;partyId=${partyId}"
-                description="${uiLabelMap.CommonDelete}"/>
+            <hyperlink target="removeSupplierProductFeature" description="${uiLabelMap.CommonDelete}">
+                <parameter param-name="productFeatureId" from-field="productFeatureId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="FindFeatureType" type="single" target="EditFeatureTypes" 

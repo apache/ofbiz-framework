@@ -103,8 +103,10 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink target="deleteSalesForecastDetail?salesForecastId=${salesForecastId}&amp;salesForecastDetailId=${salesForecastDetailId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteSalesForecastDetail" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="salesForecastId" from-field="salesForecastId"/>
+                <parameter param-name="salesForecastDetailId" from-field="salesForecastDetailId"/>
+            </hyperlink>
         </field>
     </form>
     
