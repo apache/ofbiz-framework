@@ -451,8 +451,10 @@ under the License.
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="removeSubscriptionCommEvent?subscriptionId=${subscriptionId}&amp;communicationEventId=${communicationEventId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="removeSubscriptionCommEvent" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="subscriptionId" from-field="subscriptionId"/>
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="createSubscriptionCommEvent" type="single" target="createSubscriptionCommEvent" title=""

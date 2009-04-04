@@ -31,8 +31,10 @@ under the License.
         <field name="attrValue"><text size="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteProductCategoryAttribute?productCategoryId=${productCategoryId}&amp;attrName=${attrName}"
-                description="${uiLabelMap.CommonDelete}"/>
+            <hyperlink target="deleteProductCategoryAttribute" description="${uiLabelMap.CommonDelete}">
+                <parameter param-name="productCategoryId" from-field="productCategoryId"/>
+                <parameter param-name="attrName" from-field="attrName"/>
+            </hyperlink>
         </field>
     </form>
 

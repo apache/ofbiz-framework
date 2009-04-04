@@ -96,8 +96,10 @@ under the License.
         <field name="segmentGroupId"><hidden/></field>
         <field name="partyClassificationGroupId"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteSegmentGroupClassification?segmentGroupId=${segmentGroupId}&amp;partyClassificationGroupId=${partyClassificationGroupId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteSegmentGroupClassification" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+                <parameter param-name="partyClassificationGroupId" from-field="partyClassificationGroupId"/>
+            </hyperlink>
         </field>
     </form>
 
@@ -120,8 +122,10 @@ under the License.
         <field name="segmentGroupId"><hidden/></field>
         <field name="geoId" title="${uiLabelMap.CommonSegmentGroupGeoId}"><display-entity entity-name="Geo" description="${geoName} [Code:${geoCode}][ID:${geoId}]"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteSegmentGroupGeo?segmentGroupId=${segmentGroupId}&amp;geoId=${geoId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteSegmentGroupGeo" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+                <parameter param-name="geoId" from-field="geoId"/>
+            </hyperlink>
         </field>
     </form>
 

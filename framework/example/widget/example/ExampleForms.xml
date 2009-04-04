@@ -183,8 +183,10 @@ under the License.
             </drop-down>
         </field>
         <field name="deleteLink" title="" widget-style="buttontext">
-            <hyperlink target="deleteExampleItem?exampleId=${exampleId}&amp;exampleItemSeqId=${exampleItemSeqId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteExampleItem" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="exampleId" from-field="exampleId"/>
+                <parameter param-name="exampleItemSeqId" from-field="exampleItemSeqId"/>
+            </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>

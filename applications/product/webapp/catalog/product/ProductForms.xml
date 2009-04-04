@@ -586,8 +586,10 @@ under the License.
         <auto-fields-service service-name="updateProductContent" map-name="productContent"/>
         <field name="productId"><hidden/></field>
         <field name="contentId" title="${uiLabelMap.ProductContent_Id}" widget-style="buttontext">
-            <hyperlink target="EditProductContentContent?productId=${productContent.productId}&amp;contentId=${productContent.contentId}"
-                description="${content.description} [${productContent.contentId}]"/>
+            <hyperlink target="EditProductContentContent" description="${content.description} [${productContent.contentId}]">
+                <parameter param-name="productId" from-field="productContent.productId"/>
+                <parameter param-name="contentId" from-field="productContent.contentId"/>
+            </hyperlink>
         </field>
         <field name="productContentTypeId" title="${uiLabelMap.ProductProductContentTypeId}">
             <drop-down>

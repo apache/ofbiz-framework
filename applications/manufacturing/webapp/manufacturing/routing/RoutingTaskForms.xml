@@ -366,8 +366,10 @@ under the License.
             <submit button-type="button" />
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeRoutingTaskFixedAsset?workEffortId=${workEffortId}&amp;fixedAssetTypeId=${fixedAssetTypeId}"
-                    description="${uiLabelMap.CommonDelete}" also-hidden="false" />
+            <hyperlink target="removeRoutingTaskFixedAsset"     description="${uiLabelMap.CommonDelete}" also-hidden="false" >
+                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="fixedAssetTypeId" from-field="fixedAssetTypeId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditRoutingTaskFixedAsset" type="single" title="" target="createRoutingTaskFixedAsset"

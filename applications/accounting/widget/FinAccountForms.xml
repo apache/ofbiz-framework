@@ -203,8 +203,10 @@ under the License.
         <field name="finAccountAuthId"><display/></field>
         <field name="finAccountId"><hidden/></field>
         <field name="expireLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="expireFinAccountAuth?finAccountId=${finAccountId}&amp;finAccountAuthId=${finAccountAuthId}"
-                description="${uiLabelMap.CommonExpire}" also-hidden="false"/>
+            <hyperlink target="expireFinAccountAuth" description="${uiLabelMap.CommonExpire}" also-hidden="false">
+                <parameter param-name="finAccountId" from-field="finAccountId"/>
+                <parameter param-name="finAccountAuthId" from-field="finAccountAuthId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddFinAccountAuth" type="single" target="createFinAccountAuth"

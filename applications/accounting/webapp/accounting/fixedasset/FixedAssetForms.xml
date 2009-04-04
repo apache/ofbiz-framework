@@ -268,8 +268,10 @@ under the License.
         </field>
         <field name="idValue" title="${uiLabelMap.AccountingFixedAssetIdentIdValue}"/>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeFixedAssetIdent?fixedAssetId=${fixedAssetId}&amp;fixedAssetIdentTypeId=${fixedAssetIdentTypeId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="removeFixedAssetIdent" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetIdentTypeId" from-field="fixedAssetIdentTypeId"/>
+            </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -305,8 +307,10 @@ under the License.
         <field name="licenseNumber" title="${uiLabelMap.AccountingFixedAssetLicenseNumber}"><text size="20" /></field>
         <field name="govAgencyPartyId" title="${uiLabelMap.AccountingFixedAssetGovAgencyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteFixedAssetRegistration?fixedAssetId=${fixedAssetId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteFixedAssetRegistration" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -428,8 +432,10 @@ under the License.
         <field name="readingDate"><display/></field>
         <field name="meterValue" title="${uiLabelMap.AccountingFixedAssetMeterValue}"><text/></field>
         <field name="maintHistSeqId" title="${uiLabelMap.AccountingFixedAssetMaint}">
-            <hyperlink target="EditFixedAssetMaint?fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}"
-                description="${maintHistSeqId}" also-hidden="false"/>
+            <hyperlink target="EditFixedAssetMaint" description="${maintHistSeqId}" also-hidden="false">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="maintHistSeqId"/>
+            </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
