@@ -93,8 +93,9 @@ under the License.
         <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="editLink" title="&amp;nbsp;" widget-style="buttontext">
-            <hyperlink target="EditDataSourceType?dataSourceTypeId=${dataSourceTypeId}"
-                description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
+            <hyperlink target="EditDataSourceType" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+                <parameter param-name="dataSourceTypeId" from-field="dataSourceTypeId"/>
+            </hyperlink>
         </field>
         <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
             <hyperlink target="deleteDataSourceType" description="${uiLabelMap.CommonDelete}" also-hidden="false">

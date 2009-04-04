@@ -568,8 +568,9 @@
         <field name="segmentGroupTypeId" title="${uiLabelMap.ProductSegmentGroupTypeId}"><display-entity entity-name="SegmentGroupType"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="/marketing/control/deleteSegmentGroup?segmentGroupId=${segmentGroupId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false" target-type="inter-app"/>
+            <hyperlink target="/marketing/control/deleteSegmentGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false" target-type="inter-app">
+                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="ListProductStoreShipmentMeths" target="" title="" type="list"  list-name="storeShipMethods"
@@ -981,8 +982,9 @@
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productStoreId"><hidden/></field>
         <field name="productPromoId" widget-style="buttontext">
-            <hyperlink target="EditProductPromo?productPromoId=${productPromoId}"
-                description="${productPromoId}" also-hidden="true"/>
+            <hyperlink target="EditProductPromo" description="${productPromoId}" also-hidden="true">
+                <parameter param-name="productPromoId" from-field="productPromoId"/>
+            </hyperlink>
         </field>
         <field name="promoName"><display/></field>
         <field name="fromDate"><display/></field>
