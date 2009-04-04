@@ -277,13 +277,29 @@ under the License.
                 <link target="EditWorkEffort" text="${workEffort.workEffortId}" style="buttontext">
                     <parameter param-name="workEffortId" from-field="workEffort.workEffortId"/>
                 </link>
-                <link target="AddWorkEffortAndAssoc?workEffortIdFrom=${workEffort.workEffortId}" text="${uiLabelMap.WorkEffortAddChild}" style="buttontext"></link>
-                <link target="AddWorkEffortAssoc?workEffortIdFrom=${workEffort.workEffortId}" text="${uiLabelMap.WorkEffortAddExistingWorkEffortChild}" style="buttontext"></link>
+                <link target="AddWorkEffortAndAssoc" text="${uiLabelMap.WorkEffortAddChild}" style="buttontext">
+    				<parameter param-name="workEffortIdFrom" from-field="workEffort.workEffortId"/>
+    			</link>
+                <link target="AddWorkEffortAssoc" text="${uiLabelMap.WorkEffortAddExistingWorkEffortChild}" style="buttontext">
+    				<parameter param-name="workEffortIdFrom" from-field="workEffort.workEffortId"/>
+    			</link>
                 <section>
                     <condition><not><if-empty field="workEffortAssoc"/></not></condition>
                     <widgets>
-                        <link target="EditWorkEffortAssoc?workEffortIdFrom=${workEffortAssoc.workEffortIdFrom}&amp;workEffortIdTo=${workEffortAssoc.workEffortIdTo}&amp;workEffortAssocTypeId=${workEffortAssoc.workEffortAssocTypeId}&amp;fromDate=${workEffortAssoc.fromDate}&amp;DONE_PAGE=${donePage}" text="${uiLabelMap.WorkEffortEditAssoc}" style="buttontext"></link>
-                        <link target="EditWorkEffortAndAssoc?workEffortIdFrom=${workEffortAssoc.workEffortIdFrom}&amp;workEffortIdTo=${workEffortAssoc.workEffortIdTo}&amp;workEffortAssocTypeId=${workEffortAssoc.workEffortAssocTypeId}&amp;fromDate=${workEffortAssoc.fromDate}&amp;DONE_PAGE=${donePage}" text="${uiLabelMap.WorkEffortEditAssocDetail}" style="buttontext"></link>
+                        <link target="EditWorkEffortAssoc" text="${uiLabelMap.WorkEffortEditAssoc}" style="buttontext">
+            				<parameter param-name="workEffortIdFrom" from-field="workEffortAssoc.workEffortIdFrom"/>
+            				<parameter param-name="workEffortIdTo" from-field="workEffortAssoc.workEffortIdTo"/>
+            				<parameter param-name="workEffortAssocTypeId" from-field="workEffortAssoc.workEffortAssocTypeId"/>
+            				<parameter param-name="fromDate" from-field="workEffortAssoc.fromDate"/>
+            				<parameter param-name="DONE_PAGE" from-field="donePage"/>
+            			</link>
+                        <link target="EditWorkEffortAndAssoc" text="${uiLabelMap.WorkEffortEditAssocDetail}" style="buttontext">
+            				<parameter param-name="workEffortIdFrom" from-field="workEffortAssoc.workEffortIdFrom"/>
+            				<parameter param-name="workEffortIdTo" from-field="workEffortAssoc.workEffortIdTo"/>
+            				<parameter param-name="workEffortAssocTypeId" from-field="workEffortAssoc.workEffortAssocTypeId"/>
+            				<parameter param-name="fromDate" from-field="workEffortAssoc.fromDate"/>
+            				<parameter param-name="DONE_PAGE" from-field="donePage"/>
+            			</link>
                     </widgets>
                 </section>
             </widgets>
