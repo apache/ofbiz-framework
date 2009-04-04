@@ -161,8 +161,12 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeContentFromProductConfigItem?configItemId=${productContent.configItemId}&amp;contentId=${productContent.contentId}&amp;confItemContentTypeId=${productContent.confItemContentTypeId}&amp;fromDate=${productContent.fromDate}"
-                description="[${uiLabelMap.CommonDelete}]" also-hidden="false"/>
+            <hyperlink target="removeContentFromProductConfigItem" description="[${uiLabelMap.CommonDelete}]" also-hidden="false">
+                <parameter param-name="configItemId" from-field="productContent.configItemId"/>
+                <parameter param-name="contentId" from-field="productContent.contentId"/>
+                <parameter param-name="confItemContentTypeId" from-field="productContent.confItemContentTypeId"/>
+                <parameter param-name="fromDate" from-field="productContent.fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditProductConfigItemContentSimpleText" type="single" target="updateSimpleTextContentForProductConfigItem" title="Update Simple Text Content for Product"

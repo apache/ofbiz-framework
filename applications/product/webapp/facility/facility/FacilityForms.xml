@@ -621,8 +621,12 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removePartyFromFacility?facilityId=${facilityId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="removePartyFromFacility" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="facilityId" from-field="facilityId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddPartyToFacility" type="single" target="addPartyToFacility" title=""

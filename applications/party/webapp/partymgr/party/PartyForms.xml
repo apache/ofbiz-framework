@@ -306,8 +306,12 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink target="deletePartyTaxAuthInfo?partyId=${partyId}&amp;taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deletePartyTaxAuthInfo" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <field name="isExempt">
             <drop-down allow-empty="false"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
@@ -671,8 +675,12 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
-            <hyperlink target="updatePartyCarrierAccount?partyId=${partyId}&amp;carrierPartyId=${carrierPartyId}&amp;fromDate=${fromDate}&amp;thruDate=${context.thruDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="updatePartyCarrierAccount" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="carrierPartyId" from-field="carrierPartyId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="thruDate" from-field="context.thruDate"/>
+            </hyperlink>
         </field>
     </form>
 

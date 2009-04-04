@@ -178,8 +178,12 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteBillingAccountRole?billingAccountId=${billingAccountId}&amp;roleTypeId=${roleTypeId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteBillingAccountRole" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="billingAccountId" from-field="billingAccountId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddBillingAccountRole" type="single" target="createBillingAccountRole" title="" default-map-name="billingAccountRole"
