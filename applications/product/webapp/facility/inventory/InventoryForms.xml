@@ -201,8 +201,12 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteInventoryItemLabelApplFromItem?inventoryItemId=${inventoryItemId}&amp;inventoryItemLabelTypeId=${inventoryItemLabelTypeId}&amp;inventoryItemLabelId=${inventoryItemLabelId}&amp;facilityId=${facilityId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteInventoryItemLabelApplFromItem" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="inventoryItemId" from-field="inventoryItemId"/>
+                <parameter param-name="inventoryItemLabelTypeId" from-field="inventoryItemLabelTypeId"/>
+                <parameter param-name="inventoryItemLabelId" from-field="inventoryItemLabelId"/>
+                <parameter param-name="facilityId" from-field="facilityId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddInventoryItemLabelAppl" type="single" target="createInventoryItemLabelApplFromItem" title=""

@@ -113,8 +113,12 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="RemoveWebSiteContent?webSiteId=${webSiteId}&amp;contentId=${contentId}&amp;webSiteContentTypeId=${webSiteContentTypeId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="RemoveWebSiteContent" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="webSiteId" from-field="webSiteId"/>
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="webSiteContentTypeId" from-field="webSiteContentTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <sort-order>
             <sort-field name="webSiteId"/>
@@ -172,8 +176,12 @@ under the License.
         <field name="thruDate"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeWebSiteRole?webSiteId=${webSiteRole.webSiteId}&amp;partyId=${webSiteRole.partyId}&amp;roleTypeId=${webSiteRole.roleTypeId}&amp;fromDate=${webSiteRole.fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="removeWebSiteRole" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="webSiteId" from-field="webSiteRole.webSiteId"/>
+                <parameter param-name="partyId" from-field="webSiteRole.partyId"/>
+                <parameter param-name="roleTypeId" from-field="webSiteRole.roleTypeId"/>
+                <parameter param-name="fromDate" from-field="webSiteRole.fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AutoCreateWebsiteContent" type="single" target="autoCreateWebSiteContent" title=""

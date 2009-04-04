@@ -67,8 +67,12 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeFacilityGroupFromGroup?showFacilityGroupId=${facilityGroupId}&amp;facilityGroupId=${facilityGroupId}&amp;parentFacilityGroupId=${parentFacilityGroupId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="removeFacilityGroupFromGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="showFacilityGroupId" from-field="facilityGroupId"/>
+                <parameter param-name="facilityGroupId" from-field="facilityGroupId"/>
+                <parameter param-name="parentFacilityGroupId" from-field="parentFacilityGroupId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddFacilityGroupRollupFrom" target="addFacilityGroupToGroup" title="" type="single"
@@ -99,8 +103,12 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeFacilityGroupFromGroup?showFacilityGroupId=${parentFacilityGroupId}&amp;facilityGroupId=${facilityGroupId}&amp;parentFacilityGroupId=${parentFacilityGroupId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="removeFacilityGroupFromGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="showFacilityGroupId" from-field="parentFacilityGroupId"/>
+                <parameter param-name="facilityGroupId" from-field="facilityGroupId"/>
+                <parameter param-name="parentFacilityGroupId" from-field="parentFacilityGroupId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddFacilityGroupRollupTo" target="addFacilityGroupToGroup" title="" type="single"

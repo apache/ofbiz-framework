@@ -118,8 +118,12 @@ under the License.
         <field name="fixedAssetId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeFixedAssetProduct?fixedAssetId=${fixedAssetId}&amp;productId=${productId}&amp;fixedAssetProductTypeId=${fixedAssetProductTypeId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="removeFixedAssetProduct" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="fixedAssetProductTypeId" from-field="fixedAssetProductTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
 
@@ -429,8 +433,12 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
-            <hyperlink target="deleteFixedAssetMeter?fixedAssetId=${fixedAssetId}&amp;productMeterTypeId=${productMeterTypeId}&amp;readingDate=${readingDate}&amp;maintHistSeqId=${maintHistSeqId}"
-                description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="deleteFixedAssetMeter" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="productMeterTypeId" from-field="productMeterTypeId"/>
+                <parameter param-name="readingDate" from-field="readingDate"/>
+                <parameter param-name="maintHistSeqId" from-field="maintHistSeqId"/>
+            </hyperlink>
         </field>
     </form>
     <!-- create a fixed asset meter reading -->
@@ -471,8 +479,12 @@ under the License.
         </field>
         <field name="orderItemSeqId"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteFixedAssetMaintOrder?fixedAssetId=${fixedAssetId}&amp;maintHistSeqId=${maintHistSeqId}&amp;orderId=${orderId}&amp;orderItemSeqId=${orderItemSeqId}"
-                description="${uiLabelMap.CommonRemove}" also-hidden="false"/>
+            <hyperlink target="deleteFixedAssetMaintOrder" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="maintHistSeqId" from-field="maintHistSeqId"/>
+                <parameter param-name="orderId" from-field="orderId"/>
+                <parameter param-name="orderItemSeqId" from-field="orderItemSeqId"/>
+            </hyperlink>
         </field>
     </form>
     <!-- create and update a Order on a fixed asset -->
@@ -520,8 +532,12 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deletePartyFixedAssetAssignment?fixedAssetId=${fixedAssetId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deletePartyFixedAssetAssignment" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
 

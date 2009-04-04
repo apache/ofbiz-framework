@@ -103,8 +103,12 @@ under the License.
             </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeContentFromCategory?productCategoryId=${productCategoryId}&amp;contentId=${contentId}&amp;prodCatContentTypeId=${prodCatContentTypeId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="removeContentFromCategory" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="productCategoryId" from-field="productCategoryId"/>
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="prodCatContentTypeId" from-field="prodCatContentTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditCategoryContentSimpleText" type="single" default-map-name="categoryContent" target="updateSimpleTextContentForCategory" title="${uiLabelMap.ProductUpdateSimpleTextContentCategory}"

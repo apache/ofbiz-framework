@@ -502,8 +502,12 @@ under the License.
     <form name="ListProductContentInfos" type="list" title="" list-name="productContent"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="editProductContentInfo" title="${uiLabelMap.ProductContent}" widget-style="buttontext">
-            <hyperlink target="EditProductContentContent?productId=${productId}&amp;contentId=${contentId}&amp;productContentTypeId=${productContentTypeId}&amp;fromDate=${fromDate}"
-                description="${description} [${contentId}]" also-hidden="false"/>
+            <hyperlink target="EditProductContentContent" description="${description} [${contentId}]" also-hidden="false">
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="productContentTypeId" from-field="productContentTypeId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <field name="productContentTypeId" title="${uiLabelMap.ProductType}">
             <display-entity entity-name="ProductContentType" also-hidden="false" description="${description}"/>
