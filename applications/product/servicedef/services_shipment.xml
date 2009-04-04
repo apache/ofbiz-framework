@@ -439,7 +439,49 @@ under the License.
         <attribute name="totalIssuedQty" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="itemIssuanceId" type="String" mode="OUT" optional="false"/>
     </service>
-        
+
+    <!-- Pick Verify Services -->
+    <service name="verifySingleItem" engine="java"
+            location="org.ofbiz.shipment.verify.VerifyPickServices" invoke="verifySingleItem" auth="true">
+        <description>Verify Single Item</description>
+        <attribute name="verifyPickSession" type="org.ofbiz.shipment.verify.VerifyPickSession" mode="IN" optional="false"/>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
+    </service>
+
+    <service name="verifyBulkItem" engine="java"
+            location="org.ofbiz.shipment.verify.VerifyPickServices" invoke="verifyBulkItem" auth="true">
+        <description>Verify Multiple Items</description>
+        <attribute name="verifyPickSession" type="org.ofbiz.shipment.verify.VerifyPickSession" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="pickerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="productMap" type="Map" string-map-prefix="prd_" mode="IN" optional="true"/>
+        <attribute name="quantityMap" type="Map" string-map-prefix="qty_" mode="IN" optional="true"/>
+        <attribute name="selectedMap" type="Map" string-map-prefix="sel_" mode="IN" optional="true"/>
+        <attribute name="itemMap" type="Map" string-map-prefix="ite_" mode="IN" optional="true"/>
+    </service>
+
+    <service name="cancelAllRows" engine="java"
+            location="org.ofbiz.shipment.verify.VerifyPickServices" invoke="cancelAllRows" auth="true">
+        <description>Clear the current picking session</description>
+        <attribute name="verifyPickSession" type="org.ofbiz.shipment.verify.VerifyPickSession" mode="IN" optional="false"/>
+    </service>
+
+    <service name="completeVerifiedPick" engine="java"
+             location="org.ofbiz.shipment.verify.VerifyPickServices" invoke="completeVerifiedPick" auth="true">
+        <description>Complete the picking and set the shipment to PICKED</description>
+        <attribute name="verifyPickSession" type="org.ofbiz.shipment.verify.VerifyPickSession" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"/>
+        <attribute name="pickerPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentId" type="String" mode="INOUT" optional="true"/>
+    </service>
+
     <!-- Pack Order Services -->
     <service name="packSingleItem" engine="java"
             location="org.ofbiz.shipment.packing.PackingServices" invoke="addPackLine" auth="true">

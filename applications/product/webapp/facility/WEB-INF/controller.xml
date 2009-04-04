@@ -642,6 +642,40 @@ under the License.
         <response name="error" type="view" value="PickMoveStock"/>
     </request-map>
 
+    <!-- ================ Picking Verify Requests ================= -->
+    <request-map uri="VerifyPick">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="VerifyPick"/>
+    </request-map>
+
+    <request-map uri="processVerifyPick">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="verifySingleItem"/>
+        <response name="success" type="view" value="VerifyPick"/>
+        <response name="error" type="view" value="VerifyPick"/>
+    </request-map>
+
+    <request-map uri="processBulkVerifyPick">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="verifyBulkItem"/>
+        <response name="success" type="view" value="VerifyPick"/>
+        <response name="error" type="view" value="VerifyPick"/>
+    </request-map>
+
+    <request-map uri="cancelAllRows">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="cancelAllRows"/>
+        <response name="success" type="view" value="VerifyPick"/>
+        <response name="error" type="view" value="VerifyPick"/>
+    </request-map>
+
+    <request-map uri="completeVerifiedPick">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="completeVerifiedPick"/>
+        <response name="success" type="view" value="VerifyPick"/>
+        <response name="error" type="view" value="VerifyPick"/>
+    </request-map>
+
     <!-- ============= Packing Wizard Requests ============== -->
     <request-map uri="PackOrder">
         <security https="true" auth="true"/>
@@ -1185,6 +1219,8 @@ under the License.
     <view-map name="ShipmentBarCode.pdf" type="screenfop" page="component://product/widget/facility/ShipmentScreens.xml#ShipmentBarCode.fo" content-type="application/pdf" encoding="none"/>
     <view-map name="ShipmentManifest.pdf" type="screenfop" page="component://product/widget/facility/ShipmentScreens.xml#ShipmentManifest.fo" content-type="application/pdf" encoding="none"/>
     
+    <view-map name="VerifyPick" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#VerifyPick"/>
+
     <view-map name="ScheduleShipmentRouteSegment" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ScheduleShipmentRouteSegment"/>
     <view-map name="Labels" type="screen" page="component://product/widget/facility/FacilityScreens.xml#Labels"/>
     <view-map name="BatchPrintShippingLabels" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#BatchPrintShippingLabels" content-type="application/pdf" encoding="none"/>
