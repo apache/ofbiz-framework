@@ -36,10 +36,10 @@ under the License.
             </drop-down>
         </field>
         <field name="performSearch"><hidden value="Y"/></field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>       
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="ListPartyInvitations" type="list" list-name="listIt" default-entity-name="PartyInvitation"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -61,10 +61,12 @@ under the License.
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="lastInviteDate"><display/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deletePartyInvitation?partyInvitationId=${partyInvitationId}" description="${uiLabelMap.CommonDelete}"></hyperlink>
+            <hyperlink target="deletePartyInvitation" description="${uiLabelMap.CommonDelete}">
+                <parameter param-name="partyInvitationId" value="partyInvitationId"/>
+            </hyperlink>
         </field>
     </form>
- 
+
     <form name="EditPartyInvitation" type="single" target="updatePartyInvitation"  default-map-name="partyInvitation"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="partyInvitation==null" target="createPartyInvitation"/>
@@ -87,7 +89,7 @@ under the License.
         <field name="submitButton" use-when="partyInvitation==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
         <field name="submitButton" use-when="partyInvitation!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
- 
+
     <form name="ListPartyInvitationGroupAssocs" type="list" list-name="partyInvitationGroupAssoc"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -109,10 +111,13 @@ under the License.
             </display-entity>
         </field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deletePartyInvitationGroupAssoc?partyInvitationId=${partyInvitationId}&amp;partyIdTo=${partyIdTo}" description="${uiLabelMap.CommonDelete}"></hyperlink>
+            <hyperlink target="deletePartyInvitationGroupAssoc" description="${uiLabelMap.CommonDelete}">
+                <parameter param-name="partyInvitationId" from-field="partyInvitationId"/>
+                <parameter param-name="partyIdTo" from-field="partyIdTo"/>
+            </hyperlink>
         </field>
     </form>
- 
+
     <form name="AddPartyInvitationGroupAssoc" type="single" target="createPartyInvitationGroupAssoc" default-map-name="partyInvitationGroupAssoc"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPartyInvitationGroupAssoc"/>
@@ -127,7 +132,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
- 
+
     <form name="ListPartyInvitationRoleAssocs" type="list" list-name="partyInvitationRoleAssoc"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -143,10 +148,13 @@ under the License.
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display-entity entity-name="RoleType"/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deletePartyInvitationRoleAssoc?partyInvitationId=${partyInvitationId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonDelete}"></hyperlink>
+            <hyperlink target="deletePartyInvitationRoleAssoc" description="${uiLabelMap.CommonDelete}">
+                <parameter param-name="partyInvitationId" from-field="partyInvitationId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+            </hyperlink>
         </field>
     </form>
- 
+
     <form name="AddPartyInvitationRoleAssoc" type="single" target="createPartyInvitationRoleAssoc" title="" default-map-name="partyInvitationGroupAssoc"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPartyInvitationRoleAssoc"/>

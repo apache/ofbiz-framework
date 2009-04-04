@@ -639,8 +639,9 @@ under the License.
         <field name="relatedDetailId" map-name="dataResource" title="Survey ID"
             use-when="dataResource!=null &amp;&amp; &quot;SURVEY&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))">
             <lookup target-form-name="LookupSurvey">
-                <sub-hyperlink target="EditSurvey?surveyId=${dataResource.relatedDetailId}" description="Edit Survey" link-style="smallSubmit"
-                    use-when="dataResource.get(&quot;relatedDetailId&quot;)!=null"/>
+                <sub-hyperlink target="EditSurvey" description="Edit Survey" link-style="smallSubmit" use-when="dataResource.get(&quot;relatedDetailId&quot;)!=null">
+				<parameter param-name="surveyId" from-field="dataResource.relatedDetailId"/>
+			</sub-hyperlink>
             </lookup>
         </field>
         <field name="relatedDetailId" map-name="dataResource" title="Survey Response ID"

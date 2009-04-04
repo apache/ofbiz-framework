@@ -501,10 +501,18 @@
         <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${bsh: org.ofbiz.base.util.UtilDateTime.timeStampToString(noteDateTime, &quot;dd-MM-yyyy HH:mm&quot;, TimeZone.getDefault(), context.get(&quot;locale&quot;))}"/></field>
 
         <field name="Private/Public" widget-style="buttontext" title="${uiLabelMap.ProjectMgrPrivateOrPublic}" use-when="internalNote.equals(&quot;N&quot;)">
-            <hyperlink target="updateTaskNote?workEffortId=${workEffortId}&amp;noteId=${noteId}&amp;internalNote=Y" description="${uiLabelMap.OrderNotesPrivate}"></hyperlink>
+            <hyperlink target="updateTaskNote" description="${uiLabelMap.OrderNotesPrivate}">
+				<parameter param-name="workEffortId" from-field="workEffortId"/>
+				<parameter param-name="noteId" from-field="noteId"/>
+				<parameter param-name="internalNote" value="Y"/>
+			</hyperlink>
         </field>
         <field name="Private/Public" widget-style="buttontext" title="${uiLabelMap.ProjectMgrPrivateOrPublic}" use-when="internalNote.equals(&quot;Y&quot;)">
-            <hyperlink target="updateTaskNote?workEffortId=${workEffortId}&amp;noteId=${noteId}&amp;internalNote=N" description="${uiLabelMap.OrderNotesPublic}"></hyperlink>
+            <hyperlink target="updateTaskNote" description="${uiLabelMap.OrderNotesPublic}">
+				<parameter param-name="workEffortId" from-field="workEffortId"/>
+				<parameter param-name="noteId" from-field="noteId"/>
+				<parameter param-name="internalNote" value="N"/>
+			</hyperlink>
         </field>
     </form>
     <form name="AddTaskNote" extends="AddWorkEffortNote" extends-resource="component://workeffort/widget/WorkEffortForms.xml" type="single" target="createTaskNote"/>
