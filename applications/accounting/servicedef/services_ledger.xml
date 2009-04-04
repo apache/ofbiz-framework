@@ -302,7 +302,6 @@ under the License.
         <attribute name="thruDate" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="glFiscalTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="totalNetIncome" type="BigDecimal" mode="OUT" optional="false"/>
-        <attribute name="glAccountTotalsMap" type="Map" mode="OUT" optional="true"/>
         <attribute name="glAccountTotalsList" type="List" mode="OUT" optional="true"/>
     </service>
     <service name="prepareBalanceSheet" engine="simple" 

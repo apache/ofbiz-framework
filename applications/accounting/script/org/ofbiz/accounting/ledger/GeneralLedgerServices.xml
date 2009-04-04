@@ -984,7 +984,6 @@ under the License.
         </iterate-map>
 
         <field-to-result field="totalNetIncome" result-name="totalNetIncome"/>
-        <field-to-result field="glAccountTotalsMap" result-name="glAccountTotalsMap"/>
         <field-to-result field="glAccountTotalsList" result-name="glAccountTotalsList"/>
     </simple-method>
 
