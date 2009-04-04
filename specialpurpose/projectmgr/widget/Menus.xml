@@ -228,7 +228,7 @@
                     <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
-            <link target="EditProject"></link>
+            <link target="EditProject"/>
         </menu-item>
         <menu-item name="copyProject" title="${uiLabelMap.ProjectMgrCopyProject}">
             <condition>

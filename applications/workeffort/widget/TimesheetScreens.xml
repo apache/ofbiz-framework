@@ -69,7 +69,9 @@ under the License.
                                         <widgets>
                                             <container>
                                                 <label style="tableheadtext" text="${uiLabelMap.WorkEffortTimesheet}: ${currentTimesheet.fromDate} ${uiLabelMap.CommonThru} ${currentTimesheet.thruDate} ${currentTimesheet.comments}"/>
-                                                <link target="EditTimesheet?timesheetId=${currentTimesheet.timesheetId}" text="${currentTimesheet.timesheetId}" style="buttontext"></link>
+                                                <link target="EditTimesheet" text="${currentTimesheet.timesheetId}" style="buttontext">
+                                    				<parameter param-name="timesheetId" from-field="currentTimesheet.timesheetId"/>
+                                    			</link>
                                             </container>
                                             <iterate-section entry="currentTimeEntry" list="currentTimeEntryList">
                                                 <section>
@@ -102,8 +104,12 @@ under the License.
                                                 </widgets>
                                                 <fail-widgets>
                                                     <container>
-                                                        <link target="MyTimesheets?showQuickEntry=${currentTimesheet.timesheetId}" text="${uiLabelMap.WorkEffortTimesheetQuickTimeEntry}" style="buttontext"></link>
-                                                        <link target="EditTimesheetEntries?timesheetId=${currentTimesheet.timesheetId}" text="${uiLabelMap.WorkEffortTimesheetTimeEntries}" style="buttontext"></link>
+                                                        <link target="MyTimesheets" text="${uiLabelMap.WorkEffortTimesheetQuickTimeEntry}" style="buttontext">
+                                            				<parameter param-name="showQuickEntry" from-field="currentTimesheet.timesheetId"/>
+                                            			</link>
+                                                        <link target="EditTimesheetEntries" text="${uiLabelMap.WorkEffortTimesheetTimeEntries}" style="buttontext">
+                                            				<parameter param-name="timesheetId" from-field="currentTimesheet.timesheetId"/>
+                                            			</link>
                                                     </container>
                                                 </fail-widgets>
                                             </section>
