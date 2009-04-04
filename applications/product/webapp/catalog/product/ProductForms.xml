@@ -1573,8 +1573,9 @@ under the License.
             <entity-one entity-name="Agreement" value-field="agreement"/>
         </row-actions>
         <field name="agreementId" widget-style="buttontext">
-            <hyperlink target="/accounting/control/EditAgreement?agreementId=${agreementId}" target-type="inter-app"
-                description="${agreementId}" also-hidden="false"/>
+            <hyperlink target="/accounting/control/EditAgreement" target-type="inter-app" description="${agreementId}" also-hidden="false">
+                <parameter param-name="agreementId" from-field="agreementId"/>
+            </hyperlink>
         </field>
         <field name="partyId" title="${uiLabelMap.ProductSupplier}"><display/></field>
         <field name="agreementText"><display description="${agreement.agreementText}"/></field>
@@ -1587,8 +1588,11 @@ under the License.
     <form name="ListSalesAgreements" type="list" list-name="salesAgreements"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="agreementId" widget-style="buttontext">
-            <hyperlink target="/accounting/control/EditAgreementItemProduct?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;productId=${productId}" target-type="inter-app"
-                description="${agreementId}/${agreementItemSeqId}" also-hidden="false"/>
+            <hyperlink target="/accounting/control/EditAgreementItemProduct" target-type="inter-app" description="${agreementId}/${agreementItemSeqId}" also-hidden="false">
+                <parameter param-name="agreementId"/>
+                <parameter param-name="agreementItemSeqId"/>
+                <parameter param-name="productId"/>
+            </hyperlink>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.ProductPartyCustomer}"><display/></field>
         <field name="agreementText"><display/></field>
@@ -1601,8 +1605,11 @@ under the License.
     <form name="ListProductAgreements" type="list" list-name="productAgreements"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="agreementId" widget-style="buttontext">
-            <hyperlink target="/accounting/control/EditAgreementItemProduct?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;productId=${productId}" target-type="inter-app"
-                description="${agreementId}/${agreementItemSeqId}" also-hidden="false"/>
+            <hyperlink target="/accounting/control/EditAgreementItemProduct" target-type="inter-app" description="${agreementId}/${agreementItemSeqId}" also-hidden="false">
+                <parameter param-name="agreementId"/>
+                <parameter param-name="agreementItemSeqId"/>
+                <parameter param-name="productId"/>
+            </hyperlink>
         </field>
         <field name="partyIdTo"><display/></field>
         <field name="agreementText"><display/></field>
