@@ -50,8 +50,9 @@ under the License.
             <entity-condition entity-name="PartyClassificationGroup"/>
         </actions>
         <field name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroupId}" widget-style="buttontext">
-            <hyperlink target="EditPartyClassificationGroup?partyClassificationGroupId=${partyClassificationGroupId}"
-                description="${partyClassificationGroupId}" also-hidden="false"/>
+            <hyperlink target="EditPartyClassificationGroup" description="${partyClassificationGroupId}" also-hidden="false">
+                <parameter param-name="partyClassificationGroupId" from-field="partyClassificationGroupId"/>
+            </hyperlink>
         </field>
         <field name="partyClassificationTypeId">
             <display-entity entity-name="PartyClassificationType" key-field-name="partyClassificationTypeId" description="${description}"/>
@@ -59,8 +60,9 @@ under the License.
         <field name="parentGroupId"><display/></field>
         <field name="description" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deletePartyClassificationGroup?partyClassificationGroupId=${partyClassificationGroupId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deletePartyClassificationGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="partyClassificationGroupId" from-field="partyClassificationGroupId"/>
+            </hyperlink>
         </field>
     </form>
 

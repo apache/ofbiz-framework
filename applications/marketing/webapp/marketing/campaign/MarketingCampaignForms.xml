@@ -81,8 +81,9 @@ under the License.
             <display/>
         </field>
         <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
-            <hyperlink target="removeMarketingCampaign?marketingCampaignId=${marketingCampaignId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="removeMarketingCampaign" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="marketingCampaignId" from-field="marketingCampaignId"/>
+            </hyperlink>
         </field>
     </form>
 

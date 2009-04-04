@@ -48,23 +48,26 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteInventoryItemLabelType?inventoryItemLabelTypeId=${inventoryItemLabelTypeId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteInventoryItemLabelType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="inventoryItemLabelTypeId" from-field="inventoryItemLabelTypeId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="ListInventoryItemLabels" type="list" title="" list-name="inventoryItemLabels"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="InventoryItemLabel" default-field-type="display"/>
         <field name="inventoryItemLabelId" widget-style="buttontext">
-            <hyperlink target="EditInventoryItemLabel?inventoryItemLabelId=${inventoryItemLabelId}"
-                description="${inventoryItemLabelId}" also-hidden="true"/>
+            <hyperlink target="EditInventoryItemLabel" description="${inventoryItemLabelId}" also-hidden="true">
+                <parameter param-name="inventoryItemLabelId" from-field="inventoryItemLabelId"/>
+            </hyperlink>
         </field>
         <field name="inventoryItemLabelTypeId">
             <display-entity entity-name="InventoryItemLabelType" description="${description} [${inventoryItemLabelTypeId}]" also-hidden="true"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteInventoryItemLabel?inventoryItemLabelId=${inventoryItemLabelId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteInventoryItemLabel" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="inventoryItemLabelId" from-field="inventoryItemLabelId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="EditInventoryItemLabel" type="single" target="createInventoryItemLabel" title="" default-map-name="inventoryItemLabel"
@@ -91,8 +94,9 @@ under the License.
         <field name="inventoryItemLabelTypeId"><hidden/></field>
         <field name="inventoryItemId" widget-style="buttontext">
             <display-entity entity-name="InventoryItem" description="${productId}">
-                <sub-hyperlink target="EditInventoryItem?inventoryItemId=${inventoryItemId}"
-                               description="[${inventoryItemId}]"/>
+                <sub-hyperlink target="EditInventoryItem"                description="[${inventoryItemId}]">
+                <parameter param-name="inventoryItemId" from-field="inventoryItemId"/>
+            </sub-hyperlink>
             </display-entity>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>

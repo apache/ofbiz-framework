@@ -23,8 +23,9 @@ under the License.
     <form name="ListProductPromos" type="list" title="" list-name="productPromos"
         paginate-target="FindProductPromo" odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productPromoId" widget-style="buttontext">
-            <hyperlink target="EditProductPromo?productPromoId=${productPromoId}"
-                description="${productPromoId}" also-hidden="false"/>
+            <hyperlink target="EditProductPromo" description="${productPromoId}" also-hidden="false">
+                <parameter param-name="productPromoId" from-field="productPromoId"/>
+            </hyperlink>
         </field>
         <field name="promoName"><display/></field>
         <field name="promoText"><display/></field>
@@ -106,8 +107,9 @@ under the License.
         <auto-fields-entity entity-name="ProductPromoCode" default-field-type="display"/>
         <field name="productPromoId"><hidden/></field>
         <field name="productPromoCodeId" widget-style="buttontext">
-            <hyperlink target="EditProductPromoCode?productPromoCodeId=${productPromoCodeId}"
-                description="${productPromoCodeId}" also-hidden="false"/>
+            <hyperlink target="EditProductPromoCode" description="${productPromoCodeId}" also-hidden="false">
+                <parameter param-name="productPromoCodeId" from-field="productPromoCodeId"/>
+            </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductPromoCode" description="${uiLabelMap.CommonDelete}" also-hidden="false">
