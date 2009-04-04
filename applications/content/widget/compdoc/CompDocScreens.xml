@@ -677,7 +677,11 @@ under the License.
                                     <widgets>
                                         <container>
                                             <label style="tableheadtext" text="${uiLabelMap.ContentCompDocRevisions} [${rootContentRevisionSeqId}], Latest is [${mostRecentRevisionSeqId}]"/>
-                                            <link style="buttontext" text="${uiLabelMap.ContentLatest}" target="EditChildCompDoc?contentId=${contentId}&amp;rootContentId=${rootContentId}&amp;caFromDate=${fromDate}"></link>
+                                            <link style="buttontext" text="${uiLabelMap.ContentLatest}" target="EditChildCompDoc">
+                                                <parameter param-name="contentId" from-field="contentId"/>
+                                                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                                                <parameter param-name="caFromDate" from-field="fromDate"/>
+                                            </link>
                                             <include-screen name="ContentViewLink"/>
                                         </container>
                                         <include-form name="ViewChildCompDoc" location="component://content/widget/compdoc/CompDocForms.xml"/>

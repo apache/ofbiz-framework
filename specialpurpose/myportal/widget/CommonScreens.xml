@@ -18,12 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="main-decorator">
         <section>
             <actions>
-                <!-- base/top/specific map first, then more common map added for shared labels --> 
+                <!-- base/top/specific map first, then more common map added for shared labels -->
                 <property-map resource="MyPortalUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -51,7 +51,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
    <screen name="CommonPartyDecorator">
         <section>
             <actions>
@@ -75,7 +75,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-     
+
     <screen name="CommonCalendarDecorator">
         <section>
             <widgets>
@@ -83,7 +83,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CommonMyTimeDecorator">
         <section>
             <widgets>
@@ -93,7 +93,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CommonCommunicationEventDecorator">
         <section>
             <actions>
@@ -112,7 +112,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CommonMyCommunicationEventDecorator">
         <section>
             <actions>
@@ -131,7 +131,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CommonMyTaskDecorator">
         <section>
             <widgets>
@@ -157,13 +157,13 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <!--New Register Person-->
     <screen name="newRegisterLogin">
         <section>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">        
+                    <decorator-section name="body">
                         <section>
                             <condition>
                                 <not><if-empty field="parameters.partyId"/></not>
@@ -172,10 +172,10 @@ under the License.
                                 <set field="partyId" from-field="parameters.partyId"/>
                             </actions>
                             <widgets>
-                                <label style="h2" text="${uiLabelMap.MyPortalRegisterComplete}"/><link target="main" style="h2" text="${uiLabelMap.CommonBeLogged}"></link>
+                                <label style="h2" text="${uiLabelMap.MyPortalRegisterComplete}"/><link target="main" style="h2" text="${uiLabelMap.CommonBeLogged}"/>
                                 <screenlet title="${uiLabelMap.PartyPersonalInformation}">
                                     <include-form name="ViewPartyPerson" location="component://myportal/widget/MyPortalForms.xml"/>
-                                </screenlet> 
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <container style="screenlet">
@@ -215,7 +215,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="MyCompanyComms">
         <section>
             <widgets>
@@ -229,7 +229,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="MyTimesheet">
         <section>
             <widgets>
@@ -242,7 +242,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="MyCommunications">
         <section>
             <widgets>

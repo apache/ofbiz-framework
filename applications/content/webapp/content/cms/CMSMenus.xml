@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="cms" default-menu-item-name="content" default-permission-operation="HAS_AUTHOR_ROLE|CONTENT_ADMIN"
         default-permission-entity-action="_ADMIN" default-associated-content-id="${userLogin.userLoginId}"
@@ -53,7 +53,13 @@ under the License.
 
 
        <menu-item name="contentfind" title="${uiLabelMap.ContentContent}" >
-            <link id="CMSContentFind" target="CMSContentFind?listSize=${content.listSize}&amp;highIndex=${content.highIndex}&amp;lowIndex=${content.lowIndex}&amp;viewSize=${content.viewSize}&amp;viewIndex=${content.viewIndex}&amp;queryString=${content.queryString}" >
+            <link id="CMSContentFind" target="CMSContentFind" >
+                <parameter param-name="listSize" from-field="content.listSize"/>
+                <parameter param-name="highIndex" from-field="content.highIndex"/>
+                <parameter param-name="lowIndex" from-field="content.lowIndex"/>
+                <parameter param-name="viewSize" from-field="content.viewSize"/>
+                <parameter param-name="viewIndex" from-field="content.viewIndex"/>
+                <parameter param-name="queryString" from-field="content.queryString"/>
             </link>
        </menu-item>
        <menu-item name="contentedit" title="${uiLabelMap.CommonEdit}" >

@@ -239,7 +239,9 @@
                     <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
-            <link target="copyProject?projectId=${projectId}"></link>
+            <link target="copyProject">
+                <parameter param-name="projectId" from-field="projectId"/>
+            </link>
         </menu-item>
         <menu-item name="schedule" title="${uiLabelMap.ProjectMgrSchedule}">
             <condition>
@@ -251,7 +253,9 @@
                     <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
-            <link target="scheduleProject?projectId=${projectId}"></link>
+            <link target="scheduleProject">
+                <parameter param-name="projectId" from-field="projectId"/>
+            </link>
         </menu-item>
         <menu-item name="copyProjectToTemplate" title="${uiLabelMap.ProjectMgrSaveAsTemplate}">
             <condition>
@@ -262,7 +266,9 @@
                     <if-compare field="hasUpdatePermission" operator="equals" value="true"/>
                 </and>
             </condition>
-            <link target="copyProjectToTemplate?projectId=${projectId}"></link>
+            <link target="copyProjectToTemplate">
+                <parameter param-name="projectId" from-field="projectId"/>
+            </link>
         </menu-item>
         <menu-item name="close" title="${uiLabelMap.CommonClose}">
             <condition>
@@ -504,16 +510,24 @@
             </link>
         </menu-item>
         <menu-item name="listResourcesProject" title="${uiLabelMap.ProjectMgrProjects}">
-            <link target="listResourcesProject?partyId=${partyId}"></link>
+            <link target="listResourcesProject">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </link>
         </menu-item>
         <menu-item name="listResourcesTask"  title="${uiLabelMap.ProjectMgrTasks}">
-            <link target="listResourcesTask?partyId=${partyId}"></link>
+            <link target="listResourcesTask">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </link>
         </menu-item>
         <menu-item name="EditPartyRates"  title="${uiLabelMap.ProjectMgrRates}">
-            <link target="EditPartyRates?partyId=${partyId}"></link>
+            <link target="EditPartyRates">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </link>
         </menu-item>
         <menu-item name="ListBillingHours"  title="${uiLabelMap.ProjectMgrBilling}">
-            <link target="ListResourceBillingHours?partyId=${partyId}"></link>
+            <link target="ListResourceBillingHours">
+                <parameter param-name="partyId" from-field="partyId"/>
+            </link>
         </menu-item>
     </menu>
     <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">

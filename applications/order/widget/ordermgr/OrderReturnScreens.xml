@@ -59,7 +59,7 @@ under the License.
                                 <section>
                                     <widgets>
                                         <container>                            
-                                            <link style="buttontext" target="returnMain" text="${uiLabelMap.OrderCreateNewReturn}"></link>
+                                            <link style="buttontext" target="returnMain" text="${uiLabelMap.OrderCreateNewReturn}"/>
                                         </container>
                                         <include-form name="FindReturns" location="component://order/webapp/ordermgr/return/ReturnForms.xml"/>
                                         <include-form name="ListReturns" location="component://order/webapp/ordermgr/return/ReturnForms.xml"/>
