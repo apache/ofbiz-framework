@@ -106,7 +106,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container><link target="EditPartyClassificationGroup" style="smallSubmit" text="${uiLabelMap.PartyCreateNewPartyClassificationGroup}"></link></container>
+                                        <container><link target="EditPartyClassificationGroup" style="smallSubmit" text="${uiLabelMap.PartyCreateNewPartyClassificationGroup}"/></container>
                                         <container style="screenlet-body">
                                             <include-form name="ListPartyClassificationGroups" location="component://party/widget/partymgr/PartyClassificationForms.xml"/>
                                         </container>
