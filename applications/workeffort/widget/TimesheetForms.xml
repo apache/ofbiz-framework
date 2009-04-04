@@ -171,8 +171,11 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName} [${partyId}]"/></field>
 
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteTimesheetRole?timesheetId=${timesheetId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteTimesheetRole" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="timesheetId" from-field="timesheetId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddTimesheetRole" type="single" target="createTimesheetRole" title=""

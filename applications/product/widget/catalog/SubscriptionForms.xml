@@ -376,8 +376,11 @@ under the License.
         </field>
         
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteProductSubscriptionResourceSr?subscriptionResourceId=${subscriptionResourceId}&amp;productId=${productId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteProductSubscriptionResourceSr" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="subscriptionResourceId" from-field="subscriptionResourceId"/>
+                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

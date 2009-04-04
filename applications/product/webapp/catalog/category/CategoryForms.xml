@@ -168,8 +168,11 @@ under the License.
         <field name="imageUrl"><ignored/></field>
         <field name="imageTwoUrl"><ignored/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteProductCategoryLink?productCategoryId=${productCategoryId}&amp;linkSeqId=${linkSeqId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteProductCategoryLink" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="productCategoryId" from-field="productCategoryId"/>
+                <parameter param-name="linkSeqId" from-field="linkSeqId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>

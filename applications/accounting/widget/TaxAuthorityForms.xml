@@ -94,8 +94,11 @@ under the License.
         </field>
 
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteTaxAuthorityCategory?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;productCategoryId=${productCategoryId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteTaxAuthorityCategory" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+                <parameter param-name="productCategoryId" from-field="productCategoryId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddTaxAuthorityCategory" type="single" target="createTaxAuthorityCategory" title="" default-map-name="taxAuthorityCategory"
@@ -264,8 +267,11 @@ under the License.
 
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteTaxAuthorityRateProduct?taxAuthPartyId=${taxAuthPartyId}&amp;taxAuthGeoId=${taxAuthGeoId}&amp;taxAuthorityRateSeqId=${taxAuthorityRateSeqId}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deleteTaxAuthorityRateProduct" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+                <parameter param-name="taxAuthorityRateSeqId" from-field="taxAuthorityRateSeqId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddTaxAuthorityRateProduct" type="single" target="createTaxAuthorityRateProduct" title="" default-map-name="taxAuthorityRateProduct"

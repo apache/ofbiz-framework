@@ -205,8 +205,11 @@ under the License.
             <display-entity entity-name="ContactMechDetail" key-field-name="contactMechId" description="[${contactMechId}]: [${infoString}] [${tnCountryCode}-${tnAreaCode}-${tnContactNumber}] [${paAddress1}, ${paAddress1}, ${paCity}, ${paStateProvinceGeoId}, ${paPostalCode}, ${paPostalCodeExt} ${paCountryGeoId}]"/>
         </field>
         <field name="editLink" title="&amp;nbsp;" widget-style="buttontext">
-            <hyperlink target="EditContactListParty?contactListId=${contactListId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonEdit}" also-hidden="false"/>
+            <hyperlink target="EditContactListParty" description="${uiLabelMap.CommonEdit}" also-hidden="false">
+                <parameter param-name="contactListId" from-field="contactListId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
 

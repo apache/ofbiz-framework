@@ -36,8 +36,11 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink target="deletePartyClassification?partyClassificationGroupId=${partyClassificationGroupId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deletePartyClassification" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="partyClassificationGroupId" from-field="partyClassificationGroupId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
 
@@ -136,8 +139,11 @@ under the License.
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink target="deletePartyClassification?partyClassificationGroupId=${partyClassificationGroupId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+            <hyperlink target="deletePartyClassification" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+                <parameter param-name="partyClassificationGroupId" from-field="partyClassificationGroupId"/>
+                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="fromDate" from-field="fromDate"/>
+            </hyperlink>
         </field>
     </form>
 </forms>
