@@ -67,10 +67,21 @@ under the License.
                     </div>
                     <#if productId?exists>
                       <div style="margin-top: 15px; margin-left: 10px;">
-                        <a href="/catalog/control/EditProduct?productId=${productId}" class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
-                        <a href="/ecommerce/control/product?product_id=${productId}" class="buttontext" target="_blank">${uiLabelMap.OrderEcommerce}</a>
+                        <form name= "editProduct" method= "post" action= "/catalog/control/EditProduct">
+                          <input type= "hidden" name= "productId" value= "${productId}">
+                          <a href="javascript:document.editProduct.submit()"class="buttontext" target="_blank">${uiLabelMap.ProductCatalog}</a>
+                        </form>
+                        <form name= "viewProduct" method= "post" action= "/ecommerce/control/product">
+                          <input type= "hidden" name= "productId" value= "${productId}">
+                          <a href="javascript:document.viewProduct.submit()" class="buttontext" target="_blank">${uiLabelMap.OrderEcommerce}</a>
+                        </form>
                         <#if orderItemContentWrapper.get("IMAGE_URL")?has_content>
-                          <a href="<@ofbizUrl>viewimage?orderId=${orderId}&amp;orderItemSeqId=${orderItem.orderItemSeqId}&amp;orderContentTypeId=IMAGE_URL</@ofbizUrl>" target="_orderImage" class="buttontext">${uiLabelMap.OrderViewImage}</a>
+                          <form name= "viewImage" method= "post" action= "<@ofbizUrl>viewimage</@ofbizUrl>">
+                            <input type= "hidden" name= "orderId" value= "${orderId}">
+                            <input type= "hidden" name= "orderItemSeqId" value= "${orderItem.orderItemSeqId}">
+                            <input type= "hidden" name= "orderContentTypeId" value= "IMAGE_URL">
+                            <a href="javascript:document.viewImage.submit()" target="_orderImage" class="buttontext">${uiLabelMap.OrderViewImage}</a>
+                          </form>
                         </#if>
                       </div>
 
@@ -89,7 +100,12 @@ under the License.
                         <div style="margin-top: 15px; margin-left: 20px;">
                             <table cellspacing="0" cellpadding="0" border="0">
                               <tr><td style="text-align: right; padding-bottom: 10px;">
-                                  <a class="buttontext" href="/catalog/control/EditProductInventoryItems?productId=${productId}&amp;showAllFacilities=Y&amp;externalLoginKey=${externalLoginKey}" target="_blank">${uiLabelMap.ProductInventory}</a>
+                                    <form name= "EditProductInventoryItems" method= "post" action= "/catalog/control/EditProductInventoryItems">
+                                      <input type= "hidden" name="productId" value= "${productId}">
+                                      <input type= "hidden" name="showAllFacilities" value= "Y">
+                                      <input type= "hidden" name="externalLoginKey" value= "${externalLoginKey}">
+                                      <a class="buttontext" href="javascript:document.EditProductInventoryItems.submit()" target="_blank">${uiLabelMap.ProductInventory}</a>
+                                    </form>
                               </td><td>&nbsp;</td></tr>
                               <tr><td>${uiLabelMap.OrderRequiredForSO}</td>
                                 <td style="padding-left: 15px; text-align: left;">${requiredQuantity}</td></tr>
@@ -134,7 +150,11 @@ under the License.
                         <#assign returnHeader = returnItem.getRelatedOne("ReturnHeader")>
                         <#if returnHeader.statusId != "RETURN_CANCELLED">
                           <div>
-                            <font color="red">${uiLabelMap.OrderReturned}</font> #<a href="<@ofbizUrl>returnMain?returnId=${returnItem.returnId}</@ofbizUrl>" class="buttontext">${returnItem.returnId}</a>
+                            <font color="red">${uiLabelMap.OrderReturned}</font># 
+                            <form name= "returnMain" method= "post" action= "<@ofbizUrl>returnMain</@ofbizUrl>">
+                              <input type= "hidden" name= "returnId" value= "${returnItem.returnId}">
+                              <a href="javascript:document.returnMain.submit()" class="buttontext">${returnItem.returnId}</a>
+                            </form>
                           </div>
                         </#if>
                       </#list>
@@ -231,7 +251,11 @@ under the License.
                           <div>
                             <#if orderItem.orderItemTypeId != "RENTAL_ORDER_ITEM">
                               <span class="label">${uiLabelMap.ManufacturingProductionRun}</span>
-                              <a href="/manufacturing/control/ShowProductionRun?productionRunId=${workEffort.workEffortId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${workEffort.workEffortId}</a>&nbsp;
+                              <form name= "ShowProductionRun" method= "post" action= "/manufacturing/control/ShowProductionRun">
+                                <input type= "hidden" name= "productionRunId" value= "${workEffort.workEffortId}">
+                                <input type= "hidden" name= "externalLoginKey" value= "${externalLoginKey}">
+                                <a href="javascript:document.ShowProductionRun.submit()" class="buttontext">${workEffort.workEffortId}</a>&nbsp;
+                              </form>
                               ${uiLabelMap.OrderCurrentStatus}&nbsp;${(delegator.findByPrimaryKeyCache("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId"))).get("description",locale))?if_exists}
                             <#else>
                             ${uiLabelMap.CommonFrom}: ${workEffort.estimatedStartDate?string("yyyy-MM-dd")} ${uiLabelMap.CommonTo}: ${workEffort.estimatedCompletionDate?string("yyyy-MM-dd")} ${uiLabelMap.OrderNumberOfPersons}: ${workEffort.reservPersons?default("")}
@@ -259,7 +283,10 @@ under the License.
                     <td colspan="6">
                       <div>
                         <span class="label">${uiLabelMap.OrderLinkedToOrderItem}</span>&nbsp;(${linkedOrderItem.orderItemAssocTypeId})
-                        <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}" class="buttontext">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description?if_exists}
+                        <form name= "orderview" method= "post" action= "/ordermgr/control/orderview">
+                          <input type= "hidden" name= "orderId" value= "${linkedOrderId}">
+                          <a href="javascript:document.orderview.submit()" class="buttontext">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description?if_exists}
+                        </form>
                       </div>
                     </td>
                   </tr>
@@ -276,7 +303,10 @@ under the License.
                     <td colspan="6">
                       <div>
                         <span class="label">${uiLabelMap.OrderLinkedFromOrderItem}</span>&nbsp;${linkedOrderItem.orderItemAssocTypeId})
-                        <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}" class="buttontext">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description?if_exists}
+                        <form name= "orderView" method= "post" action= "/ordermgr/control/orderview">
+                          <input type= "hidden" name= "orderId" value= "${linkedOrderId}">
+                          <a href="javascript:document.orderView.submit()"class="buttontext">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description?if_exists}
+                        </form>
                       </div>
                     </td>
                   </tr>
@@ -293,7 +323,10 @@ under the License.
                     <td colspan="6">
                       <div>
                         <span class="label">${uiLabelMap.OrderLinkedToRequirement}</span>&nbsp;
-                        <a href="<@ofbizUrl>EditRequirement?requirementId=${linkedRequirement.requirementId}</@ofbizUrl>" class="buttontext">${linkedRequirement.requirementId}</a>&nbsp;
+                        <form name= "orderView" method= "post" action= "<@ofbizUrl>EditRequirement</@ofbizUrl>">
+                          <input type= "hidden" name= "requirementId" value= "${linkedRequirement.requirementId}">
+                          <a href="javascript:document.orderView.submit()" class="buttontext">${linkedRequirement.requirementId}</a>&nbsp;
+                        </form>
                       </div>
                     </td>
                   </tr>
@@ -309,7 +342,11 @@ under the License.
                   <td colspan="6">
                     <div>
                       <span class="label">${uiLabelMap.OrderLinkedToQuote}</span>&nbsp;
-                      <a href="<@ofbizUrl>EditQuoteItem?quoteId=${linkedQuote.quoteId}&amp;quoteItemSeqId=${linkedQuote.quoteItemSeqId}</@ofbizUrl>" class="buttontext">${linkedQuote.quoteId}-${linkedQuote.quoteItemSeqId}</a>&nbsp;
+                      <form name= "EditQuoteItem" method= "post" action= "<@ofbizUrl>EditQuoteItem</@ofbizUrl>">
+                        <input type= "hidden" name= "quoteId" value= "${linkedQuote.quoteId}">
+                        <input type= "hidden" name= "quoteItemSeqId" value= "${linkedQuote.quoteItemSeqId}">
+                        <a href="javascript:document.EditQuoteItem.submit()"class="buttontext">${linkedQuote.quoteId}-${linkedQuote.quoteItemSeqId}</a>&nbsp;
+                      </form>
                     </div>
                   </td>
                 </tr>
@@ -326,7 +363,13 @@ under the License.
                         <span class="label">${uiLabelMap.OrderAdjustment}</span>&nbsp;${adjustmentType.get("description",locale)}
                         ${orderItemAdjustment.get("description",locale)?if_exists} 
                         <#if orderItemAdjustment.comments?has_content>(${orderItemAdjustment.comments?default("")})</#if>
-                        <#if orderItemAdjustment.productPromoId?has_content><a href="/catalog/control/EditProductPromo?productPromoId=${orderItemAdjustment.productPromoId}&amp;externalLoginKey=${externalLoginKey}">${orderItemAdjustment.getRelatedOne("ProductPromo").getString("promoName")}</a></#if>
+                        <#if orderItemAdjustment.productPromoId?has_content>
+                          <form name= "EditQuoteItem" method= "post" action= "/catalog/control/EditProductPromo">
+                            <input type= "hidden" name= "productPromoId" value= "${orderItemAdjustment.productPromoId}">
+                            <input type= "hidden" name= "externalLoginKey" value= "${externalLoginKey}">
+                            <a href="javascript:document.EditQuoteItem.submit()">${orderItemAdjustment.getRelatedOne("ProductPromo").getString("promoName")}</a>
+                          </form>
+                        </#if>
                         <#if orderItemAdjustment.orderAdjustmentTypeId == "SALES_TAX">
                           <#if orderItemAdjustment.primaryGeoId?has_content>
                             <#assign primaryGeo = orderItemAdjustment.getRelatedOneCache("PrimaryGeo")/>
@@ -384,7 +427,12 @@ under the License.
                     <td align="right" colspan="2">
                       <div>
                         <span class="label">${uiLabelMap.CommonSurveys}</span>&nbsp;
-                        <a href="/content/control/ViewSurveyResponses?surveyResponseId=${survey.surveyResponseId}&amp;surveyId=${survey.surveyId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${survey.surveyId}</a>
+                        <form name= "ViewSurveyResponses" method= "post" action= "/content/control/ViewSurveyResponses">
+                          <input type= "hidden" name= "surveyResponseId" value= "${survey.surveyResponseId}">
+                          <input type= "hidden" name= "surveyId" value= "${survey.surveyId}">
+                          <input type= "hidden" name= "externalLoginKey" value= "${externalLoginKey}">
+                          <a href="javascript:document.ViewSurveyResponses.submit()" class="buttontext">${survey.surveyId}</a>
+                        </form>
                       </div>
                     </td>
                     <td colspan="5">&nbsp;</td>
@@ -450,9 +498,13 @@ under the License.
                   <tr>
                     <td align="right" colspan="2">
                       <div>
-                          <span class="label">${uiLabelMap.FacilityInventory}</span>&nbsp;
-                          <a href="/facility/control/EditInventoryItem?inventoryItemId=${orderItemShipGrpInvRes.inventoryItemId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${orderItemShipGrpInvRes.inventoryItemId}</a>
-                          <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;${orderItemShipGrpInvRes.shipGroupSeqId}
+                        <span class="label">${uiLabelMap.FacilityInventory}</span>&nbsp;
+                        <form name= "EditInventoryItem" method= "post" action= "/facility/control/EditInventoryItem">
+                          <input type= "hidden" name= "inventoryItemId" value= "${orderItemShipGrpInvRes.inventoryItemId}">
+                          <input type= "hidden" name= "externalLoginKey" value= "${externalLoginKey}">
+                          <a href="javascript:document.EditInventoryItem.submit()">${orderItemShipGrpInvRes.inventoryItemId}</a>
+                        </form>
+                        <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;${orderItemShipGrpInvRes.shipGroupSeqId}
                       </div>
                     </td>
                     <td align="center">
@@ -476,7 +528,13 @@ under the License.
                 <#list orderShipments as orderShipment>
                   <tr>
                     <td align="right" colspan="2">
-                      <div><span class="label">${uiLabelMap.OrderPlannedInShipment}</span>&nbsp;<a target="facility" href="/facility/control/ViewShipment?shipmentId=${orderShipment.shipmentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${orderShipment.shipmentId}</a>: ${orderShipment.shipmentItemSeqId}</div>
+                      <div><span class="label">${uiLabelMap.OrderPlannedInShipment}</span>&nbsp;
+                        <form name= "ViewShipmentOrder" method= "post" action= "/facility/control/ViewShipment">
+                          <input type= "hidden" name= "shipmentId" value= "${orderShipment.shipmentId}">
+                          <input type= "hidden" name= "externalLoginKey" value= "${externalLoginKey}">
+                          <a target="facility" href="javascript:document.ViewShipmentOrder.submit()"class="buttontext">${orderShipment.shipmentId}</a>: ${orderShipment.shipmentItemSeqId}
+                        </form>
+                      </div>
                     </td>
                     <td align="center">
                       <div>${orderShipment.quantity?string.number}&nbsp;</div>
@@ -495,7 +553,11 @@ under the License.
                       <div>
                         <#if itemIssuance.shipmentId?has_content>
                           <span class="label">${uiLabelMap.OrderIssuedToShipmentItem}</span>&nbsp;
-                          <a target="facility" href="/facility/control/ViewShipment?shipmentId=${itemIssuance.shipmentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${itemIssuance.shipmentId}</a>: ${itemIssuance.shipmentItemSeqId?if_exists}
+                          <form name= "ViewShipmentIssuance" method= "post" action= "/facility/control/ViewShipment">
+                            <input type= "hidden" name= "shipmentId" value= "${itemIssuance.shipmentId}">
+                            <input type= "hidden" name= "externalLoginKey" value= "${externalLoginKey}">
+                            <a target="facility" href="javascript:document.ViewShipmentIssuance.submit()" class="buttontext">${itemIssuance.shipmentId}</a>: ${itemIssuance.shipmentItemSeqId?if_exists}
+                          </form>
                         <#else>
                           <span class="label">${uiLabelMap.OrderIssuedWithoutShipment}</span>
                         </#if>
@@ -518,7 +580,11 @@ under the License.
                         <#if itemIssuance.inventoryItemId?has_content>
                           <#assign inventoryItem = itemIssuance.getRelatedOne("InventoryItem")/>
                           <span class="label">${uiLabelMap.FacilityInventory}</span>
-                          <a href="/facility/control/EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${itemIssuance.inventoryItemId}</a>
+                          <form name= "EditInventoryItem1" method= "post" action= "/facility/control/EditInventoryItem">
+                            <input type= "hidden" name= "inventoryItemId" value= "${itemIssuance.inventoryItemId}">
+                            <input type= "hidden" name= "externalLoginKey" value= "${externalLoginKey}">
+                            <a href="javascript:document.EditInventoryItem1.submit()" class="buttontext">${itemIssuance.inventoryItemId}</a>
+                          </form>
                           <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;${itemIssuance.shipGroupSeqId?if_exists}
                           <#if (inventoryItem.serialNumber?has_content)><br><span class="label">${uiLabelMap.ProductSerialNumber}</span>&nbsp;${inventoryItem.serialNumber}&nbsp;</#if>                                                      
                         </#if>
@@ -541,11 +607,19 @@ under the License.
                       <div>
                         <#if shipmentReceipt.shipmentId?has_content>
                           <span class="label">${uiLabelMap.OrderShipmentReceived}</span>&nbsp;
-                          <a target="facility" href="/facility/control/ViewShipment?shipmentId=${shipmentReceipt.shipmentId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${shipmentReceipt.shipmentId}</a>:${shipmentReceipt.shipmentItemSeqId?if_exists}
+                          <form name= "viewShipmentShipment" method= "post" action= "/facility/control/ViewShipment">
+                            <input type= "hidden" name= "shipmentId" value= "${shipmentReceipt.shipmentId}">
+                            <input type= "hidden" name= "externalLoginKey" value= "${externalLoginKey}">
+                            <a target="facility" href="javascript:document.viewShipmentShipment.submit()" class="buttontext">${shipmentReceipt.shipmentId}</a>:${shipmentReceipt.shipmentItemSeqId?if_exists}
+                          </form>
                         </#if>
                           &nbsp;${shipmentReceipt.datetimeReceived}&nbsp;
                           <span class="label">${uiLabelMap.FacilityInventory}</span>&nbsp;
-                          <a href="/facility/control/EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${shipmentReceipt.inventoryItemId}</a>
+                          <form name= "viewShipmentInventory" method= "post" action= "/facility/control/EditInventoryItem">
+                            <input type= "hidden" name= "inventoryItemId" value= "${shipmentReceipt.inventoryItemId}">
+                            <input type= "hidden" name= "externalLoginKey" value= "${externalLoginKey}">
+                            <a href="javascript:document.viewShipmentInventory.submit()" class="buttontext">${shipmentReceipt.inventoryItemId}</a>
+                          </form>
                       </div>
                     </td>
                     <td align="center">

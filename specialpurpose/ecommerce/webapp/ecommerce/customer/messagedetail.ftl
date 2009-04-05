@@ -29,7 +29,10 @@ under the License.
     <div class="screenlet-header">
         <div class="boxlink">
             <#if (communicationEvent.partyIdFrom?if_exists != (userLogin.partyId)?if_exists)>
-              <a href="<@ofbizUrl>newmessage?communicationEventId=${communicationEvent.communicationEventId}</@ofbizUrl>" class="submenutext">${uiLabelMap.PartyReply}</a>
+              <form name= "newmessage" method= "post" action= "<@ofbizUrl>newmessage</@ofbizUrl>">
+                <input type= "hidden" name= "communicationEventId" value= "${communicationEvent.communicationEventId}">
+                <a href="javascript:document.newmessage.submit()" class="submenutext">${uiLabelMap.PartyReply}</a>
+              </form>
             </#if>
             <a href="<@ofbizUrl>messagelist</@ofbizUrl>" class="submenutextright">${uiLabelMap.EcommerceViewList}</a>
         </div>

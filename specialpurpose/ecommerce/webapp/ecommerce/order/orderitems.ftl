@@ -65,7 +65,7 @@ under the License.
                       <#break>
                       </#if>
                   </#list>
-              <#else> 
+              <#else>
                   <#assign WorkOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment")?if_exists>
                   <#if WorkOrderItemFulfillments?has_content>
                     <#list WorkOrderItemFulfillments as WorkOrderItemFulfillment>
@@ -136,7 +136,7 @@ under the License.
                   <td>&nbsp;</td>
                 </#if>
                 <td align="right" valign="top">
-                  <div class="tabletext">${orderItem.quantity?string.number}</div>                        
+                  <div class="tabletext">${orderItem.quantity?string.number}</div>
                 </td>
                 <#if maySelectItems?default("N") == "Y">
                 <td align="right" valign="top">
@@ -162,10 +162,10 @@ under the License.
                 <td align="right" valign="top">
                 <#if workEfforts?exists>
                    <div class="tabletext"><@ofbizCurrency amount=localOrderReadHelper.getOrderItemTotal(orderItem)*rentalQuantity isoCode=currencyUomId/></div>
-                <#else>                                          
+                <#else>
                   <div class="tabletext"><@ofbizCurrency amount=localOrderReadHelper.getOrderItemTotal(orderItem) isoCode=currencyUomId/></div>
                 </#if>
-                </td>                    
+                </td>
                 <#if maySelectItems?default("N") == "Y" && roleTypeId?if_exists == "PLACING_CUSTOMER">
                   <td>&nbsp;</td>
                   <td>
@@ -177,17 +177,19 @@ under the License.
             </tr>
             <#-- now cancel reason and comment field -->
             <#if maySelectItems?default("N") == "Y" && (orderHeader.statusId != "ORDER_SENT" && orderItem.statusId != "ITEM_COMPLETED" && orderItem.statusId != "ITEM_CANCELLED" && pickedQty == 0)>
-		      <tr align="right"><td colspan="7"><div class="tabletext"><b>${uiLabelMap.OrderReturnReason}</b>
-		          <select name="irm_${orderItem.orderItemSeqId}" class="selectBox">
-		            <option value="">&nbsp;</option>
-		            <#list orderItemChangeReasons as reason>
-		              <option value="${reason.enumId}">${reason.get("description",locale)?default(reason.enumId)}</option>
-		            </#list>
-		          </select>
-		          <b>${uiLabelMap.CommonComments}</b>
-		          <input class="inputBox" type="text" name="icm_${orderItem.orderItemSeqId}" value="" size="30" maxlength="60"/></div></td> 
-	              <td colspan="4" align="right"><a href="javascript:document.addCommonToCartForm.method='post';document.addCommonToCartForm.action='<@ofbizUrl>cancelOrderItem?orderItemSeqId=${orderItem.orderItemSeqId}</@ofbizUrl>';document.addCommonToCartForm.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a></td>
-		      </tr>
+              <tr align="right"><td colspan="7"><div class="tabletext"><b>${uiLabelMap.OrderReturnReason}</b>
+                  <select name="irm_${orderItem.orderItemSeqId}" class="selectBox">
+                    <option value="">&nbsp;</option>
+                    <#list orderItemChangeReasons as reason>
+                      <option value="${reason.enumId}">${reason.get("description",locale)?default(reason.enumId)}</option>
+                    </#list>
+                  </select>
+                  <b>${uiLabelMap.CommonComments}</b>
+                  <input class="inputBox" type="text" name="icm_${orderItem.orderItemSeqId}" value="" size="30" maxlength="60"/></div></td>
+                  <td colspan="4" align="right"><a href="javascript:document.addCommonToCartForm.method='post';document.addCommonToCartForm.action='<@ofbizUrl>cancelOrderItem</@ofbizUrl>';document.addCommonToCartForm.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
+                    <input type="hidden" name="orderItemSeqId" value="${orderItem.orderItemSeqId}"/>
+                  </td>
+              </tr>
             </#if>
             <#-- show info from workeffort if it was a rental item -->
             <#if orderItem.orderItemTypeId == "RENTAL_ORDER_ITEM">

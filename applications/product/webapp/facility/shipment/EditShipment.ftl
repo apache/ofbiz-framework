@@ -23,7 +23,12 @@ under the License.
 </#if>
 -->
 <#if shipmentId?has_content>
-    <div><a href="<@ofbizUrl>ShipmentManifest.pdf?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext" target="_blank">${uiLabelMap.ProductGenerateShipmentManifestReport}</a></div>
+    <div>
+      <form name= "shipmentManifest" action= "<@ofbizUrl>ShipmentManifest.pdf</@ofbizUrl>" method= "post">
+        <input type= "hidden" name= "shipmentId" value= "${shipmentId}">
+        <a href="javascript:document.shipmentManifest.submit()" class="buttontext" target="_blank">${uiLabelMap.ProductGenerateShipmentManifestReport}</a>
+      </form>
+    </div>
 </#if>
 <div class="screenlet">
     <div class="screenlet-title-bar">

@@ -34,14 +34,19 @@ under the License.
                 <td><div class="tabletext">${communicationEvent.subject?default("")}</div></td>
                 <td><div class="tabletext">${communicationEvent.entryDate}</div></td>
                 <td align="right">
-                  <a href="<@ofbizUrl>readmessage?communicationEventId=${communicationEvent.communicationEventId}</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceRead}</a>
+                  <form name="readMessage" method="post" action="<@ofbizUrl>readmessage</@ofbizUrl>">
+                    <input type="hidden" name="communicationEventId" value="{communicationEvent.communicationEventId}">
+                    <a href="javascript:document.readMessage.submit()" class="buttontext">${uiLabelMap.EcommerceRead}</a>
+                  </form>
                   <#if isSentMessage>
-                    <a href="<@ofbizUrl>newmessage?communicationEventId=${communicationEvent.communicationEventId}</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyReply}</a>
+                    <form name="newMessage" method="post" action="<@ofbizUrl>newmessage</@ofbizUrl>">
+                      <input type="hidden" name="communicationEventId" value="{communicationEvent.communicationEventId}">
+                      <a href="javascript:document.newMessage.submit()"class="buttontext">${uiLabelMap.PartyReply}</a>
+                    </form>
                   </#if>
                 </td>
               </tr>
 </#macro>
-
 <div class="screenlet">
     <div class="screenlet-header">
         <div class="boxlink">
