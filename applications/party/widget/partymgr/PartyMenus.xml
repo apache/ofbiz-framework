@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,7 +19,7 @@
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    
+
     <menu name="PartyAppBar" title="${uiLabelMap.PartyManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="find" title="${uiLabelMap.PartyParties}"><link target="findparty"/></menu-item>
         <menu-item name="mycomm" title="${uiLabelMap.PartyMyCommunications}"><link target="MyCommunicationEvents"/></menu-item>
@@ -35,7 +35,7 @@
         <menu-item name="addrmap" title="${uiLabelMap.PageTitleAddressMatchMap}"><link target="addressMatchMap"/></menu-item>
         <menu-item name="partyinv" title="${uiLabelMap.PartyInvitation}"><link target="partyInvitation"/></menu-item>
     </menu>
-    
+
     <menu name="SecurityGroupTabBar" default-menu-item-name="EditSecurityGroup" default-selected-style="selected"
         menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditSecurityGroup" title="${uiLabelMap.PartySecurityGroups}">
@@ -59,7 +59,7 @@
             </link>
         </menu-item>
     </menu>
-    
+
     <menu name="ProfileTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         default-menu-item-name="viewprofile">
         <menu-item name="viewprofile" title="${uiLabelMap.PartyProfile}">
@@ -145,7 +145,7 @@
         <menu-item name="EditEmploymentApps" title="${uiLabelMap.HumanResEmploymentApp}">
             <link target="EditEmploymentApps">
                 <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="&amp;referredByPartyId" from-field="partyId"/>
+                <parameter param-name="referredByPartyId" from-field="partyId"/>
             </link>
         </menu-item>
         <menu-item name="FinancialHistory" title="${uiLabelMap.PartyFinancialHistory}">
@@ -178,7 +178,7 @@
             </condition>
             <link target="/accounting/control/FindFinAccount" url-mode="inter-app">
                 <parameter param-name="ownerPartyId" from-field="partyId"/>
-            </link> 
+            </link>
         </menu-item>
         <menu-item name="PartyCommEvents" title="${uiLabelMap.PartyCommunications}" >
             <link target="ListPartyCommEvents">
@@ -190,9 +190,10 @@
                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
             <link target="/ordermgr/control/FindRequest" url-mode="inter-app">
-                <parameter param-name="lookupFlag=Y&amp;fromPartyId" from-field="partyId"/>
+                <parameter param-name="lookupFlag" value="Y"/>
+                <parameter param-name="fromPartyId" from-field="partyId"/>
                 <parameter param-name="externaLoginKey" from-field="externalLoginKey"/>
-            </link> 
+            </link>
         </menu-item>
         <menu-item name="findQuote" title="${uiLabelMap.OrderOrderQuotes}" >
             <condition>
@@ -201,7 +202,7 @@
             <link target="/ordermgr/control/FindQuote" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="partyId"/>
                 <parameter param-name="externalLoginKey" from-field="externalLoginKey"/>
-            </link> 
+            </link>
         </menu-item>
         <menu-item name="searchOrder" title="${uiLabelMap.OrderOrders}" >
             <condition>
@@ -214,7 +215,7 @@
                 <parameter param-name="externalLoginKey" from-field="externalLoginKey"/>
                 <parameter param-name="viewIndex" value="1"/>
                 <parameter param-name="viewSize" value="20"/>
-            </link> 
+            </link>
         </menu-item>
         <menu-item name="newQuote" title="${uiLabelMap.OrderNewQuote}">
             <condition>
@@ -223,7 +224,7 @@
             <link target="/ordermgr/control/EditQuote" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="partyId"/>
                 <parameter param-name="externaLoginKey" from-field="externalLoginKey"/>
-            </link> 
+            </link>
         </menu-item>
         <menu-item name="newOrder" title="${uiLabelMap.OrderNewOrder}">
             <condition>
@@ -232,7 +233,7 @@
             <link target="/ordermgr/control/checkinits" url-mode="inter-app">
                 <parameter param-name="partyId" from-field="partyId"/>
                 <parameter param-name="externaLoginKey" from-field="externalLoginKey"/>
-            </link> 
+            </link>
         </menu-item>
     </menu>
     <menu name="create-new-party" type="simple" menu-container-style="basic-nav">
@@ -256,7 +257,7 @@
             <link target="NewEmployee"/>
         </menu-item>
     </menu>
-    
+
     <menu name="PartyInvitationTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditPartyInvitation" title="${uiLabelMap.PartyInvitation}">
             <link target="editPartyInvitation">
@@ -274,7 +275,7 @@
             </link>
         </menu-item>
     </menu>
-    
+
     <menu name="personUpdate">
         <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
             <link target="editperson">
@@ -282,7 +283,7 @@
             </link>
         </menu-item>
     </menu>
-    
+
     <menu name="groupUpdate">
         <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
             <link target="editpartygroup">
@@ -290,7 +291,7 @@
             </link>
         </menu-item>
     </menu>
-    
+
     <menu name="addShipper">
         <menu-item name="new" title="${uiLabelMap.CommonCreateNew}">
             <condition>
@@ -305,7 +306,7 @@
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
             <condition>
                 <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
-            </condition>      
+            </condition>
             <link target="NewDraftCommunicationEvent">
                 <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
                 <parameter param-name="my" value="My"/>
@@ -315,7 +316,7 @@
         <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}">
             <condition>
                 <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
-            </condition>      
+            </condition>
             <link target="NewDraftCommunicationEvent">
                 <parameter param-name="communicationEventTypeId" value="COMMENT_NOTE"/>
                 <parameter param-name="my" value="My"/>
@@ -341,7 +342,7 @@
                 <parameter param-name="all" value="true"/>
             </link>
         </menu-item>
-    </menu>    
+    </menu>
     <menu name="MyCommSubTabBar" menu-container-style="button-bar button-style-2">
         <actions>
             <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/GetMyCommunicationEventRole.groovy"/>
@@ -489,12 +490,12 @@
                 <parameter param-name="communicationEventId" from-field="parameters.communicationEventId"/>
             </link>
         </menu-item>
-        <!-- TODO! 
+        <!-- TODO!
             <menu-item name="ListCommCustRequests" title="CustRequests">
-            <link target="ListCommCustRequests">
-            <parameter param-name="partyId" from-field="partyId"/>
-            <parameter param-name="communicationEventId" from-field="communicationEventId"/>
-            </link>
+                <link target="ListCommCustRequests">
+                    <parameter param-name="partyId" from-field="partyId"/>
+                    <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                </link>
             </menu-item>
         -->
         <menu-item name="ListUnknownPartyComms" title="${uiLabelMap.PartyEmailFromUnknownParties}">
@@ -522,7 +523,7 @@
             </link>
         </menu-item>
     </menu>
-    
+
     <menu name="CommSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
         menu-container-style="button-bar button-style-2 no-clear">
         <menu-item name="new" title="${uiLabelMap.PartyNewCommunication}">
@@ -592,5 +593,5 @@
             </link>
         </menu-item>
     </menu>
-    
+
 </menus>

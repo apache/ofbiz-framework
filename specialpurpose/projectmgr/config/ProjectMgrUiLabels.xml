@@ -364,7 +364,7 @@
     </property>
     <property key="PageTitleFindTimeSheet">
         <value xml:lang="en">Find TimeSheet</value>
-        <value xml:lang="fr">Rechercher une feuilled'activitée</value>
+        <value xml:lang="fr">Rechercher une feuille d'activitée</value>
         <value xml:lang="it">Ricerca timbratura</value>
         <value xml:lang="th">ค้นหาตารางเวลา</value>
         <value xml:lang="zh">查找时间表</value>
