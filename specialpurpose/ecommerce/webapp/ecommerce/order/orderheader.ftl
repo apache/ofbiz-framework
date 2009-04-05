@@ -33,17 +33,28 @@ under the License.
         <div class="screenlet-header">
             <div class="boxlink">
                 <#if maySelectItems?default("N") == "Y" && returnLink?default("N") == "Y" && (orderHeader.statusId)?if_exists == "ORDER_COMPLETED" && roleTypeId?if_exists == "PLACING_CUSTOMER">
-                    <a href="<@ofbizUrl>makeReturn?orderId=${orderHeader.orderId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderRequestReturn}</a>
+                    <form name= "makeReturn" method= "post" action= "<@ofbizUrl>makeReturn</@ofbizUrl>">
+                      <input type= "hidden" name= "orderId" value= "${orderHeader.orderId}">
+                      <a href="javascript:document.makeReturn.submit()" class="submenutextright">${uiLabelMap.OrderRequestReturn}</a>
+                    </form>
                 </#if>
             </div>
             <div class="boxhead">
                 &nbsp;${uiLabelMap.OrderOrder}&nbsp;
                 <#if orderHeader?has_content>
-                    ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl>orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="lightbuttontext">${orderHeader.orderId}</a>&nbsp;
+                    ${uiLabelMap.CommonNbr}
+                    <form name= "orderStatus" method= "post" action= "<@ofbizUrl>orderstatus</@ofbizUrl>">
+                      <input type= "hidden" name= "orderId" value= "${orderHeader.orderId}">
+                      <a href="javascript:document.orderStatus.submit()" class="lightbuttontext">${orderHeader.orderId}</a>&nbsp;
+                    </form>
                 </#if>
                 ${uiLabelMap.CommonInformation} 
                 <#if (orderHeader.orderId)?exists> 
-                    ${externalOrder?if_exists} [ <a href="<@ofbizUrl>order.pdf?orderId=${(orderHeader.orderId)?if_exists}</@ofbizUrl>" class="lightbuttontext" target="_blank">PDF</a> ]
+                    ${externalOrder?if_exists} [ 
+                    <form name= "orderPdf" method= "post" action= "<@ofbizUrl>order.pdf</@ofbizUrl>">
+                      <input type= "hidden" name= "orderId" value= "${(orderHeader.orderId)?if_exists}">
+                      <a href="javascript:document.orderPdf.submit()" class="lightbuttontext" target="_blank">PDF</a> ]
+                    </form>
                 </#if>
             </div>
         </div>

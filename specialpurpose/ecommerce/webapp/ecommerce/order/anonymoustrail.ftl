@@ -17,4 +17,15 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if shipAddr?exists><a href="<@ofbizUrl>setShipping</@ofbizUrl>" class="${trailClass.shipAddr}">${uiLabelMap.EcommerceChangeShippingAddress}</a><#if shipOptions?exists><a href="<@ofbizUrl>setShipOptions</@ofbizUrl>" class="${trailClass.shipOptions}">${uiLabelMap.EcommerceChangeShippingOptions}</a><#if billing?exists><a href="<@ofbizUrl>setBilling?resetType=Y</@ofbizUrl>" class="${trailClass.paymentType}">${uiLabelMap.EcommerceChangePaymentInfo}</a></#if></#if></#if>
+<#if shipAddr?exists>
+  <a href="<@ofbizUrl>setShipping</@ofbizUrl>" class="${trailClass.shipAddr}">${uiLabelMap.EcommerceChangeShippingAddress}</a>
+  <#if shipOptions?exists>
+    <a href="<@ofbizUrl>setShipOptions</@ofbizUrl>" class="${trailClass.shipOptions}">${uiLabelMap.EcommerceChangeShippingOptions}</a>
+    <#if billing?exists>
+      <form name= "setBilling" method= "post" action= "<@ofbizUrl>setBilling</@ofbizUrl>">
+        <input type= "hidden" name= "resetType" value= "Y">
+        <a href="javascript:document.setBilling.submit()" class="${trailClass.paymentType}">${uiLabelMap.EcommerceChangePaymentInfo}</a>
+      </form>
+    </#if>
+  </#if>
+</#if>

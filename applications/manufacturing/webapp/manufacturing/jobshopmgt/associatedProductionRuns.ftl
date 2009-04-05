@@ -16,7 +16,6 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
 <#-- Mandatory work efforts -->
 <#if mandatoryWorkEfforts?has_content>
     <p>
@@ -24,12 +23,21 @@ under the License.
     <#list mandatoryWorkEfforts as mandatoryWorkEffortAssoc>
         <#assign mandatoryWorkEffort = mandatoryWorkEffortAssoc.getRelatedOne("FromWorkEffort")>
         <#if "PRUN_COMPLETED" == mandatoryWorkEffort.getString("currentStatusId") || "PRUN_CLOSED" == mandatoryWorkEffort.getString("currentStatusId")>
-            <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${mandatoryWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${mandatoryWorkEffort.workEffortName}</a>&nbsp;
+            <form name= "productionRunDeclarationMandatory" method= "post" action= "<@ofbizUrl>ProductionRunDeclaration</@ofbizUrl>">
+                <input type= "hidden" name= "productionRunId" value= "${mandatoryWorkEffort.workEffortId}"/>
+                <a href="javascript:document.productionRunDeclarationMandatory.submit()" class="buttontext">${mandatoryWorkEffort.workEffortName}</a>&nbsp;
+            </form
         <#else>
             <#if "PRUN_CREATED" == mandatoryWorkEffort.getString("currentStatusId") || "PRUN_SCHEDULED" == mandatoryWorkEffort.getString("currentStatusId")>
-                <a href="<@ofbizUrl>EditProductionRun?productionRunId=${mandatoryWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${mandatoryWorkEffort.workEffortName}</a>[*]&nbsp;
+                <form name= "editProductionRunMandatory" method= "post" action= "<@ofbizUrl>EditProductionRun</@ofbizUrl>" >
+                    <input type= "hidden" name= "productionRunId" value= "${mandatoryWorkEffort.workEffortId}"/>
+                    <a href= "javascript:document.editProductionRunMandatory.submit()" class="buttontext">${mandatoryWorkEffort.workEffortName}</a>[*]&nbsp;
+                </form>
             <#else>
-                <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${mandatoryWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${mandatoryWorkEffort.workEffortName}</a>[*]&nbsp;
+                <form name= "prodRunDeclaration" method= "post" action= "<@ofbizUrl>ProductionRunDeclaration</@ofbizUrl>">
+                    <input type= "hidden" name= "productionRunId" value= "${mandatoryWorkEffort.workEffortId}"/>
+                    <a href= "javascript:document.prodRunDeclaration.submit()" class="buttontext">${mandatoryWorkEffort.workEffortName}</a>[*]&nbsp;
+                </form>
             </#if>
         </#if>
     </#list>
@@ -42,12 +50,21 @@ under the License.
     <#list dependentWorkEfforts as dependentWorkEffortAssoc>
         <#assign dependentWorkEffort = dependentWorkEffortAssoc.getRelatedOne("ToWorkEffort")>
         <#if "PRUN_COMPLETED" == dependentWorkEffort.currentStatusId || "PRUN_CLOSED" == dependentWorkEffort.currentStatusId>
-            <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${dependentWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${dependentWorkEffort.workEffortName}</a>&nbsp;
+            <form name= "productionRunDeclarationDependent" method= "post" action= "<@ofbizUrl>ProductionRunDeclaration</@ofbizUrl>">
+                <input type= "hidden" name= "productionRunId" value= "${dependentWorkEffort.workEffortId}"/>
+                <a href= "javascript:document.productionRunDeclarationDependent.submit()" class="buttontext">${dependentWorkEffort.workEffortName}</a>&nbsp;
+            </form>
         <#else>
             <#if "PRUN_CREATED" == dependentWorkEffort.getString("currentStatusId") || "PRUN_SCHEDULED" == dependentWorkEffort.getString("currentStatusId")>
-                <a href="<@ofbizUrl>EditProductionRun?productionRunId=${dependentWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${dependentWorkEffort.workEffortName}</a>[*]&nbsp;
+                <form name= "editProductionRunDependent" method= "post" action= "<@ofbizUrl>EditProductionRun</@ofbizUrl>">
+                    <input type= "hidden" name= "productionRunId" value= "${dependentWorkEffort.workEffortId}"/>
+                    <a href="javascript:document.editProductionRunDependent.submit()" class="buttontext">${dependentWorkEffort.workEffortName}</a>[*]&nbsp;
+                </form>
             <#else>
-                <a href="<@ofbizUrl>ProductionRunDeclaration?productionRunId=${dependentWorkEffort.workEffortId}</@ofbizUrl>" class="buttontext">${dependentWorkEffort.workEffortName}</a>[*]&nbsp;
+                <form name= "prodRunDeclarationDependent" method= "post" action= "<@ofbizUrl>ProductionRunDeclaration</@ofbizUrl>">
+                    <input type= "hidden" name= "productionRunId" value= "${dependentWorkEffort.workEffortId}"/>
+                    <a href="javascript:document.prodRunDeclarationDependent.submit()" class="buttontext">${dependentWorkEffort.workEffortName}</a>[*]&nbsp;
+                </form>
             </#if>
         </#if>
     </#list>

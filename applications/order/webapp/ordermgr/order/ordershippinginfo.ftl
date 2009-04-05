@@ -361,7 +361,13 @@ under the License.
                <#if !shipGroup.supplierPartyId?has_content>
                  <a href="/facility/control/PackOrder?facilityId=${storeFacilityId?if_exists}&amp;orderId=${orderId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.OrderPackShipmentForShipGroup} [${shipGroup.shipGroupSeqId}]</a>
                  <br/>
-                 <a href="/facility/control/createShipment?primaryOrderId=${orderId}&amp;primaryShipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;statusId=SHIPMENT_INPUT&amp;originFacilityId=${storeFacilityId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.OrderNewShipmentForShipGroup} [${shipGroup.shipGroupSeqId}]</a>
+                 <a href="javascript:document.createShipment.submit()" class="buttontext">${uiLabelMap.OrderNewShipmentForShipGroup}</a>
+                 <form name="createShipment" method="post" action="/facility/control/createShipment">
+                   <input type="hidden" name="orderId" value="${orderId}"/>
+                   <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
+                   <input type="hidden" name="statusId" value="SHIPMENT_INPUT">
+                   <input type="hidden" name="facilityId" value=${storeFacilityId?if_exists}>
+                 </form> 
                </#if>
              <#else>
                <#assign facilities = facilitiesForShipGroup.get(shipGroup.shipGroupSeqId)>
