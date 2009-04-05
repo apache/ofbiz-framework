@@ -544,9 +544,9 @@ under the License.
                                                         <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
                                                     </link>
                                                     <link target="ViewInstances">
-                                        <parameter param-name="rootContentId" from-field="rootContentId"/>
-                                        <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
-                                    </link>
+                                                        <parameter param-name="rootContentId" from-field="rootContentId"/>
+                                                        <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+                                                    </link>
                                                 </container>
                                                 <include-form name="EditRootCompDocTemplate" location="component://content/widget/compdoc/CompDocForms.xml"/>
                                             </widgets>
@@ -1277,9 +1277,11 @@ under the License.
                             <if-compare-field field="mostRecentRevisionSeqId" operator="equals" to-field="rootContentRevisionSeqId"/>
                         </condition>
                         <widgets>
-                            <link text="${uiLabelMap.PageTitleAddCompDocInstance}"
-                                target="AddChildCompDocInstance?rootContentId=${rootContentId}&amp;instanceOfContentId=${contentId}&amp;caSequenceNum=${maxRevisionSeqId}"
-                                style="buttontext"/>
+                            <link text="${uiLabelMap.PageTitleAddCompDocInstance}" target="AddChildCompDocInstance" style="buttontext">
+                                <parameter param-name="rootContentId" from-field="rootContentId"/>
+                                <parameter param-name="instanceOfContentId" from-field="contentId"/>
+                                <parameter param-name="caSequenceNum" from-field="maxRevisionSeqId"/>
+                            </link>
                         </widgets>
                     </section>
                 </container>
@@ -1296,12 +1298,18 @@ under the License.
                         <widgets>
                             <container>
                                 <label text="- ${instanceContent.contentName} [${instanceContent.contentId}] - ${instanceDataResource.objectInfo} ${instanceDataResource.relatedDetailId}" style="tableheadtext"/>
-                                <link text="${uiLabelMap.PageTitleEditCompDocInstance}"
-                                    target="EditChildCompDoc?contentId=${assocRevisionItemView.contentId}&amp;rootContentId=${assocRevisionItemView.contentIdTo}&amp;caContentAssocTypeId=${assocRevisionItemView.contentAssocTypeId}&amp;caFromDate=${assocRevisionItemView.fromDate}&amp;contentRevisionSeqId=${assocRevisionItemView.maxRevisionSeqId}&amp;rootContentRevisionSeqId=${rootContentRevisionSeqId}"
-                                    style="buttontext"/>
-                                <link text="${uiLabelMap.ContentCompDocGeneratePDF}"
-                                    target="GenContentPdf?contentId=${assocRevisionItemView.contentId}&amp;caSequenceNum=${sequenceNum}"
-                                    style="buttontext"/>
+                                <link text="${uiLabelMap.PageTitleEditCompDocInstance}" target="EditChildCompDoc"  style="buttontext">
+                                    <parameter param-name="contentId" from-field="assocRevisionItemView.contentId"/>
+                                    <parameter param-name="rootContentId" from-field="assocRevisionItemView.contentIdTo"/>
+                                    <parameter param-name="caContentAssocTypeId" from-field="assocRevisionItemView.contentAssocTypeId"/>
+                                    <parameter param-name="caFromDate" from-field="assocRevisionItemView.fromDate"/>
+                                    <parameter param-name="contentRevisionSeqId" from-field="assocRevisionItemView.maxRevisionSeqId"/>
+                                    <parameter param-name="rootContentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
+                                </link>
+                                <link text="${uiLabelMap.ContentCompDocGeneratePDF}" target="GenContentPdf" style="buttontext">
+                                    <parameter param-name="contentId" from-field="assocRevisionItemView.contentId"/>
+                                    <parameter param-name="caSequenceNum" from-field="sequenceNum"/>
+                                </link>
                             </container>
                         </widgets>
                     </section>
