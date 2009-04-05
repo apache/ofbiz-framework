@@ -359,7 +359,8 @@ under the License.
         </field>
         <field name="declareLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit" use-when="&quot;PRUN_RUNNING&quot;.equals(&quot;${currentStatusId}&quot;)">
             <hyperlink target="ProductionRunDeclaration" description="${uiLabelMap.ManufacturingDeclareProductionRunTask}" also-hidden="false">
-                <parameter param-name="actionForm=EditRoutingTask&amp;routingTaskId" from-field="workEffortId"/>
+                <parameter param-name="actionForm" value="EditRoutingTask"/>
+                <parameter param-name="routingTaskId" from-field="workEffortId"/>
                 <parameter param-name="productionRunId" from-field="workEffortParentId"/>
             </hyperlink>
         </field>

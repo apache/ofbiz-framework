@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="CommonPromoDecorator">
         <section>
@@ -40,7 +40,7 @@ under the License.
                                     <condition><not><if-empty field="productPromoId"/></not></condition>
                                     <widgets>
                                         <include-menu name="PromoTabBar" location="component://product/widget/catalog/Menus.xml"/>
-                    
+
                                         <container>
                                             <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productPromo.promoName} [${uiLabelMap.CommonId}:${productPromoId}]  ${${extraFunctionName}}</label>
                                         </container>
@@ -55,7 +55,7 @@ under the License.
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -67,7 +67,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindProductPromos"/>
                 <set field="headerItem" value="promos"/>
                 <set field="tabButtonItem" value="ProductPromo"/>
-                
+
                 <set field="userEntered" from-field="parameters.userEntered"/>
                 <entity-condition entity-name="ProductPromo" list="productPromos">
                     <condition-expr field-name="userEntered" from-field="userEntered" ignore-if-empty="true"/>
@@ -188,7 +188,7 @@ under the License.
                         <condition-expr field-name="productPromoCondSeqId" value="_NA_"/>
                     </condition-list>
                 </entity-condition>
-                
+
                 <!-- General Data for Drop-downs, etc -->
                 <entity-condition entity-name="Enumeration" list="inputParamEnums" use-cache="true">
                     <condition-expr field-name="enumTypeId" value="PROD_PROMO_IN_PARAM"/>
@@ -292,14 +292,16 @@ under the License.
                             <widgets>
                                 <container>
                                     <link target="FindProductPromoCode" text="${uiLabelMap.ProductPromotionManualImported}" style="buttontext">
-                                        <parameter param-name="manualOnly=N&amp;productPromoId" from-field="productPromoId"/>
+                                        <parameter param-name="manualOnly" value="N"/>
+                                        <parameter param-name="productPromoId" from-field="productPromoId"/>
                                     </link>
                                 </container>
                             </widgets>
                             <fail-widgets>
                                 <container>
                                     <link target="FindProductPromoCode" text="${uiLabelMap.ProductPromotionManual}" style="buttontext">
-                                        <parameter param-name="manualOnly=Y&amp;productPromoId" from-field="productPromoId"/>
+                                        <parameter param-name="manualOnly" value="Y"/>
+                                        <parameter param-name="productPromoId" from-field="productPromoId"/>
                                     </link>
                                 </container>
                             </fail-widgets>
@@ -325,7 +327,7 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>    
+    </screen>
     <screen name="EditProductPromoCode">
         <section>
             <actions>

@@ -117,7 +117,7 @@
     </property>
     <property key="AccountingAccounting">
         <value xml:lang="en">Accounting</value>
-        <value xml:lang="de">Buchhaltung</value>        
+        <value xml:lang="de">Buchhaltung</value>
         <value xml:lang="fr">Comptabilité</value>
         <value xml:lang="it">Contabilità</value>
         <value xml:lang="nl">Boekhouding</value>
@@ -125,7 +125,7 @@
     </property>
     <property key="AccountingAccounts">
         <value xml:lang="ar">حسابات</value>
-        <value xml:lang="de">Konten</value>        
+        <value xml:lang="de">Konten</value>
         <value xml:lang="en">Accounts</value>
         <value xml:lang="es">cuentas</value>
         <value xml:lang="fr">Comptes</value>
@@ -563,7 +563,7 @@
         <value xml:lang="de">Vereinbarungsart</value>
         <value xml:lang="en">Agreement Type Id</value>
         <value xml:lang="es">Id tipo de acuerdo</value>
-        <value xml:lang="fr">Réf de type d'accord commercial</value>        
+        <value xml:lang="fr">Réf de type d'accord commercial</value>
         <value xml:lang="it">Tipo Contratto</value>
         <value xml:lang="nl">Overeenkomst Type Nr</value>
         <value xml:lang="ro">Tip Contract</value>
@@ -1865,7 +1865,7 @@
         <value xml:lang="de">Neuen Gutschein erstellen</value>
         <value xml:lang="en">Create New Gift Card</value>
         <value xml:lang="es">Crear nuevo certificado de regalo</value>
-        <value xml:lang="fr">Créer nouv. carte cadeau</value>
+        <value xml:lang="fr">Créer une nouvelle carte cadeau</value>
         <value xml:lang="it">Creare Nuova Carta Omaggio</value>
         <value xml:lang="nl">Nieuwe cadeaubon aanmaken</value>
         <value xml:lang="ro">Creare Noua Carte Omagiu</value>

@@ -140,8 +140,8 @@ under the License.
             </condition>
             <link target="custPreferences"/>
         </menu-item>
-    </menu>    
-    
+    </menu>
+
     <menu name="MyCompanyCommsMenu">
         <menu-item name="newEvent" title="${uiLabelMap.WorkEffortNewEvent}">
             <link target="newEvent">
@@ -153,22 +153,28 @@ under the License.
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
             <condition>
                 <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
-            </condition>      
-            <link
-                target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;donePage=${parameters.donePage}&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING"/>
+            </condition>
+            <link target="NewCommunicationEvent">
+                <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
+                <parameter param-name="donePage" from-field="parameters.donePage"/>
+                <parameter param-name="partyIdFrom" from-field="userLogin.partyId"/>
+                <parameter param-name="statusId" value="COM_PENDING"/>
+            </link>
         </menu-item>
         <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}">
             <condition>
                 <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
-            </condition>      
-            <link
-                target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;donePage=${parameters.donePage}" />
+            </condition>
+            <link target="EditCommunicationEvent">
+                <parameter param-name="communicationEventTypeId" value="COMMENT_NOTE"/>
+                <parameter param-name="donePage" from-field="parameters.donePage"/>
+            </link>
         </menu-item>
         <menu-item name="openEvents" title="${uiLabelMap.MyPageOpenEvents}">
             <condition>
                 <if-compare field="parameters.all" operator="equals" value="true" />
             </condition>
-            <link target="${parameters.donePage}" >
+            <link target="${parameters.donePage}">
                 <parameter param-name="donePage" from-field="parameters.donePage"/>
                 <parameter param-name="all" value="false"/>
             </link>
@@ -180,17 +186,19 @@ under the License.
                     <if-empty field="parameters.all"/>
                 </or>
             </condition>
-            <link target="${parameters.donePage}" >
+            <link target="${parameters.donePage}">
                 <parameter param-name="donePage" from-field="parameters.donePage"/>
                 <parameter param-name="all" value="true"/>
             </link>
         </menu-item>
-    </menu>    
-    
-    <menu name="MyTasksMenu" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
-        <menu-item name="myTasks" title="${uiLabelMap.MyPageTasks}"><link target="/projectmgr/control/MyTasks" url-mode="inter-app"/></menu-item>
     </menu>
-    
+
+    <menu name="MyTasksMenu" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="myTasks" title="${uiLabelMap.MyPageTasks}">
+            <link target="/projectmgr/control/MyTasks" url-mode="inter-app"/>
+        </menu-item>
+    </menu>
+
     <menu name="MyTimesheetMenu">
         <menu-item name="setToComplete" title="${uiLabelMap.MyPageToComplete}">
             <condition>
@@ -216,7 +224,9 @@ under the License.
                 <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
             </link>
         </menu-item>
-        <menu-item name="myTime" title="${uiLabelMap.WorkEffortTimesheetMyTime}"><link target="/projectmgr/control/MyTimesheet" url-mode="inter-app"/></menu-item>
+        <menu-item name="myTime" title="${uiLabelMap.WorkEffortTimesheetMyTime}">
+            <link target="/projectmgr/control/MyTimesheet" url-mode="inter-app"/>
+        </menu-item>
     </menu>
     <menu name="CommSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           menu-container-style="button-bar button-style-2">
@@ -247,7 +257,8 @@ under the License.
                 <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
             </condition>
             <link target="EditCommunicationEvent">
-                <parameter param-name="communicationEventTypeId=COMMENT_NOTE&amp;donePage" from-field="parameters.donePage"/>
+                <parameter param-name="communicationEventTypeId" value="COMMENT_NOTE"/>
+                <parameter param-name="donePage" from-field="parameters.donePage"/>
             </link>
         </menu-item>
         <menu-item name="reply" title="${uiLabelMap.PartyReply}">
