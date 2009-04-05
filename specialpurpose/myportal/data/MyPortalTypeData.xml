@@ -75,7 +75,6 @@
     <PortalPageColumn portalPageId="MYPORTAL_CUSTOMER3" columnSeqId="00001" />
     
     <PortalPortlet portalPortletId="mycompanycomms" portletName="My Company Comms" screenName="MyCompanyComms" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Company Comms From My Page" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
-    <PortalPortlet portalPortletId="ListInvoices" portletName="List Invoices" screenName="ListInvoices" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Invoices From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
     <PortalPortlet portalPortletId="ListProjects" portletName="List Projects" screenName="ListProjects" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Projects From MyPortal" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
     
     <PortalPagePortlet portalPageId="MYPORTAL_NONE" portalPortletId="party" portletSeqId="00001" columnSeqId="00001" sequenceNum="0" />
@@ -137,13 +136,11 @@
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002"  sequenceNum="6"/>
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002"  sequenceNum="7"/>
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER1" portalPortletId="MYTASKSPARTY" portletSeqId="00001" columnSeqId="00002"  sequenceNum="8"/>
-    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER2" portalPortletId="ListInvoices" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
+    <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER2" portalPortletId="ListCustomerInvoices" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
     <PortalPagePortlet portalPageId="MYPORTAL_CUSTOMER3" portalPortletId="ListProjects" portletSeqId="00001" columnSeqId="00001"  sequenceNum="0"/>
     
     <PortletPortletCategory portalPortletId="mycompanycomms" portletCategoryId="COMMUNICATIONS"/>
     
-    
-    <PortletPortletCategory portalPortletId="ListInvoices" portletCategoryId="LIST_CUSTOMER"/>
     <PortletPortletCategory portalPortletId="ListProjects" portletCategoryId="LIST_CUSTOMER"/>
     
     <WebSite webSiteId="MYPORTAL" siteName="My Portal" visualThemeSetId="BACKOFFICE" />

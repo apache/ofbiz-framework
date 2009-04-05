@@ -56,31 +56,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="ListInvoices">
-        <section>
-            <actions>
-                <set field="headerItem" value="invoices"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>                
-                <entity-condition list="invoices" entity-name="Invoice">
-                    <condition-list combine="and">
-                        <condition-expr field-name="partyId" operator="equals" from-field="myCompanyId"/>
-                        <condition-list combine="or">
-                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_APPROVED"/>
-                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_SEND"/>
-                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_READY"/>
-                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_PAID"/>
-                        </condition-list>
-                    </condition-list>
-                    <order-by field-name="invoiceDate DESC"/>
-                </entity-condition>
-            </actions>
-            <widgets>
-                    <screenlet title="${uiLabelMap.PageTitleListInvoices}" navigation-form-name="ListInvoices">
-                        <include-form name="ListInvoices"  location="component://myportal/widget/MyPortalForms.xml"/>
-                    </screenlet>
-           </widgets>
-        </section>
-    </screen>
     <screen name="CreateCustRequestNotification">
         <section>
             <actions>
