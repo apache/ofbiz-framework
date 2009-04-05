@@ -624,4 +624,12 @@ under the License.
         <field name="paidAmount"><display/></field>
         <field name="outstandingAmount"><display/></field>
     </form>
+
+    <form name="ListCustomerInvoices" extends="ListInvoices" list-name="invoices"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="partyIdFrom"><ignored/></field>
+        <field name="partyIdTo"><ignored/></field>
+        <field name="amountToApply"><ignored/></field>
+    </form>
+    
 </forms>
