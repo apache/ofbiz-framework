@@ -90,11 +90,11 @@ under the License.
                                         <!-- old link converted during URLs securing, seems busted... no time to look at detail...-->
                                         <!--link style="buttontext" target="AddForumThread?forumId=${parameters.forumId}&amp;forumMessageIdTo=&amp;threadView=${parameters.threadView?if_exists}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}" text="${uiLabelMap.PageTitleNewMessage}"/-->
                                         <link style="buttontext" target="AddForumThread" text="${uiLabelMap.PageTitleNewMessage}">
-                                    <parameter param-name="forumId" from-field="parameters.forumId"/>
-                                    <parameter param-name="forumMessageIdTo" value=""/>
-                                    <parameter param-name="threadView" from-field="parameters.threadView"/>
-                                    <parameter param-name="VIEW_INDEX" from-field="parameters.VIEW_INDEX"/>
-                                  </link>
+                                            <parameter param-name="forumId" from-field="parameters.forumId"/>
+                                            <parameter param-name="forumMessageIdTo" value=""/>
+                                            <parameter param-name="threadView" from-field="parameters.threadView"/>
+                                            <parameter param-name="VIEW_INDEX" from-field="parameters.VIEW_INDEX"/>
+                                          </link>
                                     </widgets>
                                 </section>
                                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/forum/forumPaging.ftl"/></html></platform-specific>
