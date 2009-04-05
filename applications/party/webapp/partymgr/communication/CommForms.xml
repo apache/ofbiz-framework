@@ -705,10 +705,11 @@ under the License.
         <field name="communicationEventId">
             <hidden />
         </field>
-        <field name="subject" widget-style="buttontext"
-            widget-area-style="fieldWidth300">
-            <hyperlink description="${subject}"
-                target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;my=My" />
+        <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
+            <hyperlink description="${subject}" target="ViewCommunicationEvent">
+                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="my" value="My"/>
+            </hyperlink>
         </field>
         <field name="entryDate">
             <display description="${date:dateTimeStr(entryDate, timeZone, locale)}" />

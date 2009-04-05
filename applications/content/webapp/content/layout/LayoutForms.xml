@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- LayoutFind forms -->
     <form name="findLayout" default-entity-name="Content" target="FindLayout" title="" type="single"
@@ -94,13 +94,13 @@ under the License.
             <submit button-type="button"/>
         </field>
         <field name="createLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" position="1">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreateNew}"  
-                target="EditLayoutTemplate?mode=add&amp;contentIdTo=TEMPLATE_MASTER"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonCreateNew}" target="EditLayoutTemplate?mode=add&amp;contentIdTo=TEMPLATE_MASTER"/>
         </field>
         -->
         <field name="cloneLayout" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" position="2" >
-            <hyperlink also-hidden="false" description="${uiLabelMap.ContentCloneLayout}"  
-                target="cloneLayout?contentId=${currentValue.contentId}"/>
+            <hyperlink also-hidden="false" description="${uiLabelMap.ContentCloneLayout}" target="cloneLayout">
+                <parameter param-name="contentId" from-field="currentValue.contentId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="AddLayout" default-entity-name="SubContentDataResourceView" default-map-name="currentValue" extends="LayoutSubContentMaster" target="createLayoutSubContent" title="" type="single"
@@ -139,7 +139,7 @@ under the License.
         <field name="drObjectInfo" title="${uiLabelMap.ContentFilePath}">
             <text />
         </field>
-        <field name="textData" title="${uiLabelMap.ContentText}"  id-name="textData"> 
+        <field name="textData" title="${uiLabelMap.ContentText}"  id-name="textData">
         <textarea rows="24" cols="80" />
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit">
@@ -249,7 +249,7 @@ under the License.
         <field name="drMimeTypeId" >
             <display description="text/plain"/>
         </field>
-        <field name="textData" title="${uiLabelMap.ContentText}"  id-name="textData"> 
+        <field name="textData" title="${uiLabelMap.ContentText}"  id-name="textData">
         <textarea rows="24" cols="80" />
         </field>
         <field name="createdByUserLogin" position="1">
@@ -278,7 +278,7 @@ under the License.
         <field name="drMimeTypeId" >
             <display description="text/plain"/>
         </field>
-        <field name="textData" title="${uiLabelMap.ContentText}" > 
+        <field name="textData" title="${uiLabelMap.ContentText}" >
         <textarea rows="24" cols="80" />
         </field>
         <field name="createdByUserLogin" position="1">
@@ -443,7 +443,7 @@ under the License.
         <field name="drObjectInfo" title="${uiLabelMap.ContentFilePath}">
             <text />
         </field>
-        <field name="textData" id-name="textData" title="${uiLabelMap.FormFieldTitle_textDataTitle}"> 
+        <field name="textData" id-name="textData" title="${uiLabelMap.FormFieldTitle_textDataTitle}">
         <textarea rows="24" cols="80" default-value="${context.textData}"/>
         </field>
         <field name="createdByUserLogin" position="1">
@@ -465,13 +465,13 @@ under the License.
 <!--
         <field name="paste" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"
             use-when="!&quot;${contentIdTo}&quot;.equals(&quot;TEMPLATE_MASTER&quot;)" >
-            <hyperlink target-type="plain" 
+            <hyperlink target-type="plain"
               target="javascript:call_fieldlookup2(document.AddLayoutSubContent.drDataResourceId, 'ClipBoardContent')"
               description="${uiLabelMap.ContentPaste}"/>
         </field>
         <field name="paste" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext"
             use-when="&quot;${contentIdTo}&quot;.equals(&quot;TEMPLATE_MASTER&quot;)" >
-            <hyperlink target-type="plain" 
+            <hyperlink target-type="plain"
               target="javascript:call_fieldlookup2(document.AddLayoutSubContent.drDataResourceId, 'LookupListLayout')"
               description="${uiLabelMap.ContentPaste}"/>
         </field>

@@ -548,8 +548,12 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"
                     use-when="!&quot;${declarationScreen}&quot;.equals(&quot;Y&quot;)">
-            <hyperlink description="${uiLabelMap.CommonDelete}" also-hidden="false"
-                target="removeWorkEffortFixedAssetAssign?workEffortId=${workEffortId}&amp;fixedAssetId=${fixedAssetId}&amp;fromDate=${fromDate}&amp;productionRunId=${productionRunId}" />
+            <hyperlink description="${uiLabelMap.CommonDelete}" also-hidden="false" target="removeWorkEffortFixedAssetAssign">
+				<parameter param-name="workEffortId" from-field="workEffortId"/>
+				<parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+				<parameter param-name="fromDate" from-field="fromDate"/>
+				<parameter param-name="productionRunId" from-field="productionRunId}"/>
+			</hyperlink>
         </field>
     </form>
     <form name="ListProductionRunTaskFixedAssets" type="list" title="" list-name="productionRunFixedAssetsData"

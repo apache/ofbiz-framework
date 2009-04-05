@@ -268,8 +268,10 @@ under the License.
         <field name="amountApplied"><text size="15"/></field>
         <field name="updateButton" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}"
-                target="removePaymentApplication?paymentApplicationId=${paymentApplicationId}&amp;paymentId=${paymentId}"/>
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removePaymentApplication">
+				<parameter param-name="paymentApplicationId" from-field="paymentApplicationId"/>
+				<parameter param-name="paymentId" from-field="paymentId"/>
+			</hyperlink>
         </field>
     </form>
     <form name="editPaymentApplicationsPay" default-entity-name="PaymentApplication" list-name="paymentApplicationsPay" target="updatePaymentApplication" type="list" separate-columns="false"
@@ -280,8 +282,10 @@ under the License.
         <field name="amountApplied"><text size="15"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="removeButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}"
-                target="removePaymentApplication?paymentApplicationId=${paymentApplicationId}&amp;paymentId=${paymentId}"/>
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removePaymentApplication">
+				<parameter param-name="paymentApplicationId" from-field="paymentApplicationId"/>
+				<parameter param-name="paymentId" from-field="paymentId"/>
+			</hyperlink>
         </field>
     </form>
     <form name="editPaymentApplicationsBil" default-entity-name="PaymentApplication" list-name="paymentApplicationsBil" target="updatePaymentApplication"  type="list" separate-columns="false"
@@ -293,8 +297,10 @@ under the License.
         <field name="amountApplied"><text size="15"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="removeButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}"
-                target="removePaymentApplication?paymentApplicationId=${paymentApplicationId}&amp;paymentId=${paymentId}"/>
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removePaymentApplication">
+				<parameter param-name="paymentApplicationId" from-field="paymentApplicationId"/>
+				<parameter param-name="paymentId" from-field="paymentId"/>
+			</hyperlink>
         </field>
     </form>
     <form name="editPaymentApplicationsTax" default-entity-name="PaymentApplication" list-name="paymentApplicationsTax" target="updatePaymentApplication"  type="list" separate-columns="false"
@@ -312,8 +318,10 @@ under the License.
         <field name="amountApplied"><text size="15"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="removeButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonRemove}"
-                target="removePaymentApplication?paymentApplicationId=${paymentApplicationId}&amp;paymentId=${paymentId}"/>
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removePaymentApplication">
+				<parameter param-name="paymentApplicationId" from-field="paymentApplicationId"/>
+				<parameter param-name="paymentId" from-field="paymentId"/>
+			</hyperlink>
         </field>
     </form>
 

@@ -207,8 +207,9 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="glReconciliationId"><display/></field>
         <field name="acctgTransId">
-            <hyperlink also-hidden="false" description="${acctgTransId}"
-                target="ListAcctgTransEntries?acctgTransId=${acctgTransId}"/>
+            <hyperlink also-hidden="false" description="${acctgTransId}" target="ListAcctgTransEntries">
+                <parameter param-name="acctgTransId" from-field="acctgTransId"/>
+            </hyperlink>
         </field>
         <field name="acctgTransEntrySeqId"><display/></field>
         <field name="reconciledAmount"><display/></field>
