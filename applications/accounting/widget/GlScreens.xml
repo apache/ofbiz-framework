@@ -47,8 +47,8 @@ under the License.
                                         <container>
                                             <link target="CreateAcctgTransAndEntries" text="${uiLabelMap.AccountingCreateSalesAcctgTrans}" style="buttontext">
                                                 <parameter param-name="organizationPartyId"/>
-                                                <parameter param-name="debitGlAccountClassId" from-field="CURRENT_ASSET"/>
-                                                <parameter param-name="creditGlAccountClassId" from-field="REVENUE"/>
+                                                <parameter param-name="debitGlAccountClassId" value="CURRENT_ASSET"/>
+                                                <parameter param-name="creditGlAccountClassId" value="REVENUE"/>
                                                 <parameter param-name="acctgTransTypeId" value="SALES"/>
                                             </link>
                                             <link target="TrialBalance" text="${uiLabelMap.AccountingTrialBalance}" style="buttontext">
@@ -58,8 +58,8 @@ under the License.
                                         <container>
                                             <link target="CreateAcctgTransAndEntries" text="${uiLabelMap.AccountingCreatePaymentAcctgTrans}" style="buttontext">
                                                 <parameter param-name="organizationPartyId"/>
-                                                <parameter param-name="debitGlAccountClassId" from-field="CASH_EQUIVALENT"/>
-                                                <parameter param-name="creditGlAccountClassId" from-field="CURRENT_LIABILITY"/>
+                                                <parameter param-name="debitGlAccountClassId" value="CASH_EQUIVALENT"/>
+                                                <parameter param-name="creditGlAccountClassId" value="CURRENT_LIABILITY"/>
                                                 <parameter param-name="acctgTransTypeId" value="PAYMENT_ACCTG_TRANS"/>
                                             </link>
                                             <link target="IncomeStatement" text="${uiLabelMap.AccountingIncomeStatement}" style="buttontext">
