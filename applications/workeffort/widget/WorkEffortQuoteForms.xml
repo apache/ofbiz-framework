@@ -30,7 +30,7 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="quoteId" widget-style="buttontext">
             <hyperlink description="${quoteId}" target="/ordermgr/control/EditQuote" target-type="inter-app">
-                <parameter param-name="quoteId" from-field="quoteId"/>
+                <parameter param-name="quoteId"/>
             </hyperlink>
         </field>
         <field name="quoteName"><display/></field>
@@ -39,8 +39,8 @@ under the License.
         <field name="issueDate"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortQuote">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
-                <parameter param-name="quoteId" from-field="quoteId"/>
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="quoteId"/>
             </hyperlink>
         </field>
     </form>
@@ -61,14 +61,14 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="quoteId" widget-style="buttontext">
             <hyperlink description="${quoteId}" target="/ordermgr/control/EditQuote" target-type="inter-app">
-                <parameter param-name="quoteId" from-field="quoteId"/>
+                <parameter param-name="quoteId"/>
             </hyperlink>
         </field>
         <field name="quoteItemSeqId" widget-style="buttontext">
             <hyperlink description="${quoteItemSeqId}" target="/ordermgr/control/EditQuoteItem" target-type="inter-app">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
-                <parameter param-name="quoteId" from-field="quoteId"/>
-                <parameter param-name="quoteItemSeqId" from-field="quoteItemSeqId"/>
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="quoteId"/>
+                <parameter param-name="quoteItemSeqId"/>
             </hyperlink>
         </field>
         <field name="productId"><display/></field>
@@ -78,9 +78,9 @@ under the License.
         <field name="comments"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortQuoteItem">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
-                <parameter param-name="quoteId" from-field="quoteId"/>
-                <parameter param-name="quoteItemSeqId" from-field="quoteItemSeqId"/>
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="quoteId"/>
+                <parameter param-name="quoteItemSeqId"/>
             </hyperlink>
         </field>
     </form>

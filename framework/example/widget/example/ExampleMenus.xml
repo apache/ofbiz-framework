@@ -38,17 +38,17 @@ under the License.
             menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditExample" title="${uiLabelMap.ExampleExample}">
             <link target="EditExample">
-                <parameter param-name="exampleId" from-field="exampleId"/>
+                <parameter param-name="exampleId"/>
             </link>
         </menu-item>
         <menu-item name="EditExampleItems" title="${uiLabelMap.CommonItems}">
             <link target="EditExampleItems">
-                <parameter param-name="exampleId" from-field="exampleId"/>
+                <parameter param-name="exampleId"/>
             </link>
         </menu-item>
         <menu-item name="EditExampleFeatureAppls" title="${uiLabelMap.ExampleFeatures}">
             <link target="EditExampleFeatureAppls">
-                <parameter param-name="exampleId" from-field="exampleId"/>
+                <parameter param-name="exampleId"/>
             </link>
         </menu-item>
     </menu>
@@ -57,12 +57,12 @@ under the License.
             menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditExampleFeature" title="${uiLabelMap.ExampleFeature}">
             <link target="EditExampleFeature">
-                <parameter param-name="exampleFeatureId" from-field="exampleFeatureId"/>
+                <parameter param-name="exampleFeatureId"/>
             </link>
         </menu-item>
         <menu-item name="EditExampleFeatureExampleAppls" title="${uiLabelMap.ExampleExamples}">
             <link target="EditExampleFeatureExampleAppls">
-                <parameter param-name="exampleFeatureId" from-field="exampleFeatureId"/>
+                <parameter param-name="exampleFeatureId"/>
             </link>
         </menu-item>
     </menu>

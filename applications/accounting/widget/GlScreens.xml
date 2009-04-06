@@ -46,32 +46,32 @@ under the License.
                                     <container style="screenlet-body">
                                         <container>
                                             <link target="CreateAcctgTransAndEntries" text="${uiLabelMap.AccountingCreateSalesAcctgTrans}" style="buttontext">
-                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                                <parameter param-name="organizationPartyId"/>
                                                 <parameter param-name="debitGlAccountClassId" from-field="CURRENT_ASSET"/>
                                                 <parameter param-name="creditGlAccountClassId" from-field="REVENUE"/>
                                                 <parameter param-name="acctgTransTypeId" value="SALES"/>
                                             </link>
                                             <link target="TrialBalance" text="${uiLabelMap.AccountingTrialBalance}" style="buttontext">
-                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                                <parameter param-name="organizationPartyId"/>
                                             </link>
                                         </container>
                                         <container>
                                             <link target="CreateAcctgTransAndEntries" text="${uiLabelMap.AccountingCreatePaymentAcctgTrans}" style="buttontext">
-                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                                <parameter param-name="organizationPartyId"/>
                                                 <parameter param-name="debitGlAccountClassId" from-field="CASH_EQUIVALENT"/>
                                                 <parameter param-name="creditGlAccountClassId" from-field="CURRENT_LIABILITY"/>
                                                 <parameter param-name="acctgTransTypeId" value="PAYMENT_ACCTG_TRANS"/>
                                             </link>
                                             <link target="IncomeStatement" text="${uiLabelMap.AccountingIncomeStatement}" style="buttontext">
-                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                                <parameter param-name="organizationPartyId"/>
                                             </link>
                                         </container>
                                         <container>
                                             <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans">
-                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                                <parameter param-name="organizationPartyId"/>
                                             </link>
                                             <link target="BalanceSheet" text="${uiLabelMap.AccountingBalanceSheet}" style="buttontext">
-                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                                <parameter param-name="organizationPartyId"/>
                                             </link>
                                         </container>     
                                     </container>
@@ -104,13 +104,13 @@ under the License.
                             <container style="screenlet-body">
                                  <container>
                                     <link text="${uiLabelMap.AccountingCreateAnAccountingTransaction}" style="buttontext" target="newAcctgTrans">
-                                        <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                        <parameter param-name="organizationPartyId"/>
                                     </link>
                                     <link text="${uiLabelMap.AccountingCreateAcctgTransAndEntries}" style="buttontext" target="CreateAcctgTransAndEntries">
-                                        <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                        <parameter param-name="organizationPartyId"/>
                                     </link>
                                     <link text="${uiLabelMap.PageTitleUnpostedTransactions}" style="buttontext" target="ListUnpostedAcctgTrans">
-                                        <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                        <parameter param-name="organizationPartyId"/>
                                     </link>
                                 </container>
                                 <include-form name="FindAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
@@ -280,12 +280,12 @@ under the License.
                                             <link text="${uiLabelMap.AccountingDuplicateAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries">
                                                 <parameter param-name="revert" value="N"/>
                                                 <parameter param-name="fromAcctgTransId" from-field="acctgTransId"/>
-                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                                <parameter param-name="organizationPartyId"/>
                                             </link>
                                             <link text="${uiLabelMap.AccountingRevertAccountingTransaction}" style="buttontext" target="copyAcctgTransAndEntries">
                                                 <parameter param-name="revert" value="Y"/>
                                                 <parameter param-name="fromAcctgTransId" from-field="acctgTransId"/>
-                                                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                                <parameter param-name="organizationPartyId"/>
                                             </link>
                                             <section>
                                                 <condition>
@@ -347,8 +347,8 @@ under the License.
                                         <container style="screenlet-body">
                                             <container>
                                                 <link text="${uiLabelMap.AccountingCompleteAcctgTransFields}" style="buttontext" target="completeAcctgTransEntries">
-                                                    <parameter param-name="acctgTransId" from-field="acctgTransId"/>
-                                                    <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                                    <parameter param-name="acctgTransId"/>
+                                                    <parameter param-name="organizationPartyId"/>
                                                 </link>
                                                 <link text="${uiLabelMap.AccountingVerifyTransaction}" style="buttontext" target="postAcctgTrans">
                                                     <parameter param-name="acctgTransId"/>
@@ -356,8 +356,8 @@ under the License.
                                                     <parameter param-name="verifyOnly" value="Y"/>
                                                 </link>
                                                 <link text="${uiLabelMap.AccountingPostTransaction}" style="buttontext" target="postAcctgTrans">
-                                                    <parameter param-name="acctgTransId" from-field="acctgTransId"/>
-                                                    <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                                                    <parameter param-name="acctgTransId"/>
+                                                    <parameter param-name="organizationPartyId"/>
                                                 </link>
                                             </container>
                                             <container>

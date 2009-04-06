@@ -282,7 +282,7 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <link target="EditProductPromoCode" text="${uiLabelMap.ProductNewPromotionCode}" style="buttontext">
-                                <parameter param-name="productPromoId" from-field="productPromoId"/>
+                                <parameter param-name="productPromoId"/>
                             </link>
                         </container>
                         <section>
@@ -293,7 +293,7 @@ under the License.
                                 <container>
                                     <link target="FindProductPromoCode" text="${uiLabelMap.ProductPromotionManualImported}" style="buttontext">
                                         <parameter param-name="manualOnly" value="N"/>
-                                        <parameter param-name="productPromoId" from-field="productPromoId"/>
+                                        <parameter param-name="productPromoId"/>
                                     </link>
                                 </container>
                             </widgets>
@@ -301,7 +301,7 @@ under the License.
                                 <container>
                                     <link target="FindProductPromoCode" text="${uiLabelMap.ProductPromotionManual}" style="buttontext">
                                         <parameter param-name="manualOnly" value="Y"/>
-                                        <parameter param-name="productPromoId" from-field="productPromoId"/>
+                                        <parameter param-name="productPromoId"/>
                                     </link>
                                 </container>
                             </fail-widgets>

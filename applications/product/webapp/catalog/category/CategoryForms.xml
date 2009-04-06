@@ -32,8 +32,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductCategoryAttribute" description="${uiLabelMap.CommonDelete}">
-                <parameter param-name="productCategoryId" from-field="productCategoryId"/>
-                <parameter param-name="attrName" from-field="attrName"/>
+                <parameter param-name="productCategoryId"/>
+                <parameter param-name="attrName"/>
             </hyperlink>
         </field>
     </form>
@@ -75,10 +75,10 @@ under the License.
         <field name="contentId" title="${uiLabelMap.ProductContent}">
             <display-entity entity-name="Content" description="${description}" also-hidden="true">
                 <sub-hyperlink target="EditCategoryContentContent" description="${contentId}" link-style="buttontext">
-                    <parameter param-name="productCategoryId" from-field="productCategoryId"/>
-                    <parameter param-name="contentId" from-field="contentId"/>
-                    <parameter param-name="prodCatContentTypeId" from-field="prodCatContentTypeId"/>
-                    <parameter param-name="fromDate" from-field="fromDate"/>
+                    <parameter param-name="productCategoryId"/>
+                    <parameter param-name="contentId"/>
+                    <parameter param-name="prodCatContentTypeId"/>
+                    <parameter param-name="fromDate"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -101,15 +101,15 @@ under the License.
         -->
         <field name="editLink" title="${uiLabelMap.ProductEditContent}" widget-style="buttontext">
             <hyperlink target="/content/control/EditContent" target-type="inter-app" description="${contentId}">
-                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="contentId"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeContentFromCategory" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="productCategoryId" from-field="productCategoryId"/>
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="prodCatContentTypeId" from-field="prodCatContentTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="productCategoryId"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="prodCatContentTypeId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>
@@ -171,9 +171,9 @@ under the License.
         <field name="imageTwoUrl"><ignored/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductCategoryLink" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="productCategoryId" from-field="productCategoryId"/>
-                <parameter param-name="linkSeqId" from-field="linkSeqId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="productCategoryId"/>
+                <parameter param-name="linkSeqId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
@@ -207,7 +207,7 @@ under the License.
         <field name="submitButton" use-when="productCategoryLink!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="clearFormButton" title="${uiLabelMap.CommonEmptyHeader}" use-when="productCategoryLink!=null">
             <hyperlink target="EditProductCategoryLinks" target-type="intra-app" description="${uiLabelMap.CommonClear}">
-                <parameter param-name="productCategoryId" from-field="productCategoryId"/>
+                <parameter param-name="productCategoryId"/>
             </hyperlink>
         </field>
     </form>

@@ -37,85 +37,85 @@
         type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditEmployment" title="${uiLabelMap.HumanResEmployment}">
             <link target="EditEmployment" >
-                <parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
-                <parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
-                <parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
-                <parameter param-name="partyIdTo" from-field="partyIdTo"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdTo"/>
+                <parameter param-name="partyIdFrom"/>
+                <parameter param-name="partyIdTo"/>
+                <parameter param-name="fromDate"/>
             </link>
         </menu-item>
         <menu-item name="EditPartyBenefit" title="${uiLabelMap.HumanResEditPartyBenefit}">
             <link target="EditPartyBenefits" >
-                <parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
-                <parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
-                <parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
-                <parameter param-name="partyIdTo" from-field="partyIdTo"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdTo"/>
+                <parameter param-name="partyIdFrom"/>
+                <parameter param-name="partyIdTo"/>
+                <parameter param-name="fromDate"/>
             </link>
         </menu-item>
         <menu-item name="EditPayrollPreference" title="${uiLabelMap.HumanResEditPayrollPreference}">
             <link target="EditPayrollPreferences" >
-                <parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
-                <parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
-                <parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
-                <parameter param-name="partyIdTo" from-field="partyIdTo"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdTo"/>
+                <parameter param-name="partyIdFrom"/>
+                <parameter param-name="partyIdTo"/>
+                <parameter param-name="fromDate"/>
             </link>
         </menu-item>        
         <menu-item name="EditPayHistory" title="${uiLabelMap.HumanResEditPayHistory}">
             <link target="ListPayHistories" >
-                <parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
-                <parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
-                <parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
-                <parameter param-name="partyIdTo" from-field="partyIdTo"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdTo"/>
+                <parameter param-name="partyIdFrom"/>
+                <parameter param-name="partyIdTo"/>
+                <parameter param-name="fromDate"/>
             </link>
         </menu-item>
         <menu-item name="EditUnemploymentClaims" title="${uiLabelMap.HumanResEditUnemploymentClaim}">
             <link target="EditUnemploymentClaims" >
-                <parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
-                <parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
-                <parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
-                <parameter param-name="partyIdTo" from-field="partyIdTo"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdTo"/>
+                <parameter param-name="partyIdFrom"/>
+                <parameter param-name="partyIdTo"/>
+                <parameter param-name="fromDate"/>
             </link>
         </menu-item>
         <menu-item name="EditAgreementEmploymentAppls" title="${uiLabelMap.HumanResAgreementEmploymentAppl}">
             <link target="EditAgreementEmploymentAppls">
-                <parameter param-name="agreementId" from-field="agreementId"/>
-                <parameter param-name="agreementItemSeqId" from-field="agreementItemSeqId"/>
-                <parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
-                <parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
-                <parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
-                <parameter param-name="partyIdTo" from-field="partyIdTo"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="agreementId"/>
+                <parameter param-name="agreementItemSeqId"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdTo"/>
+                <parameter param-name="partyIdFrom"/>
+                <parameter param-name="partyIdTo"/>
+                <parameter param-name="fromDate"/>
             </link>
     </menu-item>
     </menu>
     <menu name="EmplPostionBar" default-menu-item-name="EmplPositionView" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EmplPositionView" title="${uiLabelMap.CommonSummary}">
             <link target="emplPositionView">
-                <parameter param-name="emplPositionId" from-field="emplPositionId"/>
+                <parameter param-name="emplPositionId"/>
             </link>
         </menu-item>
         <menu-item name="EditEmplPosition" title="${uiLabelMap.HumanResEmployeePosition}">
             <link target="EditEmplPosition">
-                <parameter param-name="emplPositionId" from-field="emplPositionId"/>
+                <parameter param-name="emplPositionId"/>
             </link>
         </menu-item>
         <menu-item name="EditEmplPositionFulfillments" title="${uiLabelMap.HumanResPositionFulfillments}">
             <link target="EditEmplPositionFulfillments">
-                <parameter param-name="emplPositionId" from-field="emplPositionId"/>
+                <parameter param-name="emplPositionId"/>
             </link>
         </menu-item>
         <menu-item name="EditEmplPositionResponsibilities" title="${uiLabelMap.HumanResEmplPositionResponsibilities}">
             <link target="EditEmplPositionResponsibilities">
-                <parameter param-name="emplPositionId" from-field="emplPositionId"/>
+                <parameter param-name="emplPositionId"/>
             </link>
         </menu-item>
         <menu-item name="EditEmplPositionReportingStructs" title="${uiLabelMap.HumanResEmplPositionReportingStruct}">
             <link target="EditEmplPositionReportingStructs">
-                <parameter param-name="emplPositionId" from-field="emplPositionId"/>
+                <parameter param-name="emplPositionId"/>
             </link>
         </menu-item>
     </menu>
@@ -123,7 +123,7 @@
         type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditPerfReviewItems" title="${uiLabelMap.HumanResEditPerfReviewItems}">
             <link target="EditPerfReviewItems">
-                <parameter param-name="perfReviewId" from-field="perfReviewId"/>
+                <parameter param-name="perfReviewId"/>
             </link>
         </menu-item>
     </menu>
@@ -131,12 +131,12 @@
         type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="subTabButtonItem">
         <menu-item name="EditPayGrade" title="${uiLabelMap.HumanResPayGrade}">
             <link target="EditPayGrade">
-                <parameter param-name="payGradeId" from-field="payGradeId"/>
+                <parameter param-name="payGradeId"/>
             </link>
         </menu-item>       
         <menu-item name="EditSalaryStep" title="${uiLabelMap.HumanResEditSalaryStep}">
             <link target="EditSalarySteps">
-                <parameter param-name="payGradeId" from-field="payGradeId"/>
+                <parameter param-name="payGradeId"/>
             </link>
         </menu-item>
     </menu>
@@ -171,7 +171,7 @@
           default-menu-item-name="EditEmployeeSkills">
         <menu-item name="EmployeeProfile" title="${uiLabelMap.PartyProfile}">
             <link target="EmployeeProfile">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="ListEmployment" title="${uiLabelMap.HumanResEmployment}">
@@ -186,38 +186,38 @@
         </menu-item>
         <menu-item name="EditEmployeeSkills" title="${uiLabelMap.HumanResSkills}">
             <link target="EditEmployeeSkills">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="EditEmployeeQuals" title="${uiLabelMap.HumanResPartyQualification}">
             <link target="EditEmployeeQuals">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="EditEmployeeTrainings" title="${uiLabelMap.HumanResTraining}">
             <link target="EditEmployeeTrainings">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <!-- I think these don't belong here, I'll get to these in short while. 
         <menu-item name="EditEmployeeEmploymentApps" title="${uiLabelMap.HumanResEmploymentApp}">
             <link target="EditEmployeeEmploymentApps">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="EditEmployeeResumes" title="${uiLabelMap.HumanResPartyResume}">
             <link target="EditEmployeeResumes">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>  
         <menu-item name="EditEmployeePerformanceNotes" title="${uiLabelMap.HumanResPerfNote}">
             <link target="EditEmployeePerformanceNotes">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item> -->
         <menu-item name="EditEmployeeLeaves" title="${uiLabelMap.HumanResEmplLeave}">
             <link target="EditEmployeeLeaves">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
     </menu>
@@ -226,12 +226,12 @@
           default-menu-item-name="EditEmplPositionType" selected-menuitem-context-field-name="tabButtonItem2">
         <menu-item name="EditEmplPositionType" title="${uiLabelMap.HumanResEmplPositionType}">
             <link target="EditEmplPositionTypes">
-                <parameter param-name="emplPositionTypeId" from-field="emplPositionTypeId"/>
+                <parameter param-name="emplPositionTypeId"/>
             </link>
         </menu-item>
         <menu-item name="EditEmplPositionTypeRate" title="${uiLabelMap.HumanResEmplPositionTypeRate}">
             <link target="EditEmplPositionTypeRates">
-                <parameter param-name="emplPositionTypeId" from-field="emplPositionTypeId"/>
+                <parameter param-name="emplPositionTypeId"/>
             </link>
         </menu-item>
     </menu>

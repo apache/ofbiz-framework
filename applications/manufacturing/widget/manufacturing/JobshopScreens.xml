@@ -239,7 +239,7 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <link target="PrintProductionRun" text="${uiLabelMap.CommonPrint}" style="buttontext">
-                                <parameter param-name="productionRunId" from-field="productionRunId"/>
+                                <parameter param-name="productionRunId"/>
                             </link>
                             <section>
                                 <condition>
@@ -247,7 +247,7 @@ under the License.
                                 </condition>
                                 <widgets>
                                     <link target="changeProductionRunStatusToClosed" text="${uiLabelMap.ManufacturingProductionRunClose}" style="buttontext">
-                                        <parameter param-name="productionRunId" from-field="productionRunId"/>
+                                        <parameter param-name="productionRunId"/>
                                     </link>
                                 </widgets>
                             </section>
@@ -261,21 +261,21 @@ under the License.
                                 </condition>
                                 <widgets>
                                     <link target="quickStartAllProductionRunTasks" text="${uiLabelMap.ManufacturingQuickStartAllTasks}" style="buttontext">
-                                        <parameter param-name="productionRunId" from-field="productionRunId"/>
+                                        <parameter param-name="productionRunId"/>
                                     </link>
                                     <link target="quickRunAllProductionRunTasks" text="${uiLabelMap.ManufacturingQuickRunAllTasks}" style="buttontext">
-                                        <parameter param-name="productionRunId" from-field="productionRunId"/>
+                                        <parameter param-name="productionRunId"/>
                                     </link>
                                     <link target="quickChangeProductionRunStatus" text="${uiLabelMap.ManufacturingQuickComplete}" style="buttontext">
-                                        <parameter param-name="productionRunId" from-field="productionRunId"/>
+                                        <parameter param-name="productionRunId"/>
                                         <parameter param-name="statusId" value="PRUN_COMPLETED"/>
                                     </link>
                                     <link target="quickChangeProductionRunStatus" text="${uiLabelMap.ManufacturingQuickClose}" style="buttontext">
-                                        <parameter param-name="productionRunId" from-field="productionRunId"/>
+                                        <parameter param-name="productionRunId"/>
                                         <parameter param-name="statusId" value="PRUN_CLOSED"/>
                                     </link>
                                     <link target="cancelProductionRun" text="${uiLabelMap.ManufacturingCancel}" style="buttontext">
-                                <parameter param-name="productionRunId" from-field="productionRunId"/>
+                                <parameter param-name="productionRunId"/>
                             </link>
                                 </widgets>
                             </section>

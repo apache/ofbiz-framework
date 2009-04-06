@@ -120,7 +120,7 @@ under the License.
         </actions>
         <field name="contactListId"  widget-style="buttontext" title="${uiLabelMap.MarketingContactListContactListId}">
             <hyperlink target="EditContactList" description="${contactListId}" also-hidden="false">
-                <parameter param-name="contactListId" from-field="contactListId"/>
+                <parameter param-name="contactListId"/>
             </hyperlink>
         </field>
         <field name="contactListName" title="${uiLabelMap.MarketingContactListContactListName}"><display/></field>
@@ -133,7 +133,7 @@ under the License.
         <!-- deleting contact lists is a bit more complicated than this... don't like have a link like this for top level entities
         <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
             <hyperlink target="removeContactList" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="contactListId" from-field="contactListId"/>
+                <parameter param-name="contactListId"/>
             </hyperlink>
         </field>
         -->
@@ -206,9 +206,9 @@ under the License.
         </field>
         <field name="editLink" title="&amp;nbsp;" widget-style="buttontext">
             <hyperlink target="EditContactListParty" description="${uiLabelMap.CommonEdit}" also-hidden="false">
-                <parameter param-name="contactListId" from-field="contactListId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="contactListId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>
@@ -328,8 +328,8 @@ under the License.
         </actions>
         <field name="communicationEventId" title="${uiLabelMap.MarketingContactListCommEventId}">
             <hyperlink description="${communicationEventId}" target="EditContactListCommEvent" target-type="intra-app">
-                <parameter param-name="contactListId" from-field="contactListId"/>
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="contactListId"/>
+                <parameter param-name="communicationEventId"/>
                 <parameter param-name="DONE_PAGE" from-field="donePage"/>
             </hyperlink>
         </field>

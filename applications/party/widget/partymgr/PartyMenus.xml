@@ -40,22 +40,22 @@
         menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditSecurityGroup" title="${uiLabelMap.PartySecurityGroups}">
             <link target="EditSecurityGroup">
-                <parameter param-name="groupId" from-field="groupId"/>
+                <parameter param-name="groupId"/>
             </link>
         </menu-item>
         <menu-item name="EditSecurityGroupPermissions" title="${uiLabelMap.PartyPermissions}">
             <link target="EditSecurityGroupPermissions">
-                <parameter param-name="groupId" from-field="groupId"/>
+                <parameter param-name="groupId"/>
             </link>
         </menu-item>
         <menu-item name="EditSecurityGroupUserLogins" title="${uiLabelMap.PartyUserLogins}">
             <link target="EditSecurityGroupUserLogins">
-                <parameter param-name="groupId" from-field="groupId"/>
+                <parameter param-name="groupId"/>
             </link>
         </menu-item>
         <menu-item name="EditSecurityGroupProtectedViews" title="${uiLabelMap.PartyProtectedViews}">
             <link target="EditSecurityGroupProtectedViews">
-                <parameter param-name="groupId" from-field="groupId"/>
+                <parameter param-name="groupId"/>
             </link>
         </menu-item>
     </menu>
@@ -64,87 +64,87 @@
         default-menu-item-name="viewprofile">
         <menu-item name="viewprofile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="preferences" title="${uiLabelMap.CommonPreferences}">
             <link target="Preferences">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="viewroles" title="${uiLabelMap.PartyRoles}">
             <link target="viewroles">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="linkparty" title="${uiLabelMap.PartyLink}">
             <link target="linkparty">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="EditPartyRelationships" title="${uiLabelMap.PartyRelationships}">
             <link target="EditPartyRelationships">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="viewvendor" title="${uiLabelMap.PartyVendor}">
             <link target="viewvendor">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="EditPartyTaxAuthInfos" title="${uiLabelMap.PartyTaxAuthInfos}">
             <link target="EditPartyTaxAuthInfos">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="EditPartyRates" title="${uiLabelMap.CommonRates}">
             <link target="EditPartyRates">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="editShoppingList" title="${uiLabelMap.PartyShoppingLists}">
             <link target="editShoppingList">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="ViewSegmentRoles" title="${uiLabelMap.PartySegments}">
             <link target="ViewSegmentRoles">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="EditPartyClassifications" title="${uiLabelMap.PartyClassifications}">
             <link target="EditPartyClassifications">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="ContactList" title="${uiLabelMap.PartyContactLists}">
             <link target="ListPartyContactLists">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="PartyContents" title="${uiLabelMap.PartyContent}">
             <link target="EditPartyContents">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="EditPartySkills" title="${uiLabelMap.CommonPartySkills}">
             <link target="EditPartySkills">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="EditPersonTrainings" title="${uiLabelMap.HumanResTraining}">
             <link target="EditPersonTrainings">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="EditPartyResumes" title="${uiLabelMap.HumanResPartyResume}">
             <link target="EditPartyResumes">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="EditEmploymentApps" title="${uiLabelMap.HumanResEmploymentApp}">
             <link target="EditEmploymentApps">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
                 <parameter param-name="referredByPartyId" from-field="partyId"/>
             </link>
         </menu-item>
@@ -153,12 +153,12 @@
                 <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
             </condition>
             <link target="PartyFinancialHistory">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="PartyGeoLocation" title="${uiLabelMap.CommonGeoLocation}">
             <link target="PartyGeoLocation">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
     </menu>
@@ -169,7 +169,7 @@
                 <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
             </condition>
             <link target="/accounting/control/FindBillingAccount" url-mode="inter-app">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="finAccounts" title="${uiLabelMap.AccountingFinAccounts}">
@@ -182,7 +182,7 @@
         </menu-item>
         <menu-item name="PartyCommEvents" title="${uiLabelMap.PartyCommunications}" >
             <link target="ListPartyCommEvents">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="findRequest" title="${uiLabelMap.PartyPartyRequests}" >
@@ -200,8 +200,8 @@
                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
             </condition>
             <link target="/ordermgr/control/FindQuote" url-mode="inter-app">
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="externalLoginKey" from-field="externalLoginKey"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="externalLoginKey"/>
             </link>
         </menu-item>
         <menu-item name="searchOrder" title="${uiLabelMap.OrderOrders}" >
@@ -211,8 +211,8 @@
             <link target="/ordermgr/control/searchorders" url-mode="inter-app">
                 <parameter param-name="lookupFlag" value="Y"/>
                 <parameter param-name="hideFields" value="Y"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="externalLoginKey" from-field="externalLoginKey"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="externalLoginKey"/>
                 <parameter param-name="viewIndex" value="1"/>
                 <parameter param-name="viewSize" value="20"/>
             </link>
@@ -222,7 +222,7 @@
                 <if-has-permission permission="ORDERMGR" action="_CREATE"/>
             </condition>
             <link target="/ordermgr/control/EditQuote" url-mode="inter-app">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
                 <parameter param-name="externaLoginKey" from-field="externalLoginKey"/>
             </link>
         </menu-item>
@@ -231,7 +231,7 @@
                 <if-has-permission permission="ORDERMGR" action="_CREATE"/>
             </condition>
             <link target="/ordermgr/control/checkinits" url-mode="inter-app">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
                 <parameter param-name="externaLoginKey" from-field="externalLoginKey"/>
             </link>
         </menu-item>
@@ -261,17 +261,17 @@
     <menu name="PartyInvitationTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditPartyInvitation" title="${uiLabelMap.PartyInvitation}">
             <link target="editPartyInvitation">
-                <parameter param-name="partyInvitationId" from-field="partyInvitationId"/>
+                <parameter param-name="partyInvitationId"/>
             </link>
         </menu-item>
         <menu-item name="PartyInvitationGroupAssocs" title="${uiLabelMap.PartyInvitationGroupAssoc}">
             <link target="PartyInvitationGroupAssocs">
-                <parameter param-name="partyInvitationId" from-field="partyInvitationId"/>
+                <parameter param-name="partyInvitationId"/>
             </link>
         </menu-item>
         <menu-item name="PartyInvitationRoleAssocs" title="${uiLabelMap.PartyInvitationRoleAssoc}">
             <link target="PartyInvitationRoleAssocs">
-                <parameter param-name="partyInvitationId" from-field="partyInvitationId"/>
+                <parameter param-name="partyInvitationId"/>
             </link>
         </menu-item>
     </menu>
@@ -493,8 +493,8 @@
         <!-- TODO!
             <menu-item name="ListCommCustRequests" title="CustRequests">
                 <link target="ListCommCustRequests">
-                    <parameter param-name="partyId" from-field="partyId"/>
-                    <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                    <parameter param-name="partyId"/>
+                    <parameter param-name="communicationEventId"/>
                 </link>
             </menu-item>
         -->
@@ -506,20 +506,20 @@
         default-menu-item-name="find">
         <menu-item name="find" title="${uiLabelMap.CommonFind}">
             <link target="findCommunications" url-mode="intra-app">
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="communicationEventId"/>
             </link>
         </menu-item>
         <menu-item name="showall" title="${uiLabelMap.CommonShowAll}">
             <link target="listCommunications" url-mode="intra-app">
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="communicationEventId"/>
             </link>
         </menu-item>
         <menu-item name="pending" title="${uiLabelMap.PartyPending}">
             <link target="pendingCommunications" url-mode="intra-app">
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="communicationEventId"/>
             </link>
         </menu-item>
     </menu>

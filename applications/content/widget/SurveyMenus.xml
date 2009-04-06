@@ -23,27 +23,27 @@ under the License.
           default-menu-item-name="Survey">
         <menu-item name="Survey" title="${uiLabelMap.ContentSurveySurveyId}">
             <link target="EditSurvey">
-                <parameter param-name="surveyId" from-field="surveyId"/>
+                <parameter param-name="surveyId"/>
             </link>
         </menu-item>
         <menu-item name="SurveyMultiResps" title="${uiLabelMap.ContentSurveyMultiResps}">
             <link target="EditSurveyMultiResps">
-                <parameter param-name="surveyId" from-field="surveyId"/>
+                <parameter param-name="surveyId"/>
             </link>
         </menu-item>
         <menu-item name="SurveyQuestions" title="${uiLabelMap.ContentSurveyQuestions}">
             <link target="EditSurveyQuestions">
-                <parameter param-name="surveyId" from-field="surveyId"/>
+                <parameter param-name="surveyId"/>
             </link>
         </menu-item>
         <menu-item name="FindSurveyResponse" title="${uiLabelMap.ContentSurveyFindResponse}">
             <link target="FindSurveyResponse">
-                <parameter param-name="surveyId" from-field="surveyId"/>
+                <parameter param-name="surveyId"/>
             </link>
         </menu-item>
         <menu-item name="SurveyResponses" title="${uiLabelMap.ContentSurveyResponseSummary}">
             <link target="ViewSurveyResponses">
-                <parameter param-name="surveyId" from-field="surveyId"/>
+                <parameter param-name="surveyId"/>
             </link>
         </menu-item>
     </menu>

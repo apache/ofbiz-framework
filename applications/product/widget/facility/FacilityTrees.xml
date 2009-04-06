@@ -32,7 +32,7 @@ under the License.
         </node>
         <node name="node-body">
             <link target="EditFacility" text="${facilityName} [${facilityId}]">
-                <parameter param-name="facilityId" from-field="facilityId"/>
+                <parameter param-name="facilityId"/>
             </link>
             <sub-node node-name="node-body">
                 <entity-and entity-name="Facility">

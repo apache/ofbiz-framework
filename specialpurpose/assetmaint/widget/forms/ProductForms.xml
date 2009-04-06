@@ -67,14 +67,14 @@
         </actions>
         <field name="productId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${productId}" target="EditProduct">
-                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="productId"/>
             </hyperlink>
         </field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><display/></field>
         <field name="searchVariants" title="" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
             <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct">
-                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="productId"/>
             </hyperlink>
         </field>
     </form>
@@ -105,7 +105,7 @@
         <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}"><display/></field>
         <field name="searchVariants" title="" widget-style="buttontext" use-when="isVirtual!=null&amp;&amp;&quot;${isVirtual}&quot;.equals(&quot;Y&quot;)">
             <hyperlink also-hidden="false" target-type="plain" description="${uiLabelMap.ProductVariants}" target="LookupVariantProduct">
-                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="productId"/>
             </hyperlink>
         </field>
     </form>
@@ -141,8 +141,8 @@
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteProductMaint" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
-                <parameter param-name="productId" from-field="productId"/>
-                <parameter param-name="productMaintSeqId" from-field="productMaintSeqId"/>
+                <parameter param-name="productId"/>
+                <parameter param-name="productMaintSeqId"/>
             </hyperlink>
         </field>
     </form>

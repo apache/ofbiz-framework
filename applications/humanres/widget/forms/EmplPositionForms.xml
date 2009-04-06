@@ -32,13 +32,13 @@ under the License.
         <auto-fields-entity entity-name="EmplPosition" default-field-type="display"/>
         <field name="emplPositionId" title="${uiLabelMap.HumanResEmployeePositionId}" widget-style="linktext">
             <hyperlink also-hidden="false" description="${emplPositionId}" target="emplPositionView">
-                <parameter param-name="emplPositionId" from-field="emplPositionId"/>
+                <parameter param-name="emplPositionId"/>
             </hyperlink>
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
                 <sub-hyperlink target="viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
-                    <parameter param-name="partyId" from-field="partyId"/>
+                    <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -72,7 +72,7 @@ under the License.
         <field name="partyId" use-when="emplPosition!=null" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${groupName}" entity-name="PartyNameView">
                 <sub-hyperlink target="viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
-                    <parameter param-name="partyId" from-field="partyId"/>
+                    <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -108,7 +108,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
                 <sub-hyperlink target="viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
-                    <parameter param-name="partyId" from-field="partyId"/>
+                    <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -117,9 +117,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteEmplPositionFulfillment" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="emplPositionId" from-field="emplPositionId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="emplPositionId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>
@@ -149,9 +149,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteEmplPositionReportingStruct"  description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="emplPositionIdReportingTo" from-field="emplPositionIdReportingTo"/>
-                <parameter param-name="emplPositionIdManagedBy" from-field="emplPositionIdManagedBy"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="emplPositionIdReportingTo"/>
+                <parameter param-name="emplPositionIdManagedBy"/>
+                <parameter param-name="fromDate"/>
                 <parameter param-name="emplPositionId" from-field="parameters.emplPositionId"/>
             </hyperlink>
         </field>        
@@ -182,9 +182,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteEmplPositionReportingStruct" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="emplPositionIdReportingTo" from-field="emplPositionIdReportingTo"/>
-                <parameter param-name="emplPositionIdManagedBy" from-field="emplPositionIdManagedBy"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="emplPositionIdReportingTo"/>
+                <parameter param-name="emplPositionIdManagedBy"/>
+                <parameter param-name="fromDate"/>
                 <parameter param-name="emplPositionId" from-field="parameters.emplPositionId"/>
             </hyperlink>
         </field>
@@ -213,9 +213,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/> </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteEmplPositionResponsibility" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="emplPositionId" from-field="emplPositionId"/>
-                <parameter param-name="responsibilityTypeId" from-field="responsibilityTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="emplPositionId"/>
+                <parameter param-name="responsibilityTypeId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>        
     </form>
@@ -245,8 +245,8 @@ under the License.
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteValidResponsibility" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="emplPositionTypeId" from-field="emplPositionId"/>
-                <parameter param-name="responsibilityTypeId" from-field="responsibilityTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="responsibilityTypeId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>

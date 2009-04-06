@@ -37,9 +37,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink target="deletePartyClassification" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="partyClassificationGroupId" from-field="partyClassificationGroupId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="partyClassificationGroupId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>
@@ -51,7 +51,7 @@ under the License.
         </actions>
         <field name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroupId}" widget-style="buttontext">
             <hyperlink target="EditPartyClassificationGroup" description="${partyClassificationGroupId}" also-hidden="false">
-                <parameter param-name="partyClassificationGroupId" from-field="partyClassificationGroupId"/>
+                <parameter param-name="partyClassificationGroupId"/>
             </hyperlink>
         </field>
         <field name="partyClassificationTypeId">
@@ -61,7 +61,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deletePartyClassificationGroup" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="partyClassificationGroupId" from-field="partyClassificationGroupId"/>
+                <parameter param-name="partyClassificationGroupId"/>
             </hyperlink>
         </field>
     </form>
@@ -99,7 +99,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <!-- <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
-                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+                <parameter param-name="segmentGroupId"/>
             </hyperlink>
         </field> -->
     </form>
@@ -115,7 +115,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <!-- <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}">
-                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+                <parameter param-name="segmentGroupId"/>
             </hyperlink>
         </field> -->
     </form>
@@ -133,7 +133,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.Party}">
            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${lastName} ${groupName}">
                    <sub-hyperlink target="viewprofile" description="${partyId}" link-style="smallSubmit">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </sub-hyperlink>
            </display-entity>
         </field>
@@ -142,9 +142,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="text-link"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink target="deletePartyClassification" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="partyClassificationGroupId" from-field="partyClassificationGroupId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="partyClassificationGroupId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>

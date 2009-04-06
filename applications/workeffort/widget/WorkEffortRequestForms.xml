@@ -30,7 +30,7 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="custRequestId" widget-style="buttontext">
             <hyperlink description="${custRequestId}" target="/ordermgr/control/EditRequest" target-type="inter-app">
-                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="custRequestId"/>
             </hyperlink>
         </field>
         <field name="description"><display/></field>
@@ -38,8 +38,8 @@ under the License.
         <field name="statusItemDescription"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeWorkEffortRequest">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
-                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="custRequestId"/>
             </hyperlink>
         </field>
     </form>
@@ -62,7 +62,7 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="custRequestId" widget-style="buttontext">
             <hyperlink description="${custRequestId}" target="/ordermgr/control/EditRequest" target-type="inter-app">
-                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="custRequestId"/>
             </hyperlink>
         </field>
         <field name="custRequestItemSeqId" widget-style="buttontext"><display/></field>
@@ -72,9 +72,9 @@ under the License.
         <field name="description"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortRequestItem">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
-                <parameter param-name="custRequestId" from-field="custRequestId"/>
-                <parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="custRequestId"/>
+                <parameter param-name="custRequestItemSeqId"/>
             </hyperlink>
         </field>
     </form>

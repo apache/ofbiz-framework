@@ -61,7 +61,7 @@ under the License.
         </row-actions>
         <field name="paymentId" widget-style="buttontext">
             <hyperlink description="${paymentId}" target="paymentOverview">
-                <parameter param-name="paymentId" from-field="paymentId"/>
+                <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
         <field name="paymentTypeId"><display-entity entity-name="PaymentType" description="${description}"/></field>
@@ -260,7 +260,7 @@ under the License.
         <field name="invoiceId">
             <display-entity entity-name="Invoice" description="${description}">
                 <sub-hyperlink target="invoiceOverview" description="[${invoiceId}]">
-                    <parameter param-name="invoiceId" from-field="invoiceId"/>
+                    <parameter param-name="invoiceId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -269,8 +269,8 @@ under the License.
         <field name="updateButton" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="removeButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removePaymentApplication">
-                <parameter param-name="paymentApplicationId" from-field="paymentApplicationId"/>
-                <parameter param-name="paymentId" from-field="paymentId"/>
+                <parameter param-name="paymentApplicationId"/>
+                <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
     </form>
@@ -283,8 +283,8 @@ under the License.
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="removeButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removePaymentApplication">
-                <parameter param-name="paymentApplicationId" from-field="paymentApplicationId"/>
-                <parameter param-name="paymentId" from-field="paymentId"/>
+                <parameter param-name="paymentApplicationId"/>
+                <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
     </form>
@@ -298,8 +298,8 @@ under the License.
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="removeButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removePaymentApplication">
-                <parameter param-name="paymentApplicationId" from-field="paymentApplicationId"/>
-                <parameter param-name="paymentId" from-field="paymentId"/>
+                <parameter param-name="paymentApplicationId"/>
+                <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
     </form>
@@ -319,8 +319,8 @@ under the License.
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field name="removeButton" title="${uiLabelMap.CommonRemove}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removePaymentApplication">
-                <parameter param-name="paymentApplicationId" from-field="paymentApplicationId"/>
-                <parameter param-name="paymentId" from-field="paymentId"/>
+                <parameter param-name="paymentApplicationId"/>
+                <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
     </form>
@@ -330,7 +330,7 @@ under the License.
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext">
             <hyperlink target="invoiceOverview" description="${invoiceId}">
-                <parameter param-name="invoiceId" from-field="invoiceId"/>
+                <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
         <field name="description"><display/></field>
@@ -447,13 +447,13 @@ under the License.
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext">
             <hyperlink target="invoiceOverview" description="${invoiceId}">
-                <parameter param-name="invoiceId" from-field="invoiceId"/>
+                <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
         <field name="invoiceItemSeqId" widget-style="buttontext">
             <hyperlink target="listInvoiceItems" description="${invoiceItemSeqId}">
-                <parameter param-name="invoiceId" from-field="invoiceId"/>
-                <parameter param-name="invoiceItemSeqId" from-field="invoiceItemSeqId"/>
+                <parameter param-name="invoiceId"/>
+                <parameter param-name="invoiceItemSeqId"/>
             </hyperlink>
         </field>
         <field name="toPaymentId" widget-style="buttontext">
@@ -463,7 +463,7 @@ under the License.
         </field>
         <field name="billingAccountId" widget-style="buttontext">
             <hyperlink target="EditBillingAccount" description="${billingAccountId}">
-                <parameter param-name="billingAccountId" from-field="billingAccountId"/>
+                <parameter param-name="billingAccountId"/>
             </hyperlink>
         </field>
         <field name="taxAuthGeoId"><display-entity entity-name="Geo" key-field-name="geoId" description="${geoName}"></display-entity></field>
@@ -486,7 +486,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentId">
             <hyperlink target="paymentOverview" description="${paymentId}">
-                <parameter param-name="paymentId" from-field="paymentId"/>
+                <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
@@ -504,7 +504,7 @@ under the License.
         <field name="paymentId"><hidden/></field>
         <field name="paymentId">
             <hyperlink target="paymentOverview" description="${paymentId}">
-                <parameter param-name="paymentId" from-field="paymentId"/>
+                <parameter param-name="paymentId"/>
             </hyperlink>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
@@ -555,7 +555,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="invoiceId" widget-style="buttontext">
             <hyperlink target="invoiceOverview" description="${invoiceId}">
-                <parameter param-name="invoiceId" from-field="invoiceId"/>
+                <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
         <field name="termTypeId">

@@ -31,7 +31,7 @@ under the License.
             </not>
         </condition>
             <link target="/FindTrackingCodeOrders">
-                <parameter param-name="trackingCodeId" from-field="trackingCodeId"/>
+                <parameter param-name="trackingCodeId"/>
             </link>
         </menu-item>
         <menu-item name="TrackingCodeVisit" title="${uiLabelMap.MarketingTrackingCodeVisit}">
@@ -41,7 +41,7 @@ under the License.
             </not>
         </condition>
             <link target="/FindTrackingCodeVisits">
-                <parameter param-name="trackingCodeId" from-field="trackingCodeId"/>
+                <parameter param-name="trackingCodeId"/>
             </link>
         </menu-item>
         <menu-item name="TrackingCodeType" title="${uiLabelMap.MarketingTrackingCodeType}">

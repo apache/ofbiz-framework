@@ -89,7 +89,7 @@ under the License.
         <auto-fields-entity entity-name="OrderHeader" default-field-type="display"/>
         <field name="orderId" widget-style="buttontext">
             <hyperlink target="EditOrderHeader" description="[${orderId}]">
-                <parameter param-name="orderId" from-field="orderId"/>
+                <parameter param-name="orderId"/>
             </hyperlink>
         </field>
         <field name="statusId"> <display-entity entity-name="StatusItem"/> </field>
@@ -104,9 +104,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeOrderTerm" description="${uiLabelMap.CommonRemove}" also-hidden="false">
-                <parameter param-name="orderId" from-field="orderId"/>
-                <parameter param-name="termTypeId" from-field="termTypeId"/>
-                <parameter param-name="orderItemSeqId" from-field="orderItemSeqId"/>
+                <parameter param-name="orderId"/>
+                <parameter param-name="termTypeId"/>
+                <parameter param-name="orderItemSeqId"/>
             </hyperlink>
         </field>
     </form>
@@ -132,7 +132,7 @@ under the License.
         <field name="shipGroupSeqId"><hidden/></field>
         <field name="productId" widget-style="buttontext">
             <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">
-                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="productId"/>
             </hyperlink>
         </field>
         <field name="supplierProductId"><display/></field>

@@ -122,11 +122,11 @@
                             <widgets>
                                 <container style="button-bar">
                                     <link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext">
-                                        <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                                        <parameter param-name="fixedAssetId"/>
                                     </link>
                                     <link target="printFixedAssetMaint.pdf" text="${uiLabelMap.CommonPrint}" style="buttontext">
-                                        <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
-                                        <parameter param-name="maintHistSeqId" from-field="maintHistSeqId"/>
+                                        <parameter param-name="fixedAssetId"/>
+                                        <parameter param-name="maintHistSeqId"/>
                                     </link>
                                 </container>
                             </widgets>
@@ -188,7 +188,7 @@
                                             <link target="EditWorkEfforts" style="buttontext"  text="${uiLabelMap.CommonNew">
                                                 <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
                                                 <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
-                                                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                                                <parameter param-name="workEffortId"/>
                                                 <parameter param-name="mode" value="addAssignment"/>
                                             </link>
                                         </container>
@@ -212,7 +212,7 @@
                                             <link target="EditWorkEfforts" style="buttontext" text="${uiLabelMap.CommonNew">
                                             <parameter param-name="fixedAssetId" from-field="fixedAssetMaint.fixedAssetId"/>
                                             <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
-                                              <parameter param-name="workEffortId" from-field="workEffortId"/>
+                                              <parameter param-name="workEffortId"/>
                                                <parameter param-name="mode" value="addChildTask"/>
                                         </link>
                                         </container>

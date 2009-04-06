@@ -115,7 +115,7 @@ under the License.
                                         <container style="clear"/>
                                         <label style="h1" text="${uiLabelMap.ProjectMgrTaskCurrent}: ${workEffort.workEffortName}[${workEffort.workEffortId}] ${uiLabelMap.ProjectMgrPhaseName}: ${phaseName} ${uiLabelMap.ProjectMgrProjectName}: ${projectName}"/>
                                         <link style="h1" text="[${projectId}]" target="projectView">
-                                            <parameter param-name="projectId" from-field="projectId"/>
+                                            <parameter param-name="projectId"/>
                                         </link>
                                     </widgets>                                    
                                 </section>

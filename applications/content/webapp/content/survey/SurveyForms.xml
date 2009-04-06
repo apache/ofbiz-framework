@@ -46,7 +46,7 @@ under the License.
         <auto-fields-entity entity-name="Survey" default-field-type="display"/>
         <field name="surveyId" title="${uiLabelMap.ContentSurveySurveyId}" widget-style="buttontext">
             <hyperlink description="${surveyId}" target="EditSurvey" also-hidden="false">
-                <parameter param-name="surveyId" from-field="surveyId"/>
+                <parameter param-name="surveyId"/>
             </hyperlink>
         </field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="ListFindSurveySearchResults"/>
@@ -266,7 +266,7 @@ under the License.
         <auto-fields-entity entity-name="SurveyResponse" default-field-type="display"/>
         <field name="surveyResponseId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${surveyResponseId}" target="EditSurveyResponse">
-                <parameter param-name="surveyResponseId" from-field="surveyResponseId"/>
+                <parameter param-name="surveyResponseId"/>
             </hyperlink>
         </field>
     </form>

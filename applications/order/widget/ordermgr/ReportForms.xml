@@ -133,7 +133,7 @@ under the License.
         <field name="orderDate" title="${uiLabelMap.OrderDate}"><display/></field>
         <field name="orderId" title="${uiLabelMap.OrderOrderId}" widget-style="buttontext">
             <hyperlink target="orderview" description="${orderId}">
-                <parameter param-name="orderId" from-field="orderId"/>
+                <parameter param-name="orderId"/>
             </hyperlink>
         </field>
         <field name="productId" title="${uiLabelMap.ProductProduct}"><display/></field>

@@ -217,7 +217,7 @@ under the License.
         <field name="partyIdFrom" use-when="partyIdFrom!=void">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} (${contactMechFrom.infoString})">
                 <sub-hyperlink description=" [${communicationEvent.partyIdFrom}]" target="/partymgr/control/viewprofile" target-type="inter-app">
-                    <parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
+                    <parameter param-name="partyIdFrom"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -327,9 +327,9 @@ under the License.
         <field name="communicationEventId"><hidden/></field>
         <field name="subject">
             <hyperlink description="${subject}" target="View${my}CommunicationEvent">
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
             </hyperlink>
         </field>
         <field name="communicationEventTypeId" title="${uiLabelMap.CommonType}"><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
@@ -364,10 +364,10 @@ under the License.
         <field name="removeButton" widget-style="smallSubmit"><submit/></field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject} " target="ViewCommunicationEvent">
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
-                <parameter param-name="my" from-field="my"/>
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="my"/>
             </hyperlink>
         </field>
         <field name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
@@ -446,7 +446,7 @@ under the License.
         <field name="workEffortId" title="${uiLabelMap.WorkEffort}">
             <display-entity entity-name="WorkEffort" description="${workEffortName}">
                 <sub-hyperlink description="${workEffortId}" target="/workeffort/control/WorkEffortSummary" target-type="inter-app" link-style="smallSubmit">
-                    <parameter param-name="workEffortId" from-field="workEffortId"/>
+                    <parameter param-name="workEffortId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -479,8 +479,8 @@ under the License.
         </field>
         <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeCommunicationEventPurpose">
-                <parameter param-name="communicationEventPrpTypId" from-field="communicationEventPrpTypId"/>
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="communicationEventPrpTypId"/>
+                <parameter param-name="communicationEventId"/>
             </hyperlink>
         </field>
     </form>
@@ -510,7 +510,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
                 <sub-hyperlink target="viewprofile" link-style="smallSubmit" description="${partyId}">
-                    <parameter param-name="partyId" from-field="partyId"/>
+                    <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -549,10 +549,10 @@ under the License.
         </actions>
         <field name="contentName" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="ViewSimpleContent">
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="dataResourceId" from-field="dataResourceId"/>
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="dataResourceId"/>
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
         <field name="contentTypeId"><display-entity entity-name="ContentType" description="${description}"/></field>
@@ -707,7 +707,7 @@ under the License.
         </field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject}" target="ViewCommunicationEvent">
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="communicationEventId"/>
                 <parameter param-name="my" value="My"/>
             </hyperlink>
         </field>
@@ -765,7 +765,7 @@ under the License.
     <form name="ListRequests" extends="ListRequests" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="custRequestName">
             <hyperlink description="${custRequestName} [${custRequestId}]" target="/ordermgr/control/ViewRequest" target-type="inter-app">
-                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="custRequestId"/>
             </hyperlink>
         </field>
     </form>
@@ -789,8 +789,8 @@ under the License.
         </actions>
         <field name="subject">
             <hyperlink description="${subject}" target="EditCommunicationEvent">
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
-                <parameter param-name="my" from-field="my"/>
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="my"/>
             </hyperlink>
         </field>
         <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit/></field>

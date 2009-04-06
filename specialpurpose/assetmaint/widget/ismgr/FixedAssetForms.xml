@@ -118,7 +118,7 @@ under the License.
         </actions>
         <field name="fixedAssetId" widget-style="linktext">
             <hyperlink also-hidden="false" description="${fixedAssetName} ${fixedAssetId}" target="EditComputerHardware">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </hyperlink>
         </field>
         <field name="fixedAssetTypeId"><hidden/></field>
@@ -148,7 +148,7 @@ under the License.
         </actions>
         <field name="fixedAssetId" widget-style="linktext">
             <hyperlink also-hidden="false" description="${fixedAssetName} ${fixedAssetId}" target="EditComputerSoftware">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </hyperlink>
         </field>
         <field name="fixedAssetTypeId"><hidden/></field>
@@ -177,7 +177,7 @@ under the License.
         </actions>
         <field name="fixedAssetId" widget-style="linktext">
             <hyperlink also-hidden="false" description="${fixedAssetName} ${fixedAssetId}" target="EditComputerHardware">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </hyperlink>
         </field>
         <field name="fixedAssetTypeId"><hidden/></field>

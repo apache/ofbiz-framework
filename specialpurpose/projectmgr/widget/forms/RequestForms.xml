@@ -24,7 +24,7 @@ under the License.
             paginate-target="requestlist" >
         <field name="createTaskFromRequest" title="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" target="EditTaskFromRequest">
-                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="custRequestId"/>
             </hyperlink>
         </field>
     </form>
@@ -98,13 +98,13 @@ under the License.
         <field name="description"><display/></field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
             <hyperlink also-hidden="false" description="${projectName}" target="projectView">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </hyperlink>
         </field>
         <field name="phaseName"><display description="${result.phaseName}"/></field>
         <field name="taskName">
             <hyperlink target="taskView" description="${workEffort.workEffortName}">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="custRequestDate" title="${uiLabelMap.OrderRequestDate}"><display type="date"/></field>
@@ -125,7 +125,7 @@ under the License.
         </row-actions>
         <field name="partyId" widget-style="buttontext">
             <hyperlink description="${partyId}" target="viewprofile">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="RequestTaker"><display description="${person.personalTitle} ${person.firstName} ${person.middleName} ${person.lastName}"/></field>
@@ -145,7 +145,7 @@ under the License.
         </row-actions> 
         <field name="custRequestId">
             <hyperlink target="ViewRequest" description="${custRequestName} [${custRequestId}]">
-                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="custRequestId"/>
             </hyperlink>
          </field>
         <field name="projectId" title="${uiLabelMap.ProjectMgrProjectId}" map-name="sResult">
@@ -158,7 +158,7 @@ under the License.
         </field>
         <field name="workEffortId">
             <hyperlink target="taskView" description="${workEffortName} [${workEffortId}]">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="priority"><display/></field>
@@ -177,7 +177,7 @@ under the License.
     <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="workEffortId">
             <hyperlink target="taskView" description="${workEffortName} [${workEffortId}]">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
     </form>

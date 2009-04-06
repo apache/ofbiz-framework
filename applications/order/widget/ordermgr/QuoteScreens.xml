@@ -660,7 +660,7 @@ under the License.
                                     <widgets>
                                         <container>
                                             <link target="autoCreateQuoteAdjustments" text="${uiLabelMap.OrderRunStorePromotions}" style="buttontext">
-                                                <parameter param-name="quoteId" from-field="quoteId"/>
+                                                <parameter param-name="quoteId"/>
                                             </link>
                                             <link target="EditQuoteAdjustment" text="${uiLabelMap.OrderCreateOrderQuoteAdjustment}" style="buttontext">
                                                 <parameter param-name="quoteId" from-field="quote.quoteId"/>

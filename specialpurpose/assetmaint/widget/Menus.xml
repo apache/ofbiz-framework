@@ -72,42 +72,42 @@
           default-menu-item-name="ViewFacilityInventoryByProduct">
         <menu-item name="EditFacility" title="${uiLabelMap.ProductFacility}">
             <link target="EditFacility">
-                <parameter param-name="facilityId" from-field="facilityId"/>
+                <parameter param-name="facilityId"/>
             </link>
         </menu-item>
         <menu-item name="FacilityChildren" title="${uiLabelMap.CommonEntityChildren}">
             <link target="FacilityChildren">
-                <parameter param-name="facilityId" from-field="facilityId"/>
+                <parameter param-name="facilityId"/>
             </link>
         </menu-item>
         <menu-item name="ViewContactMechs" title="${uiLabelMap.PartyContactMechs}">
             <link target="ViewContactMechs">
-                <parameter param-name="facilityId" from-field="facilityId"/>
+                <parameter param-name="facilityId"/>
             </link>
         </menu-item>
         <menu-item name="FindFacilityLocation" title="${uiLabelMap.ProductLocations}">
             <link target="FindFacilityLocation">
-                <parameter param-name="facilityId" from-field="facilityId"/>
+                <parameter param-name="facilityId"/>
             </link>
         </menu-item>
         <menu-item name="ViewFacilityInventoryByProduct" title="${uiLabelMap.ProductInventory}">
             <link target="ViewFacilityInventoryByProduct">
-                <parameter param-name="facilityId" from-field="facilityId"/>
+                <parameter param-name="facilityId"/>
             </link>
         </menu-item>
         <menu-item name="EditFacilityInventoryItems" title="${uiLabelMap.ProductInventoryItems}">
             <link target="EditFacilityInventoryItems">
-                <parameter param-name="facilityId" from-field="facilityId"/>
+                <parameter param-name="facilityId"/>
             </link>
         </menu-item>
         <menu-item name="ReceiveInventory" title="${uiLabelMap.ProductInventoryReceive}">
             <link target="ReceiveInventory">
-                <parameter param-name="facilityId" from-field="facilityId"/>
+                <parameter param-name="facilityId"/>
             </link>
         </menu-item>
         <menu-item name="FindFacilityTransfers" title="${uiLabelMap.ProductInventoryXfers}">
             <link target="FindFacilityTransfers">
-                <parameter param-name="facilityId" from-field="facilityId"/>
+                <parameter param-name="facilityId"/>
             </link>
         </menu-item>
     </menu>  

@@ -27,12 +27,12 @@ under the License.
         <field name="calendarWeekId" title="${uiLabelMap.ManufacturingCalendarWeekId}"><display/></field>
         <field name="updateLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditCalendar" description="${uiLabelMap.CommonUpdate}" >
-                <parameter param-name="calendarId" from-field="calendarId"/>
+                <parameter param-name="calendarId"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="RemoveCalendar" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="calendarId" from-field="calendarId"/>
+                <parameter param-name="calendarId"/>
             </hyperlink>
         </field>
     </form>
@@ -42,12 +42,12 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="updateLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditCalendarWeek" description="${uiLabelMap.CommonUpdate}" >
-                <parameter param-name="calendarWeekId" from-field="calendarWeekId"/>
+                <parameter param-name="calendarWeekId"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="RemoveCalendarWeek" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="calendarWeekId" from-field="calendarWeekId"/>
+                <parameter param-name="calendarWeekId"/>
             </hyperlink>
         </field>
     </form>
@@ -59,14 +59,14 @@ under the License.
         <field name="exceptionCapacity" title="${uiLabelMap.ManufacturingCalendarCapacity}" ><display/></field>
         <field name="updateLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditCalendarExceptionDay" description="${uiLabelMap.CommonSelect}" >
-                <parameter param-name="calendarId" from-field="calendarId"/>
-                <parameter param-name="exceptionDateStartTime" from-field="exceptionDateStartTime"/>
+                <parameter param-name="calendarId"/>
+                <parameter param-name="exceptionDateStartTime"/>
             </hyperlink>
         </field> 
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="RemoveCalendarExceptionDay" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="calendarId" from-field="calendarId"/>
-                <parameter param-name="exceptionDateStartTime" from-field="exceptionDateStartTime"/>
+                <parameter param-name="calendarId"/>
+                <parameter param-name="exceptionDateStartTime"/>
             </hyperlink>
         </field>
     </form>

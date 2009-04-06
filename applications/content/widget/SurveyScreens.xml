@@ -279,7 +279,7 @@ under the License.
                                     <widgets>    
                                         <container>
                                             <link  text="${uiLabelMap.ContentSurveyCreateResponse}" target="EditSurveyResponse" style="buttontext">
-                                                <parameter param-name="surveyId" from-field="surveyId"/>
+                                                <parameter param-name="surveyId"/>
                                             </link>
                                         </container>
                                         <include-form name="FindSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
@@ -337,7 +337,7 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <link  text="${uiLabelMap.ContentSurveyCreateResponse}" target="EditSurveyResponse" style="buttontext">
-                                <parameter param-name="surveyId" from-field="surveyId"/>
+                                <parameter param-name="surveyId"/>
                             </link>
                         </container>
                         <container style="screenlet">

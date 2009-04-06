@@ -103,7 +103,7 @@ under the License.
                 </or>                
             </condition>
             <link target="EditProductionRun">
-                <parameter param-name="productionRunId" from-field="productionRunId"/>
+                <parameter param-name="productionRunId"/>
             </link>
         </menu-item>        
         <menu-item name="tasks" title="${uiLabelMap.ManufacturingListOfProductionRunRoutingTasks}">
@@ -114,7 +114,7 @@ under the License.
                 </or>                
             </condition>
             <link target="ProductionRunTasks">
-                <parameter param-name="productionRunId" from-field="productionRunId"/>
+                <parameter param-name="productionRunId"/>
             </link>
         </menu-item>  
         <menu-item name="components" title="${uiLabelMap.ManufacturingMaterials}">
@@ -125,7 +125,7 @@ under the License.
                 </or>                
             </condition>
             <link target="ProductionRunComponents">
-                <parameter param-name="productionRunId" from-field="productionRunId"/>
+                <parameter param-name="productionRunId"/>
             </link>
         </menu-item> 
         <menu-item name="fixedAssets" title="${uiLabelMap.AccountingFixedAssets}">
@@ -136,7 +136,7 @@ under the License.
                 </or>                
             </condition>
             <link target="ProductionRunFixedAssets">
-                <parameter param-name="productionRunId" from-field="productionRunId"/>
+                <parameter param-name="productionRunId"/>
             </link>
         </menu-item> 
         <menu-item name="declaration" title="${uiLabelMap.ManufacturingProductionRunDeclaration}">
@@ -149,7 +149,7 @@ under the License.
                 </not>
             </condition>
             <link target="ProductionRunDeclaration">
-                <parameter param-name="productionRunId" from-field="productionRunId"/>
+                <parameter param-name="productionRunId"/>
             </link>
         </menu-item> 
         <menu-item name="actualComponents" title="${uiLabelMap.ManufacturingActualMaterials}">
@@ -162,17 +162,17 @@ under the License.
                 </not>
             </condition>
             <link target="ProductionRunActualComponents">
-                <parameter param-name="productionRunId" from-field="productionRunId"/>
+                <parameter param-name="productionRunId"/>
             </link>
         </menu-item> 
         <menu-item name="assocs" title="${uiLabelMap.ManufacturingProductionRunAssocs}">
             <link target="ProductionRunAssocs">
-                <parameter param-name="productionRunId" from-field="productionRunId"/>
+                <parameter param-name="productionRunId"/>
             </link>
         </menu-item> 
         <menu-item name="costs" title="${uiLabelMap.ManufacturingActualCosts}">
             <link target="ProductionRunCosts">
-                <parameter param-name="productionRunId" from-field="productionRunId"/>
+                <parameter param-name="productionRunId"/>
             </link>
         </menu-item> 
     </menu>

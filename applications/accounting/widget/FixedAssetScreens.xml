@@ -374,7 +374,7 @@ under the License.
                     <decorator-section name="body">
                         <container style="button-bar">
                             <link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext">
-                                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                                <parameter param-name="fixedAssetId"/>
                             </link>
                         </container>
                         <include-form name="ListFixedAssetMaints" location="component://accounting/webapp/accounting/fixedasset/FixedAssetForms.xml"/>
@@ -413,7 +413,7 @@ under the License.
                             <widgets>
                                 <container style="button-bar">
                                     <link target="EditFixedAssetMaint" text="${uiLabelMap.AccountingNewFixedAssetMaint}" style="buttontext">
-                                        <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                                        <parameter param-name="fixedAssetId"/>
                                     </link>
                                 </container>
                             </widgets>

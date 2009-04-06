@@ -379,7 +379,7 @@ under the License.
                             <container style="screenlet-body">
                                 <container>
                                     <link target="newFixedAssetProduct" text="${uiLabelMap.PageTitleCreateProductAssetUsage}" style="buttontext">
-                                        <parameter param-name="productId" from-field="productId"/>
+                                        <parameter param-name="productId"/>
                                     </link>
                                 </container>
                                 <section>
@@ -417,7 +417,7 @@ under the License.
                             <container style="screenlet-body">
                                 <container>
                                     <link target="newFixedAssetProduct" text="${uiLabelMap.AccountingFixedAssetNew}" style="buttontext">
-                                        <parameter param-name="productId" from-field="productId"/>
+                                        <parameter param-name="productId"/>
                                     </link>
                                 </container>
                                 <section>
@@ -806,10 +806,10 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <link target="forceIndexProductKeywords" text="${uiLabelMap.ProductReInduceKeywords}" style="buttontext">
-                                <parameter param-name="productId" from-field="productId"/>
+                                <parameter param-name="productId"/>
                             </link>
                             <link target="deleteProductKeywords" text="${uiLabelMap.ProductDeleteAllKeywords}" style="buttontext">
-                                <parameter param-name="productId" from-field="productId"/>
+                                <parameter param-name="productId"/>
                             </link>
                         </container>
                         <container style="screenlet">
@@ -1196,7 +1196,7 @@ under the License.
                             <condition><not><if-empty field="supplierProduct"/></not></condition>
                             <widgets>
                                 <link target="EditProductSuppliers" style="buttontext" text="${uiLabelMap.ProductNewProductSupplier}">
-                                    <parameter param-name="productId" from-field="productId"/>
+                                    <parameter param-name="productId"/>
                                  </link>
                             </widgets>
                         </section>

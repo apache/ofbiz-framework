@@ -24,7 +24,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="custRequestId" widget-style="buttontext">
             <hyperlink description="${custRequestId}" target-type="inter-app" target="/ordermgr/control/ViewRequest">
-                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="custRequestId"/>
             </hyperlink>
         </field>
         <field name="custRequestName"><display/></field>

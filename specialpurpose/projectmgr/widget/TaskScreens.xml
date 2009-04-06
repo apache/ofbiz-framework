@@ -541,7 +541,7 @@ under the License.
                                 <screenlet title="${uiLabelMap.ProjectMgrTaskContentList}">
                                     <container>
                                         <link target="EditTaskContents" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit">
-                                            <parameter param-name="workEffortId" from-field="workEffortId"/>
+                                            <parameter param-name="workEffortId"/>
                                         </link>
                                     </container>
                                     <include-form name="ListContents" location="component://projectmgr/widget/forms/ProjectForms.xml"/>

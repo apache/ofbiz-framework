@@ -28,7 +28,7 @@ under the License.
         </row-actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <hyperlink target="viewprofile" description="${partyId}" target-type="inter-app">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="partyName" title="${uiLabelMap.PartyName}"><display description="${partyGroup.groupName}"/></field>

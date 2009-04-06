@@ -101,7 +101,7 @@ under the License.
         <field name="subscriptionResourceId">
             <display-entity entity-name="SubscriptionResource" description="${description}">
                 <sub-hyperlink target="EditSubscriptionResource" description="${subscriptionResourceId}" link-style="buttontext">
-                    <parameter param-name="subscriptionResourceId" from-field="subscriptionResourceId"/>
+                    <parameter param-name="subscriptionResourceId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -121,7 +121,7 @@ under the License.
         <field name="partyId">
             <display-entity entity-name="PartyNameView" description="${groupName} ${firstName} ${lastName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
-                    <parameter param-name="partyId" from-field="partyId"/>
+                    <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -129,20 +129,20 @@ under the License.
         
         <field name="orderId" widget-style="buttontext">
             <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}">
-                <parameter param-name="orderId" from-field="orderId"/>
+                <parameter param-name="orderId"/>
             </hyperlink>
         </field>
         <field name="productId">
             <display-entity entity-name="Product" description="${productName}">
                 <sub-hyperlink target="/catalog/control/EditProduct" target-type="inter-app" description="${productId}" link-style="buttontext">
-                    <parameter param-name="productId" from-field="productId"/>
+                    <parameter param-name="productId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="productCategoryId">
             <display-entity entity-name="ProductCategory" description="${categoryName}">
                 <sub-hyperlink target="/catalog/control/EditProductCategory" target-type="inter-app" description="${productCategoryId}" link-style="buttontext">
-                    <parameter param-name="productCategoryId" from-field="productCategoryId"/>
+                    <parameter param-name="productCategoryId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -171,7 +171,7 @@ under the License.
         
         <field name="subscriptionId" widget-style="buttontext">
             <hyperlink description="${subscriptionId}" target="EditSubscription" also-hidden="false">
-                <parameter param-name="subscriptionId" from-field="subscriptionId"/>
+                <parameter param-name="subscriptionId"/>
             </hyperlink>
         </field>
     </form>
@@ -303,21 +303,21 @@ under the License.
         <field name="contentId">
             <display-entity entity-name="Content" description="${contentName}">
                 <sub-hyperlink target="/content/control/EditContent" target-type="inter-app" description="${contentId}" link-style="buttontext">
-                    <parameter param-name="contentId" from-field="contentId"/>
+                    <parameter param-name="contentId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="webSiteId">
             <display-entity entity-name="WebSite" description="${siteName}">
                 <sub-hyperlink target="/content/control/EditWebSite" target-type="inter-app" description="${webSiteId}" link-style="buttontext">
-                    <parameter param-name="webSiteId" from-field="webSiteId"/>
+                    <parameter param-name="webSiteId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         
         <field name="subscriptionResourceId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${subscriptionResourceId}" target="EditSubscriptionResource">
-                <parameter param-name="subscriptionResourceId" from-field="subscriptionResourceId"/>
+                <parameter param-name="subscriptionResourceId"/>
             </hyperlink>
         </field>
     </form>
@@ -377,9 +377,9 @@ under the License.
         
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductSubscriptionResourceSr" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="subscriptionResourceId" from-field="subscriptionResourceId"/>
-                <parameter param-name="productId" from-field="productId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="subscriptionResourceId"/>
+                <parameter param-name="productId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -434,7 +434,7 @@ under the License.
         <field name="subscriptionId"><hidden/></field>
         <field name="communicationEventId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${communicationEventId}" target="/partymgr/control/EditCommunicationEvent" target-type="inter-app">
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="communicationEventId"/>
             </hyperlink>
         </field>
         <field name="partyIdFrom">
@@ -452,8 +452,8 @@ under the License.
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="removeSubscriptionCommEvent" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="subscriptionId" from-field="subscriptionId"/>
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="subscriptionId"/>
+                <parameter param-name="communicationEventId"/>
             </hyperlink>
         </field>
     </form>

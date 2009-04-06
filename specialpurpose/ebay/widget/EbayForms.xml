@@ -44,7 +44,7 @@ under the License.
         <field name="transactionId"><display/></field>
         <field name="orderId">
             <hyperlink target="orderview" description="${orderId}">
-                <parameter param-name="orderId" from-field="orderId"/>
+                <parameter param-name="orderId"/>
             </hyperlink>
         </field>
         <field name="createdDate"><display/></field>

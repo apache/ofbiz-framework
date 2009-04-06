@@ -160,10 +160,10 @@ under the License.
         <field name="volumeUom" title="${uiLabelMap.CommonUom}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeOrderShipmentFromShipment" description="[${uiLabelMap.CommonDelete}]" also-hidden="false">
-                <parameter param-name="shipmentId" from-field="shipmentId"/>
-                <parameter param-name="shipmentItemSeqId" from-field="shipmentItemSeqId"/>
-                <parameter param-name="orderId" from-field="orderId"/>
-                <parameter param-name="orderItemSeqId" from-field="orderItemSeqId"/>
+                <parameter param-name="shipmentId"/>
+                <parameter param-name="shipmentItemSeqId"/>
+                <parameter param-name="orderId"/>
+                <parameter param-name="orderItemSeqId"/>
             </hyperlink>
         </field>
     </form>

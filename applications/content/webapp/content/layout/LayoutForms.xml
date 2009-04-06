@@ -158,17 +158,17 @@ under the License.
           </actions>
         <field name="contentId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${contentId}" target="EditLayout">
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="drDataResourceId" from-field="drDataResourceId"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="drDataResourceId"/>
             </hyperlink>
         </field>
         <field name="dummy" title="${uiLabelMap.ContentClip}" widget-style="buttontext" map-name="dummy">
             <hyperlink also-hidden="false" description="${contentId}" target="clipFindLayout">
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="drDataResourceId" from-field="drDataResourceId"/>
-                <parameter param-name="viewSize" from-field="viewSize"/>
-                <parameter param-name="viewIndex" from-field="viewIndex"/>
-                <parameter param-name="entityName" from-field="entityName"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="drDataResourceId"/>
+                <parameter param-name="viewSize"/>
+                <parameter param-name="viewIndex"/>
+                <parameter param-name="entityName"/>
             </hyperlink>
         </field>
         <field name="contentName"><display/></field>
@@ -177,10 +177,10 @@ under the License.
         <!--
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeLayout">
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="contentIdTo" from-field="contentIdTo"/>
-                <parameter param-name="contentAssocTypeId" from-field="contentAssocTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="contentIdTo"/>
+                <parameter param-name="contentAssocTypeId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
         -->
@@ -190,8 +190,8 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${contentId}" target="EditLayout">
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="drDataResourceId" from-field="drDataResourceId"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="drDataResourceId"/>
             </hyperlink>
         </field>
         <field name="contentName"><display/></field>
@@ -199,7 +199,7 @@ under the License.
         <field name="drObjectInfo"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeLayout">
-                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="contentId"/>
                 <parameter param-name="contentIdTo" from-field="caContentIdTo"/>
                 <parameter param-name="contentAssocTypeId" from-field="caContentAssocTypeId"/>
                 <parameter param-name="fromDate" from-field="caFromDate"/>
@@ -392,8 +392,8 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${contentId}" target="EditLayout">
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="drDataResourceId" from-field="drDataResourceId"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="drDataResourceId"/>
             </hyperlink>
         </field>
         <field name="contentName"><display/></field>

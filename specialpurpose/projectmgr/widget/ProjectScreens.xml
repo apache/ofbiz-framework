@@ -802,18 +802,18 @@ under the License.
                                     <widgets>
                                         <container>
                                             <link style="smallSubmit" target="EditCommunicationEvent" text="${uiLabelMap.PartyNewCommunication}">
-                                                <parameter param-name="partyId" from-field="partyId"/>
+                                                <parameter param-name="partyId"/>
                                                 <parameter param-name="partyIdFrom" from-field="partyId"/>
                                             </link>
                                             <link style="smallSubmit" target="EditCommunicationEvent" text="${uiLabelMap.PartyReply}">
-                                                <parameter param-name="partyId" from-field="partyId"/>
+                                                <parameter param-name="partyId"/>
                                                 <parameter param-name="parentCommEventId" from-field="communicationEventId"/>
                                             </link>
                                             <!--<link style="smallSubmit" target="EditCommunicationEvent">
                                                 <parameter param-name="communicationEventTypeId" from-field="communicationEvent.communicationEventTypeId"/>
                                                 <parameter param-name="contactMechIdTo" from-field="communicationEvent.contactMechIdFrom"/>
                                                 <parameter param-name="contactMechIdFrom" from-field="communicationEvent.contactMechIdTo"/>
-                                                <parameter param-name="partyId" from-field="partyId"/>
+                                                <parameter param-name="partyId"/>
                                                 <parameter param-name="partyIdTo" from-field="partyId"/>
                                                 <parameter param-name="partyIdFrom" from-field="userLogin.partyId"/>
                                                 <parameter param-name="parentCommEventId" from-field="communicationEventId"/>
@@ -1035,7 +1035,7 @@ under the License.
                                     <screenlet title="${uiLabelMap.ProjectMgrContentList}">
                                         <container>
                                             <link target="EditProjectContents" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit">
-                                                <parameter param-name="projectId" from-field="projectId"/>
+                                                <parameter param-name="projectId"/>
                                             </link>
                                         </container>
                                         <include-form name="ListContents" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
