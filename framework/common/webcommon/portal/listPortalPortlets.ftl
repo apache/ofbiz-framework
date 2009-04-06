@@ -26,21 +26,15 @@ margin: 1em;
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">Available portlets</li>
-      <li>
-        <form name="ManagePortalPages" method= "post" action= "<@ofbizUrl>ManagePortalPages</@ofbizUrl>">
-          <input type= "hidden" name= "portalPageId" value= "${parameters.portalPageId}">
-          <input type= "hidden" name= "parentPortalPageId" value= "${parameters.parentPortalPageId}">
-          <a href="javascript:document.createProductionRunsForShipment.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
-        </form>
-      </li>
+      <li><a href="<@ofbizUrl>ManagePortalPages?portalPageId=${parameters.portalPageId}&parentPortalPageId=${parameters.parentPortalPageId}</@ofbizUrl>">${uiLabelMap.CommonCancel}</a></li>
     </ul>
     <br class="clear"/>
   </div>
   <#if portalPortlets?has_content>
-    <#assign orderByList = Static["org.ofbiz.base.util.UtilMisc"].toList("portalPortletId")/>
-
+    <#assign orderByList = Static["org.ofbiz.base.util.UtilMisc"].toList("portalPortletId")/> 
+     
     <table cellspacing="20" class="basic-table">
-      <#assign leftColumn = true/>
+      <#assign leftColumn = true/> 
       <#list portalPortlets as portalPortlet>
         <#if leftColumn==true>
         <tr>
@@ -72,7 +66,7 @@ margin: 1em;
         <#if leftColumn==false>
         </tr>
         </#if>
-        <#assign leftColumn = !leftColumn/>
+        <#assign leftColumn = !leftColumn/> 
       </#list>
     </table>
     <#else/>
