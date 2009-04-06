@@ -53,7 +53,7 @@
     </property>
     <property key="FormFieldTitle_cancelBackOrderDate">
         <value xml:lang="en">Cancel Back Order Date</value>
-    </property>    
+    </property>
     <property key="FormFieldTitle_carrierRoleTypeId">
         <value xml:lang="de">Spediteur Rollentyp ID</value>
         <value xml:lang="en">Carrier Role Type Id</value>
@@ -3599,7 +3599,7 @@
         <value xml:lang="ru">Последние поиски</value>
         <value xml:lang="th">ค้นหาครั้งสุดท้าย</value>
         <value xml:lang="zh">最近使用的搜索</value>
-    </property>     
+    </property>
     <property key="OrderLimitPerCustomer">
         <value xml:lang="en">Limit ${limit} per customer. </value>
         <value xml:lang="fr">Limiter à ${limit} par client. </value>
@@ -4555,7 +4555,7 @@
         <value xml:lang="de">Auf Auftrag</value>
         <value xml:lang="en">On Order</value>
         <value xml:lang="es">Bajo pedido</value>
-        <value xml:lang="fr">Sur commande</value>
+        <value xml:lang="fr">Commandé (réapro)</value>
         <value xml:lang="it">In Ordine</value>
         <value xml:lang="nl">On Bestelling</value>
         <value xml:lang="ro">In Comanda</value>
@@ -7146,7 +7146,7 @@
     <property key="OrderRequiresCodeToUse">
         <value xml:lang="en">Requires code to use. </value>
         <value xml:lang="fr">Nécessite un code. </value>
-    </property>     
+    </property>
     <property key="OrderRequestContent">
         <value xml:lang="de">Inhalt</value>
         <value xml:lang="en">Content</value>
@@ -7292,7 +7292,7 @@
     </property>
     <property key="OrderRequestOverview">
         <value xml:lang="de">Übersicht</value>
-        <value xml:lang="en">Overview</value>        
+        <value xml:lang="en">Overview</value>
         <value xml:lang="es">Resumen</value>
         <value xml:lang="fr">Aperçu général</value>
         <value xml:lang="it">Sommario</value>
@@ -10208,5 +10208,5 @@
         <value xml:lang="th">ชื่อโปรเจค</value>
         <value xml:lang="zh">项目名称</value>
     </property>
-    
+
 </resource>
