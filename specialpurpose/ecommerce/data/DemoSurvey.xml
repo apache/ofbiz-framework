@@ -44,7 +44,7 @@ under the License.
     <SurveyQuestion surveyQuestionId="1010" surveyQuestionCategoryId="1000" surveyQuestionTypeId="GIFT_CARD" description="giftCardNumber" question="Gift Card Number:"/>
     <SurveyQuestion surveyQuestionId="1011" surveyQuestionCategoryId="1000" surveyQuestionTypeId="TEXT_SHORT" description="giftCardPin" question="PIN Number:"/>
 
-    <SurveyQuestion surveyQuestionId="1030" surveyQuestionCategoryId="1001" surveyQuestionTypeId="OPTION" question="How often to you shop on-line?"/>
+    <SurveyQuestion surveyQuestionId="1030" surveyQuestionCategoryId="1001" surveyQuestionTypeId="OPTION" question="How often do you shop on-line?"/>
     <SurveyQuestion surveyQuestionId="1031" surveyQuestionCategoryId="1001" surveyQuestionTypeId="BOOLEAN" question="Have you shopped here?"/>
     <SurveyQuestion surveyQuestionId="1031B" surveyQuestionCategoryId="1001" surveyQuestionTypeId="BOOLEAN" question="Have you shopped here in the last six months?"/>
     <SurveyQuestion surveyQuestionId="1031C" surveyQuestionCategoryId="1001" surveyQuestionTypeId="BOOLEAN" question="Have you shopped here in the last year?"/>
