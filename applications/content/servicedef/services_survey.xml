@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Content Component Services</description>
     <vendor>OFBiz</vendor>
@@ -44,7 +44,7 @@ under the License.
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <!--  TODO
     <service name="cloneSurvey" auth="true" engine="simple"
             location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="cloneSurvey">
@@ -78,7 +78,7 @@ under the License.
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- SurveyMultiRespColumn Services -->
     <service name="createSurveyMultiRespColumn" default-entity-name="SurveyMultiRespColumn" auth="true" engine="simple"
             location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="createSurveyMultiRespColumn">
@@ -102,7 +102,7 @@ under the License.
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- SurveyPage Services -->
     <service name="createSurveyPage" default-entity-name="SurveyPage" auth="true" engine="simple"
             location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="createSurveyPage">
@@ -126,7 +126,7 @@ under the License.
         <permission-service service-name="contentManagerPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- SurveyApplType Services -->
     <service name="createSurveyApplType" default-entity-name="SurveyApplType" auth="true" engine="simple"
             location="component://content/script/org/ofbiz/content/survey/SurveyServices.xml" invoke="createSurveyApplType">
@@ -303,7 +303,7 @@ under the License.
         <attribute name="surveyResponseId" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="buildSurveyFromPdf" engine="java" 
+    <service name="buildSurveyFromPdf" engine="java"
             location="org.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyFromPdf" auth="false">
         <description>Create a Survey and related entities from AcroForm</description>
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true" />
@@ -313,7 +313,7 @@ under the License.
         <attribute name="surveyId" type="String" mode="INOUT" optional="true"/>
     </service>
 
-    <service name="buildSurveyResponseFromPdf" engine="java"  transaction-timeout="72000"
+    <service name="buildSurveyResponseFromPdf" engine="java"  transaction-timeout="7200"
             location="org.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyResponseFromPdf" auth="false">
         <description>Create a Survey and related entities from AcroForm</description>
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true" />
@@ -324,7 +324,7 @@ under the License.
         <attribute name="surveyResponseId" type="String" mode="INOUT" optional="true"/>
     </service>
 
-    <service name="getAcroFieldsFromPdf" engine="java" 
+    <service name="getAcroFieldsFromPdf" engine="java"
             location="org.ofbiz.content.survey.PdfSurveyServices" invoke="getAcroFieldsFromPdf" auth="false">
         <description>Get fields from AcroForm</description>
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true" />
@@ -333,7 +333,7 @@ under the License.
         <attribute name="acroFieldMap" type="Map" mode="OUT" optional="false"/>
     </service>
 
-    <service name="setAcroFieldsFromSurveyResponse" engine="java" 
+    <service name="setAcroFieldsFromSurveyResponse" engine="java"
             location="org.ofbiz.content.survey.PdfSurveyServices" invoke="setAcroFieldsFromSurveyResponse" auth="false">
         <description>Get fields from AcroForm</description>
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true" />
@@ -343,7 +343,7 @@ under the License.
         <attribute name="outByteBuffer" type="java.nio.ByteBuffer" mode="OUT" optional="true" />
     </service>
 
-    <service name="setAcroFields" engine="java" 
+    <service name="setAcroFields" engine="java"
             location="org.ofbiz.content.survey.PdfSurveyServices" invoke="setAcroFields" auth="false">
         <description>Get fields from AcroForm</description>
         <attribute name="pdfFileNameIn" type="String" mode="IN" optional="true" />
@@ -353,16 +353,16 @@ under the License.
         <attribute name="outByteBuffer" type="java.nio.ByteBuffer" mode="OUT" optional="true" />
     </service>
 
-    <service name="buildPdfFromSurveyResponse" engine="java" 
+    <service name="buildPdfFromSurveyResponse" engine="java"
             location="org.ofbiz.content.survey.PdfSurveyServices" invoke="buildPdfFromSurveyResponse" auth="false">
         <description>Build Pdf From Survey Response</description>
         <attribute name="surveyResponseId" type="String" mode="IN" optional="false" />
         <attribute name="outByteBuffer" type="java.nio.ByteBuffer" mode="OUT" optional="false" />
-    </service>    
-    <service name="buildSurveyQuestionsAndAnswers" engine="java" 
+    </service>
+    <service name="buildSurveyQuestionsAndAnswers" engine="java"
             location="org.ofbiz.content.survey.PdfSurveyServices" invoke="buildSurveyQuestionsAndAnswers" auth="false">
         <description>Build list of questions and answers From Survey Response</description>
         <attribute name="surveyResponseId" type="String" mode="IN" optional="false" />
         <attribute name="questionsAndAnswers" type="List" mode="OUT" optional="false" />
-    </service>    
+    </service>
 </services>
