@@ -84,7 +84,7 @@
         <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
             <hyperlink target="${my}TimeSheetStatusToComplete" description="${statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}" also-hidden="false">
                 <parameter param-name="timesheetId"/>
-                <parameter param-name="statusId" from-field="TIMESHEET_COMPLETED"/>
+                <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
             </hyperlink>
         </field>
     </form>
