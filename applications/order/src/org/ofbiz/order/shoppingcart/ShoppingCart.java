@@ -3265,7 +3265,7 @@ public class ShoppingCart implements Serializable {
         try {
             //first search for existing productId
             newProductId = ProductWorker.getAggregatedInstanceId(getDelegator(), item.getProductId(), configId);
-            if (configId.equals(newProductId)) {
+            if (newProductId != null) {
                 return newProductId;
             }
 
