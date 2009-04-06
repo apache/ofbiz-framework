@@ -359,8 +359,19 @@
             </entity-one>
             <set field="projectId" from-field="phase.workEffortParentId"/>
         </if-empty>
+        <!-- check if member of project -->
         <if-not-empty field="projectId">
             <entity-and entity-name="WorkEffortPartyAssignment" list="projectAssigns" filter-by-date="true" use-cache="true">
+                <field-map field-name="workEffortId" from-field="projectId"/>
+                <field-map field-name="partyId" from-field="partyId"/>
+            </entity-and>
+            <if-not-empty field="projectAssigns">
+                <set field="isMember" value="true" type="Boolean"/>
+            </if-not-empty>
+        </if-not-empty>
+        <!-- check if contact of the company -->
+        <if-not-empty field="projectId">
+            <entity-and entity-name="WorkEffortPartyAssignByGroup" list="projectAssigns" filter-by-date="true" use-cache="true">
                 <field-map field-name="workEffortId" from-field="projectId"/>
                 <field-map field-name="partyId" from-field="partyId"/>
             </entity-and>

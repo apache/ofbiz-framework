@@ -889,4 +889,11 @@
         <field name="createButton" use-when="content==null"><submit button-type="button"/></field>
         <field name="updateButton" use-when="content!=null"><submit button-type="button"/></field>
     </form>
+    <form name="ListPhaseInfo" extends="ListPhaseInfo" extends-resource="component://projectmgr/widget/forms/ProjectForms.xml">
+        <field name="phase"><display description="${phaseName}"/></field>
+    </form>
+    <form name="ListTaskInfo" extends="ListTaskInfo" extends-resource="component://projectmgr/widget/forms/ProjectForms.xml">
+        <field name="task"><display description="${workEffortName}"/></field>
+    </form>
+    
 </forms>

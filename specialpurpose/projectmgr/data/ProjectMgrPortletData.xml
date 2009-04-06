@@ -35,4 +35,12 @@
         description="My Tasks from the Project Manager" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />    
     <PortletPortletCategory portalPortletId="mytasks" portletCategoryId="PROJECTMANAGER"/>
     
+    <PortalPortlet portalPortletId="ListCustomerProjects" 
+        portletName="List Customer Projects" 
+        screenName="ListCustomerProjects" 
+        screenLocation="component://projectmgr/widget/ProjectScreens.xml" 
+        description="List Projects For a certain Customer" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
+    <PortletPortletCategory portalPortletId="ListCustomerProjects" portletCategoryId="PROJECTMANAGER"/>
+    
+    
 </entity-engine-xml>
