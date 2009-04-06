@@ -37,7 +37,7 @@
         <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
         <!-- end of deprecated fields -->
-        <attribute name="contentPurposeTypeId" type="String" mode="IN" optional="true"/> 
+        <attribute name="contentPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contentAssocTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contentIdFrom" type="String" mode="IN" optional="true"/>
         <attribute name="contentIdTo" type="String" mode="IN" optional="true"/>
@@ -47,7 +47,7 @@
         <attribute name="contentId" type="String" mode="INOUT" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <override name="contentTypeId" default-value="DOCUMENT"/>
-        
+
     </service>
 
     <service name="createTextAndUploadedContent" engine="simple" auth="true"
@@ -121,7 +121,7 @@
         <implements service="updateContentAssoc" optional="true"/>
         <auto-attributes entity-name="Content" include="pk" mode="INOUT" optional="false"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
-        <attribute name="contentPurposeTypeId" type="String" mode="IN" optional="true"/> 
+        <attribute name="contentPurposeTypeId" type="String" mode="IN" optional="true"/>
         <!-- TODO: the following fields are depricated; but will not be removed until all services and callers are updated -->
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="skipPermissionCheck" optional="true" type="String"/>
@@ -152,7 +152,7 @@
 
     <!-- TODO: old permission service; being replaced with genericContentPermission -->
     <service name="checkContentPermission"
-        transaction-timeout="72000"
+        transaction-timeout="7200"
         auth="false" engine="java" invoke="checkContentPermission"
         location="org.ofbiz.content.content.ContentPermissionServices">
         <description>Check for permission to perform operation on Content</description>
@@ -197,7 +197,7 @@
 
     <!--Content Assoc services.-->
     <!-- TODO: old permission service; being replaced with genericContentPermission -->
-    <service name="checkAssocPermission" engine="java" transaction-timeout="72000" auth="true"
+    <service name="checkAssocPermission" engine="java" transaction-timeout="7200" auth="true"
             location="org.ofbiz.content.content.ContentPermissionServices" invoke="checkAssocPermission">
         <description>Check for permission to perform operation on Content</description>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
