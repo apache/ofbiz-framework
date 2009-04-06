@@ -198,8 +198,8 @@ under the License.
                                     <widgets>
                                         <container>
                               <link target="EditTaxAuthorityPartyInfo" text="${uiLabelMap.AccountingNewTaxAuthorityPartyInfo}" style="buttontext">
-                                <parameter param-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
-                                <parameter param-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+                                <parameter param-name="taxAuthPartyId"/>
+                                <parameter param-name="taxAuthGeoId"/>
                               </link>
                             </container>
                                         <include-form name="FindTaxAuthorityParties" location="component://accounting/widget/TaxAuthorityForms.xml"/>
@@ -253,8 +253,8 @@ under the License.
                                     <widgets>
                                         <container>
                               <link target="EditTaxAuthorityPartyInfo" text="${uiLabelMap.AccountingNewTaxAuthorityPartyInfo}" style="buttontext">
-                                <parameter param-name="taxAuthPartyId" from-field="taxAuthPartyId"/>
-                                <parameter param-name="taxAuthGeoId" from-field="taxAuthGeoId"/>
+                                <parameter param-name="taxAuthPartyId"/>
+                                <parameter param-name="taxAuthGeoId"/>
                               </link>
                             </container>
                                         <include-form name="EditTaxAuthorityPartyInfo" location="component://accounting/widget/TaxAuthorityForms.xml"/>
