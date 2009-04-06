@@ -61,9 +61,9 @@ under the License.
         <field name="applicationDate" title="${uiLabelMap.FormFieldTitle_applicationDate}"><date-time/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteEmploymentApp" description="${uiLabelMap.CommonDelete}" also-hidden="true">
-                <parameter param-name="applicationId" from-field="applicationId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="referredByPartyId" from-field="referredByPartyId"/>
+                <parameter param-name="applicationId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="referredByPartyId"/>
             </hyperlink>
         </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>

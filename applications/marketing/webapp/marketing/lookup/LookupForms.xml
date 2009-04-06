@@ -55,14 +55,14 @@ under the License.
         </actions>
         <field name="segmentGroupId"  widget-style="buttontext" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}">
             <hyperlink also-hidden="false" target-type="intra-app" description="${segmentGroupId}" target="viewSegmentGroup">
-                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+                <parameter param-name="segmentGroupId"/>
             </hyperlink>
         </field>
         <field name="partyClassificationGroupId" title="${uiLabelMap.MarketingSegmentGroupPartyClassificationGroupId}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteSegmentGroupClass" description="[${uiLabelMap.CommonDelete}]" also-hidden="false">
-                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
-                <parameter param-name="partyClassificationGroupId" from-field="partyClassificationGroupId"/>
+                <parameter param-name="segmentGroupId"/>
+                <parameter param-name="partyClassificationGroupId"/>
             </hyperlink>
         </field>
     </form>

@@ -69,11 +69,11 @@
         <field name="terminationTypeId"><display/></field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditEmployment" description="${uiLabelMap.CommonEdit}">
-                <parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
-                <parameter param-name="partyIdTo" from-field="partyIdTo"/>
-                <parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
-                <parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
+                <parameter param-name="partyIdFrom"/>
+                <parameter param-name="partyIdTo"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="fromDate"/>
+                <parameter param-name="roleTypeIdTo"/>
             </hyperlink>
         </field>
     </form>
@@ -97,11 +97,11 @@
         <field name="terminationTypeId"><display/></field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditEmployment" description="${uiLabelMap.CommonEdit}">
-                <parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
-                <parameter param-name="partyIdTo" from-field="partyIdTo"/>
-                <parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
-                <parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
+                <parameter param-name="partyIdFrom"/>
+                <parameter param-name="partyIdTo"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="fromDate"/>
+                <parameter param-name="roleTypeIdTo"/>
             </hyperlink>
         </field>
     </form>
@@ -174,11 +174,11 @@
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deletePayHistory" description="${uiLabelMap.CommonDelete}">
-                <parameter param-name="roleTypeIdFrom" from-field="roleTypeIdFrom"/>
-                <parameter param-name="roleTypeIdTo" from-field="roleTypeIdTo"/>
-                <parameter param-name="partyIdFrom" from-field="partyIdFrom"/>
-                <parameter param-name="partyIdTo" from-field="partyIdTo"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="roleTypeIdFrom"/>
+                <parameter param-name="roleTypeIdTo"/>
+                <parameter param-name="partyIdFrom"/>
+                <parameter param-name="partyIdTo"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>           
@@ -261,9 +261,9 @@
         <field name="thruDate"><date-time/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deletePayrollPreference" description="${uiLabelMap.CommonDelete}" also-hidden="true">
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
-                <parameter param-name="payrollPreferenceSeqId" from-field="payrollPreferenceSeqId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="payrollPreferenceSeqId"/>
             </hyperlink>
         </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
@@ -308,7 +308,7 @@
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
                <sub-hyperlink target="/partymgr/control/viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </sub-hyperlink>
            </display-entity>
         </field>

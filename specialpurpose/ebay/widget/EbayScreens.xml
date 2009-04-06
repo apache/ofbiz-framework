@@ -76,8 +76,8 @@ under the License.
                                                 <parameter param-name="product_id" from-field="productId"/>
                                             </link>
                                             <link target="ProductBarCode.pdf" target-window="_blank" text="${uiLabelMap.ProductBarcode}" style="buttontext">
-                                                <parameter param-name="productId" from-field="productId"/>
-                                                <parameter param-name="productName" from-field="productName"/>
+                                                <parameter param-name="productId"/>
+                                                <parameter param-name="productName"/>
                                             </link>
                                         </container>
                                     </widgets>

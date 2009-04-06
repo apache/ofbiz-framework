@@ -75,7 +75,7 @@
                 <if-compare field="hasViewPermission" operator="equals" value="true"/>
             </condition>
             <link target="ganttChart">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </link>
         </menu-item>
         <menu-item name="projectView" title="${uiLabelMap.ProjectMgrProjectSummary}">
@@ -83,7 +83,7 @@
                 <if-compare field="hasViewPermission" operator="equals" value="true"/>
             </condition>
             <link target="projectView">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </link>
         </menu-item>
         <menu-item name="editproject" title="${uiLabelMap.ProjectMgrEditProject}">
@@ -97,7 +97,7 @@
                 </and>
             </condition>
             <link target="EditProject">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </link>
         </menu-item>
         <menu-item name="phases" title="${uiLabelMap.ProjectMgrPhases}">
@@ -111,7 +111,7 @@
                 </and>
             </condition>
             <link target="FindPhase">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </link>
         </menu-item>
         <menu-item name="tasks" title="${uiLabelMap.ProjectMgrTasks}">
@@ -125,7 +125,7 @@
                 </and>
             </condition>
             <link target="EditProjectTasks">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </link>
         </menu-item>    
         <menu-item name="orders" title="${uiLabelMap.OrderOrders}">
@@ -139,7 +139,7 @@
                 </and>
             </condition>
             <link target="EditProjectOrders">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </link>
         </menu-item>    
         <menu-item name="parties" title="${uiLabelMap.ProjectMgrResources}">
@@ -153,7 +153,7 @@
                 </and>
             </condition>
             <link target="ListWorkEffortPartyAssigns">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </link>
         </menu-item>
         <menu-item name="projectContent" title="${uiLabelMap.CommonContent}">
@@ -167,7 +167,7 @@
                 </and>
             </condition>
             <link target="EditProjectContents">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </link>
         </menu-item>
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}">
@@ -177,7 +177,7 @@
                 </and>
             </condition>
             <link target="EditWorkEffortNotes">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </link>
         </menu-item>
         <menu-item name="subprojects" title="${uiLabelMap.ProjectMgrSubProjects}">
@@ -191,7 +191,7 @@
                 </and>
             </condition>
             <link target="ListSubProjects">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
                 <parameter param-name="subProjects" value="true"/>
             </link>
         </menu-item>
@@ -206,7 +206,7 @@
                 </and>
             </condition>
             <link target="projectBilling">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </link>
         </menu-item>
     </menu>
@@ -240,7 +240,7 @@
                 </and>
             </condition>
             <link target="copyProject">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </link>
         </menu-item>
         <menu-item name="schedule" title="${uiLabelMap.ProjectMgrSchedule}">
@@ -254,7 +254,7 @@
                 </and>
             </condition>
             <link target="scheduleProject">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </link>
         </menu-item>
         <menu-item name="copyProjectToTemplate" title="${uiLabelMap.ProjectMgrSaveAsTemplate}">
@@ -267,7 +267,7 @@
                 </and>
             </condition>
             <link target="copyProjectToTemplate">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </link>
         </menu-item>
         <menu-item name="close" title="${uiLabelMap.CommonClose}">
@@ -292,7 +292,7 @@
                <not><if-empty field="workEffort"/></not>
             </condition>
             <link target="taskView">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="edittask" title="${uiLabelMap.ProjectMgrEditTask}">
@@ -305,7 +305,7 @@
                 </and>
             </condition>
             <link target="EditTask">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="dependencies" title="${uiLabelMap.ProjectMgrDependencies}">
@@ -318,7 +318,7 @@
                 </and>
             </condition>
             <link target="Dependencies">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="parties" title="${uiLabelMap.ProjectMgrResources}">
@@ -331,7 +331,7 @@
                 </and>
             </condition>
             <link target="EditTaskPartyAssigns">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="taskskills" title="${uiLabelMap.ProjectMgrSkillStandards}">
@@ -344,7 +344,7 @@
                 </and>
             </condition>
             <link target="EditTaskSkills">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="timeEntries" title="${uiLabelMap.ProjectMgrTimeEntries}">
@@ -357,7 +357,7 @@
                 </and>
             </condition>
             <link target="EditTimeEntries">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="taskContent" title="${uiLabelMap.CommonContent}">
@@ -370,7 +370,7 @@
                 </and>
             </condition>
             <link target="EditTaskContents">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}">
@@ -378,7 +378,7 @@
                 <not><if-empty field="workEffort"/></not>
             </condition>
             <link target="EditTaskNotes">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </link>
         </menu-item>
     </menu>
@@ -404,7 +404,7 @@
                 </and>
             </condition>
             <link target="setTaskStatus">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
                 <parameter param-name="currentStatusId" value="PTS_ON_HOLD"/>
             </link>
         </menu-item>
@@ -416,7 +416,7 @@
                 </and>
             </condition>
             <link target="setTaskStatusToComplete">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </link>
         </menu-item>
         <menu-item name="release" title="${uiLabelMap.ProjectMgrRelease}" >
@@ -427,7 +427,7 @@
                 </and>
             </condition>
             <link target="setTaskStatus">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
                 <parameter param-name="currentStatusId" value="PTS_CREATED"/>
             </link>
         </menu-item>
@@ -439,7 +439,7 @@
                 </and>
             </condition>
             <link target="setTaskStatus">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
                 <parameter param-name="currentStatusId" value="PTS_CANCELLED"/>
             </link>
         </menu-item>
@@ -501,32 +501,32 @@
           default-menu-item-name="edittimesheet">
         <menu-item name="ResourcesProfile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="viewroles" title="${uiLabelMap.PartyRoles}">
             <link target="viewroles">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="listResourcesProject" title="${uiLabelMap.ProjectMgrProjects}">
             <link target="listResourcesProject">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="listResourcesTask"  title="${uiLabelMap.ProjectMgrTasks}">
             <link target="listResourcesTask">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="EditPartyRates"  title="${uiLabelMap.ProjectMgrRates}">
             <link target="EditPartyRates">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
         <menu-item name="ListBillingHours"  title="${uiLabelMap.ProjectMgrBilling}">
             <link target="ListResourceBillingHours">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </link>
         </menu-item>
     </menu>
@@ -586,7 +586,7 @@
                 </and>
             </condition>
             <link target="setCustRequestStatus">
-                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="custRequestId"/>
                 <parameter param-name="statusId" value="CRQ_CANCELLED"/>
             </link>
         </menu-item>

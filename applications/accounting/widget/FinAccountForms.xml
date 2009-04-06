@@ -50,13 +50,13 @@ under the License.
         <auto-fields-entity entity-name="FinAccount" default-field-type="display"/>
         <field name="finAccountId">
             <hyperlink  description="${finAccountId}" target="EditFinAccount">
-                <parameter param-name="finAccountId" from-field="finAccountId"/>
+                <parameter param-name="finAccountId"/>
             </hyperlink>
         </field>
         <field name="finAccountTypeId"><display-entity entity-name="FinAccountType" description="${description}"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteFinAccount" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="finAccountId" from-field="finAccountId"/>
+                <parameter param-name="finAccountId"/>
             </hyperlink>
         </field>
     </form>
@@ -135,10 +135,10 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteFinAccountRole" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="finAccountId" from-field="finAccountId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="finAccountId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>
@@ -204,8 +204,8 @@ under the License.
         <field name="finAccountId"><hidden/></field>
         <field name="expireLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="expireFinAccountAuth" description="${uiLabelMap.CommonExpire}" also-hidden="false">
-                <parameter param-name="finAccountId" from-field="finAccountId"/>
-                <parameter param-name="finAccountAuthId" from-field="finAccountAuthId"/>
+                <parameter param-name="finAccountId"/>
+                <parameter param-name="finAccountAuthId"/>
             </hyperlink>
         </field>
     </form>

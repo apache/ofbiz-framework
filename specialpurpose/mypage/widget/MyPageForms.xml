@@ -25,7 +25,7 @@ under the License.
         <field name="donePage"><hidden value="${parameters.donePage}"/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName}" target="/projectmgr/control/taskView" target-type="inter-app" target-window="_BLANK">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}">
@@ -35,10 +35,10 @@ under the License.
         </field>
         <field name="roleTypeId" parameter-name="newRoleTypeId" title="${uiLabelMap.PartyRole}"><hidden value="${roleTypeId}"/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment" description="${uiLabelMap.CommonRemove}">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="fromDate"/>
                 <parameter param-name="statusId" value="PAS_ENDED"/>
                 <parameter param-name="statusId=donePage" from-field="parameters.donePage"/>
             </hyperlink>
@@ -46,10 +46,10 @@ under the License.
         <!-- better set to complete on the timesheet -->
         <!-- <field name="toComplete" title="${uiLabelMap.MyPageToComplete}">
             <hyperlink target="updateTaskAssigment" description="${uiLabelMap.MyPageToComplete}">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="fromDate"/>
                 <parameter param-name="statusId" value="PAS_COMPLETED"/>
                 <parameter param-name="statusId=donePage" from-field="parameters.donePage"/>
             </hyperlink>
@@ -115,9 +115,9 @@ under the License.
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
         <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="RemoveCommunicationEventRole">
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="roleTypeId"/>
                 <parameter param-name="deleteCommEventIfLast" value="Y"/>
                 <parameter param-name="delContentDataResource" value="Y"/>
                 <parameter param-name="donePage" from-field="parameters.donePage"/>
@@ -125,9 +125,9 @@ under the License.
         </field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject} " target="ViewCommunicationEvent">
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
                 <parameter param-name="donePage" from-field="parameters.donePage"/>
             </hyperlink>
         </field>
@@ -151,7 +151,7 @@ under the License.
         <field name="donePage"><hidden/></field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject}" target="ViewCommunicationEvent">
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="communicationEventId"/>
                 <parameter param-name="donePage" from-field="parameters.donePage"/>
             </hyperlink>
         </field>
@@ -165,7 +165,7 @@ under the License.
     <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="workEffortId">
             <hyperlink target="/projectmgr/control/taskView" description="${workEffortName} [${workEffortId}]" target-type="inter-app">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
     </form>
@@ -178,7 +178,7 @@ under the License.
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestName">
             <hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest">
-                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="custRequestId"/>
             </hyperlink>
         </field>
         <field name="custRequestDate" title="${uiLabelMap.CommonDate}"><display type="date"/></field>
@@ -240,7 +240,7 @@ under the License.
         </row-actions>
         <field name="invoiceId" widget-style="buttontext">
             <hyperlink description="${invoiceId}" target="invoice.pdf">
-                <parameter param-name="invoiceId" from-field="invoiceId"/>
+                <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
         <field name="invoiceTypeId"><display-entity entity-name="InvoiceType" description="${description}"/></field>
@@ -267,15 +267,15 @@ under the License.
         </actions>
         <field name="subject">
             <hyperlink description="${subject}" target="EditCommunicationEvent">
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="communicationEventId"/>
                 <parameter param-name="communicationEventTypeId" value="EMAIL_COMMUNICATION"/>
                 <parameter param-name="partyId" from-field="userLogin.partyId"/>
             </hyperlink>
         </field>
         <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent">
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="communicationEventId" from-field="communicationEventId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="communicationEventId"/>
             </hyperlink>
         </field>
     </form>

@@ -209,7 +209,7 @@ under the License.
                                         <container style="button-bar">
                                             <link target="EditSubscriptionResource" text="${uiLabelMap.ProductNewSubscriptionResource}" style="buttontext"/>
                                             <link target="FindSubscription" text="${uiLabelMap.ProductFindResourceSubscriptions}" style="buttontext">
-                                                <parameter param-name="subscriptionResourceId" from-field="subscriptionResourceId"/>
+                                                <parameter param-name="subscriptionResourceId"/>
                                             </link>
                                         </container>
                                     </widgets>

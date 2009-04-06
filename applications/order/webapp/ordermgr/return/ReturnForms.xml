@@ -156,7 +156,7 @@ under the License.
         </actions>
         <field name="returnId"  widget-style="buttontext" title="${uiLabelMap.OrderReturnId}">
             <hyperlink description="${returnId}" target="returnMain">
-                <parameter param-name="returnId" from-field="returnId"/>
+                <parameter param-name="returnId"/>
             </hyperlink>
         </field>
         <field name="entryDate" title="${uiLabelMap.OrderEntryDate}">

@@ -23,17 +23,17 @@ under the License.
           default-menu-item-name="ContactList" selected-menuitem-context-field-name="contactListTabButtonItem">
         <menu-item name="ContactList" title="${uiLabelMap.MarketingContactList}">
             <link target="/EditContactList">
-                <parameter param-name="contactListId" from-field="contactListId"/>
+                <parameter param-name="contactListId"/>
             </link>
         </menu-item>
         <menu-item name="ContactListParty" title="${uiLabelMap.PartyParties}">
             <link target="/FindContactListParties">
-                <parameter param-name="contactListId" from-field="contactListId"/>
+                <parameter param-name="contactListId"/>
             </link>
         </menu-item>
         <menu-item name="ContactListCommEvent" title="${uiLabelMap.PartyCommEvents}">
             <link target="/FindContactListCommEvents">
-                <parameter param-name="contactListId" from-field="contactListId"/>
+                <parameter param-name="contactListId"/>
             </link>
         </menu-item>
     </menu>

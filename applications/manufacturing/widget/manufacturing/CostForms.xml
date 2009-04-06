@@ -25,7 +25,7 @@ under the License.
         <auto-fields-entity entity-name="CostComponentCalc" default-field-type="display"/>
         <field name="costComponentCalcId" widget-style="buttontext">
             <hyperlink target="EditCostCalcs" description="${costComponentCalcId}" also-hidden="false">
-                <parameter param-name="costComponentCalcId" from-field="costComponentCalcId"/>
+                <parameter param-name="costComponentCalcId"/>
             </hyperlink>
         </field>
         <field name="costGlAccountTypeId"><hidden/></field>
@@ -38,7 +38,7 @@ under the License.
         </field>
         <field name="removeCostComponentCalc" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeCostComponentCalc" description="${uiLabelMap.CommonRemove}" also-hidden="false">
-                <parameter param-name="costComponentCalcId" from-field="costComponentCalcId"/>
+                <parameter param-name="costComponentCalcId"/>
             </hyperlink>
         </field>
     </form>

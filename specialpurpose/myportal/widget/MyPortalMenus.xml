@@ -90,7 +90,7 @@ under the License.
                 </and>
             </condition>
             <link target="setCustRequestStatus">
-                <parameter param-name="custRequestId" from-field="custRequestId"/>
+                <parameter param-name="custRequestId"/>
                 <parameter param-name="statusId" value="CRQ_CANCELLED"/>
             </link>
         </menu-item>

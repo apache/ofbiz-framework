@@ -70,7 +70,7 @@ under the License.
         <field name="dataResourceName" widget-style="tabletext">
             <display-entity entity-name="DataResource" description="${dataResourceName}" key-field-name="dataResourceId">
                 <sub-hyperlink target="EditDataResource" description="[${dataResourceId}]" link-style="buttontext">
-                    <parameter param-name="dataResourceId" from-field="dataResourceId"/>
+                    <parameter param-name="dataResourceId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -203,7 +203,7 @@ under the License.
         </actions>
         <field name="contentId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${contentId}" target="/EditContent">
-                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="contentId"/>
             </hyperlink>
         </field>
         <field name="contentName"><display/></field>
@@ -346,8 +346,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceAttribute">
-                <parameter param-name="dataResourceId" from-field="dataResourceId"/>
-                <parameter param-name="attrName" from-field="attrName"/>
+                <parameter param-name="dataResourceId"/>
+                <parameter param-name="attrName"/>
             </hyperlink>
         </field>
     </form>
@@ -378,10 +378,10 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceRole">
-                <parameter param-name="dataResourceId" from-field="dataResourceId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="dataResourceId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>
@@ -405,8 +405,8 @@ under the License.
         <auto-fields-entity entity-name="ProductFeatureDataResource" default-field-type="display"/>       
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceProductFeature">
-                <parameter param-name="dataResourceId" from-field="dataResourceId"/>
-                <parameter param-name="productFeatureId" from-field="productFeatureId"/>
+                <parameter param-name="dataResourceId"/>
+                <parameter param-name="productFeatureId"/>
             </hyperlink>
         </field>
     </form>

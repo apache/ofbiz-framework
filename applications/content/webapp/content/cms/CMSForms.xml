@@ -183,11 +183,11 @@ under the License.
         <auto-fields-service service-name="updateContentPurposeOperation" default-field-type="display"/>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentPurposeOperation">
-                <parameter param-name="contentPurposeTypeId" from-field="contentPurposeTypeId"/>
-                <parameter param-name="contentOperationId" from-field="contentOperationId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
-                <parameter param-name="statusId" from-field="statusId"/>
-                <parameter param-name="privilegeEnumId" from-field="privilegeEnumId"/>
+                <parameter param-name="contentPurposeTypeId"/>
+                <parameter param-name="contentOperationId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="statusId"/>
+                <parameter param-name="privilegeEnumId"/>
             </hyperlink>
         </field>
     </form>
@@ -403,9 +403,9 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
            <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="CMSContentEdit">
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="drDataResourceId" from-field="drDataResourceId"/>
-                <parameter param-name="contentIdTo" from-field="contentIdTo"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="drDataResourceId"/>
+                <parameter param-name="contentIdTo"/>
             </hyperlink>
         </field>
         <field name="contentId"><display/></field>

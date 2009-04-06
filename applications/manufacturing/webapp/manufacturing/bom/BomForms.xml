@@ -87,12 +87,12 @@ under the License.
         <field name="thruDate"><display/></field>
         <field name="updateLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditProductManufacturingRules" description="${uiLabelMap.CommonSelect}" >
-                <parameter param-name="ruleId" from-field="ruleId"/>
+                <parameter param-name="ruleId"/>
             </hyperlink>
         </field> 
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="DeleteProductManufacturingRule" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="ruleId" from-field="ruleId"/>
+                <parameter param-name="ruleId"/>
             </hyperlink>
         </field>
     </form>
@@ -143,8 +143,8 @@ under the License.
         default-table-style="basic-table hover-bar"  paginate-target="FindBom">
         <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="">
             <hyperlink target="EditProductBom" description="${productId}">
-                <parameter param-name="productId" from-field="productId"/>
-                <parameter param-name="productAssocTypeId" from-field="productAssocTypeId"/>
+                <parameter param-name="productId"/>
+                <parameter param-name="productAssocTypeId"/>
             </hyperlink>
         </field>
         <field name="internalName" title="${uiLabelMap.ProductProductName}"><display/></field>

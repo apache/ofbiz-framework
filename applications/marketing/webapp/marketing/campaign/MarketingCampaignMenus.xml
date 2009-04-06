@@ -23,12 +23,12 @@ under the License.
           default-menu-item-name="MarketingCampaign" selected-menuitem-context-field-name="campaignTabButtonItem">
         <menu-item name="MarketingCampaign" title="${uiLabelMap.MarketingCampaign}">
             <link target="/EditMarketingCampaign">
-                <parameter param-name="marketingCampaignId" from-field="marketingCampaignId"/>
+                <parameter param-name="marketingCampaignId"/>
             </link>
         </menu-item>
         <menu-item name="MarketingCampaignRole" title="${uiLabelMap.PartyRoles}">
             <link target="/ListMarketingCampaignRoles">
-                <parameter param-name="marketingCampaignId" from-field="marketingCampaignId"/>
+                <parameter param-name="marketingCampaignId"/>
             </link>
         </menu-item>
     </menu>

@@ -30,7 +30,7 @@ under the License.
         <field name="contactListId" title="${uiLabelMap.PartyContactLists}">
             <display-entity entity-name="ContactList" description="${contactListName}">
                 <sub-hyperlink target="/marketing/control/EditContactList" description="${contactListId}" target-type="inter-app" link-style="smallSubmit">
-                    <parameter param-name="contactListId" from-field="contactListId"/>
+                    <parameter param-name="contactListId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>

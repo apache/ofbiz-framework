@@ -164,7 +164,7 @@ under the License.
                     <widgets>
                         <screenlet title="${uiLabelMap.PageTitleEditConfigOptions}">
                             <link style="buttontext" text="${uiLabelMap.ProductCreateNewConfigOptions}" target="EditProductConfigOptions">
-                                <parameter param-name="configItemId" from-field="configItemId"/>
+                                <parameter param-name="configItemId"/>
                             </link>
                             <include-form name="CreateConfigOption" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
                         </screenlet>
@@ -197,8 +197,8 @@ under the License.
                     <widgets>
                         <screenlet title="${uiLabelMap.CommonEdit} ${uiLabelMap.ProductConfigs}">
                             <link style="buttontext" text="${uiLabelMap.CommonNew} ${uiLabelMap.ProductConfigs}" target="EditProductConfigOptions">
-                                <parameter param-name="configItemId" from-field="configItemId"/>
-                                <parameter param-name="configOptionId" from-field="configOptionId"/>
+                                <parameter param-name="configItemId"/>
+                                <parameter param-name="configOptionId"/>
                             </link>
                             <include-form name="CreateProductConfigProduct" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
                         </screenlet>
@@ -206,8 +206,8 @@ under the License.
                     <fail-widgets>
                         <screenlet title="${uiLabelMap.CommonAddA} ${uiLabelMap.ProductConfigs}">
                             <link style="buttontext" text="${uiLabelMap.CommonNew} ${uiLabelMap.ProductConfigs}" target="EditProductConfigOptions">
-                                <parameter param-name="configItemId" from-field="configItemId"/>
-                                <parameter param-name="configOptionId" from-field="configOptionId"/>
+                                <parameter param-name="configItemId"/>
+                                <parameter param-name="configOptionId"/>
                             </link>
                             <include-form name="CreateProductConfigProduct" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
                         </screenlet>

@@ -166,8 +166,8 @@
             <hyperlink also-hidden="false" description="${workEffortToName}" target="EditWorkEfforts">
                 <parameter param-name="workEffortId" from-field="workEffortIdTo"/>
                 <parameter param-name="workEffortIdFrom" from-field="workEffortId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
-                <parameter param-name="workEffortAssocTypeId" from-field="workEffortAssocTypeId"/>
+                <parameter param-name="fromDate"/>
+                <parameter param-name="workEffortAssocTypeId"/>
             </hyperlink>
         </field>
         <field name="workEffortAssocTypeId">

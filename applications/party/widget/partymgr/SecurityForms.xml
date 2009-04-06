@@ -30,7 +30,7 @@ under the License.
         </actions>
         <field name="groupId" title="${uiLabelMap.PartySecurityGroupId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${groupId}" target="EditSecurityGroup">
-                <parameter param-name="groupId" from-field="groupId"/>
+                <parameter param-name="groupId"/>
             </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
@@ -60,8 +60,8 @@ under the License.
         <field name="permissionId" title="${uiLabelMap.PartyPermissionId}"><display-entity entity-name="SecurityPermission" description="${permissionId} ${description}"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeSecurityPermissionFromSecurityGroup" description="${uiLabelMap.CommonRemove}">
-                <parameter param-name="permissionId" from-field="permissionId"/>
-                <parameter param-name="groupId" from-field="groupId"/>
+                <parameter param-name="permissionId"/>
+                <parameter param-name="groupId"/>
             </hyperlink>
         </field>
     </form>
@@ -104,16 +104,16 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyParty}">
             <display-entity entity-name="PartyNameView" also-hidden="false" description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <sub-hyperlink target="viewprofile" description="${partyId}" link-style="buttontext">
-                    <parameter param-name="partyId" from-field="partyId"/>
+                    <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeUserLoginFromSecurityGroup" also-hidden="false">
-                <parameter param-name="userLoginId" from-field="userLoginId"/>
-                <parameter param-name="groupId" from-field="groupId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="userLoginId"/>
+                <parameter param-name="groupId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>
@@ -139,7 +139,7 @@ under the License.
         <field name="groupId" title="${uiLabelMap.CommonGroup}">
             <display-entity entity-name="SecurityGroup">
                 <sub-hyperlink target="EditSecurityGroup" description="${groupId}" link-style="buttontext">
-                    <parameter param-name="groupId" from-field="groupId"/>
+                    <parameter param-name="groupId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -149,10 +149,10 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="userLogin_removeUserLoginFromSecurityGroup" also-hidden="false">
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="userLoginId" from-field="userLoginId"/>
-                <parameter param-name="groupId" from-field="groupId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="userLoginId"/>
+                <parameter param-name="groupId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>
@@ -189,8 +189,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeProtectedViewFromSecurityGroup" also-hidden="false">
-                <parameter param-name="groupId" from-field="groupId"/>
-                <parameter param-name="viewNameId" from-field="viewNameId"/>
+                <parameter param-name="groupId"/>
+                <parameter param-name="viewNameId"/>
             </hyperlink>
         </field>
     </form>

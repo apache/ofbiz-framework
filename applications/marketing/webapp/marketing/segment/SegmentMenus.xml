@@ -23,22 +23,22 @@ under the License.
           default-menu-item-name="Segment" selected-menuitem-context-field-name="segmentTabButtonItem">
         <menu-item name="SegmentGroup" title="${uiLabelMap.MarketingSegmentGroupSegmentGroup}">
             <link target="viewSegmentGroup">
-                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+                <parameter param-name="segmentGroupId"/>
             </link>
         </menu-item>
         <menu-item name="SegmentGroupClassification" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupClassification}">
             <link target="listSegmentGroupClass">
-                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+                <parameter param-name="segmentGroupId"/>
             </link>
         </menu-item>
         <menu-item name="SegmentGroupGeo" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupGeo}">
             <link target="listSegmentGroupGeo">
-                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+                <parameter param-name="segmentGroupId"/>
             </link>
         </menu-item>
         <menu-item name="SegmentGroupRole" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupRole}">
             <link target="listSegmentGroupRole">
-                <parameter param-name="segmentGroupId" from-field="segmentGroupId"/>
+                <parameter param-name="segmentGroupId"/>
             </link>
         </menu-item>
     </menu>

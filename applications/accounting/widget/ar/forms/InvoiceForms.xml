@@ -53,7 +53,7 @@ under the License.
         </row-actions>
         <field name="invoiceId" widget-style="buttontext">
             <hyperlink description="${invoiceId}" target="invoiceOverview">
-                <parameter param-name="invoiceId" from-field="invoiceId"/>
+                <parameter param-name="invoiceId"/>
             </hyperlink>
         </field>
         <field name="invoiceTypeId"><display-entity entity-name="InvoiceType" description="${description}"/></field>

@@ -88,7 +88,7 @@ under the License.
 
         <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${quoteId}" target="loadCartFromQuote">
-                <parameter param-name="quoteId" from-field="quoteId"/>
+                <parameter param-name="quoteId"/>
             </hyperlink>
         </field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}">
@@ -111,12 +111,12 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="addFromList" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="addFromShoppingList" description="${uiLabelMap.OrderToAddSelectedItemsToShoppingList}" also-hidden="false">
-                <parameter param-name="shoppingListId" from-field="shoppingListId"/>
+                <parameter param-name="shoppingListId"/>
             </hyperlink>
         </field>
         <field name="addAllFromList" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="addAllFromShoppingList" description="${uiLabelMap.OrderQuickAdd}" also-hidden="false">
-                <parameter param-name="shoppingListId" from-field="shoppingListId"/>
+                <parameter param-name="shoppingListId"/>
             </hyperlink>
         </field>
     </form>
@@ -128,18 +128,18 @@ under the License.
         </field>
         <field name="addToCart" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="additem/editShoppingList" description="${uiLabelMap.CommonAdd} ${quantity} ${uiLabelMap.OrderAddQntToOrder}" also-hidden="false">
-                <parameter param-name="shoppingListId" from-field="shoppingListId"/>
-                <parameter param-name="shoppingListItemSeqId" from-field="shoppingListItemSeqId"/>
+                <parameter param-name="shoppingListId"/>
+                <parameter param-name="shoppingListItemSeqId"/>
                 <parameter param-name="add_product_id" from-field="productId"/>
-                <parameter param-name="quantity" from-field="quantity"/>
-                <parameter param-name="configId" from-field="configId"/>
+                <parameter param-name="quantity"/>
+                <parameter param-name="configId"/>
             </hyperlink>
         </field>
     </form>
     <form name="AddFromShoppingListAll" type="single" target="">
         <field name="addAllFromList" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="addAllFromShoppingList" description="${uiLabelMap.OrderQuickAdd}" also-hidden="false">
-                <parameter param-name="shoppingListId" from-field="shoppingListId"/>
+                <parameter param-name="shoppingListId"/>
             </hyperlink>
         </field>
         <field name="returnToOrderEntry" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -151,7 +151,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupBulkAddProducts">
         <field name="productId"  title="${uiLabelMap.ProductProductId}" widget-style="buttontext">
             <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">
-                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="productId"/>
             </hyperlink>
         </field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><display/></field>
@@ -173,7 +173,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="LookupBulkAddSupplierProducts">
         <field name="productId" widget-style="buttontext">
             <hyperlink description="${productId}" target="/catalog/control/EditProductInventoryItems" target-type="inter-app">
-                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="productId"/>
             </hyperlink>
         </field>
         <field name="supplierProductId"><display/></field>

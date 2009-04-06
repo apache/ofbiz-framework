@@ -93,7 +93,7 @@ under the License.
         <field name="cancelDateTime" title="${uiLabelMap.CommonEndDateTime}" sort-field="true"><display/></field>
         <field name="cancelButton" title="${uiLabelMap.CommonEmptyHeader}" use-when="startDateTime==null&amp;&amp;finishDateTime==null&amp;&amp;cancelDateTime==null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.WebtoolsCancelJob}" target="cancelJob">
-                <parameter param-name="jobId" from-field="jobId"/>
+                <parameter param-name="jobId"/>
             </hyperlink>
         </field>
     </form>

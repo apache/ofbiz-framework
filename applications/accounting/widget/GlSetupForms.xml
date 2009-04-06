@@ -47,7 +47,7 @@ under the License.
         <auto-fields-entity entity-name="GlAccount" default-field-type="display"/>
         <field name="glAccountId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${glAccountId}" target="GlAccountNavigate">
-                <parameter param-name="glAccountId" from-field="glAccountId"/>
+                <parameter param-name="glAccountId"/>
             </hyperlink>
         </field>
         <field name="glAccountClassId">

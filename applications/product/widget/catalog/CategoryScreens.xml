@@ -47,7 +47,7 @@ under the License.
                                         <container>
                                             <link target="EditCategory" text="${uiLabelMap.ProductNewCategory}" style="buttontext"/>
                                             <link target="createProductInCategoryStart" text="${uiLabelMap.ProductCreateProductInCategory}" style="buttontext">
-                                                <parameter param-name="productCategoryId" from-field="productCategoryId"/>
+                                                <parameter param-name="productCategoryId"/>
                                             </link>
                                             <link target="advancedsearch" text="${uiLabelMap.ProductSearchInCategory}" style="buttontext">
                                                 <parameter param-name="SEARCH_CATEGORY_ID" from-field="productCategoryId"/>

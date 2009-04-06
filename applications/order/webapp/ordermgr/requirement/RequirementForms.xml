@@ -77,7 +77,7 @@ under the License.
         </row-actions>
         <field name="requirementId" widget-style="buttontext">
             <hyperlink target-type="inter-app" description="${requirementId}" target="/ordermgr/control/EditRequirement">
-                <parameter param-name="requirementId" from-field="requirementId"/>
+                <parameter param-name="requirementId"/>
             </hyperlink>
         </field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
@@ -95,17 +95,17 @@ under the License.
         <field name="quantityOnHandTotal"><display/></field>
         <field name="requestsLink" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.OrderRequests}" target="ListRequirementCustRequests">
-                <parameter param-name="requirementId" from-field="requirementId"/>
+                <parameter param-name="requirementId"/>
             </hyperlink>
         </field>
         <field name="ordersLink" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonOrders}" target="ListRequirementOrders">
-                <parameter param-name="requirementId" from-field="requirementId"/>
+                <parameter param-name="requirementId"/>
             </hyperlink>
         </field>
         <field name="deleteLink" widget-style="buttontext" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="deleteRequirement">
-                <parameter param-name="requirementId" from-field="requirementId"/>
+                <parameter param-name="requirementId"/>
             </hyperlink>
         </field>
     </form>
@@ -146,14 +146,14 @@ under the License.
         <field name="requirementId"><hidden/></field>
         <field name="custRequestId" widget-style="buttontext">
             <hyperlink description="${custRequestId}" target="request">
-                <parameter param-name="custRequestId" from-field="custRequestId"/>
-                <parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
+                <parameter param-name="custRequestId"/>
+                <parameter param-name="custRequestItemSeqId"/>
             </hyperlink>
         </field>
         <field name="custRequestItemSeqId" widget-style="buttontext">
             <hyperlink description="${custRequestItemSeqId}" target="requestitem">
-                <parameter param-name="custRequestId" from-field="custRequestId"/>
-                <parameter param-name="custRequestItemSeqId" from-field="custRequestItemSeqId"/>
+                <parameter param-name="custRequestId"/>
+                <parameter param-name="custRequestItemSeqId"/>
             </hyperlink>
         </field>
     </form>
@@ -164,7 +164,7 @@ under the License.
         <auto-fields-entity entity-name="OrderRequirementCommitment" default-field-type="display"/>
         <field name="orderId" widget-style="buttontext">
             <hyperlink description="${orderId}" target-type="inter-app" target="/ordermgr/control/orderview">
-                <parameter param-name="orderId" from-field="orderId"/>
+                <parameter param-name="orderId"/>
             </hyperlink>
         </field>
     </form>
@@ -175,18 +175,18 @@ under the License.
         <field name="requirementId"><hidden/></field>
         <field name="editLink" widget-style="buttontext" title="${uiLabelMap.CommonEdit}">
             <hyperlink description="${uiLabelMap.CommonEdit}" target="EditRequirementRole">
-                <parameter param-name="requirementId" from-field="requirementId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="requirementId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
         <field name="removeLink" widget-style="buttontext" title="${uiLabelMap.CommonRemove}">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="removeRequirementRole">
-                <parameter param-name="requirementId" from-field="requirementId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="requirementId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>
@@ -237,7 +237,7 @@ under the License.
         paginate-target="ApproveRequirements" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="requirementId" widget-style="buttontext">
             <hyperlink also-hidden="true" description="${requirementId}" target="EditRequirement">
-                <parameter param-name="requirementId" from-field="requirementId"/>
+                <parameter param-name="requirementId"/>
             </hyperlink>
         </field>
         <field name="requirementTypeId">
@@ -300,12 +300,12 @@ under the License.
         </actions>
         <field name="requirementId" widget-style="buttontext">
             <hyperlink also-hidden="true" description="${requirementId}" target="EditRequirement">
-                <parameter param-name="requirementId" from-field="requirementId"/>
+                <parameter param-name="requirementId"/>
             </hyperlink>
         </field>
         <field name="productId" widget-style="buttontext">
             <hyperlink also-hidden="true" target-type="inter-app" description="${productId}" target="/catalog/control/EditProductInventoryItems" target-window="top">
-                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="productId"/>
             </hyperlink>
         </field>
         <field name="internalName" entry-name="productId">
@@ -329,12 +329,12 @@ under the License.
         <field name="supplierPartyId"><hidden value="${parameters.partyId}"/></field>
         <field name="requirementId" widget-style="buttontext">
             <hyperlink also-hidden="true" description="${requirementId}" target="EditRequirement">
-                <parameter param-name="requirementId" from-field="requirementId"/>
+                <parameter param-name="requirementId"/>
             </hyperlink>
         </field>
         <field name="productId" widget-style="buttontext">
             <hyperlink also-hidden="true" target-type="inter-app" description="${productId}" target="/catalog/control/EditProductInventoryItems" target-window="top">
-                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="productId"/>
             </hyperlink>
         </field>
         <field name="facilityId"><hidden value="${parameters.facilityId}"/></field>

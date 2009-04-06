@@ -39,7 +39,7 @@ under the License.
         </actions>
         <field name="exampleFeatureId" title="${uiLabelMap.ExampleExampleFeatureId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${exampleFeatureId}" target="EditExampleFeature">
-                <parameter param-name="exampleFeatureId" from-field="exampleFeatureId"/>
+                <parameter param-name="exampleFeatureId"/>
             </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
@@ -81,7 +81,7 @@ under the License.
         <field name="exampleId" title="${uiLabelMap.ExampleExample}">
             <display-entity entity-name="Example" description="${exampleName}">
                 <sub-hyperlink target="EditExample" description="${exampleId}" link-style="buttontext">
-                    <parameter param-name="exampleId" from-field="exampleId"/>
+                    <parameter param-name="exampleId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -97,9 +97,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="" widget-style="buttontext">
             <hyperlink target="feature_deleteExampleFeatureAppl" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="exampleId" from-field="exampleId"/>
-                <parameter param-name="exampleFeatureId" from-field="exampleFeatureId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="exampleId"/>
+                <parameter param-name="exampleFeatureId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>

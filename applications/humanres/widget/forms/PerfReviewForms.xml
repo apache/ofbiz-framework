@@ -44,9 +44,9 @@ under the License.
         <auto-fields-entity entity-name="PerfReview" default-field-type="display"/>
         <field name="perfReviewId">
            <hyperlink also-hidden="false" description="${perfReviewId}" target="EditPerfReview">
-                <parameter param-name="perfReviewId" from-field="perfReviewId"/>
-                <parameter param-name="employeePartyId" from-field="employeePartyId"/>
-                <parameter param-name="employeeRoleTypeId" from-field="employeeRoleTypeId"/>
+                <parameter param-name="perfReviewId"/>
+                <parameter param-name="employeePartyId"/>
+                <parameter param-name="employeeRoleTypeId"/>
             </hyperlink>
         </field>
     </form>     
@@ -81,18 +81,18 @@ under the License.
         <auto-fields-service default-field-type="display" service-name="updatePerfReviewItem"/>        
         <field name="perfReviewItemSeqId" widget-style="linktext">
             <hyperlink also-hidden="false" description="${perfReviewItemSeqId}" target="EditPerfReviewItem">
-                <parameter param-name="perfReviewItemSeqId" from-field="perfReviewItemSeqId"/>
-                <parameter param-name="employeePartyId" from-field="employeePartyId"/>
-                <parameter param-name="employeeRoleTypeId" from-field="employeeRoleTypeId"/>
-                <parameter param-name="perfReviewId" from-field="perfReviewId"/>
+                <parameter param-name="perfReviewItemSeqId"/>
+                <parameter param-name="employeePartyId"/>
+                <parameter param-name="employeeRoleTypeId"/>
+                <parameter param-name="perfReviewId"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deletePerfReviewItem" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="perfReviewId" from-field="perfReviewId"/>
-                <parameter param-name="employeePartyId" from-field="employeePartyId"/>
-                <parameter param-name="employeeRoleTypeId" from-field="employeeRoleTypeId"/>
-                <parameter param-name="perfReviewItemSeqId" from-field="perfReviewItemSeqId"/>
+                <parameter param-name="perfReviewId"/>
+                <parameter param-name="employeePartyId"/>
+                <parameter param-name="employeeRoleTypeId"/>
+                <parameter param-name="perfReviewItemSeqId"/>
             </hyperlink>
         </field>
     </form>      

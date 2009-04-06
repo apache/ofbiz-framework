@@ -42,7 +42,7 @@
                 <container style="bloghr">
                     <container style="leftjustify">
                         <link text="${blogContent.contentName} - ${blogContent.description}" target="MainBlog" style="blogtitle">
-                            <parameter param-name="blogContentId" from-field="blogContentId"/>
+                            <parameter param-name="blogContentId"/>
                         </link>
                     </container>
                     <container style="rightjustify">
@@ -52,7 +52,7 @@
                             </condition>
                             <widgets>
                                 <link text="${uiLabelMap.CommonAddNew}" target="NewBlogArticle" style="buttontext">
-                                    <parameter param-name="blogContentId" from-field="blogContentId"/>
+                                    <parameter param-name="blogContentId"/>
                                 </link>
                             </widgets>
                         </section>
@@ -119,7 +119,7 @@
                                         <label text="&lt;p/&gt;"/>
                                         <link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle" style="blogheader">
                                             <parameter param-name="contentId" from-field="blog.contentId"/>
-                                            <parameter param-name="blogContentId" from-field="blogContentId"/>
+                                            <parameter param-name="blogContentId"/>
                                         </link>
                                         <!--
                                             <link text="Latest" target="LatestResponses" >
@@ -144,7 +144,7 @@
                                         <!--<label text="${blog.contentName} [${blog.contentId}]" style="blogheader"/>-->
                                         <link text="${blog.contentName} [${blog.contentId}]" target="ViewBlogArticle" style="blogheader">
                                             <parameter param-name="contentId" from-field="blog.contentId"/>
-                                            <parameter param-name="blogContentId" from-field="blogContentId"/>
+                                            <parameter param-name="blogContentId"/>
                                         </link>
                                         <!--
                                             <link text="Latest" target="LatestResponses" >
@@ -260,7 +260,7 @@
                                     <container style="rightjustify">
                                         <link text="${uiLabelMap.CommonEdit}" target="EditBlogArticle" style="buttontext">
                                         <parameter param-name="contentId" from-field="articleContentId"/>
-                                        <parameter param-name="blogContentId" from-field="blogContentId"/>
+                                        <parameter param-name="blogContentId"/>
                                     </link>
                                     </container>
                                 </widgets>
@@ -317,8 +317,8 @@
                         <container style="bloghr">
                             <container style="leftjustify">
                                 <link text="${article.contentName}: ${article.description}" target="ViewBlogArticle" style="blogtitle">
-                                    <parameter param-name="articleContentId" from-field="articleContentId"/>
-                                    <parameter param-name="blogContentId" from-field="blogContentId"/>
+                                    <parameter param-name="articleContentId"/>
+                                    <parameter param-name="blogContentId"/>
                                 </link>
                                 <label text=" --&gt; ${content.contentName}: ${content.description}" style="blogtitle"/>
                             </container>
@@ -339,8 +339,8 @@
                                                 <link text="${uiLabelMap.CommonEdit}" target="ViewResponse" style="buttontext">
                                                     <parameter param-name="contentId" from-field="content.contentId"/>
                                                     <parameter param-name="ownerContentId" from-field="content.ownerContentId"/>
-                                                    <parameter param-name="articleContentId" from-field="articleContentId"/>
-                                                    <parameter param-name="blogContentId" from-field="blogContentId"/>
+                                                    <parameter param-name="articleContentId"/>
+                                                    <parameter param-name="blogContentId"/>
                                                     <parameter param-name="edit" value="Y"/>
                                                 </link>
                                             </widgets>
@@ -348,8 +348,8 @@
                                                 <link text="${uiLabelMap.CommonView}" target="ViewResponse" style="buttontext">
                                                     <parameter param-name="contentId" from-field="content.contentId"/>
                                                     <parameter param-name="ownerContentId" from-field="content.ownerContentId"/>
-                                                    <parameter param-name="articleContentId" from-field="articleContentId"/>
-                                                    <parameter param-name="blogContentId" from-field="blogContentId"/>
+                                                    <parameter param-name="articleContentId"/>
+                                                    <parameter param-name="blogContentId"/>
                                                     <parameter param-name="edit" value="N"/>
                                                  </link>
                                             </fail-widgets>
@@ -496,13 +496,13 @@
                             <link text="${rsp.contentName}[${rsp.contentId}]" target="ViewResponse" style="responseheader">
                                 <parameter param-name="contentId" from-field="rsp.contentId"/>
                                 <parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
-                                <parameter param-name="articleContentId" from-field="articleContentId"/>
+                                <parameter param-name="articleContentId"/>
                                 <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
                             </link>
                                             <link text="${uiLabelMap.CommonView}" target="ViewResponse" style="buttontext">
                                 <parameter param-name="contentId" from-field="rsp.contentId"/>
                                 <parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
-                                <parameter param-name="articleContentId" from-field="articleContentId"/>
+                                <parameter param-name="articleContentId"/>
                                 <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
                             </link>
                             <container style="responsetext">
@@ -521,13 +521,13 @@
                             <link text="${rsp.contentName}[${rsp.contentId}]" target="ViewResponse" style="responseheader">
                                 <parameter param-name="contentId" from-field="rsp.contentId"/>
                                 <parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
-                                <parameter param-name="articleContentId" from-field="articleContentId"/>
+                                <parameter param-name="articleContentId"/>
                                 <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
                             </link>
                                             <link text="${uiLabelMap.CommonView}" target="ViewResponse" style="buttontext">
                                 <parameter param-name="contentId" from-field="rsp.contentId"/>
                                 <parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
-                                <parameter param-name="articleContentId" from-field="articleContentId"/>
+                                <parameter param-name="articleContentId"/>
                                 <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
                             </link>
                             <container style="responsetext">
@@ -546,12 +546,12 @@
             <widgets>
                 <container>
                     <link text="${rsp.contentName}[${rsp.contentId}]" target="ViewBlogArticle" style="responseheader">
-                        <parameter param-name="articleContentId" from-field="articleContentId"/>
+                        <parameter param-name="articleContentId"/>
                         <parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
                         <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
                     </link>
                     <link text="${uiLabelMap.EcommerceBlogViewArticle}" target="ViewBlogArticle" style="buttontext">
-                        <parameter param-name="articleContentId" from-field="articleContentId"/>
+                        <parameter param-name="articleContentId"/>
                         <parameter param-name="ownerContentId" from-field="rsp.ownerContentId"/>
                         <parameter param-name="blogContentId" from-field="parameters.blogContentId"/>
                     </link>

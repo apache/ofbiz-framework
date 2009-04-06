@@ -59,7 +59,7 @@ under the License.
             <hyperlink target="updateForum">
                 <parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
                 <parameter param-name="contentIdTo" from-field="parameters.forumGroupId"/>
-                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="contentId"/>
                 <parameter param-name="contentAssocTypeId" from-field="caContentAssocTypeId"/>
                 <parameter param-name="fromDate" from-field="caFromDate"/>
                 <parameter param-name="deactivateExisting" value="yes"/>

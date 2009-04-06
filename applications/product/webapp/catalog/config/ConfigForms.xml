@@ -34,7 +34,7 @@ under the License.
         </row-actions>
         <field name="configItemId" title="${uiLabelMap.ProductConfigItem}" widget-style="buttontext">
             <hyperlink target="EditProductConfigItem" description="${configItemId}">
-                <parameter param-name="configItemId" from-field="configItemId"/>
+                <parameter param-name="configItemId"/>
             </hyperlink>
         </field>
         <field name="configItemName" title="${uiLabelMap.CommonName}"><display/></field>
@@ -206,7 +206,7 @@ under the License.
         <auto-fields-entity entity-name="ProductConfigAndProduct" default-field-type="hidden"/>
         <field name="productId" widget-style="buttontext"  >
             <hyperlink target="EditProductConfigs" description="${productId}">
-                <parameter param-name="productId" from-field="productId"/>
+                <parameter param-name="productId"/>
             </hyperlink>
         </field>
         <field name="productName" title="${uiLabelMap.ProductName}"><display description="${productName}"/></field>
@@ -219,16 +219,16 @@ under the License.
         <auto-fields-entity entity-name="ProductConfigOption" default-field-type="display" />
         <field name="configItemId" widget-style="buttontext" title="${uiLabelMap.ProductConfigItem}">
             <hyperlink target="EditProductConfigOptions" description="${configOptionId} - ${configOptionName}">
-                <parameter param-name="configItemId" from-field="configItemId"/>
-                <parameter param-name="configOptionId" from-field="configOptionId"/>
+                <parameter param-name="configItemId"/>
+                <parameter param-name="configOptionId"/>
             </hyperlink>
         </field>
         <field name="configOptionId" ><hidden/></field>
         <field name="configOptionName" ><hidden/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}" widget-style="buttontext" >
             <hyperlink target="deleteProductConfigOption" description="${uiLabelMap.CommonRemove}">
-                <parameter param-name="configItemId" from-field="configItemId"/>
-                <parameter param-name="configOptionId" from-field="configOptionId"/>
+                <parameter param-name="configItemId"/>
+                <parameter param-name="configOptionId"/>
             </hyperlink>
         </field>
     </form>
@@ -246,15 +246,15 @@ under the License.
         <field name="configOptionId" ><hidden/></field>
         <field name="productId" widget-style="buttontext">
             <hyperlink target="EditProductConfigOptions" description="${product.productId} - ${product.productName}">
-                <parameter param-name="configItemId" from-field="configItemId"/>
-                <parameter param-name="configOptionId" from-field="configOptionId"/>
+                <parameter param-name="configItemId"/>
+                <parameter param-name="configOptionId"/>
                 <parameter param-name="productId" from-field="product.productId"/>
             </hyperlink>
         </field>
         <field name="remove" widget-style="buttontext" >
             <hyperlink target="deleteProductConfigProduct" description="${uiLabelMap.CommonRemove}">
-                <parameter param-name="configItemId" from-field="configItemId"/>
-                <parameter param-name="configOptionId" from-field="configOptionId"/>
+                <parameter param-name="configItemId"/>
+                <parameter param-name="configOptionId"/>
                 <parameter param-name="productId" from-field="product.productId"/>
             </hyperlink>
         </field>

@@ -96,8 +96,8 @@ under the License.
         </row-actions>
         <field name="glAccountId" use-when="!showTotals">
             <hyperlink target="FindAcctgTransEntries" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}">
-                <parameter param-name="glAccountId" from-field="glAccountId"/>
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="glAccountId"/>
+                <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
         <field name="debit" use-when="showDebit"><display description="${absolutePostedBalance}" type="currency" currency="${currencyUomId}"/></field>
@@ -133,8 +133,8 @@ under the License.
         </row-actions>
         <field name="glAccountId">
             <hyperlink target="FindAcctgTransEntries" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}">
-                <parameter param-name="glAccountId" from-field="glAccountId"/>
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="glAccountId"/>
+                <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
@@ -184,8 +184,8 @@ under the License.
         </row-actions>
         <field name="glAccountId">
             <hyperlink target="FindAcctgTransEntries" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}">
-                <parameter param-name="glAccountId" from-field="glAccountId"/>
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="glAccountId"/>
+                <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
@@ -199,8 +199,8 @@ under the License.
         </row-actions>
         <field name="glAccountId">
             <hyperlink target="FindAcctgTransEntries" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}">
-                <parameter param-name="glAccountId" from-field="glAccountId"/>
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="glAccountId"/>
+                <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>
@@ -214,8 +214,8 @@ under the License.
         </row-actions>
         <field name="glAccountId">
             <hyperlink target="FindAcctgTransEntries" description="[${glAccountId}] [${glAccount.accountCode}] ${glAccount.accountName}">
-                <parameter param-name="glAccountId" from-field="glAccountId"/>
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="glAccountId"/>
+                <parameter param-name="organizationPartyId"/>
             </hyperlink>
         </field>
         <field name="totalAmount"><display type="currency" currency="${currencyUomId}"/></field>

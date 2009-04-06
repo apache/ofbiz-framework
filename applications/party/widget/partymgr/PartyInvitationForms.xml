@@ -51,7 +51,7 @@ under the License.
         </actions>
         <field name="partyInvitationId" title="${uiLabelMap.PartyInvitationPartyInvitationId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${partyInvitationId}" target="editPartyInvitation">
-                <parameter param-name="partyInvitationId" from-field="partyInvitationId"/>
+                <parameter param-name="partyInvitationId"/>
             </hyperlink>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><display/></field>
@@ -100,7 +100,7 @@ under the License.
         </actions>
         <field name="partyInvitationId" title="${uiLabelMap.PartyInvitationPartyInvitationId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${partyInvitationId}" target="editPartyInvitation">
-                <parameter param-name="partyInvitationId" from-field="partyInvitationId"/>
+                <parameter param-name="partyInvitationId"/>
             </hyperlink>
         </field>
         <field name="partyId" widget-style="buttontext" entry-name="partyIdTo">
@@ -112,8 +112,8 @@ under the License.
         </field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deletePartyInvitationGroupAssoc" description="${uiLabelMap.CommonDelete}">
-                <parameter param-name="partyInvitationId" from-field="partyInvitationId"/>
-                <parameter param-name="partyIdTo" from-field="partyIdTo"/>
+                <parameter param-name="partyInvitationId"/>
+                <parameter param-name="partyIdTo"/>
             </hyperlink>
         </field>
     </form>
@@ -143,14 +143,14 @@ under the License.
         </actions>
         <field name="partyInvitationId" title="${uiLabelMap.PartyInvitationPartyInvitationId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${partyInvitationId}" target="editPartyInvitation">
-                <parameter param-name="partyInvitationId" from-field="partyInvitationId"/>
+                <parameter param-name="partyInvitationId"/>
             </hyperlink>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display-entity entity-name="RoleType"/></field>
         <field name="remove" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deletePartyInvitationRoleAssoc" description="${uiLabelMap.CommonDelete}">
-                <parameter param-name="partyInvitationId" from-field="partyInvitationId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="partyInvitationId"/>
+                <parameter param-name="roleTypeId"/>
             </hyperlink>
         </field>
     </form>

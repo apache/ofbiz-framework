@@ -31,8 +31,8 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="orderId" widget-style="buttontext">
             <hyperlink description="${orderId}" target="/ordermgr/control/orderview" target-type="inter-app">
-                <parameter param-name="orderId" from-field="orderId"/>
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="orderId"/>
+                <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="statusItemDescription"><display/></field>
@@ -41,8 +41,8 @@ under the License.
         <field name="grandTotal"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteWorkEffortOrderHeader" also-hidden="false" description="${uiLabelMap.CommonDelete}">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
-                <parameter param-name="orderId" from-field="orderId"/>
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="orderId"/>
             </hyperlink>
         </field>
     </form>

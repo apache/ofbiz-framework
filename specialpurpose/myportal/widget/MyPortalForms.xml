@@ -54,7 +54,7 @@ under the License.
     <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="workEffortId">
             <hyperlink target="/projectmgr/control/taskView" description="${workEffortName} [${workEffortId}]" target-type="inter-app">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
     </form>

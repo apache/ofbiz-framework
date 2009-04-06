@@ -74,7 +74,7 @@ under the License.
         </actions>
         <field name="trackingCodeId"  widget-style="buttontext" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}">
             <hyperlink target="EditTrackingCode" description="${trackingCodeId}" also-hidden="false">
-                <parameter param-name="trackingCodeId" from-field="trackingCodeId"/>
+                <parameter param-name="trackingCodeId"/>
             </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.MarketingTrackingCodeDescription}"><display/></field>
@@ -84,7 +84,7 @@ under the License.
 
         <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
             <hyperlink target="deleteTrackingCode" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="trackingCodeId" from-field="trackingCodeId"/>
+                <parameter param-name="trackingCodeId"/>
             </hyperlink>
         </field>
     </form>
@@ -189,7 +189,7 @@ under the License.
         </actions>
         <field name="visitId" title="${uiLabelMap.MarketingTrackingCodeVisitVisitId}">
             <hyperlink description="${visitId}" target="/partymgr/control/visitdetail" target-type="inter-app">
-                <parameter param-name="visitId" from-field="visitId"/>
+                <parameter param-name="visitId"/>
                 <parameter param-name="DONE_PAGE" from-field="donePage"/>
             </hyperlink>
         </field>
@@ -299,14 +299,14 @@ under the License.
         </actions>
         <field name="trackingCodeTypeId"  widget-style="buttontext" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}">
             <hyperlink target="EditTrackingCodeType" description="${trackingCodeTypeId}" also-hidden="false">
-                <parameter param-name="trackingCodeTypeId" from-field="trackingCodeTypeId"/>
+                <parameter param-name="trackingCodeTypeId"/>
             </hyperlink>
         </field>
         <field name="description" title="${uiLabelMap.MarketingTrackingCodeTypeDescription}"><display/></field>
 
         <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
             <hyperlink target="deleteTrackingCodeType" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="trackingCodeTypeId" from-field="trackingCodeTypeId"/>
+                <parameter param-name="trackingCodeTypeId"/>
             </hyperlink>
         </field>
     </form>

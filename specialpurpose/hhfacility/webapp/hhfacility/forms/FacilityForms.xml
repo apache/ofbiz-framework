@@ -25,7 +25,7 @@ under the License.
              default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
         <field name="facilityId" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${facilityId}" target="menu">
-                <parameter param-name="facilityId" from-field="facilityId"/>
+                <parameter param-name="facilityId"/>
             </hyperlink>
         </field>
         <field name="facilityName"><display/></field>
@@ -90,9 +90,9 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeProductFromCategory" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="productId" from-field="productId"/>
-                <parameter param-name="productCategoryId" from-field="productCategoryId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="productId"/>
+                <parameter param-name="productCategoryId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>

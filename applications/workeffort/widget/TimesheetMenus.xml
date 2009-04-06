@@ -23,17 +23,17 @@ under the License.
           default-menu-item-name="Timesheet">
         <menu-item name="Timesheet" title="${uiLabelMap.WorkEffortTimesheet}">
             <link target="EditTimesheet">
-                <parameter param-name="timesheetId" from-field="timesheetId"/>
+                <parameter param-name="timesheetId"/>
             </link>
         </menu-item>
         <menu-item name="TimesheetRoles" title="${uiLabelMap.PartyParties}">
             <link target="EditTimesheetRoles">
-                <parameter param-name="timesheetId" from-field="timesheetId"/>
+                <parameter param-name="timesheetId"/>
             </link>
         </menu-item>
         <menu-item name="TimesheetEntries" title="${uiLabelMap.CommonEntries}">
             <link target="EditTimesheetEntries">
-                <parameter param-name="timesheetId" from-field="timesheetId"/>
+                <parameter param-name="timesheetId"/>
             </link>
         </menu-item>
     </menu>

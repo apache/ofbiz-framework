@@ -61,7 +61,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="webSiteId" title="${uiLabelMap.CommonId}" widget-style="buttontext">
             <hyperlink description="${webSiteId}" target="EditWebSite" also-hidden="false">
-                <parameter param-name="webSiteId" from-field="webSiteId"/>
+                <parameter param-name="webSiteId"/>
             </hyperlink>
         </field>
         <field name="siteName" title="${uiLabelMap.CommonName}"><display/></field>
@@ -76,7 +76,7 @@ under the License.
         <field name="contentId">
             <display-entity entity-name="Content" description="${contentName}">
                 <sub-hyperlink target="EditContent" description=" [${contentId}]">
-                    <parameter param-name="contentId" from-field="contentId"/>
+                    <parameter param-name="contentId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -94,14 +94,14 @@ under the License.
         <!--
         <field name="contentId" title="Content ID" widget-style="linktext">
             <hyperlink description="${contentId}" target="EditContent" also-hidden="true">
-                <parameter param-name="contentId" from-field="contentId"/>
+                <parameter param-name="contentId"/>
             </hyperlink>
         </field>
         -->
         <field name="contentId">                                        
             <display-entity entity-name="Content" description="${contentName}" key-field-name="contentId">
                 <sub-hyperlink target="EditContent" description=" [${contentId}]" link-style="linktext">
-                    <parameter param-name="contentId" from-field="contentId"/>
+                    <parameter param-name="contentId"/>
                 </sub-hyperlink>
             </display-entity>
 
@@ -114,10 +114,10 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="RemoveWebSiteContent" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="webSiteId" from-field="webSiteId"/>
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="webSiteContentTypeId" from-field="webSiteContentTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="webSiteId"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="webSiteContentTypeId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
         <sort-order>

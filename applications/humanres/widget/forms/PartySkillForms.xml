@@ -54,8 +54,8 @@ under the License.
         <field name="skillLevel"><text/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deletePartySkill" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="skillTypeId" from-field="skillTypeId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="skillTypeId"/>
+                <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>

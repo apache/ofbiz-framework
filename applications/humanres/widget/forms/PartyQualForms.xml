@@ -64,7 +64,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
                 <sub-hyperlink target="viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
-                    <parameter param-name="partyId" from-field="partyId"/>
+                    <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -91,8 +91,8 @@ under the License.
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deletePartyQual" also-hidden="false" description="${uiLabelMap.CommonDelete}">
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="partyQualTypeId" from-field="partyQualTypeId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="partyQualTypeId"/>
             </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>

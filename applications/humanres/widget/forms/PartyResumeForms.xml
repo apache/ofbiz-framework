@@ -40,19 +40,19 @@ under the License.
         <auto-fields-entity entity-name="PartyResume" default-field-type="display"/>
         <field name="resumeId" widget-style="linktext">
             <hyperlink also-hidden="false" description="${resumeId}" target="EditPartyResume">
-                <parameter param-name="resumeId" from-field="resumeId"/>
+                <parameter param-name="resumeId"/>
             </hyperlink>
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
                <sub-hyperlink target="viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </sub-hyperlink>
            </display-entity>
        </field>
        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
            <hyperlink target="deletePartyResume" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="resumeId" from-field="resumeId"/>
+                <parameter param-name="resumeId"/>
             </hyperlink>
        </field>
     </form>     

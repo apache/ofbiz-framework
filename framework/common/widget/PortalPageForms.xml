@@ -25,7 +25,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="portalPageId" title="${uiLabelMap.CommonEdit}">
             <hyperlink description="${uiLabelMap.CommonEdit}" target="ManagePortalPages">
-                <parameter param-name="portalPageId" from-field="portalPageId"/>
+                <parameter param-name="portalPageId"/>
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </hyperlink>
         </field>
@@ -36,28 +36,28 @@ under the License.
         <field name="top" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &gt; ${parameters.sequenceNumMin})">
             <hyperlink target="updatePortalPageSeq" image-location="/images/arrow-end-up-green.png">
                 <parameter param-name="mode" value="TOP"/>
-                <parameter param-name="portalPageId" from-field="portalPageId"/>
+                <parameter param-name="portalPageId"/>
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </hyperlink>
         </field>
         <field name="bot" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &lt; ${parameters.sequenceNumMax})">
             <hyperlink target="updatePortalPageSeq" image-location="/images/arrow-end-down-green.png">
                 <parameter param-name="mode" value="BOT"/>
-                <parameter param-name="portalPageId" from-field="portalPageId"/>
+                <parameter param-name="portalPageId"/>
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </hyperlink>
         </field>
         <field name="up" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &gt; ${parameters.sequenceNumMin})">
             <hyperlink target="updatePortalPageSeq" image-location="/images/arrow-single-up-green.png">
                 <parameter param-name="mode" value="UP"/>
-                <parameter param-name="portalPageId" from-field="portalPageId"/>
+                <parameter param-name="portalPageId"/>
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </hyperlink>
         </field>
         <field name="dwn" title="${uiLabelMap.CommonEmptyHeader}" use-when="(!ownerUserLoginId.equals(&quot;_NA_&quot;))&amp;&amp;(sequenceNum &lt; ${parameters.sequenceNumMax})">
             <hyperlink target="updatePortalPageSeq" image-location="/images/arrow-single-down-green.png">
                 <parameter param-name="mode" value="DWN"/>
-                <parameter param-name="portalPageId" from-field="portalPageId"/>
+                <parameter param-name="portalPageId"/>
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </hyperlink>
         </field>
@@ -106,8 +106,8 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="portletCategoryId" title="Category">
             <hyperlink description="${portletCategoryId}" target="AddPortlet">
-                <parameter param-name="portletCategoryId" from-field="portletCategoryId"/>
-                <parameter param-name="portalPortletId" from-field="portalPortletId"/>
+                <parameter param-name="portletCategoryId"/>
+                <parameter param-name="portalPortletId"/>
                 <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
                 <parameter param-name="columnSeqId" from-field="parameters.columnSeqId"/>
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>

@@ -24,7 +24,7 @@ under the License.
         paginate-target="FindProductPromo" odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productPromoId" widget-style="buttontext">
             <hyperlink target="EditProductPromo" description="${productPromoId}" also-hidden="false">
-                <parameter param-name="productPromoId" from-field="productPromoId"/>
+                <parameter param-name="productPromoId"/>
             </hyperlink>
         </field>
         <field name="promoName"><display/></field>
@@ -108,13 +108,13 @@ under the License.
         <field name="productPromoId"><hidden/></field>
         <field name="productPromoCodeId" widget-style="buttontext">
             <hyperlink target="EditProductPromoCode" description="${productPromoCodeId}" also-hidden="false">
-                <parameter param-name="productPromoCodeId" from-field="productPromoCodeId"/>
+                <parameter param-name="productPromoCodeId"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductPromoCode" description="${uiLabelMap.CommonDelete}" also-hidden="false">
-                <parameter param-name="productPromoCodeId" from-field="productPromoCodeId"/>
-                <parameter param-name="productPromoId" from-field="productPromoId"/>
+                <parameter param-name="productPromoCodeId"/>
+                <parameter param-name="productPromoId"/>
             </hyperlink>
         </field>
     </form>

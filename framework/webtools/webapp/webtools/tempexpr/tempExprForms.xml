@@ -40,7 +40,7 @@ under the License.
          default-table-style="basic-table hover-bar" odd-row-style="alternate-row" header-row-style="header-row-2">
         <field name="tempExprId" title="${uiLabelMap.TemporalExpressionId}">
             <hyperlink also-hidden="false" target-type="plain" description="${tempExprId}" target="editTemporalExpression">
-                <parameter param-name="tempExprId" from-field="tempExprId"/>
+                <parameter param-name="tempExprId"/>
             </hyperlink>
         </field>
         <field name="tempExprTypeId" title="${uiLabelMap.TemporalExpressionType}"><display/></field>
@@ -66,7 +66,7 @@ under the License.
         <field name="deleteButton" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteTemporalExpressionAssoc">
                 <parameter param-name="tempExprId" from-field="parameters.tempExprId"/>
-                <parameter param-name="fromTempExprId" from-field="fromTempExprId"/>
+                <parameter param-name="fromTempExprId"/>
                 <parameter param-name="toTempExprId" from-field="tempExprId"/>
             </hyperlink>
         </field>

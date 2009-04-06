@@ -421,10 +421,10 @@ under the License.
                                     <widgets>
                                         <container>
                                             <link target="EditRequirementRole" text="${uiLabelMap.CommonNew}" style="buttontext">
-                                                <parameter param-name="requirementId" from-field="requirementId"/>
+                                                <parameter param-name="requirementId"/>
                                             </link>
                                             <link target="autoAssignRequirementToSupplier" text="${uiLabelMap.OrderAutoAssign}" style="buttontext">
-                                                <parameter param-name="requirementId" from-field="requirementId"/>
+                                                <parameter param-name="requirementId"/>
                                             </link>
                                         </container>
                                         <include-form name="ListRequirementRoles" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>

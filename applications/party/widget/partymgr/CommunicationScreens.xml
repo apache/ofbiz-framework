@@ -50,7 +50,7 @@ under the License.
                                 <container><label style="h1" text="${uiLabelMap.PartyPendingCommunicationEvents}"/></container>
                                 <container>
                                     <link style="smallSubmit" target="ViewCommunicationEvent" text="${uiLabelMap.PartyNewCommunication}">
-                                        <parameter param-name="partyId" from-field="partyId"/>
+                                        <parameter param-name="partyId"/>
                                     </link>
                                 </container>
                                 <include-form location="component://party/webapp/partymgr/communication/CommForms.xml" name="ListPendingCommEvents"/>

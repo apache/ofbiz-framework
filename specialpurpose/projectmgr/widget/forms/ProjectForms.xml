@@ -44,7 +44,7 @@
         <field name="clientBillingPartyId">
             <lookup target-form-name="LookupPartyGroup">
                 <sub-hyperlink target="viewprofile" description="${partyGroup.groupName}">
-                    <parameter param-name="partyId" from-field="partyId"/>
+                    <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </lookup>
         </field>
@@ -120,7 +120,7 @@
         <field name="workEffortName" position="1" use-when="showPosition1"><display/></field>
         <field name="timesheetId" position="2">
             <hyperlink description="${timesheetId}" target="Timesheet">
-                <parameter param-name="timesheetId" from-field="timesheetId"/>
+                <parameter param-name="timesheetId"/>
             </hyperlink>
         </field>
         <field name="hours" position="2"><display/></field>
@@ -168,7 +168,7 @@
         </actions>
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
             <hyperlink description="${projectName}" target="projectView">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </hyperlink>
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
@@ -285,7 +285,7 @@
         <field name="projectId"><hidden/></field>
         <field entry-name="workEffortName" name="taskName" parameter-name="workEffortName" title="${uiLabelMap.CommonName}">
             <hyperlink target="taskView" description="${workEffortName}">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"></display-entity></field>
@@ -376,7 +376,7 @@
         <field name="projectId"><hidden value="parameters.projectId"/></field>
         <field name="phase">
             <hyperlink target="FindPhase" description="${phaseName}">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </hyperlink>
         </field>
         <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
@@ -391,7 +391,7 @@
         <field name="projectId"><hidden value="parameters.projectId"/></field>
         <field name="task">
             <hyperlink target="taskView" description="${workEffortName}">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="phaseName"><display/></field>
@@ -411,7 +411,7 @@
     <form name="ListOrderInfo" target="EditProjectOrders?projectId=${projectId}" type="list" list-name="listOrderAssoProject" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="orderId">
             <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}">
-                <parameter param-name="orderId" from-field="orderId"/>
+                <parameter param-name="orderId"/>
             </hyperlink>
         </field>
         <field name="orderName"><display/></field>
@@ -422,8 +422,8 @@
         <field name="linkProjectOrder" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="headerItem.equals(&quot;editProjectOrders&quot;)">
             <hyperlink target="unLinkProjectOrder" description="${uiLabelMap.ProjectMgrRemoveLinkFromProject}">
                 <parameter param-name="workEffortId" from-field="projectId"/>
-                <parameter param-name="orderId" from-field="orderId"/>
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="orderId"/>
+                <parameter param-name="projectId"/>
             </hyperlink>
         </field>
     </form>
@@ -468,7 +468,7 @@
         <field name="projectId"><hidden/></field>
         <field name="partyName" title="${uiLabelMap.CommonName}">
             <hyperlink target="viewprofile"  description="${lastName}, ${firstName ${middleName} ${groupName} [${partyId}]">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
@@ -480,7 +480,7 @@
         <field name="projectId"><hidden/></field>
         <field name="partyName" title="${uiLabelMap.CommonName}">
             <hyperlink target="viewprofile"  description="${lastName}, ${firstName ${middleName} ${groupName} [${partyId}]">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
@@ -496,7 +496,7 @@
         <field name="projectId"><hidden/></field>
         <field name="partyName" title="${uiLabelMap.CommonName}">
             <hyperlink target="viewprofile" description="${groupName} [${partyId}]">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
@@ -514,7 +514,7 @@
         <field name="projectId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
             <hyperlink target="viewprofile"  description="${firstName ${middleName} ${lastName} ${groupName}">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
@@ -564,7 +564,7 @@
         <field name="partyId" use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)!=null"><!-- task level -->
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}[${partyId}]">
                 <sub-hyperlink target="EditTaskPartyAssigns" description="${uiLabelMap.CommonChange}">
-                    <parameter param-name="workEffortId" from-field="workEffortId"/>
+                    <parameter param-name="workEffortId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -625,7 +625,7 @@
         </row-actions>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName}" target="taskView">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
+                <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
         <field name="phaseName" title="${uiLabelMap.ProjectMgrPhaseName}"><display description="${resultProject.phaseName}"/></field>
@@ -648,19 +648,19 @@
         <field name="actualHours" widget-area-style="centered"><display/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}">
         <hyperlink target="updateResourcesTaskAssigment"  description="${uiLabelMap.CommonRemove}">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="fromDate"/>
                 <parameter param-name="statusId" value="PAS_ENDED"/>
             </hyperlink>
         </field>
         <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}">
             <hyperlink target="updateResourcesTaskAssigment" description="${uiLabelMap.CommonStatustoComplete}">
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="fromDate"/>
                 <parameter param-name="statusId" value="PAS_COMPLETED"/>
         </hyperlink>
     </field>
@@ -782,18 +782,18 @@
         <field name="contentId" use-when="headerItem.equals(&quot;EditProjectContents&quot;)">
             <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
                 <sub-hyperlink target="EditProjectContents" description="${contentId}" link-style="buttontext" target-type="inter-app">
-                    <parameter param-name="contentId" from-field="contentId"/>
-                    <parameter param-name="projectId" from-field="projectId"/>
-                    <parameter param-name="workEffortContentTypeId" from-field="workEffortContentTypeId"/>
+                    <parameter param-name="contentId"/>
+                    <parameter param-name="projectId"/>
+                    <parameter param-name="workEffortContentTypeId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="contentId" use-when="headerItem.equals(&quot;EditTaskContents&quot;)">
             <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
                 <sub-hyperlink target="EditTaskContents" description="${contentId}" link-style="buttontext" target-type="inter-app">
-                    <parameter param-name="contentId" from-field="contentId"/>
-                    <parameter param-name="workEffortId" from-field="workEffortId"/>
-                    <parameter param-name="workEffortContentTypeId" from-field="workEffortContentTypeId"/>
+                    <parameter param-name="contentId"/>
+                    <parameter param-name="workEffortId"/>
+                    <parameter param-name="workEffortContentTypeId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
@@ -801,18 +801,18 @@
         <field name="submitButton"><ignored/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="headerItem.equals(&quot;EditProjectContents&quot;)">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteProjectContent">
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
-                <parameter param-name="workEffortContentTypeId" from-field="workEffortContentTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="workEffortContentTypeId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="headerItem.equals(&quot;EditTaskContents&quot;)">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteTaskContent">
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="workEffortId" from-field="workEffortId"/>
-                <parameter param-name="workEffortContentTypeId" from-field="workEffortContentTypeId"/>
-                <parameter param-name="fromDate" from-field="fromDate"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="workEffortId"/>
+                <parameter param-name="workEffortContentTypeId"/>
+                <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
     </form>

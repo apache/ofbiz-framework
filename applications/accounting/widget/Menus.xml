@@ -450,8 +450,8 @@ under the License.
         </menu-item>
         <menu-item name="EditFixedAssetMeters" title="${uiLabelMap.AccountingFixedAssetMeters}">
             <link target="EditFixedAssetMeters">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
-                <parameter param-name="maintHistSeqId" from-field="maintHistSeqId"/>
+                <parameter param-name="fixedAssetId"/>
+                <parameter param-name="maintHistSeqId"/>
                 <parameter param-name="productMeterTypeId" from-field="fixedAssetMaint.intervalMeterTypeId"/>
             </link>
         </menu-item>
@@ -467,63 +467,63 @@ under the License.
           default-menu-item-name="EditFixedAsset">
         <menu-item name="EditFixedAsset" title="${uiLabelMap.AccountingFixedAsset}">
             <link target="EditFixedAsset">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
         <menu-item name="FixedAssetChildren" title="${uiLabelMap.CommonEntityChildren}">
             <link target="FixedAssetChildren">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
                 <parameter param-name="trail" from-field="fixedAssetId"/>
             </link>
         </menu-item>
         <menu-item name="ListFixedAssetProducts" title="${uiLabelMap.AccountingFixedAssetProducts}">
             <link target="ListFixedAssetProducts">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
         <menu-item name="ListFixedAssetCalendar" title="${uiLabelMap.AccountingFixedAssetCalendar}">
             <link target="month">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
         <menu-item name="EditFixedAssetStdCosts" title="${uiLabelMap.AccountingFixedAssetStdCosts}">
             <link target="EditFixedAssetStdCosts">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
         <menu-item name="EditFixedAssetIdents" title="${uiLabelMap.AccountingFixedAssetIdents}">
             <link target="EditFixedAssetIdents">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
         <menu-item name="EditFixedAssetRegistrations" title="${uiLabelMap.AccountingFixedAssetRegistrations}">
             <link target="EditFixedAssetRegistrations">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
         <menu-item name="EditFixedAssetMeters" title="${uiLabelMap.AccountingFixedAssetMeters}">
             <link target="EditFixedAssetMeters">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
         <menu-item name="ListFixedAssetMaints" title="${uiLabelMap.AccountingFixedAssetMaints}">
             <link target="ListFixedAssetMaints">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
         <menu-item name="EditPartyFixedAssetAssignments" title="${uiLabelMap.AccountingPartyFixedAssetAssignments}">
             <link target="EditPartyFixedAssetAssignments">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
         <menu-item name="FixedAssetDepreciation" title="${uiLabelMap.AccountingFixedAssetDepreciation}">
             <link target="showFixedAssetDepreciation">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
         <menu-item name="FixedAssetGeoLocation" title="${uiLabelMap.CommonGeoLocation}">
             <link target="FixedAssetGeoLocation">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
     </menu>
@@ -532,17 +532,17 @@ under the License.
           selected-menuitem-context-field-name="parameters.viewMode">
         <menu-item name="D" title="${uiLabelMap.CommonDay}">
             <link target="day">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
         <menu-item name="W" title="${uiLabelMap.CommonWeek}">
             <link target="week">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
         <menu-item name="M" title="${uiLabelMap.CommonMonth}">
             <link target="month">
-                <parameter param-name="fixedAssetId" from-field="fixedAssetId"/>
+                <parameter param-name="fixedAssetId"/>
             </link>
         </menu-item>
     </menu>
@@ -551,22 +551,22 @@ under the License.
           default-menu-item-name="EditFinAccount">
         <menu-item name="EditFinAccount" title="${uiLabelMap.AccountingFinAccount}">
             <link target="EditFinAccount">
-                <parameter param-name="finAccountId" from-field="finAccountId"/>
+                <parameter param-name="finAccountId"/>
             </link>
         </menu-item>
         <menu-item name="EditFinAccountRoles" title="${uiLabelMap.PartyRoles}">
             <link target="EditFinAccountRoles">
-                <parameter param-name="finAccountId" from-field="finAccountId"/>
+                <parameter param-name="finAccountId"/>
             </link>
         </menu-item>
         <menu-item name="EditFinAccountTrans" title="${uiLabelMap.AccountingFinAccountTransations}">
             <link target="EditFinAccountTrans">
-                <parameter param-name="finAccountId" from-field="finAccountId"/>
+                <parameter param-name="finAccountId"/>
             </link>
         </menu-item>
         <menu-item name="EditFinAccountAuths" title="${uiLabelMap.AccountingFinAccountAuth}">
             <link target="EditFinAccountAuths">
-                <parameter param-name="finAccountId" from-field="finAccountId"/>
+                <parameter param-name="finAccountId"/>
             </link>
         </menu-item>
     </menu>
@@ -594,37 +594,37 @@ under the License.
           default-menu-item-name="PartyAccountsSummary">
         <menu-item name="PartyAccountsSummary" title="${uiLabelMap.AcctgPartyGlJournalSummary}">
             <link target="PartyAccountsSummary">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="AccountReconciliation" title="${uiLabelMap.AccountingAcctRecon}">
             <link target="findGlAccountReconciliation">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="AccountReconciliations" title="${uiLabelMap.AccountingAcctRecons}">
             <link target="findGlAccountReconciliations">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="FindAcctgTrans" title="${uiLabelMap.AccountingAcctgTrans}">
             <link target="FindAcctgTrans">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="FindAcctgTransEntries" title="${uiLabelMap.AccountingAcctgTransEntries}">
             <link target="FindAcctgTransEntries">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="OrganizationAccountingReports" title="${uiLabelMap.AccountingReports}">
             <link target="TrialBalance">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="ChecksTabButton" title="${uiLabelMap.AccountingChecks}">
             <link target="listChecksToPrint">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
     </menu>
@@ -632,27 +632,27 @@ under the License.
           selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="TrialBalance">
         <menu-item name="TrialBalance" title="${uiLabelMap.AccountingTrialBalance}">
             <link target="TrialBalance">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="IncomeStatement" title="${uiLabelMap.AccountingIncomeStatement}">
             <link target="IncomeStatement">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="BalanceSheet" title="${uiLabelMap.AccountingBalanceSheet}">
             <link target="BalanceSheet">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="ComparativeBalanceSheet" title="${uiLabelMap.AccountingComparativeBalanceSheet}">
             <link target="ComparativeBalanceSheet">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="TransactionTotals" title="${uiLabelMap.AccountingTransactionTotals}">
             <link target="TransactionTotals">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
     </menu>
@@ -660,27 +660,27 @@ under the License.
           default-menu-item-name="PartyAcctgPreference">
         <menu-item name="PartyAcctgPreference" title="${uiLabelMap.AccountingPreference}">
             <link target="PartyAcctgPreference">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="ListGlAccountOrganization" title="${uiLabelMap.AccountingChartOfAcctsMenu}">
             <link target="ListGlAccountOrganization">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="SetupGlJournals" title="${uiLabelMap.AccountingGlJournals}">
             <link target="SetupGlJournals">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="GlAccountAssignment" title="${uiLabelMap.AccountingGlAccountDefault}">
             <link target="GlAccountAssignment">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="TimePeriods" title="${uiLabelMap.AccountingTimePeriod}">
             <link target="TimePeriods">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="ViewFXConversions" title="${uiLabelMap.AccountingFX}">
@@ -688,7 +688,7 @@ under the License.
                 <if-service-permission service-name="acctgFxPermissionCheck" main-action="UPDATE"/>
             </condition>
             <link target="viewFXConversions">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
     </menu>
@@ -696,62 +696,62 @@ under the License.
           selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="GlAccountSalInvoice">
         <menu-item name="GlAccountTypeDefaults" title="${uiLabelMap.AccountingGlAccountTypeDefaults}">
             <link target="GlAccountTypeDefaults">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="ProductGlAccounts" title="${uiLabelMap.AccountingProductGlAccount}">
             <link target="editProductGlAccounts">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="ProductCategoryGlAccounts" title="${uiLabelMap.AccountingProductCategoryGlAccount}">
             <link target="editProductCategoryGlAccounts">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="FinAccountTypeGlAccounts" title="${uiLabelMap.AccountingFinAccountTypeGlAccount}">
             <link target="editFinAccountTypeGlAccounts">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="GlAccountSalInvoice" title="${uiLabelMap.AccountingInvoiceSales}">
             <link target="GlAccountSalInvoice">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="GlAccountPurInvoice" title="${uiLabelMap.AccountingInvoicePurchase}">
             <link target="GlAccountPurInvoice">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="GlAccountTypePaymentType" title="${uiLabelMap.AccountingPaymentType}/${uiLabelMap.FormFieldTitle_glAccountTypeId}">
             <link target="GlAccountTypePaymentType">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="GlAccountNrPaymentMethod" title="${uiLabelMap.AccountingPaymentMethodId}/${uiLabelMap.AccountingGlAccountId}">
             <link target="GlAccountNrPaymentMethod">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="VarianceReasonGlAccounts" title="${uiLabelMap.AccountingVarianceReasonGlAccounts}">
             <link target="editVarianceReasonGlAccounts">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="CreditCardTypeGlAccount" title="${uiLabelMap.AccountingCreditCardTypeGlAccount}">
             <link target="editCreditCardTypeGlAccounts">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="TaxAuthorityGlAccounts" title="${uiLabelMap.AccountingTaxAuthorityGlAccounts}">
             <link target="editOrganizationTaxAuthorityGlAccount">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="PartyGlAccounts" title="${uiLabelMap.AccountingPartyGlAccounts}">
             <link target="editPartyGlAccounts">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
     </menu>
@@ -759,12 +759,12 @@ under the License.
           selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="GlAccountSalInvoice">
         <menu-item name="PrintChecksTabButton" title="${uiLabelMap.AccountingPrintChecks}">
             <link target="listChecksToPrint">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
         <menu-item name="SendChecksTabButton" title="${uiLabelMap.AccountingSendChecks}">
             <link target="listChecksToSend">
-                <parameter param-name="organizationPartyId" from-field="organizationPartyId"/>
+                <parameter param-name="organizationPartyId"/>
             </link>
         </menu-item>
     </menu>

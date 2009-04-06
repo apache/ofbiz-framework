@@ -142,30 +142,30 @@ under the License.
                         <container>
                             <label style="h3">${uiLabelMap.CommonView}</label>
                             <link target="EditProductStorePromos" text="${uiLabelMap.CommonAll}" style="buttontext">
-                                <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                <parameter param-name="productStoreId"/>
                             </link>
                             <link target="EditProductStorePromos" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext">
-                                        <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                        <parameter param-name="productStoreId"/>
                                         <parameter param-name="userEntered" value="Y"/>
                                     </link>
                             <link target="EditProductStorePromos" text="${uiLabelMap.ProductPromotionImported}" style="buttontext">
-                                        <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                        <parameter param-name="productStoreId"/>
                                         <parameter param-name="userEntered" value="N"/>
                                     </link>
                         </container>
                         <container>
                             <label style="h3">${uiLabelMap.CommonView} ${uiLabelMap.CommonActiveInactive}</label>
                             <link target="EditProductStorePromos" text="${uiLabelMap.CommonAll}" style="buttontext">
-                                        <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                        <parameter param-name="productStoreId"/>
                                         <parameter param-name="activeOnly" value="N"/>
                                     </link>
                             <link target="EditProductStorePromos" text="${uiLabelMap.CommonUserEnteredOnly}" style="buttontext">
-                                        <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                        <parameter param-name="productStoreId"/>
                                         <parameter param-name="activeOnly" value="N"/>
                                         <parameter param-name="userEntered" value="Y"/>
                                     </link>
                             <link target="EditProductStorePromos" text="${uiLabelMap.ProductPromotionImported}" style="buttontext">
-                                        <parameter param-name="productStoreId" from-field="productStoreId"/>
+                                        <parameter param-name="productStoreId"/>
                                         <parameter param-name="activeOnly" value="N"/>
                                         <parameter param-name="userEntered" value="N"/>
                                     </link>

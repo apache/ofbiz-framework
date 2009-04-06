@@ -32,7 +32,7 @@
         </row-actions>
         <field name="resourceName" parameter-name="partyId" title="${uiLabelMap.ProjectMgrResourceName}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${lastName}, ${firstName} ${middleName} ${groupName}" target="viewprofile">
-                <parameter param-name="partyId" from-field="partyId"/>
+                <parameter param-name="partyId"/>
             </hyperlink>
         </field>
         <field name="roleTypeId"><hidden/></field>
@@ -50,8 +50,8 @@
         <field name="contactMechPurposeTypeId" entry-name="telResult.contactMechPurposeTypeId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="ContactMechPurposeType"/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}">
             <hyperlink target="removeResource" description="${uiLabelMap.CommonRemove}">
-                <parameter param-name="partyId" from-field="partyId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
             </hyperlink>
         </field>
     </form>
@@ -59,7 +59,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="projectName">
             <hyperlink target="projectView" description="${projectName} [${projectId}]">
-                <parameter param-name="projectId" from-field="projectId"/>
+                <parameter param-name="projectId"/>
             </hyperlink>
         </field>
         <field name="originalActualHours"><display/></field>

@@ -177,8 +177,8 @@ under the License.
         paginate-target="/FindContent">
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent">
-                <parameter param-name="contentId" from-field="contentId"/>
-                <parameter param-name="drDataResourceId" from-field="drDataResourceId"/>
+                <parameter param-name="contentId"/>
+                <parameter param-name="drDataResourceId"/>
             </hyperlink> 
 <!--
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent">

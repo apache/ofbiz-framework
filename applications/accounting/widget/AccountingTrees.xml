@@ -32,7 +32,7 @@ under the License.
         <node name="node-body">
             <entity-one entity-name="GlAccount" value-field="glAccount"></entity-one>
             <link target="GlAccountNavigate" text="${glAccountId} ${glAccount.accountName} ${postedBalance}">
-                <parameter param-name="glAccountId" from-field="glAccountId"/>
+                <parameter param-name="glAccountId"/>
                 <parameter param-name="trail" from-field="currentNodeTrailPiped"/>
             </link>
             <sub-node node-name="node-body">
