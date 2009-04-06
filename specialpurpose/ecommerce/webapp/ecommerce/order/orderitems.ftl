@@ -186,7 +186,7 @@ under the License.
                   </select>
                   <b>${uiLabelMap.CommonComments}</b>
                   <input class="inputBox" type="text" name="icm_${orderItem.orderItemSeqId}" value="" size="30" maxlength="60"/></div></td>
-                  <td colspan="4" align="right"><a href="javascript:document.addCommonToCartForm.method='post';document.addCommonToCartForm.action='<@ofbizUrl>cancelOrderItem</@ofbizUrl>';document.addCommonToCartForm.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
+                  <td colspan="4" align="right"><a href="javascript:document.addCommonToCartForm.action='<@ofbizUrl>cancelOrderItem</@ofbizUrl>';document.addCommonToCartForm.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
                     <input type="hidden" name="orderItemSeqId" value="${orderItem.orderItemSeqId}"/>
                   </td>
               </tr>
