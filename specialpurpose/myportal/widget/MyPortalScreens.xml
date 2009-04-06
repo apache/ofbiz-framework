@@ -59,7 +59,7 @@ under the License.
     <screen name="CreateCustRequestNotification">
         <section>
             <actions>
-                <set field="title" value="${uiLabelMap.MyPageCustRequestNotificationMailCreation} #${custRequestId}"/>
+                <set field="title" value="${uiLabelMap.MyPortalCustRequestNotificationMailCreation} #${custRequestId}"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://myportal/templates/email/CreateCustRequestNotification.ftl"/></html></platform-specific>
@@ -69,7 +69,7 @@ under the License.
     <screen name="CompletedCustRequestNotification">
         <section>
             <actions>
-                <set field="title" value="${uiLabelMap.MyPageCustRequestNotificationMailCompleted} #${custRequestId}"/>
+                <set field="title" value="${uiLabelMap.MyPortalCustRequestNotificationMailCompleted} #${custRequestId}"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://myportal/templates/email/CompletedCustRequestNotification.ftl"/></html></platform-specific>
@@ -79,7 +79,7 @@ under the License.
     <screen name="CreateUserNotification">
         <section>
             <actions>
-                <set field="title" value="${uiLabelMap.MyPageCustRequestNotificationMailCreation}"/>
+                <set field="title" value="${uiLabelMap.MyPortalCustRequestNotificationMailCreation}"/>
                 </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://party/templates/email/CreatePartyNotification.ftl"/></html></platform-specific>

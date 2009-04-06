@@ -65,6 +65,14 @@
         <value xml:lang="it">Mie richieste cliente completate</value>
         <value xml:lang="th">งานที่แก้ไขให้ลูกค้าเรียยร้อยแล้ว</value>
     </property>
+    <property key="MyPortalCustRequestNotificationMailCompleted">
+        <value xml:lang="en">Customer Request Completed Notification Mai</value>
+        <value xml:lang="it">Notifica mail per richiesta cliente completata</value>
+    </property>
+    <property key="MyPortalCustRequestNotificationMailCreation">
+        <value xml:lang="en">Customer Request Creation Notification Mail</value>
+        <value xml:lang="it">Notifica mail per richiesta cliente creata</value>
+    </property>
     <property key="MyPortalCustRequests">
         <value xml:lang="en">My customer requests</value>
         <value xml:lang="fr">Mes demandes utilisateur</value>

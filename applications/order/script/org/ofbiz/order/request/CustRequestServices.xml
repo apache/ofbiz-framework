@@ -150,15 +150,6 @@ under the License.
                             <set field="custRequest.statusId" from-field="parameters.statusId"/>
                             <set field="updTask.workEffortId" from-field="workEffort.workEffortId"/>
                             <set field="updTask.currentStatusId" value="PTS_CANCELLED"/>
-                            <if-has-permission permission="MYPAGE_CUSTOMER">
-                                <entity-one entity-name="UserLogin" value-field="userLogin" auto-field-map="false">
-                                    <field-map field-name="userLoginId" value="system"/>
-                                </entity-one>
-                                <set field="updTask.userLogin" from-field="userLogin"/>
-                                <else>
-                                    <set field="updTask.userLogin" from-field="userLogin"/>
-                                </else>
-                            </if-has-permission>
                             <call-service service-name="updateWorkEffort" in-map-name="updTask"/>
                             <else>
                                 <set field="parameters.statusId" from-field="custRequest.statusId"/>

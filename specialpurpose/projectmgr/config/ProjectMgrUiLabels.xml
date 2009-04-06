@@ -830,6 +830,10 @@
         <value xml:lang="th">ไม่มีขั้นตอนการทำงานที่สร้างเสร็จแล้ว , งานไม่สามารถมีอยู่โดยปราศจากขั้นตอนการทำงานเหมือนกลุ่ม , ดังนั้นสร้างขั้นตอนการทำงานเป็นอันดับแรก</value>
         <value xml:lang="zh">该项目有没有创建任何的阶段，请先创建项目阶段，任务必须以项目阶段为父节点</value>
     </property>
+    <property key="ProjectMgrNoProjectsFound">
+        <value xml:lang="en">no projects found</value>
+        <value xml:lang="it">Tu non hai l'accesso a queste informazioni</value>
+    </property>
     <property key="ProjectMgrNonBilledActualHours">
         <value xml:lang="en">Act Hrs not billed</value>
         <value xml:lang="fr">Heures réelles non facturées</value>
