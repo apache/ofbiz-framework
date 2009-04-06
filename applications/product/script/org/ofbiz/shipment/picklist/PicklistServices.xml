@@ -27,7 +27,6 @@ under the License.
          + OrderHeader.isRushOrder = if Y then add to rush list, still leave in other lists
          + OrderItem.statusId = ITEM_APPROVED
          + total number of orders to pick: limit to X
-         + OrderItemShipGroup.shipmentMethodTypeId = group by
          + ShipmentMethodType.sequenceNum = order display of methods by
          x OrderItemShipGroup.carrierPartyId = group by along with ship method?
          + OrderItemShipGroup.shipAfterDate is null or <= now
@@ -38,11 +37,14 @@ under the License.
          + InventoryItem.facilityId = passed facilityId
          + FacilityLocation.locationTypeEnumId = FLT_PICKLOC, can be picked now
          + FacilityLocation.locationTypeEnumId = FLT_BULK, stock move needed, remove whole order from list to be picked, add to list needing stock move
-        -->
-        <!-- data to create - in Map in List pickMoveByShipmentMethodInfoList
+         + User have options to select factors to group
+         + group by : Shipping method, Warehouse area, Number of order items (one to two, three or more)
+         -->
+        <!-- data to create - in Map in List pickMoveInfoList
          + shipmentMethodType
          + orderReadyToPickInfoList
          + orderNeedsStockMoveInfoList
+         + groupName, which is based on user selected options to group
          With each list containing a Map with:
          + orderHeader
          + orderItemShipGroup
@@ -62,7 +64,9 @@ under the License.
             <fail-message message="Security Error: to run getPicklistData you must have the FACILITY_VIEW or FACILITY_ADMIN permission"/>
         </check-permission>
         <check-errors/>
-
+        <set field="groupByShippingMethod" from-field="parameters.groupByShippingMethod"/>
+        <set field="groupByNoOfOrderItems" from-field="parameters.groupByNoOfOrderItems"/>
+        <set field="groupByWarehouseArea" from-field="parameters.groupByWarehouseArea"/>
         <now-timestamp field="nowTimestamp"/>
 
         <if-empty field="parameters.orderHeaderList">
@@ -91,25 +95,114 @@ under the License.
                 <field-map field-name="orderId" from-field="orderHeader.orderId"/>
                 <order-by field-name="shipGroupSeqId"/>
             </entity-and>
+            <!-- get no. of order items for each order -->
+            <entity-count entity-name="OrderItem" count-field="orderItemCount">
+                <condition-expr field-name="orderId" from-field="orderHeader.orderId"/>
+            </entity-count>
+            <!-- get list of order items for each order -->
+            <entity-and entity-name="OrderItem" list="orderItems">
+                <field-map field-name="orderId" from-field="orderHeader.orderId"/>
+            </entity-and>
+
+            <iterate list="orderItems" entry="orderItem">
+                <!-- get information about location for each order item -->
+                <entity-and entity-name="OrderItemAndFacilityLocationView" list="OrderItemAndFacilityLocationList">
+                    <field-map field-name="orderId" from-field="orderHeader.orderId"/>
+                    <field-map field-name="locationTypeEnumId" value="FLT_PICKLOC"/>
+                    <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+                    <order-by field-name="orderItemSeqId"/>
+                </entity-and>
+
+                <iterate entry="OrderItemAndFacilityLocation" list="OrderItemAndFacilityLocationList">
+                    <!-- set groupName for order according to user selected options and available informations  -->
+                    <set field="groupName1" value=""/>
+                    <set field="groupName2" value=""/>
+                    <set field="groupName3" value=""/>
+                    <if>
+                        <condition>
+                            <or>
+                                <if-compare field="groupByShippingMethod" operator="equals" value="Y"/>
+                                <and>
+                                    <if-empty field="groupByShippingMethod"/>
+                                    <if-empty field="groupByWarehouseArea"/>
+                                    <if-empty field="groupByNoOfOrderItems"/>
+                                </and>
+                            </or>
+                        </condition>
+                        <then>
+                            <set field="groupName1" from-field="OrderItemAndFacilityLocation.shipmentMethodTypeId"/>
+                        </then>
+                    </if>
+
+                    <if-compare field="groupByWarehouseArea" operator="equals" value="Y">
+                        <set field="groupName2" from-field="OrderItemAndFacilityLocation.areaId"/>
+                        <set field="locationGroupName" from-field="OrderItemAndFacilityLocation.areaId"/>
+                    </if-compare>
+
+                    <if>
+                        <condition>
+                            <and>
+                                <if-compare field="groupByNoOfOrderItems" operator="equals" value="Y"/>
+                                <if-compare  field="orderItemCount" operator="less" value="3" type="BigDecimal"/>
+                            </and>
+                        </condition>
+                        <then>
+                            <property-to-field property="FacilityNumberOfItemsLessThanThree" field="noOfOrderItems" resource="ProductUiLabels"/>
+                            <set field="groupName3" value="Items_Less_Than_3"/>
+                        </then>
+                    </if>
+
+                    <if>
+                        <condition>
+                            <and>
+                                <if-compare field="groupByNoOfOrderItems" operator="equals" value="Y"/>
+                                <if-compare  field="orderItemCount" operator="greater-equals" value="3" type="BigDecimal"/>
+                            </and>
+                        </condition>
+                        <then>
+                            <property-to-field property="FacilityNumberOfItemsThreeOrMore" field="noOfOrderItems" resource="ProductUiLabels"/>
+                            <set field="groupName3" value="Items_Three_Or_More"/>
+                        </then>
+                    </if>
+                    <set field="groupName" value="${groupName1}${groupName2}${groupName3}"/>
+
+                    <!-- adds location of item in location list uniquely -->
+                    <if>
+                        <condition>
+                            <and>
+                                <if-compare field="groupByWarehouseArea" operator="equals" value="Y"/>
+                                <not><if-compare-field field="locations" operator="contains" to-field="locationGroupName"/></not>
+                            </and>
+                        </condition>
+                        <then>
+                            <field-to-list field="locationGroupName" list="locations"/>
+                        </then>
+                    </if>
+                </iterate>
+            </iterate>
+            <!-- count no. of locations in location list -->
+            <set field="locationCount" value="0"/>
+            <if-not-empty field="locations">
+                <set field="locationCount" value="${util:size(locations)}" type="Long"/>
+            </if-not-empty>
+
+            <!-- set groupName when order items are from different locations -->
+            <if-compare field="locationCount" operator="greater" value="1" type="Long">
+                <set field="groupName" value="MULTI_LOCATIONS"/>
+                <property-to-field property="FacilityMultipleLocations" field="groupName2" resource="ProductUiLabels"/>
+            </if-compare>
+            <clear-field field="locations"/>
+            <clear-field field="locationCount"/>
 
             <iterate entry="orderItemShipGroup" list="orderItemShipGroupList">
                 <!-- get the order items and the order item inventory res entries -->
-
-                <!-- if a shipmentMethodTypeId was not passed or is the same as the current, then process this order -->
                 <if>
                     <condition>
-                        <and>
-                            <!-- only pick if it is the right shipmentMethodTypeId, if one was passed in -->
-                            <or>
-                                <if-empty field="parameters.shipmentMethodTypeId"/>
-                                <if-compare-field field="parameters.shipmentMethodTypeId" to-field="orderItemShipGroup.shipmentMethodTypeId" operator="equals"/>
-                            </or>
+                        <or>
                             <!-- only pick if now is after the shipAfterDate or the shipAfterDate is empty -->
-                            <or>
-                                <if-empty field="orderItemShipGroup.shipAfterDate"/>
-                                <if-compare-field field="nowTimestamp" to-field="orderItemShipGroup.shipAfterDate" operator="greater-equals"/>
-                            </or>
-                        </and>
+                            <if-empty field="orderItemShipGroup.shipAfterDate"/>
+                            <if-compare-field field="nowTimestamp" to-field="orderItemShipGroup.shipAfterDate" operator="greater-equals"/>
+                        </or>
                     </condition>
                     <then>
                         <!-- get only for current OrderItemShipGroup -->
@@ -255,18 +348,17 @@ under the License.
                                 <set from-field="orderItemShipGrpInvResInfoList" field="orderHeaderInfo.orderItemShipGrpInvResInfoList"/>
 
                                 <!-- pick now, or needs stock move first? -->
-                                <!-- put in pick or move lists for the given shipmentMethodTypeId -->
-                                <set from-field="orderItemShipGroup.shipmentMethodTypeId" field="shipmentMethodTypeId"/>
-                                <if-empty field="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}">
-                                    <get-related-one value-field="orderItemShipGroup" relation-name="ShipmentMethodType" to-value-field="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}.shipmentMethodType"/>
+                                <!-- put in pick or move lists for the groupName prepared according to selected options by user -->
+                                <if-empty field="pickMoveInfoMap.${groupName}.${groupName}">
+                                    <get-related-one value-field="orderItemShipGroup" relation-name="ShipmentMethodType" to-value-field="pickMoveInfoMap.${groupName}.${groupName}.shipmentMethodType"/>
                                 </if-empty>
                                 <if-compare field="needsStockMove" operator="equals" value="Y">
-                                    <field-to-list field="orderHeaderInfo" list="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}.orderNeedsStockMoveInfoList"/>
+                                    <field-to-list field="orderHeaderInfo" list="pickMoveInfoMap.${groupName}.orderNeedsStockMoveInfoList"/>
                                     <if-compare field="orderHeader.isRushOrder" operator="equals" value="Y">
                                         <field-to-list field="orderHeaderInfo" list="rushOrderInfo.orderNeedsStockMoveInfoList"/>
                                     </if-compare>
                                 <else>
-                                    <field-to-list field="orderHeaderInfo" list="pickMoveByShipmentMethodInfoMap.${shipmentMethodTypeId}.orderReadyToPickInfoList"/>
+                                    <field-to-list field="orderHeaderInfo" list="pickMoveInfoMap.${groupName}.orderReadyToPickInfoList"/>
                                     <if-compare field="orderHeader.isRushOrder" operator="equals" value="Y">
                                         <field-to-list field="orderHeaderInfo" list="rushOrderInfo.orderReadyToPickInfoList"/>
                                     </if-compare>
@@ -278,6 +370,10 @@ under the License.
                                     <calcop field="numberSoFar" operator="add"><number value="1"/></calcop>
                                 </calculate>
                                 <log level="info" message="Added order #${orderHeader.orderId} to pick list [${numberSoFar} of ${parameters.maxNumberOfOrders}] - ${pickThisOrder} / ${allPickStarted}"/>
+                                <set field="pickMoveInfoMap.${groupName}.groupName" from-field="groupName"/>
+                                <set field="pickMoveInfoMap.${groupName}.groupName1" from-field="groupName1"/>
+                                <set field="pickMoveInfoMap.${groupName}.groupName2" from-field="groupName2"/>
+                                <set field="pickMoveInfoMap.${groupName}.groupName3" from-field="noOfOrderItems"/>
                             </then>
                             <else>
                                 <log level="info" message="Order #${orderHeader.orderId} was not added to pick list [${numberSoFar} of ${parameters.maxNumberOfOrders}] - ${pickThisOrder} / ${allPickStarted}"/>
@@ -293,33 +389,41 @@ under the License.
                 </if>
             </iterate>
 
+            <!-- prepare a list of group names -->
+            <if>
+                <condition>
+                    <not><if-compare-field field="groupNames" operator="contains" to-field="groupName"/></not>
+                </condition>
+                <then>
+                    <field-to-list field="groupName" list="groupNames"/>
+                </then>
+            </if>
+
             <clear-field field="orderHeaderInfo"/>
             <clear-field field="orderItemShipGroupList"/>
+            <clear-field field="orderItemShipGrpInvResList"/>
         </iterate>
 
-        <!-- find all ShipmentMethodType in order by sequenceNum, for each one get the value from the pickMoveByShipmentMethodInfoMap and add it to the pickMoveByShipmentMethodInfoList -->
-        <entity-condition entity-name="ShipmentMethodType" list="shipmentMethodTypeList">
-            <order-by field-name="+sequenceNum"/>
-        </entity-condition>
-
-        <iterate entry="shipmentMethodType" list="shipmentMethodTypeList">
-            <if-not-empty field="pickMoveByShipmentMethodInfoMap.${shipmentMethodType.shipmentMethodTypeId}">
-                <field-to-list field="pickMoveByShipmentMethodInfoMap.${shipmentMethodType.shipmentMethodTypeId}" list="pickMoveByShipmentMethodInfoList"/>
+        <!-- find all groupName, for each one get the value from the pickMoveInfoMap and add it to the pickMoveInfoList -->
+        <iterate list="groupNames" entry="groupName">
+            <if-not-empty field="pickMoveInfoMap.${groupName}">
+                <field-to-list field="pickMoveInfoMap.${groupName}" list="pickMoveInfoList"/>
             </if-not-empty>
         </iterate>
-
-        <field-to-result field="pickMoveByShipmentMethodInfoList"/>
+        <clear-field field="groupNames"/>
+        <field-to-result field="pickMoveInfoList"/>
         <field-to-result field="rushOrderInfo"/>
+
     </simple-method>
 
     <simple-method method-name="assembleOrderHeaderInfoInline" short-description="assembleOrderHeaderInfoInline">
-        <!-- This uses pickMoveByShipmentMethodInfoList from the findOrdersToPickMove -->
+        <!-- This uses pickMoveInfoList from the findOrdersToPickMove -->
         <!-- This creates orderHeaderInfoList, wrongQuantityReservedList, insufficientQohList and inventoryItems, inventoryItemOrderItems, inventoryItemQuantities -->
 
         <!-- if maxNumberOfOrders is passed, get at most that many orders and go over them -->
         <!-- moved above in findOrdersToPickMove
         <calculate field="numberSoFar" type="Long"><number value="0"/></calculate>
-        <iterate entry="pickMoveByShipmentMethodInfo" list="pickMoveByShipmentMethodInfoList">
+        <iterate entry="pickMoveInfo" list="pickMoveInfoList">
             <if>
                 <condition>
                     <or>
@@ -328,7 +432,7 @@ under the License.
                     </or>
                 </condition>
                 <then>
-                    <field-to-list field="pickMoveByShipmentMethodInfo" list="limitedPickMoveByShipmentMethodInfoList"/>
+                    <field-to-list field="pickMoveInfo" list="limitedPickMoveInfoList"/>
                 </then>
             </if>
 
@@ -338,8 +442,8 @@ under the License.
         </iterate>
         -->
 
-        <iterate entry="pickMoveByShipmentMethodInfo" list="pickMoveByShipmentMethodInfoList">
-            <iterate entry="orderReadyToPickInfo" list="pickMoveByShipmentMethodInfo.orderReadyToPickInfoList">
+        <iterate entry="pickMoveInfo" list="pickMoveInfoList">
+            <iterate entry="orderReadyToPickInfo" list="pickMoveInfo.orderReadyToPickInfoList">
                 <iterate entry="orderItemAndShipGroupAssoc" list="orderReadyToPickInfo.orderItemAndShipGroupAssocList">
                     <if-compare value="ITEM_APPROVED" operator="equals" field="orderItemAndShipGroupAssoc.statusId">
                         <calculate field="reservedQuantity"><number value="0"/></calculate>
@@ -475,9 +579,9 @@ under the License.
 
         <set-service-fields map="parameters" service-name="findOrdersToPickMove" to-map="findOrdersToPickMoveMap"/>
         <call-service service-name="findOrdersToPickMove" in-map-name="findOrdersToPickMoveMap">
-            <result-to-field result-name="pickMoveByShipmentMethodInfoList"/>
+            <result-to-field result-name="pickMoveInfoList"/>
         </call-service>
-        <!-- <log level="info" message="pickMoveByShipmentMethodInfoList=${pickMoveByShipmentMethodInfoList}"/> -->
+        <!-- <log level="info" message="pickMoveInfoList=${pickMoveInfoList}"/> -->
 
         <!-- This creates orderHeaderInfoList, wrongQuantityReservedList, insufficientQohList and inventoryItems, inventoryItemOrderItems, inventoryItemQuantities -->
         <call-simple-method method-name="assembleOrderHeaderInfoInline"/>
@@ -1113,7 +1217,7 @@ under the License.
 
         <set-service-fields map="parameters" service-name="findOrdersToPickMove" to-map="findOrdersToPickMoveMap"/>
         <call-service service-name="findOrdersToPickMove" in-map-name="findOrdersToPickMoveMap">
-            <result-to-field result-name="pickMoveByShipmentMethodInfoList"/>
+            <result-to-field result-name="pickMoveInfoList"/>
         </call-service>
 
         <!-- This creates orderHeaderInfoList, wrongQuantityReservedList, insufficientQohList and inventoryItems, inventoryItemOrderItems, inventoryItemQuantities -->

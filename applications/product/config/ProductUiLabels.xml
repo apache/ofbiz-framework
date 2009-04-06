@@ -61,6 +61,18 @@
         <value xml:lang="zh">场所</value>
         <value xml:lang="zh_CN">仓储设施</value>
     </property>
+    <property key="FacilityGroupByShippingMethod">
+        <value xml:lang="en">Group by shipping method</value>
+    </property>
+    <property key="FacilityGroupByWarehouseArea">
+        <value xml:lang="en">Group by warehouse area</value>
+    </property>
+    <property key="FacilityGroupByNoOfOrderItems">
+        <value xml:lang="en">Group by number of order items</value>
+    </property>
+    <property key="FacilityGroupName">
+        <value xml:lang="en">Group Name</value>
+    </property>
     <property key="FacilityInventory">
         <value xml:lang="de">Inventar</value>
         <value xml:lang="en">Inventory</value>
@@ -100,10 +112,22 @@
         <value xml:lang="zh">使用缺省值：没有其它可用的送货方式。</value>
         <value xml:lang="zh_CN">使用默认: 没有其他送货方式</value>
     </property>
+    <property key="FacilityNumberOfItemsLessThanThree">
+        <value xml:lang="en">Items less than 3</value>
+    </property>
+    <property key="FacilityNumberOfItemsThreeOrMore">
+        <value xml:lang="en">Items 3 or more</value>
+    </property>
+    <property key="FacilityMultipleLocations">
+        <value xml:lang="en">Multiple Locations</value>
+    </property>
     <property key="FacilitySelection">
         <value xml:lang="en">Facility Selection</value>
         <value xml:lang="fr">Choix du lieu de stockage</value>
         <value xml:lang="it">Seleziona stabilimento</value>
+    </property>
+    <property key="FacilitySelectOptionsToGroupBy">
+        <value xml:lang="en">Select Options To Group</value>
     </property>
     <property key="FacilityShipAvailable">
         <value xml:lang="de">Bitte liefern Sie meine bestellten Artikel sobald sie verfügbar sind (Sie dürfen zusätzliche Lieferungskosten  erheben).</value>
