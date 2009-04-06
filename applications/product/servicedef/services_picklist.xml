@@ -40,8 +40,11 @@ under the License.
         <attribute name="isRushOrder" type="String" mode="IN" optional="true"/>
         <attribute name="maxNumberOfOrders" type="Long" mode="IN" optional="true"/>
         <attribute name="orderHeaderList" type="List" mode="IN" optional="true"/>
-        <attribute name="pickMoveByShipmentMethodInfoList" type="List" mode="OUT" optional="true"/>
+        <attribute name="pickMoveInfoList" type="List" mode="OUT" optional="true"/>
         <attribute name="rushOrderInfo" type="Map" mode="OUT" optional="true"/>
+        <attribute name="groupByNoOfOrderItems" type="String" mode="IN" optional="true"/>
+        <attribute name="groupByWarehouseArea" type="String" mode="IN" optional="true"/>
+        <attribute name="groupByShippingMethod" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- Persisted Picklist Services -->
