@@ -84,7 +84,7 @@ under the License.
     <request-map uri="createLead">
         <security https="true" auth="true"/>
         <event type="service" invoke="createLead"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request" value="viewprofile"/>
         <response name="error" type="view" value="CreateLead"/>
     </request-map>
     <request-map uri="ConvertLead">
@@ -94,7 +94,7 @@ under the License.
     <request-map uri="convertLead">
         <security https="true" auth="true"/>
         <event type="service" invoke="convertLeadToContact"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request" value="viewprofile"/>
         <response name="error" type="view" value="ConvertLead"/>  
     </request-map>
     <request-map uri="CloneLead">
@@ -110,7 +110,7 @@ under the License.
         <!-- TO DO
         <event type="service" invoke="mergeLeads"/>
         -->
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request" value="viewprofile"/>
         <response name="error" type="view" value="MergeLeads"/>
     </request-map>
     <request-map uri="CreateLeadFromVCard">
@@ -120,13 +120,13 @@ under the License.
     <request-map uri="createLeadFromVCard">
         <security https="true" auth="true"/>
         <event type="service" invoke="importVCard"/>
-        <response name="success" type="view" value="viewprofile"/><!-- What would be the view in case a vCard has more than one contact -->
+        <response name="success" type="request" value="viewprofile"/><!-- What would be the view in case a vCard has more than one contact -->
         <response name="error" type="view" value="CreateLeadFromVCard"/>
     </request-map>  
     <request-map uri="quickAddLead">
         <security https="true" auth="true"/>
         <event type="service" invoke="createLead"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request" value="viewprofile"/>
     </request-map>   
     <!-- Contact Requests -->
     <request-map uri="FindContacts">
@@ -140,7 +140,7 @@ under the License.
     <request-map uri="createContact">
         <security https="true" auth="true"/>
         <event type="service" invoke="createContact"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request" value="viewprofile"/>
         <response name="error" type="view" value="CreateContact"/>
     </request-map>
     <request-map uri="MergeContacts">
@@ -150,7 +150,7 @@ under the License.
     <request-map uri="mergeContacts">
         <security https="true" auth="true"/>
         <event type="service" invoke="mergeContacts"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request" value="viewprofile"/>
         <response name="error" type="view" value="MergeContacts"/>
     </request-map>
     <request-map uri="CreateContactFromVCard">
@@ -160,7 +160,7 @@ under the License.
     <request-map uri="createContactFromVCard">
         <security https="true" auth="true"/>
         <event type="service" invoke="importVCard"/>
-        <response name="success" type="view" value="viewprofile"/><!-- What would be the view in case a vCard contains more than one contact -->
+        <response name="success" type="request" value="viewprofile"/><!-- What would be the view in case a vCard contains more than one contact -->
         <response name="error" type="view" value="CreateContactFromVCard"/>
     </request-map>
     <request-map uri="createVCardFromContact">
@@ -172,7 +172,7 @@ under the License.
     <request-map uri="quickAddContact">
         <security https="true" auth="true"/>
         <event type="service" invoke="createContact"/>
-        <response name="success" type="view" value="viewprofile"/>
+        <response name="success" type="request" value="viewprofile"/>
     </request-map>
      
     <!-- Forecast Requests -->
