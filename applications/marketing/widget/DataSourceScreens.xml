@@ -228,6 +228,7 @@ under the License.
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListDataSourceType"/>
                 <set field="dataSourceTypeId" from-field="parameters.dataSourceTypeId"/>
                 <set field="entityName" value="DataSourceType"/>
+                <set field="parameters.noConditionFind" value="Y"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonDataSourceDecorator">
