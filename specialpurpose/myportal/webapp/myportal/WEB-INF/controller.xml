@@ -73,6 +73,4 @@
     <view-map name="newRegisterLogin" type="screen" page="component://myportal/widget/CommonScreens.xml#newRegisterLogin"/>
     <view-map name="myCompanyComms" type="screen" page="component://myportal/widget/CommonScreens.xml#MyCompanyComms"/>
     <view-map name="newEvent" type="screen" page="component://myportal/widget/MyPortalScreens.xml#newEvent"/>
-    <view-map name="ListInvoices" type="screen" page="component://myportal/widget/MyPortalScreens.xml#ListInvoices"/>
-    <view-map name="ListProjects" type="screen" page="component://myportal/widget/MyPortalScreens.xml#ListProjects"/>
 </site-conf>

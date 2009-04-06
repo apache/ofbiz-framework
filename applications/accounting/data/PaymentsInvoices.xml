@@ -59,11 +59,10 @@ under the License.
     <PaymentApplication paymentApplicationId="demo11000" paymentId="demo10001" invoiceId="demo11001" amountApplied="543.23"/>      
 
     <!-- show on customer invoice list when DemoCustomer logs on to myportal -->
+    <Party partyId="DemoCustCompany" partyTypeId="PARTY_GROUP"/>
     <Invoice invoiceId="demo1200" invoiceTypeId="SALES_INVOICE" partyIdFrom="Company" partyId="DemoCustCompany" statusId="INVOICE_APPROVED" invoiceDate="2006-04-25 12:46:27.122" description="This is an invoice to DemoCustomer" currencyUomId="USD" />
     <InvoiceItem invoiceId="demo1200" invoiceItemSeqId="00001" invoiceItemTypeId="INV_SPROD_ITEM" uomId="USD" taxableFlag="Y" amount="511.23" description="this was e service for a product" />
     <InvoiceStatus statusId="INVOICE_IN_PROCESS" invoiceId="demo1200" statusDate="2006-04-25 12:46:27.122" />
     <InvoiceStatus statusId="INVOICE_APPROVED" invoiceId="demo1200" statusDate="2006-04-25 12:46:27.122" />
-    
-
 
 </entity-engine-xml>
