@@ -1146,7 +1146,7 @@ under the License.
                         <if-empty field="projects"/>
                     </condition>
                     <widgets>
-                        <label style="h2" text="${uiLabelMap.MyPageNoProjectsFound}"></label>
+                        <label style="h2" text="${uiLabelMap.ProjectMgrNoProjectsFound}"></label>
                     </widgets>
                 </section>
             </widgets>

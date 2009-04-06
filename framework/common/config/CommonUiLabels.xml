@@ -8238,13 +8238,6 @@
         <value xml:lang="zh">市场宣传</value>
         <value xml:lang="zh_CN">推销</value>
     </property>
-    <property key="MyPage">
-        <value xml:lang="de">Meine Seite</value>
-        <value xml:lang="en">MyPage</value>
-        <value xml:lang="es">Mi Página</value>
-        <value xml:lang="fr">Ma page</value>
-        <value xml:lang="it">Mia pagina</value>
-    </property>
     <property key="MyPortal">
         <value xml:lang="en">My Portal</value>
         <value xml:lang="fr">Mon portail</value>

@@ -76,18 +76,6 @@
         <value xml:lang="ru">Группа 'Полный администратор', содержит все общие права.</value>
         <value xml:lang="th">Full Admin group, has all general permissions.</value>
     </property>
-    <property key="SecurityGroup.description.MYPAGE_CUSTOMER">
-        <value xml:lang="en">Customer user of mypage, Limited access to own custRequests, and project</value>
-        <value xml:lang="it">Utente di mypage, accesso limitato al proprietario delle richieste cliente, e progetti</value>
-    </property>
-    <property key="SecurityGroup.description.MYPAGE_EMPL-NOEMAIL">
-        <value xml:lang="en">Employee user of mypage, Limited access to the projectmgr and comms, custReq, no email</value>
-        <value xml:lang="it">Utente impiegato di mypage, accesso limitato ai progetti e comunicazioni, richieste cliente, no email</value>
-    </property>
-    <property key="SecurityGroup.description.MYPAGE_EMPLOYEE">
-        <value xml:lang="en">Employee user of mypage, Limited access to the projectmgr, comms,custRequests</value>
-        <value xml:lang="it">Utente impiegato di mypage, accesso limitato ai progetti e comunicazioni, richieste cliente</value>
-    </property>
     <property key="SecurityGroup.description.MYPORTAL_CUSTOMER">
         <value xml:lang="en">Customer user of MYPORTAL, Limited access to own custRequests, and project</value>
         <value xml:lang="it">Utente di myportal, accesso limitato al proprietario delle richieste cliente, e progetti</value>
@@ -827,18 +815,6 @@
         <value xml:lang="it">Operazioni di visualizzazione nella gestione vendite.</value>
         <value xml:lang="ru">Операции просмотра в приложении Управление маркетингом.</value>
         <value xml:lang="th">การแสดงการทำงานในการจัดการการตลาด</value>
-    </property>
-    <property key="SecurityPermission.description.MYPAGE_CUSTOMER">
-        <value xml:lang="en">Use the customer screens in mypage.</value>
-        <value xml:lang="it">Usare la visualizzazione clienti in mypage.</value>
-    </property>
-    <property key="SecurityPermission.description.MYPAGE_EMPL-NOEMAIL">
-        <value xml:lang="en">Usage of the employee screens in mypage: projectmanager and internal notes.</value>
-        <value xml:lang="it">Usare la visualizzazione clienti in mypage: gestione progetti e note interne.</value>
-    </property>
-    <property key="SecurityPermission.description.MYPAGE_EMPLOYEE">
-        <value xml:lang="en">Use the employee screens in mypage.</value>
-        <value xml:lang="it">Usare la visualizzazione impiegati in mypage.</value>
     </property>
     <property key="SecurityPermission.description.MYPORTAL_CUSTOMER">
         <value xml:lang="en">Use the customer screens in myportal.</value>

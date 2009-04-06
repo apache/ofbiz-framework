@@ -29,7 +29,6 @@ under the License.
     <load-component component-location="oagis"/>
     <load-component component-location="googlebase"/>
     <load-component component-location="ebay"/>
-    <load-component component-location="mypage"/>
     <load-component component-location="myportal"/>
     <load-component component-location="webpos"/>
     <!-- <load-component component-location="workflow"/> -->
