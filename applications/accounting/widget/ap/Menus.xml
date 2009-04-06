@@ -37,35 +37,35 @@ under the License.
     <menu name="ApMainPaymentTypeMenu" type="simple" default-selected-style="selected">
         <menu-item name="findPayment"  title="${uiLabelMap.AccountingShowPayments} ${paymentType.description}">
             <link target="findPayments">
-                <parameter param-name="lookupFlag" from-field="Y"/>
+                <parameter param-name="lookupFlag" value="Y"/>
             </link>
         </menu-item>
     </menu>
     <menu name="ApMainPaymentMethodTypeMenu" type="simple" default-selected-style="selected">
         <menu-item name="findPayment"  title="${uiLabelMap.AccountingShowPayments} ${paymentMethodType.description}">
             <link target="findPayments">
-                <parameter param-name="lookupFlag" from-field="Y"/>
+                <parameter param-name="lookupFlag" value="Y"/>
             </link>
         </menu-item>
     </menu>
     <menu name="ApMainPaymentStatusMenu" type="simple" default-selected-style="selected">
         <menu-item name="findPayment"  title="${uiLabelMap.AccountingShowPayments}  ${paymentsStatus.description}">
             <link target="findPayments">
-                <parameter param-name="lookupFlag" from-field="Y"/>
+                <parameter param-name="lookupFlag" value="Y"/>
             </link>
         </menu-item>
     </menu>
     <menu name="ApMainInvoiceTypeMenu" type="simple" default-selected-style="selected">
         <menu-item name="findInvoice"  title="${uiLabelMap.AccountingShowInvoices} ${invoiceType.description}">
             <link target="findInvoices">
-                <parameter param-name="lookupFlag" from-field="Y"/>
+                <parameter param-name="lookupFlag" value="Y"/>
             </link>
         </menu-item>
     </menu>
     <menu name="ApMainInvoiceStatusMenu" type="simple" default-selected-style="selected">
         <menu-item name="findInvoice"  title="${uiLabelMap.AccountingShowInvoices} ${invoicesStatus.description}">
             <link target="findInvoices">
-                <parameter param-name="lookupFlag" from-field="Y"/>
+                <parameter param-name="lookupFlag" value="Y"/>
             </link>
         </menu-item>
     </menu>
