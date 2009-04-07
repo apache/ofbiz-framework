@@ -20,42 +20,6 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-        <screen name="newEvent">
-        <section>
-            <actions>
-                <set field="portalPageId" from-field="parameters.portalPageId" default-value="parameters.portalPageId"/>
-                <set field="headerItem" from-field="parameters.portalPageId"/>
-            </actions>
-            <widgets>
-                <section>
-                    <widgets>
-                        <decorator-screen name="main-decorator"
-                            location="${parameters.mainDecoratorLocation}">
-                            <decorator-section name="body">
-                                <screenlet>
-                                    <include-form name="newEvent"
-                                        location="component://myportal/widget/MyPortalForms.xml" />
-                                </screenlet>
-                            </decorator-section>
-                        </decorator-screen>
-                    </widgets>
-                </section>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="MyCompanyComms">
-        <section>
-            <actions>
-                <set field="portalPageId" from-field="parameters.portalPageId"/>
-            </actions>
-            <widgets>
-                <screenlet title="${uiLabelMap.MyPortalCompanyEvents}" navigation-menu-name="MyCompanyCommsMenu" name="companyEvents" collapsible="true">
-                    <include-menu name="MyCompanyCommsMenu" location="component://myportal/widget/MyPortalMenus.xml"/>
-                    <include-form name="MyCompanyComms" location="component://myportal/widget/MyPortalForms.xml"/>
-                </screenlet>
-            </widgets>
-        </section>
-    </screen>
     <screen name="CreateCustRequestNotification">
         <section>
             <actions>

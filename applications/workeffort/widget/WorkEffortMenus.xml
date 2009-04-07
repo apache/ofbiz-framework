@@ -139,4 +139,10 @@ under the License.
             </link>
         </menu-item>
     </menu>    
+    <menu name="MyCompanyCommsMenu">
+        <menu-item name="newEvent" title="${uiLabelMap.WorkEffortNewEvent}">
+            <link target="newEvent"/>
+        </menu-item>
+    </menu>
+    
 </menus>

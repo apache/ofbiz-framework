@@ -27,6 +27,7 @@
     <include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>    
     <include location="component://order/webapp/ordermgr/WEB-INF/controller.xml"/>    
     <include location="component://projectmgr/webapp/projectmgr/WEB-INF/controller.xml"/>    
+    <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>    
     
     <description>Show personal information in the system</description>
     
@@ -46,31 +47,8 @@
         <response name="resultPage" type="view" value="newRegisterLogin"/>
     </request-map>
     
-    <!-- COMPANY Events -->    
-    <request-map uri="myCompanyComms">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="myCompanyComms"/>
-    </request-map>
-    <request-map uri="newEvent">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="newEvent"/>
-    </request-map>
-    <request-map uri="createEvent">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffort"/>
-        <response name="success" type="request" value="myCompanyComms"/>
-        <response name="error" type="view" value="myCompanyComms"/>
-    </request-map>
-    <request-map uri="deleteEvent">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="deleteWorkEffort"/>
-        <response name="success" type="request" value="myCompanyComms"/>
-    </request-map>
-    
     
     <view-map name="main" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
     <view-map name="login" type="screen" page="component://myportal/widget/CommonScreens.xml#login"/>
     <view-map name="newRegisterLogin" type="screen" page="component://myportal/widget/CommonScreens.xml#newRegisterLogin"/>
-    <view-map name="myCompanyComms" type="screen" page="component://myportal/widget/CommonScreens.xml#MyCompanyComms"/>
-    <view-map name="newEvent" type="screen" page="component://myportal/widget/MyPortalScreens.xml#newEvent"/>
 </site-conf>

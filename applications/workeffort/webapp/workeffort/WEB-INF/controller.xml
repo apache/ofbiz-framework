@@ -660,6 +660,27 @@ under the License.
         <response name="success" type="view" value="ListWorkEffortEventReminders"/>
     </request-map>
     
+    <!-- COMPANY Events -->    
+    <request-map uri="myCompanyComms">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="myCompanyComms" save-current-view="true"/>
+    </request-map>
+    <request-map uri="newEvent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="newEvent"/>
+    </request-map>
+    <request-map uri="createEvent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffort"/>
+        <response name="success" type="view-last" value="myCompanyComms"/>
+        <response name="error" type="view" value="newEvent"/>
+    </request-map>
+    <request-map uri="deleteEvent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffort"/>
+        <response name="success" type="view-last" value="myCompanyComms"/>
+    </request-map>
+    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -747,5 +768,7 @@ under the License.
     <view-map name="EditAgreementWorkEffortAppls" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditAgreementWorkEffortAppls"/>
     <view-map name="LookupAgreement" page="component://accounting/widget/LookupScreens.xml#LookupAgreement" type="screen"/>
     <view-map name="LookupAgreementItem" page="component://accounting/widget/LookupScreens.xml#LookupAgreementItem" type="screen"/>
+    <view-map name="myCompanyComms" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#MyCompanyComms"/>
+    <view-map name="newEvent" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#newCompanyEvent"/>
     <!-- end of view mappings -->
 </site-conf>

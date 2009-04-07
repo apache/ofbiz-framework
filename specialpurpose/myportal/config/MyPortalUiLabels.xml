@@ -53,12 +53,6 @@
         <value xml:lang="it">Comunicazioni aziendali</value>
         <value xml:lang="th">การติดต่อบริษัท</value>
     </property>
-    <property key="MyPortalCompanyEvents">
-        <value xml:lang="en">Company events</value>
-        <value xml:lang="fr">Evènements de l'entreprise</value>
-        <value xml:lang="it">Eventi aziendali</value>
-        <value xml:lang="th">เหตุการณ์บริษัท</value>
-    </property>
     <property key="MyPortalCompletedCustomerRequests">
         <value xml:lang="en">My Completed Customer Requests</value>
         <value xml:lang="fr">Mes demandes de clients achevées</value>

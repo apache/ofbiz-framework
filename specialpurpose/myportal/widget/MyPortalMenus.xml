@@ -29,14 +29,7 @@ under the License.
             </link>
         </menu-item>
     </menu>
-    <menu name="MyCompanyCommsMenu">
-        <menu-item name="newEvent" title="${uiLabelMap.WorkEffortNewEvent}">
-            <link target="newEvent">
-                <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
-            </link>
-        </menu-item>
-    </menu>
-    
+
     <menu name="MyTasksMenu" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="myTasks" title="${uiLabelMap.MyPortalMyTasks}"><link target="/projectmgr/control/MyTasks" url-mode="inter-app"/></menu-item>
     </menu>
