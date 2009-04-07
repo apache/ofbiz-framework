@@ -21,21 +21,21 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createCustomer" short-description="Create Customer" login-required="false">
-        <set field="require_email" value="false" />
-        <set field="require_phone" value="false" />        
-        <set field="create_allow_password" value="false" />
-        <set field="default_customer_password" value="ungssblepsswd" />
+        <set field="require_email" value="false"/>
+        <set field="require_phone" value="false"/>        
+        <set field="create_allow_password" value="false"/>
+        <set field="default_customer_password" value="ungssblepsswd"/>
 
         <property-to-field resource="security" property="username.lowercase" default="false" field="username_lowercase"/>
         <property-to-field resource="security" property="password.lowercase" default="false" field="password_lowercase"/>
 
         <now-timestamp field="nowStamp"/>
-        <set field="parameters.roleTypeId" value="CUSTOMER" />
+        <set field="parameters.roleTypeId" value="CUSTOMER"/>
 
         <if-compare field="create_allow_password" operator="not-equals" value="true">
-            <set field="parameters.PASSWORD" from-field="default_customer_password" />
-            <set field="parameters.CONFIRM_PASSWORD" from-field="default_customer_password" />
-            <set field="parameters.PASSWORD_HINT" value="No hint set, accout not yet enabled" />
+            <set field="parameters.PASSWORD" from-field="default_customer_password"/>
+            <set field="parameters.CONFIRM_PASSWORD" from-field="default_customer_password"/>
+            <set field="parameters.PASSWORD_HINT" value="No hint set, accout not yet enabled"/>
         </if-compare>
 
         <!-- if username and/or password should be lowercased, do that now -->
@@ -62,18 +62,18 @@ under the License.
             </simple-map-processor>
         </call-map-processor>
         <if-not-empty field="userLoginContext.userLoginId">
-            <set field="userLoginExistsMap.userLoginId" from-field="userLoginContext.userLoginId" />
+            <set field="userLoginExistsMap.userLoginId" from-field="userLoginContext.userLoginId"/>
             <find-by-primary-key entity-name="UserLogin" map="userLoginExistsMap" value-field="existingUserLogin"/>
             <if-not-empty field="existingUserLogin">
-                <set field="tempErrorMessage" value="Username in use, please choose another." />
+                <set field="tempErrorMessage" value="Username in use, please choose another."/>
                 <field-to-list field="tempErrorMessage" list="error_list"/>
             </if-not-empty>
         </if-not-empty>
 
         <make-value entity-name="UserLogin" value-field="newUserLogin"/>
-        <set field="newUserLogin.userLoginId" from-field="userLoginContext.userLoginId" />
-        <set field="newUserLogin.currentPassword" from-field="userLoginContext.currentPassword" />
-        <set field="newUserLogin.passwordHint" from-field="userLoginContext.passwordHint" />
+        <set field="newUserLogin.userLoginId" from-field="userLoginContext.userLoginId"/>
+        <set field="newUserLogin.currentPassword" from-field="userLoginContext.currentPassword"/>
+        <set field="newUserLogin.passwordHint" from-field="userLoginContext.passwordHint"/>
 
         <!-- Check the password, etc for validity -->
         <call-bsh><![CDATA[
@@ -97,7 +97,7 @@ under the License.
         </call-map-processor>
 
         <!-- Create the PartyRole -->
-        <set field="partyRoleContext.roleTypeId" from-field="parameters.roleTypeId" />
+        <set field="partyRoleContext.roleTypeId" from-field="parameters.roleTypeId"/>
 
         <!-- Create the Postal Address -->
         <if-compare field="parameters.USE_ADDRESS" operator="equals" value="false">
@@ -234,7 +234,7 @@ under the License.
                     <simple-map-processor name="checkRequiredEmailFormat">
                         <process field="emailAddress">
                             <validate-method method="isEmail">
-                                <fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly" />
+                                <fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/>
                             </validate-method>
                         </process>
                     </simple-map-processor>
@@ -244,9 +244,9 @@ under the License.
 
         <!-- create the PartyDataSource entry to track where this info came from... -->
         <make-value entity-name="PartyDataSource" value-field="partyDataSource"/>
-        <set field="partyDataSource.dataSourceId" value="ECOMMERCE_SITE" />
-        <set field="partyDataSource.fromDate" from-field="nowStamp" />
-        <set field="partyDataSource.isCreate" value="Y" />
+        <set field="partyDataSource.dataSourceId" value="ECOMMERCE_SITE"/>
+        <set field="partyDataSource.fromDate" from-field="nowStamp"/>
+        <set field="partyDataSource.isCreate" value="Y"/>
         <!-- get the visit from the session to get the visitId -->
         <session-to-field field="visit"/>
     <set from-field="visit.visitId" field="partyDataSource.visitId"/>
@@ -257,7 +257,7 @@ under the License.
 
         <set-service-fields map="personContext" service-name="createPersonAndUserLogin" to-map="personUserLoginContext"/>
         <set-service-fields map="newUserLogin" service-name="createPersonAndUserLogin" to-map="personUserLoginContext"/>
-        <set field="personUserLoginContext.currentPasswordVerify" from-field="newUserLogin.currentPassword" />
+        <set field="personUserLoginContext.currentPasswordVerify" from-field="newUserLogin.currentPassword"/>
         <!-- the above copy is okay since we checked already that they are the same -->
         <call-service service-name="createPersonAndUserLogin" in-map-name="personUserLoginContext">
             <result-to-field result-name="partyId" field="tempMap.partyId"/>
@@ -266,16 +266,16 @@ under the License.
         <set-current-user-login value-field="createdUserLogin"/>
 
         <!-- now that we have the partyId, put it where it needs to go... -->
-        <set field="partyDataSource.partyId" from-field="tempMap.partyId" />
-        <set field="userLoginContext.partyId" from-field="tempMap.partyId" />
-        <set field="personContext.partyId" from-field="tempMap.partyId" />
-        <set field="partyRoleContext.partyId" from-field="tempMap.partyId" />
-        <set field="addressContext.partyId" from-field="tempMap.partyId" />
-        <set field="homePhoneContext.partyId" from-field="tempMap.partyId" />
-        <set field="workPhoneContext.partyId" from-field="tempMap.partyId" />        
-        <set field="faxPhoneContext.partyId" from-field="tempMap.partyId" />
-        <set field="mobilePhoneContext.partyId" from-field="tempMap.partyId" />
-        <set field="emailContext.partyId" from-field="tempMap.partyId" />
+        <set field="partyDataSource.partyId" from-field="tempMap.partyId"/>
+        <set field="userLoginContext.partyId" from-field="tempMap.partyId"/>
+        <set field="personContext.partyId" from-field="tempMap.partyId"/>
+        <set field="partyRoleContext.partyId" from-field="tempMap.partyId"/>
+        <set field="addressContext.partyId" from-field="tempMap.partyId"/>
+        <set field="homePhoneContext.partyId" from-field="tempMap.partyId"/>
+        <set field="workPhoneContext.partyId" from-field="tempMap.partyId"/>        
+        <set field="faxPhoneContext.partyId" from-field="tempMap.partyId"/>
+        <set field="mobilePhoneContext.partyId" from-field="tempMap.partyId"/>
+        <set field="emailContext.partyId" from-field="tempMap.partyId"/>
 
         <create-value value-field="partyDataSource"/>
         <call-service service-name="createPartyRole" in-map-name="partyRoleContext"/>
@@ -287,12 +287,12 @@ under the License.
                 <call-service service-name="createPartyPostalAddress" in-map-name="addressContext">
                     <result-to-field result-name="contactMechId" field="addressPurposeContext.contactMechId"/>
                 </call-service>
-                <set field="addressPurposeContext.partyId" from-field="tempMap.partyId" />
+                <set field="addressPurposeContext.partyId" from-field="tempMap.partyId"/>
                 <!-- create the shipping location -->
-                <set field="addressPurposeContext.contactMechPurposeTypeId" value="SHIPPING_LOCATION" />
+                <set field="addressPurposeContext.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                 <call-service service-name="createPartyContactMechPurpose" in-map-name="addressPurposeContext"/>
                 <!-- also consider this address the general correspondence address -->
-                <set field="addressPurposeContext.contactMechPurposeTypeId" value="GENERAL_LOCATION" />
+                <set field="addressPurposeContext.contactMechPurposeTypeId" value="GENERAL_LOCATION"/>
                 <call-service service-name="createPartyContactMechPurpose" in-map-name="addressPurposeContext"/>
             </else>
         </if-compare>
@@ -302,8 +302,8 @@ under the License.
             <call-service service-name="createPartyTelecomNumber" in-map-name="homePhoneContext">
                 <result-to-field result-name="contactMechId" field="homePhonePurposeContext.contactMechId"/>
             </call-service>
-            <set field="homePhonePurposeContext.partyId" from-field="tempMap.partyId" />
-            <set field="homePhonePurposeContext.contactMechPurposeTypeId" value="PHONE_HOME" />
+            <set field="homePhonePurposeContext.partyId" from-field="tempMap.partyId"/>
+            <set field="homePhonePurposeContext.contactMechPurposeTypeId" value="PHONE_HOME"/>
             <call-service service-name="createPartyContactMechPurpose" in-map-name="homePhonePurposeContext"/>
         </if-not-empty>
 
@@ -312,8 +312,8 @@ under the License.
             <call-service service-name="createPartyTelecomNumber" in-map-name="workPhoneContext">
                 <result-to-field result-name="contactMechId" field="workPhonePurposeContext.contactMechId"/>
             </call-service>
-            <set field="workPhonePurposeContext.partyId" from-field="tempMap.partyId" />
-            <set field="workPhonePurposeContext.contactMechPurposeTypeId" value="PHONE_WORK" />
+            <set field="workPhonePurposeContext.partyId" from-field="tempMap.partyId"/>
+            <set field="workPhonePurposeContext.contactMechPurposeTypeId" value="PHONE_WORK"/>
             <call-service service-name="createPartyContactMechPurpose" in-map-name="workPhonePurposeContext"/>
         </if-not-empty>
 
@@ -322,8 +322,8 @@ under the License.
             <call-service service-name="createPartyTelecomNumber" in-map-name="faxPhoneContext">
                 <result-to-field result-name="contactMechId" field="faxPhonePurposeContext.contactMechId"/>
             </call-service>
-            <set field="faxPhonePurposeContext.partyId" from-field="tempMap.partyId" />
-            <set field="faxPhonePurposeContext.contactMechPurposeTypeId" value="FAX_NUMBER" />
+            <set field="faxPhonePurposeContext.partyId" from-field="tempMap.partyId"/>
+            <set field="faxPhonePurposeContext.contactMechPurposeTypeId" value="FAX_NUMBER"/>
             <call-service service-name="createPartyContactMechPurpose" in-map-name="faxPhonePurposeContext"/>
         </if-not-empty>
 
@@ -332,8 +332,8 @@ under the License.
             <call-service service-name="createPartyTelecomNumber" in-map-name="mobilePhoneContext">
                 <result-to-field result-name="contactMechId" field="mobilePhonePurposeContext.contactMechId"/>
             </call-service>
-            <set field="mobilePhonePurposeContext.partyId" from-field="tempMap.partyId" />
-            <set field="mobilePhonePurposeContext.contactMechPurposeTypeId" value="PHONE_MOBILE" />
+            <set field="mobilePhonePurposeContext.partyId" from-field="tempMap.partyId"/>
+            <set field="mobilePhonePurposeContext.contactMechPurposeTypeId" value="PHONE_MOBILE"/>
             <call-service service-name="createPartyContactMechPurpose" in-map-name="mobilePhonePurposeContext"/>
         </if-not-empty>
 
@@ -341,8 +341,8 @@ under the License.
         <call-service service-name="createPartyEmailAddress" in-map-name="emailContext">
             <result-to-field result-name="contactMechId" field="emailPurposeContext.contactMechId"/>
         </call-service>
-        <set field="emailPurposeContext.partyId" from-field="tempMap.partyId" />
-        <set field="emailPurposeContext.contactMechPurposeTypeId" value="PRIMARY_EMAIL" />
+        <set field="emailPurposeContext.partyId" from-field="tempMap.partyId"/>
+        <set field="emailPurposeContext.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
         <call-service service-name="createPartyContactMechPurpose" in-map-name="emailPurposeContext"/>
 
         <!-- set the partyId in the request -->

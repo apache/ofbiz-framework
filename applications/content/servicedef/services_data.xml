@@ -30,7 +30,7 @@
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="dataResourceId" type="String" mode="INOUT" optional="true"/>
         <attribute name="targetOperationList" type="List" mode="IN" optional="true"/>
-        <attribute name="contentPurposeList" type="List" mode="IN" optional="true" />
+        <attribute name="contentPurposeList" type="List" mode="IN" optional="true"/>
         <attribute name="skipPermissionCheck" type="String" mode="IN" optional="true"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>

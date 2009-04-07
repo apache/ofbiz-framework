@@ -28,7 +28,7 @@ under the License.
         
         <if-empty field="newEntity.fromDate">
             <now-timestamp field="nowTimestamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimestamp" />
+            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
 
         <create-value value-field="newEntity"/>
@@ -62,7 +62,7 @@ under the License.
         <set-service-fields service-name="createProductContent" map="parameters" to-map="createProductContent"/>
         <set-service-fields service-name="createEmailContent" map="parameters" to-map="createEmail"/>
         <call-service service-name="createEmailContent" in-map-name="createEmail" break-on-error="true" >
-            <result-to-field result-name="contentId" field="createProductContent.contentId" />
+            <result-to-field result-name="contentId" field="createProductContent.contentId"/>
         </call-service>
         <call-service service-name="createProductContent" in-map-name="createProductContent"/>
     </simple-method>
@@ -79,7 +79,7 @@ under the License.
         <set field="persistContentAndAssoc.contentTypeId" value="DOCUMENT"/>
         <set field="persistContentAndAssoc.dataResourceTypeId" value="IMAGE_OBJECT"/>
         <call-service service-name="persistContentAndAssoc" in-map-name="persistContentAndAssoc" break-on-error="true" >
-            <result-to-field result-name="contentId" field="createProductContent.contentId" />
+            <result-to-field result-name="contentId" field="createProductContent.contentId"/>
         </call-service>
         <call-service service-name="createProductContent" in-map-name="createProductContent"/>
     </simple-method>

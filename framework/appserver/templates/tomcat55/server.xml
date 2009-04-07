@@ -31,9 +31,9 @@
 
   <!-- Comment these entries out to disable JMX MBeans support used for the 
        administration web application -->
-  <Listener className="org.apache.catalina.core.AprLifecycleListener" />
-  <Listener className="org.apache.catalina.mbeans.ServerLifecycleListener" />
-  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+  <Listener className="org.apache.catalina.core.AprLifecycleListener"/>
+  <Listener className="org.apache.catalina.mbeans.ServerLifecycleListener"/>
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"/>
   <Listener className="org.apache.catalina.storeconfig.StoreConfigLifecycleListener"/>
 
   <!-- Global JNDI resources -->
@@ -48,7 +48,7 @@
               type="org.apache.catalina.UserDatabase"
        description="User database that can be updated and saved"
            factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
-          pathname="conf/tomcat-users.xml" />
+          pathname="conf/tomcat-users.xml"/>
 
   </GlobalNamingResources>
 
@@ -94,7 +94,7 @@
     <Connector port="8080" maxHttpHeaderSize="8192"
                maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
                enableLookups="false" redirectPort="8443" acceptCount="100"
-               connectionTimeout="20000" disableUploadTimeout="true" />
+               connectionTimeout="20000" disableUploadTimeout="true"/>
     <!-- Note : To disable connection timeouts, set connectionTimeout value
      to 0 -->
     
@@ -117,7 +117,7 @@
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->
     <Connector port="8009" 
-               enableLookups="false" redirectPort="8443" protocol="AJP/1.3" />
+               enableLookups="false" redirectPort="8443" protocol="AJP/1.3"/>
 
     <!-- Define a Proxied HTTP/1.1 Connector on port 8082 -->
     <!-- See proxy documentation for more information about using this. -->
@@ -125,7 +125,7 @@
     <Connector port="8082" 
                maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
                enableLookups="false" acceptCount="100" connectionTimeout="20000"
-               proxyPort="80" disableUploadTimeout="true" />
+               proxyPort="80" disableUploadTimeout="true"/>
     -->
 
     <!-- An Engine represents the entry point (within Catalina) that processes
@@ -178,7 +178,7 @@
       <!-- Comment out the old realm but leave here for now in case we
            need to go back quickly -->
       <!--
-      <Realm className="org.apache.catalina.realm.MemoryRealm" />
+      <Realm className="org.apache.catalina.realm.MemoryRealm"/>
       -->
 
       <!-- Replace the above Realm with one of the following to get a Realm
@@ -190,7 +190,7 @@
           connectionURL="jdbc:mysql://localhost/authority"
          connectionName="test" connectionPassword="test"
               userTable="users" userNameCol="user_name" userCredCol="user_pass"
-          userRoleTable="user_roles" roleNameCol="role_name" />
+          userRoleTable="user_roles" roleNameCol="role_name"/>
       -->
 
       <!--
@@ -199,7 +199,7 @@
           connectionURL="jdbc:oracle:thin:@ntserver:1521:ORCL"
          connectionName="scott" connectionPassword="tiger"
               userTable="users" userNameCol="user_name" userCredCol="user_pass"
-          userRoleTable="user_roles" roleNameCol="role_name" />
+          userRoleTable="user_roles" roleNameCol="role_name"/>
       -->
 
       <!--
@@ -207,7 +207,7 @@
              driverName="sun.jdbc.odbc.JdbcOdbcDriver"
           connectionURL="jdbc:odbc:CATALINA"
               userTable="users" userNameCol="user_name" userCredCol="user_pass"
-          userRoleTable="user_roles" roleNameCol="role_name" />
+          userRoleTable="user_roles" roleNameCol="role_name"/>
       -->
 
       <!-- Define the default virtual host
@@ -353,7 +353,7 @@
              user identity maintained across *all* web applications contained
              in this virtual host. -->
         <!--
-        <Valve className="org.apache.catalina.authenticator.SingleSignOn" />
+        <Valve className="org.apache.catalina.authenticator.SingleSignOn"/>
         -->
 
         <!-- Access log processes all requests for this virtual host.  By

@@ -135,7 +135,7 @@ under the License.
 
         <!-- add to most recently used list --><!--
         <make-value entity-name="SubContentDataResourceView" value-field="subContent"/>
-        <field-to-field field-name="contentId" to-map-name="subContent" to-field-name="contentId" />
+        <field-to-field field-name="contentId" to-map-name="subContent" to-field-name="contentId"/>
         <field-to-field field-name="dataResourceId" to-map-name="subContent" to-field-name="drDataResourceId"/>
         <log level="always" message="subContent: ${subContent}"/>
         <log level="always" message="contentId: ${contentId}"/>
@@ -231,7 +231,7 @@ under the License.
 
         <!-- add to most recently used list --><!--
         <make-value entity-name="SubContentDataResourceView" value-field="subContent"/>
-        <field-to-field field-name="contentId" to-map-name="subContent" to-field-name="contentId" />
+        <field-to-field field-name="contentId" to-map-name="subContent" to-field-name="contentId"/>
         <field-to-field field-name="dataResourceId" to-map-name="subContent" to-field-name="drDataResourceId"/>
         <log level="always" message="subContent: ${subContent}"/>
         <log level="always" message="contentId: ${contentId}"/>
@@ -289,7 +289,7 @@ under the License.
 
         <!-- add to most recently used list --><!--
         <make-value entity-name="SubContentDataResourceView" value-field="subContent"/>
-        <field-to-field field-name="contentId" to-map-name="subContent" to-field-name="contentId" />
+        <field-to-field field-name="contentId" to-map-name="subContent" to-field-name="contentId"/>
         <field-to-field field-name="dataResourceId" to-map-name="subContent" to-field-name="drDataResourceId"/>
         <log level="always" message="subContent: ${subContent}"/>
         <log level="always" message="contentId: ${contentId}"/>

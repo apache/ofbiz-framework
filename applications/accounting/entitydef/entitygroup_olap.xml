@@ -24,12 +24,12 @@ under the License.
     <!-- ========================================================= -->
     <!-- Facts                                                     -->
     <!-- ========================================================= -->
-    <entity-group group="org.ofbiz.olap" entity="SalesInvoiceItemFact" />
+    <entity-group group="org.ofbiz.olap" entity="SalesInvoiceItemFact"/>
 
     <!-- ========================================================= -->
     <!-- Star Schemas                                              -->
     <!-- ========================================================= -->
-    <entity-group group="org.ofbiz.olap" entity="SalesInvoiceItemStarSchema" />
+    <entity-group group="org.ofbiz.olap" entity="SalesInvoiceItemStarSchema"/>
 
 </entitygroup>
 

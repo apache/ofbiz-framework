@@ -403,7 +403,7 @@ under the License.
                 <if-compare field="workEffortAndInventoryAssign.productId" operator="equals" value="MAT_B_COST">    
                     <calculate field="totalIssuedQty_MAT_B_COST">
                         <calcop operator="add">
-                            <calcop operator="get" field="workEffortAndInventoryAssign.quantity" />
+                            <calcop operator="get" field="workEffortAndInventoryAssign.quantity"/>
                             <calcop operator="get" field="totalIssuedQty_MAT_B_COST"/>
                         </calcop>
                     </calculate>

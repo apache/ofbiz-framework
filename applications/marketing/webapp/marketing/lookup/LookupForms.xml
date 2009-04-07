@@ -50,7 +50,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="SegmentGroupClassification">
-                <field-map field-name="segmentGroupId" />
+                <field-map field-name="segmentGroupId"/>
             </entity-and>
         </actions>
         <field name="segmentGroupId"  widget-style="buttontext" title="${uiLabelMap.MarketingSegmentGroupSegmentGroupId}">

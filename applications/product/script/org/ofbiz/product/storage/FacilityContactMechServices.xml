@@ -29,18 +29,18 @@ under the License.
         <if-empty field="parameters.contactMechId">
 
             <set-service-fields service-name="createContactMech" map="parameters" to-map="createContactMechMap"/>
-            <set field="createContactMechMap.contactMechTypeId" from-field="parameters.contactMechTypeId" />
+            <set field="createContactMechMap.contactMechTypeId" from-field="parameters.contactMechTypeId"/>
             <call-service service-name="createContactMech" in-map-name="createContactMechMap">
                 <default-message>Contact Mechanism successfully created.</default-message>
                 <result-to-field result-name="contactMechId" field="newValue.contactMechId"/>
             </call-service>
             <log level="info" message="ContactMech created"/>
             <else>
-                <set field="newValue.contactMechId" from-field="parameters.contactMechId" />
+                <set field="newValue.contactMechId" from-field="parameters.contactMechId"/>
             </else>
         </if-empty>
         <log level="info" message="Creating a FacilityContactMech with id: ${parameters.contactMechId}"/>
-        <set field="newValue.facilityId" from-field="parameters.facilityId" />
+        <set field="newValue.facilityId" from-field="parameters.facilityId"/>
         <field-to-result field="newValue.contactMechId" result-name="contactMechId"/>
         <field-to-request field="newValue.contactMechId" request-name="contactMechId"/>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
@@ -73,7 +73,7 @@ under the License.
         <!-- If we already have a new contactMechId don't update ContactMech -->
         <if-empty field="parameters.newContactMechId">
             <set-service-fields service-name="updateContactMech" map="parameters" to-map="updateContactMechMap"/>
-            <set field="updateContactMechMap.contactMechTypeId" from-field="parameters.contactMechTypeId" />
+            <set field="updateContactMechMap.contactMechTypeId" from-field="parameters.contactMechTypeId"/>
             <call-service service-name="updateContactMech" in-map-name="updateContactMechMap">
                 <default-message>Contact Mechanism successfully updated.</default-message>
 
@@ -173,7 +173,7 @@ under the License.
         <set-service-fields service-name="updatePostalAddress" map="parameters" to-map="updatePostalAddressMap"/>
         <call-service in-map-name="updatePostalAddressMap" service-name="updatePostalAddress">
             <default-message>Postal Address successfully updated</default-message>
-            <result-to-field result-name="contactMechId" field="newFacilityContactMech.contactMechId" />
+            <result-to-field result-name="contactMechId" field="newFacilityContactMech.contactMechId"/>
         </call-service>
 
         <set-service-fields service-name="updateFacilityContactMech" map="parameters" to-map="updateFacilityContactMechMap"/>
@@ -220,7 +220,7 @@ under the License.
         <set-service-fields service-name="updateTelecomNumber" map="parameters" to-map="updateTelecomNumberMap"/>
         <call-service service-name="updateTelecomNumber" in-map-name="updateTelecomNumberMap">
             <default-message>Telecom Number successfully updated</default-message>
-            <result-to-field result-name="contactMechId" field="newFacilityContactMech.contactMechId" />
+            <result-to-field result-name="contactMechId" field="newFacilityContactMech.contactMechId"/>
         </call-service>
 
         <set-service-fields service-name="updateFacilityContactMech" map="parameters" to-map="updateFacilityContactMechMap"/>
@@ -269,7 +269,7 @@ under the License.
 
         <set-service-fields service-name="updateFacilityContactMech" map="parameters" to-map="updateFacilityContactMechMap"/>
         <set field="updateFacilityContactMechMap.infoString" from-field="parameters.emailAddress"/>
-        <set field="updateFacilityContactMechMap.contactMechTypeId" value="EMAIL_ADDRESS" />
+        <set field="updateFacilityContactMechMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="updateFacilityContactMech" in-map-name="updateFacilityContactMechMap">
 
             <default-message>Facility Contact Mechanism successfully updated.</default-message>
@@ -283,9 +283,9 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookUpMap" entity-name="FacilityContactMechPurpose"/>
-        <set field="lookUpMap.facilityId" from-field="parameters.facilityId" />
-        <set field="lookUpMap.contactMechId" from-field="parameters.contactMechId" />
-        <set field="lookUpMap.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId" />
+        <set field="lookUpMap.facilityId" from-field="parameters.facilityId"/>
+        <set field="lookUpMap.contactMechId" from-field="parameters.contactMechId"/>
+        <set field="lookUpMap.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId"/>
         <find-by-and entity-name="FacilityContactMechPurpose" map="lookUpMap" list="purposeList"/>
         <filter-list-by-date list="purposeList"/>
 
@@ -297,10 +297,10 @@ under the License.
 
         <now-timestamp field="nowTimestamp"/>
         <make-value value-field="newEntity" entity-name="FacilityContactMechPurpose"/>
-        <set field="newEntity.facilityId" from-field="parameters.facilityId" />
-        <set field="newEntity.contactMechId" from-field="parameters.contactMechId" />
-        <set field="newEntity.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId" />
-        <set field="newEntity.fromDate" from-field="nowTimestamp" />
+        <set field="newEntity.facilityId" from-field="parameters.facilityId"/>
+        <set field="newEntity.contactMechId" from-field="parameters.contactMechId"/>
+        <set field="newEntity.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId"/>
+        <set field="newEntity.fromDate" from-field="nowTimestamp"/>
 
         <create-value value-field="newEntity"/>
 
@@ -322,7 +322,7 @@ under the License.
         </if-empty>
 
         <now-timestamp field="nowTimestamp"/>
-        <set field="purposeEntity.thruDate" from-field="nowTimestamp" />
+        <set field="purposeEntity.thruDate" from-field="nowTimestamp"/>
 
         <store-value value-field="purposeEntity"/>
     </simple-method>

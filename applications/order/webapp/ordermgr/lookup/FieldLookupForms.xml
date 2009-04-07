@@ -276,7 +276,7 @@ under the License.
         <auto-fields-entity entity-name="CustRequestItem" default-field-type="hidden"/>
         <field name="custRequestId"><display/></field>
         <field name="custRequestItemSeqId" widget-style="buttontext" >
-            <hyperlink also-hidden="false" target-type="plain" description="${custRequestItemSeqId}" target="javascript:set_value('${custRequestItemSeqId}')" />
+            <hyperlink also-hidden="false" target-type="plain" description="${custRequestItemSeqId}" target="javascript:set_value('${custRequestItemSeqId}')"/>
         </field>
         <field name="priority"><display/></field>
         <field name="custRequestResolutionId"><display-entity also-hidden="false" entity-name="CustRequestResolution"/></field>

@@ -66,7 +66,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
                 <entity-condition list="forumMessages" entity-name="ContentAssocViewTo" >
                     <condition-list combine="and">
-                        <condition-expr field-name="contentIdStart" from-field="parameters.forumId" />
+                        <condition-expr field-name="contentIdStart" from-field="parameters.forumId"/>
                         <condition-list combine="or">
                             <condition-expr field-name="caContentAssocTypeId" value="PUBLISH_LINK"/>
                             <condition-expr field-name="caContentAssocTypeId" value="RESPONSE"/>
@@ -150,7 +150,7 @@ under the License.
                         <container>
                         <label style="blogheader">${uiLabelMap.EcommerceBlogMessageTree}:</label>
                         </container>
-                        <include-tree name="ResponseTree" location="component://ecommerce/widget/ForumTrees.xml" />
+                        <include-tree name="ResponseTree" location="component://ecommerce/widget/ForumTrees.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -543,12 +543,12 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <if-compare-field field="responseContentId" operator="equals" to-field="rsp.contentId" />
+                        <if-compare-field field="responseContentId" operator="equals" to-field="rsp.contentId"/>
                     </condition>
                     <widgets>
                         <container style="responseSelected">
-                            <label text="${rsp.contentName}" style="responseheader" />
-                            <label text=" - ${rsp.description} [${rsp.contentId}]" style="responsetext" />
+                            <label text="${rsp.contentName}" style="responseheader"/>
+                            <label text=" - ${rsp.description} [${rsp.contentId}]" style="responsetext"/>
                             <link  text="${uiLabelMap.CommonView}" target="ViewForumMessage" style="buttontext">
                                 <parameter param-name="forumId" from-field="parameters.forumId"/>
                                 <parameter param-name="threadContentId" from-field="parameters.threadContentId"/>
@@ -559,8 +559,8 @@ under the License.
                     </widgets>
                     <fail-widgets>
                         <container>
-                            <label text="${rsp.contentName}" style="responseheader" />
-                            <label text=" - ${rsp.description} [${rsp.contentId}]" style="responsetext" />
+                            <label text="${rsp.contentName}" style="responseheader"/>
+                            <label text=" - ${rsp.description} [${rsp.contentId}]" style="responsetext"/>
                             <link  text="${uiLabelMap.CommonView}" target="ViewForumMessage" style="buttontext">
                                 <parameter param-name="forumId" from-field="parameters.forumId"/>
                                 <parameter param-name="threadContentId" from-field="parameters.threadContentId"/>

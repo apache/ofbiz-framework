@@ -71,8 +71,8 @@ under the License.
                 <set field="textData" from-field="electronicText.textData"/>
                 <set field="contentId" from-field="currentValue.contentId"/>
                 <set field="dataResourceId" from-field="parameters.drDataResourceId"/>
-                <set field="rootForumId" value="WebStoreFORUM" />
-                <set field="rootForumId2" value="WebStoreCONTENT" />
+                <set field="rootForumId" value="WebStoreFORUM"/>
+                <set field="rootForumId2" value="WebStoreCONTENT"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/cms/FeaturePrep.groovy"/>
                 <set field="menuContext.contentTarget" value="CMSContentEdit?contentId=${contentId}&amp;drDataResourceId=${dataResourceId}"/>
             </actions>
@@ -147,17 +147,17 @@ under the License.
                 <set field="MASTER_caContentAssocTypeId" from-field="parameters.MASTER_caContentAssocTypeId" default-value="${parameters.caContentAssocTypeId}"/>
                 <set field="MASTER_caFromDate" from-field="parameters.MASTER_caFromDate" default-value="${parameters.caFromDate}"/>
                 
-                <set field="contentId" from-field="MASTER_contentId" />
-                <set field="drDataResourceId" from-field="MASTER_drDataResourceId" />
-                <set field="caContentIdTo" from-field="MASTER_caContentIdTo" />
-                <set field="caContentId" from-field="MASTER_caContentId" />
-                <set field="caContentAssocTypeId" from-field="MASTER_caContentAssocTypeId" />
-                <set field="caFromDate" from-field="MASTER_caFromDate" />
+                <set field="contentId" from-field="MASTER_contentId"/>
+                <set field="drDataResourceId" from-field="MASTER_drDataResourceId"/>
+                <set field="caContentIdTo" from-field="MASTER_caContentIdTo"/>
+                <set field="caContentId" from-field="MASTER_caContentId"/>
+                <set field="caContentAssocTypeId" from-field="MASTER_caContentAssocTypeId"/>
+                <set field="caFromDate" from-field="MASTER_caFromDate"/>
                 
                 
                 <script location="component://content/webapp/content/WEB-INF/actions/cms/CmsEditAddPrep.groovy"/>
                 <set field="currentCMSMenuItemName" value="EditAddContent" to-scope="user"/>
-                <set field="enableEdit" value="true" />
+                <set field="enableEdit" value="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="commonCmsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -172,7 +172,7 @@ under the License.
                                 <section>
                                     <widgets>    
                                         <link  text="${uiLabelMap.ContentGoToFind}" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
-                                        <include-form name="EditAddContentStuff" location="component://content/webapp/content/cms/CMSForms.xml" />
+                                        <include-form name="EditAddContentStuff" location="component://content/webapp/content/cms/CMSForms.xml"/>
                                         <content content-id="${contentId}" enable-edit-name="notfound"  edit-request="EditAddSubContent?MASTER_contentId=${MASTER_contentId}&amp;MASTER_caContentIdTo=${MASTER_caContentIdTo}&amp;MASTER_caContentAssocTypeId=${MASTER_caContentAssocTypeId}&amp;MASTER_caFromDate=${MASTER_caFromDate}&amp;MASTER_drDataResourceId=${MASTER_drDataResourceId}&amp;caContentIdTo=${caContentIdTo}"/>
                                     </widgets>
                                 </section>
@@ -192,12 +192,12 @@ under the License.
                 <set field="targetOperation" value="CONTENT_UPDATE|CONTENT_CREATE|CONTENT_CREATE_SUB"/>
                 <set field="requiredRoles" value="OWNER|BLOG_AUTHOR|BLOG_EDITOR|BLOG_ADMIN|BLOG_PUBLISHER"/>
                 <set field="contentPurposeTypeId" value="ARTICLE"/>
-                <set field="MASTER_contentId" from-field="parameters.MASTER_contentId" />
-                <set field="MASTER_drDataResourceId" from-field="parameters.MASTER_drDataResourceId" />
-                <set field="MASTER_caContentIdTo" from-field="parameters.MASTER_caContentIdTo" />
-                <set field="MASTER_caContentId" from-field="parameters.MASTER_caContentId" />
-                <set field="MASTER_caContentAssocTypeId" from-field="parameters.MASTER_caContentAssocTypeId" />
-                <set field="MASTER_caFromDate" from-field="parameters.MASTER_caFromDate" />
+                <set field="MASTER_contentId" from-field="parameters.MASTER_contentId"/>
+                <set field="MASTER_drDataResourceId" from-field="parameters.MASTER_drDataResourceId"/>
+                <set field="MASTER_caContentIdTo" from-field="parameters.MASTER_caContentIdTo"/>
+                <set field="MASTER_caContentId" from-field="parameters.MASTER_caContentId"/>
+                <set field="MASTER_caContentAssocTypeId" from-field="parameters.MASTER_caContentAssocTypeId"/>
+                <set field="MASTER_caFromDate" from-field="parameters.MASTER_caFromDate"/>
                 
                 <set field="caContentIdTo" from-field="parameters.contentId"/>
                 <set field="caMapKey" from-field="parameters.mapKey"/>
@@ -218,7 +218,7 @@ under the License.
                                 <section>
                                     <widgets>    
                                         <link  text="${uiLabelMap.ContentGoToFind}" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
-                                        <include-form name="EditAddSubContentStuff" location="component://content/webapp/content/cms/CMSForms.xml" />
+                                        <include-form name="EditAddSubContentStuff" location="component://content/webapp/content/cms/CMSForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>

@@ -29,7 +29,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="accountLimit">
-            <display type="currency" currency="${billingAccount.accountCurrencyUomId}" />
+            <display type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
         </field>
         <field name="description"><display/></field>
         <field name="fromDate"><display/></field>
@@ -44,7 +44,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="accountLimit">
-            <display type="currency" currency="${billingAccount.accountCurrencyUomId}" />
+            <display type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
         </field>
         <field name="description"><display/></field>
         <field name="fromDate"><display/></field>

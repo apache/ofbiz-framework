@@ -91,7 +91,7 @@ under the License.
     <!-- DISABLED FOR NOW
     <eca service="changeOrderStatus" event="commit" run-on-error="false">
         <condition field-name="statusId" operator="equals" value="ORDER_PROCESSING"/>
-        <action service="processOrderWf" mode="async" persist="true" />
+        <action service="processOrderWf" mode="async" persist="true"/>
     </eca>
     -->
 
@@ -318,7 +318,7 @@ under the License.
 
     <!-- WorkEffort -->
     <eca service="createQuoteWorkEffort" event="invoke">
-        <condition field-name="workEffortId" operator="is-empty" />
+        <condition field-name="workEffortId" operator="is-empty"/>
         <action service="createWorkEffort" mode="sync"/>
     </eca>
 </service-eca>

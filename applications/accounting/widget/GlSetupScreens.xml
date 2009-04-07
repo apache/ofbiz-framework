@@ -233,7 +233,7 @@ under the License.
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingFX}"/>
                 <set field="tabButtonItem" value="ViewFXConversions"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />                                
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>                                
                 <!-- TODO: If UomConversionDated is ever used for another type of conversion besides currencies or if some currencies are
                     stored in UomConversion, we need to change the logic here -->
                 <entity-condition entity-name="UomConversionDated" list="conversions">
@@ -285,7 +285,7 @@ under the License.
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingGlAccountTypeDefaults}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountTypeDefaults"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
@@ -307,7 +307,7 @@ under the License.
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingInvoiceSales}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountSalInvoice"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
@@ -329,7 +329,7 @@ under the License.
                 <set field="titleProperty" value="AccountingInvoicePurchase"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountPurInvoice"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
@@ -350,7 +350,7 @@ under the License.
                 <set field="titleProperty" value="${uiLabelMap.AccountingPaymentType}/${uiLabelMap.FormFieldTitle_glAccountTypeId}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountTypePaymentType"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
@@ -371,7 +371,7 @@ under the License.
                 <set field="titleProperty" value="${uiLabelMap.AccountingPaymentMethodId}/${uiLabelMap.AccountingGlAccountId}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="GlAccountNrPaymentMethod"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonAdminDecorator">
@@ -393,7 +393,7 @@ under the License.
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingProductGlAccount}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="ProductGlAccounts"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 
                 <entity-condition entity-name="ProductGlAccount" list="productGlAccounts">
                     <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
@@ -421,7 +421,7 @@ under the License.
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingFinAccountTypeGlAccount}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="FinAccountTypeGlAccounts"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 
                  <entity-condition entity-name="FinAccountTypeGlAccount" list="finAccountTypeGlAccounts">
                     <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
@@ -453,7 +453,7 @@ under the License.
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingProductCategoryGlAccount}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="ProductCategoryGlAccounts"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 
                 <entity-condition entity-name="ProductCategoryGlAccount" list="productCategoryGlAccounts">
                     <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
@@ -481,7 +481,7 @@ under the License.
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="VarianceReasonGlAccounts"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingVarianceReasonGlAccounts}"/>                
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 
                 <entity-condition entity-name="VarianceReasonGlAccount" list="varianceReasonGlAccounts">
                     <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
@@ -509,7 +509,7 @@ under the License.
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="CreditCardTypeGlAccount"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingCreditCardTypeGlAccount}"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <entity-condition entity-name="CreditCardTypeGlAccount" list="creditCardTypeGlAccounts">
                     <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
                 </entity-condition>
@@ -535,7 +535,7 @@ under the License.
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="TaxAuthorityGlAccounts"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.PageTitleEditTaxAuthorityGlAccounts}"/>                
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <entity-condition entity-name="TaxAuthorityGlAccount" list="taxAuthorityGlAccounts">
                     <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
                     <order-by field-name="taxAuthGeoId"/>

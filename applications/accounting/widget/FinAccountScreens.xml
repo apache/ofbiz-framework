@@ -94,7 +94,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditFinAccount"/>
                 <set field="tabButtonItem" value="EditFinAccount"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />                
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>                
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
             </actions>
             <widgets>
@@ -182,7 +182,7 @@ under the License.
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
                 <set field="finAccountAuthId" from-field="parameters.finAccountAuthId"/>
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFinAccountDecorator" location="${parameters.finAccountDecoratorLocation}">

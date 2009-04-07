@@ -345,8 +345,8 @@ under the License.
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
-        <override name="fromDate" optional="true" />
-        <!--<override name="contentId" optional="true" mode="INOUT" />-->
+        <override name="fromDate" optional="true"/>
+        <!--<override name="contentId" optional="true" mode="INOUT"/>-->
     </service>
     <service name="updateProductContent" default-entity-name="ProductContent" engine="simple"
         location="component://product/script/org/ofbiz/product/product/ProductContentServices.xml" invoke="updateProductContent" auth="true">
@@ -855,8 +855,8 @@ under the License.
         <permission-service service-name="productCategoryGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="fromDate" optional="true" />        
-        <override name="linkSeqId" optional="true" />        
+        <override name="fromDate" optional="true"/>        
+        <override name="linkSeqId" optional="true"/>        
     </service>
     <service name="updateProductCategoryLink" default-entity-name="ProductCategoryLink" engine="simple"
             location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" 
@@ -891,8 +891,8 @@ under the License.
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
-        <override name="fromDate" optional="true" />
-        <!--<override name="contentId" optional="true" mode="INOUT" />-->
+        <override name="fromDate" optional="true"/>
+        <!--<override name="contentId" optional="true" mode="INOUT"/>-->
     </service>
     <service name="updateCategoryContent" default-entity-name="ProductCategoryContent" engine="simple"
             location="component://product/script/org/ofbiz/product/category/CategoryContentServices.xml" invoke="updateCategoryContent" auth="true">
@@ -1068,8 +1068,8 @@ under the License.
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="Content" include="nonpk" mode="IN" optional="true"/>
-        <override name="fromDate" optional="true" />
-        <!--<override name="contentId" optional="true" mode="INOUT" />-->
+        <override name="fromDate" optional="true"/>
+        <!--<override name="contentId" optional="true" mode="INOUT"/>-->
     </service>
     <service name="updateProductConfigItemContent" default-entity-name="ProdConfItemContent" engine="simple"
                 location="component://product/script/org/ofbiz/product/config/ProductConfigItemContentServices.xml" invoke="updateProductConfigItemContent" auth="true">

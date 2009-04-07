@@ -381,14 +381,14 @@ under the License.
         <now-timestamp field="nowTimestamp"/>
         
         <if-empty field="newEntity.fromDate">
-            <set field="newEntity.fromDate" from-field="nowTimestamp" />
+            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
         <field-to-result field="newEntity.fromDate" result-name="fromDate"/>
         
-        <set field="newEntity.lastModifiedDate" from-field="nowTimestamp" />
-        <set field="newEntity.createdDate" from-field="nowTimestamp" />
-        <set field="newEntity.lastModifiedByUserLogin" from-field="userLogin.userLoginId" />
-        <set field="newEntity.createdByUserLogin" from-field="userLogin.userLoginId" />
+        <set field="newEntity.lastModifiedDate" from-field="nowTimestamp"/>
+        <set field="newEntity.createdDate" from-field="nowTimestamp"/>
+        <set field="newEntity.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
+        <set field="newEntity.createdByUserLogin" from-field="userLogin.userLoginId"/>
         
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -398,8 +398,8 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         
         <now-timestamp field="nowTimestamp"/>
-        <set field="lookedUpValue.lastModifiedDate" from-field="nowTimestamp" />
-        <set field="lookedUpValue.lastModifiedByUserLogin" from-field="userLogin.userLoginId" />
+        <set field="lookedUpValue.lastModifiedDate" from-field="nowTimestamp"/>
+        <set field="lookedUpValue.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
         
         <store-value value-field="lookedUpValue"/>
     </simple-method>

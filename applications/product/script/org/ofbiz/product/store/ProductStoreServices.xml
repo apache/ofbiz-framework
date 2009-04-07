@@ -37,7 +37,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductStore"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <sequenced-id sequence-name="ProductStore" field="productStoreId" />
+        <sequenced-id sequence-name="ProductStore" field="productStoreId"/>
         <set from-field="productStoreId" field="newEntity.productStoreId"/>
 
         <field-to-result field="productStoreId" result-name="productStoreId"/>

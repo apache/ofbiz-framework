@@ -41,11 +41,11 @@ under the License.
                         <or>
                             <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
                             <!-- can always see own invoice -->
-                            <if-compare field="invoice.partyIdFrom" operator="equals" value="${userLogin.partyId}" />
-                            <if-compare field="invoice.partyId" operator="equals" value="${userLogin.partyId}" />
+                            <if-compare field="invoice.partyIdFrom" operator="equals" value="${userLogin.partyId}"/>
+                            <if-compare field="invoice.partyId" operator="equals" value="${userLogin.partyId}"/>
                             <!-- or is a contact of a company who owns the invoice-->
-                            <if-compare field="invoice.partyIdFrom" operator="equals" value="${myCompanyId}" />
-                            <if-compare field="invoice.partyId" operator="equals" value="${myCompanyId}" />
+                            <if-compare field="invoice.partyIdFrom" operator="equals" value="${myCompanyId}"/>
+                            <if-compare field="invoice.partyId" operator="equals" value="${myCompanyId}"/>
                         </or>
                     </condition>
                     <widgets>

@@ -75,7 +75,7 @@
                 <set field="titleProperty" value="PageTitleEditEmplPosition"/>
                 <set field="tabButtonItem" value="EditEmplPosition"/>
                 <set field="emplPositionId" from-field="parameters.emplPositionId"/>
-                <entity-one entity-name="EmplPosition" value-field="emplPosition" />
+                <entity-one entity-name="EmplPosition" value-field="emplPosition"/>
             </actions>            
             <widgets>
                 <decorator-screen name="CommonEmplPositionDecorator" location="${parameters.mainDecoratorLocation}">

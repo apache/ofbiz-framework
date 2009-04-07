@@ -273,7 +273,7 @@ under the License.
             <display description="${accountCode} ${accountName}"/>
         </field>
         <field name="glAccountClassId" position="1" use-when="showPosition1">
-            <display-entity entity-name="GlAccountClass" />
+            <display-entity entity-name="GlAccountClass"/>
         </field>
 
         <field name="acctgTransId" widget-style="buttontext" position="2">
@@ -367,7 +367,7 @@ under the License.
             <display description="${accountCode} ${accountName}"/>
         </field>
         <field name="glAccountClassId">
-            <display-entity entity-name="GlAccountClass" />
+            <display-entity entity-name="GlAccountClass"/>
         </field>
         <field name="invoiceId" use-when="invoiceId!=null" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${invoiceId}" target="editInvoice">

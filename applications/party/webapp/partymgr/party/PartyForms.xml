@@ -472,7 +472,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="SegmentGroupRole">
-                <field-map field-name="partyId" />
+                <field-map field-name="partyId"/>
             </entity-and>
         </actions>
         <field name="segmentGroupId" title="${uiLabelMap.PartySegmentGroupId}">

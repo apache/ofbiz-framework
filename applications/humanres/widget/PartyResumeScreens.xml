@@ -59,8 +59,8 @@
                 <set field="headerItem" value="PartyResume"></set>
                 <set field="tabButtonItem" value="EditPartySkill"/>
                 <set field="resumeId" from-field="parameters.resumeId"/>
-                <set field="partyId" from-field="parameters.partyId" />
-                <entity-one entity-name="PartyResume" value-field="partyResume" />
+                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-one entity-name="PartyResume" value-field="partyResume"/>
             </actions>            
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -68,7 +68,7 @@
                         <screenlet title="${uiLabelMap.HumanResEditPartyResume}">
                              <section>
                                   <widgets>
-                                       <include-form name="EditPartyResume" location="component://humanres/widget/forms/PartyResumeForms.xml" />
+                                       <include-form name="EditPartyResume" location="component://humanres/widget/forms/PartyResumeForms.xml"/>
                                   </widgets>
                              </section>
                         </screenlet>

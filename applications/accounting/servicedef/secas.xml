@@ -159,7 +159,7 @@ under the License.
         <action service="createFixedAssetAndLinkToProduct" mode="sync"/>
     </eca>
     <eca service="createPaymentApplication" event="commit">
-        <condition field-name="invoiceId" operator="is-not-empty" />
+        <condition field-name="invoiceId" operator="is-not-empty"/>
         <action service="createAcctgTransAndEntriesForPaymentApplication" mode="sync"/>
     </eca>
 

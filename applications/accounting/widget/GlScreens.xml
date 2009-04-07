@@ -29,7 +29,7 @@ under the License.
                 <set field="labelTitleProperty" value="AccountingPartyAccountsSummary"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <!-- entity-condition entity-name="GlAccountOrganization" list="entityList" use-cache="true" >
-                    <condition-expr field-name="glAccountId" operator="greater" value="0" />
+                    <condition-expr field-name="glAccountId" operator="greater" value="0"/>
                 </entity-condition -->
             </actions>
             <widgets>
@@ -415,7 +415,7 @@ under the License.
                 <set field="tabButtonItem" value="ChecksTabButton"/>
                 <set field="tabButtonItem2" value="PrintChecksTabButton"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingPrintChecks}"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
 
                 <!-- find payments of paymentMethodType PERSONAL_CHECK or COMPANY_CHECK with statusId NOT_PAID -->
                 <entity-condition entity-name="Payment" list="payments">
@@ -464,7 +464,7 @@ under the License.
                 <set field="titleProperty" value="AccountingSendChecks"/>
                 <set field="tabButtonItem" value="ChecksTabButton"/>
                 <set field="tabButtonItem2" value="SendChecksTabButton"/>
-                <set field="organizationPartyId" from-field="parameters.organizationPartyId" />
+                <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
 
                 <!-- find payments of paymentMethodType PERSONAL_CHECK or COMPANY_CHECK with statusId NOT_PAID -->
                 <entity-condition entity-name="Payment" list="payments">

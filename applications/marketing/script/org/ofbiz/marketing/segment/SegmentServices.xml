@@ -134,14 +134,14 @@ under the License.
             OR
             SegmentGroup -> SegmentGroupClassification -> PartyClassificationGroup -> PartyClassification -> Party
          -->
-        <set field="securityAction" value="_VIEW" />
+        <set field="securityAction" value="_VIEW"/>
         <check-permission permission="MARKETING" action="${securityAction}"><fail-message message="Security Error\: to run ${methodShortDescription} you must have the MARKETING${securityAction} or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
         
     </simple-method>
     <simple-method method-name="findSegmentGroupsOfParty" short-description="Find SegmentGroups Of a Party (that a Party is In)">
         <!-- Follows same path as findPartiesInSegmentGroup, but in reverse... -->
-        <set field="securityAction" value="_VIEW" />
+        <set field="securityAction" value="_VIEW"/>
         <check-permission permission="MARKETING" action="${securityAction}"><fail-message message="Security Error\: to run ${methodShortDescription} you must have the MARKETING${securityAction} or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
         
@@ -156,7 +156,7 @@ under the License.
             OR
             Party -> SegmentGroupRole -> SegmentGroup -> SegmentGroupClassification -> PartyClassificationGroup -> PartyClassification -> Party
         -->
-        <set field="securityAction" value="_VIEW" />
+        <set field="securityAction" value="_VIEW"/>
         <check-permission permission="MARKETING" action="${securityAction}"><fail-message message="Security Error\: to run ${methodShortDescription} you must have the MARKETING${securityAction} or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
         
@@ -191,7 +191,7 @@ under the License.
                 </and>
             </condition>
             <then>
-                <set field="areRelated" value="N" />
+                <set field="areRelated" value="N"/>
                 <field-to-result field="areRelated"/>
             </then>
             <else>

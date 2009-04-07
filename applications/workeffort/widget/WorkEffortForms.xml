@@ -932,7 +932,7 @@ under the License.
         <auto-fields-service service-name="createWorkEffortNote"/>
         <field name="noteId" use-when="noteId != null"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
-        <field name="noteInfo" title="${uiLabelMap.CommonNote}"><textarea cols="70" rows="5" /></field>
+        <field name="noteInfo" title="${uiLabelMap.CommonNote}"><textarea cols="70" rows="5"/></field>
         <field name="internalNote" title="${uiLabelMap.WorkEffortInternalNote}">
             <drop-down no-current-selected-key="">
                 <option key="Y" description="${uiLabelMap.CommonYes}"/>
@@ -966,10 +966,10 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortContent" use-cache="true" list="workEffortContents">
-                <field-map from-field="workEffortId" field-name="workEffortId" />
+                <field-map from-field="workEffortId" field-name="workEffortId"/>
             </entity-and>
         </actions>
-        <auto-fields-service service-name="updateWorkEffortContent" default-field-type="edit" />
+        <auto-fields-service service-name="updateWorkEffortContent" default-field-type="edit"/>
         <field name="workEffortId"><hidden/></field>
         <field name="contentId">
             <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
@@ -1020,10 +1020,10 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortGoodStandard" use-cache="true" list="workEffortGoodStandards">
-                <field-map from-field="workEffortId" field-name="workEffortId" />
+                <field-map from-field="workEffortId" field-name="workEffortId"/>
             </entity-and>
         </actions>
-        <auto-fields-service service-name="updateWorkEffortGoodStandard" default-field-type="edit" />
+        <auto-fields-service service-name="updateWorkEffortGoodStandard" default-field-type="edit"/>
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortGoodStdTypeId"><display-entity entity-name="WorkEffortGoodStandardType" description="${description}"/></field>
         <field name="productId">
@@ -1077,10 +1077,10 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortReview" use-cache="true" list="workEffortReviews">
-                <field-map from-field="workEffortId" field-name="workEffortId" />
+                <field-map from-field="workEffortId" field-name="workEffortId"/>
             </entity-and>
         </actions>
-        <auto-fields-service service-name="updateWorkEffortReview" default-field-type="edit" />
+        <auto-fields-service service-name="updateWorkEffortReview" default-field-type="edit"/>
         <field name="workEffortId" widget-style="buttontext"><hidden/></field>
         <field name="userLoginId" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}" also-hidden="true">
@@ -1120,7 +1120,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortKeyword" use-cache="true" list="workEffortkeywords">
-                <field-map from-field="workEffortId" field-name="workEffortId" />
+                <field-map from-field="workEffortId" field-name="workEffortId"/>
             </entity-and>
         </actions>
         <field name="workEffortId" widget-style="buttontext"><hidden/></field>
@@ -1146,7 +1146,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="WorkEffortContactMech" list="workEffortContactMechs">
-                <field-map from-field="workEffortId" field-name="workEffortId" />
+                <field-map from-field="workEffortId" field-name="workEffortId"/>
             </entity-and>
         </actions>
         <row-actions>
@@ -1183,7 +1183,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="AgreementWorkEffortAppl" use-cache="true" list="agreementWorkEffortAppls">
-                <field-map from-field="workEffortId" field-name="workEffortId" />
+                <field-map from-field="workEffortId" field-name="workEffortId"/>
             </entity-and>
         </actions>
         <field name="agreementId">

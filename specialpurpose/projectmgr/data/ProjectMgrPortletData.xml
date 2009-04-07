@@ -24,7 +24,7 @@
         portletName="My Timesheet" 
         screenName="CurrentTimesheet" 
         screenLocation="component://projectmgr/widget/TimeSheetScreens.xml" 
-        description="My Current Timesheet" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
+        description="My Current Timesheet" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="mytimesheet" portletCategoryId="PROJECTMANAGER"/>
     
     <PortalPortlet 
@@ -32,14 +32,14 @@
         portletName="MyTasks" 
         screenName="MyTaskList" 
         screenLocation="component://projectmgr/widget/TaskScreens.xml" 
-        description="My Tasks from the Project Manager" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />    
+        description="My Tasks from the Project Manager" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>    
     <PortletPortletCategory portalPortletId="mytasks" portletCategoryId="PROJECTMANAGER"/>
     
     <PortalPortlet portalPortletId="ListCustomerProjects" 
         portletName="List Customer Projects" 
         screenName="ListCustomerProjects" 
         screenLocation="component://projectmgr/widget/ProjectScreens.xml" 
-        description="List Projects For a certain Customer" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
+        description="List Projects For a certain Customer" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="ListCustomerProjects" portletCategoryId="PROJECTMANAGER"/>
     
     

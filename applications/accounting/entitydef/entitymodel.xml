@@ -1036,7 +1036,7 @@ under the License.
             <key-map field-name="orderId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="OrderItem">
-            <key-map field-name="orderId" />
+            <key-map field-name="orderId"/>
             <key-map field-name="orderItemSeqId"/>
         </relation>
     </entity>
@@ -1234,12 +1234,12 @@ under the License.
         <key-map field-name="productFeatureId"/>
       </relation>
       <relation type="one" fk-name="INVCE_ITM_PINVIT" rel-entity-name="InvoiceItem">
-        <key-map field-name="parentInvoiceId" rel-field-name="invoiceId" />
-        <key-map field-name="parentInvoiceItemSeqId" rel-field-name="invoiceItemSeqId" />
+        <key-map field-name="parentInvoiceId" rel-field-name="invoiceId"/>
+        <key-map field-name="parentInvoiceItemSeqId" rel-field-name="invoiceItemSeqId"/>
       </relation>
       <relation type="many" fk-name="INVCE_ITM_CINVIT" title="Children" rel-entity-name="InvoiceItem">
-        <key-map field-name="invoiceId" rel-field-name="parentInvoiceId" />
-        <key-map field-name="invoiceItemSeqId" rel-field-name="parentInvoiceItemSeqId" />
+        <key-map field-name="invoiceId" rel-field-name="parentInvoiceId"/>
+        <key-map field-name="invoiceItemSeqId" rel-field-name="parentInvoiceItemSeqId"/>
       </relation>
       <relation type="one" fk-name="INVCE_ITM_UOM" rel-entity-name="Uom">
         <key-map field-name="uomId"/>
@@ -2669,10 +2669,10 @@ under the License.
         <key-map field-name="paymentId"/>
       </view-link>
       <relation type="one-nofk" rel-entity-name="Payment">
-        <key-map field-name="paymentId" />
+        <key-map field-name="paymentId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="PaymentApplication">
-        <key-map field-name="paymentApplicationId" />
+        <key-map field-name="paymentApplicationId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
@@ -3326,7 +3326,7 @@ under the License.
         <alias entity-alias="ATE" name="organizationPartyId" group-by="true"/>
         <alias entity-alias="ATE" name="totalAmount" field="amount" function="sum"/>
         <alias entity-alias="GAO" name="fromDate" group-by="true"/>
-        <alias entity-alias="GAO" name="thruDate" group-by="true" />
+        <alias entity-alias="GAO" name="thruDate" group-by="true"/>
         <view-link entity-alias="GAO" rel-entity-alias="ATE">
             <key-map field-name="glAccountId"/>
             <key-map field-name="organizationPartyId"/>

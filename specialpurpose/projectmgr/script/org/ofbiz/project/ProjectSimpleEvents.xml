@@ -26,7 +26,7 @@
             <result-to-field result-name="custRequestId" field="custRequestId"/>
         </call-service>
         <if-not-empty field="parameters.workEffortParentId"> 
-            <set-service-fields service-name="createWorkEffort" map="parameters" to-map="createTask" />
+            <set-service-fields service-name="createWorkEffort" map="parameters" to-map="createTask"/>
             <set field="createTask.custRequestId" from-field="custRequestId"/>
             <set field="createTask.workEffortName" from-field="parameters.custRequestName"/>
             <call-service service-name="createWorkEffort" in-map-name="createTask" >
@@ -40,7 +40,7 @@
                 <set field="assignParty.partyId" from-field="parameters.partyId"/>
                 <set field="assignParty.roleTypeId" from-field="parameters.roleTypeId"/>
                 <set field="assignParty.statusId" value="PAS_ASSIGNED"/>
-                <call-service service-name="assignPartyToWorkEffort" in-map-name="assignParty" />
+                <call-service service-name="assignPartyToWorkEffort" in-map-name="assignParty"/>
             </if-not-empty>
         </if-not-empty>    
     </simple-method>

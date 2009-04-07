@@ -73,7 +73,7 @@ under the License.
     <form name="EditInventoryItemLabel" type="single" target="createInventoryItemLabel" title="" default-map-name="inventoryItemLabel"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target target="updateInventoryItemLabel" use-when="inventoryItemLabel!=null"/>
-        <auto-fields-service service-name="createInventoryItemLabel" />
+        <auto-fields-service service-name="createInventoryItemLabel"/>
         <field name="inventoryItemLabelId" use-when="inventoryItemLabel!=null"><display/></field>
         <field name="inventoryItemLabelTypeId" use-when="inventoryItemLabel==null">
             <drop-down allow-empty="false">

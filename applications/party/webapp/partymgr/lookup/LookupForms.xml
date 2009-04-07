@@ -23,7 +23,7 @@ under the License.
 
     <form name="lookupPartyName" target="LookupPartyName" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="find" />-->
+        <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="find"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <drop-down allow-empty="true">
@@ -169,7 +169,7 @@ under the License.
     <!-- Person Lookup forms -->
     <form name="lookupPerson" type="single" target="LookupPerson"
         header-row-style="header-row" default-table-style="basic-table">
-        <!--<auto-fields-entity entity-name="Person" default-field-type="find" />-->
+        <!--<auto-fields-entity entity-name="Person" default-field-type="find"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><text-find/></field>
@@ -199,7 +199,7 @@ under the License.
     
     <form name="lookupPartyAndUserLoginAndPerson" type="single" target="LookupPartyAndUserLoginAndPerson" 
         paginate-target="LookupPartyAndUserLoginAndPerson" header-row-style="header-row" default-table-style="basic-table">
-        <!--<auto-fields-entity entity-name="PartyAndUserLoginAndPerson" default-field-type="find" />-->
+        <!--<auto-fields-entity entity-name="PartyAndUserLoginAndPerson" default-field-type="find"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}"><text-find/></field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>

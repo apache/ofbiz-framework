@@ -124,13 +124,13 @@ under the License.
         </call-service>                
         <field-to-result field="resCategories" result-name="categories"/>
         <!-- iterate entry-name="category" list-name="resCategories">
-            <log level="info" message="=========${category.productCategoryId}" />
+            <log level="info" message="=========${category.productCategoryId}"/>
         </iterate -->
     </simple-method>
     <simple-method method-name="getRelatedCategories" short-description="get All Related categories" login-required="false">        
         <set value="sequenceNum" field="orderByString"/>
         <field-to-list list="orderByStringList" field="orderByString"/>
-        <set field="productCategoryRollUpContext.parentProductCategoryId" from-field="parameters.parentProductCategoryId" />
+        <set field="productCategoryRollUpContext.parentProductCategoryId" from-field="parameters.parentProductCategoryId"/>
         <!--set field="categories" from-field="parameters.categories" / -->        
         <find-by-and entity-name="ProductCategoryRollup" list="rollups" map="productCategoryRollUpContext" order-by-list="orderByStringList"/>
         <if-not-empty field="parameters.categories">
@@ -164,7 +164,7 @@ under the License.
                         </if-not-empty>
                         <field-to-result field="categories" result-name="categories"/>
                          <!-- iterate entry-name="category" list-name="categories">
-                            <log level="info" message="Category ${category.productCategoryId}" />
+                            <log level="info" message="Category ${category.productCategoryId}"/>
                          </iterate -->
                     </if-not-empty>
                     <!--   field-to-result field-name="categories" result-name="categories"/ -->
@@ -178,7 +178,7 @@ under the License.
         </else>    
         </if-not-empty>
         <!-- iterate entry-name="category" list-name="categories">
-           <log level="info" message="Category ${category.productCategoryId}" />
+           <log level="info" message="Category ${category.productCategoryId}"/>
         </iterate -->
         <field-to-result result-name="categories" field="categories"/>
     </simple-method>
@@ -197,7 +197,7 @@ under the License.
                     <result-to-field result-name="fileNotExists" field="fileStatusMap.fileNotExists"/>                   
                 </call-service>
                 <set field="categoryId" from-field="category.productCategoryId"/>
-                <set field="categoriesMap.${categoryId}" from-field="fileStatusMap" />
+                <set field="categoriesMap.${categoryId}" from-field="fileStatusMap"/>
             </iterate>
             <field-to-result field="categoriesMap" result-name="categoriesMap"/>
         </if-not-empty>        
@@ -362,7 +362,7 @@ under the License.
                 </call-service>
                 <set field="categoryImageUrlMap.categoryImageUrl" from-field="category.categoryImageUrl"/>
                 <set field="categoryImageUrlMap.isExists" from-field="isExists"/>
-                <set field="filesImageMap.categoryImageUrlMap" from-field="categoryImageUrlMap" />                 
+                <set field="filesImageMap.categoryImageUrlMap" from-field="categoryImageUrlMap"/>                 
                 <if-compare value="N" field="isExists" operator="equals">
                     <clear-field field="category.categoryImageUrl"></clear-field>
                 </if-compare>                
@@ -376,7 +376,7 @@ under the License.
                 </call-service>
                 <set field="linkOneImageUrlMap.linkOneImageUrl" from-field="category.linkOneImageUrl"/>
                 <set field="linkOneImageUrlMap.isExists" from-field="isExists"/>
-                <set field="filesImageMap.linkOneImageUrlMap" from-field="linkOneImageUrlMap" />
+                <set field="filesImageMap.linkOneImageUrlMap" from-field="linkOneImageUrlMap"/>
                 <if-compare value="N" field="isExists" operator="equals">
                     <clear-field field="category.linkOneImageUrl"></clear-field>
                 </if-compare>                
@@ -390,7 +390,7 @@ under the License.
                 </call-service>
                 <set field="linkTwoImageUrlMap.largeImageUrl" from-field="category.linkTwoImageUrl"/>
                 <set field="linkTwoImageUrlMap.isExists" from-field="isExists"/>
-                <set field="filesImageMap.linkTwoImageUrlMap" from-field="linkTwoImageUrlMap" />                 
+                <set field="filesImageMap.linkTwoImageUrlMap" from-field="linkTwoImageUrlMap"/>                 
                 <if-compare value="N" field="isExists" operator="equals">
                     <clear-field field="category.linkTwoImageUrl"></clear-field>
                 </if-compare>                
@@ -413,9 +413,9 @@ under the License.
                 </call-service>
                 <set field="smallImageUrlMap.smallImageUrl" from-field="product.smallImageUrl"/>
                 <set field="smallImageUrlMap.isExists" from-field="isExists"/>
-                <set field="filesImageMap.smallImageUrlMap" from-field="smallImageUrlMap" />                 
+                <set field="filesImageMap.smallImageUrlMap" from-field="smallImageUrlMap"/>                 
                 <if-compare value="N" field="isExists" operator="equals">
-                    <log level="info" message="Update SmallImage for product Id ${parameters.productId}" />
+                    <log level="info" message="Update SmallImage for product Id ${parameters.productId}"/>
                     <clear-field field="product.smallImageUrl"></clear-field>
                 </if-compare>                
             </if-not-empty>
@@ -428,7 +428,7 @@ under the License.
                 </call-service>
                 <set field="mediumImageUrlMap.mediumImageUrl" from-field="product.mediumImageUrl"/>
                 <set field="mediumImageUrlMap.isExists" from-field="isExists"/>
-                <set field="filesImageMap.mediumImageUrlMap" from-field="mediumImageUrlMap" />
+                <set field="filesImageMap.mediumImageUrlMap" from-field="mediumImageUrlMap"/>
                 <if-compare value="N" field="isExists" operator="equals">
                     <clear-field field="product.mediumImageUrl"></clear-field>
                 </if-compare>                
@@ -442,7 +442,7 @@ under the License.
                 </call-service>
                 <set field="largeImageUrlMap.largeImageUrl" from-field="product.largeImageUrl"/>
                 <set field="largeImageUrlMap.isExists" from-field="isExists"/>
-                <set field="filesImageMap.largeImageUrlMap" from-field="largeImageUrlMap" />                 
+                <set field="filesImageMap.largeImageUrlMap" from-field="largeImageUrlMap"/>                 
                 <if-compare value="N" field="isExists" operator="equals">
                     <clear-field field="product.largeImageUrl"></clear-field>
                 </if-compare>                
@@ -456,7 +456,7 @@ under the License.
                 </call-service>
                 <set field="detailImageUrlMap.detailImageUrl" from-field="product.detailImageUrl"/>
                 <set field="detailImageUrlMap.isExists" from-field="isExists"/>
-                <set field="filesImageMap.detailImageUrlMap" from-field="detailImageUrlMap" />                 
+                <set field="filesImageMap.detailImageUrlMap" from-field="detailImageUrlMap"/>                 
                 <if-compare value="N" field="isExists" operator="equals">
                     <clear-field field="product.detailImageUrl"></clear-field>
                 </if-compare>
@@ -495,7 +495,7 @@ under the License.
                 </call-class-method>
             </then>
             <else>
-                <set field="imageUrl" value="/framework/images/webapp${parameters.imageUrl}" />            
+                <set field="imageUrl" value="/framework/images/webapp${parameters.imageUrl}"/>            
                 <call-class-method method-name="fromOfbizHomePath" class-name="org.ofbiz.base.util.UtilURL" ret-field="url">
                    <string value="${imageUrl}"/>
                 </call-class-method>

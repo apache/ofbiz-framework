@@ -27,19 +27,19 @@ under the License.
         
         <sequenced-id sequence-name="Facility" field="facilityId"/>
         <to-string field="facilityId"/>
-        <set field="newEntity.facilityId" from-field="facilityId" />
+        <set field="newEntity.facilityId" from-field="facilityId"/>
         <field-to-result field="facilityId" result-name="facilityId"/>
         
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFacility" short-description="Update a Facility">
-        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" /> 
+        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId"/> 
         <find-by-primary-key entity-name="Facility" map="lookupPKMap" value-field="facility"/>
         <set-nonpk-fields map="parameters" value-field="facility"/>
         <store-value value-field="facility"/>
     </simple-method>
     <simple-method method-name="deleteFacility" short-description="Delete a Facility">
-        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
+        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId"/>
         <find-by-primary-key entity-name="Facility" map="lookupPKMap" value-field="facility"/>
         <remove-value value-field="facility"/>
     </simple-method>
@@ -51,8 +51,8 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeContactMechFromFacility" short-description="Remove ContactMech From Facility">
-        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
-        <set field="lookupPKMap.contactMechId" from-field="parameters.contactMechId" />
+        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId"/>
+        <set field="lookupPKMap.contactMechId" from-field="parameters.contactMechId"/>
         <find-by-primary-key entity-name="FacilityContactMech" map="lookupPKMap" value-field="facilityContactMech"/>
         <remove-value value-field="facilityContactMech"/>
     </simple-method>
@@ -61,21 +61,21 @@ under the License.
     <simple-method method-name="createFacilityLocation" short-description="Create a Facility Location">
         <make-value value-field="newEntity" entity-name="FacilityLocation"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set field="newEntity.facilityId" from-field="parameters.facilityId" />
+        <set field="newEntity.facilityId" from-field="parameters.facilityId"/>
         
         <set field="locationSeqId" value="${parameters.areaId}${parameters.aisleId}${parameters.sectionId}${parameters.levelId}${parameters.positionId}"/>
         <!-- check to see if it exists already, if so try a simple suffix, then give up and use a sequenced id -->
         <if-not-empty field="locationSeqId">
-            <set field="checkLocationSeqIdMap.locationSeqId" from-field="locationSeqId" />
-            <set field="checkLocationSeqIdMap.facilityId" from-field="parameters.facilityId" />
+            <set field="checkLocationSeqIdMap.locationSeqId" from-field="locationSeqId"/>
+            <set field="checkLocationSeqIdMap.facilityId" from-field="parameters.facilityId"/>
             <find-by-primary-key entity-name="FacilityLocation" map="checkLocationSeqIdMap" value-field="checkLocationSeqIdValue"/>
             <if-not-empty field="checkLocationSeqIdValue">
-                <set field="locationSeqId" value="${locationSeqId}_2" />
-                <set field="checkLocationSeqIdMap.locationSeqId" from-field="locationSeqId" />
-                <set field="checkLocationSeqIdMap.facilityId" from-field="parameters.facilityId" />
+                <set field="locationSeqId" value="${locationSeqId}_2"/>
+                <set field="checkLocationSeqIdMap.locationSeqId" from-field="locationSeqId"/>
+                <set field="checkLocationSeqIdMap.facilityId" from-field="parameters.facilityId"/>
                 <find-by-primary-key entity-name="FacilityLocation" map="checkLocationSeqIdMap" value-field="checkLocationSeqIdValue"/>
                 <if-not-empty field="checkLocationSeqIdValue">
-                    <set field="locationSeqId" value="" />
+                    <set field="locationSeqId" value=""/>
                 </if-not-empty>
             </if-not-empty>
         </if-not-empty>
@@ -84,21 +84,21 @@ under the License.
             <sequenced-id sequence-name="FacilityLocation" field="locationSeqId"/>
             <to-string field="locationSeqId"/>
         </if-empty>
-        <set field="newEntity.locationSeqId" from-field="locationSeqId" />
+        <set field="newEntity.locationSeqId" from-field="locationSeqId"/>
         <field-to-result field="locationSeqId" result-name="locationSeqId"/>
         
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFacilityLocation" short-description="Update a Facility Location">
-        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
-        <set field="lookupPKMap.locationSeqId" from-field="parameters.locationSeqId" />
+        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId"/>
+        <set field="lookupPKMap.locationSeqId" from-field="parameters.locationSeqId"/>
         <find-by-primary-key entity-name="FacilityLocation" map="lookupPKMap" value-field="facilityLocation"/>
         <set-nonpk-fields map="parameters" value-field="facilityLocation"/>
         <store-value value-field="facilityLocation"/>
     </simple-method>
     <simple-method method-name="deleteFacilityLocation" short-description="Delete a Facility Location">
-        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
-        <set field="lookupPKMap.locationSeqId" from-field="parameters.locationSeqId" />
+        <set field="lookupPKMap.facilityId" from-field="parameters.facilityId"/>
+        <set field="lookupPKMap.locationSeqId" from-field="parameters.locationSeqId"/>
         <find-by-primary-key entity-name="FacilityLocation" map="lookupPKMap" value-field="facilityLocation"/>
         <remove-value value-field="facilityLocation"/>
     </simple-method>    
@@ -110,19 +110,19 @@ under the License.
         
         <sequenced-id sequence-name="FacilityGroup" field="facilityGroupId"/>
         <to-string field="facilityGroupId"/>
-        <set field="newEntity.facilityGroupId" from-field="facilityGroupId" />
+        <set field="newEntity.facilityGroupId" from-field="facilityGroupId"/>
         <field-to-result field="facilityGroupId" result-name="facilityGroupId"/>
         
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFacilityGroup" short-description="Update an Facility Group">
-        <set field="lookupPKMap.facilityGroupId" from-field="parameters.facilityGroupId" />
+        <set field="lookupPKMap.facilityGroupId" from-field="parameters.facilityGroupId"/>
         <find-by-primary-key entity-name="FacilityGroup" map="lookupPKMap" value-field="facilityGroup"/>
         <set-nonpk-fields map="parameters" value-field="facilityGroup"/>
         <store-value value-field="facilityGroup"/>
     </simple-method>
     <simple-method method-name="deleteFacilityGroup" short-description="Delete an Facility Group">
-        <set field="lookupPKMap.facilityGroupId" from-field="parameters.facilityGroupId" />
+        <set field="lookupPKMap.facilityGroupId" from-field="parameters.facilityGroupId"/>
         <find-by-primary-key entity-name="FacilityGroup" map="lookupPKMap" value-field="facilityGroup"/>
         <remove-value value-field="facilityGroup"/>
     </simple-method>    
@@ -135,7 +135,7 @@ under the License.
         
         <if-empty field="newEntity.fromDate">
             <now-timestamp field="nowTimestamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimestamp" />
+            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
         
         <create-value value-field="newEntity"/>
@@ -162,7 +162,7 @@ under the License.
         
         <if-empty field="newEntity.fromDate">
             <now-timestamp field="nowTimestamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimestamp" />
+            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
         
         <create-value value-field="newEntity"/>

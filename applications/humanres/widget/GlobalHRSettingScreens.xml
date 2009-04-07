@@ -26,7 +26,7 @@
                 <set field="headerItem" value="SkillType"/>
                 <set field="titleProperty" value="PageTitleListSkillTypes"/>
                 <set field="skillTypeId" from-field="parameters.skillTypeId"/>
-                <entity-one entity-name="SkillType" value-field="skillType" />
+                <entity-one entity-name="SkillType" value-field="skillType"/>
             </actions>            
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -66,7 +66,7 @@
                 <set field="tabButtonItem" value="TerminationType"/>
                 <set field="titleProperty" value="HumanResTerminationTypes"/>
                 <set field="terminationTypeId" from-field="parameters.terminationTypeId"/>
-                <entity-one entity-name="TerminationType" value-field="terminationType" />
+                <entity-one entity-name="TerminationType" value-field="terminationType"/>
             </actions>            
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -173,8 +173,8 @@
             <actions>
                 <set field="titleProperty" value="HumanResAddTerminationReason"/>
                 <set field="tabButtonItem" value="TerminationReason"/>
-                <set field="terminationReasonId" from-field="parameters.terminationReasonId" />
-                <entity-one entity-name="TerminationReason" value-field="terminationReason" />
+                <set field="terminationReasonId" from-field="parameters.terminationReasonId"/>
+                <entity-one entity-name="TerminationReason" value-field="terminationReason"/>
             </actions>            
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">

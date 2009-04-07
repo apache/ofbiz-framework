@@ -23,28 +23,28 @@ under the License.
     <menu name="dataresourcesetup" default-menu-item-name="content" default-associated-content-id="${userLogin.userLoginId}" title="" type="simple"
         menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditDataResourceType" title="${uiLabelMap.CommonType}" >
-            <link target="EditDataResourceType" target-window="_top" style="tabButton" />
+            <link target="EditDataResourceType" target-window="_top" style="tabButton"/>
         </menu-item>
         <menu-item name="EditCharacterSet" title="${uiLabelMap.ContentCharacterSet}" >
-            <link target="EditCharacterSet" target-window="_top" style="tabButton" />
+            <link target="EditCharacterSet" target-window="_top" style="tabButton"/>
         </menu-item>
         <menu-item name="EditDataCategory" title="${uiLabelMap.ContentCategory}" >
-            <link target="EditDataCategory" target-window="_top" style="tabButton" />
+            <link target="EditDataCategory" target-window="_top" style="tabButton"/>
         </menu-item>
         <menu-item name="EditDataResourceTypeAttr" title="${uiLabelMap.ContentTypeAttr}" >
-            <link target="EditDataResourceTypeAttr" target-window="_top" style="tabButton" />
+            <link target="EditDataResourceTypeAttr" target-window="_top" style="tabButton"/>
         </menu-item>
         <menu-item name="EditFileExtension" title="${uiLabelMap.ContentFileExt}" >
-            <link target="EditFileExtension" target-window="_top" style="tabButton" />
+            <link target="EditFileExtension" target-window="_top" style="tabButton"/>
         </menu-item>
         <menu-item name="EditMetaDataPredicate" title="${uiLabelMap.ContentMetaDataPred}" >
-            <link target="EditMetaDataPredicate" target-window="_top" style="tabButton" />
+            <link target="EditMetaDataPredicate" target-window="_top" style="tabButton"/>
         </menu-item>
         <menu-item name="EditMimeType" title="${uiLabelMap.ContentMimeType}" >
-            <link target="EditMimeType" target-window="_top" style="tabButton" />
+            <link target="EditMimeType" target-window="_top" style="tabButton"/>
         </menu-item>
         <menu-item name="EditMimeTypeHtmlTemplate" title="${uiLabelMap.ContentMimeTypeHtmlTemplate}" >
-            <link target="EditMimeTypeHtmlTemplate" target-window="_top" style="tabButton" />
+            <link target="EditMimeTypeHtmlTemplate" target-window="_top" style="tabButton"/>
         </menu-item>
     </menu>
 </menus>

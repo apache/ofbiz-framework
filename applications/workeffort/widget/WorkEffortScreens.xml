@@ -398,7 +398,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditWorkEffortAssoc"/>
                 <set field="workEffortIdFrom" from-field="parameters.workEffortIdFrom"/>
                 <entity-one entity-name="WorkEffortAssoc" value-field="workEffortAssoc"/>
-                <set field="donePage" value="ChildWorkEfforts?workEffortId=${workEffortIdFrom}&amp;trail=${workEffortIdFrom}" />
+                <set field="donePage" value="ChildWorkEfforts?workEffortId=${workEffortIdFrom}&amp;trail=${workEffortIdFrom}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
@@ -433,7 +433,7 @@ under the License.
                 <set field="workEffortAssocTypeId" from-field="parameters.workEffortAssocTypeId"/>
                 <set field="fromDate" from-field="parameters.fromDate"/>
                 <entity-one entity-name="WorkEffortAssoc" value-field="workEffortAssoc"/>
-                <set field="donePage" value="ChildWorkEfforts?workEffortId=${workEffortIdFrom}&amp;trail=${workEffortIdFrom}" />
+                <set field="donePage" value="ChildWorkEfforts?workEffortId=${workEffortIdFrom}&amp;trail=${workEffortIdFrom}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
@@ -741,7 +741,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditWorkEffortContent"/>
                 <set field="tabButtonItem" value="WorkEffortContents"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"  />
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
@@ -761,7 +761,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditWorkEffortGoodStandards"/>
                 <set field="tabButtonItem" value="WorkEffortGoodStandards"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"  />
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
@@ -879,7 +879,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditAgreementWorkEffortAppls"/>
                 <set field="tabButtonItem" value="WorkEffortAgreementAppls"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"  />
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
@@ -950,7 +950,7 @@ under the License.
                             <decorator-section name="body">
                                 <screenlet>
                                     <include-form name="newEvent"
-                                        location="component://workeffort/widget/WorkEffortForms.xml" />
+                                        location="component://workeffort/widget/WorkEffortForms.xml"/>
                                 </screenlet>
                             </decorator-section>
                         </decorator-screen>

@@ -73,7 +73,7 @@ under the License.
                 <field-map field-name="entityName" from-field="entityName"/>
                 <field-map field-name="noConditionFind" value="Y"/>
             </service>
-            <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+            <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
         </actions>
         <!--auto-fields-entity entity-name="GlAccount" default-field-type="display"/-->
         <field name="glAccountId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
@@ -239,7 +239,7 @@ under the License.
     <form name="updateRateAmount" type="single" target="updateRateAmount" default-service-name="updateRateAmount"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+            <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
         </actions>
         <field name="rateTypeId">
             <drop-down>

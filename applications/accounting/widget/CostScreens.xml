@@ -23,7 +23,7 @@ under the License.
     <screen name="EditCostCalcs">
         <section>
             <actions>
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 
                 <set field="tabButtonItem" value="Costs"/>
                 <set field="titleProperty" value="PageTitleEditCostCalcs"/>

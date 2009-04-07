@@ -36,7 +36,7 @@ under the License.
                             </actions>
                             <widgets>
                                 <container>
-                                    <link target="NewEmployee" text="${uiLabelMap.HumanResNewEmployee}" style="buttontext" />
+                                    <link target="NewEmployee" text="${uiLabelMap.HumanResNewEmployee}" style="buttontext"/>
                                 </container>
                                 <section>
                                     <widgets>
@@ -240,15 +240,15 @@ under the License.
                 <set field="headerItem" value="PartyResume"></set>
                 <set field="tabButtonItem" value="EditEmployeeResumes"/>
                 <set field="resumeId" from-field="parameters.resumeId"/>
-                <set field="partyId" from-field="parameters.partyId" />
-                <entity-one entity-name="PartyResume" value-field="partyResume" />
+                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-one entity-name="PartyResume" value-field="partyResume"/>
             </actions>            
             <widgets>
                 <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="ListPartyResumes" location="component://humanres/widget/forms/PartyResumeForms.xml"/>
                         <screenlet id="AddEmploymentAppPanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResEditPartyResume}" collapsible="true">
-                            <include-form name="EditPartyResume" location="component://humanres/widget/forms/PartyResumeForms.xml" />
+                            <include-form name="EditPartyResume" location="component://humanres/widget/forms/PartyResumeForms.xml"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>

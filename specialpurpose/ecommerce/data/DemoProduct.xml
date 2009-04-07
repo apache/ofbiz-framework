@@ -267,7 +267,7 @@ under the License.
     <Product productId="GZ-BASKET" productTypeId="MARKETING_PKG_AUTO" productName="Gizmo Basket" internalName="Auto-Assembled Gizmo Basket" 
         description="Auto-Assembled Gizmo Basket.  Automatically assembled each time it's ordered."
         longDescription="Auto-Assembled Gizmo Basket.  This item will be automatically assembled with production runs every time it's ordered, and the inventory counts for it are based on the quantity available and on hand for the component items."
-        taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" />
+        taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N"/>
     <ProductPrice productId="GZ-BASKET" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" price="150" fromDate="2001-05-13 12:00:00.0"/>
     <ProductPrice productId="GZ-BASKET" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" price="165" fromDate="2001-05-13 12:00:00.0"/>
     <ProductAssoc productId="GZ-BASKET" productIdTo="GZ-1000" productAssocTypeId="MANUF_COMPONENT" quantity="1" fromDate="2001-05-13 12:00:00.0"/>
@@ -278,7 +278,7 @@ under the License.
     <Product productId="GZ-BASKET-PICK" productTypeId="MARKETING_PKG_PICK" productName="Gizmo Basket Assembly Pick" internalName="Assembled Pick Gizmo Basket" 
         description="Assembled Pick Gizmo Basket.  Assembled during picking."
         longDescription="Assembled Pick Gizmo Basket.  This item will be assembled during picking."
-        taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" />
+        taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N"/>
     <ProductPrice productId="GZ-BASKET-PICK" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" price="150" fromDate="2007-01-01 12:00:00.0"/>
     <ProductPrice productId="GZ-BASKET-PICK" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" price="165" fromDate="2007-01-01 12:00:00.0"/>
     <ProductAssoc productId="GZ-BASKET-PICK" productIdTo="GZ-1000" productAssocTypeId="PRODUCT_COMPONENT" quantity="1" fromDate="2007-01-01 12:00:00.0"/>

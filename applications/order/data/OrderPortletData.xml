@@ -25,17 +25,17 @@
         portletName="Incoming Cust.Requests" 
         screenName="IncomingCustRequests" 
         screenLocation="component://order/widget/ordermgr/RequestScreens.xml" 
-        description="List Request List for a request taker" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW" />
+        description="List Request List for a request taker" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="INCOM_CUST_REQUESTS" portletCategoryId="CUST_REQUEST"/>
 
-    <PortletCategory portletCategoryId="LIST_CUSTOMER" description="List(s) available to a Customer" />    
+    <PortletCategory portletCategoryId="LIST_CUSTOMER" description="List(s) available to a Customer"/>    
     <PortalPortlet portalPortletId="ListCustRequests" 
         portletName="List Cust Requests" 
         screenName="ListCustRequests" 
         screenLocation="component://order/widget/ordermgr/RequestScreens.xml" 
         description="List Cust Requests to the customer" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW"
         editFormName="EditCustReqStatusId" 
-        editFormLocation="component://order/webapp/ordermgr/request/RequestForms.xml" />
+        editFormLocation="component://order/webapp/ordermgr/request/RequestForms.xml"/>
     <PortletPortletCategory portalPortletId="ListCustRequests" portletCategoryId="LIST_CUSTOMER"/>
     
 </entity-engine-xml>

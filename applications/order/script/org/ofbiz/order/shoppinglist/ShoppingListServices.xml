@@ -183,17 +183,17 @@ under the License.
     <simple-method method-name="addDistinctShoppingListItem" 
                    short-description="Adds a shopping list item if one with the same productId does not exist">
         <entity-condition entity-name="ShoppingListItem" list="shoppingListItemList">
-            <condition-expr field-name="shoppingListId" from-field="parameters.shoppingListId" />
+            <condition-expr field-name="shoppingListId" from-field="parameters.shoppingListId"/>
         </entity-condition>
 
         <iterate list="shoppingListItemList" entry="shoppingListItem">
             <if-compare-field field="parameters.productId" to-field="shoppingListItem.productId" operator="equals">
-                <field-to-result field="shoppingListItem.shoppingListItemSeqId" result-name="shoppingListItemSeqId" />
+                <field-to-result field="shoppingListItem.shoppingListItemSeqId" result-name="shoppingListItemSeqId"/>
                 <return />
             </if-compare-field>
         </iterate>
         <call-service service-name="createShoppingListItem" in-map-name="parameters">
-            <result-to-result result-name="shoppingListItemSeqId" />
+            <result-to-result result-name="shoppingListItemSeqId"/>
         </call-service>
     </simple-method>    
 
@@ -296,74 +296,74 @@ under the License.
         
         <entity-condition entity-name="OrderRole" list="orderRoleList">
             <condition-list combine="and">
-                <condition-expr field-name="orderId" from-field="parameters.orderId" />
-                <condition-expr field-name="roleTypeId" value="PLACING_CUSTOMER" />
+                <condition-expr field-name="orderId" from-field="parameters.orderId"/>
+                <condition-expr field-name="roleTypeId" value="PLACING_CUSTOMER"/>
             </condition-list>
         </entity-condition>
-        <first-from-list list="orderRoleList" entry="orderRole" />
+        <first-from-list list="orderRoleList" entry="orderRole"/>
 
         <entity-condition entity-name="ShoppingList" list="shoppingListList">
             <condition-list combine="and">
-                <condition-expr field-name="partyId" from-field="orderRole.partyId" />
-                <condition-expr field-name="listName" value="Auto Suggestions" />
+                <condition-expr field-name="partyId" from-field="orderRole.partyId"/>
+                <condition-expr field-name="listName" value="Auto Suggestions"/>
             </condition-list>
         </entity-condition>
-        <first-from-list list="shoppingListList" entry="shoppingList" />
+        <first-from-list list="shoppingListList" entry="shoppingList"/>
         <if-empty field="shoppingList">
-            <set field="createShoppingListInMap.partyId" from-field="orderRole.partyId" />
-            <set field="createShoppingListInMap.listName" value="Auto Suggestions" />
-            <set field="createShoppingListInMap.shoppingListTypeId" value="SLT_WISH_LIST" />
+            <set field="createShoppingListInMap.partyId" from-field="orderRole.partyId"/>
+            <set field="createShoppingListInMap.listName" value="Auto Suggestions"/>
+            <set field="createShoppingListInMap.shoppingListTypeId" value="SLT_WISH_LIST"/>
             <call-service service-name="createShoppingList" in-map-name="createShoppingListInMap">
-                <result-to-field result-name="shoppingListId" />
+                <result-to-field result-name="shoppingListId"/>
             </call-service>
         <else>
-            <set field="shoppingListId" from-field="shoppingList.shoppingListId" />
+            <set field="shoppingListId" from-field="shoppingList.shoppingListId"/>
         </else>            
         </if-empty>
 
         <entity-condition entity-name="OrderItem" list="orderItemList">
-            <condition-expr field-name="orderId" from-field="parameters.orderId" />
-            <order-by field-name="orderItemSeqId" />
+            <condition-expr field-name="orderId" from-field="parameters.orderId"/>
+            <order-by field-name="orderItemSeqId"/>
         </entity-condition>
         <iterate list="orderItemList" entry="orderItem">
             <if-not-empty field="orderItem.productId">
                 <entity-condition entity-name="ProductAssoc" list="compProductAssocList" filter-by-date="true">
                     <condition-list combine="and">
-                        <condition-expr field-name="productId" from-field="orderItem.productId" />
-                        <condition-expr field-name="productAssocTypeId" value="PRODUCT_COMPLEMENT" />
+                        <condition-expr field-name="productId" from-field="orderItem.productId"/>
+                        <condition-expr field-name="productAssocTypeId" value="PRODUCT_COMPLEMENT"/>
                     </condition-list>
                 </entity-condition>
                 <iterate list="compProductAssocList" entry="compProductAssoc">
-                    <clear-field field="shoppingListParameters" />
-                    <set field="shoppingListParameters.productId" from-field="compProductAssoc.productIdTo" />
-                    <set field="shoppingListParameters.shoppingListId" from-field="shoppingListId" />
-                    <set field="shoppingListParameters.quantity" value="1" type="BigDecimal" />
-                    <call-service service-name="addDistinctShoppingListItem" in-map-name="shoppingListParameters" />
+                    <clear-field field="shoppingListParameters"/>
+                    <set field="shoppingListParameters.productId" from-field="compProductAssoc.productIdTo"/>
+                    <set field="shoppingListParameters.shoppingListId" from-field="shoppingListId"/>
+                    <set field="shoppingListParameters.quantity" value="1" type="BigDecimal"/>
+                    <call-service service-name="addDistinctShoppingListItem" in-map-name="shoppingListParameters"/>
                 </iterate>
                 <entity-one entity-name="Product" value-field="product" auto-field-map="false" >
-                    <field-map field-name="productId" from-field="orderItem.productId" />
+                    <field-map field-name="productId" from-field="orderItem.productId"/>
                 </entity-one>
                 <if-compare field="product.isVariant" operator="equals" value="Y">
                     <entity-condition entity-name="ProductAssoc" list="virtualProductAssocList" filter-by-date="true">
                         <condition-list combine="and">
-                            <condition-expr field-name="productIdTo" from-field="orderItem.productId" />
-                            <condition-expr field-name="productAssocTypeId" value="PRODUCT_VARIANT" />
+                            <condition-expr field-name="productIdTo" from-field="orderItem.productId"/>
+                            <condition-expr field-name="productAssocTypeId" value="PRODUCT_VARIANT"/>
                         </condition-list>
                     </entity-condition>
-                    <first-from-list list="virtualProductAssocList" entry="virtualProductAssoc" />
+                    <first-from-list list="virtualProductAssocList" entry="virtualProductAssoc"/>
                     <if-not-empty field="virtualProductAssoc">
                         <entity-condition entity-name="ProductAssoc" list="compProductAssocList" filter-by-date="true">
                             <condition-list combine="and">
-                                <condition-expr field-name="productId" from-field="virtualProductAssoc.productId" />
-                                <condition-expr field-name="productAssocTypeId" value="PRODUCT_COMPLEMENT" />
+                                <condition-expr field-name="productId" from-field="virtualProductAssoc.productId"/>
+                                <condition-expr field-name="productAssocTypeId" value="PRODUCT_COMPLEMENT"/>
                             </condition-list>
                         </entity-condition>
                         <iterate list="compProductAssocList" entry="compProductAssoc">
-                            <clear-field field="shoppingListParameters" />
-                            <set field="shoppingListParameters.productId" from-field="compProductAssoc.productIdTo" />
-                            <set field="shoppingListParameters.shoppingListId" from-field="shoppingListId" />
-                            <set field="shoppingListParameters.quantity" value="1" type="BigDecimal" />
-                            <call-service service-name="addDistinctShoppingListItem" in-map-name="shoppingListParameters" />
+                            <clear-field field="shoppingListParameters"/>
+                            <set field="shoppingListParameters.productId" from-field="compProductAssoc.productIdTo"/>
+                            <set field="shoppingListParameters.shoppingListId" from-field="shoppingListId"/>
+                            <set field="shoppingListParameters.quantity" value="1" type="BigDecimal"/>
+                            <call-service service-name="addDistinctShoppingListItem" in-map-name="shoppingListParameters"/>
                         </iterate>
                     </if-not-empty>
                 </if-compare>

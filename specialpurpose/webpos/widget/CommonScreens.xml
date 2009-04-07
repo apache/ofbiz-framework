@@ -151,7 +151,7 @@ under the License.
             <actions>
                 <set field="MainColumnStyle" value="center"/>
                 <set field="titleProperty" value="PageTitleMain"/>
-                <set field="headerItem" value="Main" />
+                <set field="headerItem" value="Main"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

@@ -369,11 +369,11 @@ under the License.
             <set field="currencyUomId" from-field="invoice.currencyUomId"/>
             <!-- if the invoice is already PAID, then set it back to READY and clear out the paidDate -->
             <if-compare field="invoice.statusId" operator="equals" value="INVOICE_PAID">
-                <set field="invoiceStatusMap.invoiceId" value="${paymentApplication.invoiceId}" />
+                <set field="invoiceStatusMap.invoiceId" value="${paymentApplication.invoiceId}"/>
                 <set field="invoiceStatusMap.statusId" value="INVOICE_READY"/>
                 <now-timestamp field="nowTimestamp"/>
-                <set field="invoiceStatusMap.statusDate" from-field="nowTimestamp" />
-                <call-service service-name="setInvoiceStatus" in-map-name="invoiceStatusMap" />
+                <set field="invoiceStatusMap.statusDate" from-field="nowTimestamp"/>
+                <call-service service-name="setInvoiceStatus" in-map-name="invoiceStatusMap"/>
             </if-compare>
             <check-errors/>
             <field-to-result field="paymentApplication.invoiceId" result-name="invoiceId"/>
@@ -466,7 +466,7 @@ under the License.
 
                 <if-not-empty field="invoice.paidDate">
                    <if-compare field="parameters.statusId" operator="equals" value="INVOICE_READY">
-                       <clear-field field="invoice.paidDate" />
+                       <clear-field field="invoice.paidDate"/>
                    </if-compare>
                 </if-not-empty>
 

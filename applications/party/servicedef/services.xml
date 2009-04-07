@@ -864,7 +864,7 @@ under the License.
         <description>Create a PartyContent record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <override name="fromDate" optional="true" />
+        <override name="fromDate" optional="true"/>
     </service>
 
     <service name="updatePartyContent" engine="simple" default-entity-name="PartyContent"

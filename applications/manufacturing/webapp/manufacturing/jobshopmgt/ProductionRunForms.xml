@@ -146,7 +146,7 @@ under the License.
              <set field="estimatedTotalMilliSeconds" value="${bsh:estimatedMilliSeconds * quantity}"  type="BigDecimal"/>
          </row-actions>
         <field name="priority" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
-        <field name="workEffortId"  title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]" /></field>
+        <field name="workEffortId"  title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]"/></field>
         <field name="fixedAssetId"  title="${uiLabelMap.ManufacturingMachine}"><display/></field>
         <field name="estimatedStartDate"  title="${uiLabelMap.ManufacturingStartDate}"><display/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
@@ -160,7 +160,7 @@ under the License.
             <set field="estimatedTotalMilliSeconds" value="${bsh:estimatedMilliSeconds * quantity}" type="BigDecimal"/>
         </row-actions>
         <field name="priority" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
-        <field name="workEffortId"  title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]" /></field>
+        <field name="workEffortId"  title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]"/></field>
         <field name="fixedAssetId"  title="${uiLabelMap.ManufacturingMachine}"><display/></field>
         <field name="estimatedStartDate"  title="${uiLabelMap.ManufacturingStartDate}"><display/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
@@ -328,7 +328,7 @@ under the License.
         <field name="productionRunId"><hidden value="${workEffortParentId}"/></field>
         <field name="routingTaskId"><hidden value="${workEffortId}"/></field>
         <field name="priority" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
-        <field name="workEffortId" title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]" /></field>
+        <field name="workEffortId" title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]"/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
         </field>
@@ -529,13 +529,13 @@ under the License.
     </form>
     <form name="ProductionRunTaskFixedAssets" type="list" target="updateWorkEffortFixedAssetAssign" paginate-target="" title="" list-name="records"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <auto-fields-entity entity-name="WorkEffortFixedAssetAssign" default-field-type="edit" />
+        <auto-fields-entity entity-name="WorkEffortFixedAssetAssign" default-field-type="edit"/>
         <field name="productionRunId"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="statusId"><hidden/></field>
         <field name="fromDate"><display/></field>
         <field name="fixedAssetId">
-            <display-entity entity-name="FixedAsset" description="${fixedAssetName} [${fixedAssetId}]" />
+            <display-entity entity-name="FixedAsset" description="${fixedAssetName} [${fixedAssetId}]"/>
         </field>
         <field name="availabilityStatusId">
             <drop-down no-current-selected-key="WEFA_IN_USE">
@@ -558,20 +558,20 @@ under the License.
     </form>
     <form name="ListProductionRunTaskFixedAssets" type="list" title="" list-name="productionRunFixedAssetsData"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <auto-fields-entity entity-name="WorkEffortFixedAssetAssign" default-field-type="display" />
+        <auto-fields-entity entity-name="WorkEffortFixedAssetAssign" default-field-type="display"/>
         <field name="workEffortId">
-            <display-entity entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]" />
+            <display-entity entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]"/>
         </field>
         <field name="fixedAssetId">
-            <display-entity entity-name="FixedAsset" description="${fixedAssetName}" />
+            <display-entity entity-name="FixedAsset" description="${fixedAssetName}"/>
         </field>
         <field name="statusId">
-            <display-entity entity-name="StatusItem" />
+            <display-entity entity-name="StatusItem"/>
         </field>
     </form>
     <form name="ListProductionRunNotes" type="list" title="" list-name="productionRunNoteData"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <auto-fields-entity entity-name="WorkEffortNoteAndData" default-field-type="display" />
+        <auto-fields-entity entity-name="WorkEffortNoteAndData" default-field-type="display"/>
         <field name="workEffortId"><hidden/></field>
         <field name="internalNote"><hidden/></field>
         <field name="noteId"><hidden/></field>
@@ -580,27 +580,27 @@ under the License.
     </form>
     <form name="EditProductionRunTaskFixedAsset" type="single" target="EditProductionRun" title="" default-map-name="fixedAssetData"
         header-row-style="header-row" default-table-style="basic-table">
-        <alt-target use-when="declarationScreen.equals(&quot;Y&quot;)" target="ProductionRunDeclaration" />
-        <auto-fields-entity entity-name="WorkEffortFixedAssetAssign" />
-        <field name="actionForm"><hidden value="${actionForm}" /></field>
+        <alt-target use-when="declarationScreen.equals(&quot;Y&quot;)" target="ProductionRunDeclaration"/>
+        <auto-fields-entity entity-name="WorkEffortFixedAssetAssign"/>
+        <field name="actionForm"><hidden value="${actionForm}"/></field>
         <field name="productionRunId"><hidden /></field>
         <field name="workEffortId" use-when="${actionIsAdd}!=null">
             <drop-down allow-empty="false">
                 <entity-options entity-name="WorkEffort" description="[${workEffortId}] ${workEffortName}">
-                    <entity-constraint name="workEffortParentId" value="${productionRunId}" />
+                    <entity-constraint name="workEffortParentId" value="${productionRunId}"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="workEffortId" use-when="${actionIsAdd}==null">
-            <display-entity entity-name="WorkEffort" description="[${workEffortId}] ${workEffortName}" />
+            <display-entity entity-name="WorkEffort" description="[${workEffortId}] ${workEffortName}"/>
         </field>
         <field name="fixedAssetId" use-when="${actionIsAdd}!=null">
             <drop-down allow-empty="false">
-                <entity-options entity-name="FixedAsset" description="${fixedAssetName}" />
+                <entity-options entity-name="FixedAsset" description="${fixedAssetName}"/>
             </drop-down>
         </field>
         <field name="fixedAssetId" use-when="${actionIsAdd}==null">
-            <display-entity entity-name="FixedAsset" description="${fixedAssetName}" />
+            <display-entity entity-name="FixedAsset" description="${fixedAssetName}"/>
         </field>
         <field name="fromDate" use-when="${actionIsAdd}==null">
             <display />
@@ -610,29 +610,29 @@ under the License.
                 so this field will be hidden meanwhile
             <drop-down>
                 <entity-options entity-name="StatusItem" description="${description}">
-                    <entity-constraint name="statusTypeId" value="WORK_EFF_ASSET_STTS" />
+                    <entity-constraint name="statusTypeId" value="WORK_EFF_ASSET_STTS"/>
                 </entity-options>
             </drop-down> -->
             <hidden />
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
-            <submit button-type="button" />
+            <submit button-type="button"/>
         </field>
     </form>
     <form name="AddProductionRunTaskFixedAsset" type="single" target="createWorkEffortFixedAssetAssign" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="createWorkEffortFixedAssetAssign" />
+        <auto-fields-service service-name="createWorkEffortFixedAssetAssign"/>
         <field name="productionRunId"><hidden /></field>
         <field name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTask}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]">
-                    <entity-constraint name="workEffortParentId" value="${productionRunId}" />
+                    <entity-constraint name="workEffortParentId" value="${productionRunId}"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="fixedAssetId" title="${uiLabelMap.ManufacturingMachine}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="FixedAsset" description="${fixedAssetName} [${fixedAssetId}]" />
+                <entity-options entity-name="FixedAsset" description="${fixedAssetName} [${fixedAssetId}]"/>
             </drop-down>
         </field>
         <field name="statusId">
@@ -640,7 +640,7 @@ under the License.
                 so this field will be hidden meanwhile
             <drop-down>
                 <entity-options entity-name="StatusItem" description="${description}">
-                    <entity-constraint name="statusTypeId" value="WORK_EFF_ASSET_STTS" />
+                    <entity-constraint name="statusTypeId" value="WORK_EFF_ASSET_STTS"/>
                 </entity-options>
             </drop-down> -->
             <hidden />

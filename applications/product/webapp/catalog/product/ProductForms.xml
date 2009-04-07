@@ -895,7 +895,7 @@ under the License.
         <field name="productId"><hidden value="${productId}"/></field>
         <field name="configTypeId">
             <drop-down allow-empty="false">
-                <option key="STANDARD" description="${uiLabelMap.ProductStandard}" />
+                <option key="STANDARD" description="${uiLabelMap.ProductStandard}"/>
                 <option key="QUESTION" description="${uiLabelMap.ProductQuestion}"/>
             </drop-down>
         </field>
@@ -923,7 +923,7 @@ under the License.
         </field>
         <field name="configTypeId">
             <drop-down allow-empty="false">
-                <option key="STANDARD" description="${uiLabelMap.ProductStandard}" />
+                <option key="STANDARD" description="${uiLabelMap.ProductStandard}"/>
                 <option key="QUESTION" description="${uiLabelMap.ProductQuestion}"/>
             </drop-down>
         </field>
@@ -1216,7 +1216,7 @@ under the License.
     <!-- create ProductMaint-->
     <form name="AddProductMaint" type="single"  target="createProductMaint" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="createProductMaint" />
+        <auto-fields-service service-name="createProductMaint"/>
         <field name="productId"><hidden/></field>
         <field name="productMaintSeqId"><ignored/></field>
         <field name="productMaintTypeId">
@@ -1260,7 +1260,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="maintName"><text size="20" /></field>
+        <field name="maintName"><text size="20"/></field>
         <field name="maintTemplateWorkEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
         <field name="intervalUomId">
             <drop-down allow-empty="false">
@@ -1288,7 +1288,7 @@ under the License.
     <!-- create and update a ProductMeter -->
     <form name="AddProductMeter" type="single" target="createProductMeter" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="createProductMeter" />
+        <auto-fields-service service-name="createProductMeter"/>
         <field name="productId"><hidden/></field>
         <field name="productMeterTypeId">
             <drop-down allow-empty="false">
@@ -1304,7 +1304,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="meterName"><text size="20" /></field>
+        <field name="meterName"><text size="20"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListProductMeters" type="list" list-name="productMeters" target="updateProductMeter"
@@ -1326,7 +1326,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="meterName"><text size="20" /></field>
+        <field name="meterName"><text size="20"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductMeter" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="productId"/><parameter param-name="productMeterTypeId"/>
@@ -1338,7 +1338,7 @@ under the License.
     <!-- create and update a ProductGeo -->
     <form name="AddProductGeo" type="single" target="createProductGeo" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="createProductGeo" />
+        <auto-fields-service service-name="createProductGeo"/>
         <field name="productId"><hidden/></field>
         <field name="geoId">
             <drop-down allow-empty="false">
@@ -1356,7 +1356,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="description"><text size="20" /></field>
+        <field name="description"><text size="20"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="ListProductGeos" type="list" list-name="productGeos" target="updateProductGeo"
@@ -1377,7 +1377,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="description"><text size="20" /></field>
+        <field name="description"><text size="20"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteProductGeo" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="productId"/><parameter param-name="geoId"/>
@@ -1442,7 +1442,7 @@ under the License.
     </form>
     <form name="AddProductFeatureApplAttr" type="single" target="createProductFeatureApplAttr" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="createProductFeatureApplAttr" />
+        <auto-fields-service service-name="createProductFeatureApplAttr"/>
         <field name="productId"><hidden/></field>
         <field name="productFeatureId">
             <drop-down allow-empty="false">
@@ -1649,10 +1649,10 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table">
         <actions>
             <entity-and entity-name="WorkEffortGoodStandard" use-cache="true" list="productWorkEfforts">
-                <field-map from-field="productId" field-name="productId" />
+                <field-map from-field="productId" field-name="productId"/>
             </entity-and>
         </actions>
-        <auto-fields-service service-name="updateWorkEffortGoodStandard" default-field-type="edit" />
+        <auto-fields-service service-name="updateWorkEffortGoodStandard" default-field-type="edit"/>
         <field name="workEffortId">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}" also-hidden="true">
                 <sub-hyperlink target="/workeffort/control/EditWorkEffort" description="${workEffortId}" link-style="buttontext" target-type="inter-app">
@@ -1820,12 +1820,12 @@ under the License.
         <actions>
             <entity-condition entity-name="ProductGlAccount" list="productGlAccounts">
                 <condition-expr field-name="productId" from-field="productId"/>
-                <order-by field-name="productId" />
+                <order-by field-name="productId"/>
             </entity-condition>
         </actions>
         <field name="productId"><hidden/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.ProductAccountType}">
-            <display-entity entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}" />
+            <display-entity entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}"/>
         </field>
         <field name="organizationPartyId" title="${uiLabelMap.ProductOrganization}">
             <display description="${bsh: org.ofbiz.party.party.PartyHelper.getPartyName(delegator, organizationPartyId, true);} [${organizationPartyId}]"/>
@@ -1858,7 +1858,7 @@ under the License.
         <field name="organizationPartyId" title="${uiLabelMap.ProductOrganization}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PartyRoleAndPartyDetail" key-field-name="partyId" description="${groupName} [${partyId}]">
-                    <entity-constraint name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO" />
+                    <entity-constraint name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
                     <entity-order-by field-name="partyId"/>
                 </entity-options>
             </drop-down>

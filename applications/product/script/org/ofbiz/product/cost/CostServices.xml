@@ -99,7 +99,7 @@ under the License.
         <filter-list-by-date list="otherCosts"/>
         <first-from-list list="otherCosts" entry="otherCost"/>
         
-        <set field="productCost" value="0" type="BigDecimal" />
+        <set field="productCost" value="0" type="BigDecimal"/>
         <calculate field="productCost" decimal-scale="6">
             <calcop field="laborCost.cost" operator="add">
                 <calcop field="materialsCost.cost" operator="get"/>
@@ -379,7 +379,7 @@ under the License.
                         <calculate field="absValOfTotalQOH">
                             <calcop operator="add">
                                 <calcop operator="get" field="absValOfTotalQOH"/>
-                                <calcop operator="negative" field="inventoryItem.quantityOnHandTotal" />
+                                <calcop operator="negative" field="inventoryItem.quantityOnHandTotal"/>
                             </calcop>
                         </calculate>
                         <calculate field="absValOfTotalInvCost" type="BigDecimal">

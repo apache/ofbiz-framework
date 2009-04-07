@@ -277,7 +277,7 @@
         <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
         <field name="workEffortId"  title="${uiLabelMap.ProjectMgrTaskName}" use-when="parameters.get(&quot;workEffortId&quot;)!=null">
             <display-entity entity-name="WorkEffort" description="${workEffortName}[${workEffortId}]">
-                <sub-hyperlink target="MyTasks" description="[${uiLabelMap.CommonChange}]" />
+                <sub-hyperlink target="MyTasks" description="[${uiLabelMap.CommonChange}]"/>
             </display-entity></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" event="onChange" action="javascript:document.assignTaskToMe.submit();" use-when="parameters.get(&quot;workEffortId&quot;)==null">
             <drop-down allow-empty="true">

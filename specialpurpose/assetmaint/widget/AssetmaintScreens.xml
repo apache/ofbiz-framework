@@ -74,7 +74,7 @@
                                         <include-form name="FindFixedAssetMaint" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListFixedAssetMaints" location="component://assetmaint/widget/forms/FixedAssetForms.xml" />
+                                        <include-form name="ListFixedAssetMaints" location="component://assetmaint/widget/forms/FixedAssetForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>

@@ -195,7 +195,7 @@ ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
         >
             <#assign drDataResourceId=content.dataResourceId?if_exists/>
         </@traverseSubContentCache>
-        <img src="<@ofbizUrl>/img?imgId=${drDataResourceId?if_exists}</@ofbizUrl>" />
+        <img src="<@ofbizUrl>/img?imgId=${drDataResourceId?if_exists}</@ofbizUrl>"/>
     </td>
   </tr>
 </table>
@@ -338,7 +338,7 @@ ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
      does not know where to find nextprev.ftl.
      Looks like Configuration.setDirectoryForTemplateLoading could be used, but I don't want to
      worry about passing a request object down to this level, at this time.
-<#include "nextprev.ftl" />
+<#include "nextprev.ftl"/>
 -->
 
 <#assign outputIndex = 0/>
@@ -363,14 +363,14 @@ ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
 <#assign lowIndex = 0/>
 </#if>
 <#assign lowPlusOne = lowIndex + 1/>
-<#assign prevStr = "" />
+<#assign prevStr = ""/>
 <#if highIndex?exists >
 <#assign highIndex = highIndex?number/>
 <#else>
 <#assign highIndex = 0/>
 </#if>
 <#assign hiIndex = highIndex -1 />
-<#assign nextStr = "" />
+<#assign nextStr = ""/>
 <tr><td>
 <table border="0" width="100%">
     <tr><td>
@@ -447,7 +447,7 @@ ${txt}
         <textData><![CDATA[<table>
   <tr>
     <td>
-        <img src="<@ofbizContentUrl><@renderSubContentCache mapKey="IMAGE" wrapTemplateId=""/></@ofbizContentUrl>" />
+        <img src="<@ofbizContentUrl><@renderSubContentCache mapKey="IMAGE" wrapTemplateId=""/></@ofbizContentUrl>"/>
     </td>
   </tr>
 </table>

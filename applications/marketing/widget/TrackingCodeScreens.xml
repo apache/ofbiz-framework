@@ -400,7 +400,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleLookupVisit"/>
                 <set field="trackingCodeTabButtonItem" value="TrackingCode"/>
                 <set field="labelTitleProperty" value="PageTitleLookupVisit"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupVisit}" />
+                <set field="title" value="${uiLabelMap.PageTitleLookupVisit}"/>
                 <set field="entityName" value="CommunicationEvent"/>                
             </actions>
             <widgets>
@@ -421,7 +421,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleLookupTrackingCode"/>
                 <set field="trackingCodeTabButtonItem" value="TrackingCode"/>
                 <set field="labelTitleProperty" value="PageTitleLookupTrackingCode"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupTrackingCode}" />
+                <set field="title" value="${uiLabelMap.PageTitleLookupTrackingCode}"/>
                 <set field="entityName" value="TrackingCode"/>                
             </actions>
             <widgets>
@@ -542,7 +542,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleLookupTrackingCodeType"/>
                 <set field="trackingCodeTabButtonItem" value="TrackingCodeType"/>
                 <set field="labelTitleProperty" value="PageTitleLookupTrackingCodeType"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupTrackingCodeType}" />
+                <set field="title" value="${uiLabelMap.PageTitleLookupTrackingCodeType}"/>
                 <set field="entityName" value="TrackingCodeType"/>                
             </actions>
             <widgets>

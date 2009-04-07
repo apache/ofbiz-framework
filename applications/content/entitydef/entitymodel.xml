@@ -124,7 +124,7 @@ under the License.
       <alias-all entity-alias="CA" prefix="ca"/>
       <alias entity-alias="CA" name="contentIdStart" field="contentIdTo"/>
       <view-link entity-alias="CA" rel-entity-alias="CO" rel-optional="true">
-        <key-map field-name="contentIdTo" rel-field-name="contentId" />
+        <key-map field-name="contentIdTo" rel-field-name="contentId"/>
       </view-link>
     </view-entity>
     <!--
@@ -133,8 +133,8 @@ under the License.
                 title="ContentRevisionItem and ContentApproval">
       <member-entity entity-alias="CRI" entity-name="ContentRevisionItem"/>
       <member-entity entity-alias="CA" entity-name="ContentApproval"/>
-      <alias-all entity-alias="CRI" />
-      <alias entity-alias="CA" name="caContentId" field="contentId" group-by="true" />
+      <alias-all entity-alias="CRI"/>
+      <alias entity-alias="CA" name="caContentId" field="contentId" group-by="true"/>
       <alias entity-alias="CA" name="caContentRevisionSeqId" name="contentRevisionSeqId" group-by="true"/>
       <alias entity-alias="CA" name="approvalCount" field="contentId" function="count"/>
       <view-link entity-alias="CRI" rel-entity-alias="CA" rel-optional="true">
@@ -223,10 +223,10 @@ under the License.
           <key-map field-name="instanceOfContentId" rel-field-name="contentId"/>
       </relation>
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
     </entity>
     <view-entity entity-name="ContentAndRole" package-name="org.ofbiz.content.content" title="Content And Role View Entity">
@@ -329,7 +329,7 @@ under the License.
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
-      <alias-all entity-alias="CO" />
+      <alias-all entity-alias="CO"/>
       <alias-all entity-alias="CA" prefix="ca"/>
       <alias-all entity-alias="DR" prefix="dr"/>
       <alias entity-alias="CA" name="contentIdStart" field="contentIdTo"/>
@@ -340,18 +340,18 @@ under the License.
         <key-map field-name="dataResourceId" rel-field-name="dataResourceId"/>
       </view-link>
       <relation type="one-nofk" rel-entity-name="ElectronicText">
-        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" /> </relation>
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId"/> </relation>
       <relation type="one-nofk" rel-entity-name="ImageDataResource">
-        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="OtherDataResource">
-        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId"/>
       </relation>
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
       <relation type="many" rel-entity-name="ContentPurpose">
           <key-map field-name="contentId" rel-field-name="contentId"/>
@@ -373,7 +373,7 @@ under the License.
       <member-entity entity-alias="CA" entity-name="ContentAssoc"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
       <alias-all entity-alias="CA" prefix="ca"/>
-      <alias-all entity-alias="CO" />
+      <alias-all entity-alias="CO"/>
       <alias-all entity-alias="DR" prefix="dr"/>
       <alias entity-alias="CA" name="contentIdStart" field="contentId"/>
       <view-link entity-alias="CA" rel-entity-alias="CO" rel-optional="true">
@@ -383,19 +383,19 @@ under the License.
         <key-map field-name="dataResourceId" rel-field-name="dataResourceId"/>
       </view-link>
       <relation type="one-nofk" rel-entity-name="ElectronicText">
-        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="ImageDataResource">
-        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="OtherDataResource">
-        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId"/>
       </relation>
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
       <relation type="many" rel-entity-name="ContentPurpose">
           <key-map field-name="caContentIdTo" rel-field-name="contentId"/>
@@ -474,25 +474,25 @@ under the License.
                 title="Content and DataResource View Entity">
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
-      <alias-all entity-alias="CO" />
+      <alias-all entity-alias="CO"/>
       <alias-all entity-alias="DR" prefix="dr"/>
       <view-link entity-alias="CO" rel-entity-alias="DR" rel-optional="true">
         <key-map field-name="dataResourceId"/>
       </view-link>
       <relation type="one-nofk" rel-entity-name="ElectronicText">
-        <key-map field-name="dataResourceId" />
+        <key-map field-name="dataResourceId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="ImageDataResource">
-        <key-map field-name="dataResourceId" />
+        <key-map field-name="dataResourceId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="OtherDataResource">
-        <key-map field-name="dataResourceId" />
+        <key-map field-name="dataResourceId"/>
       </relation>
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
       <relation type="many" title="From" rel-entity-name="ContentAssoc">
         <key-map field-name="contentId"/>
@@ -682,31 +682,31 @@ under the License.
                 title="Content and DataResource for SubContent View Entity">
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
-      <alias-all entity-alias="CO" />
+      <alias-all entity-alias="CO"/>
       <alias-all entity-alias="DR" prefix="dr"/>
       <view-link entity-alias="CO" rel-entity-alias="DR" rel-optional="true">
         <key-map field-name="dataResourceId"/>
       </view-link>
       <relation type="one-nofk" rel-entity-name="ElectronicText">
-        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="ImageDataResource">
-        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="OtherDataResource">
-        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId" />
+        <key-map field-name="drDataResourceId" rel-field-name="dataResourceId"/>
       </relation>
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
       <relation type="many" rel-entity-name="ContentPurpose">
-        <key-map field-name="contentId" />
+        <key-map field-name="contentId"/>
       </relation>
       <relation type="many" rel-entity-name="ContentRole">
-        <key-map field-name="contentId" />
+        <key-map field-name="contentId"/>
       </relation>
       <relation type="many" title="From" rel-entity-name="ContentAssoc">
         <key-map field-name="contentId"/>
@@ -1584,7 +1584,7 @@ under the License.
         <field name="aboutContentId" type="id"></field>
         <prim-key field="contentId"/>
         <relation type="one" fk-name="WBSTPP_CONTENT" rel-entity-name="Content">
-            <key-map field-name="contentId" />
+            <key-map field-name="contentId"/>
         </relation>
     </entity>
     <entity entity-name="WebSiteRole" package-name="org.ofbiz.party.party" title="WebSite Role Association Entity">

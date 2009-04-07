@@ -391,7 +391,7 @@ under the License.
         <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
         <set field="oldQuantity" from-field="itemIssuance.quantity"/>
         <!-- Update the ItemIssuance -->
-        <set value="0" field="itemIssuanceUpdate.quantity" type="BigDecimal" />
+        <set value="0" field="itemIssuanceUpdate.quantity" type="BigDecimal"/>
         <set from-field="parameters.itemIssuanceId" field="itemIssuanceUpdate.itemIssuanceId"/>
         <call-service service-name="updateItemIssuance" in-map-name="itemIssuanceUpdate"/>
         <!-- Increment InventoryItem quantityOnHand AND availableToPromise since there was no reservation -->
@@ -537,7 +537,7 @@ under the License.
         <set field="itemIssuanceCreate.inventoryItemId" from-field="parameters.inventoryItemId"/>
         <set field="itemIssuanceCreate.shipmentId" from-field="shipmentId"/>
         <set field="itemIssuanceCreate.shipmentItemSeqId" from-field="shipmentItemSeqId"/>
-        <set field="itemIssuanceCreate.issuedByUserLoginId" from-field="userLogin.userLoginId" />
+        <set field="itemIssuanceCreate.issuedByUserLoginId" from-field="userLogin.userLoginId"/>
         <call-service service-name="createItemIssuance" in-map-name="itemIssuanceCreate">
             <result-to-field result-name="itemIssuanceId"/>
         </call-service>

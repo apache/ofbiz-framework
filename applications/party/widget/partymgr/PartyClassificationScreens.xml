@@ -129,7 +129,7 @@ under the License.
                 <set field="labelTitleProperty" value="PartyClassificationGroup"/>
 
                 <set field="partyClassificationGroupId" from-field="parameters.partyClassificationGroupId"/>
-                <set field="partyId" value="" />
+                <set field="partyId" value=""/>
                 <entity-one entity-name="PartyClassificationGroup" value-field="partyClassificationGroup"/>
             </actions>
             <widgets>

@@ -80,7 +80,7 @@ under the License.
                 </and>
             </condition>
             <then>
-                <set field="parameters.statusId" value="CLPT_ACCEPTED" />
+                <set field="parameters.statusId" value="CLPT_ACCEPTED"/>
             </then>
         </if>
     </simple-method>

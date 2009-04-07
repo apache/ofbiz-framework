@@ -67,7 +67,7 @@ under the License.
         <menu-item name="purpose" title="${uiLabelMap.FormFieldTitle_purposes}" >
             <condition>
                 <not>
-                    <if-empty field="currentValue.contentId" />
+                    <if-empty field="currentValue.contentId"/>
                 </not>
             </condition>
             <link target="EditContentPurpose">

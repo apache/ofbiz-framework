@@ -258,6 +258,6 @@ under the License.
     </ElectronicText>
     <Content contentId="STDWRAP001" contentTypeId="DOCUMENT" dataResourceId="STDWRAP001" contentName="Standard SubContent Wrapper" description="Standard SubContent Wrapper"/>
     
-    <WebSite webSiteId="CONTENT_SITE" siteName="Content Manager" visualThemeSetId="BACKOFFICE" />
+    <WebSite webSiteId="CONTENT_SITE" siteName="Content Manager" visualThemeSetId="BACKOFFICE"/>
     
 </entity-engine-xml>
