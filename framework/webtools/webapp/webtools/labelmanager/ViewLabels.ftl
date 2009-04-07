@@ -18,7 +18,10 @@ under the License.
 -->
 <div class="screenlet-body">
   <a href="<@ofbizUrl>UpdateLabel?fileName=${parameters.labelFileName?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsLabelManagerAddNew}</a>
-  <a href="<@ofbizUrl>SaveLabelsToXmlFile?labelFileName=${parameters.labelFileName?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.WebtoolsLabelManagerUpdateFile}</a>
+  <form name= "SaveLabelsToXmlFile" method= "post" action= "<@ofbizUrl>SaveLabelsToXmlFile</@ofbizUrl>">
+      <input type= "hidden" name= "labelFileName" value= "${parameters.labelFileName?if_exists}">
+      <a href="javascript:document.SaveLabelsToXmlFile.submit()" class="buttontext">${uiLabelMap.WebtoolsLabelManagerUpdateFile}</a>
+  </form>
   <table class="basic-table hover-bar" cellspacing="3">
     <tr class="header-row">
       <td>${uiLabelMap.WebtoolsLabelManagerRow}</td>
