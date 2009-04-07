@@ -125,10 +125,10 @@ if(disa && document.styleSheets)
 <#list items as item>   
 <input type="checkbox" <@renderClass className alert /><#rt/>
 <#if allChecked?has_content && allChecked> checked="checked" <#elseif allChecked?has_content && !allChecked><#elseif currentValue?has_content && currentValue==item.key> checked="checked"</#if> name="${name?default("")?html}" value="${item.key?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>/><#rt/>
-${item.description}
+${item.description?default("")}
 </#list>
 </#macro>
-<#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event ation>
+<#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action>
 <#list items as item>   
 <div <@renderClass className alert />><#rt/>
 <input type="radio"<#if currentValue?has_content><#if rp.currentValue==item.key> checked="checked"</#if><#elseif noCurrentSelectedKey?has_content && noCurrentSelectedKey == item.key> checked="checked"</#if> name="${name?default("")?html}" value="${item.key?default("")?html}"<#if event?has_content> ${event}="${action}"</#if>/><#rt/>
@@ -138,7 +138,7 @@ ${item.description}</div>
 
 <#macro renderSubmitField buttonType className alert formName title name event action imgSrc>
 <#if buttonType=="text-link">
- <a <@renderClass className alert /> href="javascript:document.${formName}.submit()"><#if title?has_content> title="${title}"</#if> </a>
+ <a <@renderClass className alert /> href="javascript:document.${formName}.submit()"><#if title?has_content>${title}</#if> </a>
 <#elseif buttonType=="image">
  <input type="image" src="${imgSrc}" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if title?has_content> alt="${title}"</#if><#if event?has_content> ${event}="${action}"</#if> />
 <#else>
@@ -355,7 +355,7 @@ ${item.description}</div>
 <#macro formatBoundaryComment boundaryType widgetType widgetName><!-- ${boundaryType}  ${widgetType}  ${widgetName} --></#macro>
 
 <#macro renderTooltip tooltip tooltipStyle><#if tooltip?has_content><span class="<#if tooltipStyle?has_content>${tooltipStyle}<#else>tooltip</#if>">${tooltip}</span><#rt/></#if></#macro>
-<#macro renderClass className alert><#if className?has_content>class="${className}<#if alert?has_content> ${alert}</#if>"<#rt/></#if></#macro>
+<#macro renderClass className="" alert=""><#if className?has_content>class="${className}<#if alert?has_content> ${alert}</#if>"<#rt/></#if></#macro>
 <#macro renderAsterisks requiredField requiredStyle><#if requiredField=="true"><#if requiredStyle?has_content>*</#if></#if></#macro>
 <#macro makeHiddenFormLinkForm actionUrl name parameters targetWindow><form method="post" action="${actionUrl}" <#if targetWindow?has_content>target="${targetWindow}"</#if> onSubmit="javascript:submitFormDisableSubmits(this)" name="${name}"><#list parameters as parameter><input name="${parameter.name}" value="${parameter.value}" type="hidden"/></#list></form></#macro>
 <#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description><a <#if linkStyle?has_content>class="${linkStyle}"</#if> href="javascript:document.${hiddenFormName}.submit()"<#if action?has_content && event?has_content> ${event}="${action}"</#if>><#if imgSrc?has_content><img src="${imgSrc}"/></#if>${description}</a></#macro>

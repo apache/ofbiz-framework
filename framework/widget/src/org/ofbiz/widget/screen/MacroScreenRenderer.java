@@ -143,9 +143,6 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
     public void renderLabel(Appendable writer, Map<String, Object> context, ModelScreenWidget.Label label) throws IOException {
         String labelText = label.getText(context);
-        if(UtilValidate.isNotEmpty(labelText)){
-            labelText = StringUtil.htmlEncoder.encode(labelText);
-        }
         StringWriter sr = new StringWriter();
         sr.append("<@renderLabel ");
         sr.append("text=\"");

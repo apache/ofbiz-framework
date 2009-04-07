@@ -136,20 +136,6 @@ public class MacroFormRenderer implements FormStringRenderer {
         //writer.append(' ');
     }
 
-    private void makeTextString(Appendable writer, String widgetStyle, String text) throws IOException {
-        if (UtilValidate.isNotEmpty(text)) {
-            // FIXME: this is only valid for html and should be moved outside of this class
-            text = StringUtil.htmlEncoder.encode(text);
-        }
-        StringWriter sr = new StringWriter();
-        sr.append("<@renderField ");
-        sr.append("text=\"");
-        sr.append(text);
-        sr.append("\"");
-        sr.append(" />");
-        executeMacro(writer, sr.toString());
-    }
-
     public void renderLabel(Appendable writer, Map<String, Object> context, ModelScreenWidget.Label label) throws IOException {
         String labelText = label.getText(context);
         if (UtilValidate.isEmpty(labelText)) {
@@ -306,7 +292,10 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         String value = modelFormField.getEntry(context, textareaField.getDefaultValue(context));
         if (UtilValidate.isNotEmpty(value)) {
-            value = StringUtil.htmlEncoder.encode(value);
+            StringUtil.SimpleEncoder encoder = (StringUtil.SimpleEncoder)context.get("simpleEncoder");
+            if (encoder != null) {
+                value = encoder.encode(value);
+            }
         }
         StringWriter sr = new StringWriter();
         sr.append("<@renderTextareaField ");
@@ -946,11 +935,16 @@ public class MacroFormRenderer implements FormStringRenderer {
         StringBuilder sb = new StringBuilder();
         if (UtilValidate.isNotEmpty(titleText)) {
             if (" ".equals(titleText)) {
-                // If the title content is just a blank then render it colling renderFormatEmptySpace:
+                // FIXME: we have to change the following code because it is a solution that only works with html.
+                // If the title content is just a blank then render it calling renderFormatEmptySpace:
                 // the method will set its content to work fine in most browser
                 sb.append("&nbsp;");
             } else {
-                renderHyperlinkTitle(sb, context, modelFormField, StringUtil.htmlEncoder.encode(titleText));
+                StringUtil.SimpleEncoder encoder = (StringUtil.SimpleEncoder)context.get("simpleEncoder");
+                if (encoder != null) {
+                    titleText = encoder.encode(titleText);
+                }
+                renderHyperlinkTitle(sb, context, modelFormField, titleText);
             }
         }
         StringWriter sr = new StringWriter();
@@ -1627,11 +1621,6 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         String size = Integer.toString(lookupField.getSize());
         Integer maxlength = lookupField.getMaxlength();
-        if (maxlength != null) {
-            writer.append(" maxlength=\"");
-            writer.append(maxlength.toString());
-            writer.append('"');
-        }
 
         String id = modelFormField.getIdName();
         if (id == null) {
@@ -1682,9 +1671,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" size=\"");
         sr.append(size);
         sr.append("\" maxlength=\"");
-        if (maxlength != null) {
-            sr.append(Integer.toString(maxlength));
-        }
+        sr.append((maxlength != null? Integer.toString(maxlength): ""));
         sr.append("\" autocomplete=\"");
         sr.append(autocomplete);
         sr.append("\" descriptionFieldName=\"");
