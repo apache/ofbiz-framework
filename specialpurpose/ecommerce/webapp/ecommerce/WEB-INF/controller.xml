@@ -1772,6 +1772,13 @@ under the License.
         <response name="success" type="none"/>
         <response name="error" type="none"/>
     </request-map>
+    
+   <request-map uri="getConfigDetailsEvent">
+        <security https="false" auth="false"/>
+        <event type="jsonjava" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="getConfigDetailsEvent"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
 
     <!-- End of Request Mappings -->
 

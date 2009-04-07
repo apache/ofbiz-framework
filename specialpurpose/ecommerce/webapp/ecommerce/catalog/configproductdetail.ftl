@@ -140,7 +140,7 @@ Event.observe(window, 'load', function() {
 });
 
 function getConfigDetails(event) {
-        new Ajax.Request('/ordermgr/control/getConfigDetailsEvent',{parameters: $('configFormId').serialize(),  requestHeaders: {Accept: 'application/json'},
+        new Ajax.Request('<@ofbizUrl>getConfigDetailsEvent</@ofbizUrl>',{parameters: $('configFormId').serialize(),  requestHeaders: {Accept: 'application/json'},
         
            onSuccess: function(transport){     
                 var data = transport.responseText.evalJSON(true);
