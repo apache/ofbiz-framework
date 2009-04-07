@@ -572,7 +572,7 @@ under the License.
         <if-not-empty field="parameters.noteParty">
            <set from-field="parameters.noteParty" field="newEntity.noteParty"/>
         <else>
-            <set field="newEntity.noteParty" from-field="parameters.userLogin.userLoginId"></set>
+            <set field="newEntity.noteParty" from-field="parameters.userLogin.partyId"></set>
         </else>    
         </if-not-empty>
         <set from-field="parameters.noteName" field="newEntity.noteName"/>
