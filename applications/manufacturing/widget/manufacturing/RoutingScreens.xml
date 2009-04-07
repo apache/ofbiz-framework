@@ -451,12 +451,12 @@ under the License.
     <screen name="EditRoutingTaskFixedAssets">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditRoutingTaskFixedAsset" />
-                <set field="tabButtonItem" value="editRoutingTaskFixedAssets" />
-                <set field="headerItem" value="routingTask" />
-                <set field="workEffortId" from-field="parameters.workEffortId" />
+                <set field="titleProperty" value="PageTitleEditRoutingTaskFixedAsset"/>
+                <set field="tabButtonItem" value="editRoutingTaskFixedAssets"/>
+                <set field="headerItem" value="routingTask"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-and entity-name="WorkEffortFixedAssetStd" list="allFixedAssets">
-                    <field-map field-name="workEffortId" from-field="workEffortId" />
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
                 </entity-and>
             </actions>
             <widgets>

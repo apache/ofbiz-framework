@@ -438,18 +438,18 @@ Slashdot allowed tags taken from "Reply" page:
         <entity name="hearts" cdata="&amp;#9829;"/> <!--black heart suit = valentine, U+2665 ISOpub -->
         <entity name="diams" cdata="&amp;#9830;"/> <!--black diamond suit, U+2666 ISOpub -->
         
-        <entity name="quot" cdata="&amp;#34;"  /> <!--quotation mark = APL quote, U+0022 ISOnum -->
+        <entity name="quot" cdata="&amp;#34;"/> <!--quotation mark = APL quote, U+0022 ISOnum -->
         <!-- Latin Extended-A -->
-        <entity name="OElig" cdata="&amp;#338;" /> <!--latin capital ligature OE, U+0152 ISOlat2 -->
-        <entity name="oelig" cdata="&amp;#339;" /> <!--latin small ligature oe, U+0153 ISOlat2 -->
+        <entity name="OElig" cdata="&amp;#338;"/> <!--latin capital ligature OE, U+0152 ISOlat2 -->
+        <entity name="oelig" cdata="&amp;#339;"/> <!--latin small ligature oe, U+0153 ISOlat2 -->
         <!-- ligature is a misnomer, this is a separate character in some languages -->
-        <entity name="Scaron" cdata="&amp;#352;" /> <!--latin capital letter S with caron, U+0160 ISOlat2 -->
-        <entity name="scaron" cdata="&amp;#353;" /> <!--latin small letter s with caron, U+0161 ISOlat2 -->
-        <entity name="Yuml" cdata="&amp;#376;" /> <!--latin capital letter Y with diaeresis, U+0178 ISOlat2 -->
+        <entity name="Scaron" cdata="&amp;#352;"/> <!--latin capital letter S with caron, U+0160 ISOlat2 -->
+        <entity name="scaron" cdata="&amp;#353;"/> <!--latin small letter s with caron, U+0161 ISOlat2 -->
+        <entity name="Yuml" cdata="&amp;#376;"/> <!--latin capital letter Y with diaeresis, U+0178 ISOlat2 -->
         
         <!-- Spacing Modifier Letters -->
-        <entity name="circ" cdata="&amp;#710;" /> <!--modifier letter circumflex accent, U+02C6 ISOpub -->
-        <entity name="tilde" cdata="&amp;#732;" /> <!--small tilde, U+02DC ISOdia -->
+        <entity name="circ" cdata="&amp;#710;"/> <!--modifier letter circumflex accent, U+02C6 ISOpub -->
+        <entity name="tilde" cdata="&amp;#732;"/> <!--small tilde, U+02DC ISOdia -->
         
         <!-- General Punctuation -->
         <entity name="ensp" cdata="&amp;#8194;"/> <!--en space, U+2002 ISOpub -->
@@ -474,6 +474,6 @@ Slashdot allowed tags taken from "Reply" page:
         <!-- lsaquo is proposed but not yet ISO standardized -->
         <entity name="rsaquo" cdata="&amp;#8250;"/> <!--single right-pointing angle quotation mark, U+203A ISO proposed -->
         <!-- rsaquo is proposed but not yet ISO standardized -->
-        <entity name="euro" cdata="&amp;#8364;" /> <!--euro sign, U+20AC NEW -->
+        <entity name="euro" cdata="&amp;#8364;"/> <!--euro sign, U+20AC NEW -->
     </html-entities>
 </anti-samy-rules>

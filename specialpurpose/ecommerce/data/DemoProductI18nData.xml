@@ -29,8 +29,8 @@ under the License.
     <ElectronicText dataResourceId="GZ2644DESCIT" textData="Gizmo rotondo con luci"/>
     <ElectronicText dataResourceId="GZ2644DESCEN" textData="Round Gizmo with lights"/>
 
-    <Content contentId="GZ2644DESCFR" contentTypeId="DOCUMENT" dataResourceId="GZ2644DESCFR" description="DESCRIPTION FR Round Gizmo" localeString="fr" />
-    <Content contentId="GZ2644DESCIT" contentTypeId="DOCUMENT" dataResourceId="GZ2644DESCIT" description="DESCRIPTION IT Round Gizmo" localeString="it" />
+    <Content contentId="GZ2644DESCFR" contentTypeId="DOCUMENT" dataResourceId="GZ2644DESCFR" description="DESCRIPTION FR Round Gizmo" localeString="fr"/>
+    <Content contentId="GZ2644DESCIT" contentTypeId="DOCUMENT" dataResourceId="GZ2644DESCIT" description="DESCRIPTION IT Round Gizmo" localeString="it"/>
     <Content contentId="GZ2644DESCEN" contentTypeId="DOCUMENT" dataResourceId="GZ2644DESCEN" description="DESCRIPTION EN Round Gizmo" localeString="en"/>
 
     <ProductContent productId="GZ-2644" contentId="GZ2644DESCEN" productContentTypeId="DESCRIPTION" fromDate="2006-09-22 00:00:00.0"/>
@@ -47,8 +47,8 @@ under the License.
     <ElectronicText dataResourceId="GZ2644NAMEIT" textData="Gizmo Rotondo"/>
     <ElectronicText dataResourceId="GZ2644NAMEEN" textData="Round Gizmo"/>
 
-    <Content contentId="GZ2644NAMEFR" contentTypeId="DOCUMENT" dataResourceId="GZ2644NAMEFR" description="DESCRIPTION FR Round Gizmo" localeString="fr" />
-    <Content contentId="GZ2644NAMEIT" contentTypeId="DOCUMENT" dataResourceId="GZ2644NAMEIT" description="DESCRIPTION IT Round Gizmo" localeString="it" />
+    <Content contentId="GZ2644NAMEFR" contentTypeId="DOCUMENT" dataResourceId="GZ2644NAMEFR" description="DESCRIPTION FR Round Gizmo" localeString="fr"/>
+    <Content contentId="GZ2644NAMEIT" contentTypeId="DOCUMENT" dataResourceId="GZ2644NAMEIT" description="DESCRIPTION IT Round Gizmo" localeString="it"/>
     <Content contentId="GZ2644NAMEEN" contentTypeId="DOCUMENT" dataResourceId="GZ2644NAMEEN" description="DESCRIPTION EN Round Gizmo" localeString="en"/>
 
     <ProductContent productId="GZ-2644" contentId="GZ2644NAMEEN" productContentTypeId="PRODUCT_NAME" fromDate="2006-09-22 00:00:00.0"/>

@@ -141,8 +141,8 @@
         <!--field name="comments" title="${uiLabelMap.CommonComments}"><display/></field-->
         <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
             <hyperlink target="TimeSheetStatusToComplete" description="${completeLink}">
-                <parameter param-name="timesheetId" />
-                <parameter param-name="statusId" value="TIMESHEET_COMPLETED" />
+                <parameter param-name="timesheetId"/>
+                <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
             </hyperlink>
         </field>
     </form>

@@ -414,7 +414,7 @@ under the License.
                 <set field="title" value="List CompDoc"/>
                 <set field="entityName" value="ContentAssocViewFrom"/>
                 <set field="queryString" from-field="result.queryString"/>
-                <set field="currentContentMenuItemName" value="" />
+                <set field="currentContentMenuItemName" value=""/>
                 <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
@@ -702,8 +702,8 @@ under the License.
                         <!--
                         <entity-condition entity-name="MaxRevisionItemView" list="rootRevList" use-cache="false" >
                            <condition-list combine="and">
-                                <condition-expr field-name="rootRevisionContentId" operator="equals" env-name="rootInstanceContentId" />
-                                <condition-expr field-name="contentId" operator="equals" env-name="contentId" />
+                                <condition-expr field-name="rootRevisionContentId" operator="equals" env-name="rootInstanceContentId"/>
+                                <condition-expr field-name="contentId" operator="equals" env-name="contentId"/>
                            </condition-list>
 
                            <select-field field-name="rootRevisionContentId"/>

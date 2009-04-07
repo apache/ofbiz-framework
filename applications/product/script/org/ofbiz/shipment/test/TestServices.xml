@@ -123,7 +123,7 @@ under the License.
         
         <log level="info" message="==========Shipment Id============${createShipmentOutMap.shipmentId}=========="/>
         
-        <set field="updateShipmentInMap.shipmentId" from-field="createShipmentOutMap.shipmentId" />
+        <set field="updateShipmentInMap.shipmentId" from-field="createShipmentOutMap.shipmentId"/>
         <set field="updateShipmentInMap.statusId" value="SHIPMENT_SHIPPED"/>
         <set field="updateShipmentInMap.userLogin" from-field="userLogin"/>
         <call-service service-name="updateShipment" in-map-name="updateShipmentInMap">

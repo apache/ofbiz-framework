@@ -85,7 +85,7 @@ under the License.
                 <platform-specific>
                     <html>
                         <html-template
-                            location="component://example/webapp/example/reports/fonts.fo.ftl" />
+                            location="component://example/webapp/example/reports/fonts.fo.ftl"/>
                     </html>
                 </platform-specific>
             </widgets>

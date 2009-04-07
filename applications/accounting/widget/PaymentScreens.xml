@@ -60,7 +60,7 @@ under the License.
                 <set field="headerItem" value="payments"/>
                 <set field="tabButtonItem" value="editPayment"/>
                 <set field="paymentId" from-field="parameters.paymentId"/>
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -111,7 +111,7 @@ under the License.
                 <entity-one entity-name="Payment" value-field="payment">
                     <field-map field-name="paymentId" from-field="parameters.paymentId"/>
                 </entity-one>
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPaymentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -439,7 +439,7 @@ under the License.
         <section>
             <actions>
                 <!-- pass in paymentId to print one check, otherwise use multi form input -->
-                <set field="paymentId" from-field="parameters.paymentId" />
+                <set field="paymentId" from-field="parameters.paymentId"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/PrintChecks.groovy"/>

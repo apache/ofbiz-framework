@@ -27,7 +27,7 @@ under the License.
         <if-not-empty field="parameters.lastName">
             <set from-field="parameters.lastName" field="LookupMap.lastName"/>
         </if-not-empty>               
-        <find-by-and entity-name="Person" map="LookupMap" list="parties" /> 
+        <find-by-and entity-name="Person" map="LookupMap" list="parties"/> 
         <iterate entry="party" list="parties">
             <set from-field="party.firstName" field="resultEntry.label"/>
             <set from-field="party.partyId" field="resultEntry.value"/>

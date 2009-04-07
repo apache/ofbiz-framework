@@ -260,7 +260,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>    
-                                        <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml" /> 
+                                        <include-tree name="GlAccountTree" location="component://accounting/widget/AccountingTrees.xml"/> 
                                     </widgets>
                                 </section>
                             </container>                            
@@ -328,7 +328,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleListAccounts"/>
                 <set field="tabButtonItem" value="Chartofaccounts"/>
                 <!-- no longer works requies a fieldMap entity-and entity-name="GlAccount" list="entityList" use-cache="true" >
-                    <limit-range start="0" size="20" />
+                    <limit-range start="0" size="20"/>
                 </entity-and -->
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>

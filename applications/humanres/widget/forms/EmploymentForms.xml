@@ -271,7 +271,7 @@
     </form>
     <form name="AddPayrollPreference" type="single" target="createPayrollPreference" 
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="createPayrollPreference" />
+        <auto-fields-service service-name="createPayrollPreference"/>
         <field name="payrollPreferenceSeqId" title="${uiLabelMap.HumanResPayrollPreferenceSeqId}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPayRollPreference"/></field>
         <field name="partyId"><hidden/></field>
         <field name="roleTypeId"><hidden/></field>        

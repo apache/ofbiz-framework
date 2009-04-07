@@ -431,7 +431,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleLookupContactList"/>
                 <set field="contactListTabButtonItem" value="ContactListCommEvent"/>
                 <set field="labelTitleProperty" value="PageTitleLookupContactList"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupContactList}" />
+                <set field="title" value="${uiLabelMap.PageTitleLookupContactList}"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -452,7 +452,7 @@ under the License.
                 <set field="titleProperty" value="PageTitlePreferredContactMech"/>
                 <set field="contactListTabButtonItem" value="ContactListCommEvent"/>
                 <set field="labelTitleProperty" value="PageTitlePreferredContactMech"/>
-                <set field="title" value="${uiLabelMap.PageTitlePreferredContactMech}" />
+                <set field="title" value="${uiLabelMap.PageTitlePreferredContactMech}"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactLists"/>
                 <set field="partyId" from-field="parameters.parm0"/>

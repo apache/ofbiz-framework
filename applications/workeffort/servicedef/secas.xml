@@ -35,30 +35,30 @@ under the License.
     </eca>    
     <eca service="createCommunicationEventWorkEff" event="invoke">
         <condition field-name="communicationEventId" operator="is-empty"/>
-        <action service="createCommunicationEvent" mode="sync" />
+        <action service="createCommunicationEvent" mode="sync"/>
     </eca>
     <eca service="createWorkEffortRequest" event="invoke">
         <condition field-name="custRequestId" operator="is-empty"/>
-        <action service="createCustRequest" mode="sync" />
+        <action service="createCustRequest" mode="sync"/>
     </eca>
     <eca service="createWorkEffortRequestItem" event="invoke">
         <condition field-name="custRequestItemExists" operator="is-empty"/>
-        <action service="createCustRequestItem" mode="sync" />
+        <action service="createCustRequestItem" mode="sync"/>
     </eca>
     <eca service="createWorkEffortQuote" event="invoke">
         <condition field-name="quoteId" operator="is-empty"/>
-        <action service="createQuote" mode="sync" />
+        <action service="createQuote" mode="sync"/>
     </eca>
     <eca service="createWorkRequirementFulfillment" event="invoke">
         <condition field-name="requirementId" operator="is-empty"/>
-        <action service="createRequirement" mode="sync" />
+        <action service="createRequirement" mode="sync"/>
     </eca>
     <eca service="createShoppingListWorkEffort" event="invoke">
         <condition field-name="shoppingListId" operator="is-empty"/>
-        <action service="createShoppingList" mode="sync" />
+        <action service="createShoppingList" mode="sync"/>
     </eca>
     <eca service="createOrderHeaderWorkEffort" event="invoke">
         <condition field-name="orderId" operator="is-empty"/>
-        <action service="createOrderHeader" mode="sync" />
+        <action service="createOrderHeader" mode="sync"/>
     </eca>
 </service-eca>

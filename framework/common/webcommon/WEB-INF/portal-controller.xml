@@ -35,11 +35,11 @@ under the License.
     </request-map>
     <request-map uri="AddPortlet">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="AddPortlet" />
+        <response name="success" type="view" value="AddPortlet"/>
     </request-map>
     <request-map uri="EditPortlet">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditPortlet" />
+        <response name="success" type="view" value="EditPortlet"/>
     </request-map>
     <request-map uri="createPortalPagePortlet">
         <security https="true" auth="true"/>

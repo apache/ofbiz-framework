@@ -98,7 +98,7 @@ under the License.
                 </entity-and>
                 <iterate entry="portalPagePortlet" list="portalPagePortlets">
                     <set-service-fields service-name="createPortalPagePortlet" map="portalPagePortlet" to-map="createPortLet"/>
-                    <set field="createPortLet.portalPageId" from-field="portalPageId" />
+                    <set field="createPortLet.portalPageId" from-field="portalPageId"/>
                     <call-service service-name="createPortalPagePortlet" in-map-name="createPortLet"/>
                     <!-- copy the attributes -->
                     <entity-and entity-name="PortletAttribute" list="portletAttributes">
@@ -124,7 +124,7 @@ under the License.
                 <iterate entry="portalPageColumn" list="portalPageColumns">
                     <set-service-fields service-name="addPortalPageColumn" map="portalPageColumn" to-map="addColumnMap"/>
                     <clear-field field="addColumnMap.columnSeqId"/>
-                    <set field="addColumnMap.portalPageId" from-field="portalPageId" />
+                    <set field="addColumnMap.portalPageId" from-field="portalPageId"/>
                     <call-service service-name="addPortalPageColumn" in-map-name="addColumnMap"/>
                 </iterate>
                 

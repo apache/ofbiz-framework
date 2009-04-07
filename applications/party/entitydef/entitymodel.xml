@@ -598,8 +598,8 @@ under the License.
         <member-entity entity-alias="CECA" entity-name="CommEventContentAssoc"/>
         <member-entity entity-alias="CO" entity-name="Content"/>
         <member-entity entity-alias="DR" entity-name="DataResource"/>
-        <alias-all entity-alias="CECA" />
-        <alias-all entity-alias="CO" />
+        <alias-all entity-alias="CECA"/>
+        <alias-all entity-alias="CO"/>
         <alias-all entity-alias="DR" prefix="dr"/>
         <view-link entity-alias="CECA" rel-entity-alias="CO" rel-optional="false">
             <key-map field-name="contentId"/>
@@ -608,22 +608,22 @@ under the License.
             <key-map field-name="dataResourceId"/>
         </view-link>
         <relation type="one-nofk" rel-entity-name="ElectronicText">
-            <key-map field-name="dataResourceId" />
+            <key-map field-name="dataResourceId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="CommunicationEvent">
-            <key-map field-name="communicationEventId" />
+            <key-map field-name="communicationEventId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="ImageDataResource">
-            <key-map field-name="dataResourceId" />
+            <key-map field-name="dataResourceId"/>
         </relation>
         <relation type="one-nofk" rel-entity-name="OtherDataResource">
-            <key-map field-name="dataResourceId" />
+            <key-map field-name="dataResourceId"/>
         </relation>
         <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
-            <key-map field-name="contentId" rel-field-name="contentIdStart" />
+            <key-map field-name="contentId" rel-field-name="contentIdStart"/>
         </relation>
         <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
-            <key-map field-name="contentId" rel-field-name="contentIdStart" />
+            <key-map field-name="contentId" rel-field-name="contentIdStart"/>
         </relation>
         <relation type="many" title="From" rel-entity-name="ContentAssoc">
             <key-map field-name="contentId"/>
@@ -1550,8 +1550,8 @@ under the License.
         title="PartyAcctgPreference and PartyGroup Entity">
         <member-entity entity-alias="PTYACCPREF" entity-name="PartyAcctgPreference"/>
         <member-entity entity-alias="PTYGROUP" entity-name="PartyGroup"/>
-        <alias entity-alias="PTYACCPREF"  name="partyId" />
-        <alias entity-alias="PTYACCPREF"  name="baseCurrencyUomId" />
+        <alias entity-alias="PTYACCPREF"  name="partyId"/>
+        <alias entity-alias="PTYACCPREF"  name="baseCurrencyUomId"/>
         <alias entity-alias="PTYGROUP"  name="groupName"/>
         <view-link entity-alias="PTYACCPREF" rel-entity-alias="PTYGROUP">
             <key-map field-name="partyId"/>

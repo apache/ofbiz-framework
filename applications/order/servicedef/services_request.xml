@@ -183,9 +183,9 @@ under the License.
         invoke="createCustRequestContent"
         default-entity-name="CustRequestContent" auth="true">
         <description>Create a Customer Request Content</description>
-        <auto-attributes include="pk" mode="IN" optional="false" />
-        <auto-attributes include="nonpk" mode="IN" optional="true" />
-        <override name="fromDate" optional="true" />
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
     </service>
     <service name="deleteCustRequestContent" engine="simple"
         location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml"

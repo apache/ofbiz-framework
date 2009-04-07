@@ -35,18 +35,18 @@
     <Geo abbreviation="ZL" geoCode="ZL" geoId="NL-ZL" geoName="Zeeland" geoTypeId="PROVINCE"/>
     
     
-    <GeoAssoc geoId="NLD" geoIdTo="NL-DR" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-FL" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-FR" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-GL" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-GR" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-LB" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-NB" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-NH" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-OV" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-UT" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-ZE" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-ZH" geoAssocTypeId="REGIONS" />
-    <GeoAssoc geoId="NLD" geoIdTo="NL-ZL" geoAssocTypeId="REGIONS" />
+    <GeoAssoc geoId="NLD" geoIdTo="NL-DR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NLD" geoIdTo="NL-FL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NLD" geoIdTo="NL-FR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NLD" geoIdTo="NL-GL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NLD" geoIdTo="NL-GR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NLD" geoIdTo="NL-LB" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NLD" geoIdTo="NL-NB" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NLD" geoIdTo="NL-NH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NLD" geoIdTo="NL-OV" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NLD" geoIdTo="NL-UT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NLD" geoIdTo="NL-ZE" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NLD" geoIdTo="NL-ZH" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="NLD" geoIdTo="NL-ZL" geoAssocTypeId="REGIONS"/>
     
 </entity-engine-xml>

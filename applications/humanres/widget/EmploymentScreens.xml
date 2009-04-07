@@ -166,7 +166,7 @@
                 <set field="payrollPreferenceSeqId" from-field="parameters.payrollPreferenceSeqId"/>
                 <set field="partyId" from-field="parameters.partyIdTo"/>
                 <set field="roleTypeId" from-field="parameters.roleTypeIdTo"/>                
-                <entity-one entity-name="PayrollPreference" value-field="payrollPreference" />
+                <entity-one entity-name="PayrollPreference" value-field="payrollPreference"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -186,13 +186,13 @@
                 <set field="titleProperty" value="HumanResAddUnemploymentClaim"/>
                 <set field="headerItem" value="Employment"/>
                 <set field="tabButtonItem" value="EditUnemploymentClaims"/>
-                <set field="unemploymentClaimId" from-field="parameters.unemploymentClaimId" />
+                <set field="unemploymentClaimId" from-field="parameters.unemploymentClaimId"/>
                 <set field="roleTypeIdFrom" from-field="parameters.roleTypeIdFrom"/>
                 <set field="roleTypeIdTo" from-field="parameters.roleTypeIdTo"/>
                 <set field="partyIdTo" from-field="parameters.partyIdTo"/>
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
-                <entity-one entity-name="UnemploymentClaim" value-field="unemploymentClaim" />
+                <entity-one entity-name="UnemploymentClaim" value-field="unemploymentClaim"/>
             </actions>            
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">

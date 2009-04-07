@@ -900,33 +900,33 @@ under the License.
         <response name="error" type="view" value="EditFixedAssetMaint"/>
     </request-map>
     <request-map uri="LookupWorkEffort">
-        <security https="true" auth="true" />
-        <response name="success" type="view" value="LookupWorkEffort" />
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="LookupWorkEffort"/>
     </request-map>
     <request-map uri="LookupOrderHeader">
-        <security https="true" auth="true" />
-        <response name="success" type="view" value="LookupOrderHeader" />
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="LookupOrderHeader"/>
     </request-map>
     <!-- FixedAssetMaintenance Calendar -->
     <request-map uri="day">
-        <security https="true" auth="true" />
-        <response name="success" type="view" value="FixedAssetDay" />
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FixedAssetDay"/>
     </request-map>
     <request-map uri="week">
-        <security https="true" auth="true" />
-        <response name="success" type="view" value="FixedAssetWeek" />
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FixedAssetWeek"/>
     </request-map>
     <request-map uri="month">
-        <security https="true" auth="true" />
-        <response name="success" type="view" value="FixedAssetMonth" />
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FixedAssetMonth"/>
     </request-map>
     <request-map uri="EditWorkEffort">
-        <security https="true" auth="true" />
-        <response name="success" type="view" value="EditFixedAssetMaint" />
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditFixedAssetMaint"/>
     </request-map>
     <request-map uri="WorkEffortSummary">
-        <security https="true" auth="true" />
-        <response name="success" type="view" value="WorkEffortSummary" />
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="WorkEffortSummary"/>
     </request-map>
     <!-- FixedAssetMaintenance Order -->
     <request-map uri="EditFixedAssetMaintOrders">
@@ -2132,8 +2132,8 @@ under the License.
     <view-map name="LookupPayment" page="component://accounting/widget/LookupScreens.xml#LookupPayment" type="screen"/>
     <view-map name="LookupInvoice" page="component://accounting/widget/LookupScreens.xml#LookupInvoice" type="screen"/>
 
-    <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort" />
-    <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader" />
+    <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
+    <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader"/>
     <view-map name="LookupFacility" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacility"/>
     <view-map name="LookupFacilityLocation" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation"/>
     <view-map name="LookupShipment" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupShipment"/>

@@ -98,56 +98,56 @@
     <!-- TO DO
     
     <request-map uri="UploadOagisMessage">
-        <security https="true" auth="true" />
-        <response name="success" type="view" value="UploadOagisMessage" />
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="UploadOagisMessage"/>
     </request-map>
     
     <request-map uri="importConfirmBODOagisMessage">
-        <security https="true" auth="true" />
-        <event type="service" path="" invoke="importConfirmBOD" />
-        <response name="success" type="view" value="UploadOagisMessage" />
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="importConfirmBOD"/>
+        <response name="success" type="view" value="UploadOagisMessage"/>
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
     
     <request-map uri="importSyncInventoryOagisMessage">
-        <security https="true" auth="true" />
-        <event type="service" path="" invoke="importConfirmBOD" />
-        <response name="success" type="view" value="UploadOagisMessage" />
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="importConfirmBOD"/>
+        <response name="success" type="view" value="UploadOagisMessage"/>
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
     
     <request-map uri="importAcknowledgementDeliveryOagisMessage">
-        <security https="true" auth="true" />
-        <event type="service" path="" invoke="importConfirmBOD" />
-        <response name="success" type="view" value="UploadOagisMessage" />
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="importConfirmBOD"/>
+        <response name="success" type="view" value="UploadOagisMessage"/>
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
     
     <request-map uri="importProcessShipmentOagisMessage">
-        <security https="true" auth="true" />
-        <event type="service" path="" invoke="importConfirmBOD" />
-        <response name="success" type="view" value="UploadOagisMessage" />
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="importConfirmBOD"/>
+        <response name="success" type="view" value="UploadOagisMessage"/>
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
     
     <request-map uri="importShowShipmentOagisMessage">
-        <security https="true" auth="true" />
-        <event type="service" path="" invoke="importConfirmBOD" />
-        <response name="success" type="view" value="UploadOagisMessage" />
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="importConfirmBOD"/>
+        <response name="success" type="view" value="UploadOagisMessage"/>
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
     
     <request-map uri="importAcknowledgementDeliveryOagisMessage">
-        <security https="true" auth="true" />
-        <event type="service" path="" invoke="importConfirmBOD" />
-        <response name="success" type="view" value="UploadOagisMessage" />
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="importConfirmBOD"/>
+        <response name="success" type="view" value="UploadOagisMessage"/>
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
     
     <request-map uri="importReceiveDeliveryOagisMessage">
-        <security https="true" auth="true" />
-        <event type="service" path="" invoke="importConfirmBOD" />
-        <response name="success" type="view" value="UploadOagisMessage" />
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="importConfirmBOD"/>
+        <response name="success" type="view" value="UploadOagisMessage"/>
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
     -->

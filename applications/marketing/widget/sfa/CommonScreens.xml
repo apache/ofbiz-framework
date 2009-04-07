@@ -336,13 +336,13 @@ under the License.
                                         <container style="profile-right">
                                             <section>
                                                 <actions>
-                                                    <set field="parameters.partyId" from-field="partyId" />
+                                                    <set field="parameters.partyId" from-field="partyId"/>
                                                 </actions>
                                                 <widgets>
                                                     <include-screen name="Content"
-                                                        location="component://party/widget/partymgr/ProfileScreens.xml" />
+                                                        location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                                     <include-screen name="Notes"
-                                                        location="component://party/widget/partymgr/ProfileScreens.xml" />
+                                                        location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                                 </widgets>
                                             </section>  
                                         </container>

@@ -280,7 +280,7 @@ under the License.
                 <if-compare value="VENDOR_RETURN" field="returnHeader.returnHeaderTypeId" operator="equals"/>
             </condition>
             <then>
-                <set field="shipmentCtx.shipmentTypeId" value="PURCHASE_RETURN" />
+                <set field="shipmentCtx.shipmentTypeId" value="PURCHASE_RETURN"/>
                 <set field="shipmentCtx.statusId" value="SHIPMENT_INPUT"/>
             </then>        
         </else-if>

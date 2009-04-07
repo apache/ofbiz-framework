@@ -184,7 +184,7 @@ under the License.
             <display-entity entity-name="TermType"/>
         </field>
         <field name="invoiceItemTypeId">
-            <display-entity entity-name="InvoiceItemType" />
+            <display-entity entity-name="InvoiceItemType"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeAgreementItemTerm" description="${uiLabelMap.CommonRemove}" also-hidden="false">
@@ -203,7 +203,7 @@ under the License.
                 <order-by field-name="agreementTermId"/>
             </entity-and>
         </actions>
-        <auto-fields-service service-name="updateAgreementTerm" />
+        <auto-fields-service service-name="updateAgreementTerm"/>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
         <field name="agreementTermId" ><hidden/></field>
         <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
@@ -567,7 +567,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="AgreementWorkEffortAppl" use-cache="true" list="agreementWorkEffortAppls">
-                <field-map from-field="agreementId" field-name="agreementId" />
+                <field-map from-field="agreementId" field-name="agreementId"/>
             </entity-and>
         </actions>  
         <field name="agreementItemSeqId"><display/></field>

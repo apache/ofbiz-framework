@@ -28,7 +28,7 @@ under the License.
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp field="nowTimestamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimestamp" />
+            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
 
         <create-value value-field="newEntity"/>
@@ -62,7 +62,7 @@ under the License.
         <set-service-fields service-name="createProductConfigItemContent" map="parameters" to-map="createProductConfigItemContent"/>
         <set-service-fields service-name="createSimpleTextContent" map="parameters" to-map="createSimpleText"/>
         <call-service service-name="createSimpleTextContent" in-map-name="createSimpleText" break-on-error="true" >
-            <result-to-field result-name="contentId" field="createProductConfigItemContent.contentId" />
+            <result-to-field result-name="contentId" field="createProductConfigItemContent.contentId"/>
         </call-service>
         <call-service service-name="createProductConfigItemContent" in-map-name="createProductConfigItemContent"/>
     </simple-method>

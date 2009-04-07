@@ -52,7 +52,7 @@ under the License.
     </form>
     <form name="lookupBillingAccount" target="LookupBillingAccount" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="BillingAccount" default-field-type="hidden" />
+        <auto-fields-entity entity-name="BillingAccount" default-field-type="hidden"/>
         <field name="billingAccountId" title="${uiLabelMap.AccountingBillingAccountId}"><text-find/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
         <field name="externalAccountId" title="${uiLabelMap.AccountingExternalAccountId}"><text-find/></field>
@@ -115,7 +115,7 @@ under the License.
     </form>
     <form name="lookupPayment" target="LookupPayment" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="Payment" default-field-type="hidden" />
+        <auto-fields-entity entity-name="Payment" default-field-type="hidden"/>
         <field name="paymentId" title="${uiLabelMap.AccountingPaymentID}"><text-find/></field>
         <field name="partyIdFrom"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo"><lookup target-form-name="LookupPartyName"/></field>

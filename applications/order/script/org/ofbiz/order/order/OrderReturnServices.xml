@@ -851,7 +851,7 @@ under the License.
         <iterate entry="returnItem" list="returnItems">
             <set field="returnItemMap.returnId" from-field="parameters.returnId"/>
             <set field="returnItemMap.returnItemSeqId" from-field="returnItem.returnItemSeqId"/>
-            <set field="returnItemMap.statusId" value="RETURN_CANCELLED" />
+            <set field="returnItemMap.statusId" value="RETURN_CANCELLED"/>
             <call-service service-name="updateReturnItem" in-map-name="returnItemMap"/>
         </iterate>
     </simple-method>

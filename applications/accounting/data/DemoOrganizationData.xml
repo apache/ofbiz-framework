@@ -66,7 +66,7 @@ under the License.
     <PartyRelationship partyIdFrom="Company" partyIdTo="TESTING" partyRelationshipTypeId="GROUP_ROLLUP" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" fromDate="2001-05-13 00:00:00.000"/>
     
     <!-- demo rates -->
-    <RateAmount rateTypeId="STANDARD" rateCurrencyUomId="USD" periodTypeId="RATE_HOUR" workEffortId="_NA_" partyId="_NA_" emplPositionTypeId="_NA_" fromDate="2000-01-01 00:00:00.000" rateAmount="95.0" />
+    <RateAmount rateTypeId="STANDARD" rateCurrencyUomId="USD" periodTypeId="RATE_HOUR" workEffortId="_NA_" partyId="_NA_" emplPositionTypeId="_NA_" fromDate="2000-01-01 00:00:00.000" rateAmount="95.0"/>
     <RateAmount rateTypeId="DISCOUNTED" rateCurrencyUomId="USD" periodTypeId="RATE_HOUR" workEffortId="_NA_" partyId="_NA_" emplPositionTypeId="_NA_" fromDate="2000-01-01 00:00:00.000" rateAmount="55.0"/>
     <RateAmount rateTypeId="OVERTIME" rateCurrencyUomId="USD" periodTypeId="RATE_HOUR" workEffortId="_NA_" partyId="_NA_" emplPositionTypeId="_NA_" fromDate="2000-01-01 00:00:00.000" rateAmount="125.0"/>
     

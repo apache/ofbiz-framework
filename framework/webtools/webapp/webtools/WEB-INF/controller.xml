@@ -80,7 +80,7 @@ under the License.
     </request-map>
     
     <request-map uri="TestService">
-        <event type="service" invoke="testScv" />
+        <event type="service" invoke="testScv"/>
         <response name="error" type="view" value="error"/>
         <response name="success" type="view" value="error"/>
     </request-map>
@@ -530,11 +530,11 @@ under the License.
 
     <!-- Temporal expression view mapping -->
     <request-map uri="editTemporalExpression">
-        <security https="true" auth="true" />
+        <security https="true" auth="true"/>
         <response name="success" type="view" value="editTemporalExpression"/>
     </request-map>
     <request-map uri="findTemporalExpression">
-        <security https="true" auth="true" />
+        <security https="true" auth="true"/>
         <response name="success" type="view" value="findTemporalExpression"/>
     </request-map>
 

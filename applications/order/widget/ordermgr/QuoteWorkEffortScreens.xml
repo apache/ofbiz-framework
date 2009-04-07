@@ -63,7 +63,7 @@ under the License.
                 <set field="tabButtonItem" value="QuoteWorkEfforts"/>
                 <set field="labelTitleProperty" value="PageTitleEditQuoteWorkEffort"/>
 
-                <set field="donePage" from-field="parameters.DONE_PAGE" />
+                <set field="donePage" from-field="parameters.DONE_PAGE"/>
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="Quote" value-field="quote"/>

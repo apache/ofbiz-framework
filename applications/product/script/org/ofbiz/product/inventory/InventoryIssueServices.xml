@@ -43,14 +43,14 @@ under the License.
                         <if-not-empty field="orderItem.productId">
                             <clear-field field="callSvcMap"/>
                             <set-service-fields to-map="callSvcMap" service-name="issueImmediatelyFulfilledOrderItem" map="orderItem"/>
-                            <set field="callSvcMap.orderHeader" from-field="orderHeader" />
-                            <set field="callSvcMap.orderItem" from-field="orderItem" />
-                            <set field="callSvcMap.productStore" from-field="productStore" />
+                            <set field="callSvcMap.orderHeader" from-field="orderHeader"/>
+                            <set field="callSvcMap.orderItem" from-field="orderItem"/>
+                            <set field="callSvcMap.productStore" from-field="productStore"/>
                             <call-service service-name="issueImmediatelyFulfilledOrderItem" in-map-name="callSvcMap"/>
                         </if-not-empty>
                     </iterate>
                     <!-- now that the issuance is done, set the needsInventoryIssuance=N -->
-                    <set field="orderHeader.needsInventoryIssuance" value="N" />
+                    <set field="orderHeader.needsInventoryIssuance" value="N"/>
                     <store-value value-field="orderHeader"/>
                     <log level="info" message="Issued inventory for orderId ${orderHeader.orderId}."/>
                 <else>
@@ -64,7 +64,7 @@ under the License.
         <if-empty field="parameters.orderItem">
             <entity-one entity-name="OrderItem" value-field="orderItem"/>
         <else>
-            <set field="orderItem" from-field="parameters.orderItem" />
+            <set field="orderItem" from-field="parameters.orderItem"/>
         </else>
         </if-empty>
 
@@ -76,7 +76,7 @@ under the License.
             <if-empty field="parameters.orderHeader">
                 <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
             <else>
-                <set field="orderHeader" from-field="parameters.orderHeader" />
+                <set field="orderHeader" from-field="parameters.orderHeader"/>
             </else>
             </if-empty>
             
@@ -86,22 +86,22 @@ under the License.
                     <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
                 </entity-one>
             <else>
-                <set field="productStore" from-field="parameters.productStore" />
+                <set field="productStore" from-field="parameters.productStore"/>
             </else>
             </if-empty>
             
             <!-- before we do the find, put together the orderBy list based on which reserveOrderEnumId is specified -->
             <if-compare value="INVRO_FIFO_EXP" operator="equals" field="productStore.reserveOrderEnumId">
-                <set field="orderByString" value="+expireDate" />
+                <set field="orderByString" value="+expireDate"/>
             <else>
                 <if-compare value="INVRO_LIFO_EXP" operator="equals" field="productStore.reserveOrderEnumId">
-                    <set field="orderByString" value="-expireDate" />
+                    <set field="orderByString" value="-expireDate"/>
                 <else>
                     <if-compare value="INVRO_LIFO_REC" operator="equals" field="productStore.reserveOrderEnumId">
-                        <set field="orderByString" value="+datetimeReceived" />
+                        <set field="orderByString" value="+datetimeReceived"/>
                     <else>
                         <!-- the default reserveOrderEnumId is INVRO_FIFO_REC, ie FIFO based on date received -->
-                        <set field="orderByString" value="-datetimeReceived" />
+                        <set field="orderByString" value="-datetimeReceived"/>
                     </else>
                     </if-compare>
                 </else>
@@ -109,11 +109,11 @@ under the License.
             </else>
             </if-compare>
             <field-to-list field="orderByString" list="orderByList"/>
-            <set field="lookupFieldMap.productId" from-field="orderItem.productId" />
-            <set field="lookupFieldMap.facilityId" from-field="orderHeader.originFacilityId" />            
+            <set field="lookupFieldMap.productId" from-field="orderItem.productId"/>
+            <set field="lookupFieldMap.facilityId" from-field="orderHeader.originFacilityId"/>            
             <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list="inventoryItemList" order-by-list="orderByList"/>
     
-            <set field="parameters.quantityNotIssued" from-field="orderItem.quantity" />
+            <set field="parameters.quantityNotIssued" from-field="orderItem.quantity"/>
 
             <iterate entry="inventoryItem" list="inventoryItemList">
                 <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
@@ -124,20 +124,20 @@ under the License.
             <if-compare field="parameters.quantityNotIssued" operator="not-equals" value="0" type="BigDecimal">
                 <if-not-empty field="lastNonSerInventoryItem">
                     <!-- create ItemIssuance record -->
-                    <set field="issuanceCreateMap.orderId" from-field="parameters.orderId" />
-                    <set field="issuanceCreateMap.orderItemSeqId" from-field="parameters.orderItemSeqId" />
-                    <set field="issuanceCreateMap.inventoryItemId" from-field="lastNonSerInventoryItem.inventoryItemId" />
-                    <set field="issuanceCreateMap.quantity" from-field="parameters.quantityNotIssued" />
+                    <set field="issuanceCreateMap.orderId" from-field="parameters.orderId"/>
+                    <set field="issuanceCreateMap.orderItemSeqId" from-field="parameters.orderItemSeqId"/>
+                    <set field="issuanceCreateMap.inventoryItemId" from-field="lastNonSerInventoryItem.inventoryItemId"/>
+                    <set field="issuanceCreateMap.quantity" from-field="parameters.quantityNotIssued"/>
                     <call-service service-name="createItemIssuance" in-map-name="issuanceCreateMap">
                         <result-to-field result-name="itemIssuanceId"/>
                     </call-service>
 
                     <!-- subtract from quantityNotIssued from the availableToPromise and quantityOnHand of existing inventory item -->
                     <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
-                    <set field="createDetailMap.inventoryItemId" from-field="lastNonSerInventoryItem.inventoryItemId" />
-                    <set field="createDetailMap.orderId" from-field="parameters.orderId" />
-                    <set field="createDetailMap.orderItemSeqId" from-field="parameters.orderItemSeqId" />                                        
-                    <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId" />                    
+                    <set field="createDetailMap.inventoryItemId" from-field="lastNonSerInventoryItem.inventoryItemId"/>
+                    <set field="createDetailMap.orderId" from-field="parameters.orderId"/>
+                    <set field="createDetailMap.orderItemSeqId" from-field="parameters.orderItemSeqId"/>                                        
+                    <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId"/>                    
                     <calculate field="createDetailMap.availableToPromiseDiff">
                         <calcop field="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
@@ -160,19 +160,19 @@ under the License.
                     </call-service>
 
                     <!-- create ItemIssuance record -->
-                    <set field="issuanceCreateMap.orderId" from-field="parameters.orderId" />
-                    <set field="issuanceCreateMap.orderItemSeqId" from-field="parameters.orderItemSeqId" />
+                    <set field="issuanceCreateMap.orderId" from-field="parameters.orderId"/>
+                    <set field="issuanceCreateMap.orderItemSeqId" from-field="parameters.orderItemSeqId"/>
                     <set field="issuanceCreateMap.inventoryItemId" from-field="createInvItemOutMap.inventoryItemId"/>
-                    <set field="issuanceCreateMap.quantity" from-field="parameters.quantityNotIssued" />
+                    <set field="issuanceCreateMap.quantity" from-field="parameters.quantityNotIssued"/>
                     <call-service service-name="createItemIssuance" in-map-name="issuanceCreateMap">
                         <result-to-field result-name="itemIssuanceId"/>
                     </call-service>
 
                     <!-- also create a detail record with the quantities -->
                     <set field="createDetailMap.inventoryItemId" from-field="createInvItemOutMap.inventoryItemId"/>
-                    <set field="createDetailMap.orderId" from-field="parameters.orderId" />
-                    <set field="createDetailMap.orderItemSeqId" from-field="parameters.orderItemSeqId" />
-                    <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId" />
+                    <set field="createDetailMap.orderId" from-field="parameters.orderId"/>
+                    <set field="createDetailMap.orderItemSeqId" from-field="parameters.orderItemSeqId"/>
+                    <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId"/>
                     <calculate field="createDetailMap.availableToPromiseDiff">
                         <calcop field="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
@@ -196,7 +196,7 @@ under the License.
             <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId">
                 <if-compare value="INV_AVAILABLE" operator="equals" field="inventoryItem.statusId">
                     <!-- change status on inventoryItem -->
-                    <set field="inventoryItem.statusId" value="INV_DELIVERED" />
+                    <set field="inventoryItem.statusId" value="INV_DELIVERED"/>
                     <set-service-fields service-name="updateInventoryItem"  map="inventoryItem" to-map="inventoryItemMap"/>
                     <call-service service-name="updateInventoryItem" in-map-name="inventoryItemMap"/>
 
@@ -228,26 +228,26 @@ under the License.
                     </condition>
                     <then>
                         <if-compare-field field="parameters.quantityNotIssued" to-field="inventoryItem.availableToPromiseTotal" operator="greater" type="BigDecimal">
-                            <set field="parameters.deductAmount" from-field="inventoryItem.availableToPromiseTotal" />
+                            <set field="parameters.deductAmount" from-field="inventoryItem.availableToPromiseTotal"/>
                         <else>
-                            <set field="parameters.deductAmount" from-field="parameters.quantityNotIssued" />
+                            <set field="parameters.deductAmount" from-field="parameters.quantityNotIssued"/>
                         </else>
                         </if-compare-field>
                         
                         <!-- create ItemIssuance record -->
-                        <set field="issuanceCreateMap.orderId" from-field="parameters.orderId" />
-                        <set field="issuanceCreateMap.orderItemSeqId" from-field="parameters.orderItemSeqId" />
-                        <set field="issuanceCreateMap.inventoryItemId" from-field="inventoryItem.inventoryItemId" />                                                
-                        <set field="issuanceCreateMap.quantity" from-field="parameters.deductAmount" />                                                                        
+                        <set field="issuanceCreateMap.orderId" from-field="parameters.orderId"/>
+                        <set field="issuanceCreateMap.orderItemSeqId" from-field="parameters.orderItemSeqId"/>
+                        <set field="issuanceCreateMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>                                                
+                        <set field="issuanceCreateMap.quantity" from-field="parameters.deductAmount"/>                                                                        
                         <call-service service-name="createItemIssuance" in-map-name="issuanceCreateMap">
                             <result-to-field result-name="itemIssuanceId"/>
                         </call-service>
 
                         <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
-                        <set field="createDetailMap.inventoryItemId" from-field="inventoryItem.inventoryItemId" />
-                        <set field="createDetailMap.orderId" from-field="parameters.orderId" />
-                        <set field="createDetailMap.orderItemSeqId" from-field="parameters.orderItemSeqId" />
-                        <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId" />
+                        <set field="createDetailMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
+                        <set field="createDetailMap.orderId" from-field="parameters.orderId"/>
+                        <set field="createDetailMap.orderItemSeqId" from-field="parameters.orderItemSeqId"/>
+                        <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId"/>
                         <!-- update availableToPromiseDiff AND quantityOnHandDiff since this is an issuance -->
                         <calculate field="createDetailMap.availableToPromiseDiff">
                             <calcop field="parameters.deductAmount" operator="negative"/>
@@ -269,7 +269,7 @@ under the License.
 
                         <!-- keep track of the last non-serialized inventory item for use if inventory is not sufficient for amount already issued -->
                         <!-- use env variable named lastNonSerInventoryItem -->
-                        <set field="lastNonSerInventoryItem" from-field="inventoryItem" />
+                        <set field="lastNonSerInventoryItem" from-field="inventoryItem"/>
                     </then>
                 </if>
             </if-compare>

@@ -204,11 +204,11 @@ under the License.
                 <set field="currentContentMenuItemName" value="contentassoc" to-scope="user"/>                
                 <set field="extraFunctionName" value="'${uiLabelMap.CommonFrom}'"/>
                 <set field="tabButtonItem" value="association"/>
-                <set field="contentId" from-field="parameters.contentId"  />
-                <set field="contentIdTo" from-field="parameters.contentIdTo"  />
+                <set field="contentId" from-field="parameters.contentId"/>
+                <set field="contentIdTo" from-field="parameters.contentIdTo"/>
                 <set field="contentAssocTypeId" from-field="parameters.contentAssocTypeId"  default-value="${defaultContentAssocTypeId}"/>
                 <set field="contentAssocTypeId" from-field="contentAssocTypeId" to-scope="user"/>
-                <set field="fromDate" from-field="parameters.fromDate"  />
+                <set field="fromDate" from-field="parameters.fromDate"/>
                 <entity-one entity-name="Content" value-field="currentValue"/>
             </actions>
             <widgets>
@@ -307,7 +307,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditContentRole"/>
                 <set field="tabButtonItem" value="role"/>
                 
-                <set field="contentId" from-field="parameters.contentId"  />
+                <set field="contentId" from-field="parameters.contentId"/>
                 <set field="contentRoleTarget" value=""/>
                 <entity-one entity-name="Content" value-field="currentValue">
                     <field-map field-name="contentId" from-field="parameters.contentId"/>
@@ -332,7 +332,7 @@ under the License.
                 <script location="component://content/widget/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentPurpose"/>
                 <set field="tabButtonItem" value="purpose"/>
-                <set field="contentId" from-field="parameters.contentId"  />
+                <set field="contentId" from-field="parameters.contentId"/>
                 <entity-one entity-name="Content" value-field="currentValue">
                     <field-map field-name="contentId" from-field="parameters.contentId"/>
                 </entity-one>
@@ -356,7 +356,7 @@ under the License.
                 <script location="component://content/widget/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentAttribute"/>
                 <set field="tabButtonItem" value="attribute"/>
-                <set field="contentId" from-field="parameters.contentId"  />
+                <set field="contentId" from-field="parameters.contentId"/>
                 <entity-one entity-name="Content" value-field="currentValue">
                     <field-map field-name="contentId" from-field="parameters.contentId"/>
                 </entity-one>
@@ -416,7 +416,7 @@ under the License.
                 <script location="component://content/widget/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentMetadata"/>
                 <set field="tabButtonItem" value="metaData"/>
-                <set field="contentId" from-field="parameters.contentId"  />
+                <set field="contentId" from-field="parameters.contentId"/>
                 <entity-one entity-name="Content" value-field="currentValue">
                     <field-map field-name="contentId" from-field="parameters.contentId"/>
                 </entity-one>
@@ -440,7 +440,7 @@ under the License.
                 <script location="component://content/widget/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentWorkEffort"/>
                 <set field="tabButtonItem" value="workEffort"/>
-                <set field="contentId" from-field="parameters.contentId"  />
+                <set field="contentId" from-field="parameters.contentId"/>
                 <entity-one entity-name="Content" value-field="currentValue">
                     <field-map field-name="contentId" from-field="parameters.contentId"/>
                 </entity-one>

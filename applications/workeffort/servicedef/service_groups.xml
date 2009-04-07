@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-group.xsd">
     
     <group name="updateWorkEffortAndAssoc" send-mode="all"  >
-        <invoke name="updateWorkEffort" mode="sync" />
+        <invoke name="updateWorkEffort" mode="sync"/>
         <invoke name="updateWorkEffortAssoc" mode="sync"/>
     </group>
     <group name="createWorkEffortRequestItemAndRequestItem" send-mode="all"  >

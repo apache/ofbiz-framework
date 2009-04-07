@@ -462,7 +462,7 @@ under the License.
         <section>
             <actions>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
-                <set field="parameters.workEffortParentId" from-field="projectId" />
+                <set field="parameters.workEffortParentId" from-field="projectId"/>
             </actions>
             <widgets>
                 <container style="screenlet">

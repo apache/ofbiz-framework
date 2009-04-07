@@ -211,18 +211,18 @@ under the License.
     <screen name="FindForumThreads">
         <section>
             <actions>
-                <set field="contentId" from-field="parameters.forumId" />
-                <set field="responseContentId" from-field="parameters.forumId" />
-                <set field="threadContentId" from-field="parameters.threadContentId" default-value="${contentId}" />
-                <set field="forumId" from-field="parameters.forumId" />
+                <set field="contentId" from-field="parameters.forumId"/>
+                <set field="responseContentId" from-field="parameters.forumId"/>
+                <set field="threadContentId" from-field="parameters.threadContentId" default-value="${contentId}"/>
+                <set field="forumId" from-field="parameters.forumId"/>
                 <entity-one entity-name="Content" value-field="content" use-cache="true">
                     <field-map field-name="contentId" from-field="contentId"/>
                 </entity-one>
-                <set field="ownerContentId" from-field="content.ownerContentId" default-value="${forumId}" />
-                <set field="trail" from-field="threadContentId" />
+                <set field="ownerContentId" from-field="content.ownerContentId" default-value="${forumId}"/>
+                <set field="trail" from-field="threadContentId"/>
                 <set field="enableEdit" value="false"/>
                 <set field="webPutPt" from-field="parameters.forumGroupId"/>
-                <set field="rsp.contentName" value="${content.contentName}" />
+                <set field="rsp.contentName" value="${content.contentName}"/>
                 <set field="titleProperty" value="PageTitleFindForumMessages"/>
                 <set field="headerItem" value="ForumMessages"/>
                 <set field="tabBar" value="ForumMessagesTabBar"/>
@@ -249,7 +249,7 @@ under the License.
             <widgets>
                 <decorator-screen name="commonForumDecorator" location="${parameters.forumDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-tree name="MessageTree" location="component://content/widget/forum/ForumTrees.xml" /> 
+                        <include-tree name="MessageTree" location="component://content/widget/forum/ForumTrees.xml"/> 
                         <section>
                             <condition>
                                 <not><if-empty field="parameters.forumThreadId"/></not>

@@ -223,7 +223,7 @@ under the License.
                     location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-screen name="MyCompanyComms"
-                            location="component://myportal/widget/MyPortalScreens.xml" />
+                            location="component://myportal/widget/MyPortalScreens.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -250,7 +250,7 @@ under the License.
                     location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-screen name="MyCommunications"
-                            location="component://myportal/widget/MyPortalScreens.xml" />
+                            location="component://myportal/widget/MyPortalScreens.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -262,7 +262,7 @@ under the License.
                 <decorator-screen name="main-decorator"
                     location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                                <include-screen name="MyTasks" location="component://myportal/widget/MyPortalScreens.xml" />
+                                <include-screen name="MyTasks" location="component://myportal/widget/MyPortalScreens.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -275,7 +275,7 @@ under the License.
                     location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-screen name="OtherCommunications"
-                            location="component://myportal/widget/MyPortalScreens.xml" />
+                            location="component://myportal/widget/MyPortalScreens.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

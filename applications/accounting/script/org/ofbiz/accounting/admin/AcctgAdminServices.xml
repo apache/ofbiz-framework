@@ -43,7 +43,7 @@ under the License.
     
     <simple-method method-name="getPartyAccountingPreferences"
             short-description="Get the accounting preference settings for a party (organization)">
-        <make-value entity-name="PartyAcctgPreference" value-field="aggregatedPartyAcctgPref" />
+        <make-value entity-name="PartyAcctgPreference" value-field="aggregatedPartyAcctgPref"/>
         <set field="currentOrganizationPartyId" from-field="parameters.organizationPartyId"/>
         <set field="containsEmptyFields" type="Boolean" value="true"/>
         <while>
@@ -114,8 +114,8 @@ under the License.
         <!-- find the existing exchange rates for this currency pair -->
         <entity-condition entity-name="UomConversionDated" list="uomConversions" filter-by-date="true">
             <condition-list>
-                <condition-expr field-name="uomId" operator="equals" from-field="parameters.uomId" />
-                <condition-expr field-name="uomIdTo" operator="equals" from-field="parameters.uomIdTo" />
+                <condition-expr field-name="uomId" operator="equals" from-field="parameters.uomId"/>
+                <condition-expr field-name="uomIdTo" operator="equals" from-field="parameters.uomIdTo"/>
                 <condition-expr field-name="purposeEnumId" operator="equals" from-field="parameters.purposeEnumId" ignore-if-empty="true"/>
             </condition-list>
         </entity-condition>

@@ -23,21 +23,21 @@ under the License.
 
 <!-- DEJ20050428 Commenting out for now, does not appear to be used anywhere
     <simple-method method-name="captureAll" short-description="Capture Payments for Orders" login-required="false">
-        <field-to-field field-name="orderStatusId" map-name="parameters" to-map-name="orderLookup" />
-        <field-to-field field-name="currency" map-name="parameters" to-map-name="captureParams" />
-        <string-to-field string="PAYMENT_AUTHORIZED" field-name="paymentStatusId" map-name="orderLookup" />
-        <find-by-and entity-name="OrderHeaderAndPaymentPref" map="orderLookup" list="orderHeaderAndPaymentPrefs" />
+        <field-to-field field-name="orderStatusId" map-name="parameters" to-map-name="orderLookup"/>
+        <field-to-field field-name="currency" map-name="parameters" to-map-name="captureParams"/>
+        <string-to-field string="PAYMENT_AUTHORIZED" field-name="paymentStatusId" map-name="orderLookup"/>
+        <find-by-and entity-name="OrderHeaderAndPaymentPref" map="orderLookup" list="orderHeaderAndPaymentPrefs"/>
         <iterate entry="orderHeaderAndPaymentPref" list="orderHeaderAndPaymentPrefs" >
-            <field-to-field map-name="orderHeaderAndPaymentPref" field-name="orderId" to-map-name="captureParams" />
+            <field-to-field map-name="orderHeaderAndPaymentPref" field-name="orderId" to-map-name="captureParams"/>
             <call-service service-name="capturePayment" in-map-name="captureParams" error-code="ignore-error">
-                <result-to-field map-name="captureResult" result-name="responseMessage" />
+                <result-to-field map-name="captureResult" result-name="responseMessage"/>
             </call-service>
             <if-compare operator="equals" field="captureResult.responseMessage" value="error">
-                <field-to-list map-name="orderHeaderAndPaymentPref" field="orderId" list="badOrders" />
+                <field-to-list map-name="orderHeaderAndPaymentPref" field="orderId" list="badOrders"/>
             </if-compare>
         </iterate>
         <if-not-empty field="badOrders">
-            <string-to-field string="mail.smtp.host" field-name="sendType" map-name="emailParams" />
+            <string-to-field string="mail.smtp.host" field-name="sendType" map-name="emailParams"/>
 
             <property-to-field resource="payment" property="mailhost" field="sendVia" map-name="emailParams"/>
             <property-to-field resource="payment" property="sendTo" field="sendTo" map-name="emailParams"/>

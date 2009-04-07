@@ -23,7 +23,7 @@ under the License.
     <!-- LayoutFind forms -->
     <form name="findLayout" default-entity-name="Content" target="FindLayout" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <!--<auto-fields-entity entity-name="Content" default-field-type="find" />-->
+        <!--<auto-fields-entity entity-name="Content" default-field-type="find"/>-->
         <field name="contentTypeId">
             <hidden value="DOCUMENT"/>
         </field>
@@ -37,13 +37,13 @@ under the License.
             <text-find/>
         </field>
         <field name="createdByUserLogin">
-             <lookup target-form-name="LookupPerson" />
+             <lookup target-form-name="LookupPerson"/>
         </field>
         <field name="createdDate">
             <date-find/>
         </field>
         <field name="lastModifiedByUserLogin">
-             <lookup target-form-name="LookupParty" />
+             <lookup target-form-name="LookupParty"/>
         </field>
         <field name="lastModifiedDate">
             <date-find/>
@@ -118,8 +118,8 @@ under the License.
         </field>
         <field name="drMimeTypeId" >
             <drop-down no-current-selected-key="text/html">
-                <option key="text/html" description="${uiLabelMap.ContentHtmlText}" />
-                <option key="text/plain" description="${uiLabelMap.ContentPlainText}" />
+                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
+                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
             </drop-down>
         </field>
         <field name="drDataResourceTypeId" >
@@ -132,15 +132,15 @@ under the License.
         </field>
         <field name="drMimeTypeId" >
             <drop-down no-current-selected-key="text/html">
-                <option key="text/html" description="${uiLabelMap.ContentHtmlText}" />
-                <option key="text/plain" description="${uiLabelMap.ContentPlainText}" />
+                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
+                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
             </drop-down>
         </field>
         <field name="drObjectInfo" title="${uiLabelMap.ContentFilePath}">
             <text />
         </field>
         <field name="textData" title="${uiLabelMap.ContentText}"  id-name="textData">
-        <textarea rows="24" cols="80" />
+        <textarea rows="24" cols="80"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit">
             <submit button-type="button"/>
@@ -250,7 +250,7 @@ under the License.
             <display description="text/plain"/>
         </field>
         <field name="textData" title="${uiLabelMap.ContentText}"  id-name="textData">
-        <textarea rows="24" cols="80" />
+        <textarea rows="24" cols="80"/>
         </field>
         <field name="createdByUserLogin" position="1">
             <display/>
@@ -279,7 +279,7 @@ under the License.
             <display description="text/plain"/>
         </field>
         <field name="textData" title="${uiLabelMap.ContentText}" >
-        <textarea rows="24" cols="80" />
+        <textarea rows="24" cols="80"/>
         </field>
         <field name="createdByUserLogin" position="1">
             <display/>
@@ -312,7 +312,7 @@ under the License.
             </drop-down>
         </field>
         <field name="drObjectInfo" title="${uiLabelMap.FormFieldTitle_imageFileName}">
-            <display description="${currentValue.drObjectInfo}" />
+            <display description="${currentValue.drObjectInfo}"/>
         </field>
         <field name="imageData" entity-name="ImageDataResource" map-name="dummy">
             <file />
@@ -343,14 +343,14 @@ under the License.
         </field>
         <field name="drMimeTypeId" >
             <drop-down>
-                <option key="image/gif" description="${uiLabelMap.ContentGIF}" />
-                <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}" />
-                <option key="image/png" description="${uiLabelMap.ContentPNG}" />
-                <option key="image/tiff" description="${uiLabelMap.ContentTIFF}" />
+                <option key="image/gif" description="${uiLabelMap.ContentGIF}"/>
+                <option key="image/jpeg" description="${uiLabelMap.ContentJPEG}"/>
+                <option key="image/png" description="${uiLabelMap.ContentPNG}"/>
+                <option key="image/tiff" description="${uiLabelMap.ContentTIFF}"/>
             </drop-down>
         </field>
         <field name="drObjectInfo" title="${uiLabelMap.FormFieldTitle_imageFileName}">
-            <display description="${currentValue.drObjectInfo}" />
+            <display description="${currentValue.drObjectInfo}"/>
         </field>
         <field name="imageData" entity-name="ImageDataResource">
             <file />
@@ -436,8 +436,8 @@ under the License.
         </field>
         <field name="drMimeTypeId">
             <drop-down no-current-selected-key="text/html">
-                <option key="text/html" description="${uiLabelMap.ContentHtmlText}" />
-                <option key="text/plain" description="${uiLabelMap.ContentPlainText}" />
+                <option key="text/html" description="${uiLabelMap.ContentHtmlText}"/>
+                <option key="text/plain" description="${uiLabelMap.ContentPlainText}"/>
             </drop-down>
         </field>
         <field name="drObjectInfo" title="${uiLabelMap.ContentFilePath}">

@@ -157,7 +157,7 @@ under the License.
     <form name="AddEmplPositionTypeRate" type="single" target="updateEmplPositionTypeRate" default-map-name="emplPositionTypeRate" paginate-target="EditEmplPositionTypeRates"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+            <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
         </actions>
         <field name="emplPositionTypeId"><hidden value="${parameters.emplPositionTypeId}"/></field>
         <field name="rateTypeId"   tooltip="${uiLabelMap.CommonRequired}" widget-style="required">

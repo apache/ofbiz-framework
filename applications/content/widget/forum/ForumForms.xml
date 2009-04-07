@@ -189,7 +189,7 @@ under the License.
                 <field-map field-name="contentIdTo" from-field="message.contentIdTo"/>
                 <field-map field-name="contentAssocTypeId" value="RESPONSE"/>
             </entity-and>
-            <set field="contentAssoc" from-field="contentAssocList[0]" />
+            <set field="contentAssoc" from-field="contentAssocList[0]"/>
         </actions>
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="forumId"><hidden value="${parameters.forumId}"/></field>

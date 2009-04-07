@@ -213,7 +213,7 @@ under the License.
         <field name="fixedAssetId"><hidden/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="fixedAssetStdCostTypeId" title="${uiLabelMap.AccountingFixedAssetStdCostTypeId}">
-            <display-entity entity-name="FixedAssetStdCostType" />
+            <display-entity entity-name="FixedAssetStdCostType"/>
         </field>
         <field name="amountUomId">
             <drop-down allow-empty="true">
@@ -279,7 +279,7 @@ under the License.
     <!-- create a fixed asset Idents-->
     <form name="AddFixedAssetIdent" type="single" target="createFixedAssetIdent" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="createFixedAssetIdent" />
+        <auto-fields-service service-name="createFixedAssetIdent"/>
         <field name="fixedAssetId"><hidden/></field>
         <field name="fixedAssetIdentTypeId" title="${uiLabelMap.AccountingFixedAssetIdentType}">
             <drop-down allow-empty="false">
@@ -303,8 +303,8 @@ under the License.
         <auto-fields-service service-name="updateFixedAssetRegistration"/>
         <field name="fixedAssetId"><hidden/></field>
         <field name="fromDate"><display/></field>
-        <field name="registrationNumber" title="${uiLabelMap.AccountingFixedAssetRegNumber}"><text size="20" /></field>
-        <field name="licenseNumber" title="${uiLabelMap.AccountingFixedAssetLicenseNumber}"><text size="20" /></field>
+        <field name="registrationNumber" title="${uiLabelMap.AccountingFixedAssetRegNumber}"><text size="20"/></field>
+        <field name="licenseNumber" title="${uiLabelMap.AccountingFixedAssetLicenseNumber}"><text size="20"/></field>
         <field name="govAgencyPartyId" title="${uiLabelMap.AccountingFixedAssetGovAgencyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="deleteFixedAssetRegistration" description="${uiLabelMap.CommonDelete}" also-hidden="false">
@@ -318,7 +318,7 @@ under the License.
     <!-- create a fixed asset Registration-->
     <form name="AddFixedAssetRegistration" type="single" target="createFixedAssetRegistration" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="createFixedAssetRegistration" />
+        <auto-fields-service service-name="createFixedAssetRegistration"/>
         <field name="fixedAssetId"><hidden/></field>
         <field name="licenseNumber" title="${uiLabelMap.AccountingFixedAssetLicenseNumber}"><text size="20"/></field>
         <field name="registrationNumber" title="${uiLabelMap.AccountingFixedAssetRegNumber}"><text size="20"/></field>
@@ -450,7 +450,7 @@ under the License.
     <!-- create a fixed asset meter reading -->
     <form name="AddFixedAssetMeter" type="single" target="createFixedAssetMeter" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="createFixedAssetMeter" />
+        <auto-fields-service service-name="createFixedAssetMeter"/>
         <field name="fixedAssetId"><hidden/></field>
         <field name="maintHistSeqId" use-when="maintHistSeqId != null"><hidden/></field>
         <field name="maintHistSeqId" use-when="maintHistSeqId == null"><ignored/></field>
@@ -461,7 +461,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="meterValue" title="${uiLabelMap.AccountingFixedAssetMeterValue}"><text size="20" /></field>
+        <field name="meterValue" title="${uiLabelMap.AccountingFixedAssetMeterValue}"><text size="20"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <!-- List all fixed asset Maintenance Order  -->
@@ -499,7 +499,7 @@ under the License.
         <field name="fixedAssetId"><hidden/></field>
         <field name="maintHistSeqId"><hidden/></field>
         <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
-        <field name="orderItemSeqId"><text size="20" /></field>
+        <field name="orderItemSeqId"><text size="20"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
@@ -509,7 +509,7 @@ under the License.
         <actions>
             <entity-condition entity-name="PartyFixedAssetAssignment" list="listPartyFixedAssets">
                 <condition-expr field-name="fixedAssetId" from-field="fixedAssetId"/>
-                <order-by field-name="fromDate" />
+                <order-by field-name="fromDate"/>
             </entity-condition>
         </actions>
         <auto-fields-service service-name="updatePartyFixedAssetAssignment"/>

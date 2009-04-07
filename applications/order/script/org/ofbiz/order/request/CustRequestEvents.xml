@@ -50,7 +50,7 @@
                         <or>
                             <!-- Compaire MimeType between upload file and selected MimeType -->
                             <if-compare-field field="formInput.uploadMimeType" operator="equals" to-field="formInput.formInput.mimeTypeId"/>
-                            <if-compare field="formInput.formInput.mimeTypeId" operator="equals"  value="application/octet-stream" />
+                            <if-compare field="formInput.formInput.mimeTypeId" operator="equals"  value="application/octet-stream"/>
                             <if-compare field="formInput.formInput.mimeTypeId" operator="equals"  value=""/>
                         </or>
                     </condition>

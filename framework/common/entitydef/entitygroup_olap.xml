@@ -24,6 +24,6 @@ under the License.
     <!-- ========================================================= -->
     <!-- Dimensions                                                -->
     <!-- ========================================================= -->
-    <entity-group group="org.ofbiz.olap" entity="CurrencyDimension" />
-    <entity-group group="org.ofbiz.olap" entity="DateDimension" />
+    <entity-group group="org.ofbiz.olap" entity="CurrencyDimension"/>
+    <entity-group group="org.ofbiz.olap" entity="DateDimension"/>
 </entitygroup>

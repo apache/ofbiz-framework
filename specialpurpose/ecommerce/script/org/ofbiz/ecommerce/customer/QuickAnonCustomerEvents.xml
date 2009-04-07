@@ -29,13 +29,13 @@ under the License.
 
         <property-to-field resource="security" property="username.lowercase" default="false" field="username_lowercase"/>
         <property-to-field resource="security" property="password.lowercase" default="false" field="password_lowercase"/>
-        <set field="default_user_password" value="ungssblepsswd" />
+        <set field="default_user_password" value="ungssblepsswd"/>
         <now-timestamp field="nowStamp"/>
 
         <if-compare field="create_allow_password" operator="not-equals" value="true">
-            <set field="parameters.password" from-field="default_user_password" />
-            <set field="parameters.confirmPassword" from-field="default_user_password" />
-            <set field="parameters.passwordHint" value="No hint set, accout not yet enabled" />
+            <set field="parameters.password" from-field="default_user_password"/>
+            <set field="parameters.confirmPassword" from-field="default_user_password"/>
+            <set field="parameters.passwordHint" value="No hint set, accout not yet enabled"/>
         </if-compare>
 
         <!-- if username and/or password should be lowercased, do that now -->
@@ -62,18 +62,18 @@ under the License.
                 </simple-map-processor>
             </call-map-processor>
             <if-not-empty field="userLoginContext.userLoginId">
-                <set field=" userLoginExistsMap.userLoginId"  from-field="userLoginContext.userLoginId" />
+                <set field=" userLoginExistsMap.userLoginId"  from-field="userLoginContext.userLoginId"/>
                 <find-by-primary-key entity-name="UserLogin" map="userLoginExistsMap" value-field="existingUserLogin"/>
                 <if-not-empty field="existingUserLogin">
-                    <set field="tempErrorMessage" value="Username in use, please choose another." />
+                    <set field="tempErrorMessage" value="Username in use, please choose another."/>
                     <field-to-list field="tempErrorMessage" list="error_list"/>
                 </if-not-empty>
             </if-not-empty>
 
             <make-value entity-name="UserLogin" value-field="newUserLogin"/>
             <set field="newUserLogin.userLoginId" from-field="userLoginContext.userLoginId"/>
-            <set field="newUserLogin.currentPassword" from-field="userLoginContext.currentPassword" />
-            <set field="newUserLogin.passwordHint" from-field="userLoginContext.passwordHint" />
+            <set field="newUserLogin.currentPassword" from-field="userLoginContext.currentPassword"/>
+            <set field="newUserLogin.passwordHint" from-field="userLoginContext.passwordHint"/>
 
             <!-- Check the password, etc for validity -->
             <call-bsh><![CDATA[
@@ -201,7 +201,7 @@ under the License.
                     <simple-map-processor name="checkRequiredEmailFormat">
                         <process field="emailAddress">
                             <validate-method method="isEmail">
-                                <fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly" />
+                                <fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/>
                             </validate-method>
                         </process>
                     </simple-map-processor>
@@ -210,12 +210,12 @@ under the License.
         </if-compare>
 
         <!-- Create the PartyRole -->
-        <set field="partyRoleContext.roleTypeId" from-field="parameters.roleTypeId" />
+        <set field="partyRoleContext.roleTypeId" from-field="parameters.roleTypeId"/>
 
         <!-- Create the Postal Address -->
         <if-compare field="shipToPostalAddress" operator="equals" value="true">
             <if-empty field="parameters.shipToName">
-                <set field="parameters.shipToName" value="${personContext.firstName} ${personContext.middleName} ${personContext.lastName}"  />
+                <set field="parameters.shipToName" value="${personContext.firstName} ${personContext.middleName} ${personContext.lastName}"/>
             </if-empty>
             <call-map-processor in-map-name="parameters" out-map-name="shippingAddressContext">
                 <simple-map-processor name="postalAddress">
@@ -249,7 +249,7 @@ under the License.
         <!-- Check the flag if Second Postal address is not same as First So create Another Postal Address -->
             <if-compare field="billToPostalAddress" operator="equals" value="true">
                 <if-empty field="parameters.billToName">
-                    <set field="parameters.billToName" value="${personContext.firstName} ${personContext.middleName} ${personContext.lastName}"  />
+                    <set field="parameters.billToName" value="${personContext.firstName} ${personContext.middleName} ${personContext.lastName}"/>
                 </if-empty>
                 <call-map-processor in-map-name="parameters" out-map-name="billingAddressContext">
                     <simple-map-processor name="postalAddress">
@@ -282,9 +282,9 @@ under the License.
         
         <!-- create the PartyDataSource entry to track where this info came from... -->
         <make-value entity-name="PartyDataSource" value-field="partyDataSource"/>
-        <set field="partyDataSource.dataSourceId" value="ECOMMERCE_SITE" />
-        <set field="partyDataSource.fromDate" from-field="nowStamp" />
-        <set field="partyDataSource.isCreate" value="Y" />
+        <set field="partyDataSource.dataSourceId" value="ECOMMERCE_SITE"/>
+        <set field="partyDataSource.fromDate" from-field="nowStamp"/>
+        <set field="partyDataSource.isCreate" value="Y"/>
         <!-- get the visit from the session to get the visitId -->
         <session-to-field field="visit"/>
         <set from-field="visit.visitId" field="partyDataSource.visitId"/>
@@ -316,7 +316,7 @@ under the License.
                 </if-compare>
             </else>
             </if-empty>
-            <set field="partyRoleContext.partyId" from-field="partyId" />
+            <set field="partyRoleContext.partyId" from-field="partyId"/>
            <call-service service-name="createPartyRole" in-map-name="partyRoleContext"/>
         <else>
             <set from-field="parameters.partyId" field="personContext.partyId"/>
@@ -326,16 +326,16 @@ under the License.
         </if-empty>
         
         <!-- now that we have the partyId, put it where it needs to go... -->
-        <set field="partyDataSource.partyId" from-field="partyId" />
-        <set field="userLoginContext.partyId" from-field="partyId" />
-        <set field="personContext.partyId" from-field="partyId" />
-        <set field="shippingAddressContext.partyId" from-field="partyId" />
-        <set field="billingAddressContext.partyId" from-field="partyId" />
-        <set field="homePhoneContext.partyId" from-field="partyId" />
-        <set field="workPhoneContext.partyId" from-field="partyId" />
-        <set field="faxPhoneContext.partyId" from-field="partyId" />
-        <set field="mobilePhoneContext.partyId" from-field="partyId" />
-        <set field="emailContext.partyId" from-field="partyId" />        
+        <set field="partyDataSource.partyId" from-field="partyId"/>
+        <set field="userLoginContext.partyId" from-field="partyId"/>
+        <set field="personContext.partyId" from-field="partyId"/>
+        <set field="shippingAddressContext.partyId" from-field="partyId"/>
+        <set field="billingAddressContext.partyId" from-field="partyId"/>
+        <set field="homePhoneContext.partyId" from-field="partyId"/>
+        <set field="workPhoneContext.partyId" from-field="partyId"/>
+        <set field="faxPhoneContext.partyId" from-field="partyId"/>
+        <set field="mobilePhoneContext.partyId" from-field="partyId"/>
+        <set field="emailContext.partyId" from-field="partyId"/>        
 
         <if-not-empty field="newUserLogin">
             <!-- If password encryption is enabled, encrpyt it now -->
@@ -344,7 +344,7 @@ under the License.
                 if (useEncryption) { newUserLogin.set("currentPassword", org.ofbiz.base.crypto.HashCrypt.getDigestHash((String) newUserLogin.get("currentPassword"))); }
             ]]></call-bsh>
             <!-- create the UserLogin manually to get around ordering and security constraints in the service -->
-            <set field="userLoginContext.partyId" from-field="partyId" />
+            <set field="userLoginContext.partyId" from-field="partyId"/>
             <create-value value-field="newUserLogin"/>
         </if-not-empty>
 
@@ -468,7 +468,7 @@ under the License.
         <!-- email address -->
         <if-not-empty field="parameters.emailAddress">
             <if-empty field="parameters.emailContactMechId">
-                <set field="emailContext.contactMechPurposeTypeId" value="PRIMARY_EMAIL" />
+                <set field="emailContext.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
                 <call-service service-name="createPartyEmailAddress" in-map-name="emailContext">
                     <result-to-field result-name="contactMechId" field="parameters.emailContactMechId"/>
                 </call-service>
@@ -484,15 +484,15 @@ under the License.
     </simple-method>
     
     <simple-method method-name="processCustomerSettings" short-description="Process Customer Settings; to be called as a Request Event" login-required="false">
-        <set field="require_email" value="true" />
-        <set field="require_phone" value="true" />
-        <set field="require_login" value="false" />
+        <set field="require_email" value="true"/>
+        <set field="require_phone" value="true"/>
+        <set field="require_login" value="false"/>
         <set field="shipToPostalAddress" value="true"/>
         <set field="billToPostalAddress" value="true"/>
         <!-- this parameter must be set to true or the createUser method below will use a default password instead of the one entered by user -->
-        <set field="create_allow_password" value="true" />
+        <set field="create_allow_password" value="true"/>
 
-        <set field="parameters.roleTypeId" value="CUSTOMER" />
+        <set field="parameters.roleTypeId" value="CUSTOMER"/>
         
         <call-simple-method method-name="createUpdateUser"/>
         <!-- see if we should continue now... -->
@@ -517,13 +517,13 @@ under the License.
                     }
                 ]]></call-bsh>
             </if-not-empty>
-            <set from-field="partyId" field="partyId" />
+            <set from-field="partyId" field="partyId"/>
             <if-not-empty field="partyId">
                 <set field="lookupKeyValue.userLoginId" value="anonymous"/>
                 <find-by-primary-key map="lookupKeyValue" entity-name="UserLogin" value-field="userLogin"/>
                 <if-not-empty field="userLogin">
                     <set field="userLogin.partyId" from-field="partyId"/>
-                    <field-to-session field="userLogin" session-name="userLogin" />
+                    <field-to-session field="userLogin" session-name="userLogin"/>
                     <if-not-empty field="cart">
                         <call-object-method obj-field="cart" method-name="setOrderPartyId">
                             <field field="partyId"/>
@@ -576,12 +576,12 @@ under the License.
        ]]></call-bsh>
        <session-to-field field="cart" session-name="shoppingCart"/>
        <if-not-empty field="cart">
-           <set field="shipmentMethodTypeId" from-field="parameters.shipmentMethodTypeId" />
+           <set field="shipmentMethodTypeId" from-field="parameters.shipmentMethodTypeId"/>
            <call-object-method obj-field="cart" method-name="setShipmentMethodTypeId">
                <field field="shipmentMethodTypeId"/>
            </call-object-method>
 
-           <set field="carrierPartyId" from-field="parameters.carrierPartyId" />
+           <set field="carrierPartyId" from-field="parameters.carrierPartyId"/>
            <call-object-method obj-field="cart" method-name="setCarrierPartyId">
                <field field="carrierPartyId"/>
            </call-object-method>
@@ -605,7 +605,7 @@ under the License.
            </call-object-method>
            </if-not-empty>
 
-           <set field="isGift" from-field="parameters.is_gift" type="Boolean" default-value="false" />
+           <set field="isGift" from-field="parameters.is_gift" type="Boolean" default-value="false"/>
            <call-object-method obj-field="cart" method-name="setIsGift">
                <field field="isGift" type="Boolean"/>
            </call-object-method>

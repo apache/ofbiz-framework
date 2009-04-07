@@ -402,7 +402,7 @@ under the License.
         <actions>
             <entity-and  list="commEvents" entity-name="CommunicationEventAndRole">
                 <field-map field-name="statusId" value="COM_UNKNOWN_PARTY"/>
-                <order-by field-name="-entryDate" />
+                <order-by field-name="-entryDate"/>
             </entity-and>
         </actions>
         <field name="_rowSubmit" title="${uiLabelMap.CommonYes}">
@@ -712,7 +712,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="entryDate">
-            <display description="${date:dateTimeStr(entryDate, timeZone, locale)}" />
+            <display description="${date:dateTimeStr(entryDate, timeZone, locale)}"/>
         </field>
         <field name="note" widget-area-style="fieldWidth200">
             <display />

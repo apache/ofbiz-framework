@@ -185,7 +185,7 @@ under the License.
         <set-service-fields service-name="updatePostalAddress" map="parameters" to-map="updatePostalAddressMap"/>
         <call-service in-map-name="updatePostalAddressMap" service-name="updatePostalAddress">
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
-            <result-to-field result-name="contactMechId" field="newPartyContactMech.contactMechId" />             
+            <result-to-field result-name="contactMechId" field="newPartyContactMech.contactMechId"/>             
         </call-service>
 
         <set-service-fields service-name="updatePartyContactMech" map="parameters" to-map="updatePartyContactMechMap"/>
@@ -232,7 +232,7 @@ under the License.
         <set-service-fields service-name="updateTelecomNumber" map="parameters" to-map="updateTelecomNumberMap"/>          
         <call-service service-name="updateTelecomNumber" in-map-name="updateTelecomNumberMap">
             <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
-            <result-to-field result-name="contactMechId" field="newPartyContactMech.contactMechId" />             
+            <result-to-field result-name="contactMechId" field="newPartyContactMech.contactMechId"/>             
         </call-service>
         
         <set-service-fields service-name="updatePartyContactMech" map="parameters" to-map="updatePartyContactMechMap"/>

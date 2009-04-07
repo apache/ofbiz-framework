@@ -25,7 +25,7 @@ under the License.
     <web-module id="ofbizDefault" path="${env.get("ofbiz.home")}/website"/>
 
     <#list webApps as webapp>
-    <web-module id="${webapp.getName()}" path="${webapp.getLocation()}" />
+    <web-module id="${webapp.getName()}" path="${webapp.getLocation()}"/>
     </#list>
     <persistence path="../persistence"/>
 

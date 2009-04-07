@@ -22,11 +22,11 @@ under the License.
 
     <description><![CDATA[Simple list of UOMs.]]></description>
 
-    <paper name="US-Letter" />
+    <paper name="US-Letter"/>
 
     <database driverClassName="org.postgresql.Driver"
         connInfo="jdbc:postgresql://127.0.0.1/ofbiz"
-        name="ofbiz" username="ofbiz" />
+        name="ofbiz" username="ofbiz"/>
 
     <query>
     <join from="UOM.UOM_TYPE_ID" relation="=" to="UOM_TYPE.UOM_TYPE_ID"/>
@@ -53,18 +53,18 @@ under the License.
         <section height="18.0">
         <field id="2" type="text">
             <text><![CDATA[Abbreviation]]></text>
-            <bounds x="69.0" y="1.0" width="78.0" height="16.0" />
-            <format size="11.0" bold="true" underline="true" />
+            <bounds x="69.0" y="1.0" width="78.0" height="16.0"/>
+            <format size="11.0" bold="true" underline="true"/>
         </field>
         <field id="4" type="text">
             <text><![CDATA[Description]]></text>
-            <bounds x="150.0" y="1.0" width="120.0" height="16.0" />
-            <format size="11.0" bold="true" underline="true" />
+            <bounds x="150.0" y="1.0" width="120.0" height="16.0"/>
+            <format size="11.0" bold="true" underline="true"/>
         </field>
         <field id="6" type="text">
             <text><![CDATA[Uom_id]]></text>
-            <bounds x="7.0" y="0.0" width="61.0" height="16.0" />
-            <format size="11.0" bold="true" underline="true" />
+            <bounds x="7.0" y="0.0" width="61.0" height="16.0"/>
+            <format size="11.0" bold="true" underline="true"/>
         </field>
         </section>
     </headers>
@@ -80,15 +80,15 @@ under the License.
         <headers>
         <section height="18.0">
             <field id="11" type="column" value="UOM_TYPE.UOM_TYPE_ID">
-            <bounds x="68.0" y="0.0" width="176.0" height="18.0" />
-            <format size="11.0" bold="true" />
+            <bounds x="68.0" y="0.0" width="176.0" height="18.0"/>
+            <format size="11.0" bold="true"/>
             </field>
             <field id="12" type="text">
             <text><![CDATA[UOM Type:]]></text>
-            <bounds x="7.0" y="0.0" width="120.0" height="18.0" />
+            <bounds x="7.0" y="0.0" width="120.0" height="18.0"/>
             </field>
             <field id="9" type="column" value="UOM_TYPE.DESCRIPTION">
-            <bounds x="245.0" y="0.0" width="358.0" height="18.0" />
+            <bounds x="245.0" y="0.0" width="358.0" height="18.0"/>
             </field>
         </section>
         </headers>
@@ -102,33 +102,33 @@ under the License.
     <details>
     <section height="15.0">
         <field id="1" type="column" value="UOM.ABBREVIATION">
-        <bounds x="69.0" y="0.0" width="80.0" height="15.0" />
-        <format size="9.0" format="" />
+        <bounds x="69.0" y="0.0" width="80.0" height="15.0"/>
+        <format size="9.0" format=""/>
         <border>
-            <edge location="top" number="0" thickness="1.0" style="line" />
-            <edge location="bottom" number="0" thickness="1.0" style="line" />
-            <edge location="left" number="0" thickness="1.0" style="line" />
-            <edge location="right" number="0" thickness="1.0" style="line" />
+            <edge location="top" number="0" thickness="1.0" style="line"/>
+            <edge location="bottom" number="0" thickness="1.0" style="line"/>
+            <edge location="left" number="0" thickness="1.0" style="line"/>
+            <edge location="right" number="0" thickness="1.0" style="line"/>
         </border>
         </field>
         <field id="3" type="column" value="UOM.DESCRIPTION">
-        <bounds x="151.0" y="0.0" width="355.0" height="15.0" />
-        <format size="9.0" bold="true" format="" />
+        <bounds x="151.0" y="0.0" width="355.0" height="15.0"/>
+        <format size="9.0" bold="true" format=""/>
         <border>
-            <edge location="top" number="0" thickness="1.0" style="line" />
-            <edge location="bottom" number="0" thickness="1.0" style="line" />
-            <edge location="left" number="0" thickness="1.0" style="line" />
-            <edge location="right" number="0" thickness="1.0" style="line" />
+            <edge location="top" number="0" thickness="1.0" style="line"/>
+            <edge location="bottom" number="0" thickness="1.0" style="line"/>
+            <edge location="left" number="0" thickness="1.0" style="line"/>
+            <edge location="right" number="0" thickness="1.0" style="line"/>
         </border>
         </field>
         <field id="5" type="column" value="UOM.UOM_ID">
-        <bounds x="6.0" y="0.0" width="63.0" height="15.0" />
-        <format size="9.0" bold="true" format="" />
+        <bounds x="6.0" y="0.0" width="63.0" height="15.0"/>
+        <format size="9.0" bold="true" format=""/>
         <border>
-            <edge location="top" number="0" thickness="1.0" style="line" />
-            <edge location="bottom" number="0" thickness="1.0" style="line" />
-            <edge location="left" number="0" thickness="1.0" style="line" />
-            <edge location="right" number="0" thickness="1.0" style="line" />
+            <edge location="top" number="0" thickness="1.0" style="line"/>
+            <edge location="bottom" number="0" thickness="1.0" style="line"/>
+            <edge location="left" number="0" thickness="1.0" style="line"/>
+            <edge location="right" number="0" thickness="1.0" style="line"/>
         </border>
         </field>
     </section>

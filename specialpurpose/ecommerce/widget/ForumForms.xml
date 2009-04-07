@@ -33,7 +33,7 @@ under the License.
         <field name="pubPtContentId"><hidden value="${parameters.forumId}"/></field>
         <field name="contentAssocTypeId"><hidden value="${contentAssoc.contentAssocTypeId}"/></field>
         <field name="textData" map-name="dummy">
-        <textarea  rows="10" visual-editor-enable="true" visual-editor-buttons="undo redo bold italic underline bullet indent outdent link" />
+        <textarea  rows="10" visual-editor-enable="true" visual-editor-buttons="undo redo bold italic underline bullet indent outdent link"/>
         </field>
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

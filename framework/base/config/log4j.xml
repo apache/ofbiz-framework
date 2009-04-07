@@ -45,9 +45,9 @@
 
     <!-- ofbiz file appender -->
     <appender name="ofbiz-file" class="org.apache.log4j.RollingFileAppender">
-        <param name="maxFileSize" value="1000KB" />
-        <param name="maxBackupIndex" value="10" />
-        <param name="File" value="runtime/logs/ofbiz.log" />
+        <param name="maxFileSize" value="1000KB"/>
+        <param name="maxBackupIndex" value="10"/>
+        <param name="File" value="runtime/logs/ofbiz.log"/>
         <param name="threshold" value="info"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
@@ -56,9 +56,9 @@
 
     <!-- ofbiz web file appender -->
     <appender name="ofbiz-html" class="org.apache.log4j.RollingFileAppender">
-        <param name="maxFileSize" value="500KB" />
-        <param name="maxBackupIndex" value="1" />
-        <param name="File" value="runtime/logs/ofbiz.html" />
+        <param name="maxFileSize" value="500KB"/>
+        <param name="maxBackupIndex" value="1"/>
+        <param name="File" value="runtime/logs/ofbiz.html"/>
         <param name="threshold" value="info"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="&lt;div class=%p&gt;%d (%t) [%24F:%-3L:%-5p]%x %m &lt;/div&gt;%n"/>
@@ -67,9 +67,9 @@
 
     <!-- debug log -->
     <appender name="debug" class="org.apache.log4j.RollingFileAppender">
-        <param name="maxFileSize" value="10000KB" />
-        <param name="maxBackupIndex" value="10" />
-        <param name="File" value="runtime/logs/debug.log" />
+        <param name="maxFileSize" value="10000KB"/>
+        <param name="maxBackupIndex" value="10"/>
+        <param name="File" value="runtime/logs/debug.log"/>
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
@@ -83,9 +83,9 @@
 
     <!-- error log -->
     <appender name="error" class="org.apache.log4j.RollingFileAppender">
-        <param name="maxFileSize" value="10000KB" />
-        <param name="maxBackupIndex" value="10" />
-        <param name="File" value="runtime/logs/error.log" />
+        <param name="maxFileSize" value="10000KB"/>
+        <param name="maxBackupIndex" value="10"/>
+        <param name="File" value="runtime/logs/error.log"/>
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
@@ -99,9 +99,9 @@
 
     <!-- special minerva log -->
     <appender name="minerva-log" class="org.apache.log4j.RollingFileAppender">
-        <param name="maxFileSize" value="5000KB" />
-        <param name="maxBackupIndex" value="10" />
-        <param name="File" value="runtime/logs/minerva.log" />
+        <param name="maxFileSize" value="5000KB"/>
+        <param name="maxBackupIndex" value="10"/>
+        <param name="File" value="runtime/logs/minerva.log"/>
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
@@ -116,11 +116,11 @@
     <!-- fatal error SMTP notification -->
     <appender name="email"  class="org.apache.log4j.net.SMTPAppender">
         <param name="threshold" value="fatal"/>
-        <param name="BufferSize" value="512" />
-        <param name="SMTPHost" value="localhost" />
-        <param name="From" value="ofbiz-error@localhost" />
-        <param name="To" value="neo@foobar.com" />  <!-- at least change this field! -->
-        <param name="Subject" value="[OFBiz-Notify] Application message" />
+        <param name="BufferSize" value="512"/>
+        <param name="SMTPHost" value="localhost"/>
+        <param name="From" value="ofbiz-error@localhost"/>
+        <param name="To" value="neo@foobar.com"/>  <!-- at least change this field! -->
+        <param name="Subject" value="[OFBiz-Notify] Application message"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>
         </layout>
@@ -128,9 +128,9 @@
 
     <!-- special fop log -->
     <appender name="fop-log" class="org.apache.log4j.RollingFileAppender">
-        <param name="maxFileSize" value="5000KB" />
-        <param name="maxBackupIndex" value="10" />
-        <param name="File" value="runtime/logs/fop.log" />
+        <param name="maxFileSize" value="5000KB"/>
+        <param name="maxBackupIndex" value="10"/>
+        <param name="File" value="runtime/logs/fop.log"/>
         <param name="Append" value="false"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d (%t) [%24F:%-3L:%-5p]%x %m%n"/>

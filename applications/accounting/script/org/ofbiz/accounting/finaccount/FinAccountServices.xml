@@ -346,7 +346,7 @@ under the License.
     
     <!-- VarianceReasonGlAccount methods -->
     <simple-method method-name="createVarianceReasonGlAccount" short-description="Create a Variance Reason Gl Account">
-        <make-value entity-name="VarianceReasonGlAccount" value-field="newEntity" />
+        <make-value entity-name="VarianceReasonGlAccount" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>

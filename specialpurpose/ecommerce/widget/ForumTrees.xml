@@ -27,16 +27,16 @@ under the License.
             <entity-one entity-name="Content"  use-cache="false" value-field="rsp">
                 <field-map field-name="contentId" from-field="parameters.threadContentId"/>
             </entity-one>
-            <include-screen name="responseTreeLine" location="component://ecommerce/widget/ForumScreens.xml" />
+            <include-screen name="responseTreeLine" location="component://ecommerce/widget/ForumScreens.xml"/>
             <sub-node node-name="node-body">
                 <entity-condition entity-name="ContentAssocViewTo" use-cache="false" >
                     <condition-list combine="and">
-                        <condition-expr field-name="contentIdStart" operator="equals" from-field="rsp.contentId" />
-                        <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE" />
-                        <condition-expr field-name="caFromDate" operator="less-equals" from-field="nowTimestamp" />
+                        <condition-expr field-name="contentIdStart" operator="equals" from-field="rsp.contentId"/>
+                        <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE"/>
+                        <condition-expr field-name="caFromDate" operator="less-equals" from-field="nowTimestamp"/>
                         <condition-list combine="or">
-                            <condition-expr field-name="caThruDate" operator="equals" />
-                            <condition-expr field-name="caThruDate" operator="greater" from-field="nowTimestamp" />
+                            <condition-expr field-name="caThruDate" operator="equals"/>
+                            <condition-expr field-name="caThruDate" operator="greater" from-field="nowTimestamp"/>
                         </condition-list> 
                     </condition-list> 
                     <order-by field-name="caFromDate DESC"/>
@@ -44,16 +44,16 @@ under the License.
             </sub-node>
         </node>
         <node name="node-body" entry-name="rsp">
-            <include-screen name="responseTreeLine" location="component://ecommerce/widget/ForumScreens.xml" />
+            <include-screen name="responseTreeLine" location="component://ecommerce/widget/ForumScreens.xml"/>
             <sub-node node-name="node-body">
                 <entity-condition entity-name="ContentAssocViewTo" use-cache="true" >
                     <condition-list combine="and">
-                        <condition-expr field-name="contentIdStart" operator="equals" from-field="rsp.contentId" />
-                        <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE" />
-                        <condition-expr field-name="caFromDate" operator="less-equals" from-field="nowTimestamp" />
+                        <condition-expr field-name="contentIdStart" operator="equals" from-field="rsp.contentId"/>
+                        <condition-expr field-name="caContentAssocTypeId" operator="equals" value="RESPONSE"/>
+                        <condition-expr field-name="caFromDate" operator="less-equals" from-field="nowTimestamp"/>
                         <condition-list combine="or">
-                            <condition-expr field-name="caThruDate" operator="equals" />
-                            <condition-expr field-name="caThruDate" operator="greater" from-field="nowTimestamp" />
+                            <condition-expr field-name="caThruDate" operator="equals"/>
+                            <condition-expr field-name="caThruDate" operator="greater" from-field="nowTimestamp"/>
                         </condition-list> 
                     </condition-list> 
                     <order-by field-name="caFromDate DESC"/>

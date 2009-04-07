@@ -97,9 +97,9 @@
                         <result-to-field result-name="emailAddress" field="emailParams.sendTo"/>
                     </call-service>
                     <entity-and list="webSites" entity-name="WebSite">
-                        <field-map field-name="productStoreId" from-field="storeEmail.productStoreId" />
+                        <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
                     </entity-and>
-                    <first-from-list entry="webSite" list="webSites" />
+                    <first-from-list entry="webSite" list="webSites"/>
                     <entity-one entity-name="UserLogin" value-field="userLoginSystem">
                         <field-map field-name="userLoginId" value="system"/>
                     </entity-one>

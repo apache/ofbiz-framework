@@ -274,7 +274,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditFixedAssetStdCosts"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
 
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <entity-one entity-name="FixedAsset" value-field="fixedAsset" auto-field-map="true"/>
             </actions>
             <widgets>
@@ -464,7 +464,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-tree name="TreeFixedAsset" location="component://accounting/widget/AccountingTrees.xml" /> 
+                        <include-tree name="TreeFixedAsset" location="component://accounting/widget/AccountingTrees.xml"/> 
                     </decorator-section>
                 </decorator-screen>
             </widgets>

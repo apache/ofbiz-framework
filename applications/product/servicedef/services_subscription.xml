@@ -120,7 +120,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="true"/>
-        <attribute name="orderCreatedDate" type="Timestamp" mode="IN" optional="true" />
+        <attribute name="orderCreatedDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="quantity" type="Integer" mode="IN" optional="false"/>
     </service>
     <service name="processExtendSubscriptionByOrder" engine="java" auth="true"

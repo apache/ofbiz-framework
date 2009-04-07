@@ -63,7 +63,7 @@ under the License.
     <request-map uri="checkLogin" edit="false">
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkLogin" />
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkLogin"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="login"/>
     </request-map>
@@ -81,10 +81,10 @@ under the License.
         <response name="error" type="view" value="main"/>
     </request-map>
     <request-map uri="forgotPassword">
-        <security https="true" auth="false" />
+        <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="forgotPassword"/>
-        <response name="success" type="view" value="forgotPassword" />
-        <response name="error" type="view" value="forgotPassword" />
+        <response name="success" type="view" value="forgotPassword"/>
+        <response name="error" type="view" value="forgotPassword"/>
     </request-map>
 
     <!-- Common Mappings used for locales and timezones -->
@@ -113,19 +113,19 @@ under the License.
 
     <request-map uri="ajaxAutocompleteOptions">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="ajaxAutocompleteOptions" />
+        <response name="success" type="view" value="ajaxAutocompleteOptions"/>
     </request-map>
 
     <!-- Online help system mapping -->
     <request-map uri="help">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="help" />
+        <response name="success" type="view" value="help"/>
     </request-map>
 
     <!-- Visual theme mapping -->
     <request-map uri="LookupVisualThemes">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="LookupVisualThemes" />
+        <response name="success" type="view" value="LookupVisualThemes"/>
     </request-map>
 
     <request-map uri="main">

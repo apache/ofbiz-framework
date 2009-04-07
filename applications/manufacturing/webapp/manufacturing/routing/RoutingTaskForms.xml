@@ -357,13 +357,13 @@ under the License.
     <!-- RoutingTask-FixedAsset association (WorkEffortFixedAssetStd) -->
     <form name="ListRoutingTaskFixedAssets" type="list" title="" target="updateRoutingTaskFixedAsset" list-name="allFixedAssets"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <auto-fields-entity entity-name="WorkEffortFixedAssetStd" />
+        <auto-fields-entity entity-name="WorkEffortFixedAssetStd"/>
         <field name="workEffortId"><hidden/></field>
         <field name="fixedAssetTypeId">
-            <display-entity entity-name="FixedAssetType" />
+            <display-entity entity-name="FixedAssetType"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}">
-            <submit button-type="button" />
+            <submit button-type="button"/>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="removeRoutingTaskFixedAsset"     description="${uiLabelMap.CommonDelete}" also-hidden="false" >
@@ -374,15 +374,15 @@ under the License.
     </form>
     <form name="EditRoutingTaskFixedAsset" type="single" title="" target="createRoutingTaskFixedAsset"
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="WorkEffortFixedAssetStd" default-field-type="edit" />
+        <auto-fields-entity entity-name="WorkEffortFixedAssetStd" default-field-type="edit"/>
         <field name="workEffortId"><hidden /></field>
         <field name="fixedAssetTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="FixedAssetType" description="${description}" />
+                <entity-options entity-name="FixedAssetType" description="${description}"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}">
-            <submit button-type="button" />
+            <submit button-type="button"/>
         </field>
     </form>
 </forms>

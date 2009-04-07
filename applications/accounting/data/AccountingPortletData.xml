@@ -25,7 +25,7 @@
         screenName="ListCustomerInvoices" 
         screenLocation="component://accounting/widget/InvoiceScreens.xml" 
         description="List Invoices for a certain customer who is just logged in" 
-        securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW" />
+        securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="ListCustomerInvoices" portletCategoryId="ACCOUNTING"/>
     
 </entity-engine-xml>

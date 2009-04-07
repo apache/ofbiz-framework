@@ -397,7 +397,7 @@ under the License.
         <auto-attributes entity-name="TelecomNumber" mode="IN" optional="true">
             <exclude field-name="contactMechId"/>
         </auto-attributes>
-        <attribute name="partyId" type="String" mode="OUT" />
+        <attribute name="partyId" type="String" mode="OUT"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
         <attribute name="groupName" type="String" mode="IN" optional="true"/>
         <attribute name="title" type="String" mode="IN" optional="true"/>
@@ -421,7 +421,7 @@ under the License.
         <auto-attributes entity-name="TelecomNumber" mode="IN" optional="true">
             <exclude field-name="contactMechId"/>
         </auto-attributes>
-        <attribute name="partyId" type="String" mode="OUT" />
+        <attribute name="partyId" type="String" mode="OUT"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
         <attribute name="quickAdd" type="String" mode="IN" optional="true"/>

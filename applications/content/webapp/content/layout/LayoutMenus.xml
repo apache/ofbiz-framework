@@ -23,10 +23,10 @@ under the License.
     <menu name="layout" default-menu-item-name="content" default-associated-content-id="${userLogin.userLoginId}" title="" type="simple"
         menu-container-style="button-bar tab-bar" default-selected-style="selected">
         <menu-item name="ListLayout" title="${uiLabelMap.ContentListOwnCreatedTemplates}" >
-            <link target="ListLayout" target-window="_top" style="tabButton" />
+            <link target="ListLayout" target-window="_top" style="tabButton"/>
         </menu-item>
         <menu-item name="FindLayout" title="${uiLabelMap.CommonFind}" >
-            <link target="FindLayout" target-window="_top" style="tabButton" />
+            <link target="FindLayout" target-window="_top" style="tabButton"/>
         </menu-item>
         <menu-item name="EditLayout" title="${uiLabelMap.CommonEdit}">
             <condition>

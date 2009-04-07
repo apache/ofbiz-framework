@@ -506,7 +506,7 @@ under the License.
     </form>
     <form name="EditInvoiceRole" type="single" target="createInvoiceRole" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="InvoiceRole" />
+        <auto-fields-entity entity-name="InvoiceRole"/>
         <field name="invoiceId"><hidden/></field>
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId">

@@ -57,7 +57,7 @@ under the License.
 
     <eca service="createCommEventWorkEffort" event="invoke">
         <condition field-name="workEffortId" operator="is-empty"/>
-        <action service="createWorkEffort" mode="sync" />
+        <action service="createWorkEffort" mode="sync"/>
     </eca>
 
     <!-- all these secas are now replaced by a sheduled job (sendEmailDated) which runs every 5 minutes -->    

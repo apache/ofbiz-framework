@@ -25,35 +25,35 @@ under the License.
         menu-container-style="button-bar tab-bar" default-selected-style="selected"> 
 
         <menu-item name="contentPurposeOp" title="${uiLabelMap.PageTitleEditContentPurposeOperation}" >
-            <link target="EditContentPurposeOperation" target-window="_top" style="tabButton" />
+            <link target="EditContentPurposeOperation" target-window="_top" style="tabButton"/>
         </menu-item>
 
         <menu-item name="contentOp" title="${uiLabelMap.PageTitleEditContentOperation}" >
-            <link target="EditContentOperation" target-window="_top" style="tabButton" />
+            <link target="EditContentOperation" target-window="_top" style="tabButton"/>
         </menu-item>
 
         <menu-item name="assocPred" title="${uiLabelMap.PageTitleEditContentAssocPredicate}" >
-            <link target="EditContentAssocPredicate" target-window="_top" style="tabButton" />
+            <link target="EditContentAssocPredicate" target-window="_top" style="tabButton"/>
         </menu-item>
 
         <menu-item name="typeAttr" title="${uiLabelMap.PageTitleEditContentTypeAttribute}" >
-            <link target="EditContentTypeAttr" target-window="_top" style="tabButton" />
+            <link target="EditContentTypeAttr" target-window="_top" style="tabButton"/>
         </menu-item>
 
         <menu-item name="purposeType" title="${uiLabelMap.PageTitleEditContentPurposeType}" >
-            <link target="EditContentPurposeType" target-window="_top" style="tabButton" />
+            <link target="EditContentPurposeType" target-window="_top" style="tabButton"/>
         </menu-item>
 
         <menu-item name="assocType" title="${uiLabelMap.PageTitleEditContentAssocType}" >
-            <link target="EditContentAssocType" target-window="_top" style="tabButton" />
+            <link target="EditContentAssocType" target-window="_top" style="tabButton"/>
         </menu-item>
 
         <menu-item name="type" title="${uiLabelMap.PageTitleEditContentType}" >
-            <link target="EditContentType" target-window="_top" style="tabButton" />
+            <link target="EditContentType" target-window="_top" style="tabButton"/>
         </menu-item>
 
         <menu-item name="userpermissions" title="${uiLabelMap.PageTitleEditContentUserPermissions}" >
-            <link name="UserPermissions" target="UserPermissions" target-window="_top" style="tabButton" />
+            <link name="UserPermissions" target="UserPermissions" target-window="_top" style="tabButton"/>
         </menu-item>
 
     </menu>

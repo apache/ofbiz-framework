@@ -27,19 +27,19 @@ under the License.
         </field>
         <field name="dataResourceId" >
             <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
-                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}" />
-                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}" />
-                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}" />
+                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}"/>
+                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}"/>
+                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}"/>
             </drop-down>
         </field>
         <field name="ftlContentId" position="1">
-            <display description="${ftlContentId}" />
+            <display description="${ftlContentId}"/>
         </field>
         <field name="contentIdTo" position="2">
-            <display description="${contentIdTo}" />
+            <display description="${contentIdTo}"/>
         </field>
         <field name="ownerContentId" >
-            <hidden value="${contentIdTo}" />
+            <hidden value="${contentIdTo}"/>
         </field>
         <field name="contentName">
             <text/>
@@ -50,15 +50,15 @@ under the License.
        <field name="summaryData" title="${uiLabelMap.EcommerceSummary}"
             use-when="&quot;${summaryDataResourceTypeId}&quot;.length()>0"
             id-name="summaryData">
-                <textarea rows="8" cols="80" />
+                <textarea rows="8" cols="80"/>
         </field>
 
         <field name="textData" title="${uiLabelMap.ProductText}" id-name="textData"><textarea rows="20" cols="60"/></field>
         <field name="privilegeEnumId" >
             <drop-down allow-empty="false" no-current-selected-key="SUBSCRIBE_BRONZE">
-                <option key="SUBSCRIBE_BRONZE" description="${uiLabelMap.EcommerceBronze}" />
-                <option key="SUBSCRIBE_SILVER" description="${uiLabelMap.EcommerceSilver}" />
-                <option key="SUBSCRIBE_GOLD" description="${uiLabelMap.EcommerceGold}" />
+                <option key="SUBSCRIBE_BRONZE" description="${uiLabelMap.EcommerceBronze}"/>
+                <option key="SUBSCRIBE_SILVER" description="${uiLabelMap.EcommerceSilver}"/>
+                <option key="SUBSCRIBE_GOLD" description="${uiLabelMap.EcommerceGold}"/>
             </drop-down>
         </field>
         <field name="section" >
@@ -136,10 +136,10 @@ under the License.
             <display />
         </field>
         <field name="ftlContentId" position="1">
-            <display description="${ftlContentId}" />
+            <display description="${ftlContentId}"/>
         </field>
         <field name="contentIdTo" position="2">
-            <display description="${contentIdTo}" />
+            <display description="${contentIdTo}"/>
         </field>
         <field name="contentName">
             <display/>
@@ -209,19 +209,19 @@ under the License.
         </field>
         <field name="dataResourceId" >
             <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
-                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}" />
-                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}" />
-                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}" />
+                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}"/>
+                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}"/>
+                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}"/>
             </drop-down>
         </field>
         <field name="ftlContentId" position="1">
-            <display description="${ftlContentId}" />
+            <display description="${ftlContentId}"/>
         </field>
         <field name="contentIdTo" position="2">
-            <display description="${contentIdTo}" />
+            <display description="${contentIdTo}"/>
         </field>
         <field name="ownerContentId" >
-            <hidden value="${contentIdTo}" />
+            <hidden value="${contentIdTo}"/>
         </field>
         <field name="contentName">
             <text/>
@@ -232,7 +232,7 @@ under the License.
        <field name="summaryData" title="${uiLabelMap.EcommerceSummary}"
             use-when="&quot;${summaryDataResourceTypeId}&quot;.length()>0"
             id-name="summaryData">
-                <textarea rows="8" cols="80" />
+                <textarea rows="8" cols="80"/>
         </field>
 
         <field name="textData" title="${uiLabelMap.ContentText}" id-name="textData"><textarea rows="20" cols="60"/></field>
@@ -312,7 +312,7 @@ under the License.
 
     <form name="EditContentInfo" target="updateContent" title="" type="single" default-map-name="currentValue"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
-        <auto-fields-entity entity-name="Content" />
+        <auto-fields-entity entity-name="Content"/>
         <field name="contentId"><display/></field>
         <field name="contentTypeId">
             <drop-down allow-empty="false">
@@ -321,11 +321,11 @@ under the License.
         </field>
         <field name="dataResourceId">
             <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
-                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}" />
-                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}" />
-                <option key="TEMPLATE_IMAGE_CENTERED_FILE" description="${uiLabelMap.EcommerceImageCenteredAboveFile}" />
-                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}" />
-                <option key="TEMPLATE_COMPOSITE" description="${uiLabelMap.EcommerceNestedContent}" />
+                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}"/>
+                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}"/>
+                <option key="TEMPLATE_IMAGE_CENTERED_FILE" description="${uiLabelMap.EcommerceImageCenteredAboveFile}"/>
+                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}"/>
+                <option key="TEMPLATE_COMPOSITE" description="${uiLabelMap.EcommerceNestedContent}"/>
             </drop-down>
         </field>
         <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>
@@ -414,7 +414,7 @@ under the License.
         <field name="dataResourceId"><display/></field>
         <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
         <field name="dataResourceTypeIdDisplay" title="${uiLabelMap.CommonType}" field-name="dataResourceTypeId" >
-            <display description="ELECTRONIC_TEXT" also-hidden="false" />
+            <display description="ELECTRONIC_TEXT" also-hidden="false"/>
         </field>
         <field name="textData" title="${uiLabelMap.ContentText}" id-name="textData"><textarea rows="20" cols="120"/> </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -422,10 +422,10 @@ under the License.
     <form name="ImageUpload" target="uploadImage" title="" type="upload"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="dataResourceId" >
-            <display description="${currentValue.dataResourceId}" />
+            <display description="${currentValue.dataResourceId}"/>
         </field>
         <field name="objectInfo" title="${uiLabelMap.EcommerceImageFileName}">
-            <display description="${currentValue.objectInfo}" />
+            <display description="${currentValue.objectInfo}"/>
         </field>
         <field name="imageData" entity-name="ImageDataResource">
             <file />
@@ -441,9 +441,9 @@ under the License.
         </field>
         <field name="dataResourceId" >
             <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
-                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}" />
-                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}" />
-                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}" />
+                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.EcommerceTextOnly}"/>
+                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.EcommerceImageCenteredAbove}"/>
+                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.EcommerceImageLeft}"/>
             </drop-down>
         </field>
         <field name="contentId" position="1">
@@ -458,7 +458,7 @@ under the License.
        <field name="summaryData" title="${uiLabelMap.EcommerceSummary}"
             use-when="&quot;${summaryDataResourceTypeId}&quot;.length()>0"
             id-name="summaryData">
-                <textarea rows="8" cols="80" />
+                <textarea rows="8" cols="80"/>
         </field>
 
         <field name="textData" title="${uiLabelMap.ContentText}" id-name="textData"><textarea rows="20" cols="80"/></field>
@@ -496,7 +496,7 @@ under the License.
     <form name="AddResponse" target="uploadResponse" title="" type="single" extends="AddContent"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="contentIdTo" title="${uiLabelMap.EcommerceInResponseTo}">
-            <display description="${contentIdTo}" />
+            <display description="${contentIdTo}"/>
         </field>
         <field name="ownerContentId" >
             <hidden value="${currentValue.ownerContentId}"/>
@@ -542,7 +542,7 @@ under the License.
     <form name="EditResponse" target="uploadResponse" title="" type="upload" extends="AddContent"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="contentIdTo" title="${uiLabelMap.EcommerceInResponseTo}">
-            <display description="${contentIdTo}" />
+            <display description="${contentIdTo}"/>
         </field>
         <field name="ownerContentId" >
             <hidden value="${currentValue.ownerContentId}"/>

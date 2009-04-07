@@ -50,9 +50,9 @@ under the License.
     <request-map uri="checkLogin" edit="false">
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
-        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkLogin" />
-        <response name="success" type="view" value="main" />
-        <response name="error" type="view" value="login" />
+        <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="checkLogin"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="login"/>
     </request-map>
 
     <request-map uri="login">
@@ -85,12 +85,12 @@ under the License.
         <response name="error" type="request" value="main"/>
     </request-map>
     <request-map uri="LookupLocales">
-        <security https="true" auth="false" />
-        <response name="success" type="view" value="LookupLocales" />
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="LookupLocales"/>
     </request-map>
     <request-map uri="LookupTimezones">
-        <security https="true" auth="false" />
-        <response name="success" type="view" value="LookupTimezones" />
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="LookupTimezones"/>
     </request-map>
 
     <!-- Request Mappings -->

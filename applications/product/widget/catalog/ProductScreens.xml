@@ -553,7 +553,7 @@ under the License.
                 <set field="productCostComponentId" from-field="parameters.productCostComponentId"/>
                 
                 <!-- default currency in framework/common/config/general.properties -->
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-one entity-name="CostComponent" value-field="costComponent" auto-field-map="false">
@@ -1162,7 +1162,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductSuppliers"/>
 
                 <!-- default currency in framework/common/config/general.properties -->
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
 
                 <set field="productId" from-field="parameters.productId"/>
                 <set field="minimumOrderQuantity" from-field="parameters.minimumOrderQuantity" type="BigDecimal"/>

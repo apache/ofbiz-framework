@@ -789,11 +789,11 @@ under the License.
             value="ListUnknownPartyComms"/>
     </request-map>
     <request-map uri="listUnknownPartyComms">
-        <security https="true" auth="true" />
-        <response name="success" type="view" value="ListUnknownPartyComms" />
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListUnknownPartyComms"/>
     </request-map>
     <request-map uri="editRequestFromCommEvent">
-        <security https="true" auth="true" />
+        <security https="true" auth="true"/>
         <response name="success" type="view" value="EditRequestFromCommEvent" save-last-view="true"/>
     </request-map>
     <request-map uri="createRequestFromCommEvent">

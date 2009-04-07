@@ -582,18 +582,18 @@ under the License.
     <InvoiceItemType description="Payrol" hasTable="N" invoiceItemTypeId="PAYROL" parentTypeId=""/><!-- to group the itemType parentId's -->
     
     <InvoiceItemType description="Earnings and Hours" hasTable="N" invoiceItemTypeId="PAYROL_EARN_HOURS" parentTypeId="PAYROL"/>
-    <InvoiceItemType description="Hourly Rate" hasTable="N" invoiceItemTypeId="PAYROL_HRLY_RATE" parentTypeId="PAYROL_EARN_HOURS" />
-    <InvoiceItemType description="Sick Hourly Rate" hasTable="N" invoiceItemTypeId="PAYROL_HRLY_RATE_SIC" parentTypeId="PAYROL_EARN_HOURS" />
-    <InvoiceItemType description="Salary" hasTable="N" invoiceItemTypeId="PAYROL_SALARY" parentTypeId="PAYROL_EARN_HOURS" />
-    <InvoiceItemType description="Vacation Salary" hasTable="N" invoiceItemTypeId="PAYROL_SALARY_VAC" parentTypeId="PAYROL_EARN_HOURS" />
-    <InvoiceItemType description="Sick Salary" hasTable="N" invoiceItemTypeId="PAYROL_SALARY_SICK" parentTypeId="PAYROL_EARN_HOURS" />
-    <InvoiceItemType description="Bonus" hasTable="N" invoiceItemTypeId="PAYROL_BONUS" parentTypeId="PAYROL_EARN_HOURS" />
-    <InvoiceItemType description="Commission" hasTable="N" invoiceItemTypeId="PAYROL_COMMISSION" parentTypeId="PAYROL_EARN_HOURS" />
-    <InvoiceItemType description="Advance Pay" hasTable="N" invoiceItemTypeId="PAYROL_ADV_PAY" parentTypeId="PAYROL_EARN_HOURS" />
-    <InvoiceItemType description="Mileage Reimboursement" hasTable="N" invoiceItemTypeId="PAYROL_MIL_REIMB" parentTypeId="PAYROL_EARN_HOURS" />
-    <InvoiceItemType description="Office Exp. reimboursement" hasTable="N" invoiceItemTypeId="PAYROL_OFF_EXP_REIMB" parentTypeId="PAYROL_EARN_HOURS" />
-    <InvoiceItemType description="Pay Period adj(over pay)" hasTable="N" invoiceItemTypeId="PAYROL_PAYPER_OVRPAY" parentTypeId="PAYROL_EARN_HOURS" />
-    <InvoiceItemType description="Pay Period adj pay" hasTable="N" invoiceItemTypeId="PAYROL_PAYPER_PAY" parentTypeId="PAYROL_EARN_HOURS" />
+    <InvoiceItemType description="Hourly Rate" hasTable="N" invoiceItemTypeId="PAYROL_HRLY_RATE" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Sick Hourly Rate" hasTable="N" invoiceItemTypeId="PAYROL_HRLY_RATE_SIC" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Salary" hasTable="N" invoiceItemTypeId="PAYROL_SALARY" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Vacation Salary" hasTable="N" invoiceItemTypeId="PAYROL_SALARY_VAC" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Sick Salary" hasTable="N" invoiceItemTypeId="PAYROL_SALARY_SICK" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Bonus" hasTable="N" invoiceItemTypeId="PAYROL_BONUS" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Commission" hasTable="N" invoiceItemTypeId="PAYROL_COMMISSION" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Advance Pay" hasTable="N" invoiceItemTypeId="PAYROL_ADV_PAY" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Mileage Reimboursement" hasTable="N" invoiceItemTypeId="PAYROL_MIL_REIMB" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Office Exp. reimboursement" hasTable="N" invoiceItemTypeId="PAYROL_OFF_EXP_REIMB" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Pay Period adj(over pay)" hasTable="N" invoiceItemTypeId="PAYROL_PAYPER_OVRPAY" parentTypeId="PAYROL_EARN_HOURS"/>
+    <InvoiceItemType description="Pay Period adj pay" hasTable="N" invoiceItemTypeId="PAYROL_PAYPER_PAY" parentTypeId="PAYROL_EARN_HOURS"/>
     
     <InvoiceItemType description="Deductions from Gross" hasTable="N" invoiceItemTypeId="PAYROL_DD_FROM_GROSS" parentTypeId="PAYROL"/>
     <InvoiceItemType description="125*Compy. Contr Other Prem." hasTable="N" invoiceItemTypeId="PAYROL_DD_125COMPY" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>/>
@@ -800,9 +800,9 @@ under the License.
     <WorkEffort workEffortId="_NA_"/>
     <EmplPositionType emplPositionTypeId="_NA_"/>
 
-    <WebSite webSiteId="ACCOUNTING" siteName="Accounting Manager" visualThemeSetId="BACKOFFICE" />
-    <WebSite webSiteId="ACCOUNTING_P" siteName="Account Payable Manager" visualThemeSetId="BACKOFFICE" />
-    <WebSite webSiteId="ACCOUNTING_R" siteName="Account Receivable Manager" visualThemeSetId="BACKOFFICE" />
+    <WebSite webSiteId="ACCOUNTING" siteName="Accounting Manager" visualThemeSetId="BACKOFFICE"/>
+    <WebSite webSiteId="ACCOUNTING_P" siteName="Account Payable Manager" visualThemeSetId="BACKOFFICE"/>
+    <WebSite webSiteId="ACCOUNTING_R" siteName="Account Receivable Manager" visualThemeSetId="BACKOFFICE"/>
     
     <!-- Points of Title Transfer -->
     <EnumerationType description="Points of Title Transfer" enumTypeId="PTSOFTTFR" hasTable="N" parentTypeId=""/>

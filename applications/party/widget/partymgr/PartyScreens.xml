@@ -913,7 +913,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListContent"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="PartyContents"/>
-                <set field="partyId" from-field="parameters.partyId" />               
+                <set field="partyId" from-field="parameters.partyId"/>               
                 <set field="contentId" from-field="parameters.contentId"/>
                 <entity-one entity-name="Content" value-field="content"/>
             </actions>
@@ -1051,7 +1051,7 @@ under the License.
                                                 </condition>
                                                 <actions>
                                                     <set field="actualCurrency" value="true" type="Boolean"/>
-                                                    <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId" />
+                                                    <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId"/>
                                                 </actions>
                                                 <widgets>
                                                     <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>
@@ -1080,7 +1080,7 @@ under the License.
                                         </condition>
                                         <actions>
                                             <set field="actualCurrency" value="true" type="Boolean"/>
-                                            <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId" />
+                                            <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId"/>
                                         </actions>
                                         <widgets>
                                             <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>
@@ -1107,7 +1107,7 @@ under the License.
                                         </condition>
                                         <actions>
                                             <set field="actualCurrency" value="true" type="Boolean"/>
-                                            <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId" />
+                                            <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId"/>
                                         </actions>
                                         <widgets>
                                             <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>
@@ -1134,7 +1134,7 @@ under the License.
                                         </condition>
                                         <actions>
                                             <set field="actualCurrency" value="true" type="Boolean"/>
-                                            <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId" />
+                                            <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId"/>
                                         </actions>
                                         <widgets>
                                             <label style="h2" text="${uiLabelMap.PartyCurrency}"></label>

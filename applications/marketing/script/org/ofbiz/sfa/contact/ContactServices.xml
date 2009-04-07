@@ -56,7 +56,7 @@
                 
         <set field="partyId" from-field="parameters.partyId"/>
         <set field="partyRelationCtx.partyIdFrom" from-field="userLogin.partyId"/>
-        <set field="partyRelationCtx.partyIdTo" from-field="partyId" />
+        <set field="partyRelationCtx.partyIdTo" from-field="partyId"/>
         <set field="partyRelationCtx.roleTypeIdTo" from-field="parameters.roleTypeId"/>
         <set field="partyRelationCtx.roleTypeIdFrom" value="_NA_"/>
         <set field="partyRelationCtx.partyRelationshipTypeId" value="CONTACT_REL"/>

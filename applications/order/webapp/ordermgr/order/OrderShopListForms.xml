@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditShopList" type="single" target="" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="ShoppingList" />
+        <auto-fields-entity entity-name="ShoppingList"/>
         <field name="shoppingListTypeId">
             <drop-down>
                 <entity-options entity-name="ShoppingListType" description="${description}">

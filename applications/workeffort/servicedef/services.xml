@@ -463,7 +463,7 @@ under the License.
             invoke="removeWorkEffortFixedAssetStd">
         <description>Removes a WorkEffortFixedAssetStd, thus removing the association between a routing task
             and a fixed asset (type)</description>
-        <auto-attributes include="pk" mode="IN" optional="false" />
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createWorkEffortFixedAssetAssign" engine="simple" auth="true"
             default-entity-name="WorkEffortFixedAssetAssign"
@@ -471,8 +471,8 @@ under the License.
             invoke="createWorkEffortFixedAssetAssign">
         <description>Create a WorkEffortFixedAssetAssign entry to associate a fixed asset
             with a work effort (e.g. a production run task)</description>
-        <auto-attributes include="pk" mode="IN" optional="false" />
-        <auto-attributes include="nonpk" mode="IN" optional="true" />
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true" mode="IN"/>
     </service>
     <service name="updateWorkEffortFixedAssetAssign" engine="simple" auth="true" 
@@ -480,8 +480,8 @@ under the License.
             location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" 
             invoke="updateWorkEffortFixedAssetAssign">
         <description>Update an existing WorkEffortFixedAssetAssign entry</description>
-        <auto-attributes include="pk" mode="IN" optional="false" />
-        <auto-attributes include="nonpk" mode="IN" optional="true" />
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="removeWorkEffortFixedAssetAssign" engine="simple" auth="true" 
             default-entity-name="WorkEffortFixedAssetAssign"
@@ -489,7 +489,7 @@ under the License.
             invoke="removeWorkEffortFixedAssetAssign">
         <description>Remove a WorkEffortFixedAssign entry, which removes the association between a fixed asset
             and a work effort (e.g. a production run task)</description>
-        <auto-attributes include="pk" mode="IN" optional="false" />
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- work effort content services -->
@@ -499,9 +499,9 @@ under the License.
         default-entity-name="WorkEffortContent" auth="true">
         <description>Create a Work Effort Content</description>
         <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
-        <auto-attributes include="pk" mode="IN" optional="false" />
-        <auto-attributes include="nonpk" mode="IN" optional="true" />
-        <override name="fromDate" optional="true" />
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
     </service>
     <service name="updateWorkEffortContent" engine="simple"
         location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"

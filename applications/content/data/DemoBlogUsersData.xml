@@ -76,7 +76,7 @@ under the License.
      createdByUserLogin="bigal" 
      lastModifiedByUserLogin="bigal" 
      createdDate="2004-10-16 17:32:31.285" 
-     lastModifiedDate="2004-10-16 17:32:31.291" /> 
+     lastModifiedDate="2004-10-16 17:32:31.291"/> 
      
     <Party partyId="AUTHOR_MADMAX" partyTypeId="PERSON" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <Person partyId="AUTHOR_MADMAX" lastName="Max" firstName="Mad"/>
@@ -92,7 +92,7 @@ under the License.
      createdByUserLogin="madmax" 
      lastModifiedByUserLogin="madmax" 
      createdDate="2004-10-16 17:32:31.285" 
-     lastModifiedDate="2004-10-16 17:32:31.291" /> 
+     lastModifiedDate="2004-10-16 17:32:31.291"/> 
      
      
 </entity-engine-xml>

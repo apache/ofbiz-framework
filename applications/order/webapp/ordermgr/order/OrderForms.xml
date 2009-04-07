@@ -28,7 +28,7 @@ under the License.
             </entity-one>
         </actions>
         <alt-target target="createOrderHeader" use-when="orderHeader==null"/>
-        <auto-fields-entity entity-name="OrderHeader" />
+        <auto-fields-entity entity-name="OrderHeader"/>
         
         <field name="orderId" use-when="orderHeader!=null" ><display/></field>
         <field name="orderId" use-when="orderHeader==null" ><ignored/></field>

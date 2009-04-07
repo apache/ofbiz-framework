@@ -2038,7 +2038,7 @@ under the License.
         <entity-one entity-name="Invoice" value-field="invoice"/>
         <if-compare field="invoice.invoiceTypeId" value="SALES_INVOICE" operator="equals">
             <entity-and entity-name="InvoiceItem" list="invoiceItems">
-                <field-map field-name="invoiceId" from-field="parameters.invoiceId" />
+                <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
             </entity-and>
             <iterate list="invoiceItems" entry="invoiceItem">
                 <!-- TODO: handle serialized inventory -->
@@ -2142,7 +2142,7 @@ under the License.
                 <else>
                     <if-not-empty field="paymentApplication.taxAuthGeoId">
                         <entity-one entity-name="TaxAuthorityGlAccount" value-field="taxAuthorityGlAccount">
-                            <field-map field-name="organizationPartyId" from-field="organizationPartyId" />
+                            <field-map field-name="organizationPartyId" from-field="organizationPartyId"/>
                             <field-map field-name="taxAuthGeoId" from-field="paymentApplication.taxAuthGeoId"/>
                             <field-map field-name="taxAuthPartyId" from-field="partyId"/>
                         </entity-one>

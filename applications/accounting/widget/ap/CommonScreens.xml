@@ -66,7 +66,7 @@ under the License.
                                 <label style="h1">${uiLabelMap.AccountingAgreements}</label>
                                 <section>
                                     <widgets>
-                                        <include-menu name="ApMainAgreementMenu" location="component://accounting/widget/ap/Menus.xml" />
+                                        <include-menu name="ApMainAgreementMenu" location="component://accounting/widget/ap/Menus.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -74,7 +74,7 @@ under the License.
                                 <label style="h1">${uiLabelMap.PartyVendor} ${uiLabelMap.CommonList}</label>
                                 <section>
                                     <widgets>
-                                        <include-menu name="ApMainVendorMenu" location="component://accounting/widget/ap/Menus.xml" />
+                                        <include-menu name="ApMainVendorMenu" location="component://accounting/widget/ap/Menus.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -84,7 +84,7 @@ under the License.
                                 <label style="h1">${uiLabelMap.AccountingReports}</label>
                                 <section>
                                     <widgets>
-                                        <include-menu name="ApMainReportMenu" location="component://accounting/widget/ap/Menus.xml" />
+                                        <include-menu name="ApMainReportMenu" location="component://accounting/widget/ap/Menus.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -97,7 +97,7 @@ under the License.
                                         <iterate-section list="paymentTypes" entry="paymentType">
                                             <section>
                                                 <widgets>
-                                                    <include-menu name="ApMainPaymentTypeMenu" location="component://accounting/widget/ap/Menus.xml" />
+                                                    <include-menu name="ApMainPaymentTypeMenu" location="component://accounting/widget/ap/Menus.xml"/>
                                                 </widgets>
                                              </section>
                                         </iterate-section>
@@ -106,7 +106,7 @@ under the License.
                                         <iterate-section list="paymentMethodTypes" entry="paymentMethodType">
                                             <section>
                                                 <widgets>
-                                                    <include-menu name="ApMainPaymentMethodTypeMenu" location="component://accounting/widget/ap/Menus.xml" />
+                                                    <include-menu name="ApMainPaymentMethodTypeMenu" location="component://accounting/widget/ap/Menus.xml"/>
                                                 </widgets>
                                             </section>
                                         </iterate-section>
@@ -117,7 +117,7 @@ under the License.
                                         <iterate-section list="paymentStatus" entry="paymentsStatus">
                                             <section>
                                                 <widgets>
-                                                    <include-menu name="ApMainPaymentStatusMenu" location="component://accounting/widget/ap/Menus.xml" />
+                                                    <include-menu name="ApMainPaymentStatusMenu" location="component://accounting/widget/ap/Menus.xml"/>
                                                 </widgets>
                                             </section>
                                         </iterate-section>
@@ -134,7 +134,7 @@ under the License.
                                         <iterate-section list="invoiceTypes" entry="invoiceType">
                                             <section>
                                                 <widgets>
-                                                    <include-menu name="ApMainInvoiceTypeMenu" location="component://accounting/widget/ap/Menus.xml" />
+                                                    <include-menu name="ApMainInvoiceTypeMenu" location="component://accounting/widget/ap/Menus.xml"/>
                                                 </widgets>
                                              </section>
                                         </iterate-section>
@@ -143,7 +143,7 @@ under the License.
                                         <iterate-section list="invoiceStatus" entry="invoicesStatus">
                                             <section>
                                                 <widgets>
-                                                    <include-menu name="ApMainInvoiceStatusMenu" location="component://accounting/widget/ap/Menus.xml" />
+                                                    <include-menu name="ApMainInvoiceStatusMenu" location="component://accounting/widget/ap/Menus.xml"/>
                                                 </widgets>
                                             </section>
                                         </iterate-section>

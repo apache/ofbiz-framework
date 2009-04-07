@@ -275,8 +275,8 @@ under the License.
       <member-entity entity-alias="PCC" entity-name="ProductCategoryContent"/>
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
-      <alias-all entity-alias="PCC" />
-      <alias-all entity-alias="CO" />
+      <alias-all entity-alias="PCC"/>
+      <alias-all entity-alias="CO"/>
       <alias-all entity-alias="DR" prefix="dr"/>
       <view-link entity-alias="PCC" rel-entity-alias="CO">
         <key-map field-name="contentId"/>
@@ -288,16 +288,16 @@ under the License.
         <key-map field-name="dataResourceId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="ImageDataResource">
-        <key-map field-name="dataResourceId" />
+        <key-map field-name="dataResourceId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="OtherDataResource">
-        <key-map field-name="dataResourceId" />
+        <key-map field-name="dataResourceId"/>
       </relation>
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
     </view-entity>
     <entity entity-name="ProductCategoryContentType"
@@ -2457,8 +2457,8 @@ under the License.
                 title="GoodIdentification and Product View Entity">
       <member-entity entity-alias="GI" entity-name="GoodIdentification"/>
       <member-entity entity-alias="PR" entity-name="Product"/>
-      <alias-all entity-alias="GI" />
-      <alias-all entity-alias="PR" />
+      <alias-all entity-alias="GI"/>
+      <alias-all entity-alias="PR"/>
       <view-link entity-alias="GI" rel-entity-alias="PR">
         <key-map field-name="productId"/>
       </view-link>
@@ -2806,8 +2806,8 @@ under the License.
       <member-entity entity-alias="PC" entity-name="ProductContent"/>
       <member-entity entity-alias="CO" entity-name="Content"/>
       <member-entity entity-alias="DR" entity-name="DataResource"/>
-      <alias-all entity-alias="PC" />
-      <alias-all entity-alias="CO" />
+      <alias-all entity-alias="PC"/>
+      <alias-all entity-alias="CO"/>
       <alias-all entity-alias="DR" prefix="dr"/>
       <view-link entity-alias="PC" rel-entity-alias="CO">
         <key-map field-name="contentId"/>
@@ -2819,16 +2819,16 @@ under the License.
         <key-map field-name="dataResourceId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="ImageDataResource">
-        <key-map field-name="dataResourceId" />
+        <key-map field-name="dataResourceId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="OtherDataResource">
-        <key-map field-name="dataResourceId" />
+        <key-map field-name="dataResourceId"/>
       </relation>
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewFrom">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
       <relation type="many" rel-entity-name="ContentAssocDataResourceViewTo">
-        <key-map field-name="contentId" rel-field-name="contentIdStart" />
+        <key-map field-name="contentId" rel-field-name="contentIdStart"/>
       </relation>
     </view-entity>
     <entity entity-name="ProductContentType"

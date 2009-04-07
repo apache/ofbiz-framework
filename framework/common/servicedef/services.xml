@@ -276,7 +276,7 @@ under the License.
             location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="deleteKeywordThesaurus" auth="true">
         <description>Delete a Keyword Thesaurus</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <override name="alternateKeyword" optional="true" />
+        <override name="alternateKeyword" optional="true"/>
     </service>
     
     <!-- Uom conversion service -->

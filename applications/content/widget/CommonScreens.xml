@@ -59,7 +59,7 @@ under the License.
                                 <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
                             </condition>
                             <widgets>
-                                <include-menu name="cms" location="component://content/webapp/content/cms/CMSMenus.xml" />
+                                <include-menu name="cms" location="component://content/webapp/content/cms/CMSMenus.xml"/>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -339,16 +339,16 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <if-compare-field field="responseContentId" operator="equals" to-field="rsp.contentId" />
+                        <if-compare-field field="responseContentId" operator="equals" to-field="rsp.contentId"/>
                     </condition>
                     <widgets>
                         <container style="responseSelected">
-                            <label text="${rsp.contentName} - ${rsp.description} [${rsp.contentId}]" style="responseheader" />
+                            <label text="${rsp.contentName} - ${rsp.description} [${rsp.contentId}]" style="responseheader"/>
                             <link  text="${uiLabelMap.PartyReply}" target="addForumThreadMessage" style="buttontext">
                                 <parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
                                 <parameter param-name="forumId" from-field="parameters.forumId"/>
                                 <parameter param-name="forumMessageIdTo" from-field="rsp.contentId"/>
-                                <parameter param-name="contentAssocTypeId" value="RESPONSE" />
+                                <parameter param-name="contentAssocTypeId" value="RESPONSE"/>
                             </link>
                             <container style="responsetext">
                                 <include-form name="EditForumThreadMessage" location="component://content/widget/forum/ForumForms.xml"/>
@@ -357,12 +357,12 @@ under the License.
                     </widgets>
                     <fail-widgets>
                         <container>
-                            <label text="${rsp.contentName} - ${rsp.description} [${rsp.contentId}]" style="responseheader" />
+                            <label text="${rsp.contentName} - ${rsp.description} [${rsp.contentId}]" style="responseheader"/>
                             <link  text="${uiLabelMap.PartyReply}" target="addForumThreadMessage" style="buttontext">
                                 <parameter param-name="forumGroupId" from-field="parameters.forumGroupId"/>
                                 <parameter param-name="forumId" from-field="parameters.forumId"/>
                                 <parameter param-name="forumMessageIdTo" from-field="rsp.contentId"/>
-                                <parameter param-name="contentAssocTypeId" value="RESPONSE" />
+                                <parameter param-name="contentAssocTypeId" value="RESPONSE"/>
                             </link>
                             <container style="responsetext">
                                 <include-form name="EditForumThreadMessage" location="component://content/widget/forum/ForumForms.xml"/>

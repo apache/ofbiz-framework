@@ -58,7 +58,7 @@
     - - - - - - - - - - - - - - - - - -->
     <target name="installDerby" depends="clean">
         <!-- install derby -->
-        <copy file="${r"${ofbizHome}"}/framework/entity/lib/jdbc/derby-${r"${DERBY_VERSION}"}.jar" todir="../../lib/" />
+        <copy file="${r"${ofbizHome}"}/framework/entity/lib/jdbc/derby-${r"${DERBY_VERSION}"}.jar" todir="../../lib/"/>
 
         <!-- install derby plugin -->
         <copy file="../../../../docs/examples/varia/derby-plugin.jar" todir="../../lib/"/>
@@ -71,10 +71,10 @@
         </copy>
         
         <!-- move entityengine.xml, log4j.xml and jndi.properties -->
-        <move file="${r"${ofbizHome}"}/framework/entity/config/entityengine.xml" tofile="${r"${ofbizHome}"}/framework/entity/config/entityengine.xml.jbak" />
+        <move file="${r"${ofbizHome}"}/framework/entity/config/entityengine.xml" tofile="${r"${ofbizHome}"}/framework/entity/config/entityengine.xml.jbak"/>
         <move file="${r"${ofbizHome}"}/framework/entity/config/entityengine-jboss422.xml" tofile="${r"${ofbizHome}"}/framework/entity/config/entityengine.xml"/>
         <move file="${r"${ofbizHome}"}/framework/base/config/log4j.xml" tofile="${r"${ofbizHome}"}/framework/base/config/_log4j.xml.bak"/>
-        <move file="${r"${ofbizHome}"}/framework/base/config/jndi.properties" tofile="${r"${ofbizHome}"}/framework/base/config/_jndi.properties.bak" />
+        <move file="${r"${ofbizHome}"}/framework/base/config/jndi.properties" tofile="${r"${ofbizHome}"}/framework/base/config/_jndi.properties.bak"/>
 
         <!-- copy all lib files -->
         <mkdir dir="lib"/>
@@ -128,17 +128,17 @@
         <mkdir dir="META-INF"/>
         <copy file="${targetDirectory}/application.xml" todir="./META-INF"></copy>
 
-        <copy file="${r"${ofbizHome}"}/framework/base/lib/scripting/bsh-2.0b4.jar" tofile="../../lib/bsh.jar" />
+        <copy file="${r"${ofbizHome}"}/framework/base/lib/scripting/bsh-2.0b4.jar" tofile="../../lib/bsh.jar"/>
 
         <!-- revert entityengine.xml log4j.xml and jndi.properties -->
-        <move file="${r"${ofbizHome}"}/framework/entity/config/entityengine.xml" tofile="${r"${ofbizHome}"}/framework/entity/config/entityengine-jboss422.xml" />
-        <move file="${r"${ofbizHome}"}/framework/entity/config/entityengine.xml.jbak" tofile="${r"${ofbizHome}"}/framework/entity/config/entityengine.xml" />
+        <move file="${r"${ofbizHome}"}/framework/entity/config/entityengine.xml" tofile="${r"${ofbizHome}"}/framework/entity/config/entityengine-jboss422.xml"/>
+        <move file="${r"${ofbizHome}"}/framework/entity/config/entityengine.xml.jbak" tofile="${r"${ofbizHome}"}/framework/entity/config/entityengine.xml"/>
 
-        <move file="${r"${ofbizHome}"}/framework/base/config/_log4j.xml.bak" tofile="${r"${ofbizHome}"}/framework/base/config/log4j.xml" />
-        <move file="${r"${ofbizHome}"}/framework/base/config/_jndi.properties.bak" tofile="${r"${ofbizHome}"}/framework/base/config/jndi.properties" />
+        <move file="${r"${ofbizHome}"}/framework/base/config/_log4j.xml.bak" tofile="${r"${ofbizHome}"}/framework/base/config/log4j.xml"/>
+        <move file="${r"${ofbizHome}"}/framework/base/config/_jndi.properties.bak" tofile="${r"${ofbizHome}"}/framework/base/config/jndi.properties"/>
 
         <!-- setup the OFBIZ_HOME by updating run.conf -->
         <move file="../../../../bin/run.conf" tofile="../../../../bin/run.conf.obak"/>
-        <copy file="${r"${ofbizHome}"}/setup/jboss422/run.conf" tofile="../../../../bin/run.conf" />
+        <copy file="${r"${ofbizHome}"}/setup/jboss422/run.conf" tofile="../../../../bin/run.conf"/>
     </target>
 </project>

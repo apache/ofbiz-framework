@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="lookupProduct" target="LookupProduct" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden" /> -->
+        <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden"/> -->
         <field name="productId" title="${uiLabelMap.ProductProductId}"><text-find/></field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><text-find/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find default-option="contains"/></field>
@@ -119,7 +119,7 @@ under the License.
 
     <form name="lookupProductAndPrice" target="LookupProductAndPrice" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden" /> -->
+        <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden"/> -->
         <field name="productId" title="${uiLabelMap.ProductProductId}"><text-find/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find/></field>
         <field name="productTypeId" title="${uiLabelMap.ProductProductType}">
@@ -196,7 +196,7 @@ under the License.
 
     <form name="lookupProductCategory" target="LookupProductCategory" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="ProductCategory" default-field-type="find" />
+        <auto-fields-entity entity-name="ProductCategory" default-field-type="find"/>
         <field name="productCategoryTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="ProductCategoryType">
@@ -253,7 +253,7 @@ under the License.
     
     <form name="lookupProductFeature" target="LookupProductFeature" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="ProductFeature" default-field-type="find" />
+        <auto-fields-entity entity-name="ProductFeature" default-field-type="find"/>
         <field name="productFeatureTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="ProductFeatureType">

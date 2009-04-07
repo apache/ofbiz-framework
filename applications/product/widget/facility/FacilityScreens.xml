@@ -983,8 +983,8 @@ under the License.
                 <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
                 <set field="subTabButtonItem" value="ViewInventoryItemDetail"/>
                 
-                <set field="inventoryItemId" from-field="parameters.inventoryItemId" />
-                <set field="facilityId" from-field="parameters.facilityId" />
+                <set field="inventoryItemId" from-field="parameters.inventoryItemId"/>
+                <set field="facilityId" from-field="parameters.facilityId"/>
                 
                 <entity-condition entity-name="InventoryItemDetail" list="inventoryItemDetails">
                     <condition-list combine="and">
@@ -1038,8 +1038,8 @@ under the License.
                 <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
                 <set field="subTabButtonItem" value="EditInventoryItemLabels"/>
                 
-                <set field="inventoryItemId" from-field="parameters.inventoryItemId" />
-                <set field="facilityId" from-field="parameters.facilityId" />
+                <set field="inventoryItemId" from-field="parameters.inventoryItemId"/>
+                <set field="facilityId" from-field="parameters.facilityId"/>
                 
                 <entity-condition entity-name="InventoryItemLabelAppl" list="inventoryItemLabelAppls">
                     <condition-list combine="and">

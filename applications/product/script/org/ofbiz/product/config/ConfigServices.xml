@@ -22,8 +22,8 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ProductConfig methods -->
     <simple-method method-name="createProductConfig" short-description="Create a ProductConfig">
-        <set field="callingMethodName" value="createProductConfig" />
-        <set field="checkAction" value="CREATE" /> 
+        <set field="callingMethodName" value="createProductConfig"/>
+        <set field="checkAction" value="CREATE"/> 
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
@@ -35,15 +35,15 @@ under the License.
         <now-timestamp field="nowTimestamp"/>
 
         <if-empty field="newEntity.fromDate">
-            <set field="newEntity.fromDate" from-field="nowTimestamp" />
+            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
         <field-to-result field="newEntity.fromDate" result-name="fromDate"/>
 
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductConfig" short-description="Update an ProductConfig">
-        <set field="callingMethodName" value="updateProductConfig" />
-        <set field="checkAction" value="UPDATE" />        
+        <set field="callingMethodName" value="updateProductConfig"/>
+        <set field="checkAction" value="UPDATE"/>        
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
@@ -57,8 +57,8 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductConfig" short-description="Delete an ProductConfig">
-        <set field="callingMethodName" value="deleteProductConfig" />
-        <set field="checkAction" value="DELETE" />        
+        <set field="callingMethodName" value="deleteProductConfig"/>
+        <set field="checkAction" value="DELETE"/>        
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>

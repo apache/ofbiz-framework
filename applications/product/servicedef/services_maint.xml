@@ -112,7 +112,7 @@ under the License.
       location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="getRelatedCategories">
         <description>Get all related categories of a category </description>
         <attribute name="parentProductCategoryId" type="String" mode="IN" optional="false"/>
-        <attribute name="categories" type="java.util.List" mode="INOUT" optional="true" />
+        <attribute name="categories" type="java.util.List" mode="INOUT" optional="true"/>
     </service>
 
     <service name="checkImageUrlForCategoryAndProduct" engine="simple"

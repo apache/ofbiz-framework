@@ -47,30 +47,30 @@ under the License.
   <Geo abbreviation="SP" geoCode="SP" geoId="BR-SP" geoName="São Paulo" geoTypeId="STATE"/>
   <Geo abbreviation="TO" geoCode="TO" geoId="BR-TO" geoName="Tocantins" geoTypeId="STATE"/>
 
-   <GeoAssoc geoId="BRA" geoIdTo="BR-AL" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-AM" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-AP" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-BA" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-CE" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-DF" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-ES" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-GO" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-MA" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-MG" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-MS" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-MT" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-PA" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-PB" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-PE" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-PI" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-PR" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-RJ" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-RN" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-RO" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-RR" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-RS" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-SC" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-SE" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-SP" geoAssocTypeId="REGIONS" />  
-   <GeoAssoc geoId="BRA" geoIdTo="BR-TO" geoAssocTypeId="REGIONS" />
+   <GeoAssoc geoId="BRA" geoIdTo="BR-AL" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-AM" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-AP" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-BA" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-CE" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-DF" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-ES" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-GO" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-MA" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-MG" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-MS" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-MT" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-PA" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-PB" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-PE" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-PI" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-PR" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-RJ" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-RN" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-RO" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-RR" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-RS" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-SC" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-SE" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-SP" geoAssocTypeId="REGIONS"/>  
+   <GeoAssoc geoId="BRA" geoIdTo="BR-TO" geoAssocTypeId="REGIONS"/>
 </entity-engine-xml>

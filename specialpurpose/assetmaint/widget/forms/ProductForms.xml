@@ -80,7 +80,7 @@
     </form>
     <form name="lookupProduct" target="${submitTarget}" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden" /> -->
+        <!-- <auto-fields-entity entity-name="Product" default-field-type="hidden"/> -->
         <field name="productId" title="${uiLabelMap.CommonId}"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="brandName" title="${uiLabelMap.ProductBrandName}"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find default-option="contains" ignore-case="true"/></field>

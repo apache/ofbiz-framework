@@ -276,11 +276,11 @@ under the License.
     <screen name="EditSubscriptionCommEvent">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditSubscriptionCommEvent" />
-                <set field="tabButtonItem" value="EditSubscriptionCommEvent" />
-                <set field="subscriptionId" from-field="parameters.subscriptionId" />
+                <set field="titleProperty" value="PageTitleEditSubscriptionCommEvent"/>
+                <set field="tabButtonItem" value="EditSubscriptionCommEvent"/>
+                <set field="subscriptionId" from-field="parameters.subscriptionId"/>
                 <entity-and entity-name="SubscriptionAndCommEvent" use-cache="false" list="subscriptionCommEvent">
-                    <field-map field-name="subscriptionId" />
+                    <field-map field-name="subscriptionId"/>
                 </entity-and>
             </actions>
             <widgets>
@@ -289,7 +289,7 @@ under the License.
                         <screenlet id="addSubscriptionCommEvent" title="${uiLabelMap.PageTitleAddSubscriptionCommEvent}" collapsible="true">
                             <include-form name="createSubscriptionCommEvent" location="component://product/widget/catalog/SubscriptionForms.xml"/>
                         </screenlet>
-                        <include-form name="listSubscriptionCommEvent" location="component://product/widget/catalog/SubscriptionForms.xml" />
+                        <include-form name="listSubscriptionCommEvent" location="component://product/widget/catalog/SubscriptionForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

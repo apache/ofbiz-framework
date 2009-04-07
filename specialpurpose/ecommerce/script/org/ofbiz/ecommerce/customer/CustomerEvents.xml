@@ -470,13 +470,13 @@ under the License.
                     }
                 ]]></call-bsh>
             </if-not-empty>
-            <set from-field="tempMap.partyId" field="partyId" />
+            <set from-field="tempMap.partyId" field="partyId"/>
             <if-not-empty field="partyId">
                 <set field="lookupKeyValue.userLoginId" value="anonymous"/>
                 <find-by-primary-key map="lookupKeyValue" entity-name="UserLogin" value-field="userLogin"/>
                 <if-not-empty field="userLogin">
                     <set field="userLogin.partyId" from-field="partyId"/>
-                    <field-to-session field="userLogin" session-name="userLogin" />
+                    <field-to-session field="userLogin" session-name="userLogin"/>
                     <if-not-empty field="cart">
                         <call-object-method obj-field="cart" method-name="setOrderPartyId">
                             <field field="partyId"/>
@@ -802,12 +802,12 @@ under the License.
        ]]></call-bsh>
        <session-to-field field="cart" session-name="shoppingCart"/>
        <if-not-empty field="cart">
-           <set field="shipmentMethodTypeId" from-field="parameters.shipmentMethodTypeId" />
+           <set field="shipmentMethodTypeId" from-field="parameters.shipmentMethodTypeId"/>
            <call-object-method obj-field="cart" method-name="setShipmentMethodTypeId">
                <field field="shipmentMethodTypeId"/>
            </call-object-method>
 
-           <set field="carrierPartyId" from-field="parameters.carrierPartyId" />
+           <set field="carrierPartyId" from-field="parameters.carrierPartyId"/>
            <call-object-method obj-field="cart" method-name="setCarrierPartyId">
                <field field="carrierPartyId"/>
            </call-object-method>

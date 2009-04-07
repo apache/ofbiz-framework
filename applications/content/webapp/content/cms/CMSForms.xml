@@ -76,19 +76,19 @@ under the License.
         </field>
         <field name="dataResourceId" >
             <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
-                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.ContentTemplateTextOnly}" />
-                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.ContentTemplateImageCentered}" />
-                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.ContentTemplateImageLeft}" />
+                <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.ContentTemplateTextOnly}"/>
+                <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.ContentTemplateImageCentered}"/>
+                <option key="TEMPLATE_IMAGE_LEFT" description="${uiLabelMap.ContentTemplateImageLeft}"/>
             </drop-down>
         </field>
         <field name="ftlContentId" position="1">
-            <display description="${ftlContentId}" />
+            <display description="${ftlContentId}"/>
         </field>
         <field name="contentIdTo" position="2">
-            <display description="${contentIdTo}" />
+            <display description="${contentIdTo}"/>
         </field>
         <field name="ownerContentId" >
-            <hidden value="${contentIdTo}" />
+            <hidden value="${contentIdTo}"/>
         </field>
         <field name="contentName">
             <text/>
@@ -99,7 +99,7 @@ under the License.
        <field name="summaryData" title="${uiLabelMap.ContentBlogSummary}"
             use-when="&quot;${summaryDataResourceTypeId}&quot;.length()>0"
             id-name="summaryData">
-                <textarea rows="8" cols="80" />
+                <textarea rows="8" cols="80"/>
         </field>
 
         <field name="textData" id-name="textData"><textarea rows="20" cols="60"/></field>
@@ -607,12 +607,12 @@ under the License.
             <submit button-type="button"/>
         </field>
 
-        <field name="MASTER_contentId" ><hidden value="${MASTER_contentId}" /></field>
-        <field name="MASTER_caContentId" ><hidden value="${MASTER_caContentId}" /></field>
-        <field name="MASTER_caContentIdTo" ><hidden value="${MASTER_caContentIdTo}" /></field>
-        <field name="MASTER_caContentAssocTypeId" ><hidden value="${MASTER_caContentAssocTypeId}" /></field>
-        <field name="MASTER_caFromDate" ><hidden value="${MASTER_caFromDate}" /></field>
-        <field name="MASTER_drDataResource" ><hidden value="${MASTER_drDataResource}" /></field>
+        <field name="MASTER_contentId" ><hidden value="${MASTER_contentId}"/></field>
+        <field name="MASTER_caContentId" ><hidden value="${MASTER_caContentId}"/></field>
+        <field name="MASTER_caContentIdTo" ><hidden value="${MASTER_caContentIdTo}"/></field>
+        <field name="MASTER_caContentAssocTypeId" ><hidden value="${MASTER_caContentAssocTypeId}"/></field>
+        <field name="MASTER_caFromDate" ><hidden value="${MASTER_caFromDate}"/></field>
+        <field name="MASTER_drDataResource" ><hidden value="${MASTER_drDataResource}"/></field>
     </form>
     <form name="EditAddSubContentStuff" target="persistSubContentStuff" title="" type="upload" default-map-name="currentValue" extends="EditAddContentStuff"
         header-row-style="header-row" default-table-style="basic-table">
