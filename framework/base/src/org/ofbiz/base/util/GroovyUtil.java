@@ -33,6 +33,7 @@ import groovy.lang.GroovyShell;
 import groovy.lang.Script;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.runtime.InvokerHelper;
+import bsh.EvalError;
 
 /**
  * GroovyUtil - Groovy Utilities
@@ -59,6 +60,44 @@ public class GroovyUtil {
         }
 
         return binding;
+    }
+
+    /**
+     * Evaluate a Groovy condition or expression
+     * @param expression The expression to evaluate
+     * @param context The context to use in evaluation (re-written)
+     * @return Object The result of the evaluation
+     * @throws CompilationFailedException
+     */
+    public static Object eval(String expression, Map<String, Object> context) throws CompilationFailedException {
+        Object o;
+        if (expression == null || expression.equals("")) {
+            Debug.logError("Groovy Evaluation error. Empty expression", module);
+            return null;
+        }
+
+        if (Debug.verboseOn())
+            Debug.logVerbose("Evaluating -- " + expression, module);
+        if (Debug.verboseOn())
+            Debug.logVerbose("Using Context -- " + context, module);
+
+        try {
+            GroovyShell shell = new GroovyShell(getBinding(context));            
+            o = shell.evaluate(expression);
+
+            if (Debug.verboseOn())
+                Debug.logVerbose("Evaluated to -- " + o, module);
+
+            // read back the context info
+            Binding binding = shell.getContext();
+            context.putAll(binding.getVariables());
+            
+        } catch (CompilationFailedException e) {
+            Debug.logError(e, "Groovy Evaluation error.", module);
+            throw e;
+        }
+        
+        return o;
     }
 
     public static Object runScriptAtLocation(String location, Map<String, Object> context) throws GeneralException {

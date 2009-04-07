@@ -148,9 +148,9 @@
         <value xml:lang="it">Campo9: campo di selezione con valore di default per data e ora</value>
     </property>
     <property key="ExampleDateField9Tooltip">
-        <value xml:lang="en">Same as above, uses the $ {bsh:...} notation to call an util method to get the now timestamp</value>
-        <value xml:lang="fr">La même chose mais utilise la notation $ {bsh:...} pour appeler un méthode utilitaire pour obtenir l'heure du moment</value>
-        <value xml:lang="it">Lo stesso di sopra, usare la notazione $ {bsh:...} per eseguire un metodo di utilità per ottenere un nuovo timestamp</value>
+        <value xml:lang="en">Same as above, uses the $ {groovy:...} notation to call an util method to get the now timestamp</value>
+        <value xml:lang="fr">La même chose mais utilise la notation $ {groovy:...} pour appeler un méthode utilitaire pour obtenir l'heure du moment</value>
+        <value xml:lang="it">Lo stesso di sopra, usare la notazione $ {groovy:...} per eseguire un metodo di utilità per ottenere un nuovo timestamp</value>
     </property>
     <property key="ExampleDateTimeFields">
         <value xml:lang="en">Date/Time fields</value>
