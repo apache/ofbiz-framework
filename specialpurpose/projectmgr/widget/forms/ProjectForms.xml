@@ -606,8 +606,13 @@
                 <order-by field-name="noteId"/>
             </entity-condition>
         </actions>
+        <row-actions>
+            <entity-one entity-name="PartyNameView" value-field="partyNameView">
+                <field-map field-name="partyId" from-field="noteParty"/>
+            </entity-one>
+        </row-actions>
         <field name="workEffortId"><hidden/></field>
-        <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${bsh: org.ofbiz.base.util.UtilDateTime.timeStampToString(noteDateTime, &quot;dd-MM-yyyy HH:mm&quot;, TimeZone.getDefault(), context.get(&quot;locale&quot;))}"/></field>
+        <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${partyNameView.lastName} ${partyNameView.middleName} ${partyNameView.firstName} at  ${noteDateTime}"/></field>
     </form>
     <form name="listResourcesTasks" type="list" list-name="tasks" paginate-target="listResourcesTask" target="updateResourcesTaskAssigment"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
