@@ -31,6 +31,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilJ2eeCompat;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -41,9 +42,10 @@ import org.ofbiz.webapp.view.ViewHandlerException;
 import org.xml.sax.SAXException;
 
 import org.ofbiz.widget.menu.MenuStringRenderer;
+// TODO: uncomment these lines when the renderers are implemented
 //import org.ofbiz.widget.menu.MacroMenuRenderer;
-import org.ofbiz.widget.tree.TreeStringRenderer;
 //import org.ofbiz.widget.tree.MacroTreeRenderer;
+import org.ofbiz.widget.tree.TreeStringRenderer;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.MacroFormRenderer;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
@@ -101,6 +103,10 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
             screens.populateContextForRequest(request, response, servletContext);
             // this is the object used to render forms from their definitions
             screens.getContext().put("formStringRenderer", formStringRenderer);
+            // TODO: uncomment these lines when the renderers are implemented
+            //screens.getContext().put("treeStringRenderer", treeStringRenderer);
+            //screens.getContext().put("menuStringRenderer", menuStringRenderer);
+            screens.getContext().put("simpleEncoder", StringUtil.getEncoder(UtilProperties.getPropertyValue("widget", getName() + ".encoder")));
             screens.render(page);
             writer.flush();
         } catch (TemplateException e) {

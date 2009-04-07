@@ -89,16 +89,26 @@ public class StringUtil {
 
     // ================== Begin General Functions ==================
 
+    public static SimpleEncoder getEncoder(String type) {
+        if ("xml".equals(type)) {
+            return StringUtil.xmlEncoder;
+        } else if ("html".equals(type)) {
+            return StringUtil.htmlEncoder;
+        } else {
+            return null;
+        }
+    }
+
     public static String internString(String value) {
         return value != null ? value.intern() : null;
     }
 
     /**
-     * Replaces all occurances of oldString in mainString with newString
+     * Replaces all occurrences of oldString in mainString with newString
      * @param mainString The original string
      * @param oldString The string to replace
      * @param newString The string to insert in place of the old
-     * @return mainString with all occurances of oldString replaced by newString
+     * @return mainString with all occurrences of oldString replaced by newString
      */
     public static String replaceString(String mainString, String oldString, String newString) {
         if (mainString == null) {
