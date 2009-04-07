@@ -21,36 +21,6 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="MyCompanyComms" type="list" list-name="events" target="deleteEvent" paginate-target="FindTask"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <actions>
-            <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
-            <entity-condition entity-name="WorkEffort">
-                <condition-list combine="and">
-                    <condition-expr field-name="workEffortTypeId" operator="equals" value="COMPANY_EVENT"/>
-                    <condition-expr field-name="actualStartDate" operator="greater-equals" from-field="nowDate"/>
-                </condition-list>
-                <order-by field-name="actualStartDate"/>
-            </entity-condition>
-        </actions>
-        <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="deleteEvent"/>
-        <field name="workEffortId"><hidden/></field>
-        <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><display/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="actualStartDate" title="${uiLabelMap.CommonActualStartDate}"><display type="date"/></field>
-        <field name="delete" title="${uiLabelMap.CommonDelete}"><submit button-type="text-link"/></field>
-    </form>
-    
-    <form name="newEvent" type="single" target="createEvent">
-        <field name="portalPageId"><hidden/></field>
-        <field name="workEffortTypeId"><hidden value="COMPANY_EVENT"/></field>
-        <field name="currentStatusId"><hidden value="_NA_"/></field>
-        <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
-        <field name="actualStartDate"><date-time type="date"/></field>
-        <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
-    </form>
-    
     <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="workEffortId">
             <hyperlink target="/projectmgr/control/taskView" description="${workEffortName} [${workEffortId}]" target-type="inter-app">
