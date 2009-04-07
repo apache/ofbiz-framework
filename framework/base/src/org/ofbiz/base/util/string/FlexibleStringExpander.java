@@ -26,13 +26,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import org.ofbiz.base.util.BshUtil;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilFormatOut;
-import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.*;
+import org.codehaus.groovy.control.CompilationFailedException;
 
 import bsh.EvalError;
 
@@ -230,9 +226,13 @@ public class FlexibleStringExpander implements Serializable {
                 // append everything from the current index to the start of the var
                 strElems.add(new ConstElem(original.substring(currentInd, start)));
             }
-            // check to see if this starts with a "bsh:", if so treat the rest of the string as a bsh scriptlet
+
             if (original.indexOf("bsh:", start + 2) == start + 2) {
+                // checks to see if this starts with a "bsh:", if so treat the rest of the string as a bsh scriptlet
                 strElems.add(new BshElem(original.substring(start + 6, end)));
+            } else if (original.indexOf("groovy:", start + 2) == start + 2) {
+                // checks to see if this starts with a "groovy:", if so treat the rest of the string as a groovy scriptlet                
+                strElems.add(new GroovyElem(original.substring(start + 9, end)));
             } else {
                 int ptr = original.indexOf(openBracket, start + 2);
                 while (ptr != -1 && end != -1 && ptr < end) {
@@ -302,6 +302,31 @@ public class FlexibleStringExpander implements Serializable {
                 }
             } catch (EvalError e) {
                 Debug.logWarning(e, "Error evaluating BSH scriptlet [" + this.str + "], inserting nothing; error was: " + e, module);
+            }
+        }
+    }
+
+    protected static class GroovyElem implements StrElem {
+        protected final String str;
+        protected GroovyElem(String script) {
+            this.str = script;
+        }
+        public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+            try {
+                Object obj = GroovyUtil.eval(this.str, UtilMisc.makeMapWritable(context));
+                if (obj != null) {
+                    try {
+                        buffer.append(ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
+                    } catch (Exception e) {
+                        buffer.append(obj);
+                    }
+                } else {
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("Groovy scriptlet evaluated to null [" + this.str + "], got no return so inserting nothing.", module);
+                    }
+                }
+            } catch (CompilationFailedException e) {
+                Debug.logWarning(e, "Error evaluating Groovy scriptlet [" + this.str + "], inserting nothing; error was: " + e, module);
             }
         }
     }
