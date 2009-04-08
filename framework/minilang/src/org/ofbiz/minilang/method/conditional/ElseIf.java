@@ -35,7 +35,7 @@ public class ElseIf {
     protected Conditional condition;
     protected List<MethodOperation> thenSubOps = FastList.newInstance();
 
-    public Elseif (Element element, SimpleMethod simpleMethod) {
+    public ElseIf (Element element, SimpleMethod simpleMethod) {
         Element conditionElement = UtilXml.firstChildElement(element, "condition");
         Element conditionChildElement = UtilXml.firstChildElement(conditionElement);
         this.condition = ConditionalFactory.makeConditional(conditionChildElement, simpleMethod);
