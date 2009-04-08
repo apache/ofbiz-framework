@@ -643,8 +643,8 @@ under the License.
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container>
-                            <link target="/marketing/control/viewSegmentGroup" style="buttontext" url-mode="inter-app">
-                                <parameter param-name="productStoreId" from-field="productStoreId}" text="${uiLabelMap.ProductNewSegment"/>
+                            <link target="/marketing/control/viewSegmentGroup" style="buttontext" url-mode="inter-app" text="${uiLabelMap.ProductNewSegment}">
+                                <parameter param-name="productStoreId" from-field="productStoreId"/>
                             </link>
                         </container>
                         <container style="screenlet">
