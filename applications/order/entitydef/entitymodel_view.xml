@@ -1561,7 +1561,9 @@ under the License.
       </relation>
     </view-entity>
 
-  <view-entity entity-name="OrderHeaderAndWorkEffort" package-name="org.ofbiz.workEffort.workeffort" title="Order Header And Work Effort View Entity">
+  <view-entity entity-name="OrderHeaderAndWorkEffort"
+          package-name="org.ofbiz.order.order" 
+          title="Order Header And Work Effort View Entity">
     <member-entity entity-alias="WE" entity-name="WorkEffort"/>
     <member-entity entity-alias="OH" entity-name="OrderHeader"/>
     <member-entity entity-alias="OHWE" entity-name="OrderHeaderWorkEffort"/>
