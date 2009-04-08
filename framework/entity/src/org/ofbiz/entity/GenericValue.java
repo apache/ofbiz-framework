@@ -441,7 +441,7 @@ public class GenericValue extends GenericEntity implements Reusable {
         while (relItr.hasNext()) {
             ModelRelation relation = relItr.next();
             if ("one".equalsIgnoreCase(relation.getType())) {
-                // see if the related value exists 
+                // see if the related value exists
                 Map<String, Object> fields = FastMap.newInstance();
                 for (int i = 0; i < relation.getKeyMapsSize(); i++) {
                     ModelKeyMap keyMap = relation.getKeyMap(i);

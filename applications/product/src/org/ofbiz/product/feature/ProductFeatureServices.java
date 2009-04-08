@@ -319,7 +319,7 @@ public class ProductFeatureServices {
                 featuresByType.put(nextFeature.getString("productFeatureTypeId"), nextFeature.getString("productFeatureId"));
             }
 
-            List<GenericValue> products = FastList.newInstance();  // final list of variant products 
+            List<GenericValue> products = FastList.newInstance();  // final list of variant products
             for (GenericValue memberProduct: memberProducts) {
                 // find variants for each member product of the category
 

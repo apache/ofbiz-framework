@@ -19,19 +19,19 @@ under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    
+
    <!-- show list of upto 10 Invoices past due for longest duration -->
     <form name="ListReports" type="list" separate-columns="true" title="Invoice List" list-name="listIt" target="" default-entity-name="Invoice"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="Invoice" list="invoices">
-                <condition-list>               
+                <condition-list>
                     <condition-expr field-name="statusId" value="INVOICE_SENT"/>
                     <condition-expr field-name="dueDate" operator="less" value="${nowTimestamp}"/>
                 </condition-list>
                 <order-by field-name="dueDate"/>
                 <limit-range start="0" size="10"/>
-            </entity-condition> 
+            </entity-condition>
         </actions>
         <row-actions>
             <service service-name="getPartyNameForDate" result-map="partyNameResultFrom">

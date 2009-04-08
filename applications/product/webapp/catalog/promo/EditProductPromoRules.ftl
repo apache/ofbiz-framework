@@ -29,7 +29,7 @@ under the License.
                     <td width="80%"><b>${uiLabelMap.ProductRuleName}</b></td>
                     <td width="10%"><b>&nbsp;</b></td>
                 </tr>
-                <#assign rowClass = "2">     
+                <#assign rowClass = "2">
                 <#list productPromoRules as productPromoRule>
                 <#assign productPromoConds = productPromoRule.getRelated("ProductPromoCond")>
                 <#assign productPromoActions = productPromoRule.getRelated("ProductPromoAction")>

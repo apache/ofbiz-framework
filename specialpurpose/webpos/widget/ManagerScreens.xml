@@ -20,7 +20,7 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    
+
     <screen name="OpenTerminal">
         <section>
             <actions>
@@ -35,7 +35,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CloseTerminal">
         <section>
             <actions>
@@ -50,7 +50,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="VoidOrder">
         <section>
             <actions>
@@ -65,7 +65,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="PaidOutAndIn">
         <section>
             <actions>
@@ -81,7 +81,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ModifyPrice">
         <section>
             <actions>

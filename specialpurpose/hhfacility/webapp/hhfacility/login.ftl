@@ -25,7 +25,7 @@ under the License.
 </#if>
 
 <table width='250' border='0' cellpadding='0' cellspacing='0' align='center'>
-  <tr>    
+  <tr>
     <td width='100%' valign='top'>
       <table border='0' width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
         <tr>

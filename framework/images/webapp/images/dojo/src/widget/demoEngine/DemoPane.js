@@ -12,8 +12,8 @@ dojo.provide("dojo.widget.demoEngine.DemoPane");
 dojo.require("dojo.widget.*");
 dojo.require("dojo.widget.HtmlWidget");
 
-dojo.widget.defineWidget("my.widget.demoEngine.DemoPane", 
-	dojo.widget.HtmlWidget, 
+dojo.widget.defineWidget("my.widget.demoEngine.DemoPane",
+	dojo.widget.HtmlWidget,
 	{
 		templatePath: dojo.uri.dojoUri("src/widget/demoEngine/templates/DemoPane.html"),
 		templateCssPath: dojo.uri.dojoUri("src/widget/demoEngine/templates/DemoPane.css"),
@@ -22,7 +22,7 @@ dojo.widget.defineWidget("my.widget.demoEngine.DemoPane",
 			dojo.debug("PostCreate");
 			this._launchDemo();
 		},
-		
+
 		_launchDemo: function() {
 			dojo.debug("Launching Demo");
 			dojo.debug(this.demoNode);

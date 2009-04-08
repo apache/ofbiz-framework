@@ -900,5 +900,5 @@
     <form name="ListTaskInfo" extends="ListTaskInfo" extends-resource="component://projectmgr/widget/forms/ProjectForms.xml">
         <field name="task"><display description="${workEffortName}"/></field>
     </form>
-    
+
 </forms>

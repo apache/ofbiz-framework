@@ -31,7 +31,7 @@ dojo.lang.setTimeout = function(/*Function*/func, /*int*/delay /*, ...*/){
 	if(dojo.lang.isString(func)){
 		func = context[func];
 	}
-	
+
 	var args = [];
 	for (var i = argsStart; i < arguments.length; i++){
 		args.push(arguments[i]);
@@ -50,7 +50,7 @@ dojo.lang.clearTimeout = function(/*int*/timer){
 }
 
 dojo.lang.getNameInObj = function(/*Object*/ns, /*unknown*/item){
-	// summary: 
+	// summary:
 	//		looks for a value in the object ns with a value matching item and
 	//		returns the property name
 	// ns: if null, dj_global is used
@@ -68,12 +68,12 @@ dojo.lang.getNameInObj = function(/*Object*/ns, /*unknown*/item){
 dojo.lang.shallowCopy = function(/*Object*/obj, /*Boolean?*/deep){
 	// summary:
 	//		copies object obj one level deep, or full depth if deep is true
-	var i, ret;	
+	var i, ret;
 
 	if(obj === null){ /*obj: null*/ return null; } // null
-	
+
 	if(dojo.lang.isObject(obj)){
-		// obj: Object	
+		// obj: Object
 		ret = new obj.constructor();
 		for(i in obj){
 			if(dojo.lang.isUndefined(ret[i])){

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="quickInitDataWarehouse" short-description="">
@@ -34,7 +34,7 @@ under the License.
         <clear-field field="inMap"/>
         <call-service service-name="loadAllProductsInProductDimension" in-map-name="inMap"/>
         <check-errors/>
-        
+
         <!-- loads the invoice items in the SalesInvoiceItemFact fact entity -->
         <entity-condition entity-name="Invoice" list="invoices">
             <condition-list>

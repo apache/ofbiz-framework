@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
   <!-- ========================================================= -->
   <!-- ======================== Defaults ======================= -->
@@ -154,7 +154,7 @@ under the License.
       <field name="contentId" type="id-ne"></field>
       <field name="contentTypeId" type="id"></field>
       <field name="ownerContentId" type="id"><description>Used for permissions checking</description></field>
-      <field name="decoratorContentId" type="id"></field> 
+      <field name="decoratorContentId" type="id"></field>
       <field name="instanceOfContentId" type="id"></field>
       <field name="dataResourceId" type="id"></field>
       <field name="templateDataResourceId" type="id"></field>
@@ -191,7 +191,7 @@ under the License.
       </relation>
       <!-- the relationship to MimeType is one-nofk so that you can still do a lookup on MimeType but a new
       and unexpected mime type would not cause a foreign key constraint violation, so MimeType can store the
-      most common mime types instead of an exhaustive list of all possible mime types --> 
+      most common mime types instead of an exhaustive list of all possible mime types -->
       <relation type="one-nofk" rel-entity-name="MimeType">
         <key-map field-name="mimeTypeId"/>
       </relation>
@@ -715,7 +715,7 @@ under the License.
         <key-map field-name="contentId" rel-field-name="contentIdTo"/>
       </relation>
     </view-entity>
-    
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.content.data -->
   <!-- ========================================================= -->
@@ -764,7 +764,7 @@ under the License.
       <field name="statusId" type="id"></field>
       <field name="dataResourceName" type="name"></field>
       <field name="localeString" type="very-short"></field>
-      <field name="mimeTypeId" type="id-long"></field>      
+      <field name="mimeTypeId" type="id-long"></field>
       <field name="characterSetId" type="id-long"></field>
       <field name="objectInfo" type="long-varchar"><description>For Short Text the text goes here.</description></field>
       <field name="surveyId" type="id"></field>
@@ -791,7 +791,7 @@ under the License.
       <relation type="one" fk-name="DATA_REC_DTSRC" rel-entity-name="DataSource">
         <key-map field-name="dataSourceId"/>
       </relation>
-      <!-- see comment above for Content.mimeTypeId --> 
+      <!-- see comment above for Content.mimeTypeId -->
       <relation type="one-nofk" rel-entity-name="MimeType">
         <key-map field-name="mimeTypeId"/>
       </relation>
@@ -1030,7 +1030,7 @@ under the License.
       <prim-key field="mimeTypeId"/>
       <relation type="one" fk-name="MIMETYPE_TPL_MT" rel-entity-name="MimeType">
           <key-map field-name="mimeTypeId"/>
-      </relation>      
+      </relation>
     </entity>
     <entity entity-name="OtherDataResource"
             package-name="org.ofbiz.content.data"
@@ -1127,7 +1127,7 @@ under the License.
   <!-- ========================================================= -->
   <!-- org.ofbiz.content.preference -->
   <!-- ========================================================= -->
-    
+
     <entity entity-name="WebPreferenceType"
             package-name="org.ofbiz.content.preference"
             title="Web Preference Type Entity">

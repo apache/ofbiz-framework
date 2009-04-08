@@ -22,7 +22,7 @@ under the License.
           <fo:table-column column-width="3.75in"/>
           <fo:table-body>
             <fo:table-row>    <#-- this part could use some improvement -->
-             
+
              <#assign createEmptyCell = true>
              <#-- a special purchased from address for Purchase Orders -->
              <#if orderHeader.getString("orderTypeId") == "PURCHASE_ORDER">
@@ -51,10 +51,10 @@ under the License.
                  <fo:block>
                    <fo:inline font-weight="bold">${uiLabelMap.OrderPurchasedFrom}:</fo:inline> ${Static['org.ofbiz.party.party.PartyHelper'].getPartyName(vendorParty)}
                  </fo:block>
-               </fo:table-cell> 
+               </fo:table-cell>
              </#if>
              </#if>
-             
+
              <#-- list all postal addresses of the order.  there should be just a billing and a shipping here. -->
              <#list orderContactMechValueMaps as orderContactMechValueMap>
                <#assign contactMech = orderContactMechValueMap.contactMech>
@@ -81,13 +81,13 @@ under the License.
             </fo:table-row>
          </fo:table-body>
        </fo:table>
-       <fo:block white-space-collapse="false"> </fo:block> 
-       
+       <fo:block white-space-collapse="false"> </fo:block>
+
        <fo:table border-spacing="3pt">
           <fo:table-column column-width="1.75in"/>
           <fo:table-column column-width="4.25in"/>
-          
-  <#-- payment info -->                
+
+  <#-- payment info -->
           <fo:table-body>
            <#if orderPaymentPreferences?has_content>
             <fo:table-row>
@@ -106,7 +106,7 @@ under the License.
                  </fo:table-cell>
             </fo:table-row>
          </#if>
-        
+
         <#-- shipping method.  currently not shown for PO's because we are not recording a shipping method for PO's in order entry -->
            <#if orderHeader.getString("orderTypeId") == "SALES_ORDER">
             <fo:table-row>

@@ -69,7 +69,7 @@ dojo.lang.declare("dojo.widget.Editor2Plugin.toggleTableBorderCommand", dojo.wid
 				this._editor.addStyleSheet(dojo.uri.dojoUri("src/widget/templates/Editor2/showtableborder_ie.css"));
 			}
 		}
-		
+
 	},
 	getText: function(){
 		return 'Toggle Table Border';

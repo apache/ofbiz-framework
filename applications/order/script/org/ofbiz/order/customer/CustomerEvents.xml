@@ -18,13 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-        
+
     <simple-method method-name="validateCustomerInfo" short-description="validateCustomerInfo" login-required="false">
         <!-- timestamp to be used -->
         <now-timestamp field="nowStamp"/>
-        
+
         <!-- setup the party/person -->
         <call-map-processor in-map-name="parameters" out-map-name="personMap">
             <simple-map-processor name="newPerson">
@@ -45,8 +45,8 @@ under the License.
                 <process field="gender"><copy/></process>
             </simple-map-processor>
         </call-map-processor>
-        
-        <!-- setup the email -->        
+
+        <!-- setup the email -->
         <call-map-processor in-map-name="parameters" out-map-name="emailMap">
             <simple-map-processor name="newEmail">
                 <process field="emailAddress">
@@ -56,7 +56,7 @@ under the License.
                 <process field="emailSol"><copy to-field="allowSolicitation"/></process>
             </simple-map-processor>
         </call-map-processor>
-        
+
         <!-- Create the Postal Address -->
         <if-compare field="parameters.useAddress" operator="equals" value="true">
             <call-map-processor in-map-name="parameters" out-map-name="addressContext">
@@ -95,7 +95,7 @@ under the License.
                 <if-empty field="parameters.stateProvinceGeoId">
                     <add-error>
                         <fail-property resource="PartyUiLabels" property="PartyStateInUsMissing"/>
-                    </add-error>  
+                    </add-error>
                 </if-empty>
             </if-compare>
             <if-compare value="CAN" operator="equals" field="parameters.countryGeoId">
@@ -106,7 +106,7 @@ under the License.
                 </if-empty>
             </if-compare>
         </if-compare>
-        
+
         <!-- Create the Home Phone -->
         <call-map-processor in-map-name="parameters" out-map-name="homePhoneMap">
             <simple-map-processor name="newTelecomNumber">
@@ -123,7 +123,7 @@ under the License.
                 <process field="homeSol"><copy to-field="allowSolicitation"/></process>
             </simple-map-processor>
         </call-map-processor>
-        
+
         <!-- Create the Work Phone -->
         <call-map-processor in-map-name="parameters" out-map-name="workPhoneMap">
             <simple-map-processor name="newTelecomNumber">
@@ -139,7 +139,7 @@ under the License.
             </simple-map-processor>
         </call-map-processor>
     </simple-method>
-    
+
     <simple-method method-name="createUpdateCustomerInfo" short-description="Create Customer" login-required="false">
         <!-- update the email address -->
         <if-not-empty field="parameters.emailContactMechId">
@@ -157,8 +157,8 @@ under the License.
             </if-not-empty>
         </else>
         </if-not-empty>
-        
-        
+
+
         <!-- create home phone -->
         <if-not-empty field="parameters.homePhoneContactMechId">
             <set from-field="partyId" field="homePhoneMap.partyId"/>
@@ -175,7 +175,7 @@ under the License.
             </if-not-empty>
         </else>
         </if-not-empty>
-        
+
         <!-- create work phone -->
         <if-not-empty field="parameters.workPhoneContactMechId">
             <set from-field="partyId" field="workPhoneMap.partyId"/>
@@ -192,7 +192,7 @@ under the License.
             </if-not-empty>
         </else>
         </if-not-empty>
-        
+
         <!-- shipping address -->
         <if-not-empty field="parameters.shippingContactMechId">
             <set from-field="partyId" field="addressContext.partyId"/>
@@ -220,19 +220,19 @@ under the License.
         </else>
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="createCustomer" short-description="Create Customer" login-required="false">
         <call-simple-method method-name="validateCustomerInfo"/>
-        
+
         <!-- see if we should continue now... -->
         <check-errors/>
-        
+
         <!-- call the create person service -->
         <call-service service-name="createPerson" in-map-name="personMap">
             <result-to-field result-name="partyId" field="tempMap.partyId"/>
             <result-to-request result-name="partyId"/>
         </call-service>
-        
+
         <!-- the rest of the methods require a userLogin object; so if we are anonymous lets fake it -->
         <if-empty field="userLogin">
             <set field="ulLookup.userLoginId" value="anonymous"/>
@@ -247,15 +247,15 @@ under the License.
         </if-empty>
 
         <log level="info" message="UserLogin : ${userLogin}"/>
-        
+
         <!-- add the party to the customer role -->
         <set field="roleMap.roleTypeId" value="CUSTOMER"/>
         <set field="roleMap.partyId" from-field="tempMap.partyId"/>
         <call-service service-name="createPartyRole" in-map-name="roleMap"/>
-        
+
         <set from-field="tempMap.partyId" field="partyId"/>
         <call-simple-method method-name="createUpdateCustomerInfo"/>
-        
+
         <!-- create userLogin -->
         <if-not-empty field="parameters.userLoginId">
             <set field="loginMap.userLoginId" from-field="parameters.userLoginId"/>
@@ -263,20 +263,20 @@ under the License.
             <!-- call reset password (to email a password) -->
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="updateCustomer" short-description="Update Customer" login-required="true">
         <if-empty field="parameters.partyId"><add-error><fail-property resource="PartyUiLabels" property="PartyNoPartyForUpdateCustomer"/></add-error></if-empty>
-        
+
         <call-simple-method method-name="validateCustomerInfo"/>
-        
+
         <!-- see if we should continue now... -->
         <check-errors/>
-        
+
         <!-- update person service -->
         <set from-field="parameters.partyId" field="personMap.partyId"/>
         <call-service service-name="updatePerson" in-map-name="personMap">
         </call-service>
-        
+
         <set from-field="parameters.partyId" field="partyId"/>
         <call-simple-method method-name="createUpdateCustomerInfo"/>
     </simple-method>

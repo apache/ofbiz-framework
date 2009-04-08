@@ -20,7 +20,7 @@ under the License.
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>  
+    <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>
 
     <description>eBay Component Site Configuration File</description>
 
@@ -28,31 +28,31 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-    
+
     <request-map uri="ProductsExportToEbay">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ProductsExportToEbay"/>
     </request-map>
-    
+
     <request-map uri="PostProductsToEbay">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="exportToEbay"/>
         <response name="success" type="view" value="ProductsExportToEbay"/>
         <response name="error" type="view" value="ProductsExportToEbay"/>
     </request-map>
-    
+
     <request-map uri="ManageOrdersFromEbay">
         <response name="success" type="view" value="ManageOrdersFromEbay"/>
         <response name="failure" type="view" value="ManageOrdersFromEbay"/>
     </request-map>
-    
+
     <request-map uri="ImportOrdersSearchFromEbay">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="importOrdersSearchFromEbay"/>
         <response name="success" type="view" value="ManageOrdersFromEbay"/>
         <response name="failure" type="view" value="ManageOrdersFromEbay"/>
     </request-map>
-    
+
     <request-map uri="ImportOrderFromEbay">
         <security https="true" auth="true"/>
         <event type="service-multi" path="" invoke="importOrderFromEbay"/>
@@ -60,7 +60,7 @@ under the License.
         <response name="error" type="view" value="ManageOrdersFromEbay"/>
         <response name="failure" type="view" value="ManageOrdersFromEbay"/>
     </request-map>
-    
+
     <request-map uri="setEbayOrderToComplete">
         <security https="true" auth="true"/>
         <event type="service" invoke="setEbayOrderToComplete"/>

@@ -599,7 +599,7 @@ under the License.
       </relation>
       <relation type="one" fk-name="SHPMNT_PRTNHDR" title="Primary" rel-entity-name="ReturnHeader">
         <key-map field-name="primaryReturnId" rel-field-name="returnId"/>
-      </relation>      
+      </relation>
       <relation type="one" rel-entity-name="PicklistBin">
           <key-map field-name="picklistBinId"/>
       </relation>
@@ -692,7 +692,7 @@ under the License.
       <field name="boxLength" type="fixed-point"></field>
       <field name="boxWidth" type="fixed-point"></field>
       <field name="boxHeight" type="fixed-point"></field>
-      <field name="weightUomId" type="id"></field>  
+      <field name="weightUomId" type="id"></field>
       <field name="boxWeight" type="fixed-point"></field>
       <prim-key field="shipmentBoxTypeId"/>
       <relation type="one" fk-name="SHMT_BXTP_DUOM" title="Dimension" rel-entity-name="Uom">
@@ -700,7 +700,7 @@ under the License.
       </relation>
       <relation type="one" fk-name="SHMT_BXTP_WUOM" title="Weight" rel-entity-name="Uom">
         <key-map field-name="weightUomId" rel-field-name="uomId"/>
-      </relation>        
+      </relation>
     </entity>
     <entity entity-name="ShipmentContactMech"
             package-name="org.ofbiz.shipment.shipment"
@@ -1133,8 +1133,8 @@ under the License.
       <field name="trackingDigest" type="very-long"></field>
       <field name="updatedByUserLoginId" type="id-vlong"></field>
       <field name="lastUpdatedDate" type="date-time"></field>
-      <field name="homeDeliveryType" type="id"></field> 
-      <field name="homeDeliveryDate" type="date-time"></field> 
+      <field name="homeDeliveryType" type="id"></field>
+      <field name="homeDeliveryDate" type="date-time"></field>
       <field name="thirdPartyAccountNumber" type="id"></field>
       <field name="thirdPartyPostalCode" type="id"></field>
       <field name="thirdPartyCountryGeoCode" type="id"></field>

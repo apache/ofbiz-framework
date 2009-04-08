@@ -19,10 +19,10 @@ under the License.
 -->
 
 <test-suite suite-name="servicetests"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-case case-name="service-tests"><junit-test-suite class-name="org.ofbiz.service.test.ServiceEngineTests"/></test-case>
-    
+
     <test-case case-name="load-service-test-data">
         <entity-xml action="load" entity-xml-url="component://service/testdef/data/ServiceTestData.xml"/>
     </test-case>
@@ -41,7 +41,7 @@ under the License.
         <entity-xml action="assert" entity-xml-url="component://service/testdef/data/ServiceLockTimeoutRetryAssertData.xml"/>
     </test-case>
     -->
-    
+
     <!-- this case is failing, so commenting out by default until an automatic fix can be found
     <test-case case-name="service-lock-wait-timeout-in-sub-service-retry-test">
         <service-test service-name="testServiceLockWaitTimeoutRetryCantRecover"/>
@@ -50,14 +50,14 @@ under the License.
         <entity-xml action="assert" entity-xml-url="component://service/testdef/data/ServiceLockTimeoutRetryCantRecoverAssertData.xml"/>
     </test-case>
     -->
-    
+
     <test-case case-name="service-own-tx-sub-service-after-set-rollback-only-in-parent">
         <service-test service-name="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentErrorCatchWrapper"/>
     </test-case>
     <test-case case-name="service-own-tx-sub-service-after-set-rollback-only-in-parent-assert-data">
         <entity-xml action="assert" entity-xml-url="component://service/testdef/data/ServiceSetRollbackOnlyAssertData.xml"/>
     </test-case>
-    
+
     <test-case case-name="service-eca-global-event-exec">
         <service-test service-name="testServiceEcaGlobalEventExec"/>
     </test-case>

@@ -18,7 +18,7 @@ under the License.
 -->
 
 
-  <div id="partyContentList">    
+  <div id="partyContentList">
       <#if partyContent?has_content>
         <table class="basic-table" cellspacing="0">
           <#list partyContent as pContent>
@@ -38,7 +38,7 @@ under the License.
               <td class="button-col">
                 <#if (content.contentName?has_content)>
                     <a href="<@ofbizUrl>img/${content.contentName}?imgId=${content.dataResourceId}</@ofbizUrl>">${uiLabelMap.CommonView}</a>
-                </#if>                
+                </#if>
                 <a href="<@ofbizUrl>removePartyContent/viewprofile?contentId=${pContent.contentId}&partyId=${pContent.partyId}&partyContentTypeId=${pContent.partyContentTypeId}&fromDate=${pContent.fromDate}</@ofbizUrl>">${uiLabelMap.CommonRemove}</a>
               </td>
             </tr>

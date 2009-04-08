@@ -96,7 +96,7 @@ dojo.widget.defineWidget(
 			}
 		}
 	},
-	
+
 	parse:function(/* HTMLTable */table){
 		//	summary
 		//	Parses an HTML table for data to plot on the map.
@@ -118,7 +118,7 @@ dojo.widget.defineWidget(
 			if(c=="long") c="lng";
 			a.push(c);
 		}
-		
+
 		//	parse the data
 		var b=table.getElementsByTagName("tbody")[0];
 		if(!b){
@@ -133,7 +133,7 @@ dojo.widget.defineWidget(
 			for(var j=0; j<a.length; j++){
 				var col=a[j];
 				if(col=="lat"||col=="lng"){
-					o[col]=parseFloat(cells[j].innerHTML);					
+					o[col]=parseFloat(cells[j].innerHTML);
 				}else{
 					o[col]=cells[j].innerHTML;
 				}
@@ -163,7 +163,7 @@ dojo.widget.defineWidget(
 		var z=this.map.getZoomLevel(pts);
 		this.map.drawZoomAndCenter(c,z);
 	},
-	
+
 	initialize:function(/* object */args, /* object */frag){
 		//	summary
 		//	Initialize the widget.

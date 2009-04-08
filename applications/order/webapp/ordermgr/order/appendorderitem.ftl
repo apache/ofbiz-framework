@@ -52,7 +52,7 @@ under the License.
                   </select>
                   </td>
                 </tr>
-              </#if>                
+              </#if>
                 <tr>
                   <td class="label">${uiLabelMap.ProductProductId}</td>
                   <td><input type="text" size="25" name="productId" value="${requestParameters.productId?if_exists}"/>
@@ -84,8 +84,8 @@ under the License.
 	                  </#list>
 	                  </select>
 	              </td>
-                </tr>              
-	          </#if>                
+                </tr>
+	          </#if>
                 <tr>
                   <td class="label">${uiLabelMap.OrderDesiredDeliveryDate}</td>
                   <td>
@@ -103,7 +103,7 @@ under the License.
                         </#list>
                     </select>
                   </td>
-                </tr>                
+                </tr>
                 <tr>
                   <td class="label">${uiLabelMap.CommonComment}</td>
                   <td>

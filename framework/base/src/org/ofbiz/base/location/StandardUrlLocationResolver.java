@@ -22,7 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * A special location resolver that uses Strings like URLs, but with more options 
+ * A special location resolver that uses Strings like URLs, but with more options
  *
  */
 

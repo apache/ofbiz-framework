@@ -102,13 +102,13 @@ dojo.widget.defineWidget(
 		onInputChange: function(){
 			// summary: signal for changes in the input box
 		},
-		
+
 		enable: function() {
 			// summary: enable this widget to accept user input
 			this.inputNode.disabled = false;
 			dojo.widget.DropdownContainer.superclass.enable.apply(this, arguments);
 		},
-		
+
 		disable: function() {
 			// summary: lock this widget so that the user can't change the value
 			this.inputNode.disabled = true;

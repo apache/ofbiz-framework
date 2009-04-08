@@ -22,7 +22,7 @@ under the License.
       <li class="h3">${uiLabelMap.WebtoolsEntityDataMaintenance}</li>
     </ul>
     <br class="clear"/>
-  </div> 
+  </div>
   <div class="screenlet-body">
     <p>
        <form target="<@ofbizUrl>/entitymaint</@ofbizUrl>">
@@ -48,7 +48,7 @@ under the License.
     <#assign anchor="">
     <#assign alt_row = false>
     <#assign right_col = false>
-    
+
     <#list entitiesList as entity>
         <#if entity.entityName?substring(0, 1) != firstChar>
             <#assign firstChar = entity.entityName?substring(0, 1)>
@@ -62,7 +62,7 @@ under the License.
           <li class="h3">${uiLabelMap.WebtoolsEntitiesAlpha}</li>
         </ul>
         <br class="clear"/>
-      </div> 
+      </div>
       <div class="screenlet-body">
         <#assign firstChar = "*">
         <table class="basic-table hover-bar" cellspacing='0'>
@@ -89,7 +89,7 @@ under the License.
             <#if !right_col>
               <tr<#if alt_row> class="alternate-row"</#if>>
             </#if>
-        
+
             <td<#if anchor?has_content> ${anchor}</#if>>${entity.entityName}<#if entity.viewEntity == 'Y'>&nbsp;(${uiLabelMap.WebtoolsEntityView})</#if></td>
             <#assign anchor="">
             <td class="button-col">

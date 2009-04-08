@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="ListRequests" type="list" extends="ListRequestList" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml"
             paginate-target="requestlist" >
@@ -28,7 +28,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="EditCustRequest" type="single" target="updaterequest" title="Request" default-map-name="custRequest" 
+    <form name="EditCustRequest" type="single" target="updaterequest" title="Request" default-map-name="custRequest"
         extends="EditSmallCustRequest" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="description" parameter-name="story" use-when="custRequest==null"><textarea cols="60" rows="12"/></field>
         <field name="workEffortName"><hidden value="${custRequestName}"/></field>
@@ -39,8 +39,8 @@ under the License.
         <field name="childWorkEffortId" parameter-name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}*">
             <drop-down allow-empty="true">
                 <entity-options entity-name="WorkEffortAndChild" description="${workEffortName} -- ${childWorkEffortName}">
-                    <entity-constraint name="workEffortTypeId" value="PROJECT"/>    
-                    <entity-constraint name="childWorkEffortTypeId" value="PHASE"/>    
+                    <entity-constraint name="workEffortTypeId" value="PROJECT"/>
+                    <entity-constraint name="childWorkEffortTypeId" value="PHASE"/>
                     <entity-order-by field-name="workEffortName"/>
                     <entity-order-by field-name="childWorkEffortName"/>
                 </entity-options>
@@ -142,7 +142,7 @@ under the License.
             <service service-name="getProjectIdAndNameFromTask" result-map="sResult">
                 <field-map field-name="taskId" from-field="workEffortId"/>
             </service>
-        </row-actions> 
+        </row-actions>
         <field name="custRequestId">
             <hyperlink target="ViewRequest" description="${custRequestName} [${custRequestId}]">
                 <parameter param-name="custRequestId"/>
@@ -169,7 +169,7 @@ under the License.
                     <parameter param-name="partyId" from-field="fromPartyId"/>
                 </sub-hyperlink>
             </display-entity>
-        </field>      
+        </field>
         <field name="statusId">
             <display-entity also-hidden="false" entity-name="StatusItem"/>
         </field>

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Accounting Services - Miscellaneous</description>
     <vendor>OFBiz</vendor>
@@ -62,8 +62,8 @@ under the License.
         <attribute type="String" mode="IN" name="organizationPartyId" optional="false"/>
         <attribute name="partyAccountingPreference" type="GenericValue" mode="OUT" optional="true"/>
     </service>
-    
-    <service name="updateFXConversion" engine="simple" 
+
+    <service name="updateFXConversion" engine="simple"
         location="component://accounting/script/org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="updateFXConversion">
         <description>Update the conversion rate between two currencies and expire the old conversion rates</description>
         <permission-service service-name="acctgFxPermissionCheck" main-action="UPDATE"/>
@@ -105,7 +105,7 @@ under the License.
         <permission-service service-name="acctgPrefPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" entity-name="PaymentGlAccountTypeMap" include="pk" optional="false"/>
     </service>
-    
+
     <service name="addPaymentMethodTypeGlAssignment" engine="entity-auto" default-entity-name="PaymentMethodTypeGlAccount" invoke="create" auth="true">
         <description>add a default GL account number to a payment method type.</description>
         <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>

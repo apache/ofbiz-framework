@@ -33,7 +33,7 @@ dojo.require("dojo.widget.PageContainer");
  *	Side view (showing implementation):
  *
  *         viewport    pane#3     pane#2     pane#1
- *            =                                
+ *            =
  *            |                                =
  *            |                      =         |
  *	front     |                      |         |
@@ -60,16 +60,16 @@ dojo.require("dojo.widget.PageContainer");
 	"dojo.widget.AccordionContainer",
 	dojo.widget.HtmlWidget,
 	{
-		// summary: 
+		// summary:
 		//		Holds a set of panes where every pane's title is visible, but only one pane's content is visible at a time,
 		//		and switching between panes is visualized by sliding the other panes up/down.
 
 		isContainer: true,
-		
+
 		// labelNodeClass: String
 		//		CSS class name for dom node w/the title
 		labelNodeClass: "label",
-		
+
 		// containerNodeClass: String
 		//		CSS class name for dom node holding the content
 		containerNodeClass: "accBody",
@@ -93,7 +93,7 @@ dojo.require("dojo.widget.PageContainer");
 			this._setSizes();
 			return child;	// Widget
 		},
-		
+
 		_addChild: function(/*Widget*/ widget){
 			// summary
 			//		Internal call to add child, used during postCreate() and by the real addChild() call
@@ -112,11 +112,11 @@ dojo.require("dojo.widget.PageContainer");
 				dojo.html.addClass(widget.containerNode, this.containerNodeClass);
 				dojo.html.addClass(widget.labelNode, this.labelNodeClass);
 				this.addWidgetAsDirectChild(widget);
-				this.registerChild(widget, this.children.length);	
+				this.registerChild(widget, this.children.length);
 				return widget;	// Widget
 			}
 		},
-	
+
 		postCreate: function() {
 			var tmpChildren = this.children;
 			this.children=[];
@@ -124,12 +124,12 @@ dojo.require("dojo.widget.PageContainer");
 			dojo.lang.forEach(tmpChildren, dojo.lang.hitch(this,"_addChild"));
 			this._setSizes();
 		},
-	
+
 		removeChild: function(/*Widget*/ widget) {
 			dojo.widget.AccordionContainer.superclass.removeChild.call(this, widget);
 			this._setSizes();
 		},
-		
+
 		onResized: function(){
 			this._setSizes();
 		},
@@ -200,7 +200,7 @@ dojo.widget.defineWidget(
 	// containerNodeClass: String
 	//	CSS class name for the AccordionPane's container node
 	containerNodeClass: "accBody",
-	
+
 	// selected: Boolean
 	//	if true, this is the open pane
 	selected: false,
@@ -221,7 +221,7 @@ dojo.widget.defineWidget(
 		// summary: set the  title of the node
 		this.labelNode.innerHTML=label;
 	},
-	
+
 	resizeTo: function(width, height){
 		dojo.html.setMarginBox(this.domNode, {width: width, height: height});
 		var children = [
@@ -242,7 +242,7 @@ dojo.widget.defineWidget(
 		// summary: callback when someone clicks my label
 		this.parent.selectChild(this);
 	},
-	
+
 	setSelected: function(/*Boolean*/ isSelected){
 		this.selected=isSelected;
 		(isSelected ? dojo.html.addClass : dojo.html.removeClass)(this.domNode, this["class"]+"-selected");

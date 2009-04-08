@@ -40,7 +40,7 @@ under the License.
 
         <find-by-primary-key map="lookupPkMap" value-field="partyContent"/>
         <set-nonpk-fields value-field="partyContent" map="parameters"/>
-        <store-value value-field="partyContent"/>       
+        <store-value value-field="partyContent"/>
     </simple-method>
 
     <simple-method method-name="removePartyContent" short-description="Update Party Content Entity">
@@ -48,7 +48,7 @@ under the License.
         <set-pk-fields value-field="lookupPkMap" map="parameters"/>
 
         <find-by-primary-key map="lookupPkMap" value-field="partyContent"/>
-        <remove-value value-field="partyContent"/>        
+        <remove-value value-field="partyContent"/>
     </simple-method>
 
 </simple-methods>

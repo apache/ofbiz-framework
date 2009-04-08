@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <!-- =================================================================== -->
@@ -76,7 +76,7 @@ under the License.
                     <field-map field-name="facilityId" from-field="parameters.facilityId"/>
                     <field-map field-name="locationSeqId" from-field="locationSeqId"/>
                 </entity-one>
-                
+
                 <!-- get facilityLocationTo: a little more tricky, find the first FLT_PICKLOC  -->
                 <entity-and entity-name="ProductFacilityLocationView" list="productFacilityLocationViewList">
                     <field-map field-name="productId" from-field="productId"/>
@@ -222,7 +222,7 @@ under the License.
             <field-map field-name="facilityId" from-field="parameters.facilityId"/>
             <order-by field-name="productId"/>
         </entity-and>
-        
+
         <iterate entry="productFacilityLocationQuantityTest" list="productFacilityLocationQuantityTestList">
             <!-- TODO: this comparison could be done by the database and be more efficient, but since we don't have field to field comparisons in the entity engine or EntityCondition operations in simple-methods, some work needs to be done before that can happen -->
             <if>
@@ -300,7 +300,7 @@ under the License.
                                                 <if-compare field="targetLocationMoveQuantity" operator="greater" value="0" type="BigDecimal"/>
                                           </and>
                                         </condition>
-                                    <then>   
+                                    <then>
                                         <set from-field="productSave" field="moveInfo.product"/>
                                         <set from-field="targetFacilityLocationSave" field="moveInfo.facilityLocationTo"/>
                                         <first-from-list entry="InventoryItemAndLocation" list="perLocationInventoryItemAndLocList"/>
@@ -328,11 +328,11 @@ under the License.
                                             <calculate field="targetLocationMoveQuantity"><number value="0"/></calculate>
                                         </else>
                                         </if-compare-field>
-                                    
+
                                         <!-- add the moveInfo to the master list -->
                                         <field-to-list field="moveInfo" list="moveByPflInfoList"/>
                                         <clear-field field="moveInfo"/>
-                                    </then>    
+                                    </then>
                                     </if>
                                 </iterate-map>
                                 <!-- TODO: add a warning message if there are not BULK location(s) with sufficient quantity -->
@@ -470,12 +470,12 @@ under the License.
                 </call-service>
                 <!-- refresh the value object now that the create has been done -->
                 <refresh-value value-field="targetInventoryItem"/>
-                
+
                 <!-- if we don't end up setting any detail for this inventory item, then we'll delete it after -->
                 <set value="N" field="haveSetIiDetail"/>
-                
+
                 <!-- <log level="info" message="Just created new targetInventoryItem from OISGIR [${targetInventoryItem}]"/> -->
-                
+
                 <!--
                     go through OrderItemShipGrpInvRes and move each one over, starting with the older making
                     sure to stay within quantityOnHand
@@ -483,10 +483,10 @@ under the License.
                 <set from-field="inventoryItem.quantityOnHandTotal" field="remainingQuantityOnHand"/>
                 <iterate entry="orderItemShipGrpInvResAndItemLocation" list="orderItemShipGrpInvResAndItemLocationList">
                     <get-related-one value-field="orderItemShipGrpInvResAndItemLocation" relation-name="OrderItemShipGrpInvRes" to-value-field="orderItemShipGrpInvRes"/>
-                    
+
                     <!-- see if there is enough physically moved over to move this reservation -->
-                    <!-- note that we need to check this because if there was a reservation against an 
-                         InventoryItem then the full quantity will be against that item for the given 
+                    <!-- note that we need to check this because if there was a reservation against an
+                         InventoryItem then the full quantity will be against that item for the given
                          OISGIR (reservation), so we would have to split it up
                     -->
                     <clear-field field="reservedQuantityLeftOver"/>
@@ -496,9 +496,9 @@ under the License.
                             <calcop field="orderItemShipGrpInvRes.quantity" operator="get"/>
                             <calcop field="quantityLeftToProcess" operator="negative"/>
                         </calculate>
-                        
+
                         <set from-field="quantityLeftToProcess" field="currentQuantityToMove"/>
-                        
+
                         <!-- NOTE: we are now handling this scenario, so we'll not log this message
                         <set value="WARNING: In process stock move: quantityLeftToProcess [${quantityLeftToProcess}] was &lt; orderItemShipGrpInvRes.quantity [${orderItemShipGrpInvResAndItemLocation.quantity}] for orderItemShipGrpInvRes [${orderItemShipGrpInvRes}], which shouldn't happen from the inventory reservation process and must has happened from a later inventory change; the reservation or other information may need be manually corrected for this stock move to go through." field="quantityErrorMessage"/>
                         <log level="warning" message="${quantityErrorMessage}"/>
@@ -507,12 +507,12 @@ under the License.
                         <set from-field="orderItemShipGrpInvRes.quantity" field="currentQuantityToMove"/>
                     </else>
                     </if-compare-field>
-                    
+
                     <!-- now make sure that the currentQuantityToMove we decided on is not greater than remainingQuantityOnHand... -->
                     <if-compare-field field="currentQuantityToMove" to-field="remainingQuantityOnHand" operator="greater" type="BigDecimal">
                         <set from-field="remainingQuantityOnHand" field="currentQuantityToMove"/>
                     </if-compare-field>
-                    
+
                     <!-- now one other little trick: reservedQuantityLeftOver is not empty and if orderItemShipGrpInvRes.quantityNotAvailable is greater than reservedQuantityLeftOver, then the difference should be moved -->
                     <if>
                         <condition>
@@ -601,7 +601,7 @@ under the License.
                     <!-- part of the following log data prep: <refresh-value value-field="targetInventoryItem"/> -->
                     <!-- <log level="info" message="Just update targetInventoryItem from OISGIR [${targetInventoryItem}]"/> -->
                 </iterate>
-                
+
                 <if-compare field="haveSetIiDetail" operator="equals" value="N">
                     <log level="info" message="Did not end up finding an OISGIR that we could move inventory with, so removing targetInventoryItem: ${targetInventoryItem}"/>
                     <remove-value value-field="targetInventoryItem"/>

@@ -56,7 +56,7 @@ under the License.
          </field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="ListDataResource" target="" title="" list-name="listIt" type="list" paginate-target="findDataResource"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -82,7 +82,7 @@ under the License.
         <field name="dataCategoryId"><display-entity entity-name="DataCategory" description="${categoryName}[${dataCategoryId}]"></display-entity></field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="findDataResourceSearchResults"/>
     </form>
-    
+
     <form name="LookupDataResource" target="LookupDataResource" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="DataResource" default-field-type="find"/>
@@ -113,7 +113,7 @@ under the License.
                 <sort-field name="lastModifiedByUserLogin"/>
             </field-group>
         </sort-order>
-        
+
     </form>
     <form name="ListLookupDataResource" extends="ListDataResource" list-name="listIt" type="list" paginate-target="LookupDataResource"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -189,7 +189,7 @@ under the License.
                 <entity-options description="${description}" entity-name="CharacterSet" key-field-name="characterSetId"/>
             </drop-down>
         </field>
-        
+
         <field name="createButton" title="${uiLabelMap.CommonCreate}" use-when="currentValue==null" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}" use-when="currentValue!=null" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -209,7 +209,7 @@ under the License.
         <field name="contentName"><display/></field>
         <field name="description"><display/></field>
     </form>
-    
+
     <form name="DataResourceMaster" target="createDataResource" title="" type="single" default-map-name="currentValue"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="DataResource" default-field-type="edit"/>
@@ -255,7 +255,7 @@ under the License.
         <field name="lastModifiedByUserLogin"><display/></field>
     </form>
 <!--
-     use-when="(dataResource != void) &amp;&amp; (dataResource.dataResourceId != void) &amp;&amp; (dataResource.dataResourceId.length()>0)" 
+     use-when="(dataResource != void) &amp;&amp; (dataResource.dataResourceId != void) &amp;&amp; (dataResource.dataResourceId.length()>0)"
 -->
     <form name="AddDataResource" target="createDataResource" title="" type="single" extends="DataResourceMaster"
         header-row-style="header-row" default-table-style="basic-table">
@@ -402,7 +402,7 @@ under the License.
                 <field-map field-name="entityName" from-field="entityName" value="ProductFeatureDataResource"/>
             </service>
         </actions>
-        <auto-fields-entity entity-name="ProductFeatureDataResource" default-field-type="display"/>       
+        <auto-fields-entity entity-name="ProductFeatureDataResource" default-field-type="display"/>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeDataResourceProductFeature">
                 <parameter param-name="dataResourceId"/>

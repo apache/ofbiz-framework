@@ -38,7 +38,7 @@ under the License.
     <link rel="stylesheet" href="/ofbiz/images/ofbws.css" type="text/css"/>
     <meta name="keywords" content="Open Source ERP,Open Source CRM,Open Source E-Commerce,Open Source eCommerce,Open Source POS,Open Source SCM,Open Source MRP,Open Source CMMS,Open Source EAM,web services,workflow,ebusiness,e-business,ecommerce,e-commerce,automation,enterprise software,open source,entity engine,service engine,erp,crm,party,accounting,facility,supply,chain,management,catalog,order,project,task,work effort,financial,ledger,content management,customer,inventory"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="shortcut icon" href="/ofbiz/images/ofbiz.ico"/>    
+    <link rel="shortcut icon" href="/ofbiz/images/ofbiz.ico"/>
 </head>
 
 <body>

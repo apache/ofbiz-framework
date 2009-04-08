@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,8 +26,8 @@ if (partyId) {
     party =  delegator.findOne("Party", [partyId : partyId], false);
     person = party.getRelatedOne("Person");
     contactDetailMap = [partyId : partyId, firstName : person.firstName, lastName : person.lastName, suffix : person.suffix];
-    partyRelationship = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findList("PartyRelationship", 
-                                EntityCondition.makeCondition([partyIdTo : partyId, roleTypeIdTo : 'EMPLOYEE', roleTypeIdFrom : 'LEAD', partyRelationshipTypeId : 'EMPLOYMENT']), 
+    partyRelationship = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findList("PartyRelationship",
+                                EntityCondition.makeCondition([partyIdTo : partyId, roleTypeIdTo : 'EMPLOYEE', roleTypeIdFrom : 'LEAD', partyRelationshipTypeId : 'EMPLOYMENT']),
                                 null, ['-fromDate'], null, false)));
     if (partyRelationship) {
         contactDetailMap.title = partyRelationship.positionTitle;
@@ -68,7 +68,7 @@ if (partyId) {
     phoneContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(person, "PRIMARY_PHONE", "TELECOM_NUMBER", false));
     if (phoneContactMech) {
         contactDetailMap.phoneContactMechId = phoneContactMech.contactMechId;
-        telecomNumber = phoneContactMech.getRelatedOne("TelecomNumber"); 
+        telecomNumber = phoneContactMech.getRelatedOne("TelecomNumber");
         if (telecomNumber) {
             countryCode = telecomNumber.countryCode;
             if (countryCode) {
@@ -88,6 +88,6 @@ if (partyId) {
     if (partyDataSource) {
         dataSource = partyDataSource.getRelatedOne("DataSource");
         contactDetailMap.leadSource = dataSource.description;
-    } 
+    }
 }
 context.contactDetailMap = contactDetailMap;

@@ -18,16 +18,16 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    
+
     <screen name="EditProduct">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProduct"/>
                 <set field="tabButtonItem" value="EditProduct"/>
                 <set field="labelTitleProperty" value="ProductProduct"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
             </actions>
@@ -62,10 +62,10 @@ under the License.
                                             <label text="${uiLabelMap.ProductDuplicateProduct}"/>
                                         </container>
                                     </container>
-                                    <container style="screenlet-body">                            
+                                    <container style="screenlet-body">
                                         <include-form name="EditProductDup" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                                     </container>
-                                </container>                                
+                                </container>
                             </widgets>
                         </section>
                         <section>
@@ -87,7 +87,7 @@ under the License.
                                                     <label text="${uiLabelMap.ProductUpdateProductVariants}"/>
                                                 </container>
                                             </container>
-                                            <container style="screenlet-body">                            
+                                            <container style="screenlet-body">
                                                 <include-form name="UpdateProductVariants" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                                             </container>
                                         </container>
@@ -100,14 +100,14 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditProductPrices">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductPrices"/>
                 <set field="tabButtonItem" value="EditProductPrices"/>
                 <set field="labelTitleProperty" value="ProductPrices"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-and entity-name="ProductPrice" list="productPrices">
@@ -118,7 +118,7 @@ under the License.
                     <order-by field-name="currencyUomId"/>
                     <order-by field-name="fromDate"/>
                 </entity-and>
-                
+
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
             </actions>
             <widgets>
@@ -164,7 +164,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleViewProductAgreements"/>
                 <set field="tabButtonItem" value="ViewProductAgreements"/>
                 <set field="labelTitleProperty" value="ProductAgreements"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-condition entity-name="SupplierProduct" list="supplierProductAgreements">
@@ -244,7 +244,7 @@ under the License.
 
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                
+
                 <entity-condition entity-name="ProductCategoryMember" list="productCategoryMembers">
                     <condition-expr field-name="productId" from-field="productId"/>
                     <order-by field-name="sequenceNum"/>
@@ -295,7 +295,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductConfigs"/>
                 <set field="tabButtonItem" value="EditProductConfigs"/>
                 <set field="labelTitleProperty" value="ProductConfigs"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-and entity-name="ProductConfig" list="productConfigs">
@@ -346,7 +346,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductAssetUsage"/>
                 <set field="tabButtonItem" value="EditProductAssetUsage"/>
                 <set field="labelTitleProperty" value="ProductAssetUsage"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-condition entity-name="FixedAssetProduct" list="fixedAssetProducts">
@@ -470,11 +470,11 @@ under the License.
                 <set field="titleProperty" value="PageTitleViewProductManufacturing"/>
                 <set field="tabButtonItem" value="ViewProductManufacturing"/>
                 <set field="labelTitleProperty" value="ProductManufacturing"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <set field="productAssocTypeId" value="MANUF_COMPONENT"/>
                 <set field="workEffortGoodStdTypeId" value="ROU_PROD_TEMPLATE"/>
-                
+
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-and entity-name="ProductAssoc" list="components">
                     <field-map field-name="productId"/>
@@ -548,13 +548,13 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductCosts"/>
                 <set field="tabButtonItem" value="EditProductCosts"/>
                 <set field="labelTitleProperty" value="ProductCosts"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <set field="productCostComponentId" from-field="parameters.productCostComponentId"/>
-                
+
                 <!-- default currency in framework/common/config/general.properties -->
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
-                
+
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-one entity-name="CostComponent" value-field="costComponent" auto-field-map="false">
                     <field-map field-name="costComponentId" from-field="productCostComponentId"/>
@@ -615,7 +615,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="QuickAddVariants">
         <section>
             <actions>
@@ -658,7 +658,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductQuickAdmin"/>
                 <set field="tabButtonItem" value="EditProductQuickAdmin"/>
                 <set field="labelTitleProperty" value="ProductQuickAdmin"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
 
@@ -686,7 +686,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductFacilities"/>
                 <set field="tabButtonItem" value="EditProductFacilities"/>
                 <set field="labelTitleProperty" value="ProductFacilities"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
 
@@ -740,7 +740,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductFacilityLocations"/>
                 <set field="tabButtonItem" value="EditProductFacilityLocations"/>
                 <set field="labelTitleProperty" value="ProductFacilityLocations"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
 
@@ -852,7 +852,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductInventoryItems"/>
                 <set field="tabButtonItem" value="EditProductInventoryItems"/>
                 <set field="labelTitleProperty" value="ProductInventorySummary"/>
-                
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductInventoryItems.groovy"/>
@@ -903,7 +903,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductGoodIdentifications"/>
                 <set field="tabButtonItem" value="EditProductGoodIdentifications"/>
                 <set field="labelTitleProperty" value="ProductGoodIdentification"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-condition entity-name="GoodIdentification" list="goodIdentifications">
@@ -957,7 +957,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductGlAccounts"/>
                 <set field="tabButtonItem" value="EditProductGlAccounts"/>
                 <set field="labelTitleProperty" value="ProductGlAccounts"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
 
@@ -989,7 +989,7 @@ under the License.
                                             <not><if-empty field="product"/></not>
                                         </and>
                                     </condition>
-                                    <widgets>                               
+                                    <widgets>
                                         <include-form name="ListProductGlAccounts" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                                     </widgets>
                                 </section>
@@ -1009,7 +1009,7 @@ under the License.
                                             <not><if-empty field="product"/></not>
                                         </and>
                                     </condition>
-                                    <widgets>                               
+                                    <widgets>
                                         <include-form name="AddProductGlAccount" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                                     </widgets>
                                 </section>
@@ -1027,10 +1027,10 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductPaymentMethodType"/>
                 <set field="tabButtonItem" value="EditProductPaymentMethodTypes"/>
                 <set field="labelTitleProperty" value="ProductPaymentTypes"/>
-                
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
-                
+
                 <entity-condition entity-name="ProductPaymentMethodType" list="productPaymentMethodTypes">
                     <condition-expr field-name="productId" from-field="productId"/>
                     <order-by field-name="productPricePurposeId"/>
@@ -1081,7 +1081,7 @@ under the License.
                 <set field="headerItem" value="product"/>
                 <set field="tabButtonItem" value="EditProductFeatures"/>
                 <set field="labelTitleProperty" value="ProductFeatures"/>
-                
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/product/EditProductFeatures.groovy"/>
@@ -1107,8 +1107,8 @@ under the License.
                                     <label text="${uiLabelMap.ProductListFeatureInteractions}"/>
                                 </container>
                             </container>
-                            <container style="screenlet-body">                                
-                                <include-form name="ListFeatureInteractions" location="component://product/webapp/catalog/product/ProductForms.xml"/>                             
+                            <container style="screenlet-body">
+                                <include-form name="ListFeatureInteractions" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
                         </container>
                         <container style="screenlet">
@@ -1118,7 +1118,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <include-form name="AddFeatureInteraction" location="component://product/webapp/catalog/product/ProductForms.xml"/>                                       
+                                <include-form name="AddFeatureInteraction" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
                         </container>
                         <container style="screenlet">
@@ -1302,7 +1302,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductContent"/>
                 <set field="tabButtonItem" value="EditProductContent"/>
                 <set field="labelTitleProperty" value="ProductContent"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-one entity-name="ProductContent" value-field="productContent"/>
@@ -1444,7 +1444,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductAssociations"/>
                 <set field="tabButtonItem" value="EditProductAssoc"/>
                 <set field="labelTitleProperty" value="EditProductAssoc"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <entity-and entity-name="ProductAssoc" list-name="productAssocs">
@@ -1569,7 +1569,7 @@ under the License.
                             <container style="screenlet-body">
                                 <include-form name="AddProductMaint" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
-                        </container>            
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1617,7 +1617,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditProductGeos"/>
                 <set field="tabButtonItem" value="EditProductGeos"/>
                 <set field="productId" from-field="parameters.productId"/>
-                <set field="labelTitleProperty" value="ProductGeos"/>                
+                <set field="labelTitleProperty" value="ProductGeos"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductDecorator" location="${parameters.mainDecoratorLocation}">
@@ -1653,7 +1653,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductSubscriptionResources"/>
                 <set field="tabButtonItem" value="EditProductSubscriptionResources"/>
-                <set field="labelTitleProperty" value="ProductSubscriptionResources"/>                
+                <set field="labelTitleProperty" value="ProductSubscriptionResources"/>
                 <set field="productId" from-field="parameters.productId"/>
             </actions>
             <widgets>
@@ -1678,7 +1678,7 @@ under the License.
                             <container style="screenlet-body">
                                 <include-form name="AddProductSubscriptionResource" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
-                        </container>   
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1690,7 +1690,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductWorkEffort"/>
                 <set field="tabButtonItem" value="EditProductWorkEfforts"/>
-                <set field="labelTitleProperty" value="ProductWorkEffort"/>  
+                <set field="labelTitleProperty" value="ProductWorkEffort"/>
                 <set field="productId" from-field="parameters.productId"/>
             </actions>
             <widgets>
@@ -1705,7 +1705,7 @@ under the License.
                             <container style="screenlet-body">
                                 <include-form name="ListProductWorkEfforts" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
-                        </container>   
+                        </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
@@ -1715,7 +1715,7 @@ under the License.
                             <container style="screenlet-body">
                                 <include-form name="AddProductWorkEffort" location="component://product/webapp/catalog/product/ProductForms.xml"/>
                             </container>
-                        </container>   
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1739,7 +1739,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-            
+
     <screen name="EditProductParties">
         <section>
             <actions>
@@ -1779,14 +1779,14 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditVendorProduct">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditVendorProduct"/>
                 <set field="tabButtonItem" value="EditVendorProduct"/>
                 <set field="labelTitleProperty" value="PartyVendor"/>
-                
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-condition entity-name="VendorProduct" list="vendorProductList">
                     <condition-expr field-name="productId" from-field="productId"/>

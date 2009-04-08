@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
   <simple-map-processor name="deletePaymentMethod">
     <process field="paymentMethodId"><copy/><not-empty><fail-message message="Payment Method ID is missing"/></not-empty></process>
@@ -37,7 +37,7 @@ under the License.
     <process field="firstNameOnCard"><copy/><not-empty><fail-message message="First Name on Card is missing"/></not-empty></process>
     <process field="middleNameOnCard"><copy/></process>
     <process field="lastNameOnCard"><copy/><not-empty><fail-message message="Last Name on Card is missing"/></not-empty></process>
-    <process field="suffixOnCard"><copy/></process>    
+    <process field="suffixOnCard"><copy/></process>
     <process field="cardType"><copy/><not-empty><fail-message message="Card Type is missing"/></not-empty></process>
     <process field="cardNumber"><copy/><not-empty><fail-message message="Card Number is missing"/></not-empty></process>
     <process field="contactMechId"><copy/></process>

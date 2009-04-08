@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-tree.xsd">
     <tree name="TreeWorkEffort" root-node-name="node-root" entity-name="WorkEffort"
         default-render-style="simple" default-wrap-style="treeWrapper">

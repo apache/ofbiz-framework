@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
     <!-- ========================================================= -->
     <!-- ======================== Defaults ======================= -->
@@ -9,5 +9,5 @@
     <copyright></copyright>
     <author>None</author>
     <version></version>
-    
+
 </entitymodel>

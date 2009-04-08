@@ -22,9 +22,9 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>eBay Component Services</description>
     <vendor>OFBiz</vendor>
-    <version>1.0</version>   
-    
-    <!-- Products Export Services -->    
+    <version>1.0</version>
+
+    <!-- Products Export Services -->
     <service name="exportToEbay" engine="java"
              location="org.ofbiz.ebay.ProductsExportToEbay" invoke="exportToEbay" auth="true">
         <description>Export products to eBay</description>
@@ -55,8 +55,8 @@ under the License.
         <attribute type="String" mode="IN" name="categoryCode" optional="true"/>
         <attribute type="List" mode="OUT" name="categories" optional="true"/>
     </service>
-    
-    <!-- Import Orders Services -->    
+
+    <!-- Import Orders Services -->
     <service name="importOrdersSearchFromEbay" engine="java" transaction-timeout="300"
              location="org.ofbiz.ebay.ImportOrdersFromEbay" invoke="importOrdersSearchFromEbay" auth="true">
         <description>Import Orders Search from eBay</description>
@@ -65,7 +65,7 @@ under the License.
         <attribute type="String" mode="IN" name="thruDate" optional="false"/>
         <attribute type="List" mode="OUT" name="orderList" optional="true"/>
     </service>
-    
+
     <service name="importOrderFromEbay" engine="java" transaction-timeout="300"
              location="org.ofbiz.ebay.ImportOrdersFromEbay" invoke="importOrderFromEbay" auth="true">
         <description>Import Order from eBay</description>
@@ -95,7 +95,7 @@ under the License.
         <attribute type="String" mode="IN" name="shippingAddressStateOrProvince" optional="true"/>
         <attribute type="String" mode="IN" name="shippingAddressCityName" optional="true"/>
     </service>
-    
+
     <service name="setEbayOrderToComplete" engine="java" transaction-timeout="300"
              location="org.ofbiz.ebay.ImportOrdersFromEbay" invoke="setEbayOrderToComplete" auth="true">
         <description>Complete Order to eBay</description>

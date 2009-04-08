@@ -31,13 +31,13 @@ function setWeight(weight) {
       <a href="<@ofbizUrl>EditShipment?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductEditShipment}</a>
     </#if>
   </div>
-  
-  <#if shipment?exists>   
+
+  <#if shipment?exists>
     <#if 1 < shipmentPackages.size()>
       <#-- multiple packages -->
       <div><font color="red">${uiLabelMap.ProductMorePackageFoundShipment}.</font></div>
     <#else>
-      <#-- single package -->            
+      <#-- single package -->
       <#assign shipmentPackage = (Static["org.ofbiz.entity.util.EntityUtil"].getFirst(shipmentPackages))?if_exists>
       <#if shipmentPackage?has_content>
         <#assign weight = (shipmentPackage.weight)?default(0.00)>
@@ -69,13 +69,13 @@ function setWeight(weight) {
                       <#list carrierPartyDatas as carrierPartyData>
                         <option value="${carrierPartyData.party.partyId}">${(carrierPartyData.person.firstName)?if_exists} ${(carrierPartyData.person.middleName)?if_exists} ${(carrierPartyData.person.lastName)?if_exists} ${(carrierPartyData.partyGroup.groupName)?if_exists} [${carrierPartyData.party.partyId}]</option>
                       </#list>
-                    </select>                    
+                    </select>
                   </td>
                   <td>&nbsp;</td>
-                  <td width="80%">                                       
+                  <td width="80%">
                     <a href="javascript:document.routeForm.submit();" class="buttontext">${uiLabelMap.ProductConfirmShipmentUps}</a>
                   </td>
-                </tr>              
+                </tr>
                 <tr>
                   <td width="20%" align="right"><span class="label">${uiLabelMap.ProductShipMethod}</span></td>
                   <td>&nbsp;</td>
@@ -90,7 +90,7 @@ function setWeight(weight) {
                       <#list shipmentMethodTypes as shipmentMethodTypeOption>
                         <option value="${shipmentMethodTypeOption.shipmentMethodTypeId}">${shipmentMethodTypeOption.get("description",locale)}</option>
                       </#list>
-                    </select>              
+                    </select>
                   </td>
                   <td>&nbsp;</td>
                   <td width="80%">
@@ -105,10 +105,10 @@ function setWeight(weight) {
                   </td>
                   <td>&nbsp;</td>
                   <td width="80%">
-                    <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:document.routeForm.submit();">  
+                    <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:document.routeForm.submit();">
                   </td>
-                </tr>                
-              </table>              
+                </tr>
+              </table>
             </form>
             <script language="JavaScript" type="text/javascript">
               document.routeForm.carrierPartyId.focus();
@@ -119,7 +119,7 @@ function setWeight(weight) {
             <center>
               <a href="<@ofbizUrl>viewShipmentPackageRouteSegLabelImage?shipmentId=${requestParameters.shipmentId}&shipmentRouteSegmentId=${requestParameters.shipmentRouteSegmentId}&shipmentPackageSeqId=00001</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductShippingLabel}</a><br/>
               <a href="<@ofbizUrl>ShipmentManifest.pdf?shipmentId=${requestParameters.shipmentId}&shipmentRouteSegmentId=${requestParameters.shipmentRouteSegmentId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductPackingSlip}</a>
-            </center>                
+            </center>
           </#if>
         <#else>
           <form name="weightForm" method="post" action="<@ofbizUrl>setQuickPackageWeight</@ofbizUrl>">
@@ -137,11 +137,11 @@ function setWeight(weight) {
                     <#if weightUom?has_content>
                       <option value="${weightUom.uomId}">${weightUom.get("description",locale)}</option>
                       <option value="${weightUom.uomId}">---</option>
-                    </#if>                              
+                    </#if>
                     <#list weightUomList as weightUomOption>
                       <option value="${weightUomOption.uomId}">${weightUomOption.get("description",locale)} [${weightUomOption.abbreviation}]</option>
                     </#list>
-                  </select>    
+                  </select>
                 </td>
               </tr>
               <tr>
@@ -155,7 +155,7 @@ function setWeight(weight) {
           </form>
           <script language="JavaScript" type="text/javascript">
             document.weightForm.weight.focus();
-          </script>           
+          </script>
           <#-- todo embed the applet
           <applet code="ShipmentScaleApplet.class" codebase="/images/" name="Package Weight Reader" width="0" height="0" MAYSCRIPT>
             <param name="serialPort" value="com1">
@@ -165,9 +165,9 @@ function setWeight(weight) {
         </#if>
       <#else>
         <div class="alert">${uiLabelMap.ProductErrorNoPackagesFoundForShipment} !</div>
-      </#if>      
+      </#if>
       <hr/>
-      ${pages.get("/shipment/ViewShipmentInfo.ftl")}         
+      ${pages.get("/shipment/ViewShipmentInfo.ftl")}
       <br/>${pages.get("/shipment/ViewShipmentItemInfo.ftl")}
       <br/>${pages.get("/shipment/ViewShipmentPackageInfo.ftl")}
       <#if allDone?default("no") == "yes">
@@ -179,26 +179,26 @@ function setWeight(weight) {
       <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
       <input type="hidden" name="originFacilityId" value="${facilityId?if_exists}">
       <input type="hidden" name="setPackedOnly" value="Y">
-      <table border='0' cellpadding='2' cellspacing='0'>  
-        <tr>        
+      <table border='0' cellpadding='2' cellspacing='0'>
+        <tr>
           <td width="25%" align='right'><span class="label">${uiLabelMap.ProductOrderNumber}</span></td>
           <td width="1">&nbsp;</td>
           <td width="25%">
-            <input type="text" name="orderId" size="20" maxlength="20" value="${requestParameters.orderId?if_exists}">          
-          </td> 
+            <input type="text" name="orderId" size="20" maxlength="20" value="${requestParameters.orderId?if_exists}">
+          </td>
           <td>&nbsp;</td>
-        </tr>      
+        </tr>
         <tr>
           <td colspan="2">&nbsp;</td>
           <td colspan="2">
             <input type="image" src="<@ofbizContentUrl>/images/spacer.gif</@ofbizContentUrl>" onClick="javascript:document.selectOrderForm.submit();">
             <a href="javascript:document.selectOrderForm.submit();" class="buttontext">${uiLabelMap.ProductShipOrder}</a>
           </td>
-        </tr>        
+        </tr>
       </table>
     </form>
     <script language="JavaScript" type="text/javascript">
         document.selectOrderForm.orderId.focus();
     </script>
-  </#if>  
+  </#if>
 </#if>

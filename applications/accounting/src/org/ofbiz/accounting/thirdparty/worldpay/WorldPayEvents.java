@@ -266,7 +266,7 @@ public class WorldPayEvents {
             return "error";
         }
 
-        // set the auth/test modes 
+        // set the auth/test modes
         try {
             token.setAuthorisationMode(authMode);
         } catch (SelectException e) {

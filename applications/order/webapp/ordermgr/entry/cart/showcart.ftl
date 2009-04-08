@@ -21,7 +21,7 @@ under the License.
     <div class="screenlet-body">
       <table border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td>           
+          <td>
             <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="quickaddform" style="margin: 0;">
               <table border="0">
                 <tr>
@@ -119,8 +119,8 @@ under the License.
                 </div>
             </form>
           </td>
-        </tr>  
-        </#if>      
+        </tr>
+        </#if>
       </table>
     </div>
 </div>

@@ -73,7 +73,7 @@ under the License.
             <h3>${uiLabelMap.ProductNoteOrderStatus} ${(orderHeaderStatus.get("description",locale))?default(orderHeader.statusId?if_exists)}, ${uiLabelMap.ProductNoItemsLeft}.</h3>
         <#else>
             <h3 style="color: red;">${uiLabelMap.ProductWarningOrderStatus} ${(orderHeaderStatus.get("description",locale))?default(orderHeader.statusId?if_exists)}; ${uiLabelMap.ProductApprovedBeforeShipping}.</h3>
-        </#if>        
+        </#if>
     </#if>
     <br/>
     <#if orderItemDatas?exists>
@@ -169,10 +169,10 @@ under the License.
                                 <input type="hidden" name="orderItemSeqId_o_${rowCount}" value="${orderItemAndShipGroupAssoc.orderItemSeqId}"/>
                                 <input type="text" size="5" name="quantity_o_${rowCount}" value="${quantityNotIssued}"/>
                             </td>
-                            <td align="right">              
+                            <td align="right">
                               <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'orderItemData_tableRow_${rowCount}');">
                             </td>
-                            <#assign rowCount = rowCount + 1>   
+                            <#assign rowCount = rowCount + 1>
                         <#else>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -213,10 +213,10 @@ under the License.
                                     <input type="hidden" name="inventoryItemId_o_${rowCount}" value="${orderItemShipGrpInvRes.inventoryItemId}"/>
                                     <input type="text" size="5" name="quantity_o_${rowCount}" value="${(orderItemShipGrpInvResData.shipmentPlanQuantity)?default(availableQuantity)}"/>
                                 </td>
-                                <td align="right">              
+                                <td align="right">
                                   <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'orderItemData_tableRow_${rowCount}');">
                                 </td>
-                                <#assign rowCount = rowCount + 1>   
+                                <#assign rowCount = rowCount + 1>
                             <#else>
                                 <td>${uiLabelMap.ProductNotOriginFacility}</td>
                                 <td>&nbsp;</td>

@@ -18,16 +18,16 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <!-- WebSite Forms -->
     <form name="EditWebSite" type="single" target="updateWebSite" title="" default-map-name="webSite"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="webSite==null" target="createWebSite"/>
-        
+
         <auto-fields-service service-name="updateWebSite" map-name=""/>
-        
+
         <field use-when="webSite!=null" name="webSiteId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="webSite==null&amp;&amp;webSiteId!=null" name="webSiteId" tooltip="${uiLabelMap.CommonCannotBeFound}: [${webSiteId}]"><text size="20" maxlength="20"/></field>
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
@@ -37,7 +37,7 @@ under the License.
         <field name="enableHttps">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        
+
         <field name="productStoreId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProductStore" description="${storeName}">
@@ -67,7 +67,7 @@ under the License.
         <field name="siteName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="httpHost"><display/></field>
     </form>
-    
+
     <form name="WebSitePathAlias" target="" title="" type="list" list-name="aliases" paginate-target="WebSiteAliases" paginate="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="pathAlias"><display/></field>
@@ -81,15 +81,15 @@ under the License.
             </display-entity>
         </field>
     </form>
-    
+
     <!-- WebSite Content Forms -->
-    <form name="ListWebSiteContent" type="list" list-name="webSiteContent" target="UpdateWebSiteContent" 
+    <form name="ListWebSiteContent" type="list" list-name="webSiteContent" target="UpdateWebSiteContent"
         paginate-target="ListWebSiteContent" paginate="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-service service-name="updateWebSiteRole"/>
         <field name="sequenceNum"><hidden/></field>
         <field name="roleTypeId"><hidden/></field>
         <field name="partyId"><hidden/></field>
-        
+
         <field name="webSiteId"><display also-hidden="true"/></field>
         <!--
         <field name="contentId" title="Content ID" widget-style="linktext">
@@ -98,7 +98,7 @@ under the License.
             </hyperlink>
         </field>
         -->
-        <field name="contentId">                                        
+        <field name="contentId">
             <display-entity entity-name="Content" description="${contentName}" key-field-name="contentId">
                 <sub-hyperlink target="EditContent" description=" [${contentId}]" link-style="linktext">
                     <parameter param-name="contentId"/>
@@ -107,7 +107,7 @@ under the License.
 
         </field>
         <field name="webSiteContentTypeId">
-            <display-entity entity-name="WebSiteContentType"/>            
+            <display-entity entity-name="WebSiteContentType"/>
         </field>
         <field name="fromDate"><display/></field>
 
@@ -191,10 +191,10 @@ under the License.
         <field name="webSiteContentTypeId">
             <check all-checked="false">
                 <entity-options entity-name="WebSiteContentType" description="${description}">
-                    <entity-order-by field-name="description"/>    
+                    <entity-order-by field-name="description"/>
                 </entity-options>
             </check>
-        </field>        
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 </forms>

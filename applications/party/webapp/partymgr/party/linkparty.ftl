@@ -27,7 +27,7 @@ under the License.
     <div class="screenlet-title-bar">
       <h3>${uiLabelMap.PartyLink}</h3>
     </div>
-    <div class="screenlet-body" align="center">      
+    <div class="screenlet-body" align="center">
         <#if partyTo?has_content && partyFrom?has_content>
           <form name="linkparty" method="post" action="<@ofbizUrl>setPartyLink</@ofbizUrl>">
             <div class="h1 alert">
@@ -77,7 +77,7 @@ under the License.
               <a href="javascript:document.linkpartycnf.submit()" class="smallSubmit">${uiLabelMap.CommonLink}</a>
             </div>
           </form>
-        </#if>      
+        </#if>
     </div>
   </div>
 </#if>

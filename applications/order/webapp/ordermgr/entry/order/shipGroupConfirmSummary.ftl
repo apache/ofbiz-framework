@@ -17,10 +17,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#-- 
-Ship group summary for order confirmation.  Lists each ship group, its 
+<#--
+Ship group summary for order confirmation.  Lists each ship group, its
 destination address, products and quantities associated with it,
-and similar information.  This is designed to be tacked on to the 
+and similar information.  This is designed to be tacked on to the
 standard order confirmation page and to be re-usable by other screens.
 -->
 
@@ -46,9 +46,9 @@ standard order confirmation page and to be re-usable by other screens.
 
 
       <#-- BEGIN LIST SHIP GROUPS -->
-      <#-- 
-      The structure of this table is one row per line item, grouped by ship group.  
-      The address column spans a number of rows equal to the number of items of its group.  
+      <#--
+      The structure of this table is one row per line item, grouped by ship group.
+      The address column spans a number of rows equal to the number of items of its group.
       -->
 
       <#list cart.getShipGroups() as cartShipInfo>
@@ -67,7 +67,7 @@ standard order confirmation page and to be re-usable by other screens.
           <#if contactMech?has_content>
             <#assign address = contactMech.getRelatedOne("PostalAddress")?if_exists />
           </#if>
-          
+
           <#if address?exists>
             <#if address.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${address.toName}<br/></#if>
             <#if address.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${address.attnName}<br/></#if>

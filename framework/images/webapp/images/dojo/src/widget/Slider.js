@@ -25,7 +25,7 @@ dojo.widget.defineWidget (
 	{
 		// summary
 		//	Slider Widget.
-		//	
+		//
 		//	The slider widget comes in three forms:
 		//	 1. Base Slider widget which supports movement in x and y dimensions
 		//	 2. Vertical Slider (SliderVertical) widget which supports movement
@@ -37,10 +37,10 @@ dojo.widget.defineWidget (
 		//	 - a container div which displays a bar in the background (Slider object)
 		//	 - a handle inside the container div, which represents the value
 		//	   (sliderHandle DOM node)
-		//	 - the object which moves the handle (_handleMove is of type 
+		//	 - the object which moves the handle (_handleMove is of type
 		//	   SliderDragMoveSource)
 		//
-		//	The values for the slider are calculated by grouping pixels together, 
+		//	The values for the slider are calculated by grouping pixels together,
 		//	based on the number of values to be represented by the slider.
 		//	The number of pixels in a group is called the _valueSize
 		//	 e.g. if slider is 150 pixels long, and is representing the values
@@ -205,7 +205,7 @@ dojo.widget.defineWidget (
 		_typamaticFunction: null,
 
 		// defaultTimeout: Number
-		//	number of milliseconds before a held key or button becomes typematic 
+		//	number of milliseconds before a held key or button becomes typematic
 		defaultTimeout: 500,
 
 		// timeoutChangeRate: Number
@@ -399,7 +399,7 @@ dojo.widget.defineWidget (
 		},
 
 		// This function is called when the template is loaded
-		fillInTemplate: function (/*Object*/ args, /*Object*/ frag) 
+		fillInTemplate: function (/*Object*/ args, /*Object*/ frag)
 		{
 			var source = this.getFragNodeRef(frag);
 			dojo.html.copyStyle(this.domNode, source);
@@ -409,7 +409,7 @@ dojo.widget.defineWidget (
 			// of the outer table cells
 			var padding = this.domNode.style.padding;
 			if (dojo.lang.isString(padding) && padding != "" && padding != "0px" && padding != "0px 0px 0px 0px"){
-				this.topBorderNode.style.padding = 
+				this.topBorderNode.style.padding =
 					this.bottomBorderNode.style.padding = padding;
 				this.topBorderNode.style.paddingBottom = "0px";
 				this.bottomBorderNode.style.paddingTop = "0px";
@@ -419,17 +419,17 @@ dojo.widget.defineWidget (
 			}
 			var borderWidth = this.domNode.style.borderWidth;
 			if (dojo.lang.isString(borderWidth) && borderWidth != "" && borderWidth != "0px" && borderWidth != "0px 0px 0px 0px"){
-				this.topBorderNode.style.borderStyle = 
-					this.rightBorderNode.style.borderStyle = 
-					this.bottomBorderNode.style.borderStyle = 
-					this.leftBorderNode.style.borderStyle = 
+				this.topBorderNode.style.borderStyle =
+					this.rightBorderNode.style.borderStyle =
+					this.bottomBorderNode.style.borderStyle =
+					this.leftBorderNode.style.borderStyle =
 						this.domNode.style.borderStyle;
-				this.topBorderNode.style.borderColor = 
-					this.rightBorderNode.style.borderColor = 
-					this.bottomBorderNode.style.borderColor = 
-					this.leftBorderNode.style.borderColor = 
+				this.topBorderNode.style.borderColor =
+					this.rightBorderNode.style.borderColor =
+					this.bottomBorderNode.style.borderColor =
+					this.leftBorderNode.style.borderColor =
 						this.domNode.style.borderColor;
-				this.topBorderNode.style.borderWidth = 
+				this.topBorderNode.style.borderWidth =
 					this.bottomBorderNode.style.borderWidth = borderWidth;
 				this.topBorderNode.style.borderBottomWidth = "0px";
 				this.bottomBorderNode.style.borderTopWidth = "0px";
@@ -446,7 +446,7 @@ dojo.widget.defineWidget (
 
 			if (this.clickSelect){
 				dojo.event.connect (this.constrainingContainerNode, "onmousedown", this, "_onClick");
-			} 
+			}
 
 			if (this.isEnableX){
 				this.setValueX (!isNaN(this.initialValueX) ? this.initialValueX : (!isNaN(this.minimumX) ? this.minimumX : 0));
@@ -493,11 +493,11 @@ dojo.widget.defineWidget (
 		_calc_valueSizeX: function (){
 			var constrainingCtrBox = dojo.html.getContentBox(this.constrainingContainerNode);
 			var sliderHandleBox = dojo.html.getContentBox(this.sliderHandleNode);
-			if (isNaN(constrainingCtrBox.width) || isNaN(sliderHandleBox.width) || constrainingCtrBox.width <= 0 || sliderHandleBox.width <= 0){ 
-				return false; 
+			if (isNaN(constrainingCtrBox.width) || isNaN(sliderHandleBox.width) || constrainingCtrBox.width <= 0 || sliderHandleBox.width <= 0){
+				return false;
 			}
 
-			this._constraintWidth = constrainingCtrBox.width 
+			this._constraintWidth = constrainingCtrBox.width
 				+ dojo.html.getPadding(this.constrainingContainerNode).width
 				- sliderHandleBox.width;
 
@@ -578,8 +578,8 @@ dojo.widget.defineWidget (
 		_calc_valueSizeY: function (){
 			var constrainingCtrBox = dojo.html.getContentBox(this.constrainingContainerNode);
 			var sliderHandleBox = dojo.html.getContentBox(this.sliderHandleNode);
-			if (isNaN(constrainingCtrBox.height) || isNaN(sliderHandleBox.height) || constrainingCtrBox.height <= 0 || sliderHandleBox.height <= 0){ 
-				return false; 
+			if (isNaN(constrainingCtrBox.height) || isNaN(sliderHandleBox.height) || constrainingCtrBox.height <= 0 || sliderHandleBox.height <= 0){
+				return false;
 			}
 
 			this._constraintHeight = constrainingCtrBox.height
@@ -649,7 +649,7 @@ dojo.widget.defineWidget (
 			}
 
 			var parent = dojo.html.getAbsolutePosition(this.constrainingContainerNode, true, dojo.html.boxSizing.MARGIN_BOX);
-			var content = dojo.html.getContentBox(this._handleMove.domNode);			
+			var content = dojo.html.getContentBox(this._handleMove.domNode);
 			if (this.isEnableX){
 				var x = evt.pageX - parent.x - (content.width >> 1);
 				this._snapX(x);
@@ -877,8 +877,8 @@ dojo.declare (
 		dragObj.slider = this.slider;
 
 		// this code copied from dojo.dnd.HtmlDragSource#onDragStart
-		if (this.dragClass){ 
-			dragObj.dragClass = this.dragClass; 
+		if (this.dragClass){
+			dragObj.dragClass = this.dragClass;
 		}
 
 		return dragObj;

@@ -25,14 +25,14 @@ under the License.
     <PartyRole partyId="DemoBuyer" roleTypeId="BUYER"/>
     <UserLogin partyId="DemoBuyer" userLoginId="DemoBuyer"/>
     <UserLoginSecurityGroup userLoginId="DemoBuyer" groupId="ORDERPURCH" fromDate="2001-05-13 00:00:00"/>
-    
+
     <!-- this person can create sales orders for any store -->
     <Party partyId="DemoRepAll" partyTypeId="PERSON"/>
     <Person partyId="DemoRepAll" firstName="Demo" lastName="Sales Rep for All Stores"/>
     <PartyRole partyId="DemoRepAll" roleTypeId="SALES_REP"/>
     <UserLogin partyId="DemoRepAll" userLoginId="DemoRepAll"/>
     <UserLoginSecurityGroup userLoginId="DemoRepAll" groupId="ORDERENTRY_ALL" fromDate="2001-05-13 00:00:00"/>
-    
+
     <!-- this person can only create sales orders for stores for which he is a sales rep -->
     <Party partyId="DemoRepStore" partyTypeId="PERSON"/>
     <Person partyId="DemoRepStore" firstName="Demo" lastName="Sales Rep for Specified Stores Only"/>
@@ -40,7 +40,7 @@ under the License.
     <UserLogin partyId="DemoRepStore" userLoginId="DemoRepStore"/>
     <UserLoginSecurityGroup userLoginId="DemoRepStore" groupId="ORDERENTRY" fromDate="2001-05-13 00:00:00"/>
     <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="9000" fromDate="2001-05-13 12:00:00.0"/>
-    
+
     <!-- Commission Agreements -->
     <Agreement agreementId="9000" partyIdFrom="Company" partyIdTo="DemoRepAll" agreementTypeId="COMMISSION_AGREEMENT" description="Commission Agreement with DemoRepAll"/>
     <AgreementItem agreementId="9000" agreementItemSeqId="0001" currencyUomId="USD" agreementItemTypeId="AGREEMENT_COMMISSION" agreementText="Commission in USD"/>
@@ -49,9 +49,9 @@ under the License.
     <AgreementTerm agreementTermId="9002" invoiceItemTypeId="INV_FPROD_ITEM"  termTypeId="FIN_COMM_MIN" agreementId="9000" agreementItemSeqId="0001" termValue="0" termDays="30"/> <!-- No negative commission per unit (returns would still be negative) -->
     <!-- shows a virtual product can be used to model commission for all variants -->
     <AgreementProductAppl agreementId="9000" agreementItemSeqId="0001" productId="WG-9943"/>
-    
+
     <!-- Some Demo Customers -->
-    
+
     <!-- DemoCustCompany -->
     <Party partyId="DemoCustCompany" partyTypeId="PARTY_GROUP"/>
     <PartyGroup partyId="DemoCustCompany" groupName="Demo Customer Company"/>
@@ -59,7 +59,7 @@ under the License.
     <PartyRole partyId="DemoCustCompany" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER"/>
     <PartyRole partyId="DemoCustCompany" roleTypeId="_NA_"/>
-    
+
     <ContactMech contactMechId="9010" contactMechTypeId="POSTAL_ADDRESS"/>
     <PostalAddress contactMechId="9010" toName="Demo Customer Company" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
     <PartyContactMech partyId="DemoCustCompany" contactMechId="9010" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
@@ -84,10 +84,10 @@ under the License.
 
     <BillingAccount billingAccountId="9010" accountLimit="10000.0" accountCurrencyUomId="USD" contactMechId="9010" fromDate="2001-05-13 00:00:00.000" description="Demo Customer Company Billing Account"/>
     <BillingAccountRole billingAccountId="9010" partyId="DemoCustCompany" roleTypeId="BILL_TO_CUSTOMER" fromDate="2001-05-13 00:00:00.000"/>
-    
+
     <PartyTaxAuthInfo partyId="DemoCustCompany" taxAuthGeoId="UT" taxAuthPartyId="UT_TAXMAN" fromDate="2001-05-13 00:00:00.000" partyTaxId="12-3456789" isExempt="Y"/>
     <PartyTaxAuthInfo partyId="DemoCustCompany" taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" fromDate="2001-05-13 00:00:00.000" partyTaxId="98-7654321" isExempt="N"/>
-    
+
     <!-- DemoCustAgent -->
     <Party partyId="DemoCustAgent" partyTypeId="PERSON"/>
     <Person partyId="DemoCustAgent" firstName="Demo" lastName="Agent"/>
@@ -107,12 +107,12 @@ under the License.
     <ContactMech contactMechId="9023" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="DemoCustAgent" contactMechId="9023" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustAgent" contactMechId="9023" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
-    
-    <PartyRelationship partyIdFrom="DemoCustCompany" partyIdTo="DemoCustAgent" roleTypeIdFrom="CUSTOMER" roleTypeIdTo="AGENT" 
+
+    <PartyRelationship partyIdFrom="DemoCustCompany" partyIdTo="DemoCustAgent" roleTypeIdFrom="CUSTOMER" roleTypeIdTo="AGENT"
         fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="AGENT" comments="Allows the DemoCustAgent to purchase on behalf of DemoCustCompany, ie purchase against BillingAccount"/>
-    <PartyRelationship partyIdFrom="DemoCustCompany" partyIdTo="DemoCustAgent" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_" 
+    <PartyRelationship partyIdFrom="DemoCustCompany" partyIdTo="DemoCustAgent" roleTypeIdFrom="_NA_" roleTypeIdTo="_NA_"
         fromDate="2001-05-13 00:00:00.000" partyRelationshipTypeId="GROUP_ROLLUP" comments="Specifies the DemoCustAgent is a member of the DemoCustCompany, for Price Rules, Promos, etc"/>
-    
+
     <!-- DemoCustomer -->
     <Party partyId="DemoCustomer" partyTypeId="PERSON"/>
     <Person partyId="DemoCustomer" firstName="Demo" lastName="Customer"/>
@@ -122,10 +122,10 @@ under the License.
     <PartyRole partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
     <PartyGeoPoint partyId="DemoCustomer" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
     <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
-    
-    
+
+
     <ContactMech contactMechId="9015" contactMechTypeId="POSTAL_ADDRESS"/>
-    <PostalAddress contactMechId="9015" toName="Demo Customer" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>    
+    <PostalAddress contactMechId="9015" toName="Demo Customer" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA" geoPointId="9000"/>
     <PartyContactMech partyId="DemoCustomer" contactMechId="9015" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
@@ -142,9 +142,9 @@ under the License.
     <ContactMech contactMechId="9026" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="DemoCustomer" contactMechId="9026" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9026" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
-    
+
     <PaymentMethod paymentMethodId="9015" paymentMethodTypeId="CREDIT_CARD" partyId="DemoCustomer" fromDate="2001-05-13 00:00:00.000"/>
-    <CreditCard paymentMethodId="9015" cardType="Visa" cardNumber="4111111111111111" expireDate="02/2011" companyNameOnCard="" 
+    <CreditCard paymentMethodId="9015" cardType="Visa" cardNumber="4111111111111111" expireDate="02/2011" companyNameOnCard=""
         titleOnCard="" firstNameOnCard="DEMO" middleNameOnCard="" lastNameOnCard="CUSTOMER" suffixOnCard="" contactMechId="9015"/>
 
     <!-- EuroCustomer want invoices in euro and be located in Amsterdam -->
@@ -154,7 +154,7 @@ under the License.
     <PartyRole partyId="EuroCustomer" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="EuroCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
     <PartyGeoPoint partyId="EuroCustomer" geoPointId="9001" fromDate="2009-01-09 00:00:00.000"/>
-    
+
     <ContactMech contactMechId="EUROCUSTOMER" contactMechTypeId="POSTAL_ADDRESS"/>
     <PostalAddress contactMechId="EUROCUSTOMER" toName="Euro Customer" address1="Prinsengracht 3" city="Amsterdam" postalCode="1000BD" countryGeoId="NLD" geoPointId="9001"/>
     <PartyContactMech partyId="EuroCustomer" contactMechId="EUROCUSTOMER" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
@@ -168,11 +168,11 @@ under the License.
     <ContactMech contactMechId="EURO01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="EuroCustomer" contactMechId="EURO01" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EURO01" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
-    
+
     <PaymentMethod paymentMethodId="EUROCUSTOMER" paymentMethodTypeId="CREDIT_CARD" partyId="EuroCustomer" fromDate="2001-05-13 00:00:00.000"/>
-    <CreditCard paymentMethodId="EUROCUSTOMER" cardType="Visa" cardNumber="4111111111111111" expireDate="02/2011" companyNameOnCard="" 
+    <CreditCard paymentMethodId="EUROCUSTOMER" cardType="Visa" cardNumber="4111111111111111" expireDate="02/2011" companyNameOnCard=""
     titleOnCard="" firstNameOnCard="EURO" middleNameOnCard="" lastNameOnCard="CUSTOMER" suffixOnCard="" contactMechId="EUROCUSTOMER"/>
-    
+
     <!-- FrenchCustomer want invoices in euro and be located in Poussan -->
     <Party partyId="FrenchCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
     <Person partyId="FrenchCustomer" firstName="French" lastName="Customer"/>
@@ -180,7 +180,7 @@ under the License.
     <PartyRole partyId="FrenchCustomer" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="FrenchCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
     <PartyGeoPoint partyId="FrenchCustomer" geoPointId="9002" fromDate="2009-01-09 00:00:00.000"/>
-    
+
     <ContactMech contactMechId="FRENCHCUSTOMER" contactMechTypeId="POSTAL_ADDRESS"/>
     <PostalAddress contactMechId="FRENCHCUSTOMER" toName="French Customer" address1="400 E Chemin de la Mouline" city="Poussan" postalCode="34560" countryGeoId="FRA" geoPointId="9002"/>
     <PartyContactMech partyId="FrenchCustomer" contactMechId="FRENCHCUSTOMER" fromDate="2009-01-09 00:00:00.000" allowSolicitation="Y"/>
@@ -194,8 +194,8 @@ under the License.
     <ContactMech contactMechId="FRA01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="FrenchCustomer" contactMechId="FRA01" fromDate="2009-01-09 00:00:00.000" allowSolicitation="Y"/>
     <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRA01" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2009-01-09 00:00:00.000"/>
-    
+
     <PaymentMethod paymentMethodId="FRENCHCUSTOMER" paymentMethodTypeId="CREDIT_CARD" partyId="FrenchCustomer" fromDate="2009-01-09 00:00:00.000"/>
-    <CreditCard paymentMethodId="FRENCHCUSTOMER" cardType="Visa" cardNumber="4111111111111111" expireDate="02/2020" companyNameOnCard="" 
+    <CreditCard paymentMethodId="FRENCHCUSTOMER" cardType="Visa" cardNumber="4111111111111111" expireDate="02/2020" companyNameOnCard=""
         titleOnCard="" firstNameOnCard="FRENCH" middleNameOnCard="" lastNameOnCard="CUSTOMER" suffixOnCard="" contactMechId="FRENCHCUSTOMER"/>
 </entity-engine-xml>

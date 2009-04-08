@@ -28,10 +28,10 @@ dojo.lfx.rounded = function(/* object */settings /* ... */){
 		autoPad:settings.autoPad!=null ? settings.autoPad : true,		//	automatically pad
 		antiAlias:settings.antiAlias!=null ? settings.antiAlias : true,	//	anti-alias corners
 		radii:{ 	//	corner radii
-			tl:(settings.tl && settings.tl.radius!=null) ? settings.tl.radius:5, 
-			tr:(settings.tr && settings.tr.radius!=null) ? settings.tr.radius:5, 
-			bl:(settings.bl && settings.bl.radius!=null) ? settings.bl.radius:5, 
-			br:(settings.br && settings.br.radius!=null) ? settings.br.radius:5 
+			tl:(settings.tl && settings.tl.radius!=null) ? settings.tl.radius:5,
+			tr:(settings.tr && settings.tr.radius!=null) ? settings.tr.radius:5,
+			bl:(settings.bl && settings.bl.radius!=null) ? settings.bl.radius:5,
+			br:(settings.br && settings.br.radius!=null) ? settings.br.radius:5
 		}
 	};
 
@@ -253,8 +253,8 @@ dojo.lfx.rounded.applyCorners = function(/* object */options, /* HTMLElement */n
 					var barHeight = parseInt(dojo.html.getComputedStyle(bar, "height"));
 
 					//	reposition.
-					if(cc.charAt(1)=="l"){ 
-						bar.style.left = (options.radii[cc]-barLeft-1)+"px"; 
+					if(cc.charAt(1)=="l"){
+						bar.style.left = (options.radii[cc]-barLeft-1)+"px";
 					}
 					if(cc=="tr"){
 						bar.style.top = (options.radii[cc]-barHeight-barTop)+"px";
@@ -279,12 +279,12 @@ dojo.lfx.rounded.applyCorners = function(/* object */options, /* HTMLElement */n
 			else { psn.push("bottom"); }
 			if(cc.charAt(1)=="l"){ psn.push("left"); }
 			else { psn.push("right"); }
-			
+
 			if(corner.style.position=="absolute"){
 				for(var z=0; z<psn.length; z++){ corner.style[psn[z]]="0px"; }
 			}
-			
-			if(psn[0]=="top"){ 
+
+			if(psn[0]=="top"){
 				if(top){ top.appendChild(corner); }
 			} else {
 				if(bottom){ bottom.appendChild(corner); }
@@ -293,7 +293,7 @@ dojo.lfx.rounded.applyCorners = function(/* object */options, /* HTMLElement */n
 	}
 
 	//	draw fillers.
-	var diff={ 
+	var diff={
 		t: Math.abs(options.radii.tl - options.radii.tr),
 		b: Math.abs(options.radii.bl - options.radii.br)
 	};
@@ -439,7 +439,7 @@ dojo.lfx.rounded._fns={
 			xval[point]=intersect-x;
 			yval[point++]=1;
 		}
-		
+
 		intersect=Math.sqrt((Math.pow(r,2)-Math.pow(x+1,2)));
 		if(intersect >= y && intersect < (y+1)){
 			whatsides += "Right";
@@ -477,8 +477,8 @@ dojo.lfx.rounded._fns={
 			px.style.backgroundImage=format.bgImage;
 			px.style.backgroundPosition="-"+(format.width-(radius-x)+format.borderWidth)
 				+"px -"+((format.height+top+y)-format.borderWidth)+"px";
-		} else { 
-			px.style.backgroundColor=color; 
+		} else {
+			px.style.backgroundColor=color;
 		}
 		if(opac!=100){ dojo.html.setOpacity(px, (opac/100)); }
 		px.style.top=y+"px";

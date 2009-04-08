@@ -12,7 +12,7 @@ dojo.provide("dojo.lang.common");
 
 dojo.lang.inherits = function(/*Function*/subclass, /*Function*/superclass){
 	// summary: Set up inheritance between two classes.
-	if(!dojo.lang.isFunction(superclass)){ 
+	if(!dojo.lang.isFunction(superclass)){
 		dojo.raise("dojo.inherits: superclass argument ["+superclass+"] must be a function (subclass: ["+subclass+"']");
 	}
 	subclass.prototype = new superclass();
@@ -38,7 +38,7 @@ dojo.lang._mixin = function(/*Object*/ obj, /*Object*/ props){
 		}
 	}
 	// IE doesn't recognize custom toStrings in for..in
-	if(dojo.render.html.ie 
+	if(dojo.render.html.ie
 		&& (typeof(props["toString"]) == "function")
 		&& (props["toString"] != obj["toString"])
 		&& (props["toString"] != tobj["toString"]))
@@ -49,7 +49,7 @@ dojo.lang._mixin = function(/*Object*/ obj, /*Object*/ props){
 }
 
 dojo.lang.mixin = function(/*Object*/obj, /*Object...*/props){
-	// summary:	Adds all properties and methods of props to obj. 
+	// summary:	Adds all properties and methods of props to obj.
 	for(var i=1, l=arguments.length; i<l; i++){
 		dojo.lang._mixin(obj, arguments[i]);
 	}
@@ -73,23 +73,23 @@ dojo.inherits = dojo.lang.inherits;
 dojo.mixin = dojo.lang.mixin;
 dojo.extend = dojo.lang.extend;
 
-dojo.lang.find = function(	/*Array*/		array, 
+dojo.lang.find = function(	/*Array*/		array,
 							/*Object*/		value,
 							/*Boolean?*/	identity,
 							/*Boolean?*/	findLast){
-	// summary:	
+	// summary:
 	//		Return the index of value in array, returning -1 if not found.
 	// array: just what you think
 	// value: the value to locate
-	// identity: 
+	// identity:
 	//		If true, matches with identity comparison (===). If false, uses
 	//		normal comparison (==).
-	// findLast: 
+	// findLast:
 	//		If true, returns index of last instance of value.
 	// examples:
 	//		find(array, value[, identity [findLast]]) // recommended
  	//		find(value, array[, identity [findLast]]) // deprecated
-							
+
 	// support both (array, value) and (value, array)
 	if(!dojo.lang.isArrayLike(array) && dojo.lang.isArrayLike(value)) {
 		dojo.deprecated('dojo.lang.find(value, array)', 'use dojo.lang.find(array, value) instead', "0.5");
@@ -165,7 +165,7 @@ dojo.lang.isArray = function(/*anything*/ it){
 }
 
 dojo.lang.isArrayLike = function(/*anything*/ it){
-	// summary:	
+	// summary:
 	//		Return true if it can be used as an array (i.e. is an object with
 	//		an integer length property).
 	if((!it)||(dojo.lang.isUndefined(it))){ return false; }
@@ -217,7 +217,7 @@ dojo.lang.isBoolean = function(/*anything*/ it){
  */
 dojo.lang.isNumber = function(/*anything*/ it){
 	// summary:	Return true if it is a number.
-	// description: 
+	// description:
 	//		WARNING - In most cases, isNaN(it) is sufficient to determine whether or not
 	// 		something is a number or can be used as such. For example, a number or string
 	// 		can be used interchangably when accessing array items (array["1"] is the same as
@@ -228,7 +228,7 @@ dojo.lang.isNumber = function(/*anything*/ it){
 	// 		the same type of thing). That is really where isNumber "shines".
 	//
 	// Recommendation - Use isNaN(it) when possible
-	
+
 	return (it instanceof Number || typeof it == "number"); // Boolean
 }
 
@@ -237,7 +237,7 @@ dojo.lang.isNumber = function(/*anything*/ it){
  */
 dojo.lang.isUndefined = function(/*anything*/ it){
 	// summary: Return true if it is not defined.
-	// description: 
+	// description:
 	//		WARNING - In some cases, isUndefined will not behave as you
 	// 		might expect. If you do isUndefined(foo) and there is no earlier
 	// 		reference to foo, an error will be thrown before isUndefined is

@@ -22,7 +22,7 @@ under the License.
 <web-app>
     <display-name>Open For Business - Extended Example Component</display-name>
     <description>Extended Example Component of the Open For Business Project</description>
-    
+
     <context-param>
         <param-name>webSiteId</param-name>
         <param-value>EXAMPLEEXT</param-value>
@@ -31,7 +31,7 @@ under the License.
     <context-param>
         <param-name>localDispatcherName</param-name><param-value>exampleext</param-value>
         <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
-    </context-param>    
+    </context-param>
     <context-param>
         <param-name>entityDelegatorName</param-name><param-value>default</param-value>
         <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
@@ -41,7 +41,7 @@ under the License.
         <param-value>component://exampleext/widget/example/CommonScreens.xml</param-value>
         <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
     </context-param>
-    
+
     <filter>
         <filter-name>ContextFilter</filter-name>
         <display-name>ContextFilter</display-name>
@@ -52,15 +52,15 @@ under the License.
             <param-value>/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/includes/maincss.css</param-value>
         </init-param>
         <init-param><param-name>errorCode</param-name><param-value>403</param-value></init-param>
-        <init-param><param-name>redirectPath</param-name><param-value>/control/main</param-value></init-param>        
+        <init-param><param-name>redirectPath</param-name><param-value>/control/main</param-value></init-param>
     </filter>
-    <filter-mapping><filter-name>ContextFilter</filter-name><url-pattern>/*</url-pattern></filter-mapping> 
-    
+    <filter-mapping><filter-name>ContextFilter</filter-name><url-pattern>/*</url-pattern></filter-mapping>
+
     <listener><listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
     <listener><listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
     <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
     <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
-    
+
     <servlet>
         <servlet-name>ControlServlet</servlet-name>
         <display-name>ControlServlet</display-name>
@@ -69,9 +69,9 @@ under the License.
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping><servlet-name>ControlServlet</servlet-name><url-pattern>/control/*</url-pattern></servlet-mapping>
-    
+
     <session-config><session-timeout>60</session-timeout><!-- in minutes --></session-config>
-    
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
         <welcome-file>index.html</welcome-file>

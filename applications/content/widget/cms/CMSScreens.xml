@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="CMSContentFind">
@@ -87,7 +87,7 @@ under the License.
                         </container>
                         <container style="screenlet-body">
                             <section>
-                                <widgets>    
+                                <widgets>
                                     <platform-specific>
                                          <html>
                                              <html-template location="component://content/webapp/content/cms/CMSContentEdit.ftl"/>
@@ -102,7 +102,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CMSContentAdd">
         <section>
             <actions>
@@ -120,7 +120,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditContent" location="component://content/webapp/content/cms/CMSForms.xml"/>
                                     </widgets>
                                 </section>
@@ -131,7 +131,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditAddContent">
         <section>
             <actions>
@@ -146,15 +146,15 @@ under the License.
                 <set field="MASTER_caContentId" from-field="parameters.MASTER_caContentId" default-value="${parameters.caContentIdFrom}"/>
                 <set field="MASTER_caContentAssocTypeId" from-field="parameters.MASTER_caContentAssocTypeId" default-value="${parameters.caContentAssocTypeId}"/>
                 <set field="MASTER_caFromDate" from-field="parameters.MASTER_caFromDate" default-value="${parameters.caFromDate}"/>
-                
+
                 <set field="contentId" from-field="MASTER_contentId"/>
                 <set field="drDataResourceId" from-field="MASTER_drDataResourceId"/>
                 <set field="caContentIdTo" from-field="MASTER_caContentIdTo"/>
                 <set field="caContentId" from-field="MASTER_caContentId"/>
                 <set field="caContentAssocTypeId" from-field="MASTER_caContentAssocTypeId"/>
                 <set field="caFromDate" from-field="MASTER_caFromDate"/>
-                
-                
+
+
                 <script location="component://content/webapp/content/WEB-INF/actions/cms/CmsEditAddPrep.groovy"/>
                 <set field="currentCMSMenuItemName" value="EditAddContent" to-scope="user"/>
                 <set field="enableEdit" value="true"/>
@@ -170,7 +170,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <link  text="${uiLabelMap.ContentGoToFind}" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
                                         <include-form name="EditAddContentStuff" location="component://content/webapp/content/cms/CMSForms.xml"/>
                                         <content content-id="${contentId}" enable-edit-name="notfound"  edit-request="EditAddSubContent?MASTER_contentId=${MASTER_contentId}&amp;MASTER_caContentIdTo=${MASTER_caContentIdTo}&amp;MASTER_caContentAssocTypeId=${MASTER_caContentAssocTypeId}&amp;MASTER_caFromDate=${MASTER_caFromDate}&amp;MASTER_drDataResourceId=${MASTER_drDataResourceId}&amp;caContentIdTo=${caContentIdTo}"/>
@@ -183,7 +183,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditAddSubContent">
         <section>
             <actions>
@@ -198,10 +198,10 @@ under the License.
                 <set field="MASTER_caContentId" from-field="parameters.MASTER_caContentId"/>
                 <set field="MASTER_caContentAssocTypeId" from-field="parameters.MASTER_caContentAssocTypeId"/>
                 <set field="MASTER_caFromDate" from-field="parameters.MASTER_caFromDate"/>
-                
+
                 <set field="caContentIdTo" from-field="parameters.contentId"/>
                 <set field="caMapKey" from-field="parameters.mapKey"/>
-                
+
                 <script location="component://content/webapp/content/WEB-INF/actions/cms/CmsEditAddPrep.groovy"/>
                 <set field="currentCMSMenuItemName" value="EditAddContent" to-scope="user"/>
             </actions>
@@ -216,7 +216,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <link  text="${uiLabelMap.ContentGoToFind}" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}" style="tabletext"/>
                                         <include-form name="EditAddSubContentStuff" location="component://content/webapp/content/cms/CMSForms.xml"/>
                                     </widgets>
@@ -228,7 +228,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="AdminSearch">
         <section>
             <actions>
@@ -250,7 +250,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <platform-specific>
                                             <html>
                                                 <html-template location="component://content/webapp/content/cms/AdminSearch.ftl"/>
@@ -267,7 +267,7 @@ under the License.
         </section>
     </screen>
 
-    
+
     <screen name="AdminIndex">
         <section>
             <actions>
@@ -286,7 +286,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="AdminIndex" location="component://content/webapp/content/cms/CMSForms.xml"/>
                                         <include-form name="AdminIndexAll" location="component://content/webapp/content/cms/CMSForms.xml"/>
                                     </widgets>
@@ -298,7 +298,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CMSSites">
         <section>
             <actions>
@@ -321,7 +321,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <platform-specific>
                                             <html>
                                                 <html-template location="component://content/webapp/content/cms/CMSSites.ftl"/>
@@ -354,7 +354,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <platform-specific>
                                             <html>
                                                 <html-template location="component://content/webapp/content/cms/addSubSite.ftl"/>
@@ -386,7 +386,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="TestPermission" location="component://content/webapp/content/cms/CMSForms.xml"/>
                                     </widgets>
                                 </section>

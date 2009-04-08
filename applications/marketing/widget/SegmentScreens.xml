@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <!-- SegmentGroup Find Screen -->
@@ -31,10 +31,10 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
-                
+
                 <set field="titleProperty" value="PageTitleFindSegmentGroup"/>
                 <set field="headerItem" value="Segment"/>
-                
+
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
@@ -73,13 +73,13 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CommonSegmentGroupDecorator">
         <section>
             <actions>
                 <set field="headerItem" value="Segment"/>
                 <set field="tabButtonItem" value="Segment"/>
-                
+
                 <set field="segmentGroupId" from-field="parameters.segmentGroupId"/>
                 <entity-one entity-name="SegmentGroup" value-field="segmentGroup"/>
             </actions>
@@ -111,7 +111,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditSegmentGroup">
         <section>
             <actions>
@@ -147,7 +147,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <!-- SegmentGroupClass list Screen -->
     <screen name="listSegmentGroupClass">
         <section>
@@ -190,7 +190,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <!-- SegmentGroupGeo list Screen -->
     <screen name="listSegmentGroupGeo">
         <section>
@@ -232,7 +232,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <!-- SegmentGroupRole list Screen -->
     <screen name="listSegmentGroupRole">
         <section>

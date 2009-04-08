@@ -25,7 +25,7 @@ under the License.
       </ul>
       <br class="clear"/>
     </div>
-    <div class="screenlet-body"> 
+    <div class="screenlet-body">
       <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
       <a href="javascript:document.sendConfirmationForm.submit()" class="buttontext">${uiLabelMap.CommonSend}</a>
       <br/>
@@ -36,7 +36,7 @@ under the License.
         <input type="hidden" name="partyId" value="${partyId?if_exists}">
         <input type="hidden" name="contentType" value="${productStoreEmailSetting.contentType?default("")}" />
         <table class="basic-table" cellspacing='0'>
-            <tr>                 
+            <tr>
                 <td width="2%" align="right" class="label">${uiLabelMap.OrderSendConfirmationEmailSubject}&nbsp;</td>
                 <td width="54%">
                     <input type="text" size="40" name="subject" value="${productStoreEmailSetting.subject?default(uiLabelMap.OrderOrderConfirmation + " " + uiLabelMap.OrderNbr + orderId)?replace("\\$\\{orderId\\}",orderId,"r")}" />

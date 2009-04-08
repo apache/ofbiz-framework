@@ -50,7 +50,7 @@ under the License.
   <input type="hidden" name="billingContactMechId" value="${parameters.billingContactMechId?if_exists}"/>
   <input type="hidden" name="shippingContactMechPurposeTypeId" value="${parameters.shippingContactMechPurposeTypeId?if_exists}"/>
   <input type="hidden" name="billingContactMechPurposeTypeId" value="${parameters.billingContactMechPurposeTypeId?if_exists}"/>
-  
+
   <table width="100%" border="0" cellpadding="1" cellspacing="0">
      <tr>
         <td width="50%">
@@ -104,7 +104,7 @@ under the License.
                     -&nbsp;<input type="text" class="inputBox required" name="homeAreaCode" value="${parameters.homeAreaCode?if_exists}" size="4" maxlength="10"/>
                     -&nbsp;<input type="text" class="inputBox required" name="homeContactNumber" value="${parameters.homeContactNumber?if_exists}" size="15" maxlength="15"/>
                     -&nbsp;<input type="text" class="inputBox" name="homeExt" value="${parameters.homeExt?if_exists}" size="6" maxlength="10"/> *
-                  </div> 
+                  </div>
                 </td>
               </tr>
               <tr>
@@ -225,7 +225,7 @@ under the License.
               </tr>
             </table>
          </td>
-         
+
         <td width="50%">
            <table width="100%" border="0" cellpadding="1" cellspacing="0">
               <tr>
@@ -327,7 +327,7 @@ under the License.
       <tr>
          <td colspan="3" align="center"><input type="submit" class="smallsubmit" value="${uiLabelMap.CommonContinue}"/></td>
       </tr>
-  </table>    
+  </table>
   </form>
   </div>
 </div>

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
   <!-- ========================================================= -->
   <!-- ======================== Defaults ======================= -->
@@ -67,7 +67,7 @@ under the License.
             <key-map field-name="verifStatusId" rel-field-name="statusId"/>
         </relation>
     </entity>
-    
+
     <entity entity-name="PartyQualType"
             package-name="org.ofbiz.humanres.ability"
             title="Party Qualification Type Entity">
@@ -365,7 +365,7 @@ under the License.
             <key-map field-name="partyIdTo" rel-field-name="partyId"/>
         </view-link>
     </view-entity>
-    
+
     <entity entity-name="EmploymentApp"
             package-name="org.ofbiz.humanres.employment"
             title="Employment Application Entity">

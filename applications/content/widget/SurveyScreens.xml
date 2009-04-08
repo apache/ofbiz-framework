@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="FindSurvey">
         <section>
@@ -56,7 +56,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CommonSurveyDecorator">
         <section>
             <actions>
@@ -78,7 +78,7 @@ under the License.
                                         <container><link  text="${uiLabelMap.ContentSurveyCreate}" target="EditSurvey" style="buttontext"/></container>
                                     </widgets>
                                 </section>
-                                
+
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -116,12 +116,12 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="EditSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                             </widgets>
                                         </section>
                                     </container>
-                                </container>                  
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <container style="screenlet">
@@ -132,7 +132,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="EditSurvey" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                                    <include-form name="BuildSurveyFromPdf" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                             </widgets>
@@ -152,7 +152,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSurveyMultiResps"/>
                 <set field="tabButtonItem" value="SurveyMultiResps"/>
                 <set field="labelTitleProperty" value="PageTitleEditSurveyMultiResps"/>
-                
+
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
                 <entity-condition entity-name="SurveyMultiResp" list="surveyMultiRespList">
@@ -175,7 +175,7 @@ under the License.
                                         </container>
                                         <container style="screenlet-body">
                                             <section>
-                                                <widgets>    
+                                                <widgets>
                                                     <include-form name="EditSurveyMultiResp" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                                     <include-form name="ListSurveyMultiRespColumns" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                                 </widgets>
@@ -190,12 +190,12 @@ under the License.
                                         </container>
                                         <container style="screenlet-body">
                                             <section>
-                                                <widgets>    
+                                                <widgets>
                                                     <include-form name="AddSurveyMultiRespColumn" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                                 </widgets>
                                             </section>
                                         </container>
-                                    </container>                   
+                                    </container>
                                 </widgets>
                             </section>
                         </iterate-section>
@@ -207,7 +207,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="AddSurveyMultiResp" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                     </widgets>
                                 </section>
@@ -221,21 +221,21 @@ under the License.
     <screen name="EditSurveyQuestions">
         <section>
             <actions>
-            
+
                 <set field="titleProperty" value="PageTitleEditSurveyQuestions"/>
                 <set field="tabButtonItem" value="SurveyQuestions"/>
                 <set field="labelTitleProperty" value="PageTitleEditSurveyQuestions"/>
-                
+
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
-                
+
                 <script location="component://content/webapp/content/WEB-INF/actions/survey/EditSurveyQuestions.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonSurveyDecorator">
                     <decorator-section name="body">
                         <platform-specific><html><html-template location="component://content/webapp/content/survey/EditSurveyQuestions.ftl"/></html></platform-specific>
-                        
+
                         <!-- This page is a bit of a mess, so will cleanup/modernize later...
                         <include-form name="ListSurveyQuestions" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                         <include-form name="CreateSurveyQuestion" location="component://content/webapp/content/survey/SurveyForms.xml"/>
@@ -261,7 +261,7 @@ under the License.
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
-                
+
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
             </actions>
@@ -276,7 +276,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <container>
                                             <link  text="${uiLabelMap.ContentSurveyCreateResponse}" target="EditSurveyResponse" style="buttontext">
                                                 <parameter param-name="surveyId"/>
@@ -295,7 +295,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="BuildSurveyResponseFromPdf" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                     </widgets>
                                 </section>
@@ -309,7 +309,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListFindSurveyResponse" location="component://content/webapp/content/survey/SurveyForms.xml"/>
                                     </widgets>
                                 </section>
@@ -326,10 +326,10 @@ under the License.
                 <set field="titleProperty" value="PageTitleViewSurveyResponses"/>
                 <set field="tabButtonItem" value="SurveyResponses"/>
                 <set field="labelTitleProperty" value="PageTitleViewSurveyResponses"/>
-                
+
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
-                
+
                 <script location="component://content/webapp/content/WEB-INF/actions/survey/ViewSurveyResponses.groovy"/>
             </actions>
             <widgets>
@@ -348,7 +348,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <section>
                                             <condition><not><if-empty field="parameters.rootContentId"/></not></condition>
                                             <widgets><container>
@@ -373,10 +373,10 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSurveyResponse"/>
                 <set field="tabButtonItem" value="SurveyResponses"/>
                 <set field="labelTitleProperty" value="PageTitleEditSurveyResponse"/>
-                
+
                 <set field="surveyId" from-field="parameters.surveyId"/>
                 <entity-one entity-name="Survey" value-field="survey"/>
-                
+
                 <set field="surveyResponseId" from-field="parameters.surveyResponseId"/>
                 <entity-one entity-name="SurveyResponse" value-field="surveyResponse"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/survey/EditSurveyResponse.groovy"/>

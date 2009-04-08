@@ -42,7 +42,7 @@ under the License.
     <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_CREATE"/>
     <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_UPDATE"/>
     <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_DELETE"/>
-    
+
     <!-- Control Applet security -->
     <SecurityPermission description="Send to the Control Applet." permissionId="SEND_CONTROL_APPLET"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="SEND_CONTROL_APPLET"/>

@@ -10,15 +10,15 @@
           <#assign contactInfo2 = contactInfoList[1]/>
           <input type="hidden" name="partyIdTo" value="${contactInfo1.partyId?if_exists}">
           <input type="hidden" name="partyId" value="${contactInfo2.partyId?if_exists}">
-          
+
           <input type="hidden" name="addrContactMechIdTo" value="${contactInfo1.addrContactMechId?if_exists}">
           <input type="hidden" name="phoneContactMechIdTo" value="${contactInfo1.phoneContactMechId?if_exists}">
           <input type="hidden" name="emailContactMechIdTo" value="${contactInfo1.emailContactMechId?if_exists}">
-          
+
           <input type="hidden" name="addrContactMechId" value="${contactInfo2.addrContactMechId?if_exists}">
           <input type="hidden" name="phoneContactMechId" value="${contactInfo2.phoneContactMechId?if_exists}">
           <input type="hidden" name="emailContactMechId" value="${contactInfo2.emailContactMechId?if_exists}">
-          
+
           <table  >
             <tr width="100%">
               <td width="20%" ></td>
@@ -98,13 +98,13 @@
               <td width="30%">${contactInfo1.contactNumber?if_exists}</td>
               <td width="30%">${contactInfo2.contactNumber?if_exists}</td>
               <td width="20%"></td>
-            </tr> 
+            </tr>
             <tr>
               <td width="20%" >${uiLabelMap.PartyEmailAddress}</td>
               <td width="30%">${contactInfo1.primaryEmail?if_exists}</td>
               <td width="30%">${contactInfo2.primaryEmail?if_exists}</td>
               <td width="10%"><input type="checkbox" name="useEmail2" value="Y"/></td>
-            </tr>     
+            </tr>
             <tr>
               <td colspan="4" align="center"><br/>
                 <input type="submit" value="${uiLabelMap.CommonSubmit}"/>

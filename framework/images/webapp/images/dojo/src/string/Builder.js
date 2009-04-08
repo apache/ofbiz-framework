@@ -31,7 +31,7 @@ dojo.string.Builder = function(/* string? */str){
 		b = "";
 	}
 
-	this.toString = this.valueOf = function(){ 
+	this.toString = this.valueOf = function(){
 		//	summary
 		//	Concatenate internal buffer and return as a string
 		return (this.arrConcat) ? a.join("") : b;	//	string
@@ -69,16 +69,16 @@ dojo.string.Builder = function(/* string? */str){
 	this.remove = function(/* integer */f, /* integer */l){
 		//	summary
 		//	Remove a section of string from the internal buffer.
-		var s = ""; 
+		var s = "";
 		if(this.arrConcat){
-			b = a.join(""); 
+			b = a.join("");
 		}
 		a=[];
 		if(f>0){
 			s = b.substring(0, (f-1));
 		}
-		b = s + b.substring(f + l); 
-		length = this.length = b.length; 
+		b = s + b.substring(f + l);
+		length = this.length = b.length;
 		if(this.arrConcat){
 			a.push(b);
 			b="";
@@ -90,11 +90,11 @@ dojo.string.Builder = function(/* string? */str){
 		//	summary
 		//	replace phrase *o* with phrase *n*.
 		if(this.arrConcat){
-			b = a.join(""); 
+			b = a.join("");
 		}
-		a = []; 
-		b = b.replace(o,n); 
-		length = this.length = b.length; 
+		a = [];
+		b = b.replace(o,n);
+		length = this.length = b.length;
 		if(this.arrConcat){
 			a.push(b);
 			b="";
@@ -106,7 +106,7 @@ dojo.string.Builder = function(/* string? */str){
 		//	summary
 		//	Insert string s at index idx.
 		if(this.arrConcat){
-			b = a.join(""); 
+			b = a.join("");
 		}
 		a=[];
 		if(idx == 0){
@@ -116,9 +116,9 @@ dojo.string.Builder = function(/* string? */str){
 			t.splice(idx,0,s);
 			b = t.join("")
 		}
-		length = this.length = b.length; 
+		length = this.length = b.length;
 		if(this.arrConcat){
-			a.push(b); 
+			a.push(b);
 			b="";
 		}
 		return this;	//	dojo.string.Builder

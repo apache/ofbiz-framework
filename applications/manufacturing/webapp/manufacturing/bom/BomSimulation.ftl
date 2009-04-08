@@ -87,11 +87,11 @@ under the License.
             </tr>
             <#-- toggle the row color -->
             <#assign alt_row = !alt_row>
-          </#list>          
+          </#list>
         <#else>
             <tr>
               <td colspan="6">${uiLabelMap.CommonNoElementFound}.</td>
-            </tr>        
+            </tr>
         </#if>
       </table>
       <br/>

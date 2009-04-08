@@ -18,10 +18,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#-- xsi:schemaLocation="http://www.openapplications.org/197_receive_delivery_001 file:///C:/Documents%20and%20Settings/022523/My%20Documents/Vudu/XML%20Specs/OAG%20721/197_receive_delivery_001.xsd" -->
-<n:RECEIVE_DELIVERY_001 
-    xmlns:n="http://www.openapplications.org/197_receive_delivery_001" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
-    xmlns:os="http://www.openapplications.org/oagis_segments" 
+<n:RECEIVE_DELIVERY_001
+    xmlns:n="http://www.openapplications.org/197_receive_delivery_001"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:os="http://www.openapplications.org/oagis_segments"
     xmlns:of="http://www.openapplications.org/oagis_fields">
     <os:CNTROLAREA>
         <os:BSR>
@@ -60,8 +60,8 @@ under the License.
                     <os:ADDRESS>
                         <of:ADDRLINE>${postalAddress.address1?if_exists?xml}</of:ADDRLINE>
                         <#if postalAddress.address2?has_content>
-                        <of:ADDRLINE>${postalAddress.address2?if_exists?xml}</of:ADDRLINE>                        
-                        </#if>    
+                        <of:ADDRLINE>${postalAddress.address2?if_exists?xml}</of:ADDRLINE>
+                        </#if>
                         <of:CITY>${postalAddress.city?if_exists?xml}</of:CITY>
                         <of:COUNTRY>${postalAddress.countryGeoId?if_exists}</of:COUNTRY>
                         <#-- <of:FAX></of:FAX> -->

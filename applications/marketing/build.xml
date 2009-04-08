@@ -20,7 +20,7 @@ under the License.
 
 <project name="OFBiz - Marketing Component" default="jar" basedir=".">
     <import file="../../common.xml"/>
- 
+
     <!-- ================================================================== -->
     <!-- Initialization of all property settings                            -->
     <!-- ================================================================== -->

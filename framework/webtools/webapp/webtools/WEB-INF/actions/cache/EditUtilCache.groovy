@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,7 +28,7 @@ if (cacheName) {
     utilCache = UtilCache.findCache(cacheName);
     if (utilCache) {
         cache = [:];
-        
+
         cache.cacheName = utilCache.getName();
         cache.cacheSize = UtilFormatOut.formatQuantity(utilCache.size());
         cache.hitCount = UtilFormatOut.formatQuantity(utilCache.getHitCount());
@@ -42,7 +42,7 @@ if (cacheName) {
         cache.expireTime = UtilFormatOut.formatQuantity(utilCache.getExpireTime());
         cache.useSoftReference = utilCache.getUseSoftReference().toString();
         cache.useFileSystemStore = utilCache.getUseFileSystemStore().toString();
-        
+
         exp = utilCache.getExpireTime();
         hrs = Math.floor(exp / (60 * 60 * 1000));
         exp = exp % (60 * 60 * 1000);

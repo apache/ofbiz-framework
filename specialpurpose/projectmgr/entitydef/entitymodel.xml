@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
   <!-- ========================================================= -->
   <!-- ======================== Defaults ======================= -->
@@ -87,7 +87,7 @@ under the License.
       <key-map field-name="workEffortId"/>
     </relation>
   </view-entity>
-  
+
   <view-entity entity-name="ProjectIdPartyRoleAndTask"
     package-name="org.ofbiz.specialpurpose.project"
     title="WorkEffort for use in party -> project -> phase -> task">
@@ -111,7 +111,7 @@ under the License.
       <key-map field-name="roleTypeId"/>
     </view-link>
   </view-entity>
-  
+
   <view-entity entity-name="ProjectIdPartyRoleAndPhase"
     package-name="org.ofbiz.specialpurpose.project"
     title="WorkEffort for use in party -> project -> phase -> task">
@@ -130,7 +130,7 @@ under the License.
       <key-map field-name="roleTypeId"/>
     </view-link>
   </view-entity>
-  
+
   <view-entity entity-name="ProjectAndPhaseAndTaskParty"
     package-name="org.ofbiz.specialpurpose.project"
     title="WorkEffort for use in party -> project -> phase -> task">
@@ -169,7 +169,7 @@ under the License.
       <key-map field-name="workEffortId"/>
     </relation>
   </view-entity>
-  
+
   <view-entity entity-name="ProjectAndPhaseAndTask"
     package-name="org.ofbiz.specialpurpose.project"
     title="WorkEffort for use in project -> phase -> task">
@@ -197,7 +197,7 @@ under the License.
       <key-map field-name="workEffortId"/>
     </relation>
   </view-entity>
-  
+
   <view-entity entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet"
     package-name="org.ofbiz.specialpurpose.project"
     title="WorkEffort for use in project -> phase -> task">
@@ -238,7 +238,7 @@ under the License.
       <key-map field-name="invoiceId"/>
     </relation>
   </view-entity>
-  
+
   <view-entity entity-name="TimesheetAndTimeEntry"
     package-name="org.ofbiz.specialpurpose.project"
     title="Time entry for Timesheets, time entries always have a timesheet and are always for one day only and recording the hours for one person which is defined on the timesheet. A timesheet will always have at least one time entry.">
@@ -274,5 +274,5 @@ under the License.
       <key-map field-name="rateTypeId"/>
     </relation>
   </view-entity>
-  
+
   </entitymodel>

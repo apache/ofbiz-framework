@@ -21,11 +21,11 @@ under the License.
     <hr/>
     <span class="label"><b>${uiLabelMap.ProductNote}:</b></span> ${uiLabelMap.ProductNoteKeywordSearch}
     <hr/>
-    
+
     ${screens.render("component://product/widget/catalog/ProductScreens.xml#CreateVirtualWithVariantsFormInclude")}
-    
+
     <hr/>
-    
+
     <div>
         <form method="post" action="<@ofbizUrl>searchRemoveFromCategory</@ofbizUrl>" name="searchRemoveFromCategory">
           <span class="label">${uiLabelMap.ProductRemoveResultsFrom} ${uiLabelMap.ProductCategory}:</span>
@@ -36,9 +36,9 @@ under the License.
           <br/>
         </form>
     </div>
-    
+
     <hr/>
-    
+
     <div>
         <form method="post" action="<@ofbizUrl>searchExpireFromCategory</@ofbizUrl>" name="searchExpireFromCategory">
           <span class="label">${uiLabelMap.ProductExpireResultsFrom} ${uiLabelMap.ProductCategory}:</span>
@@ -50,9 +50,9 @@ under the License.
           <br/>
         </form>
     </div>
-    
+
     <hr/>
-    
+
     <div>
         <form method="post" action="<@ofbizUrl>searchAddToCategory</@ofbizUrl>" name="searchAddToCategory">
           <span class="label">${uiLabelMap.ProductAddResultsTo} ${uiLabelMap.ProductCategory}:</span>
@@ -64,14 +64,14 @@ under the License.
           <br/>
         </form>
     </div>
-    
+
     <hr/>
-    
+
     <div>
         <form method="post" action="<@ofbizUrl>searchAddFeature</@ofbizUrl>" name="searchAddFeature">
           <span class="label">${uiLabelMap.ProductAddFeatureToResults}:</span><br/>
           <span class="label">${uiLabelMap.ProductFeatureId}</span><input type="text" size="10" name="productFeatureId" value="">
-          <span class="label">${uiLabelMap.CommonFrom}</span><input type="tex"t size="25" name="fromDate"><a href="javascript:call_cal(document.searchAddFeature.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a> 
+          <span class="label">${uiLabelMap.CommonFrom}</span><input type="tex"t size="25" name="fromDate"><a href="javascript:call_cal(document.searchAddFeature.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
           <span class="label">${uiLabelMap.CommonThru}</span><input type="text" size="25" name="thruDate"><a href="javascript:call_cal(document.searchAddFeature.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
           <br/>
           <span class="label">${uiLabelMap.CommonAmount}</span><input type="text" size="5" name="amount" value="">
@@ -92,9 +92,9 @@ under the License.
           <br/>
         </form>
     </div>
-    
+
     <hr/>
-    
+
     <div>
         <form method="post" action="<@ofbizUrl>searchRemoveFeature</@ofbizUrl>" name="searchRemoveFeature">
           <span class="label">${uiLabelMap.ProductRemoveFeatureFromResults}:</span><br/>
@@ -104,9 +104,9 @@ under the License.
           <br/>
         </form>
     </div>
-    
+
     <hr/>
-    
+
     <div>
         <form method="post" action="" name="searchShowParams">
           <#assign searchParams = Static["org.ofbiz.product.product.ProductSearchSession"].makeSearchParametersString(session)>
@@ -116,9 +116,9 @@ under the License.
           <input type="hidden" name="clearSearch" value="N">
         </form>
     </div>
-    
+
     <hr/>
-    
+
     <div>
       <span class="label">${uiLabelMap.ProductSearchExportProductList}:</span><a href="<@ofbizUrl>searchExportProductList?clearSearch=N</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchExport}</a>
     </div>

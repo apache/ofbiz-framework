@@ -452,12 +452,12 @@ under the License.
         <field name="partyIdFrom" type="id-ne"></field>
         <field name="partyIdTo" type="id-ne"></field>
         <field name="roleTypeIdFrom" type="id-ne"></field>
-        <field name="roleTypeIdTo" type="id-ne"></field>                
+        <field name="roleTypeIdTo" type="id-ne"></field>
         <field name="fromDate" type="date-time"></field>
-        <field name="agreementDate" type="date-time"/>  
-        <field name="thruDate" type="date-time"/>                      
+        <field name="agreementDate" type="date-time"/>
+        <field name="thruDate" type="date-time"/>
         <prim-key field="agreementId"/>
-        <prim-key field="agreementItemSeqId"/>        
+        <prim-key field="agreementItemSeqId"/>
         <prim-key field="partyIdTo"/>
         <prim-key field="partyIdFrom"/>
         <prim-key field="roleTypeIdTo"/>
@@ -520,7 +520,7 @@ under the License.
             <key-map field-name="agreementId"/>
         </view-link>
     </view-entity>
-    <view-entity entity-name="AgreementAndRole" 
+    <view-entity entity-name="AgreementAndRole"
         package-name="org.ofbiz.party.agreement"
         title="Agreement and AgreementRole View Entity">
         <member-entity entity-alias="AGR" entity-name="Agreement"/>
@@ -564,7 +564,7 @@ under the License.
             <key-map field-name="agreementId"/>
         </relation>
     </view-entity>
-    
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.party.communication -->
   <!-- ========================================================= -->
@@ -712,7 +712,7 @@ under the License.
             <key-map field-name="reasonEnumId" rel-field-name="enumId"/>
         </relation>
         <index name="COMMEVT_MSG_ID" unique="true">
-            <index-field name="messageId"/>               
+            <index-field name="messageId"/>
         </index>
     </entity>
     <view-entity entity-name="CommunicationEventAndSubscr" package-name="org.ofbiz.party.communication" title="Communication Event And Role View Entity">
@@ -999,7 +999,7 @@ under the License.
         <field name="emailAddress" type="id-vlong-ne"></field>
         <field name="verifyHash" type="value"></field>
         <field name="expireDate" type="date-time"></field>
-        <prim-key field="emailAddress"/>        
+        <prim-key field="emailAddress"/>
         <index name="EMAIL_VERIFY_HASH" unique="true">
             <index-field name="verifyHash"/>
         </index>
@@ -1059,7 +1059,7 @@ under the License.
       <field name="roleTypeId" type="id"></field>
       <field name="allowSolicitation" type="indicator"></field>
       <field name="extension" type="long-varchar"></field>
-      <field name="verified" type="indicator"></field> 
+      <field name="verified" type="indicator"></field>
       <field name="comments" type="comment"></field>
       <field name="yearsWithContactMech" type="numeric"></field>
       <field name="monthsWithContactMech" type="numeric"></field>
@@ -1356,7 +1356,7 @@ under the License.
         <member-entity entity-alias="TN" entity-name="TelecomNumber"/>
         <alias entity-alias="CM" name="contactMechId"/>
         <alias entity-alias="PTY" name="partyId"/>
-        <alias entity-alias="PTY" name="statusId"/> 
+        <alias entity-alias="PTY" name="statusId"/>
         <alias entity-alias="PCM" name="fromDate"/>
         <alias entity-alias="PCM" name="thruDate"/>
         <alias entity-alias="PTY" name="partyTypeId"/>
@@ -1395,7 +1395,7 @@ under the License.
         package-name="org.ofbiz.party.contact">
         <member-entity entity-alias="CLP" entity-name="ContactListParty"/>
         <member-entity entity-alias="CM" entity-name="ContactMech"/>
-        <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>        
+        <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
         <alias-all entity-alias="CLP"/>
         <alias-all entity-alias="CM"/>
         <alias entity-alias="PCM" name="contactFromDate" field="fromDate"/>
@@ -1518,7 +1518,7 @@ under the License.
       <field name="lastModifiedDate" type="date-time"></field>
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <field name="dataSourceId" type="id"></field>
-      <field name="isUnread" type="indicator"></field>        
+      <field name="isUnread" type="indicator"></field>
       <prim-key field="partyId"/>
       <relation type="one" fk-name="PARTY_PTY_TYP" rel-entity-name="PartyType">
         <key-map field-name="partyTypeId"/>
@@ -1540,7 +1540,7 @@ under the License.
       </relation>
       <relation type="one" fk-name="PARTY_DATSRC" rel-entity-name="DataSource">
         <key-map field-name="dataSourceId"/>
-      </relation>        
+      </relation>
       <index name="PARTYEXT_ID_IDX">
         <index-field name="externalId"/>
       </index>
@@ -1667,8 +1667,8 @@ under the License.
       <key-map field-name="partyId"/>
     </view-link>
   </view-entity>
-    <entity entity-name="PartyGeoPoint" 
-        package-name="org.ofbiz.party.party" 
+    <entity entity-name="PartyGeoPoint"
+        package-name="org.ofbiz.party.party"
         title="Party Geo Location with history">
         <field name="partyId" type="id-ne"></field>
         <field name="geoPointId" type="id-ne"></field>
@@ -1690,7 +1690,7 @@ under the License.
         <member-entity entity-alias="PTY" entity-name="Party"/>
         <member-entity entity-alias="PGPT" entity-name="PartyGeoPoint"/>
         <member-entity entity-alias="GPT" entity-name="GeoPoint"/>
-        <alias-all entity-alias="GPT"/>    
+        <alias-all entity-alias="GPT"/>
         <alias entity-alias="PTY" name="partyId"/>
         <alias entity-alias="PGPT" name="fromDate"/>
         <alias entity-alias="PGPT" name="thruDate"/>
@@ -1948,11 +1948,11 @@ under the License.
             title="Party Group Entity">
       <field name="partyId" type="id-ne"></field>
       <field name="groupName" type="name"></field>
-      <field name="groupNameLocal" type="name"></field>  
+      <field name="groupNameLocal" type="name"></field>
       <field name="officeSiteName" type="name"></field>
       <field name="annualRevenue" type="currency-amount"></field>
       <field name="numEmployees" type="numeric"></field>
-      <field name="tickerSymbol" type="very-short"></field>        
+      <field name="tickerSymbol" type="very-short"></field>
       <field name="comments" type="comment"></field>
       <field name="logoImageUrl" type="url"></field>
       <prim-key field="partyId"/>
@@ -1986,7 +1986,7 @@ under the License.
         <prim-key field="partyInvitationId"/>
         <relation type="one" fk-name="PTYINV_PTY" rel-entity-name="Party">
             <key-map field-name="partyIdFrom" rel-field-name="partyId"/>
-        </relation>        
+        </relation>
         <relation type="one" rel-entity-name="StatusItem">
             <key-map field-name="statusId"/>
         </relation>
@@ -2249,7 +2249,7 @@ under the License.
     <view-entity entity-name="PartyRelationshipToFrom" package-name="org.ofbiz.party.party">
         <description>
             Links two PartyRelationships together to be used to get a member of a group that is a member of a group, so links the to party of the first to the from party of the second.
-            To query the group ID would go on onePartyIdFrom and the member ID would go in twoPartyIdTo. 
+            To query the group ID would go on onePartyIdFrom and the member ID would go in twoPartyIdTo.
         </description>
         <member-entity entity-alias="PR1" entity-name="PartyRelationship"/>
         <member-entity entity-alias="PR2" entity-name="PartyRelationship"/>
@@ -2401,7 +2401,7 @@ under the License.
             <key-map field-name="roleTypeId"/>
             </view-link>
     </view-entity>
-    
+
     <view-entity entity-name="PartyRoleNameDetail"
         package-name="org.ofbiz.party.party"
         title="Party Role and Party Detail (Person, PartyGroup, etc) View Entity">
@@ -2442,7 +2442,7 @@ under the License.
       <relation type="one" fk-name="PARTY_STS_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
-    </entity>    
+    </entity>
     <entity entity-name="OldPartyTaxInfo" table-name="PARTY_TAX_INFO"
             package-name="org.ofbiz.party.party"
             title="Party Tax Information Entity">
@@ -2500,7 +2500,7 @@ under the License.
             package-name="org.ofbiz.party.party"
             title="Person Entity">
       <field name="partyId" type="id-ne"></field>
-      <field name="salutation" type="name"></field>  
+      <field name="salutation" type="name"></field>
       <field name="firstName" type="name"></field>
       <field name="middleName" type="name"></field>
       <field name="lastName" type="name"></field>
@@ -2508,9 +2508,9 @@ under the License.
       <field name="suffix" type="name"></field>
       <field name="nickname" type="name"></field>
       <field name="firstNameLocal" type="name"></field>
-      <field name="middleNameLocal" type="name"></field>        
+      <field name="middleNameLocal" type="name"></field>
       <field name="lastNameLocal" type="name"></field>
-      <field name="otherLocal" type="name"></field>        
+      <field name="otherLocal" type="name"></field>
       <field name="memberId" type="id"></field>
       <field name="gender" type="indicator"></field>
       <field name="birthDate" type="date"></field>
@@ -2667,7 +2667,7 @@ under the License.
         <relation type="one" fk-name="VISIT_PARTY_ROLE" rel-entity-name="PartyRole">
             <key-map field-name="partyId"/>
             <key-map field-name="roleTypeId"/>
-        </relation>      
+        </relation>
     </extend-entity>
     <extend-entity entity-name="Visitor">
         <field name="partyId" type="id"></field>

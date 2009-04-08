@@ -21,7 +21,7 @@
 <!-- ======================================================================
      OFBiz -> JBoss 4.2.2 Installer
      ====================================================================== -->
-        
+
 <project name="OfBiz JBoss" default="generate">
     <description>
         Create the ear file to run OfBiz in Jboss
@@ -35,8 +35,8 @@
     target: generate
     ================================= -->
     <target name="generate" depends="installDerby" description="--> Create the ear file to run OfBiz in Jboss"/>
-    
-    <!-- - - - - - - - - - - - - - - - - - 
+
+    <!-- - - - - - - - - - - - - - - - - -
     target: clean
     - - - - - - - - - - - - - - - - - -->
     <target name="clean">
@@ -69,7 +69,7 @@
                 <include name="derby*.xml"/>
             </fileset>
         </copy>
-        
+
         <!-- move entityengine.xml, log4j.xml and jndi.properties -->
         <move file="${r"${ofbizHome}"}/framework/entity/config/entityengine.xml" tofile="${r"${ofbizHome}"}/framework/entity/config/entityengine.xml.jbak"/>
         <move file="${r"${ofbizHome}"}/framework/entity/config/entityengine-jboss422.xml" tofile="${r"${ofbizHome}"}/framework/entity/config/entityengine.xml"/>

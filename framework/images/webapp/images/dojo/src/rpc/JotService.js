@@ -20,7 +20,7 @@ dojo.lang.extend(dojo.rpc.JotService, {
 		//summary
 		//Jot bind method. Takes remote method, parameters, deferred,
 		//and a url, calls createRequest to make a Jot RPC envelope and
-		//passes that off with bind.  
+		//passes that off with bind.
 		dojo.io.bind({
 			url: url||this.serviceUrl,
 			content: {

@@ -21,7 +21,7 @@ under the License.
   <div class="screenlet-title-bar">
     <h3>${uiLabelMap.WebtoolsEntityEnginePerformanceTests} - ${uiLabelMap.WebtoolsTestResults}</h3>
   </div>
-  <div class="screenlet-body">  
+  <div class="screenlet-body">
     <#if security.hasPermission("ENTITY_MAINT", session)>
       <p>${uiLabelMap.WebtoolsNotePerformanceResultsMayVary}</p>
       <br/>

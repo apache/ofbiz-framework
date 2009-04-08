@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,7 +20,7 @@
 
 <entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
-    
+
   <!-- ========================================================= -->
   <!-- ======================== Defaults ======================= -->
   <!-- ========================================================= -->
@@ -93,7 +93,7 @@
         <relation type="one"  rel-entity-name="WorkEffort">
             <key-map field-name="scheduleWorkEffortId" rel-field-name="workEffortId"/>
         </relation>
-        <relation type="many" rel-entity-name="WorkEffortPartyAssignment"> 
+        <relation type="many" rel-entity-name="WorkEffortPartyAssignment">
             <key-map field-name="workEffortId"/>
         </relation>
     </view-entity>
@@ -117,7 +117,7 @@
         <relation type="one" rel-entity-name="WorkEffort">
             <key-map field-name="scheduleWorkEffortId" rel-field-name="workEffortId"/>
         </relation>
-        <relation type="many" rel-entity-name="TimeEntry"> 
+        <relation type="many" rel-entity-name="TimeEntry">
             <key-map field-name="workEffortId"/>
         </relation>
     </view-entity>
@@ -140,12 +140,12 @@
         <alias entity-alias="PT" name="internalName"/>
         <alias entity-alias="PT" name="description"/>
         <alias entity-alias="PT" name="requireInventory"/>
-        <alias entity-alias="PT" name="taxable"/>                                        
-        <alias entity-alias="PT" name="chargeShipping"/>                                                
-        <alias entity-alias="PT" name="isVirtual"/>                                        
-        <alias entity-alias="PT" name="isVariant"/>                                        
-        <alias entity-alias="PT" name="createdDate"/>                                        
-        <alias entity-alias="PT" name="createdByUserLogin"/>                                                
+        <alias entity-alias="PT" name="taxable"/>
+        <alias entity-alias="PT" name="chargeShipping"/>
+        <alias entity-alias="PT" name="isVirtual"/>
+        <alias entity-alias="PT" name="isVariant"/>
+        <alias entity-alias="PT" name="createdDate"/>
+        <alias entity-alias="PT" name="createdByUserLogin"/>
         <view-link entity-alias="IMIE" rel-entity-alias="IYIM">
             <key-map field-name="inventoryItemId"/>
         </view-link>
@@ -155,7 +155,7 @@
         <relation type="one" rel-entity-name="InventoryItem">
             <key-map field-name="inventoryItemId"/>
         </relation>
-        <relation type="one" rel-entity-name="Product"> 
+        <relation type="one" rel-entity-name="Product">
             <key-map field-name="productId"/>
         </relation>
     </view-entity>
@@ -178,12 +178,12 @@
         <alias entity-alias="PT" name="internalName"/>
         <alias entity-alias="PT" name="description"/>
         <alias entity-alias="PT" name="requireInventory"/>
-        <alias entity-alias="PT" name="taxable"/>                                        
-        <alias entity-alias="PT" name="chargeShipping"/>                                                
-        <alias entity-alias="PT" name="isVirtual"/>                                        
-        <alias entity-alias="PT" name="isVariant"/>                                        
-        <alias entity-alias="PT" name="createdDate"/>                                        
-        <alias entity-alias="PT" name="createdByUserLogin"/>                                                
+        <alias entity-alias="PT" name="taxable"/>
+        <alias entity-alias="PT" name="chargeShipping"/>
+        <alias entity-alias="PT" name="isVirtual"/>
+        <alias entity-alias="PT" name="isVariant"/>
+        <alias entity-alias="PT" name="createdDate"/>
+        <alias entity-alias="PT" name="createdByUserLogin"/>
         <view-link entity-alias="PT" rel-entity-alias="IYIM">
             <key-map field-name="productId"/>
         </view-link>
@@ -193,9 +193,8 @@
         <relation type="many" rel-entity-name="InventoryItem">
             <key-map field-name="productId"/>
         </relation>
-        <relation type="many" rel-entity-name="ItemIssuance"> 
+        <relation type="many" rel-entity-name="ItemIssuance">
             <key-map field-name="inventoryItemId"/>
         </relation>
     </view-entity>
 </entitymodel>
-    

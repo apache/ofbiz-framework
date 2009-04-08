@@ -48,7 +48,7 @@ dojo.widget.defineWidget(
 		this.startSize  = {'w':mb.width, 'h':mb.height};
 
 		dojo.event.kwConnect({
-			srcObj: dojo.body(), 
+			srcObj: dojo.body(),
 			srcFunc: "onmousemove",
 			targetObj: this,
 			targetFunc: "_changeSizing",
@@ -70,7 +70,7 @@ dojo.widget.defineWidget(
 		}
 		var dx = this.startPoint.x - e.clientX;
 		var dy = this.startPoint.y - e.clientY;
-		
+
 		var newW = this.startSize.w - dx;
 		var newH = this.startSize.h - dy;
 
@@ -84,13 +84,13 @@ dojo.widget.defineWidget(
 				newH = mb.height;
 			}
 		}
-		
+
 		if(this.targetWidget){
 			this.targetWidget.resizeTo(newW, newH);
 		}else{
 			dojo.html.setMarginBox(this.targetDomNode, { width: newW, height: newH});
 		}
-		
+
 		e.preventDefault();
 	},
 

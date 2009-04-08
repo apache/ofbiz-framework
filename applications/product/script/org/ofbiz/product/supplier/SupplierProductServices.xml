@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createSupplierProduct" short-description="Create a Supplier Product record">
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createSupplierProduct you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
@@ -37,7 +37,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="SupplierProduct"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        
+
         <find-by-primary-key entity-name="SupplierProduct" map="lookupPKMap" value-field="sprod"/>
         <set-nonpk-fields map="parameters" value-field="sprod"/>
         <store-value value-field="sprod"/>
@@ -49,8 +49,8 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="SupplierProduct"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        
-        <find-by-primary-key entity-name="SupplierProduct" map="lookupPKMap" value-field="sprod"/>                
+
+        <find-by-primary-key entity-name="SupplierProduct" map="lookupPKMap" value-field="sprod"/>
         <remove-value value-field="sprod"/>
     </simple-method>
 
@@ -62,13 +62,13 @@ under the License.
         <make-value value-field="newEntity" entity-name="SupplierProductFeature"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
- 
+
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateSupplierProductFeature" short-description="Update a Supplier Product Feature record">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateSupplierProductFeature you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
- 
+
         <entity-one entity-name="SupplierProductFeature" value-field="sprod"/>
         <set-nonpk-fields map="parameters" value-field="sprod"/>
         <store-value value-field="sprod"/>
@@ -76,7 +76,7 @@ under the License.
     <simple-method method-name="removeSupplierProductFeature" short-description="Remove a Supplier Product record">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run updateSupplierProductFeature you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
- 
+
         <entity-one entity-name="SupplierProductFeature" value-field="sprod"/>
         <remove-value value-field="sprod"/>
     </simple-method>

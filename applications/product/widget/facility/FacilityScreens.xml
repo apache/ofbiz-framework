@@ -166,7 +166,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="FacilityChildren">
         <section>
             <actions>
@@ -186,7 +186,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="FindFacilityTransfers">
         <section>
             <actions>
@@ -226,7 +226,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>    
+                                <section>
                                     <widgets>
                                         <include-form name="ToFacilityTransfers" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                                     </widgets>
@@ -447,7 +447,7 @@ under the License.
                                     </link>
                                     <link target="InventoryAverageCosts" text="${uiLabelMap.ProductInventoryAverageCosts}" style="buttontext">
                                         <parameter param-name="facilityId" from-field="facilityId"/>
-                                    </link>                                    
+                                    </link>
                                 </container>
                             </decorator-section>
                             <decorator-section name="search-options">
@@ -488,7 +488,7 @@ under the License.
                 <set field="productsSoldThruTimestamp" from-field="parameters.productsSoldThruTimestamp" type="Timestamp"/>
                 <set field="internalName" from-field="parameters.internalName"/>
                 <set field="productId" from-field="parameters.productId"/>
-                
+
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/CountFacilityInventoryByProduct.groovy"/>
             </actions>
             <widgets>
@@ -574,7 +574,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>    
+                                <section>
                                     <widgets>
                                         <include-form name="SearchInventoryItemsDetailsParams" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                                     </widgets>
@@ -593,13 +593,13 @@ under the License.
                                         </container>
                                     </container>
                                     <container style="screenlet-body">
-                                        <section>    
+                                        <section>
                                             <widgets>
                                                 <include-form name="ListFacilityInventoryItemsDetailsByItem" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                                             </widgets>
                                         </section>
                                     </container>
-                                </container>                                
+                                </container>
                             </widgets>
                         </section>
                         <section>
@@ -614,7 +614,7 @@ under the License.
                                         </container>
                                     </container>
                                     <container style="screenlet-body">
-                                        <section>    
+                                        <section>
                                             <widgets>
                                                 <include-form name="ListFacilityInventoryItemsDetailsByProduct" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                                             </widgets>
@@ -635,7 +635,7 @@ under the License.
                                         </container>
                                     </container>
                                     <container style="screenlet-body">
-                                        <section>    
+                                        <section>
                                             <widgets>
                                                 <include-form name="ListFacilityInventoryItemsDetailsByDate" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                                             </widgets>
@@ -659,7 +659,7 @@ under the License.
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
-                
+
                 <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryItemTotals.groovy"/>
             </actions>
@@ -673,7 +673,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>    
+                                <section>
                                     <widgets>
                                         <include-form name="ListInventoryItemTotals" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                                     </widgets>
@@ -685,7 +685,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="InventoryItemGrandTotals">
         <section>
             <actions>
@@ -709,17 +709,17 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="InventoryItemTotalsExport">
         <section>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                
+
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10000"/>
-                
+
                 <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryItemTotals.groovy"/>
             </actions>
@@ -743,7 +743,7 @@ under the License.
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="ViewFacilityInventoryByProduct"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
-                
+
                 <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
                 <script location="component://product/webapp/facility/WEB-INF/actions/inventory/InventoryAverageCosts.groovy"/>
             </actions>
@@ -765,14 +765,14 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditFacilityGroups">
         <section>
             <actions>
                 <set field="tabButtonItem" value="EditFacilityGroups"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="facilityGroupId" from-field="parameters.facilityGroupId"/>
-                <set field="orderByList[]" value="sequenceNum"/> 
+                <set field="orderByList[]" value="sequenceNum"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <get-related value-field="facility" relation-name="FacilityGroupMember" list="facilityGroupMembers" order-by-list="orderByList"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
@@ -804,7 +804,7 @@ under the License.
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="roleTypeId" from-field="parameters.roleTypeId"/>
-                <set field="orderByList[]" value="partyId"/> 
+                <set field="orderByList[]" value="partyId"/>
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <get-related value-field="facility" relation-name="FacilityParty" list="facilityParties" order-by-list="orderByList"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
@@ -889,9 +889,9 @@ under the License.
                 <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
                 <set field="subTabButtonItem" value="EditInventoryItem"/>
                 <set field="displayWithNoFacility" value="Y"/>
-                <set field="facilityId" from-field="parameters.facilityId"/> 
+                <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="inventoryItemId" from-field="parameters.inventoryItemId"/>
-                
+
                 <entity-one entity-name="Facility" value-field="facility" auto-field-map="true"/>
                 <entity-one entity-name="InventoryItem" value-field="inventoryItem" auto-field-map="true"/>
                 <entity-condition entity-name="OrderItemShipGrpInvRes" list="inventoryItemReservations">
@@ -946,17 +946,17 @@ under the License.
                             </fail-widgets>
                         </section>
                         <include-form name="EditInventoryItem" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
-                        <section> 
+                        <section>
                             <condition>
                                 <not><if-empty field="inventoryItemId"/></not>
                             </condition>
                             <widgets>
                                 <screenlet id="inventory-item-reservations" title="${uiLabelMap.ProductInventoryItemReservations}" collapsible="true">
                                     <include-form name="InventoryItemReservations" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
-                                </screenlet>   
+                                </screenlet>
                             </widgets>
                         </section>
-                        <section> 
+                        <section>
                             <condition>
                                 <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
                             </condition>
@@ -967,7 +967,7 @@ under the License.
                                 <screenlet id="physical-inventory-variances" title="${uiLabelMap.ProductPhysicalInventoryVariances}" collapsible="true">
                                     <include-form name="CreatePhysicalInventoryAndVariance" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
                                     <include-form name="ViewPhysicalInventoryAndVariance" location="component://product/webapp/facility/inventory/InventoryForms.xml"/>
-                                </screenlet>   
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -982,10 +982,10 @@ under the License.
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
                 <set field="subTabButtonItem" value="ViewInventoryItemDetail"/>
-                
+
                 <set field="inventoryItemId" from-field="parameters.inventoryItemId"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
-                
+
                 <entity-condition entity-name="InventoryItemDetail" list="inventoryItemDetails">
                     <condition-list combine="and">
                         <condition-expr field-name="inventoryItemId" operator="equals" from-field="inventoryItemId"/>
@@ -1024,7 +1024,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>          
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1037,10 +1037,10 @@ under the License.
                 <set field="headerItem" value="facility"/>
                 <set field="tabButtonItem" value="EditFacilityInventoryItems"/>
                 <set field="subTabButtonItem" value="EditInventoryItemLabels"/>
-                
+
                 <set field="inventoryItemId" from-field="parameters.inventoryItemId"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
-                
+
                 <entity-condition entity-name="InventoryItemLabelAppl" list="inventoryItemLabelAppls">
                     <condition-list combine="and">
                         <condition-expr field-name="inventoryItemId" operator="equals" from-field="inventoryItemId"/>
@@ -1080,7 +1080,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>    
+                                <section>
                                     <widgets>
                                         <include-form name="FindPhysicalInventory" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                                     </widgets>
@@ -1094,7 +1094,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>    
+                                <section>
                                     <widgets>
                                         <include-form name="ListPhysicalInventory" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                                     </widgets>
@@ -1322,7 +1322,7 @@ under the License.
                 </platform-specific>
             </widgets>
         </section>
-    </screen>    
+    </screen>
 
     <!-- generates the subtab of [Scheduling] using FacilityScheduleTabBar -->
     <screen name="CommonFacilityScheduleDecorator">
@@ -1380,7 +1380,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>    
+                                <section>
                                     <widgets>
                                         <include-form name="SchedulingList" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                                     </widgets>
@@ -1421,13 +1421,13 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>    
+                                <section>
                                     <widgets>
                                         <include-form name="Labels" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                                         <platform-specific>
                                             <html><html-template location="component://product/webapp/facility/facility/batchPrintMarkAsAccepted.ftl"/></html>
                                         </platform-specific>
-                                    </widgets>                                    
+                                    </widgets>
                                 </section>
                             </container>
                         </container>
@@ -1446,7 +1446,7 @@ under the License.
                 </platform-specific>
             </widgets>
         </section>
-    </screen>    
+    </screen>
 
     <screen name="FacilityLocationGeoLocation">
         <section>
@@ -1464,6 +1464,6 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>    
-    
+    </screen>
+
 </screens>

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -94,7 +94,7 @@ productStoreId = ProductStoreWorker.getProductStoreId(request);
 productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
 if (productStore) {
     payToPartyId = productStore.payToPartyId;
-    paymentAddress =  PaymentWorker.getPaymentAddress(delegator, payToPartyId);    
+    paymentAddress =  PaymentWorker.getPaymentAddress(delegator, payToPartyId);
     if (paymentAddress) context.paymentAddress = paymentAddress;
 }
 
@@ -107,7 +107,7 @@ if (billingAddress) context.billingAddress = billingAddress;
 
 billingAccount = cart.getBillingAccountId() ? delegator.findByPrimaryKey("BillingAccount", [billingAccountId : cart.getBillingAccountId()]) : null;
 if (billingAccount) context.billingAccount = billingAccount;
-    
+
 context.customerPoNumber = cart.getPoNumber();
 context.carrierPartyId = cart.getCarrierPartyId();
 context.shipmentMethodTypeId = cart.getShipmentMethodTypeId();
@@ -130,7 +130,7 @@ context.orderShippingTotal = shippingAmount;
 
 taxAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, true, false);
 taxAmount = taxAmount.add(OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, true, false));
-context.orderTaxTotal = taxAmount;   
+context.orderTaxTotal = taxAmount;
 context.orderGrandTotal = OrderReadHelper.getOrderGrandTotal(orderItems, orderAdjustments);
 
 orderName = cart.getOrderName();

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="FindContacts">
         <section>
@@ -64,7 +64,7 @@ under the License.
                     </decorator-section>
                 </decorator-screen>
             </widgets>
-        </section>  
+        </section>
     </screen>
     <screen name="CreateContact">
         <section>
@@ -86,7 +86,7 @@ under the License.
                                         <include-form name="CreateContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
                                     </widgets>
                                 </section>
-                            </container> 
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -112,12 +112,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <label>&lt;br/&gt;</label>
-                                <include-form name="MergeContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>                                                       
+                                <include-form name="MergeContacts" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
                             </container>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
-                                <container style="h3"><label text="${uiLabelMap.SfaMergeContacts}"/></container> 
+                                <container style="h3"><label text="${uiLabelMap.SfaMergeContacts}"/></container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
@@ -133,14 +133,14 @@ under the License.
                                         <label text="${uiLabelMap.SfaCanNotMergeSameContact}" style="h3"></label>
                                     </fail-widgets>
                                 </section>
-                            </container> 
+                            </container>
                         </container>
                      </decorator-section>
                  </decorator-screen>
              </widgets>
          </section>
     </screen>
-    
+
     <screen name="CreateContactFromVCard">
         <section>
             <actions>
@@ -158,7 +158,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form  name="CreateContactFromVCard" location="component://marketing/widget/sfa/forms/ContactForms.xml"/> 
+                                        <include-form  name="CreateContactFromVCard" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -167,5 +167,5 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>              
+    </screen>
 </screens>

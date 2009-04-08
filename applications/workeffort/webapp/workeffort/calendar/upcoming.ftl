@@ -27,7 +27,7 @@ under the License.
         <td>${uiLabelMap.CommonStartDateTime}</td>
         <td>${uiLabelMap.CommonEndDateTime}</td>
         <td>${uiLabelMap.CommonType}</td>
-        <td>${uiLabelMap.WorkEffortName}</td>        
+        <td>${uiLabelMap.WorkEffortName}</td>
       </tr>
       <#list days as day>
         <#assign workEfforts = day.calendarEntries>

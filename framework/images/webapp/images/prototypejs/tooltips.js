@@ -5,14 +5,14 @@ Tooltip.prototype = {
 		this.el = $(el);
 		this.initialized = false;
 		this.setOptions(options);
-		
+
 		// Event handlers
 		this.showEvent = this.show.bindAsEventListener(this);
 		this.hideEvent = this.hide.bindAsEventListener(this);
 		this.updateEvent = this.update.bindAsEventListener(this);
 		Event.observe(this.el, "mouseover", this.showEvent );
 		Event.observe(this.el, "mouseout", this.hideEvent );
-		
+
 		// Removing title from DOM element to avoid showing it
 		this.content = this.el.title;
 		this.el.title = "";
@@ -53,7 +53,7 @@ Tooltip.prototype = {
 			new Effect.Fade(this.tooltip, {duration: this.options.hideDuration, afterFinish: function() { Element.remove(this.tooltip) }.bind(this) });
 		}
 		this._clearTimeout(this.timeout);
-		
+
 		this.initialized = false;
 	},
 	update: function(e){
@@ -70,10 +70,10 @@ Tooltip.prototype = {
 				Builder.node("div", {className:"xb3", style: "background-color:" + this.options.backgroundColor + "; border-color:" + this.options.borderColor + ";"}),
 				Builder.node("div", {className:"xb4", style: "background-color:" + this.options.backgroundColor + "; border-color:" + this.options.borderColor + ";"})
 			]),
-			Builder.node("div", {className: "xboxcontent", style: "background-color:" + this.options.backgroundColor + 
-				"; border-color:" + this.options.borderColor + 
-				((this.options.textColor != '') ? "; color:" + this.options.textColor : "") + 
-				((this.options.textShadowColor != '') ? "; text-shadow:2px 2px 0" + this.options.textShadowColor + ";" : "")}, this.content), 
+			Builder.node("div", {className: "xboxcontent", style: "background-color:" + this.options.backgroundColor +
+				"; border-color:" + this.options.borderColor +
+				((this.options.textColor != '') ? "; color:" + this.options.textColor : "") +
+				((this.options.textShadowColor != '') ? "; text-shadow:2px 2px 0" + this.options.textShadowColor + ";" : "")}, this.content),
 			Builder.node("div", {className:"xbottom"}, [
 				Builder.node("div", {className:"xb4", style: "background-color:" + this.options.backgroundColor + "; border-color:" + this.options.borderColor + ";"}),
 				Builder.node("div", {className:"xb3", style: "background-color:" + this.options.backgroundColor + "; border-color:" + this.options.borderColor + ";"}),
@@ -82,16 +82,16 @@ Tooltip.prototype = {
 			]),
 		]);
 		document.body.insertBefore(this.tooltip, document.body.childNodes[0]);
-		
+
 		Element.extend(this.tooltip); // IE needs element to be manually extended
 		this.options.width = this.tooltip.getWidth();
 		this.tooltip.style.width = this.options.width + 'px'; // IE7 needs width to be defined
-		
+
 		this.setup();
-		
+
 		if(this.options.mouseFollow)
 			Event.observe(this.el, "mousemove", this.updateEvent);
-			
+
 		this.initialized = true;
 		this.appearingFX = new Effect.Appear(this.tooltip, {duration: this.options.appearDuration, to: this.options.opacity });
 	},
@@ -101,13 +101,13 @@ Tooltip.prototype = {
 			this.options.width = this.options.maxWidth;
 			this.tooltip.style.width = this.options.width + 'px';
 		}
-			
+
 		// Tooltip doesn't fit the current document dimensions
 		if(this.xCord + this.options.width >= Element.getWidth(document.body)) {
 			this.options.align = "right";
 			this.xCord = this.xCord - this.options.width + 20;
 		}
-		
+
 		this.tooltip.style.left = this.xCord - 7 + "px";
 		this.tooltip.style.top = this.yCord + 12 + "px";
 	},

@@ -18,12 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <description>Manufacturing Component Site Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
-    
+
     <!-- event handlers -->
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>
@@ -45,12 +45,12 @@ under the License.
         <security https="false" auth="false"/>
         <response name="success" type="request" value="main"/>
     </request-map>
-    
+
     <request-map uri="authview">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-    
+
     <request-map uri="changeDelegator">
         <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="changeDelegator"/>
         <response name="success" type="view" value="main"/>
@@ -66,11 +66,11 @@ under the License.
     <request-map uri="LookupRouting">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="LookupRouting"/>
-    </request-map> 
+    </request-map>
     <request-map uri="LookupRoutingTask">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="LookupRoutingTask"/>
-    </request-map> 
+    </request-map>
     <request-map uri="LookupProduct">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="LookupProduct"/>
@@ -231,7 +231,7 @@ under the License.
         <response name="success" type="view" value="FindRoutingTask"/>
         <response name="error" type="view" value="FindRoutingTask"/>
     </request-map>
-    
+
     <request-map uri="FindRouting">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindRouting"/>
@@ -240,7 +240,7 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditRouting"/>
     </request-map>
-    
+
     <request-map uri="CreateRouting">
         <security https="true" auth="true"/>
         <event type="service" invoke="createWorkEffort"/>
@@ -253,7 +253,7 @@ under the License.
         <response name="success" type="view" value="EditRouting"/>
         <response name="error" type="view" value="EditRouting"/>
     </request-map>
-    
+
     <request-map uri="EditRoutingTaskAssoc">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditRoutingTaskAssoc"/>
@@ -377,7 +377,7 @@ under the License.
         <event type="service" invoke="getBOMTree"/>
         <response name="success" type="view" value="BomSimulation"/>
     </request-map>
-  
+
     <request-map uri="EditProductBom">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProductBom"/>
@@ -425,7 +425,7 @@ under the License.
         <response name="success" type="view" value="EditProductManufacturingRules"/>
         <response name="error" type="view" value="EditProductManufacturingRules"/>
     </request-map>
- 
+
     <!-- MRP request mappings -->
     <request-map uri="FindInventoryEventPlan">
         <security https="true" auth="true"/>
@@ -441,7 +441,7 @@ under the License.
         <response name="success" type="view" value="MrpExecution"/>
         <response name="error" type="view" value="MrpExecution"/>
     </request-map>
-    
+
      <!-- JobShop Management request mappings -->
     <request-map uri="CreateProductionRun">
         <security https="true" auth="true"/>
@@ -687,7 +687,7 @@ under the License.
         <response name="success" type="view" value="WorkWithShipmentPlans"/>
     </request-map>
 
-    <!-- Reports -->    
+    <!-- Reports -->
     <request-map uri="CuttingListReport.pdf"><security https="true" auth="true"/>
         <response name="success" type="view" value="CuttingListReport"/>
     </request-map>
@@ -732,7 +732,7 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PRunsProductsAndOrder"/>
     </request-map>
-    
+
     <request-map uri="PRunsInfoAndOrder.pdf">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PRunsInfoAndOrder"/>
@@ -750,7 +750,7 @@ under the License.
     <view-map name="ListCalendarWeek" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#ListCalendarWeek" type="screen"/>
     <view-map name="EditCalendarExceptionDay" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#EditCalendarExceptionDay" type="screen"/>
     <view-map name="EditCalendarExceptionWeek" page="component://manufacturing/widget/manufacturing/CalendarScreens.xml#EditCalendarExceptionWeek" type="screen"/>
-    
+
     <view-map name="FindRoutingTask" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#FindRoutingTask" type="screen"/>
     <view-map name="EditRoutingTask" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTask" type="screen"/>
     <view-map name="EditRoutingTaskCosts" page="component://manufacturing/widget/manufacturing/RoutingScreens.xml#EditRoutingTaskCosts" type="screen"/>
@@ -776,7 +776,7 @@ under the License.
     <view-map name="BomSimulation" page="component://manufacturing/widget/manufacturing/BomScreens.xml#BomSimulation" type="screen"/>
     <view-map name="FindBom" page="component://manufacturing/widget/manufacturing/BomScreens.xml#FindBom" type="screen"/>
     <view-map name="CreateProductBom" page="component://manufacturing/widget/manufacturing/BomScreens.xml#CreateProductBom" type="screen"/>
-    
+
     <!-- Costs view mappings -->
     <view-map name="EditCostCalcs" page="component://manufacturing/widget/manufacturing/CostScreens.xml#EditCostCalcs" type="screen"/>
 
@@ -784,7 +784,7 @@ under the License.
     <view-map name="FindMrpPlannedEvents" page="component://manufacturing/widget/manufacturing/MrpScreens.xml#FindMrpPlannedEvents" type="screen"/>
     <view-map name="MrpExecution" page="component://manufacturing/widget/manufacturing/MrpScreens.xml#MrpExecution" type="screen"/>
     <view-map name="ManufacturingReports" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ManufacturingReports" type="screen"/>
-    
+
     <!-- JobShop Management view mappings -->
     <view-map name="CreateProductionRun" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#CreateProductionRun" type="screen"/>
     <view-map name="FindProductionRun" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#FindProductionRun" type="screen"/>
@@ -798,7 +798,7 @@ under the License.
     <view-map name="ProductionRunFixedAssets" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunFixedAssets" type="screen"/>
     <view-map name="ProductionRunAssocs" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#ProductionRunAssocs" type="screen"/>
     <view-map name="WorkWithShipmentPlans" page="component://manufacturing/widget/manufacturing/JobshopScreens.xml#WorkWithShipmentPlans" type="screen"/>
-    
+
     <!-- Report view mappings -->
     <view-map name="ShipmentPlanStockReport" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ShipmentPlanStockReport" content-type="application/pdf" encoding="none"/>
     <view-map name="ShipmentLabel" type="screenfop" page="component://manufacturing/widget/manufacturing/ReportScreens.xml#ShipmentLabel" content-type="application/pdf" encoding="none"/>

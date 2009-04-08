@@ -1,8 +1,8 @@
-var whizzywig_version = 'Whizzywig v55i'; //IE color palette bug; idTa!=TA?x HTML + hidden; row/col bug; link form bugs;Enter = <P>; fix user but bug; 
-//Copyright © 2005-2007 John Goodman - john.goodman(at)unverse.net  *date 070324
+var whizzywig_version = 'Whizzywig v55i'; //IE color palette bug; idTa!=TA?x HTML + hidden; row/col bug; link form bugs;Enter = <P>; fix user but bug;
+//Copyright ï¿½ 2005-2007 John Goodman - john.goodman(at)unverse.net  *date 070324
 //Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 //The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 var buttonPath;  //path to toolbar button images;  unset or "textbuttons" means don't use images
 var buttonStrip=[]; //object containing button strip information (optional)
 var cssFile;     //url of CSS stylesheet to attach to edit area
@@ -13,7 +13,7 @@ var gentleClean = "true";  //true: cleanUp preserves spans, inline styles and cl
 //OTHER GLOBALS
 var oW, sel, rng, papa, trail, ppw; //Whizzy contentWindow, current sel, range, parent, DOM path, popwindow;
 var sels = '';
-var buts = ''; 
+var buts = '';
 var vals = new Array();
 var opts = new Array();
 var dobut = new Array();
@@ -87,7 +87,7 @@ function makeWhizzyWig(txtArea, controls){ // make a WhizzyWig from the textarea
  w('<div class="wzCtrl" id="showWYSIWYG'+idTa+'" style="display:none"><input type="button" onclick="showDesign();" value="'+t("Hide HTML")+'">');
  tagButs();
  w('</div>'+"\n");
- 
+
  w('<iframe style="border:1px inset ButtonShadow;width:100%;height:'+taHeight+'" src="javascript:;" id="whizzy'+idTa+'"></iframe></div>'+"\n");
 
  var startHTML = "<html>\n<head>\n";
@@ -114,7 +114,7 @@ function makeButton(button){  // assemble the button requested
  ucBut += button.substring(1);
  ucBut = t(ucBut.replace(/_/g,' '));
  if (!document.frames && (button=="word" ||button=="spellcheck")) return; //Not allowed from Firefox
- if (o(idTa).nodeName!="TEXTAREA" && button=="html") return; 
+ if (o(idTa).nodeName!="TEXTAREA" && button=="html") return;
  if (!buttonPath || buttonPath == "textbuttons")
    butHTML = '<button type=button onClick=makeSo("'+button+'")>'+ucBut+"</button>\n";
  else butHTML = '<button  title="'+ucBut+'" type=button onClick=makeSo("'+button+'")>'+(buttonStrip[button]!=undefined?'<div style="width:'+buttonStrip._w+'px;height:'+buttonStrip._h+'px;background-image:url('+buttonStrip._f+');background-position:'+buttonStrip[button]+'px 0px"></div>':'<img src="'+buttonPath+button+'.gif" alt="'+ucBut+'" onError="this.parentNode.innerHTML=this.alt">')+'</button>';
@@ -136,7 +136,7 @@ var values = ["Arial, Helvetica, sans-serif", "Arial, Helvetica, sans-serif","'A
  } else if (select == 'fontsize') {
   var values = ["3", "1", "2", "3", "4", "5", "6", "7"];
   var options = [t("Font size")+":", "1 "+t("Small"), "2", "3", "4", "5", "6", "7 "+t("Big")];
- } else { 
+ } else {
   var values = vals[select];
   var options = opts[select];
  }
@@ -187,7 +187,7 @@ function doSelect(selectname) {  //select on toolbar used - do it
   oW.document.execCommand(cmd, false, selected);
  } else {
   insHTML(selected);
- }  
+ }
  oW.focus();
 }
 function vC(colour) { // view Color
@@ -211,7 +211,7 @@ function doLink(){
 }
 function insertLink() {
  if (rng) rng.select();
- URL = o("lf_url"+idTa).value; 
+ URL = o("lf_url"+idTa).value;
  if (URL.replace(/ /g,"") == "") oW.document.execCommand('Unlink',false,null);
  else if (o("lf_new"+idTa).checked) insHTML('<a href="'+URL+'" target="_blank">');
  else oW.document.execCommand('CreateLink',false,URL);
@@ -221,7 +221,7 @@ function doImage(){
  if (papa && papa.nodeName == 'IMG'){
   o("if_url"+idTa).value = papa.src;
   o("if_alt"+idTa).value=papa.alt;
-  o("if_side"+idTa).selectedIndex=(papa.align=="left")?1:(papa.align=="right")?2:0; 
+  o("if_side"+idTa).selectedIndex=(papa.align=="left")?1:(papa.align=="right")?2:0;
   o("if_border"+idTa).value=papa.style.border?papa.style.border:papa.border>0?papa.border:0;
   o("if_margin"+idTa).value=papa.style.margin?papa.style.margin:papa.hspace>0?papa.hspace:0;
  }
@@ -323,7 +323,7 @@ function cleanUp(){  //clean up crud inserted by Micro$oft Orifice
  var h=oW.document.body.innerHTML;
  var vicious=false;
  if (gentleClean=="ask") vicious=confirm(t('Remove all styles and classes?'));
- if (!gentleClean || vicious){ 
+ if (!gentleClean || vicious){
  h=h.replace(/<\/?(SPAN|DEL|INS|U|DIR)[^>]*>/gi, "")
  .replace(/\b(CLASS|STYLE)=\"[^\"]*\"/gi, "")
  .replace(/\b(CLASS|STYLE)=\w+/gi, "");
@@ -331,9 +331,9 @@ function cleanUp(){  //clean up crud inserted by Micro$oft Orifice
  if(!o('fontname'+idTa) || !o('fontsize'+idTa)) h=h.replace(/<\?FONT[^>]*>/gi, "");
  h=h.replace(/<\/?(FONT|SPAN|COL|XML|ST1|SHAPE|V:|O:|F:|F |PATH|LOCK|IMAGEDATA|STROKE|FORMULAS)[^>]*>/gi, "")
  .replace(/\bCLASS=\"?MSO\w*\"?/gi, "")
- .replace(/[–]/g,'-') //long –
- .replace(/[‘’]/g, "'") //single smartquotes ‘’ 
- .replace(/[“”]/g, '"') //double smartquotes “”
+ .replace(/[ï¿½]/g,'-') //long ï¿½
+ .replace(/[ï¿½ï¿½]/g, "'") //single smartquotes ï¿½ï¿½
+ .replace(/[ï¿½ï¿½]/g, '"') //double smartquotes ï¿½ï¿½
  .replace(/align="?justify"?/gi, "") //justify sends some browsers mad
  .replace(/<(TABLE|TD|TH|COL)(.*)(WIDTH|HEIGHT)=["'0-9A-Z]*/gi, "<$1$2") //no fixed size tables (%OK) [^A-Za-z>]
  .replace(/<([^>]+)>\s*<\/\1>/gi, ""); //empty tag
@@ -355,7 +355,7 @@ function showDesign() {
  if(o("whizzy"+idTa).contentDocument) o("whizzy"+idTa).contentDocument.designMode="on"; //FF loses it on hide
  oW.focus();
 }
-function showHTML() { 
+function showHTML() {
  var t=(window.get_xhtml) ? get_xhtml(oW.document.body) : oW.document.body.innerHTML;
  o(idTa).value=tidyH(t);
  h('CONTROLS'+idTa);
@@ -377,7 +377,7 @@ function syncTextarea() { //tidy up before we go-go
  }
 }
 function tidyD(h){ //FF designmode likes <B>,<I>...
- h=h.replace(/<(\/?)strong([^>]*)>/gi, "<$1B$2>"); 
+ h=h.replace(/<(\/?)strong([^>]*)>/gi, "<$1B$2>");
  h=h.replace(/<(\/?)em([^>]*)>/gi, "<$1I$2>");
  return h;
 }
@@ -409,11 +409,11 @@ function doTag(html) { // insert HTML into text area
  if (!html) html=prompt("Enter some HTML or text to insert:", "");
  o(idTa).focus();
  if (html == '<a>') {
-  url=prompt("Link address:","http://"); 
+  url=prompt("Link address:","http://");
   html='<a href="'+url+'">';
  }
  if (html == '<img>') {
-  url=prompt("Address of image:","http://"); 
+  url=prompt("Address of image:","http://");
   var alt=prompt("Description of image");
   html ='<img src="'+url+'" alt="'+alt+'">';
  }
@@ -430,7 +430,7 @@ function doTag(html) { // insert HTML into text area
    after=o(idTa).value.slice(o(idTa).selectionEnd);
    o(idTa).value =before+html+sel+close+after;
  }
- o(idTa).focus(); 
+ o(idTa).focus();
 }
 function insHTML(html) { //insert HTML at current selection
  if (!html) html=prompt("Enter some HTML or text to insert:", "");
@@ -438,15 +438,15 @@ function insHTML(html) { //insert HTML at current selection
   try{eval(html.replace(/^js:/,''))} catch(e){};
   return;
  }
- try { 	 
+ try {
   if(sel.type && sel.type!="Text") sel="";
-  oW.document.execCommand("inserthtml", false, html + sel); 
+  oW.document.execCommand("inserthtml", false, html + sel);
  }
- catch (e) { 
-  if (document.selection) { 
+ catch (e) {
+  if (document.selection) {
    if(papa && papa.nodeName == 'IMG') {papa.outerHTML=html;}
    else if(rng) {rng.select(); rng.pasteHTML(html+rng.htmlText);}
-  } 
+  }
  }
  whereAmI();
 }
@@ -455,20 +455,20 @@ function whereAmI(e){//070322
  if (window.getSelection){
   sel=oW.getSelection();
   papa=(e && e.type=='mouseup') ? e.target : (sel.anchorNode.nodeName == '#text') ? sel.anchorNode.parentNode : sel.anchorNode;
- } else { 
+ } else {
   sel=oW.document.selection;
   rng=sel.createRange();
   papa=(e && e.type=='mouseup')? e.srcElement : (sel.type == "Control") ? rng.item(0) : rng.parentElement();
  }
  var paNode=papa;
- trail=papa.nodeName; 
+ trail=papa.nodeName;
  while (!paNode.nodeName.match(/^(HTML|BODY)/) && paNode.className!="wzCtrl") {
   paNode=paNode.parentNode;
   trail=paNode.nodeName + '>' + trail;
  }
  if (paNode.className=="wzCtrl") trail=sel=rng=null;
  var id=paNode.nodeName=="HTML" ? paNode.getElementsByTagName("BODY")[0].id : paNode.id.replace("CONTROL","");
- c(id); 
+ c(id);
  window.status=id+":"+trail;
  if (trail.indexOf('TABLE') > 0) s('TABLE_CONTROLS'+idTa); else h('TABLE_CONTROLS'+idTa);
 }
@@ -479,7 +479,7 @@ function c(id) {//set current whizzy
   try {oW=o("whizzy"+id).contentWindow;} catch(e){alert('set current: '+id);}
   if (oW) {oW.focus();window.status=oW.document.body.id; }
  }
-} 
+}
 function textSel() { if (sel  && sel.type != "None") return true;  else {alert(t("Select some text first")); return false;}}
 function s(id) {o(id).style.display='block';} //show element
 function h(id) {o(id).style.display='none';} //hide element

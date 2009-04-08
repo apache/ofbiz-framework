@@ -123,7 +123,7 @@ under the License.
             [${content.contentId?if_exists}]
             <#if searchOn?has_content && searchOn?lower_case == "true">
                 &nbsp;
-              <a class="tabButton" href="<@ofbizUrl>searchContent?siteId=${siteId?if_exists}&nodeTrailCsv=${csv}</@ofbizUrl>" >${uiLabelMap.CommonSearch}</a> 
+              <a class="tabButton" href="<@ofbizUrl>searchContent?siteId=${siteId?if_exists}&nodeTrailCsv=${csv}</@ofbizUrl>" >${uiLabelMap.CommonSearch}</a>
             </#if>
         </#if>
          </td>

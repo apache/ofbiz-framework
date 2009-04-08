@@ -18,19 +18,19 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditInventoryItem" type="single" target="UpdateInventoryItem" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <set field="inventoryItemTypeId" from-field="inventoryItem.inventoryItemTypeId"/>
             <set field="productId" from-field="inventoryItem.productId"/>
-            <set field="facilityId" from-field="inventoryItem.facilityId"/> 
+            <set field="facilityId" from-field="inventoryItem.facilityId"/>
             <set field="locationSeqId" from-field="inventoryItem.locationSeqId"/>
             <set field="statusId" from-field="inventoryItem.statusId"/>
             <entity-one entity-name="FacilityLocation" value-field="facilityLocation">
                 <field-map field-name="locationSeqId" from-field="locationSeqId"/>
-                <field-map field-name="facilityId" from-field="facilityId"/>                 
+                <field-map field-name="facilityId" from-field="facilityId"/>
             </entity-one>
         </actions>
         <alt-target use-when="inventoryItemId==null" target="CreateInventoryItem"/>
@@ -58,24 +58,24 @@ under the License.
         <field name="statusId" use-when="inventoryItem==null">
             <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
-                    <entity-constraint name="statusTypeId" operator="equals" value="INV_NON_SER_STTS"/> 
+                    <entity-constraint name="statusTypeId" operator="equals" value="INV_NON_SER_STTS"/>
                 </entity-options>
                 <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
-                    <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/> 
+                    <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId" use-when="inventoryItem!=null&amp;&amp;&quot;SERIALIZED_INV_ITEM&quot;.equals(inventoryItem.getString(&quot;inventoryItemTypeId&quot;))">
             <drop-down allow-empty="false">
                 <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
-                    <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/> 
+                    <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId" use-when="inventoryItem!=null&amp;&amp;&quot;NON_SERIAL_INV_ITEM&quot;.equals(inventoryItem.getString(&quot;inventoryItemTypeId&quot;))">
             <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
-                    <entity-constraint name="statusTypeId" operator="equals" value="INV_NON_SER_STTS"/> 
+                    <entity-constraint name="statusTypeId" operator="equals" value="INV_NON_SER_STTS"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -88,11 +88,11 @@ under the License.
                 <sub-hyperlink use-when="facilityId!=null" target="EditFacility" description="${uiLabelMap.ProductEditFacility} [${facilityId}]">
                 <parameter param-name="facilityId"/>
             </sub-hyperlink>
-            </drop-down>                         
+            </drop-down>
         </field>
         <field name="lotId" title="${uiLabelMap.ProductLotId}"/>
         <field name="uomId" title="${uiLabelMap.ProductUomId}"/>
-        <field name="binNumber" title="${uiLabelMap.ProductBinNumber}"/>        
+        <field name="binNumber" title="${uiLabelMap.ProductBinNumber}"/>
         <field name="locationSeqId" title="${uiLabelMap.ProductFacilityLocation}">
             <lookup target-form-name="LookupFacilityLocation">
                 <sub-hyperlink use-when="locationSeqId!=null" target="EditFacilityLocation">
@@ -100,7 +100,7 @@ under the License.
                 <parameter param-name="locationSeqId"/>
             </sub-hyperlink>
             </lookup>
-        </field>        
+        </field>
         <field name="partyId">
             <lookup target-form-name="LookupPartyName"/>
         </field>
@@ -112,7 +112,7 @@ under the License.
         <field name="totals" title="${uiLabelMap.ProductAvailablePromiseQuantityHand}">
                 <display description="${inventoryItem.availableToPromiseTotal} / ${inventoryItem.quantityOnHandTotal}"/>
         </field>
-        
+
         <field use-when="inventoryItem!=null" name="submit" title="${uiLabelMap.CommonUpdate}">
             <submit/>
         </field>
@@ -145,7 +145,7 @@ under the License.
         <field name="inventoryItemId"><hidden/></field>
         <field name="partyId"><display description="${person.firstName} ${person.lastName} ${partyGroup.groupName} [${physicalInventoryAndVariance.partyId}]"/></field>
         <field name="varianceReasonId"><display description="${varianceReason.description}"/></field>
-    </form>    
+    </form>
 
     <form name="ViewInventoryItemShipmentReceipts" type="list" target="" title="" list-name="shipmentReceiptList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -156,8 +156,8 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="ShipmentReceipt" map-name="shipmentReceipt" default-field-type="display"/>
         <field name="inventoryItemId"><hidden/></field>
-    </form>    
-    
+    </form>
+
     <form name="ListInventoryItemDetail" type="list" target="" title="" list-name="inventoryItemDetails"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="InventoryItemDetail" map-name="inventoryItemDetail" default-field-type="display"/>

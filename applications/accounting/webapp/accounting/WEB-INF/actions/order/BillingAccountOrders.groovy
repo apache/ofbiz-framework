@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,17 +21,17 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.util.EntityUtil;
 import javolution.util.FastMap;
 
-if(billingAccountId) {    
-    orderPaymentPreferencesList = [];    
+if (billingAccountId) {
+    orderPaymentPreferencesList = [];
     orderList = delegator.findByAnd("OrderHeader", [billingAccountId : billingAccountId]);
-    if(orderList) {
+    if (orderList) {
         orderList.each { orderHeader ->
-            orderId = orderHeader.orderId;  
+            orderId = orderHeader.orderId;
             orderBillingAcc = EntityUtil.getFirst(delegator.findByAnd("OrderHeaderAndPaymentPref", [orderId : orderId]));
             orderBillingAccMap = FastMap.newInstance();
-            if(orderBillingAcc.paymentMethodTypeId.equals("EXT_BILLACT") && orderBillingAcc.paymentStatusId.equals("PAYMENT_NOT_RECEIVED")) {                    
-                orderBillingAccMap.putAll(orderBillingAcc);  
-                orderId = orderBillingAcc.orderId;                
+            if (orderBillingAcc.paymentMethodTypeId.equals("EXT_BILLACT") && orderBillingAcc.paymentStatusId.equals("PAYMENT_NOT_RECEIVED")) {
+                orderBillingAccMap.putAll(orderBillingAcc);
+                orderId = orderBillingAcc.orderId;
                 orderBillingAccMap.orderId = orderId;
             }
             orderPaymentPreferencesList.add(orderBillingAccMap);

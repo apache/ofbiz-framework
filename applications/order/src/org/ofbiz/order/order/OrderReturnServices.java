@@ -784,13 +784,13 @@ public class OrderReturnServices {
      * the initialization of a Billing Account from the Return data.
      *
      * The BillingAccount.thruDate will be set to (now +
-     * ProductStore.storeCreditValidDays + end of day).  The product stores 
+     * ProductStore.storeCreditValidDays + end of day).  The product stores
      * are obtained via the return orders, and the minimum storeCreditValidDays
      * will be used.  The default is to set thruDate to null, which implies no
      * expiration.
      *
      * Note that we set BillingAccount.accountLimit to 0.0 for store credits.
-     * This is because the available balance of BillingAccounts is 
+     * This is because the available balance of BillingAccounts is
      * calculated as accountLimit + sum of Payments - sum of Invoices.
      */
     private static Map createBillingAccountFromReturn(GenericValue returnHeader, List returnItems, DispatchContext dctx, Map context) {

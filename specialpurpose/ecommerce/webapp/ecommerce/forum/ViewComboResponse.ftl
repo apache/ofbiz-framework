@@ -33,7 +33,7 @@ under the License.
             <#if counter < len>
         ${indent}
         ${pair[0]?if_exists} - ${pair[1]?if_exists}
-        <a class="tabButton" href="<@ofbizUrl>ViewBlog?contentId=${pair[0]?if_exists}&nodeTrailCsv=${csv?if_exists}"></@ofbizUrl>${uiLabelMap.CommonView}</a> <br/> 
+        <a class="tabButton" href="<@ofbizUrl>ViewBlog?contentId=${pair[0]?if_exists}&nodeTrailCsv=${csv?if_exists}"></@ofbizUrl>${uiLabelMap.CommonView}</a> <br/>
             <#assign indent = indent + "&nbsp;&nbsp;&nbsp;&nbsp;">
             <#else>
         <hr/>
@@ -41,7 +41,7 @@ under the License.
             </#if>
             <#assign counter = counter + 1>
         </#list>
-    
+
         <#if dataResourceId?exists>
             <br/>
             <img src="<@ofbizUrl>img?imgId=${dataResourceId}</@ofbizUrl>" />

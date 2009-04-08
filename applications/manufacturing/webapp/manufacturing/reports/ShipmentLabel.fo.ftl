@@ -28,11 +28,11 @@ under the License.
         </fo:simple-page-master>
     </fo:layout-master-set>
     <#if hasPermission>
-        <#if records?has_content>   
-            <fo:page-sequence master-reference="main">                                    
-                <fo:flow flow-name="xsl-region-body" font-family="Helvetica">                                    
-                    <#assign index = 1>                             
-                    <#list records as record>                                                  
+        <#if records?has_content>
+            <fo:page-sequence master-reference="main">
+                <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
+                    <#assign index = 1>
+                    <#list records as record>
                         <#if index == 1>
                                <fo:table border="0.5pt solid black">
                                 <fo:table-column column-width="252pt"/>
@@ -40,88 +40,88 @@ under the License.
                                     <fo:table-row>
                                         <fo:table-cell padding="2pt">
                                             <fo:block>${uiLabelMap.ManufacturingShipTo}:</fo:block>
-                                        </fo:table-cell>                            
+                                        </fo:table-cell>
                                     </fo:table-row>
                                     <fo:table-row>
                                         <fo:table-cell padding="2pt">
                                             <fo:block font-size="18pt">${record.get("shippingAddressName")}</fo:block>
-                                        </fo:table-cell>                                        
+                                        </fo:table-cell>
                                     </fo:table-row>
                                     <fo:table-row>
                                         <fo:table-cell padding="2pt">
                                             <fo:block>${record.get("shippingAddressAddress")}</fo:block>
-                                        </fo:table-cell>                                        
+                                        </fo:table-cell>
                                     </fo:table-row>
                                     <fo:table-row>
                                         <fo:table-cell padding="2pt">
                                             <fo:block>${record.get("shippingAddressCity")}</fo:block>
-                                        </fo:table-cell>                                        
-                                    </fo:table-row>                            
-                                </fo:table-header>                                                                    
-                                <fo:table-body/>                                                                    
-                            </fo:table>                                                            
-                            <fo:block space-after.optimum="10pt" font-size="10pt"/>                             
+                                        </fo:table-cell>
+                                    </fo:table-row>
+                                </fo:table-header>
+                                <fo:table-body/>
+                            </fo:table>
+                            <fo:block space-after.optimum="10pt" font-size="10pt"/>
                             <fo:table>
                                 <fo:table-column column-width="63pt"/>
                                 <fo:table-column column-width="63pt"/>
                                 <fo:table-column column-width="93pt"/>
-                                <fo:table-column column-width="33pt"/> 
+                                <fo:table-column column-width="33pt"/>
                                 <fo:table-header border="0.5pt solid black">
                                     <fo:table-row>
                                         <fo:table-cell padding="2pt">
                                             <fo:block>${uiLabelMap.OrderOrderId}</fo:block>
-                                        </fo:table-cell>                            
+                                        </fo:table-cell>
                                         <fo:table-cell padding="2pt">
                                             <fo:block>${uiLabelMap.ProductProductId}</fo:block>
-                                        </fo:table-cell>                            
+                                        </fo:table-cell>
                                         <fo:table-cell padding="2pt">
                                             <fo:block>${uiLabelMap.CommonDescription}</fo:block>
-                                        </fo:table-cell>                            
+                                        </fo:table-cell>
                                         <fo:table-cell padding="2pt">
                                             <fo:block>${uiLabelMap.CommonQuantity}</fo:block>
-                                        </fo:table-cell>                            
+                                        </fo:table-cell>
                                     </fo:table-row>
-                                </fo:table-header>    
-                                <fo:table-body/> 
-                            </fo:table>   
-                        </#if>                
+                                </fo:table-header>
+                                <fo:table-body/>
+                            </fo:table>
+                        </#if>
                         <fo:table>
                             <fo:table-column column-width="63pt"/>
                             <fo:table-column column-width="63pt"/>
                             <fo:table-column column-width="93pt"/>
-                            <fo:table-column column-width="33pt"/> 
+                            <fo:table-column column-width="33pt"/>
                             <fo:table-header/>
-                            <fo:table-body>                        
+                            <fo:table-body>
                                 <fo:table-row>
                                     <fo:table-cell padding="2pt">
                                         <fo:block>
                                             ${record.get("orderId")} ${record.get("orderItemSeqId")}
                                         </fo:block>
-                                    </fo:table-cell>                                        
+                                    </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block>
                                             ${record.get("productId")}
                                         </fo:block>
-                                    </fo:table-cell>                                        
+                                    </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block>
                                             ${record.get("productName")}
                                         </fo:block>
-                                    </fo:table-cell>                                        
+                                    </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block text-align="right">
                                             ${record.get("quantity")}
                                         </fo:block>
-                                    </fo:table-cell>                                        
-                                </fo:table-row>                            
-                            </fo:table-body>                                            
-                        </fo:table>    
+                                    </fo:table-cell>
+                                </fo:table-row>
+                            </fo:table-body>
+                        </fo:table>
                         <#assign shipmentPackageSeqId = record.get("shipmentPackageSeqId")>
                            <#if estimatedReadyDatePar?has_content>
                                <#assign shipDate = record.get("shipDate")>
                            </#if>
-                           <#assign index = index + 1> 
-                    </#list>   
+                           <#assign index = index + 1>
+                    </#list>
                     <fo:table border="0.5pt solid black">
                         <fo:table-column column-width="84pt"/>
                         <fo:table-column column-width="84pt"/>
@@ -130,36 +130,36 @@ under the License.
                             <fo:table-row>
                                 <fo:table-cell padding="2pt">
                                     <fo:block>${uiLabelMap.ManufacturingPackage}</fo:block>
-                                </fo:table-cell>                                                        
+                                </fo:table-cell>
                                 <fo:table-cell padding="2pt">
                                     <fo:block>${uiLabelMap.ProductShipmentPlan}</fo:block>
-                                </fo:table-cell>                                                       
+                                </fo:table-cell>
                                 <fo:table-cell padding="2pt">
                                     <fo:block>${uiLabelMap.ManufacturingEstimatedShipDate}</fo:block>
-                                </fo:table-cell>                            
-                            </fo:table-row>                                                                           
+                                </fo:table-cell>
+                            </fo:table-row>
                             <fo:table-row>
                                 <fo:table-cell padding="2pt">
                                     <fo:block>
                                         ${shipmentIdPar}/${shipmentPackageSeqId}
                                     </fo:block>
-                                </fo:table-cell>                                                                   
+                                </fo:table-cell>
                                 <fo:table-cell padding="2pt">
                                     <fo:block>
                                         ${shipmentIdPar}
                                     </fo:block>
-                                </fo:table-cell>    
+                                </fo:table-cell>
                                 <fo:table-cell padding="2pt">
                                     <fo:block>
                                         <#if shipDate?has_content>${shipDate}</#if>
                                     </fo:block>
-                                </fo:table-cell>                                        
-                            </fo:table-row>                      
-                        </fo:table-body>                                            
-                    </fo:table>                                            
-                </fo:flow>                                                            
-            </fo:page-sequence>         
-        <#else>        
+                                </fo:table-cell>
+                            </fo:table-row>
+                        </fo:table-body>
+                    </fo:table>
+                </fo:flow>
+            </fo:page-sequence>
+        <#else>
             <fo:page-sequence master-reference="main">
                 <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
                     <fo:block font-size="14pt">

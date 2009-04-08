@@ -20,7 +20,7 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    
+
     <simple-method method-name="setCommEventToRead" short-description="">
         <entity-one entity-name="CommunicationEventRole" value-field="eventRole"/>
         <if-compare operator="equals" value="COM_ROLE_CREATED" field="eventRole.statusId">
@@ -43,7 +43,7 @@ under the License.
             </if-compare>
         </if-compare>
     </simple-method>
-    
+
     <simple-method method-name="checkCommEventAccess"
         short-description="check if the user has access to the email of this party">
         <set field="found" value="false"/>
@@ -73,7 +73,7 @@ under the License.
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <string value="partyId"/>
         </call-class-method>
-        
+
         <!-- Create party content -->
         <set-service-fields service-name="createPartyContent" map="formInput.formInput"
             to-map="partycontent"/>
@@ -82,7 +82,7 @@ under the License.
             from-field="formInput.formInput.partyContentTypeId"/>
         <set field="partycontent.partyId" from-field="formInput.formInput.partyId"/>
         <call-service service-name="createPartyContent" in-map-name="partycontent"/>
-        
+
         <!-- Create communication event and content association -->
         <set-service-fields service-name="createCommEventContentAssoc"
             map="formInput.formInput" to-map="contentAssoc"/>
@@ -92,7 +92,7 @@ under the License.
         <call-service service-name="createCommEventContentAssoc" in-map-name="contentAssoc">
             <result-to-field result-name="fromDate" field="fromDate"/>
         </call-service>
-        
+
         <!-- Return to request -->
         <set field="communicationEventTypeId"
             from-field="formInput.formInput.communicationEventTypeId"/>
@@ -110,7 +110,7 @@ under the License.
             <string value="uploadedFile"/>
         </call-class-method>
         <set field="parameters.imageFileName" from-field="formInput.imageFileName"/>
-        
+
         <!-- Call bsh get file type -->
         <call-bsh><![CDATA[
             String fileName = parameters.get("imageFileName");
@@ -118,18 +118,18 @@ under the License.
             parameters.put("mimeType",mimeTypeId);
             ]]>
         </call-bsh>
-        
+
         <!-- Get mime type from FileExtention -->
         <set field="fileMap.fileExtensionId" value="${parameters.mimeType}"/>
         <find-by-primary-key map="fileMap" value-field="mimeType" entity-name="FileExtension"/>
-        
+
         <!-- Create Data Resource -->
         <set-service-fields service-name="createContentFromUploadedFile"
             map="formInput.formInput" to-map="data"/>
         <set field="data.dataResourceTypeId" value="LOCAL_FILE"/>
         <set field="data.dataTemplateTypeId" value="NONE"/>
         <set field="data.dataCategoryId" from-field="formInput.formInput.dataCategoryId"/>
-        
+
         <set field="data.statusId" from-field="formInput.formInput.statusId"/>
         <set field="data.dataResourceName" from-field="formInput.imageFileName"/>
         <set field="data.mimeTypeId" from-field="mimeType.mimeTypeId"/>
@@ -140,7 +140,7 @@ under the License.
             <result-to-field result-name="dataResourceId" field="parameters.dataResourceId"/>
         </call-service>
         <log level="always" message=" DataResource : ${parameters.dataResourceId}"/>
-        
+
         <!-- Create attach upload to data resource -->
         <set-service-fields service-name="attachUploadToDataResource" map="formInput.formInput"
             to-map="attachMap"/>
@@ -150,7 +150,7 @@ under the License.
         <set field="attachMap.dataResourceId" from-field="parameters.dataResourceId"/>
         <set field="attachMap.mimeTypeId" from-field="mimeType.mimeTypeId"/>
         <call-service service-name="attachUploadToDataResource" in-map-name="attachMap"/>
-        
+
         <!-- Create content from dataResource -->
         <set-service-fields service-name="createContentFromDataResource"
             map="formInput.formInput" to-map="contentMap"/>
@@ -162,7 +162,7 @@ under the License.
             <result-to-field result-name="contentId" field="parameters.contentId"/>
         </call-service>
         <log level="always" message=" Content : ${parameters.contentId}"/>
-        
+
         <!-- Create party content -->
         <set-service-fields service-name="createPartyContent" map="formInput.formInput"
             to-map="partycontent"/>
@@ -171,7 +171,7 @@ under the License.
             from-field="formInput.formInput.partyContentTypeId"/>
         <set field="partycontent.partyId" from-field="formInput.formInput.partyId"/>
         <call-service service-name="createPartyContent" in-map-name="partycontent"/>
-        
+
         <!-- Create communication event and content association -->
         <set-service-fields service-name="createCommEventContentAssoc"
             map="formInput.formInput" to-map="contentAssoc"/>
@@ -181,7 +181,7 @@ under the License.
         <call-service service-name="createCommEventContentAssoc" in-map-name="contentAssoc">
             <result-to-field result-name="fromDate" field="fromDate"/>
         </call-service>
-        
+
         <!-- Return to request -->
         <set field="communicationEventTypeId"
             from-field="formInput.formInput.communicationEventTypeId"/>
@@ -190,5 +190,5 @@ under the License.
         <field-to-request field="communicationEventTypeId"
             request-name="communicationEventTypeId"/>
     </simple-method>
-    
+
 </simple-methods>

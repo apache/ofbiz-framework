@@ -3,9 +3,9 @@ Event.observe(window, 'load', isValidElement);
 function isValidElement(element){
     var validator = new Validation('quickAnonProcessCustomer',  {immediate : true});
  }
-   
+
 Event.observe(window, 'load', function() {
-    Event.observe('useShippingPostalAddressForBilling', 'click', changeText2); 
+    Event.observe('useShippingPostalAddressForBilling', 'click', changeText2);
 });
 function changeText2(){
     if($('useShippingPostalAddressForBilling').checked) {
@@ -35,4 +35,4 @@ function changeText2(){
         $('billToPostalCode').disabled = false;
         $('billToCountryGeoId').disabled = false;
     }
-}   
+}

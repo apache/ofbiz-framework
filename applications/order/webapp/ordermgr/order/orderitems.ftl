@@ -24,7 +24,7 @@ under the License.
           <li class="h3">&nbsp;${uiLabelMap.OrderOrderItems}</li>
         </ul>
         <br class="clear"/>
-    </div>        
+    </div>
     <div class="screenlet-body">
        <table class="basic-table" cellspacing='0'>
           <tr valign="bottom" class="header-row">
@@ -150,7 +150,7 @@ under the License.
                         <#assign returnHeader = returnItem.getRelatedOne("ReturnHeader")>
                         <#if returnHeader.statusId != "RETURN_CANCELLED">
                           <div>
-                            <font color="red">${uiLabelMap.OrderReturned}</font># 
+                            <font color="red">${uiLabelMap.OrderReturned}</font>#
                             <form name= "returnMain" method= "post" action= "<@ofbizUrl>returnMain</@ofbizUrl>">
                               <input type= "hidden" name= "returnId" value= "${returnItem.returnId}">
                               <a href="javascript:document.returnMain.submit()" class="buttontext">${returnItem.returnId}</a>
@@ -181,7 +181,7 @@ under the License.
                        <tr valign="top">
                           <td><b>${uiLabelMap.OrderCancelled}</b></td>
                           <td>${orderItem.cancelQuantity?default(0)?string.number}</td>
-                      <#if orderHeader.orderTypeId == "SALES_ORDER">                         
+                      <#if orderHeader.orderTypeId == "SALES_ORDER">
                         <#if pickedQty gt 0 && orderHeader.statusId == "ORDER_APPROVED">
                           <td><font color="red"><b>${uiLabelMap.OrderQtyPicked}</b></font></td>
                           <td><font color="red">${pickedQty?default(0)?string.number}</font></td>
@@ -192,7 +192,7 @@ under the License.
                       <#else>
                           <td>&nbsp;</td>
                           <td>&nbsp;</td>
-                      </#if> 
+                      </#if>
                        </tr>
                        <tr valign="top">
                           <td><b>${uiLabelMap.OrderRemaining}</b></td>
@@ -211,9 +211,9 @@ under the License.
                           <#else>${orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0) - shippedQuantity}
                           </#if>
                           </td>
-                       </tr> 
-                       <tr valign="top"> 
-                       </tr> 
+                       </tr>
+                       <tr valign="top">
+                       </tr>
                           <td><b>${uiLabelMap.OrderInvoiced}</b></td>
                           <td>${orderReadHelper.getOrderItemInvoicedQuantity(orderItem)}</td>
                           <td><b>${uiLabelMap.OrderReturned}</b></td>
@@ -358,10 +358,10 @@ under the License.
                 <#list orderItemAdjustments as orderItemAdjustment>
                   <#assign adjustmentType = orderItemAdjustment.getRelatedOneCache("OrderAdjustmentType")>
                   <tr>
-                    <td align="right" colspan="2">                    
+                    <td align="right" colspan="2">
                       <div>
                         <span class="label">${uiLabelMap.OrderAdjustment}</span>&nbsp;${adjustmentType.get("description",locale)}
-                        ${orderItemAdjustment.get("description",locale)?if_exists} 
+                        ${orderItemAdjustment.get("description",locale)?if_exists}
                         <#if orderItemAdjustment.comments?has_content>(${orderItemAdjustment.comments?default("")})</#if>
                         <#if orderItemAdjustment.productPromoId?has_content>
                           <form name= "EditQuoteItem" method= "post" action= "/catalog/control/EditProductPromo">
@@ -586,7 +586,7 @@ under the License.
                             <a href="javascript:document.EditInventoryItem1.submit()" class="buttontext">${itemIssuance.inventoryItemId}</a>
                           </form>
                           <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;${itemIssuance.shipGroupSeqId?if_exists}
-                          <#if (inventoryItem.serialNumber?has_content)><br><span class="label">${uiLabelMap.ProductSerialNumber}</span>&nbsp;${inventoryItem.serialNumber}&nbsp;</#if>                                                      
+                          <#if (inventoryItem.serialNumber?has_content)><br><span class="label">${uiLabelMap.ProductSerialNumber}</span>&nbsp;${inventoryItem.serialNumber}&nbsp;</#if>
                         </#if>
                       </div>
                     </td>

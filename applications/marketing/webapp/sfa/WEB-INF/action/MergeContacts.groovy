@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -44,7 +44,7 @@ if (partyIdFrom && partyIdTo) {
                 }
                 geo = delegator.findOne("Geo", [geoId : postalAddress.stateProvinceGeoId], false);
                 contactDetailMap.state = geo.geoName;
-                
+
                 geo = delegator.findOne("Geo", [geoId : postalAddress.countryGeoId], false);
                 contactDetailMap.country = geo.geoName;
             }
@@ -53,11 +53,11 @@ if (partyIdFrom && partyIdTo) {
         if (emailContactMech) {
             contactDetailMap.primaryEmail = emailContactMech.infoString;
             contactDetailMap.emailContactMechId = emailContactMech.contactMechId;
-        }            
+        }
         phoneContactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_PHONE", "TELECOM_NUMBER", false));
         if (phoneContactMech) {
             contactDetailMap.phoneContactMechId = phoneContactMech.contactMechId;
-            telecomNumber = phoneContactMech.getRelatedOne("TelecomNumber"); 
+            telecomNumber = phoneContactMech.getRelatedOne("TelecomNumber");
             if (telecomNumber) {
                 countryCode = telecomNumber.countryCode;
                 if (countryCode) {

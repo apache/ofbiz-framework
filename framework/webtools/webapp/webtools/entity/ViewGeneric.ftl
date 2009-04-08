@@ -23,7 +23,7 @@ under the License.
   .topcontainerhidden { POSITION: absolute; VISIBILITY: hidden; }
 </style>
 
-<script language="JavaScript" type="text/javascript">  
+<script language="JavaScript" type="text/javascript">
 var numTabs=${(entity.getRelationsSize()+1)};
 function ShowTab(lname) {
   for(inc=1; inc <= numTabs; inc++) {
@@ -38,7 +38,7 @@ function ShowTab(lname) {
       <li class="h3">${uiLabelMap.WebtoolsViewValue}</li>
     </ul>
     <br class="clear"/>
-  </div> 
+  </div>
   <div class="screenlet-body">
     <h2>${uiLabelMap.WebtoolsForEntity}: ${entityName}</h2>
     <h2>${uiLabelMap.WebtoolsWithPk}: ${findByPk}</h2>
@@ -49,13 +49,13 @@ function ShowTab(lname) {
         <#if hasCreatePermission>
           <a href='<@ofbizUrl>ViewGeneric?entityName=${entityName}&enableEdit=true</@ofbizUrl>' class="smallSubmit">${uiLabelMap.CommonCreateNew}</a>
           <a href=<@ofbizUrl>ViewGeneric?${curFindString}&enableEdit=true</@ofbizUrl> class="smallSubmit">${uiLabelMap.CommonEdit}</a>
-        </#if>    
+        </#if>
         <#if value?has_content>
           <#if hasDeletePermission>
             <a href='<@ofbizUrl>UpdateGeneric?UPDATE_MODE=DELETE&${curFindString}</@ofbizUrl>' class="smallSubmit">${uiLabelMap.WebtoolsDeleteThisValue}</a>
           </#if>
-        </#if>    
-      </#if>    
+        </#if>
+      </#if>
     </div>
     <#if value?has_content>
       <form name="relationForm">
@@ -68,15 +68,15 @@ function ShowTab(lname) {
         </select>
       </form>
       <br/>
-    </#if> 
+    </#if>
     <div id="area1" class="screenlet">
       <div class="screenlet-title-bar">
         <h3>${uiLabelMap.WebtoolsEntityCurrentValue}</h3>
       </div>
-      <#if value?has_content>  
+      <#if value?has_content>
         <#assign alt_row = false>
         <table class="basic-table" cellspacing="0">
-          <#list fields as field>                        
+          <#list fields as field>
             <tr<#if alt_row> class="alternate-row"</#if>>
               <td class="label">${field.name}</td>
               <td>${field.value}</td>
@@ -102,11 +102,11 @@ function ShowTab(lname) {
             <#assign showFields = true>
             <#assign alt_row = false>
             <table class="basic-table" cellspacing="0">
-              <#if value?has_content>             
+              <#if value?has_content>
                 <#if hasUpdatePermission>
                   <#if newFieldPkList?has_content>
                     <input type="hidden" name="UPDATE_MODE" value="UPDATE"/>
-                    <#list newFieldPkList as field> 
+                    <#list newFieldPkList as field>
                       <tr<#if alt_row> class="alternate-row"</#if>>
                         <td class="label">${field.name}</td>
                         <td>
@@ -120,37 +120,37 @@ function ShowTab(lname) {
                 <#else>
                   ${uiLabelMap.WebtoolsEntityCretePermissionError} ${entityName} ${plainTableName}
                   <#assign showFields = false>
-                </#if>                            
+                </#if>
               <#else>
                 <#if hasCreatePermission>
                   <#if newFieldPkList?has_content>
                     <p>${uiLabelMap.WebtoolsYouMayCreateAnEntity}</p>
                     <input type="hidden" name="UPDATE_MODE" value="CREATE"/>
-                    <#list newFieldPkList as field> 
+                    <#list newFieldPkList as field>
                       <tr<#if alt_row> class="alternate-row"</#if>>
                         <td class="label">${field.name}</td>
                         <td>
-                          <#if field.fieldType == 'DateTime'>                                
+                          <#if field.fieldType == 'DateTime'>
                             DateTime(YYYY-MM-DD HH:mm:SS.sss):<input type="text" name="${field.name}" size="24" value="${field.value}">
                             <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar'></a>
-                          <#elseif field.fieldType == 'Date'>                                
+                          <#elseif field.fieldType == 'Date'>
                             Date(YYYY-MM-DD):<input type="text" name="${field.name}" size="11" value="${field.value}">
                             <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar'></a>
-                          <#elseif field.fieldType == 'Time'>                                
+                          <#elseif field.fieldType == 'Time'>
                             Time(HH:mm:SS.sss):<input type="text" size="6" maxlength="10" name="${field.name}" value="${field.value}">
-                          <#elseif field.fieldType == 'Integer'>                                
+                          <#elseif field.fieldType == 'Integer'>
                             <input type="text" size="20" name="${field.name}" value="${field.value}">
-                          <#elseif field.fieldType == 'Long'>                                
-                            <input type="text" size="20" name="${field.name}" value="${field.value}"> 
-                          <#elseif field.fieldType == 'Double'>                                
-                            <input type="text" size="20" name="${field.name}" value="${field.value}"> 
-                          <#elseif field.fieldType == 'Float'>                                
+                          <#elseif field.fieldType == 'Long'>
                             <input type="text" size="20" name="${field.name}" value="${field.value}">
-                          <#elseif field.fieldType == 'StringOneRow'>                                
+                          <#elseif field.fieldType == 'Double'>
+                            <input type="text" size="20" name="${field.name}" value="${field.value}">
+                          <#elseif field.fieldType == 'Float'>
+                            <input type="text" size="20" name="${field.name}" value="${field.value}">
+                          <#elseif field.fieldType == 'StringOneRow'>
                             <input type="text" size="${field.stringLength}" maxlength="${field.stringLength}" name="${field.name}" value="${field.value}">
-                          <#elseif field.fieldType == 'String'>                                
+                          <#elseif field.fieldType == 'String'>
                             <input type="text" size="80" maxlength="${field.stringLength}" name="${field.name}" value="${field.value}">
-                          <#elseif field.fieldType == 'Textarea'>                                
+                          <#elseif field.fieldType == 'Textarea'>
                             <textarea cols="60" rows="3" maxlength="${field.stringLength}" name="${field.name}">${field.value}</textarea>
                           </#if>
                         </td>
@@ -161,36 +161,36 @@ function ShowTab(lname) {
                 <#else>
                   <p>${uiLabelMap.WebtoolsEntityCretePermissionError} ${entityName} ${plainTableName}</p>
                   <#assign showFields = false>
-                </#if>            
+                </#if>
               </#if>
               <#if showFields>
                 <#if newFieldNoPkList?has_content>
                   <#assign alt_row = false>
-                  <#list newFieldNoPkList as field> 
+                  <#list newFieldNoPkList as field>
                     <tr<#if alt_row> class="alternate-row"</#if>>
                       <td class="label">${field.name}</td>
                       <td>
-                        <#if field.fieldType == 'DateTime'>                                
+                        <#if field.fieldType == 'DateTime'>
                           DateTime(YYYY-MM-DD HH:mm:SS.sss):<input type="text" name="${field.name}" size="24" value="${field.value}">
                           <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar'></a>
-                        <#elseif field.fieldType == 'Date'>                                
+                        <#elseif field.fieldType == 'Date'>
                           Date(YYYY-MM-DD):<input type="text" name="${field.name}" size="11" value="${field.value}">
                           <a href="javascript:call_cal(document.updateForm.${field.name}, '${field.value}');" onmouseover="window.status='Date Picker';return true;" onmouseout="window.status='';return true;"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar'></a>
-                        <#elseif field.fieldType == 'Time'>                                
+                        <#elseif field.fieldType == 'Time'>
                           Time(HH:mm:SS.sss):<input type="text" size="6" maxlength="10" name="${field.name}" value="${field.value}">
-                        <#elseif field.fieldType == 'Integer'>                                
+                        <#elseif field.fieldType == 'Integer'>
                           <input type="text" size="20" name="${field.name}" value="${field.value}">
-                        <#elseif field.fieldType == 'Long'>                                
-                          <input type="text" size="20" name="${field.name}" value="${field.value}"> 
-                        <#elseif field.fieldType == 'Double'>                                
-                          <input type="text" size="20" name="${field.name}" value="${field.value}"> 
-                        <#elseif field.fieldType == 'Float'>                                
+                        <#elseif field.fieldType == 'Long'>
                           <input type="text" size="20" name="${field.name}" value="${field.value}">
-                        <#elseif field.fieldType == 'StringOneRow'>                                
+                        <#elseif field.fieldType == 'Double'>
+                          <input type="text" size="20" name="${field.name}" value="${field.value}">
+                        <#elseif field.fieldType == 'Float'>
+                          <input type="text" size="20" name="${field.name}" value="${field.value}">
+                        <#elseif field.fieldType == 'StringOneRow'>
                           <input type="text" size="${field.stringLength}" maxlength="${field.stringLength}" name="${field.name}" value="${field.value}">
-                        <#elseif field.fieldType == 'String'>                                
+                        <#elseif field.fieldType == 'String'>
                           <input type="text" size="80" maxlength="${field.stringLength}" name="${field.name}" value="${field.value}">
-                        <#elseif field.fieldType == 'Textarea'>                                
+                        <#elseif field.fieldType == 'Textarea'>
                           <textarea cols="60" rows="3" maxlength="${field.stringLength}" name="${field.name}">${field.value}</textarea>
                         </#if>
                       </td>
@@ -225,7 +225,7 @@ function ShowTab(lname) {
                 <li><a href="<@ofbizUrl>FindGeneric?${relation.encodeRelatedEntityFindString}&amp;find=true</@ofbizUrl>">${uiLabelMap.CommonFind}</a></li>
                 <#if relation.valueRelated?has_content>
                   <li><a href="<@ofbizUrl>ViewGeneric?${relation.encodeRelatedEntityFindString}</@ofbizUrl>">${uiLabelMap.CommonView}</a></li>
-                </#if>    
+                </#if>
                 <#if hasAllCreate || relCreate>
                   <li><a href="<@ofbizUrl>ViewGeneric?${relation.encodeRelatedEntityFindString}&amp;enableEdit=true</@ofbizUrl>">${uiLabelMap.CommonCreate}</a></li>
                 </#if>
@@ -243,7 +243,7 @@ function ShowTab(lname) {
                   <tr<#if alt_row> class="alternate-row"</#if>>
                     <td class="label">${relatedField.name}</td>
                     <td>${relatedField.value}</td>
-                  </tr>  
+                  </tr>
                   <#assign alt_row = !alt_row>
                 </#list>
               </table>
@@ -254,7 +254,7 @@ function ShowTab(lname) {
               <a href="<@ofbizUrl>FindGeneric?${relation.encodeRelatedEntityFindString}&amp;find=true</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonFind}</a>
               </#if>
             </#if>
-          </div>    
+          </div>
       </#list>
     </#if>
   </div>

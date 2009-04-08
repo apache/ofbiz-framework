@@ -29,7 +29,7 @@
         <if-empty field="parameters.templateDataResourceId">
             <set field="parameters.templateDataResourceId" value="BLOG_TPL_TOPLEFT"/>
         </if-empty>
-        
+
         <!-- determine of we need to create complex template structure or simple content structure -->
         <if-not-empty field="parameters._uploadedFile_fileName">
             <if-not-empty field="parameters.articleData">
@@ -39,7 +39,7 @@
                 <set field="createMain.contentName" from-field="parameters.contentName"/>
                 <set field="createMain.description" from-field="parameters.description"/>
                 <set field="createMain.statusId" from-field="parameters.statusId"/>
-                <set field="createMain.contentIdFrom" from-field="contentIdFrom"/>                 
+                <set field="createMain.contentIdFrom" from-field="contentIdFrom"/>
                 <set field="createMain.partyId" from-field="userLogin.partyId"/>
                 <set field="createMain.ownerContentId" from-field="ownerContentId"/>
                 <set field="createMain.dataTemplateTypeId" value="SCREEN_COMBINED"/>
@@ -49,7 +49,7 @@
                 </call-service>
                 <!-- reset contentIdFrom to new contentId -->
                 <set field="contentAssocTypeId" value="SUB_CONTENT"/>
-                <set field="contentIdFrom" from-field="contentId"/>                                
+                <set field="contentIdFrom" from-field="contentId"/>
             </if-not-empty>
         </if-not-empty>
 
@@ -78,7 +78,7 @@
                 <set field="contentAssocTypeId" value="SUB_CONTENT"/>
             </if-empty>
         </if-not-empty>
-        
+
         <if-not-empty field="parameters.articleData">
             <!-- create text data -->
             <set field="createText.dataResourceTypeId" value="ELECTRONIC_TEXT"/>
@@ -103,7 +103,7 @@
                 <set field="contentAssocTypeId" value="SUB_CONTENT"/>
             </if-empty>
         </if-not-empty>
-        
+
         <if-not-empty field="contentId">
             <if-not-empty field="parameters.summaryData">
                 <!-- create the summary data -->
@@ -133,10 +133,10 @@
         <if>
             <condition>
                 <or>
-                    <if-compare-field field="parameters.contentName" operator="not-equals" to-field="contentName"/>                
-                    <if-compare-field field="parameters.description" operator="not-equals" to-field="description"/>                
-                    <if-compare-field field="parameters.templateDataResourceId" operator="not-equals" to-field="templateDataResourceId"/>                
-                    <if-compare-field field="parameters.statusId" operator="not-equals" to-field="statusId"/>                
+                    <if-compare-field field="parameters.contentName" operator="not-equals" to-field="contentName"/>
+                    <if-compare-field field="parameters.description" operator="not-equals" to-field="description"/>
+                    <if-compare-field field="parameters.templateDataResourceId" operator="not-equals" to-field="templateDataResourceId"/>
+                    <if-compare-field field="parameters.statusId" operator="not-equals" to-field="statusId"/>
                 </or>
             </condition>
             <then>
@@ -148,7 +148,7 @@
                         <set field="imageContent.status.Id" from-field="parameters.statusId"/>
                         <store-value value-field="imageContent"/>
                     </if-not-empty>
-                </if-compare-field>                
+                </if-compare-field>
             </then>
         </if>
 
@@ -171,23 +171,23 @@
                 <call-service service-name="createTextContent" in-map-name="createText"/>
             </if-not-empty>
         </if-empty>
-        
-        <!-- update article text -->        
+
+        <!-- update article text -->
         <if-not-empty field="articleText">
             <if-compare-field field="parameters.articleData" operator="not-equals" to-field="articleData">
                 <set field="articleText.textData" from-field="parameters.articleData"/>
                 <store-value value-field="articleText"/>
             </if-compare-field>
         </if-not-empty>
-        
-        <!-- update summary text -->        
+
+        <!-- update summary text -->
         <if-not-empty field="summaryText">
             <if-compare-field field="parameters.summaryData" operator="not-equals" to-field="summaryData">
                 <set field="summaryText.textData" from-field="parameters.summaryData"/>
                 <store-value value-field="summaryText"/>
             </if-compare-field>
         </if-not-empty>
-        
+
         <if-not-empty field="parameters._uploadedFile_fileName">
             <if-not-empty field="imageContent">
                 <entity-and entity-name="ContentAssoc" list="oldAssocs" filter-by-date="true">
@@ -246,7 +246,7 @@
                     </call-service>
                     <if-compare operator="equals" field="hasPermission" value="true" type="Boolean">
                         <set field="blogList[]" from-field="blogItem"/>
-                    </if-compare>                        
+                    </if-compare>
                 </else>
             </if-compare>
         </iterate>

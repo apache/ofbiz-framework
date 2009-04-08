@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,7 +43,7 @@ request.removeAttribute("_EVENT_MESSAGE_");
 if ("SALES_ORDER".equals(cart.getOrderType())) {
     if (!"_NA_".equals(orderPartyId)) {
         orderParty = delegator.findByPrimaryKey("Party", [partyId : orderPartyId]);
-        if (orderParty) {                
+        if (orderParty) {
             shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
             orderPerson = orderParty.getRelatedOne("Person");
             context.orderParty = orderParty;
@@ -63,7 +63,7 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
     // suppliers for the drop-ship select box
     suppliers = delegator.findByAnd("PartyRole", [roleTypeId : "SUPPLIER"]);
     context.suppliers = suppliers;
-    
+
     // facilities used to reserve the items per ship group
     productStoreFacilities = delegator.findByAnd("ProductStoreFacility", [productStoreId : cart.getProductStoreId()]);
     context.productStoreFacilities = productStoreFacilities;

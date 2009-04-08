@@ -15,8 +15,8 @@ dojo.require("dojo.widget.demoEngine.DemoPane");
 dojo.require("dojo.widget.demoEngine.SourcePane");
 dojo.require("dojo.widget.TabContainer");
 
-dojo.widget.defineWidget("my.widget.demoEngine.DemoContainer", 
-	dojo.widget.HtmlWidget, 
+dojo.widget.defineWidget("my.widget.demoEngine.DemoContainer",
+	dojo.widget.HtmlWidget,
 	{
 		templatePath: dojo.uri.dojoUri("src/widget/demoEngine/templates/DemoContainer.html"),
 		templateCssPath: dojo.uri.dojoUri("src/widget/demoEngine/templates/DemoContainer.css"),
@@ -57,7 +57,7 @@ dojo.widget.defineWidget("my.widget.demoEngine.DemoContainer",
 		showSource: function() {
 			dojo.html.removeClass(this.demoButtonNode,this.selectedButtonClass);
 			dojo.html.addClass(this.sourceButtonNode,this.selectedButtonClass);
-			this.tabContainer.selectTab(this.sourceTab);	
+			this.tabContainer.selectTab(this.sourceTab);
 		},
 
 		showDemo: function() {
@@ -87,11 +87,11 @@ dojo.widget.defineWidget("my.widget.demoEngine.DemoContainer",
 
 		this.headerNode="";
 		this.returnNode="";
-	
+
 		this.returnImageNode="";
 		this.returnImage="images/dojoDemos.gif";
 		this.returnClass="return";
-		
+
 		this.summaryNode="";
 		this.demoNameNode="";
 		this.tabControlNode="";

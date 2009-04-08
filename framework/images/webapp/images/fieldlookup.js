@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,14 +38,14 @@ var target = null;
 var target2 = null;
 var lookups = [];
 
-function call_fieldlookup(target, viewName, formName,viewWidth,viewheight) {   
-    var fieldLookup = new fieldLookup1(target);  
+function call_fieldlookup(target, viewName, formName,viewWidth,viewheight) {
+    var fieldLookup = new fieldLookup1(target);
     if (! viewWidth) viewWidth = 350;
     if (! viewheight) viewheight = 200;
     fieldLookup.popup(viewName, formName, viewWidth, viewheight);
 }
-function call_fieldlookup2(target, viewName) {   
-    var fieldLookup = new fieldLookup1(target, arguments);  
+function call_fieldlookup2(target, viewName) {
+    var fieldLookup = new fieldLookup1(target, arguments);
     fieldLookup.popup2(viewName);
 }
 function call_fieldlookup3(target, target2, viewName) {
@@ -64,9 +64,9 @@ function fieldLookup1(obj_target, args) {
 		return lookup_error("Error calling the field lookup: no target control specified");
 	if (obj_target.value == null)
 		return cal_error("Error calling the field lookup: parameter specified is not valid tardet control");
-    //this.target = obj_target; 
-    target = obj_target; 
-	
+    //this.target = obj_target;
+    target = obj_target;
+
 	// register in global collections
 	//this.id = lookups.length;
 	//lookups[this.id] = this;

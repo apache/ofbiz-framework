@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -48,15 +48,15 @@ if (workEffortTypeId != null) {
 }
 
 Timestamp start = null;
-if(startParam != null) 
+if (startParam != null)
     start = new Timestamp(Long.parseLong(startParam));
-    
-if(start == null) {
+
+if (start == null) {
     start = UtilDateTime.getWeekStart(nowTimestamp, timeZone, locale);
 } else {
     start = UtilDateTime.getWeekStart(start, timeZone, locale);
 }
-    
+
 Timestamp prev = UtilDateTime.getDayStart(start, -7, timeZone, locale);
 Timestamp next = UtilDateTime.getDayStart(start, 7, timeZone, locale);
 Timestamp end = UtilDateTime.getDayStart(start, 6, timeZone, locale);

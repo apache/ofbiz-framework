@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createOrderAdjustment" short-description="Create an OrderAdjustment">
         <check-permission permission="ORDERMGR" action="_CREATE">
@@ -51,7 +51,7 @@ under the License.
         <entity-one entity-name="OrderAdjustment" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <simple-method method-name="createOrderAdjustmentBilling" short-description="Create an OrderAdjustmentBilling">
         <make-value entity-name="OrderAdjustmentBilling" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -110,7 +110,7 @@ under the License.
                     <set from-field="orderItem.statusId" field="newValue.statusId"/>
                     <set from-field="parameters.userLogin.userLoginId" field="newValue.statusUserLogin"/>
                     <now-timestamp field="newValue.statusDatetime"/>
-                    
+
                     <create-value value-field="newValue"/>
                 </if-compare-field>
             </if-compare>
@@ -126,7 +126,7 @@ under the License.
                 <set value="false" field="allCompleted"/>
             </if-compare>
         </iterate>
-        
+
         <if-compare field="allCompleted" operator="equals" value="true">
             <!-- update the order header -->
             <set field="orderHeader.statusId" value="ORDER_COMPLETED"/>
@@ -134,12 +134,12 @@ under the License.
             <!-- create the status history -->
             <make-value entity-name="OrderStatus" value-field="newValue"/>
             <sequenced-id sequence-name="OrderStatus" field="newValue.orderStatusId"/>
-            
+
             <set from-field="orderHeader.orderId" field="newValue.orderId"/>
             <set from-field="orderHeader.statusId" field="newValue.statusId"/>
             <set from-field="parameters.userLogin.userLoginId" field="newValue.statusUserLogin"/>
             <now-timestamp field="newValue.statusDatetime"/>
-            
+
             <create-value value-field="newValue"/>
         </if-compare>
 

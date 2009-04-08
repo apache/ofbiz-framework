@@ -36,9 +36,9 @@ under the License.
 
         <fo:static-content flow-name="xsl-region-before">
             <fo:block line-height="10pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                
+
 Doc.B
-          
+
             </fo:block>
         </fo:static-content>
         <fo:flow flow-name="xsl-region-body">
@@ -49,7 +49,7 @@ Doc.B
 <!--
             <fo:block line-height="20pt" font-weight="bold" font-size="18pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="center">
                 ${uiLabelMap.ManufacturingProductionRun}
-            </fo:block> 
+            </fo:block>
 -->
 <!-- inizio riquadro -->
           <fo:table table-layout="fixed">
@@ -58,7 +58,7 @@ Doc.B
                     <fo:table-row>
                         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
 
-                        
+
 <!--  nota: riga vuota   -->
             <fo:table text-align="start" table-layout="fixed">
               <fo:table-column column-width="12.00cm"/>
@@ -87,20 +87,20 @@ Doc.B
                                 <fo:inline font-size="11pt">${package.orderShipment.shipmentId}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                             <fo:block line-height="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
                                 <fo:inline font-size="8pt">${uiLabelMap.ManufacturingPackageNumber}: </fo:inline>
                                 <fo:inline font-size="11pt">${package.packageId}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                             <fo:block line-height="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-size="8pt">${Static["org.ofbiz.base.util.UtilDateTime"].nowDateString("dd/MM/yyyy")}</fo:inline> 
+                                <fo:inline font-size="8pt">${Static["org.ofbiz.base.util.UtilDateTime"].nowDateString("dd/MM/yyyy")}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>
@@ -121,7 +121,7 @@ Doc.B
                                 <fo:inline font-size="8pt">${uiLabelMap.OrderOrderId} :</fo:inline>
                             </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                             <fo:block line-height="10pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
                                 <fo:inline font-size="10pt">${package.orderShipment.orderId}</fo:inline>
                             </fo:block>
@@ -140,7 +140,7 @@ Doc.B
                             </fo:block>
 
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>
@@ -188,7 +188,7 @@ Doc.B
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-size="8pt">${uiLabelMap.PartyParty}</fo:inline> 
+                                <fo:inline font-size="8pt">${uiLabelMap.PartyParty}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
@@ -234,7 +234,7 @@ Doc.B
                 </fo:table-body>
             </fo:table>
 
-        <#list components as component>           
+        <#list components as component>
 <!--  nota: righe o celle dell'etichetta - intestazione righe collo  -->
             <fo:table text-align="left" table-layout="fixed">
               <fo:table-column column-width="3.00cm"/>
@@ -299,7 +299,7 @@ Doc.B
                     </fo:table-row>
                 </fo:table-body>
             </fo:table>
-            
+
 <!-- fine riquadro -->
       </#list>
                         </fo:table-cell>

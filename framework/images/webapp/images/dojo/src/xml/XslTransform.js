@@ -25,24 +25,24 @@ dojo.xml.XslTransform = function(/*String*/xsltUri){
 	dojo.debug("XslTransform is supported by Internet Explorer and Mozilla, with limited support in Opera 9 (no document function support).");
 	var IS_IE = dojo.render.html.ie;
 	var ACTIVEX_DOMS = [
-		"Msxml2.DOMDocument.5.0", 
-		"Msxml2.DOMDocument.4.0", 
-		"Msxml2.DOMDocument.3.0", 
-		"MSXML2.DOMDocument", 
-		"MSXML.DOMDocument", 
+		"Msxml2.DOMDocument.5.0",
+		"Msxml2.DOMDocument.4.0",
+		"Msxml2.DOMDocument.3.0",
+		"MSXML2.DOMDocument",
+		"MSXML.DOMDocument",
 		"Microsoft.XMLDOM"
 	];
 	var ACTIVEX_FT_DOMS = [
-		"Msxml2.FreeThreadedDOMDocument.5.0", 
-		"MSXML2.FreeThreadedDOMDocument.4.0", 
+		"Msxml2.FreeThreadedDOMDocument.5.0",
+		"MSXML2.FreeThreadedDOMDocument.4.0",
 		"MSXML2.FreeThreadedDOMDocument.3.0"
 	];
 	var ACTIVEX_TEMPLATES = [
-		"Msxml2.XSLTemplate.5.0", 
-		"Msxml2.XSLTemplate.4.0", 
+		"Msxml2.XSLTemplate.5.0",
+		"Msxml2.XSLTemplate.4.0",
 		"MSXML2.XSLTemplate.3.0"
 	];
-  
+
 	function getActiveXImpl(activeXArray){
 		for(var i=0; i < activeXArray.length; i++){
 			try{
@@ -54,12 +54,12 @@ dojo.xml.XslTransform = function(/*String*/xsltUri){
 		}
 		dojo.raise("Could not find an ActiveX implementation in:\n\n " + activeXArray);
 	}
-    
+
     if(xsltUri == null || xsltUri == undefined){
         dojo.raise("You must pass the URI String for the XSL file to be used!");
         return false;
     }
-    
+
 	var xsltDocument = null;
 	var xsltProcessor = null;
 	if(IS_IE){
@@ -74,19 +74,19 @@ dojo.xml.XslTransform = function(/*String*/xsltUri){
 
 	if(IS_IE){
 		var xslt = new ActiveXObject(getActiveXImpl(ACTIVEX_TEMPLATES));
-		xslt.stylesheet = xsltDocument;  
+		xslt.stylesheet = xsltDocument;
 		xsltProcessor = xslt.createProcessor();
 	}
 
 	function onXslLoad(){
-		xsltProcessor.importStylesheet(xsltDocument); 
+		xsltProcessor.importStylesheet(xsltDocument);
 	}
 
 	function getResultDom(xmlDoc, params){
 		if(IS_IE){
 			addIeParams(params);
 			var result = getIeResultDom(xmlDoc);
-			removeIeParams(params);   
+			removeIeParams(params);
 			return result;
 		}else{
 			return getMozillaResultDom(xmlDoc, params);
@@ -110,7 +110,7 @@ dojo.xml.XslTransform = function(/*String*/xsltUri){
 	function getIeResultDom(xmlDoc){
 		xsltProcessor.input = xmlDoc;
 		var outDoc = new ActiveXObject(getActiveXImpl(ACTIVEX_DOMS));
-		outDoc.async = false;  
+		outDoc.async = false;
 		outDoc.validateOnParse = false;
 		xsltProcessor.output = outDoc;
 		xsltProcessor.transform();
@@ -123,7 +123,7 @@ dojo.xml.XslTransform = function(/*String*/xsltUri){
 
 	function getIeResultStr(xmlDoc, params){
 		xsltProcessor.input = xmlDoc;
-		xsltProcessor.transform();    
+		xsltProcessor.transform();
 		return xsltProcessor.output;
 	}
 
@@ -149,8 +149,8 @@ dojo.xml.XslTransform = function(/*String*/xsltUri){
 		return serializer.serializeToString(resultDoc);
 	}
 
-	this.getResultString = function(	/*XMLDocument*/xmlDoc, 
-										/*2 Dimensional Array*/params, 
+	this.getResultString = function(	/*XMLDocument*/xmlDoc,
+										/*2 Dimensional Array*/params,
 										/*HTMLDocument*/parentDoc){
 		// summary:
 		//		transform the xmlDoc and return the result as a string.
@@ -163,17 +163,17 @@ dojo.xml.XslTransform = function(/*String*/xsltUri){
 		if(IS_IE){
 			addIeParams(params);
 			content = getIeResultStr(xmlDoc, params);
-			removeIeParams(params);  
+			removeIeParams(params);
 		}else{
 			content = getMozillaResultStr(xmlDoc, params, parentDoc);
-		} 
+		}
 		//dojo.debug(content);
 		return content;
 	};
 
 	this.transformToContentPane = function(	/*XMLDocument*/xmlDoc,
-											/*2 Dimensional Array*/params, 
-											/*ContentPane*/contentPane, 
+											/*2 Dimensional Array*/params,
+											/*ContentPane*/contentPane,
 											/*HTMLDocument*/parentDoc){
 		// summary:
 		//		transform the xmlDoc and put the result into the passed
@@ -192,9 +192,9 @@ dojo.xml.XslTransform = function(/*String*/xsltUri){
 		contentPane.setContent(content);
 	};
 
-	this.transformToRegion = function(	/*XMLDocument*/xmlDoc, 
-										/*2 Dimensional Array*/params, 
-										/*HTMLElement*/region, 
+	this.transformToRegion = function(	/*XMLDocument*/xmlDoc,
+										/*2 Dimensional Array*/params,
+										/*HTMLElement*/region,
 										/*HTMLDocument*/parentDoc){
 		// summary:
 		//		transform the xmlDoc and put the result into the passed
@@ -213,7 +213,7 @@ dojo.xml.XslTransform = function(/*String*/xsltUri){
 		}
 	};
 
-	this.transformToDocument = function(	/*XMLDocument*/ xmlDoc, 
+	this.transformToDocument = function(	/*XMLDocument*/ xmlDoc,
 											/*2 Dimensional Array*/params){
 		// summary:
 		//		transform the xmlDoc and return a new XML document containing
@@ -226,8 +226,8 @@ dojo.xml.XslTransform = function(/*String*/xsltUri){
 	}
 
 	this.transformToWindow = function(	/*XMLDocument*/ xmlDoc,
-										/*2 Dimensional Array*/params, 
-										/*HTMLDocument*/windowDoc, 
+										/*2 Dimensional Array*/params,
+										/*HTMLDocument*/windowDoc,
 										/*HTMLDocument*/parentDoc){
 		// summary:
 		//		transform the xmlDoc and put the contents in the passed

@@ -85,7 +85,7 @@ public class ViewFactory {
             this.preLoadAll();
         }
 
-        // get the view handler by type from the contextHandlers 
+        // get the view handler by type from the contextHandlers
         ViewHandler handler = handlers.get(type);
 
         // if none found lets create it and add it in

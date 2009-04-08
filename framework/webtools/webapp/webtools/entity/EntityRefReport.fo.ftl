@@ -30,7 +30,7 @@ under the License.
   <#-- bookmark section -->
   <fo:bookmark-tree>
     <#list packagesList as package>
-      <#assign packageName = package.packageName/>        
+      <#assign packageName = package.packageName/>
       <fo:bookmark internal-destination="${packageName}">
         <fo:bookmark-title>${packageName}</fo:bookmark-title>
         <#list package.entitiesList as entity>
@@ -41,13 +41,13 @@ under the License.
       </fo:bookmark>
     </#list>
   </fo:bookmark-tree>
-  
+
   <#-- report section -->
   <#list packagesList as package>
     <#assign packageName = package.packageName/>
     <#assign newPackage = true/>
     <#list package.entitiesList as entity>
-  
+
       <fo:page-sequence master-reference="letter-portrait">
         <#-- header -->
         <fo:static-content flow-name="xsl-region-before">
@@ -154,7 +154,7 @@ under the License.
                       <fo:block>
                         ${relation.type}:
                         <#if relation.keysList?has_content>
-                          <#list relation.keysList as keyList>                                        
+                          <#list relation.keysList as keyList>
                             ${keyList.row}
                             <#if keyList.fieldName == keyList.relFieldName>
                               ${keyList.fieldName}

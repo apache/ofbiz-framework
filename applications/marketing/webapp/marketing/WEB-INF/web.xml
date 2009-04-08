@@ -48,13 +48,13 @@ under the License.
     <param-name>scriptLocationPath</param-name>
     <param-value>/WEB-INF/bsh</param-value>
     <description>BeanShell Script Location</description>
-  </context-param>    
+  </context-param>
   <context-param>
     <param-name>mainDecoratorLocation</param-name>
     <param-value>component://marketing/widget/CommonScreens.xml</param-value>
     <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
   </context-param>
-  
+
     <filter>
         <filter-name>ContextFilter</filter-name>
         <display-name>ContextFilter</display-name>
@@ -74,7 +74,7 @@ under the License.
         <init-param>
             <param-name>redirectPath</param-name>
             <param-value>/control/main</param-value>
-        </init-param>        
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>ContextFilter</filter-name>
@@ -85,7 +85,7 @@ under the License.
   <listener><listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
   <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
   <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
-  
+
   <servlet>
     <servlet-name>ControlServlet</servlet-name>
     <display-name>ControlServlet</display-name>

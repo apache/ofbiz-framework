@@ -52,10 +52,10 @@ under the License.
         </div>
         <#assign numberShowed = 0>
         <#list packagesList as package>
-            <hr/><div id='${package.packageName}' class='packagetext'>${package.packageName}</div><hr/>        
+            <hr/><div id='${package.packageName}' class='packagetext'>${package.packageName}</div><hr/>
             <#list package.entitiesList as entity>
                 <table width="95%" border="1" cellpadding='2' cellspacing='0'>
-                    <tr class='entityheader'> 
+                    <tr class='entityheader'>
                         <td colspan="5">
                             <div id='${entity.entityName}' class="titletext">
                                 ${uiLabelMap.WebtoolsEntity}: ${entity.entityName}
@@ -69,8 +69,8 @@ under the License.
                                     <a target='main' href="<@ofbizUrl>ArtifactInfo?name=${entity.entityName}&type=entity</@ofbizUrl>">[${uiLabelMap.WebtoolsArtifactInfo}]</a>
                                 </#if>
                             </div>
-                            <#if entity.description?has_content && 
-                                 !entity.description.equalsIgnoreCase("NONE") && 
+                            <#if entity.description?has_content &&
+                                 !entity.description.equalsIgnoreCase("NONE") &&
                                 !entity.description.equalsIgnoreCase("")>
                                    <div>${entity.description}</div>
                             </#if>
@@ -109,16 +109,16 @@ under the License.
                         </tr>
                     </#list>
                     <#if entity.relationsList?has_content>
-                        <tr class='entityheader'> 
+                        <tr class='entityheader'>
                             <td colspan="5"><hr/></td>
                         </tr>
-                        <tr class='headertext'> 
+                        <tr class='headertext'>
                             <th>${uiLabelMap.WebtoolsRelation}</th>
                             <th colspan='4'>${uiLabelMap.WebtoolsRelationType}</th>
                         </tr>
                         <#list entity.relationsList as relation>
-                            <tr class='relationtext'> 
-                                <td> 
+                            <tr class='relationtext'>
+                                <td>
                                     <#if relation.title?has_content><b>${relation.title}</b> </#if><a href='#${relation.relEntity}'>${relation.relEntity}</a>
                                     <#if relation.fkName?has_content>
                                         <br/>${uiLabelMap.WebtoolsFKName}: ${relation.fkName}
@@ -133,7 +133,7 @@ under the License.
                                         &nbsp;
                                     </#if>
                                     <#if relation.keysList?has_content>
-                                        <#list relation.keysList as keyList>                                        
+                                        <#list relation.keysList as keyList>
                                             <br/>&nbsp;&nbsp;${keyList.row})&nbsp;
                                               <#if keyList.fieldName == keyList.relFieldName>
                                                   ${keyList.fieldName}
@@ -143,31 +143,31 @@ under the License.
                                         </#list>
                                     </#if>
                                 </td>
-                            </tr>        
+                            </tr>
                         </#list>
                     </#if>
                     <#if entity.indexList?has_content>
-                        <tr class='entityheader'> 
+                        <tr class='entityheader'>
                             <td colspan="5"><hr/></td>
                         </tr>
-                        <tr class='headertext'> 
+                        <tr class='headertext'>
                             <th>${uiLabelMap.WebtoolsIndexName}</th>
                             <th colspan='4'>${uiLabelMap.WebtoolsIndexFieldList}</th>
                         </tr>
                         <#list entity.indexList as index>
-                            <tr class='relationtext'> 
+                            <tr class='relationtext'>
                                 <td>${index.name}</td>
                                 <td width="60%" colspan='4'>
                                     <#list index.fieldNameList as fieldName>
                                         ${fieldName}
                                     </#list>
                                 </td>
-                            </tr>        
+                            </tr>
                         </#list>
                     </#if>
                 </table>
-                <br/>        
-                <#assign numberShowed = numberShowed + 1>                
+                <br/>
+                <#assign numberShowed = numberShowed + 1>
             </#list>
         </#list>
         <div align="center">

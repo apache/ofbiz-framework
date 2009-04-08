@@ -173,7 +173,7 @@ under the License.
 <table width="100%" border="0" cellpadding="2" cellspacing="0">
   <#assign lastSurveyMultiRespId = ""/>
   <#assign haveOpenMultiRespHeader = false/>
-  
+
   <#list surveyQuestionAndAppls as surveyQuestionAndAppl>
    <#if !alreadyShownSqaaPkWithColId.contains(surveyQuestionAndAppl.getPrimaryKey())>
     <#-- Get and setup MultiResp info for this question -->
@@ -182,7 +182,7 @@ under the License.
     <#assign surveyMultiResp = surveyQuestionAndAppl.getRelatedOneCache("SurveyMultiResp")?if_exists/>
     <#if surveyMultiResp?has_content>
       <#assign surveyMultiRespColumnList = surveyMultiResp.getRelatedCache("SurveyMultiRespColumn", Static["org.ofbiz.base.util.UtilMisc"].toList("sequenceNum"))/>
-    
+
       <#if lastSurveyMultiRespId == "">
         <#assign openMultiRespHeader = true/>
       <#elseif lastSurveyMultiRespId != surveyMultiResp.surveyMultiRespId>
@@ -194,7 +194,7 @@ under the License.
       <#if lastSurveyMultiRespId?has_content><#assign closeMultiRespHeader = true/></#if>
       <#assign lastSurveyMultiRespId = ""/>
     </#if>
-    
+
     <#-- this is before the rest because it will be done if the current row is not a MultiResp (or is different MultiResp) but the last row was... -->
     <#if closeMultiRespHeader>
       <#assign haveOpenMultiRespHeader = false/>
@@ -202,7 +202,7 @@ under the License.
         </td>
       </tr>
     </#if>
-  
+
     <#-- -->
     <#if openMultiRespHeader>
       <#assign haveOpenMultiRespHeader = true/>
@@ -221,7 +221,7 @@ under the License.
               <td><div class="tableheadtext">Required?</div></td><#-- placeholder for required/optional column -->
             </tr>
     </#if>
-  
+
   <#if surveyMultiResp?has_content>
     <#assign sqaaWithColIdList = (sqaaWithColIdListByMultiRespId[surveyMultiResp.surveyMultiRespId])?if_exists/>
     <tr>
@@ -230,13 +230,13 @@ under the License.
       </td>
       <#list surveyMultiRespColumnList as surveyMultiRespColumn>
         <td align="center">
-          <#-- 
-            if there is a surveyMultiRespColId on the surveyQuestionAndAppl use the corresponding surveyQuestionId; 
-            these should be in the same order as the surveyQuestionAndAppls List, so just see if it matches the first in the list 
+          <#--
+            if there is a surveyMultiRespColId on the surveyQuestionAndAppl use the corresponding surveyQuestionId;
+            these should be in the same order as the surveyQuestionAndAppls List, so just see if it matches the first in the list
           -->
           <#if sqaaWithColIdList?has_content><#assign nextSqaaWithColId = sqaaWithColIdList?first/><#else/><#assign nextSqaaWithColId = []></#if>
-          <#if surveyQuestionAndAppl.surveyMultiRespColId?has_content && 
-              nextSqaaWithColId?has_content && 
+          <#if surveyQuestionAndAppl.surveyMultiRespColId?has_content &&
+              nextSqaaWithColId?has_content &&
               nextSqaaWithColId.surveyMultiRespColId = surveyMultiRespColumn.surveyMultiRespColId>
             <#assign dummySqaaWithColId = Static["org.ofbiz.base.util.UtilMisc"].removeFirst(sqaaWithColIdList)/>
             <#assign changed = alreadyShownSqaaPkWithColId.add(nextSqaaWithColId.getPrimaryKey())/>
@@ -259,7 +259,7 @@ under the License.
       		<#assign align = "right"/>
     	</#if>
     </#if>
-    
+
     <#-- get an answer from the answerMap -->
     <#if surveyAnswers?has_content>
       <#assign answer = surveyAnswers.get(surveyQuestionAndAppl.surveyQuestionId)?if_exists/>

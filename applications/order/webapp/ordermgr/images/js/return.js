@@ -26,14 +26,14 @@ Event.observe(window, 'load', function() {
 function changeStatusCorrespondingToHeaderType() {
     var listOptions = [];
     new Ajax.Request('/ordermgr/control/getStatusItemsForReturn', {
-        asynchronous: false, 
+        asynchronous: false,
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
             var statusItems = data.statusItems;
             statusItems.each( function(statusItem) {
                 listOptions.push("<option value = " + statusItem.statusId + " > " + statusItem.description + " </option>");
             });
-            $('statusId').update(listOptions);            
+            $('statusId').update(listOptions);
         }, parameters: {returnHeaderTypeId: $F('returnHeaderTypeId')}, requestHeaders: {Accept: 'application/json'}
-    });    
+    });
 }

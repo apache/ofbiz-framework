@@ -15,7 +15,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="main-decorator">
         <section>
@@ -38,13 +38,13 @@ under the License.
     <screen name="main">
         <section>
             <actions>
-                <set field="tabButtonItem" value="main"></set> 
+                <set field="tabButtonItem" value="main"></set>
                 <entity-condition entity-name="PaymentType" list="paymentTypes">
                     <order-by field-name="paymentTypeId"/>
                 </entity-condition>
                 <entity-condition entity-name="InvoiceType" list="invoiceTypes">
                     <order-by field-name="invoiceTypeId"/>
-                </entity-condition>                
+                </entity-condition>
                 <entity-condition entity-name="PaymentMethodType" list="paymentMethodTypes">
                     <order-by field-name="paymentMethodTypeId"/>
                 </entity-condition>
@@ -79,7 +79,7 @@ under the License.
                                 </section>
                             </container>
                         </container>
-                        <container style="righthalf">        
+                        <container style="righthalf">
                             <container style="right">
                                 <label style="h1">${uiLabelMap.AccountingReports}</label>
                                 <section>
@@ -88,7 +88,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>    
+                        </container>
                         <container>
                             <label style="h1">${uiLabelMap.AccountingPaymentsMenu}</label>
                             <container>
@@ -111,7 +111,7 @@ under the License.
                                             </section>
                                         </iterate-section>
                                     </container>
-                                </container> 
+                                </container>
                                 <container style="righthalf">
                                     <container style="left">
                                         <iterate-section list="paymentStatus" entry="paymentsStatus">
@@ -122,7 +122,7 @@ under the License.
                                             </section>
                                         </iterate-section>
                                     </container>
-                                </container> 
+                                </container>
                             </container>
                         </container>
                         <container style="clear"/>
@@ -148,7 +148,7 @@ under the License.
                                             </section>
                                         </iterate-section>
                                     </container>
-                                </container> 
+                                </container>
                             </container>
                         </container>
                     </decorator-section>
@@ -177,13 +177,13 @@ under the License.
     </screen>
 
     <screen name="FindVendors">
-        <section>            
+        <section>
             <actions>
                 <set field="headerItem" value="findVendors"/>
                 <set field="titleProperty" value="AccountingApPageTitleFindVendors"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
-            </actions>                                                
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameter.mainDecoratorLocation}">
                     <decorator-section name="body">
@@ -209,7 +209,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CommonPaymentDecorator">
         <section>
             <actions>
@@ -232,7 +232,7 @@ under the License.
                             <fail-widgets>
                                 <label style="h3" text="${uiLabelMap.AccountingViewPermissionError}"/>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

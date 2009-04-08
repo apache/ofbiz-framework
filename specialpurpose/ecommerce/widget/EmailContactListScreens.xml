@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="ContactListVerifyEmail">
@@ -26,7 +26,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="EcommerceSubscriptionVerifyEmail"/>
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
-                
+
                 <entity-one entity-name="PartyNameView" value-field="partyName" auto-field-map="false">
                     <field-map field-name="partyId" from-field="contactListParty.partyId"/>
                 </entity-one>

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -24,7 +24,7 @@ partyId = null;
 
 if (userLogin) {
     partyId = userLogin.partyId;
-} 
+}
 
 if (!partyId && parameters.partyId) {
     partyId = parameters.partyId;
@@ -68,16 +68,16 @@ if (partyId) {
         }
 
         // get the Email Address
-        emailPartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
+        emailPartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose",
                 [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_EMAIL"])));
         if (emailPartyContactDetail) {
             parameters.emailContactMechId = emailPartyContactDetail.contactMechId;
             parameters.emailAddress = emailPartyContactDetail.infoString;
             parameters.emailSol = emailPartyContactDetail.allowSolicitation;
         }
-        
+
         // get the Phone Numbers
-        homePhonePartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
+        homePhonePartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose",
                 [partyId : partyId, contactMechPurposeTypeId : "PHONE_HOME"])));
         if (homePhonePartyContactDetail) {
             parameters.homePhoneContactMechId = homePhonePartyContactDetail.contactMechId;
@@ -87,8 +87,8 @@ if (partyId) {
             parameters.homeExt = homePhonePartyContactDetail.extension;
             parameters.homeSol = homePhonePartyContactDetail.allowSolicitation;
         }
-        
-        workPhonePartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
+
+        workPhonePartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose",
                 [partyId : partyId, contactMechPurposeTypeId : "PHONE_WORK"])));
         if (workPhonePartyContactDetail) {
             parameters.workPhoneContactMechId = workPhonePartyContactDetail.contactMechId;

@@ -63,11 +63,11 @@ under the License.
           <#assign referenceNum = reference.size()>
         </#if>
         <#assign showLabel = true>
-        <#if parameters.onlyMissingTranslations?exists && parameters.onlyMissingTranslations == "Y"  
+        <#if parameters.onlyMissingTranslations?exists && parameters.onlyMissingTranslations == "Y"
               &&  labelKey == "CommonEmptyHeader" > <#-- CommonEmptyHeader is empty by definition -->
-          <#assign showLabel = false> 
+          <#assign showLabel = false>
         </#if>
-        <#if parameters.onlyMissingTranslations?exists && parameters.onlyMissingTranslations == "Y" 
+        <#if parameters.onlyMissingTranslations?exists && parameters.onlyMissingTranslations == "Y"
             && parameters.labelLocaleName?exists && parameters.labelLocaleName != "">
           <#assign labelValue = label.getLabelValue(parameters.labelLocaleName)?if_exists>
           <#if labelValue?exists && labelValue?has_content>

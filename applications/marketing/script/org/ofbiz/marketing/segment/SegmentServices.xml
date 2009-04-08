@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-        
+
     <!-- SegmentGroup services -->
     <simple-method method-name="createSegmentGroup" short-description="createSegmentGroup">
         <check-permission permission="MARKETING" action="_CREATE">
@@ -32,7 +32,7 @@ under the License.
         <sequenced-id sequence-name="SegmentGroup" field="newEntity.segmentGroupId"/>
         <field-to-result field="newEntity.segmentGroupId" result-name="segmentGroupId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        
+
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateSegmentGroup" short-description="updateSegmentGroup">
@@ -55,7 +55,7 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
-        
+
     <!-- SegmentGroupClassification methods -->
     <simple-method method-name="createSegmentGroupClassification" short-description="create a SegmentGroupClassification">
         <check-permission permission="MARKETING" action="_CREATE"><fail-property resource="MarketingUiLabels" property="MarketingSegmentGroupClassificationCreatePermissionError"/></check-permission>
@@ -63,8 +63,8 @@ under the License.
         <make-value entity-name="SegmentGroupClassification" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>  
-    </simple-method>   
+        <create-value value-field="newEntity"/>
+    </simple-method>
     <simple-method method-name="updateSegmentGroupClassification" short-description="update a SegmentGroupClassification">
         <check-permission permission="MARKETING" action="_UPDATE"><fail-property resource="MarketingUiLabels" property="MarketingSegmentGroupClassificationUpdatePermissionError"/></check-permission>
         <check-errors/>
@@ -78,7 +78,7 @@ under the License.
         <entity-one entity-name="SegmentGroupClassification" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- SegmentGroupGeo methods -->
     <simple-method method-name="createSegmentGroupGeo" short-description="create a SegmentGroupGeo">
         <check-permission permission="MARKETING" action="_CREATE"><fail-property resource="MarketingUiLabels" property="MarketingSegmentGroupGeoCreatePermissionError"/></check-permission>
@@ -86,8 +86,8 @@ under the License.
         <make-value entity-name="SegmentGroupGeo" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>  
-    </simple-method>   
+        <create-value value-field="newEntity"/>
+    </simple-method>
     <simple-method method-name="updateSegmentGroupGeo" short-description="update a SegmentGroupGeo">
         <check-permission permission="MARKETING" action="_UPDATE"><fail-property resource="MarketingUiLabels" property="MarketingSegmentGroupGeoUpdatePermissionError"/></check-permission>
         <check-errors/>
@@ -109,8 +109,8 @@ under the License.
         <make-value entity-name="SegmentGroupRole" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>  
-    </simple-method>   
+        <create-value value-field="newEntity"/>
+    </simple-method>
     <simple-method method-name="updateSegmentGroupRole" short-description="update a SegmentGroupRole">
         <check-permission permission="MARKETING" action="_UPDATE"><fail-property resource="MarketingUiLabels" property="MarketingSegmentGroupRoleUpdatePermissionError"/></check-permission>
         <check-errors/>
@@ -129,7 +129,7 @@ under the License.
     <!-- SegmentGroup Related Find Service -->
     <simple-method method-name="findPartiesInSegmentGroup" short-description="Find Parties In a SegmentGroup">
         <!--
-            Determined by: 
+            Determined by:
             SegmentGroup -> SegmentGroupRole -> Party
             OR
             SegmentGroup -> SegmentGroupClassification -> PartyClassificationGroup -> PartyClassification -> Party
@@ -137,19 +137,19 @@ under the License.
         <set field="securityAction" value="_VIEW"/>
         <check-permission permission="MARKETING" action="${securityAction}"><fail-message message="Security Error\: to run ${methodShortDescription} you must have the MARKETING${securityAction} or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
-        
+
     </simple-method>
     <simple-method method-name="findSegmentGroupsOfParty" short-description="Find SegmentGroups Of a Party (that a Party is In)">
         <!-- Follows same path as findPartiesInSegmentGroup, but in reverse... -->
         <set field="securityAction" value="_VIEW"/>
         <check-permission permission="MARKETING" action="${securityAction}"><fail-message message="Security Error\: to run ${methodShortDescription} you must have the MARKETING${securityAction} or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
-        
+
     </simple-method>
     <simple-method method-name="arePartiesRelatedThroughSegmentGroup" short-description="Determine: are Parties Related Through SegmentGroup?">
         <!-- NOTE NOTE NOTE: this service is not current and needs to be updated for the new SegmentGroupViewRelatedParties view-entity def -->
-        
-        
+
+
         <!--
             The parties can be related through:
             Party -> SegmentGroupRole -> SegmentGroup -> SegmentGroupRole -> Party
@@ -159,7 +159,7 @@ under the License.
         <set field="securityAction" value="_VIEW"/>
         <check-permission permission="MARKETING" action="${securityAction}"><fail-message message="Security Error\: to run ${methodShortDescription} you must have the MARKETING${securityAction} or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
-        
+
         <now-timestamp field="nowTimestamp"/>
         <entity-condition entity-name="SegmentGroupViewRelatedParties" list="segmentGroupViewRelatedPartiesList">
             <condition-list combine="and">

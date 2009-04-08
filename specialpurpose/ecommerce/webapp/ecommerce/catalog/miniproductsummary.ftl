@@ -23,7 +23,7 @@ under the License.
         <#if "Y" = miniProduct.isVirtual?if_exists> ${uiLabelMap.CommonFrom} </#if>
         <#if totalPrice?exists>
           <p>${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></p>
-        <#else>        
+        <#else>
           <b><span class="<#if priceResult.isSale>salePrice<#else>normalPrice</#if>">
           <@ofbizCurrency amount=priceResult.price isoCode=priceResult.currencyUsed/></span></b>
         </#if>

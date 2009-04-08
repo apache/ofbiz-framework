@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createEntitySync" short-description="Create a EntitySync">
         <check-permission permission="ENTITY_SYNC" action="_CREATE"><fail-message message="Security Error: to run createEntitySync you must have the ENTITY_SYNC_CREATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
@@ -47,7 +47,7 @@ under the License.
         <check-errors/>
 
         <!-- TODO: add some code to make sure, as much as possible, that this really isn't running -->
-        <set field="lookupPKMap.entitySyncId" from-field="parameters.entitySyncId"/>        
+        <set field="lookupPKMap.entitySyncId" from-field="parameters.entitySyncId"/>
         <find-by-primary-key entity-name="EntitySync" map="lookupPKMap" value-field="valueToStore"/>
         <if-compare field="valueToStore.runStatusId" operator="equals" value="ESR_RUNNING">
             <set field="valueToStore.runStatusId" value="ESR_NOT_STARTED"/>
@@ -66,7 +66,7 @@ under the License.
         <field-to-result field="newEntity.startDate" result-name="startDate"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        
+
         <!-- also set the lastHistoryStartDate on the EntitySync -->
         <entity-one entity-name="EntitySync" value-field="entitySync"/>
         <set from-field="newEntity.startDate" field="entitySync.lastHistoryStartDate"/>

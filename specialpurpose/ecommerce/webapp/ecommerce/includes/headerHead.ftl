@@ -24,7 +24,7 @@ under the License.
   <title><#if title?has_content>${title}<#elseif titleProperty?has_content>${uiLabelMap.get(titleProperty)}</#if>: ${(productStore.storeName)?if_exists}</title>
   <#if layoutSettings.shortcutIcon?has_content>
     <#assign shortcutIcon = layoutSettings.shortcutIcon/>
-  <#elseif layoutSettings.VT_SHORTCUT_ICON?has_content>    
+  <#elseif layoutSettings.VT_SHORTCUT_ICON?has_content>
     <#assign shortcutIcon = layoutSettings.VT_SHORTCUT_ICON.get(0)/>
   </#if>
   <#if shortcutIcon?has_content>
@@ -89,10 +89,10 @@ under the License.
   </#if>
   <#if metaKeywords?exists>
     <meta name="keywords" content="${metaKeywords}"/>
-  </#if>   
+  </#if>
   <#if requireDojo?exists>
     <script type="text/javascript">
-      dojo.require("dojo.widget.*");    
-    </script>   
+      dojo.require("dojo.widget.*");
+    </script>
   </#if>
 </head>

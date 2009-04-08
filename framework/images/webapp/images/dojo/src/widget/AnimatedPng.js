@@ -39,15 +39,15 @@ dojo.widget.defineWidget(
 		// width: Integer
 		//	width (of each frame) in pixels
 		width: 0,
-		
+
 		// height: Integer
 		//	height (of each frame) in pixels
 		height: 0,
-		
+
 		// aniSrc: String
 		//	pathname to png file containing frames to be animated (ie, displayed sequentially)
 		aniSrc: '',
-		
+
 		// interval: Integer
 		//	time to display each frame
 		interval: 100,

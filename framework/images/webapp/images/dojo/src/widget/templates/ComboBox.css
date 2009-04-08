@@ -18,7 +18,7 @@
 
 /* the input box */
 input.dojoComboBox {
-	border-right-width: 0px !important; 
+	border-right-width: 0px !important;
 	margin-right: 0px !important;
 	padding-right: 0px !important;
 }
@@ -32,8 +32,8 @@ img.dojoComboBox {
 
 /* IE vertical-alignment calculations can be off by +-1 but these margins are collapsed away */
 .dj_ie img.dojoComboBox {
-	margin-top: 1px; 
-	margin-bottom: 1px; 
+	margin-top: 1px;
+	margin-bottom: 1px;
 }
 
 /* the drop down */
@@ -43,7 +43,7 @@ img.dojoComboBox {
 	background-color: white;
 	border: 1px solid #afafaf;
 	position: absolute;
-	z-index: 1000; 
+	z-index: 1000;
 	overflow: auto;
 	cursor: default;
 }

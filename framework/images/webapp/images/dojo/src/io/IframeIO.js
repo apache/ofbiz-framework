@@ -61,7 +61,7 @@ dojo.io.createIFrame = function(/*String*/fname, /*String*/onloadstr, /*String?*
 		dojo.io.setIFrameSrc(cframe, turi, true);
 		cframe.onload = new Function(onloadstr);
 	}
-	
+
 	return cframe;
 }
 
@@ -218,7 +218,7 @@ dojo.io.IframeTransport = new function(){
 					req.formNode[key] = null;
 				}
 			}
-	
+
 			// restore original action + target
 			if(req["_originalAction"]){
 				req.formNode.setAttribute("action", req._originalAction);
@@ -251,12 +251,12 @@ dojo.io.IframeTransport = new function(){
 			// handle successful returns
 			// FIXME: how do we determine success for iframes? Is there an equiv of
 			// the "status" property?
-	
+
 			try{
 				var cmt = req.mimetype;
 				if((cmt == "text/javascript")||(cmt == "text/json")||(cmt == "application/json")){
 					// FIXME: not sure what to do here? try to pull some evalulable
-					// text from a textarea or cdata section? 
+					// text from a textarea or cdata section?
 					// how should we set up the contract for that?
 					var js = ifd.getElementsByTagName("textarea")[0].value;
 					if(cmt == "text/json" || cmt == "application/json") { js = "(" + js + ")"; }
@@ -267,7 +267,7 @@ dojo.io.IframeTransport = new function(){
 					value = ifd.getElementsByTagName("textarea")[0].value;
 				}
 				success = true;
-			}catch(e){ 
+			}catch(e){
 				// looks like we didn't get what we wanted!
 				this._callError(req, "IframeTransport Error: " + e);
 			}
@@ -286,7 +286,7 @@ dojo.io.IframeTransport = new function(){
 			_this.fireNextRequest();
 		}
 	}
-	
+
 	this._callError = function(req /* Object */, message /* String */){
 		var errObj = new dojo.io.Error(message);
 		if(dojo.lang.isFunction(req["error"])){

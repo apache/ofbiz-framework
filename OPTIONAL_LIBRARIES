@@ -1,6 +1,6 @@
 DESCRIPTION
 This file contains information about libraries that are supported
-by code in OFBiz but that are left out of SVN because of licensing issues. 
+by code in OFBiz but that are left out of SVN because of licensing issues.
 What is below is a list of jar files and where to put them, and the file(s)
 to change to include them in the OFBiz build and/or run-time configuration.
 
@@ -10,7 +10,7 @@ on the old Undersun SVN server in the specialized/libraries component directory.
 -=- Workflow __________________________________________________________________________________________________________________________________________________
 
 -Shark (LGPL):
-  http://www.enhydra.org/workflow/shark/ 
+  http://www.enhydra.org/workflow/shark/
   Current version : http://shark.objectweb.org/doc/1.1/release_notes/release_notes.html
   framework/shark/lib:
      js.jar
@@ -49,26 +49,26 @@ on the old Undersun SVN server in the specialized/libraries component directory.
      sharkwebservice-wfxmlapi-1.2_1.jar
      sharkwebservice-wfxmlutils-1.2_1.jar
      sharkxpdl-standard-1.2_1.jar
-     wrd-1.2_1.jar  
+     wrd-1.2_1.jar
   NOTE: these jars based on a build from version 1.2_1 may be found attached
-     in https://issues.apache.org/jira/browse/OFBIZ-552  
+     in https://issues.apache.org/jira/browse/OFBIZ-552
      For an updated version some changes to the integration code in the
      shark component may be necessary.
-  TO BUILD: once the jars are in place you can build from the 
+  TO BUILD: once the jars are in place you can build from the
      ofbiz/framework/shark directory, or you can add it to the build
      list in the ofbiz/build.xml file in the framework-builds file list.
   TO DEPLOY: once the build is done the Shark container must be setup in the
      ofbiz-containers.xml file or other containers file being used.
      The shark-container container should be un-commented.
   TO DEPLOY, PART 2: to get the component to load on startup, and get the webapp
-     in place and such the shark component needs to be uncommented in the 
+     in place and such the shark component needs to be uncommented in the
      framework/component-load.xml file.
 
   You may experiment online with Jawe XPDL editor:
   http://www.enhydra.org/workflow/jawe/index.html
   There is an example XPDL file in https://issues.apache.org/jira/browse/OFBIZ-552
   it came from http://www.wfmc.org/standards/docs/xpdl_sample/sample%20workflow%20process.xpdl
-  For the moment Shark engine in OFBiz refuses to load it (OK in Jawe) 
+  For the moment Shark engine in OFBiz refuses to load it (OK in Jawe)
 
 -=- Web Presentation: ________________________________________________________________________________________________________________________________________________
 
@@ -104,7 +104,7 @@ on the old Undersun SVN server in the specialized/libraries component directory.
      If you're using the Sun JDK/JRE 1.4 or greater, the jar is located under jre/lib and it's called plugin.jar.
      You may also find it in the old Undersun SVN server in the specialized/libraries component directory.
   TO BUILD: Copy plugin.jar in framework/base/lib. This seems only needed under Windows.
-  
+
 
 -=- Reporting: ________________________________________________________________________________________________________________________________________________
 
@@ -118,26 +118,26 @@ on the old Undersun SVN server in the specialized/libraries component directory.
   http://java.sun.com/products/jimi
     FOP may require a library called JIMI to print certain graphical formats such as GIFs.  Jimi is a Sun library which cannot
     be included in OFBIZ due to licensing incompatibility, but you can download it yourself at: http://java.sun.com/products/jimi/
-    and rename the ZIP file that comes with it as jimi-xxx.jar, then copy it into the same directory as fop.jar, which at this time 
+    and rename the ZIP file that comes with it as jimi-xxx.jar, then copy it into the same directory as fop.jar, which at this time
     is ${ofbiz.home}/framework/webapp/lib/
 
 -=- POS _______________________________________________________________________________________________________________________________________________________
 
 -GTK Swing (LGPL):
   http://sourceforge.net/projects/gtkswing/
-  TO DEPLOY: base/config/pos-containers.xml:org.gtk.java.swing.plaf.gtk.GtkLookAndFeel for look and feel  
+  TO DEPLOY: base/config/pos-containers.xml:org.gtk.java.swing.plaf.gtk.GtkLookAndFeel for look and feel
 -JavaPOS hardware drivers
   TO DEPLOY: specialpurpose/pos/lib/
- 
+
   Epson Printer TM-T88III (Proprietay licence) needs jpos18-controls.jar (version specific)
   https://www.epson-pos.com/cgi-bin/sdssm/main/td_login.jsp
-     epsonJposService180.jar 
+     epsonJposService180.jar
      epsonJposServiceCommon.jar
- 
+
  Star (Proprietay licence)
  http://www.star-micronics.co.jp/service/s_print/starjavapos_win32-linux-macosx_yyyymmdd.zip.htm
-     starjavapos.jar   
-  
+     starjavapos.jar
+
 
 -=- Office (Word, etc) File Handling __________________________________________________________________________________________________________________________
 

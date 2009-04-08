@@ -92,16 +92,16 @@ dojo.validate.check = function(/*HTMLFormElement*/form, /*Object*/profile){
 
 	// See if required input fields have values missing.
 	if(profile.required instanceof Array){
-		for(var i = 0; i < profile.required.length; i++){ 
+		for(var i = 0; i < profile.required.length; i++){
 			if(!dojo.lang.isString(profile.required[i])){ continue; }
 			var elem = form[profile.required[i]];
 			// Are textbox, textarea, or password fields blank.
-			if(!dj_undef("type", elem) && (elem.type == "text" || elem.type == "textarea" || elem.type == "password") && /^\s*$/.test(elem.value)){	
+			if(!dj_undef("type", elem) && (elem.type == "text" || elem.type == "textarea" || elem.type == "password") && /^\s*$/.test(elem.value)){
 				missing[missing.length] = elem.name;
 			}
 			// Does drop-down box have option selected.
-			else if(!dj_undef("type", elem) && (elem.type == "select-one" || elem.type == "select-multiple") 
-						&& (elem.selectedIndex == -1 
+			else if(!dj_undef("type", elem) && (elem.type == "select-one" || elem.type == "select-multiple")
+						&& (elem.selectedIndex == -1
 						|| /^\s*$/.test(elem.options[elem.selectedIndex].value))){
 				missing[missing.length] = elem.name;
 			}
@@ -111,7 +111,7 @@ dojo.validate.check = function(/*HTMLFormElement*/form, /*Object*/profile){
 				for(var j = 0; j < elem.length; j++){
 					if (elem[j].checked) { checked = true; }
 				}
-				if(!checked){	
+				if(!checked){
 					missing[missing.length] = elem[0].name;
 				}
 			}
@@ -120,11 +120,11 @@ dojo.validate.check = function(/*HTMLFormElement*/form, /*Object*/profile){
 
 	// See if checkbox groups and select boxes have x number of required values.
 	if(profile.required instanceof Array){
-		for (var i = 0; i < profile.required.length; i++){ 
+		for (var i = 0; i < profile.required.length; i++){
 			if(!dojo.lang.isObject(profile.required[i])){ continue; }
 			var elem, numRequired;
-			for(var name in profile.required[i]){ 
-				elem = form[name]; 
+			for(var name in profile.required[i]){
+				elem = form[name];
 				numRequired = profile.required[i][name];
 			}
 			// case 1: elem is a check box group
@@ -133,7 +133,7 @@ dojo.validate.check = function(/*HTMLFormElement*/form, /*Object*/profile){
 				for(var j = 0; j < elem.length; j++){
 					if(elem[j].checked){ checked++; }
 				}
-				if(checked < numRequired){	
+				if(checked < numRequired){
 					missing[missing.length] = elem[0].name;
 				}
 			}
@@ -143,7 +143,7 @@ dojo.validate.check = function(/*HTMLFormElement*/form, /*Object*/profile){
 				for(var j = 0; j < elem.options.length; j++){
 					if (elem.options[j].selected && !/^\s*$/.test(elem.options[j].value)) { selected++; }
 				}
-				if(selected < numRequired){	
+				if(selected < numRequired){
 					missing[missing.length] = elem.name;
 				}
 			}
@@ -180,22 +180,22 @@ dojo.validate.check = function(/*HTMLFormElement*/form, /*Object*/profile){
 		for(name in profile.constraints){
 			var elem = form[name];
 			if(!elem) {continue;}
-			
+
 			// skip if blank - its optional unless required, in which case it
 			// is already listed as missing.
-			if(!dj_undef("tagName",elem) 
+			if(!dj_undef("tagName",elem)
 				&& (elem.tagName.toLowerCase().indexOf("input") >= 0
-					|| elem.tagName.toLowerCase().indexOf("textarea") >= 0) 
-				&& /^\s*$/.test(elem.value)){ 
-				continue; 
+					|| elem.tagName.toLowerCase().indexOf("textarea") >= 0)
+				&& /^\s*$/.test(elem.value)){
+				continue;
 			}
-			
+
 			var isValid = true;
 			// case 1: constraint value is validation function
 			if(dojo.lang.isFunction(profile.constraints[name])){
 				isValid = profile.constraints[name](elem.value);
 			}else if(dojo.lang.isArray(profile.constraints[name])){
-				
+
 				// handle nested arrays for multiple constraints
 				if(dojo.lang.isArray(profile.constraints[name][0])){
 					for (var i=0; i<profile.constraints[name].length; i++){
@@ -208,8 +208,8 @@ dojo.validate.check = function(/*HTMLFormElement*/form, /*Object*/profile){
 					isValid = dojo.validate.evaluateConstraint(profile, profile.constraints[name], name, elem);
 				}
 			}
-			
-			if(!isValid){	
+
+			if(!isValid){
 				invalid[invalid.length] = elem.name;
 			}
 		}
@@ -220,13 +220,13 @@ dojo.validate.check = function(/*HTMLFormElement*/form, /*Object*/profile){
 		for(name in profile.confirm){
 			var elem = form[name];	// the confirm element
 			var target = form[profile.confirm[name]];
-			if (dj_undef("type", elem) || dj_undef("type", target) || (elem.type != "text" && elem.type != "textarea" && elem.type != "password") 
+			if (dj_undef("type", elem) || dj_undef("type", target) || (elem.type != "text" && elem.type != "textarea" && elem.type != "password")
 				||(target.type != elem.type)
 				||(target.value == elem.value)	// it's valid
 				||(results.isInvalid(elem.name))// already listed as invalid
 				||(/^\s*$/.test(target.value)))	// skip if blank - only confirm if target has a value
 			{
-				continue; 
+				continue;
 			}
 			invalid[invalid.length] = elem.name;
 		}
@@ -246,17 +246,17 @@ dojo.validate.evaluateConstraint=function(profile, /*Array*/constraint, fieldNam
 	//              fieldName: [functionToCall, param1, param2, etc.],
 	//              fieldName: [[functionToCallFirst, param1],[functionToCallSecond,param2]]
 	//      }
-	// 
+	//
 	//  This function evaluates a single array function in the format of:
 	//      [functionName, argument1, argument2, etc]
-	// 
+	//
 	//  The function will be parsed out and evaluated against the incoming parameters.
 	//
 	// profile: The dojo.validate.check() profile that this evaluation is against.
 	// constraint: The single [] array of function and arguments for the function.
 	// fieldName: The form dom name of the field being validated.
 	// elem: The form element field.
-	
+
  	var isValidSomething = constraint[0];
 	var params = constraint.slice(1);
 	params.unshift(elem.value);

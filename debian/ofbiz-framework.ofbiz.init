@@ -173,7 +173,7 @@ if [ -z "$(which jsvc)" ]; then
 		return $?
 	}
 fi
-	
+
 get_status() {
 	status="$(run_ofbiz_cmd -status 2>/dev/null | sed -n 's/^Current Status : //p')"
 	case "$status" in

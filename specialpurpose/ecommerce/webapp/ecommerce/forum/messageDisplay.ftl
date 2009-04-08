@@ -25,7 +25,7 @@ under the License.
 			<#assign contentId = rsp.contentId>
 		<#else>
 			<#assign contentId = forumMessage.contentId>
-		</#if> 
+		</#if>
 			<div class="tableheadtext">
 				${uiLabelMap.CommonTitle}: ${forumMessage.contentName?if_exists} ${uiLabelMap.CommonBy}:${forumMessage.createdByUserLogin?if_exists} ${uiLabelMap.CommonAt}: ${forumMessage.createdDate?if_exists.toString().substring(0,16)}
 				<a href="ViewForumMessage?forumId=${parameters.forumId}&responseContentId=${forumMessage.contentId}&threadContentId=${threadContentId?if_exists}" class="buttontext">${uiLabelMap.CommonView}</a>

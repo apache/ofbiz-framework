@@ -4399,7 +4399,7 @@
     <property key="PartyEmailMessage">
         <value xml:lang="en">Allocate this message to a existing or new party and add an email address</value>
         <value xml:lang="it">Allocare questo messagio ad un soggetto esistente o nuovo e aggiungere un indirizzo email</value>
-    </property>    
+    </property>
     <property key="PartyEmailTo">
         <value xml:lang="en">Email to</value>
         <value xml:lang="fr">Courriel dest.</value>

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<ofbiz-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<ofbiz-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-containers.xsd">
     <container name="component-container" class="org.ofbiz.base.container.ComponentContainer"/>
     <container name="generate-container" class="org.ofbiz.appservers.GenerateContainer"/>

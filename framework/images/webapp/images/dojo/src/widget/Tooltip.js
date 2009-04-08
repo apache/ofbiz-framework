@@ -29,17 +29,17 @@ dojo.widget.defineWidget(
 		//		Text to display in the tooltip.
 		//		Can also be specified as innerHTML (when creating the widget from markup).
 		caption: "",
-		
+
 		// showDelay: Integer
 		//		Number of milliseconds to wait after hovering over the object, before
 		//		the tooltip is displayed.
 		showDelay: 500,
-		
+
 		// hideDelay: Integer
 		//		Number of milliseconds to wait after moving mouse off of the object (or
 		//		off of the tooltip itself), before erasing the tooltip
 		hideDelay: 100,
-		
+
 		// connectId: String
 		//		Id of domNode to attach the tooltip to.
 		//		(When user hovers over specified dom node, the tooltip will appear.)
@@ -79,7 +79,7 @@ dojo.widget.defineWidget(
 				this._tracking=true;
 			}
 
-			this._onHover(e);			
+			this._onHover(e);
 		},
 
 		_onMouseMove: function(e) {
@@ -105,7 +105,7 @@ dojo.widget.defineWidget(
 				clearTimeout(this._hideTimer);
 				delete this._hideTimer;
 			}
-			
+
 			// If tooltip not showing yet then set a timer to show it shortly
 			if(!this.isShowingNow && !this._showTimer){
 				this._showTimer = setTimeout(dojo.lang.hitch(this, "open"), this.showDelay);
@@ -123,7 +123,7 @@ dojo.widget.defineWidget(
 			if(this.isShowingNow && !this._hideTimer){
 				this._hideTimer = setTimeout(dojo.lang.hitch(this, "close"), this.hideDelay);
 			}
-			
+
 			// If we aren't showing the tooltip, then we can stop tracking the mouse now;
 			// otherwise must track the mouse until tooltip disappears
 			if(!this.isShowingNow){

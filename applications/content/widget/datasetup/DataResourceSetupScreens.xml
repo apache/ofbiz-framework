@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="EditDataResourceType">
         <section>
@@ -180,7 +180,7 @@ under the License.
             <widgets>
                 <decorator-screen name="commonDataResourceSetupDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="DataResourceCategoryPanel" title="${uiLabelMap.PageTitleEditDataResourceCategory}" collapsible="true"> 
+                        <screenlet id="DataResourceCategoryPanel" title="${uiLabelMap.PageTitleEditDataResourceCategory}" collapsible="true">
                             <include-form name="AddDataCategory" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>
                         </screenlet>
                         <include-form name="UpdateDataCategory" location="component://content/webapp/content/datasetup/DataSetupForms.xml"/>

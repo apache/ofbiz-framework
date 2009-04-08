@@ -2,15 +2,15 @@
 <!-- ====================================================
 	License information for this file is provided in LICENSE.TXT, as published
 	on the Open Applications Group web site. www.openapplications.org
-	
+
 	For support, more information, or to report implementation bugs,
 	please contact the Open Applications Group at xml@openapplications.org
-	
+
 	$Revision: 7.2.1 $
 	$Date: 31 October 2001 $
 	Open Applications Group XML
 	Copyright 1998-2001, All Rights Reserved
-	
+
 	$Name: 068_sync_inventory_005.xsd $
 
 	cmk		6.1.1	12/30/1998	Initial Release - from version 002
@@ -21,7 +21,7 @@
 	rjj		7.0.0	10/15/2000	Upped rev to sync with spec (and changes)
 	rjj		7.0.2	11/24/2000	Allow multiple instances of NOTES.
 	mlr		7.1		04/16/2001	Update revision.
-	ajw		7.2.1	10/31/2001	W3C Schema Release 
+	ajw		7.2.1	10/31/2001	W3C Schema Release
 
 	Structure Overview
 

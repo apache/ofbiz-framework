@@ -18,18 +18,18 @@
   under the License.
   -->
 
-<entity-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entity-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-eca.xsd">
-    
+
     <!-- To maintain FinAccount.actualBalance and FinAccount.availableBalance -->
     <eca entity="FinAccountTrans" operation="create-store" event="return">
-        <action service="updateFinAccountBalancesFromTrans" mode="sync"/>        
+        <action service="updateFinAccountBalancesFromTrans" mode="sync"/>
     </eca>
     <!-- To maintain FinAccount.availableBalance -->
     <eca entity="FinAccountAuth" operation="create-store" event="return">
         <action service="updateFinAccountBalancesFromAuth" mode="sync"/>
     </eca>
-    
+
     <!-- an example of how to use the watchEntity service to watch the actualBalance field
     <eca entity="FinAccount" operation="create-store" event="run">
         <set field-name="fieldName" value="actualBalance"/>

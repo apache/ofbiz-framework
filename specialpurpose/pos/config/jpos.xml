@@ -54,13 +54,13 @@ under the License.
         <prop name="key.VK_F12+CTRL" type="String" value="221"/>
     </JposEntry>
 
-    <!-- Generic Keyboard Wedge Scanner Device (included w/ OFBiz) 
+    <!-- Generic Keyboard Wedge Scanner Device (included w/ OFBiz)
          * Configure your scanner:
          * 1) Send STX Preamble
          * 2) Send barcode id as prefix
          * 3) Termination char CR
          * 4) Do NOT send ETX Postamble -->
-    
+
     <JposEntry logicalName="GenericScanner">
         <creation factoryClass="org.ofbiz.pos.jpos.factory.OfbizJposServiceFactory" serviceClass="org.ofbiz.pos.jpos.service.ScannerKybService"/>
         <vendor name="The Open For Business Project" url="http://ofbiz.apache.org"/>
@@ -81,21 +81,21 @@ under the License.
         <prop name="CodeType:UPCE" type="String" value="C"/>
         <prop name="CodeType:EAN13" type="String" value="E"/>
         <prop name="CodeType:EAN8" type="String" value="D"/>
-        
+
         <!--Zebex predefined barcode identifiers (not implemented, should no be needed else see readCodeMap>
-        <prop name="BarcodeTypePosition" type="String" value="Prefix"/>        
+        <prop name="BarcodeTypePosition" type="String" value="Prefix"/>
         <prop name="CodeType:CODE39" type="String" value="M"/>
         <prop name="CodeType:ITF2OF5" type="String" value="I"/>
         <prop name="CodeType:CHINESEPOSTCODE" type="String" value="H"/>
-        <prop name="CodeType:UPCE" type="String" value="E"/>                                    
+        <prop name="CodeType:UPCE" type="String" value="E"/>
         <prop name="CodeType:UPCA" type="String" value="A"/>
         <prop name="CodeType:EAN13" type="String" value="F"/>
-        <prop name="CodeType:EAN8" type="String" value="FF"/>        
+        <prop name="CodeType:EAN8" type="String" value="FF"/>
         <prop name="CodeType:CODABAR" type="String" value="N"/>
         <prop name="CodeType:CODE128" type="String" value="K"/>
         <prop name="CodeType:CODE93" type="String" value="L"/>
         <prop name="CodeType:MSI" type="String" value="P"/>
-        <prop name="CodeType:MATRIX25" type="String" value="G"/-->                
+        <prop name="CodeType:MATRIX25" type="String" value="G"/-->
     </JposEntry>
 
     <!-- Generic Keyboard Wedge MSR Device (included w/ OFBiz) -->
@@ -196,7 +196,7 @@ under the License.
         <prop name="drawerClosedOnSignalLow" type="Boolean" value="false"/>
     </JposEntry>
 
-    <!-- Epson TM-T88III POSPrinter (requires epsonJposService180.jar, epsonJposServiceCommon.jar 
+    <!-- Epson TM-T88III POSPrinter (requires epsonJposService180.jar, epsonJposServiceCommon.jar
         in component://pos/lib (classpath references not needed)
          and JavaComm installed (javax.comm package). See http://www.javapos.com/devint.html about this point...
          pos-containers.xml must contains a reference to the logicalName : <property name="Receipt" value="TM-T88III"/>

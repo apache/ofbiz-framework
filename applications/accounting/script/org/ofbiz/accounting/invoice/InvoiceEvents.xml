@@ -244,7 +244,7 @@ under the License.
         <call-service-asynch service-name="sendMailFromScreen" in-map-name="emailParams"/>
         <property-to-field resource="AccountingUiLabels" property="AccountingEmailScheduledToSend" field="successMessage"/>
     </simple-method>
-    
+
     <simple-method method-name="createInvoiceItemPayrol" short-description="Create a new Invoice Item with Payrol Item Type">
         <entity-condition entity-name="InvoiceItemType" list="PayrolGroup">
             <condition-expr field-name="parentTypeId" value="PAYROL"/>
@@ -524,7 +524,7 @@ under the License.
                         <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
                     </entity-and>
                     <iterate entry="entry" list="entries">
-                        <clear-field field="entry.invoiceId"/>                        
+                        <clear-field field="entry.invoiceId"/>
                         <clear-field field="entry.invoiceItemSeqId"/>
                         <store-value value-field="entry"/>
                     </iterate>
@@ -579,7 +579,7 @@ under the License.
         <create-value value-field="invoiceContactMech"/>
         <field-to-result field="contactMechId" result-name="invoiceContactMech"/>
     </simple-method>
-    
+
     <simple-method method-name="updateInvoiceItemType"  short-description="Updates a InvoiceItemType Record">
         <entity-one entity-name="InvoiceItemType" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>

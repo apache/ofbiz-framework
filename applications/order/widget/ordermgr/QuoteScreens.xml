@@ -17,9 +17,9 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    
+
     <!-- list all assets in a tabular format -->
     <screen name="FindQuote">
         <section>
@@ -61,7 +61,7 @@ under the License.
                 <set field="titleProperty" value="OrderViewQuote"/>
                 <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ViewQuote"/>
-                
+
                 <set field="showQuoteManagementLinks" value="Y"/>
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <entity-one entity-name="Quote" value-field="quote"/>
@@ -70,8 +70,8 @@ under the License.
                 <get-related-one value-field="quote" relation-name="SalesChannelEnumeration" to-value-field="salesChannel"/>
                 <get-related-one value-field="quote" relation-name="Uom" to-value-field="currency"/>
                 <get-related-one value-field="quote" relation-name="ProductStore" to-value-field="store"/>
-                
-                <set field="listOrderBy[]" value="quoteItemSeqId"/> 
+
+                <set field="listOrderBy[]" value="quoteItemSeqId"/>
                 <get-related value-field="quote" relation-name="QuoteItem" list="quoteItems" order-by-list="listOrderBy"/>
                 <get-related value-field="quote" relation-name="QuoteAdjustment" list="quoteAdjustments"/>
                 <get-related value-field="quote" relation-name="QuoteRole" list="quoteRoles"/>
@@ -112,7 +112,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -128,7 +128,7 @@ under the License.
                 <get-related-one value-field="quote" relation-name="StatusItem" to-value-field="statusItem"/>
                 <get-related-one value-field="quote" relation-name="Uom" to-value-field="currency"/>
                 <get-related-one value-field="quote" relation-name="ProductStore" to-value-field="store"/>
-                
+
                 <get-related value-field="quote" relation-name="QuoteItem" list="quoteItems"/>
                 <get-related value-field="quote" relation-name="QuoteAdjustment" list="quoteAdjustments"/>
                 <get-related value-field="quote" relation-name="QuoteRole" list="quoteRoles"/>
@@ -161,11 +161,11 @@ under the License.
                 <get-related-one value-field="quote" relation-name="Uom" to-value-field="currency"/>
                 <get-related-one value-field="quote" relation-name="ProductStore" to-value-field="store"/>
                 <get-related-one value-field="quote" relation-name="Party" to-value-field="party"/>
-                
+
                 <set field="listOrderBy[]" value="quoteItemSeqId"/>
                 <get-related value-field="quote" relation-name="QuoteItem" list="quoteItems" order-by-list="listOrderBy"/>
                 <get-related value-field="quote" relation-name="QuoteAdjustment" list="quoteAdjustments"/>
-                
+
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/quote/GetPartyAddress.groovy"/>
                 <!--
                 <get-related value-name="quote" relation-name="QuoteRole" list-name="quoteRoles"/>
@@ -218,10 +218,10 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuoteEdit"/>
                 <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="EditQuote"/>
-                
+
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <entity-one entity-name="Quote" value-field="quote"/>
-                
+
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
             </actions>
             <widgets>
@@ -240,7 +240,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -252,7 +252,7 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuoteListRoles"/>
                 <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteRoles"/>
-    
+
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteRole" list="quoteRoles">
                     <field-map from-field="quote.quoteId" field-name="quoteId"/>
@@ -276,11 +276,11 @@ under the License.
                                                 <parameter param-name="quoteId" from-field="quote.quoteId"/>
                                             </link>
                                         </container>
-                                        <include-form name="ListQuoteRoles" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>                                        
+                                        <include-form name="ListQuoteRoles" location="component://order/webapp/ordermgr/quote/QuoteForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>    
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -292,10 +292,10 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuoteEditRoles"/>
                 <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteRoles"/>
-                
+
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <set field="quoteItemSeqId" from-field="parameters.quoteItemSeqId"/>
-                
+
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-one entity-name="QuoteRole" value-field="quoteRole"/>
             </actions>
@@ -320,7 +320,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>    
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -328,11 +328,11 @@ under the License.
     </screen>
     <screen name="ListQuoteItems">
         <section>
-            <actions>                
+            <actions>
                 <set field="titleProperty" value="OrderOrderQuoteListItems"/>
                 <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteItems"/>
-    
+
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
@@ -363,7 +363,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -371,14 +371,14 @@ under the License.
     </screen>
     <screen name="EditQuoteItem">
         <section>
-            <actions>                
+            <actions>
                 <set field="titleProperty" value="OrderOrderQuoteEditItems"/>
                 <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteItems"/>
-                
+
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <set field="quoteItemSeqId" from-field="parameters.quoteItemSeqId"/>
-                
+
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-one entity-name="QuoteItem" value-field="quoteItem"/>
             </actions>
@@ -403,7 +403,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>    
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -415,7 +415,7 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuoteListAttributes"/>
                 <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteAttributes"/>
-    
+
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteAttribute" list="quoteAttributes">
                     <field-map from-field="quote.quoteId" field-name="quoteId"/>
@@ -442,7 +442,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -454,7 +454,7 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuoteEditAttributes"/>
                 <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteAttributes"/>
-                
+
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <set field="attrName" from-field="parameters.attrName"/>
 
@@ -482,7 +482,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>    
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -494,7 +494,7 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuoteListCoefficients"/>
                 <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteCoefficients"/>
-    
+
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteCoefficient" list="quoteCoefficients">
                     <field-map from-field="quote.quoteId" field-name="quoteId"/>
@@ -533,7 +533,7 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuoteEditCoefficients"/>
                 <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteCoefficients"/>
-                
+
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <set field="attrName" from-field="parameters.coeffName"/>
 
@@ -575,7 +575,7 @@ under the License.
                 <set field="tabButtonItem" value="ManageQuotePrices"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
-    
+
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteItem" list="quoteItems">
                     <field-map from-field="quote.quoteId" field-name="quoteId"/>
@@ -639,7 +639,7 @@ under the License.
                 <set field="tabButtonItem" value="ListQuoteAdjustments"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
-    
+
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteAdjustment" list="quoteAdjustments">
@@ -682,7 +682,7 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuoteEditAdjustments"/>
                 <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ListQuoteAdjustments"/>
-                
+
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <set field="quoteAdjustmentId" from-field="parameters.quoteAdjustmentId"/>
 
@@ -710,7 +710,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -724,7 +724,7 @@ under the License.
                 <set field="tabButtonItem" value="ViewQuoteProfit"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
-    
+
                 <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
                 <entity-and entity-name="QuoteItem" list="quoteItems">
                     <field-map from-field="quote.quoteId" field-name="quoteId"/>
@@ -758,7 +758,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -770,7 +770,7 @@ under the License.
                 <set field="titleProperty" value="OrderOrderQuoteEditReportMail"/>
                 <set field="headerItem" value="quote"/>
                 <set field="tabButtonItem" value="ViewQuote"/>
-                
+
                 <set field="quoteId" from-field="parameters.quoteId"/>
                 <entity-one entity-name="Quote" value-field="quote"/>
                 <get-related-one value-field="quote" relation-name="Party" to-value-field="party"/>
@@ -792,7 +792,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

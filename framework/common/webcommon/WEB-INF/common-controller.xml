@@ -18,13 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <description>Common ControlServlet Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
     <errorpage>/error/error.jsp</errorpage>
-    
+
     <!-- event handlers -->
     <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
     <handler name="soap" type="request" class="org.ofbiz.webapp.event.SOAPEventHandler"/>
@@ -37,14 +37,14 @@ under the License.
     <handler name="jsonservice" type="request" class="org.ofbiz.webapp.event.JSONServiceEventHandler"/>
     <handler name="jsonsimple" type="request" class="org.ofbiz.webapp.event.JSONSimpleEventHandler"/>
     <handler name="rome" type="request" class="org.ofbiz.webapp.event.RomeEventHandler"/>
-    
+
     <!-- view handlers -->
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
     <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopViewHandler"/>
     <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.ScreenXmlViewHandler"/>
     <handler name="screentext" type="view" class="org.ofbiz.widget.screen.ScreenTextViewHandler"/>
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
-    <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>   
+    <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
 
     <preprocessor>
@@ -131,15 +131,15 @@ under the License.
     <request-map uri="main">
         <response name="success" type="view" value="main"/>
     </request-map>
-    
+
     <request-map uri="viewBlocked">
         <response name="success" type="view" value="viewBlocked"/>
     </request-map>
-    
+
     <request-map uri="geoLocation">
         <response name="success" type="view" value="geoLocation"/>
     </request-map>
-    
+
     <!-- home/last/current mappings -->
     <request-map uri="backHome">
         <response name="success" type="view-home"/>
@@ -147,7 +147,7 @@ under the License.
     <request-map uri="backLast">
         <response name="success" type="view-last"/>
     </request-map>
-    
+
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="main" type="none"/>
@@ -163,7 +163,7 @@ under the License.
     <view-map name="ajaxAutocompleteOptions" type="screen" page="component://common/widget/CommonScreens.xml#ajaxAutocompleteOptions"/>
 
     <view-map name="help" type="screen" page="component://common/widget/CommonScreens.xml#help"/>
-    <view-map name="geoLocation" type="screen" page="component://common/widget/CommonScreens.xml#geoLocation"/>    
-    
+    <view-map name="geoLocation" type="screen" page="component://common/widget/CommonScreens.xml#geoLocation"/>
+
     <view-map name="viewBlocked" type="screen" page="component://common/widget/CommonScreens.xml#viewBlocked"/>
 </site-conf>

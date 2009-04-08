@@ -21,7 +21,7 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="humanResManagerPermission" short-description="Check user has Humanres Manager permission">
-        <set field="primaryPermission" value="HUMANRES"/>      
+        <set field="primaryPermission" value="HUMANRES"/>
         <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
     </simple-method>
 </simple-methods>

@@ -19,11 +19,11 @@ under the License.
 -->
 <entity-engine-xml>
     <!-- When you set contents here, don't forget to remove the original Name in DemoProduct.xml if any... I got caught by this today -->
-    
+
     <!-- Example of a product with many languages -->
-    <DataResource dataResourceId="GZ2644DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
-    <DataResource dataResourceId="GZ2644DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
-    <DataResource dataResourceId="GZ2644DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+    <DataResource dataResourceId="GZ2644DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>
+    <DataResource dataResourceId="GZ2644DESCIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>
+    <DataResource dataResourceId="GZ2644DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>
 
     <ElectronicText dataResourceId="GZ2644DESCFR" textData="Gizmo rond lumineux"/>
     <ElectronicText dataResourceId="GZ2644DESCIT" textData="Gizmo rotondo con luci"/>
@@ -39,9 +39,9 @@ under the License.
     <ContentAssoc contentId="GZ2644DESCEN" contentIdTo="GZ2644DESCFR" contentAssocTypeId="ALTERNATE_LOCALE" fromDate="2006-09-22 00:00:00.0"/>
 
 
-    <DataResource dataResourceId="GZ2644NAMEFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
-    <DataResource dataResourceId="GZ2644NAMEIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>   
-    <DataResource dataResourceId="GZ2644NAMEEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
+    <DataResource dataResourceId="GZ2644NAMEFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>
+    <DataResource dataResourceId="GZ2644NAMEIT" dataResourceTypeId="ELECTRONIC_TEXT" localeString="it"/>
+    <DataResource dataResourceId="GZ2644NAMEEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>
 
     <ElectronicText dataResourceId="GZ2644NAMEFR" textData="Gizmo Rond"/>
     <ElectronicText dataResourceId="GZ2644NAMEIT" textData="Gizmo Rotondo"/>

@@ -18,18 +18,18 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <!-- ================================================================ -->
     <!-- Quote Services -->
     <!-- ================================================================ -->
-    
+
     <simple-method method-name="getNextQuoteId" short-description="Get Next quoteId">
         <!-- try to find PartyAcctgPreference for parameters.partyId, see if we need any special quote number sequencing -->
         <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference"/>
         <log level="info" message="In getNextQuoteId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}"/>
-        
+
         <if>
             <condition>
                 <if-compare field="partyAcctgPreference.quoteSequenceEnumId" operator="equals" value="QTESQ_ENF_SEQ"/>
@@ -56,14 +56,14 @@ under the License.
                 <if-empty field="quoteIdTemp">
                     <sequenced-id sequence-name="Quote" field="quoteIdTemp"/>
                     <else>
-                        <!-- check the provided ID --> 
+                        <!-- check the provided ID -->
                         <check-id field="quoteIdTemp"/>
                         <check-errors/>
                     </else>
                 </if-empty>
             </else>
         </if>
-        
+
         <!-- use quoteIdTemp along with the quoteIdPrefix to create the real ID -->
         <set field="quoteId" value="${partyAcctgPreference.quoteIdPrefix}${quoteIdTemp}"/>
         <field-to-result field="quoteId" result-name="quoteId"/>
@@ -138,7 +138,7 @@ under the License.
                 <field-map field-name="statusId" from-field="quote.statusId"/>
                 <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-and>
-                    
+
             <if-empty field="validChange">
                 <add-error><fail-message message="The status change from ${quote.statusId} to ${parameters.statusId} is not a valid change"/></add-error>
                 <log level="error" message="The status change from ${quote.statusId} to ${parameters.statusId} is not a valid change"/>
@@ -185,7 +185,7 @@ under the License.
                 </if-empty>
             </iterate>
         </if-compare>
-        
+
         <if-compare field="parameters.copyQuoteRoles" value="Y" operator="equals">
             <get-related value-field="quote" relation-name="QuoteRole" list="quoteRoles"/>
             <iterate list="quoteRoles" entry="quoteRole">
@@ -305,7 +305,7 @@ under the License.
                         <and>
                             <if-compare operator="equals" value="AGGREGATED" field="product.productTypeId"></if-compare>
                             <not><if-empty field="parameters.configId"></if-empty></not>
-                        </and>                    
+                        </and>
                     </condition>
                     <then>
                         <call-class-method class-name="org.ofbiz.product.config.ProductConfigWorker" method-name="loadProductConfigWrapper" ret-field="configWrapper">
@@ -321,7 +321,7 @@ under the License.
                             <field field="userLogin" type="org.ofbiz.entity.GenericValue"/>
                         </call-class-method>
                         <call-object-method method-name="getTotalPrice" obj-field="configWrapper" ret-field="totalPrice"></call-object-method>
-                        <set field="newEntity.quoteUnitPrice" from-field="totalPrice"/>                                           
+                        <set field="newEntity.quoteUnitPrice" from-field="totalPrice"/>
                     </then>
                     <else>
                         <set from-field="product" field="calculateProductPriceMap.product"/>
@@ -336,7 +336,7 @@ under the License.
                 </if>
             </if-not-empty>
         </if-empty>
-        
+
         <!-- finally create the record (should not exist already)-->
         <create-value value-field="newEntity"/>
         <check-errors/>
@@ -375,7 +375,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="QuoteItem" value-field="quoteItem" auto-field-map="true"/>
         <check-errors/>
-        
+
         <set-service-fields service-name="createQuoteItem" to-map="createQuoteItemInMap" map="quoteItem"/>
         <set from-field="parameters.quoteIdTo" field="createQuoteItemInMap.quoteId"/>
         <set from-field="parameters.quoteItemSeqId" field="createQuoteItemInMap.quoteItemSeqId"/>
@@ -384,14 +384,14 @@ under the License.
                 <clear-field field="createQuoteItemInMap.quoteItemSeqId"/>
             </if-empty>
         </if-empty>
-       
+
         <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap">
             <result-to-field result-name="quoteId" field="quoteIdTo"/>
             <result-to-field result-name="quoteItemSeqId" field="quoteItemSeqId"/>
         </call-service>
 
         <check-errors/>
-                
+
         <if-compare field="parameters.copyQuoteAdjustments" value="Y" operator="equals">
             <get-related value-field="quoteItem" relation-name="QuoteAdjustment" list="quoteAdjustments"/>
             <iterate list="quoteAdjustments" entry="quoteAdjustment">
@@ -444,7 +444,7 @@ under the License.
         <remove-value value-field="quoteAttribute"/>
         <check-errors/>
     </simple-method>
-    
+
     <!-- create a new QuoteCoefficient -->
     <simple-method method-name="createQuoteCoefficient" short-description="Create a QuoteCoefficient">
         <check-permission permission="ORDERMGR" action="_CREATE">
@@ -487,12 +487,12 @@ under the License.
     <!-- create a new Quote and QuoteItem for a given CustRequest -->
     <simple-method method-name="createQuoteAndQuoteItemForRequest" short-description="Create a Quote">
         <check-permission permission="ORDERMGR" action="_CREATE">
-            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuoteAndQuoteItemForRequest"/>        
+            <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuoteAndQuoteItemForRequest"/>
     </check-permission>
         <check-errors/>
         <entity-one entity-name="CustRequest" value-field="custRequest" auto-field-map="true"/>
         <entity-one entity-name="CustRequestItem" value-field="custRequestItem" auto-field-map="true"/>
-        
+
         <if-empty field="custRequest">
             <add-error>
                 <fail-property resource="OrderErrorUiLabels" property="OrderErrorCustRequestWithIdDoesntExist"/>
@@ -516,7 +516,7 @@ under the License.
         <make-next-seq-id value-field="newQuoteItem" seq-field-name="quoteItemSeqId"/>
         <field-to-result field="quoteId" result-name="quoteId"/>
         <field-to-result field="newQuoteItem.quoteItemSeqId" result-name="quoteItemSeqId"/>
-        
+
         <set from-field="custRequest.fromPartyId" field="newQuote.partyId"/>
         <set from-field="custRequest.custRequestName" field="newQuote.quoteName"/>
         <set from-field="custRequest.description" field="newQuote.description"/>
@@ -689,7 +689,7 @@ under the License.
         <store-value value-field="quoteAdjustment"/>
         <check-errors/>
     </simple-method>
-    
+
     <simple-method method-name="createQuoteFromCart" short-description="Create a Quote from a Cart">
         <call-object-method obj-field="parameters.cart" method-name="getPartyId" ret-field="createQuoteInMap.partyId"/>
         <if>
@@ -772,7 +772,7 @@ under the License.
                 </iterate>
             </then>
         </if>
-        
+
         <field-to-result field="quote.quoteId" result-name="quoteId"/>
     </simple-method>
 
@@ -785,7 +785,7 @@ under the License.
         <call-service service-name="createQuoteFromCart" in-map-name="createQuoteFromCartInMap">
             <result-to-field result-name="quoteId" field="quoteId"/>
         </call-service>
-     
+
         <field-to-result field="quoteId" result-name="quoteId"/>
     </simple-method>
 
@@ -826,12 +826,12 @@ under the License.
             </else>
             </if-compare>
         </if-empty>
-        
+
          <call-service service-name="createQuote" in-map-name="createQuoteInMap">
             <result-to-field result-name="quoteId" field="quoteId"/>
         </call-service>
         <check-errors/>
-        
+
         <get-related value-field="custRequest" relation-name="CustRequestItem" list="custRequestItems"/>
         <iterate list="custRequestItems" entry="custRequestItem">
             <clear-field field="createQuoteItemInMap"/>
@@ -843,7 +843,7 @@ under the License.
             <set field="createQuoteItemInMap.selectedAmount" from-field="custRequestItem.selectedAmount"/>
             <set field="createQuoteItemInMap.reservStart" from-field="custRequestItem.reservStart"/>
             <set field="createQuoteItemInMap.reservLength" from-field="custRequestItem.reservLength"/>
-            <set field="createQuoteItemInMap.reservPersons" from-field="custRequestItem.reservPersons"/>           
+            <set field="createQuoteItemInMap.reservPersons" from-field="custRequestItem.reservPersons"/>
             <set field="createQuoteItemInMap.configId" from-field="custRequestItem.configId"/>
             <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap"/>
         </iterate>
@@ -859,7 +859,7 @@ under the License.
                 <call-service service-name="createQuoteRole" in-map-name="createQuoteRoleInMap"/>
             </if-compare>
         </iterate>
-        
+
         <field-to-result field="quoteId" result-name="quoteId"/>
     </simple-method>
 

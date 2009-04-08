@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,7 +21,7 @@ import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.*;
 
-// This is a small script to set things up when the EditFixedAssetMaint 
+// This is a small script to set things up when the EditFixedAssetMaint
 // screen is called from one of the WorkEffort calendar screens.
 // The URL coming from WorkEffort does not contain the maintHistSeqId parameter,
 // so this script will look it up using the workEffortId parameter.

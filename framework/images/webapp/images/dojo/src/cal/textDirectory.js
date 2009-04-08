@@ -22,7 +22,7 @@ dojo.cal.textDirectory.Property = function(/*String*/line){
 	var left = dojo.string.trim(line.substring(0, line.indexOf(':')));
 	var right = dojo.string.trim(line.substr(line.indexOf(':') + 1));
 
-	// separate name and paramters	
+	// separate name and paramters
 	var parameters = dojo.string.splitEscaped(left,';');
 	this.name = parameters[0];
 	parameters.splice(0, 1);

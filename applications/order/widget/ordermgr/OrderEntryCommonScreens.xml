@@ -72,7 +72,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="leftbar">
         <section>
             <widgets>
@@ -97,5 +97,5 @@ under the License.
             </widgets>
         </section>
     </screen>
-   
+
 </screens>

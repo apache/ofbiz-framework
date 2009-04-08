@@ -18,14 +18,14 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="ManufacturingReports">
         <section>
             <actions>
                 <set field="titleProperty" value="ManufacturingReports"/>
                 <set field="headerItem" value="ManufacturingReports"/>
-                
+
                 <set field="mrpName" from-field="parameters.mrpName"/>
             </actions>
             <widgets>
@@ -62,7 +62,7 @@ under the License.
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                
+
                 <script location="component://manufacturing/widget/manufacturing/CuttingListReport.groovy"/>
             </actions>
             <widgets>
@@ -213,7 +213,7 @@ under the License.
                 <set field="taskNamePar" from-field="parameters.taskNamePar"/>
                 <set field="productCategoryIdPar" from-field="parameters.productCategoryIdPar"/>
                 <set field="productFeatureTypeIdPar" from-field="parameters.productFeatureTypeIdPar"/>
-                
+
                 <property-map resource="ManufacturingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ManufacturingReportsUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
@@ -254,7 +254,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="PRunsInfoAndOrder">
         <section>
             <actions>
@@ -279,7 +279,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ShipmentPlanStockReport">
         <section>
             <actions>
@@ -298,7 +298,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ShipmentLabel">
         <section>
             <actions>
@@ -312,13 +312,13 @@ under the License.
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/reports/ShipmentLabel.groovy"/>
             </actions>
             <widgets>
-                <platform-specific>                    
+                <platform-specific>
                     <xsl-fo><html-template location="component://manufacturing/webapp/manufacturing/reports/ShipmentLabel.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
-    </screen>    
-    
+    </screen>
+
     <screen name="ShipmentWorkEffortTasks">
         <section>
             <actions>
@@ -337,6 +337,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
 </screens>
 

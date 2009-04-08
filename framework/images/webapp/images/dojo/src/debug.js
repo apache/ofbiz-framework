@@ -39,12 +39,12 @@ dojo.debug = function(/*...*/){
 		}
 		s.push(msg);
 	}
-	
+
 	dojo.hostenv.println(s.join(" "));
 }
 
 /**
- * this is really hacky for now - just 
+ * this is really hacky for now - just
  * display the properties of the object
 **/
 

@@ -230,7 +230,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                                 if (urlOnlyParameterNames.contains(name)) {
                                     String errMsg = "Found URL parameter [" + name + "] passed to secure (https) request-map with uri [" + requestMap.uri + "] with an event that calls service [" + serviceName + "]; this is not allowed for security reasons! The data should be encrypted by making it part of the request body (a form field) instead of the request URL.";
                                     Debug.logError("=============== " + errMsg + "; In session [" + session.getId() + "]", module);
-                                    // NOTE: this forces service call event parameters to be in the body and not in the URL! can be issues with existing links, like Delete links or whatever, and those need to be changed to forms! 
+                                    // NOTE: this forces service call event parameters to be in the body and not in the URL! can be issues with existing links, like Delete links or whatever, and those need to be changed to forms!
                                     throw new EventHandlerException(errMsg);
                                 }
                             }

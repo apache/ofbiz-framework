@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,29 +18,29 @@
     under the License.
 -->
 <entity-engine-xml>
-    
+
     <PortletCategory portletCategoryId="PROJECTMANAGER" description="Project Manager portlets"/>
-    <PortalPortlet portalPortletId="mytimesheet" 
-        portletName="My Timesheet" 
-        screenName="CurrentTimesheet" 
-        screenLocation="component://projectmgr/widget/TimeSheetScreens.xml" 
+    <PortalPortlet portalPortletId="mytimesheet"
+        portletName="My Timesheet"
+        screenName="CurrentTimesheet"
+        screenLocation="component://projectmgr/widget/TimeSheetScreens.xml"
         description="My Current Timesheet" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="mytimesheet" portletCategoryId="PROJECTMANAGER"/>
-    
-    <PortalPortlet 
-        portalPortletId="mytasks" 
-        portletName="MyTasks" 
-        screenName="MyTaskList" 
-        screenLocation="component://projectmgr/widget/TaskScreens.xml" 
-        description="My Tasks from the Project Manager" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>    
+
+    <PortalPortlet
+        portalPortletId="mytasks"
+        portletName="MyTasks"
+        screenName="MyTaskList"
+        screenLocation="component://projectmgr/widget/TaskScreens.xml"
+        description="My Tasks from the Project Manager" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="mytasks" portletCategoryId="PROJECTMANAGER"/>
-    
-    <PortalPortlet portalPortletId="ListCustomerProjects" 
-        portletName="List Customer Projects" 
-        screenName="ListCustomerProjects" 
-        screenLocation="component://projectmgr/widget/ProjectScreens.xml" 
+
+    <PortalPortlet portalPortletId="ListCustomerProjects"
+        portletName="List Customer Projects"
+        screenName="ListCustomerProjects"
+        screenLocation="component://projectmgr/widget/ProjectScreens.xml"
         description="List Projects For a certain Customer" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="ListCustomerProjects" portletCategoryId="PROJECTMANAGER"/>
-    
-    
+
+
 </entity-engine-xml>

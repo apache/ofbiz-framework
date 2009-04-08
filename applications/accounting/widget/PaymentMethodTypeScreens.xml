@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    
+
     <screen name="EditPaymentMethodType">
         <section>
             <actions>
@@ -30,7 +30,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
                 <entity-condition entity-name="PaymentMethodType" list="paymentMethodTypes">
                     <order-by field-name="paymentMethodTypeId"/>
-                </entity-condition>   
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -43,7 +43,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListPaymentMethodType" location="component://accounting/widget/PaymentMethodTypeForms.xml"/>
                                     </widgets>
                                 </section>
@@ -53,5 +53,5 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>     
+    </screen>
 </screens>

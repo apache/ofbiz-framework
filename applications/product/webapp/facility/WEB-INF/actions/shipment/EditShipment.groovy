@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,13 +43,13 @@ if (!shipment) {
     editShipmentWrapper.setUseRequestParameters(true);
 }
 
-// the kind of StatusItem to use is based on the type of order 
+// the kind of StatusItem to use is based on the type of order
 if (orderHeader && "PURCHASE_ORDER".equals(orderHeader.orderTypeId)) {
     statusItemType = "PURCH_SHIP_STATUS";
 } else {
     statusItemType = "SHIPMENT_STATUS";
 }
-editShipmentWrapper.putInContext("statusItemType", statusItemType);    
+editShipmentWrapper.putInContext("statusItemType", statusItemType);
 
 context.shipmentId = shipmentId;
 context.shipment = shipment;
@@ -66,7 +66,7 @@ if (shipment) {
     fromPerson = shipment.getRelatedOne("FromPerson");
     fromPartyGroup = shipment.getRelatedOne("FromPartyGroup");
     primaryOrderId = shipment.getString("primaryOrderId");
-    
+
     editShipmentWrapper.putInContext("currentStatus", currentStatus);
     editShipmentWrapper.putInContext("originPostalAddress", originPostalAddress);
     editShipmentWrapper.putInContext("destinationPostalAddress", destinationPostalAddress);
@@ -90,10 +90,10 @@ if (shipment) {
     context.toPartyGroup = toPartyGroup;
     context.fromPerson = fromPerson;
     context.fromPartyGroup = fromPartyGroup;
-    
+
     if (primaryOrderId) {
         ord = delegator.findOne("OrderHeader", [orderId : primaryOrderId], false);
         pfc = delegator.findList("ProductStoreFacility", null, null, null, null, false);
-        fac = delegator.findList("ProductStoreFacilityByOrder", EntityCondition.makeCondition([orderId : primaryOrderId]), null, null, null, false);        
+        fac = delegator.findList("ProductStoreFacilityByOrder", EntityCondition.makeCondition([orderId : primaryOrderId]), null, null, null, false);
     }
 }

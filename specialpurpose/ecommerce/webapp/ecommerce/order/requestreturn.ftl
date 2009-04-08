@@ -64,7 +64,7 @@ under the License.
                 <#-- <input type="hidden" name="returnItemType_o_${rowCount}" value="ITEM"/> -->
                 <#assign returnItemType = returnItemTypeMap.get(returnableItems.get(orderItem).get("itemTypeKey"))/>
                 <input type="hidden" name="returnItemTypeId_o_${rowCount}" value="${returnItemType}"/>
-                <input type="hidden" name="returnPrice_o_${rowCount}" value="${returnableItems.get(orderItem).get("returnablePrice")}"/>                 
+                <input type="hidden" name="returnPrice_o_${rowCount}" value="${returnableItems.get(orderItem).get("returnablePrice")}"/>
 
                 <#-- need some order item information -->
                 <#assign orderHeader = orderItem.getRelatedOne("OrderHeader")>

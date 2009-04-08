@@ -128,7 +128,7 @@ dojo.widget.defineWidget(
 
 			if(exits){
 				return true;
-			}	
+			}
 
 			if(action.auto == "true"){
 				on = this._actions[this._action].on;
@@ -164,7 +164,7 @@ dojo.widget.defineWidget(
 			return false;
 		}
 		var tmpAction = action["action"];
-		
+
 		var components = this._components[action.on];
 		for(var i = 0, component; component = components[i]; i++){
 			if(tmpAction){
@@ -207,7 +207,7 @@ dojo.widget.defineWidget(
 				}
 			}
 		}
-		
+
 		action = this._actions[this._action + 1];
 		if(action && action.auto == "true"){
 			this.nextAction();

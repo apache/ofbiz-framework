@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,10 +43,10 @@ paymentMethodTypeId = paramMap.paymentMethodTypeId;
 errorMessages = [];
 errorMaps = [:];
 
-if(paymentMethodTypeId){
+if (paymentMethodTypeId) {
     paymentMethodId = request.getAttribute("paymentMethodId");
     if ("EXT_OFFLINE".equals(paymentMethodTypeId)) {
-        paymentMethodId = "EXT_OFFLINE";            
+        paymentMethodId = "EXT_OFFLINE";
     }
     singleUsePayment = paramMap.singleUsePayment;
     appendPayment = paramMap.appendPayment;
@@ -59,9 +59,9 @@ if(paymentMethodTypeId){
 }
 
 if (!errorMessages && !errorMaps) {
-    selPaymentMethods = null;   
+    selPaymentMethods = null;
     addGiftCard = paramMap.addGiftCard;
-    if("Y".equalsIgnoreCase(addGiftCard)){
+    if ("Y".equalsIgnoreCase(addGiftCard)) {
         selPaymentMethods = [paymentMethodTypeId : null];
         callResult = checkOutHelper.checkGiftCard(paramMap, selPaymentMethods);
         ServiceUtil.addErrors(errorMessages, errorMaps, callResult);

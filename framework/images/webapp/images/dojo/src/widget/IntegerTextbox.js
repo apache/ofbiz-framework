@@ -37,7 +37,7 @@ dojo.widget.defineWidget(
 		mixInProperties: function(localProperties, frag){
 			// First initialize properties in super-class.
 			dojo.widget.IntegerTextbox.superclass.mixInProperties.apply(this, arguments);
-	
+
 			// Get properties from markup attributes, and assign to flags object.
 			if((localProperties.signed == "true")||
 				(localProperties.signed == "always")){
@@ -49,13 +49,13 @@ dojo.widget.defineWidget(
 			}else{
 				this.flags.signed = [ true, false ]; // optional
 			}
-			if(localProperties.separator){ 
+			if(localProperties.separator){
 				this.flags.separator = localProperties.separator;
 			}
-			if(localProperties.min){ 
+			if(localProperties.min){
 				this.flags.min = parseInt(localProperties.min);
 			}
-			if(localProperties.max){ 
+			if(localProperties.max){
 				this.flags.max = parseInt(localProperties.max);
 			}
 		},

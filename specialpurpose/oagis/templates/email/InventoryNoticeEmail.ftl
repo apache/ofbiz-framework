@@ -6,9 +6,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -30,9 +30,9 @@
     <h1>${title}</h1>
     <#-- custom logo or text can be inserted here -->
     <br/>
-    <div class="screenlet-header">  
+    <div class="screenlet-header">
       <div class="boxhead">${uiLabelMap.OagisInventoryDescription}<b></b></div>
-    </div>   
+    </div>
     <div class="screenlet-body">
       <table class="basic-table" cellspacing="0">
         <tr valign="bottom" class="header-row">
@@ -47,16 +47,16 @@
         <#assign alt_row = false>
         <#list inventoryMapList as inventoryMap>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-            <td valign="top"> ${inventoryMap.productId?if_exists}</td>   
+            <td valign="top"> ${inventoryMap.productId?if_exists}</td>
             <td align="right" valign="top"> ${inventoryMap.timestamp?if_exists?if_exists}</td>
-            <td align="right" valign="top"> ${inventoryMap.statusId?if_exists?if_exists}</td>                        
-            <td align="center" valign="top"> ${inventoryMap.quantityOnHandTotal?if_exists?if_exists}</td>   
-            <td align="center" valign="top"> ${inventoryMap.quantityFromMessage?if_exists?if_exists}</td>   
-            <td align="right" valign="top"> ${inventoryMap.quantityDiff?if_exists?if_exists}</td>   
+            <td align="right" valign="top"> ${inventoryMap.statusId?if_exists?if_exists}</td>
+            <td align="center" valign="top"> ${inventoryMap.quantityOnHandTotal?if_exists?if_exists}</td>
+            <td align="center" valign="top"> ${inventoryMap.quantityFromMessage?if_exists?if_exists}</td>
+            <td align="right" valign="top"> ${inventoryMap.quantityDiff?if_exists?if_exists}</td>
           </tr>
           <#-- toggle the row color -->
           <#assign alt_row = !alt_row>
-        </#list>  
+        </#list>
         <tr><td colspan="10"><hr/></td></tr>
       </table>
     </div>

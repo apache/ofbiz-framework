@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -16,9 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- 
+
  // this script is used to get the company's logo header information for orders, invoices, and returns.  It can either take order, invoice, returnHeader from
- // parameters or use orderId, invoiceId, or returnId to look them up.  
+ // parameters or use orderId, invoiceId, or returnId to look them up.
  // if none of these parameters are available then fromPartyId is used or "Company" as fallback
 
 import org.ofbiz.base.util.*;
@@ -126,7 +126,7 @@ context.companyName = companyName;
 
 // the address
 addresses = delegator.findByAnd("PartyContactMechPurpose", [partyId : partyId, contactMechPurposeTypeId : "GENERAL_LOCATION"]);
-selAddresses = EntityUtil.filterByDate(addresses, nowTimestamp, "fromDate", "thruDate", true);        
+selAddresses = EntityUtil.filterByDate(addresses, nowTimestamp, "fromDate", "thruDate", true);
 address = null;
 if (selAddresses) {
     address = delegator.findByPrimaryKey("PostalAddress", [contactMechId : selAddresses[0].contactMechId]);
@@ -173,7 +173,7 @@ if (selEmails) {
 
 // website
 contacts = delegator.findByAnd("PartyContactMech", [partyId : partyId]);
-selContacts = EntityUtil.filterByDate(contacts, nowTimestamp, "fromDate", "thruDate", true);        
+selContacts = EntityUtil.filterByDate(contacts, nowTimestamp, "fromDate", "thruDate", true);
 if (selContacts) {
     Iterator i = selContacts.iterator();
     while (i.hasNext())    {
@@ -187,7 +187,7 @@ if (selContacts) {
 
 //Bank account
 paymentMethods = delegator.findByAnd("PaymentMethod", [partyId : partyId, paymentMethodTypeId : "EFT_ACCOUNT"]);
-selPayments = EntityUtil.filterByDate(paymentMethods, nowTimestamp, "fromDate", "thruDate", true);        
+selPayments = EntityUtil.filterByDate(paymentMethods, nowTimestamp, "fromDate", "thruDate", true);
 if (selPayments) {
     context.eftAccount = delegator.findByPrimaryKey("EftAccount", [paymentMethodId : selPayments[0].paymentMethodId]);
 }

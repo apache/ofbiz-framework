@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-    
+
     <div id="detail-column">
       <div id="special">
         <h2>What's new?</h2>
@@ -34,11 +34,11 @@ under the License.
 
       <div id="intro">
         <h2>Introduction: What is Apache OFBiz?</h2>
-        <p>The Apache Open For Business Project is an open source enterprise 
+        <p>The Apache Open For Business Project is an open source enterprise
         automation software project licensed under the Apache License Version 2.0. By open source enterprise automation we mean:
-        Open Source ERP, Open Source CRM, Open Source E-Business / E-Commerce, Open Source SCM, Open Source MRP, 
+        Open Source ERP, Open Source CRM, Open Source E-Business / E-Commerce, Open Source SCM, Open Source MRP,
         Open Source CMMS/EAM, and so on.</p>
-        
+
         <p>Apache OFBiz is a foundation and starting point for enterprise solutions, be they for one organization or one million.
         OFBiz can certainly be used OOTB (out of the box), but if you're looking for something that works really well for that there are many open source projects that do a great job there.
         OFBiz is great for creating specialized applications for use OOTB by other organizations.
@@ -47,7 +47,7 @@ under the License.
         <p>Being open source under the Apache 2.0 license and driven by a community Apache OFBiz offers both flexibility by design and by access to code, and a solution where you're not alone but rather can work with many others to get things done.
         </p>
 
-        
+
         <p>For answers to your questions you might find the following documents useful:
           <a href="http://docs.ofbiz.org/x/lQM">Project Overview</a>,
           <a href="http://docs.ofbiz.org/x/hgM">Is Apache OFBiz for Me?</a>,
@@ -57,7 +57,7 @@ under the License.
 
         <p>For more technical information, see the <a href="http://docs.ofbiz.org/x/Swg">Documentation</a> page.</p>
 
-        
+
         <p>Apache OFBiz offers a great deal of functionality, including:</p>
         <ul>
          <li>advanced e-commerce</li>
@@ -82,9 +82,9 @@ under the License.
         <div id="users">
             <!-- NOTE DEJ20061231 Please leave this section here; it is duplicated information from the User List page on docs.ofbiz.org, but represents a selection of the best sites and is important to leave here as it is something always asked about -->
             <h2>Who is Using Apache OFBiz?</h2>
-            
+
             <p>It's hard to say who and how many organizations are using Apache OFBiz because you don't have to tell us when you use it, but there are lots of public sites and we've listed some of them for you here.</p>
-            
+
             <p>Products based on Apache OFBiz:
                 <a href="http://www.codesquare.com/products.html" target="_blank">Codesquare Helix</a>
 
@@ -98,7 +98,7 @@ under the License.
                 <a href="http://www.mietta.info" target="_blank">XtraMind Mietta 2</a>
                 <!-- <a href="http://www.linux-at-business.com/article.php3?id_article=64" target="_blank">Linux@Business INF (French)</a> -->
             </p>
-            
+
             <p>A selection of public sites (mostly, but not all, ecommerce) using Apache OFBiz:
                 <a href="http://www.1800flowers.com/" target="_blank">***1-800-Flowers.com</a>
                 <a href="http://www.actionenvelope.com/" target="_blank">***Action Envelope</a>
@@ -134,7 +134,7 @@ under the License.
             <p>For a more complete list of sites see the <a href="http://docs.ofbiz.org/x/ZQM">Apache OFBiz User List</a> page.</p>
 
       </div>
-        <div id="inthenews">        
+        <div id="inthenews">
             <h2>Apache OFBiz in the News</h2>
             <p>2008-11-09 &quot;<a href="http://www.packtpub.com/apache-ofbiz-development-beginners-tutorial/book" target="_blank">Apache OFBiz Development: The Beginner's Tutorial (a new book from Packt Publishing, cover only release 4.0).</a>&quot; on <a href="http://www.packtpub.com/" target="_blank">Packt Publishing</a></p>
             <p>2008-02-19 &quot;<a href="http://www.ebizq.net/hot_topics/open_source/features/8926.html" target="_blank">Can OSS ERP Projects Meet User Demand? (registration required)</a>&quot; on <a href="http://www.ebizq.net" target="_blank">ebizQ</a></p>
@@ -158,25 +158,25 @@ under the License.
             <!--p>2006-06-10 &quot;<a href="http://software.newsforge.com/article.pl?sid=06/06/10/0325247&amp;tid=132&amp;tid=15" target="_blank">Why Enterprises are Adopting Open Source Apps</a>&quot; on <a href="http://www.newsforge.com/" target="_blank">NewsForge</a></p-->
             <p>2006-03-13 &quot;<a href="http://www.eweek.com/c/a/Enterprise-Apps/ERP-Share-and-Share-Alike/" target="_blank">ERP: Share and Share Alike</a>&quot; on <a href="http://www.thechannelinsider.com/" target="_blank">eWeek Channel Insider</a></p>
         </div>
-        
-      <div id="announcements">        
+
+      <div id="announcements">
         <h2>Old Announcements and News</h2>
         <h3>Announcements</h3>
 
-          
+
         <p>Check out the presentation on <b>Apache OFBiz at JavaOne</b> by Ean Scheussler of <a href="http://www.brainfood.com" target="_blank">Brainfood</a> and David Jones of <a href="http://www.hotwaxmedia.com/?atc=OFB" target="_blank">HotWax Media</a>:
         <a href="http://www28.cplan.com/cc158/sessions_catalog.jsp?ilc=158-1&amp;ilg=english&amp;isort=&amp;isort_type=&amp;is=yes&amp;icriteria1=+&amp;icriteria2=+&amp;icriteria7=+&amp;icriteria9=TS-7900&amp;icriteria8=&amp;icriteria3=" target="_blank">Session TS-7900, Apache OFBiz: Real-World Open Source Java Platform ERP</a>. It was on Wednesday May 9th, 2007 at 4:10 PM.</p>
-      
+
         <p>Apache OFBiz is now officially a TLP (top level project) at the Apache Software Foundation!
            See the details <a href="http://incubator.apache.org/projects/ofbiz.html">here</a>.
         </p>
 
-          
+
         <p>The 2006 OFBiz Users Conference turned out Great! The video recordings are available <a href="VideosConf.html">here</a>.</p>
         <p>The <b>2006 Open For Business Users Conference</b> was held in Ephraim, UT, USA on the 3rd and 4th of November, 2006.
               Special thanks to <a href="http://www.automationgroups.com" target="_blank">Automation Groups</a> for hosting the conference this year.
         </p>
-          
+
         <p>Apache OFBiz had an exhibit booth and BoF session at the upcoming OSCON show in Portland, OR on 26-28 July 2006. For details see the mailing list announcement
             <a href="http://lists.ofbiz.org/pipermail/users/2006-June/012727.html">here</a>.</p>
 
@@ -184,33 +184,33 @@ under the License.
 
         <p>Free Training Videos are now available that offer an introduction to the Apache OFBiz Framework, based on the example component.
             They can be downloaded <a href="http://docs.ofbiz.org/x/PQM">here</a>.</p>
-          
+
         <p>The 2005 OFBiz Users Conference turned out Great! The video recordings are available <a href="VideosConf.html">here</a>.</p>
 
-          
+
         <p>The <b>2005 Open For Business Users Conference</b> was held in St. Louis, MO, USA on the 21st and 22nd of July, 2005.
         Special thanks to <a href="http://www.contegix.com" target="_blank">Contegix</a> for hosting the conference this year.
-         <a href="http://www.hotwaxmedia.com/?atc=OFB">Hotwax Media</a> teamed up with Contegix to offer 2 days of training prior to the conference (on July 19-20). 
-        For details and registration information please see the <a href="http://lists.ofbiz.org/pipermail/users/2005-May/007887.html" target="_blank">official announcement</a> on the OFBiz Users mailing list, 
+         <a href="http://www.hotwaxmedia.com/?atc=OFB">Hotwax Media</a> teamed up with Contegix to offer 2 days of training prior to the conference (on July 19-20).
+        For details and registration information please see the <a href="http://lists.ofbiz.org/pipermail/users/2005-May/007887.html" target="_blank">official announcement</a> on the OFBiz Users mailing list,
         and the <a href="http://lists.ofbiz.org/pipermail/users/2005-May/007926.html" target="_blank">preview/update</a> with more information about what you'll see there.
         </p>
 
         <p>Also see the <a href="http://lists.ofbiz.org/pipermail/users/2005-July/008161.html" target="_blank">latest update on the 2005 OFBiz Users Conference</a> with detailed session information and everything you need to know to attend.</p>
-          
+
         <p>New Case Study from Integral Business Solutions about their projects
           based on Apache OFBiz, especially recent work they have done for the US Air Force. <a href="IntegralAirForceCaseStudy.pdf">Download the complete document here.</a></p>
-        
+
         <p>Apache OFBiz Basic Production Setup document Now Available: <a href="http://docs.ofbiz.org/x/j">Apache OFBiz Production Setup Guide</a>.
-        This is a free download meant to help you get going with Apache OFBiz. It is sponsored by 
-         <a href="http://www.hotwaxmedia.com/?atc=OFB" target="_blank">Hotwax Media</a> and 
+        This is a free download meant to help you get going with Apache OFBiz. It is sponsored by
+         <a href="http://www.hotwaxmedia.com/?atc=OFB" target="_blank">Hotwax Media</a> and
         <a href="http://www.go-integral.com" target="_blank">Integral Business Solutions</a>.
         </p>
 
-        
+
         <p>New Success Story Article about OFBiz on java.net:
         <a href="http://today.java.net/pub/a/today/2004/06/01/ofbiz.html" target="_blank">Read it here.</a>
         </p>
-        
+
         <p>The <b>2004 Open For Business Users Conference</b> was
         held in Minneapolis, MN, USA on the 27th and 28th of May, 2004. It was
         hosted by <a href="http://www.go-integral.com" target="_blank">Integral Business Solutions</a>
@@ -223,7 +223,7 @@ under the License.
         discussion and presentation of new and stable features in OFBiz.
         For more information, see the <a href="VideosConf.html">Conference Videos</a> page.
         </p>
-          
+
         <h3>News</h3>
         <p>2005-11-18 &quot;<a href="http://www.thechannelinsider.com/article/The+Case+for+OpenSource+ERP/165733_1.aspx" target="_blank">The Case for Open-Source ERP</a>&quot; on <a href="http://www.thechannelinsider.com/" target="_blank">eWeek Channel Insider</a></p>
         <p>2005-09-06 &quot;<a href="http://www.thechannelinsider.com/article/Open+Source+Offers+ERP+Alternative/159460_1.aspx" target="_blank">Open Source Offers ERP Alternative</a>&quot; on <a href="http://www.thechannelinsider.com/" target="_blank">eWeek Channel Insider</a></p>
@@ -246,6 +246,6 @@ under the License.
 
     </div>
 
-    <div class="endcolumns"><span>&nbsp;</span></div>    
+    <div class="endcolumns"><span>&nbsp;</span></div>
 
 <!-- content end -->

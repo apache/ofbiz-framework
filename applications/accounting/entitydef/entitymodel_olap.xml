@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
     <!-- ========================================================= -->
     <!-- ======================== Defaults ======================= -->
@@ -101,7 +101,7 @@ under the License.
 
         <prim-key field="invoiceId"/>
         <prim-key field="invoiceItemSeqId"/>
-        
+
         <relation type="one" fk-name="SIIF_INVDATE" rel-entity-name="DateDimension">
             <key-map field-name="invoiceDateDimId" rel-field-name="dimensionId"/>
         </relation>
@@ -119,7 +119,7 @@ under the License.
     <!-- ========================================================= -->
     <view-entity entity-name="SalesInvoiceItemStarSchema" package-name="org.ofbiz.bi.starschema.accounting" title="Sales Invoice Item Star Schema">
         <description>Invoice Item star schema (Profit and Loss Statement).</description>
-        
+
         <member-entity entity-alias="SIIF" entity-name="SalesInvoiceItemFact"/>
         <member-entity entity-alias="IDD" entity-name="DateDimension"/>
         <member-entity entity-alias="PD" entity-name="ProductDimension"/>
@@ -161,5 +161,5 @@ under the License.
         </view-link>
 
     </view-entity>
-    
+
 </entitymodel>

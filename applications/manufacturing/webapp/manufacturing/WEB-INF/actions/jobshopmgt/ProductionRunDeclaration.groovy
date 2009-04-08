@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -30,7 +30,7 @@ import javolution.util.FastList;
 productionRunId = parameters.productionRunId ?: parameters.workEffortId;
 if (productionRunId) {
     ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
-    if (productionRun.exist()){
+    if (productionRun.exist()) {
         productionRunId = productionRun.getGenericValue().workEffortId;
         context.productionRunId = productionRunId;
         context.productionRun = productionRun.getGenericValue();
@@ -66,10 +66,10 @@ if (productionRunId) {
         // Find if the production run can produce inventory.
         quantityProduced = productionRun.getGenericValue().quantityProduced ?: 0.0;
         quantityRejected = productionRun.getGenericValue().quantityRejected ?: 0.0;
-        
+
         lastTask = productionRun.getLastProductionRunRoutingTask();
         quantityDeclared = lastTask ? (lastTask.quantityProduced ?: 0.0) : 0.0 ;
-        
+
         if (lastTask && ("PRUN_RUNNING".equals(lastTask.currentStatusId) || "PRUN_COMPLETED".equals(lastTask.currentStatusId))) {
             context.canDeclareAndProduce = "Y";
         }
@@ -103,7 +103,7 @@ if (productionRunId) {
         //---------------
         // routingTask update sub-screen
         routingTaskId = parameters.routingTaskId;
-        if (routingTaskId && (actionForm.equals("UpdateRoutingTask") || actionForm.equals("EditRoutingTask"))){
+        if (routingTaskId && (actionForm.equals("UpdateRoutingTask") || actionForm.equals("EditRoutingTask"))) {
             routingTask = delegator.findByPrimaryKey("WorkEffort", [workEffortId : routingTaskId]);
             Map routingTaskData = routingTask.getAllFields();
             routingTaskData.estimatedSetupMillis = routingTask.getDouble("estimatedSetupMillis");
@@ -177,7 +177,7 @@ if (productionRunId) {
         productionRunComponentsData = FastList.newInstance();
         productionRunComponentsDataReadyForIssuance = FastList.newInstance();
         productionRunComponentsAlreadyIssued = FastList.newInstance();
-        if (productionRunComponents){
+        if (productionRunComponents) {
             productionRunComponents.each { component ->
                 product = component.getRelatedOne("Product");
                 componentName = product.getString("internalName");

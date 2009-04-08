@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="cdynePostalAddressFillInCounty" short-description="Cdyne PostalAddress Fill In County">
         <entity-one entity-name="PostalAddress" value-field="postalAddress"/>
@@ -38,7 +38,7 @@ under the License.
                     <results-to-map map-name="cdyneResultMap"/>
                 </call-service>
                 <log level="verbose" message="Got result from CDyne service: ${cdyneResultMap}"/>
-                
+
                 <!-- Now try to find the county based on what was returned -->
                 <entity-condition entity-name="GeoAssocAndGeoTo" list="geoList">
                     <condition-list combine="and">

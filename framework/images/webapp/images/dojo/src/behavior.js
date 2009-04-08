@@ -38,7 +38,7 @@ dojo.behavior = new function(){
 	this.add = function(behaviorObj){
 		/*	behavior objects are specified in the following format:
 		 *
-		 *	{ 
+		 *	{
 		 *	 	"#id": {
 		 *			"found": function(element){
 		 *				// ...
@@ -107,7 +107,7 @@ dojo.behavior = new function(){
 		 *	The "found" method is a generalized handler that's called as soon
 		 *	as the node matches the selector. Rules for values that follow also
 		 *	apply to the "found" key.
-		 *	
+		 *
 		 *	The "on*" handlers are attached with dojo.event.connect(). If the
 		 *	value is not a function but is rather an object, it's assumed to be
 		 *	the "other half" of a dojo.event.kwConnect() argument object. It
@@ -208,7 +208,7 @@ dojo.behavior = new function(){
 		// fast DOM queries...wheeee!
 		forIn(this.behaviors, function(tBehavior, id){
 			var elems = dojo.behavior.elementsById(id);
-			dojo.lang.forEach(elems.added, 
+			dojo.lang.forEach(elems.added,
 				function(elem){
 					forIn(tBehavior, function(ruleSet, ruleSetName){
 						if(dojo.lang.isArray(ruleSet)){
@@ -222,7 +222,7 @@ dojo.behavior = new function(){
 		});
 		dojo.profile.end("dojo.behavior.applyFast");
 	}
-	
+
 	this.applySlow = function(){
 		// iterate. Ugg.
 		dojo.profile.start("dojo.behavior.applySlow");

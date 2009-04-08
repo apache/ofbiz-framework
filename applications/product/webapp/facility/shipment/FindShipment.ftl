@@ -49,7 +49,7 @@ function lookupShipments() {
                 <td width="25%" align="right" class="label">${uiLabelMap.ProductShipmentId}</td>
                 <td width="5%">&nbsp;</td>
                 <td><input type="text" name="shipmentId" value="${shipmentId?if_exists}"></td>
-              </tr>             
+              </tr>
               <tr>
                 <td width="25%" align="right" class="label">${uiLabelMap.ProductShipmentType}</td>
                 <td width="5%">&nbsp;</td>
@@ -59,13 +59,13 @@ function lookupShipments() {
                     <option value="${currentShipmentType.shipmentTypeId}">${currentShipmentType.get("description",locale)}</option>
                     <option value="${currentShipmentType.shipmentTypeId}">---</option>
                     </#if>
-                    <option value="">${uiLabelMap.ProductAnyShipmentType}</option>                
+                    <option value="">${uiLabelMap.ProductAnyShipmentType}</option>
                     <#list shipmentTypes as shipmentType>
                       <option value="${shipmentType.shipmentTypeId}">${shipmentType.get("description",locale)}</option>
                     </#list>
                   </select>
                 </td>
-              </tr>                                           
+              </tr>
               <tr>
                 <td width="25%" align="right" class="label">${uiLabelMap.ProductOriginFacility}</td>
                 <td width="5%">&nbsp;</td>
@@ -75,13 +75,13 @@ function lookupShipments() {
                     <option value="${currentOriginFacility.facilityId}">${currentOriginFacility.facilityName} [${currentOriginFacility.facilityId}]</option>
                     <option value="${currentOriginFacility.facilityId}">---</option>
                     </#if>
-                    <option value="">${uiLabelMap.ProductAnyFacility}</option>                
+                    <option value="">${uiLabelMap.ProductAnyFacility}</option>
                     <#list facilities as facility>
                       <option value="${facility.facilityId}">${facility.facilityName} [${facility.facilityId}]</option>
                     </#list>
                   </select>
                 </td>
-              </tr>                                           
+              </tr>
               <tr>
                 <td width="25%" align="right" class="label">${uiLabelMap.ProductDestinationFacility}</td>
                 <td width="5%">&nbsp;</td>
@@ -91,58 +91,58 @@ function lookupShipments() {
                     <option value="${currentDestinationFacility.facilityId}">${currentDestinationFacility.facilityName} [${currentDestinationFacility.facilityId}]</option>
                     <option value="${currentDestinationFacility.facilityId}">---</option>
                     </#if>
-                    <option value="">${uiLabelMap.ProductAnyFacility}</option>                
+                    <option value="">${uiLabelMap.ProductAnyFacility}</option>
                     <#list facilities as facility>
                       <option value="${facility.facilityId}">${facility.facilityName} [${facility.facilityId}]</option>
                     </#list>
                   </select>
                 </td>
-              </tr>                                           
+              </tr>
               <tr>
                 <td width="25%" align="right" class="label">${uiLabelMap.ProductStatus}</td>
                 <td width="5%">&nbsp;</td>
                 <td>
-                  <select name="statusId"> 
+                  <select name="statusId">
                     <#if currentStatus?has_content>
                     <option value="${currentStatus.statusId}">${currentStatus.get("description",locale)}</option>
                     <option value="${currentStatus.statusId}">---</option>
-                    </#if>                                     
-                    <option value="">${uiLabelMap.ProductSalesShipmentStatus}</option>                   
+                    </#if>
+                    <option value="">${uiLabelMap.ProductSalesShipmentStatus}</option>
                     <#list shipmentStatuses as shipmentStatus>
                       <option value="${shipmentStatus.statusId}">${shipmentStatus.get("description",locale)}</option>
                     </#list>
                     <option value="">---</option>
-                    <option value="">${uiLabelMap.ProductPurchaseShipmentStatus}</option>                   
+                    <option value="">${uiLabelMap.ProductPurchaseShipmentStatus}</option>
                     <#list purchaseShipmentStatuses as shipmentStatus>
                       <option value="${shipmentStatus.statusId}">${shipmentStatus.get("description",locale)}</option>
                     </#list>
                   </select>
                 </td>
-              </tr>                            
+              </tr>
               <tr>
                 <td width="25%" align="right" class="label">${uiLabelMap.ProductDateFilter}</td>
                 <td width="5%">&nbsp;</td>
                 <td>
                   <table cellspacing="0" class="basic-table">
-                    <tr>                      
-                      <td>                        
+                    <tr>
+                      <td>
                         <input type="text" size="25" name="minDate" value="${requestParameters.minDate?if_exists}">
                         <a href="javascript:call_cal(document.lookupShipmentForm.minDate, '${fromDateStr}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                         <span class="label">${uiLabelMap.CommonFrom}</span>
                       </td>
                     </tr>
-                    <tr>                  
-                      <td>                       
+                    <tr>
+                      <td>
                         <input type="text" size="25" name="maxDate" value="${requestParameters.maxDate?if_exists}">
-                        <a href="javascript:call_cal(document.lookupShipmentForm.maxDate, '${thruDateStr}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>                   
+                        <a href="javascript:call_cal(document.lookupShipmentForm.maxDate, '${thruDateStr}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                         <span class="label">${uiLabelMap.CommonThru}</span>
                       </td>
                     </tr>
                   </table>
                 </td>
               </tr>
-            </table>          
-        </form> 
+            </table>
+        </form>
     </div>
 </div>
 <#if shipmentList?exists>
@@ -150,7 +150,7 @@ function lookupShipments() {
     <div class="screenlet-title-bar">
         <ul>
             <li class="h3">${uiLabelMap.ProductShipmentsFound}</li>
-            <#if 0 < shipmentList?size>             
+            <#if 0 < shipmentList?size>
                 <#if (shipmentList?size > highIndex)>
                     <li><a class="nav-next" href="<@ofbizUrl>FindShipment?VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}${paramList}&amp;lookupFlag=Y</@ofbizUrl>">${uiLabelMap.CommonNext}</a></li>
                 <#else>
@@ -176,7 +176,7 @@ function lookupShipments() {
           <td width="25%">${uiLabelMap.ProductDestFacility}</td>
           <td width="15%">${uiLabelMap.ProductShipDate}</td>
           <td width="5%">&nbsp;</td>
-        </tr>        
+        </tr>
         <#if shipmentList?has_content>
           <#assign alt_row = false>
           <#list shipmentList as shipment>
@@ -197,13 +197,13 @@ function lookupShipments() {
             </tr>
             <#-- toggle the row color -->
             <#assign alt_row = !alt_row>
-          </#list>          
+          </#list>
         <#else>
           <tr>
             <td colspan="7"><h3>${uiLabelMap.ProductNoShipmentsFound}.</h3></td>
-          </tr>        
+          </tr>
         </#if>
-        </table>    
+        </table>
     </div>
 </div>
 </#if>

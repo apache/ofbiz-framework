@@ -55,7 +55,7 @@ under the License.
         <td>&nbsp;</td>
       </tr>
       <#list components as component>
-        <#assign keystores = component.getKeystoreInfos()?if_exists/>    
+        <#assign keystores = component.getKeystoreInfos()?if_exists/>
           <#list keystores as store>
             <#if (store.isTrustStore())>
               <tr>
@@ -63,7 +63,7 @@ under the License.
                   <input type="hidden" name="componentName" value="${component.getComponentName()}"/>
                   <input type="hidden" name="keystoreName" value="${store.getName()}"/>
                   <input type="hidden" name="certString" value="${requestParameters.certString}"/>
-    
+
                   <td>${component.getComponentName()}</td>
                   <td>${store.getName()}</td>
                   <td align="center"><input type="checkbox" name="importIssuer" value="Y"/>

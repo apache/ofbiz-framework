@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="FindContent">
@@ -125,11 +125,11 @@ under the License.
         <section>
             <actions>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>                
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
                 <container>
-                    <include-form name="AddDocument" location="component://content/widget/content/ContentForms.xml"/> 
+                    <include-form name="AddDocument" location="component://content/widget/content/ContentForms.xml"/>
                 </container>
             </widgets>
         </section>
@@ -146,7 +146,7 @@ under the License.
                         <condition-expr field-name="contentId" from-field="contentId" operator="equals"/>
                     </condition-list>
                 </entity-condition>
-            </actions>   
+            </actions>
             <widgets>
                 <include-form name="ListDocument" location="component://content/widget/content/ContentForms.xml"/>
             </widgets>
@@ -186,7 +186,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditContent" location="component://content/widget/content/ContentForms.xml"/>
                                     </widgets>
                                 </section>
@@ -201,7 +201,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditContentAssoc"/>
-                <set field="currentContentMenuItemName" value="contentassoc" to-scope="user"/>                
+                <set field="currentContentMenuItemName" value="contentassoc" to-scope="user"/>
                 <set field="extraFunctionName" value="'${uiLabelMap.CommonFrom}'"/>
                 <set field="tabButtonItem" value="association"/>
                 <set field="contentId" from-field="parameters.contentId"/>
@@ -222,7 +222,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListContentAssocFrom" location="component://content/widget/content/ContentForms.xml"/>
                                     </widgets>
                                 </section>
@@ -236,7 +236,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListContentAssocTo" location="component://content/widget/content/ContentForms.xml"/>
                                     </widgets>
                                 </section>
@@ -249,7 +249,7 @@ under the License.
                                     <not><if-empty field="contentIdTo"/></not>
                                     <not><if-empty field="contentAssocTypeId"/></not>
                                     <not><if-empty field="fromDate"/></not>
-                                </and>  
+                                </and>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -260,7 +260,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="EditContentAssoc" location="component://content/widget/content/ContentForms.xml"/>
                                             </widgets>
                                         </section>
@@ -271,11 +271,11 @@ under the License.
                         <section>
                             <condition>
                                 <or>
-                                    <if-empty field="contentId"/>  
-                                    <if-empty field="contentIdTo"/>  
-                                    <if-empty field="contentAssocTypeId"/>  
-                                    <if-empty field="fromDate"/>  
-                                </or>  
+                                    <if-empty field="contentId"/>
+                                    <if-empty field="contentIdTo"/>
+                                    <if-empty field="contentAssocTypeId"/>
+                                    <if-empty field="fromDate"/>
+                                </or>
                             </condition>
                             <widgets>
                                 <container style="screenlet">
@@ -286,7 +286,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="AddContentAssoc" location="component://content/widget/content/ContentForms.xml"/>
                                             </widgets>
                                         </section>
@@ -299,14 +299,14 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditContentRole">
         <section>
             <actions>
                 <script location="component://content/widget/GetMenuContext.groovy"/>
                 <set field="titleProperty" value="PageTitleEditContentRole"/>
                 <set field="tabButtonItem" value="role"/>
-                
+
                 <set field="contentId" from-field="parameters.contentId"/>
                 <set field="contentRoleTarget" value=""/>
                 <entity-one entity-name="Content" value-field="currentValue">
@@ -325,7 +325,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditContentPurpose">
         <section>
             <actions>
@@ -349,7 +349,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditContentAttribute">
         <section>
             <actions>
@@ -373,7 +373,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ListWebSite">
         <section>
             <actions>
@@ -409,7 +409,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditContentMetaData">
         <section>
             <actions>
@@ -457,7 +457,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="LookupContent">
         <section>
             <actions>

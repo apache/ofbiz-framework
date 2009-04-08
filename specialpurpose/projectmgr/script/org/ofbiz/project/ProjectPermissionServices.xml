@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,13 +20,13 @@
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    
+
     <simple-method method-name="projectMgrPermission" short-description="general service to check access to the project component">
         <set field="primaryPermission" value="PROJECTMGR"/>
         <set field="hasPermission" value="true" type="Boolean"/>
         <set field="hasNoPermission" value="false" type="Boolean"/>
         <set field="mainAction" from-field="parameters.mainAction"/>
-        
+
         <!-- find object -->
         <if-compare field="parameters.resourceDescription" value="Timesheet" operator="contains">
             <set field="sec_object" value="TIMESHEET"/>
@@ -50,8 +50,8 @@
                     </else>
                 </if-compare>
             </else>
-        </if-compare>      
-        
+        </if-compare>
+
         <!-- PROJECT -->
         <if-compare field="sec_object" value="PROJECT" operator="equals">
             <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/-->
@@ -97,8 +97,8 @@
                     <return/>
                 </else>
             </if>
-        </if-compare>        
-        
+        </if-compare>
+
         <!-- PHASE -->
         <if-compare field="sec_object" value="PHASE" operator="equals">
             <set field="projectId" from-field="parameters.projectId"/>
@@ -139,7 +139,7 @@
                     <return/>
                 </else>
             </if>
-        </if-compare>        
+        </if-compare>
 
         <!-- TASK -->
         <if-compare field="sec_object" value="TASK" operator="equals">
@@ -160,13 +160,13 @@
                 <field-map field-name="roleTypeIdTo" value="CONTACT"/>
                 <field-map field-name="partyIdTo" from-field="custRequest.fromPartyId"/>
             </entity-and>
-            <first-from-list list="accounts" entry="accountCustReq"/> 
+            <first-from-list list="accounts" entry="accountCustReq"/>
             <entity-and entity-name="PartyRelationship" list="accounts">
                 <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
                 <field-map field-name="roleTypeIdTo" value="CONTACT"/>
                 <field-map field-name="partyIdTo" from-field="parameters.userLogin.partyId"/>
             </entity-and>
-            <first-from-list list="accounts" entry="accountLogin"/> 
+            <first-from-list list="accounts" entry="accountLogin"/>
             <if>
                 <condition>
                     <or>
@@ -225,9 +225,9 @@
                     <return/>
                 </else>
             </if>
-        </if-compare>        
-        
-        
+        </if-compare>
+
+
         <!-- TIMESHEET -->
         <if-compare field="sec_object" value="TIMESHEET" operator="equals">
             <entity-one entity-name="Timesheet" value-field="timesheet" use-cache="true"/>
@@ -272,7 +272,7 @@
                 </else>
             </if>
         </if-compare>
-        
+
         <!-- TIMEENTRY -->
         <if-compare field="sec_object" value="TIMEENTRY" operator="equals">
             <entity-one entity-name="Timesheet" value-field="timesheet" use-cache="true"/>
@@ -336,7 +336,7 @@
         <field-to-result field="failMessage"/>
         <field-to-result field="hasNoPermission" result-name="hasPermission"/>
     </simple-method>
-    
+
     <simple-method method-name="checkProjectMembership" short-description="check if a party is member of a project, input either 'taskId', 'phaseId' or 'projectId', returns 'isMember' ">
         <!--log level="always" message="==========object = ${sec_object}, check project membershhip with the following data.. taskId: ${taskId} phaseId: ${phaseId} projectId: ${projectId} party: ${partyId}"></log-->
         <set field="isMember" value="false" type="Boolean"/>
@@ -351,7 +351,7 @@
                         <set field="phaseId" from-field="task.workEffortParentId"/>
                     </else>
                 </if-empty>
-            </if-empty>    
+            </if-empty>
         </if-empty>
         <if-empty field="projectId">
             <entity-one entity-name="WorkEffort" value-field="phase" use-cache="true">

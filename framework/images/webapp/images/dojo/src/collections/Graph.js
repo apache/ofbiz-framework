@@ -66,7 +66,7 @@ dojo.collections.Graph=function(nodes){
 				this.element=o[position];
 			};
 		}
-		
+
 		this.add=function(node){
 			d.add(node.key, node);
 		};

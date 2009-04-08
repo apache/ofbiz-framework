@@ -36,6 +36,6 @@ under the License.
                 </map-HashMap>
             </ofbiz-ser>
         ]]></runtimeInfo>
-    </RuntimeData>    
+    </RuntimeData>
     <JobSandbox jobId="8500" jobName="Generate Invoice template" runTime="2008-05-14 00:00:00.000" serviceName="autoGenerateInvoiceFromExistingInvoice" runtimeDataId="8501" poolId="pool" runAsUser="system" recurrenceInfoId="400"/>
 </entity-engine-xml>

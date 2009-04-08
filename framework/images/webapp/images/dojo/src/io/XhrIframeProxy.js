@@ -34,12 +34,12 @@ dojo.io.XhrIframeProxy = {
 		return (true == dojo.render.html.ie70);
 	},
 
-	send: function(facade){		
+	send: function(facade){
 		var stateId = "XhrIframeProxy" + (this._stateIdCounter++);
 		facade._stateId = stateId;
 
 
-		var frameUrl = this.xipClientUrl + "#0:init:id=" + stateId + "&server=" 
+		var frameUrl = this.xipClientUrl + "#0:init:id=" + stateId + "&server="
 			+ encodeURIComponent(facade._ifpServerUrl) + "&fr=false";
 		if(this.needFrameRecursion()){
 			//IE7 hack. Need to load server URL, and have that load the xip_client.html.
@@ -47,11 +47,11 @@ dojo.io.XhrIframeProxy = {
 			//Otherwise, IE7 will not load it. Funky.
 			var fullClientUrl = window.location.href.substring(0, window.location.href.lastIndexOf("/") + 1);
 			fullClientUrl += this.xipClientUrl;
-		
+
 			var serverUrl = facade._ifpServerUrl
 				+ (facade._ifpServerUrl.indexOf("?") == -1 ? "?" : "&") + "dojo.fr=1";
 
-			frameUrl = serverUrl + "#0:init:id=" + stateId + "&client=" 
+			frameUrl = serverUrl + "#0:init:id=" + stateId + "&client="
 				+ encodeURIComponent(fullClientUrl) + "&fr=" + this.needFrameRecursion(); //fr is for Frame Recursion
 		}
 
@@ -60,10 +60,10 @@ dojo.io.XhrIframeProxy = {
 			stateId: stateId,
 			clientFrame: dojo.io.createIFrame(stateId, "", frameUrl)
 		};
-		
+
 		return stateId;
 	},
-	
+
 	receive: function(/*String*/stateId, /*String*/urlEncodedData){
 		/* urlEncodedData should have the following params:
 				- responseHeaders
@@ -94,7 +94,7 @@ dojo.io.XhrIframeProxy = {
 		}
 		if(response.responseText){
 			facade.responseText = response.responseText;
-			
+
 			//Fix responseXML.
 			var contentType = facade.getResponseHeader("Content-Type");
 			if(contentType && (contentType == "application/xml" || contentType == "text/xml")){
@@ -102,7 +102,7 @@ dojo.io.XhrIframeProxy = {
 			}
 		}
 		facade.readyState = 4;
-		
+
 		this.destroyState(stateId);
 	},
 
@@ -120,12 +120,12 @@ dojo.io.XhrIframeProxy = {
 		for(var param in facade._requestHeaders){
 			reqHeaders.push(param + ": " + facade._requestHeaders[param]);
 		}
-		
+
 		var requestData = {
 			uri: facade._uri
 		};
 		if(reqHeaders.length > 0){
-			requestData.requestHeaders = reqHeaders.join("\r\n");		
+			requestData.requestHeaders = reqHeaders.join("\r\n");
 		}
 		if(facade._method){
 			requestData.method = facade._method;
@@ -136,7 +136,7 @@ dojo.io.XhrIframeProxy = {
 
 		clientWindow.send(dojo.io.argsFromMap(requestData, "utf8"));
 	},
-	
+
 	destroyState: function(/*String*/stateId){
 		var state = this._state[stateId];
 		if(state){
@@ -169,7 +169,7 @@ dojo.hostenv.getXmlhttpObject = dojo.io.XhrIframeProxy.createFacade;
 */
 dojo.io.XhrIframeFacade = function(ifpServerUrl){
 	//summary: XMLHttpRequest facade object used by dojo.io.XhrIframeProxy.
-	
+
 	//description: Do not use this object directly. See the Dojo Book page
 	//on XMLHttpRequest IFrame Proxying:
 	//http://manual.dojotoolkit.org/WikiHome/DojoDotBook/Book75
@@ -184,7 +184,7 @@ dojo.io.XhrIframeFacade = function(ifpServerUrl){
 	this.status = null;
 	this.statusText = null;
 	this.readyState = 0;
-	
+
 	this._ifpServerUrl = ifpServerUrl;
 	this._stateId = null;
 }
@@ -197,34 +197,34 @@ dojo.lang.extend(dojo.io.XhrIframeFacade, {
 
 		this.readyState = 1;
 	},
-	
+
 	setRequestHeader: function(/*String*/header, /*String*/value){
 		this._requestHeaders[header] = value;
 	},
-	
+
 	send: function(/*String*/stringData){
 		this._bodyData = stringData;
-		
+
 		this._stateId = dojo.io.XhrIframeProxy.send(this);
-		
+
 		this.readyState = 2;
 	},
 	abort: function(){
 		dojo.io.XhrIframeProxy.destroyState(this._stateId);
 	},
-	
+
 	getAllResponseHeaders: function(){
 		return this._allResponseHeaders; //String
 	},
-	
+
 	getResponseHeader: function(/*String*/header){
 		return this._responseHeaders[header]; //String
 	},
-	
+
 	_setResponseHeaders: function(/*String*/allHeaders){
 		if(allHeaders){
 			this._allResponseHeaders = allHeaders;
-			
+
 			//Make sure ther are now CR characters in the headers.
 			allHeaders = allHeaders.replace(/\r/g, "");
 			var nvPairs = allHeaders.split("\n");

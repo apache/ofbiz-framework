@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -24,7 +24,7 @@ import org.ofbiz.common.email.NotificationServices;
 
 orderId = request.getParameter("orderId") ?: parameters.get("orderId");
 context.orderId = orderId;
- 
+
 partyId = request.getParameter("partyId");
 sendTo = request.getParameter("sendTo");
 
@@ -37,7 +37,7 @@ context.donePage = donePage;
 // Provide the correct order confirmation ProductStoreEmailSetting, if one exists
 orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
 if (orderHeader.productStoreId) {
-    productStoreEmailSetting = delegator.findByPrimaryKeyCache("ProductStoreEmailSetting", [productStoreId : orderHeader.productStoreId, emailType : "PRDS_ODR_CONFIRM"]);    
+    productStoreEmailSetting = delegator.findByPrimaryKeyCache("ProductStoreEmailSetting", [productStoreId : orderHeader.productStoreId, emailType : "PRDS_ODR_CONFIRM"]);
     if (productStoreEmailSetting) {
         context.productStoreEmailSetting = productStoreEmailSetting;
     }

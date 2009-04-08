@@ -20,7 +20,7 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    
+
     <simple-method method-name="getArithmeticSettingsInline" short-description="getArithmeticSettingsInline">
         <property-to-field resource="arithmetic" property="finaccount.decimals" field="roundingDecimals" default="2"/>
         <property-to-field resource="arithmetic" property="finaccount.roundingSimpleMethod" field="roundingMode" default="HalfUp"/>
@@ -29,12 +29,12 @@ under the License.
 
     <simple-method method-name="createFinAccount" short-description="Create a Financial Account">
         <call-simple-method method-name="getArithmeticSettingsInline"/>
-        
+
         <!-- if no statusId set to default to FNACT_ACTIVE -->
         <if-empty field="parameters.statusId">
             <set field="parameters.statusId" value="FNACT_ACTIVE"/>
         </if-empty>
-        
+
         <make-value value-field="newEntity" entity-name="FinAccount"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -47,9 +47,9 @@ under the License.
 
         <!-- set the currency if none is already set -->
         <if-empty field="newEntity.currencyUomId">
-            
+
             <property-to-field resource="general" property="currency.uom.id.default" field="defaultCurrency"/>
-            <set field="newEntity.currencyUomId" from-field="defaultCurrency"/>  
+            <set field="newEntity.currencyUomId" from-field="defaultCurrency"/>
         </if-empty>
 
         <!-- set the refundable flag from the type; if not set -->
@@ -71,7 +71,7 @@ under the License.
                 </then>
             </if>
         </if-empty>
-        
+
         <!-- make sure the replenishLevel is a sane number -->
         <calculate field="newEntity.replenishLevel" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="get" field="newEntity.replenishLevel"/>
@@ -79,13 +79,13 @@ under the License.
 
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.finAccountId" result-name="finAccountId"/>
-        
+
         <set-service-fields service-name="createFinAccountStatus" map="newEntity" to-map="createFinAccountStatusMap"/>
         <call-service service-name="createFinAccountStatus" in-map-name="createFinAccountStatusMap"/>
     </simple-method>
     <simple-method method-name="updateFinAccount" short-description="Update a Financial Account">
         <call-simple-method method-name="getArithmeticSettingsInline"/>
-        
+
         <entity-one entity-name="FinAccount" value-field="lookedUpValue"/>
         <field-to-result field="lookedUpValue.replenishPaymentId" result-name="oldReplenishPaymentId"/>
         <field-to-result field="lookedUpValue.replenishLevel" result-name="oldReplenishLevel"/>
@@ -113,7 +113,7 @@ under the License.
                         <check-errors/>
                     </if-empty>
                 </if-not-empty>
-                
+
                 <!-- before we set the nonpk fields, if the statusId is different save a status history record -->
                 <set-service-fields service-name="createFinAccountStatus" map="parameters" to-map="createFinAccountStatusMap"/>
                 <call-service service-name="createFinAccountStatus" in-map-name="createFinAccountStatusMap"/>
@@ -127,19 +127,19 @@ under the License.
             <calcop operator="get" field="lookedUpValue.replenishLevel"/>
         </calculate>
         <store-value value-field="lookedUpValue"/>
-        
+
         <field-to-result field="lookedUpValue.replenishPaymentId" result-name="replenishPaymentId"/>
         <field-to-result field="lookedUpValue.replenishLevel" result-name="replenishLevel"/>
-        <field-to-result field="lookedUpValue.finAccountId" result-name="finAccountId"/>        
+        <field-to-result field="lookedUpValue.finAccountId" result-name="finAccountId"/>
     </simple-method>
     <simple-method method-name="deleteFinAccount" short-description="Delete a Financial Account">
         <entity-one value-field="finAccount" entity-name="FinAccount"/>
         <remove-value value-field="finAccount"/>
     </simple-method>
-    
+
     <simple-method method-name="createFinAccountStatus" short-description="Create FinAccountStatus">
         <now-timestamp field="nowTimestamp"/>
-        
+
         <!-- find the most recent status record and set the statusEndDate -->
         <entity-and entity-name="FinAccountStatus" list="oldFinAccountStatusList">
             <field-map field-name="finAccountId" from-field="parameters.finAccountId"/>
@@ -150,18 +150,18 @@ under the License.
             <set field="oldFinAccountStatus.statusEndDate" from-field="nowTimestamp"/>
             <store-value value-field="oldFinAccountStatus"/>
         </if-not-empty>
-        
+
         <make-value entity-name="FinAccountStatus" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.statusDate" from-field="nowTimestamp"/>
-        <create-value value-field="newEntity"/>  
+        <create-value value-field="newEntity"/>
     </simple-method>
 
-    <!-- FinAccountTrans Services -->    
+    <!-- FinAccountTrans Services -->
     <simple-method method-name="createFinAccountTrans" short-description="Create a Financial Account Transaction">
         <call-simple-method method-name="getArithmeticSettingsInline"/>
-        
+
         <make-value value-field="newEntity" entity-name="FinAccountTrans"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <sequenced-id sequence-name="FinAccountTrans" field="newEntity.finAccountTransId"/>
@@ -173,7 +173,7 @@ under the License.
         <if-empty field="newEntity.entryDate">
             <set from-field="nowTimestamp" field="newEntity.entryDate"/>
         </if-empty>
-        
+
         <set field="newEntity.performedByPartyId" from-field="userLogin.partyId"/>
 
         <!-- make sure the amount is a sane number -->
@@ -189,7 +189,7 @@ under the License.
         <field-to-result field="newEntity.finAccountTransId" result-name="finAccountTransId"/>
     </simple-method>
 
-    <!-- FinAccountRole Services -->    
+    <!-- FinAccountRole Services -->
     <simple-method method-name="createFinAccountRole" short-description="Create a Financial Account Role">
         <make-value value-field="newEntity" entity-name="FinAccountRole"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
@@ -211,15 +211,15 @@ under the License.
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <!-- FinAccountAuth Services -->    
+    <!-- FinAccountAuth Services -->
     <simple-method method-name="createFinAccountAuth" short-description="Create a Financial Account Authorization">
         <call-simple-method method-name="getArithmeticSettingsInline"/>
-        
+
         <make-value value-field="newEntity" entity-name="FinAccountAuth"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
 
         <sequenced-id sequence-name="FinAccountAuth" field="newEntity.finAccountAuthId"/>
-        
+
         <now-timestamp field="nowTimestamp"/>
         <if-empty field="newEntity.authorizationDate">
             <set from-field="nowTimestamp" field="newEntity.authorizationDate"/>
@@ -236,7 +236,7 @@ under the License.
         <if-compare-field field="newEntity.amount" to-field="originalAmount" operator="not-equals" type="BigDecimal">
             <log level="warning" message="In createFinAccountAuth had to round the amount from [${originalAmount}] to [${newEntity.amount}]"></log>
         </if-compare-field>
-        
+
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.finAccountAuthId" result-name="finAccountAuthId"/>
     </simple-method>
@@ -250,7 +250,7 @@ under the License.
         </if-empty>
         <store-value value-field="finAccountAuth"/>
     </simple-method>
-    
+
     <!-- Some methods to maintain FinAccount.actualBalance and FinAccount.availableBalance -->
     <simple-method method-name="updateFinAccountBalancesFromTrans" short-description="">
         <if-not-empty field="parameters.finAccountId">
@@ -260,7 +260,7 @@ under the License.
                 <set field="finAccountId" from-field="mainFinAccountTrans.finAccountId"/>
             </else>
         </if-not-empty>
-        
+
         <call-simple-method method-name="inlineUpdateFinAccountActualAndAvailableBalance"/>
     </simple-method>
     <simple-method method-name="updateFinAccountBalancesFromAuth" short-description="">
@@ -271,15 +271,15 @@ under the License.
                 <set field="finAccountId" from-field="mainFinAccountAuth.finAccountId"/>
             </else>
         </if-not-empty>
-        
+
         <call-simple-method method-name="inlineUpdateFinAccountActualAndAvailableBalance"/>
     </simple-method>
     <simple-method method-name="inlineUpdateFinAccountActualAndAvailableBalance" short-description="">
         <call-simple-method method-name="getArithmeticSettingsInline"/>
-        
+
         <!-- NOTE: finAccountId should always be in place -->
         <!-- Get all of the records for the account from the database and sum everything up again, make sure we don't have any errors propagated over time -->
-        
+
         <entity-condition entity-name="FinAccountTrans" list="finAccountTransList">
             <condition-expr field-name="finAccountId" from-field="finAccountId"/>
         </entity-condition>
@@ -316,7 +316,7 @@ under the License.
                 </calcop>
             </calculate>
         </iterate>
-        
+
         <!-- Okay, now just store the results -->
         <entity-one entity-name="FinAccount" value-field="finAccount"/>
         <log level="info" message="In updateFinAccountBalancesFromTrans/Auth updating FinAccount with ID [${finAccountId}] with actualBalance: ${finAccount.actualBalance} -> ${actualBalanceSum}, and availableBalance: ${finAccount.availableBalance} -> ${availableBalanceSum}"/>
@@ -324,7 +324,7 @@ under the License.
         <set field="finAccount.availableBalance" from-field="availableBalanceSum"/>
         <store-value value-field="finAccount"/>
     </simple-method>
-    
+
     <!-- FinAccountTypeGlAccount methods -->
     <simple-method method-name="createFinAccountTypeGlAccount" short-description="Create an FinAccountTypeGlAccount">
         <make-value value-field="newEntity" entity-name="FinAccountTypeGlAccount"/>
@@ -332,18 +332,18 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>
-    
+
     <simple-method method-name="updateFinAccountTypeGlAccount" short-description="Update an FinAccountTypeGlAccount">
         <entity-one entity-name="FinAccountTypeGlAccount" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <simple-method method-name="deleteFinAccountTypeGlAccount" short-description="Delete an FinAccountTypeGlAccount">
         <entity-one entity-name="FinAccountTypeGlAccount" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- VarianceReasonGlAccount methods -->
     <simple-method method-name="createVarianceReasonGlAccount" short-description="Create a Variance Reason Gl Account">
         <make-value entity-name="VarianceReasonGlAccount" value-field="newEntity"/>
@@ -351,13 +351,13 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>
-    
+
     <simple-method method-name="updateVarianceReasonGlAccount" short-description="Update an Variance Reason Gl Account">
         <entity-one entity-name="VarianceReasonGlAccount" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <simple-method method-name="deleteVarianceReasonGlAccount" short-description="Delete an Variance Reason Gl Account">
         <entity-one entity-name="VarianceReasonGlAccount" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>

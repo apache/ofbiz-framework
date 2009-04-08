@@ -36,7 +36,7 @@ under the License.
     <filelist id="test-builds" dir="." files="base/build.xml,entity/build.xml"/>
 
     <property name="memory.max.param" value="-Xmx384M"/>
-    
+
     <!-- ================================================================== -->
     <!-- Initialization of all property settings                            -->
     <!-- ================================================================== -->
@@ -139,7 +139,7 @@ under the License.
         <mkdir dir="../runtime/logs"/>
 
         <iterate inheritall="false" filelist="framework-builds"/>
-        
+
         <echo message="[build] ========== Done Building Framework (Compile) =========="/>
     </target>
 

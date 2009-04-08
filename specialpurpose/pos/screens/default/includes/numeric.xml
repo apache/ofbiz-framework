@@ -60,5 +60,5 @@ under the License.
             <Button name="menuLoad" x="172" y="207" w="95" h="68" style="posButton" content="TRANS_RET" alignment="Center"/>
             <Button name="menuClrDisc" x="268" y="207" w="95" h="68" style="posButton" content="CLR_DISC" alignment="Center"/>
         </Panel>
-    </Components>    
+    </Components>
 </XPage>

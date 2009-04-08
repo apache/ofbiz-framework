@@ -21,18 +21,18 @@
     //var djConfig = {
     //    isDebug: false
     //};
-    
+
     dojo.require("dojo.widget.*");
     dojo.require("dojo.event.*");
     dojo.require("dojo.io.*");
 
     var treeSelected = false;
     var contentRoot = '${contentRoot?if_exists}';
-    var webSiteId = '${webSiteId?if_exists}';        
+    var webSiteId = '${webSiteId?if_exists}';
     var editorUrl = '<@ofbizUrl>/views/WebSiteCMSContent</@ofbizUrl>';
     var aliasUrl = '<@ofbizUrl>/views/WebSiteCMSPathAlias</@ofbizUrl>';
     var metaUrl = '<@ofbizUrl>/views/WebSiteCMSMetaInfo</@ofbizUrl>';
-        
+
     dojo.addOnLoad(function() {
         dojo.event.topic.subscribe("webCmsNodeSelected",
              function(message) {
@@ -95,14 +95,14 @@
     function createEditor(text) {
         var currentEditor = dojo.widget.byId("w_editor");
         if (currentEditor) {
-            currentEditor.destroy(true);           
+            currentEditor.destroy(true);
         }
 
         // display parent div
         dojo.html.show("editorcontainer");
-        
+
         // get the editor tag
-        var editorNode = dojo.byId("cmseditor");        
+        var editorNode = dojo.byId("cmseditor");
 
         if (editorNode) {
             if (text) {
@@ -145,7 +145,7 @@
             },
             load: function(type, data, evt) {
                 var innerPage = dojo.byId('cmscontent');
-                innerPage.innerHTML = data;                
+                innerPage.innerHTML = data;
             }
         };
         dojo.io.bind(bindArgs);
@@ -181,7 +181,7 @@
             },
             load: function(type, data, evt) {
                 var innerPage = dojo.byId('cmscontent');
-                innerPage.innerHTML = data;                
+                innerPage.innerHTML = data;
             }
         };
         dojo.io.bind(bindArgs);
@@ -195,7 +195,7 @@
             ctx['contentAssocTypeId'] = obj[1];
             ctx['fromDate'] = obj[2];
         }
-        
+
         ctx['contentRoot'] = contentRoot;
         ctx['webSiteId'] = webSiteId;
 
@@ -225,7 +225,7 @@
                 }
             }
         }
-                
+
         var bindArgs = {
             url: editorUrl,
             method: 'POST',
@@ -249,7 +249,7 @@
                 }
             }
         };
-        dojo.io.bind(bindArgs);        
+        dojo.io.bind(bindArgs);
     }
 
     function saveMetaInfo(form) {
@@ -272,7 +272,7 @@
 
     function pathSave(contentId) {
         //dojo.html.hide("submit");
-        
+
         var form = document.cmspathform;
         if (form != null) {
             var url = form.action;
@@ -326,7 +326,7 @@
                 error: function(type, data, evt) {
                     alert("An error occurred submitting form.");
                 },
-                load: function(type, data, evt) {                    
+                load: function(type, data, evt) {
                 }
             };
             dojo.io.bind(bindArgs);
@@ -378,7 +378,7 @@
 <dojo:TreeSelector widgetId="webCmsTreeSelector" eventNames="select:webCmsNodeSelected"></dojo:TreeSelector>
 <div dojoType="Tree" menu="webCmsContextMenu" widgetId="webCmsTree" selector="webCmsTreeSelector" toggler="fade" toggleDuration="500">
     <#if (subsites?has_content)>
-        <@fillTree assocList = subsites/>    
+        <@fillTree assocList = subsites/>
     </#if>
 </div>
 <#if (!subsites?has_content)>
@@ -390,7 +390,7 @@
 
 <dl dojoType="TreeContextMenu" id="webMenuContextMenu" style="font-size: 1em; color: #ccc;">
     <dt dojoType="TreeMenuItem" id="newItem" caption="New Menu Item"/>
-    <dt dojoType="TreeMenuItem" id="newMenu" caption="New Menu"/>    
+    <dt dojoType="TreeMenuItem" id="newMenu" caption="New Menu"/>
 </dl>
 
 <div class="label">

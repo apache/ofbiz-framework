@@ -13,8 +13,8 @@ dojo.require("dojo.lang.common");
 dojo.require("dojo.charting.PlotArea");
 
 dojo.charting.Chart = function(
-	/* HTMLElement? */node, 
-	/* string? */title, 
+	/* HTMLElement? */node,
+	/* string? */title,
 	/* string? */description
 ){
 	//	summary
@@ -36,7 +36,7 @@ dojo.extend(dojo.charting.Chart, {
 		this.plotAreas.push(obj);
 		if(doRender){ this.render(); }
 	},
-	
+
 	//	events
 	onInitialize:function(chart){ },
 	onRender:function(chart){ },
@@ -46,8 +46,8 @@ dojo.extend(dojo.charting.Chart, {
 	initialize: function(){
 		//	summary
 		//	Initialize the Chart by rendering it.
-		if(!this.node){ 
-			dojo.raise("dojo.charting.Chart.initialize: there must be a root node defined for the Chart."); 
+		if(!this.node){
+			dojo.raise("dojo.charting.Chart.initialize: there must be a root node defined for the Chart.");
 		}
 		this.destroy();
 		this.render();
@@ -78,8 +78,8 @@ dojo.extend(dojo.charting.Chart, {
 			this.plotAreas[i].plotArea.destroy();
 		};
 		//	clean out any child nodes.
-		while(this.node && this.node.childNodes && this.node.childNodes.length > 0){ 
-			this.node.removeChild(this.node.childNodes[0]); 
+		while(this.node && this.node.childNodes && this.node.childNodes.length > 0){
+			this.node.removeChild(this.node.childNodes[0]);
 		}
 	}
 });

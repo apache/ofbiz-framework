@@ -18,10 +18,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="sendMailFromTemplateSetting" short-description="Send Mail from Email Template Setting">
-        
+
         <if-not-empty field="parameters.partyId">
             <if-empty field="parameters.sendTo">
                 <set-service-fields service-name="getPartyEmail" map="parameters" to-map="getEmail"/>
@@ -30,7 +30,7 @@ under the License.
                 </call-service>
             </if-empty>
         </if-not-empty>
-        
+
         <entity-one entity-name="EmailTemplateSetting" value-field="emailTemplateSetting"/>
         <if-not-empty field="emailTemplateSetting">
             <set field="emailParams.bodyScreenUri" from-field="emailTemplateSetting.bodyScreenLocation"/>
@@ -40,10 +40,10 @@ under the License.
             <set field="emailParams.sendBcc" from-field="emailTemplateSetting.bccAddress"/>
             <set field="emailParams.subject" from-field="emailTemplateSetting.subject"/>
             <set field="emailParams.contentType" from-field="emailTemplateSetting.contentType" default-value="text/html"/>
-            
+
             <!-- copy the incoming parameter fields AFTER setting the ones from EmailTemplateSetting so they can override things like subject, sendFrom, etc -->
             <set-service-fields service-name="sendMailFromScreen" map="parameters" to-map="emailParams"/>
-            
+
             <call-service service-name="sendMailFromScreen" in-map-name="emailParams">
                 <result-to-result result-name="body"/>
             </call-service>

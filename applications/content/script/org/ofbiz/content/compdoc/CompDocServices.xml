@@ -561,7 +561,7 @@ under the License.
                 <log level="info" message="contentApproval: ${contentApproval}"/>
                 <set field="contentApprovalList[]" from-field="contentApproval"/>
             </if-not-empty>
-            <!-- 
+            <!--
             <set field="inMap2.contentApprovalId" from-field="contentApproval.contentApprovalId"/>
             <call-service  service-name="hasApprovalPermission" in-map-name="inMap2">
                 <result-to-field result-name="approvalPermExists"/>

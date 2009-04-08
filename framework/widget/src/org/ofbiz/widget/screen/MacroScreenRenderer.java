@@ -181,12 +181,12 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         StringBuilder parameters=new StringBuilder();
         if ("hidden-form".equals(linkType)) {
         	StringBuilder sb = new StringBuilder();
-            WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), null, link.getPrefix(context), 
+            WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), null, link.getPrefix(context),
                     link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
             actionUrl = sb.toString();
             parameters.append("[");
             for (WidgetWorker.Parameter parameter: link.getParameterList()) {
-                if(parameters.length() >1){
+                if (parameters.length() >1) {
                     parameters.append(",");
                 }
                 parameters.append("{'name':'");
@@ -206,9 +206,9 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         if (UtilValidate.isNotEmpty(target)) {
             if (!"hidden-form".equals(linkType)) {
                 StringBuilder sb = new StringBuilder();
-                WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), link.getParameterList(), link.getPrefix(context), 
+                WidgetWorker.buildHyperlinkUrl(sb, target, link.getUrlMode(), link.getParameterList(), link.getPrefix(context),
                         link.getFullPath(), link.getSecure(), link.getEncode(), request, response, context);
-                linkUrl = sb.toString();                
+                linkUrl = sb.toString();
             }
         }
         String imgStr = "";
@@ -249,7 +249,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.Image image) throws IOException {
-    	if( image == null)
+    	if ( image == null)
     	    return ;
         String src = image.getSrc(context);
         String id = image.getId(context);
@@ -548,7 +548,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                  editRequest += "contentId=" + expandedContentId;
                  if (UtilValidate.isNotEmpty(expandedMapKey)) {
                      editRequest += "&amp;mapKey=" + expandedMapKey;
-                 }                 
+                 }
                  ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
                  RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
                  urlString = rh.makeLink(request, response, editRequest, false, false, false);
@@ -592,7 +592,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         boolean padded = screenlet.padded();
         String menuString = "";
         boolean showMore = false;
-        if (UtilValidate.isNotEmpty(title) || navMenu != null || navForm != null || collapsible) {  
+        if (UtilValidate.isNotEmpty(title) || navMenu != null || navForm != null || collapsible) {
         	showMore = true;
             if (collapsible) {
                 collapsibleAreaId = this.getNextElementId();
@@ -603,11 +603,11 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                     expandToolTip = (String) uiLabelMap.get("CommonExpand");
                     collapseToolTip = (String) uiLabelMap.get("CommonCollapse");
                 }
-                if (!javaScriptEnabled){
+                if (!javaScriptEnabled) {
                     requestParameters.put(screenlet.getPreferenceKey(context) + "_collapsed", "false");
                     String queryString = UtilHttp.urlEncodeArgs(requestParameters);
                     fullUrlString = request.getRequestURI() + "?" + queryString;
-                }                    
+                }
             }
             if (!collapsed) {
             	StringBuilder sb = new StringBuilder();
@@ -643,7 +643,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         sr.append("\" padded=");
         sr.append(Boolean.toString(padded));
         sr.append(" menuString=\"");
-        sr.append(menuString.replaceAll("\"", "'"));//FIXME change the " to ' for fix the macro invoke 
+        sr.append(menuString.replaceAll("\"", "'"));//FIXME change the " to ' for fix the macro invoke
         sr.append("\" showMore=");
         sr.append(Boolean.toString(showMore));
         sr.append(" collapsed=");
@@ -766,7 +766,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             int page = (listSize / viewSize) - 1;
             linkText = prepLinkText + page + anchor;
             lastLinkUrl = rh.makeLink(request, response, linkText);
-        } 
+        }
         String paginateNextStyle = modelForm.getPaginateNextStyle();
         String paginateNextLabel = modelForm.getPaginateNextLabel(context);
         String nextLinkUrl = "";
@@ -774,14 +774,14 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             linkText = prepLinkText + (viewIndex + 1) + anchor;
             // - make the link
             nextLinkUrl = rh.makeLink(request, response, linkText);
-        } 
+        }
         String paginatePreviousStyle = modelForm.getPaginatePreviousStyle();
         String paginatePreviousLabel = modelForm.getPaginatePreviousLabel(context);
         String previousLinkUrl = "";
         if (viewIndex > 0) {
             linkText = prepLinkText + (viewIndex - 1) + anchor;
             previousLinkUrl = rh.makeLink(request, response, linkText);
-        } 
+        }
         String paginateFirstStyle = modelForm.getPaginateFirstStyle();
         String paginateFirstLabel = modelForm.getPaginateFirstLabel(context);
         String firstLinkUrl = "";

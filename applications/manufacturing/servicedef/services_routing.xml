@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Manufacturing Services - Routing</description>
     <vendor>OFBiz</vendor>
@@ -39,7 +39,7 @@ under the License.
         <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
         <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
         <attribute name="create" type="String" mode="IN" optional="true"/>
-        <attribute name="sequenceNumNotOk" type="String" mode="OUT" optional="false"/> 
+        <attribute name="sequenceNumNotOk" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="getProductRouting" engine="simple" auth="true"
                 location="component://manufacturing/script/org/ofbiz/manufacturing/routing/RoutingServices.xml" invoke="getProductRouting">

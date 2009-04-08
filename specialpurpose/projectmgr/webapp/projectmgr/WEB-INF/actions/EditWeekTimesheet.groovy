@@ -7,9 +7,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -17,7 +17,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-  
+
 import java.util.*;
 import java.lang.*;
 import org.ofbiz.base.util.*;
@@ -40,7 +40,7 @@ timesheetId = parameters.timesheetId;
 if (timesheetId) {
     timesheet = delegator.findByPrimaryKey("Timesheet", ["timesheetId" : timesheetId]);
     partyId = timesheet.partyId; // use the party from this timesheet
-} else { 
+} else {
     start = UtilDateTime.getWeekStart(UtilDateTime.nowTimestamp());
     timesheets = delegator.findByAnd("Timesheet", ["partyId" : partyId, "fromDate" : start]);
     if (timesheets) {
@@ -62,9 +62,9 @@ context.partyNameView = delegator.findByPrimaryKey("PartyNameView",["partyId" : 
 rateTypes = EntityUtil.filterByDate(delegator.findByAnd("PartyRate", ["partyId" : partyId, "defaultRate" : "Y"]));
 if (rateTypes) {
     context.defaultRateTypeId = rateTypes[0].rateTypeId;
-} 
+}
 
-entries = []; 
+entries = [];
 entry = ["timesheetId" : timesheet.timesheetId];
 taskTotal = 0.00;
 day0Total = 0.00; day1Total=0.00; day2Total=0.00; day3Total=0.00; day4Total=0.00; day5Total=0.00; day6Total=0.00;
@@ -103,16 +103,16 @@ void retrieveWorkEffortData() {
                     entry.checkComplete = "Y";
                 }
             }
-            
+
             // get project/phase information
-            entry.workEffortId = entryWorkEffort.workEffortId;    
-            entry.workEffortName = entryWorkEffort.workEffortName; 
+            entry.workEffortId = entryWorkEffort.workEffortId;
+            entry.workEffortName = entryWorkEffort.workEffortName;
             result = dispatcher.runSync("getProjectIdAndNameFromTask", ["userLogin" : parameters.userLogin,"taskId" : entryWorkEffort.workEffortId]);
-                entry.phaseId = result.phaseId;    
-                entry.phaseName = result.phaseName;  
-                entry.projectId = result.projectId;  
-                entry.projectName = result.projectName;  
-                
+                entry.phaseId = result.phaseId;
+                entry.phaseName = result.phaseName;
+                entry.projectId = result.projectId;
+                entry.projectName = result.projectName;
+
         }
         entry.total = taskTotal;
         //Drop Down Lists
@@ -128,14 +128,14 @@ while (te.hasNext()) {
     // only fill lastTimeEntry when not the first time
     if (timeEntry!=void) {
         lastTimeEntry = timeEntry;
-    } 
+    }
     timeEntry = te.next();
-    
-    if (lastTimeEntry && 
-            (!lastTimeEntry.workEffortId.equals(timeEntry.workEffortId) || 
+
+    if (lastTimeEntry &&
+            (!lastTimeEntry.workEffortId.equals(timeEntry.workEffortId) ||
             !lastTimeEntry.rateTypeId.equals(timeEntry.rateTypeId))) {
             retrieveWorkEffortData();
-        } 
+        }
     if (timeEntry.hours) {
         dayNumber = "d" + (timeEntry.fromDate.getTime() - timesheet.fromDate.getTime()) / (24*60*60*1000);
         hours = timeEntry.hours.doubleValue();
@@ -156,10 +156,10 @@ if (timeEntry) {
     lastTimeEntry = timeEntry;
     retrieveWorkEffortData();
     }
-    
-// add empty lines if timesheet not completed    
+
+// add empty lines if timesheet not completed
 if (!timesheet.statusId.equals("TIMESHEET_COMPLETED")) {
-    for (c=0; c < 3; c++) { // add empty lines 
+    for (c=0; c < 3; c++) { // add empty lines
         entries.add(["timesheetId" : timesheet.timesheetId]);
     }
 }
@@ -182,7 +182,7 @@ if (timeEntry) {
 context.timeEntries = entries;
 // get all timesheets of this user, including the planned hours
 timesheetsDb = delegator.findByAnd("Timesheet", ["partyId" : partyId], ["fromDate DESC"]);
-timesheets = new LinkedList(); 
+timesheets = new LinkedList();
 timesheetsDb.each { timesheetDb ->
     timesheet = [:];
     timesheet.putAll(timesheetDb);

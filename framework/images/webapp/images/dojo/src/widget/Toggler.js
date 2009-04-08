@@ -22,11 +22,11 @@ dojo.widget.defineWidget(
 	// targetId: String
 	//		Id of widget to show/hide when this widget is clicked
 	targetId: '',
-	
+
 	fillInTemplate: function() {
 		dojo.event.connect(this.domNode, "onclick", this, "onClick");
 	},
-	
+
 	onClick: function() {
 		var pane = dojo.widget.byId(this.targetId);
 		if(!pane){ return; }

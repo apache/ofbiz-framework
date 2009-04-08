@@ -55,7 +55,7 @@ if (security.hasPermission("ENTITY_MAINT", session) || request.getParameter("ori
               <%=url.toString()%>?originalLoaderName=<%=resourceHandler.getLoaderName()%>&originalLocation=<%=resourceHandler.getLocation()%>
           <%
       } else {
-          %>Cannot write to location <%=resourceHandler.getLocation()%> from 
+          %>Cannot write to location <%=resourceHandler.getLocation()%> from
           loader <%=resourceHandler.getLoaderName()%>, it is not a file.<%
       }
     }
@@ -85,7 +85,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<% 
+<%
   //GenericDelegator delegator = GenericHelperFactory.getDefaultHelper();
   ModelReader reader = delegator.getModelReader();
   Map packages = new HashMap();

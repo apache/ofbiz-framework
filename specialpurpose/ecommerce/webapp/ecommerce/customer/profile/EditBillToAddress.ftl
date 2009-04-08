@@ -34,7 +34,7 @@ under the License.
     <div class="form-row">
       <label>${uiLabelMap.PartyAddressLine2}</label>
       <span>
-        <input type="text" class="left" name="address2" value="${billToAddress2?if_exists}" size="30" maxlength="30">    
+        <input type="text" class="left" name="address2" value="${billToAddress2?if_exists}" size="30" maxlength="30">
       </span>
     </div>
     <div class="form-row">

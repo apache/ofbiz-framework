@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -34,15 +34,15 @@ productStoreId = ProductStoreWorker.getProductStoreId(request);
 cart = ShoppingCartEvents.getCartObject(request);
 context.remove("totalPrice");
 
-if (optProductId) {    
+if (optProductId) {
     miniProduct = delegator.findByPrimaryKey("Product", [productId : optProductId]);
 }
-    
+
 if (miniProduct && productStoreId && prodCatalogId ) {
     // calculate the "your" price
-    priceParams = [product : miniProduct, 
+    priceParams = [product : miniProduct,
                    prodCatalogId : prodCatalogId,
-                   webSiteId : webSiteId, 
+                   webSiteId : webSiteId,
                    currencyUomId : cart.getCurrency(),
                    autoUserLogin : autoUserLogin,
                    productStoreId : productStoreId];
@@ -59,7 +59,7 @@ if (miniProduct && productStoreId && prodCatalogId ) {
             configWrapper.setDefaultConfig();
             context.totalPrice = configWrapper.getTotalPrice();
         }
-    }    
+    }
 
     context.miniProduct = miniProduct;
     context.nowTimeLong = nowTimestamp.getTime();

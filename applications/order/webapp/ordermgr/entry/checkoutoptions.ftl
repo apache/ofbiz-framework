@@ -145,7 +145,7 @@ function submitForm(form, mode, value) {
                      </#list>
                    </#if>
                  </table>
-                 
+
                 <#-- Party Tax Info -->
                 <#-- commented out by default because the TaxAuthority drop-down is just too wide...
                 <hr/>
@@ -362,7 +362,7 @@ function submitForm(form, mode, value) {
                   <#list finAccounts as finAccount>
                       <tr>
                         <td width="1%">
-                          <input type="radio" name="checkOutPaymentId" value="FIN_ACCOUNT|${finAccount.finAccountId}" <#if "FIN_ACCOUNT" == checkOutPaymentId>checked="checked"</#if>/>                         
+                          <input type="radio" name="checkOutPaymentId" value="FIN_ACCOUNT|${finAccount.finAccountId}" <#if "FIN_ACCOUNT" == checkOutPaymentId>checked="checked"</#if>/>
                         </td>
                         <td width="50%">
                           <span>${uiLabelMap.AccountingFinAccount} #${finAccount.finAccountId}</span>

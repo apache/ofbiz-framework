@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -93,10 +93,10 @@ if (value != null) {
     List fieldList = FastList.newInstance();
     for (int fnum = 0; fnum < entity.getFieldsSize(); fnum++) {
         Map mapField = FastMap.newInstance();
-        
+
         ModelField field = entity.getField(fnum);
         ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
-      
+
         String fieldValue = "";
         if (type.getJavaType().equals("Timestamp") || type.getJavaType().equals("java.sql.Timestamp")) {
             Timestamp dtVal = value.getTimestamp(field.getName());
@@ -118,9 +118,9 @@ if (value != null) {
         } else if (type.getJavaType().indexOf("String") >= 0) {
             fieldValue = UtilFormatOut.checkNull((String)value.get(field.getName()));
         }
-        mapField.put("name", field.getName()); 
-        mapField.put("value", fieldValue); 
-        
+        mapField.put("name", field.getName());
+        mapField.put("value", fieldValue);
+
         fieldList.add(mapField);
     }
     context.put("fields", fieldList);
@@ -134,7 +134,7 @@ if (value == null && (findByPK.getAllFields().size() > 0)) {
 context.put("pkNotFound", pkNotFound);
 
 String lastUpdateMode = parameters.get("UPDATE_MODE");
-if ((session.getAttribute("_ERROR_MESSAGE_") != null || request.getAttribute("_ERROR_MESSAGE_") != null) && 
+if ((session.getAttribute("_ERROR_MESSAGE_") != null || request.getAttribute("_ERROR_MESSAGE_") != null) &&
     lastUpdateMode != null && !lastUpdateMode.equals("DELETE")) {
     //if we are updating and there is an error, do not use the entity data for the fields, use parameters to get the old value
     useValue = false;
@@ -147,7 +147,7 @@ for (int fnum = 0; fnum < entity.getPksSize();fnum++) {
 
     ModelField field = entity.getPk(fnum);
     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
-    
+
     String fieldValue = "";
     String fieldType = "";
     String stringLength = "";
@@ -155,13 +155,13 @@ for (int fnum = 0; fnum < entity.getPksSize();fnum++) {
         String dateTimeString = null;
         if (findByPK != null && useValue) {
             Timestamp dtVal = findByPK.getTimestamp(field.getName());
-            if(dtVal != null) {
+            if (dtVal != null) {
               dateTimeString = dtVal.toString();
             }
         } else if (!useValue) {
             dateTimeString = parameters.get(field.getName());
-        }     
-        fieldValue = UtilFormatOut.checkNull(dateTimeString);        
+        }
+        fieldValue = UtilFormatOut.checkNull(dateTimeString);
         fieldType = "DateTime";
     } else if (type.getJavaType().equals("Date") || type.getJavaType().equals("java.sql.Date")) {
         String dateString = null;
@@ -171,7 +171,7 @@ for (int fnum = 0; fnum < entity.getPksSize();fnum++) {
         } else if (!useValue) {
             dateString = parameters.get(field.getName());
         }
-        fieldValue = UtilFormatOut.checkNull(dateString);    
+        fieldValue = UtilFormatOut.checkNull(dateString);
         fieldType = "Date";
     } else if (type.getJavaType().equals("Time") || type.getJavaType().equals("java.sql.Time")) {
         String timeString = null;
@@ -183,8 +183,8 @@ for (int fnum = 0; fnum < entity.getPksSize();fnum++) {
         }
         fieldValue = UtilFormatOut.checkNull(timeString);
         fieldType = "Time";
-    } else if (type.getJavaType().indexOf("Integer") >= 0) {       
-        fieldValue = (findByPK != null && useValue) ? UtilFormatOut.safeToString((Integer)findByPK.get(field.getName())) : (useValue ? "" : UtilFormatOut.checkNull(parameters.get(field.getName())));      
+    } else if (type.getJavaType().indexOf("Integer") >= 0) {
+        fieldValue = (findByPK != null && useValue) ? UtilFormatOut.safeToString((Integer)findByPK.get(field.getName())) : (useValue ? "" : UtilFormatOut.checkNull(parameters.get(field.getName())));
         fieldType = "Integer";
     } else if (type.getJavaType().indexOf("Long") >= 0) {
         fieldValue = (findByPK != null && useValue) ? UtilFormatOut.safeToString((Long)findByPK.get(field.getName())) : (useValue ? "" : UtilFormatOut.checkNull(parameters.get(field.getName())));
@@ -199,7 +199,7 @@ for (int fnum = 0; fnum < entity.getPksSize();fnum++) {
         if (type.stringLength() <= 80) {
             fieldValue = (findByPK != null && useValue) ? UtilFormatOut.checkNull((String)findByPK.get(field.getName())) : (useValue ? "" : UtilFormatOut.checkNull(parameters.get(field.getName())));
             fieldType = "StringOneRow";
-        } else if (type.stringLength() <= 255){
+        } else if (type.stringLength() <= 255) {
             fieldValue = (findByPK != null && useValue) ? UtilFormatOut.checkNull((String)findByPK.get(field.getName())) : (useValue ? "" : UtilFormatOut.checkNull(parameters.get(field.getName())));
             fieldType = "String";
         } else {
@@ -207,12 +207,12 @@ for (int fnum = 0; fnum < entity.getPksSize();fnum++) {
             fieldType = "Textarea";
         }
         stringLength = type.stringLength().toString();
-    }   
-    mapField.put("name", field.getName()); 
-    mapField.put("value", fieldValue); 
-    mapField.put("fieldType", fieldType); 
-    mapField.put("stringLength", stringLength); 
-    
+    }
+    mapField.put("name", field.getName());
+    mapField.put("value", fieldValue);
+    mapField.put("fieldType", fieldType);
+    mapField.put("stringLength", stringLength);
+
     newFieldPkList.add(mapField);
 }
 context.put("newFieldPkList", newFieldPkList);
@@ -223,7 +223,7 @@ for (int fnum = 0; fnum < entity.getNopksSize();fnum++) {
 
     ModelField field = entity.getNopk(fnum);
     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
-    
+
     String fieldValue = "";
     String fieldType = "";
     String stringLength = "";
@@ -236,8 +236,8 @@ for (int fnum = 0; fnum < entity.getNopksSize();fnum++) {
             }
         } else if (!useValue) {
             dateTimeString = parameters.get(field.getName());
-        }     
-        fieldValue = UtilFormatOut.checkNull(dateTimeString);        
+        }
+        fieldValue = UtilFormatOut.checkNull(dateTimeString);
         fieldType = "DateTime";
     } else if (type.getJavaType().equals("Date") || type.getJavaType().equals("java.sql.Date")) {
         String dateString = null;
@@ -247,7 +247,7 @@ for (int fnum = 0; fnum < entity.getNopksSize();fnum++) {
         } else if (!useValue) {
             dateString = parameters.get(field.getName());
         }
-        fieldValue = UtilFormatOut.checkNull(dateString);    
+        fieldValue = UtilFormatOut.checkNull(dateString);
         fieldType = "Date";
     } else if (type.getJavaType().equals("Time") || type.getJavaType().equals("java.sql.Time")) {
         String timeString = null;
@@ -259,8 +259,8 @@ for (int fnum = 0; fnum < entity.getNopksSize();fnum++) {
         }
         fieldValue = UtilFormatOut.checkNull(timeString);
         fieldType = "Time";
-    } else if (type.getJavaType().indexOf("Integer") >= 0) {       
-        fieldValue = (value != null && useValue) ? UtilFormatOut.safeToString((Integer)value.get(field.getName())):UtilFormatOut.checkNull(parameters.get(field.getName()));      
+    } else if (type.getJavaType().indexOf("Integer") >= 0) {
+        fieldValue = (value != null && useValue) ? UtilFormatOut.safeToString((Integer)value.get(field.getName())):UtilFormatOut.checkNull(parameters.get(field.getName()));
         fieldType = "Integer";
     } else if (type.getJavaType().indexOf("Long") >= 0) {
         fieldValue = (value != null && useValue) ? UtilFormatOut.safeToString((Long)value.get(field.getName())):UtilFormatOut.checkNull(parameters.get(field.getName()));
@@ -283,12 +283,12 @@ for (int fnum = 0; fnum < entity.getNopksSize();fnum++) {
             fieldType = "Textarea";
         }
         stringLength = type.stringLength().toString();
-    }   
-    mapField.put("name", field.getName()); 
-    mapField.put("value", fieldValue); 
-    mapField.put("fieldType", fieldType); 
-    mapField.put("stringLength", stringLength); 
-    
+    }
+    mapField.put("name", field.getName());
+    mapField.put("value", fieldValue);
+    mapField.put("fieldType", fieldType);
+    mapField.put("stringLength", stringLength);
+
     newFieldNoPkList.add(mapField);
 }
 context.put("newFieldNoPkList", newFieldNoPkList);
@@ -296,22 +296,22 @@ context.put("newFieldNoPkList", newFieldNoPkList);
 List relationFieldList = FastList.newInstance();
 for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
     Map mapRelation = FastMap.newInstance();
-    
+
     ModelRelation relation = entity.getRelation(relIndex);
     ModelEntity relatedEntity = reader.getModelEntity(relation.getRelEntityName());
-            
+
     boolean relCreate = false;
     if (security.hasEntityPermission(relatedEntity.getPlainTableName(), "_CREATE", session)) {
         relCreate = true;
-    }    
-    
-    mapRelation.put("type", relation.getType());    
-    mapRelation.put("title", relation.getTitle()); 
+    }
+
+    mapRelation.put("type", relation.getType());
+    mapRelation.put("title", relation.getTitle());
     mapRelation.put("relEntityName", relation.getRelEntityName());
-    mapRelation.put("sortName", relation.getTitle() + relation.getRelEntityName()); 
-    mapRelation.put("relatedTable", relatedEntity.getEntityName());     
+    mapRelation.put("sortName", relation.getTitle() + relation.getRelEntityName());
+    mapRelation.put("relatedTable", relatedEntity.getEntityName());
     mapRelation.put("relCreate", relCreate);
-    
+
     if ("one".equals(relation.getType()) || "one-nofk".equals(relation.getType())) {
         if (value != null) {
             if (hasAllView || security.hasEntityPermission(relatedEntity.getPlainTableName(), "_VIEW", session)) {
@@ -319,14 +319,14 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
                 GenericValue valueRelated = null;
                 if (tempIter != null && tempIter.hasNext()) {
                     valueRelated = (GenericValue) tempIter.next();
-                }    
-                
+                }
+
                 List relatedFieldsList = FastList.newInstance();
                 for (int fnum = 0; fnum < relatedEntity.getFieldsSize(); fnum++) {
                     Map mapRelatedFields = FastMap.newInstance();
                     ModelField field = relatedEntity.getField(fnum);
                     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
-                    
+
                     String fieldValue = "";
                     String fieldType = "";
                     if (type.getJavaType().equals("Timestamp") || type.getJavaType().equals("java.sql.Timestamp")) {
@@ -370,43 +370,25 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
                             fieldValue = UtilFormatOut.safeToString((Float)valueRelated.get(field.getName()));
                         }
                         fieldType = "Float";
-                    } else if (type.getJavaType().indexOf("String") >= 0) {            
+                    } else if (type.getJavaType().indexOf("String") >= 0) {
                         if (valueRelated != null) {
                             fieldValue = UtilFormatOut.checkNull((String)valueRelated.get(field.getName()));
-                        } 
+                        }
                         fieldType = "String";
                     }
-                    
-                    mapRelatedFields.put("name", field.getName()); 
+
+                    mapRelatedFields.put("name", field.getName());
                     mapRelatedFields.put("type", fieldType);
                     mapRelatedFields.put("value", fieldValue);
                     relatedFieldsList.add(mapRelatedFields);
                 }
-                
+
                 mapRelation.put("valueRelated", valueRelated);
                 if (valueRelated != null) {
-                    mapRelation.put("valueRelatedPk", valueRelated.getPrimaryKey().toString());                                
+                    mapRelation.put("valueRelatedPk", valueRelated.getPrimaryKey().toString());
                 }
                 mapRelation.put("relatedFieldsList", relatedFieldsList);
                 mapRelation.put("relType", "one");
-                
-                String findString = "entityName=" + relatedEntity.getEntityName();
-                for (int knum = 0; knum < relation.getKeyMapsSize(); knum++) {
-                    ModelKeyMap keyMap = relation.getKeyMap(knum);
-                    if (value.get(keyMap.getFieldName()) != null) {
-                        findString += "&" + keyMap.getRelFieldName() + "=" + value.get(keyMap.getFieldName());
-                    }
-                }
-                String encodeFindString = UtilFormatOut.encodeQuery(findString);                    
-                mapRelation.put("encodeRelatedEntityFindString", encodeFindString);
-                
-                relationFieldList.add(mapRelation);    
-            }
-        }    
-    } else if (relation.getType().equalsIgnoreCase("many")) {
-        if (value != null) {
-            if (hasAllView || security.hasEntityPermission(relatedEntity.getPlainTableName(), "_VIEW", session)) {
-                mapRelation.put("relType", "many");            
 
                 String findString = "entityName=" + relatedEntity.getEntityName();
                 for (int knum = 0; knum < relation.getKeyMapsSize(); knum++) {
@@ -415,10 +397,28 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
                         findString += "&" + keyMap.getRelFieldName() + "=" + value.get(keyMap.getFieldName());
                     }
                 }
-                String encodeFindString = UtilFormatOut.encodeQuery(findString);                    
-                mapRelation.put("encodeRelatedEntityFindString", encodeFindString);                
-                
-                relationFieldList.add(mapRelation);    
+                String encodeFindString = UtilFormatOut.encodeQuery(findString);
+                mapRelation.put("encodeRelatedEntityFindString", encodeFindString);
+
+                relationFieldList.add(mapRelation);
+            }
+        }
+    } else if (relation.getType().equalsIgnoreCase("many")) {
+        if (value != null) {
+            if (hasAllView || security.hasEntityPermission(relatedEntity.getPlainTableName(), "_VIEW", session)) {
+                mapRelation.put("relType", "many");
+
+                String findString = "entityName=" + relatedEntity.getEntityName();
+                for (int knum = 0; knum < relation.getKeyMapsSize(); knum++) {
+                    ModelKeyMap keyMap = relation.getKeyMap(knum);
+                    if (value.get(keyMap.getFieldName()) != null) {
+                        findString += "&" + keyMap.getRelFieldName() + "=" + value.get(keyMap.getFieldName());
+                    }
+                }
+                String encodeFindString = UtilFormatOut.encodeQuery(findString);
+                mapRelation.put("encodeRelatedEntityFindString", encodeFindString);
+
+                relationFieldList.add(mapRelation);
             }
         }
     }

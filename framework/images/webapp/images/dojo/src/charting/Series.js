@@ -48,7 +48,7 @@ dojo.extend(dojo.charting.Series, {
 		var l = a.length;
 		var start = 0;
 		var end = l;
-		
+
 		/*	Allow for ranges.  Can be done in one of two ways:
 		 *	1. { from, to } as 0-based indices
 		 *	2. { length } as num of data points to get; a negative
@@ -57,9 +57,9 @@ dojo.extend(dojo.charting.Series, {
 		 *		and returned.
 		 */
 		if(kwArgs){
-			if(kwArgs.from){ 
+			if(kwArgs.from){
 				start = Math.max(kwArgs.from,0);
-				if(kwArgs.to){ 
+				if(kwArgs.to){
 					end = Math.min(kwArgs.to, end);
 				}
 			}
@@ -110,7 +110,7 @@ dojo.extend(dojo.charting.Series, {
 			var total = 0;
 			var count = 0;
 			for(var i=range.index; i>=range.start; i--){
-				total += values[i].y; 
+				total += values[i].y;
 				count++;
 			}
 			total /= Math.max(count,1);
@@ -177,12 +177,12 @@ dojo.extend(dojo.charting.Series, {
 						break;
 					}
 				}
-				if(!b){ 
-					a.push(values[i].y); 
+				if(!b){
+					a.push(values[i].y);
 				}
 			}
 			a.sort();
-			if(a.length > 0){ 
+			if(a.length > 0){
 				return a[Math.ceil(a.length / 2)]; 	//	float
 			}
 			return 0;	//	float
@@ -199,14 +199,14 @@ dojo.extend(dojo.charting.Series, {
 			for(var i=range.index; i>=range.start; i--){
 				if (!o[values[i].y]){
 					o[values[i].y] = 1;
-				} else { 
+				} else {
 					o[values[i].y]++;
 				}
 			}
 			for(var p in o){
-				if(median < o[p]){ 
-					median = o[p]; 
-					ret=p; 
+				if(median < o[p]){
+					median = o[p];
+					ret=p;
 				}
 			}
 			return ret;

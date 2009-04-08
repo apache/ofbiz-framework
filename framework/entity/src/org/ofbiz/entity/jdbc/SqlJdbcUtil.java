@@ -658,7 +658,7 @@ public class SqlJdbcUtil {
     }
 
     private static Object deserializeField(byte[] fieldBytes, int ind, ModelField curField) throws GenericDataSourceException {
-        // NOTE DEJ20071022: the following code is to convert the byte[] back into an object; if that fails 
+        // NOTE DEJ20071022: the following code is to convert the byte[] back into an object; if that fails
         //just return the byte[]; this was for the ByteWrapper thing which is now deprecated, so this may
         //be removed in the near future to enhance performance
         InputStream binaryInput = null;

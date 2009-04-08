@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
     <eca service="createWorkEffort" event="commit">
         <condition field-name="quickAssignPartyId" operator="is-not-empty"/>
@@ -28,11 +28,11 @@ under the License.
         <condition field-name="communicationEventId" operator="is-not-empty"/>
         <action service="makeCommunicationEventWorkEffort" mode="sync"/>
     </eca>
-    
+
     <eca service="updateWorkEffort" event="commit">
         <condition field-name="communicationEventId" operator="is-not-empty"/>
         <action service="makeCommunicationEventWorkEffort" mode="sync"/>
-    </eca>    
+    </eca>
     <eca service="createCommunicationEventWorkEff" event="invoke">
         <condition field-name="communicationEventId" operator="is-empty"/>
         <action service="createCommunicationEvent" mode="sync"/>

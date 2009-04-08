@@ -24,7 +24,7 @@ partyId = partyId ?: parameters.partyId;
 savedCart = EntityUtil.getFirst(delegator.findByAnd("ShoppingList", [partyId : partyId,
         shoppingListTypeId : "SLT_SPEC_PURP" , listName : "auto-save"]));
 
-if (savedCart){
+if (savedCart) {
       context.savedCartListId = savedCart.shoppingListId;
       context.savedCartItems = savedCart.getRelated("ShoppingListItem");
 }

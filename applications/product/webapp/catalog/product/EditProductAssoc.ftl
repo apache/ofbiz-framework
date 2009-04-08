@@ -20,11 +20,11 @@ under the License.
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.PageTitleEditProductAssociations}</h3>
     </div>
-    <div class="screenlet-body"> 
+    <div class="screenlet-body">
         <form action="<@ofbizUrl>UpdateProductAssoc</@ofbizUrl>" method="post" style="margin: 0;" name="editProductAssocForm">
         <input type="hidden" name="productId" value="${productId?if_exists}">
         <table cellspacing="0" class="basic-table">
-        
+
         <#if !(productAssoc?exists)>
             <#if productId?exists && productIdTo?exists && productAssocTypeId?exists && fromDate?exists>
                 <div><b><#assign uiLabelWithVar=uiLabelMap.ProductAssociationNotFound?interpret><@uiLabelWithVar/></b></div>
@@ -139,7 +139,7 @@ under the License.
             <td>&nbsp;</td>
             <td width="74%">
             <div>
-                <input type="text" name="THRU_DATE" <#if useValues> value="${productAssoc.thruDate?if_exists}"<#else>value="${(request.getParameter("THRU_DATE"))?if_exists}"</#if> size="30" maxlength="30"> 
+                <input type="text" name="THRU_DATE" <#if useValues> value="${productAssoc.thruDate?if_exists}"<#else>value="${(request.getParameter("THRU_DATE"))?if_exists}"</#if> size="30" maxlength="30">
                 <a href="javascript:call_cal(document.editProductAssocForm.THRU_DATE, <#if useValues>'${productAssoc.thruDate?if_exists}'<#elseif (request.getParameter("THRU_DATE"))?exists>'${request.getParameter("THRU_DATE")}'<#else>'${nowTimestampString}'</#if>);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
             </div>
             </td>
@@ -159,13 +159,13 @@ under the License.
             <td>&nbsp;</td>
             <td width="74%"><input type="text" name="INSTRUCTION" <#if useValues>value="${(productAssoc.instruction)?if_exists}"<#else>value="${(request.getParameter("INSTRUCTION"))?if_exists}"</#if> size="60" maxlength="255"></td>
         </tr>
-        
+
         <tr>
             <td width="26%" align="right" class="label">${uiLabelMap.ProductQuantity}</td>
             <td>&nbsp;</td>
             <td width="74%"><input type="text" name="QUANTITY" <#if useValues>value="${(productAssoc.quantity)?if_exists}"<#else>value="${(request.getParameter("QUANTITY"))?if_exists}"</#if> size="10" maxlength="15"></td>
         </tr>
-        
+
         <tr>
             <td colspan="2">&nbsp;</td>
             <td><input type="submit" <#if isCreate>value="${uiLabelMap.CommonCreate}"<#else>value="${uiLabelMap.CommonUpdate}"</#if>></td>
@@ -179,7 +179,7 @@ under the License.
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductAssociationsFromProduct}</h3>
     </div>
-    <div class="screenlet-body"> 
+    <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">
             <tr class="header-row">
             <td><b>${uiLabelMap.ProductProductId}</b></td>
@@ -229,7 +229,7 @@ under the License.
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductAssociationsToProduct}</h3>
     </div>
-    <div class="screenlet-body"> 
+    <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">
             <tr class="header-row">
             <td><b>${uiLabelMap.ProductProductId}</b></td>

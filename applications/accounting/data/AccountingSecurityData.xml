@@ -29,7 +29,7 @@ under the License.
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PAYPROC_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="PAYPROC_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="PAYPROC_ADMIN"/>
-    
+
     <!-- Payment Information security -->
     <SecurityPermission description="View Payment Information." permissionId="PAY_INFO_VIEW"/>
     <SecurityPermission description="Create Payment Information." permissionId="PAY_INFO_CREATE"/>
@@ -43,7 +43,7 @@ under the License.
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PAY_INFO_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="PAY_INFO_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="PAY_INFO_ADMIN"/>
-    
+
     <!-- Accounting Manager security -->
     <SecurityPermission description="View operations in the Accounting Manager." permissionId="ACCOUNTING_VIEW"/>
     <SecurityPermission description="Create operations in the Accounting Manager." permissionId="ACCOUNTING_CREATE"/>
@@ -57,7 +57,7 @@ under the License.
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="ACCOUNTING_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_ADMIN"/>
-    
+
     <!-- Manual Payment security -->
     <SecurityPermission description="Manual Payment Transaction." permissionId="MANUAL_PAYMENT"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="MANUAL_PAYMENT"/>
@@ -75,7 +75,7 @@ under the License.
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCOUNTING_PRINT_CHECKS"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ACCOUNTING_PRINT_CHECKS"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCOUNTING_PRINT_CHECKS"/>
-    
+
     <!-- Set up accounting organization preferences security -->
     <SecurityPermission description="View organization accounting preferences" permissionId="ACCTG_PREF_VIEW"/>
     <SecurityPermission description="Set organization accounting preferences" permissionId="ACCTG_PREF_CREATE"/>
@@ -87,7 +87,7 @@ under the License.
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_UPDATE"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_DELETE"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_PREF_VIEW"/>
-    
+
     <SecurityPermission description="Set foreign exchange rates" permissionId="ACCTG_FX_UPDATE"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ACCTG_FX_UPDATE"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_FX_UPDATE"/>
@@ -111,5 +111,5 @@ under the License.
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_ATX_CREATE"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_ATX_UPDATE"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ACCTG_ATX_DELETE"/>
-    
+
 </entity-engine-xml>

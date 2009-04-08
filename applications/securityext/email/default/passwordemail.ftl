@@ -28,7 +28,7 @@ under the License.
           ${uiLabelMap.EcommerceNewPasswordMssgEncryptionOn}
       <#else>
           ${uiLabelMap.EcommerceNewPasswordMssgEncryptionOff}
-      </#if> 
+      </#if>
       "${password}"
   </div>
 </body>

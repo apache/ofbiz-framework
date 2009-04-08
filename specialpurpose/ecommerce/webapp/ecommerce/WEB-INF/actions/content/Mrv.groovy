@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -45,7 +45,7 @@ lookupCaches = session.getAttribute("lookupCaches");
 if (!lookupCaches) {
     lookupCaches = [:];
     session.setAttribute("lookupCaches", lookupCaches);
-} 
+}
 lifoSet = lookupCaches[entityName];
 
 if (!lifoSet) {
@@ -59,7 +59,7 @@ mrvList = [];
 
 lifoSet.each { pk0 ->
     pk = pk0.getPrimaryKey();
-    gv = delegator.findOne(pk.getEntityName(), pk, true); 
+    gv = delegator.findOne(pk.getEntityName(), pk, true);
     if (gv) {
         arr = [gv.contentId, gv.contentName] as String[];
         mrvList.add(arr);

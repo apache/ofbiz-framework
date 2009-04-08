@@ -36,7 +36,7 @@ under the License.
         <#if (open)>
             <#assign version = pkgMgr.getCurrentPackageVersion(packageId)?if_exists>
         <#else>
-            <#assign version = "<closed>">  
+            <#assign version = "<closed>">
         </#if>
 
         <tr>

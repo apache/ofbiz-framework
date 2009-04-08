@@ -186,9 +186,9 @@ public class AIMPaymentServices {
         String refundFlag = (String)results.get("refundFlag");
 
         // Since the refund failed, we are going to void the previous authorization against
-        // which ccRefunds attempted to issue the refund.  This happens because Authorize.NET requires 
+        // which ccRefunds attempted to issue the refund.  This happens because Authorize.NET requires
         // that settled transactions need to be voided the same day.  unfortunately they provide no method for
-        // determining what transactions can be voided and what can be refunded, so we'll have to try it with timestamps 
+        // determining what transactions can be voided and what can be refunded, so we'll have to try it with timestamps
         if (!refundResult && isVoidableResponse(refundFlag)) {
             boolean canDoVoid = false;
 

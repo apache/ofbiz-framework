@@ -15,7 +15,7 @@ dojo.require("dojo.regexp");
 
 dojo.validate.isText = function(/*String*/value, /*Object?*/flags){
 // summary:
-//	Checks if a string has non whitespace characters. 
+//	Checks if a string has non whitespace characters.
 //	Parameters allow you to constrain the length.
 //
 // value: A string
@@ -54,7 +54,7 @@ dojo.validate.isInteger = function(/*String*/value, /*Object?*/flags){
 
 dojo.validate.isRealNumber = function(/*String*/value, /*Object?*/flags){
 // summary:
-//	Validates whether a string is a real valued number. 
+//	Validates whether a string is a real valued number.
 //	Format is the usual exponential notation.
 //
 // value: A string
@@ -64,7 +64,7 @@ dojo.validate.isRealNumber = function(/*String*/value, /*Object?*/flags){
 //    flags.decimal  The character used for the decimal point.  Default is ".".
 //    flags.exponent  Express in exponential notation.  Can be true, false, or [true, false].
 //      Default is [true, false], (i.e. the exponential part is optional).
-//    flags.eSigned  The leading plus-or-minus sign on the exponent.  Can be true, false, 
+//    flags.eSigned  The leading plus-or-minus sign on the exponent.  Can be true, false,
 //      or [true, false].  Default is [true, false], (i.e. sign is optional).
 //    flags in regexp.integer can be applied.
 
@@ -74,13 +74,13 @@ dojo.validate.isRealNumber = function(/*String*/value, /*Object?*/flags){
 
 dojo.validate.isCurrency = function(/*String*/value, /*Object?*/flags){
 // summary:
-//	Validates whether a string denotes a monetary value. 
+//	Validates whether a string denotes a monetary value.
 // value: A string
 // flags: {signed:Boolean|[true,false], symbol:String, placement:String, separator:String,
 //	fractional:Boolean|[true,false], decimal:String}
 //    flags.signed  The leading plus-or-minus sign.  Can be true, false, or [true, false].
 //      Default is [true, false], (i.e. sign is optional).
-//    flags.symbol  A currency symbol such as Yen "�", Pound "�", or the Euro sign "�".  
+//    flags.symbol  A currency symbol such as Yen "�", Pound "�", or the Euro sign "�".
 //      Default is "$".  For more than one symbol use an array, e.g. ["$", ""], makes $ optional.
 //    flags.placement  The symbol can come "before" the number or "after".  Default is "before".
 //    flags.separator  The character used as the thousands separator. The default is ",".
@@ -94,8 +94,8 @@ dojo.validate.isCurrency = function(/*String*/value, /*Object?*/flags){
 
 dojo.validate.isInRange = function(/*String*/value, /*Object?*/flags){
 //summary:
-//	Validates whether a string denoting an integer, 
-//	real number, or monetary value is between a max and min. 
+//	Validates whether a string denoting an integer,
+//	real number, or monetary value is between a max and min.
 //
 // value: A string
 // flags: {max:Number, min:Number, decimal:String}
@@ -115,7 +115,7 @@ dojo.validate.isInRange = function(/*String*/value, /*Object?*/flags){
 	var max = (typeof flags.max == "number") ? flags.max : Infinity;
 	var min = (typeof flags.min == "number") ? flags.min : -Infinity;
 	var dec = (typeof flags.decimal == "string") ? flags.decimal : ".";
-	
+
 	// splice out anything not part of a number
 	var pattern = "[^" + dec + "\\deE+-]";
 	value = value.replace(RegExp(pattern, "g"), "");
@@ -147,7 +147,7 @@ dojo.validate.isNumberFormat = function(/*String*/value, /*Object?*/flags){
 //    ?        Stands for an optional digit, 0-9 or nothing.
 //    All other characters must appear literally in the expression.
 //
-//  Example   
+//  Example
 //    "(###) ###-####"       ->   (510) 542-9742
 //    "(###) ###-#### x#???" ->   (510) 542-9742 x153
 //    "###-##-####"          ->   506-82-1089       i.e. social security number
@@ -213,11 +213,11 @@ dojo.validate.isValidLuhn = function(/*String*/value){
 			// dependant/conditional fields are required if the target field is present and not blank.
 			// At present only textbox, password, and textarea fields are supported.
 			dependencies:	{
-				cc_exp: "cc_no",	
-				cc_type: "cc_no",	
+				cc_exp: "cc_no",
+				cc_type: "cc_no",
 			},
 
-			// Fields can be validated using any boolean valued function.  
+			// Fields can be validated using any boolean valued function.
 			// Use arrays to specify parameters in addition to the field value.
 			constraints: {
 				field_name1: myValidationFunction,
@@ -231,8 +231,8 @@ dojo.validate.isValidLuhn = function(/*String*/value){
 			// It associates each field in its property list with another field whose value should be equal.
 			// If the values are not equal, the field in the property list is reported as Invalid. Unless the target field is blank.
 			confirm: {
-				email_confirm: "email",	
-				pw2: "pw1",	
+				email_confirm: "email",
+				pw2: "pw1",
 			}
 		};
 

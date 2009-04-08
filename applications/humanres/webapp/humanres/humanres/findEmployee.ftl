@@ -37,9 +37,9 @@ under the License.
     </div>
     <#if parameters.hideFields?default("N") != "Y">
     <div class="screenlet-body">
-      <#-- NOTE: this form is setup to allow a search by partial partyId or userLoginId; to change it to go directly to 
+      <#-- NOTE: this form is setup to allow a search by partial partyId or userLoginId; to change it to go directly to
           the viewprofile page when these are entered add the follow attribute to the form element:
-           
+
            onsubmit="javascript:lookupparty('<@ofbizUrl>viewprofile</@ofbizUrl>');"
        -->
         <form method="post" name="lookupparty" action="<@ofbizUrl>findEmployees</@ofbizUrl>" class="basic-form">
@@ -151,7 +151,7 @@ under the License.
                         <li class="disabled">${uiLabelMap.CommonPrevious}</li>
                     </#if>
                 </#if>
-            </ul> 
+            </ul>
             <br class="clear"/>
         </div>
     <#if partyList?has_content>
@@ -192,7 +192,7 @@ under the License.
                             (${uiLabelMap.CommonNone})
                         </#if>
                     </#if>
-                </td> 
+                </td>
                 <td><#if partyRow.getModelEntity().isField("lastName") && lastName?has_content>
                         ${partyRow.lastName}<#if partyRow.firstName?has_content>, ${partyRow.firstName}</#if>
                     <#elseif partyRow.getModelEntity().isField("groupName") && partyRow.groupName?has_content>
@@ -226,7 +226,7 @@ under the License.
         </table>
     <#else>
         <div class="screenlet-body">
-            <span class="h3">${uiLabelMap.PartyNoPartiesFound}</span>        
+            <span class="h3">${uiLabelMap.PartyNoPartiesFound}</span>
         </div>
     </#if>
     <#if lookupErrorMessage?exists>

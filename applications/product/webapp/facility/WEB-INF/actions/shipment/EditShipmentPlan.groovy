@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -76,12 +76,12 @@ if (shipmentPlans) {
             orderedQuantity = Double.valueOf(orderedQuantity.doubleValue() - canceledQuantity.doubleValue());
         }
         oneRow.totOrderedQuantity = orderedQuantity.intValue();
-        
+
         // Total quantity issued
         issuedQuantity = 0.0;
         qtyIssuedInShipment = [:];
         issuances = orderItem.getRelated("ItemIssuance");
-        issuances.each { issuance ->        
+        issuances.each { issuance ->
             if (issuance.quantity) {
                 issuedQuantity += issuance.getDouble("quantity");
                 if (issuance.cancelQuantity) {
@@ -92,14 +92,14 @@ if (shipmentPlans) {
                     qtyInShipment += issuance.getDouble("quantity");
                     if (issuance.cancelQuantity) {
                         qtyInShipment -= issuance.getDouble("cancelQuantity");
-                    }                    
+                    }
                     qtyIssuedInShipment.put(issuance.shipmentId, qtyInShipment);
                 } else {
                     qtyInShipment = issuance.getDouble("quantity");
                     if (issuance.cancelQuantity) {
                         qtyInShipment -= issuance.getDouble("cancelQuantity");
-                    }                    
-                    qtyIssuedInShipment.put(issuance.shipmentId, qtyInShipment);                   
+                    }
+                    qtyIssuedInShipment.put(issuance.shipmentId, qtyInShipment);
                 }
             }
         }
@@ -148,7 +148,7 @@ if (shipmentPlans) {
             }
         }
         oneRow.notAvailableQuantity = reservedNotAvailable;
-        
+
         // Planned Weight and Volume
         product = orderItem.getRelatedOne("Product");
         weight = 0.0;
@@ -171,7 +171,7 @@ if (shipmentPlans) {
                 // TODO: check if uom conversion is needed
                 volume = product.getDouble("productHeight") *
                          product.getDouble("productWidth") *
-                         product.getDouble("productDepth") * 
+                         product.getDouble("productDepth") *
                          quantity;
         }
         oneRow.volume = volume;
@@ -205,7 +205,7 @@ if (orderItemShipGroupAssocs) {
         canceledQuantity = orderItem.getDouble("cancelQuantity");
         if (canceledQuantity) {
             orderedQuantity = Double.valueOf(orderedQuantity.doubleValue() - canceledQuantity.doubleValue());
-        }        
+        }
         oneRow.orderedQuantity = orderedQuantity;
         // Total quantity issued
         issuedQuantity = 0.0;
@@ -216,7 +216,7 @@ if (orderItemShipGroupAssocs) {
                 issuedQuantity += issuance.getDouble("quantity");
                 if (issuance.cancelQuantity) {
                     issuedQuantity -= issuance.getDouble("cancelQuantity");
-                }                
+                }
                 if (qtyIssuedInShipment.containsKey(issuance.shipmentId)) {
                     qtyInShipment = ((Double)qtyIssuedInShipment.get(issuance.shipmentId)).doubleValue();
                     qtyInShipment += issuance.getDouble("quantity");
@@ -225,8 +225,8 @@ if (orderItemShipGroupAssocs) {
                     qtyInShipment = issuance.getDouble("quantity");
                     if (issuance.cancelQuantity) {
                         qtyInShipment -= issuance.getDouble("cancelQuantity");
-                    }                    
-                    qtyIssuedInShipment.put(issuance.shipmentId, qtyInShipment);                    
+                    }
+                    qtyIssuedInShipment.put(issuance.shipmentId, qtyInShipment);
                 }
             }
         }
@@ -241,11 +241,11 @@ if (orderItemShipGroupAssocs) {
             }
         }
         oneRow.plannedQuantity = plannedQuantity;
-        
+
         // (default) quantity for plan
         planQuantity = (orderedQuantity - plannedQuantity - issuedQuantity > 0? orderedQuantity - plannedQuantity - issuedQuantity: 0);
         oneRow.quantity = planQuantity;
-        
+
         // Planned (unitary) Weight and Volume
         weight = new Double(0);
         product = orderItem.getRelatedOne("Product");

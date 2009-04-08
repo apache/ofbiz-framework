@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="FindAgreements" target="FindAgreement" title="" type="single"
@@ -117,7 +117,7 @@ under the License.
         <field name="partyIdTo" title="${uiLabelMap.AccountingPartyIdTo}">
             <lookup target-form-name="LookupPartyName"/>
         </field>
-        
+
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
@@ -214,7 +214,7 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options entity-name="InvoiceItemType" description="${description}">
                     <entity-order-by field-name="description"/>
-                </entity-options> 
+                </entity-options>
             </drop-down>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -240,7 +240,7 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options entity-name="InvoiceItemType" description="${description}">
                     <entity-order-by field-name="description"/>
-                </entity-options> 
+                </entity-options>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
@@ -263,7 +263,7 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options entity-name="InvoiceItemType" description="${description}">
                     <entity-order-by field-name="description"/>
-                </entity-options> 
+                </entity-options>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
@@ -317,7 +317,7 @@ under the License.
         </field>
         <field name="lastPrice" widget-area-style="align-text"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removeAgreementItemSupplierProduct" description="${uiLabelMap.CommonRemove}" also-hidden="false">            
+            <hyperlink target="removeAgreementItemSupplierProduct" description="${uiLabelMap.CommonRemove}" also-hidden="false">
                 <parameter param-name="minimumOrderQuantity"/>
                 <parameter param-name="currencyUomId"/>
                 <parameter param-name="availableFromDate"/>
@@ -529,7 +529,7 @@ under the License.
         </field>
     </form>
     <form name="EditAgreementGeographicalApplic" type="single" target="updateAgreementGeographicalApplic" title="" default-map-name="agreementGeographicalApplic"
-        header-row-style="header-row" default-table-style="basic-table"> 
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="agreementGeographicalApplic==null" target="createAgreementGeographicalApplic"/>
         <auto-fields-entity entity-name="AgreementGeographicalApplic" default-field-type="edit"/>
         <field name="agreementId"><hidden/></field>
@@ -538,7 +538,7 @@ under the License.
             <drop-down allow-empty="false">
                 <entity-options entity-name="Geo" description="${geoName} [${geoId}]">
                     <entity-order-by field-name="geoName"/>
-                </entity-options> 
+                </entity-options>
             </drop-down>
         </field>
         <field name="geoId" use-when="agreementGeographicalApplic!=null"><display/></field>
@@ -555,12 +555,12 @@ under the License.
                 <entity-options entity-name="AgreementItem" description="${agreementItemSeqId}">
                     <entity-constraint name="agreementId" operator="equals" env-name="agreementId"/>
                     <entity-order-by field-name="agreementItemSeqId"/>
-                </entity-options> 
+                </entity-options>
             </drop-down>
         </field>
         <field name="workEffortId">
             <lookup target-form-name="LookupWorkEffort"/>
-        </field>    
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListAgreementWorkEffortAppls" type="list" target="updateAgreementWorkEffortAppl" list-name="agreementWorkEffortAppls"
@@ -569,7 +569,7 @@ under the License.
             <entity-and entity-name="AgreementWorkEffortAppl" use-cache="true" list="agreementWorkEffortAppls">
                 <field-map from-field="agreementId" field-name="agreementId"/>
             </entity-and>
-        </actions>  
+        </actions>
         <field name="agreementItemSeqId"><display/></field>
         <field name="workEffortId"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
@@ -599,7 +599,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="AddAgreementRole" type="single" target="createAgreementRole" 
+    <form name="AddAgreementRole" type="single" target="createAgreementRole"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="AgreementRole" default-field-type="edit"/>
         <field name="agreementId"><hidden/></field>
@@ -609,6 +609,6 @@ under the License.
                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>

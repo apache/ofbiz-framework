@@ -21,11 +21,11 @@ under the License.
 <#assign siteId = requestParameters.contentId?if_exists />
 
 <@renderAncestryPath trail=ancestorList?default([]) endIndexOffset=1 siteId=siteId searchOn="true"/>
- 
+
 <#if ancestorList?has_content && (0 < ancestorList?size) >
     <#assign lastContent=ancestorList?last />
     <h1>[${lastContent.contentId}] ${lastContent.description}
-              <a class="tabButton" href="<@ofbizUrl>searchContent?siteId=${lastContent.contentId?if_exists}</@ofbizUrl>" >${uiLabelMap.CommonSearch}</a> 
+              <a class="tabButton" href="<@ofbizUrl>searchContent?siteId=${lastContent.contentId?if_exists}</@ofbizUrl>" >${uiLabelMap.CommonSearch}</a>
     </h1>
 </#if>
 
@@ -59,16 +59,16 @@ under the License.
 
 <#macro renderCategoryBrowse contentId="" indentIndex=0 nodeTrail=[] viewSz=9999 viewIdx=0>
     <!-- start of renderCategoryBrowse for contentId=${contentId} -->
-        
+
         <#local contentIdx = contentId?if_exists />
         <#if (!contentIdx?exists || contentIdx?length == 0)>
             <#local contentIdx = page.contentIdx?if_exists />
             <#if (!contentIdx?exists || contentIdx?length == 0)>
             </#if>
         </#if>
-        
+
         <#local thisContentId=nodeTrail[indentIndex]?if_exists/>
-        
+
         <#local thisNodeTrailCsv = "" />
         <#local listUpper = (indentIndex - 1) />
         <#if nodeTrail?size < listUpper >
@@ -80,7 +80,7 @@ under the License.
             </#if>
             <#local thisNodeTrailCsv = thisNodeTrailCsv + nodeTrail[idx]>
         </#list>
-        
+
         <!-- in showcontenttree, contentIdx: ${contentIdx} -->
 
         <!-- Look for content first -->
@@ -89,8 +89,8 @@ under the License.
             <#local thisCsv=thisNodeTrailCsv + "," + subContentId />
             <a class="tabButton" href="<@ofbizUrl>viewcontent?contentId=${subContentId?if_exists}&nodeTrailCsv=${thisCsv}</@ofbizUrl>">${uiLabelMap.CommonView}</a>  ${content.description?if_exists}<br/>
         </@loopSubContent>
-        
-        
+
+
         <!-- Look for sub-topics -->
         <@loopSubContent contentId=contentIdx viewIndex=viewIdx viewSize=viewSz returnAfterPickWhen="1==1" orderBy="contentName">
             <#local plusMinus="+"/>

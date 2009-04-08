@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,7 +19,7 @@
 -->
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">    
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="HumanResAppBar" title="${uiLabelMap.HumanResManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="Employees" title="${uiLabelMap.HumanResEmployees}"><link target="findEmployees"/></menu-item>
         <menu-item name="Employment" title="${uiLabelMap.HumanResEmployment}"><link target="FindEmployments"/></menu-item>
@@ -61,7 +61,7 @@
                 <parameter param-name="partyIdTo"/>
                 <parameter param-name="fromDate"/>
             </link>
-        </menu-item>        
+        </menu-item>
         <menu-item name="EditPayHistory" title="${uiLabelMap.HumanResEditPayHistory}">
             <link target="ListPayHistories" >
                 <parameter param-name="roleTypeIdFrom"/>
@@ -133,7 +133,7 @@
             <link target="EditPayGrade">
                 <parameter param-name="payGradeId"/>
             </link>
-        </menu-item>       
+        </menu-item>
         <menu-item name="EditSalaryStep" title="${uiLabelMap.HumanResEditSalaryStep}">
             <link target="EditSalarySteps">
                 <parameter param-name="payGradeId"/>
@@ -141,15 +141,15 @@
         </menu-item>
     </menu>
     <menu name="SkillType" type="simple" id="app-navigation" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem"/>
-    
-    <menu name="GlobalHRSettingMenus" type="simple" default-menu-item-name="SkillType" 
+
+    <menu name="GlobalHRSettingMenus" type="simple" default-menu-item-name="SkillType"
         menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem" default-selected-style="selected">
         <menu-item name="SkillType" title="${uiLabelMap.HumanResSkillType}">
             <link target="EditSkillTypes"/>
-        </menu-item>      
+        </menu-item>
         <menu-item name="ResponsibilityType" title="${uiLabelMap.HumanResResponsibilityType}">
             <link target="EditResponsibilityTypes"/>
-        </menu-item> 
+        </menu-item>
         <menu-item name="TerminationReason" title="${uiLabelMap.HumanResTerminationReason}">
             <link target="EditTerminationReasons"/>
         </menu-item>
@@ -166,7 +166,7 @@
             <link target="FindPayGrades"/>
         </menu-item>
     </menu>
-    
+
     <menu name="EmployeeProfileTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="EditEmployeeSkills">
         <menu-item name="EmployeeProfile" title="${uiLabelMap.PartyProfile}">
@@ -199,7 +199,7 @@
                 <parameter param-name="partyId"/>
             </link>
         </menu-item>
-        <!-- I think these don't belong here, I'll get to these in short while. 
+        <!-- I think these don't belong here, I'll get to these in short while.
         <menu-item name="EditEmployeeEmploymentApps" title="${uiLabelMap.HumanResEmploymentApp}">
             <link target="EditEmployeeEmploymentApps">
                 <parameter param-name="partyId"/>
@@ -209,7 +209,7 @@
             <link target="EditEmployeeResumes">
                 <parameter param-name="partyId"/>
             </link>
-        </menu-item>  
+        </menu-item>
         <menu-item name="EditEmployeePerformanceNotes" title="${uiLabelMap.HumanResPerfNote}">
             <link target="EditEmployeePerformanceNotes">
                 <parameter param-name="partyId"/>
@@ -221,7 +221,7 @@
             </link>
         </menu-item>
     </menu>
-    
+
     <menu name="EmplPositionTypeTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="EditEmplPositionType" selected-menuitem-context-field-name="tabButtonItem2">
         <menu-item name="EditEmplPositionType" title="${uiLabelMap.HumanResEmplPositionType}">

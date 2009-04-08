@@ -18,14 +18,14 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <!-- The controller elements that are common to all OFBiz components
          can be found in the following xml file. A component can override the
          elements found in the common-controller.xml file. -->
-    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
-    <include location="component://common/webcommon/WEB-INF/portal-controller.xml"/>    
-    
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <include location="component://common/webcommon/WEB-INF/portal-controller.xml"/>
+
     <description>Example Component Site Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
@@ -85,7 +85,7 @@ under the License.
         <response name="success" type="view" value="findExampleAjax"/>
         <response name="error" type="view" value="findExampleAjax"/>
     </request-map>
-    
+
     <request-map uri="EditExampleItems"><security https="true" auth="true"/><response name="success" type="view" value="EditExampleItems"/></request-map>
     <request-map uri="createExampleItem">
         <security https="true" auth="true"/>
@@ -157,7 +157,7 @@ under the License.
         </response>
         <response name="error" type="view" value="EditExampleFeature"/>
     </request-map>
-    
+
     <request-map uri="EditExampleFeatureExampleAppls"><security https="true" auth="true"/><response name="success" type="view" value="EditExampleFeatureExampleAppls"/></request-map>
     <request-map uri="feature_createExampleFeatureAppl">
         <security https="true" auth="true"/>
@@ -197,7 +197,7 @@ under the License.
     <request-map uri="ListExampleFormOnly"><security https="true" auth="false"/><response name="success" type="view" value="ListExampleFormOnly"/></request-map>
     <request-map uri="CreateExampleFormOnly"><security https="true" auth="false"/><response name="success" type="view" value="CreateExampleFormOnly"/></request-map>
     <request-map uri="dashboardExample"><security https="true" auth="false"/><response name="success" type="view" value="dashboardExample"/></request-map>
-   
+
     <request-map uri="printExampleFOPFonts">
       <security https="true" auth="true"/>
       <response name="success" type="view" value="printExampleFOPFonts"/>
@@ -214,7 +214,7 @@ under the License.
     <view-map name="EditExampleFeatureAppls" type="screen" page="component://example/widget/example/ExampleScreens.xml#EditExampleFeatureAppls"/>
     <view-map name="ExampleReportHtml" type="screen" page="component://example/widget/example/ExampleScreens.xml#ExampleReport"/>
     <view-map name="ExampleReportPdf" type="screenfop" page="component://example/widget/example/ExampleScreens.xml#ExampleReport" content-type="application/pdf" encoding="none"/>
-    
+
     <view-map name="FindExampleFeature" type="screen" page="component://example/widget/example/ExampleFeatureScreens.xml#FindExampleFeature"/>
     <view-map name="EditExampleFeature" type="screen" page="component://example/widget/example/ExampleFeatureScreens.xml#EditExampleFeature"/>
     <view-map name="EditExampleFeatureExampleAppls" type="screen" page="component://example/widget/example/ExampleFeatureScreens.xml#EditExampleFeatureExampleAppls"/>

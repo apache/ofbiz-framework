@@ -99,28 +99,28 @@ under the License.
         <if-empty field="parameters.PASSWORD"><property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyPasswordMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
         <if-empty field="parameters.USER_EMAIL"><property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyEmailAddressMissing"/><field-to-list field="errorMessage" list="error_list"/></if-empty>
         <check-errors error-list-name="error_list" error-code="resultPage"/>
-        
+
         <!-- set parameter of person to personContext Map -->
         <set field="personContext.salutation" from-field="parameters.salutation"/>
         <set field="personContext.firstName" from-field="parameters.firstName"/>
         <set field="personContext.middleName" from-field="parameters.middleName"/>
         <set field="personContext.lastName" from-field="parameters.lastName"/>
         <set field="personContext.comments" from-field="parameters.comments"/>
-        
+
         <!-- set parameter of userLogin to userLoginContext Map -->
         <set field="userLoginContext.userLoginId" from-field="parameters.USERNAME"/>
-        
+
         <now-timestamp field="nowStamp"/>
         <call-object-method obj-field="parameters.PASSWORD" method-name="toLowerCase" ret-field="parameters.PASSWORD"/>
-        <call-object-method obj-field="parameters.CONFIRM_PASSWORD" method-name="toLowerCase" ret-field="parameters.CONFIRM_PASSWORD"/>  
+        <call-object-method obj-field="parameters.CONFIRM_PASSWORD" method-name="toLowerCase" ret-field="parameters.CONFIRM_PASSWORD"/>
         <call-object-method obj-field="parameters.captcha" method-name="toLowerCase" ret-field="parameters.captcha"/>
         <call-object-method obj-field="parameters.captchaCode" method-name="toLowerCase" ret-field="parameters.captchaCode"/>
         <if-compare field="parameters.PASSWORD" value="${parameters.CONFIRM_PASSWORD}" operator="equals">
-            <if-compare field="parameters.captcha" value="${parameters.captchaCode}" operator="equals">                
-                
+            <if-compare field="parameters.captcha" value="${parameters.captchaCode}" operator="equals">
+
                 <!-- Create user login and Person -->
                 <find-by-primary-key entity-name="UserLogin" map="userLoginContext" value-field="existingUserLogin"/>
-                <if-empty field="existingUserLogin">                    
+                <if-empty field="existingUserLogin">
                     <set field="userLoginContext.currentPassword" from-field="parameters.PASSWORD"/>
                     <set field="userLoginContext.currentPasswordVerify" from-field="parameters.CONFIRM_PASSWORD"/>
                     <set-service-fields map="personContext" service-name="createPersonAndUserLogin" to-map="personUserLoginContext"/>
@@ -135,8 +135,8 @@ under the License.
                         <field-to-list field="errorMessage" list="error_list"/>
                         <check-errors error-list-name="error_list" error-code="resultPage"/>
                     </else>
-                </if-empty>                              
-                
+                </if-empty>
+
                 <!-- create the PartyDataSource entry to track where this info came from... -->
                 <make-value entity-name="PartyDataSource" value-field="partyDataSource"/>
                 <set value="MY_PORTAL" field="partyDataSource.dataSourceId"/>
@@ -146,7 +146,7 @@ under the License.
                 <session-to-field field="visit"/>
                 <set from-field="visit.visitId" field="partyDataSource.visitId"/>
                 <create-value value-field="partyDataSource"/>
-                
+
                 <!-- Create E-mail address -->
                 <set field="emailContext.emailAddress" from-field="parameters.USER_EMAIL"/>
                 <call-service service-name="createPartyEmailAddress" in-map-name="emailContext">
@@ -155,7 +155,7 @@ under the License.
                 <set from-field="partyId" field="emailPurposeContext.partyId"/>
                 <set value="PRIMARY_EMAIL" field="emailPurposeContext.contactMechPurposeTypeId"/>
                 <call-service service-name="createPartyContactMechPurpose" in-map-name="emailPurposeContext"/>
-                
+
                 <!-- Send e-mail to new create user -->
                 <entity-one entity-name="WebSite" value-field="webSite"/>
                 <set field="storeEmailLookup.productStoreId" from-field="webSite.productStoreId"/>
@@ -163,7 +163,7 @@ under the License.
                 <find-by-primary-key map="storeEmailLookup" entity-name="ProductStoreEmailSetting"  value-field="storeEmail"/>
                 <get-related-one value-field="createdUserLogin" relation-name="Person" to-value-field="person"/>
                 <set field="bodyParameters.person" from-field="person"/>
-                <set field="emailParams.bodyParameters" from-field="bodyParameters"/>  
+                <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
                 <set field="emailParams.sendTo" from-field="emailContext.emailAddress"/>
                 <set field="emailParams.subject" from-field="storeEmail.subject"/>
                 <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
@@ -174,7 +174,7 @@ under the License.
                 <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
                 <set field="emailParams.emailType" from-field="storeEmail.emailType"/>
                 <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
-                
+
                 <!-- Create Customer Request to show new registration-->
                 <set field="custRequest.custRequestTypeId" value="RF_SUPPORT"/>
                 <set field="custRequest.fromPartyId" from-field="partyId"/>
@@ -186,7 +186,7 @@ under the License.
                 <set field="custRequestItem.custRequestId" from-field="custRequestId"/>
                 <set field="custRequestItem.story" from-field="parameters.whyWouldYouLikeToRegister"/>
                 <call-service service-name="createCustRequestItem" in-map-name="custRequestItem"/>
-                
+
                 <!-- set field to request -->
                 <field-to-request field="partyId" request-name="partyId"/>
                 <field-to-request field="emailPurposeContext.contactMechId" request-name="contactMechId"/>
@@ -198,7 +198,7 @@ under the License.
             <else>
                 <property-to-field field="errorMessage" resource="PartyUiLabels" property="PartyPasswordMatchError"/><field-to-list field="errorMessage" list="error_list"/>
             </else>
-        </if-compare>      
+        </if-compare>
         <check-errors error-list-name="error_list" error-code="resultPage"/>
         <call-class-method class-name="org.ofbiz.common.Captcha" method-name="deleteFile"/>
     </simple-method>

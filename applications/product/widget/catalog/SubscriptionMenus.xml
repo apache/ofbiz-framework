@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">      
-    <menu name="EditSubscription" default-selected-style="selected" type="simple" 
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
+    <menu name="EditSubscription" default-selected-style="selected" type="simple"
         menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="EditSubscription" title="${uiLabelMap.ProductSubscription}">
             <link target="EditSubscription">
@@ -32,7 +32,7 @@ under the License.
                 <parameter param-name="subscriptionId"/>
             </link>
         </menu-item>
-        
+
         <menu-item name="EditSubscriptionCommEvent" title="${uiLabelMap.ProductSubscriptionCommEvent}">
             <link target="EditSubscriptionCommEvent">
                 <parameter param-name="subscriptionId"/>

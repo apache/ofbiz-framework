@@ -26,7 +26,7 @@ under the License.
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductReviewsPendingApproval}</h3>
     </div>
-    <div class="screenlet-body"> 
+    <div class="screenlet-body">
         <#if !pendingReviews?has_content>
             <h3>${uiLabelMap.ProductReviewsNoPendingApproval}</h3>
         <#else>
@@ -100,7 +100,7 @@ under the License.
                     <#assign rowClass = "1">
                 <#else>
                     <#assign rowClass = "2">
-                </#if> 
+                </#if>
                 </#list>
                 <input type="hidden" name="_rowCount" value="${rowCount}">
                 </table>

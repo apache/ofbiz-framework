@@ -26,12 +26,12 @@ under the License.
     </test-case>
     <test-case case-name="inventoryItemTransfer-test">
         <junit-test-suite class-name="org.ofbiz.product.test.InventoryItemTransferTest"/>
-    </test-case>    
+    </test-case>
     <!-- Physical Inventory Adjustment test -->
     <test-case case-name="physicalInventoryAdjustment-test">
         <simple-method-test location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" name="testPhysicalInventoryAdjustment"/>
     </test-case>
-    
+
     <!-- Packing process test -->
     <test-case case-name="testPackingServices-test">
         <simple-method-test location="component://product/script/org/ofbiz/shipment/test/TestServices.xml" name="testPackingServices"/>
@@ -39,9 +39,9 @@ under the License.
     <test-case case-name="testShipmentServices-test">
         <simple-method-test location="component://product/script/org/ofbiz/shipment/test/TestServices.xml" name="testShipmentServices"/>
     </test-case>
-   
+
     <!-- Receive Inventory Item test -->
     <test-case case-name="receiveInventoryItemNonSerialized-test">
         <simple-method-test location="component://product/script/org/ofbiz/shipment/test/TestServices.xml" name="testReceiveInventoryNonSerialized"/>
-    </test-case>    
+    </test-case>
 </test-suite>

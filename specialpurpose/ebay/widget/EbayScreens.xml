@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="main-decorator">
@@ -40,12 +40,12 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CommonProductDecorator">
         <section>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
                 <set field="productName" from-field="product.productName"/>
@@ -67,7 +67,7 @@ under the License.
                                             <label style="h1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${productId}]  ${${extraFunctionName}}</label>
                                             <image src="${product.smallImageUrl}" height="40" width="40" url-mode="content"/>
                                         </container>
-                                        
+
                                         <!-- add Create Product and View Product (in ecommerce) links -->
                                         <container style="button-bar">
                                             <link target="EditProduct" text="${uiLabelMap.ProductNewProduct}" style="buttontext"/>
@@ -82,7 +82,7 @@ under the License.
                                         </container>
                                     </widgets>
                                 </section>
-                                
+
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -94,7 +94,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="permission-decorator">
         <section>
             <actions>
@@ -118,7 +118,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="advancedsearch">
         <section>
             <actions>
@@ -130,7 +130,7 @@ under the License.
                 </entity-condition>
                 <entity-condition entity-name="ProdCatalog" list="prodCatalogs">
                     <order-by field-name="catalogName"/>
-                </entity-condition>  
+                </entity-condition>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/find/advancedsearchoptions.groovy"/>
             </actions>
             <widgets>
@@ -144,7 +144,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="keywordsearch">
         <section>
             <actions>
@@ -166,7 +166,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ProductsExportToEbay">
         <section>
             <actions>
@@ -190,7 +190,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <platform-specific>
                                             <html>
                                                 <html-template location="component://ebay/webapp/ebay/find/productsExportToEbay.ftl"/>
@@ -205,7 +205,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ManageOrdersFromEbay">
         <section>
             <actions>
@@ -243,20 +243,20 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container> 
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditProduct">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditProduct"/>
                 <set field="tabButtonItem" value="EditProduct"/>
                 <set field="labelTitleProperty" value="ProductProduct"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
             </actions>

@@ -25,7 +25,7 @@ under the License.
   <div class="page-container">
     <div class="header">
       <div class="header-top">
-        
+
         <!-- Sitelogo and sitename -->
         <a class="sitelogo" href="<@ofbizUrl>main</@ofbizUrl>" title="${uiLabelMap.CommonMain}"></a>
         <div class="sitename">
@@ -44,7 +44,7 @@ under the License.
             <li><a href="<@ofbizUrl>setSessionLocale?newLocale=de</@ofbizUrl>"><img src="/multiflex/flag_de.gif" /></a></li>
             <li><a href="<@ofbizUrl>setSessionLocale?newLocale=fr</@ofbizUrl>"><img src="/multiflex/flag_fr.gif" /></a></li>
           </ul>
-        </div>			
+        </div>
 
         <!-- Navigation Level 1 -->
         <div class="nav1">
@@ -53,11 +53,11 @@ under the License.
             <li><a href="<@ofbizUrl>contactus</@ofbizUrl>">${uiLabelMap.CommonContactUs}</a></li>
             <li><a href="<@ofbizUrl>policies</@ofbizUrl>">${uiLabelMap.EcommerceSeeStorePoliciesHere}</a></li>
           </ul>
-        </div>      
+        </div>
       </div>
-      
+
       <!-- A.2 HEADER MIDDLE -->
-      <div class="header-middle">    
+      <div class="header-middle">
         <!-- Site message -->
         <div class="sitemessage">
           <h1>EASY &bull; FLEXIBLE &bull; ROBUST</h1>
@@ -70,15 +70,15 @@ under the License.
           </#if>
           </h2>
           <h3><a href="#">&rsaquo;&rsaquo;&nbsp;More details</a></h3>
-        </div>        
+        </div>
       </div>
-      
+
       <!-- A.3 HEADER BOTTOM -->
       <div class="header-bottom">
-      
+
         <!-- Navigation Level 2 (Drop-down menus) -->
         <div class="nav2">
-	
+
           <#if userLogin?has_content && userLogin.userLoginId != "anonymous">
             <!-- Navigation item -->
             <ul>
@@ -89,7 +89,7 @@ under the License.
             <ul>
               <li><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
             </ul>
-  
+
             <!-- Navigation item -->
             <ul>
               <li><a href="<@ofbizUrl>newcustomer</@ofbizUrl>">${uiLabelMap.EcommerceRegister}</a></li>
@@ -117,7 +117,7 @@ under the License.
                   </ul>
                 <!--[if lte IE 6]></td></tr></table></a><![endif]-->
               </li>
-            </ul>          
+            </ul>
           </#if>
 
         </div>

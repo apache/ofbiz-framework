@@ -55,7 +55,7 @@ dojo.widget.defineWidget(
 		}
 		this.sourceNode.className = "dojoShowPrint";
 		this.sourceNode.style.display = "none";
-		
+
 		dojo.event.connect(document, "onclick", this, "gotoSlideByEvent");
 		if(dojo.render.html.ie) {
 			dojo.event.connect(document,"onkeydown",this, "gotoSlideByEvent");
@@ -83,7 +83,7 @@ dojo.widget.defineWidget(
 		this.gotoSlide(0, true);
 
 		// check to see if we're initialized from a particular slide
-		dojo.addOnLoad(dojo.lang.hitch(this, 
+		dojo.addOnLoad(dojo.lang.hitch(this,
 			function(){
 				var th = window.location.hash;
 				if(th.length){
@@ -111,7 +111,7 @@ dojo.widget.defineWidget(
 				}
 			}
 		}
-		
+
 		if(!this._slides[slide]){
 			return;
 		}
@@ -123,7 +123,7 @@ dojo.widget.defineWidget(
 				this.debugPane.hide();
 			}
 		}
-		
+
 		if(this._slide != -1){
 			while(this._slides[this._slide].previousAction()){}
 		}
@@ -134,7 +134,7 @@ dojo.widget.defineWidget(
 		if(this._slides[this._slide]){
 			this._slides[this._slide].hide();
 		}
-		
+
 		this._slide = slide;
 		this.select.selectedIndex = slide;
 		var cn = this.contentNode;
@@ -192,10 +192,10 @@ dojo.widget.defineWidget(
 		if(!ev){
 			return true;
 		}
-	
+
 		if (ev.type == "click" && (this._slides[this._slide].noClick || this.noClick)) {
 			return false;
-		}	
+		}
 		var target = ev.target;
 		// Check to see if the target is below the show domNode
 		while(target != null){
@@ -217,7 +217,7 @@ dojo.widget.defineWidget(
 				target = target.parentNode;
 			}
 		}
-		
+
 		if(window.event){
 			ev.returnValue = false;
 			ev.cancelBubble = true;
@@ -225,7 +225,7 @@ dojo.widget.defineWidget(
 			ev.preventDefault();
 			ev.stopPropagation();
 		}
-		
+
 		return true;
 	},
 	popUpNav: function(){

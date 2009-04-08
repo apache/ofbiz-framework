@@ -88,10 +88,10 @@ dojo.widget.defineWidget(
 			this.requires = dojo.html.removeNode(this.requires);
 			this.rRow.style.display = "none";
 			this.rRow2.style.display = "none";
-			
+
 			this.methods = dojo.html.removeNode(this.methods);
 			this.mRow.style.display = "none";
-			
+
 			this.dialog = dojo.widget.createWidget("dialog", {}, this.dialog);
 			this.dialog.setCloseControl(this.cancel);
 			dojo.html.setOpacity(this.dialogBg, 0.8);
@@ -105,13 +105,13 @@ dojo.widget.defineWidget(
 			dojo.event.connect(this.logIn, "onclick", this, "_logIn");
 			dojo.event.connect(this.save, "onclick", this, "_save");
 			dojo.event.connect(dojo.docs, "logInSuccess", this, "_loggedIn");
-			
+
 			/*
 			this.pkgDescription = dojo.widget.createWidget("editor2", {
 				toolbarAlwaysVisible: true
 			}, this.pkgDescription);
 			*/
-			
+
 			this.homeSave = this.containerNode.cloneNode(true);
 			this.detailSave = dojo.html.removeNode(this.detail);
 			this.resultSave = dojo.html.removeNode(this.result);
@@ -195,11 +195,11 @@ dojo.widget.defineWidget(
 				var paramType = parameters[param].type;
 				var paramSummary = parameters[param].summary;
 				var paramName = param;
-				this.parameters.style.display = "block";		
+				this.parameters.style.display = "block";
 				this.pLink.innerHTML = paramName;
 				this.pOpt.style.display = "none";
 				if(parameters[param].opt){
-					this.pOpt.style.display = "inline";				
+					this.pOpt.style.display = "inline";
 				}
 				this.pType.parentNode.style.display = "none";
 				if(parameters[param][0]){
@@ -260,9 +260,9 @@ dojo.widget.defineWidget(
 			}
 
 			dojo.html.removeChildren(this.domNode);
-			
+
 			this.pkg.innerHTML = results.pkg;
-			
+
 			var hasRequires = false;
 			for(var env in requires){
 				hasRequires = true;
@@ -287,7 +287,7 @@ dojo.widget.defineWidget(
 				rRow.style.display = "";
 				appends.push(rRow);
 			}
-			
+
 			if(hasRequires){
 				appends.push(this.packageSave.appendChild(this.requires.cloneNode(true)));
 			}
@@ -298,7 +298,7 @@ dojo.widget.defineWidget(
 					this.mLink.href = "#" + method.name;
 					this.mDesc.parentNode.style.display = "none";
 					if(method.summary){
-						this.mDesc.parentNode.style.display = "inline";				
+						this.mDesc.parentNode.style.display = "inline";
 						this.mDesc.innerHTML = method.summary;
 					}
 					var mRow = this.mRow.parentNode.insertBefore(this.mRow.cloneNode(true), this.mRow);
@@ -309,7 +309,7 @@ dojo.widget.defineWidget(
 			}
 
 			this.domNode.appendChild(this.packageSave);
-			
+
 			/*
 			dojo.debug(description);
 			function fillContent(){
@@ -323,7 +323,7 @@ dojo.widget.defineWidget(
 			}
 			*/
 			this.pkgDescription.innerHTML = description;
-			
+
 			function makeSelect(fOrP, x){
 				return function(e) {
 					dojo.event.topic.publish("/docs/" + fOrP + "/select", x);
@@ -356,11 +356,11 @@ dojo.widget.defineWidget(
 				this.fnLink.innerHTML = fn.name;
 				this.fnLink.href = "#" + fn.name;
 				if(fn.id){
-					this.fnLink.href = this.fnLink.href + "," + fn.id;	
+					this.fnLink.href = this.fnLink.href + "," + fn.id;
 				}
 				this.summary.parentNode.style.display = "none";
 				if(fn.summary){
-					this.summary.parentNode.style.display = "inline";				
+					this.summary.parentNode.style.display = "inline";
 					this.summary.innerHTML = fn.summary;
 				}
 				appends.push(this.rowParent.appendChild(this.rowSave.cloneNode(true)));

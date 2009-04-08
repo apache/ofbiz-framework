@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -29,14 +29,14 @@ context.completeRequested = completeRequested;
 
 // get the 'to' this facility transfers
 if (activeOnly) {
-    exprsTo = [EntityCondition.makeCondition("facilityIdTo", EntityOperator.EQUALS, facilityId), 
-               EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "IXF_COMPLETE"), 
+    exprsTo = [EntityCondition.makeCondition("facilityIdTo", EntityOperator.EQUALS, facilityId),
+               EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "IXF_COMPLETE"),
                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "IXF_CANCELLED")];
 } else {
     exprsTo = [EntityCondition.makeCondition("facilityIdTo", EntityOperator.EQUALS, facilityId)];
 }
 if (completeRequested) {
-    exprsTo = [EntityCondition.makeCondition("facilityIdTo", EntityOperator.EQUALS, facilityId), 
+    exprsTo = [EntityCondition.makeCondition("facilityIdTo", EntityOperator.EQUALS, facilityId),
                EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "IXF_REQUESTED")];
 }
 ecl = EntityCondition.makeCondition(exprsTo, EntityOperator.AND);
@@ -47,14 +47,14 @@ if (toTransfers) {
 
 // get the 'from' this facility transfers
 if (activeOnly) {
-    exprsFrom = [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId), 
-                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "IXF_COMPLETE"), 
+    exprsFrom = [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
+                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "IXF_COMPLETE"),
                  EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "IXF_CANCELLED")];
 } else {
     exprsFrom = [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId)];
 }
 if (completeRequested) {
-    exprsFrom = [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId), 
+    exprsFrom = [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
                  EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "IXF_REQUESTED")];
 }
 ecl = EntityCondition.makeCondition(exprsFrom, EntityOperator.AND);

@@ -22,7 +22,7 @@ under the License.
     <property name="site.dir" value="../site"/>
     <property name="memory.initial.param" value="-Xms128M"/>
     <property name="memory.max.param" value="-Xmx512M"/>
-    
+
     <available file="applications/build.xml" property="applications.present"/>
     <available file="specialpurpose/build.xml" property="specialpurpose.present"/>
 
@@ -85,7 +85,7 @@ under the License.
         </subant>
     </target>
 
-    <target name="clean-cache" 
+    <target name="clean-cache"
         description="Clean the UtilCache file if errors found with old objects in the cache (Java runtime error something like 'local class incompatible')">
         <property file="framework/base/config/cache.properties"/>
         <echo message="NOTICE: deleting ${cache.file.store}.db"/>
@@ -104,7 +104,7 @@ under the License.
                 <include name="**/build.xml"/>
             </fileset>
         </subant>
-        
+
         <subant target="clean"  failonerror="${specialpurpose.present}" description="Use failonerror=false in case the specialpurpose directory is not there">
             <filelist dir="." files="specialpurpose/build.xml"/>
         </subant>
@@ -137,7 +137,7 @@ under the License.
         <echo message=" " file="runtime/svninfo.ftl"/>
         <echo message="Done!"/>
     </target>
-    
+
     <!-- ================================================================== -->
     <!-- Build Components                                                   -->
     <!-- ================================================================== -->
@@ -160,8 +160,8 @@ under the License.
                 <include name="**/build.xml"/>
             </fileset>
         </subant>
-        <antcall target="clean-svninfo"></antcall>      
-        
+        <antcall target="clean-svninfo"></antcall>
+
         <echo message="[build] ========== Done Building (Compile) =========="/>
     </target>
 
@@ -186,7 +186,7 @@ under the License.
                 <include name="**/build.xml"/>
             </fileset>
         </subant>
-        
+
         <echo message="[docs] ========== Done Building (JavaDocs) =========="/>
     </target>
 
@@ -211,7 +211,7 @@ under the License.
 
     <echo message="[docs-all] ========== Done Building (JavaDocs) =========="/>
    </target>
-  
+
     <!-- ================================================================== -->
     <!-- Contrib Targets                                                    -->
     <!-- ================================================================== -->
@@ -291,7 +291,7 @@ under the License.
             <arg value="pos"/>
         </java>
     </target>
-    <target name="run-install" depends="build" 
+    <target name="run-install" depends="build"
         description="This loads all configured data; meant for generic OFBiz development, testing, demonstration, etc purposes">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
@@ -299,7 +299,7 @@ under the License.
             <arg value="install"/>
         </java>
     </target>
-    <target name="run-install-seed" depends="build" 
+    <target name="run-install-seed" depends="build"
         description="This loads ONLY the seed data (not seed-initial, demo, ext* or anything else); meant for use after an update of the code to reload the seed data as it is generally maintained along with the code and needs to be in sync for operation">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
@@ -308,7 +308,7 @@ under the License.
             <arg value="readers=seed"/>
         </java>
     </target>
-    <target name="run-install-extseed" depends="build" 
+    <target name="run-install-extseed" depends="build"
         description="This loads seed, seed-initial and ext data; meant for manual/generic testing, development, or going into production with a derived system based on stock OFBiz where the ext data basically replaces the demo data">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
@@ -317,8 +317,8 @@ under the License.
             <arg value="readers=seed,seed-initial,ext"/>
         </java>
     </target>
-    <target name="run-install-exttest" depends="build" 
-        description="This loads seed, seed-initial, ext and ext-test data; meant for automated testing with a derived system based on stock OFBiz"> 
+    <target name="run-install-exttest" depends="build"
+        description="This loads seed, seed-initial, ext and ext-test data; meant for automated testing with a derived system based on stock OFBiz">
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
@@ -534,7 +534,7 @@ under the License.
             <filterset refid="replacePlaceholders"/>
         </copy>
         <echo>Component successfully created in folder ${basedir}/hot-deploy/${component-name}.
-              Restart OFBiz and then visit the URL: http://localhost:8080/${webapp-name} 
+              Restart OFBiz and then visit the URL: http://localhost:8080/${webapp-name}
         </echo>
     </target>
 </project>

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,7 +26,7 @@ if (productCategory) {
 
 primaryParentCategory = null;
 primParentCatIdParam = request.getParameter("primaryParentCategoryId");
-if(productCategory) {
+if (productCategory) {
     primaryParentCategory = productCategory.getRelatedOne("PrimaryParentProductCategory");
 } else if (primParentCatIdParam) {
     primaryParentCategory = delegator.findOne("ProductCategory", [productCategoryId : primParentCatIdParam], false);
@@ -99,11 +99,11 @@ if (fileType) {
             file1 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse);
             try {
                 file1.delete();
-            } catch(Exception e) {
+            } catch (Exception e) {
                 System.out.println("error deleting existing file (not neccessarily a problem)");
             }
             file.renameTo(file1);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

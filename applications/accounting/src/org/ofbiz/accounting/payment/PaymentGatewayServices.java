@@ -1556,7 +1556,7 @@ public class PaymentGatewayServices {
         // now invoke the capture service
         Map captureResult = null;
         try {
-            // NOTE DEJ20070819 calling this with a new transaction synchronously caused a deadlock because in this 
+            // NOTE DEJ20070819 calling this with a new transaction synchronously caused a deadlock because in this
             //transaction OrderHeader was updated and with this transaction paused and waiting for the new transaction
             //and the new transaction was waiting trying to read the same OrderHeader record; note that this only happens
             //for FinAccounts because they are processed internally whereas others are not

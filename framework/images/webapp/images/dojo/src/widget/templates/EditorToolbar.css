@@ -45,7 +45,7 @@ body {
 
 div.bigIcon {
 	width: 40px;
-	height: 40px; 
+	height: 40px;
 	/* background-color: white; */
 	/* border: 1px solid #a6a7a3; */
 	font-family: Verdana, Trebuchet, Tahoma, Arial;
@@ -109,7 +109,7 @@ div.bigIcon {
 .EditorToolbarDomNode select {
 	/* font-size: 14px; */
 }
- 
+
 .dojoE2TBIcon_Sep { width: 5px; min-width: 5px; max-width: 5px; background-position: 0px 0px}
 .dojoE2TBIcon_Backcolor { background-position: -18px 0px}
 .dojoE2TBIcon_Bold { background-position: -36px 0px}

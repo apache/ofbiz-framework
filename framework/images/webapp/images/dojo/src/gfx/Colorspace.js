@@ -672,7 +672,7 @@ dojo.gfx.Colorspace.prototype.RGB_to_HSV = function(){
 	var src = this.munge('RGB', arguments);
 
 	// Based on C Code in "Computer Graphics -- Principles and Practice,"
-	// Foley et al, 1996, p. 592. 
+	// Foley et al, 1996, p. 592.
 
 	var min = Math.min(src.R, src.G, src.B);
 	var V = Math.max(src.R, src.G, src.B);

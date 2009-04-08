@@ -274,7 +274,7 @@ public class ProductPromoWorker {
                 }
             }
             // do a calculate only run through the promotions, then order by descending totalDiscountAmount for each promotion
-            // NOTE: on this run, with isolatedTestRun passed as false it should not apply any adjustments 
+            // NOTE: on this run, with isolatedTestRun passed as false it should not apply any adjustments
             //  or track which cart items are used for which promotions, but it will track ProductPromoUseInfo and
             //  useLimits; we are basicly just trying to run each promo "independently" to see how much each is worth
             runProductPromos(productPromoList, cart, delegator, dispatcher, nowTimestamp, true);
@@ -663,15 +663,15 @@ public class ProductPromoWorker {
             promoDescBuf.append(UtilProperties.getMessage(resource, "OrderRequiresCodeToUse", locale));
         }
         if (productPromo.getLong("useLimitPerOrder") != null) {
-            promoDescBuf.append(UtilProperties.getMessage(resource, "OrderLimitPerOrder", 
+            promoDescBuf.append(UtilProperties.getMessage(resource, "OrderLimitPerOrder",
                     UtilMisc.toMap("limit", productPromo.getLong("useLimitPerOrder")), locale));
         }
         if (productPromo.getLong("useLimitPerCustomer") != null) {
-            promoDescBuf.append(UtilProperties.getMessage(resource, "OrderLimitPerCustomer", 
+            promoDescBuf.append(UtilProperties.getMessage(resource, "OrderLimitPerCustomer",
                     UtilMisc.toMap("limit", productPromo.getLong("useLimitPerCustomer")), locale));
         }
         if (productPromo.getLong("useLimitPerPromotion") != null) {
-            promoDescBuf.append(UtilProperties.getMessage(resource, "OrderLimitPerPromotion", 
+            promoDescBuf.append(UtilProperties.getMessage(resource, "OrderLimitPerPromotion",
                     UtilMisc.toMap("limit", productPromo.getLong("useLimitPerPromotion")), locale));
         }
 

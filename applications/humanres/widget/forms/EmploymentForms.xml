@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,7 +23,7 @@
     <form name="FindEmployments" type="single" target="FindEmployments"
         odd-row-style="header-row" default-table-style="basic-table">
         <field name="roleTypeIdFrom"><hidden value="INTERNAL_ORGANIZATIO"/></field>
-        <field name="roleTypeIdTo"><hidden value="EMPLOYEE"/></field>  
+        <field name="roleTypeIdTo"><hidden value="EMPLOYEE"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}" tooltip="${uiLabelMap.HumanResEmploymentPartyIdFromToolTip}">
             <drop-down allow-empty="true" no-current-selected-key="${defaultOrganizationPartyId}">
                 <entity-options description="${groupName}" entity-name="PartyAcctgPrefAndGroup" key-field-name="partyId">
@@ -43,8 +43,8 @@
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
-        </field>    
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>    
+        </field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListEmploymentsPerson" type="list" paginate-target="FindEmployments" default-entity-name="EmploymentAndPerson" list-name="listIt" separate-columns="true"
@@ -108,15 +108,15 @@
     <form name="EditEmployment" type="single" target="updateEmployment" default-map-name="employment"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="employment==null" target="createEmployment"/>
-        <auto-fields-service service-name="createEmployment" default-field-type="hidden"/>  
+        <auto-fields-service service-name="createEmployment" default-field-type="hidden"/>
         <field name="roleTypeIdFrom"><hidden value="INTERNAL_ORGANIZATIO"/></field>
-        <field name="roleTypeIdTo"><hidden value="EMPLOYEE"/></field>        
+        <field name="roleTypeIdTo"><hidden value="EMPLOYEE"/></field>
         <field name="partyIdFrom" use-when="employment==null" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PartyRole" description="${partyId}" key-field-name="partyId">
                     <entity-constraint name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
                 </entity-options>
-            </drop-down>            
+            </drop-down>
         </field>
         <field name="partyIdFrom" use-when="employment!=null" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><hidden/></field>
         <field name="partyIdTo" use-when="employment==null" title="${uiLabelMap.HumanResEmployeePartyIdTo}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
@@ -126,47 +126,47 @@
         <field name="thruDate" use-when="employment!=null" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="terminationReasonId" use-when="employment!=null" title="${uiLabelMap.HumanResTerminationReasonId}">
             <drop-down allow-empty="true" no-current-selected-key="------">
-                <entity-options description="${description}" key-field-name="terminationReasonId" entity-name="TerminationReason">                    
+                <entity-options description="${description}" key-field-name="terminationReasonId" entity-name="TerminationReason">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="terminationTypeId" use-when="employment!=null">
             <drop-down allow-empty="true" no-current-selected-key="------">
-                <entity-options description="${description}" key-field-name="terminationTypeId" entity-name="TerminationType">                    
+                <entity-options description="${description}" key-field-name="terminationTypeId" entity-name="TerminationType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
-        </field>       
-        <field name="submitButton" use-when="employment==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
-        <field name="submitButton" use-when="employment!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field> 
+        </field>
+        <field name="submitButton" use-when="employment==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="employment!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListPayHistories" type="list" target="updatePayHistory" title="" paginate-target="findPayHistories"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PayHistory" filter-by-date="true">
-                <condition-list combine="and">                    
+                <condition-list combine="and">
                     <condition-expr field-name="roleTypeIdFrom" operator="equals" from-field="parameters.roleTypeIdFrom"/>
                     <condition-expr field-name="roleTypeIdTo" operator="equals" from-field="parameters.roleTypeIdTo"/>
                     <condition-expr field-name="partyIdFrom" operator="equals" from-field="parameters.partyIdFrom"/>
                     <condition-expr field-name="partyIdTo" operator="equals" from-field="parameters.partyIdTo"/>
                     <condition-expr field-name="fromDate" operator="equals" from-field="parameters.fromDate"/>
                 </condition-list>
-            </entity-condition>            
+            </entity-condition>
         </actions>
         <auto-fields-service service-name="updatePayHistory"/>
         <field name="roleTypeIdFrom"><hidden/></field>
         <field name="roleTypeIdTo"><hidden/></field>
         <field name="partyIdFrom"><hidden/></field>
         <field name="partyIdTo"><hidden/></field>
-        <field name="fromDate"><display/></field>        
+        <field name="fromDate"><display/></field>
         <field name="amount"><hidden/></field>
         <field name="comments"><hidden/></field>
         <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}"><lookup target-form-name="LookupSalaryStep" size="20"/></field>
-        <field name="payGradeId" title="${uiLabelMap.HumanResPayGradeID}"><lookup target-form-name="LookupPayGrade" size="20"/></field>               
+        <field name="payGradeId" title="${uiLabelMap.HumanResPayGradeID}"><lookup target-form-name="LookupPayGrade" size="20"/></field>
         <field name="periodTypeId" title="${uiLabelMap.FormFieldTitle_periodTypeId}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="periodTypeId" entity-name="PeriodType">                    
+                <entity-options description="${description}" key-field-name="periodTypeId" entity-name="PeriodType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -181,27 +181,27 @@
                 <parameter param-name="fromDate"/>
             </hyperlink>
         </field>
-    </form>           
+    </form>
     <form name="ListPartyBenefits" type="multi" target="updatePartyBenefit?benefitTypeId=${benefitTypeId}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" title="" paginate-target="findPartyBenefits"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PartyBenefit"><order-by field-name="fromDate"/></entity-condition>
         </actions>
-        <auto-fields-service service-name="updatePartyBenefit"/>        
+        <auto-fields-service service-name="updatePartyBenefit"/>
         <field name="roleTypeIdFrom"><hidden/></field>
         <field name="roleTypeIdTo"><hidden/></field>
         <field name="partyIdFrom"><hidden/></field>
         <field name="partyIdTo"><hidden/></field>
         <field name="benefitTypeId"><display-entity entity-name="BenefitType" description="${description}"/></field>
-        <field name="fromDate"><display/></field>       
+        <field name="fromDate"><display/></field>
         <field name="periodTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="periodTypeId" entity-name="PeriodType">                    
+                <entity-options description="${description}" key-field-name="periodTypeId" entity-name="PeriodType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
-        </field> 
-        <field name="thruDate"><date-time/></field>       
+        </field>
+        <field name="thruDate"><date-time/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
@@ -215,17 +215,17 @@
             </hyperlink>
         </field>
     </form>
-    <form name="AddPartyBenefit" type="single" target="createPartyBenefit" 
+    <form name="AddPartyBenefit" type="single" target="createPartyBenefit"
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="createPartyBenefit"/>                           
+        <auto-fields-service service-name="createPartyBenefit"/>
         <field name="roleTypeIdFrom"><hidden/></field>
         <field name="roleTypeIdTo"><hidden/></field>
         <field name="partyIdFrom"><hidden/></field>
-        <field name="partyIdTo"><hidden/></field>  
+        <field name="partyIdTo"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="benefitTypeId" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="benefitTypeId" entity-name="BenefitType">                    
+                <entity-options description="${description}" key-field-name="benefitTypeId" entity-name="BenefitType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -233,11 +233,11 @@
         <field name="fromDate" tooltip="${uiLabelMap.CommonRequired}"/>
         <field name="periodTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="periodTypeId" entity-name="PeriodType">                    
+                <entity-options description="${description}" key-field-name="periodTypeId" entity-name="PeriodType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
-        </field>        
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="ListPayrollPreferences" type="multi" target="updatePayrollPreference?partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;payrollPreferenceSeqId=${payrollPreferenceSeqId}" separate-columns="true" paginate-target="findPayRollPreferences"
@@ -246,17 +246,17 @@
             <entity-condition entity-name="PayrollPreference">
                 <condition-list combine="and">
                     <condition-expr field-name="partyId" operator="equals" from-field="parameters.partyIdTo"/>
-                    <condition-expr field-name="roleTypeId" operator="equals" from-field="parameters.roleTypeIdTo"/>                    
+                    <condition-expr field-name="roleTypeId" operator="equals" from-field="parameters.roleTypeIdTo"/>
                 </condition-list>
                 <order-by field-name="fromDate"/>
             </entity-condition>
         </actions>
-        <auto-fields-service default-field-type="hidden" service-name="updatePayrollPreference"/>   
+        <auto-fields-service default-field-type="hidden" service-name="updatePayrollPreference"/>
         <field name="partyId"><display/></field>
-        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field> 
+        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
         <field name="payrollPreferenceSeqId" title="${uiLabelMap.HumanResPayrollPreferenceSeqId}"><display also-hidden="true"/></field>
         <field name="paymentMethodTypeId"><display-entity entity-name="PaymentMethodType" description="${description}"/></field>
-        <field name="periodTypeId"><display-entity entity-name="PeriodType" description="${description}"/></field> 
+        <field name="periodTypeId"><display-entity entity-name="PeriodType" description="${description}"/></field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><date-time/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
@@ -269,13 +269,13 @@
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
     </form>
-    <form name="AddPayrollPreference" type="single" target="createPayrollPreference" 
+    <form name="AddPayrollPreference" type="single" target="createPayrollPreference"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPayrollPreference"/>
         <field name="payrollPreferenceSeqId" title="${uiLabelMap.HumanResPayrollPreferenceSeqId}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPayRollPreference"/></field>
         <field name="partyId"><hidden/></field>
-        <field name="roleTypeId"><hidden/></field>        
-        <field name="fromDate"><hidden/></field>        
+        <field name="roleTypeId"><hidden/></field>
+        <field name="fromDate"><hidden/></field>
         <field name="deductionTypeId">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" key-field-name="deductionTypeId" entity-name="DeductionType">
@@ -297,13 +297,13 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListPerformanceNotes" type="list" target="updatePerformanceNote" title="" paginate-target="findPerformanceNotes"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="PerformanceNote"/>
-        </actions>  
+        </actions>
         <auto-fields-service default-field-type="display" service-name="updatePerformanceNote"/>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
@@ -312,7 +312,7 @@
             </sub-hyperlink>
            </display-entity>
         </field>
-    </form>      
+    </form>
     <form name="AddPerformanceNote" type="single" target="createPerformanceNote" default-map-name="performanceNote"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPerformanceNote" map-name="performanceNote"/>
@@ -324,7 +324,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListUnemploymentClaims" type="multi" target="updateUnemploymentClaim?unemploymentClaimId=${unemploymentClaimId}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;fromDate=${fromDate}" paginate-target="FindUnemploymentClaim"
          odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
@@ -366,8 +366,8 @@
                 <parameter param-name="partyIdTo"/>
                 <parameter param-name="fromDate"/>
             </hyperlink>
-        </field> 
-    </form>                                      
+        </field>
+    </form>
     <form name="AddUnemploymentClaim" type="single" target="createUnemploymentClaim" title="" default-map-name="unemploymentClaim"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createUnemploymentClaim"/>
@@ -381,11 +381,11 @@
             </drop-down>
         </field>
         <field name="roleTypeIdFrom"><hidden/></field>
-        <field name="roleTypeIdTo"><hidden/></field>        
+        <field name="roleTypeIdTo"><hidden/></field>
         <field name="partyIdFrom"><hidden/></field>
         <field name="partyIdTo"><hidden/></field>
-        <field name="fromDate"><hidden/></field>        
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="fromDate"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListAgreementEmploymentAppls" type="multi" title="" target="updateAgreementEmploymentAppl?agreementId=${agreementId}&amp;partyIdTo=${partyIdTo}&amp;partyIdFrom=${partyIdFrom}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;fromDate=${fromDate}&amp;agreementItemSeqId=${agreementItemSeqId}" paginate-target="EditAgreementEmploymentAppls"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
@@ -393,7 +393,7 @@
             <entity-condition entity-name="AgreementEmploymentAppl"><order-by field-name="fromDate"/></entity-condition>
         </actions>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><display also-hidden="true"/></field>
-        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><display also-hidden="true"/></field>        
+        <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><display also-hidden="true"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.HumanResPartyIdFrom}"><display also-hidden="true"/></field>
         <field name="partyIdTo" title="${uiLabelMap.HumanResPartyIdTo}"><display also-hidden="true"/></field>
         <field name="roleTypeIdFrom"><hidden/></field>
@@ -414,8 +414,8 @@
         </field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
-    </form>            
-    <form name="AddAgreementEmploymentAppl" type="single" target="createAgreementEmploymentAppl" default-map-name="agreementEmploymentAppl" 
+    </form>
+    <form name="AddAgreementEmploymentAppl" type="single" target="createAgreementEmploymentAppl" default-map-name="agreementEmploymentAppl"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createAgreementEmploymentAppl" default-field-type="display"/>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupAgreement"/></field>
@@ -424,18 +424,18 @@
         <field name="partyIdTo" title="${uiLabelMap.HumanResPartyIdTo}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeIdFrom" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">                    
+                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="roleTypeIdTo" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">                    
+                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
-        </field>  
+        </field>
         <field name="fromDate"><date-time/></field>
         <field name="agreementDate"><date-time/></field>
         <field name="thruDate"><date-time/></field>

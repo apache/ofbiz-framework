@@ -45,7 +45,7 @@ dojo.provide("dojo.dnd.DragAndDrop");
 //				that respond to drop events to take application-level actions.
 
 dojo.declare("dojo.dnd.DragSource", null, {
-	// String: 
+	// String:
 	//		what kind of drag source are we? Used to determine if we can be
 	//		dropped on a given DropTarget
 	type: "",
@@ -80,11 +80,11 @@ dojo.declare("dojo.dnd.DragSource", null, {
 });
 
 dojo.declare("dojo.dnd.DragObject", null, {
-	// String: 
+	// String:
 	//		what kind of drag object are we? Used to determine if we can be
 	//		dropped on a given DropTarget
 	type: "",
-	
+
 	register: function(){
 		// summary: register this DragObject with the manager
 		var dm = dojo.dnd.dragManager;
@@ -101,7 +101,7 @@ dojo.declare("dojo.dnd.DragObject", null, {
 	},
 
 	onDragMove: function(/*dojo.dnd.DragEvent*/evt){
-		// summary: 
+		// summary:
 		//		Implemented by subclasses. Should change the UI for the drag
 		//		icon i.e., "it moves itself"
 	},
@@ -136,7 +136,7 @@ dojo.declare("dojo.dnd.DragObject", null, {
 dojo.declare("dojo.dnd.DropTarget", null, {
 
 	acceptsType: function(/*String*/type){
-		// summary: 
+		// summary:
 		//		determines whether or not this DropTarget will accept the given
 		//		type. The default behavior is to consult this.acceptedTypes and
 		//		if "*" is a member, to always accept the type.
@@ -147,7 +147,7 @@ dojo.declare("dojo.dnd.DropTarget", null, {
 	},
 
 	accepts: function(/*Array*/dragObjects){
-		// summary: 
+		// summary:
 		//		determines if we'll accept all members of the passed array of
 		//		dojo.dnd.DragObject instances
 		if(!dojo.lang.inArray(this.acceptedTypes, "*")){ // wildcard

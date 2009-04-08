@@ -77,7 +77,7 @@ under the License.
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <widgets>                                                                
+                            <widgets>
                                 <container id="cmsnav" style="left-border">
                                     <container style="screenlet">
                                         <container style="screenlet-title-bar">
@@ -87,22 +87,22 @@ under the License.
                                         </container>
                                         <container style="screenlet-body">
                                             <section>
-                                                <widgets>    
+                                                <widgets>
                                                     <include-screen name="navigateMenu"/>
                                                 </widgets>
                                             </section>
                                         </container>
                                     </container>
                                 </container>
-                                <container id="content-main-section" style="leftonly">                                    
+                                <container id="content-main-section" style="leftonly">
                                     <container id="cmscontent">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-screen name="listDataResources"/>
                                             </widgets>
                                         </section>
-                                    </container>    
-                                </container>                                                                
+                                    </container>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <container id="norender" style="label">
@@ -126,7 +126,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="listDataResources">
         <section>
             <actions>
@@ -150,7 +150,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupDataResource}"/>                
+                <set field="title" value="${uiLabelMap.PageTitleLookupDataResource}"/>
                 <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
@@ -188,7 +188,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditDataResource" location="component://content/widget/content/DataResourceForms.xml"/>
                                     </widgets>
                                 </section>
@@ -227,7 +227,7 @@ under the License.
     <screen name="UploadImage">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleUploadImageDataResource"/>            
+                <set field="titleProperty" value="PageTitleUploadImageDataResource"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="uploadImage"/>
                 <entity-one entity-name="DataResource" value-field="currentValue">
@@ -262,7 +262,7 @@ under the License.
     <screen name="AddDataResourceText">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleAddDataResourceText"/>    
+                <set field="titleProperty" value="PageTitleAddDataResourceText"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="adddataresourcetext"/>
             </actions>
@@ -278,7 +278,7 @@ under the License.
     <screen name="AddDataResourceUrl">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleAddDataResourceUrl"/>    
+                <set field="titleProperty" value="PageTitleAddDataResourceUrl"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="adddataresourceurl"/>
             </actions>
@@ -287,7 +287,7 @@ under the License.
                     <decorator-section name="body">
                         <include-form name="AddDataResourceUrl" location="component://content/widget/content/DataResourceForms.xml"/>
                     </decorator-section>
-                    
+
                 </decorator-screen>
             </widgets>
         </section>
@@ -295,7 +295,7 @@ under the License.
     <screen name="AddDataResourceUpload">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleAddDataResourceUpload"/>    
+                <set field="titleProperty" value="PageTitleAddDataResourceUpload"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="adddataresourceupload"/>
             </actions>
@@ -311,7 +311,7 @@ under the License.
     <screen name="EditDataResourceText">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditDataResourceText"/>    
+                <set field="titleProperty" value="PageTitleEditDataResourceText"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editdataresourcetext"/>
             </actions>
@@ -327,7 +327,7 @@ under the License.
     <screen name="EditDataResourceUrl">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditDataResourceUrl"/>    
+                <set field="titleProperty" value="PageTitleEditDataResourceUrl"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editdataresourceurl"/>
             </actions>
@@ -343,7 +343,7 @@ under the License.
     <screen name="EditDataResourceUpload">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditDataResourceUpload"/>    
+                <set field="titleProperty" value="PageTitleEditDataResourceUpload"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editdataresourceupload"/>
             </actions>
@@ -359,7 +359,7 @@ under the License.
     <screen name="EditElectronicText">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditElectronicText"/>    
+                <set field="titleProperty" value="PageTitleEditElectronicText"/>
                 <set field="headerItem" value="DataResource"/>
                 <set field="tabButtonItem" value="editElectronicText"/>
                 <entity-one entity-name="DataResource" value-field="currentValue"/>
@@ -375,7 +375,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditElectronicText" location="component://content/widget/content/DataResourceForms.xml"/>
                                     </widgets>
                                 </section>
@@ -474,7 +474,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditHtmlText" location="component://content/widget/content/DataResourceForms.xml"/>
                                     </widgets>
                                 </section>

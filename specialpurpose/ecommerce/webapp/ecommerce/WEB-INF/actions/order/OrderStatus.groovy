@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -41,20 +41,20 @@ if (userLogin) partyId = userLogin.partyId; */
 
 partyId = context.partyId;
 if (userLogin) {
-    if(!partyId) {
+    if (!partyId) {
         partyId = userLogin.partyId;
     }
 }
 
 
-// can anybody view an anonymous order?  this is set in the screen widget and should only be turned on by an email confirmation screen 
+// can anybody view an anonymous order?  this is set in the screen widget and should only be turned on by an email confirmation screen
 allowAnonymousView = context.allowAnonymousView;
 
 orderHeader = null;
 isDemoStore = true;
 if (orderId) {
     orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
-    if ("PURCHASE_ORDER".equals(orderHeader?.orderTypeId)){
+    if ("PURCHASE_ORDER".equals(orderHeader?.orderTypeId)) {
         //drop shipper or supplier
         roleTypeId = "SUPPLIER_AGENT";
     } else {
@@ -116,7 +116,7 @@ if (orderHeader) {
     webSiteId = orderHeader.webSiteId ?: CatalogWorker.getWebSiteId(request);
 
     payToPartyId = productStore.payToPartyId;
-    paymentAddress =  PaymentWorker.getPaymentAddress(delegator, payToPartyId);    
+    paymentAddress =  PaymentWorker.getPaymentAddress(delegator, payToPartyId);
     if (paymentAddress) context.paymentAddress = paymentAddress;
 
     // get Shipment tracking info
@@ -126,7 +126,7 @@ if (orderHeader) {
     osisFields.add("shipmentPackageSeqId");
     osisFields.add("trackingCode");
     osisFields.add("boxNumber");
-    osisFindOptions = new EntityFindOptions(); 
+    osisFindOptions = new EntityFindOptions();
     osisFindOptions.setDistinct(true);
     orderShipmentInfoSummaryList = delegator.findList("OrderShipmentInfoSummary", osisCond, osisFields, osisOrder, osisFindOptions, false);
 
@@ -154,7 +154,7 @@ if (orderHeader) {
 
     if (totalItems > returned) {
         context.returnLink = "Y";
-    }    
+    }
 
     context.orderId = orderId;
     context.orderHeader = orderHeader;

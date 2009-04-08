@@ -76,4 +76,3 @@ dojoGuardEnd.js,
 ../src/widget/Editor2Plugin/AlwaysShowToolbar.js,
 ../src/widget/Editor2.js
 
-		

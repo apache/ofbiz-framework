@@ -53,7 +53,7 @@ function uploadCompleted(event){
         $('progressBarSavingMsg').remove();
     }
     progressBar.reset();
-} 
+}
 
 function getUploadProgressStatus(event){
     var i=0;
@@ -75,7 +75,7 @@ function getUploadProgressStatus(event){
                           $('uploadPartyContent').insert("<span id='progressBarSavingMsg' class='label'>Saving..</span>");
                        event.stop();
                    }
-                   
+
                 }
             }});
         },1);
@@ -84,7 +84,7 @@ function getUploadProgressStatus(event){
 function getIframeDocument(frameElement) {
   var doc = null;
   if (frameElement.contentDocument) {
-    doc = frameElement.contentDocument; 
+    doc = frameElement.contentDocument;
   } else if (frameElement.contentWindow) {
     doc = frameElement.contentWindow.document;
   } else if (frameElement.document) {

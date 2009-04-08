@@ -3,7 +3,7 @@
     <!-- demo owner -->
     <Party partyId="admin"/>
     <PartyRole partyId="admin" roleTypeId="OWNER"/>
-    
+
     <!-- demo accounts -->
     <Party partyId="sfa100" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="sfa100" groupName="A profitable Account"/>
@@ -24,7 +24,7 @@
     <PartyRole partyId="DemoCustCompany" roleTypeId="ACCOUNT"/>
     <Party partyId="DemoSupplier"/>
     <PartyRole partyId="DemoSupplier" roleTypeId="ACCOUNT"/>
-    
+
     <!-- demo contacts -->
     <Party partyId="DemoCustomer1"/>
     <PartyRole partyId="DemoCustomer1" roleTypeId="CONTACT"/>
@@ -35,7 +35,7 @@
     <Party partyId="DemoCustomer3"/>
     <PartyRole partyId="DemoCustomer3" roleTypeId="CONTACT"/>
     <PartyRelationship partyIdFrom="DemoCustCompany" roleTypeIdFrom="ACCOUNT" partyIdTo="DemoCustomer3" roleTypeIdTo="CONTACT" fromDate="2000-01-01 00:00:00.000" partyRelationshipTypeId="EMPLOYMENT"/>
-    
+
     <!-- demo lead -->
     <Party partyId="sfa102" partyTypeId="PARTY_GROUP" statusId="PARTY_ENABLED"/>
     <PartyGroup partyId="sfa102" groupName="A promising Lead Company"/>

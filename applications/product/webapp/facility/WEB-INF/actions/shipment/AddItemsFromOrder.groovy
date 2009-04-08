@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,11 +43,11 @@ if (!shipGroupSeqId && shipment) {
 if (orderId && shipment) {
     orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
     context.orderHeader = orderHeader;
-    
+
     if (orderHeader) {
         context.orderHeaderStatus = orderHeader.getRelatedOne("StatusItem");
         context.orderType = orderHeader.getRelatedOne("OrderType");
-        
+
         isSalesOrder = "SALES_ORDER".equals(orderHeader.orderTypeId);
         context.isSalesOrder = isSalesOrder;
 
@@ -66,7 +66,7 @@ if (orderId && shipment) {
         orderItems.each { orderItemAndShipGroupAssoc ->
             orderItemData = [:];
             product = orderItemAndShipGroupAssoc.getRelatedOne("Product");
-            
+
             itemIssuances = orderItemAndShipGroupAssoc.getRelated("ItemIssuance");
             totalQuantityIssued = 0;
             itemIssuances.each { itemIssuance ->
@@ -86,24 +86,24 @@ if (orderId && shipment) {
                 orderItemShipGrpInvResList = orderItemAndShipGroupAssoc.getRelated("OrderItemShipGrpInvRes", oisgirLimitMap, ['reservedDatetime']);
                 orderItemShipGrpInvResDatas = [] as LinkedList;
                 totalQuantityReserved = 0;
-                orderItemShipGrpInvResList.each { orderItemShipGrpInvRes -> 
+                orderItemShipGrpInvResList.each { orderItemShipGrpInvRes ->
                     inventoryItem = orderItemShipGrpInvRes.getRelatedOne("InventoryItem");
                     orderItemShipGrpInvResData = [:];
                     orderItemShipGrpInvResData.orderItemShipGrpInvRes = orderItemShipGrpInvRes;
                     orderItemShipGrpInvResData.inventoryItem = inventoryItem;
                     orderItemShipGrpInvResData.inventoryItemFacility = inventoryItem.getRelatedOne("Facility");
                     orderItemShipGrpInvResDatas.add(orderItemShipGrpInvResData);
-    
+
                     if (orderItemShipGrpInvRes.quantity) {
                         totalQuantityReserved += orderItemShipGrpInvRes.getDouble("quantity");
                     }
                 }
-                
+
                 orderItemData.orderItemShipGrpInvResDatas = orderItemShipGrpInvResDatas;
                 orderItemData.totalQuantityReserved = totalQuantityReserved;
                 orderItemData.totalQuantityIssuedAndReserved = totalQuantityReserved + totalQuantityIssued;
             }
-            
+
             orderItemData.orderItemAndShipGroupAssoc = orderItemAndShipGroupAssoc;
             orderItemData.product = product;
             orderItemData.itemIssuances = itemIssuances;
@@ -140,9 +140,9 @@ if (shipment && selectFromShipmentPlan) {
         }
         plannedQuantity = shipmentPlan.getDouble("quantity");
         totalProposedQuantity = 0.0;
-            
+
         product = orderItem.getRelatedOne("Product");
-            
+
         itemIssuances = orderItem.getRelated("ItemIssuance");
         totalQuantityIssued = 0;
         totalQuantityIssuedInShipment = 0;
@@ -152,12 +152,12 @@ if (shipment && selectFromShipmentPlan) {
             }
             if (itemIssuance.cancelQuantity) {
                 totalQuantityIssued -= itemIssuance.getDouble("cancelQuantity");
-            } 
+            }
             if (itemIssuance.shipmentId && itemIssuance.shipmentId.equals(shipmentId)) {
                 totalQuantityIssuedInShipment += itemIssuance.getDouble("quantity");
                 if (itemIssuance.cancelQuantity) {
                     totalQuantityIssuedInShipment -= itemIssuance.getDouble("cancelQuantity");
-                } 
+                }
             }
         }
 

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <!-- Custom apps can use their own financial account decorator by specifying its
@@ -46,14 +46,14 @@ under the License.
                             <fail-widgets>
                                 <label style="h3" text="${uiLabelMap.AccountingViewPermissionError}"/>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="FindFinAccount">
         <section>
             <actions>
@@ -87,14 +87,14 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditFinAccount">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditFinAccount"/>
                 <set field="tabButtonItem" value="EditFinAccount"/>
                 <set field="finAccountId" from-field="parameters.finAccountId"/>
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>                
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <entity-one entity-name="FinAccount" value-field="finAccount"/>
             </actions>
             <widgets>
@@ -127,7 +127,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditFinAccountRoles">
         <section>
             <actions>
@@ -151,7 +151,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditFinAccountTrans">
         <section>
             <actions>
@@ -173,7 +173,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditFinAccountAuths">
         <section>
             <actions>

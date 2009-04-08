@@ -49,7 +49,7 @@ under the License.
               <a href="<@ofbizUrl>requestitem?custRequestId=${custRequestItemList.custRequestId}&custRequestItemSeqId=${custRequestItemList.custRequestItemSeqId}</@ofbizUrl>" class="linktext">${custRequestItemList.custRequestItemSeqId}</a>
             </td>
             <td colspan="2">
-              <#if custRequestItemList.story?has_content> 
+              <#if custRequestItemList.story?has_content>
               ${custRequestItemList.story}
               </#if>
             </td>

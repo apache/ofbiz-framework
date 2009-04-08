@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="LookupPayment">
         <section>
@@ -79,7 +79,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupFixedAsset}"/>                
+                <set field="title" value="${uiLabelMap.PageTitleLookupFixedAsset}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
@@ -106,7 +106,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                
+
                 <set field="title" value="${uiLabelMap.PageTitleLookupBillingAccount}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
@@ -180,7 +180,7 @@ under the License.
     <screen name="LookupAgreementItem">
         <section>
             <condition>
-                <if-has-permission permission="ACCOUNTING" action="_VIEW"/> 
+                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
             </condition>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>

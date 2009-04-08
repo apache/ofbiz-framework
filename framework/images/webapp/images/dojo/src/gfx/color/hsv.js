@@ -23,7 +23,7 @@ dojo.lang.extend(dojo.gfx.color.Color, {
 dojo.gfx.color.rgb2hsv = function(/* int || Array */r, /* int */g, /* int */b, /* Object? */options){
 	//	summary
 	//	converts an RGB value set to HSV, ranges depending on optional options object.
-	//	patch for options by Matthew Eernisse 	
+	//	patch for options by Matthew Eernisse
 	if (dojo.lang.isArray(r)) {
 		if(g) {
 			options = g;
@@ -44,23 +44,23 @@ dojo.gfx.color.rgb2hsv = function(/* int || Array */r, /* int */g, /* int */b, /
 	// v = 0.0 (black) to 1.0 {white)
 	//
 	// Based on C Code in "Computer Graphics -- Principles and Practice,"
-	// Foley et al, 1996, p. 592. 
+	// Foley et al, 1996, p. 592.
 	//
-	// our calculatuions are based on 'regular' values (0-360, 0-1, 0-1) 
+	// our calculatuions are based on 'regular' values (0-360, 0-1, 0-1)
 	// but we return bytes values (0-255, 0-255, 0-255)
 
 	var h = null;
 	var s = null;
 	var v = null;
 
-	switch(opt.inputRange) { 
-		// 0.0-1.0 
+	switch(opt.inputRange) {
+		// 0.0-1.0
 		case 1:
 			r = (r * 255);
 			g = (g * 255);
 			b = (b * 255);
 			break;
-		// 0-100 
+		// 0-100
 		case 100:
 			r = (r / 100) * 255;
 			g = (g / 100) * 255;
@@ -70,8 +70,8 @@ dojo.gfx.color.rgb2hsv = function(/* int || Array */r, /* int */g, /* int */b, /
 		default:
 			// Do nothing
 			break;
-	} 
-	
+	}
+
 	var min = Math.min(r, g, b);
 	v = Math.max(r, g, b);
 
@@ -156,7 +156,7 @@ dojo.gfx.color.rgb2hsv = function(/* int || Array */r, /* int */g, /* int */b, /
 dojo.gfx.color.hsv2rgb = function(/* int || Array */h, /* int */s, /* int */v, /* Object? */options){
 	//	summary
 	//	converts an HSV value set to RGB, ranges depending on optional options object.
-	//	patch for options by Matthew Eernisse 	
+	//	patch for options by Matthew Eernisse
 	if (dojo.lang.isArray(h)) {
 		if(s){
 			options = s;
@@ -171,16 +171,16 @@ dojo.gfx.color.hsv2rgb = function(/* int || Array */h, /* int */s, /* int */v, /
 		outputRange: (options && options.outputRange) ? options.outputRange : 255
 	};
 
-    switch(opt.inputRange[0]) { 
-		// 0.0-1.0 
-		case 1: h = h * 360; break; 
-		// 0-100 
-		case 100: h = (h / 100) * 360; break; 
-		// 0-360 
-		case 360: h = h; break; 
-		// 0-255 
-		default: h = (h / 255) * 360; 
-	} 
+    switch(opt.inputRange[0]) {
+		// 0.0-1.0
+		case 1: h = h * 360; break;
+		// 0-100
+		case 100: h = (h / 100) * 360; break;
+		// 0-360
+		case 360: h = h; break;
+		// 0-255
+		default: h = (h / 255) * 360;
+	}
 	if (h == 360){ h = 0;}
 
 	//	no need to alter if inputRange[1] = 1

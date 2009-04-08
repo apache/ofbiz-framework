@@ -33,7 +33,7 @@ dojo.data.old.provider.Base.prototype.beginTransaction = function() {
 	/**
 	 * Marks the beginning of a transaction.
 	 *
-	 * Each time you call beginTransaction() you open a new transaction, 
+	 * Each time you call beginTransaction() you open a new transaction,
 	 * which you need to close later using endTransaction().  Transactions
 	 * may be nested, but the beginTransaction and endTransaction calls
 	 * always need to come in pairs.
@@ -132,7 +132,7 @@ dojo.data.old.provider.Base.prototype.removeItemObserver = function(/* dojo.data
 	/**
 	 * summary: Removes the observer registration for a previously
 	 * registered object.
-	 */ 
+	 */
 	dojo.lang.assertType(item, dojo.data.old.Item);
 	item.removeObserver(observer);
 };

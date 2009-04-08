@@ -36,7 +36,7 @@ function insertImageName(size,nameValue) {
         <div>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl?if_exists}</@ofbizContentUrl>">${imageUrl?if_exists}</a></b></div>
     </#if>
 <br/>
-</#if>    
+</#if>
 
 <#if !(configItem?exists)>
     <h3>${uiLabelMap.ProductCouldNotFindProductConfigItem} "${configItemId}".</h3>
@@ -88,12 +88,12 @@ function insertImageName(size,nameValue) {
                 ${addProductContentWrapper.renderFormString(context)}
             </div>
         </div>
-    </#if>    
+    </#if>
     <div class="screenlet">
         <div class="screenlet-title-bar">
             <h3>${uiLabelMap.ProductOverrideSimpleFields}</h3>
         </div>
-        <div class="screenlet-body"> 
+        <div class="screenlet-body">
             <form action="<@ofbizUrl>updateProductConfigItemContent</@ofbizUrl>" method="post" style="margin: 0;" name="productForm">
                 <table cellspacing="0" class="basic-table">
                 <input type="hidden" name="configItemId" value="${configItemId?if_exists}">
@@ -144,7 +144,7 @@ function insertImageName(size,nameValue) {
         <div class="screenlet-title-bar">
             <h3>${uiLabelMap.ProductUploadImage}</h3>
         </div>
-        <div class="screenlet-body"> 
+        <div class="screenlet-body">
             <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadProductConfigItemImage?configItemId=${configItemId}&upload_file_type=small</@ofbizUrl>" name="imageUploadForm">
                 <input type="file" size="50" name="fname">
                 <input type="submit" class="smallSubmit" value="${uiLabelMap.ProductUploadImage}">

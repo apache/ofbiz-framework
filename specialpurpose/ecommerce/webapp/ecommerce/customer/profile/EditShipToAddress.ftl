@@ -34,7 +34,7 @@ under the License.
     <div class="form-row">
       <label>${uiLabelMap.PartyAddressLine2}</label>
       <span>
-        <input type="text" class="left" name="address2" value="${shipToAddress2?if_exists}" size="30" maxlength="30">    
+        <input type="text" class="left" name="address2" value="${shipToAddress2?if_exists}" size="30" maxlength="30">
       </span>
     </div>
     <div class="form-row">
@@ -73,7 +73,7 @@ under the License.
             <option value="_NA_">${uiLabelMap.PartyNoState}</option>
           </#if>
         </select>
-      </span> 
+      </span>
     </div>
     <#if shipToTelecomNumber?has_content>
       <div class="form-row">
@@ -91,7 +91,7 @@ under the License.
           - <input type="text" name="contactNumber" id="shipToContactNumber" class="required" value="${contactNumber?default("${shipToTelecomNumber.contactNumber?if_exists}")}" size="6" maxlength="7"/>
           - <input type="text" name="extension" value="${extension?default("${shipToExtension?if_exists}")}" size="3" maxlength="3"/>
         </div>
-      </div>    
+      </div>
     </#if>
     <div class="form-row">
       <b>${uiLabelMap.EcommerceMyDefaultBillingAddress}</b>

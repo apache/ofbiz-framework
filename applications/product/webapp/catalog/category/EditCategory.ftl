@@ -33,12 +33,12 @@ function insertImageName(type,nameValue) {
                 <div>${uiLabelMap.ProductServerDirectory}: <b>${imageServerPath?if_exists}</b></div>
                 <div>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl?if_exists}</@ofbizContentUrl>">${imageUrl?if_exists}</a></b></div>
             </#if>
-        </div>        
+        </div>
     </div>
 </#if>
 <div class="screenlet">
 <#if ! productCategory?has_content>
-    <#if productCategoryId?has_content>    
+    <#if productCategoryId?has_content>
         <div class="screenlet-title-bar">
             <h3>${uiLabelMap.ProductCouldNotFindProductCategoryWithId} "${productCategoryId}".</h3>
         </div>
@@ -116,7 +116,7 @@ function insertImageName(type,nameValue) {
                         <input type="text" name="categoryImageUrl" value="${(productCategory.categoryImageUrl)?default('')}" size="60" maxlength="255"/>
                         <#if productCategory?has_content>
                             <div>
-                            ${uiLabelMap.ProductInsertDefaultImageUrl}: 
+                            ${uiLabelMap.ProductInsertDefaultImageUrl}:
                             <a href="javascript:insertImageName('category','${imageNameCategory}.jpg');" class="buttontext">.jpg</a>
                             <a href="javascript:insertImageName('category','${imageNameCategory}.gif');" class="buttontext">.gif</a>
                             <a href="javascript:insertImageName('category','');" class="buttontext">${uiLabelMap.CommonClear}</a>
@@ -136,7 +136,7 @@ function insertImageName(type,nameValue) {
                         <input type="text" name="linkOneImageUrl" value="${(productCategory.linkOneImageUrl)?default('')}" size="60" maxlength="255"/>
                         <#if productCategory?has_content>
                             <div>
-                                ${uiLabelMap.ProductInsertDefaultImageUrl}: 
+                                ${uiLabelMap.ProductInsertDefaultImageUrl}:
                                 <a href="javascript:insertImageName('linkOne','${imageNameLinkOne}.jpg');" class="buttontext">.jpg</a>
                                 <a href="javascript:insertImageName('linkOne','${imageNameLinkOne}.gif');" class="buttontext">.gif</a>
                                 <a href="javascript:insertImageName('linkOne','');" class="buttontext">${uiLabelMap.CommonClear}</a>
@@ -156,7 +156,7 @@ function insertImageName(type,nameValue) {
                         <input type="text" name="linkTwoImageUrl" value="${(productCategory.linkTwoImageUrl)?default('')}" size="60" maxlength="255"/>
                         <#if productCategory?has_content>
                             <div>
-                                ${uiLabelMap.ProductInsertDefaultImageUrl}: 
+                                ${uiLabelMap.ProductInsertDefaultImageUrl}:
                                 <a href="javascript:insertImageName('linkTwo','${imageNameLinkTwo}.jpg');" class="buttontext">.jpg</a>
                                 <a href="javascript:insertImageName('linkTwo','${imageNameLinkTwo}.gif');" class="buttontext">.gif</a>
                                 <a href="javascript:insertImageName('linkTwo','');" class="buttontext">${uiLabelMap.CommonClear}</a>
@@ -199,7 +199,7 @@ function insertImageName(type,nameValue) {
         <div class="screenlet-title-bar">
             <h3>${uiLabelMap.ProductCategoryUploadImage}</h3>
         </div>
-        <div class="screenlet-body">    
+        <div class="screenlet-body">
             <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId?if_exists}&amp;upload_file_type=category</@ofbizUrl>" name="imageUploadForm">
                 <table cellspacing="0" class="basic-table">
                     <tr><td>
@@ -220,9 +220,9 @@ function insertImageName(type,nameValue) {
         <div class="screenlet-title-bar">
             <h3>${uiLabelMap.ProductDuplicateProductCategory}</h3>
         </div>
-        <div class="screenlet-body">  
+        <div class="screenlet-body">
             <form action="<@ofbizUrl>DuplicateProductCategory</@ofbizUrl>" method="post" style="margin: 0;">
-                <table cellspacing="0" class="basic-table">                
+                <table cellspacing="0" class="basic-table">
                     <tr><td>
                         ${uiLabelMap.ProductDuplicateProductCategorySelected}:
                         <input type=hidden name="oldProductCategoryId" value="${productCategoryId}"/>

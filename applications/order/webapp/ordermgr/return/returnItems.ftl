@@ -62,7 +62,7 @@ under the License.
           <#assign rowCount = rowCount + 1>
           <#assign returnTotal = returnTotal + returnAdjustment.amount?default(0)>
        </#if>
-    </tr>    
+    </tr>
 </#macro>
 
     <#if returnHeader?has_content>
@@ -75,11 +75,11 @@ under the License.
          <#if returnShipmentIds?has_content>
            <#list returnShipmentIds as returnShipmentId>
              <a href="/facility/control/ViewShipment?shipmentId=${returnShipmentId.shipmentId}${externalKeyParam}" class="buttontext">${uiLabelMap.ProductShipmentId} ${returnShipmentId.shipmentId}</a>
-           </#list>         
-         <#else> 
+           </#list>
+         <#else>
            <a href="/facility/control/EditShipment?primaryReturnId=${returnHeader.returnId}&partyIdTo=${toPartyId}&statusId=SHIPMENT_INPUT&shipmentTypeId=PURCHASE_RETURN" class="buttontext">${uiLabelMap.OrderCreateReturnShipment}</a>
-         </#if>  
-      </#if> 
+         </#if>
+      </#if>
     </#if>
 
 <div class="screenlet">
@@ -99,7 +99,7 @@ under the License.
             <#assign readOnly = (returnHeader.statusId != "SUP_RETURN_REQUESTED")>
           </#if>
           <tr><td colspan="10"><h3>${uiLabelMap.OrderOrderReturn} #${returnId}</h3></td></tr>
-        
+
           <#-- information about orders and amount refunded/credited on past returns -->
           <#if orh?exists>
           <tr><td colspan="10">
@@ -107,16 +107,16 @@ under the License.
                 <tr>
                   <td class="label" width="25%">${uiLabelMap.OrderOrderTotal}</td>
                   <td><@ofbizCurrency amount=orh.getOrderGrandTotal() isoCode=orh.getCurrency()/></td>
-                </tr>  
+                </tr>
                 <tr>
                   <td class="label" width="25%">${uiLabelMap.OrderAmountAlreadyCredited}</td>
                   <td><@ofbizCurrency amount=orh.getReturnedCreditTotalWithBillingAccountBd() isoCode=orh.getCurrency()/></td>
-                </tr>  
+                </tr>
                 <tr>
                   <td class="label" width="25%">${uiLabelMap.OrderAmountAlreadyRefunded}</td>
                   <td><@ofbizCurrency amount=orh.getReturnedRefundTotalWithBillingAccountBd() isoCode=orh.getCurrency()/></td>
-                </tr>  
-              </table>  
+                </tr>
+              </table>
           </td></tr>
           </#if>
           <tr><td colspan="10"><br/></td></tr>
@@ -131,14 +131,14 @@ under the License.
             <td>${uiLabelMap.OrderItemStatus}</td>
             <td>${uiLabelMap.CommonType}</td>
             <#if (readOnly)>
-            <td>${uiLabelMap.OrderReturnResponse}</td>    
-            </#if>    
+            <td>${uiLabelMap.OrderReturnResponse}</td>
+            </#if>
             <td>&nbsp;</td>
           </tr>
           <#assign returnTotal = 0.0>
           <#assign rowCount = 0>
           <form method="post" action="<@ofbizUrl>updateReturnItems</@ofbizUrl>">
-          <input type="hidden" name="_useRowSubmit" value="Y">      
+          <input type="hidden" name="_useRowSubmit" value="Y">
           <#if returnItems?has_content>
             <#assign alt_row = false>
             <#list returnItems as item>
@@ -169,14 +169,14 @@ under the License.
                     </#if></div></td>
                 <td><div>
                     <#if readOnly>
-                        ${item.description?default("N/A")}            
+                        ${item.description?default("N/A")}
                     <#else>
                         <input name="description_o_${rowCount}" value="${item.description?if_exists}" type="text" size="15">
                     </#if>
                     </div></td>
                 <td><div>
                     <#if readOnly>
-                        ${item.returnQuantity?string.number} 
+                        ${item.returnQuantity?string.number}
                     <#else>
                         <input name="returnQuantity_o_${rowCount}" value="${item.returnQuantity}" type="text" size="8" align="right">
                     </#if>
@@ -263,7 +263,7 @@ under the License.
                   <#else>
                     <div>${uiLabelMap.CommonNA}</div>
                   </#if>
-                </td>                  
+                </td>
                 </#if>
                 <#if returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED">
                   <td align='right'><a href="<@ofbizUrl>removeReturnItem?returnId=${item.returnId}&returnItemSeqId=${item.returnItemSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
@@ -294,7 +294,7 @@ under the License.
                 <@displayReturnAdjustment returnAdjustment=returnAdjustment adjEditable=adjEditable/>
             </#list>
             </#if>
-            <#-- show the return total -->    
+            <#-- show the return total -->
             <tr><td colspan="5"></td><td><hr/></td></tr>
             <tr>
               <td colspan="2">&nbsp;</td>
@@ -302,15 +302,15 @@ under the License.
               <td align="right"><@ofbizCurrency amount=returnTotal isoCode=returnHeader.currencyUomId/></td>
             </tr>
             <#if (!readOnly) && (rowCount > 0)>
-               <tr>          
+               <tr>
                   <input name="returnId" value="${returnHeader.returnId}" type="hidden">
                   <input name="_rowCount" value="${rowCount}" type="hidden">
                   <td colspan="6" align="right"><input type="submit" class="bottontext" value="${uiLabelMap.CommonUpdate}"></td>
               </tr>
            </#if>
-           <tr><td colspan="10"><hr></td></tr> 
+           <tr><td colspan="10"><hr></td></tr>
         </form>
-        
+
         </table>
         <#if (returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED") && (rowCount > 0)>
         <br/>
@@ -327,7 +327,7 @@ under the License.
           <div align="right"><input type="submit" value="${uiLabelMap.OrderReturnAccept}"></div>
         </form>
         </#if>
-        
+
         <#if returnHeader.statusId == "RETURN_REQUESTED" || returnHeader.statusId == "SUP_RETURN_REQUESTED">
         <br/>
         <form name="returnItems" method="post" action="<@ofbizUrl>returnItems</@ofbizUrl>">
@@ -335,17 +335,17 @@ under the License.
           <table border='0' cellpadding='2' cellspacing='0'>
             <tr><td colspan="4"><h3>${uiLabelMap.OrderReturnItems}</h3></td></tr>
             <#if partyOrders?has_content>
-              <tr>      
+              <tr>
                 <td width='25%' align='right' nowrap class="label">${uiLabelMap.OrderOrderId}</td>
                 <td>&nbsp;</td>
-                <td width='25%'>        
+                <td width='25%'>
                   <select name="orderId">
                     <#list partyOrders as order>
                       <option>${order.orderId}</option>
                     </#list>
                   </select>
                 </td>
-                <td><div class="tooltip">${uiLabelMap.OrderReturnLoadItems}</div></td> 
+                <td><div class="tooltip">${uiLabelMap.OrderReturnLoadItems}</div></td>
               </tr>
             <#else>
               <tr>
@@ -354,12 +354,12 @@ under the License.
               <tr>
                 <td width='25%' align='right' nowrap><div>${uiLabelMap.OrderOrderId}</div></td>
                 <td>&nbsp;</td>
-                <td width='25%'>               
+                <td width='25%'>
                   <input type='text' name='orderId' size='20' maxlength='20'>
                 </td>
-                <td><div class="tooltip">${uiLabelMap.OrderReturnLoadItems}</div></td> 
+                <td><div class="tooltip">${uiLabelMap.OrderReturnLoadItems}</div></td>
               </tr>
-            </#if>      
+            </#if>
             <tr>
               <td colspan="2">&nbsp;</td>
               <td colspan="2">

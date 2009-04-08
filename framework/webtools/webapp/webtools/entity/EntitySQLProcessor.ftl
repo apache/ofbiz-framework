@@ -22,7 +22,7 @@ under the License.
       <li class="h3">${uiLabelMap.WebtoolsSqlProcessor}</li>
     </ul>
     <br class="clear"/>
-  </div> 
+  </div>
   <div class="screenlet-body">
     <form method="post" action="EntitySQLProcessor" name="EntitySQLCommand">
       <table class="basic-table" cellspacing="0">
@@ -70,13 +70,13 @@ under the License.
       <li class="h3">${uiLabelMap.WebtoolsResults}</li>
     </ul>
     <br class="clear"/>
-  </div> 
+  </div>
   <div class="screenlet-body">
     <#if resultMessage?has_content>
       ${resultMessage}
       <br />
     </#if>
-    
+
     <#if columns?has_content>
         <table class="basic-table hover-bar" cellspacing="0">
             <tr class="header-row">

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
    <screen name="CommonDataSourceDecorator">
         <section>
@@ -55,7 +55,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
    <screen name="EditDataSource">
         <section>
             <actions>
@@ -116,7 +116,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
    <screen name="ListDataSource">
         <section>
             <actions>
@@ -193,7 +193,7 @@ under the License.
                                             </widgets>
                                         </section>
                                     </container>
-                                </container>                                
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <container style="screenlet">
@@ -217,7 +217,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
    <screen name="ListDataSourceType">
         <section>
             <actions>

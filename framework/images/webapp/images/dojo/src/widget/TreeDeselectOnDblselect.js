@@ -22,11 +22,11 @@ dojo.widget.defineWidget(
 	[dojo.widget.HtmlWidget],
 {
 	selector: "",
-	
+
 	initialize: function() {
 		this.selector = dojo.widget.byId(this.selector);
 		//dojo.debug("OK "+this.selector);
-		dojo.event.topic.subscribe(this.selector.eventNames.dblselect, this, "onDblselect");		
+		dojo.event.topic.subscribe(this.selector.eventNames.dblselect, this, "onDblselect");
 	},
 
 	onDblselect: function(message) {

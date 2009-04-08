@@ -18,7 +18,7 @@
   -->
 
 <script type="text/javascript">
-    
+
     dojo.require("dojo.widget.*");
     dojo.require("dojo.event.*");
     dojo.require("dojo.io.*");
@@ -37,21 +37,21 @@
                    ctx['contentId'] = message.node.widgetId;
                    callDocument(ctx);
             }
-                
+
         );
         dojo.event.topic.subscribe("NewDocumentTree/engage",
             function (menuItem) {
                 var node = menuItem.getTreeNode();
                 callCreateDocumentTree(node.widgetId);
             }
-            
+
         );
         dojo.event.topic.subscribe("NewDocument/engage",
             function (menuItem) {
                 var node = menuItem.getTreeNode();
                 callCreateDocument(node.widgetId);
             }
-            
+
         );
         dojo.event.topic.subscribe("EditDocument/engage",
             function (menuItem) {
@@ -64,7 +64,7 @@
                 var node = menuItem.getTreeNode();
                 callRenameDocumentTree(node.widgetId);
             }
-            
+
         );
         dojo.event.topic.subscribe("DeleteDocument/engage",
             function (menuItem) {
@@ -74,8 +74,8 @@
         );
         }
     );
-    
-<#-------------------------------------------------------------------------------------call ofbiz function-->    
+
+<#-------------------------------------------------------------------------------------call ofbiz function-->
     function callDocument(ctx) {
         var bindArgs = {
             url: listDocument,
@@ -87,12 +87,12 @@
             },
             load: function(type, data, evt) {
                 var innerPage = dojo.byId('Document');
-                innerPage.innerHTML = data; 
+                innerPage.innerHTML = data;
             }
         };
         dojo.io.bind(bindArgs);
     }
-<#-------------------------------------------------------------------------------------callCreateFolder function-->    
+<#-------------------------------------------------------------------------------------callCreateFolder function-->
     function callCreateDocumentTree(contentId) {
         var bindArgs = {
             url: editDocumentTreeUrl,
@@ -105,12 +105,12 @@
             },
              load: function(type, data, evt) {
                 var innerPage = dojo.byId('EditDocumentTree');
-                innerPage.innerHTML = data;                
+                innerPage.innerHTML = data;
             }
         };
         dojo.io.bind(bindArgs);
     }
-<#-------------------------------------------------------------------------------------callCreateSection function-->    
+<#-------------------------------------------------------------------------------------callCreateSection function-->
     function callCreateDocument(ctx) {
         var bindArgs = {
             url: editDocumentUrl,
@@ -122,14 +122,14 @@
             },
             load: function(type, data, evt) {
                 var innerPage = dojo.byId('Document');
-                innerPage.innerHTML = data;                
+                innerPage.innerHTML = data;
             }
         };
         dojo.io.bind(bindArgs);
     }
-<#-------------------------------------------------------------------------------------callEditSection function-->    
+<#-------------------------------------------------------------------------------------callEditSection function-->
     function callEditDocument(ctx) {
-    
+
         var bindArgs = {
             url: editDocumentUrl,
             method: 'POST',
@@ -140,13 +140,13 @@
             },
             load: function(type, data, evt) {
                 var innerPage = dojo.byId('Document');
-                innerPage.innerHTML = data;                
+                innerPage.innerHTML = data;
             }
         };
         dojo.io.bind(bindArgs);
-        
+
     }
-<#-------------------------------------------------------------------------------------callDeleteItem function-->    
+<#-------------------------------------------------------------------------------------callDeleteItem function-->
     function callDeleteDocument(contentIdTo,objstr) {
         var ctx = new Array();
         if (objstr != null && objstr.length > 0) {
@@ -170,7 +170,7 @@
         };
         dojo.io.bind(bindArgs);
     }
- <#-------------------------------------------------------------------------------------callRename function-->    
+ <#-------------------------------------------------------------------------------------callRename function-->
     function callRenameDocumentTree(contentId) {
         var bindArgs = {
             url: editDocumentTreeUrl,
@@ -185,7 +185,7 @@
             },
              load: function(type, data, evt) {
                 var innerPage = dojo.byId('EditDocumentTree');
-                innerPage.innerHTML = data;                
+                innerPage.innerHTML = data;
             }
         };
         dojo.io.bind(bindArgs);
@@ -208,7 +208,7 @@
              object="${assoc.contentId}|${assoc.contentAssocTypeId}|${assoc.fromDate}">
             <#assign assocChilds  = delegator.findByAnd("ContentAssoc",Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId",assoc.contentIdTo,"contentAssocTypeId", "TREE_CHILD"))/>
             <#if assocChilds?has_content>
-                <@fillTree assocList = assocChilds/>  
+                <@fillTree assocList = assocChilds/>
             </#if>
         </div>
     </#list>
@@ -227,7 +227,7 @@
 <dojo:TreeSelector widgetId="contentTreeSelector" eventNames="select:showDocument"></dojo:TreeSelector>
 <div dojoType="Tree" menu="contentContextMenu" widgetId="contentTree" selector="contentTreeSelector" toggler="fade" toggleDuration="500">
     <#if (contentAssoc?has_content)>
-        <@fillTree assocList = contentAssoc/>    
+        <@fillTree assocList = contentAssoc/>
     </#if>
 </div>
 

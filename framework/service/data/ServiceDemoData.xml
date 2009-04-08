@@ -20,7 +20,7 @@ under the License.
 
 <entity-engine-xml>
     <!-- Temporal Expression demo data -->
-    
+
     <!-- Pre-define all days of the week (Sunday -> Saturday) -->
     <TemporalExpression tempExprId="DAYOFWEEK_01" tempExprTypeId="DAY_OF_WEEK_RANGE" integer1="1" integer2="1"/>
     <TemporalExpression tempExprId="DAYOFWEEK_02" tempExprTypeId="DAY_OF_WEEK_RANGE" integer1="2" integer2="2"/>
@@ -163,11 +163,11 @@ under the License.
     <TemporalExpression tempExprId="5PM_BIMONDAY" tempExprTypeId="FREQUENCY" date1="2000-01-03 17:00:00.000" integer1="5" integer2="14"/>
 
     <!-- TemporalExpression field details... -->
-    
+
     <!-- The TemporalExpression field meanings depend upon what type of expression it is. The integer
         values are typically obtained from the java.util.Calendar field constants. For more
         information, see the org.ofbiz.service.calendar.TemporalExpressions.java file.
-        
+
         tempExprTypeId       integer1       integer2        date1  date2  string1    string2
         ==================== ============== =============== ====== ====== ========== ========
         DATE_RANGE                                          start  end
@@ -188,5 +188,5 @@ under the License.
         [8] If null, defaults to system date when the expression was retrieved from storage.
         [9] Second = 13, Minute = 12, Hour = 11 (default)
     -->
-    
+
 </entity-engine-xml>

@@ -27,53 +27,53 @@ dojo.widget.defineWidget(
 	function(){
 
 		/*
-		summary: 
-			Base class for a stand-alone TimePicker widget 
-			which makes it easy to select a time. 
-		description: 
-			A stand-alone TimePicker widget that makes it easy to select a time. 
+		summary:
+			Base class for a stand-alone TimePicker widget
+			which makes it easy to select a time.
+		description:
+			A stand-alone TimePicker widget that makes it easy to select a time.
 			It is designed to be used on its own, or inside of other widgets
-			(see dojo.widget.DropdownTimePicker) or other similar combination widgets. 
-		 	              
+			(see dojo.widget.DropdownTimePicker) or other similar combination widgets.
+
 			Times attributes passed in the `RFC 3339` format:
 			http://www.faqs.org/rfcs/rfc3339.html (2005-06-30T08:05:00-07:00)
 			so that they are serializable and locale-independent.
-		
-		usage: 
-			var timePicker = dojo.widget.createWidget("TimePicker", {},   
-			dojo.byId("timePickerNode")); 
-		 	 
-			<div dojoType="TimePicker"></div> 
+
+		usage:
+			var timePicker = dojo.widget.createWidget("TimePicker", {},
+			dojo.byId("timePickerNode"));
+
+			<div dojoType="TimePicker"></div>
 		*/
-	
+
 		// time: Date
 		//	selected time
 		this.time = "";
-		
+
 		// useDefaultTime: Boolean
 		//	set following flag to true if a default time should be set
 		this.useDefaultTime = false;
-		
+
 		// useDefaultMinutes: Boolean
 		//	set the following to true to set default minutes to current time, false to // use zero
 		this.useDefaultMinutes = false;
-		
+
 		// storedTime: String
 		//	rfc 3339 time
 		this.storedTime = "";
-		
+
 		// currentTime: Object
 		//	time currently selected in the UI, stored in hours, minutes, seconds in the format that will be actually displayed
 		this.currentTime = {};
-		
+
 		this.classNames = {
 		// summary:
 		//	stores a list of class names that may be overriden
 			selectedTime: "selectedItem"
 		};
-		
+
 		this.any = "any"; //FIXME: never used?
-		
+
 		// dom node indecies for selected hour, minute, amPm, and "any time option"
 		this.selectedTime = {
 			hour: "",
@@ -84,7 +84,7 @@ dojo.widget.defineWidget(
 
 		// minutes are ordered as follows: ["12", "6", "1", "7", "2", "8", "3", "9", "4", "10", "5", "11"]
 		this.hourIndexMap = ["", 2, 4, 6, 8, 10, 1, 3, 5, 7, 9, 11, 0];
-		
+
 		// minutes are ordered as follows: ["00", "30", "05", "35", "10", "40", "15", "45", "20", "50", "25", "55"]
 		this.minuteIndexMap = [0, 2, 4, 6, 8, 10, 1, 3, 5, 7, 9, 11];
 	},
@@ -113,17 +113,17 @@ dojo.widget.defineWidget(
 			}else{
 				this.storedTime = args.value;
 			}
-		}		
-		
+		}
+
 		this.initData();
 		this.initUI();
 	},
 
 	initData: function() {
 		// FIXME: doesn't currently validate the time before trying to set it
-		// Determine the date/time from stored info, or by default don't 
+		// Determine the date/time from stored info, or by default don't
 		//  have a set time
-		// FIXME: should normalize against whitespace on storedTime... for now 
+		// FIXME: should normalize against whitespace on storedTime... for now
 		// just a lame hack
 		if(this.storedTime.indexOf("T")!=-1 && this.storedTime.split("T")[1] && this.storedTime!=" " && this.storedTime.split("T")[1]!="any"){
 			this.time = dojo.widget.TimePicker.util.fromRfcDateTime(this.storedTime, this.useDefaultMinutes, this.selectedTime.anyTime);
@@ -150,7 +150,7 @@ dojo.widget.defineWidget(
 			this.onSetSelectedAnyTime();
 		}
 	},
-	
+
 	setTime: function(date) {
 		//summary: set the current date and update the UI
 		if(date) {
@@ -166,7 +166,7 @@ dojo.widget.defineWidget(
 	setDateTime: function(rfcDate) {
 		this.storedTime = rfcDate;
 	},
-	
+
 	onClearSelectedHour: function(evt) {
 		this.clearSelectedHour();
 	},
@@ -336,7 +336,7 @@ dojo.widget.defineWidget(
 		}
 		this.onValueChanged(this.time);
 	},
-	
+
 	onValueChanged: function(/*Date*/date) {
 		//summary: the set date event handler
 	}
@@ -344,7 +344,7 @@ dojo.widget.defineWidget(
 
 dojo.widget.TimePicker.util = new function() {
 	//summary: utility functions
-	
+
 	this.toRfcDateTime = function(jsDate) {
 		//summary: formats a Date object to RFC 3339 string
 		if(!jsDate) {

@@ -190,7 +190,7 @@ under the License.
         <action service="createTrackingCodeOrderReturns" mode="sync" run-as-user="system"/>
         <action service="sendReturnAcceptNotification" mode="async" persist="true"/>
     </eca>
-    
+
     <eca service="updateReturnHeader" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_RECEIVED"/>
         <condition field-name="currentStatusId" operator="not-equals" value="RETURN_RECEIVED"/>
@@ -206,7 +206,7 @@ under the License.
         <action service="processCreditReturn" mode="sync"/>
         <action service="processRefundReturn" mode="sync"/>
     </eca>
-    
+
     <eca service="updateReturnHeader" event="commit">
         <condition field-name="statusId" operator="equals" value="RETURN_COMPLETED"/>
         <condition field-name="currentStatusId" operator="not-equals" value="RETURN_COMPLETED"/>
@@ -321,7 +321,7 @@ under the License.
         <condition field-name="workEffortId" operator="is-empty"/>
         <action service="createWorkEffort" mode="sync"/>
     </eca>
-    
+
     <!-- customer request notifications -->
     <eca service="setCustRequestStatus" event="commit">
         <condition field-name="oldStatusId" operator="not-equals" value="CRQ_ACCEPTED"/>

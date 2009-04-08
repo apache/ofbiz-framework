@@ -21,10 +21,10 @@ under the License.
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <title>${title}</title>
-        <link rel="stylesheet" href="${baseUrl}/images/maincss.css" type="text/css"/>        
+        <link rel="stylesheet" href="${baseUrl}/images/maincss.css" type="text/css"/>
     </head>
     <body>
-        <h1>${title}</h1>                
+        <h1>${title}</h1>
         <p>Thank you for registering. Please click the link below to complete your registration.</p>
         <br><br>
         <a href="${baseUrl}/cmssite/cms/verifyEmailAddress?verifyHash=${parameters.verifyHash}">www.cmssite.com/cms/registration.html</a>

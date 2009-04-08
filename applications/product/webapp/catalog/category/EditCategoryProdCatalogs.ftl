@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if productCategoryId?exists && productCategory?exists>    
+<#if productCategoryId?exists && productCategory?exists>
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.PageTitleEditCategoryProductCatalogs}</h3>
     </div>

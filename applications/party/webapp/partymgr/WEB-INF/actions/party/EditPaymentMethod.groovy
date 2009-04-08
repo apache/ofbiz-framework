@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,7 +28,7 @@ paymentResults = PaymentWorker.getPaymentMethodAndRelated(request, partyId);
 //returns the following: "paymentMethod", "creditCard", "giftCard", "eftAccount", "paymentMethodId", "curContactMechId", "donePage", "tryEntity"
 context.putAll(paymentResults);
 
-curPostalAddressResults = ContactMechWorker.getCurrentPostalAddress(request, partyId, paymentResults.curContactMechId); 
+curPostalAddressResults = ContactMechWorker.getCurrentPostalAddress(request, partyId, paymentResults.curContactMechId);
 //returns the following: "curPartyContactMech", "curContactMech", "curPostalAddress", "curPartyContactMechPurposes"
 context.putAll(curPostalAddressResults);
 
@@ -39,7 +39,7 @@ tryEntity = paymentResults.tryEntity;
 
 creditCardData = paymentResults.creditCard;
 if (!tryEntity) creditCardData = parameters;
-context.creditCardData = creditCardData ?:[:]; 
+context.creditCardData = creditCardData ?:[:];
 
 giftCardData = paymentResults.giftCard;
 if (!tryEntity) giftCardData = parameters;

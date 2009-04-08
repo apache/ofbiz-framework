@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
    <screen name="CommonTrackingCodeDecorator">
         <section>
@@ -54,7 +54,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
    <screen name="EditTrackingCode">
         <section>
             <actions>
@@ -289,7 +289,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditTrackingCodeVisit">
         <section>
             <actions>
@@ -401,7 +401,7 @@ under the License.
                 <set field="trackingCodeTabButtonItem" value="TrackingCode"/>
                 <set field="labelTitleProperty" value="PageTitleLookupVisit"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupVisit}"/>
-                <set field="entityName" value="CommunicationEvent"/>                
+                <set field="entityName" value="CommunicationEvent"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -422,7 +422,7 @@ under the License.
                 <set field="trackingCodeTabButtonItem" value="TrackingCode"/>
                 <set field="labelTitleProperty" value="PageTitleLookupTrackingCode"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupTrackingCode}"/>
-                <set field="entityName" value="TrackingCode"/>                
+                <set field="entityName" value="TrackingCode"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
@@ -497,7 +497,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
    <screen name="ListTrackingCodeType">
         <section>
             <actions>
@@ -543,7 +543,7 @@ under the License.
                 <set field="trackingCodeTabButtonItem" value="TrackingCodeType"/>
                 <set field="labelTitleProperty" value="PageTitleLookupTrackingCodeType"/>
                 <set field="title" value="${uiLabelMap.PageTitleLookupTrackingCodeType}"/>
-                <set field="entityName" value="TrackingCodeType"/>                
+                <set field="entityName" value="TrackingCodeType"/>
             </actions>
             <widgets>
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">

@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<!--       
+<!--
     *This is the DTD for the Open For Business Generic Entity Model entity definition XML file.
     *This DTD is meant to be as simple as possible, and is modelled from the standard ejb deployment descriptor ejb-jar.xml.
 -->
@@ -136,7 +136,7 @@ under the License.
         <xs:attribute name="enable-audit-log" default="false">
             <xs:annotation>
                 <xs:documentation>
-                    If this is set to true then whenever the value for this field on a record changes the Entity Engine will record the change in the EntityAuditLog entity. 
+                    If this is set to true then whenever the value for this field on a record changes the Entity Engine will record the change in the EntityAuditLog entity.
                     Defaults to false.
                 </xs:documentation>
             </xs:annotation>
@@ -153,7 +153,7 @@ under the License.
                     This makes the field NOT NULL on the database (like primary key fields).
                     It's possible to use an id-ne similiar field type.
                     But rows can be added from outside of ofbiz (e.g. database manager, third party programm, etc).
-                    This patch uses the ability of a database to set not null constraints. 
+                    This patch uses the ability of a database to set not null constraints.
                     Defaults to false.
                 </xs:documentation>
             </xs:annotation>
@@ -373,15 +373,15 @@ under the License.
     <xs:element name="complex-alias">
         <xs:annotation>
             <xs:documentation>
-                In every SELECT statement, the fields that are normally used are really defined to be expressions.  
+                In every SELECT statement, the fields that are normally used are really defined to be expressions.
                 This means for example that you can supply an expression like (discountPercent * 100) in place of  just a field name.
                 The complex-alias tag is the Ofbiz way to do this.
-                
+
                 The argument to the right of operator = can be any operator valid for that data type on the database system you are using.
-                For example, *, +, -, and / are commonly available mathematical operators (min, max, sum, avg, count, count-distinct, upper, lower)  
+                For example, *, +, -, and / are commonly available mathematical operators (min, max, sum, avg, count, count-distinct, upper, lower)
                 You can also use any operator on any data type supported on the underlying database system including string and date operators.
                 complex-alias can be as complex as you need by adding nested complex-alias statements and complex-alias-field
-                can use the same functions (min, max, count, count-distinct, sum, avg, upper, and lower) as the alias tag.                                
+                can use the same functions (min, max, count, count-distinct, sum, avg, upper, and lower) as the alias tag.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>

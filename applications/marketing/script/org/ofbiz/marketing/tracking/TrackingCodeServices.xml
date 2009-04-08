@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- TrackingCode methods -->
     <simple-method method-name="createTrackingCode" short-description="Create an TrackingCode">
@@ -26,11 +26,11 @@ under the License.
         <check-errors/>
 
         <now-timestamp field="nowStamp"/>
-        
+
         <make-value value-field="newEntity" entity-name="TrackingCode"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        
+
         <!-- set the history/audit info -->
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
         <set from-field="nowStamp" field="newEntity.createdDate"/>
@@ -44,16 +44,16 @@ under the License.
         <check-errors/>
 
         <now-timestamp field="nowStamp"/>
-        
+
         <make-value entity-name="TrackingCode" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCode" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        
+
         <!-- set the history/audit info -->
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
         <set from-field="lastModifiedDate" field="newEntity.createdDate"/>
-        
+
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTrackingCode" short-description="Delete an TrackingCode">
@@ -71,11 +71,11 @@ under the License.
         <check-errors/>
 
         <now-timestamp field="nowStamp"/>
-        
+
         <make-value value-field="newEntity" entity-name="TrackingCodeType"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        
+
         <!-- set the history/audit info -->
         <set from-field="nowStamp" field="newEntity.createdStamp"/>
 
@@ -86,12 +86,12 @@ under the License.
         <check-errors/>
 
         <now-timestamp field="nowStamp"/>
-        
+
         <make-value entity-name="TrackingCodeType" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeType" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        
+
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTrackingCodeType" short-description="Delete an TrackingCodeType">
@@ -109,7 +109,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="TrackingCodeOrder"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        
+
         <!-- set the history/audit info -->
         <set from-field="nowStamp" field="newEntity.createdStamp"/>
 
@@ -117,12 +117,12 @@ under the License.
     </simple-method>
     <simple-method method-name="updateTrackingCodeOrder" short-description="Update an TrackingCodeOrder">
         <now-timestamp field="nowStamp"/>
-        
+
         <make-value entity-name="TrackingCodeOrder" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeOrder" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        
+
         <!-- set the history/audit info -->
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
         <set from-field="lastModifiedDate" field="newEntity.createdDate"/>
@@ -135,21 +135,21 @@ under the License.
         <make-value value-field="newEntity" entity-name="TrackingCodeOrderReturn"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        
+
         <!-- set the history/audit info -->
         <set from-field="nowStamp" field="newEntity.createdStamp"/>
 
         <create-value value-field="newEntity"/>
     </simple-method>
-        
+
     <simple-method method-name="createTrackingCodeOrderReturns" short-description="Create TrackingCodeOrderReturn for all the Return Items with Orders that have trackingCodeOrder entry">
         <if-not-empty field="parameters.returnId">
             <set field="returnHeaderFindContext.returnId" from-field="parameters.returnId"/>
             <find-by-primary-key entity-name="ReturnHeader" value-field="returnHeader" map="returnHeaderFindContext"/>
             <get-related list="returnItems" relation-name="ReturnItem" value-field="returnHeader"/>
-            <log level="info" message="Return items lists are : ${returnItems}"/> 
+            <log level="info" message="Return items lists are : ${returnItems}"/>
             <iterate list="returnItems" entry="returnItem">
-                <get-related-one relation-name="OrderHeader" value-field="returnItem" to-value-field="orderHeader"/>    
+                <get-related-one relation-name="OrderHeader" value-field="returnItem" to-value-field="orderHeader"/>
                 <set field="trackingCodeOrderFindContext.orderId" from-field="orderHeader.orderId"/>
                 <!-- set field="trackingCodeOrderFindContext.trackingCodeTypeId" value="PARTNER_MGD"/-->
                 <!-- get the siteId ,trackingCodeId from TrackingCodeOrder -->
@@ -164,29 +164,29 @@ under the License.
                     <set field="trackingCodeOrderReturnContext.trackingCodeTypeId" value="PARTNER_MGD"/>
                     <set field="trackingCodeOrderReturnContext.hasExported" value="N"/>
                     <set field="trackingCodeOrderReturnContext.affiliateReferredTimeStamp" from-field="nowTimestamp"/>
-                    <call-service service-name="createTrackingCodeOrderReturn" in-map-name="trackingCodeOrderReturnContext"/> 
+                    <call-service service-name="createTrackingCodeOrderReturn" in-map-name="trackingCodeOrderReturnContext"/>
                </if-not-empty>
             </iterate>
         </if-not-empty>
     </simple-method>
     <simple-method method-name="updateTrackingCodeOrderReturn" short-description="update an TrackingCodeOrderReturn">
         <now-timestamp field="nowStamp"/>
-        
+
         <make-value entity-name="TrackingCodeOrderReturn" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeOrderReturn" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        
+
         <!-- set the history/audit info -->
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
         <set from-field="lastModifiedDate" field="newEntity.createdDate"/>
         <store-value value-field="lookedUpValue"/>
-    </simple-method>    
+    </simple-method>
     <simple-method method-name="deleteTrackingCodeOrderReturn" short-description="delete an TrackingCodeOrderReturn">
         <make-value entity-name="TrackingCodeOrderReturn" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeOrderReturn" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
-    </simple-method>    
+    </simple-method>
 
 </simple-methods>

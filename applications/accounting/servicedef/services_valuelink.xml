@@ -51,7 +51,7 @@ under the License.
             location="org.ofbiz.accounting.thirdparty.valuelink.ValueLinkServices" invoke="giftCardReload" auth="true">
         <description>Gift Card Payment Processing</description>
         <implements service="itemFulfillmentInterface"/>
-    </service>        
+    </service>
 
     <!-- ValueLink Transaction Services -->
     <service name="createVLKeys" engine="java"

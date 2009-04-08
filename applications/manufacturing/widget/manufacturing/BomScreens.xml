@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="CommonBomDecorator">
         <section>
@@ -76,7 +76,7 @@ under the License.
                 <set field="tabButtonItem" value="productManufacturingRules"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="bom"/>
-    
+
                 <set field="ruleId" from-field="parameters.ruleId"/>
                 <entity-one entity-name="ProductManufacturingRule" value-field="manufacturingRule"/>
                 <entity-condition entity-name="ProductManufacturingRule" list="manufacturingRules">
@@ -151,7 +151,7 @@ under the License.
                 <set field="tabButtonItem" value="findBom"/>
                 <set field="labelTitleProperty" value="findBom"/>
                 <set field="headerItem" value="bom"/>
-                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/bom/FindProductBom.groovy"/>                
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/bom/FindProductBom.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBomDecorator">
@@ -185,7 +185,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>                                        
+                                    <widgets>
                                         <include-form name="CreateProductBom" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
                                     </widgets>
                                 </section>

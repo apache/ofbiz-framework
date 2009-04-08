@@ -70,7 +70,7 @@ under the License.
 <@loopSubContent contentAssocTypeId="RESPONSE" contentId=subContentId mapKey=""
                 pickWhen="contentAssocTypeId != null && contentAssocTypeId.equals(\"RESPONSE\") && mapKey == null"
                 followWhen="contentAssocTypeId != null && contentAssocTypeId.equals(\"RESPONSE\")">
-    <@traverseSubContentCache  contentAssocTypeId="RESPONSE" 
+    <@traverseSubContentCache  contentAssocTypeId="RESPONSE"
                             pickWhen="contentAssocTypeId != null && contentAssocTypeId.equals(\"RESPONSE\")"
                             followWhen="contentAssocTypeId != null && contentAssocTypeId.equals(\"RESPONSE\")"
                             wrapTemplateId="">
@@ -121,7 +121,7 @@ under the License.
             <#assign currentValue=currentNode.value/>
             <#if currentValue?exists>
                 <@wrapSubContentCache subContentId=currentValue.contentId wrapTemplateId="WRAP_ARTICLE" >
-                    <@traverseSubContentCache  contentAssocTypeId="SUB_CONTENT" 
+                    <@traverseSubContentCache  contentAssocTypeId="SUB_CONTENT"
                             pickWhen="mapKey != null && mapKey.equals(\"ARTICLE\")"
                             returnAfterPickWhen="mapKey != null && mapKey.equals(\"ARTICLE\")"
                             followWhen="contentAssocTypeId != null && contentAssocTypeId.equals(\"_never_\")"

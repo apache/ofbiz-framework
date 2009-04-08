@@ -19,11 +19,11 @@ under the License.
 <#if geoPoint?has_content>
   <#if geoPoint.latitude?has_content && geoPoint.longitude?has_content>
     ${uiLabelMap.CommonLatitude}${geoPoint.latitude}<br>
-    ${uiLabelMap.CommonLongitude}${geoPoint.longitude} 
+    ${uiLabelMap.CommonLongitude}${geoPoint.longitude}
     <#if geoPoint.elevation?has_content>
       <br>${uiLabelMap.CommonElevation}${geoPoint.elevation} ${elevationUomAbbr}
-    </#if>   
-    <#if geoPoint.dataSourceId?has_content>        
+    </#if>
+    <#if geoPoint.dataSourceId?has_content>
       <#if geoPoint.dataSourceId == "GEOPT_GOOGLE">
         <div id="map" style="border:1px solid #979797; background-color:#e5e3df; width:400px; height:300px; margin:2em auto;">
           <div style="padding:1em; color:gray;">${uiLabelMap.CommonLoading}</div>
@@ -34,15 +34,15 @@ under the License.
             type="text/javascript">
         </script>
         <script type="text/javascript">
-          loadGoogleMap("${geoPoint.latitude}", 
-                        "${geoPoint.longitude}") 
-        </script>          
-      <#elseif  geoPoint.dataSourceId == "GEOPT_YAHOO">            
-      <#elseif  geoPoint.dataSourceId == "GEOPT_MICROSOFT">      
-      <#elseif  geoPoint.dataSourceId == "GEOPT_MAPTP">      
-      </#if>   
-    </#if>   
+          loadGoogleMap("${geoPoint.latitude}",
+                        "${geoPoint.longitude}")
+        </script>
+      <#elseif  geoPoint.dataSourceId == "GEOPT_YAHOO">
+      <#elseif  geoPoint.dataSourceId == "GEOPT_MICROSOFT">
+      <#elseif  geoPoint.dataSourceId == "GEOPT_MAPTP">
+      </#if>
+    </#if>
   </#if>
 <#else>
-  <h2>${uiLabelMap.CommonNoGeolocationAvailable}</h2>       
+  <h2>${uiLabelMap.CommonNoGeolocationAvailable}</h2>
 </#if>

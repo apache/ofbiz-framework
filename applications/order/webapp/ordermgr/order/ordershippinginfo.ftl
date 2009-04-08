@@ -86,7 +86,7 @@ under the License.
               <input type="hidden" name="needsInventoryReceive" value="${needsInventoryReceive?default("N")}"/>
             </form>
             <li><a href="javascript:document.quickreturn.submit()" class="buttontext">${uiLabelMap.OrderCreateReturn}</a></li>
-          </#if>  
+          </#if>
         </#if>
 
         <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED">
@@ -130,7 +130,7 @@ under the License.
                     <td width="5">&nbsp;</td>
                     <td valign="top" width="80%">
                         <div>
-                            <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">            
+                            <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">
                             <select name="contactMechId">
                                 <option selected="selected" value="${shipGroup.contactMechId?if_exists}">${(shipGroupAddress.address1)?default("")} - ${shipGroupAddress.city?default("")}</option>
                                 <#if shippingContactMechList?has_content>
@@ -145,13 +145,13 @@ under the License.
                             </select>
                             <#else>
                             ${(shipGroupAddress.address1)?default("")}
-                            </#if>   
+                            </#if>
                         </div>
                     </td>
                 </tr>
                 </#if>
-                
-                <#-- the setting of shipping method is only supported for sales orders at this time --> 
+
+                <#-- the setting of shipping method is only supported for sales orders at this time -->
                 <#if orderHeader.orderTypeId == "SALES_ORDER" && shipGroup.shipmentMethodTypeId?has_content>
                   <tr>
                     <td align="right" valign="top" width="15%">
@@ -161,8 +161,8 @@ under the License.
                     <td valign="top" width="80%">
                         <#if shipGroup.carrierPartyId?has_content || shipmentMethodType?has_content>
                         <div>
-                            <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">            
-                            <#-- passing the shipmentMethod value as the combination of two fields value 
+                            <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">
+                            <#-- passing the shipmentMethod value as the combination of two fields value
                             i.e shipmentMethodTypeId & carrierPartyId and this two field values are separated bye
                             "@" symbol.
                             -->
@@ -174,8 +174,8 @@ under the License.
                                 <option value="${shipmentMethodTypeAndParty?if_exists}"><#if productStoreShipmentMethod.partyId != "_NA_">${productStoreShipmentMethod.partyId?if_exists}</#if>&nbsp;${productStoreShipmentMethod.get("description",locale)?default("")}</option>
                                 </#if>
                                 </#list>
-                            </select>  
-                            <#else>  
+                            </select>
+                            <#else>
                             <#if shipGroup.carrierPartyId != "_NA_">
                             ${shipGroup.carrierPartyId?if_exists}
                             </#if>
@@ -186,7 +186,7 @@ under the License.
                     </td>
                 </tr>
                 </#if>
-                <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">                       
+                <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">
                 <tr>
                     <td align="right" valign="top" width="15%">&nbsp;</td>
                     <td width="5">&nbsp;</td>
@@ -367,7 +367,7 @@ under the License.
                    <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
                    <input type="hidden" name="statusId" value="SHIPMENT_INPUT">
                    <input type="hidden" name="facilityId" value=${storeFacilityId?if_exists}>
-                 </form> 
+                 </form>
                </#if>
              <#else>
                <#assign facilities = facilitiesForShipGroup.get(shipGroup.shipGroupSeqId)>

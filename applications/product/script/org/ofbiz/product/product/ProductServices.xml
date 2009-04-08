@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createProduct" short-description="Create a Product">
         <check-permission permission="CATALOG" action="_CREATE">
@@ -75,7 +75,7 @@ under the License.
                 <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 <field-map field-name="roleTypeId" value="LTD_ADMIN"/>
             </entity-and>
-            
+
             <iterate entry="productCategoryRole" list="productCategoryRoles">
                 <!-- add this new product to the category -->
                 <make-value value-field="newLimitMember" entity-name="ProductCategoryMember"/>
@@ -172,33 +172,33 @@ under the License.
 
         <!-- set the productId, and write it to the datasource -->
         <set from-field="parameters.productId" field="newProduct.productId"/>
-        
+
         <!-- if requested, set the new internalName field -->
         <if-not-empty field="parameters.newInternalName">
             <set from-field="parameters.newInternalName" field="newProduct.internalName"/>
         </if-not-empty>
-        
+
         <!-- if requested, set the new productName field -->
         <if-not-empty field="parameters.newProductName">
             <set from-field="parameters.newProductName" field="newProduct.productName"/>
         </if-not-empty>
-        
+
         <!-- if requested, set the new description field -->
         <if-not-empty field="parameters.newDescription">
             <set from-field="parameters.newDescription" field="newProduct.description"/>
         </if-not-empty>
-        
+
         <!-- if requested, set the new longDescription field -->
         <if-not-empty field="parameters.newLongDescription">
             <set from-field="parameters.newLongDescription" field="newProduct.longDescription"/>
         </if-not-empty>
-                
+
         <create-value value-field="newProduct"/>
 
         <!-- set up entity filter -->
         <set field="productFindContext.productId" from-field="parameters.oldProductId"/>
         <set field="reverseProductFindContext.productIdTo" from-field="parameters.oldProductId"/>
-        
+
         <!-- if requested, duplicate related data as well -->
         <if-not-empty field="parameters.duplicatePrices">
             <find-by-and entity-name="ProductPrice" map="productFindContext" list="foundValues"/>
@@ -314,14 +314,14 @@ under the License.
             <remove-by-and entity-name="InventoryItem" map="productFindContext"/>
         </if-not-empty>
     </simple-method>
-    
+
     <!-- Product Keyword Services -->
     <simple-method method-name="createProductKeyword" short-description="create a ProductKeyword">
         <make-value entity-name="ProductKeyword" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-    </simple-method>   
+    </simple-method>
     <simple-method method-name="updateProductKeyword" short-description="update a ProductKeyword">
         <entity-one entity-name="ProductKeyword" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -533,13 +533,13 @@ under the License.
 
         <!-- code to check for auto-approved reviews (store setting) -->
         <entity-one entity-name="ProductStore" value-field="productStore"/>
-        
+
         <if-not-empty field="productStore">
             <if-compare field="productStore.autoApproveReviews" operator="equals" value="Y">
                 <set value="PRR_APPROVED" field="newEntity.statusId"/>
             </if-compare>
         </if-not-empty>
-        
+
         <!-- auto approve the review if it is just a rating and has no review text -->
         <if-empty field="parameters.productReview">
             <set value="PRR_APPROVED" field="newEntity.statusId"/>
@@ -564,7 +564,7 @@ under the License.
         <set value="UPDATE" field="checkAction"/>
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
-        
+
         <make-value value-field="lookupPKMap" entity-name="ProductReview"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
@@ -608,7 +608,7 @@ under the License.
 
         <set from-field="parameters.virtualProductId" field="productFindContext.productId"/>
         <find-by-primary-key entity-name="Product" map="productFindContext" value-field="oldProduct"/>
-        
+
         <set from-field="parameters.virtualProductId" field="variantsFindContext.productId"/>
         <set value="PRODUCT_VARIANT" field="variantsFindContext.productAssocTypeId"/>
         <find-by-and entity-name="ProductAssoc" map="variantsFindContext" list="variants"/>
@@ -718,7 +718,7 @@ under the License.
     </simple-method>
 
     <!-- for managing product to product associations -->
-    <simple-method method-name="createProductAssoc" short-description="Create an association between two products"> 
+    <simple-method method-name="createProductAssoc" short-description="Create an association between two products">
         <set value="createProductAssoc" field="callingMethodName"/>
         <set value="CREATE" field="checkAction"/>
         <call-simple-method method-name="checkProductRelatedPermission"/>
@@ -727,7 +727,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductAssoc"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        
+
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductAssoc" short-description="Update an association between two products">
@@ -735,7 +735,7 @@ under the License.
         <set value="UPDATE" field="checkAction"/>
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
-        
+
         <make-value value-field="lookupPKMap" entity-name="ProductAssoc"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductAssoc" map="lookupPKMap" value-field="productAssocInstance"/>
@@ -747,7 +747,7 @@ under the License.
         <set value="DELETE" field="checkAction"/>
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
-        
+
         <make-value value-field="lookupPKMap" entity-name="ProductAssoc"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductAssoc" map="lookupPKMap" value-field="productAssocInstance"/>
@@ -760,7 +760,7 @@ under the License.
         <set value="CREATE" field="checkAction"/>
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
-        
+
         <make-value value-field="newEntity" entity-name="ProductMaint"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -814,7 +814,7 @@ under the License.
         <set value="DELETE" field="checkAction"/>
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
-        
+
         <entity-one entity-name="ProductMeter" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
@@ -845,7 +845,7 @@ under the License.
         <if-empty field="checkAction">
             <set value="UPDATE" field="checkAction"/>
         </if-empty>
-        
+
         <!-- find all role-categories that this product is a member of -->
         <if>
             <condition>
@@ -891,7 +891,7 @@ under the License.
         <set field="callingMethodName" from-field="parameters.resourceDescription"/>
         <set field="checkAction" from-field="parameters.mainAction"/>
         <call-simple-method method-name="checkProductRelatedPermission"/>
-        
+
         <if-empty field="error_list">
             <set field="hasPermission" type="Boolean" value="true"/>
             <field-to-result field="hasPermission"/>
@@ -910,7 +910,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-    </simple-method>   
+    </simple-method>
     <simple-method method-name="updateProductAttribute" short-description="update a ProductAttribute">
         <entity-one entity-name="ProductAttribute" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -920,7 +920,7 @@ under the License.
         <entity-one entity-name="ProductAttribute" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- ================================================================ -->
     <!-- ProductRole Services -->
     <!-- ================================================================ -->
@@ -964,19 +964,19 @@ under the License.
         <find-by-primary-key entity-name="ProductRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <simple-method method-name="createVendorProduct" short-description="Create a VendorProduct">
         <make-value entity-name="VendorProduct" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <create-value value-field="newEntity"/>
     </simple-method>
-    
+
     <simple-method method-name="deleteVendorProduct" short-description="Remove the VendorProduct">
         <make-value entity-name="VendorProduct" value-field="lookedUpValue"/>
         <set-pk-fields value-field="lookedUpValue" map="parameters"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- ProductCategoryGlAccount methods -->
     <simple-method method-name="createProductCategoryGlAccount" short-description="Create an ProductCategoryGlAccount">
         <set value="createProductCategoryGlAccount" field="callingMethodName"/>
@@ -989,7 +989,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>
-    
+
     <simple-method method-name="updateProductCategoryGlAccount" short-description="Update an ProductCategoryGlAccount">
         <set value="updateProductCategoryGlAccount" field="callingMethodName"/>
         <set value="UPDATE" field="checkAction"/>
@@ -1000,7 +1000,7 @@ under the License.
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <simple-method method-name="deleteProductCategoryGlAccount" short-description="Delete an ProductCategoryGlAccount">
         <set value="deleteProductCategoryGlAccount" field="callingMethodName"/>
         <set value="DELETE" field="checkAction"/>

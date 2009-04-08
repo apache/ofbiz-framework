@@ -22,7 +22,7 @@ under the License.
       <li class="h3">${uiLabelMap.WebtoolsRelations}</li>
     </ul>
     <br class="clear"/>
-  </div> 
+  </div>
   <div class="screenlet-body">
     <#if hasViewPermission>
         <br/>

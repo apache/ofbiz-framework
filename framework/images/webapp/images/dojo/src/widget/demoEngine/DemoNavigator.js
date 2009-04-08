@@ -17,8 +17,8 @@ dojo.require("dojo.io.*");
 dojo.require("dojo.lfx.*");
 dojo.require("dojo.lang.common");
 
-dojo.widget.defineWidget("my.widget.demoEngine.DemoNavigator", 
-	dojo.widget.HtmlWidget, 
+dojo.widget.defineWidget("my.widget.demoEngine.DemoNavigator",
+	dojo.widget.HtmlWidget,
 	{
 		templatePath: dojo.uri.dojoUri("src/widget/demoEngine/templates/DemoNavigator.html"),
 		templateCssPath: dojo.uri.dojoUri("src/widget/demoEngine/templates/DemoNavigator.css"),
@@ -29,10 +29,10 @@ dojo.widget.defineWidget("my.widget.demoEngine.DemoNavigator",
 
 			if (dojo.render.html.ie) {
 				dojo.debug("render ie");
-				dojo.html.hide(this.demoListWrapperNode); 
+				dojo.html.hide(this.demoListWrapperNode);
 			} else {
 				dojo.debug("render non-ie");
-				dojo.lfx.html.fadeHide(this.demoListWrapperNode, 0).play();	
+				dojo.lfx.html.fadeHide(this.demoListWrapperNode, 0).play();
 			}
 
 			this.getRegistry(this.demoRegistryUrl);
@@ -47,7 +47,7 @@ dojo.widget.defineWidget("my.widget.demoEngine.DemoNavigator",
 			if (dojo.render.html.ie) {
 				dojo.debug("render ie");
 				dojo.html.show(this.navigationContainer) ;
-			} else {	
+			} else {
 				dojo.debug("render non-ie");
 				dojo.lfx.html.fadeShow(this.navigationContainer,250).play();
 			}
@@ -69,7 +69,7 @@ dojo.widget.defineWidget("my.widget.demoEngine.DemoNavigator",
 			//dojo.widget.demoEngine.DemoNavigator.superclass.show.call(this);
 			dojo.html.show(this.domNode);
 			dojo.html.setOpacity(this.domNode,1);
-			//dojo.html.setOpacity(this.navigationContainer);	
+			//dojo.html.setOpacity(this.navigationContainer);
 			//dojo.html.show(this.navigationContainer);
 			dojo.html.setOpacity(this.navigationContainer,1);
 
@@ -92,7 +92,7 @@ dojo.widget.defineWidget("my.widget.demoEngine.DemoNavigator",
 		processRegistry: function(type,registry,e) {
 			dojo.debug("Processing Registry");
 			this.registry = registry;
-			dojo.lang.forEach(this.registry.navigation, dojo.lang.hitch(this,this.addCategory)); 
+			dojo.lang.forEach(this.registry.navigation, dojo.lang.hitch(this,this.addCategory));
 		},
 
 		addCategory: function(category) {
@@ -104,7 +104,7 @@ dojo.widget.defineWidget("my.widget.demoEngine.DemoNavigator",
 
 				this.registry.categories[category.name] = category;
 				this.categoriesChildren.push(newCat);
-				this.categoriesButtonsNode.appendChild(newCat.domNode);	
+				this.categoriesButtonsNode.appendChild(newCat.domNode);
 				newCat.domNode.categoryName = category.name;
 				dojo.event.connect(newCat,"onClick", this, "onSelectCategory");
 		},
@@ -113,19 +113,19 @@ dojo.widget.defineWidget("my.widget.demoEngine.DemoNavigator",
 			var demo = this.registry.definitions[demoName];
 
 			if (dojo.render.html.ie) {
-				dojo.html.show(this.demoListWrapperNode) 
+				dojo.html.show(this.demoListWrapperNode)
 			} else {
 				dojo.lfx.html.fadeShow(this.demoListWrapperNode, 250).play();
 			}
 
 			var newDemo = dojo.widget.createWidget("DemoItem",{viewDemoImage: this.viewDemoImage, name: demoName, description: demo.description, thumbnail: demo.thumbnail});
 			this.demoListChildren.push(newDemo);
-			this.demoListContainerNode.appendChild(newDemo.domNode);	
+			this.demoListContainerNode.appendChild(newDemo.domNode);
 			dojo.event.connect(newDemo,"onSelectDemo",this,"onSelectDemo");
 		},
 
 		onSelectCategory: function(e) {
-			catName = e.currentTarget.categoryName;	
+			catName = e.currentTarget.categoryName;
 			dojo.debug("Selected Category: " + catName);
 			//Remove current list of demos
 			dojo.lang.forEach(this.demoListChildren, function(child) {
@@ -151,7 +151,7 @@ dojo.widget.defineWidget("my.widget.demoEngine.DemoNavigator",
 			} else {
 				dojo.debug("render non-ie");
 				dojo.lfx.html.fadeHide(this.navigationContainer,250,null,dojo.lang.hitch(this, function() {
-					this.demoContainer.show();	
+					this.demoContainer.show();
 					this.demoContainer.showDemo();
 				})).play();
 			}
@@ -160,7 +160,7 @@ dojo.widget.defineWidget("my.widget.demoEngine.DemoNavigator",
 			this.demoContainer.setName(e.target.name);
 			this.demoContainer.setSummary(this.registry.definitions[e.target.name].description);
 		}
-		
+
 	},
 	"",
 	function() {

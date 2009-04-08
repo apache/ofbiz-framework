@@ -31,11 +31,11 @@ dojo.regexp.tld = function(/*Object?*/flags){
 	var infraRE = "arpa";
 
 	// Generic top-level domains RE.
-	var genericRE = 
+	var genericRE =
 		"aero|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|xxx|jobs|mobi|post";
-	
+
 	// Country Code top-level domains RE
-	var ccRE = 
+	var ccRE =
 		"ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|" +
 		"bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cx|cy|cz|de|dj|dk|dm|do|dz|" +
 		"ec|ee|eg|er|eu|es|et|fi|fj|fk|fm|fo|fr|ga|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|"
@@ -89,34 +89,34 @@ dojo.regexp.ipAddress = function(/*Object?*/flags){
 	if(typeof flags.allowHybrid != "boolean"){ flags.allowHybrid = true; }
 
 	// decimal-dotted IP address RE.
-	var dottedDecimalRE = 
+	var dottedDecimalRE =
 		// Each number is between 0-255.  Zero padding is not allowed.
 		"((\\d|[1-9]\\d|1\\d\\d|2[0-4]\\d|25[0-5])\\.){3}(\\d|[1-9]\\d|1\\d\\d|2[0-4]\\d|25[0-5])";
 
 	// dotted hex IP address RE.  Each number is between 0x0-0xff.  Zero padding is allowed, e.g. 0x00.
 	var dottedHexRE = "(0[xX]0*[\\da-fA-F]?[\\da-fA-F]\\.){3}0[xX]0*[\\da-fA-F]?[\\da-fA-F]";
 
-	// dotted octal IP address RE.  Each number is between 0000-0377.  
+	// dotted octal IP address RE.  Each number is between 0000-0377.
 	// Zero padding is allowed, but each number must have at least 4 characters.
 	var dottedOctalRE = "(0+[0-3][0-7][0-7]\\.){3}0+[0-3][0-7][0-7]";
 
-	// decimal IP address RE.  A decimal number between 0-4294967295.  
+	// decimal IP address RE.  A decimal number between 0-4294967295.
 	var decimalRE =  "(0|[1-9]\\d{0,8}|[1-3]\\d{9}|4[01]\\d{8}|42[0-8]\\d{7}|429[0-3]\\d{6}|" +
 		"4294[0-8]\\d{5}|42949[0-5]\\d{4}|429496[0-6]\\d{3}|4294967[01]\\d{2}|42949672[0-8]\\d|429496729[0-5])";
 
-	// hexadecimal IP address RE. 
+	// hexadecimal IP address RE.
 	// A hexadecimal number between 0x0-0xFFFFFFFF. Case insensitive.  Zero padding is allowed.
 	var hexRE = "0[xX]0*[\\da-fA-F]{1,8}";
 
-	// IPv6 address RE. 
+	// IPv6 address RE.
 	// The format is written as eight groups of four hexadecimal digits, x:x:x:x:x:x:x:x,
-	// where x is between 0000-ffff. Zero padding is optional. Case insensitive. 
+	// where x is between 0000-ffff. Zero padding is optional. Case insensitive.
 	var ipv6RE = "([\\da-fA-F]{1,4}\\:){7}[\\da-fA-F]{1,4}";
 
-	// IPv6/IPv4 Hybrid address RE. 
-	// The format is written as six groups of four hexadecimal digits, 
+	// IPv6/IPv4 Hybrid address RE.
+	// The format is written as six groups of four hexadecimal digits,
 	// followed by the 4 dotted decimal IPv4 format. x:x:x:x:x:x:d.d.d.d
-	var hybridRE = "([\\da-fA-F]{1,4}\\:){6}" + 
+	var hybridRE = "([\\da-fA-F]{1,4}\\:){6}" +
 		"((\\d|[1-9]\\d|1\\d\\d|2[0-4]\\d|25[0-5])\\.){3}(\\d|[1-9]\\d|1\\d\\d|2[0-4]\\d|25[0-5])";
 
 	// Build IP Address RE
@@ -171,7 +171,7 @@ dojo.regexp.url = function(/*Object?*/flags){
 	// summary: Builds a regular expression that matches a URL
 	//
 	// flags: An object
-	//    flags.scheme  Can be true, false, or [true, false]. 
+	//    flags.scheme  Can be true, false, or [true, false].
 	//      This means: required, not allowed, or match either one.
 	//    flags in regexp.host can be applied.
 	//    flags in regexp.ipAddress can be applied.
@@ -237,7 +237,7 @@ dojo.regexp.emailAddressList = function(/*Object?*/flags){
 
 	// build a RE for an Email Address List
 	var emailAddressRE = dojo.regexp.emailAddress(flags);
-	var emailAddressListRE = "(" + emailAddressRE + "\\s*[" + flags.listSeparator + "]\\s*)*" + 
+	var emailAddressListRE = "(" + emailAddressRE + "\\s*[" + flags.listSeparator + "]\\s*)*" +
 		emailAddressRE + "\\s*[" + flags.listSeparator + "]?\\s*";
 
 	return emailAddressListRE; // String
@@ -269,8 +269,8 @@ dojo.regexp.integer = function(/*Object?*/flags){
 
 	// number RE
 	var numberRE = dojo.regexp.buildGroupRE(flags.separator,
-		function(sep){ 
-			if(sep == ""){ 
+		function(sep){
+			if(sep == ""){
 				return "(0|[1-9]\\d*)";
 			}
 			var grp = flags.groupSize, grp2 = flags.groupSize2;
@@ -297,7 +297,7 @@ dojo.regexp.realNumber = function(/*Object?*/flags){
 	//      Can be true, false, or [true, false].  Default is [true, false]
 	//    flags.exponent  Express in exponential notation.  Can be true, false, or [true, false].
 	//      Default is [true, false], (i.e. will match if the exponential part is present are not).
-	//    flags.eSigned  The leading plus-or-minus sign on the exponent.  Can be true, false, 
+	//    flags.eSigned  The leading plus-or-minus sign on the exponent.  Can be true, false,
 	//      or [true, false].  Default is [true, false], (i.e. will match if it is signed or unsigned).
 	//    flags in regexp.integer can be applied.
 
@@ -318,10 +318,10 @@ dojo.regexp.realNumber = function(/*Object?*/flags){
 			var re = "";
 			if(q && (flags.places > 0)){
 				re = "\\" + flags.decimal;
-				if(flags.places == Infinity){ 
-					re = "(" + re + "\\d+)?"; 
-				}else{ 
-					re = re + "\\d{" + flags.places + "}"; 
+				if(flags.places == Infinity){
+					re = "(" + re + "\\d+)?";
+				}else{
+					re = re + "\\d{" + flags.places + "}";
 				}
 			}
 
@@ -331,9 +331,9 @@ dojo.regexp.realNumber = function(/*Object?*/flags){
 
 	// exponent RE
 	var exponentRE = dojo.regexp.buildGroupRE(flags.exponent,
-		function(q){ 
+		function(q){
 			if(q){ return "([eE]" + dojo.regexp.integer({ signed: flags.eSigned}) + ")"; }
-			return ""; 
+			return "";
 		}
 	);
 
@@ -345,7 +345,7 @@ dojo.regexp.currency = function(/*Object?*/flags){
 	// summary: Builds a regular expression to match a monetary value
 	//
 	// flags: An object
-	//    flags.symbol  A currency symbol such as Yen "�", Pound "�", or the Euro sign "�".  
+	//    flags.symbol  A currency symbol such as Yen "�", Pound "�", or the Euro sign "�".
 	//      Default is "$".  For more than one symbol use an array, e.g. ["$", ""], makes $ optional.
 	//    flags.placement  The symbol can come "before" the number or "after" the number.  Default is "before".
 	//    flags.signPlacement  The sign can come "before" the number or "after" the sign,
@@ -373,7 +373,7 @@ dojo.regexp.currency = function(/*Object?*/flags){
 
 	// build symbol RE
 	var symbolRE = dojo.regexp.buildGroupRE(flags.symbol,
-		function(symbol){ 
+		function(symbol){
 			// escape all special characters
 			return "\\s?" + symbol.replace( /([.$?*!=:|\\\/^])/g, "\\$1") + "\\s?";
 		}
@@ -432,8 +432,8 @@ dojo.regexp.us.state = function(/*Object?*/flags){
 	if(typeof flags.allowMilitary != "boolean"){ flags.allowMilitary = true; }
 
 	// state RE
-	var statesRE = 
-		"AL|AK|AZ|AR|CA|CO|CT|DE|DC|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|" + 
+	var statesRE =
+		"AL|AK|AZ|AR|CA|CO|CT|DE|DC|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|" +
 		"NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY";
 
 	// territories RE
@@ -518,7 +518,7 @@ dojo.regexp.numberFormat = function(/*Object?*/flags){
 	//    ?        Stands for an optional digit, 0-9 or nothing.
 	//    All other characters must appear literally in the expression.
 	//
-	//  Example   
+	//  Example
 	//    "(###) ###-####"       ->   (510) 542-9742
 	//    "(###) ###-#### x#???" ->   (510) 542-9742 x153
 	//    "###-##-####"          ->   506-82-1089       i.e. social security number
@@ -558,7 +558,7 @@ dojo.regexp.buildGroupRE = function(/*value or Array of values*/a, /*Function(x)
 	//  Returns a string for a regular expression that groups all the subexpressions.
 	//
 	// a:  A single value or an array of values.
-	// re:  A function.  Takes one parameter and converts it to a regular expression. 
+	// re:  A function.  Takes one parameter and converts it to a regular expression.
 
 	// case 1: a is a single value.
 	if(!(a instanceof Array)){

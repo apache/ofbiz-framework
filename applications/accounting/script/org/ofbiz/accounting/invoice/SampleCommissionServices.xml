@@ -30,7 +30,7 @@ under the License.
             <field-map field-name="roleTypeIdFrom" value="CUSTOMER"/>
             <field-map field-name="partyRelationshipTypeId" value="SALES_AFFILIATE"/><!-- this constraint could be optional if not being set in company data -->
         </entity-and>
-        
+
         <iterate entry="affiliatePartyRelationship" list="affiliatePartyRelationshipList">
             <!-- calculate a commission for each commission partner, identified by affiliatePartyRelationship.partyIdTo -->
             <if>
@@ -46,7 +46,7 @@ under the License.
                             </calcop>
                         </calcop>
                     </calculate>
-                    
+
                     <set field="commissionPartyId" from-field="affiliatePartyRelationship.partyIdTo"/>
                     <call-simple-method method-name="createCommissionInvoiceInline"/>
                 </then>
@@ -58,11 +58,11 @@ under the License.
             </if>
         </iterate>
     </simple-method>
-    
+
     <simple-method method-name="createCommissionInvoiceInline" short-description="Create Commission Invoice Inline">
         <!-- should have in the context: payment, commissionAmount, commissionPartyId -->
         <!-- this will create an invoice on behalf of the commission party, ie from the commissionPartyId to the company (payment.partyIdTo) -->
-        
+
         <set field="createInvoiceMap.invoiceTypeId" value="COMMISSION_INVOICE"/>
         <set field="createInvoiceMap.statusId" value="INVOICE_RECEIVED"/>
         <set field="createInvoiceMap.partyIdFrom" from-field="commissionPartyId"/>
@@ -70,7 +70,7 @@ under the License.
         <call-service service-name="createInvoice" in-map-name="createInvoiceMap">
             <result-to-field result-name="createdInvoiceId"/>
         </call-service>
-        
+
         <set field="createInvoiceItemMap.invoiceId" from-field="createdInvoiceId"/>
         <set field="createInvoiceItemMap.invoiceItemTypeId" value="COMM_INV_ITEM"/>
         <set field="createInvoiceItemMap.amount" from-field="commissionAmount"/>

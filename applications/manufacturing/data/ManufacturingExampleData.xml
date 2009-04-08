@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entity-engine-xml>
-      
+
     <!-- Task Formulae -->
     <CustomMethod customMethodId="6000" customMethodTypeId="TASK_FORMULA" customMethodName="exampleTaskFormula" description="Example task formula (qty * estimatedMilliSeconds * 10)"/>
     <!-- Bom Formulae -->
@@ -29,22 +29,22 @@ under the License.
     <TechDataCalendarWeek calendarWeekId="DEMO_WEEK" description="Demo calendar week of 8hours/days 5days/week starting at 8h30 from monday to friday" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/>
     <TechDataCalendar calendarId="DEMO_CALENDAR" description="Demo Workcenter Calendar" calendarWeekId="DEMO_WEEK"/>
     <TechDataCalendarExcDay calendarId="DEMO_CALENDAR" exceptionDateStartTime="2004-12-24 00:01:00.0" exceptionCapacity="0" description="Christmas Day"/>
-    
+
     <FixedAsset fixedAssetId="DEMO_MACHINE_GROUP" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Machine Group"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_MACHINE_GROUP" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
     <FixedAsset fixedAssetId="DEMO_MACHINE" fixedAssetName="Demo Machine" fixedAssetTypeId="PRODUCTION_EQUIPMENT" parentFixedAssetId="DEMO_MACHINE_GROUP" calendarId="DEMO_CALENDAR"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_MACHINE" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
-    
+
     <FixedAsset fixedAssetId="DEMO_FOOD_GROUP" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Food Group"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_FOOD_GROUP" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
     <FixedAsset fixedAssetId="DEMO_FOOD" fixedAssetName="Demo Food" fixedAssetTypeId="PRODUCTION_EQUIPMENT" parentFixedAssetId="DEMO_FOOD_GROUP" calendarId="DEMO_CALENDAR"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_FOOD" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
-    
+
     <FixedAsset fixedAssetId="DEMO_PROD_EQUIPMT_1" fixedAssetName="Demo Production Equipment One" fixedAssetTypeId="PRODUCTION_EQUIPMENT" dateAcquired="2005-01-01 00:01:00.0" expectedEndOfLife="2010-1-1" calendarId="DEMO_CALENDAR" salvageValue="50" purchaseCost="1000"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_PROD_EQUIPMT_1" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
     <FixedAsset fixedAssetId="DEMO_PROD_EQUIPMT_2" fixedAssetName="Demo Production Equipment Two" fixedAssetTypeId="PRODUCTION_EQUIPMENT" dateAcquired="2005-01-01 00:01:00.0" expectedEndOfLife="2010-1-1" calendarId="DEMO_CALENDAR" salvageValue="50" purchaseCost="1000"/>
     <FixedAssetGeoPoint fixedAssetId="DEMO_PROD_EQUIPMT_2" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
-    
+
     <FixedAssetDepMethod depreciationCustomMethodId="STR_LINE_DEP_FORMULA" fixedAssetId="DEMO_PROD_EQUIPMT_1"/>
     <FixedAssetDepMethod depreciationCustomMethodId="DBL_DECL_DEP_FORMULA" fixedAssetId="DEMO_PROD_EQUIPMT_2"/>
 </entity-engine-xml>

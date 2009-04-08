@@ -20,9 +20,9 @@ dojo.experimental("dojo.data.OpmlStore");
 
 dojo.declare("dojo.data.OpmlStore", dojo.data.core.Read, {
 	/* summary:
-	 *   The OpmlStore implements the dojo.data.core.Read API.  
+	 *   The OpmlStore implements the dojo.data.core.Read API.
 	 */
-	 
+
 	/* examples:
 	 *   var opmlStore = new dojo.data.OpmlStore({url:"geography.opml"});
 	 *   var opmlStore = new dojo.data.OpmlStore({url:"http://example.com/geography.opml"});
@@ -34,13 +34,13 @@ dojo.declare("dojo.data.OpmlStore", dojo.data.core.Read, {
 		this._loadFinished = false;
 		this._opmlFileUrl = keywordParameters["url"];
 	},
-	
+
 	_assertIsItem: function(/* item */ item) {
-		if (!this.isItem(item)) { 
+		if (!this.isItem(item)) {
 			throw new Error("dojo.data.OpmlStore: a function was passed an item argument that was not an item");
 		}
 	},
-	
+
 	_removeChildNodesThatAreNotElementNodes: function(/* node */ node, /* boolean */ recursive) {
 		var childNodes = node.childNodes;
 		if (childNodes.length == 0) {
@@ -50,8 +50,8 @@ dojo.declare("dojo.data.OpmlStore", dojo.data.core.Read, {
 		var i, childNode;
 		for (i = 0; i < childNodes.length; ++i) {
 			childNode = childNodes[i];
-			if (childNode.nodeType != Node.ELEMENT_NODE) { 
-				nodesToRemove.push(childNode); 
+			if (childNode.nodeType != Node.ELEMENT_NODE) {
+				nodesToRemove.push(childNode);
 			}
 		};
 		// dojo.debug('trim: ' + childNodes.length + ' total, ' + nodesToRemove.length + ' junk');
@@ -67,7 +67,7 @@ dojo.declare("dojo.data.OpmlStore", dojo.data.core.Read, {
 			}
 		}
 	},
-	
+
 	_processRawXmlTree: function(/* xmlDoc */ rawXmlTree) {
 		var headNodes = rawXmlTree.getElementsByTagName('head');
 		var headNode = headNodes[0];
@@ -76,7 +76,7 @@ dojo.declare("dojo.data.OpmlStore", dojo.data.core.Read, {
 		var bodyNodes = rawXmlTree.getElementsByTagName('body');
 		var bodyNode = bodyNodes[0];
 		this._removeChildNodesThatAreNotElementNodes(bodyNode, true);
-		
+
 		var bodyChildNodes = bodyNodes[0].childNodes;
 		for (var i = 0; i < bodyChildNodes.length; ++i) {
 			var node = bodyChildNodes[i];
@@ -85,7 +85,7 @@ dojo.declare("dojo.data.OpmlStore", dojo.data.core.Read, {
 			}
 		}
 	},
-	
+
 	get: function(/* item */ item, /* attribute || attribute-name-string */ attribute, /* value? */ defaultValue) {
 		// summary: See dojo.data.core.Read.get()
 		this._assertIsItem(item);
@@ -97,7 +97,7 @@ dojo.declare("dojo.data.OpmlStore", dojo.data.core.Read, {
 			return value;
 		}
 	},
-		
+
 	getValues: function(/* item */ item, /* attribute || attribute-name-string */ attribute) {
 		// summary: See dojo.data.core.Read.getValues()
 		this._assertIsItem(item);
@@ -112,7 +112,7 @@ dojo.declare("dojo.data.OpmlStore", dojo.data.core.Read, {
 			return [item.getAttribute(attribute)]; // Array
 		}
 	},
-		
+
 	getAttributes: function(/* item */ item) {
 		// summary: See dojo.data.core.Read.getAttributes()
 		this._assertIsItem(item);
@@ -128,12 +128,12 @@ dojo.declare("dojo.data.OpmlStore", dojo.data.core.Read, {
 		}
 		return attributes; // array
 	},
-	
+
 	hasAttribute: function(/* item */ item, /* attribute || attribute-name-string */ attribute) {
 		// summary: See dojo.data.core.Read.hasAttribute()
 		return (this.getValues(item, attribute).length > 0);
 	},
-	
+
 	containsValue: function(/* item */ item, /* attribute || attribute-name-string */ attribute, /* anything */ value) {
 		// summary: See dojo.data.core.Read.containsValue()
 		var values = this.getValues(item, attribute);
@@ -145,17 +145,17 @@ dojo.declare("dojo.data.OpmlStore", dojo.data.core.Read, {
 		}
 		return false; // boolean
 	},
-		
+
 	isItem: function(/* anything */ something) {
-		return (something && 
-				something.nodeType == Node.ELEMENT_NODE && 
+		return (something &&
+				something.nodeType == Node.ELEMENT_NODE &&
 				something.tagName == 'outline'); // boolean
 	},
-	
+
 	isItemAvailable: function(/* anything */ something) {
 		return this.isItem(something);
 	},
-	
+
 	find: function(/* object? || dojo.data.core.Result */ keywordArgs) {
 		// summary: See dojo.data.core.Read.find()
 		var result = null;
@@ -194,7 +194,7 @@ dojo.declare("dojo.data.OpmlStore", dojo.data.core.Read, {
 				}
 			}
 		};
-		
+
 		if (!this._loadFinished) {
 			if (this._opmlFileUrl) {
 				var bindRequest = dojo.io.bind({
@@ -207,13 +207,13 @@ dojo.declare("dojo.data.OpmlStore", dojo.data.core.Read, {
 		}
 		return result; // dojo.data.csv.Result
 	},
-	
+
 	getIdentity: function(/* item */ item) {
 		// summary: See dojo.data.core.Read.getIdentity()
 		dojo.unimplemented('dojo.data.OpmlStore.getIdentity()');
 		return null;
 	},
-	
+
 	findByIdentity: function(/* string */ identity) {
 		// summary: See dojo.data.core.Read.findByIdentity()
 		dojo.unimplemented('dojo.data.OpmlStore.findByIdentity()');

@@ -14,14 +14,14 @@ var tableHides = {};
 var frame = null;
 
 window.onload = function(){
-	// if IE loads this page too quickly (instantly) then 
+	// if IE loads this page too quickly (instantly) then
 	// window.debugVar might not have been set
 	window.setTimeout(startMeUp, 100);
 }
 
 function startMeUp(){
 	frame = document.getElementById('frame');
-	// GET string 
+	// GET string
 	var index = location.search.split("=").pop();
 	var debugObj = window.opener.dojo.debugDeep;
 	var debugVar = debugObj.debugVars[index] || window.debugVar;
@@ -102,7 +102,7 @@ function buildTableRow(path, tb, name, value) {
 	var td2 = tr1.insertCell(1);
 	var td3 = tr1.insertCell(2);
 	var td4 = tr1.insertCell(3);
-	
+
 	tr1.style.verticalAlign = 'top';
 	td1.style.verticalAlign = 'middle';
 
@@ -160,7 +160,7 @@ function buildTableRow(path, tb, name, value) {
 		var tr2 = tb.insertRow(row++);
 		var td5 = tr2.insertCell(0);
 		var td6 = tr2.insertCell(1);
-		
+
 		//var tr2 = document.createElement('tr');
 		//var td5 = document.createElement('td');
 		//var td6 = document.createElement('td');

@@ -20,12 +20,12 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    
+
     <screen name="webPosMainDecorator">
         <section>
             <actions>
                 <set field="MainColumnStyle" value="rightonly"/>
-                
+
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/scriptaculous.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/effects.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/controls.js" global="true"/>
@@ -43,7 +43,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="Main">
         <section>
             <actions>
@@ -55,7 +55,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="Manager">
         <section>
             <actions>
@@ -67,7 +67,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="Payment">
         <section>
             <actions>
@@ -79,7 +79,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="Promo">
         <section>
             <actions>
@@ -91,7 +91,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="SearchProducts">
         <section>
             <actions>
@@ -118,7 +118,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ShowCart">
         <section>
             <actions>
@@ -130,7 +130,7 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                
+
                 <set field="titleProperty" value="PageTitleShoppingCart"/>
                 <set field="headerItem" value="Shopping Cart"/>
                 <script location="component://webpos/webapp/webpos/WEB-INF/actions/cart/ShowCart.groovy"/>
@@ -149,7 +149,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="MicroCart">
         <section>
             <actions>

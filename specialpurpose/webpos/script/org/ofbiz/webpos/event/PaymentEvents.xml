@@ -73,7 +73,7 @@ under the License.
             </if-not-empty>
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="payCheck" short-description="Pay Check" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
@@ -103,7 +103,7 @@ under the License.
                     </call-object-method>
                     <check-errors/>
                     <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getNoPaymentCode" ret-field="noPaymentCode"/>
-                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field="externalPaymentCode"/>            
+                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field="externalPaymentCode"/>
                     <!--  No Payment -->
                     <if-compare-field field="paymentCheck" operator="equals" to-field="noPaymentCode">
                         <call-object-method obj-field="webPosTransaction" method-name="clearPayment">
@@ -150,7 +150,7 @@ under the License.
             </if-not-empty>
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="payGiftCard" short-description="Pay Gift Card" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
@@ -180,7 +180,7 @@ under the License.
                     </call-object-method>
                     <check-errors/>
                     <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getNoPaymentCode" ret-field="noPaymentCode"/>
-                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field="externalPaymentCode"/>            
+                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field="externalPaymentCode"/>
                     <!--  No Payment -->
                     <if-compare-field field="paymentCheck" operator="equals" to-field="noPaymentCode">
                         <call-object-method obj-field="webPosTransaction" method-name="processNoPayment">
@@ -199,7 +199,7 @@ under the License.
                                 </call-object-method>
                                 <check-errors/>
                             <else>
-                                <add-error><fail-property resource="WebPosUiLabels" property="WebPosPaymentGiftCardMissingRefNum"/></add-error>                            
+                                <add-error><fail-property resource="WebPosUiLabels" property="WebPosPaymentGiftCardMissingRefNum"/></add-error>
                                 <check-errors/>
                             </else>
                             </if-not-empty>
@@ -223,7 +223,7 @@ under the License.
             </if-not-empty>
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="payCredit" short-description="Pay Credit Card" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
@@ -253,7 +253,7 @@ under the License.
                     </call-object-method>
                     <check-errors/>
                     <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getNoPaymentCode" ret-field="noPaymentCode"/>
-                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field="externalPaymentCode"/>            
+                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field="externalPaymentCode"/>
                     <!--  No Payment -->
                     <if-compare-field field="paymentCheck" operator="equals" to-field="noPaymentCode">
                         <call-object-method obj-field="webPosTransaction" method-name="processNoPayment">
@@ -305,7 +305,7 @@ under the License.
                                 <!-- test security code - allow blank for illegible cards -->
                                 <if-not-empty field="parameters.securityCode">
                                     <set field="securityCode" from-field="parameters.securityCode"/>
-                                    <call-object-method obj-field="securityCode" method-name="length" ret-field="length"/>                            
+                                    <call-object-method obj-field="securityCode" method-name="length" ret-field="length"/>
                                     <if-compare field="length" operator="greater" value="4">
                                         <add-error><fail-property resource="WebPosUiLabels" property="WebPosPaymentCredictCardInvalidSecurityCode"/></add-error>
                                         <check-errors/>
@@ -383,7 +383,7 @@ under the License.
             </if-not-empty>
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="processSale" short-description="Process Sale" login-required="true">
         <set field="posTerminalId" value="null"/>
         <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
@@ -402,7 +402,7 @@ under the License.
         </else>
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="setRefNum" short-description="Set Payment Reference Number" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
@@ -417,15 +417,15 @@ under the License.
                 <call-object-method obj-field="webPosTransaction" method-name="getNumberOfPayments" ret-field="numPayments"/>
                 <check-errors/>
                 <while>
-                    <condition>                     
+                    <condition>
                         <if-compare-field field="payment" to-field="numPayments" operator="less"/>
-                    </condition> 
+                    </condition>
                     <then>
                         <call-object-method obj-field="webPosTransaction" method-name="getPaymentMethodTypeId" ret-field="paymentMethodTypeId">
                             <field field="payment" type="int"/>
                         </call-object-method>
                         <check-errors/>
-                        <if-not-empty field="paymentMethodTypeId">       
+                        <if-not-empty field="paymentMethodTypeId">
                             <if-compare field="paymentMethodTypeId" value="PERSONAL_CHECK" operator="equals">
                                 <log level="always" message="refNumCheck ${parameters.refNumCheck}"/>
                                 <if-not-empty field="parameters.refNumCheck">
@@ -444,7 +444,7 @@ under the License.
                                     <check-errors/>
                                 </else>
                                 </if-not-empty>
-                            </if-compare>        
+                            </if-compare>
                             <if-compare field="paymentMethodTypeId" value="GIFT_CARD" operator="equals">
                                 <log level="always" message="refNumGift ${parameters.refNumGift}"/>
                                 <if-not-empty field="parameters.refNumGift">
@@ -462,8 +462,8 @@ under the License.
                                     <add-error><fail-property resource="WebPosUiLabels" property="WebPosPaymentGiftCardMissingRefNum"/></add-error>
                                     <check-errors/>
                                 </else>
-                                </if-not-empty>                     
-                            </if-compare>        
+                                </if-not-empty>
+                            </if-compare>
                             <if-compare field="paymentMethodTypeId" value="CREDIT_CARD" operator="equals">
                                 <log level="always" message="refNumCredit ${parameters.refNumCredit}"/>
                                 <if-not-empty field="parameters.refNumCredit">
@@ -481,8 +481,8 @@ under the License.
                                     <add-error><fail-property resource="WebPosUiLabels" property="WebPosPaymentCredictCardMissingRefNum"/></add-error>
                                     <check-errors/>
                                 </else>
-                                </if-not-empty>                     
-                            </if-compare>        
+                                </if-not-empty>
+                            </if-compare>
                         </if-not-empty>
                         <calculate field="payment" type="Integer">
                             <calcop field="payment" operator="add"/>
@@ -497,7 +497,7 @@ under the License.
             </if-not-empty>
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="clearPayment" short-description="Clear Payment" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
@@ -507,22 +507,22 @@ under the License.
             </call-class-method>
             <if-not-empty field="webPosSession">
                 <call-object-method obj-field="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
-                <check-errors/>                                
+                <check-errors/>
                 <set field="payment" value="0" type="Integer"/>
                 <call-object-method obj-field="webPosTransaction" method-name="getNumberOfPayments" ret-field="numPayments"/>
                 <check-errors/>
                 <while>
-                    <condition>                     
+                    <condition>
                         <if-compare-field field="payment" to-field="numPayments" operator="less"/>
-                    </condition> 
+                    </condition>
                     <then>
                         <call-object-method obj-field="webPosTransaction" method-name="getPaymentMethodTypeId" ret-field="paymentMethodTypeId">
                             <field field="payment" type="int"/>
                         </call-object-method>
                         <check-errors/>
-                        <if-not-empty field="paymentMethodTypeId">       
+                        <if-not-empty field="paymentMethodTypeId">
                             <if-not-empty field="parameters.clearCash">
-                                <if-compare field="parameters.clearCash" value="Y" operator="equals">                         
+                                <if-compare field="parameters.clearCash" value="Y" operator="equals">
                                     <if-compare field="paymentMethodTypeId" value="CASH" operator="equals">
                                         <call-object-method obj-field="webPosTransaction" method-name="clearPayment">
                                             <field field="payment" type="int"/>
@@ -536,7 +536,7 @@ under the License.
                                 </if-compare>
                             </if-not-empty>
                             <if-not-empty field="parameters.clearCheck">
-                                <if-compare field="parameters.clearCheck" value="Y" operator="equals">                         
+                                <if-compare field="parameters.clearCheck" value="Y" operator="equals">
                                     <if-compare field="paymentMethodTypeId" value="PERSONAL_CHECK" operator="equals">
                                         <call-object-method obj-field="webPosTransaction" method-name="clearPayment">
                                             <field field="payment" type="int"/>
@@ -548,9 +548,9 @@ under the License.
                                         <set field="payment" value="-1" type="Integer"/>
                                     </if-compare>
                                 </if-compare>
-                            </if-not-empty>                
+                            </if-not-empty>
                             <if-not-empty field="parameters.clearGift">
-                                <if-compare field="parameters.clearGift" value="Y" operator="equals">                         
+                                <if-compare field="parameters.clearGift" value="Y" operator="equals">
                                     <if-compare field="paymentMethodTypeId" value="GIFT_CARD" operator="equals">
                                         <call-object-method obj-field="webPosTransaction" method-name="clearPayment">
                                             <field field="payment" type="int"/>
@@ -562,9 +562,9 @@ under the License.
                                         <set field="payment" value="-1" type="Integer"/>
                                     </if-compare>
                                 </if-compare>
-                            </if-not-empty>                
+                            </if-not-empty>
                             <if-not-empty field="parameters.clearCredit">
-                                <if-compare field="parameters.clearCredit" value="Y" operator="equals">                         
+                                <if-compare field="parameters.clearCredit" value="Y" operator="equals">
                                     <if-compare field="paymentMethodTypeId" value="CREDIT_CARD" operator="equals">
                                         <call-object-method obj-field="webPosTransaction" method-name="clearPayment">
                                             <field field="payment" type="int"/>
@@ -576,14 +576,14 @@ under the License.
                                         <set field="payment" value="-1" type="Integer"/>
                                     </if-compare>
                                 </if-compare>
-                            </if-not-empty>                
-                        </if-not-empty>                        
+                            </if-not-empty>
+                        </if-not-empty>
                         <calculate field="payment" type="Integer">
                             <calcop field="payment" operator="add"/>
                             <number value="1"/>
                         </calculate>
                     </then>
-                </while>                                           
+                </while>
             <else>
                 <add-error><fail-property resource="WebPosUiLabels" property="WebPosNotLoggedIn"/></add-error>
                 <check-errors/>
@@ -592,7 +592,7 @@ under the License.
         </if-not-empty>
         <return response-code="success"/>
     </simple-method>
-    
+
     <simple-method method-name="clearAllPayments" short-description="Clear All Payments" login-required="true">
         <set field="posTerminalId" value="null"/>
         <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">

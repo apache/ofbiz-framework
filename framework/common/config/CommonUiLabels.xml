@@ -2886,7 +2886,7 @@
     <property key="CommonHigh">
         <value xml:lang="en">High</value>
         <value xml:lang="fr">Haut</value>
-    </property>    
+    </property>
     <property key="CommonHome">
         <value xml:lang="en">Home</value>
         <value xml:lang="fr">Point de départ</value>
@@ -3458,7 +3458,7 @@
     <property key="CommonLow">
         <value xml:lang="en">Low</value>
         <value xml:lang="fr">Bas</value>
-    </property>    
+    </property>
     <property key="CommonMain">
         <value xml:lang="ar">الرئيسية</value>
         <value xml:lang="cs">Úvodní stránka</value>
@@ -4005,7 +4005,7 @@
     <property key="CommonNormal">
         <value xml:lang="en">Normal</value>
         <value xml:lang="fr">Normal</value>
-    </property>     
+    </property>
     <property key="CommonNoAccess">
         <value xml:lang="en">No Access to this function, contact your system administrator if you feel this is an error</value>
         <value xml:lang="es">Acceso no autorizado. Póngase en contacto con su administrador de sistemas si piensa que esto es un error.</value>
@@ -7959,7 +7959,7 @@
         <value xml:lang="en">Last Updated Tx Stamp</value>
         <value xml:lang="fr">Dernière mise à jour d'estampille temporelle de transaction créée</value>
         <value xml:lang="it">Ultimo aggiornamento data/ora</value>
-    </property>    
+    </property>
     <property key="FormFieldTitle_lineTotal">
         <value xml:lang="ar">مجموع السطر</value>
         <value xml:lang="de">Zeilentotal</value>

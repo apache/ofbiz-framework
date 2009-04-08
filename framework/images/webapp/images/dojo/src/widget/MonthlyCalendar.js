@@ -47,13 +47,13 @@ dojo.widget.defineWidget(
 
 		createDayContents: function(node,mydate) {
 			dojo.html.removeChildren(node);
-			node.appendChild(document.createTextNode(mydate.getDate()));	
+			node.appendChild(document.createTextNode(mydate.getDate()));
 				for(var x=0; x<this.iCalendars.length; x++) {
 					var evts = this.iCalendars[x].getEvents(mydate);
 					if ((dojo.lang.isArray(evts)) && (evts.length>0)) {
 					for(var y=0;y<evts.length;y++) {
 						var el = document.createElement("div");
-						dojo.html.addClass(el, "dojoMonthlyCalendarEvent");          
+						dojo.html.addClass(el, "dojoMonthlyCalendarEvent");
 						el.appendChild(document.createTextNode(evts[y].summary.value));
 						el.width = dojo.html.getContentBox(node).width;
 						node.appendChild(el);
@@ -75,12 +75,12 @@ dojo.widget.defineWidget(
 			var previousDate = new Date();
 			var calendarNodes = this.calendarDatesContainerNode.getElementsByTagName("td");
 			var currentCalendarNode;
-			// set hours of date such that there is no chance of rounding error due to 
+			// set hours of date such that there is no chance of rounding error due to
 			// time change in local time zones
 			previousDate.setHours(8);
 			var nextDate = new Date(this.firstSaturday.year, this.firstSaturday.month, this.firstSaturday.date, 8);
 			var lastDay = new Date(this.firstSaturday.year, this.firstSaturday.month, this.firstSaturday.date + 42, 8);
-			
+
 			if (this.iCalendars.length > 0) {
 				for (var x=0; x<this.iCalendars.length;x++) {
 					this.iCalendars[x].preComputeRecurringEvents(lastDay);
@@ -93,7 +93,7 @@ dojo.widget.defineWidget(
 				for (var i=this.firstSaturday.date; i>0; i--) {
 					currentCalendarNode = calendarNodes.item(dayInWeek);
 					this.createDayContents(currentCalendarNode, nextDate);
-					
+
 					dojo.html.setClass(currentCalendarNode, this.getDateClassName(nextDate, "current"));
 					dayInWeek--;
 					previousDate = nextDate;
@@ -106,7 +106,7 @@ dojo.widget.defineWidget(
 
 					dojo.html.setClass(currentCalendarNode, this.getDateClassName(nextDate, "previous"));
 					previousDate = nextDate;
-					nextDate = this.incrementDate(nextDate, false);				
+					nextDate = this.incrementDate(nextDate, false);
 				}
 			} else {
 				nextDate.setDate(1);
@@ -115,7 +115,7 @@ dojo.widget.defineWidget(
 					this.createDayContents(currentCalendarNode, nextDate);
 					dojo.html.setClass(currentCalendarNode, this.getDateClassName(nextDate, "current"));
 					previousDate = nextDate;
-					nextDate = this.incrementDate(nextDate, true);				
+					nextDate = this.incrementDate(nextDate, true);
 				}
 			}
 			previousDate.setDate(this.firstSaturday.date);
@@ -131,7 +131,7 @@ dojo.widget.defineWidget(
 				previousDate = nextDate;
 				nextDate = this.incrementDate(nextDate, true);
 			}
-			
+
 			while(count < 42) {
 				this.createDayContents(currentCalendarNode, nextDate);
 				dojo.html.setClass(currentCalendarNode, this.getDateClassName(nextDate, "next"));
@@ -141,7 +141,7 @@ dojo.widget.defineWidget(
 			}
 			this.setMonthLabel(this.firstSaturday.month);
 			this.setYearLabels(this.firstSaturday.year);
-		}	
+		}
 	}
 );
 
@@ -160,11 +160,11 @@ dojo.widget.MonthlyCalendar.util= new function() {
 		if (date < 10) {
 			date = "0" + date.toString();
 		}
-		// because this is a date picker and not a time picker, we treat time 
+		// because this is a date picker and not a time picker, we treat time
 		// as zero
 		return year + "-" + month + "-" + date + "T00:00:00+00:00";
 	}
-	
+
 	this.fromRfcDate = function(rfcDate) {
 		var tempDate = rfcDate.split("-");
 		if(tempDate.length < 3) {
@@ -174,7 +174,7 @@ dojo.widget.MonthlyCalendar.util= new function() {
 		return new Date(parseInt(tempDate[0]), (parseInt(tempDate[1], 10) - 1), parseInt(tempDate[2].substr(0,2), 10));
 	}
 
-//Note: redundant with dojo.widget.DatePicker.util	
+//Note: redundant with dojo.widget.DatePicker.util
 	this.initFirstSaturday = function(month, year) {
 		if(!month) {
 			month = this.date.getMonth();

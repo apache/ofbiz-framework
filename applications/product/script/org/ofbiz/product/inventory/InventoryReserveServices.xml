@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="reserveProductInventory" short-description="Reserve Inventory for a Product">
         <!--
@@ -77,7 +77,7 @@ under the License.
                     </if-compare>
                 </else>
                 </if-compare>
-                                                    
+
                 <set from-field="parameters.quantity" field="parameters.quantityNotReserved"/>
 
                 <!-- first reserve against InventoryItems in FLT_PICKLOC type locations, then FLT_BULK locations, then InventoryItems with no locations -->
@@ -281,10 +281,10 @@ under the License.
 
         <field-to-result field="parameters.quantityNotReserved" result-name="quantityNotReserved"/>
     </simple-method>
-    
+
     <simple-method method-name="reserveAnInventoryItem" short-description="Reserve a Specific Serialized InventoryItem">
-        <!-- 
-        Well the InventoryItem I want to reserve is already reserved, But my customer wants just this inventoryItem. 
+        <!--
+        Well the InventoryItem I want to reserve is already reserved, But my customer wants just this inventoryItem.
         Let me find the reservation on this inventory, cancel it and re-reserve something else for the other order.
         This way I'll get what I want and the other orderItem will also have a similar thing to issue.
         -->
@@ -305,7 +305,7 @@ under the License.
         <!-- Step 1 cancel our reservation, we'll later reserve Inventory we want-->
         <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
         <!-- Lets find the inventory to reserve -->
-        <entity-and entity-name="InventoryItem" list="inventoryItems">            
+        <entity-and entity-name="InventoryItem" list="inventoryItems">
             <field-map field-name="productId" from-field="parameters.productId"/>
             <field-map field-name="inventoryItemTypeId"  value="SERIALIZED_INV_ITEM"/>
             <field-map field-name="serialNumber" from-field="parameters.serialNumber"/>
@@ -323,13 +323,13 @@ under the License.
             <call-service service-name="receiveInventoryProduct" in-map-name="receiveCtx">
                 <result-to-field result-name="inventoryItemId" field="inventoryItemLookupPk.inventoryItemId"/>
             </call-service>
-            <find-by-primary-key entity-name="InventoryItem" map="inventoryItemLookupPk" value-field="inventoryItem"/>    
+            <find-by-primary-key entity-name="InventoryItem" map="inventoryItemLookupPk" value-field="inventoryItem"/>
         </if-empty>
         <!--Step 2 Check if its reserved for other order -->
         <set field="inventoryReservationLookUp.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
         <find-by-and map="inventoryReservationLookUp" list="invReservations" entity-name="OrderItemShipGrpInvRes"/>
         <first-from-list entry="inventoryItemReservation" list="invReservations"/>
-        <if-not-empty field="inventoryItemReservation"> 
+        <if-not-empty field="inventoryItemReservation">
             <set-service-fields map="inventoryItemReservation" to-map="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>
             <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
             <!-- Hold our inventoryItem -->
@@ -358,7 +358,7 @@ under the License.
             <!-- change status on inventoryItem -->
             <set value="INV_PROMISED" field="inventoryItem.statusId"/>
             <store-value value-field="inventoryItem"/>
-        </if-compare>  
+        </if-compare>
         <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
         <set from-field="parameters.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
         <set from-field="parameters.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
@@ -369,15 +369,15 @@ under the License.
         <set field="reserveOisgirMap.quantity" value="1" type="BigDecimal"/>
         <if-not-empty field="parameters.sequenceId">
             <set field="reserveOisgirMap.sequenceId" from-field="parameters.sequenceId"/>
-        </if-not-empty>        
+        </if-not-empty>
         <!-- store OrderItemShipGrpInvRes record -->
         <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
-        <clear-field field="reserveOisgirMap"/>        
+        <clear-field field="reserveOisgirMap"/>
         <field-to-result field="inventoryItem.inventoryItemId" result-name="inventoryItemId"/>
     </simple-method>
 
     <simple-method method-name="reserveForInventoryItemInline" short-description="Does a reservation for one InventoryItem, meant to be called in-line">
-        <!-- only do something with this inventoryItem if there is more inventory to reserve -->  
+        <!-- only do something with this inventoryItem if there is more inventory to reserve -->
         <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="BigDecimal">
 
             <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId">
@@ -424,7 +424,7 @@ under the License.
                             <set from-field="parameters.quantityNotReserved" field="parameters.deductAmount"/>
                         </else>
                         </if-compare-field>
-                        
+
                         <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
                         <set from-field="inventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
                         <set from-field="parameters.orderId" field="createDetailMap.orderId"/>
@@ -434,7 +434,7 @@ under the License.
                         </calculate>
                         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                         <clear-field field="createDetailMap"/>
-                        
+
                         <!-- create OrderItemShipGrpInvRes record -->
                         <call-simple-method method-name="getPromisedDateTime"/>
                         <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
@@ -458,14 +458,14 @@ under the License.
                             </calcop>
                         </calculate>
                     </then>
-                </if>                    
+                </if>
                 <!-- keep track of the last non-serialized inventory item for use if inventory is not required for purchase -->
                 <!-- use env variable named lastNonSerInventoryItem -->
                 <set from-field="inventoryItem" field="lastNonSerInventoryItem"/>
             </if-compare>
         </if-compare>
     </simple-method>
-    
+
     <simple-method method-name="getPromisedDateTime" short-description="Get Inventory Promised Date/Time">
         <!-- get the promiseDatetime -->
         <get-related-one value-field="inventoryItem" relation-name="ProductFacility" to-value-field="productFacility"/>
@@ -488,7 +488,7 @@ under the License.
 
     <simple-method method-name="reserveOrderItemInventory" short-description="Reserve Order Item Inventory">
         <entity-one entity-name="OrderItemShipGrpInvRes" value-field="checkOisgirEntity"/>
-        
+
         <entity-one entity-name="OrderItem" value-field="orderItem"/>
         <set field="parameters.promisedDatetime" from-field="orderItem.shipBeforeDate"/>
         <set field="parameters.currentPromisedDate" from-field="orderItem.shipBeforeDate"/>

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
     <eca service="createPerson" event="commit">
         <action service="ensureNaPartyRole" mode="sync"/>
@@ -36,7 +36,7 @@ under the License.
     <eca service="updatePartyGroup" event="invoke">
         <action service="savePartyNameChange" mode="sync"/>
     </eca>
-    
+
     <!-- before running the createPartyRelationship service, make sure the party is in the _NA_ role if that is the desired roleTypeId for From or To -->
     <eca service="createPartyRelationship" event="invoke">
         <condition field-name="roleTypeIdFrom" operator="equals" value="_NA_"/>
@@ -46,7 +46,7 @@ under the License.
         <condition field-name="roleTypeIdTo" operator="equals" value="_NA_"/>
         <action service="ensureNaPartyRoleTo" mode="sync"/>
     </eca>
-    
+
     <!-- party contact mech service ECAs -->
     <!-- NOTE: because we have an ECA on createPartyContactMech, we don't need to do it on createPartyPostalAddress, createPartyEmailAddress, createPartyTelecomNumber because those will call it -->
     <eca service="createPartyContactMech" event="commit">
@@ -60,7 +60,7 @@ under the License.
         <action service="createWorkEffort" mode="sync"/>
     </eca>
 
-    <!-- all these secas are now replaced by a sheduled job (sendEmailDated) which runs every 5 minutes -->    
+    <!-- all these secas are now replaced by a sheduled job (sendEmailDated) which runs every 5 minutes -->
 
     <!-- After all the emails have been sent to a contact list, mark it as complete. -->
     <eca service="sendEmailToContactList" event="commit">
@@ -69,8 +69,8 @@ under the License.
 
     <eca service="updatePassword" event="commit">
         <action service="sendUpdatePersonalInfoEmailNotification" mode="async" persist="true"/>
-    </eca>    
-    
+    </eca>
+
     <eca service="createEmailAddressVerification" event="commit">
         <action service="sendVerifyEmailAddressNotification" mode="async"/>
     </eca>

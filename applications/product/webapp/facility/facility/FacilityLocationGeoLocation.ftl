@@ -19,11 +19,11 @@ under the License.
 <#if latestGeoPoint?has_content>
   <#if latestGeoPoint.latitude?has_content && latestGeoPoint.longitude?has_content>
     ${uiLabelMap.CommonLatitude}${latestGeoPoint.latitude}<br>
-    ${uiLabelMap.CommonLongitude}${latestGeoPoint.longitude} 
+    ${uiLabelMap.CommonLongitude}${latestGeoPoint.longitude}
     <#if latestGeoPoint.elevation?has_content>
       <br>${uiLabelMap.CommonElevation}${latestGeoPoint.elevation} ${elevationUomAbbr}
-    </#if>   
-    <#if latestGeoPoint.dataSourceId?has_content>        
+    </#if>
+    <#if latestGeoPoint.dataSourceId?has_content>
       <#if latestGeoPoint.dataSourceId == "GEOPT_GOOGLE">
         <div id="map" style="border:1px solid #979797; background-color:#e5e3df; width:400px; height:300px; margin:2em auto;">
           <div style="padding:1em; color:gray;">${uiLabelMap.CommonLoading}</div>
@@ -34,17 +34,17 @@ under the License.
             type="text/javascript">
         </script>
         <script type="text/javascript">
-          loadGoogleMap("${latestGeoPoint.latitude}", 
-                        "${latestGeoPoint.longitude}",                         
+          loadGoogleMap("${latestGeoPoint.latitude}",
+                        "${latestGeoPoint.longitude}",
                         "<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId}&locationSeqId=${locationSeqId}</@ofbizUrl>",
                         "${uiLabelMap.ProductFacilityLocation} ${uiLabelMap.CommonOf} ${facilityId}/${locationSeqId}")
-        </script>          
-      <#elseif  latestGeoPoint.dataSourceId == "GEOPT_YAHOO">            
-      <#elseif  latestGeoPoint.dataSourceId == "GEOPT_MICROSOFT">      
-      <#elseif  latestGeoPoint.dataSourceId == "GEOPT_MAPTP">      
-      </#if>   
-    </#if>   
+        </script>
+      <#elseif  latestGeoPoint.dataSourceId == "GEOPT_YAHOO">
+      <#elseif  latestGeoPoint.dataSourceId == "GEOPT_MICROSOFT">
+      <#elseif  latestGeoPoint.dataSourceId == "GEOPT_MAPTP">
+      </#if>
+    </#if>
   </#if>
 <#else>
-  <h2>${uiLabelMap.CommonNoGeolocationAvailable}</h2>       
+  <h2>${uiLabelMap.CommonNoGeolocationAvailable}</h2>
 </#if>

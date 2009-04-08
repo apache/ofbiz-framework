@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -22,7 +22,7 @@ import org.ofbiz.party.party.PartyWorker;
 match = parameters.match;
 if (match) {
     context.match = match;
-    
+
     lastName = parameters.lastName ?: null;
     firstName = parameters.firstName ?: null;
     address1 = parameters.address1 ?: null;
@@ -40,7 +40,7 @@ if (match) {
         request.setAttribute("_ERROR_MESSAGE_", "Required fields not set!");
         return;
     }
-    
+
     context.matches = PartyWorker.findMatchingPartyAndPostalAddress(delegator, address1, address2, city,
             state, postalCode, null, null, firstName, null, lastName);
 

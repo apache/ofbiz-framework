@@ -58,7 +58,7 @@ public abstract class AbstractJSONEventHandler implements EventHandler {
 
         // set the X-JSON content type
         response.setContentType("application/x-json");
-        // jsonStr.length is not reliable for unicode characters 
+        // jsonStr.length is not reliable for unicode characters
         try {
             response.setContentLength(jsonStr.getBytes("UTF8").length);
         } catch (UnsupportedEncodingException e) {

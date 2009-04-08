@@ -18,12 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Entity Extension Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
-    
+
     <!-- simple generic service to watch and entity through an EECA -->
     <service name="watchEntity" engine="java" location="org.ofbiz.entityext.EntityWatchServices" invoke="watchEntity">
         <attribute name="newValue" type="GenericValue" mode="IN"/>
@@ -152,7 +152,7 @@ under the License.
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
         <attribute name="fieldName" type="String" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- EntitySync Services -->
     <service name="createEntitySync" default-entity-name="EntitySync" engine="simple"
             location="component://entityext/script/org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="createEntitySync" auth="true">
@@ -229,7 +229,7 @@ under the License.
     </service>
     <service name="loadOfflineEntitySyncData" engine="java"
             location="org.ofbiz.entityext.synchronization.EntitySyncServices" invoke="loadOfflineSyncData" auth="true" use-transaction="false">
-        <attribute name="xmlFileName" type="String" mode="IN" optional="false"/>        
+        <attribute name="xmlFileName" type="String" mode="IN" optional="false"/>
     </service>
 
     <!-- Entity Remote Synchronization services -->

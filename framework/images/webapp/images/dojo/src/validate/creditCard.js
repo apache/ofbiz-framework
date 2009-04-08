@@ -15,13 +15,13 @@ dojo.require("dojo.validate.common");
 
 /*
 	Validates Credit Cards using account number rules in conjunction with the Luhn algorigthm
-	
+
  */
 
 dojo.validate.isValidCreditCard = function(/*String|Int*/value, /*String*/ccType){
 	//Summary:
 	//  checks if type matches the # scheme, and if Luhn checksum is accurate (unless its an Enroute card, the checkSum is skipped)
-	
+
 	//Value: Boolean
 	if(value&&ccType&&((ccType.toLowerCase()=='er'||dojo.validate.isValidLuhn(value))&&(dojo.validate.isValidCreditCardNumber(value,ccType.toLowerCase())))){
 			return true; //Boolean
@@ -33,9 +33,9 @@ dojo.validate.isValidCreditCardNumber = function(/*String|Int*/value,/*String?*/
 	//  checks if the # matches the pattern for that card or any card types if none is specified
 	//  value == CC #, white spaces and dashes are ignored
 	//  ccType is of the values in cardinfo -- if Omitted it it returns a | delimited string of matching card types, or false if no matches found
-	
+
 	//Value: Boolean
-	
+
 	if(typeof value!='string'){
 		value = String(value);
 	}
@@ -67,15 +67,15 @@ dojo.validate.isValidCreditCardNumber = function(/*String|Int*/value,/*String?*/
 			}
 		}
 		return (results.length)?results.join('|'):false; // string | boolean
-	}	
+	}
 }
 
 dojo.validate.isValidCvv = function(/*String|Int*/value, /*String*/ccType) {
 	//Summary:
 	//  returns true if the security code (CCV) matches the correct format for supplied ccType
-	
+
 	//Value: Boolean
-	
+
 	if(typeof value!='string'){
 		value=String(value);
 	}

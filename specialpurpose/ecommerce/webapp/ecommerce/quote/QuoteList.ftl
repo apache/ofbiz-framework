@@ -49,7 +49,7 @@ under the License.
                 <td width="10">&nbsp;</td>
             </tr>
             <#list quoteList as quote>
-                <#assign status = quote.getRelatedOneCache("StatusItem")>                               
+                <#assign status = quote.getRelatedOneCache("StatusItem")>
                 <tr><td colspan="12"><hr/></td></tr>
                 <tr>
                     <td>

@@ -168,7 +168,7 @@ public class PaymentEvents {
                     input.clearInput();
                     pos.showDialog("dialog/error/invalidexpirationdate");
                 }
-            }else if (msrInfo == null && (postalCodeInfo == null) ) {
+            } else if (msrInfo == null && (postalCodeInfo == null) ) {
                 // test security code - allow blank for illegible cards
                 if (UtilValidate.isEmpty(input.value()) ||
                         (UtilValidate.isNotEmpty(input.value()) && (input.value().length() <= 4))) {

@@ -117,7 +117,7 @@ under the License.
             <#-- toggle the row color -->
             <#assign alt_row = !alt_row>
         </#list>
-        </table> 
+        </table>
     </div>
 </div>
 </#if>

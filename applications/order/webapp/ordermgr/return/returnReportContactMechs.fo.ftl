@@ -20,7 +20,7 @@ under the License.
 
         <#assign fromPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", returnHeader.fromPartyId, "compareDate", returnHeader.entryDate, "userLogin", userLogin))/>
         <#assign toPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", returnHeader.toPartyId, "compareDate", returnHeader.entryDate, "userLogin", userLogin))/>
-        
+
         <fo:table>
           <fo:table-column column-width="3.50in"/>
           <fo:table-column column-width="1.00in"/>
@@ -63,7 +63,7 @@ ${postalAddressTo.city}<#if (postalAddressTo.stateProvinceGeoId)?has_content>, $
               </fo:table-body>
             </fo:table>
             </fo:table-cell>
-              
+
           </fo:table-row>
           </fo:table-body>
           </fo:table>

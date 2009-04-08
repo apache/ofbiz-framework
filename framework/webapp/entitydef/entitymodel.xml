@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
   <!-- ========================================================= -->
   <!-- ======================== Defaults ======================= -->
@@ -162,7 +162,7 @@ under the License.
       <field name="description" type="description"></field>
       <prim-key field="userAgentTypeId"/>
     </entity>
-    <entity entity-name="Visit" package-name="org.ofbiz.webapp.visit" never-cache="true" title="Visit Entity" 
+    <entity entity-name="Visit" package-name="org.ofbiz.webapp.visit" never-cache="true" title="Visit Entity"
         sequence-bank-size="100">
         <field name="visitId" type="id-ne"></field>
         <field name="visitorId" type="id"></field>
@@ -187,7 +187,7 @@ under the License.
         <field name="cookie" type="short-varchar"></field>
         <field name="fromDate" type="date-time"></field>
         <field name="thruDate" type="date-time"></field>
-        <prim-key field="visitId"/>       
+        <prim-key field="visitId"/>
         <relation type="one" fk-name="VISIT_VISITOR" rel-entity-name="Visitor">
             <key-map field-name="visitorId"/>
         </relation>
@@ -204,7 +204,7 @@ under the License.
             <index-field name="thruDate"/>
         </index>
     </entity>
-    <entity entity-name="Visitor" package-name="org.ofbiz.webapp.visit" title="Visitor Entity" 
+    <entity entity-name="Visitor" package-name="org.ofbiz.webapp.visit" title="Visitor Entity"
         sequence-bank-size="100">
         <field name="visitorId" type="id-ne"></field>
         <field name="userLoginId" type="id-vlong"></field>
@@ -213,7 +213,7 @@ under the License.
             <key-map field-name="userLoginId"/>
         </relation>
     </entity>
-    
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.webapp.website -->
   <!-- ========================================================= -->

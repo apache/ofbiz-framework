@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="OrderConfirmNoticePdf">
@@ -163,7 +163,7 @@ under the License.
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="${uiLabelMap.PageTitleShipmentCompleteNotice}"/>
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
-                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/ShipmentStatus.groovy"/>                
+                <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/ShipmentStatus.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/templates/email/ShipmentNotificationEmail.ftl"/></html></platform-specific>

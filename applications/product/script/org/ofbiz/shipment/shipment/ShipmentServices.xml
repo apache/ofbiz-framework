@@ -32,7 +32,7 @@ under the License.
 
         <if-not-empty field="parameters.shipmentId">
             <set-pk-fields map="parameters" value-field="newEntity"/>
-        <else>        
+        <else>
             <sequenced-id sequence-name="Shipment" field="newEntity.shipmentId"/>
         </else>
         </if-not-empty>
@@ -51,7 +51,7 @@ under the License.
         <!-- always create the WorkEfforts, even if dates aren't specified yet; when they are they will be set in the update service... -->
 
         <!-- the Ship WorkEffort entity -->
-        <!-- SC 20070816 I am commenting out the shipment work efforts because there seems to be no code 
+        <!-- SC 20070816 I am commenting out the shipment work efforts because there seems to be no code
         <set value="Shipment #${newEntity.shipmentId} Ship" field="shipWorkEffortMap.workEffortName"/>
         <set value="EVENT" field="shipWorkEffortMap.workEffortTypeId"/>
         <set value="CAL_TENTATIVE" field="shipWorkEffortMap.currentStatusId"/>
@@ -188,7 +188,7 @@ under the License.
             </then>
         </if>
         -->
-        
+
         <!-- if the partyIdTo or partyIdFrom has changed, add WEPAs -->
         <if>
             <condition>
@@ -255,7 +255,7 @@ under the License.
         <entity-one entity-name="Shipment" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <simple-method method-name="createShipmentForReturn" short-description="Create Shipment based on ReturnHeader">
         <entity-one entity-name="ReturnHeader" value-field="returnHeader">
             <field-map field-name="returnId" from-field="parameters.returnId"/>
@@ -282,7 +282,7 @@ under the License.
             <then>
                 <set field="shipmentCtx.shipmentTypeId" value="PURCHASE_RETURN"/>
                 <set field="shipmentCtx.statusId" value="SHIPMENT_INPUT"/>
-            </then>        
+            </then>
         </else-if>
         <else>
              <add-error>
@@ -291,11 +291,11 @@ under the License.
             <check-errors/>
         </else>
         </if>
-        
+
         <call-service service-name="createShipment" in-map-name="shipmentCtx">
             <result-to-field result-name="shipmentId"/>
         </call-service>
-        
+
         <field-to-result field="shipmentId"/>
     </simple-method>
 
@@ -327,10 +327,10 @@ under the License.
             <set from-field="returnItem.returnQuantity" field="shipItemCtx.quantity"/>
             <call-service service-name="createReturnItemShipment" in-map-name="shipItemCtx"/>
         </iterate>
-        
+
         <field-to-result field="shipmentId"/>
     </simple-method>
-    
+
     <simple-method method-name="createShipmentAndItemsForVendorReturn" short-description="Create Shipment and ShipmentItems based on primaryReturnId for Vendor return">
         <set-service-fields service-name="createShipment" map="parameters" to-map="shipmentCtx"/>
         <call-service service-name="createShipment" in-map-name="shipmentCtx">
@@ -359,9 +359,9 @@ under the License.
             <set from-field="returnItem.returnQuantity" field="shipItemCtx.quantity"/>
             <call-service service-name="createReturnItemShipment" in-map-name="shipItemCtx"/>
         </iterate>
-        
+
         <field-to-result field="shipmentId"/>
-    </simple-method>    
+    </simple-method>
 
     <simple-method method-name="setShipmentSettingsFromPrimaryOrder" short-description="Set Shipment Settings From Primary Order">
         <check-permission permission="FACILITY" action="_CREATE">
@@ -610,7 +610,7 @@ under the License.
         <set-service-fields service-name="updateShipment" map="shipment" to-map="shipmentUpdateMap"/>
         <call-service service-name="updateShipment" in-map-name="shipmentUpdateMap"/>
     </simple-method>
-    
+
     <simple-method method-name="setShipmentSettingsFromFacilities" short-description="Set Shipment Settings From Facilities">
         <check-permission permission="FACILITY" action="_CREATE">
             <fail-message message="Security Error: to run setShipmentSettingsFromFacilities you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>
@@ -629,7 +629,7 @@ under the License.
         <string-to-list string="-fromDate" list="descendingFromDateOrder"/>
         <if-not-empty field="shipment.originFacilityId">
             <if-empty field="shipment.originContactMechId">
-                <call-bsh><![CDATA[ 
+                <call-bsh><![CDATA[
                     facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
                                 delegator, shipment.get("originFacilityId"), org.ofbiz.base.util.UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION")
                             );
@@ -639,7 +639,7 @@ under the License.
                 ]]></call-bsh>
             </if-empty>
             <if-empty field="shipment.originTelecomNumberId">
-                <call-bsh><![CDATA[ 
+                <call-bsh><![CDATA[
                     facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
                                 delegator, shipment.get("originFacilityId"), org.ofbiz.base.util.UtilMisc.toList("PHONE_SHIP_ORIG", "PRIMARY_PHONE")
                             );
@@ -651,7 +651,7 @@ under the License.
         </if-not-empty>
         <if-not-empty field="shipment.destinationFacilityId">
             <if-empty field="shipment.destinationContactMechId">
-                <call-bsh><![CDATA[ 
+                <call-bsh><![CDATA[
                     facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
                                 delegator, shipment.get("destinationFacilityId"), org.ofbiz.base.util.UtilMisc.toList("SHIPPING_LOCATION", "PRIMARY_LOCATION")
                             );
@@ -661,7 +661,7 @@ under the License.
                 ]]></call-bsh>
             </if-empty>
             <if-empty field="shipment.destinationTelecomNumberId">
-                <call-bsh><![CDATA[ 
+                <call-bsh><![CDATA[
                     facilityContactMech = org.ofbiz.party.contact.ContactMechWorker.getFacilityContactMechByPurpose(
                                 delegator, shipment.get("destinationFacilityId"), org.ofbiz.base.util.UtilMisc.toList("PHONE_SHIPPING", "PRIMARY_PHONE")
                             );
@@ -677,7 +677,7 @@ under the License.
             <call-service service-name="updateShipment" in-map-name="shipmentUpdateMap"/>
         </if-compare-field>
     </simple-method>
-    
+
     <simple-method method-name="sendShipmentScheduledNotification" short-description="Send Shipment Scheduled Notification">
         <check-permission permission="FACILITY" action="_CREATE">
             <alt-permission permission="FACILITY" action="_UPDATE"/>
@@ -692,7 +692,7 @@ under the License.
             <field-map field-name="partyId" from-field="userLogin.partyId"/>
             <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
         </entity-and>
-        
+
         <first-from-list entry="curUserPartyAndContactMech" list="curUserPartyAndContactMechs"/>
         <string-append field="sendEmailMap.sendFrom" string="${curUserPartyAndContactMech.infoString}" prefix=","/>
 
@@ -704,7 +704,7 @@ under the License.
             <field-map field-name="orderId" from-field="shipment.primaryOrderId"/>
             <field-map field-name="roleTypeId" value="SUPPLIER_AGENT"/>
         </entity-and>
-        
+
         <iterate entry="supplierAgentOrderRole" list="supplierAgentOrderRoles">
             <set from-field="supplierAgentOrderRole.partyId" field="sendToPartyIdMap.${supplierAgentOrderRole.partyId}"/>
         </iterate>
@@ -715,7 +715,7 @@ under the License.
                 <field-map field-name="partyId" from-field="sendToPartyId"/>
                 <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
             </entity-and>
-            
+
             <iterate entry="sendToPartyPartyAndContactMech" list="sendToPartyPartyAndContactMechs">
                 <string-append field="sendEmailMap.sendTo" string="${sendToPartyPartyAndContactMech.infoString}" prefix=","/>
             </iterate>
@@ -820,10 +820,10 @@ under the License.
         <find-by-primary-key entity-name="ShipmentItem" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <simple-method method-name="splitShipmentItemByQuantity" short-description="splitShipmentItemByQuantity">
         <entity-one entity-name="ShipmentItem" value-field="originalShipmentItem"/>
-        
+
         <!-- create new ShipmentItem -->
         <clear-field field="inputMap"/>
         <set field="inputMap.shipmentId" from-field="originalShipmentItem.shipmentId"/>
@@ -832,7 +832,7 @@ under the License.
         <call-service service-name="createShipmentItem" in-map-name="inputMap">
             <result-to-field result-name="shipmentItemSeqId" field="newShipmentItemSeqId"/>
         </call-service>
-        
+
         <!-- reduce the originalShipmentItem.quantity  -->
         <calculate field="originalShipmentItem.quantity">
             <calcop operator="add" field="originalShipmentItem.quantity">
@@ -842,14 +842,14 @@ under the License.
         <!-- update the original ShipmentItem -->
         <set-service-fields service-name="updateShipmentItem" map="originalShipmentItem" to-map="updateOriginalShipmentItemMap"/>
         <call-service service-name="updateShipmentItem" in-map-name="updateOriginalShipmentItemMap"/>
-        
-        <!-- split the OrderShipment record(s) as well for the new quantities, 
+
+        <!-- split the OrderShipment record(s) as well for the new quantities,
             from originalShipmentItem.shipmentItemSeqId to newShipmentItemSeqId -->
         <entity-and entity-name="OrderShipment" list="itemOrderShipmentList">
             <field-map field-name="shipmentId" from-field="originalShipmentItem.shipmentId"/>
             <field-map field-name="shipmentItemSeqId" from-field="originalShipmentItem.shipmentItemSeqId"/>
         </entity-and>
-        
+
         <set field="orderShipmentQuantityLeft" from-field="parameters.newItemQuantity"/>
         <iterate entry="itemOrderShipment" list="itemOrderShipmentList">
             <if-compare field="orderShipmentQuantityLeft" operator="greater" value="0" type="BigDecimal">
@@ -863,7 +863,7 @@ under the License.
                         </calcop>
                     </calculate>
                     <call-service service-name="updateOrderShipment" in-map-name="updateOrderShipmentMap"/>
-                    
+
                     <clear-field field="createOrderShipmentMap"/>
                     <set field="createOrderShipmentMap.orderId" from-field="itemOrderShipment.orderId"/>
                     <set field="createOrderShipmentMap.orderItemSeqId" from-field="itemOrderShipment.orderItemSeqId"/>
@@ -871,15 +871,15 @@ under the License.
                     <set field="createOrderShipmentMap.shipmentItemSeqId" from-field="newShipmentItemSeqId"/>
                     <set field="createOrderShipmentMap.quantity" from-field="orderShipmentQuantityLeft"/>
                     <call-service service-name="createOrderShipment" in-map-name="createOrderShipmentMap"/>
-                    
+
                     <set field="orderShipmentQuantityLeft" value="0" type="BigDecimal"/>
-                    
+
                     <else>
                         <!-- not enough on this one, create a new one for the new item and delete this one -->
                         <clear-field field="deleteOrderShipmentMap"/>
                         <set-service-fields service-name="deleteOrderShipment" map="itemOrderShipment" to-map="deleteOrderShipmentMap"/>
                         <call-service service-name="deleteOrderShipment" in-map-name="deleteOrderShipmentMap"/>
-                        
+
                         <clear-field field="createOrderShipmentMap"/>
                         <set field="createOrderShipmentMap.orderId" from-field="itemOrderShipment.orderId"/>
                         <set field="createOrderShipmentMap.orderItemSeqId" from-field="itemOrderShipment.orderItemSeqId"/>
@@ -887,7 +887,7 @@ under the License.
                         <set field="createOrderShipmentMap.shipmentItemSeqId" from-field="newShipmentItemSeqId"/>
                         <set field="createOrderShipmentMap.quantity" from-field="itemOrderShipment.quantity"/>
                         <call-service service-name="createOrderShipment" in-map-name="createOrderShipmentMap"/>
-                        
+
                         <calculate field="orderShipmentQuantityLeft">
                             <calcop operator="get" field="orderShipmentQuantityLeft"/>
                             <calcop operator="negative" field="itemOrderShipment.quantity"/>
@@ -896,7 +896,7 @@ under the License.
                 </if-compare-field>
             </if-compare>
         </iterate>
-        
+
         <field-to-result field="newShipmentItemSeqId"/>
     </simple-method>
 
@@ -962,14 +962,14 @@ under the License.
         <entity-and entity-name="ShipmentRouteSegment" list="shipmentRouteSegments">
             <field-map field-name="shipmentId" from-field="shipmentId"/>
         </entity-and>
-        
+
         <iterate entry="shipmentRouteSegment" list="shipmentRouteSegments">
             <entity-one entity-name="ShipmentPackageRouteSeg" value-field="checkShipmentPackageRouteSeg" auto-field-map="false">
                 <field-map field-name="shipmentId" from-field="shipmentId"/>
                 <field-map field-name="shipmentPackageSeqId" from-field="shipmentPackageSeqId"/>
                 <field-map field-name="shipmentRouteSegmentId" from-field="shipmentRouteSegment.shipmentRouteSegmentId"/>
             </entity-one>
-            
+
             <if-empty field="checkShipmentPackageRouteSeg">
                <set field="checkShipmentPackageRouteSegMap.shipmentRouteSegmentId" from-field="shipmentRouteSegment.shipmentRouteSegmentId"/>
                <set field="checkShipmentPackageRouteSegMap.shipmentPackageSeqId" from-field="shipmentPackageSeqId"/>
@@ -1029,18 +1029,18 @@ under the License.
         </check-permission>
         <set value="Create ShipmentPackageContent" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
-        <check-errors/>        
+        <check-errors/>
         <make-value value-field="newEntity" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <find-by-primary-key value-field="shipmentPackageContent" map="newEntity"/>
         <log level="verbose" message="In addShipmentContentToPackage trying values: ${newEntity}"/>
-        <if-empty field="shipmentPackageContent">            
+        <if-empty field="shipmentPackageContent">
             <set-service-fields service-name="createShipmentPackageContent" map="parameters" to-map="createSPCMap"/>
             <call-service service-name="createShipmentPackageContent" in-map-name="createSPCMap">
                 <result-to-field result-name="shipmentPackageSeqId" field="newEntity.shipmentPackageSeqId"/>
             </call-service>
         <else>
-            <!-- add the quantities and store it -->            
+            <!-- add the quantities and store it -->
             <calculate field="shipmentPackageContent.quantity">
                 <calcop field="shipmentPackageContent.quantity" operator="add"/>
                 <calcop field="parameters.quantity" operator="get"/>
@@ -1219,11 +1219,11 @@ under the License.
     </simple-method>
     <simple-method method-name="checkCanChangeShipmentStatusShipped" short-description="Check the Status of a Shipment to see if it can be changed - meant to be called in-line">
         <set value="SHIPMENT_SHIPPED" field="fromStatusId"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusGeneral"/>        
+        <call-simple-method method-name="checkCanChangeShipmentStatusGeneral"/>
     </simple-method>
     <simple-method method-name="checkCanChangeShipmentStatusDelivered" short-description="Check the Status of a Shipment to see if it can be changed - meant to be called in-line">
         <set value="SHIPMENT_DELIVERED" field="fromStatusId"/>
-        <call-simple-method method-name="checkCanChangeShipmentStatusGeneral"/>        
+        <call-simple-method method-name="checkCanChangeShipmentStatusGeneral"/>
     </simple-method>
     <simple-method method-name="checkCanChangeShipmentStatusGeneral" short-description="Check the Status of a Shipment to see if it can be changed - meant to be called in-line">
         <entity-one entity-name="Shipment" value-field="testShipment"/>
@@ -1309,7 +1309,7 @@ under the License.
         <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="false">
             <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
         </entity-one>
-        
+
         <if-compare field="productStore.reserveInventory" operator="not-equals" value="Y">
             <!-- no reservations; no shipment; cannot use quick ship -->
             <add-error><fail-message message="ProductStore [${productStore.productStoreId}] does not reserve inventory; cannot use Quick Ship for Multiple Facilities"/></add-error>
@@ -1319,7 +1319,7 @@ under the License.
             <add-error><fail-message message="ProductStore [${productStore.productStoreId}] explodes order items; cannot use Quick Ship for Multiple Facilities"/></add-error>
         </if-compare>
         <check-errors/>
-        
+
         <!-- locate shipping facilities associated with order item rez's -->
         <entity-condition entity-name="OrderItemAndShipGrpInvResAndItem" list="orderItemAndShipGrpInvResAndItemList">
             <condition-list>
@@ -1406,7 +1406,7 @@ under the License.
             </if-not-empty>
         </iterate>
     </simple-method>
-        
+
     <simple-method method-name="quickShipPurchaseOrder" short-description="Quick ships an entire purchase order to a facility">
         <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
         <call-simple-method method-name="getOrderItemShipGroupLists"/>
@@ -1414,7 +1414,7 @@ under the License.
         <log level="info" message="Finished quickShipPurchaseOrder for orderId ${parameters.orderId} and destination facilityId ${parameters.facilityId}"/>
     </simple-method>
 
-    <simple-method method-name="getOrderItemShipGroupLists" 
+    <simple-method method-name="getOrderItemShipGroupLists"
         short-description="Sub-method used by quickShip methods to get a list of OrderItemAndShipGroupAssoc and a Map of shipGroupId -> OrderItemAndShipGroupAssoc">
 
         <!-- lookup all the approved items, doing by item because the item must be approved before shipping -->
@@ -1431,7 +1431,7 @@ under the License.
 
         <get-related relation-name="OrderItemShipGroup" value-field="orderHeader" list="orderItemShipGroupList"/>
 
-        <!-- group orderItems (actually OrderItemAndShipGroupAssocs) by shipGroupSeqId in a Map with List values 
+        <!-- group orderItems (actually OrderItemAndShipGroupAssocs) by shipGroupSeqId in a Map with List values
              This Map is actually used only for sales orders' shipments right now.  -->
         <iterate list="orderItemAndShipGroupAssocList" entry="orderItemAndShipGroupAssoc">
             <field-to-list field="orderItemAndShipGroupAssoc" list="orderItemListByShGrpMap.${orderItemAndShipGroupAssoc.shipGroupSeqId}"/>
@@ -1556,7 +1556,7 @@ under the License.
             </if-empty>
         </iterate>
     </simple-method>
-    
+
     <simple-method method-name="createOrderShipmentPlan" short-description="Create Shipment, ShipmentItems and OrderShipment">
         <!-- first get the order header; make sure we have a product store -->
         <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
@@ -1582,14 +1582,14 @@ under the License.
             <set field="createShipmentContext.userLogin" from-field="parameters.userLogin"/>
             <call-service service-name="createShipment" in-map-name="createShipmentContext">
                 <result-to-field result-name="shipmentId" field="parameters.shipmentId"/>
-            </call-service>            
+            </call-service>
             <entity-one entity-name="Shipment" value-field="shipment"/>
             <get-related value-field="orderHeader" relation-name="OrderItem" list="orderItems"/>
             <iterate entry="orderItem" list="orderItems">
                 <entity-one entity-name="Product" value-field="itemProduct" auto-field-map="false" use-cache="true">
                     <field-map field-name="productId" from-field="orderItem.productId"/>
                 </entity-one>
-                
+
                 <!-- make sure the OrderItem is for a Product that has a ProductType with isPhysical=Y -->
                 <if-not-empty field="itemProduct">
                     <get-related-one value-field="itemProduct" relation-name="ProductType" to-value-field="itemProductType" use-cache="true"/>
@@ -1601,34 +1601,34 @@ under the License.
                         <set field="addOrderShipmentToShipmentCtx.shipmentId" from-field="parameters.shipmentId"/>
                         <set field="addOrderShipmentToShipmentCtx.quantity" from-field="orderItem.quantity"/>
                         <set field="addOrderShipmentToShipmentCtx.userLogin" from-field="parameters.userLogin"/>
-                        <call-service service-name="addOrderShipmentToShipment" in-map-name="addOrderShipmentToShipmentCtx"/>            
+                        <call-service service-name="addOrderShipmentToShipment" in-map-name="addOrderShipmentToShipmentCtx"/>
                     </if-compare>
                 </if-not-empty>
             </iterate>
             <field-to-result field="parameters.shipmentId" result-name="shipmentId"/>
         </iterate>
     </simple-method>
-    
+
     <simple-method method-name="issueSerializedInvToShipmentPackageAndSetTracking" short-description="">
         <!-- If serialNumber is provided, Then compare it with the serialNumber of inventoryItem on reservation. If they don't match,
             We'll have to reReserve specific inventory that is shiped. -->
-        <!-- If serialNumber exist then run reserveAnInventoryItem for serialisedInventory.There is no need to check 
+        <!-- If serialNumber exist then run reserveAnInventoryItem for serialisedInventory.There is no need to check
              this condition for the non-serialized inventory (Non serialized Inventory will directly issued).
         -->
-        <if-not-empty field="parameters.serialNumber">                 
-        <make-value entity-name="OrderItemShipGrpInvRes" value-field="orderItemShipGrpInvResLookupPk"/>                
+        <if-not-empty field="parameters.serialNumber">
+        <make-value entity-name="OrderItemShipGrpInvRes" value-field="orderItemShipGrpInvResLookupPk"/>
         <set-pk-fields value-field="orderItemShipGrpInvResLookupPk" map="parameters"/>
-        <find-by-primary-key entity-name="OrderItemShipGrpInvRes" map="orderItemShipGrpInvResLookupPk" value-field="orderItemShipGrpInvRes"/>       
-        <get-related-one to-value-field="inventoryItem" relation-name="InventoryItem" value-field="orderItemShipGrpInvRes"/>        
-        <if-compare-field operator="not-equals" field="inventoryItem.serialNumber" to-field="parameters.serialNumber">            
+        <find-by-primary-key entity-name="OrderItemShipGrpInvRes" map="orderItemShipGrpInvResLookupPk" value-field="orderItemShipGrpInvRes"/>
+        <get-related-one to-value-field="inventoryItem" relation-name="InventoryItem" value-field="orderItemShipGrpInvRes"/>
+        <if-compare-field operator="not-equals" field="inventoryItem.serialNumber" to-field="parameters.serialNumber">
             <!-- The inventory that we have reserved is not what we shipped. Lets reReserve, this time we'll get what we want -->
             <set-service-fields map="parameters" to-map="reserveAnInventoryItemCtx" service-name="reserveAnInventoryItem"/>
             <call-service service-name="reserveAnInventoryItem" in-map-name="reserveAnInventoryItemCtx">
                 <result-to-field result-name="inventoryItemId" field="parameters.inventoryItemId"/>
             </call-service>
-        </if-compare-field>        
-        </if-not-empty>    
-        <!-- get InventoryItem issued to shipment -->        
+        </if-compare-field>
+        </if-not-empty>
+        <!-- get InventoryItem issued to shipment -->
         <clear-field field="issueContext"/>
         <set from-field="parameters.shipmentId" field="issueContext.shipmentId"/>
         <set from-field="parameters.inventoryItemId" field="issueContext.inventoryItemId"/>
@@ -1640,7 +1640,7 @@ under the License.
         <call-service service-name="issueOrderItemShipGrpInvResToShipment" in-map-name="issueContext">
             <result-to-field result-name="itemIssuanceId" field="parameters.itemIssuanceId"/>
         </call-service>
-        <!-- place all issued items into a package for tracking num -->                
+        <!-- place all issued items into a package for tracking num -->
         <log level="info" message="QuickShipOrderByItem grouping by tracking number : ${parameters.trackingNum}"/>
         <entity-one entity-name="ItemIssuance" value-field="itemIssuance">
             <field-map field-name="itemIssuanceId" from-field="parameters.itemIssuanceId"/>
@@ -1651,15 +1651,15 @@ under the License.
             <set value="New" field="shipItemContext.shipmentPackageSeqId"/>
         </if-empty>
         <log level="info" message="Package SeqID : ${shipItemContext.shipmentPackageSeqId}"/>
-        <make-value entity-name="ShipmentPackage" value-field="shipmentPackageLookupPk"/>                
+        <make-value entity-name="ShipmentPackage" value-field="shipmentPackageLookupPk"/>
         <set-pk-fields value-field="shipmentPackageLookupPk" map="parameters"/>
         <find-by-primary-key entity-name="ShipmentPackage" map="shipmentPackageLookupPk" value-field="shipmentPackage"/>
         <if-empty field="shipmentPackage">
             <set from-field="itemIssuance.shipmentId" field="shipPackageContext.shipmentId"/>
-            <set from-field="shipItemContext.shipmentPackageSeqId" field="shipPackageContext.shipmentPackageSeqId"/>  
-            <call-service service-name="createShipmentPackage" in-map-name="shipPackageContext"/>            
+            <set from-field="shipItemContext.shipmentPackageSeqId" field="shipPackageContext.shipmentPackageSeqId"/>
+            <call-service service-name="createShipmentPackage" in-map-name="shipPackageContext"/>
         </if-empty>
-        
+
         <set from-field="itemIssuance.shipmentId" field="shipItemContext.shipmentId"/>
         <set from-field="itemIssuance.shipmentItemSeqId" field="shipItemContext.shipmentItemSeqId"/>
         <set from-field="itemIssuance.quantity" field="shipItemContext.quantity"/>
@@ -1667,7 +1667,7 @@ under the License.
             <result-to-field result-name="shipmentPackageSeqId" field="packageMap.${parameters.trackingNum}"/>
             <result-to-field result-name="shipmentPackageSeqId" field="routeSegLookup.shipmentPackageSeqId"/>
         </call-service>
-        
+
         <if-not-empty field="routeSegLookup.shipmentPackageSeqId">
             <set from-field="itemIssuance.shipmentId" field="routeSegLookup.shipmentId"/>
             <!-- quick ship orders should only have one route segment -->
@@ -1684,11 +1684,11 @@ under the License.
         <if-empty field="routeSegLookup.shipmentPackageSeqId">
             <log level="warning" message="No shipment package ID found; cannot update RouteSegment"/>
         </if-empty>
-                   
+
     </simple-method>
 
     <simple-method  method-name="setShipmentStatusPackedAndShipped" short-description="Move a shipment into Packed status and then to Shipped status">
-        <!--update the shipment status to packed -->        
+        <!--update the shipment status to packed -->
         <set from-field="parameters.shipmentId" field="packedContext.shipmentId"/>
         <set value="SHIPMENT_PACKED" field="packedContext.statusId"/>
         <call-service service-name="updateShipment" in-map-name="packedContext"/>
@@ -1962,7 +1962,7 @@ under the License.
             <calculate field="issuedQuantity">
                 <calcop field="issuedQuantity" operator="get"/>
                 <calcop field="itemIssuance.quantity" operator="get"/>
-                <calcop field="itemIssuance.cancelQuantity" operator="negative"/>                    
+                <calcop field="itemIssuance.cancelQuantity" operator="negative"/>
             </calculate>
         </iterate>
 
@@ -1984,7 +1984,7 @@ under the License.
         <check-permission permission="FACILITY" action="_UPDATE">
             <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
         </check-permission>
-        
+
         <entity-and entity-name="OrderShipment" list="orderShipmentList">
             <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
         </entity-and>
@@ -1992,8 +1992,8 @@ under the License.
             <clear-field field="deleteOrderShipmentMap"/>
             <set-service-fields service-name="deleteOrderShipment" map="orderShipment" to-map="deleteOrderShipmentMap"/>
             <call-service service-name="deleteOrderShipment" in-map-name="deleteOrderShipmentMap"/>
-        </iterate>        
-        
+        </iterate>
+
         <log level="info" message="Cancelling Item Issuances for shimpentId: ${parameters.shipmentId}"/>
         <entity-one entity-name="Shipment" value-field="shipment"/>
         <get-related value-field="shipment" relation-name="ItemIssuance" list="issuances"/>
@@ -2041,12 +2041,12 @@ under the License.
         <remove-value value-field="quantityBreak"/>
         <check-errors/>
     </simple-method>
-    
+
      <!--Service for test Shipment Service -->
     <simple-method method-name="testCreateShipmentRouteSegment" short-description="Test to create Shipment Route Segment" login-required="false">
         <log level="info" message="====================Create a Shipment Route Segment test case=========================================="/>
         <set field="shipRouteSegMap.shipmentId" value="10000"/>
-        
+
         <entity-one entity-name="UserLogin" value-field="shipRouteSegMap.userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>

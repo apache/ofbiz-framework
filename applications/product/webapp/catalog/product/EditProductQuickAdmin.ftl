@@ -273,7 +273,7 @@ function doPublish() {
                     <td colspan=10 align="right"><input type="submit" value="${uiLabelMap.ProductUpdateShipping}"></td>
                 </tr>
         </#if>
-    
+
             </table>
         </form>
     <!--  **************************************************** end - Shipping dimensions section -->
@@ -453,7 +453,7 @@ function doPublish() {
     </#if>
     <!--  **************************************************** end - publish section -->
     </div>
-</div>    
+</div>
   <#else>
     <h3>${uiLabelMap.ProductProductNotFound} ${productId?if_exists}</h3>
   </#if>

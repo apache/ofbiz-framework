@@ -1121,7 +1121,7 @@ public class UtilValidate {
      *   @param     cc - a string representing a credit card number; Sample number: 6331100000000096(16 digits)
      *   @return  true, if the credit card number is a valid Switch card number, false otherwise
      */
-    public static boolean isSwitch(String cc) {
+    public static boolean isswitch (String cc) {
         String first4digs = cc.substring(0, 4);
         String first6digs = cc.substring(0, 6);
 
@@ -1182,7 +1182,7 @@ public class UtilValidate {
 
         if (!isCreditCard(cc)) return false;
         if (isMasterCard(cc) || isVisa(cc) || isAmericanExpress(cc) || isDinersClub(cc) ||
-                isDiscover(cc) || isEnRoute(cc) || isJCB(cc) || isSolo(cc)|| isSwitch(cc)|| isVisaElectron(cc))
+                isDiscover(cc) || isEnRoute(cc) || isJCB(cc) || isSolo(cc)|| isswitch (cc)|| isVisaElectron(cc))
             return true;
         return false;
     }
@@ -1205,7 +1205,7 @@ public class UtilValidate {
         if (isEnRoute(cc)) return "EnRoute";
         if (isJCB(cc)) return "JCB";
         if (isSolo(cc)) return "Solo";
-        if (isSwitch(cc)) return "Switch";
+        if (isswitch (cc)) return "Switch";
         if (isVisaElectron(cc)) return "VisaElectron";
         return "Unknown";
     }
@@ -1229,7 +1229,7 @@ public class UtilValidate {
         if ((cardType.equalsIgnoreCase("CARTEBLANCHE")) && (isCarteBlanche(cardNumber))) return true;
         if ((cardType.equalsIgnoreCase("ENROUTE")) && (isEnRoute(cardNumber))) return true;
         if ((cardType.equalsIgnoreCase("SOLO")) && (isSolo(cardNumber))) return true;
-        if ((cardType.equalsIgnoreCase("SWITCH")) && (isSwitch(cardNumber))) return true;
+        if ((cardType.equalsIgnoreCase("SWITCH")) && (isswitch (cardNumber))) return true;
         if ((cardType.equalsIgnoreCase("VISAELECTRON")) && (isVisaElectron(cardNumber))) return true;
         return false;
     }

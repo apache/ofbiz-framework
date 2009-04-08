@@ -37,9 +37,9 @@ under the License.
 
         <fo:static-content flow-name="xsl-region-before">
             <fo:block line-height="8pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                
+
 Doc.D
-          
+
             </fo:block>
         </fo:static-content>
 
@@ -63,19 +63,19 @@ Doc.D
                     <fo:table-row>
                         <fo:table-cell>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                             <fo:block line-height="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
                                 <fo:inline font-size="8pt">${uiLabelMap.ManufacturingProductionRun}:</fo:inline>
                             </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                             <fo:block line-height="10pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
                                 <fo:inline font-size="10pt">${productionRun.productionRun.workEffortId}:</fo:inline>
                             </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>
@@ -96,14 +96,14 @@ Doc.D
                                 <fo:inline font-size="8pt">${uiLabelMap.OrderOrderId}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                             <fo:block line-height="10pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
                                 <fo:inline font-size="10pt">${productionRun.productionRunOrder.orderId}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>
@@ -213,7 +213,7 @@ Doc.D
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-size="8pt">${uiLabelMap.ProductShipmentPlan}:</fo:inline> 
+                                <fo:inline font-size="8pt">${uiLabelMap.ProductShipmentPlan}:</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                                <fo:table-cell>
@@ -269,7 +269,7 @@ Doc.D
                      </fo:table-row>
                 </fo:table-body>
             </fo:table>
-            
+
 <!--  nota: righe o celle dell'etichetta - 8� riga  -->
 
             <fo:table text-align="center" table-layout="fixed">

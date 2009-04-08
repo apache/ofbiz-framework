@@ -18,13 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <!-- =========================================== -->
     <!-- ======== Anonymous Checkout Events ======== -->
     <!-- =========================================== -->
-    
+
     <simple-method method-name="createUpdateUser" short-description="Create or Update User" login-required="false">
 
         <property-to-field resource="security" property="username.lowercase" default="false" field="username_lowercase"/>
@@ -244,7 +244,7 @@ under the License.
                 </if-empty>
             </if-compare>
         </if-compare>
-        
+
         <if-compare value="Y" field="parameters.useShippingPostalAddressForBilling" operator="not-equals">
         <!-- Check the flag if Second Postal address is not same as First So create Another Postal Address -->
             <if-compare field="billToPostalAddress" operator="equals" value="true">
@@ -279,7 +279,7 @@ under the License.
                 </if-compare>
             </if-compare>
         </if-compare>
-        
+
         <!-- create the PartyDataSource entry to track where this info came from... -->
         <make-value entity-name="PartyDataSource" value-field="partyDataSource"/>
         <set field="partyDataSource.dataSourceId" value="ECOMMERCE_SITE"/>
@@ -324,7 +324,7 @@ under the License.
             <set field="partyId" from-field="parameters.partyId"/>
         </else>
         </if-empty>
-        
+
         <!-- now that we have the partyId, put it where it needs to go... -->
         <set field="partyDataSource.partyId" from-field="partyId"/>
         <set field="userLoginContext.partyId" from-field="partyId"/>
@@ -335,7 +335,7 @@ under the License.
         <set field="workPhoneContext.partyId" from-field="partyId"/>
         <set field="faxPhoneContext.partyId" from-field="partyId"/>
         <set field="mobilePhoneContext.partyId" from-field="partyId"/>
-        <set field="emailContext.partyId" from-field="partyId"/>        
+        <set field="emailContext.partyId" from-field="partyId"/>
 
         <if-not-empty field="newUserLogin">
             <!-- If password encryption is enabled, encrpyt it now -->
@@ -349,7 +349,7 @@ under the License.
         </if-not-empty>
 
         <create-value value-field="partyDataSource"/>
-        
+
         <!-- add contactMechPurposeTypeId for first Postal Address -->
         <if-compare field="shipToPostalAddress" operator="equals" value="true">
             <if-empty field="parameters.shippingContactMechId">
@@ -368,11 +368,11 @@ under the License.
                 <!-- call the update address service -->
                 <call-service service-name="updatePartyPostalAddress" in-map-name="shippingAddressContext">
                     <result-to-field result-name="contactMechId" field="parameters.shippingContactMechId"/>
-                </call-service>    
+                </call-service>
             </else>
             </if-empty>
         </if-compare>
-        
+
         <if-compare value="Y" field="parameters.useShippingPostalAddressForBilling" operator="not-equals">
             <if-empty field="parameters.billingContactMechId">
                 <!-- create the Billing location -->
@@ -384,8 +384,8 @@ under the License.
                 <set field="billingAddressContext.contactMechId" from-field="parameters.billingContactMechId"/>
                 <!-- call the update address service -->
                 <call-service service-name="updatePartyPostalAddress" in-map-name="billingAddressContext">
-                    <result-to-field result-name="contactMechId" field="parameters.billingContactMechId"/>    
-                </call-service>    
+                    <result-to-field result-name="contactMechId" field="parameters.billingContactMechId"/>
+                </call-service>
             </else>
             </if-empty>
         </if-compare>
@@ -404,7 +404,7 @@ under the License.
                 <!-- call update telecom service -->
                 <call-service service-name="updatePartyTelecomNumber" in-map-name="homePhoneContext">
                     <result-to-field result-name="contactMechId" field="parameters.homePhoneContactMechId"/>
-                </call-service>    
+                </call-service>
             </else>
             </if-empty>
         </if-not-empty>
@@ -423,7 +423,7 @@ under the License.
                 <!-- call update telecom service -->
                 <call-service service-name="updatePartyTelecomNumber" in-map-name="workPhoneContext">
                     <result-to-field result-name="contactMechId" field="parameters.workPhoneContactMechId"/>
-                </call-service>    
+                </call-service>
             </else>
             </if-empty>
         </if-not-empty>
@@ -442,7 +442,7 @@ under the License.
                 <!-- call update telecom service -->
                 <call-service service-name="updatePartyTelecomNumber" in-map-name="faxPhoneContext">
                     <result-to-field result-name="contactMechId" field="parameters.faxPhoneContactMechId"/>
-                </call-service>    
+                </call-service>
             </else>
             </if-empty>
         </if-not-empty>
@@ -460,7 +460,7 @@ under the License.
                 <!-- call update telecom service -->
                 <call-service service-name="updatePartyTelecomNumber" in-map-name="mobilePhoneContext">
                     <result-to-field result-name="contactMechId" field="parameters.mobilePhoneContactMechId"/>
-                </call-service>    
+                </call-service>
             </else>
             </if-empty>
         </if-not-empty>
@@ -477,12 +477,12 @@ under the License.
                 <!-- call update Email address -->
                 <call-service service-name="updatePartyEmailAddress" in-map-name="emailContext">
                     <result-to-field result-name="contactMechId" field="parameters.emailContactMechId"/>
-                </call-service>    
+                </call-service>
             </else>
             </if-empty>
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="processCustomerSettings" short-description="Process Customer Settings; to be called as a Request Event" login-required="false">
         <set field="require_email" value="true"/>
         <set field="require_phone" value="true"/>
@@ -493,11 +493,11 @@ under the License.
         <set field="create_allow_password" value="true"/>
 
         <set field="parameters.roleTypeId" value="CUSTOMER"/>
-        
+
         <call-simple-method method-name="createUpdateUser"/>
         <!-- see if we should continue now... -->
-        <session-to-field field="cart" session-name="shoppingCart"/>       
-        <session-to-field field="userLogin"/>       
+        <session-to-field field="cart" session-name="shoppingCart"/>
+        <session-to-field field="userLogin"/>
         <if-empty field="userLogin">
             <call-object-method obj-field="session" method-name="removeAttribute">
                 <string value="autoUserLogin"/>
@@ -541,7 +541,7 @@ under the License.
             </if-not-empty>
         </if-empty>
         <check-errors/>
-        
+
         <if-not-empty field="cart">
             <call-object-method obj-field="cart" method-name="addContactMech">
                 <string value="SHIPPING_LOCATION"/>
@@ -551,20 +551,20 @@ under the License.
                 <field field="parameters.shippingContactMechId"/>
             </call-object-method>
         </if-not-empty>
-        
-        
+
+
         <if-compare value="Y" field="parameters.useShippingPostalAddressForBilling" operator="not-equals">
-           <field-to-session field="parameters.billingContactMechId" session-name="billingContactMechId"></field-to-session>        
+           <field-to-session field="parameters.billingContactMechId" session-name="billingContactMechId"></field-to-session>
         <else>
         <if-not-empty field="cart">
             <call-object-method obj-field="cart" method-name="getShippingContactMechId" ret-field="shippingContactMechId"/>
         </if-not-empty>
-            <field-to-session field="shippingContactMechId" session-name="billingContactMechId"></field-to-session>        
-        </else>    
-        </if-compare>        
+            <field-to-session field="shippingContactMechId" session-name="billingContactMechId"></field-to-session>
+        </else>
+        </if-compare>
         <!-- set the partyId in the request -->
         <field-to-request field="partyId" request-name="partyId"/>
-    </simple-method>     
+    </simple-method>
 
     <simple-method method-name="processShipOptions" short-description="Process Ship Options; to be called as a Request Event" login-required="false">
        <call-bsh><![CDATA[
@@ -618,5 +618,5 @@ under the License.
            </if-not-empty>
        </if-not-empty>
     </simple-method>
-       
+
 </simple-methods>

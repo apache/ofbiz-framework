@@ -29,5 +29,5 @@ under the License.
         <ScrollPane name="journal_panel" x="0" y="55" w="412" h="630">
             <Table name="jtable" x="2" y="2" w="410" h="625" style="journal"/>
         </ScrollPane>
-    </Components>    
+    </Components>
 </XPage>

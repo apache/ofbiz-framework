@@ -21,10 +21,10 @@ under the License.
         <#list shipmentPackageDatas as shipmentPackageData>
             <#assign shipmentRouteSegment = shipmentPackageData.get("shipmentRouteSegment")>
             <#assign shipmentPackage = shipmentPackageData.get("shipmentPackage")>
-            <#assign shipmentItemsDatas = shipmentPackageData.get("shipmentItemsDatas")> 
+            <#assign shipmentItemsDatas = shipmentPackageData.get("shipmentItemsDatas")>
                     <fo:block><fo:leader/></fo:block>
                     <fo:block font-size="14pt">${uiLabelMap.ProductShipmentManifest} #${shipmentId}</fo:block>
-                    <fo:block><fo:leader/></fo:block>              
+                    <fo:block><fo:leader/></fo:block>
                     <fo:block space-after.optimum="10pt" font-size="10pt">
                     <fo:table>
                         <fo:table-column column-width="150pt"/>
@@ -41,10 +41,10 @@ under the License.
                                 </fo:table-cell>
                                 <fo:table-cell padding="2pt" background-color="#D4D0C8">
                                     <#assign shipmentMethodType = shipmentRouteSegment.getRelatedOne("ShipmentMethodType")?if_exists>
-                                    <fo:block text-align="right">${uiLabelMap.ProductShipmentMethod}: <#if shipmentMethodType?has_content>${shipmentMethodType.description}<#else>${uiLabelMap.CommonNA}</#if></fo:block>                              
-                                </fo:table-cell>    
+                                    <fo:block text-align="right">${uiLabelMap.ProductShipmentMethod}: <#if shipmentMethodType?has_content>${shipmentMethodType.description}<#else>${uiLabelMap.CommonNA}</#if></fo:block>
+                                </fo:table-cell>
                             </fo:table-row>
-                        </fo:table-header>                
+                        </fo:table-header>
                         <fo:table-body>
                             <fo:table-row>
                                 <fo:table-cell padding="2pt">
@@ -60,9 +60,9 @@ under the License.
                                             ${originPostalAddress.city?if_exists}<#if originPostalAddress.stateProvinceGeoId?has_content>, ${originPostalAddress.stateProvinceGeoId}</#if>
                                             ${originPostalAddress.postalCode?if_exists} ${originPostalAddress.countryGeoId?if_exists}
                                           </fo:block>
-                                        </#if>                                
+                                        </#if>
                                     </fo:block>
-                                </fo:table-cell>                       
+                                </fo:table-cell>
                                 <fo:table-cell padding="2pt">
                                     <fo:block text-align="center">
                                         <#if destinationPostalAddress?has_content>
@@ -78,11 +78,11 @@ under the License.
                                           </fo:block>
                                         </#if>
                                     </fo:block>
-                                </fo:table-cell>                  
+                                </fo:table-cell>
                             </fo:table-row>
                         </fo:table-body>
                     </fo:table>
-                    </fo:block>                
+                    </fo:block>
                       <fo:block space-after.optimum="10pt" font-size="10pt">
                     <fo:table>
                         <fo:table-column column-width="225pt"/>
@@ -92,18 +92,18 @@ under the License.
                                 <fo:table-cell padding="2pt" background-color="#D4D0C8">
                                     <fo:block>${uiLabelMap.FormFieldTitle_shipmentPackageSeqId}: ${shipmentPackage.shipmentPackageSeqId}</fo:block>
                                 </fo:table-cell>
-                                <fo:table-cell padding="2pt" background-color="#D4D0C8">                              
+                                <fo:table-cell padding="2pt" background-color="#D4D0C8">
                                     <fo:block text-align="center">
                                     <#if shipmentPackage.weight?has_content && shipmentPackage.weightUomId?has_content>
                                         <#assign weightUom = shipmentPackage.getRelatedOne("WeightUom")>
                                         ${uiLabelMap.ProductWeight}: ${shipmentPackage.weight} ${weightUom.get("description",locale)}
                                     </#if>
-                                    </fo:block>                                        
+                                    </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
-                        </fo:table-body>                                         
+                        </fo:table-body>
                     </fo:table>
-                    </fo:block>                                    
+                    </fo:block>
                     <fo:table>
                         <fo:table-column column-width="180pt"/>
                         <fo:table-column column-width="60pt"/>
@@ -123,19 +123,19 @@ under the License.
                                 </fo:table-cell>
                                 <fo:table-cell padding="2pt" background-color="#D4D0C8">
                                     <fo:block>${uiLabelMap.ProductIssuedQuantity}</fo:block>
-                                </fo:table-cell>                            
+                                </fo:table-cell>
                                 <fo:table-cell padding="2pt" background-color="#D4D0C8">
                                     <fo:block>${uiLabelMap.FormFieldTitle_orderItemSeqId}</fo:block>
-                                </fo:table-cell>                            
+                                </fo:table-cell>
                             </fo:table-row>
-                        </fo:table-header> 
-                        <fo:table-body>                    
-                               <#list shipmentItemsDatas as shipmentItemsData>         
-                                <#assign shipmentItem = shipmentItemsData.get("shipmentItem")>                      
-                                <#assign shippedQuantity = shipmentItemsData.get("shippedQuantity")>                      
-                                <#assign packageQuantity = shipmentItemsData.get("packageQuantity")>                                                                         
-                                <#assign product = shipmentItem.getRelatedOne("Product")>  
-                                <#assign itemIssuances = shipmentItem.getRelated("ItemIssuance")>  
+                        </fo:table-header>
+                        <fo:table-body>
+                               <#list shipmentItemsDatas as shipmentItemsData>
+                                <#assign shipmentItem = shipmentItemsData.get("shipmentItem")>
+                                <#assign shippedQuantity = shipmentItemsData.get("shippedQuantity")>
+                                <#assign packageQuantity = shipmentItemsData.get("packageQuantity")>
+                                <#assign product = shipmentItem.getRelatedOne("Product")>
+                                <#assign itemIssuances = shipmentItem.getRelated("ItemIssuance")>
                                 <fo:table-row>
                                        <fo:table-cell padding="2pt">
                                         <fo:block>${product.internalName} [${shipmentItem.productId}]</fo:block>
@@ -145,9 +145,9 @@ under the License.
                                     </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block text-align="center">${packageQuantity}</fo:block>
-                                    </fo:table-cell>    
-                                </fo:table-row>                              
-                                <#list itemIssuances as itemIssuance>                                     
+                                    </fo:table-cell>
+                                </fo:table-row>
+                                <#list itemIssuances as itemIssuance>
                                        <fo:table-row>
                                            <fo:table-cell padding="2pt">
                                             <fo:block> </fo:block>
@@ -165,11 +165,11 @@ under the License.
                                             <fo:block>${itemIssuance.orderId}:${itemIssuance.orderItemSeqId}</fo:block>
                                         </fo:table-cell>
                                        </fo:table-row>
-                                </#list>  
-                            </#list>  
-                        </fo:table-body>                       
-                    </fo:table>                            
-        </#list>               
+                                </#list>
+                            </#list>
+                        </fo:table-body>
+                    </fo:table>
+        </#list>
     <#else>
         <fo:block font-size="14pt">
             ${uiLabelMap.ProductFacilityViewPermissionError}

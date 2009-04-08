@@ -39,7 +39,7 @@ dojo.validate.isUrl = function(/*String*/value, /*Object?*/flags) {
 	// summary: Checks if a string could be a valid URL
 	// value: A string
 	// flags: An object
-	//    flags.scheme  Can be true, false, or [true, false]. 
+	//    flags.scheme  Can be true, false, or [true, false].
 	//      This means: required, not allowed, or either.
 	//    flags in regexp.host can be applied.
 	//    flags in regexp.ipAddress can be applied.

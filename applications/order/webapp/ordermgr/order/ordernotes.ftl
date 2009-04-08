@@ -48,19 +48,19 @@ under the License.
                     <#if note.internalNote?if_exists == "N">
                         ${uiLabelMap.OrderPrintableNote}
                         <a href="<@ofbizUrl>updateOrderNote?orderId=${orderId}&noteId=${note.noteId}&internalNote=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
-                    </#if>    
+                    </#if>
                     <#if note.internalNote?if_exists == "Y">
                         ${uiLabelMap.OrderNotPrintableNote}
                         <a href="<@ofbizUrl>updateOrderNote?orderId=${orderId}&noteId=${note.noteId}&internalNote=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>
-                    </#if>    
+                    </#if>
                   </td>
                 </tr>
-                <#if note_has_next>          
+                <#if note_has_next>
                   <tr><td colspan="3"><hr></td></tr>
                 </#if>
               </#list>
             </table>
-            <#else>            
+            <#else>
               <span class="label">&nbsp;${uiLabelMap.OrderNoNotes}.</span>
             </#if>
           </td>

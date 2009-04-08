@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -44,23 +44,23 @@ cal = Calendar.getInstance();
 cal.set(Calendar.AM_PM, Calendar.AM);
 cal.set(Calendar.HOUR, 0);
 cal.set(Calendar.MINUTE, 0);
-cal.set(Calendar.SECOND, 0);    
-cal.set(Calendar.MILLISECOND, 0);   
-dayBegin = new Timestamp(cal.getTime().getTime());            
-   
+cal.set(Calendar.SECOND, 0);
+cal.set(Calendar.MILLISECOND, 0);
+dayBegin = new Timestamp(cal.getTime().getTime());
+
 cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-weekBegin = new Timestamp(cal.getTime().getTime());       
- 
+weekBegin = new Timestamp(cal.getTime().getTime());
+
 cal.set(Calendar.DAY_OF_MONTH, 1);
-monthBegin = new Timestamp(cal.getTime().getTime());      
-  
+monthBegin = new Timestamp(cal.getTime().getTime());
+
 cal.set(Calendar.MONTH, 0);
-yearBegin = new Timestamp(cal.getTime().getTime());       
-  
+yearBegin = new Timestamp(cal.getTime().getTime());
+
 // order status report
 ecl = EntityCondition.makeCondition([
-                        EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null), 
-                        EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null), 
+                        EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null),
+                        EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null),
                         EntityCondition.makeCondition("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin)],
                     EntityOperator.AND);
 dayList = delegator.findList("OrderStatus", ecl, null, null, null, false);
@@ -69,10 +69,10 @@ context.dayApprove = EntityUtil.filterByAnd(dayList, [statusId : "ORDER_APPROVED
 context.dayComplete = EntityUtil.filterByAnd(dayList, [statusId : "ORDER_COMPLETED"]);
 context.dayCancelled = EntityUtil.filterByAnd(dayList, [statusId : "ORDER_CANCELLED"]);
 context.dayRejected = EntityUtil.filterByAnd(dayList, [statusId : "ORDER_REJECTED"]);
-  
+
 ecl = EntityCondition.makeCondition([
-                        EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null), 
-                        EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null), 
+                        EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null),
+                        EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null),
                         EntityCondition.makeCondition("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin)],
                     EntityOperator.AND);
 weekList = delegator.findList("OrderStatus", ecl, null, null, null, false);
@@ -81,10 +81,10 @@ context.weekApprove = EntityUtil.filterByAnd(weekList, [statusId: "ORDER_APPROVE
 context.weekComplete = EntityUtil.filterByAnd(weekList, [statusId : "ORDER_COMPLETED"]);
 context.weekCancelled = EntityUtil.filterByAnd(weekList, [statusId : "ORDER_CANCELLED"]);
 context.weekRejected = EntityUtil.filterByAnd(weekList, [statusId : "ORDER_REJECTED"]);
-  
+
 ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null),
-                        EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null), 
+                        EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null),
                         EntityCondition.makeCondition("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin)],
                     EntityOperator.AND);
 monthList = delegator.findList("OrderStatus", ecl, null, null, null, false);
@@ -93,10 +93,10 @@ context.monthApprove = EntityUtil.filterByAnd(monthList, [statusId : "ORDER_APPR
 context.monthComplete = EntityUtil.filterByAnd(monthList, [statusId : "ORDER_COMPLETED"]);
 context.monthCancelled = EntityUtil.filterByAnd(monthList, [statusId : "ORDER_CANCELLED"]);
 context.monthRejected = EntityUtil.filterByAnd(monthList, [statusId : "ORDER_REJECTED"]);
-  
+
 ecl = EntityCondition.makeCondition([
-                        EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null), 
-                        EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null), 
+                        EntityCondition.makeCondition("orderItemSeqId", EntityOperator.EQUALS, null),
+                        EntityCondition.makeCondition("orderPaymentPreferenceId", EntityOperator.EQUALS, null),
                         EntityCondition.makeCondition("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin)],
                     EntityOperator.AND);
 yearList = delegator.findList("OrderStatus", ecl, null, null, null, false);
@@ -105,26 +105,26 @@ context.yearApprove = EntityUtil.filterByAnd(yearList, [statusId : "ORDER_APPROV
 context.yearComplete = EntityUtil.filterByAnd(yearList, [statusId : "ORDER_COMPLETED"]);
 context.yearCancelled = EntityUtil.filterByAnd(yearList, [statusId : "ORDER_CANCELLED"]);
 context.yearRejected = EntityUtil.filterByAnd(yearList, [statusId : "ORDER_REJECTED"]);
-  
+
 // order totals and item counts
 ecl = EntityCondition.makeCondition([
-                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), 
-                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), 
-                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin), 
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"),
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"),
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
 dayItems = delegator.findList("OrderHeaderAndItems", ecl, null, null, null, false);
 dayItemsPending = EntityUtil.filterByAnd(dayItems, [itemStatusId : "ITEM_ORDERED"]);
 
 ecl = EntityCondition.makeCondition([
-                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), 
-                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), 
-                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin), 
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
 dayHeaders = delegator.findList("OrderHeader", ecl, null, null, null, false);
 dayHeadersPending = EntityUtil.filterByAnd(dayHeaders, [statusId : "ORDER_ORDERED"]);
-                                                 
+
 dayItemTotal = calcItemTotal(dayHeaders);
 dayItemCount = calcItemCount(dayItems);
 dayItemTotalPending = calcItemTotal(dayHeadersPending);
@@ -139,27 +139,27 @@ context.dayItemTotalPaid = dayItemTotalPaid;
 context.dayItemCountPaid = dayItemCountPaid;
 
 ecl = EntityCondition.makeCondition([
-                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), 
-                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), 
-                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin), 
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"),
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"),
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
 weekItems = delegator.findList("OrderHeaderAndItems", ecl, null, null, null, false);
 weekItemsPending = EntityUtil.filterByAnd(weekItems, [itemStatusId : "ITEM_ORDERED"]);
 
 ecl = EntityCondition.makeCondition([
-                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), 
-                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), 
-                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin), 
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
 weekHeaders = delegator.findList("OrderHeader", ecl, null, null, null, false);
 weekHeadersPending = EntityUtil.filterByAnd(weekHeaders, [statusId : "ORDER_ORDERED"]);
-         
+
 weekItemTotal = calcItemTotal(weekHeaders);
 weekItemCount = calcItemCount(weekItems);
 weekItemTotalPending = calcItemTotal(weekHeadersPending);
-weekItemCountPending = calcItemCount(weekItemsPending);  
+weekItemCountPending = calcItemCount(weekItemsPending);
 weekItemTotalPaid = weekItemTotal - weekItemTotalPending;
 weekItemCountPaid = weekItemCount - weekItemCountPending;
 context.weekItemTotal = weekItemTotal;
@@ -170,18 +170,18 @@ context.weekItemTotalPaid = weekItemTotalPaid;
 context.weekItemCountPaid = weekItemCountPaid;
 
 ecl = EntityCondition.makeCondition([
-                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), 
-                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), 
-                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin), 
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"),
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"),
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
 monthItems = delegator.findList("OrderHeaderAndItems", ecl, null, null, null, false);
 monthItemsPending = EntityUtil.filterByAnd(monthItems, [itemStatusId : "ITEM_ORDERED"]);
 
 ecl = EntityCondition.makeCondition([
-                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), 
-                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), 
-                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin), 
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
 monthHeaders = delegator.findList("OrderHeader", ecl, null, null, null, false);
@@ -190,7 +190,7 @@ monthHeadersPending = EntityUtil.filterByAnd(monthHeaders, [statusId : "ORDER_OR
 monthItemTotal = calcItemTotal(monthHeaders);
 monthItemCount = calcItemCount(monthItems);
 monthItemTotalPending = calcItemTotal(monthHeadersPending);
-monthItemCountPending = calcItemCount(monthItemsPending);    
+monthItemCountPending = calcItemCount(monthItemsPending);
 monthItemTotalPaid = monthItemTotal - monthItemTotalPending;
 monthItemCountPaid = monthItemCount - monthItemCountPending;
 context.monthItemTotal = monthItemTotal;
@@ -201,18 +201,18 @@ context.monthItemTotalPaid = monthItemTotalPaid;
 context.monthItemCountPaid = monthItemCountPaid;
 
 ecl = EntityCondition.makeCondition([
-                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"), 
-                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"), 
-                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin), 
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"),
+                        EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"),
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
 yearItems = delegator.findList("OrderHeaderAndItems", ecl, null, null, null, false);
 yearItemsPending = EntityUtil.filterByAnd(yearItems, [itemStatusId : "ITEM_ORDERED"]);
-   
+
 ecl = EntityCondition.makeCondition([
-                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"), 
-                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"), 
-                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin), 
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
+                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
 yearHeaders = delegator.findList("OrderHeader", ecl, null, null, null, false);
@@ -221,7 +221,7 @@ yearHeadersPending = EntityUtil.filterByAnd(yearHeaders, [statusId : "ORDER_ORDE
 yearItemTotal = calcItemTotal(yearHeaders);
 yearItemCount = calcItemCount(yearItems);
 yearItemTotalPending = calcItemTotal(yearHeadersPending);
-yearItemCountPending = calcItemCount(yearItemsPending);  
+yearItemCountPending = calcItemCount(yearItemsPending);
 yearItemTotalPaid = yearItemTotal - yearItemTotalPending;
 yearItemCountPaid = yearItemCount - yearItemCountPending;
 context.yearItemTotal = yearItemTotal;
@@ -230,7 +230,7 @@ context.yearItemTotalPending = yearItemTotalPending;
 context.yearItemCountPending = yearItemCountPending;
 context.yearItemTotalPaid = yearItemTotalPaid;
 context.yearItemCountPaid = yearItemCountPaid;
-    
+
 // order state report
 waitingPayment = delegator.findByAnd("OrderHeader", [statusId : "ORDER_ORDERED", orderTypeId : "SALES_ORDER"]);
 context.waitingPayment = waitingPayment.size();

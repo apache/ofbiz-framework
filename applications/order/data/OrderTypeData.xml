@@ -60,7 +60,7 @@ under the License.
     <OrderItemType description="Work Item" hasTable="N" orderItemTypeId="WORK_ORDER_ITEM" parentTypeId=""/>
     <OrderItemType description="Rental Item" hasTable="N" orderItemTypeId="RENTAL_ORDER_ITEM" parentTypeId=""/>
     <OrderItemType description="Bulk Item" hasTable="N" orderItemTypeId="BULK_ORDER_ITEM" parentTypeId=""/>
-    
+
     <OrderType description="Purchase" hasTable="N" orderTypeId="PURCHASE_ORDER" parentTypeId=""/>
     <OrderType description="Sales" hasTable="N" orderTypeId="SALES_ORDER" parentTypeId=""/>
 
@@ -82,7 +82,7 @@ under the License.
     <EnumerationType description="Order Item Change Type" enumTypeId="ODR_ITM_CHANGE_TYPE" hasTable="N" parentTypeId=""/>
     <Enumeration description="Order Item Update" enumCode="ITM_UPDATE" enumId="ODR_ITM_UPDATE" sequenceId="01" enumTypeId="ODR_ITM_CHANGE_TYPE"/>
     <Enumeration description="Order Item Cancel" enumCode="ITM_CANCEL" enumId="ODR_ITM_CANCEL" sequenceId="02" enumTypeId="ODR_ITM_CHANGE_TYPE"/>
-    <Enumeration description="Order Item Append" enumCode="ITM_APPEND" enumId="ODR_ITM_APPEND" sequenceId="03" enumTypeId="ODR_ITM_CHANGE_TYPE"/>    
+    <Enumeration description="Order Item Append" enumCode="ITM_APPEND" enumId="ODR_ITM_APPEND" sequenceId="03" enumTypeId="ODR_ITM_CHANGE_TYPE"/>
     <EnumerationType description="Order Item Change Reason" enumTypeId="ODR_ITM_CH_REASON" hasTable="N" parentTypeId=""/>
     <Enumeration description="Mis-Ordered Item" enumCode="MISORDER" enumId="OICR_MISORDER_ITEM" sequenceId="01" enumTypeId="ODR_ITM_CH_REASON"/>
     <Enumeration description="Changed Mind" enumCode="CHANGE_MIND" enumId="OICR_CHANGE_MIND" sequenceId="02" enumTypeId="ODR_ITM_CH_REASON"/>
@@ -262,11 +262,11 @@ under the License.
     <ReturnAdjustmentType description="Return Warranty" hasTable="N" returnAdjustmentTypeId="RET_WARRANTY_ADJ" parentTypeId=""/>
     <ReturnAdjustmentType description="Return Marketing Package Adjustment" hasTable="N" returnAdjustmentTypeId="RET_MKTG_PKG_ADJ" parentTypeId=""/>
     <ReturnAdjustmentType description="Return Manual Adjustment" hasTable="N" returnAdjustmentTypeId="RET_MAN_ADJ" parentTypeId=""/>
-    
+
     <!-- Return Header Types -->
     <ReturnHeaderType description="Return from Customer" returnHeaderTypeId="CUSTOMER_RETURN"/>
     <ReturnHeaderType description="Return to Vendor" returnHeaderTypeId="VENDOR_RETURN"/>  <!-- not supported yet -->
-    
+
     <!-- return item types for returns -->
     <ReturnItemType description="Return Non-Product Item" returnItemTypeId="RET_NPROD_ITEM" parentTypeId=""/>
     <ReturnItemType description="Return Product Item" returnItemTypeId="RET_PROD_ITEM" parentTypeId=""/>
@@ -279,7 +279,7 @@ under the License.
     <ReturnItemType description="Return Work-Effort Item" returnItemTypeId="RET_WE_ITEM" parentTypeId="RET_NPROD_ITEM"/>
     <ReturnItemType description="Return Time-Entry Item" returnItemTypeId="RET_TE_ITEM" parentTypeId="RET_NPROD_ITEM"/>
 
-    <!-- maps product types to return item types for product order items, order item types to return item types for other order items 
+    <!-- maps product types to return item types for product order items, order item types to return item types for other order items
          and order adjustment types to return adjustment types. Separate mappings for different types of returns (customer vs. vendor) -->
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="FINISHED_GOOD" returnItemTypeId="RET_FPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="MARKETING_PKG_AUTO" returnItemTypeId="RET_FPROD_ITEM"/>
@@ -327,13 +327,13 @@ under the License.
     <ReturnType sequenceId="03" returnTypeId="RTN_REPLACE" description="Wait Replacement"/>
     <ReturnType sequenceId="04" returnTypeId="RTN_CSREPLACE" description="Cross-Ship Replacement"/>
     <ReturnType sequenceId="05" returnTypeId="RTN_REPAIR_REPLACE" description="Repair Replacement"/>
-    
+
     <WorkReqFulfType description="Implements" workReqFulfTypeId="WRF_IMPLEMENTS"/>
     <WorkReqFulfType description="Fixes" workReqFulfTypeId="WRF_FIXES"/>
     <WorkReqFulfType description="Deploys" workReqFulfTypeId="WRF_DEPLOYS"/>
     <WorkReqFulfType description="Tests" workReqFulfTypeId="WRF_TESTS"/>
     <WorkReqFulfType description="Delivers" workReqFulfTypeId="WRF_DELIVERS"/>
-    
+
     <!-- Content Types -->
     <OrderContentType description="Image" hasTable="N" parentTypeId="" orderContentTypeId="IMAGE_URL"/>
 </entity-engine-xml>

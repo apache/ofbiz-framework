@@ -22,7 +22,7 @@ under the License.
     <SecurityPermission description="View operations in the HumanRes Manager." permissionId="HUMANRES_VIEW"/>
     <SecurityPermission description="Create operations in the HumanRes Manager." permissionId="HUMANRES_CREATE"/>
     <SecurityPermission description="Update operations in the HumanRes Manager." permissionId="HUMANRES_UPDATE"/>
-    <SecurityPermission description="Delete operations in the HumanRes Manager." permissionId="HUMANRES_DELETE"/>    
+    <SecurityPermission description="Delete operations in the HumanRes Manager." permissionId="HUMANRES_DELETE"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="HUMANRES_ADMIN"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="HUMANRES_CREATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="HUMANRES_DELETE"/>

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="FindProductStore">
@@ -447,8 +447,8 @@ under the License.
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
                 <set field="paymentMethodTypeId" from-field="parameters.paymentMethodTypeId"/>
-                <set field="paymentServiceTypeEnumId" from-field="parameters.paymentServiceTypeEnumId"/>                
-                <entity-one entity-name="ProductStorePaymentSetting" value-field="productStorePaymentSetting" auto-field-map="true"/>              
+                <set field="paymentServiceTypeEnumId" from-field="parameters.paymentServiceTypeEnumId"/>
+                <entity-one entity-name="ProductStorePaymentSetting" value-field="productStorePaymentSetting" auto-field-map="true"/>
 
             </actions>
             <widgets>
@@ -508,7 +508,7 @@ under the License.
 
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
                 <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="true"/>
-                
+
                 <entity-condition entity-name="ProductStoreEmailSetting" list="productStoreEmailSettings">
                     <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                     <order-by field-name="emailType"/>
@@ -634,7 +634,7 @@ under the License.
                 <set field="labelTitleProperty" value="ProductSegments"/>
 
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
-               
+
                 <entity-one entity-name="ProductStore" value-field="productStore">
                     <field-map field-name="productStoreId"/>
                 </entity-one>
@@ -680,7 +680,7 @@ under the License.
 
                 <entity-one entity-name="ProductStoreFinActSetting" value-field="finAccountSetting"/>
                 <entity-condition entity-name="ProductStoreFinActSetting" list="productStoreFinActSettings">
-                    <condition-expr field-name="productStoreId" from-field="productStoreId"/>                    
+                    <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                 </entity-condition>
             </actions>
             <widgets>
@@ -728,9 +728,9 @@ under the License.
                 <set field="headerItem" value="store"/>
                 <set field="tabButtonItem" value="EditProductStoreVendorPayments"/>
                 <set field="labelTitleProperty" value="ProductStoreVendorPayments"/>
-             
+
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
-                
+
                 <entity-condition entity-name="ProductStoreVendorPayment" list="productStoreVendorPaymentList">
                     <condition-expr field-name="productStoreId" from-field="productStoreId"/>
                 </entity-condition>
@@ -771,7 +771,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditProductStoreVendorShipments">
         <section>
             <actions>

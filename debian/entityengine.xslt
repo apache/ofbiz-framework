@@ -87,11 +87,11 @@ under the License.
  <xsl:template match="datasource[@name=$datasource and $dbtype='derby']/inline-jdbc/@jdbc-username">
   <xsl:attribute name="jdbc-uri"><xsl:value-of select="."/></xsl:attribute>
  </xsl:template>
-  
+
  <xsl:template match="datasource[@name=$datasource and $dbtype='hsql']/inline-jdbc/@jdbc-username">
   <xsl:attribute name="jdbc-uri"><xsl:value-of select="."/></xsl:attribute>
  </xsl:template>
-  
+
  <xsl:template match="datasource[@name=$datasource]/inline-jdbc/@jdbc-username">
   <xsl:attribute name="jdbc-username"><xsl:value-of select="$dbuser"/></xsl:attribute>
  </xsl:template>

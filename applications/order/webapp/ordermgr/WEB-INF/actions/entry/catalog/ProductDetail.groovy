@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -23,7 +23,7 @@
  */
 
 import java.text.NumberFormat;
- 
+
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
@@ -77,7 +77,7 @@ if (userLogin) {
     exprList = [EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, userLogin.partyId),
                 EntityCondition.makeCondition("listName", EntityOperator.NOT_EQUAL, "auto-save")];
     condition = EntityCondition.makeCondition(exprList, EntityOperator.AND);
-    allShoppingLists = delegator.findList("ShoppingList", condition, null, ["listName"], null, false);        
+    allShoppingLists = delegator.findList("ShoppingList", condition, null, ["listName"], null, false);
     context.shoppingLists = allShoppingLists;
 }
 
@@ -102,7 +102,7 @@ if (product) {
     }
     lastViewedProducts.remove(productId);
     lastViewedProducts.add(0, productId);
-    while (lastViewedProducts.size() > LAST_VIEWED_TO_KEEP) { 
+    while (lastViewedProducts.size() > LAST_VIEWED_TO_KEEP) {
         lastViewedProducts.remove(lastViewedProducts.size() - 1);
     }
 
@@ -170,7 +170,7 @@ if (product) {
         context.priceMap = priceMap;
     } else {
         // purchase order: run the "calculatePurchasePrice" service
-        priceContext = [product : product, currencyUomId : cart.getCurrency(), 
+        priceContext = [product : product, currencyUomId : cart.getCurrency(),
                 partyId : cart.getPartyId(), userLogin : userLogin];
         priceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
         context.priceMap = priceMap;
@@ -191,12 +191,12 @@ if (product) {
 
     // get the days to ship
 
-    facilityId = productStore.inventoryFacilityId;    
+    facilityId = productStore.inventoryFacilityId;
     /*
     productFacility = delegator.findByPrimaryKeyCache("ProductFacility", [productId : productId, facilityId : facilityId);
     context.daysToShip = productFacility?.daysToShip
     */
-    
+
     resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", [productId : productId, facilityId : facilityId, useCache : false]);
     totalAvailableToPromise = resultOutput.availableToPromiseTotal;
     if (totalAvailableToPromise) {
@@ -271,7 +271,7 @@ if (product) {
                         jsBuf.append("OPT[" + i + "] = \"FT" + feature + "\";");
                     }
                     virtualVariant.eachWithIndex { variant, i ->
-                        jsBuf.append("VIR[" + i + "] = \"" + variant + "\";");                  
+                        jsBuf.append("VIR[" + i + "] = \"" + variant + "\";");
                     }
 
                     // build the top level
@@ -381,7 +381,7 @@ if (product) {
     // get product associations
     obsoleteProducts = dispatcher.runSync("getAssociatedProducts", [productId : productId, type : "PRODUCT_OBSOLESCENCE", checkViewAllow : true, prodCatalogId : currentCatalogId]);
     context.obsoleteProducts = obsoleteProducts.assocProducts;
-    
+
     crossSellProducts = dispatcher.runSync("getAssociatedProducts", [productId : productId, type : "PRODUCT_COMPLEMENT", checkViewAllow : true, prodCatalogId : currentCatalogId]);
     context.crossSellProducts = crossSellProducts.assocProducts;
 
@@ -400,7 +400,7 @@ if (product) {
 
         // now search for other products that have this feature
         visitId = VisitHandler.getVisitId(session);
-        
+
         productSearchConstraintList = [];
         productSearchConstraintList.add(new ProductSearch.FeatureSetConstraint(commonProductFeatureIds));
         // make sure the view allow category is included
@@ -429,11 +429,11 @@ if (product) {
             context.commonFeatureResultIds = commonFeatureResultIds;
         }
     }
-    
+
     // get the DIGITAL_DOWNLOAD related Content records to show the contentName/description
     downloadProductContentAndInfoList = delegator.findByAndCache("ProductContentAndInfo", [productId : productId, productContentTypeId : "DIGITAL_DOWNLOAD"]);
     context.downloadProductContentAndInfoList = downloadProductContentAndInfoList;
-    
+
     // not the best to save info in an action, but this is probably the best place to count a view; it is done async
     dispatcher.runAsync("countProductView", [productId : productId, weight : new Long(1)], false);
 }

@@ -18,11 +18,11 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Product Component Services for subscriptions entity (subscription entity not ContentRoles)</description>
     <vendor>OFBiz</vendor>
-    
+
     <service name="createSubscription" default-entity-name="Subscription" auth="true" engine="simple"
         location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="createSubscription">
         <description>Create a Subscription Record</description>
@@ -37,7 +37,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="isSubscribed" default-entity-name="Subscription" auth="true" engine="simple"
         location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="isSubscribed">
         <description>Check if a particular party has at this moment a subscription</description>
@@ -48,7 +48,7 @@ under the License.
         <attribute name="subscriptionId" type="String" mode="OUT" optional="true"/>
         <override name="partyId" optional="false" mode="IN"/>
     </service>
-    
+
     <service name="getSubscriptionEnt" default-entity-name="Subscription" auth="true" engine="simple"
         location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="getSubscription">
         <description>Retrieve a single Subscription Entity Record</description>
@@ -136,7 +136,7 @@ under the License.
         <attribute name="attrName" type="String" mode="IN" optional="false"/>
         <attribute name="attrValue" type="String" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="createSubscriptionCommEvent" engine="simple"
         location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="createSubscriptionCommEvent" auth="true">
         <description>Create a Subscription Communication Event</description>

@@ -304,7 +304,7 @@ Helvetica
 Times Roman
   </fo:block>
   <fo:block space-after.optimum="10pt" font-family="Times Roman" font-size="10pt">
-<fo:table> 
+<fo:table>
 <fo:table-column column-width="65pt"/>
 <fo:table-column column-width="30pt"/>
 <fo:table-column column-width="65pt"/>
@@ -315,7 +315,7 @@ Times Roman
 <fo:table-body>
 <fo:table-row>
 <fo:table-cell>
-  <fo:block> 
+  <fo:block>
 &amp;#x21; : &#x21;
 &amp;#x22; : &#x22;
 &amp;#x23; : &#x23;

@@ -469,8 +469,8 @@ public class RequestHandler {
             session.setAttribute("_SAVED_VIEW_PARAMS_", session.getAttribute("_LAST_VIEW_PARAMS_"));
         }
         String saveName = null;
-        if (nextRequestResponse.saveCurrentView) { saveName = "SAVED"; } 
-        if (nextRequestResponse.saveHomeView) { saveName = "HOME"; } 
+        if (nextRequestResponse.saveCurrentView) { saveName = "SAVED"; }
+        if (nextRequestResponse.saveHomeView) { saveName = "HOME"; }
 
         if (nextRequestResponse != null && "request".equals(nextRequestResponse.type)) {
             // chained request

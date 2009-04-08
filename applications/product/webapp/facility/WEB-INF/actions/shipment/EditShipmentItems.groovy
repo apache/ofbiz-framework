@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -42,12 +42,12 @@ if (shipment) {
                     totalQuantityPackaged += shipmentPackageContent.getDouble("quantity");
                 }
             }
-            
+
             totalQuantityToPackage = 0;
             if (shipmentItem.quantity) {
                 totalQuantityToPackage = shipmentItem.getDouble("quantity") - totalQuantityPackaged;
             }
-            
+
             shipmentItemData = [:];
             shipmentItemData.shipmentItem = shipmentItem;
             shipmentItemData.shipmentPackageContents = shipmentPackageContents;
@@ -60,7 +60,7 @@ if (shipment) {
         }
     }
     shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId']);
-    
+
     context.shipment = shipment;
     context.shipmentItemDatas = shipmentItemDatas;
     context.shipmentPackages = shipmentPackages;

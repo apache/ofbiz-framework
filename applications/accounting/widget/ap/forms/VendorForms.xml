@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="ListVendors" type="list" list-name="listIt" paginate-target="findVendors" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -51,9 +51,9 @@ under the License.
         <field use-when="partyId==null" name="manifestCompanyTitle" title="${uiLabelMap.PartyManifestCompanyTitle}"><text/></field>
         <field use-when="partyId!=null&amp;&amp;vendor!=null" name="manifestCompanyTitle" title="${uiLabelMap.PartyManifestCompanyTitle}"><text default-value="${parameters.manifestCompanyTitle}"/></field>
         <field use-when="partyId==null" name="manifestLogoUrl" title="${uiLabelMap.PartyManifestLogoUrl}"><text/></field>
-        <field use-when="partyId!=null&amp;&amp;vendor!=null" name="manifestLogoUrl" title="${uiLabelMap.PartyManifestLogoUrl}"><text default-value="${parameters.manifestLogoUrl}"/></field>        
+        <field use-when="partyId!=null&amp;&amp;vendor!=null" name="manifestLogoUrl" title="${uiLabelMap.PartyManifestLogoUrl}"><text default-value="${parameters.manifestLogoUrl}"/></field>
         <field use-when="partyId==null" name="manifestPolicies" title="${uiLabelMap.PartyManifestPolicies}"><text/></field>
-        <field use-when="partyId!=null&amp;&amp;vendor!=null" name="manifestPolicies" title="${uiLabelMap.PartyManifestPolicies}"><text default-value="${parameters.manifestPolicies}"/></field>        
+        <field use-when="partyId!=null&amp;&amp;vendor!=null" name="manifestPolicies" title="${uiLabelMap.PartyManifestPolicies}"><text default-value="${parameters.manifestPolicies}"/></field>
         <field name="submitButton" use-when="partyId==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
         <field name="submitButton" use-when="partyId!=null&amp;&amp;vendor!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>

@@ -21,7 +21,7 @@ under the License.
     <description>Web Pos Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
-    
+
     <service name="FindProducts" engine="simple"
              location="component://webpos/script/org/ofbiz/webpos/WebPosServices.xml" invoke="FindProducts">
         <description>Find products by name/description</description>
@@ -30,7 +30,7 @@ under the License.
         <attribute type="java.util.List" mode="OUT" name="productsList" optional="true"/>
         <attribute type="java.util.List" mode="OUT" name="productsId" optional="true"/>
     </service>
-    
+
     <service name="FindProductsByIdentification" engine="simple"
              location="component://webpos/script/org/ofbiz/webpos/WebPosServices.xml" invoke="FindProductsByIdentification">
         <description>Find products by good identification</description>
@@ -44,7 +44,7 @@ under the License.
         <description>Login for Web Pos</description>
         <attribute type="String" mode="IN" name="posTerminalId" optional="false"/>
     </service>
-    
+
     <service name="existsWebPosSession" engine="java"
              location="org.ofbiz.webpos.WebPosEvents" invoke="existsWebPosSession">
         <description>Check if exists a Web Pos Session</description>

@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,7 +21,7 @@
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="ProjectMgrAppBar" title="${uiLabelMap.ProjectMgrApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-    
+
         <menu-item name="mytasks" title="${uiLabelMap.WorkEffortMyTasks}"><link target="MyTasks"/></menu-item>
         <menu-item name="mytime" title="${uiLabelMap.WorkEffortTimesheetMyTime}"><link target="MyTimesheet"/></menu-item>
         <menu-item name="projects" title="${uiLabelMap.WorkEffortProjects}"><link target="FindProject"/></menu-item>
@@ -56,18 +56,18 @@
         <actions>
             <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
             <set field="hasUpdatePermission" value="${bsh:
-                result = dispatcher.runSync(&quot;projectMgrPermission&quot;, 
+                result = dispatcher.runSync(&quot;projectMgrPermission&quot;,
                 org.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
                 &quot;resourceDescription&quot;, &quot;Project&quot;,
                 &quot;mainAction&quot;, &quot;UPDATE&quot;,
-                &quot;projectId&quot;, projectId)); 
+                &quot;projectId&quot;, projectId));
                 return result.get(&quot;hasPermission&quot;); }" type="Boolean"/>
             <set field="hasViewPermission" value="${bsh:
-                result = dispatcher.runSync(&quot;projectMgrPermission&quot;, 
+                result = dispatcher.runSync(&quot;projectMgrPermission&quot;,
                 org.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
                 &quot;resourceDescription&quot;, &quot;Project&quot;,
                 &quot;mainAction&quot;, &quot;VIEW&quot;,
-                &quot;projectId&quot;, projectId)); 
+                &quot;projectId&quot;, projectId));
                 return result.get(&quot;hasPermission&quot;); }" type="Boolean"/>
         </actions>
         <menu-item name="ganttchart" title="${uiLabelMap.ProjectMgrGanttChart}">
@@ -127,7 +127,7 @@
             <link target="EditProjectTasks">
                 <parameter param-name="projectId"/>
             </link>
-        </menu-item>    
+        </menu-item>
         <menu-item name="orders" title="${uiLabelMap.OrderOrders}">
             <condition>
                 <and>
@@ -141,7 +141,7 @@
             <link target="EditProjectOrders">
                 <parameter param-name="projectId"/>
             </link>
-        </menu-item>    
+        </menu-item>
         <menu-item name="parties" title="${uiLabelMap.ProjectMgrResources}">
             <condition>
                 <and>
@@ -215,11 +215,11 @@
         <actions>
             <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
             <set field="hasUpdatePermission" value="${bsh:
-                result = dispatcher.runSync(&quot;projectMgrPermission&quot;, 
+                result = dispatcher.runSync(&quot;projectMgrPermission&quot;,
                 org.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
                 &quot;resourceDescription&quot;, &quot;Project&quot;,
                 &quot;mainAction&quot;, &quot;UPDATE&quot;,
-                &quot;projectId&quot;, projectId)); 
+                &quot;projectId&quot;, projectId));
                 return result.get(&quot;hasPermission&quot;); }" type="Boolean"/>
         </actions>
         <menu-item name="newProject" title="${uiLabelMap.ProjectMgrNewProject}">
@@ -411,7 +411,7 @@
         <menu-item name="setcomplete" title="${uiLabelMap.ProjectMgrSetComplete}" >
             <condition>
                 <and>
-                    <not><if-empty field="workEffort"/></not>                    
+                    <not><if-empty field="workEffort"/></not>
                     <if-compare field="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
                 </and>
             </condition>

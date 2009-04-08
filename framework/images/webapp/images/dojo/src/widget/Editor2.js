@@ -175,7 +175,7 @@ dojo.widget.Editor2BrowserCommandNames={
 //			'inlinedirrtl':
 }
 
-dojo.lang.declare("dojo.widget.Editor2BrowserCommand", dojo.widget.Editor2Command, 
+dojo.lang.declare("dojo.widget.Editor2BrowserCommand", dojo.widget.Editor2Command,
 	function(editor,name){
 		// summary:
 		//		dojo.widget.Editor2BrowserCommand is the base class for all the browser built
@@ -282,7 +282,7 @@ dojo.widget.defineWidget(
 		// contentFile: String
 		//	TODO
 		contentFile: "",
-		
+
 		// contentClass: String
 		//	TODO
 		contentClass: "",
@@ -467,8 +467,8 @@ dojo.widget.defineWidget(
 		_inSourceMode: false,
 		_htmlEditNode: null,
 
-		// toolbarGroup: String: 
-		//		This instance of editor will share the same toolbar with other editor with the same toolbarGroup. 
+		// toolbarGroup: String:
+		//		This instance of editor will share the same toolbar with other editor with the same toolbarGroup.
 		//		By default, toolbarGroup is empty and standalone toolbar is used for this instance.
 		toolbarGroup: '',
 
@@ -518,7 +518,7 @@ dojo.widget.defineWidget(
 							dojo.widget.Editor2ToolbarGroups[this.toolbarGroup] = this.toolbarWidget;
 						}
 						dojo.event.connect(this, "close", this.toolbarWidget, "hide");
-	
+
 						this.toolbarLoaded();
 				}
 			}

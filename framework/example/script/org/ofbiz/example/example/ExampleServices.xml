@@ -18,12 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ExampleStatus methods -->
     <simple-method method-name="createExampleStatus" short-description="create a ExampleItem">
         <now-timestamp field="nowTimestamp"/>
-        
+
         <!-- find the most recent status record and set the statusEndDate -->
         <entity-and entity-name="ExampleStatus" list="oldExampleStatusList">
             <field-map field-name="exampleId" from-field="parameters.exampleId"/>
@@ -39,9 +39,9 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.statusDate" from-field="nowTimestamp"/>
-        <create-value value-field="newEntity"/>  
-    </simple-method>   
-    
+        <create-value value-field="newEntity"/>
+    </simple-method>
+
     <!-- Example ServiceTest Service -->
     <simple-method method-name="testCreateExampleService" short-description="test the create example service" login-required="false">
         <set field="createExampleMap.exampleTypeId" value="CONTRIVED"/>
@@ -57,7 +57,7 @@ under the License.
         </call-service>
 
         <entity-one entity-name="Example" value-field="example"/>
-        
+
         <assert>
             <not><if-empty field="example"/></not>
             <if-compare-field field="example.exampleTypeId" to-field="createExampleMap.exampleTypeId" operator="equals"/>

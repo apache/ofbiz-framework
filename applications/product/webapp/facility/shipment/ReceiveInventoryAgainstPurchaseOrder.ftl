@@ -77,10 +77,10 @@ under the License.
         <input type="submit" value="${uiLabelMap.CommonSelect}" class="smallSubmit"/>
     </div>
 </form>
-    
+
 <#if shipment?exists>
     <#if isPurchaseShipment>
-    
+
         <#assign itemsAvailableToReceive = totalAvailableToReceive?default(0) &gt; 0/>
         <#if orderItemDatas?exists>
             <br/>
@@ -94,7 +94,7 @@ under the License.
                 <table cellspacing="0" class="basic-table">
                     <tr class="header-row">
                         <td>${uiLabelMap.ProductProduct}</td>
-                        
+
                         <#-- Must use the uiLabelMap[""] notation since the label key has . in it -->
                         <td>${uiLabelMap["GoodIdentificationType.description.UPCA"]}</td>
                         <td>${uiLabelMap.OrderOrder}</td>
@@ -172,24 +172,24 @@ under the License.
                                     <#assign totalReadyToReceive = totalReadyToReceive + quantityToReceive/>
                                     <input type="text" size="5" name="quantityAccepted_o_${rowCount}" id="quantityAccepted_o_${rowCount}" value="${quantityToReceive}"/>
                                 </td>
-                                <td>              
+                                <td>
                                     <select name="inventoryItemTypeId_o_${rowCount}">
                                       <#list inventoryItemTypes as inventoryItemType>
                                       <option value="${inventoryItemType.inventoryItemTypeId}"
                                           <#if (facility.defaultInventoryItemTypeId?has_content) && (inventoryItemType.inventoryItemTypeId == facility.defaultInventoryItemTypeId)>
                                               selected="selected"
-                                          </#if>    
+                                          </#if>
                                       >${inventoryItemType.get("description",locale)?default(inventoryItemType.inventoryItemTypeId)}</option>
                                       </#list>
                                     </select>
                                 </td>
-                                <td align="right">              
+                                <td align="right">
                                     <a href="<@ofbizUrl>ReceiveInventoryAgainstPurchaseOrder?shipmentId=${shipmentId}&purchaseOrderId=${orderId}&productId=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonClear}</a>
                                 </td>
-                                <td align="right">              
+                                <td align="right">
                                   <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'orderItemData_tableRow_${rowCount}');">
                                 </td>
-                                <#assign rowCount = rowCount + 1>   
+                                <#assign rowCount = rowCount + 1>
                             </#if>
                         </tr>
                         <#-- toggle the row color -->

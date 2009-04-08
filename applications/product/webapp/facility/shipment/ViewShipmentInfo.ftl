@@ -29,7 +29,7 @@ under the License.
           <tr>
             <td width="20%" align="right" class="label">${uiLabelMap.ProductShipmentId}</td>
             <td width="80%">${shipment.shipmentId}</td>
-          </tr>    
+          </tr>
           <tr>
             <td width="20%" align="right" class="label">${uiLabelMap.ProductShipmentType}</td>
             <td width="80%">${(shipmentType.get("description",locale))?default(shipment.shipmentTypeId?if_exists)}</td>
@@ -45,7 +45,7 @@ under the License.
           <tr>
             <td width="20%" align="right" class="label">${uiLabelMap.ProductPrimaryReturnId}</td>
             <td width="80%"><#if shipment.primaryReturnId?exists><a href="/ordermgr/control/returnMain?returnId=${shipment.primaryReturnId}" class="buttontext">${shipment.primaryReturnId}</a></#if></td>
-          </tr>          
+          </tr>
           <tr>
             <td width="20%" align="right" class="label">${uiLabelMap.ProductPrimaryShipGroupSeqId}</td>
             <td width="80%">${shipment.primaryShipGroupSeqId?if_exists}</td>
@@ -122,7 +122,7 @@ under the License.
               <div>${uiLabelMap.CommonBy} [${shipment.lastModifiedByUserLogin?if_exists}] ${uiLabelMap.CommonOn} ${(shipment.lastModifiedDate.toString())?if_exists}</div>
             </td>
           </tr>
-        </table>  
+        </table>
     </div>
-</div>    
+</div>
 </#if>

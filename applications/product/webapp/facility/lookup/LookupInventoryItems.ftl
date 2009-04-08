@@ -63,11 +63,11 @@ under the License.
         <td>${inventoryItem.quantityOnHandTotal?if_exists}</td>
         <td>${inventoryItem.availableToPromiseTotal?if_exists}</td>
         <td>${inventoryItem.unitCost?if_exists}</td>
-      </tr>          
+      </tr>
     </#list>
     <tr>
   </#if>
   <#if !(inventoryItemsForPo?exists && inventoryItemsForPo?has_content) && !(inventoryItemsForSupplier?exists && inventoryItemsForSupplier?has_content) && !(inventoryItemsForProduct?exists && inventoryItemsForProduct?has_content)>
     <tr><td><span class="label">${uiLabelMap.CommonNo} ${uiLabelMap.ProductInventoryItems} ${uiLabelMap.ProductAvailable}.</span></td></tr>
-  </#if>    
+  </#if>
 </table>

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -53,7 +53,7 @@ if (!nodeTrailCsv) {
         nodeTrailCsv = passedParams.nodeTrailCsv;
     }
 }
-    
+
 if (nodeTrailCsv) {
     nodeTrail = ContentWorker.csvToTrail(nodeTrailCsv, delegator);
     context.globalNodeTrail = nodeTrail;
@@ -62,7 +62,7 @@ if (nodeTrailCsv) {
         singleWrapper.putInContext("nodeTrailCsv",nodeTrailCsv);
         // there might be another way to do this, but if the widget form def already has a default-map
         // (such as "currentValue"), then I don't know how to reference another map (defined in the
-        //  field def via "map-name", except to do this. 
+        //  field def via "map-name", except to do this.
         // What I want to do is specify 'map-name=""' and have it use the context main
         Map dummy = singleWrapper.getFromContext("dummy");
         if (!dummy) {

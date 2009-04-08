@@ -27,13 +27,13 @@ dojo.widget.defineWidget(
 
 		templateString: '<div dojoAttachPoint="clipNode"><div dojoAttachPoint="containerNode" dojoAttachEvent="onClick:onSelect"><div dojoAttachPoint="contentNode"></div></div></div>',
 		templateCssPath: dojo.uri.dojoUri("src/widget/templates/Toaster.css"),
-		
+
 		// messageTopic: String
 		//		Name of topic; anything published to this topic will be displayed as a message.
 		//		Message format is either String or an object like
 		//		{message: "hello word", type: "ERROR", delay: 500}
 		messageTopic: "",
-		
+
 		// messageTypes: Enumeration
 		//		Possible message types.
 		messageTypes: {
@@ -42,7 +42,7 @@ dojo.widget.defineWidget(
 			ERROR: "ERROR",
 			FATAL: "FATAL"
 		},
-		
+
 		// defaultType: String
 		//		If message type isn't specified (see "messageTopic" parameter),
 		//		then display message as this type.
@@ -62,11 +62,11 @@ dojo.widget.defineWidget(
 		//		Position from which message slides into screen, one of
 		//		["br-up", "br-left", "bl-up", "bl-right", "tr-down", "tr-left", "tl-down", "tl-right"]
 		positionDirection: "br-up",
-		
+
 		// positionDirectionTypes: Enumeration
 		//		Possible values for positionDirection parameter
 		positionDirectionTypes: ["br-up", "br-left", "bl-up", "bl-right", "tr-down", "tr-left", "tl-down", "tl-right"],
-		
+
 		// showDelay: Integer
 		//		Number of milliseconds to show message
 		// TODO: this is a strange name.  "duration" makes more sense
@@ -129,7 +129,7 @@ dojo.widget.defineWidget(
 			dojo.html.removeClass(this.containerNode, this.fatalCssClass);
 
 			dojo.html.clearOpacity(this.containerNode);
-			
+
 			if(msg instanceof String || typeof msg == "string"){
 				this.contentNode.innerHTML = msg;
 			}else if(dojo.html.isNode(msg)){

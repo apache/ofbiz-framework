@@ -17,7 +17,7 @@ DropDownMenu.prototype = {
 };
 
 Event.observe(window, "load", function(){
-	
+
 });
 
 document.observe('dom:loaded', function(){

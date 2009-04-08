@@ -887,7 +887,7 @@
         <value xml:lang="ru">От сайта:</value>
         <value xml:lang="th">จากที่ทำงาน</value>
         <value xml:lang="zh">来自站点：</value>
-    </property>    
+    </property>
     <property key="EcommerceGeneratedDescription">
         <value xml:lang="en">Generated Description:</value>
         <value xml:lang="fr">Description générée : </value>

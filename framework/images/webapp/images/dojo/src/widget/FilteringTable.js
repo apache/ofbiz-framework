@@ -21,8 +21,8 @@ dojo.require("dojo.widget.*");
 dojo.require("dojo.widget.HtmlWidget");
 
 dojo.widget.defineWidget(
-	"dojo.widget.FilteringTable", 
-	dojo.widget.HtmlWidget, 
+	"dojo.widget.FilteringTable",
+	dojo.widget.HtmlWidget,
 	function(){
 		// summary: A basic tabular data widget that supports sorting and filtering mechanisms.
 		// description:
@@ -103,10 +103,10 @@ dojo.widget.defineWidget(
 	getTypeFromString: function(/* string */s){
 		//	summary
 		//	Gets a function based on the passed string.
-		var parts = s.split("."), i = 0, obj = dj_global; 
-		do{ 
-			obj = obj[parts[i++]]; 
-		} while (i < parts.length && obj); 
+		var parts = s.split("."), i = 0, obj = dj_global;
+		do{
+			obj = obj[parts[i++]];
+		} while (i < parts.length && obj);
 		return (obj != dj_global) ? obj : null;	//	function
 	},
 
@@ -160,7 +160,7 @@ dojo.widget.defineWidget(
 			return a[0];	//	object
 		}
 	},
-	
+
 	isSelected: function(/* object */obj){
 		//	summary
 		//	Returns whether the passed object is currently selected.
@@ -217,7 +217,7 @@ dojo.widget.defineWidget(
 			element.isSelected = false;
 		});
 	},
-	onReset:function(){ 
+	onReset:function(){
 		//	summary
 		//	Stub for onReset event.
 	},
@@ -257,7 +257,7 @@ dojo.widget.defineWidget(
 			element.isSelected = true;
 		});
 	},
-	onDataSelect: function(/* object */obj){ 
+	onDataSelect: function(/* object */obj){
 		//	summary
 		//	Stub for onDataSelect event.
 	},
@@ -296,7 +296,7 @@ dojo.widget.defineWidget(
 			element.isSelected = !element.isSelected;
 		});
 	},
-	onDataToggle: function(/* object */obj){ 
+	onDataToggle: function(/* object */obj){
 		//	summary
 		//	Stub for onDataToggle event.
 	},
@@ -314,11 +314,11 @@ dojo.widget.defineWidget(
 		label:null,
 		align:"left",
 		valign:"middle",
-		getField:function(){ 
-			return this.field || this.label; 
+		getField:function(){
+			return this.field || this.label;
 		},
-		getType:function(){ 
-			return this.dataType; 
+		getType:function(){
+			return this.dataType;
 		}
 	},
 	createMetaData: function(/* object */obj){
@@ -350,7 +350,7 @@ dojo.widget.defineWidget(
 		}
 		for(var i=0; i<cells.length; i++){
 			var o = this.createMetaData({ });
-			
+
 			//	presentation attributes
 			if(dojo.html.hasAttribute(cells[i], "align")){
 				o.align = dojo.html.getAttribute(cells[i],"align");
@@ -400,7 +400,7 @@ dojo.widget.defineWidget(
 					o.filterFunction=f;
 				}
 			}
-			
+
 			this.columns.push(o);
 
 			//	check to see if there's a default sort, and set the properties necessary
@@ -446,10 +446,10 @@ dojo.widget.defineWidget(
 				self["__selected__"].push(obj);
 			}
 		});
-		
+
 		this.store.setData(arr, true);
 		this.render();
-		
+
 		for(var i=0; i<this["__selected__"].length; i++){
 			this.select(this["__selected__"][i]);
 		}
@@ -522,7 +522,7 @@ dojo.widget.defineWidget(
 		//	Sort the table based on the column selected.
 		var oldIndex=this.sortIndex;
 		var oldDirection=this.sortDirection;
-		
+
 		var source=e.target;
 		var row=dojo.html.getParentByType(source,"tr");
 		var cellTag="td";
@@ -532,13 +532,13 @@ dojo.widget.defineWidget(
 
 		var headers=row.getElementsByTagName(cellTag);
 		var header=dojo.html.getParentByType(source,cellTag);
-		
+
 		for(var i=0; i<headers.length; i++){
 			dojo.html.setClass(headers[i], this.headerClass);
 			if(headers[i]==header){
 				if(this.sortInformation[0].index != i){
-					this.sortInformation.unshift({ 
-						index:i, 
+					this.sortInformation.unshift({
+						index:i,
 						direction:0
 					});
 				} else {
@@ -596,13 +596,13 @@ dojo.widget.defineWidget(
 			}
 		}
 		this.applyFilters();
-	}, 
+	},
 	clearFilterByIndex: function(/* number */idx){
 		//	summary
 		//	clear a filtering function on the passed column index.
 		this.columns[idx].filterFunction=this._defaultFilter;
 		this.applyFilters();
-	}, 
+	},
 	clearFilters: function(){
 		//	summary
 		//	clears all filters.
@@ -651,7 +651,7 @@ dojo.widget.defineWidget(
 		//	creates a custom function to be used for sorting.
 		var self=this;
 		var sortFunctions=[];	//	our function stack.
-	
+
 		function createSortFunction(fieldIndex, dir){
 			var meta=self.columns[fieldIndex];
 			var field=meta.getField();
@@ -686,7 +686,7 @@ dojo.widget.defineWidget(
 				if(ret != 0) return ret;
 			}
 			//	if we got here then we must be equal.
-			return 0; 	
+			return 0;
 		};	//	function
 	},
 
@@ -754,7 +754,7 @@ dojo.widget.defineWidget(
 		while (body.childNodes.length > 0){
 			body.removeChild(body.childNodes[0]);
 		}
-		
+
 		if(this.minRows>0){
 			for(var i=0; i < this.minRows; i++){
 				var row = document.createElement("tr");
@@ -796,7 +796,7 @@ dojo.widget.defineWidget(
 			}
 			dojo.html.prependChild(row, head);
 		}
-		
+
 		if(this.store.get().length == 0){
 			return false;
 		}
@@ -899,7 +899,7 @@ dojo.widget.defineWidget(
 	},
 
 	//	widget lifetime handlers
-	initialize: function(){ 
+	initialize: function(){
 		//	summary
 		//	Initializes the widget.
 		var self=this;

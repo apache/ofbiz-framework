@@ -15,11 +15,11 @@ dojo.collections.DictionaryEntry=function(/* string */k, /* object */v){
 	//	return an object of type dojo.collections.DictionaryEntry
 	this.key=k;
 	this.value=v;
-	this.valueOf=function(){ 
+	this.valueOf=function(){
 		return this.value; 	//	object
 	};
-	this.toString=function(){ 
-		return String(this.value);	//	string 
+	this.toString=function(){
+		return String(this.value);	//	string
 	};
 }
 
@@ -115,10 +115,10 @@ dojo.collections.DictionaryIterator=function(/* object */obj){
 			return arr;		//	array
 		}
 	};
-	this.reset=function() { 
+	this.reset=function() {
 		//	summary
 		//	reset the internal cursor.
-		position=0; 
+		position=0;
 		this.element=a[position];
 	};
 };

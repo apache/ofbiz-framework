@@ -125,7 +125,7 @@ under the License.
         <fo:table-cell background-color="#D4D0C8" text-align="right" height="20pt" display-align="center" border-top-style="solid" border-bottom-style="solid">
           <fo:block>${uiLabelMap.ProductOpenQuantity}</fo:block>
         </fo:table-cell>
-      </fo:table-row>        
+      </fo:table-row>
     </fo:table-header>
     <fo:table-body>
 

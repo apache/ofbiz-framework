@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Manufacturing Services - Calendar</description>
     <vendor>OFBiz</vendor>
@@ -43,7 +43,7 @@ under the License.
         <description>Remove a calendar</description>
         <attribute name="calendarId" type="String" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="createCalendarWeek" engine="simple"
             location="component://manufacturing/script/org/ofbiz/manufacturing/techdata/RoutingSimpleServices.xml" invoke="createCalendarWeek">
         <description>Create a Calendar Week</description>

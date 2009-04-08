@@ -41,7 +41,7 @@ with(dojo.render){
 
 dojo.hostenv.println = function(s){
 	try{
-    // FIXME: this may not work with adobe's viewer, as we may first need a 
+    // FIXME: this may not work with adobe's viewer, as we may first need a
 		// reference to the svgDocument
 		// FIXME: need a way to determine where to position the text for this
     var ti = document.createElement("text");
@@ -99,7 +99,7 @@ dojo.hostenv.loadedUris = [];
 dojo.hostenv.modulesLoaded = function(){
 	if(this.modulesLoadedFired){ return; }
 	if((this.loadUriStack.length==0)&&(this.getTextStack.length==0)){
-		if(this.inFlightCount > 0){ 
+		if(this.inFlightCount > 0){
 			dojo.debug("couldn't initialize, there are files still in flight");
 			return;
 		}
@@ -140,7 +140,7 @@ dojo.hostenv.unwindUriStack = function(){
 		}
 	}
 	var next = stack.pop();
-	if((!next)&&(stack.length==0)){ 
+	if((!next)&&(stack.length==0)){
 		return;
 	}
 	for(var x=0; x<stack.length; x++){
@@ -198,7 +198,7 @@ dojo.hostenv.loadUri = function(uri, cb){
 
 		// stack management
 		var next = stack.pop();
-		if((!next)&&(stack.length==0)){ 
+		if((!next)&&(stack.length==0)){
 			dojo.hostenv.modulesLoaded();
 			return;
 		}
@@ -211,7 +211,7 @@ dojo.hostenv.loadUri = function(uri, cb){
 			}
 			next = stack.pop();
 		}
-		if(dojo.hostenv.loadedUris[next[0]]){ 
+		if(dojo.hostenv.loadedUris[next[0]]){
 			// dojo.debug("WE ALREADY HAD: "+next[0]);
 			dojo.hostenv.unwindUriStack();
 			return;
@@ -225,7 +225,7 @@ dojo.hostenv.loadUri = function(uri, cb){
 			}
 
 		}else{
-			if(!contents){ 
+			if(!contents){
 				next[1](false);
 			}else{
 				var deps = dojo.hostenv.getDepsForEval(next[2]);
@@ -241,7 +241,7 @@ dojo.hostenv.loadUri = function(uri, cb){
 }
 
 /**
-* loadModule("A.B") first checks to see if symbol A.B is defined. 
+* loadModule("A.B") first checks to see if symbol A.B is defined.
 * If it is, it is simply returned (nothing to do).
 * If it is not defined, it will look for "A/B.js" in the script root directory, followed
 * by "A.js".
@@ -292,7 +292,7 @@ dojo.hostenv.loadModule = function(modulename, exact_only, omit_module_check){
 	var syms = modulename.split(".");
 	var nsyms = modulename.split(".");
 	if(syms[0]=="dojo"){ // FIXME: need a smarter way to do this!
-		syms[0] = "src"; 
+		syms[0] = "src";
 	}
 	var last = syms.pop();
 	syms.push(last);
@@ -311,10 +311,10 @@ dojo.hostenv.loadModule = function(modulename, exact_only, omit_module_check){
 		}
 
 		var nextTry = function(lastStatus){
-			if(lastStatus){ 
+			if(lastStatus){
 				module = _this.findModule(modulename, false); // pass in false so we can give better error
 				if((!module)&&(syms[syms.length-1]!=pfn)){
-					dojo.raise("Module symbol '" + modulename + "' is not defined after loading '" + relpath + "'"); 
+					dojo.raise("Module symbol '" + modulename + "' is not defined after loading '" + relpath + "'");
 				}
 				if(module){
 					_this.removedFromLoadingCount.push(modulename);
@@ -340,12 +340,12 @@ dojo.hostenv.loadModule = function(modulename, exact_only, omit_module_check){
 
 		var nextTry = function(lastStatus){
 			// dojo.debug("lastStatus: "+lastStatus);
-			if(lastStatus){ 
+			if(lastStatus){
 				// dojo.debug("inital relpath: "+relpath);
 				module = _this.findModule(modulename, false); // pass in false so we can give better error
 				// if(!module){
 				if((!module)&&(syms[syms.length-1]!=pfn)){
-					dojo.raise("Module symbol '" + modulename + "' is not defined after loading '" + relpath + "'"); 
+					dojo.raise("Module symbol '" + modulename + "' is not defined after loading '" + relpath + "'");
 				}
 				if(module){
 					_this.removedFromLoadingCount.push(modulename);
@@ -379,7 +379,7 @@ dojo.hostenv.loadModule = function(modulename, exact_only, omit_module_check){
  * @param async_cb If not specified, returns false as synchronous is not
  * supported. If specified, load asynchronously, and use async_cb as the handler which receives the result of the request.
  * @param fail_ok Default false. If fail_ok and !async_cb and loading fails, return null instead of throwing.
- */ 
+ */
 dojo.hostenv.async_cb = null;
 
 dojo.hostenv.unWindGetTextStack = function(){
@@ -391,14 +391,14 @@ dojo.hostenv.unWindGetTextStack = function(){
 	// to know how to do anything else
 	dojo.hostenv.inFlightCount++;
 	var next = dojo.hostenv.getTextStack.pop();
-	if((!next)&&(dojo.hostenv.getTextStack.length==0)){ 
+	if((!next)&&(dojo.hostenv.getTextStack.length==0)){
 		dojo.hostenv.inFlightCount--;
 		dojo.hostenv.async_cb = function(){};
 		return;
 	}
 	dojo.hostenv.async_cb = next[1];
 	// http = window.getURL(uri, dojo.hostenv.anon[cbn]);
-	window.getURL(next[0], function(result){ 
+	window.getURL(next[0], function(result){
 		dojo.hostenv.inFlightCount--;
 		dojo.hostenv.async_cb(result.content);
 		dojo.hostenv.unWindGetTextStack();
@@ -424,7 +424,7 @@ dojo.hostenv.getText = function(uri, async_cb, fail_ok){
  * Makes an async post to the specified uri.
  *
  * FIXME: Not sure that we need this, but adding for completeness.
- * More details about the implementation of this are available at 
+ * More details about the implementation of this are available at
  * http://wiki.svg.org/index.php/PostUrl
  * @param uri A relative or absolute uri. If absolute, it still must be in the same "domain" as we are.
  * @param async_cb If not specified, returns false as synchronous is not
@@ -433,15 +433,15 @@ dojo.hostenv.getText = function(uri, async_cb, fail_ok){
  * @param fail_ok Default false. If fail_ok and !async_cb and loading fails, return null instead of throwing.
  * @param mime_type optional MIME type of the posted data (such as "text/plain")
  * @param encoding optional encoding for data. null, 'gzip' and 'deflate' are possible values. If browser does not support binary post this parameter is ignored.
- */ 
+ */
 dojo.hostenv.postText = function(uri, async_cb, text, fail_ok, mime_type, encoding){
 	var http = null;
-	
+
 	var async_callback = function(httpResponse){
 		if (!httpResponse.success) {
 			dojo.raise("Request for uri '" + uri + "' resulted in " + httpResponse.status);
 		}
-		
+
 		if(!httpResponse.content) {
 			if (!fail_ok) dojo.raise("Request for uri '" + uri + "' resulted in no content");
 			return null;
@@ -449,7 +449,7 @@ dojo.hostenv.postText = function(uri, async_cb, text, fail_ok, mime_type, encodi
 		// FIXME: wtf, I'm losing a reference to async_cb
 		async_cb(httpResponse.content);
 	}
-	
+
 	try {
 		if(async_cb) {
 			http = window.postURL(uri, text, async_callback, mimeType, encoding);
@@ -469,8 +469,8 @@ dojo.hostenv.postText = function(uri, async_cb, text, fail_ok, mime_type, encodi
  */
 function dj_last_script_src() {
 	var scripts = window.document.getElementsByTagName('script');
-	if(scripts.length < 1){ 
-		dojo.raise("No script elements in window.document, so can't figure out my script src"); 
+	if(scripts.length < 1){
+		dojo.raise("No script elements in window.document, so can't figure out my script src");
 	}
 	var li = scripts.length-1;
 	var xlinkNS = "http://www.w3.org/1999/xlink";

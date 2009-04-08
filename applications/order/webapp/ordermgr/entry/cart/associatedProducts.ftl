@@ -29,11 +29,11 @@ under the License.
     <div class="screenlet-body">
     <table cellspacing="0" cellpadding="1" border="0">
       <#-- random complementary products -->
-      <#list associatedProducts as assocProduct> 
+      <#list associatedProducts as assocProduct>
         <tr>
           <td>
-            ${setRequestAttribute("optProduct", assocProduct)} 
-            ${setRequestAttribute("listIndex", assocProduct_index)}         
+            ${setRequestAttribute("optProduct", assocProduct)}
+            ${setRequestAttribute("listIndex", assocProduct_index)}
             ${screens.render(productsummaryScreen)}
           </td>
         </tr>

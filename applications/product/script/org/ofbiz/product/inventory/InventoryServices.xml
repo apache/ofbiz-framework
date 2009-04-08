@@ -30,7 +30,7 @@ under the License.
         <if-empty field="checkAction">
             <set value="UPDATE" field="checkAction"/>
         </if-empty>
-        
+
         <if>
             <condition>
                 <not>
@@ -61,7 +61,7 @@ under the License.
         <set field="callingMethodName" from-field="parameters.resourceDescription"/>
         <set field="checkAction" from-field="parameters.mainAction"/>
         <call-simple-method method-name="checkFacilityRelatedPermission"/>
-        
+
         <if-empty field="error_list">
             <set field="hasPermission" type="Boolean" value="true"/>
             <field-to-result field="hasPermission"/>
@@ -93,7 +93,7 @@ under the License.
         <if-empty field="error_list">
             <set field="hasPermission" type="Boolean" value="true"/>
             <field-to-result field="hasPermission"/>
-            
+
             <else>
                 <property-to-field resource="ProductUiLabels" property="ProductFacilityPermissionError" field="failMessage"/>
                 <set field="hasPermission" type="Boolean" value="false"/>
@@ -117,7 +117,7 @@ under the License.
         <create-value value-field="inventoryItem"/>
         <field-to-result field="inventoryItem.inventoryItemId" result-name="inventoryItemId"/>
     </simple-method>
-    <simple-method method-name="createInventoryItemCheckSetAtpQoh" short-description="createInventoryItemCheckSetAtpQoh" login-required="false">        
+    <simple-method method-name="createInventoryItemCheckSetAtpQoh" short-description="createInventoryItemCheckSetAtpQoh" login-required="false">
         <if>
             <condition>
                 <or>
@@ -171,7 +171,7 @@ under the License.
                 <check-errors/>
             </if-empty>
         </if-empty>
-        <!-- if inventoryItem's currencyUomId is empty, get the currencyUomId 
+        <!-- if inventoryItem's currencyUomId is empty, get the currencyUomId
              from the party accounting preferences of the owner of the inventory item -->
         <if-empty field="inventoryItem.currencyUomId">
             <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
@@ -190,7 +190,7 @@ under the License.
                 <check-errors/>
             </if-empty>
         </if-empty>
-        <!-- if inventoryItem's unitCost is empty, get the product's standard 
+        <!-- if inventoryItem's unitCost is empty, get the product's standard
              cost by calling the getProductCost service -->
         <if-empty field="inventoryItem.unitCost">
             <set from-field="inventoryItem.productId" field="inputMap.productId"/>
@@ -208,7 +208,7 @@ under the License.
             </add-error>
         </if-empty>
         <check-errors/>
-        <!-- if you don't want inventory item with unitCost = 0, change the operator 
+        <!-- if you don't want inventory item with unitCost = 0, change the operator
              attribute from "less" to "less-equals".
         -->
         <if-compare field="inventoryItem.unitCost" operator="less" value="0" type="BigDecimal">
@@ -266,18 +266,18 @@ under the License.
             <set field="oldInventoryItemStatus.statusEndDatetime" from-field="nowTimestamp"/>
             <store-value value-field="oldInventoryItemStatus"/>
         </if-not-empty>
-        
+
         <make-value value-field="inventoryItemStatus" entity-name="InventoryItemStatus"/>
         <set-nonpk-fields map="parameters" value-field="inventoryItemStatus"/>
         <set-pk-fields map="parameters" value-field="inventoryItemStatus"/>
         <set field="inventoryItemStatus.statusDatetime" from-field="nowTimestamp"/>
-        
+
         <!-- make sure the current productId is set, if not passed in look up the current value -->
         <if-empty field="inventoryItemStatus.productId">
             <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
             <set field="inventoryItemStatus.productId" from-field="inventoryItem.productId"/>
         </if-empty>
-        
+
         <create-value value-field="inventoryItemStatus"/>
     </simple-method>
 
@@ -290,7 +290,7 @@ under the License.
         <field-to-result field="newEntity.inventoryItemDetailSeqId" result-name="inventoryItemDetailSeqId"/>
 
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        
+
         <!-- set the effectiveDate; if from an ItemIssuance lookup the issuedDateTime -->
         <if-not-empty field="parameters.itemIssuanceId">
             <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
@@ -377,7 +377,7 @@ under the License.
             </if>
         </if-compare>
     </simple-method>
-    
+
     <simple-method method-name="updateOldInventoryToDetailAll" short-description="Update Old Inventory To Detail All">
         <!-- find all InventoryItem records where oldQuantityOnHand or oldAvailableToPromise are not null -->
         <entity-condition entity-name="InventoryItem" list="inventoryItemList">
@@ -424,7 +424,7 @@ under the License.
                 </if-empty>
             </if-compare>
         </if-not-empty>
-        
+
         <!-- before checking inventory availability see if the product is already discontinued, and discontinued in the past (if in the future, still check availability and discontinue now if necessary) -->
         <if>
             <condition>
@@ -446,7 +446,7 @@ under the License.
                     <set from-field="parameters.productId" field="discontinueProductSalesMap.productId"/>
                     <call-service service-name="discontinueProductSales" in-map-name="discontinueProductSalesMap"/>
                 </if-compare>
-                                
+
                 <!-- check if related virtual product has no variant left, if yes discontinue the virtual product too when salesDiscWhenNotAvail is 'Y'-->
                 <if-not-empty field="virtProduct">
                     <if-compare field="virtProduct.salesDiscWhenNotAvail" operator="equals" value="Y">
@@ -460,7 +460,7 @@ under the License.
                         </if-empty>
                     </if-compare>
                 </if-not-empty>
-                
+
             </then>
         </if>
     </simple-method>
@@ -590,7 +590,7 @@ under the License.
 
         <!-- FIXME: this is an hack to get all the items with a null location:
                     if the parameters.locationSeqId string is equal to "nullField" then
-                    set the lookupFieldMap.locationSeqId to null 
+                    set the lookupFieldMap.locationSeqId to null
         -->
         <if-compare field="parameters.locationSeqId" operator="equals" value="nullField">
             <set from-field="nullField" field="lookupFieldMap.locationSeqId"/>
@@ -600,10 +600,10 @@ under the License.
         <set from-field="parameters.productId" field="lookupFieldMap.productId"/>
         <set from-field="parameters.facilityId" field="lookupFieldMap.facilityId"/>
         <set from-field="parameters.locationSeqId" field="lookupFieldMap.locationSeqId"/>
-        <set from-field="parameters.containerId" field="lookupFieldMap.containerId"/>        
-        <!-- we might get away with a cache here since real serious errors will occur during the reservation service... but only if we need the speed -->        
+        <set from-field="parameters.containerId" field="lookupFieldMap.containerId"/>
+        <!-- we might get away with a cache here since real serious errors will occur during the reservation service... but only if we need the speed -->
         <find-by-and entity-name="InventoryItem" map="lookupFieldMap" list="inventoryItems" use-iterator="true" use-cache="${parameters.useCache}"/>
-        
+
         <set field="parameters.availableToPromiseTotal" value="0" type="BigDecimal"/>
         <set field="parameters.quantityOnHandTotal" value="0" type="BigDecimal"/>
         <iterate entry="inventoryItem" list="inventoryItems">
@@ -692,11 +692,11 @@ under the License.
         <!--  find their current reservations -->
         <set field="reserveQtyAccum" value="0" type="Double"/>
         <iterate list="inventoryItems" entry="item">
-            <!-- If quantityOnHandTotal is not equal to availableToPromiseTotal this means that 
+            <!-- If quantityOnHandTotal is not equal to availableToPromiseTotal this means that
                  there are pending reservations on the item that cause availableToPromiseTotal
                  to be lower than the quantityOnHandTotal (the opposite can never happen).
                  In fact, if availableToPromiseTotal is negative, this doesn't mean that there are reservations;
-                 for example, if we have a negative quantityOnHandTotal and quantityOnHandTotal equal to 
+                 for example, if we have a negative quantityOnHandTotal and quantityOnHandTotal equal to
                  availableToPromiseTotal, then no reservations are present.
             -->
             <if>
@@ -720,7 +720,7 @@ under the License.
                 <!-- only cancel/re-reserve when there are no picklists associated; this will prevent
                      orders appearing on duplicate pick lists -->
                 <if-empty field="picklistItemList">
-                    <log level="info" message="Order [${item.orderId}] was not found on any picklist for InventoryItem [${item.inventoryItemId}]"/>                                                                   
+                    <log level="info" message="Order [${item.orderId}] was not found on any picklist for InventoryItem [${item.inventoryItemId}]"/>
                     <if>
                         <condition>
                             <and>
@@ -780,14 +780,14 @@ under the License.
                 </else>
             </if-empty>
         </iterate>
-        
+
         <!-- now go through touchedOrderIdMap keys and make a Set/Map of orderIds that are no longer on back-order -->
         <iterate-map key="touchedOrderId" value="throwAwayValue" map="touchedOrderIdMap">
             <set field="checkOrderIsOnBackOrderMap.orderId" from-field="touchedOrderId"/>
             <call-service service-name="checkOrderIsOnBackOrder" in-map-name="checkOrderIsOnBackOrderMap">
                 <result-to-field result-name="isBackOrder"/>
             </call-service>
-            
+
             <if-compare field="isBackOrder" operator="equals" value="false" type="Boolean">
                 <set field="noLongerOnBackOrderIdMap.${touchedOrderId}" value="Y"/>
             </if-compare>
@@ -878,8 +878,8 @@ under the License.
             </if-not-empty>
             <entity-one entity-name="OrderHeader" value-field="orderHeader">
                 <field-map field-name="orderId" from-field="oisgir.orderId"/>
-            </entity-one>            
-            
+            </entity-one>
+
             <!-- require inventory is N because it had to be N to begin with to have a negative ATP -->
             <clear-field field="resMap"/>
             <set field="resMap.productId" from-field="parameters.productId"/>
@@ -896,14 +896,14 @@ under the License.
             <log level="info" message="Re-reserving product [${resMap.productId}] for order item [${resMap.orderId}:${resMap.orderItemSeqId}] quantity [${resMap.quantity}]; facility [${parameters.facilityId}]"/>
             <call-service service-name="reserveProductInventoryByFacility" in-map-name="resMap"/>
         </iterate>
-        
+
         <!-- now go through touchedOrderIdMap keys and make a Set/Map of orderIds that are no longer on back-order -->
         <iterate-map key="touchedOrderId" value="throwAwayValue" map="touchedOrderIdMap">
             <set field="checkOrderIsOnBackOrderMap.orderId" from-field="touchedOrderId"/>
             <call-service service-name="checkOrderIsOnBackOrder" in-map-name="checkOrderIsOnBackOrderMap">
                 <result-to-field result-name="isBackOrder"/>
             </call-service>
-            
+
             <if-compare field="isBackOrder" operator="equals" value="false" type="Boolean">
                 <set field="noLongerOnBackOrderIdMap.${touchedOrderId}" value="Y"/>
             </if-compare>
@@ -1027,7 +1027,7 @@ under the License.
                 </else>
                 </if-compare>
                 <set field="orderByList[]" from-field="orderByString"/>
-                                                    
+
                 <set from-field="parameters.quantity" field="quantityNotTransferred"/>
 
                 <!-- first transfer InventoryItems in FLT_PICKLOC type locations, then FLT_BULK locations, then InventoryItems with no locations -->
@@ -1149,14 +1149,14 @@ under the License.
 
         <field-to-result field="quantityNotTransferred"/>
     </simple-method>
-    
+
     <!-- Inventory Label Services -->
     <simple-method method-name="createInventoryItemLabelType" short-description="Create an InventoryItemLabelType">
         <make-value entity-name="InventoryItemLabelType" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-    </simple-method>   
+    </simple-method>
     <simple-method method-name="updateInventoryItemLabelType" short-description="Update an InventoryItemLabelType">
         <entity-one entity-name="InventoryItemLabelType" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -1171,7 +1171,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-    </simple-method>   
+    </simple-method>
     <simple-method method-name="updateInventoryItemLabel" short-description="Update an InventoryItemLabel">
         <entity-one entity-name="InventoryItemLabel" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -1188,7 +1188,7 @@ under the License.
         <entity-one entity-name="InventoryItemLabel" value-field="inventoryItemLabel"/>
         <set field="newEntity.inventoryItemLabelTypeId" from-field="inventoryItemLabel.inventoryItemLabelTypeId"/>
         <create-value value-field="newEntity"/>
-    </simple-method>   
+    </simple-method>
     <simple-method method-name="updateInventoryItemLabelAppl" short-description="Update an InventoryItemLabel">
         <entity-one entity-name="InventoryItemLabelAppl" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -1198,7 +1198,7 @@ under the License.
         <entity-one entity-name="InventoryItemLabelAppl" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
- 
+
     <!-- Test Physical Inventory Adjustment -->
     <simple-method method-name="testPhysicalInventoryAdjustment" short-description="Test to create physical inventory and variance" login-required="false">
         <log level="info" message="====================Create physical inventory and variance test case================================"/>
@@ -1253,9 +1253,9 @@ under the License.
                 <call-service service-name="updateInventoryItem" in-map-name="updateContext"/>
             </if-compare>
         </if-not-empty>
-    </simple-method>    
+    </simple-method>
     <simple-method method-name="setOrderReservationPriority" short-description="Sets priority of an order for Inventory Reservation, orders with HIGH priority would be served first.">
-        <set field="orderId" from-field="parameters.orderId"/>       
+        <set field="orderId" from-field="parameters.orderId"/>
         <entity-one entity-name="OrderHeader" value-field="orderHeader">
             <field-map field-name="orderId" from-field="orderId"/>
         </entity-one>
@@ -1266,16 +1266,16 @@ under the License.
             </entity-and>
             <iterate entry="oisgir" list="oisgirs">
                 <set field="oisgir.priority" default-value="2"/>
-                <store-value value-field="oisgir"/>       
-            </iterate> 
+                <store-value value-field="oisgir"/>
+            </iterate>
             <set field="orderHeader.priority" default-value="2"/>
-            <store-value value-field="orderHeader"/>        
+            <store-value value-field="orderHeader"/>
         <else>
             <set field="orderHeader.priority" from-field="priority"/>
             <store-value value-field="orderHeader"/>
             <entity-and list="oisgirs" entity-name="OrderItemShipGrpInvRes">
                 <field-map field-name="orderId" from-field="orderId"/>
-            </entity-and> 
+            </entity-and>
             <iterate entry="oisgir" list="oisgirs">
                 <set field="oisgir.priority" from-field="priority"/>
                 <store-value value-field="oisgir"/>
@@ -1289,7 +1289,7 @@ under the License.
                 <set field="reassignInventoryReservationsCtx.facilityId" from-field="oisgir.facilityId"/>
                 <call-service service-name="reassignInventoryReservations" in-map-name="reassignInventoryReservationsCtx"/>
                 <clear-field field="reassignInventoryReservationsCtx"/>
-            </iterate>        
+            </iterate>
         </else>
         </if-empty>
     </simple-method>

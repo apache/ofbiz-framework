@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ProductPrice methods -->
     <simple-method method-name="createProductPrice" short-description="Create an ProductPrice">
@@ -99,7 +99,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id sequence-name="ProductPriceChange" field="productPriceChangeId"/>
-        <set field="newEntity.productPriceChangeId" from-field="productPriceChangeId"/>    
+        <set field="newEntity.productPriceChangeId" from-field="productPriceChangeId"/>
         <now-timestamp field="nowTimestamp"/>
         <set field="newEntity.changedDate" from-field="nowTimestamp"/>
         <set field="newEntity.changedByUserLogin" from-field="userLogin.userLoginId"/>
@@ -117,8 +117,8 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>  
-    </simple-method>   
+        <create-value value-field="newEntity"/>
+    </simple-method>
     <simple-method method-name="updateProductPaymentMethodType" short-description="update a ProductPaymentMethodType">
         <set field="callingMethodName" value="updateProductPaymentMethodType"/>
         <set field="checkAction" value="UPDATE"/>
@@ -136,7 +136,7 @@ under the License.
         <entity-one entity-name="ProductPaymentMethodType" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- ProductPriceRule methods -->
     <simple-method method-name="createProductPriceRule" short-description="Create an ProductPriceRule">
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductPriceRule you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>

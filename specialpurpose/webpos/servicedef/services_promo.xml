@@ -21,8 +21,8 @@ under the License.
     <description>Web Pos Promotions Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
-    
-    <service name="addPromoCode" engine="simple" auth="false" 
+
+    <service name="addPromoCode" engine="simple" auth="false"
              location="component://webpos/script/org/ofbiz/webpos/event/PromoEvents.xml" invoke="addPromoCode">
         <description>Add Promotion Code</description>
         <attribute name="promoCode" type="String" mode="IN" optional="false"/>

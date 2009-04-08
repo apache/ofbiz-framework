@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
   <!-- ========================================================= -->
   <!-- ======================== Defaults ======================= -->
@@ -124,7 +124,7 @@ under the License.
         <key-map field-name="roleTypeId"/>
       </relation>
     </entity>
-  
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.workeffort.workeffort -->
   <!-- ========================================================= -->
@@ -227,9 +227,9 @@ under the License.
       <field name="quantityToProduce" type="floating-point"></field>
       <field name="quantityProduced" type="floating-point"></field>
       <field name="quantityRejected" type="floating-point"></field>
-      <field name="reservPersons" type="floating-point"><description>the number of persons renting the attached asset</description></field>   
+      <field name="reservPersons" type="floating-point"><description>the number of persons renting the attached asset</description></field>
       <field name="reserv2ndPPPerc" type="floating-point"><description>reservationSecondPersonPricePercentage: percentage of the end price for the 2nd person renting this asset connected to the workEffort</description></field>
-      <field name="reservNthPPPerc" type="floating-point"><description>reservationNthPersonPricePercentage: percentage of the end price for the Nth (2+) person renting this asset connected to the workEffort</description></field>      
+      <field name="reservNthPPPerc" type="floating-point"><description>reservationNthPersonPricePercentage: percentage of the end price for the Nth (2+) person renting this asset connected to the workEffort</description></field>
       <field name="accommodationMapId" type="id"/>
       <field name="accommodationSpotId" type="id"/>
       <field name="revisionNumber" type="numeric"></field>
@@ -282,10 +282,10 @@ under the License.
       </relation>
       <relation type="one" fk-name="WK_EFFRT_ACC_MAP" rel-entity-name="AccommodationMap">
         <key-map field-name="accommodationMapId"/>
-      </relation>  
+      </relation>
       <relation type="one" fk-name="WK_EFFRT_ACC_SPOT" rel-entity-name="AccommodationSpot">
         <key-map field-name="accommodationSpotId"/>
-      </relation>               
+      </relation>
     </entity>
     <entity entity-name="WorkEffortAssoc"
             package-name="org.ofbiz.workeffort.workeffort"
@@ -629,7 +629,7 @@ under the License.
             <key-map field-name="costComponentCalcId"/>
         </relation>
     </entity>
-    
+
     <entity entity-name="WorkEffortKeyword" package-name="org.ofbiz.workeffort.workeffort" title="WorkEffort Keyword Entity" never-cache="true">
         <field name="workEffortId" type="id-ne"></field>
         <field name="keyword" type="short-varchar"></field>

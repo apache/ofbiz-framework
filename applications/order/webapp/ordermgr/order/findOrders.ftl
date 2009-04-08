@@ -78,7 +78,7 @@ function runAction() {
         <#if orderList?exists><li><a href="<@ofbizUrl>searchorders?hideFields=Y&viewSize=${viewSize}&viewIndex=${viewIndex}&${paramList}</@ofbizUrl>">${uiLabelMap.CommonHideFields}</a></li></#if>
         <li><a href="/partymgr/control/findparty?externalLoginKey=${requestAttributes.externalLoginKey?if_exists}">${uiLabelMap.PartyLookupParty}</a></li>
         <li><a href="javascript:lookupOrders(true);">${uiLabelMap.OrderLookupOrder}</a></li>
-      </#if>      
+      </#if>
     </ul>
     <br class="clear"/>
   </div>
@@ -234,7 +234,7 @@ function runAction() {
                 </td>
               </tr>
               <tr>
-                <td width='25%' align='right' class='label'>${uiLabelMap.CommonStatus}</td>                
+                <td width='25%' align='right' class='label'>${uiLabelMap.CommonStatus}</td>
                 <td width='5%'>&nbsp;</td>
                 <td align='left'>
                   <select name='orderStatusId'>
@@ -293,13 +293,13 @@ function runAction() {
                     <tr>
                       <td nowrap>
                         <input type="checkbox" name="filterInventoryProblems" value="Y"
-                            <#if requestParameters.filterInventoryProblems?default("N") == "Y">checked="checked"</#if> />                    
+                            <#if requestParameters.filterInventoryProblems?default("N") == "Y">checked="checked"</#if> />
                       </td>
                     </tr>
                   </table>
                 </td>
               </tr>
-              <tr>                                      
+              <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPartiallyReceivedPOs}</td>
                 <td width='5%'>&nbsp;</td>
                 <td align='left'>
@@ -307,12 +307,12 @@ function runAction() {
                     <tr>
                       <td nowrap>
                         <input type="checkbox" name="filterPartiallyReceivedPOs" value="Y"
-                            <#if requestParameters.filterPartiallyReceivedPOs?default("N") == "Y">checked="checked"</#if> />                    
+                            <#if requestParameters.filterPartiallyReceivedPOs?default("N") == "Y">checked="checked"</#if> />
                       </td>
                     </tr>
                   </table>
                 </td>
-              </tr>                            
+              </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPOsOpenPastTheirETA}</td>
                 <td width='5%'>&nbsp;</td>
@@ -321,12 +321,12 @@ function runAction() {
                     <tr>
                       <td nowrap>
                         <input type="checkbox" name="filterPOsOpenPastTheirETA" value="Y"
-                            <#if requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y">checked="checked"</#if> />                    
+                            <#if requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y">checked="checked"</#if> />
                       </td>
                     </tr>
                   </table>
                 </td>
-              </tr>                            
+              </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.OrderFilterOn} ${uiLabelMap.OrderFilterPOs} ${uiLabelMap.OrderFilterPOsWithRejectedItems}</td>
                 <td width='5%'>&nbsp;</td>
@@ -335,12 +335,12 @@ function runAction() {
                     <tr>
                       <td nowrap>
                         <input type="checkbox" name="filterPOsWithRejectedItems" value="Y"
-                            <#if requestParameters.filterPOsWithRejectedItems?default("N") == "Y">checked="checked"</#if> />                    
+                            <#if requestParameters.filterPOsWithRejectedItems?default("N") == "Y">checked="checked"</#if> />
                       </td>
                     </tr>
                   </table>
                 </td>
-              </tr>                            
+              </tr>
               <tr><td colspan="3"><hr/></td></tr>
               <tr>
                 <td width='25%' align='right'>&nbsp;</td>
@@ -391,7 +391,7 @@ document.lookuporder.orderId.focus();
     <br class="clear" />
   </div>
   <div class="screenlet-body">
-    <form name="massOrderChangeForm" method="post" action="javascript:void();">      
+    <form name="massOrderChangeForm" method="post" action="javascript:void();">
       <div>&nbsp;</div>
       <div align="right">
         <input type="hidden" name="orderIdList" value=""/>
@@ -431,12 +431,12 @@ document.lookuporder.orderId.focus();
           <td width="10%" align="right">${uiLabelMap.OrderRemainingSubTotal}</td>
           <td width="10%" align="right">${uiLabelMap.OrderOrderTotal}</td>
           <td width="5%">&nbsp;</td>
-            <#if (requestParameters.filterInventoryProblems?default("N") == "Y") || (requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y") || (requestParameters.filterPOsWithRejectedItems?default("N") == "Y") || (requestParameters.filterPartiallyReceivedPOs?default("N") == "Y")> 
+            <#if (requestParameters.filterInventoryProblems?default("N") == "Y") || (requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y") || (requestParameters.filterPOsWithRejectedItems?default("N") == "Y") || (requestParameters.filterPartiallyReceivedPOs?default("N") == "Y")>
               <td width="15%">${uiLabelMap.CommonStatus}</td>
               <td width="5%">${uiLabelMap.CommonFilter}</td>
             <#else>
               <td width="20%">${uiLabelMap.CommonStatus}</td>
-            </#if>          
+            </#if>
           <td width="20%">${uiLabelMap.OrderDate}</td>
           <td width="5%">${uiLabelMap.PartyPartyId}</td>
           <td width="10%">&nbsp;</td>
@@ -501,22 +501,22 @@ document.lookuporder.orderId.focus();
               <td>&nbsp;</td>
               <td>${statusItem.get("description",locale)?default(statusItem.statusId?default("N/A"))}</td>
               </td>
-              <#if (requestParameters.filterInventoryProblems?default("N") == "Y") || (requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y") || (requestParameters.filterPOsWithRejectedItems?default("N") == "Y") || (requestParameters.filterPartiallyReceivedPOs?default("N") == "Y")> 
+              <#if (requestParameters.filterInventoryProblems?default("N") == "Y") || (requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y") || (requestParameters.filterPOsWithRejectedItems?default("N") == "Y") || (requestParameters.filterPartiallyReceivedPOs?default("N") == "Y")>
                   <td>
                       <#if filterInventoryProblems.contains(orderHeader.orderId)>
-                        Inv&nbsp;                      
+                        Inv&nbsp;
                       </#if>
                       <#if filterPOsOpenPastTheirETA.contains(orderHeader.orderId)>
-                        ETA&nbsp;                      
+                        ETA&nbsp;
                       </#if>
                       <#if filterPOsWithRejectedItems.contains(orderHeader.orderId)>
-                        Rej&nbsp;                      
+                        Rej&nbsp;
                       </#if>
                       <#if filterPartiallyReceivedPOs.contains(orderHeader.orderId)>
-                        Part&nbsp;                      
-                      </#if>                      
+                        Part&nbsp;
+                      </#if>
                   </td>
-              </#if>              
+              </#if>
               <td>${orderHeader.getString("orderDate")}</td>
               <td>
                 <#if partyId != "_NA_">

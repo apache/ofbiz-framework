@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    
+
     <!-- Custom apps can use their own invoice decorator by specifying its
          location in parameters.invoiceDecoratorLocation -->
     <screen name="CommonInvoiceDecorator">
@@ -52,9 +52,9 @@ under the License.
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.AccountingViewPermissionError}</label>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
-                   
+
                 </decorator-screen>
             </widgets>
         </section>
@@ -110,7 +110,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="NewSalesInvoice" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                             </widgets>
                                         </section>
@@ -124,7 +124,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="NewPurchaseInvoice" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                             </widgets>
                                         </section>
@@ -166,12 +166,12 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="EditInvoice" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                             </widgets>
                                         </section>
                                     </container>
-                                </container>                                
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <container style="screenlet">
@@ -182,12 +182,12 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="invoiceHeader" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                             </widgets>
                                         </section>
                                     </container>
-                                </container>                                
+                                </container>
                             </fail-widgets>
                         </section>
                     </decorator-section>
@@ -195,7 +195,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="invoiceOverview">
         <section>
             <actions>
@@ -245,7 +245,7 @@ under the License.
                                     <screenlet title="${uiLabelMap.AccountingInvoiceStatus}" navigation-form-name="ListInvoiceStatus">
                                         <include-form name="ListInvoiceStatus" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                     </screenlet>
-                                    <screenlet title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}" 
+                                    <screenlet title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}"
                                         navigation-form-name="ListInvoiceApplications">
                                         <container>
                                             <link target="editInvoiceApplications" text="${uiLabelMap.CommonUpdate}" style="buttontext">
@@ -305,7 +305,7 @@ under the License.
                                     <screenlet title="${uiLabelMap.AccountingInvoiceStatus}" navigation-form-name="ListInvoiceStatus">
                                         <include-form name="ListInvoiceStatus" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                     </screenlet>
-                                    <screenlet title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}" 
+                                    <screenlet title="${uiLabelMap.AccountingAppliedPayments} ${appliedAmount?currency(${invoice.currencyUomId})} ${uiLabelMap.AccountingOpenPayments} ${notAppliedAmount?currency(${invoice.currencyUomId})}"
                                         navigation-form-name="ListInvoiceApplications">
                                         <include-form name="ListInvoiceApplications" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                     </screenlet>
@@ -343,7 +343,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="InvoiceStatus">
         <section>
             <actions>
@@ -367,7 +367,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListInvoiceStatus" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                     </widgets>
                                 </section>
@@ -384,7 +384,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleListEditInvoiceApplications"/>
                 <set field="tabButtonItem" value="editInvoiceApplications"/>
-                
+
                 <set field="invoiceId" from-field="parameters.invoiceId"/>
                 <entity-one entity-name="Invoice" value-field="invoice"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/CreateApplicationList.groovy"/>
@@ -448,7 +448,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="AddPayment" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                             </widgets>
                                         </section>
@@ -506,7 +506,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditInvoiceItems" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                     </widgets>
                                 </section>
@@ -523,7 +523,7 @@ under the License.
                                     <condition>
                                         <not><if-compare field="invoice.invoiceTypeId" operator="equals" value="PAYROL_INVOICE"/></not>
                                     </condition>
-                                    <widgets>  
+                                    <widgets>
                                         <include-form name="EditInvoiceItem" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                     </widgets>
                                     <fail-widgets>
@@ -561,7 +561,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditTimeEntries" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                     </widgets>
                                 </section>
@@ -572,7 +572,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="InvoiceRoles">
         <section>
             <actions>
@@ -617,7 +617,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="SendPerEmail" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                     </widgets>
                                 </section>
@@ -636,11 +636,11 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ListCustomerInvoices">
         <section>
             <actions>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>                
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>
                 <entity-condition list="invoices" entity-name="Invoice">
                     <condition-list combine="and">
                         <condition-expr field-name="partyId" operator="equals" from-field="myCompanyId"/>
@@ -661,5 +661,5 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
 </screens>

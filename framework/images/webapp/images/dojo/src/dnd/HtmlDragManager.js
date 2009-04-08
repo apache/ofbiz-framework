@@ -104,7 +104,7 @@ dojo.declare("dojo.dnd.HtmlDragManager", dojo.dnd.DragManager, {
 			// so we can drag links
 			if(dojo.render.html.ie){
 				//dojo.profile.start("register DragSource IE");
-				
+
 				dojo.event.browser.addListener(ds.domNode, "ondragstart", this.cancelEvent);
 				// terribly slow
 				//dojo.event.connect(ds.domNode, "ondragstart", this.cancelEvent);
@@ -125,7 +125,7 @@ dojo.declare("dojo.dnd.HtmlDragManager", dojo.dnd.DragManager, {
 			delete this.dragSources[dpIdx];
 			ds.domNode.setAttribute(dp, null);
 			if(dojo.render.html.ie){
-				dojo.event.browser.removeListener(ds.domNode, "ondragstart", this.cancelEvent);			
+				dojo.event.browser.removeListener(ds.domNode, "ondragstart", this.cancelEvent);
 			}
 		}
 	},
@@ -144,7 +144,7 @@ dojo.declare("dojo.dnd.HtmlDragManager", dojo.dnd.DragManager, {
 	/**
 	* Get the DOM element that is meant to drag.
 	* Loop through the parent nodes of the event target until
-	* the element is found that was created as a DragSource and 
+	* the element is found that was created as a DragSource and
 	* return it.
 	*
 	* @param event object The event for which to get the drag source.
@@ -185,7 +185,7 @@ dojo.declare("dojo.dnd.HtmlDragManager", dojo.dnd.DragManager, {
 
 		// find a selection object, if one is a parent of the source node
 		var ds = this.getDragSource(e);
-		
+
 		// this line is important.  if we aren't selecting anything then
 		// we need to return now, so preventDefault() isn't called, and thus
 		// the event is propogated to other handling code
@@ -224,7 +224,7 @@ dojo.declare("dojo.dnd.HtmlDragManager", dojo.dnd.DragManager, {
 		// let ctrl be used for multiselect or another action
 		// if I use same key to trigger treeV3 node selection and here,
 		// I have bugs with drag'n'drop. why ?? no idea..
-		if((!e.shiftKey)&&(!e.ctrlKey)){ 
+		if((!e.shiftKey)&&(!e.ctrlKey)){
 		//if(!e.shiftKey){
 			if(this.currentDropTarget) {
 				this.currentDropTarget.onDropStart();
@@ -261,12 +261,12 @@ dojo.declare("dojo.dnd.HtmlDragManager", dojo.dnd.DragManager, {
 				// while the mouse doesnt "hold" the dragged object anymore ... and so on
 				dojo.lang.delayThese([
 					function() {
-						// in FF1.5 this throws an exception, see 
+						// in FF1.5 this throws an exception, see
 						// http://dojotoolkit.org/pipermail/dojo-interest/2006-April/006751.html
 						try{
 							tempDragObj.dragSource.onDragEnd(e)
 						} catch(err) {
-							// since the problem seems passing e, we just copy all 
+							// since the problem seems passing e, we just copy all
 							// properties and try the copy ...
 							var ecopy = {};
 							for (var i in e) {
@@ -375,7 +375,7 @@ dojo.declare("dojo.dnd.HtmlDragManager", dojo.dnd.DragManager, {
 			// selectedSources (elements that move along) then the first one is the master
 			// and for it the events will be fired etc.
 			this.dragSource = this.selectedSources[0];
-			
+
 			dojo.lang.forEach(this.selectedSources, function(tempSource){
 				if(!tempSource){ return; }
 				var tdo = tempSource.onDragStart(e);
@@ -500,7 +500,7 @@ dojo.dnd.dragManager = new dojo.dnd.HtmlDragManager();
 	dojo.event.connect(d, "onmouseout", dm, "onMouseOut");
 	dojo.event.connect(d, "onmousedown", dm, "onMouseDown");
 	dojo.event.connect(d, "onmouseup", dm, "onMouseUp");
-	// TODO: process scrolling of elements, not only window (focus manager would 
+	// TODO: process scrolling of elements, not only window (focus manager would
 	// probably come to rescue here as well)
 	dojo.event.connect(window, "onscroll", dm, "onScroll");
 })();

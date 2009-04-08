@@ -82,5 +82,5 @@ under the License.
         <set field="primaryPermission" value="VISUALTHEME"/>
         <call-simple-method method-name="genericBasePermissionCheck"/>
     </simple-method>
-    
+
 </simple-methods>

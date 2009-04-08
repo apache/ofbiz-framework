@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="UserJobs">
         <section>
@@ -49,7 +49,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="FilterUserJobs" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                                 <include-form name="UserJobsList" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                             </widgets>
@@ -71,7 +71,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="task"/>
                 <set field="titleProperty" value="PageTitleViewActivityAndTaskList"/>
-                
+
                 <service service-name="getWorkEffortAssignedActivities"/>
                 <service service-name="getWorkEffortAssignedActivitiesByRole"/>
                 <service service-name="getWorkEffortAssignedActivitiesByGroup"/>
@@ -96,7 +96,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditWorkEffort">
         <section>
             <actions>
@@ -125,7 +125,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                    <include-form name="EditWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                             </widgets>
                                         </section>
@@ -141,7 +141,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                    <container>
                                                         <link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort" style="buttontext">
                                                             <parameter param-name="DONE_PAGE" from-field="donePage"/>
@@ -151,7 +151,7 @@ under the License.
                                             </widgets>
                                         </section>
                                     </container>
-                                </container>                                
+                                </container>
                             </fail-widgets>
                         </section>
                         <container style="screenlet">
@@ -162,14 +162,14 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <platform-specific>
                                             <html><html-template location="component://workeffort/webapp/workeffort/workeffort/EditWorkEffortDupForm.ftl"/></html>
                                         </platform-specific>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -194,7 +194,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort" style="buttontext">
                                             <parameter param-name="DONE_PAGE" from-field="donePage"/>
                                         </link>
@@ -209,7 +209,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ListWorkEfforts">
         <section>
             <actions>
@@ -221,7 +221,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.PageTitleListWorkEfforts}" navigation-form-name="ListWorkEfforts"> 
+                        <screenlet title="${uiLabelMap.PageTitleListWorkEfforts}" navigation-form-name="ListWorkEfforts">
                             <include-form name="ListWorkEfforts" location="component://workeffort/widget/WorkEffortForms.xml"/>
                         </screenlet>
                     </decorator-section>
@@ -249,7 +249,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <container>
                                             <link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort" style="buttontext">
                                                 <parameter param-name="DONE_PAGE" from-field="donePage"/>
@@ -272,7 +272,7 @@ under the License.
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="ChildWorkEfforts?workEffortId=${workEffort.workEffortId}"/>
             </actions>
-            <widgets> 
+            <widgets>
                 <label text=" ${workEffort.workEffortName} - ${workEffort.description}" style="tabletext"/>
                 <link target="EditWorkEffort" text="${workEffort.workEffortId}" style="buttontext">
                     <parameter param-name="workEffortId" from-field="workEffort.workEffortId"/>
@@ -315,7 +315,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="AddWorkEffortAndAssoc">
         <section>
             <actions>
@@ -339,7 +339,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="AddWorkEffortAndAssoc" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                     </widgets>
                                 </section>
@@ -378,7 +378,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditWorkEffortAndAssoc" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                     </widgets>
                                 </section>
@@ -411,7 +411,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="AddWorkEffortAssoc" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                     </widgets>
                                 </section>
@@ -446,7 +446,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditWorkEffortAssoc" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                     </widgets>
                                 </section>
@@ -464,7 +464,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
                 <set field="tabButtonItem" value="WorkEffortPartyAssigns"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
-                
+
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment"/>
             </actions>
@@ -508,7 +508,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortAssignmentRates"/>
                 <set field="tabButtonItem" value="WorkEffortRates"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortAssignmentRates"/>
-                
+
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
@@ -529,7 +529,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortCommEvents"/>
                 <set field="tabButtonItem" value="WorkEffortCommEvents"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortCommEvents"/>
-                
+
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
@@ -550,7 +550,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortShopLists"/>
                 <set field="tabButtonItem" value="WorkEffortShopLists"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortShopLists"/>
-                
+
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
@@ -565,14 +565,14 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ListWorkEffortRequests">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListWorkEffortRequests"/>
                 <set field="tabButtonItem" value="WorkEffortRequests"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortRequests"/>
-                
+
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
@@ -597,7 +597,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortRequirements"/>
                 <set field="tabButtonItem" value="WorkEffortRequirements"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortRequirements"/>
-                
+
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/workeffort/control/ListWorkEfforts"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
@@ -620,7 +620,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortQuotes"/>
                 <set field="tabButtonItem" value="WorkEffortQuotes"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortQuotes"/>
-                
+
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
@@ -645,7 +645,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortOrderHeaders"/>
                 <set field="tabButtonItem" value="WorkEffortOrderHeaders"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortOrderHeaders"/>
-                
+
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
@@ -666,7 +666,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortTimeEntries"/>
                 <set field="tabButtonItem" value="WorkEffortTimeEntries"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortTimeEntries"/>
-                
+
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
@@ -683,13 +683,13 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="AddWorkEffortTimeEntry" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
                         </container>
-                        
+
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
@@ -698,7 +698,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="AddWorkEffortTimeToInvoice" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                     </widgets>
                                 </section>
@@ -712,7 +712,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditWorkEffortNotes">
         <section>
             <actions>
@@ -775,7 +775,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditWorkEffortReviews">
         <section>
             <actions>
@@ -856,7 +856,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="WorkEffortSearchOptions">
         <section>
             <actions>
@@ -972,5 +972,5 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
 </screens>

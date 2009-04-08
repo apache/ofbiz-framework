@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
     <!-- ========================================================= -->
     <!-- ======================== Defaults ======================= -->
@@ -39,14 +39,14 @@ under the License.
     <!-- ========================================================= -->
     <!-- org.ofbiz.specialpurpose.oagis -->
     <!-- ========================================================= -->
-    
+
     <entity entity-name="OagisMessageInfo" package-name="org.ofbiz.specialpurpose.oagis" title="OAGIS Message Info Entity">
         <field name="logicalId" type="very-short"><description>CNTROLAREA -> SENDER -> LOGICALID; max 10 chars</description></field>
         <field name="component" type="very-short"><description>CNTROLAREA -> SENDER -> COMPONENT; max 10 chars</description></field>
         <field name="task" type="short-varchar"><description>CNTROLAREA -> SENDER -> TASK; max 10 chars; note that using short-varchar instead of very-short so we can have longer fields in the DB</description></field>
         <field name="referenceId" type="id-long-ne">
-            <description>CNTROLAREA -> SENDER -> REFERENCEID; max 40 chars in spec; for messages sent from OFBiz this will be a 
-                sequenced ID and be unique on its own; for messages from other systems this may only be unique relative 
+            <description>CNTROLAREA -> SENDER -> REFERENCEID; max 40 chars in spec; for messages sent from OFBiz this will be a
+                sequenced ID and be unique on its own; for messages from other systems this may only be unique relative
                 to the logicalId, component, and task as defined in the OAGIS specifications
             </description>
         </field>
@@ -55,10 +55,10 @@ under the License.
         <field name="sentDate" type="date-time"><description>should be the same as the CNTROLAREA -> DATETIMEISO (DATETIMEANY) element</description></field>
         <field name="receivedDate" type="date-time"><description>will generally only be set for outgoing messages</description></field>
         <field name="confirmation" type="id">
-            <description> 
-             0 = No confirmation Business Object Document requested 
-             1 = Send back a confirmation Business Object Document only if an error has occurred 
-             2 = Send a confirmation Business Object Document regardless           
+            <description>
+             0 = No confirmation Business Object Document requested
+             1 = Send back a confirmation Business Object Document only if an error has occurred
+             2 = Send a confirmation Business Object Document regardless
             </description>
         </field>
         <field name="bsrVerb" type="short-varchar"></field>

@@ -94,7 +94,7 @@ under the License.
                                 </fo:table-cell>
                             </fo:table-row>
                             </#list>
-                    </#list>          
+                    </#list>
                 </fo:table-body>
             </fo:table>
             </fo:block>

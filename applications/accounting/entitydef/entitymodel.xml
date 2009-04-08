@@ -93,7 +93,7 @@ under the License.
       <prim-key field="budgetItemSeqId"/>
       <relation type="one" fk-name="BDGTITM_TO_BDGT" rel-entity-name="Budget">
         <key-map field-name="budgetId"/>
-      </relation>       
+      </relation>
       <relation type="one" fk-name="BUDGET_ITEM_BTYP" rel-entity-name="BudgetItemType">
         <key-map field-name="budgetItemTypeId"/>
       </relation>
@@ -329,7 +329,7 @@ under the License.
     <!-- org.ofbiz.accounting.finaccount -->
     <!-- financial account entities for gift certificates, calling cards, or customer accounts -->
     <!-- ========================================================= -->
-    
+
     <entity entity-name="FinAccount" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Entity">
         <field name="finAccountId" type="id-ne"></field>
         <field name="finAccountTypeId" type="id"></field>
@@ -502,8 +502,8 @@ under the License.
             <key-map field-name="attrName"/>
         </relation>
     </entity>
-    <entity entity-name="FinAccountTransType" 
-            package-name="org.ofbiz.accounting.finaccount" 
+    <entity entity-name="FinAccountTransType"
+            package-name="org.ofbiz.accounting.finaccount"
             default-resource-name="AccountingEntityLabels"
             title="Financial Account Transaction Type Entity">
         <field name="finAccountTransTypeId" type="id-ne"></field>
@@ -530,14 +530,14 @@ under the License.
             <key-map field-name="finAccountTransTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="FinAccountType" 
-            package-name="org.ofbiz.accounting.finaccount" 
+    <entity entity-name="FinAccountType"
+            package-name="org.ofbiz.accounting.finaccount"
             default-resource-name="AccountingEntityLabels"
             title="Financial Account Type Entity">
         <field name="finAccountTypeId" type="id-ne"></field>
         <field name="parentTypeId" type="id-ne"></field>
         <field name="replenishEnumId" type="id-ne"></field>
-        <field name="isRefundable" type="indicator"></field> 
+        <field name="isRefundable" type="indicator"></field>
         <field name="hasTable" type="indicator"></field>
         <field name="description" type="description"></field>
         <prim-key field="finAccountTypeId"/>
@@ -581,7 +581,7 @@ under the License.
         </relation>
     </entity>
     <view-entity entity-name="FinAccountTransSum" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Transactio Sum">
-        <description>View entity to help calculate total of financial account transactions by doing a query for the sum of all amounts 
+        <description>View entity to help calculate total of financial account transactions by doing a query for the sum of all amounts
             on a range of transactionDates for a given finAccountId, finAccountTransTypeId</description>
         <member-entity entity-alias="FAT" entity-name="FinAccountTrans"/>
         <alias entity-alias="FAT" name="finAccountId" group-by="true"/>
@@ -590,7 +590,7 @@ under the License.
         <alias entity-alias="FAT" name="amount" function="sum"/>
     </view-entity>
     <view-entity entity-name="FinAccountAuthSum" package-name="org.ofbiz.accounting.finaccount" title="Financial Account Authorization Sum">
-        <description>View entity to help calculate total of financial account authorizations by doing a query for the sum of all amounts 
+        <description>View entity to help calculate total of financial account authorizations by doing a query for the sum of all amounts
             on a range of transactionDates for a given finAccountId.  Note there is no auth type to consider here, but authorizations do
             have from and thru dates</description>
         <member-entity entity-alias="FAA" entity-name="FinAccountAuth"/>
@@ -598,13 +598,13 @@ under the License.
         <alias entity-alias="FAA" name="authorizationDate" group-by="false"/>
         <alias entity-alias="FAA" name="fromDate" group-by="false"/>
         <alias entity-alias="FAA" name="thruDate" group-by="false"/>
-        <alias entity-alias="FAA" name="amount" function="sum"/>        
+        <alias entity-alias="FAA" name="amount" function="sum"/>
     </view-entity>
-    
+
     <!-- ========================================================= -->
     <!-- org.ofbiz.accounting.fixedasset -->
     <!-- ========================================================= -->
-    
+
     <entity entity-name="DepreciationMethod"
             package-name="org.ofbiz.accounting.fixedasset"
             title="Depreciation Method Entity">
@@ -732,12 +732,12 @@ under the License.
         <key-map field-name="geoPointId"/>
       </relation>
     </entity>
-    
+
     <view-entity entity-name="FixedAssetAndGeoPoint" package-name="org.ofbiz.accounting.fixedasset" title="Fixed Asset and Geo Point View Entity">
       <member-entity entity-alias="FA" entity-name="FixedAsset"/>
       <member-entity entity-alias="FAGPT" entity-name="FixedAssetGeoPoint"/>
       <member-entity entity-alias="GPT" entity-name="GeoPoint"/>
-      <alias-all entity-alias="GPT"/>    
+      <alias-all entity-alias="GPT"/>
       <alias entity-alias="FA" name="fixedAssetId"/>
       <alias entity-alias="FAGPT" name="fromDate"/>
       <alias entity-alias="FAGPT" name="thruDate"/>
@@ -757,8 +757,8 @@ under the License.
       <relation type="one-nofk" rel-entity-name="GeoPoint">
         <key-map field-name="geoPointId"/>
       </relation>
-    </view-entity>  
-  
+    </view-entity>
+
     <entity entity-name="FixedAssetIdent"
         package-name="org.ofbiz.accounting.fixedasset"
         title="Fixed Asset Identification Entity">
@@ -818,7 +818,7 @@ under the License.
         <relation type="one" fk-name="FXDASTMNT_SI" rel-entity-name="StatusItem">
             <key-map field-name="statusId"/>
         </relation>
-        
+
     </entity>
     <entity entity-name="FixedAssetMaintMeter"
         package-name="org.ofbiz.accounting.fixedasset"
@@ -1019,7 +1019,7 @@ under the License.
             <key-map field-name="roleTypeId"/>
         </view-link>
     </view-entity>
-    
+
     <entity entity-name="FixedAssetMaintOrder" package-name="org.ofbiz.accounting.fixedasset" title="Fixed Asset Maintance And Order Entity">
         <field name="fixedAssetId" type="id-ne"></field>
         <field name="maintHistSeqId" type="id-ne"></field>
@@ -1041,13 +1041,13 @@ under the License.
         </relation>
     </entity>
 
-  <entity entity-name="AccommodationClass" 
+  <entity entity-name="AccommodationClass"
     package-name="org.ofbiz.accounting.fixedasset"
     title="Accommodation Class">
     <field name="accommodationClassId" type="id-ne"></field>
     <field name="parentClassId" type="id-ne"></field>
     <field name="description" type="description"></field>
-    <prim-key field="accommodationClassId"/>        
+    <prim-key field="accommodationClassId"/>
     <relation type="one" fk-name="ACCOMM_CLASS_PAR" title="Parent" rel-entity-name="AccommodationClass">
       <key-map field-name="parentClassId" rel-field-name="accommodationClassId"/>
     </relation>
@@ -1067,17 +1067,17 @@ under the License.
     <relation type="one" fk-name="SPOT_FA" rel-entity-name="FixedAsset">
       <key-map field-name="fixedAssetId"/>
     </relation>
-  </entity>   
-  
-  <entity entity-name="AccommodationMap" 
+  </entity>
+
+  <entity entity-name="AccommodationMap"
     package-name="org.ofbiz.accounting.fixedasset"
     title="Accommodation Map">
-    <field name="accommodationMapId" type="id-ne"></field> 
+    <field name="accommodationMapId" type="id-ne"></field>
     <field name="accommodationClassId" type="id-ne"></field>
     <field name="fixedAssetId" type="id"></field>
     <field name="accommodationMapTypeId" type="id"></field>
-    <field name="numberOfSpaces" type="numeric"></field>                        
-    <prim-key field="accommodationMapId"/> 
+    <field name="numberOfSpaces" type="numeric"></field>
+    <prim-key field="accommodationMapId"/>
     <relation type="one" fk-name="ACMD_MAP_CLASS" rel-entity-name="AccommodationClass">
       <key-map field-name="accommodationClassId"/>
     </relation>
@@ -1088,15 +1088,15 @@ under the License.
       <key-map field-name="accommodationMapTypeId"/>
     </relation>
   </entity>
-  
-  <entity entity-name="AccommodationMapType" 
+
+  <entity entity-name="AccommodationMapType"
     package-name="org.ofbiz.accounting.fixedasset"
     title="Accommodation Map Type">
     <field name="accommodationMapTypeId" type="id-ne"></field>
     <field name="description" type="description"></field>
     <prim-key field="accommodationMapTypeId"/>
   </entity>
-  
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.accounting.invoice -->
   <!-- ========================================================= -->
@@ -2500,7 +2500,7 @@ under the License.
         <key-map field-name="contactMechId"/>
       </relation>
     </entity>
-    
+
     <entity entity-name="GiftCard"
             package-name="org.ofbiz.accounting.payment"
             title="Gift Card Information Entity">
@@ -2555,7 +2555,7 @@ under the License.
           <key-map field-name="surveyResponseId"/>
       </relation>
     </entity>
-    
+
     <entity entity-name="Payment"
             package-name="org.ofbiz.accounting.payment"
             title="Payment Entity">
@@ -2639,7 +2639,7 @@ under the License.
       package-name="org.ofbiz.accounting.payment"
       never-cache="true"
       title="Payment and Payment type View Entity">
-      <member-entity entity-alias="PY" entity-name="Payment"/> 
+      <member-entity entity-alias="PY" entity-name="Payment"/>
       <member-entity entity-alias="TY" entity-name="PaymentType"/>
       <alias-all entity-alias="PY"/>
       <alias-all entity-alias="TY">
@@ -2698,7 +2698,7 @@ under the License.
       <field name="invoiceId" type="id"></field>
       <field name="invoiceItemSeqId" type="id"></field>
       <field name="billingAccountId" type="id"></field>
-      <field name="overrideGlAccountId" type="id"><description>If filled in, payment is applied directly against this GL account</description></field> 
+      <field name="overrideGlAccountId" type="id"><description>If filled in, payment is applied directly against this GL account</description></field>
       <field name="toPaymentId" type="id"><!-- To be used when a payment is based on or comes from another payment, like a payment that is a return of a mistaken or over-payment --></field>
       <field name="taxAuthGeoId" type="id"/>
       <field name="amountApplied" type="currency-amount"></field>
@@ -2856,7 +2856,7 @@ under the License.
       <key-map field-name="contactMechId"/>
     </relation>
   </view-entity>
-  
+
   <view-entity entity-name="PaymentMethodAndGiftCard"
             package-name="org.ofbiz.accounting.payment"
             never-cache="true"
@@ -2888,7 +2888,7 @@ under the License.
       <relation type="one-nofk" rel-entity-name="PostalAddress">
         <key-map field-name="contactMechId"/>
       </relation>
-    </view-entity>    
+    </view-entity>
     <entity entity-name="PaymentMethodType"
             package-name="org.ofbiz.accounting.payment"
             title="PaymentMethodType Entity" default-resource-name="AccountingEntityLabels">
@@ -3036,11 +3036,11 @@ under the License.
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <prim-key field="merchantId"/>
     </entity>
-    
+
     <!-- ========================================================= -->
     <!-- org.ofbiz.accounting.tax -->
     <!-- ========================================================= -->
-    
+
     <entity entity-name="PartyTaxAuthInfo" package-name="org.ofbiz.accounting.tax" title="Party Tax Information Entity">
         <description></description>
         <field name="partyId" type="id-ne"></field>
@@ -3190,7 +3190,7 @@ under the License.
       <member-entity entity-alias="PAP" entity-name="PartyAcctgPreference"/>
       <alias-all entity-alias="TAGA"/>
       <alias-all entity-alias="GLAO"/>
-      <alias entity-alias="PAP" name="baseCurrencyUomId"/> 
+      <alias entity-alias="PAP" name="baseCurrencyUomId"/>
       <view-link entity-alias="TAGA" rel-entity-alias="GLAO">
         <key-map field-name="glAccountId"/>
         <key-map field-name="organizationPartyId"/>
@@ -3280,7 +3280,7 @@ under the License.
         <prim-key field="county"/>
         <prim-key field="fromDate"/>
     </entity>
-    
+
     <entity entity-name="PartyGlAccount" package-name="org.ofbiz.accounting.ledger" title="Party Gl Account Entity">
         <field name="organizationPartyId" type="id-ne"/>
         <field name="partyId" type="id-ne"/>
@@ -3306,14 +3306,14 @@ under the License.
         </relation>
         <relation type="one" fk-name="PRTYGLACCT_GLAT" rel-entity-name="GlAccountType">
             <key-map field-name="glAccountTypeId"/>
-        </relation>        
+        </relation>
         <relation type="one" fk-name="PRTYGLACCT_GLACCT" rel-entity-name="GlAccount">
             <key-map field-name="glAccountId"/>
         </relation>
     </entity>
 
-    <view-entity entity-name="GlAccOrgAndAcctgTransAndEntry" 
-        package-name="org.ofbiz.accounting.ledger" 
+    <view-entity entity-name="GlAccOrgAndAcctgTransAndEntry"
+        package-name="org.ofbiz.accounting.ledger"
         title="GlAccountOrganization, AcctgTransEntry, and AccTrans View Entity Group-By organizationPartyId, glAccountId, debitCreditFlag">
         <member-entity entity-alias="GAO" entity-name="GlAccountOrganization"/>
         <member-entity entity-alias="ATE" entity-name="AcctgTransEntry"/>
@@ -3321,7 +3321,7 @@ under the License.
         <alias entity-alias="GAO" name="glAccountId" group-by="true"/>
         <alias entity-alias="ATE" name="debitCreditFlag" group-by="true"/>
         <alias entity-alias="ATR" name="isPosted" group-by="true"/>
-        <alias entity-alias="ATR" name="transactionDate" group-by="true"/>        
+        <alias entity-alias="ATR" name="transactionDate" group-by="true"/>
         <alias entity-alias="ATE" name="acctgTransId" group-by="true"/>
         <alias entity-alias="ATE" name="organizationPartyId" group-by="true"/>
         <alias entity-alias="ATE" name="totalAmount" field="amount" function="sum"/>
@@ -3431,5 +3431,5 @@ under the License.
       <key-map field-name="rateTypeId"/>
     </relation>
   </entity>
-  
+
 </entitymodel>

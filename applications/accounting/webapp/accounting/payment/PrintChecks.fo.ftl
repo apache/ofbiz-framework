@@ -17,8 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#-- 
-Generates PDF of multiple checks in two styles: one check per page, multiple checks per page 
+<#--
+Generates PDF of multiple checks in two styles: one check per page, multiple checks per page
 Note that this must be customized to fit specific check layouts. The layout here is copied
 by hand from a real template using a ruler.
 -->
@@ -57,7 +57,7 @@ by hand from a real template using a ruler.
           <fo:table-body>
           <fo:table-row height="8.85cm">
           <fo:table-cell>
-          
+
         <fo:table table-layout="fixed">
           <fo:table-column column-width="17.7cm"/>
           <fo:table-column/>
@@ -101,7 +101,7 @@ by hand from a real template using a ruler.
           <fo:table-body>
           <fo:table-row height="9.3cm">
           <fo:table-cell>
- 
+
         <fo:table height="9.3cm" table-layout="fixed" margin-left="5pt" margin-right="5pt">
           <fo:table-column/>
           <fo:table-column/>
@@ -144,7 +144,7 @@ by hand from a real template using a ruler.
                 <fo:block font-weight="bold" text-align="right">${uiLabelMap.AccountingPayment}</fo:block>
               </fo:table-cell>
             </fo:table-row>
-            
+
           </fo:table-header>
           <fo:table-body>
 
@@ -176,7 +176,7 @@ by hand from a real template using a ruler.
               <#list PayrolGroups as payrolGroup>
               	<#assign fontSize = "75%">
               	<#assign lineStyle = "dashed">
-              	
+
               	<#assign sumQuantity = 0>
               	<#assign sumAmount = 0>
               	<#assign sumSubTotal = 0>
@@ -212,7 +212,7 @@ by hand from a real template using a ruler.
 			  </fo:table-cell>
               </fo:table-row>
                 </#if>
-                
+
                 <#assign sumQuantity = 0>
                 <#assign sumAmount = 0>
               	<#assign sumSubTotal = 0>
@@ -236,7 +236,7 @@ by hand from a real template using a ruler.
               </fo:table-row>
               		</#if>
               	</#list>
-              	
+
               	<#assign sumQuantity = 0>
                 <#assign sumAmount = 0>
               	<#assign sumSubTotal = 0>
@@ -265,16 +265,16 @@ by hand from a real template using a ruler.
               <fo:table-cell padding="3pt"><fo:block/></fo:table-cell>
               </fo:table-row>
               	</#if>
-              	
+
               </#list>
               <fo:table-row font-size="${fontSize}">
               <fo:table-cell padding="3pt"><fo:block/></fo:table-cell>
               <fo:table-cell padding="3pt" number-columns-spanned="6" border-top-style="solid"><fo:block/></fo:table-cell>
               </fo:table-row>
               </#if>
-              	
+
             </#list>
-            
+
             <fo:table-row>
               <fo:table-cell padding="3pt" number-columns-spanned="6">
                 <fo:block text-align="end">${uiLabelMap.AccountingCheckAmount}</fo:block>
@@ -300,7 +300,7 @@ by hand from a real template using a ruler.
           <fo:table-body>
           <fo:table-row height="9.3cm">
           <fo:table-cell>
- 
+
         <fo:table height="9.3cm" table-layout="fixed" margin-left="5pt" margin-right="5pt">
           <fo:table-column/>
           <fo:table-column/>
@@ -372,7 +372,7 @@ by hand from a real template using a ruler.
               <#list PayrolGroups as payrolGroup>
               	<#assign fontSize = "75%">
               	<#assign lineStyle = "dashed">
-              	
+
               	<#assign sumQuantity = 0>
               	<#assign sumAmount = 0>
               	<#assign sumSubTotal = 0>
@@ -408,7 +408,7 @@ by hand from a real template using a ruler.
 			  </fo:table-cell>
               </fo:table-row>
                 </#if>
-                
+
                 <#assign sumQuantity = 0>
                 <#assign sumAmount = 0>
               	<#assign sumSubTotal = 0>
@@ -432,7 +432,7 @@ by hand from a real template using a ruler.
               </fo:table-row>
               		</#if>
               	</#list>
-              	
+
               	<#assign sumQuantity = 0>
                 <#assign sumAmount = 0>
               	<#assign sumSubTotal = 0>
@@ -461,16 +461,16 @@ by hand from a real template using a ruler.
               <fo:table-cell padding="3pt"><fo:block/></fo:table-cell>
               </fo:table-row>
               	</#if>
-              	
+
               </#list>
               <fo:table-row font-size="${fontSize}">
               <fo:table-cell padding="3pt"><fo:block/></fo:table-cell>
               <fo:table-cell padding="3pt" number-columns-spanned="6" border-top-style="solid"><fo:block/></fo:table-cell>
               </fo:table-row>
               </#if>
-              	
+
             </#list>
-            
+
             <fo:table-row>
               <fo:table-cell padding="3pt" number-columns-spanned="6">
                 <fo:block text-align="end">${uiLabelMap.AccountingCheckAmount}</fo:block>

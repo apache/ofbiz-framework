@@ -27,7 +27,7 @@ under the License.
             <div class="browsecategorytext">
                <a href="<@ofbizUrl>showforum?forumId=${forum.contentId}</@ofbizUrl>" class="browsecategorybutton">${forum.contentName}</a>
             </div>
-            </#list>   
+            </#list>
           </div>
     </div>
 </div>

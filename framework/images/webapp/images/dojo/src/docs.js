@@ -40,14 +40,14 @@ dojo.lang.mixin(dojo.docs, {
 	require: function(/*String*/ require, /*bool*/ sync) {
 		dojo.debug("require(): " + require);
 		var parts = require.split("/");
-		
+
 		var size = parts.length;
 		var deferred = new dojo.Deferred;
 		var args = {
 			mimetype: "text/json",
 			load: function(type, data){
 				dojo.debug("require(): loaded for " + require);
-				
+
 				if(parts[0] != "function_names") {
 					for(var i = 0, part; part = parts[i]; i++){
 						data = data[part];
@@ -65,7 +65,7 @@ dojo.lang.mixin(dojo.docs, {
 				if(parts[parts.length - 1] == "documentation"){
 					parts[parts.length - 1] = "meta";
 				}
-			
+
 				if(parts[0] == "function_names"){
 					args.url = [this._url, "local_json", "function_names"].join("/");
 				}else{
@@ -77,7 +77,7 @@ dojo.lang.mixin(dojo.docs, {
 				}
 			}
 		}
-		
+
 		dojo.io.bind(args);
 		return deferred;
 	},
@@ -104,7 +104,7 @@ dojo.lang.mixin(dojo.docs, {
 		}else{
 			dojo.debug("getMeta(" + pkg + "/" + name + ")");
 		}
-		
+
 		if(!id){
 			id = "_";
 		}
@@ -154,7 +154,7 @@ dojo.lang.mixin(dojo.docs, {
 	},
 	_gotDoc: function(/*String*/ type, /*Array*/ data, /*Object*/ evt, /*Object*/ input){
 		dojo.debug("_gotDoc(" + evt.type + ")");
-		
+
 		evt[evt.type] = data;
 		if(evt.expects && evt.expects.doc){
 			for(var i = 0, expect; expect = evt.expects.doc[i]; i++){
@@ -164,7 +164,7 @@ dojo.lang.mixin(dojo.docs, {
 				}
 			}
 		}
-		
+
 		var cache = dojo.docs._getCache(evt.pkg, "meta", "functions", evt.name, evt.id, "meta");
 
 		var description = evt.fn.description;
@@ -187,9 +187,9 @@ dojo.lang.mixin(dojo.docs, {
 
 		data.description = cache.description;
 		data.parameters = cache.parameters;
-		
+
 		evt.type = "doc";
-	
+
 		if(evt.callbacks && evt.callbacks.length){
 			evt.callbacks.shift()("load", data, evt, input);
 		}
@@ -290,9 +290,9 @@ dojo.lang.mixin(dojo.docs, {
 		var name = input.name;
 		var id = input.id || "_";
 		dojo.debug("getFunctionDocumentation(): " + name);
-		
+
 		if(!name) return;
-		
+
 		if(package){
 			return this.require(package + "/meta/functions/" + name + "/" + id + "/documentation");
 		}
@@ -351,7 +351,7 @@ dojo.lang.mixin(dojo.docs, {
 					}
 				}
 			}
-			
+
 			list = new dojo.DeferredList(list);
 			list.addCallback(function(results){
 				dojo.debug("_onDocSearch(): All packages loaded");
@@ -475,7 +475,7 @@ dojo.lang.mixin(dojo.docs, {
 		var pkgMeta = this.getPackageMeta({package: package});
 		var meta = this.getFunctionMeta({package: package, name: name, id: id});
 		var doc = this.getFunctionDocumentation({package: package, name: name, id: id});
-		
+
 		var list = new dojo.DeferredList([pkgMeta, meta, doc]);
 		list.addCallback(function(results){
 			dojo.debug("_onDocSelectFunction() loaded");
@@ -483,7 +483,7 @@ dojo.lang.mixin(dojo.docs, {
 				dojo.debugShallow(result[1]);
 			}
 		});
-		
+
 		return list;
 	},
 	_onDocSelectPackage: function(/*Object*/ input){
@@ -513,7 +513,7 @@ dojo.lang.mixin(dojo.docs, {
 
 		dojo.docs._printFunctionDetail(input);
 	},
-	
+
 	_printFunctionDetail: function(results) {
 		// summary: Call this function to send the /docs/function/detail topic event
 	},
@@ -529,7 +529,7 @@ dojo.lang.mixin(dojo.docs, {
 			targetFunc: callback,
 			once: true
 		});
-		
+
 		var props = {};
 		var cache = dojo.docs._getCache(parameters.pkg, "meta");
 
@@ -550,7 +550,7 @@ dojo.lang.mixin(dojo.docs, {
 			props[["pname", i].join("")] = "main/text";
 			props[["pvalue", i++].join("")] = parameters.description;
 		}
-		
+
 		dojo.docs._rpc.callRemote("saveForm",	props).addCallbacks(dojo.docs._pkgRpc, dojo.docs._pkgRpc);
 	},
 	_pkgRpc: function(data){

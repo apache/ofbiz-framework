@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>OFBIZ CDyne Services: for info see http://www.cdyne.com/developers/overview.aspx</description>
     <vendor>OFBiz</vendor>
@@ -46,7 +46,7 @@ under the License.
         <attribute name="County" type="String" mode="OUT" optional="false"/>
         <attribute name="CountyNum" type="String" mode="OUT" optional="false"/>
         <attribute name="PreferredCityName" type="String" mode="OUT" optional="false"/>
-        
+
         <attribute name="DeliveryPoint" type="String" mode="OUT" optional="false"/>
         <attribute name="CheckDigit" type="String" mode="OUT" optional="false"/>
         <attribute name="CSKey" type="String" mode="OUT" optional="false"/>

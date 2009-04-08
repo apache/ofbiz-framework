@@ -20,26 +20,26 @@ dojo.a11y = {
 	//   if true generate accessible widgets
 	imgPath:dojo.uri.dojoUri("src/widget/templates/images"),
 	doAccessibleCheck: true,
-	accessible: null,		
+	accessible: null,
 
-	checkAccessible: function(){ 
-	// summary: 
+	checkAccessible: function(){
+	// summary:
 	//		perform check for accessibility if accessibility checking is turned
 	//		on and the accessibility test has not been performed yet
-		if(this.accessible === null){ 
+		if(this.accessible === null){
 			this.accessible = false; //default
-			if(this.doAccessibleCheck == true){ 
+			if(this.doAccessibleCheck == true){
 				this.accessible = this.testAccessible();
 			}
 		}
 		return this.accessible; /* Boolean */
 	},
-	
+
 	testAccessible: function(){
-	// summary: 
-	//		Always perform the accessibility check to determine if high 
-	//		contrast mode is on or display of images are turned off. Currently only checks 
-	//		in IE and Mozilla. 
+	// summary:
+	//		Always perform the accessibility check to determine if high
+	//		contrast mode is on or display of images are turned off. Currently only checks
+	//		in IE and Mozilla.
 		this.accessible = false; //default
 		if (dojo.render.html.ie || dojo.render.html.mozilla){
 			var div = document.createElement("div");
@@ -49,10 +49,10 @@ dojo.a11y = {
 			dojo.body().appendChild(div);
 			// in FF and IE the value for the current background style of the added div
 			// will be "none" in high contrast mode
-			// in FF the return value will be url(invalid-url:) when running over http 
+			// in FF the return value will be url(invalid-url:) when running over http
 			var bkImg = null;
 			if (window.getComputedStyle  ) {
-				var cStyle = getComputedStyle(div, ""); 
+				var cStyle = getComputedStyle(div, "");
 				bkImg = cStyle.getPropertyValue("background-image");
 			}else{
 				bkImg = div.currentStyle.backgroundImage;
@@ -67,28 +67,28 @@ dojo.a11y = {
 				var testImg = new Image();
 				if(testImg.fileSize) {
 					testImg.src = this.imgPath + "/tab_close.gif";
-					if(testImg.fileSize < 0){ 
+					if(testImg.fileSize < 0){
 						this.accessible = true;
 					}
-				}	
+				}
 			}*/
 			dojo.body().removeChild(div);
 		}
 		return this.accessible; /* Boolean */
 	},
-	
-	setCheckAccessible: function(/* Boolean */ bTest){ 
-	// summary: 
+
+	setCheckAccessible: function(/* Boolean */ bTest){
+	// summary:
 	//		Set whether or not to check for accessibility mode.  Default value
-	//		of module is true - perform check for accessibility modes. 
+	//		of module is true - perform check for accessibility modes.
 	//		bTest: Boolean - true to check; false to turn off checking
 		this.doAccessibleCheck = bTest;
 	},
 
 	setAccessibleMode: function(){
 	// summary:
-	//		perform the accessibility check and sets the correct mode to load 
-	//		a11y widgets. Only runs if test for accessiiblity has not been performed yet. 
+	//		perform the accessibility check and sets the correct mode to load
+	//		a11y widgets. Only runs if test for accessiiblity has not been performed yet.
 	//		Call testAccessible() to force the test.
 		if (this.accessible === null){
 			if (this.checkAccessible()){

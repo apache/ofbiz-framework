@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,7 +26,7 @@ import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 productionRunId = parameters.productionRunId;
 if (productionRunId) {
     ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
-    if (productionRun.exist()){
+    if (productionRun.exist()) {
         productionRunId = productionRun.getGenericValue().workEffortId;
         context.productionRunId = productionRunId;
         context.productionRun = productionRun.getGenericValue();
@@ -63,11 +63,11 @@ if (productionRunId) {
         context.quantity = productionRun.getQuantity(); // this is useful to compute the total estimates runtime in the form
         //  Product component/parts list
         context.productionRunComponents = productionRun.getProductionRunComponents();;
-        
+
         // Find all the notes linked to this production run.
         productionRunNoteData = delegator.findByAnd("WorkEffortNoteAndData", [workEffortId : productionRunId]);
         if (productionRunNoteData) {
             context.productionRunNoteData = productionRunNoteData;
-        }        
+        }
     }
 }

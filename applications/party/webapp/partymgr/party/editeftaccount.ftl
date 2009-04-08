@@ -29,7 +29,7 @@ under the License.
         <input type="hidden" name='paymentMethodId' value='${paymentMethodId}'>
     </#if>
   </div>
-  <div class="screenlet-body">    
+  <div class="screenlet-body">
         <div class="button-bar">
           <a href="<@ofbizUrl>${donePage}?partyId=${partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonCancelDone}</a>
           <a href="javascript:document.editeftaccountform.submit()" class="smallSubmit">${uiLabelMap.CommonSave}</a>
@@ -104,7 +104,7 @@ under the License.
                 </td>
                 <td>
                   <p><b>${uiLabelMap.PartyUseCurrentAddress}:</b></p>
-                  <#list curPartyContactMechPurposes as curPartyContactMechPurpose> 
+                  <#list curPartyContactMechPurposes as curPartyContactMechPurpose>
                     <#assign curContactMechPurposeType = curPartyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
                     <p><b>${curContactMechPurposeType.get("description",locale)?if_exists}</b></p>
                     <#if curPartyContactMechPurpose.thruDate?exists>

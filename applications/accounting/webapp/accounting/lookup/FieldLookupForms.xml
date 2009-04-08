@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="lookupFixedAsset" target="LookupFixedAsset" title="" type="single"
@@ -33,7 +33,7 @@ under the License.
                 </entity-options>
              </drop-down>
         </field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listLookupFixedAsset" list-name="listIt" title="" type="list" paginate-target="LookupFixedAsset"
@@ -56,8 +56,8 @@ under the License.
         <field name="billingAccountId" title="${uiLabelMap.AccountingBillingAccountId}"><text-find/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
         <field name="externalAccountId" title="${uiLabelMap.AccountingExternalAccountId}"><text-find/></field>
-        
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listBillingAccount" list-name="listIt" title="" type="list" paginate-target="LookupBillingAccount"
@@ -75,7 +75,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="externalAccountId" title="${uiLabelMap.AccountingExternalAccountId}"><display/></field>
     </form>
-    
+
     <form name="lookupGlAccount" target="LookupGlAccount" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="GlAccount" default-field-type="hidden"/>
@@ -95,7 +95,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listLookupGlAccount" list-name="listIt" title="" type="list" paginate-target="LookupGlAccount"
@@ -120,8 +120,8 @@ under the License.
         <field name="partyIdFrom"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyIdTo"><lookup target-form-name="LookupPartyName"/></field>
         <field name="amountApplied"><text-find default-value=""></text-find> </field>
-        
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listPayment" list-name="listIt" title="" type="list" paginate-target="LookupPayment"
@@ -141,7 +141,7 @@ under the License.
         <field name="amount"><display/></field>
         <field name="currencyUomId"><display/></field>
     </form>
-    
+
     <form name="lookupInvoice" target="LookupInvoice" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <!--auto-fields-entity entity-name="Invoice" default-field-type="hidden" /-->
@@ -162,8 +162,8 @@ under the License.
         <field position="2" name="partyId" title="${uiLabelMap.AccountingPartyIdTo}"><lookup target-form-name="LookupPartyName"/></field>
         <field position="1" name="Datefrom" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
         <field position="2" name="DateThru" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
-        
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listInvoice" list-name="listIt" title="" type="list" paginate-target="LookupInvoice"
@@ -185,7 +185,7 @@ under the License.
         <field name="amount"><display/></field>
         <field name="currencyUomId"><display/></field>
     </form>
-    
+
     <form name="lookupAgreement" target="LookupAgreement" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="agreementId" ><text-find/></field>
@@ -193,8 +193,8 @@ under the License.
         <field name="partyIdFrom"><text-find/></field>
         <field name="partyId" title="${uiLabelMap.AccountingPartyIdTo}"><text-find/></field>
         <field name="agreementDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
-        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>    
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listAgreements" list-name="listIt" title="" type="list" target="LookupAgreement"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -212,19 +212,19 @@ under the License.
         <field name="partyIdTo"><display/></field>
         <field name="agreementDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="agreementTypeId"><display/></field>
-        <field name="description"><display/></field>           
+        <field name="description"><display/></field>
     </form>
-    
+
     <form name="lookupAgreementItem" target="LookupAgreementItem" title="" type="single"
-        header-row-style="header-row" default-table-style="basic-table">        
+        header-row-style="header-row" default-table-style="basic-table">
         <field name="agreementId"><text-find/></field>
         <field name="agreementItemSeqId"><text-find/></field>
         <field name="agreementItemTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="AgreementItemType"/>
             </drop-down>
-        </field>       
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        </field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="listAgreementItems" list-name="listIt" title="" type="list" target="LookupAgreementItem"
@@ -238,8 +238,8 @@ under the License.
         <field name="agreementId"><display/></field>
         <field name="agreementItemSeqId" widget-style="buttontext">
             <hyperlink also-hidden="false" target-type="plain" description="${agreementItemSeqId}" target="javascript:set_value('${agreementItemSeqId}')"/>
-        </field>     
+        </field>
         <field name="agreementItemTypeId"><display/></field>
-        <field name="currencyUomId"><display/></field>                  
+        <field name="currencyUomId"><display/></field>
     </form>
 </forms>

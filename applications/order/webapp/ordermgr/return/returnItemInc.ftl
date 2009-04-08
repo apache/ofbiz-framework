@@ -32,16 +32,16 @@ under the License.
           <tr>
             <td class="label" width="25%">${uiLabelMap.OrderOrderTotal}</td>
             <td><@ofbizCurrency amount=orh.getOrderGrandTotal() isoCode=orh.getCurrency()/></td>
-          </tr>  
+          </tr>
           <tr>
             <td class="label" width="25%">${uiLabelMap.OrderAmountAlreadyCredited}</td>
             <td><@ofbizCurrency amount=orh.getOrderReturnedCreditTotalBd() isoCode=orh.getCurrency()/></td>
-          </tr>  
+          </tr>
           <tr>
             <td class="label" width="25%">${uiLabelMap.OrderAmountAlreadyRefunded}</td>
             <td><@ofbizCurrency amount=orh.getOrderReturnedRefundTotalBd() isoCode=orh.getCurrency()/></td>
-          </tr>  
-        </table>  
+          </tr>
+        </table>
     </td></tr>
     </#if>
     <tr class="header-row">
@@ -65,7 +65,7 @@ under the License.
             <#assign adjustmentType = orderItem.getRelatedOne("OrderAdjustmentType")/>
             <#assign description = orderItem.description?default(adjustmentType.get("description",locale))/>
 
-            <input type="hidden" name="returnAdjustmentTypeId_o_${rowCount}" value="${returnAdjustmentType}"/>                
+            <input type="hidden" name="returnAdjustmentTypeId_o_${rowCount}" value="${returnAdjustmentType}"/>
             <input type="hidden" name="orderAdjustmentId_o_${rowCount}" value="${orderItem.orderAdjustmentId}"/>
             <tr id="returnItemId_tableRow_${rowCount}" valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td colspan="4">
@@ -164,7 +164,7 @@ under the License.
     <#if orderHeaderAdjustments?has_content>
       <tr class="header-row">
         <td>${uiLabelMap.CommonDescription}</td>
-        <td>${uiLabelMap.CommonAmount}</td>                                                
+        <td>${uiLabelMap.CommonAmount}</td>
         <td>${uiLabelMap.OrderReturnType}</td>
         <td align="right">${uiLabelMap.OrderOrderInclude}?</td>
       </tr>
@@ -173,7 +173,7 @@ under the License.
         <#assign adjustmentType = adj.getRelatedOne("OrderAdjustmentType")/>
         <#assign description = adj.description?default(adjustmentType.get("description",locale))/>
 
-        <input type="hidden" name="returnAdjustmentTypeId_o_${rowCount}" value="${returnAdjustmentType}"/>                
+        <input type="hidden" name="returnAdjustmentTypeId_o_${rowCount}" value="${returnAdjustmentType}"/>
         <input type="hidden" name="orderAdjustmentId_o_${rowCount}" value="${adj.orderAdjustmentId}"/>
         <input type="hidden" name="returnItemSeqId_o_${rowCount}" value="_NA_"/>
         <input type="hidden" name="description_o_${rowCount}" value="${description}"/>
@@ -182,7 +182,7 @@ under the License.
             <div>
               ${description?default("N/A")}
             </div>
-          </td>                                     
+          </td>
           <td>
             <input type="text" size="8" name="amount_o_${rowCount}" <#if adj.amount?has_content>value="${adj.amount?string("##0.00")}"</#if>/>
           </td>
@@ -236,7 +236,7 @@ under the License.
     <input type="hidden" name="_rowCount" value="${rowCount}"/>
     <tr>
       <td colspan="9" align="right">
-        <a href="javascript:document.${selectAllFormName}.submit()" class="buttontext">${uiLabelMap.OrderReturnSelectedItems}</a>                 
+        <a href="javascript:document.${selectAllFormName}.submit()" class="buttontext">${uiLabelMap.OrderReturnSelectedItems}</a>
       </td>
     </tr>
     <#else>

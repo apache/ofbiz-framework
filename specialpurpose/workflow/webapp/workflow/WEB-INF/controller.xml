@@ -18,14 +18,14 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
-    <include location="component://common/webcommon/WEB-INF/tempexpr-controller.xml"/>    
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <include location="component://common/webcommon/WEB-INF/tempexpr-controller.xml"/>
     <description>Workflow Site Configuration File</description>
     <owner>Copyright 2001-2009 The Apache Software Foundation</owner>
 
-    
+
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
     <preprocessor>
@@ -47,7 +47,7 @@ under the License.
     <request-map uri="workflowMonitor">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="workflowMonitor"/>
-    </request-map>    
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->

@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,7 +18,7 @@
     under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="FindEmployments">
         <section>
@@ -29,7 +29,7 @@
                 <set field="roleTypeIdTo" from-field="parameters.roleTypeIdTo"/>
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <set field="partyIdTo" from-field="parameters.partyIdTo"/>
-                <set field="fromDate" from-field="parameters.fromDate"/>                                                
+                <set field="fromDate" from-field="parameters.fromDate"/>
                 <set field="employmentCtx" from-field="parameters"/>
             </actions>
             <widgets>
@@ -56,14 +56,14 @@
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>    
+    </screen>
     <screen name="EditEmployment">
         <section>
             <actions>
                 <set field="titleProperty" value="HumanResEditEmployment"/>
                 <set field="headerItem" value="Employment"/>
                 <set field="tabButtonItem" value="EditEmployment"/>
-                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>                                                
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <entity-one entity-name="Employment" value-field="employment"/>
             </actions>
             <widgets>
@@ -82,7 +82,7 @@
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -110,8 +110,8 @@
         <section>
             <actions>
                 <set field="titleProperty" value="HumanResListPayHistories"/>
-                <set field="headerItem" value="Employment"/>                
-                <set field="tabButtonItem" value="EditPayHistory"/>                
+                <set field="headerItem" value="Employment"/>
+                <set field="tabButtonItem" value="EditPayHistory"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
@@ -121,13 +121,13 @@
                                 <widgets>
                                     <include-form name="ListPayHistories" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                                 </widgets>
-                            </section>                            
+                            </section>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>    
+    </screen>
     <screen name="EditPartyBenefits">
         <section>
             <actions>
@@ -151,7 +151,7 @@
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>  
+    </screen>
     <screen name="EditPayrollPreferences">
         <section>
             <actions>
@@ -165,7 +165,7 @@
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <set field="payrollPreferenceSeqId" from-field="parameters.payrollPreferenceSeqId"/>
                 <set field="partyId" from-field="parameters.partyIdTo"/>
-                <set field="roleTypeId" from-field="parameters.roleTypeIdTo"/>                
+                <set field="roleTypeId" from-field="parameters.roleTypeIdTo"/>
                 <entity-one entity-name="PayrollPreference" value-field="payrollPreference"/>
             </actions>
             <widgets>
@@ -179,9 +179,9 @@
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>    
+    </screen>
     <screen name="EditUnemploymentClaims">
-        <section>            
+        <section>
             <actions>
                 <set field="titleProperty" value="HumanResAddUnemploymentClaim"/>
                 <set field="headerItem" value="Employment"/>
@@ -193,17 +193,17 @@
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <entity-one entity-name="UnemploymentClaim" value-field="unemploymentClaim"/>
-            </actions>            
+            </actions>
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                        
+                    <decorator-section name="body">
                         <screenlet id="AddUnemploymentClaimPanel" title="${uiLabelMap.HumanResAddUnemploymentClaim}" collapsible="true">
                             <include-form name="AddUnemploymentClaim" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                         </screenlet>
                         <include-form name="ListUnemploymentClaims" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>                              
+            </widgets>
         </section>
     </screen>
     <screen name="EditPerformanceNotes">
@@ -227,7 +227,7 @@
         </section>
     </screen>
     <screen name="EditAgreementEmploymentAppls">
-        <section>                        
+        <section>
             <actions>
                 <set field="titleProperty" value="HumanResEditAgreementEmploymentAppl"/>
                 <set field="headerItem" value="Employment"/>
@@ -239,17 +239,17 @@
                 <set field="partyIdTo" from-field="parameters.partyIdTo"/>
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
-            </actions>            
+            </actions>
             <widgets>
                 <decorator-screen name="CommonEmploymentDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                                                                                       
+                    <decorator-section name="body">
                         <screenlet id="AddAgreementEmploymentApplPanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResAgreementEmploymentAppl}" collapsible="true">
                             <include-form name="AddAgreementEmploymentAppl" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                         </screenlet>
                         <include-form name="ListAgreementEmploymentAppls" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>            
+            </widgets>
         </section>
     </screen>
 </screens>

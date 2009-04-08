@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="ListProductPromos" type="list" title="" list-name="productPromos"
         paginate-target="FindProductPromo" odd-row-style="alternate-row" default-table-style="basic-table">
@@ -69,7 +69,7 @@ under the License.
         </field>
     </form>
     <form name="EditProductPromoCode" type="single" target="updateProductPromoCode" title="" default-map-name="productPromoCode"
-        header-row-style="header-row" default-table-style="basic-table">        
+        header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="productPromoCode==null" target="createProductPromoCode"/>
         <auto-fields-service service-name="updateProductPromoCode" map-name=""/>
 
@@ -101,7 +101,7 @@ under the License.
             <display description="[${productPromoCode.createdByUserLogin}] ${uiLabelMap.CommonOn} ${productPromoCode.createdDate}" also-hidden="false"/>
         </field>
     </form>
-    
+
     <form name="ListProductPromoCodes" type="list" title="" list-name="productPromoCodes"
         odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ProductPromoCode" default-field-type="display"/>

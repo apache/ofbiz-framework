@@ -22,7 +22,7 @@ under the License.
 This file contains basic services for SalesOpportunity and SalesForecast.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createSalesForecast" short-description="Creates a sales forecast and stores a copy in sales forecast history.">
@@ -30,9 +30,9 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <!-- make the value and set the fields from the parameters -->
         <make-value value-field="salesForecast" entity-name="SalesForecast"/>
         <sequenced-id sequence-name="SalesForecast" field="salesForecastId"/>
-        <set field="salesForecast.salesForecastId" from-field="salesForecastId"/> 
+        <set field="salesForecast.salesForecastId" from-field="salesForecastId"/>
         <set-nonpk-fields map="parameters" value-field="salesForecast"/>
-        
+
         <!-- set the creation info -->
         <set field="salesForecast.createdByUserLoginId" from-field="userLogin.userLoginId"/>
         <set field="salesForecast.modifiedByUserLoginId" from-field="userLogin.userLoginId"/>
@@ -54,7 +54,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
 
         <!-- set the fields from the parameters -->
         <set-nonpk-fields map="parameters" value-field="salesForecast"/>
-        
+
         <!-- store the value -->
         <store-value value-field="salesForecast"/>
 
@@ -67,7 +67,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <!-- make the value and set the fields from the salesForecast map -->
         <make-value value-field="salesForecastHistory" entity-name="SalesForecastHistory"/>
         <sequenced-id sequence-name="SalesForecastHistory" field="salesForecastHistoryId"/>
-        <set field="salesForecastHistory.salesForecastHistoryId" from-field="salesForecastHistoryId"/> 
+        <set field="salesForecastHistory.salesForecastHistoryId" from-field="salesForecastHistoryId"/>
         <set-nonpk-fields value-field="salesForecastHistory" map="salesForecast"/>
 
         <!-- get the change note from the parameters -->
@@ -81,13 +81,13 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <!-- create the value -->
         <create-value value-field="salesForecastHistory"/>
     </simple-method>
-    
-    <!-- Sales Forecast Detail --> 
+
+    <!-- Sales Forecast Detail -->
     <simple-method method-name="createSalesForecastDetail" short-description="Creates a sales forecast detail">
         <make-value entity-name="SalesForecastDetail" value-field="newEntity"/>
         <sequenced-id sequence-name="SalesForecastDetail" field="newEntity.salesForecastDetailId"/>
         <field-to-result field="newEntity.salesForecastDetailId" result-name="salesForecastDetailId"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/> 
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>

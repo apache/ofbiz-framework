@@ -71,7 +71,7 @@ under the License.
             <exclude field-name="statusEndDate"/>
         </auto-attributes>
     </service>
-    
+
     <!-- Financial Account Transaction -->
     <service name="createFinAccountTrans" engine="simple" default-entity-name="FinAccountTrans"
             location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="createFinAccountTrans">
@@ -86,7 +86,7 @@ under the License.
         <description>Post a Financial Account Transaction to the General Ledger; meant to be called as an SECA</description>
         <attribute name="finAccountTransId" type="String" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="createFinAccountRole" engine="simple" default-entity-name="FinAccountRole"
             location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="createFinAccountRole">
         <description>Create a new Financial Account Role</description>
@@ -111,7 +111,7 @@ under the License.
         <description>Lower level service for creating authorization against a fin account.  Will use current time for authorizationDate and thruDate if not supplied.</description>
         <auto-attributes mode="OUT" optional="false" include="pk"/>
         <auto-attributes mode="IN" optional="true" include="nonpk"/>
-    </service>   
+    </service>
     <service name="expireFinAccountAuth" engine="simple" default-entity-name="FinAccountAuth"
             location="component://accounting/script/org/ofbiz/accounting/finaccount/FinAccountServices.xml" invoke="expireFinAccountAuth">
         <!-- NOTE: never set require-new-transaction on this service, needs to be called with other services in same transaction to protect operations such as the payment capture one -->
@@ -119,7 +119,7 @@ under the License.
         <attribute name="finAccountAuthId" type="String" mode="IN" optional="false"/>
         <attribute name="expireDateTime" type="Timestamp" mode="IN" optional="true"/>
     </service>
-    
+
     <!-- these services use the product store's fin account settings -->
     <service name="createFinAccountForStore" engine="java" default-entity-name="FinAccount"
             location="org.ofbiz.accounting.finaccount.FinAccountServices" invoke="createFinAccountForStore">
@@ -155,9 +155,9 @@ under the License.
             location="org.ofbiz.accounting.finaccount.FinAccountPaymentServices" invoke="finAccountWithdraw" auth="true">
         <!-- NOTE: never set require-new-transaction on this service, needs to be called with other services in same transaction to protect operations such as the payment capture one -->
         <description>Deposit Funds into a Financial Account</description>
-        <attribute name="finAccountId" type="String" mode="IN" optional="false"/>        
+        <attribute name="finAccountId" type="String" mode="IN" optional="false"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
-        <attribute name="requireBalance" type="Boolean" mode="IN" optional="true"/> 
+        <attribute name="requireBalance" type="Boolean" mode="IN" optional="true"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
@@ -172,7 +172,7 @@ under the License.
     <service name="finAccountRefund" engine="java"
             location="org.ofbiz.accounting.finaccount.FinAccountServices" invoke="refundFinAccount" auth="true">
         <description>Refunds the deposits to a financial account back to the source</description>
-        <attribute name="finAccountId" type="String" mode="IN" optional="false"/> 
+        <attribute name="finAccountId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="finAccountReplenish" engine="java" max-retry="3"
             location="org.ofbiz.accounting.finaccount.FinAccountPaymentServices" invoke="finAccountReplenish" auth="true">
@@ -186,7 +186,7 @@ under the License.
         <attribute name="finAccountId" type="String" mode="IN" optional="false"/>
         <attribute name="availableBalance" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="balance" type="BigDecimal" mode="OUT" optional="false"/>
-        <attribute name="statusId" type="String" mode="OUT" optional="false"/> 
+        <attribute name="statusId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="checkFinAccountStatus" engine="java"
             location="org.ofbiz.accounting.finaccount.FinAccountServices" invoke="checkFinAccountStatus" auth="true">
@@ -215,7 +215,7 @@ under the License.
         <attribute name="finAccountId" type="String" mode="INOUT" optional="true"/>
         <attribute name="finAccountName" type="String" mode="IN" optional="true"/>
         <attribute name="reasonEnumId" type="String" mode="IN" optional="true"/>
-        <attribute name="comments" type="String" mode="IN" optional="true"/>        
+        <attribute name="comments" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="amount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="replenishPaymentId" type="String" mode="IN" optional="true"/>

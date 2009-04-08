@@ -38,7 +38,7 @@ dojo.widget.defineWidget(
 		//	if true, checkbox is initially marked turned on;
 		//	in markup, specified as "checked='checked'" or just "checked"
 		checked: false,
-		
+
 		// tabIndex: Integer
 		//	order fields are traversed when user hits the tab key
 		tabIndex: "",
@@ -50,7 +50,7 @@ dojo.widget.defineWidget(
 
 		postMixInProperties: function(){
 			dojo.widget.Checkbox.superclass.postMixInProperties.apply(this, arguments);
-			
+
 			// set tabIndex="0" because if tabIndex=="" user won't be able to tab to the field
 			if(!this.disabled && this.tabIndex==""){ this.tabIndex="0"; }
 		},
@@ -177,7 +177,7 @@ dojo.widget.defineWidget(
 			//only set disabled if true since FF interprets any value for disabled as true
 			if (this.disabled){
 				this.inputNode.setAttribute("disabled",true);
-			} 
+			}
 		},
 
 		_onClick: function(){

@@ -1,4 +1,4 @@
-/* 
+/*
   popup.js
 
   A lightweight general purpose JavaScript DOM element popup class.
@@ -195,7 +195,7 @@ Popup.prototype = {
         break;
     }
   },
-  
+
   hide: function(event){
     this.is_open = false;
     switch (this.options.effect) {
@@ -352,7 +352,7 @@ Popup.prototype = {
       y = (viewport_height - popup_height)/2;
     }
 
-    return {x: x, y: y}; 
+    return {x: x, y: y};
   },
 
   get_auto_position: function(mouse_x, mouse_y) {
@@ -403,9 +403,9 @@ Popup.prototype = {
       y = 0;
     }
 
-    return {x: x, y: y}; 
+    return {x: x, y: y};
   },
-  
+
   get_viewport_dimensions: function() {
     var dim = this.getPageSize();
     return {width: dim[2], height: dim[3]};
@@ -426,7 +426,7 @@ Popup.prototype = {
   getPageSize: function() {
     var xScroll, yScroll;
 
-    if (window.innerHeight && window.scrollMaxY) {	
+    if (window.innerHeight && window.scrollMaxY) {
       xScroll = document.body.scrollWidth;
       yScroll = window.innerHeight + window.scrollMaxY;
     } else if (document.body.scrollHeight > document.body.offsetHeight){ // all but Explorer Mac
@@ -447,17 +447,17 @@ Popup.prototype = {
     } else if (document.body) { // other Explorers
       windowWidth = document.body.clientWidth;
       windowHeight = document.body.clientHeight;
-    }	
-    
+    }
+
     // for small pages with total height less then height of the viewport
     if(yScroll < windowHeight){
       pageHeight = windowHeight;
-    } else { 
+    } else {
       pageHeight = yScroll;
     }
 
     // for small pages with total width less then width of the viewport
-    if(xScroll < windowWidth){	
+    if(xScroll < windowWidth){
       pageWidth = windowWidth;
     } else {
       pageWidth = xScroll;

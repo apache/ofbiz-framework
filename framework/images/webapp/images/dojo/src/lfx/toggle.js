@@ -16,7 +16,7 @@ dojo.lfx.toggle.plain = {
 		dojo.html.show(node);
 		if(dojo.lang.isFunction(callback)){ callback(); }
 	},
-	
+
 	hide: function(node, duration, easing, callback){
 		dojo.html.hide(node);
 		if(dojo.lang.isFunction(callback)){ callback(); }

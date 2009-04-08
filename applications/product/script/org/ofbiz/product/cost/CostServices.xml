@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- CostComponent services -->
     <simple-method method-name="createCostComponent" short-description="Create a CostComponent">
@@ -98,7 +98,7 @@ under the License.
         <find-by-and entity-name="CostComponent" map="costsAndMap" list="otherCosts"/>
         <filter-list-by-date list="otherCosts"/>
         <first-from-list list="otherCosts" entry="otherCost"/>
-        
+
         <set field="productCost" value="0" type="BigDecimal"/>
         <calculate field="productCost" decimal-scale="6">
             <calcop field="laborCost.cost" operator="add">
@@ -189,7 +189,7 @@ under the License.
                 <calcop field="setupTime" operator="get"/>
             </calcop>
         </calculate>
-        
+
         <entity-one entity-name="WorkEffort" value-field="task"/>
         <if-not-empty field="task">
             <get-related-one value-field="task" relation-name="FixedAsset" to-value-field="fixedAsset"/>
@@ -221,7 +221,7 @@ under the License.
                 <number value="3600000"/>
             </calcop>
         </calculate>
-        
+
         <field-to-result field="taskCost"/>
     </simple-method>
 
@@ -303,13 +303,13 @@ under the License.
                 </calcop>
             </calculate>
         </iterate>
-        
+
         <calculate field="totalCost" decimal-scale="6">
             <calcop field="totalTaskCost" operator="add">
                 <calcop field="totalProductsCost" operator="get"/>
             </calcop>
         </calculate>
-        
+
         <!-- The CostComponent records are created. -->
         <if-not-empty field="totalTaskCost">
             <if-compare field="totalTaskCost" operator="greater" value="0" type="BigDecimal">
@@ -331,7 +331,7 @@ under the License.
                 <call-service service-name="recreateCostComponent" in-map-name="callSvcMap"/>
             </if-compare>
         </if-not-empty>
-        
+
         <field-to-result field="totalCost"/>
     </simple-method>
     <simple-method method-name="calculateProductAverageCost" short-description="Calculate inventory average cost for a product">
@@ -358,7 +358,7 @@ under the License.
                     <calcop operator="get" field="inventoryItem.quantityOnHandTotal"/>
                 </calcop>
             </calculate>
-            
+
             <if-empty field="currencyUomId">
                 <set field="currencyUomId" from-field="inventoryItem.currencyUomId"/>
             </if-empty>
@@ -373,7 +373,7 @@ under the License.
                             </calcop>
                         </calcop>
                     </calculate>
-                    
+
                     <!-- calculation of absolute values of QOH and total inventory cost -->
                     <if-compare field="inventoryItem.quantityOnHandTotal" operator="less" value="0">
                         <calculate field="absValOfTotalQOH">
@@ -415,7 +415,7 @@ under the License.
                 </if-compare-field>
             </if-compare>
         </iterate>
-        
+
         <if-compare field="absValOfTotalQOH" operator="not-equals" value="0" type="BigDecimal">
             <calculate field="productAverageCost" type="BigDecimal">
                 <calcop operator="divide">

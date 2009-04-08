@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <a href="<@ofbizUrl>attachProductFeaturesToCategory?productCategoryId=${productCategoryId?if_exists}</@ofbizUrl>" class="buttontext">[${uiLabelMap.ProductFeatureCategoryAttach}]</a>
-<#if productCategoryId?exists && productCategory?exists>    
+<#if productCategoryId?exists && productCategory?exists>
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.PageTitleEditCategoryFeatureCategories}</h3>
     </div>
@@ -96,7 +96,7 @@ under the License.
         <div class="screenlet-body">
             <#-- Feature Categories -->
             <table cellspacing="0" class="basic-table">
-                <tr class="header-row">    
+                <tr class="header-row">
                     <td><b>${uiLabelMap.ProductFeatureCategory}</b></td>
                     <td><b>${uiLabelMap.CommonFromDateTime}</b></td>
                     <td align="center"><b>${uiLabelMap.CommonThruDateTime}</b></td>
@@ -159,5 +159,5 @@ under the License.
                 </td></tr>
             </table>
         </div>
-    </div>    
+    </div>
 </#if>

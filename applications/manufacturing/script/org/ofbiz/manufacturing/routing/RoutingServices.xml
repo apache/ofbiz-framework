@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="getProductRouting" short-description="Get the product's routing and routing tasks">
@@ -37,7 +37,7 @@ under the License.
             <find-by-and entity-name="WorkEffortGoodStandard" list="routings" map="lookupRouting"/>
             <filter-list-by-date list="routings" valid-date="filterDate"/>
             <first-from-list list="routings" entry="routingGS"/>
-            <!-- If the routing is not associated with our product and it's a variant, then 
+            <!-- If the routing is not associated with our product and it's a variant, then
                  check to see if it's virtual product has the routing -->
             <if-empty field="routingGS">
                 <entity-condition entity-name="ProductAssoc" list="virtualProductAssocList" filter-by-date="true">
@@ -62,7 +62,7 @@ under the License.
                 <filter-list-by-date list="routings" valid-date="filterDate"/>
                 <!-- TODO: we should consider the quantity to select the best routing -->
                 <first-from-list list="routings" entry="routingGS"/>
-                <!-- If there are no routings associated with our product and it's a variant, then 
+                <!-- If there are no routings associated with our product and it's a variant, then
                      check to see if it's virtual product has a routing -->
                 <if-empty field="routingGS">
                     <entity-condition entity-name="ProductAssoc" list="virtualProductAssocList">
@@ -90,7 +90,7 @@ under the License.
             <set from-field="routingGS.workEffortId" field="lookupRouting.workEffortId"/>
             <find-by-primary-key entity-name="WorkEffort" value-field="routing" map="lookupRouting"/>
             <else>
-                <!-- The default routing is used when no explicit routing is associated to the product 
+                <!-- The default routing is used when no explicit routing is associated to the product
                      and the ignoreDefaultRouting is not equals to Y -->
                 <if>
                     <condition>

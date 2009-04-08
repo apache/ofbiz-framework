@@ -42,7 +42,7 @@ under the License.
       <input type="submit" value="${uiLabelMap.CommonView}"/>
     </form>
     <br/>
-    &nbsp; 
+    &nbsp;
     <form style="display: inline;" action="<@ofbizUrl>${parameters.targetRequestUri}</@ofbizUrl>" method="post">
       <input type="hidden" name="start" value="${start.time?string("#")}"/>
       <span class="label">${uiLabelMap.WorkEffortByFixedAsset}</span>
@@ -65,6 +65,6 @@ under the License.
         </#list>
       </select>
       <input type="submit" value="${uiLabelMap.CommonView}"/>
-    </form>    
+    </form>
   </div>
 </div>

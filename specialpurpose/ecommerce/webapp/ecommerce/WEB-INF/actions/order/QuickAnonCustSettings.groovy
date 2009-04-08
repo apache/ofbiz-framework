@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -52,16 +52,16 @@ if (partyId) {
         }
 
         // get the Email Address
-        emailPartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
+        emailPartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose",
                 [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_EMAIL"])));
         if (emailPartyContactDetail) {
             parameters.emailContactMechId = emailPartyContactDetail.contactMechId;
             parameters.emailAddress = emailPartyContactDetail.infoString;
             parameters.emailSol = emailPartyContactDetail.allowSolicitation;
         }
-        
+
         // get the Phone Numbers
-        homePhonePartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
+        homePhonePartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose",
                 [partyId : partyId, contactMechPurposeTypeId : "PHONE_HOME"])));
         if (homePhonePartyContactDetail) {
             parameters.homePhoneContactMechId = homePhonePartyContactDetail.contactMechId;
@@ -71,8 +71,8 @@ if (partyId) {
             parameters.homeExt = homePhonePartyContactDetail.extension;
             parameters.homeSol = homePhonePartyContactDetail.allowSolicitation;
         }
-        
-        workPhonePartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
+
+        workPhonePartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose",
                 [partyId : partyId, contactMechPurposeTypeId : "PHONE_WORK"])));
         if (workPhonePartyContactDetail) {
             parameters.workPhoneContactMechId = workPhonePartyContactDetail.contactMechId;
@@ -98,17 +98,17 @@ if (cartPartyId && !cartPartyId.equals("_NA_")) {
         cartPerson = cartParty.getRelatedOne("Person");
         context.party = cartParty;
         context.person = cartPerson;
-    } 
+    }
 }
 
 if (cart && cart.getShippingContactMechId()) {
     shippingContactMechId = cart.getShippingContactMechId();
-    shippingPartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose", 
+    shippingPartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose",
        [partyId : cartPartyId, contactMechId : shippingContactMechId])));
     parameters.shippingContactMechId = shippingPartyContactDetail.contactMechId;
     context.callSubmitForm = true;
     parameters.shipToName = shippingPartyContactDetail.toName;
-    parameters.shipToAttnName = shippingPartyContactDetail.attnName; 
+    parameters.shipToAttnName = shippingPartyContactDetail.attnName;
     parameters.shipToAddress1 = shippingPartyContactDetail.address1;
     parameters.shipToAddress2 = shippingPartyContactDetail.address2;
     parameters.shipToCity = shippingPartyContactDetail.city;
@@ -133,11 +133,11 @@ if (billingContactMechId) {
     parameters.billToCountryGeoId = billPostalAddress.countryGeoId;
 }
 
-if(cart?.getShippingContactMechId() && shippingPartyContactDetail) {
+if (cart?.getShippingContactMechId() && shippingPartyContactDetail) {
     shippingContactMechId = shippingPartyContactDetail.contactMechId;
-    if(billingContactMechId?.equals(shippingContactMechId)){
+    if (billingContactMechId?.equals(shippingContactMechId)) {
         context.useShippingPostalAddressForBilling = "Y";
-    } 
+    }
 }
 parameters.shippingContactMechPurposeTypeId = "SHIPPING_LOCATION";
 parameters.billingContactMechPurposeTypeId = "BILLING_LOCATION";

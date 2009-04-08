@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -68,7 +68,7 @@ if (action) {
             offsetQOH = Integer.parseInt(offsetQOHQty);
             hasOffsetQOH = true;
             searchParameterString = searchParameterString + "&offsetQOHQty=" + offsetQOH;
-        } catch(NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
         }
     }
     if (offsetATPQty) {
@@ -76,7 +76,7 @@ if (action) {
             offsetATP = Integer.parseInt(offsetATPQty);
             hasOffsetATP = true;
             searchParameterString = searchParameterString + "&offsetATPQty=" + offsetATP;
-        } catch(NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
         }
     }
 
@@ -97,7 +97,7 @@ if (action) {
         conditionMap.productTypeId = productTypeId;
         searchParameterString = searchParameterString + "&productTypeId=" + productTypeId;
     }
-    
+
     prodView.addMemberEntity("IITE", "InventoryItem");
     prodView.addViewLink("PRFA", "IITE", Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId", "productId", "facilityId", "facilityId"));
     prodView.addAlias("IITE", "totalQuantityOnHandTotal", "quantityOnHandTotal", null, null, null, "sum");
@@ -126,7 +126,7 @@ if (action) {
         conditionMap.partyId = productSupplierId;
         searchParameterString = searchParameterString + "&productSupplierId=" + productSupplierId;
     }
-    
+
     // set distinct on so we only get one row per product
     findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
     searchCondition = EntityCondition.makeCondition(conditionMap, EntityOperator.AND);
@@ -152,8 +152,8 @@ if (action) {
         whereConditionsList.add(EntityCondition.makeCondition("internalName", EntityOperator.LIKE, "%" + internalName + "%"));
         searchParameterString = searchParameterString + "&internalName=" + internalName;
     }
-    
-    // add search on productId 
+
+    // add search on productId
     if (productId) {
         whereConditionsList.add(EntityCondition.makeCondition("productId", EntityOperator.LIKE, productId + "%"));
         searchParameterString = searchParameterString + "&productId=" + productId;
@@ -201,7 +201,7 @@ if (action) {
         salesUsageViewEntity.addAlias("ItIss", "inventoryItemId");
         salesUsageViewEntity.addAlias("ItIss", "quantity");
         salesUsageViewEntity.addAlias("InvIt", "facilityId");
-    
+
         // Construct a dynamic view entity to search against for production usage quantities
         productionUsageViewEntity = new DynamicViewEntity();
         productionUsageViewEntity.addMemberEntity("WEIA", "WorkEffortInventoryAssign");
@@ -257,11 +257,11 @@ if (action) {
             oneInventory.offsetATPQtyAvailable = offsetATPQtyAvailable;
             oneInventory.quantityOnOrder = InventoryWorker.getOutstandingPurchasedQuantity(oneProd.productId, delegator);
 
-            
+
             if (checkTime) {
-            
+
                 // Make a query against the sales usage view entity
-                salesUsageIt = delegator.findListIteratorByCondition(salesUsageViewEntity, 
+                salesUsageIt = delegator.findListIteratorByCondition(salesUsageViewEntity,
                         EntityCondition.makeCondition(
                             [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
                              EntityCondition.makeCondition("productId", EntityOperator.EQUALS, oneProd.productId),
@@ -270,7 +270,7 @@ if (action) {
                              EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
                             ],
                             EntityOperator.AND), null, null, null, null);
-        
+
                 // Sum the sales usage quantities found
                 salesUsageQuantity = 0;
                 salesUsageIt.each { salesUsageItem ->
@@ -283,9 +283,9 @@ if (action) {
                     }
                 }
                 salesUsageIt.close();
-        
+
                 // Make a query against the production usage view entity
-                productionUsageIt = delegator.findListIteratorByCondition(productionUsageViewEntity, 
+                productionUsageIt = delegator.findListIteratorByCondition(productionUsageViewEntity,
                         EntityCondition.makeCondition(
                             [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
                              EntityCondition.makeCondition("productId", EntityOperator.EQUALS, oneProd.productId),
@@ -293,10 +293,10 @@ if (action) {
                              EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
                             ],
                             EntityOperator.AND), null, null, null, null);
-        
+
                 // Sum the production usage quantities found
                 productionUsageQuantity = 0;
-                productionUsageIt.each { productionUsageItem ->                
+                productionUsageIt.each { productionUsageItem ->
                     if (productionUsageItem.quantity) {
                         try {
                             productionUsageQuantity += productionUsageItem.getDouble("quantity").doubleValue();
@@ -305,9 +305,9 @@ if (action) {
                         }
                     }
                 }
-                productionUsageIt.close();        
-                oneInventory.usageQuantity = salesUsageQuantity + productionUsageQuantity;    
-            }    
+                productionUsageIt.close();
+                oneInventory.usageQuantity = salesUsageQuantity + productionUsageQuantity;
+            }
             rows.add(oneInventory);
         }
         if (rows.size() < viewSize.intValue()) {
@@ -316,7 +316,7 @@ if (action) {
             // attempt to get the full size
             if (hasOffsetQOH || hasOffsetATP) {
                 rowProcessed = 0;
-                while (nextValue = prodsEli.next()) { 
+                while (nextValue = prodsEli.next()) {
                     offsetQOHQtyAvailable = nextValue.getDouble("offsetQOHQtyAvailable");
                     offsetATPQtyAvailable = nextValue.getDouble("offsetATPQtyAvailable");
                     if (hasOffsetATP) {
@@ -341,7 +341,7 @@ if (action) {
         if (highIndex > productListSize) {
             highIndex = productListSize;
         }
-        context.overrideListSize = productListSize; 
+        context.overrideListSize = productListSize;
         context.highIndex = highIndex;
         context.lowIndex = lowIndex;
 

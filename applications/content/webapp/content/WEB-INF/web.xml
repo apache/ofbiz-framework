@@ -23,7 +23,7 @@ under the License.
 <web-app>
     <display-name>Open For Business - Content Manager</display-name>
     <description>Content Manager Module of the Open For Business Project</description>
-    
+
     <context-param>
         <param-name>webSiteId</param-name>
         <param-value>CONTENT_SITE</param-value>
@@ -43,13 +43,13 @@ under the License.
         <param-name>serviceReaderUrls</param-name>
         <param-value>/WEB-INF/services.xml</param-value>
         <description>Configuration File(s) For The Service Dispatcher</description>
-    </context-param>   
+    </context-param>
     <context-param>
         <param-name>mainDecoratorLocation</param-name>
         <param-value>component://content/widget/CommonScreens.xml</param-value>
         <description>The location of the main-decorator screen to use for this webapp; referred to as a context variable in screen def XML files.</description>
     </context-param>
-    
+
     <filter>
         <filter-name>ContextFilter</filter-name>
         <display-name>ContextFilter</display-name>
@@ -69,7 +69,7 @@ under the License.
         <init-param>
             <param-name>redirectPath</param-name>
             <param-value>/control/main</param-value>
-        </init-param>        
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>ContextFilter</filter-name>
@@ -80,7 +80,7 @@ under the License.
     <listener><listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
     <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
     <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
-  
+
     <servlet>
         <servlet-name>ControlServlet</servlet-name>
         <display-name>ControlServlet</display-name>

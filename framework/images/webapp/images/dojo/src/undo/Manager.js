@@ -50,14 +50,14 @@ dojo.extend(dojo.undo.Manager, {
 	},
 
 	onUndoAny: function(/*Object*/manager, /*Object*/item) {
-		//summary: An event that fires when *any* undo action is done, 
+		//summary: An event that fires when *any* undo action is done,
 		//which means you'll have one for every item
 		//in a transaction. This is usually only useful for debugging.
 		//See notes for onUndo for info on the function parameters.
 	},
-	
+
 	onRedoAny: function(/*Object*/manager, /*Object*/item) {
-		//summary: An event that fires when *any* redo action is done, 
+		//summary: An event that fires when *any* redo action is done,
 		//which means you'll have one for every item
 		//in a transaction. This is usually only useful for debugging.
 		//See notes for onRedo for info on the function parameters.
@@ -207,10 +207,10 @@ dojo.extend(dojo.undo.Manager, {
 	endTransaction: function(flatten /* optional */) {
 		//summary: Ends a transaction started by beginTransaction(). See beginTransaction()
 		//for details.
-		
+
 		//flatten: boolean: If true, adds the current transaction to the parent's
 		//undo stack.
-	
+
 		if(this._currentManager == this) {
 			if(this._parent) {
 				this._parent._currentManager = this._parent;

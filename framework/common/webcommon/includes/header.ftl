@@ -29,7 +29,7 @@ under the License.
     <title>${layoutSettings.companyName}: <#if (page.titleProperty)?has_content>${uiLabelMap[page.titleProperty]}<#else>${(page.title)?if_exists}</#if></title>
     <#if layoutSettings.shortcutIcon?has_content>
       <#assign shortcutIcon = layoutSettings.shortcutIcon/>
-    <#elseif layoutSettings.VT_SHORTCUT_ICON?has_content>    
+    <#elseif layoutSettings.VT_SHORTCUT_ICON?has_content>
       <#assign shortcutIcon = layoutSettings.VT_SHORTCUT_ICON.get(0)/>
     </#if>
     <#if shortcutIcon?has_content>
@@ -104,7 +104,7 @@ under the License.
             <#list layoutSettings.topLines as topLine>
               <li>
               <#if topLine.text?exists>
-                ${topLine.text}<a href="<@ofbizUrl>${topLine.url?if_exists}</@ofbizUrl>">${topLine.urlText?if_exists}</a> 
+                ${topLine.text}<a href="<@ofbizUrl>${topLine.url?if_exists}</@ofbizUrl>">${topLine.urlText?if_exists}</a>
               <#elseif topLine.dropDownList?exists>
                 <#include "component://common/webcommon/includes/insertDropDown.ftl"/>
               <#else>
@@ -143,7 +143,7 @@ under the License.
               <#if topLine.text?exists>
                 <p>${topLine.text}<a href="${topLine.url?if_exists}&externalLoginKey=${externalLoginKey}">${topLine.urlText?if_exists}</a></p>
               <#elseif topLine.dropDownList?exists>
-                <p><#include "component://common/webcommon/includes/insertDropDown.ftl"/></p> 
+                <p><#include "component://common/webcommon/includes/insertDropDown.ftl"/></p>
               <#else>
                 <p>${topLine?if_exists}</p>
               </#if>

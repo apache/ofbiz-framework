@@ -7,12 +7,12 @@
     <display-name>OFBiz</display-name>
 
     <#list webApps as webapp>
-    
+
     <module>
         <web>
             <web-uri>${webapp.getContextRoot()}.war</web-uri>
             <context-root>${webapp.getContextRoot()}</context-root>
         </web>
     </module>
-    </#list>    
+    </#list>
 </application>

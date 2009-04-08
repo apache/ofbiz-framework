@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
     <!-- ========================================================= -->
     <!-- ======================== Defaults ======================= -->
@@ -28,18 +28,18 @@ under the License.
     <copyright>Copyright 2001-2008 The Apache Software Foundation</copyright>
     <author>None</author>
     <version>1.0</version>
-    
+
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:                  -->
     <!--  - org.ofbiz.example.example -->
     <!--  - org.ofbiz.example.feature -->
     <!-- ========================================================= -->
-    
+
     <!-- ========================================================= -->
     <!-- org.ofbiz.example.example -->
     <!-- ========================================================= -->
-    
+
     <entity entity-name="Example"
             package-name="org.ofbiz.example.example"
             default-resource-name="ExampleEntityLabels"
@@ -110,8 +110,8 @@ under the License.
             <key-map field-name="exampleId"/>
         </view-link>
     </view-entity>
-    <entity entity-name="ExampleType" 
-            package-name="org.ofbiz.example.example" 
+    <entity entity-name="ExampleType"
+            package-name="org.ofbiz.example.example"
             default-resource-name="ExampleEntityLabels"
             title="Example Type Entity">
         <field name="exampleTypeId" type="id-ne"></field>
@@ -126,7 +126,7 @@ under the License.
     <!-- ========================================================= -->
     <!-- org.ofbiz.example.feature -->
     <!-- ========================================================= -->
-    
+
     <entity entity-name="ExampleFeature"
         package-name="org.ofbiz.example.feature"
         title="Example Feature Entity" default-resource-name="ExampleEntityLabels">

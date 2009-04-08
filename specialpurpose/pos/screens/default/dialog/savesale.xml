@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <!--XPage class="org.ofbiz.pos.screen.XFocusDialog"-->
-<XPage class="net.xoetrope.swing.XDialog">    
+<XPage class="net.xoetrope.swing.XDialog">
     <Components>
         <Panel name="salePanel" x="0" y="0" w="680" h="320" style="menu">
             <Edit name="saleName"  x="20" y="20" w="400" h="44" style="editAndList"/>

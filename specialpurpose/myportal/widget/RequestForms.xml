@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    <form name="AddCustRequestContent" type="upload" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml" 
+    <form name="AddCustRequestContent" type="upload" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml"
         target="createCustRequestContent?custRequestId=${parameters.custRequestId}" >
         <field name="custRequestId" map-name="parameters"><hidden/></field>
         <field name="contentId"><hidden/></field>

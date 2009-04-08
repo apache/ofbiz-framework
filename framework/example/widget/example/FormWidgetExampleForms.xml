@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="DateTimeFieldsExampleForm" type="single" title="">
@@ -223,12 +223,12 @@ under the License.
             </drop-down>
         </field>
     </form>
-    
+
     <!-- Simple form to print a FOP PDF file with the  fonts available in OFBiz Project -->
     <form name="FOPFontsExampleForm" type="single" target="printExampleFOPFonts">
             <field name="printButton" title="${uiLabelMap.ExamplePrintButton}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="FieldGroupExampleForm" type="single" title="">
         <field name="field1" title="${uiLabelMap.ExampleField} 1"><text/></field>
         <field name="field2" title="${uiLabelMap.ExampleField} 2"><text/></field>

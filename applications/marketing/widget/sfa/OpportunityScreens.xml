@@ -20,7 +20,7 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    
+
     <screen name="FindOpportunity">
         <section>
             <actions>
@@ -43,7 +43,7 @@ under the License.
                                         <include-form name="FindOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
                                     </widgets>
                                 </section>
-                            </container> 
+                            </container>
                         </container>
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
@@ -66,7 +66,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditOpportunity">
         <section>
             <actions>
@@ -90,14 +90,14 @@ under the License.
                                         <include-form name="EditOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
                                     </widgets>
                                 </section>
-                            </container> 
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ViewOpportunity">
         <section>
             <actions>
@@ -121,7 +121,7 @@ under the License.
                                         <include-form name="ViewOpportunity" location="component://marketing/widget/sfa/forms/OpportunityForms.xml"/>
                                     </widgets>
                                 </section>
-                            </container> 
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <!-- Column Included Screens -->
@@ -50,7 +50,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="promoUseDetailsInline">
         <section>
             <widgets>
@@ -58,7 +58,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <!-- =========== Top-Level and Stand-Alone Screens =========== -->
 
     <screen name="showcart">
@@ -86,7 +86,7 @@ under the License.
             <actions>
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="MainColumnStyle" value="leftonly"/>
-                
+
                 <set field="promoUseDetailsInlineScreen" value="component://ecommerce/widget/CartScreens.xml#promoUseDetailsInline"/>
 
                 <set field="titleProperty" value="PageTitleShowAllPromotions"/>

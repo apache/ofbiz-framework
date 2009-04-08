@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <!-- create and/or update a Computer Hardware fixed asset -->
     <screen name="EditComputerHardware">
@@ -167,7 +167,7 @@ under the License.
             </widgets>
          </section>
     </screen>
-    
+
     <screen name="ListInstalledSoftware">
         <section>
             <actions>
@@ -187,4 +187,3 @@ under the License.
          </section>
     </screen>
 </screens>
-    

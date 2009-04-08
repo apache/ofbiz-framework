@@ -22,7 +22,7 @@ under the License.
       <li class="h3">${uiLabelMap.PageTitleEditSurveyQuestions} ${uiLabelMap.ContentSurveySurveyId} ${surveyId}</li>
     </ul>
     <br class="clear"/>
-  </div>  
+  </div>
   <div class="screenlet-body">
       <table class="basic-table hover-bar" cellspacing="0">
         <tr class="header-row">
@@ -132,7 +132,7 @@ under the License.
           <li class="h3">${uiLabelMap.ContentSurveyApplyQuestionFromCategory} - ${surveyQuestionCategory.description?if_exists} [${surveyQuestionCategory.surveyQuestionCategoryId}]</li>
         </ul>
         <br class="clear"/>
-      </div>  
+      </div>
       <div class="screenlet-body">
         <a name="appl">
         <table class="basic-table hover-bar" cellspacing="0">
@@ -203,7 +203,7 @@ under the License.
       <li class="h3">${uiLabelMap.ContentSurveyApplyQuestionFromCategory}</li>
     </ul>
     <br class="clear"/>
-  </div>  
+  </div>
   <div class="screenlet-body">
       <form method="post" action="<@ofbizUrl>EditSurveyQuestions</@ofbizUrl>">
         <input type="hidden" name="surveyId" value="${requestParameters.surveyId}"/>
@@ -225,7 +225,7 @@ under the License.
         <li class="h3">${uiLabelMap.ContentSurveyCreateQuestionCategory}</li>
       </ul>
       <br class="clear"/>
-    </div>  
+    </div>
     <div class="screenlet-body">
       <a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNew} ${uiLabelMap.ContentSurveyQuestion}</a>
       <br/><br/>
@@ -237,8 +237,8 @@ under the License.
         <li class="h3">${uiLabelMap.CommonEdit} ${uiLabelMap.ContentSurveyQuestion}</li>
       </ul>
       <br class="clear"/>
-    </div>  
-    <div class="screenlet-body">  
+    </div>
+    <div class="screenlet-body">
       <a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNew} ${uiLabelMap.ContentSurveyQuestion}</a>
     <#else>
     <div class="screenlet-title-bar">
@@ -246,7 +246,7 @@ under the License.
         <li class="h3">${uiLabelMap.ContentSurveyCreateQuestion}</li>
       </ul>
       <br class="clear"/>
-    </div>  
+    </div>
     <div class="screenlet-body">
     </#if>
     <a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}&newCategory=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonNew} ${uiLabelMap.ContentSurveyQuestion} ${uiLabelMap.ContentSurveryCategory}</a>
@@ -262,7 +262,7 @@ under the License.
       <li class="h3">${uiLabelMap.ContentSurveyOptions} - ${uiLabelMap.CommonId} ${surveyQuestion.surveyQuestionId?if_exists}</li>
     </ul>
     <br class="clear"/>
-  </div>  
+  </div>
   <div class="screenlet-body">
     <table class="basic-table hover-bar" cellspacing="0">
       <tr class="header-row">
@@ -291,7 +291,7 @@ under the License.
         <li class="h3">${uiLabelMap.ContentSurveyCreateQuestionOption}</li>
       </ul>
       <br class="clear"/>
-    </div>  
+    </div>
     <div class="screenlet-body">
     <#else>
     <div class="screenlet-title-bar">
@@ -299,7 +299,7 @@ under the License.
         <li class="h3">${uiLabelMap.ContentSurveyEditQuestionOption}</li>
       </ul>
       <br class="clear"/>
-    </div>  
+    </div>
     <div class="screenlet-body">
       <a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}&surveyQuestionId=${surveyQuestionOption.surveyQuestionId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonNew} ${uiLabelMap.ContentSurveyOption}]</a>
     </#if>

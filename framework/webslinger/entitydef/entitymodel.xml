@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/entitymodel.xsd">
     <title></title>
     <description></description>
@@ -53,7 +53,7 @@ under the License.
           <key-map field-name="webslingerServerId"/>
       </relation>
     </entity>
- 
+
     <entity entity-name="WebslingerHostMapping"
             package-name="org.ofbiz.webslinger"
             title="Webslinger Server">

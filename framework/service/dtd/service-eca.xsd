@@ -36,7 +36,7 @@ under the License.
                 <xs:choice minOccurs="1" maxOccurs="unbounded">
                     <xs:element ref="set"/>
                     <xs:element ref="action"/>
-                </xs:choice>                
+                </xs:choice>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.eca"/>
         </xs:complexType>
@@ -131,7 +131,7 @@ under the License.
         <xs:attribute name="format">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
-                    <xs:enumeration value="append"/>                    
+                    <xs:enumeration value="append"/>
                     <xs:enumeration value="to-upper"/>
                     <xs:enumeration value="to-lower"/>
                     <xs:enumeration value="hash-code"/>
@@ -219,7 +219,7 @@ under the License.
                     <xs:enumeration value="true"/>
                     <xs:enumeration value="false"/>
                 </xs:restriction>
-            </xs:simpleType>    
+            </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="result-to-context" default="true">
             <xs:simpleType>

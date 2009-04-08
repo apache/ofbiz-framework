@@ -14,7 +14,7 @@ dojo.require("dojo.uri.Uri");
 
 dojo.html.getClass = function(/* HTMLElement */node){
 	//	summary
-	//	Returns the string value of the list of CSS classes currently assigned directly 
+	//	Returns the string value of the list of CSS classes currently assigned directly
 	//	to the node in question. Returns an empty string if no class attribute is found;
 	node = dojo.byId(node);
 	if(!node){ return ""; }
@@ -29,7 +29,7 @@ dojo.html.getClass = function(/* HTMLElement */node){
 
 dojo.html.getClasses = function(/* HTMLElement */node) {
 	//	summary
-	//	Returns an array of CSS classes currently assigned directly to the node in question. 
+	//	Returns an array of CSS classes currently assigned directly to the node in question.
 	//	Returns an empty array if no classes are found;
 	var c = dojo.html.getClass(node);
 	return (c == "") ? [] : c.split(/\s+/g);	//	array
@@ -118,10 +118,10 @@ dojo.html.classMatchType = {
 
 
 dojo.html.getElementsByClass = function(
-	/* string */classStr, 
-	/* HTMLElement? */parent, 
-	/* string? */nodeType, 
-	/* integer? */classMatchType, 
+	/* string */classStr,
+	/* HTMLElement? */parent,
+	/* string? */nodeType,
+	/* integer? */classMatchType,
 	/* boolean? */useNonXpath
 ){
 	//	summary
@@ -138,7 +138,7 @@ dojo.html.getElementsByClass = function(
 	var reClass = new RegExp("(\\s|^)((" + classes.join(")|(") + "))(\\s|$)");
 	var srtLength = classes.join(" ").length;
 	var candidateNodes = [];
-	
+
 	if(!useNonXpath && _document.evaluate) { // supports dom 3 xpath
 		var xpath = ".//" + (nodeType || "*") + "[contains(";
 		if(classMatchType != dojo.html.classMatchType.ContainsAny){
@@ -176,7 +176,7 @@ dojo.html.getElementsByClass = function(
 			var nodeClasses = dojo.html.getClasses(node);
 			if(nodeClasses.length == 0){ continue outer; }
 			var matches = 0;
-	
+
 			for(var j = 0; j < nodeClasses.length; j++){
 				if(reClass.test(nodeClasses[j])){
 					if(classMatchType == dojo.html.classMatchType.ContainsAny){
@@ -191,7 +191,7 @@ dojo.html.getElementsByClass = function(
 					}
 				}
 			}
-	
+
 			if(matches == classes.length){
 				if(	(classMatchType == dojo.html.classMatchType.IsOnly)&&
 					(matches == nodeClasses.length)){
@@ -230,7 +230,7 @@ dojo.html.getComputedStyle = function(/* HTMLElement */node, /* string */cssSele
 	var cssSelector = dojo.html.toSelectorCase(cssSelector);
 	var property = dojo.html.toCamelCase(cssSelector);
 	if(!node || !node.style){
-		return inValue;			
+		return inValue;
 	} else if (document.defaultView && dojo.html.isDescendantOf(node, node.ownerDocument)){ // W3, gecko, KHTML
 		try{
 			// mozilla segfaults when margin-* and node is removed from doc
@@ -238,7 +238,7 @@ dojo.html.getComputedStyle = function(/* HTMLElement */node, /* string */cssSele
 			var cs = document.defaultView.getComputedStyle(node, "");
 			if(cs){
 				return cs.getPropertyValue(cssSelector);	//	integer
-			} 
+			}
 		}catch(e){ // reports are that Safari can throw an exception above
 			if(node.style.getPropertyValue){ // W3
 				return node.style.getPropertyValue(cssSelector);	//	integer
@@ -249,7 +249,7 @@ dojo.html.getComputedStyle = function(/* HTMLElement */node, /* string */cssSele
 	} else if(node.currentStyle){ // IE
 		return node.currentStyle[property];	//	integer
 	}
-	
+
 	if(node.style.getPropertyValue){ // W3
 		return node.style.getPropertyValue(cssSelector);	//	integer
 	}else{
@@ -293,11 +293,11 @@ dojo.html.setStyleText = function (/* HTMLElement */target, /* string */text) {
 
 dojo.html.copyStyle = function(/* HTMLElement */target, /* HTMLElement */source){
 	//	summary
-	// work around for opera which doesn't have cssText, and for IE which fails on setAttribute 
-	if(!source.style.cssText){ 
-		target.setAttribute("style", source.getAttribute("style")); 
+	// work around for opera which doesn't have cssText, and for IE which fails on setAttribute
+	if(!source.style.cssText){
+		target.setAttribute("style", source.getAttribute("style"));
 	}else{
-		target.style.cssText = source.style.cssText; 
+		target.style.cssText = source.style.cssText;
 	}
 	dojo.html.addClass(target, dojo.html.getClass(source));
 }
@@ -306,10 +306,10 @@ dojo.html.getUnitValue = function(/* HTMLElement */node, /* string */cssSelector
 	//	summary
 	//	Get the value of passed selector, with the specific units used
 	var s = dojo.html.getComputedStyle(node, cssSelector);
-	if((!s)||((s == 'auto')&&(autoIsZero))){ 
-		return { value: 0, units: 'px' };	//	object 
+	if((!s)||((s == 'auto')&&(autoIsZero))){
+		return { value: 0, units: 'px' };	//	object
 	}
-	// FIXME: is regex inefficient vs. parseInt or some manual test? 
+	// FIXME: is regex inefficient vs. parseInt or some manual test?
 	var match = s.match(/(\-?[\d.]+)([a-z%]*)/i);
 	if (!match){return dojo.html.getUnitValue.bad;}
 	return { value: Number(match[1]), units: match[2].toLowerCase() };	//	object
@@ -321,13 +321,13 @@ dojo.html.getPixelValue = function(/* HTMLElement */node, /* string */cssSelecto
 	//	Get the value of passed selector in pixels.
 	var result = dojo.html.getUnitValue(node, cssSelector, autoIsZero);
 	// FIXME: there is serious debate as to whether or not this is the right solution
-	if(isNaN(result.value)){ 
-		return 0; //	integer 
-	}	
-	// FIXME: code exists for converting other units to px (see Dean Edward's IE7) 
+	if(isNaN(result.value)){
+		return 0; //	integer
+	}
+	// FIXME: code exists for converting other units to px (see Dean Edward's IE7)
 	// but there are cross-browser complexities
-	if((result.value)&&(result.units != 'px')){ 
-		return NaN;	//	integer 
+	if((result.value)&&(result.units != 'px')){
+		return NaN;	//	integer
 	}
 	return result.value;	//	integer
 }
@@ -336,15 +336,15 @@ dojo.html.setPositivePixelValue = function(/* HTMLElement */node, /* string */se
 	//	summary
 	//	Attempt to set the value of selector on node as a positive pixel value.
 	if(isNaN(value)){return false;}
-	node.style[selector] = Math.max(0, value) + 'px'; 
+	node.style[selector] = Math.max(0, value) + 'px';
 	return true;	//	boolean
 }
 
 dojo.html.styleSheet = null;
 
 // FIXME: this is a really basic stub for adding and removing cssRules, but
-// it assumes that you know the index of the cssRule that you want to add 
-// or remove, making it less than useful.  So we need something that can 
+// it assumes that you know the index of the cssRule that you want to add
+// or remove, making it less than useful.  So we need something that can
 // search for the selector that you you want to remove.
 dojo.html.insertCssRule = function(/* string */selector, /* string */declaration, /* integer? */index) {
 	//	summary
@@ -356,8 +356,8 @@ dojo.html.insertCssRule = function(/* string */selector, /* string */declaration
 			// FIXME: should create a new style sheet here
 			// fall back on an exsiting style sheet
 			dojo.html.styleSheet = document.styleSheets[0];
-		} else { 
-			return null;	//	integer 
+		} else {
+			return null;	//	integer
 		} // fail
 	}
 
@@ -366,8 +366,8 @@ dojo.html.insertCssRule = function(/* string */selector, /* string */declaration
 			index = dojo.html.styleSheet.cssRules.length;
 		} else if (dojo.html.styleSheet.rules) { // IE
 			index = dojo.html.styleSheet.rules.length;
-		} else { 
-			return null;	//	integer 
+		} else {
+			return null;	//	integer
 		} // fail
 	}
 
@@ -376,7 +376,7 @@ dojo.html.insertCssRule = function(/* string */selector, /* string */declaration
 		return dojo.html.styleSheet.insertRule(rule, index);	//	integer
 	} else if (dojo.html.styleSheet.addRule) { // IE
 		return dojo.html.styleSheet.addRule(selector, declaration, index);	//	integer
-	} else { 
+	} else {
 		return null; // integer
 	} // fail
 }
@@ -447,7 +447,7 @@ dojo.html.insertCssText = function(/* string */cssStr, /* HTMLDocument? */doc, /
 	//	summary
 	//	Attempt to insert CSS rules into the document through inserting a style element
 	// DomNode Style  = insertCssText(String ".dojoMenu {color: green;}"[, DomDoc document, dojo.uri.Uri Url ])
-	if(!cssStr){ 
+	if(!cssStr){
 		return; //	HTMLStyleElement
 	}
 	if(!doc){ doc = document; }
@@ -459,14 +459,14 @@ dojo.html.insertCssText = function(/* string */cssStr, /* HTMLDocument? */doc, /
 	// IE is b0rken enough to require that we add the element to the doc
 	// before changing it's properties
 	var head = doc.getElementsByTagName("head")[0];
-	if(!head){ // must have a head tag 
+	if(!head){ // must have a head tag
 		dojo.debug("No head tag in document, aborting styles");
 		return;	//	HTMLStyleElement
 	}else{
 		head.appendChild(style);
 	}
 	if(style.styleSheet){// IE
-		var setFunc = function(){ 
+		var setFunc = function(){
 			try{
 				style.styleSheet.cssText = cssStr;
 			}catch(e){ dojo.debug(e); }
@@ -536,11 +536,11 @@ dojo.html.getActiveStyleSheet = function(){
 	//	return the title of the currently active stylesheet
 	var i = 0, a, els = dojo.doc().getElementsByTagName("link");
 	while (a = els[i++]) {
-		if (a.getAttribute("rel").indexOf("style") != -1 
-			&& a.getAttribute("title") 
+		if (a.getAttribute("rel").indexOf("style") != -1
+			&& a.getAttribute("title")
 			&& !a.disabled
 		){
-			return a.getAttribute("title");	//	string 
+			return a.getAttribute("title");	//	string
 		}
 	}
 	return null;	//	string
@@ -554,7 +554,7 @@ dojo.html.getPreferredStyleSheet = function(){
 		if(a.getAttribute("rel").indexOf("style") != -1
 			&& a.getAttribute("rel").indexOf("alt") == -1
 			&& a.getAttribute("title")
-		){ 
+		){
 			return a.getAttribute("title"); 	//	string
 		}
 	}

@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="ListEmploymentApps" type="multi" list-name="listIt" use-row-submit="true" separate-columns="true" target="updateEmploymentAppExt?partyId=${partyId}&amp;&amp;referredByPartyId=${partyId}" paginate-target="FindEmploymentApps"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" >
@@ -36,7 +36,7 @@ under the License.
             <set field="applicationId" from-field="applicationId"/>
         </row-actions>
         <alt-target use-when="insideEmployee==null" target="updateEmploymentApp"/>
-        <auto-fields-service default-field-type="hidden" service-name="updateEmploymentApp"/> 
+        <auto-fields-service default-field-type="hidden" service-name="updateEmploymentApp"/>
         <field name="applicationId" title="${uiLabelMap.HumanResApplicationId}"><display also-hidden="true"/></field>
         <field name="statusId">
             <drop-down allow-empty="true" current-description="">
@@ -128,6 +128,6 @@ under the License.
             </drop-down>
         </field>
         <field name="applicationDate"><date-time/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
-    </form> 
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>

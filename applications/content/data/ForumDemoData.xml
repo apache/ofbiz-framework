@@ -32,20 +32,20 @@ under the License.
     <Content contentId="ASK" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreFORUM" contentName="Ask the Experts" description="Ask the Experts" childBranchCount="0"/>
     <ContentAssoc contentIdTo="ASK" contentId="WebStoreFORUM" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 12:00:00.0" createdDate="2004-03-01 12:00:00.0" createdByUserLogin="admin"/>
     <ContentAttribute contentId="ASK" attrName="publishOperation" attrValue="HAS_USER_ROLE"/><!-- do we need this? -->
-    
+
     <Content contentId="GIZMOS" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreFORUM" statusId="CTNT_PUBLISHED" contentName="Gizmos" description="Gizmos" childBranchCount="3" createdDate="2004-03-01 12:00:00.0" createdByUserLogin="admin"/>
     <ContentAssoc contentIdTo="GIZMOS" contentId="WebStoreFORUM" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 12:00:00.0" createdDate="2004-03-01 12:00:00.0" createdByUserLogin="admin"/>
     <ContentAttribute contentId="GIZMOS" attrName="publishOperation" attrValue="HAS_USER_ROLE"/>
-    
+
     <Content contentId="WIDGETS" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreFORUM" statusId="CTNT_IN_PROGRESS" contentName="Widgets" description="Widgets" childBranchCount="0" createdDate="2004-03-01 12:00:00.0" createdByUserLogin="admin"/>
     <ContentAssoc contentIdTo="WIDGETS" contentId="WebStoreFORUM" contentAssocTypeId="SUBSITE" fromDate="2004-03-01 12:00:00.0" createdDate="2004-03-01 12:00:00.0" createdByUserLogin="admin"/>
     <ContentAttribute contentId="WIDGETS" attrName="publishOperation" attrValue="HAS_USER_ROLE"/>
-    
+
     <!-- Threads -->
     <Content contentId="thread10021" contentTypeId="DOCUMENT" ownerContentId="GIZMOS" dataResourceId="TEMPLATE_TEXT_ONLY" statusId="CTNT_PUBLISHED" contentName="This is a Thread" description="Gizmo useless?" childBranchCount="2" createdDate="2006-05-02 13:36:31.937" createdByUserLogin="admin"/>
     <ContentAssoc contentIdTo="thread10021" contentId="GIZMOS" contentAssocTypeId="PUBLISH_LINK" fromDate="2006-05-02 13:36:32.036" createdDate="2006-05-02 13:36:32.055" createdByUserLogin="admin" lastModifiedDate="2006-05-02 13:36:32.055" lastModifiedByUserLogin="admin"/>
     <ContentPurpose contentId="thread10021" contentPurposeTypeId="ARTICLE" lastUpdatedStamp="2006-05-03 11:08:10.788" lastUpdatedTxStamp="2006-05-03 11:08:10.751" createdStamp="2006-05-03 11:08:10.788" createdTxStamp="2006-05-03 11:08:10.751"/>
-    <!-- Messages -->    
+    <!-- Messages -->
     <DataResource dataResourceId="msg10002" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2006-05-02 13:36:32.264" createdByUserLogin="admin" lastModifiedDate="2006-05-02 13:36:32.264" lastModifiedByUserLogin="admin"/>
     <Content contentId="msg10002" contentTypeId="DOCUMENT" ownerContentId="GIZMOS" dataResourceId="msg10002" statusId="CTNT_PUBLISHED" contentName="This is a message" description="Gizmo useless?" childBranchCount="1" createdDate="2006-05-02 13:36:32.417" createdByUserLogin="admin" lastModifiedDate="2006-05-02 13:36:32.417" lastModifiedByUserLogin="admin"/>
     <ContentPurpose contentId="msg10002" contentPurposeTypeId="MAIN_ARTICLE"/>
@@ -56,14 +56,14 @@ under the License.
         Does anyone have any sensible thoughts on this? As usual I do not know.
             ]]></textData>
     </ElectronicText>
-    <!-- Responses -->    
+    <!-- Responses -->
     <DataResource dataResourceId="msg10002a" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_PUBLISHED" createdDate="2006-05-02 14:36:32.264" createdByUserLogin="admin" lastModifiedDate="2006-05-02 14:36:32.264" lastModifiedByUserLogin="admin"/>
     <Content contentId="msg10002a" contentTypeId="DOCUMENT" ownerContentId="GIZMOS" dataResourceId="msg10002a" statusId="CTNT_PUBLISHED" contentName="This is a reponse" description="re1:Gizmo useless?" childBranchCount="0" createdDate="2006-05-02 14:36:32.417" createdByUserLogin="admin" lastModifiedDate="2006-05-02 14:36:32.417" lastModifiedByUserLogin="admin"/>
     <ContentAssoc contentIdTo="msg10002a" contentId="msg10002" contentAssocTypeId="RESPONSE" fromDate="2006-05-02 14:36:32.495" mapKey="ARTICLE" createdDate="2006-05-02 14:36:32.495" createdByUserLogin="admin" lastModifiedDate="2006-05-02 14:36:32.495" lastModifiedByUserLogin="admin"/>
     <ContentPurpose contentId="msg10002a" contentPurposeTypeId="RESPONSE"/>
     <ElectronicText dataResourceId="msg10002a">
         <textData><![CDATA[
-        A very good question and i am really surprised that you ask the question. Do you live? It is well known that 
+        A very good question and i am really surprised that you ask the question. Do you live? It is well known that
         people love gizmos and want to have every day a new one! They show off with them to prove they are better in life
         than other people who have less beautiful gizmos.
             ]]></textData>
@@ -79,5 +79,5 @@ under the License.
         much pleasure it gives?
             ]]></textData>
     </ElectronicText>
-    
+
 </entity-engine-xml>

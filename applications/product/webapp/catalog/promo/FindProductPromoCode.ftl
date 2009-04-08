@@ -23,7 +23,7 @@ under the License.
         </div>
         <div class="screenlet-body">
             <form method="post" action="<@ofbizUrl>createBulkProductPromoCode</@ofbizUrl>" enctype="multipart/form-data">
-                <input type="hidden" name="productPromoId" value="${productPromoId}"/>            
+                <input type="hidden" name="productPromoId" value="${productPromoId}"/>
                 <span class="label">${uiLabelMap.ProductPromoUserEntered}:</span></span><select name="userEntered"><option>N</option><option>Y</option></select>
                 <span class="label">${uiLabelMap.ProductPromotionReqEmailOrParty}:</span><select name="requireEmailOrParty"><option>N</option><option>Y</option></select>
                 <span class="label">${uiLabelMap.ProductPromotionUseLimits}:
@@ -42,7 +42,7 @@ under the License.
             <h3>${uiLabelMap.ProductPromotionAddSetOfPromotionCodes}</h3>
         </div>
         <div class="screenlet-body">
-            <form method="post" action="<@ofbizUrl>createProductPromoCodeSet</@ofbizUrl>">            
+            <form method="post" action="<@ofbizUrl>createProductPromoCodeSet</@ofbizUrl>">
                 <input type="hidden" name="productPromoId" value="${productPromoId}"/>
                 <span class="label">${uiLabelMap.CommonQuantity}:</span><input type="text" size="5" name="quantity">
                 <span class="label">${uiLabelMap.ProductPromoUserEntered}:</span><select name="userEntered"><option>N</option><option>Y</option></select>

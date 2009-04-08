@@ -24,7 +24,7 @@ under the License.
   <#assign title="${uiLabelMap.SfaFindLeads}"/>
 <#elseif roleTypeId=="CONTACT">
   <#assign currentUrl="FindContacts"/>
-  <#assign title="${uiLabelMap.SfaFindContacts}"/>  
+  <#assign title="${uiLabelMap.SfaFindContacts}"/>
 </#if>
 <#if roleTypeId == "ACCOUNT">
   <#assign currentUrl = "FindAccounts"/>
@@ -45,9 +45,9 @@ under the License.
   </div>
   <#if parameters.hideFields?default("N") != "Y">
     <div class="screenlet-body">
-      <#-- NOTE: this form is setup to allow a search by partial partyId or userLoginId; to change it to go directly to 
+      <#-- NOTE: this form is setup to allow a search by partial partyId or userLoginId; to change it to go directly to
           the viewprofile page when these are entered add the follow attribute to the form element:
-           
+
            onsubmit="javascript:lookupParty('<@ofbizUrl>viewprofile</@ofbizUrl>');"
        -->
       <form method="post" name="lookupparty" action="<@ofbizUrl>${currentUrl?if_exists}</@ofbizUrl>" class="basic-form">
@@ -77,7 +77,7 @@ under the License.
               <td class="label">${uiLabelMap.PartyFirstName}</td>
               <td><input type="text" name="firstName" value="${parameters.firstName?if_exists}"/></td>
             </tr>
-          </#if>  
+          </#if>
           <#if roleTypeId != "CONTACT">
             <tr>
               <td class="label">${uiLabelMap.PartyPartyGroupName}</td>

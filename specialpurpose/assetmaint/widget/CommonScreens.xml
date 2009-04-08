@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="main-decorator">
@@ -37,7 +37,7 @@ under the License.
                      then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
                 <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>-->
                 <set field="applicationMenuName" value="AssetMaintAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://assetmaint/widget/Menus.xml" global="true"/> 
+                <set field="applicationMenuLocation" value="component://assetmaint/widget/Menus.xml" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.AssetMaintApplication}"/>
             </actions>
             <widgets>
@@ -130,7 +130,7 @@ under the License.
                             <fail-widgets>
                                 <label style="h3" text="${uiLabelMap.AccountingViewPermissionError}"/>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -138,4 +138,4 @@ under the License.
     </screen>
 
 </screens>
-        
+

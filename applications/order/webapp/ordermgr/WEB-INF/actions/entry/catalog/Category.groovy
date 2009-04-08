@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -51,11 +51,11 @@ if (productCategoryId) {
     session.setAttribute("_PREVIOUS_PARAMS_", previousParams);    // for login
     context.previousParams = previousParams;
 }
- */    
+ */
 
 category = delegator.findByPrimaryKeyCache("ProductCategory", [productCategoryId : productCategoryId]);
 if (category) {
-    if (category.detailScreen) { 
+    if (category.detailScreen) {
         detailScreen = category.detailScreen;
     }
     categoryContentWrapper = new CategoryContentWrapper(category, request);

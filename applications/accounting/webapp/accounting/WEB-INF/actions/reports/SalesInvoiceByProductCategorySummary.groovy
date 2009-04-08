@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -28,7 +28,7 @@ import org.ofbiz.entity.util.*;
 //NOTE: this code ignores from/thru dates on the products and categories under the rootProductCategoryId!
 
 //TODO_MAYBE: variant product support for products in category, and product shown directly (should we really do this?)
-//TODO: 
+//TODO:
 
 // get products and categories under the root category
 productMemberList = delegator.findByAnd("ProductCategoryMember", [productCategoryId : rootProductCategoryId], ["sequenceNum"]);
@@ -103,7 +103,7 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     currentDayBegin = new java.sql.Timestamp(currentDayCal.getTimeInMillis());
     currentDayCal.add(Calendar.DAY_OF_MONTH, 1);
     nextDayBegin = new java.sql.Timestamp(currentDayCal.getTimeInMillis());
-    
+
     findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
 
     // do the product find
@@ -112,7 +112,7 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     if (productIdSet) productAndExprs.add(EntityCondition.makeCondition("productId", EntityOperator.IN, productIdSet));
     productAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
     productAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
-    
+
     productResultListIterator = delegator.find("InvoiceItemProductSummary", EntityCondition.makeCondition(productAndExprs, EntityOperator.AND), null, productFieldsToSelect, null, findOpts);
     productResultMap = FastMap.newInstance();
     while ((productResult = productResultListIterator.next())) {
@@ -123,13 +123,13 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     }
     productResultListIterator.close();
     productResultMapByDayList.add(productResultMap);
-    
+
     // do the category find
     categoryAndExprs = FastList.newInstance();
     categoryAndExprs.addAll(baseCategoryAndExprs);
     categoryAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
     categoryAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
-    
+
     categoryResultListIterator = delegator.find("InvoiceItemCategorySummary", EntityCondition.makeCondition(categoryAndExprs, EntityOperator.AND), null, categoryFieldsToSelect, null, findOpts);
     categoryResultMap = FastMap.newInstance();
     while ((categoryResult = categoryResultListIterator.next())) {
@@ -140,7 +140,7 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     }
     categoryResultListIterator.close();
     categoryResultMapByDayList.add(categoryResultMap);
-    
+
     // do a find for InvoiceItem with a null productId
     productNullAndExprs = FastList.newInstance();
     productNullAndExprs.addAll(baseProductAndExprs);
@@ -171,4 +171,3 @@ context.monthProductNullResult = monthProductNullResult;
 
 context.productCategoryList = productCategoryList;
 context.productList = productList;
-    

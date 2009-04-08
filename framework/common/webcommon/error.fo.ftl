@@ -39,7 +39,7 @@ under the License.
             <fo:region-after extent="0.5in" />
         </fo:simple-page-master>
     </fo:layout-master-set>
-  
+
     <fo:page-sequence master-reference="${pageLayoutName?default("simple-portrait")}" font-size="8pt">
         <#-- Header -->
         <#-- The elements it it are positioned using a table composed by one row
@@ -88,12 +88,12 @@ under the License.
                 </fo:table-body>
             </fo:table>
         </fo:static-content>
-         
+
         <#-- Footer -->
         <fo:static-content flow-name="xsl-region-after" font-size="${footerFontSize?default("8pt")}">
             <fo:block text-align="center" border-top="thin solid black" padding="3pt">${uiLabelMap.CommonPage} <fo:page-number/> ${uiLabelMap.CommonOf} <fo:page-number-citation ref-id="theEnd"/></fo:block>
         </fo:static-content>
-       
+
         <#-- Body -->
         <fo:flow flow-name="xsl-region-body" font-size="${bodyFontSize?default("8pt")}">
             <fo:block font-weight="bold" text-decoration="underline" space-after="0.2in">

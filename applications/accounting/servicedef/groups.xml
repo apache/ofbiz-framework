@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<service-group xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<service-group xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-group.xsd">
-    
+
     <group name="createCreditCardAndAddress" send-mode="all">
         <invoke name="createPostalAddress" mode="sync" result-to-context="true"/>
         <invoke name="createCreditCard" mode="sync"/>
@@ -31,7 +31,7 @@ under the License.
         <invoke name="createPartyContactMech" mode="sync"/>
         <invoke name="updateCreditCard" mode="sync"/>
     </group>
-    
+
     <group name="createEftAccountAndAddress" send-mode="all">
         <invoke name="createPostalAddress" mode="sync" result-to-context="true"/>
         <invoke name="createEftAccount" mode="sync"/>

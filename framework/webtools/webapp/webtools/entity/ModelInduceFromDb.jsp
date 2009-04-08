@@ -96,7 +96,7 @@ under the License.
   <!-- ========================================================= -->
   <!-- No Package Name -->
   <!-- ========================================================= -->
-<% 
+<%
   Iterator ecIter = newEntList.iterator();
   while(ecIter.hasNext()) {
     ModelEntity entity = (ModelEntity) ecIter.next();
@@ -137,7 +137,7 @@ under the License.
 </entitymodel>
 <%
       }
-    } 
+    }
   }
 else {
   %>ERROR: You do not have permission to use this page (ENTITY_MAINT needed)<%

@@ -21,10 +21,10 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="h3">${uiLabelMap.PartyVisitDetail}</li>            
+      <li class="h3">${uiLabelMap.PartyVisitDetail}</li>
     </ul>
     <br class="clear"/>
-  </div>  
+  </div>
   <div class="screenlet-body">
       <table class="basic-table" cellspacing="0">
         <tr>
@@ -89,10 +89,10 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="h3">${uiLabelMap.PartyHitTracker}</li>            
+      <li class="h3">${uiLabelMap.PartyHitTracker}</li>
     </ul>
     <br class="clear"/>
-  </div>  
+  </div>
   <div class="screenlet-body">
       <#if serverHits?has_content>
         <div class="align-float">
@@ -123,7 +123,7 @@ under the License.
         <#assign alt_row = false>
         <#if serverHits?has_content>
         <#list serverHits[lowIndex..highIndex-1] as hit>
-          <#assign serverHitType = hit.getRelatedOne("ServerHitType")?if_exists>      
+          <#assign serverHitType = hit.getRelatedOne("ServerHitType")?if_exists>
           <tr<#if alt_row> class="alternate-row"</#if>>
             <td>${hit.contentId?if_exists}</td>
             <td>${serverHitType.get("description",locale)?if_exists}</td>
@@ -171,11 +171,11 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="h3">${uiLabelMap.PartyPagePushFollowing}</li>            
+      <li class="h3">${uiLabelMap.PartyPagePushFollowing}</li>
     </ul>
     <br class="clear"/>
-  </div>  
-  <div class="screenlet-body">    
+  </div>
+  <div class="screenlet-body">
       <#if security.hasPermission("SEND_CONTROL_APPLET", session)>
         <table class="basic-table" cellspacing="0">
           <form name="pushPage" method="get" action="<@ofbizUrl>pushPage</@ofbizUrl>">

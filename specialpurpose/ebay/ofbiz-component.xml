@@ -29,7 +29,7 @@ under the License.
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
-    
+
     <webapp name="ebay"
         title="Ebay"
         menu-name="secondary"

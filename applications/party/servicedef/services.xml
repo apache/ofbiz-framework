@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Party Component Services</description>
     <vendor>OFBiz</vendor>
@@ -100,7 +100,7 @@ under the License.
         <attribute name="externalId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
         <override name="firstName" optional="false"/>
-        <override name="lastName" optional="false"/>        
+        <override name="lastName" optional="false"/>
     </service>
     <service name="createPartyGroup" engine="java" default-entity-name="PartyGroup"
             location="org.ofbiz.party.party.PartyServices" invoke="createPartyGroup" auth="false">
@@ -152,7 +152,7 @@ under the License.
         <attribute name="suffix" type="String" mode="OUT" optional="true"/>
         <attribute name="fullName" type="String" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="createAffiliate" engine="java"
             location="org.ofbiz.party.party.PartyServices" invoke="createAffiliate" auth="false">
         <description>Create an Affiliate</description>
@@ -242,11 +242,11 @@ under the License.
         <attribute name="lastName" type="String" form-display="true" form-label="Last name" mode="IN" optional="true"/>
         <attribute name="lookupResult" type="List" mode="OUT" optional="false"/>
     </service>
-    
+
     <!-- Party Role services -->
     <service name="createPartyRole" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPartyRole" auth="true">
-        <description>Create a Party Role (add a Role to a Party). The logged in user must have PARTYMGR_CREATE or have 
+        <description>Create a Party Role (add a Role to a Party). The logged in user must have PARTYMGR_CREATE or have
             permission to change the role of this partyId</description>
         <permission-service service-name="partyRolePermissionCheck" main-action="CREATE"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
@@ -254,7 +254,7 @@ under the License.
     </service>
     <service name="deletePartyRole" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="deletePartyRole" auth="true">
-        <description>Delete a Party Role (remove a Role from a Party). The logged in user must have PARTYMGR_DELETE or have 
+        <description>Delete a Party Role (remove a Role from a Party). The logged in user must have PARTYMGR_DELETE or have
             permission to change the role of this partyId</description>
         <permission-service service-name="partyRolePermissionCheck" main-action="DELETE"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
@@ -286,9 +286,9 @@ under the License.
     <service name="createPartyRelationship" default-entity-name="PartyRelationship" engine="simple"
         location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPartyRelationship" auth="true">
         <description>
-            Create a Relationship between two Parties; 
-            if partyIdFrom is not specified the partyId of the current userLogin will be used; 
-            if roleTypeIds are not specified they will default to "_NA_". 
+            Create a Relationship between two Parties;
+            if partyIdFrom is not specified the partyId of the current userLogin will be used;
+            if roleTypeIds are not specified they will default to "_NA_".
             If a partyIdFrom is passed in, it will be used if the userLogin has PARTYMGR_REL_CREATE permission.
         </description>
         <permission-service service-name="partyRelationshipPermissionCheck" main-action="CREATE"/>
@@ -299,9 +299,9 @@ under the License.
     <service name="updatePartyRelationship" default-entity-name="PartyRelationship" engine="simple"
         location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyRelationship" auth="true">
         <description>
-            Update a Relationship between two Parties; 
-            if partyIdFrom is not specified the partyId of the current userLogin will be used; 
-            if roleTypeIds are not specified they will default to "_NA_". 
+            Update a Relationship between two Parties;
+            if partyIdFrom is not specified the partyId of the current userLogin will be used;
+            if roleTypeIds are not specified they will default to "_NA_".
             If a partyIdFrom is passed in, it will be used if the userLogin has PARTYMGR_REL_UPDATE permission.
         </description>
         <permission-service service-name="partyRelationshipPermissionCheck" main-action="UPDATE"/>
@@ -314,8 +314,8 @@ under the License.
     <service name="deletePartyRelationship" default-entity-name="PartyRelationship" engine="simple"
         location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="deletePartyRelationship" auth="true">
         <description>
-            Delete a Relationship between two Parties; 
-            if partyIdFrom is not specified the partyId of the current userLogin will be used; 
+            Delete a Relationship between two Parties;
+            if partyIdFrom is not specified the partyId of the current userLogin will be used;
             if roleTypeIds are not specified they will default to "_NA_".
         </description>
         <permission-service service-name="partyRelationshipPermissionCheck" main-action="DELETE"/>
@@ -332,7 +332,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="partyRelationshipName" optional="false"/>
     </service>
-    
+
     <!-- ContactMech services -->
     <service name="createContactMech" engine="simple"
             location="component://party/script/org/ofbiz/party/contact/ContactMechServices.xml" invoke="createContactMech" auth="true">
@@ -400,7 +400,7 @@ under the License.
         <permission-service service-name="partyContactMechPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="PostalAddress" include="nonpk" mode="IN" optional="true"/>
-        <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>        
+        <attribute name="paymentMethodId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
         <override name="address1" optional="false"/>
@@ -492,7 +492,7 @@ under the License.
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="false"/> <!-- the out paramater is the id of the new address -->
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
-        <attribute name="oldContactMechId" type="String" mode="OUT" optional="false"/> <!-- this is the id of the old address -->       
+        <attribute name="oldContactMechId" type="String" mode="OUT" optional="false"/> <!-- this is the id of the old address -->
     </service>
     <service name="copyPartyContactMechs" engine="java"
         location="org.ofbiz.party.contact.ContactMechServices" invoke="copyPartyContactMechs" auth="true">
@@ -614,7 +614,7 @@ under the License.
         <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    
+
     <!-- Vendor -->
     <service name="createVendor" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createVendor" auth="true">
@@ -673,7 +673,7 @@ under the License.
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
         <override name="content" allow-html="any"/>
-    </service>    
+    </service>
     <service name="createCommunicationEvent" engine="simple"
             location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventWithPermission" auth="true">
         <description>Create a Communication Event with permission check</description>
@@ -732,7 +732,7 @@ under the License.
         <description>Create a Communication Event Role with or w/o permission check</description>
         <auto-attributes entity-name="CommunicationEventRole" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CommunicationEventRole" include="nonpk" mode="IN" optional="true"/>
-    </service>    
+    </service>
     <service name="createCommunicationEventRole" engine="simple"
             location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventRole" auth="true">
         <description>Create a Communication Event Role with permission check</description>
@@ -785,7 +785,7 @@ under the License.
     </service>
     <service name="storeEmailAsCommunication" engine="java"
         location="org.ofbiz.party.communication.CommunicationEventServices" invoke="storeEmailAsCommunication" auth="true">
-        <description>Store email as a communication event with the status COM_COMPLETE and current timestamp as datetimeStarted and datetimeEnded.  
+        <description>Store email as a communication event with the status COM_COMPLETE and current timestamp as datetimeStarted and datetimeEnded.
             The communication event will be from the party of the userLogin to the party of the partyId parameter.
             It is meant to run a SECA after a sendMail to record outgoing emails.</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
@@ -802,14 +802,14 @@ under the License.
             sent and received dates respectively, partyIdTo is from the first SendTo email address or the delivered-to address. If the parties are not found,
             the email addresses are stored in CommunicationEvent.note
             If however it is detected as spam (external) or when the 'from' email address is missing, the service will not return a communicationEventId.
-            If the party cannot be found the status of the communicationEvent will be set to: COM_UNKNOWN_PARTY. 
-            If the parties are found the status is set to COM_ENTERED  
+            If the party cannot be found the status of the communicationEvent will be set to: COM_UNKNOWN_PARTY.
+            If the parties are found the status is set to COM_ENTERED
         </description>
         <attribute name="messageWrapper" type="org.ofbiz.service.mail.MimeMessageWrapper" mode="IN"/>
         <attribute name="communicationEventId" type="String" mode="OUT" optional="true"/>
         <attribute name="statusId" type="String" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="sendEmailToContactList" engine="java"
             location="org.ofbiz.party.communication.CommunicationEventServices" invoke="sendEmailToContactList" auth="true"
             use-transaction="false" max-retry="3">  <!-- Individual emails will be wrapped in their own transactions -->
@@ -825,13 +825,13 @@ under the License.
         <description>Sets the status of a communication event to COM_COMPLETE using the updateCommunicationEvent service</description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="sendEmailDated" engine="simple" use-transaction="false"
         location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="sendEmailDated" auth="true">
         <description>Checks for email communication events with the status COM_IN_PROGRESS and a startdate which is expired, then send the email</description>
     </service>
-    
-    
+
+
     <!-- party content services -->
     <!-- old services
     <service name="createPartyContent" engine="simple" default-entity-name="Content"
@@ -845,7 +845,7 @@ under the License.
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="contentId" type="String" mode="OUT" optional="false"/>
-        <override name="contentTypeId" optional="false"/>        
+        <override name="contentTypeId" optional="false"/>
     </service>
     <service name="updatePartyContent" engine="simple" default-entity-name="Content"
         location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyContent" auth="false">
@@ -855,7 +855,7 @@ under the License.
         <attribute name="uploadedFile" type="java.nio.ByteBuffer" mode="IN" optional="true"/>
         <attribute name="_uploadedFile_fileName" type="String" mode="IN" optional="true"/>
         <attribute name="_uploadedFile_contentType" type="String" mode="IN" optional="false"/>
-        <attribute mode="IN" name="partyId" optional="true" type="String"/>        
+        <attribute mode="IN" name="partyId" optional="true" type="String"/>
         <attribute mode="IN" name="dataCategoryId" optional="true" type="String"/>
     </service>
     -->
@@ -885,7 +885,7 @@ under the License.
         <group>
             <invoke name="createTextContent" result-to-context="true"/>
             <invoke name="createPartyContent"/>
-        </group>        
+        </group>
     </service>
 
     <service name="uploadPartyContentFile" engine="group" transaction-timeout="300">
@@ -893,7 +893,7 @@ under the License.
         <group>
             <invoke name="createContentFromUploadedFile" result-to-context="true"/>
             <invoke name="createPartyContent"/>
-        </group>        
+        </group>
     </service>
 
     <service name="getPartyEmail" engine="simple"
@@ -902,7 +902,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="emailAddress" type="String" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="getPartyTelephone" engine="simple"
         location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="getPartyTelephone" auth="false">
         <description>Get the party Email Telephone</description>
@@ -913,34 +913,34 @@ under the License.
         <attribute name="contactNumber" type="String" mode="OUT" optional="true"/>
         <attribute name="extension" type="String" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="createPartyCarrierAccount" engine="simple" default-entity-name="PartyCarrierAccount"
             location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPartyCarrierAccount" auth="true">
         <description>Create a PartyCarrierAccount record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>        
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override type="Timestamp" mode="IN" name="fromDate" optional="true"/>
         <override type="String" mode="IN" name="accountNumber" optional="false"/>
     </service>
-    
+
     <service name="updatePartyCarrierAccount" engine="simple" default-entity-name="PartyCarrierAccount"
             location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyCarrierAccount" auth="true">
         <description>Update a PartyCarrierAccount record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>        
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
 
     <service name="sendUpdatePersonalInfoEmailNotification" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="sendUpdatePersonalInfoEmailNotification" auth="false">
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="updatedUserLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>     
+        <attribute name="updatedUserLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
     <service name="sendCreatePartyEmailNotification" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="sendCreatePartyEmailNotification" auth="false">
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>                        
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- Email address verification services-->
     <service name="createEmailAddressVerification" engine="java" default-entity-name="EmailAddressVerification"
             location="org.ofbiz.party.contact.ContactMechServices" invoke="createEmailAddressVerification">
@@ -956,7 +956,7 @@ under the License.
              location="component://party/script/org/ofbiz/party/contact/ContactMechServices.xml" invoke="verifyEmailAddress">
         <attribute name="verifyHash" type="String" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- Party Invitation Services -->
     <service name="createPartyInvitation" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartyInvitationServices.xml" invoke="createPartyInvitation">
@@ -995,7 +995,7 @@ under the License.
             location="component://party/script/org/ofbiz/party/party/PartyInvitationServices.xml" invoke="deletePartyInvitationRoleAssoc">
         <description>Remove PartyInvitationRoleAssoc</description>
         <auto-attributes entity-name="PartyInvitationRoleAssoc" include="pk" mode="IN" optional="false"/>
-    </service> 
+    </service>
     <service name="acceptPartyInvitation" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartyInvitationServices.xml" invoke="acceptPartyInvitation">
         <permission-service service-name="accAndDecPartyInvitationPermissionCheck"/>
@@ -1088,7 +1088,7 @@ under the License.
     <service name="accAndDecPartyInvitationPermissionCheck" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="accAndDecPartyInvitationPermissionCheck">
         <description>
-            Performs accept and decline PartyInvitation security check. The userLogin partyId must equal the 
+            Performs accept and decline PartyInvitation security check. The userLogin partyId must equal the
             partyIdTo in PartyInvitation OR partyId fetched using emailAdress in PartyInvitation.
             The user with PARTYMGR_UPDATE permission can also perform this function.
         </description>
@@ -1098,7 +1098,7 @@ under the License.
     <service name="cancelPartyInvitationPermissionCheck" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartyPermissionServices.xml" invoke="cancelPartyInvitationPermissionCheck">
         <description>
-            Performs cancel PartyInvitation security check. The userLogin partyId must equal the 
+            Performs cancel PartyInvitation security check. The userLogin partyId must equal the
             partyId/partyIdFrom in PartyInvitation OR partyId fetched using emailAdress in PartyInvitation.
             The user with PARTYMGR_UPDATE permission can also perform this function.
         </description>
@@ -1117,14 +1117,14 @@ under the License.
         <implements service="createPartyPostalAddress"/>
         <attribute name="setShippingPurpose" type="String" mode="IN" optional="true"/>
         <attribute name="setBillingPurpose" type="String" mode="IN" optional="true"/>
-        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>        
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="updatePostalAddressAndPurposes" engine="simple" location="component://party/script/org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="updatePostalAddressAndPurposes">
         <description>Update postal address, purposes and set them defaults. The setShippingPurpose and setBillingPurpose enable the service to create purposes for PostalAddress and make them default addresses of party</description>
         <implements service="updatePartyPostalAddress"/>
         <attribute name="setShippingPurpose" type="String" mode="IN" optional="true"/>
         <attribute name="setBillingPurpose" type="String" mode="IN" optional="true"/>
-        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>        
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="updateContactMechAndPurposes" engine="simple" location="component://party/script/org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="updateContactMechAndPurposes">
         <description>Update postal address, telecom number and purposes. The setShippingPurpose and setBillingPurpose enable the service to create purposes for TelecomNumber</description>
@@ -1141,7 +1141,7 @@ under the License.
         <override name="firstName" optional="false"/>
         <override name="lastName" optional="false"/>
     </service>
-    <service name="createUpdateTelecomNumber" engine="simple" 
+    <service name="createUpdateTelecomNumber" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createUpdateTelecomNumber" auth="false">
         <description>Create and Update telecom number</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
@@ -1152,7 +1152,7 @@ under the License.
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
     </service>
-    <service name="createUpdateEmailAddress" engine="simple" 
+    <service name="createUpdateEmailAddress" engine="simple"
         location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createUpdateEmailAddress" auth="false">
         <description>Create and Update email address</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>

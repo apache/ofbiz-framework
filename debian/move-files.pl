@@ -206,7 +206,7 @@ _EOF_
 	} elsif ($type =~ m/^var(cache|lib|log|tmp)$/) {
 		my $new = "/var/$1/$pkg";
 		copylink($base, $new, $file);
-		my $postrm = <<_EOF_; 
+		my $postrm = <<_EOF_;
 if dpkg-statoverride --list "$new/$file" > /dev/null; then dpkg-statoverride --remove "$new/$file"; fi
 rm -rf "$new/$file"
 _EOF_

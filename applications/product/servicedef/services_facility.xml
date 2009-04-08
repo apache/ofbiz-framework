@@ -24,7 +24,7 @@ under the License.
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
-    <!-- Permission Services -->    
+    <!-- Permission Services -->
     <service name="facilityGenericPermission" engine="simple"
         location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="facilityGenericPermission">
         <implements service="permissionInterface"/>
@@ -74,7 +74,7 @@ under the License.
         location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="changeOwnerUponIssuance">
         <description>If product store setOwnerUponIssuance is Y or empty, set the inventory item owner upon issuance.</description>
         <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
-    </service>    
+    </service>
     <service name="createInventoryItemStatus" engine="simple" default-entity-name="InventoryItemStatus"
             location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemStatus">
         <description>Create an inventory item status record</description>
@@ -113,7 +113,7 @@ under the License.
     </service>
     <service name="updateSerializedInventoryTotals" default-entity-name="InventoryItem" engine="simple"
                 location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateSerializedInventoryTotals" auth="false">
-        <description>Sets the ATP/QOH totals for serialized inventory items</description>                    
+        <description>Sets the ATP/QOH totals for serialized inventory items</description>
         <attribute name="inventoryItemId" type="String" mode="IN" optional="false"/>
     </service>
 
@@ -131,7 +131,7 @@ under the License.
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="createPhysicalInventoryAndVariance" engine="simple" auth="true" transaction-timeout="600" 
+    <service name="createPhysicalInventoryAndVariance" engine="simple" auth="true" transaction-timeout="600"
             location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="createPhysicalInventoryAndVariance">
         <description>Create a PhysicalInventory and an InventoryItemVariance</description>
         <auto-attributes entity-name="InventoryItemVariance" include="pk" mode="IN" optional="false"/>
@@ -238,7 +238,7 @@ under the License.
         <attribute name="wholeSalePrice" mode="OUT" type="BigDecimal" optional="true"/>
         <attribute name="usageQuantity" mode="OUT" type="BigDecimal" optional="true"/>
     </service>
-    
+
     <service name="checkInventoryAvailability" engine="java"
             location="org.ofbiz.product.inventory.InventoryServices" invoke="checkInventoryAvailability">
         <description>Batch service for checking and sending backorder notifications.  Will also set an autoCancelDate for sales orders to 30 days (hard coded)
@@ -254,7 +254,7 @@ under the License.
         <attribute name="priorityOrderItemSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="noLongerOnBackOrderIdSet" type="Set" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="reassignInventoryReservations" engine="simple" transaction-timeout="600"
             location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="reassignInventoryReservations" auth="true">
         <description>Balance inventory reservations for a given product/facility, considering all the reservations with promised date greater than fromDate.</description>
@@ -262,9 +262,9 @@ under the License.
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="noLongerOnBackOrderIdSet" type="Set" mode="OUT" optional="true"/>
-        <attribute name="priority" type="String" mode="IN"  optional="true"/>   
+        <attribute name="priority" type="String" mode="IN"  optional="true"/>
     </service>
-    <service name="balanceOrderItemsWithNegativeReservations" engine="simple" 
+    <service name="balanceOrderItemsWithNegativeReservations" engine="simple"
                 location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="balanceOrderItemsWithNegativeReservations">
         <description>For each product with a negative reservation in the order, calls reassignInventoryReservations</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
@@ -281,11 +281,11 @@ under the License.
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="requireInventory" type="String" mode="IN" optional="false"/>
-        <attribute name="serialNumber" type="String" mode="IN" optional="true"/>        
+        <attribute name="serialNumber" type="String" mode="IN" optional="true"/>
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
         <attribute name="promisedDatetime" type="Timestamp" mode="IN" optional="false"/>
     </service>
-                
+
     <service name="reserveProductInventory" engine="simple"
             location="component://product/script/org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
         <description>Reserve Inventory for a Product.
@@ -320,7 +320,7 @@ under the License.
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="true"/>
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
-        <attribute name="priority" type="String" mode="IN"  optional="true"/>    
+        <attribute name="priority" type="String" mode="IN"  optional="true"/>
     </service>
     <service name="reserveProductInventoryByContainer" engine="simple"
                 location="component://product/script/org/ofbiz/product/inventory/InventoryReserveServices.xml" invoke="reserveProductInventory" auth="true">
@@ -329,7 +329,7 @@ under the License.
             availableToPromise will be used to track quantity ordered beyond what is in stock.
         </description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="containerId" type="String" mode="IN" optional="false"/>        
+        <attribute name="containerId" type="String" mode="IN" optional="false"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
@@ -410,7 +410,7 @@ under the License.
     </service>
     <service name="prepareInventoryTransfer" engine="java"
             location="org.ofbiz.product.inventory.InventoryServices" invoke="prepareInventoryTransfer">
-        <description>Prepares inventory item for transfer.  If the xferQty is less than quantityOnHandTotal of the inventory item, then the inventory 
+        <description>Prepares inventory item for transfer.  If the xferQty is less than quantityOnHandTotal of the inventory item, then the inventory
                 item is "split," and an new inventory item will be created with xferQty and used for the inventory transfer.</description> <attribute name="inventoryItemId" type="String" mode="INOUT" optional="false"/>
         <attribute name="xferQty" type="BigDecimal" mode="IN" optional="false"/>
     </service>
@@ -743,7 +743,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    
+
     <service name="addPartyToFacilityGroup" engine="simple"
                 location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="addPartyToFacilityGroup" auth="true">
         <description>Add Party To FacilityGroup</description>
@@ -759,7 +759,7 @@ under the License.
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="removePartyFromFacilityGroup" engine="simple"
                 location="component://product/script/org/ofbiz/product/storage/StorageServices.xml" invoke="removePartyFromFacilityGroup" auth="true">
         <description>Remove Party From FacilityGroup</description>
@@ -876,7 +876,7 @@ under the License.
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="setOrderReservationPriority" engine="simple" invoke="setOrderReservationPriority" 
+    <service name="setOrderReservationPriority" engine="simple" invoke="setOrderReservationPriority"
                 location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml"  auth="true">
         <description>set order priority</description>
         <attribute name="priority" mode="IN" type="String" optional="true"/>

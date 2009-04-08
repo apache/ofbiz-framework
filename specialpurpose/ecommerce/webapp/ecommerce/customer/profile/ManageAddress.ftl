@@ -27,7 +27,7 @@ under the License.
     <#-- Add address -->
     <div class="form-row" align="right">
       <a class="buttontext" id="addAddress" href="javascript:void(0)">${uiLabelMap.EcommerceAddNewAddress}</a>
-    </div>  
+    </div>
     <div id="displayCreateAddressForm" class="popup" style="display: none;">
       <div id="serverError" class="errorMessage"></div>
       <form id="createPostalAddressForm" name="createPostalAddressForm" method="post" action="<@ofbizUrl></@ofbizUrl>">
@@ -78,7 +78,7 @@ under the License.
                 <option value="${stateProvinceGeoId}">${stateProvinceGeoId}</option>
               <#else>
                 <option value="_NA_">${uiLabelMap.PartyNoState}</option>
-              </#if>  
+              </#if>
             </select>
           </div>
         </div>

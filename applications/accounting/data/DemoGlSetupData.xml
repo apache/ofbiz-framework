@@ -58,12 +58,12 @@ under the License.
     <InvoiceItemType invoiceItemTypeId="INV_TE_ITEM" defaultGlAccountId="401000"/>
 
     <!-- invoice item types for purchase (AP) invoices -->
-    <InvoiceItemType invoiceItemTypeId="PINVOICE_ADJ" defaultGlAccountId="516100"/> 
+    <InvoiceItemType invoiceItemTypeId="PINVOICE_ADJ" defaultGlAccountId="516100"/>
     <InvoiceItemType invoiceItemTypeId="PINV_PROMOTION_ADJ" defaultGlAccountId="516100"/>
     <InvoiceItemType invoiceItemTypeId="PINV_DISCOUNT_ADJ" defaultGlAccountId="516100"/>
-    <InvoiceItemType invoiceItemTypeId="P_FEE" defaultGlAccountId="516100"/> 
+    <InvoiceItemType invoiceItemTypeId="P_FEE" defaultGlAccountId="516100"/>
     <InvoiceItemType invoiceItemTypeId="PINV_MISC_CHARGE" defaultGlAccountId="516100"/>
-    <InvoiceItemType invoiceItemTypeId="PINV_SALES_TAX" defaultGlAccountId="516100"/> 
+    <InvoiceItemType invoiceItemTypeId="PINV_SALES_TAX" defaultGlAccountId="516100"/>
     <InvoiceItemType invoiceItemTypeId="PINV_SHIP_CHARGES" defaultGlAccountId="510000"/>
     <InvoiceItemType invoiceItemTypeId="PINV_SURCHARGE_ADJ" defaultGlAccountId="516100"/>
     <InvoiceItemType invoiceItemTypeId="PINV_ADD_FEATURE" defaultGlAccountId="516100"/>
@@ -168,11 +168,11 @@ under the License.
     <CostComponentCalc costComponentCalcId="EXAMPLE_COST" costGlAccountTypeId="OPERATING_EXPENSE"/>
 
     <!-- General Ledger Setup for the "Company" organization for "Company" -->
-    
+
     <!-- GL journal for suspended transactions (failed post) -->
     <GlJournal organizationPartyId="Company" glJournalId="ERROR_JOURNAL" glJournalName="Suspense transactions"/>
 
-    <PartyAcctgPreference partyId="Company" taxFormId="US_IRS_1120" cogsMethodId="COGS_AVG_COST" baseCurrencyUomId="USD" 
+    <PartyAcctgPreference partyId="Company" taxFormId="US_IRS_1120" cogsMethodId="COGS_AVG_COST" baseCurrencyUomId="USD"
         invoiceSequenceEnumId="INVSQ_ENF_SEQ" invoiceIdPrefix="CI"
         quoteSequenceEnumId="INVSQ_ENF_SEQ" quoteIdPrefix="CQ"
         orderSequenceEnumId="INVSQ_ENF_SEQ" orderIdPrefix="CO"
@@ -230,7 +230,7 @@ under the License.
     <GlAccountOrganization organizationPartyId="Company" glAccountId="804000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="810000" fromDate="2001-01-01 00:00:00.0"/>
     <GlAccountOrganization organizationPartyId="Company" glAccountId="900000" fromDate="2001-01-01 00:00:00.0"/>
-    
+
     <!-- Default mapping between account types and account ids -->
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="ACCOUNTS_RECEIVABLE" glAccountId="120000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INTRSTINC_RECEIVABLE" glAccountId="121800"/>
@@ -344,7 +344,7 @@ under the License.
     <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6017" periodTypeId="FISCAL_QUARTER" fromDate="2010-04-01" thruDate="2010-07-01" isClosed="N" periodNum="2" periodName="2010/Q2" parentPeriodId="6015"/>
     <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6018" periodTypeId="FISCAL_QUARTER" fromDate="2010-07-01" thruDate="2010-10-01" isClosed="N" periodNum="3" periodName="2010/Q3" parentPeriodId="6015"/>
     <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6019" periodTypeId="FISCAL_QUARTER" fromDate="2010-10-01" thruDate="2011-01-01" isClosed="N" periodNum="4" periodName="2010/Q4" parentPeriodId="6015"/>
-    
-    <UomConversionDated uomId="USD" uomIdTo="EUR" fromDate="2001-01-01 00:00:00.0" conversionFactor="0.7"/><!-- to convert demo invoice --> 
+
+    <UomConversionDated uomId="USD" uomIdTo="EUR" fromDate="2001-01-01 00:00:00.0" conversionFactor="0.7"/><!-- to convert demo invoice -->
 
 </entity-engine-xml>

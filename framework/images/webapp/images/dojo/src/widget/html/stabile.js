@@ -84,8 +84,8 @@ dojo.widget.html.stabile.description = function(v, showAll){
 
 	var describeThis = function() {
 		 return this.description(this, true);
-	} 
-	
+	}
+
 	try {
 
 		if(v===void(0)){
@@ -102,7 +102,7 @@ dojo.widget.html.stabile.description = function(v, showAll){
 		if(typeof(v)=="string" || v instanceof String){
 			// Quote strings and their contents as required.
 			// Replacing by $& fails in IE 5.0
-			var v1 = v.replace(dojo.widget.html.stabile._sqQuotables, "\\$1"); 
+			var v1 = v.replace(dojo.widget.html.stabile._sqQuotables, "\\$1");
 			v1 = v1.replace(/\n/g, "\\n");
 			v1 = v1.replace(/\r/g, "\\r");
 			// Any other important special cases?

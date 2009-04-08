@@ -92,7 +92,7 @@ public class ProductServices {
             Map<String, Object> resFeatures = prodGetFeatures(dctx, feaContext);
             List<GenericValue> features = UtilGenerics.checkList(resFeatures.get("productFeatures"));
             boolean variantFound = true;
-            // The variant is discarded if at least one of its standard features 
+            // The variant is discarded if at least one of its standard features
             // has the same type of one of the selected features but a different feature id.
             // Example:
             // Input: (COLOR, Black), (SIZE, Small)

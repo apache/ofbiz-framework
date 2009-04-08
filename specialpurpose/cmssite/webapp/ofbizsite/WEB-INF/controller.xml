@@ -18,10 +18,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
-    
+
     <description>OFBiz: OFBiz Site Controller Configuration File</description>
 
     <!-- Events run from here for the first hit in a visit -->
@@ -47,7 +47,7 @@ under the License.
         <response name="success" type="none"/>
         <response name="error" type="view" value="error"/>
     </request-map>
-    
+
     <request-map uri="main">
         <security https="false" auth="false"/>
         <response name="success" type="request-redirect" value="cms"/>

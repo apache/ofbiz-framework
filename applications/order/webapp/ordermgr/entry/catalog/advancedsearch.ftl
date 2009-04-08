@@ -133,12 +133,12 @@ under the License.
       </td>
     </tr>
   </table>
-  
+
   <#if searchOptionsHistoryList?has_content>
     <hr/>
-  
+
     <h2>${uiLabelMap.OrderLastSearches}...</h2>
-  
+
     <div>
       <a href="<@ofbizUrl>clearSearchOptionsHistoryList</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderClearSearchHistory}</a>
       ${uiLabelMap.OrderClearSearchHistoryNote}

@@ -221,7 +221,7 @@ under the License.
         <xs:attribute type="xs:string" name="from-field"/>
         <xs:attribute type="xs:string" name="value"/>
     </xs:attributeGroup>
-    
+
     <!-- ================ ACTIONS ================ -->
     <xs:element name="AllActions" abstract="true"/>
     <xs:element name="actions">
@@ -357,7 +357,7 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     If a disabled-style provided and the condition fails, the disabled-style of
-                    the parent menu-item is set with the disabled-style and processing is allowed to continue. 
+                    the parent menu-item is set with the disabled-style and processing is allowed to continue.
                     If no disabled-style is given, the widget-style is not changed and the menu-item is not rendered.
                 </xs:documentation>
             </xs:annotation>

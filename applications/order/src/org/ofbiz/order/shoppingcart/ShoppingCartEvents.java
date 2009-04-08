@@ -1685,7 +1685,7 @@ public class ShoppingCartEvents {
         cart.setWorkEffortId(workEffortId);
 
         // set the order id if given
-        if(UtilValidate.isNotEmpty(orderId)) {
+        if (UtilValidate.isNotEmpty(orderId)) {
             GenericValue thisOrder = null;
             try {
                 thisOrder = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);

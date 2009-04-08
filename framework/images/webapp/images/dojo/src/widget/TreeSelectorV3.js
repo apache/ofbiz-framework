@@ -27,15 +27,15 @@ dojo.widget.defineWidget(
 	// TODO: add multiselect
 
 	listenTreeEvents: ["afterTreeCreate","afterCollapse","afterChangeTree", "afterDetach", "beforeTreeDestroy"],
-	listenNodeFilter: function(elem) { return elem instanceof dojo.widget.Widget},	
-	
+	listenNodeFilter: function(elem) { return elem instanceof dojo.widget.Widget},
+
 	allowedMulti: true,
-	
+
 	/**
 	* if time between clicks < dblselectTimeout => its dblselect
 	*/
 	dblselectTimeout: 300,
-	
+
 	eventNamesDefault: {
 		select : "select",
 		deselect : "deselect",
@@ -49,45 +49,45 @@ dojo.widget.defineWidget(
 			dojo.event.browser.addListener(tree.domNode, "ondblclick", dojo.lang.hitch(this, this.onTreeDblClick));
 		}
 		dojo.event.browser.addListener(tree.domNode, "onKey", dojo.lang.hitch(this, this.onKey));
-		
+
 	},
-	
-	
+
+
 	onKey: function(e) {
 		if (!e.key || e.ctrkKey || e.altKey) { return; }
-		
+
 		switch(e.key) {
 			case e.KEY_ENTER:
 				var node = this.domElement2TreeNode(e.target);
 				if (node) {
 					this.processNode(node, e);
 				}
-		
+
 		}
 	},
-	
-	
-		
+
+
+
 	onAfterChangeTree: function(message) {
-		
+
 		if (!message.oldTree && message.node.selected) {
 			this.select(message.node);
 		}
-		
+
 		if (!message.newTree || !this.listenedTrees[message.newTree.widgetId]) {
 			// moving from our trfee to new one that we don't listen
-			
+
 			if (this.selectedNode && message.node.children) {
 				this.deselectIfAncestorMatch(message.node);
-			}						
-			
+			}
+
 		}
-		
-		
+
+
 	},
-		
-		
-		
+
+
+
 	initialize: function(args) {
 
 		for(name in this.eventNamesDefault) {
@@ -95,7 +95,7 @@ dojo.widget.defineWidget(
 				this.eventNames[name] = this.widgetId+"/"+this.eventNamesDefault[name];
 			}
 		}
-				
+
 	},
 
 	onBeforeTreeDestroy: function(message) {
@@ -103,42 +103,42 @@ dojo.widget.defineWidget(
 	},
 
 	// deselect node if ancestor is collapsed
-	onAfterCollapse: function(message) {		
-		this.deselectIfAncestorMatch(message.source);		
+	onAfterCollapse: function(message) {
+		this.deselectIfAncestorMatch(message.source);
 	},
 
 	// IE will throw select -> dblselect. Need to transform to select->select
 	onTreeDblClick: function(event) {
-		this.onTreeClick(event);			
-	},		
-		
-	checkSpecialEvent: function(event) {		
+		this.onTreeClick(event);
+	},
+
+	checkSpecialEvent: function(event) {
 		return event.shiftKey || event.ctrlKey;
 	},
-	
-	
-	onTreeClick: function(event) {		
-		
+
+
+	onTreeClick: function(event) {
+
 		var node = this.domElement2TreeNode(event.target);
-				
+
 		if (!node) {
 			return;
 		}
-		
-		
-		
+
+
+
 		var checkLabelClick = function(domElement) {
 			return domElement === node.labelNode;
 		}
-		
+
 		if (this.checkPathCondition(event.target, checkLabelClick)) {
-			this.processNode(node, event);			
+			this.processNode(node, event);
 		}
-		
-		
+
+
 	},
-	
-	
+
+
 	/**
 	 * press on selected with ctrl => deselect it
 	 * press on selected w/o ctrl => dblselect it and deselect all other
@@ -148,26 +148,26 @@ dojo.widget.defineWidget(
 	 * event may be both mouse & keyboard enter
 	 */
 	processNode: function(node, event) {
-		
+
 		if (node.actionIsDisabled(node.actions.SELECT)) {
 			return;
 		}
-		
-		//dojo.debug("click "+node+ "special "+this.checkSpecialEvent(event));		
-		
+
+		//dojo.debug("click "+node+ "special "+this.checkSpecialEvent(event));
+
 		if (dojo.lang.inArray(this.selectedNodes, node)) {
-				
-			if(this.checkSpecialEvent(event)){				
+
+			if(this.checkSpecialEvent(event)){
 				// If the node is currently selected, and they select it again while holding
 				// down a meta key, it deselects it
 				this.deselect(node);
 				return;
 			}
-			
+
 			var _this = this;
 			var i=0;
 			var selectedNode;
-			
+
 			/* remove all nodes from selection excepts this one */
 			while(this.selectedNodes.length > i) {
 				selectedNode = this.selectedNodes[i];
@@ -176,13 +176,13 @@ dojo.widget.defineWidget(
 					this.deselect(selectedNode);
 					continue;
 				}
-			
+
 				i++; // skip the doubleclicked node
 			}
-		
+
 			/* lastClicked.node may be undefined if node was selected(before) programmatically */
 			var wasJustClicked = this.checkRecentClick(node)
-			
+
 			eventName = wasJustClicked ? this.eventNames.dblselect : this.eventNames.select;
 			if (wasJustClicked) {
 				eventName = this.eventNames.dblselect;
@@ -192,33 +192,33 @@ dojo.widget.defineWidget(
 				eventName = this.eventNames.select;
 				this.setLastClicked(node)
 			}
-			
+
 			dojo.event.topic.publish(eventName, { node: node });
-			
+
 			return;
 		}
-		
+
 		/* if unselected node..	*/
-		
+
 		this.deselectIfNoMulti(event);
-		
+
 		//dojo.debug("select");
-		
+
 		this.setLastClicked(node);
-		
+
 		this.select(node);
 
 	},
-	
+
 	forgetLastClicked: function() {
 		this.lastClicked = {}
 	},
-	
+
 	setLastClicked: function(node) {
-		this.lastClicked.date = new Date();	
+		this.lastClicked.date = new Date();
 		this.lastClicked.node = node;
 	},
-	
+
 	checkRecentClick: function(node) {
 		var diff = new Date() - this.lastClicked.date;
 		//dojo.debug(new Date())
@@ -229,7 +229,7 @@ dojo.widget.defineWidget(
 			return false;
 		}
 	},
-	
+
 	// deselect all if no meta key or disallowed
 	deselectIfNoMulti: function(event) {
 		if (!this.checkSpecialEvent(event) || !this.allowedMulti) {
@@ -246,35 +246,35 @@ dojo.widget.defineWidget(
 			node = node.parent
 			while (node && node.isTreeNode) {
 				//dojo.debug("ancestor try "+node);
-				
+
 				if (node === ancestor) {
-					_this.deselect(selectedNode); 
-					return;					
+					_this.deselect(selectedNode);
+					return;
 				}
 				node = node.parent;
 			}
 		});
 	},
-	
-			
+
+
 
 
 	onAfterDetach: function(message) {
-		this.deselectIfAncestorMatch(message.child);		
+		this.deselectIfAncestorMatch(message.child);
 	},
 
 
 	select: function(node) {
 
 		var index = dojo.lang.find(this.selectedNodes, node, true);
-		
+
 		if (index >=0 ) {
 			return; // already selected
 		}
-				
+
 		//dojo.debug("select "+node);
 		this.selectedNodes.push(node);
-						
+
 		dojo.event.topic.publish(this.eventNames.select, {node: node} );
 	},
 
@@ -285,16 +285,16 @@ dojo.widget.defineWidget(
 			//dojo.debug("not selected");
 			return; // not selected
 		}
-		
+
 		//dojo.debug("deselect "+node);
 		//dojo.debug((new Error()).stack);
-		
+
 		this.selectedNodes.splice(index, 1);
 		dojo.event.topic.publish(this.eventNames.deselect, {node: node} );
 		//dojo.debug("deselect");
 
 	},
-	
+
 	deselectAll: function() {
 		//dojo.debug("deselect all "+this.selectedNodes);
 		while (this.selectedNodes.length) {

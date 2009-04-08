@@ -21,7 +21,7 @@ under the License.
 <head>
 <script language="JavaScript" type="text/javascript">
 <!--
-    // Setting of field focus to initialise the 
+    // Setting of field focus to initialise the
     // handheld forms - critical when scanner is being used.
     focusField = "";
     function fieldFocus() {
@@ -38,9 +38,9 @@ under the License.
         if (e.keyCode == 13) {
             nextfield.focus();
             nextfield.select();
-            return false; 
+            return false;
         } else {
-          return true; 
+          return true;
         }
     }
 //-->

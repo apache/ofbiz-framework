@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- 
+
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.condition.*;
 
@@ -29,11 +29,11 @@ if (context.noConditionFind == null) {
 if (context.filterByDate == null) {
     context.filterByDate = parameters.filterByDate;
 }
-prepareResult = dispatcher.runSync("prepareFind", [entityName : context.entityName, 
-                                                   orderBy : context.orderBy, 
-                                                   inputFields : parameters, 
-                                                   filterByDate : context.filterByDate, 
-                                                   filterByDateValue : context.filterByDateValue, 
+prepareResult = dispatcher.runSync("prepareFind", [entityName : context.entityName,
+                                                   orderBy : context.orderBy,
+                                                   inputFields : parameters,
+                                                   filterByDate : context.filterByDate,
+                                                   filterByDateValue : context.filterByDateValue,
                                                    userLogin : context.userLogin] );
 
 exprList = [EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")
@@ -45,10 +45,10 @@ entityConditionList = null;
 if (prepareResult.entityConditionList != null) {
     ConditionList = [ prepareResult.entityConditionList, statusPartyDisable ];
     entityConditionList = EntityCondition.makeCondition(ConditionList);
-} else if (context.noConditionFind == "Y") { 
-    entityConditionList = statusPartyDisable; 
+} else if (context.noConditionFind == "Y") {
+    entityConditionList = statusPartyDisable;
 }
-    
+
 executeResult = dispatcher.runSync("executeFind", [entityName : context.entityName,
                                                    orderByList : prepareResult.orderByList,
                                                    entityConditionList : entityConditionList,

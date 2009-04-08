@@ -18,12 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="main-decorator">
         <section>
             <actions>
-                <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>                
+                <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -81,26 +81,26 @@ under the License.
                 </screenlet>
             </widgets>
         </section>
-    </screen>    
+    </screen>
     <screen name="PartyGroupTreeLine">
         <section>
-            <widgets> 
+            <widgets>
                 <label text="${partyAndGroup.groupName}" style="tabletext"/>
             </widgets>
         </section>
     </screen>
     <screen name="PartyPersonTreeLine">
         <section>
-            <widgets> 
+            <widgets>
                 <label text="${partyAndPerson.firstName} ${partyAndPerson.lastName}" style="tabletext"/>
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CommonEmplPositionDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="EmplPosition"/>                
+                <set field="headerItem" value="EmplPosition"/>
                 <set field="emplPositionId" from-field="parameters.emplPositionId"/>
                 <entity-one entity-name="EmplPosition" value-field="emplPosition"/>
             </actions>
@@ -118,15 +118,15 @@ under the License.
                                         <not><if-empty field="emplPosition"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="EmplPostionBar" location="component://humanres/widget/Menus.xml"/>                                        
+                                        <include-menu name="EmplPostionBar" location="component://humanres/widget/Menus.xml"/>
                                     </widgets>
-                                </section>                                
+                                </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.HumanResViewPermissionError}</label>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -134,13 +134,13 @@ under the License.
     </screen>
     <screen name="CommonEmploymentDecorator">
         <section>
-            <actions>                
+            <actions>
                 <set field="roleTypeIdFrom" from-field="parameters.roleTypeIdFrom"/>
                 <set field="roleTypeIdTo" from-field="parameters.roleTypeIdTo"/>
                 <set field="partyIdFrom" from-field="parameters.partyIdFrom"/>
                 <set field="partyIdTo" from-field="parameters.partyIdTo"/>
-                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>                                                
-                <entity-one entity-name="Employment" value-field="employment"/>                
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
+                <entity-one entity-name="Employment" value-field="employment"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -171,13 +171,13 @@ under the License.
                                         <label style="h1" text="${emplName.lastName},${emplName.firstName} ${emplName.middleName} [${emplName.partyId}] ${uiLabelMap.CommonFor}"></label>
                                         <label style="h1" text="${orgName.groupName} [${orgName.partyId}]"></label>
                                     </widgets>
-                                </section>                                
+                                </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.HumanResViewPermissionError}</label>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -185,7 +185,7 @@ under the License.
     </screen>
     <screen name="CommonPerfReviewDecorator">
         <section>
-            <actions>                
+            <actions>
                 <set field="perfReviewId" from-field="parameters.perfReviewId"/>
                 <entity-one entity-name="PerfReview" value-field="perfReview"/>
             </actions>
@@ -211,7 +211,7 @@ under the License.
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.HumanResViewPermissionError}</label>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -270,11 +270,11 @@ under the License.
                             </fail-widgets>
                         </section>
                     </decorator-section>
-                    
-                </decorator-screen>            
+
+                </decorator-screen>
             </widgets>
         </section>
-    </screen>    
+    </screen>
     <screen name="CommonPartyDecorator">
         <section>
             <actions>
@@ -354,7 +354,7 @@ under the License.
                         </section>
                         <decorator-section-include name="body"/>
                     </decorator-section>
-                </decorator-screen>    
+                </decorator-screen>
             </widgets>
         </section>
     </screen>

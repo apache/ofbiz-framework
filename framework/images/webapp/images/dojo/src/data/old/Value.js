@@ -34,14 +34,14 @@ dojo.data.old.Value.prototype.toString = function() {
 dojo.data.old.Value.prototype.getValue = function() {
 	/**
 	 * summary: Returns the value itself.
-	 */ 
+	 */
 	return this._value; // anything
 };
 
 dojo.data.old.Value.prototype.getType = function() {
 	/**
 	 * summary: Returns the data type of the value.
-	 */ 
+	 */
 	dojo.unimplemented('dojo.data.old.Value.prototype.getType');
 	return this._type; // dojo.data.old.Type
 };

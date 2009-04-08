@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <!-- list all examplefeatures in a tabular format -->
@@ -58,7 +58,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditExampleFeature">
         <section>
             <actions>
@@ -102,7 +102,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.PageTitleLookupExampleFeature}"/>                
+                <set field="title" value="${uiLabelMap.PageTitleLookupExampleFeature}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>

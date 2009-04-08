@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -90,21 +90,21 @@ if (cart) {
     }
 }
 
-if(!parameters.useShipAddr){
+if (!parameters.useShipAddr) {
     if (cart && context.postalAddress) {
         postalAddress = context.postalAddress;
         shippingContactMechId = cart.getShippingContactMechId();
         contactMechId = postalAddress.contactMechId;
-        if(shippingContactMechId?.equals(contactMechId)){
+        if (shippingContactMechId?.equals(contactMechId)) {
             context.useShipAddr = "Y";
         }
     }
 } else {
-    context.useShipAddr = parameters.useShipAddr;    
+    context.useShipAddr = parameters.useShipAddr;
 }
 
 // Added here to satisfy genericaddress.ftl
-if (context.postalAddress){
+if (context.postalAddress) {
     postalAddress = context.postalAddress;
     parameters.address1 = postalAddress.address1;
     parameters.address2 = postalAddress.address2;
@@ -115,5 +115,5 @@ if (context.postalAddress){
     parameters.contactMechId = postalAddress.contactMechId;
     if (context.creditCard) {
        context.callSubmitForm = true;
-    }    
+    }
 }

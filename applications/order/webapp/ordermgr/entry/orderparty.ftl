@@ -25,7 +25,7 @@ under the License.
         <tr>
           <td valign="middle" align="center">
             <div class="boxhead">&nbsp;${uiLabelMap.PartyParty}</div>
-          </td>               
+          </td>
         </tr>
       </table>
     </TD>
@@ -33,7 +33,7 @@ under the License.
   <TR>
     <TD width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
-        <tr>          
+        <tr>
           <td align="center">
             <#if person?has_content>
               <div><a href="${customerDetailLink}${partyId}" class="buttontext">${person.firstName?if_exists}&nbsp;${person.lastName?if_exists}</a></div>
@@ -46,7 +46,7 @@ under the License.
                 <a href="javascript:document.setpartyform.submit();" class="buttontext">${uiLabelMap.CommonSet}</a>&nbsp;|&nbsp;<a href="/partymgr/control/findparty" class="buttontext">${uiLabelMap.CommonFind}</a><#if partyId?default("_NA_") != "_NA_" && partyId?default("_NA_") != "">&nbsp;|&nbsp;<a href="${customerDetailLink}${partyId}" class="buttontext">${uiLabelMap.CommonView}</a></#if>
               </div>
             </form>
-          </td>                        
+          </td>
         </tr>
       </table>
     </TD>

@@ -38,7 +38,7 @@ dojo.lang.mixin(dojo.lang, {
 				if(obj[x] && (!tmp[x])){
 					count++;
 					break;
-				} 
+				}
 			}
 			return count == 0; // boolean
 		}else if(dojo.lang.isArrayLike(obj) || dojo.lang.isString(obj)){
@@ -127,7 +127,7 @@ dojo.lang.mixin(dojo.lang, {
 		}
 
 		var ob = obj ? obj : dj_global;
-		dojo.lang.map(arr, 
+		dojo.lang.map(arr,
 			function(val){
 				reducedValue = binary_func.call(ob, reducedValue, val);
 			}
@@ -144,7 +144,7 @@ dojo.lang.mixin(dojo.lang, {
 		//			http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Global_Objects:Array:forEach
 		if(dojo.lang.isString(anArray)){
 			// anArray: String
-			anArray = anArray.split(""); 
+			anArray = anArray.split("");
 		}
 		if(Array.forEach){
 			Array.forEach(anArray, callback, thisObject);
@@ -153,16 +153,16 @@ dojo.lang.mixin(dojo.lang, {
 			if(!thisObject){
 				thisObject=dj_global;
 			}
-			for(var i=0,l=anArray.length; i<l; i++){ 
+			for(var i=0,l=anArray.length; i<l; i++){
 				callback.call(thisObject, anArray[i], i, anArray);
 			}
 		}
 	},
 
 	_everyOrSome: function(/*Boolean*/every, /*Array*/arr, /*Function*/callback, /*Object?*/thisObject){
-		if(dojo.lang.isString(arr)){ 
+		if(dojo.lang.isString(arr)){
 			//arr: String
-			arr = arr.split(""); 
+			arr = arr.split("");
 		}
 		if(Array.every){
 			return Array[ every ? "every" : "some" ](arr, callback, thisObject);
@@ -194,7 +194,7 @@ dojo.lang.mixin(dojo.lang, {
 		//		dojo.lang.every([1, 2, 3, 4], function(item){ return item>1; });
 		//		// returns false
 		//		dojo.lang.every([1, 2, 3, 4], function(item){ return item>0; });
-		//		// returns true 
+		//		// returns true
 		return this._everyOrSome(true, arr, callback, thisObject); // Boolean
 	},
 

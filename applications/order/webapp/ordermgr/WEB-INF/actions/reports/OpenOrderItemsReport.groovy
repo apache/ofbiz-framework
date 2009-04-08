@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -36,10 +36,10 @@ orderStatusId = parameters.orderStatusId;
 // search by orderTypeId is mandatory
 conditions = [EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, orderTypeId)];
 
-if (fromOrderDate){
+if (fromOrderDate) {
     conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromOrderDate));
 }
-if (thruOrderDate){
+if (thruOrderDate) {
     conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruOrderDate));
 }
 
@@ -55,7 +55,7 @@ if (orderStatusId) {
     conditions.add(EntityCondition.makeCondition("orderStatusId", EntityOperator.EQUALS, orderStatusId));
 } else {
     // search all orders that are not completed, cancelled or rejected
-    conditions.add( 
+    conditions.add(
             EntityCondition.makeCondition([
                     EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
                     EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
@@ -95,15 +95,15 @@ listIt.each { listValue ->
     quantityIssued = listValue.quantityIssued;
     itemDescription = listValue.itemDescription;
     shipAfterDate = listValue.shipAfterDate;
-    shipBeforeDate = listValue.shipBeforeDate;    
+    shipBeforeDate = listValue.shipBeforeDate;
     fieldsToSelect = ["price","productPriceTypeId"] as Set;
     productIdCondExpr =  [EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId)];
     prodPriceCond = EntityCondition.makeCondition(productIdCondExpr, EntityOperator.AND);
-    productPrices = delegator.findList("ProductPrice", prodPriceCond, fieldsToSelect, null, null, false);    
+    productPrices = delegator.findList("ProductPrice", prodPriceCond, fieldsToSelect, null, null, false);
     costPrice = 0.0;
     retailPrice = 0.0;
     listPrice = 0.0;
-    
+
     productPrices.each { productPriceMap ->
         if (productPriceMap.productPriceTypeId.equals("AVERAGE_COST")) {
             costPrice = productPriceMap.price;
@@ -116,20 +116,20 @@ listIt.each { listValue ->
 
     totalListPrice += listPrice;
     totalRetailPrice += retailPrice;
-    totalCostPrice += costPrice;    
+    totalCostPrice += costPrice;
     totalquantityOrdered += quantityOrdered;
-    totalquantityOpen += quantityOpen;   
+    totalquantityOpen += quantityOpen;
     costPriceDividendValue = costPrice;
-    if(costPriceDividendValue){
+    if (costPriceDividendValue) {
         percentMarkup = ((retailPrice - costPrice)/costPrice)*100;
-    }else{
+    } else{
         percentMarkup = "";
-    }    
-    orderItemMap = [orderDate : orderDate, 
-                    orderId : orderId, 
-                    productId : productId, 
-                    itemDescription : itemDescription, 
-                    quantityOrdered : quantityOrdered, 
+    }
+    orderItemMap = [orderDate : orderDate,
+                    orderId : orderId,
+                    productId : productId,
+                    itemDescription : itemDescription,
+                    quantityOrdered : quantityOrdered,
                     quantityIssued : quantityIssued,
                     quantityOpen : quantityOpen,
                     shipAfterDate : shipAfterDate,
@@ -145,17 +145,17 @@ listIt.each { listValue ->
 
 listIt.close();
 totalAmountList = [];
-if (orderItemList) { 
+if (orderItemList) {
     totalCostPriceDividendValue = totalCostPrice;
-    if(totalCostPriceDividendValue){
+    if (totalCostPriceDividendValue) {
         totalPercentMarkup = ((totalRetailPrice - totalCostPrice)/totalCostPrice)*100 ;
-    }else{
+    } else{
         totalPercentMarkup = "";
-    }    
-    totalAmountMap = [totalCostPrice : totalCostPrice, 
-                      totalListPrice : totalListPrice, 
-                      totalRetailPrice : totalRetailPrice, 
-                      totalquantityOrdered : totalquantityOrdered, 
+    }
+    totalAmountMap = [totalCostPrice : totalCostPrice,
+                      totalListPrice : totalListPrice,
+                      totalRetailPrice : totalRetailPrice,
+                      totalquantityOrdered : totalquantityOrdered,
                       quantityOrdered : quantityOrdered,
                       totalquantityOpen : totalquantityOpen,
                       totalDiscount : totalListPrice - totalRetailPrice,

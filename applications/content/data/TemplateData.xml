@@ -137,7 +137,7 @@ under the License.
       </table>
       <br>
    </td>
- 
+
   </tr>
 </table>
 
@@ -246,7 +246,7 @@ ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
 </#if>
 <tr>
 <td>
-${wrappedContent?if_exists} 
+${wrappedContent?if_exists}
 </td>
 </tr>
 <tr>

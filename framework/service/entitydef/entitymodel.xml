@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
   <!-- ========================================================= -->
   <!-- ======================== Defaults ======================= -->
@@ -188,7 +188,7 @@ under the License.
             sequence-bank-size="100">
         <field name="serviceName" type="name"></field>
         <field name="lockThread" type="name"></field>
-        <field name="lockTime" type="date-time"></field>        
+        <field name="lockTime" type="date-time"></field>
         <prim-key field="serviceName"/>
     </entity>
 

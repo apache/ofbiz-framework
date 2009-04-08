@@ -334,7 +334,7 @@ public class TechDataServices {
         if (amount <= nextCapacity) {
             dateTo.setTime(dateTo.getTime()+amount);
             amount = 0;
-        }else amount -= nextCapacity;
+        } else amount -= nextCapacity;
 
         Map result = new HashMap();
         while (amount > 0)  {
@@ -344,7 +344,7 @@ public class TechDataServices {
             if (amount <= nextCapacity) {
                 dateTo.setTime(dateTo.getTime()+amount);
                 amount = 0;
-            }else amount -= nextCapacity;
+            } else amount -= nextCapacity;
         }
         return dateTo;
     }
@@ -490,7 +490,7 @@ public class TechDataServices {
         if (amount <= previousCapacity) {
             dateTo.setTime(dateTo.getTime()-amount);
             amount = 0;
-        }else amount -= previousCapacity;
+        } else amount -= previousCapacity;
 
         Map result = new HashMap();
         while (amount > 0)  {
@@ -500,7 +500,7 @@ public class TechDataServices {
             if (amount <= previousCapacity) {
                 dateTo.setTime(dateTo.getTime()-amount);
                 amount = 0;
-            }else amount -= previousCapacity;
+            } else amount -= previousCapacity;
         }
         return dateTo;
     }

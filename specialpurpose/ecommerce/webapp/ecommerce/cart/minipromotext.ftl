@@ -26,7 +26,7 @@ under the License.
         <#-- show promotions text -->
         <#list productPromos as productPromo>
             <p>
-                <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="linktext">${uiLabelMap.CommonDetails}</a> 
+                <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="linktext">${uiLabelMap.CommonDetails}</a>
                 ${StringUtil.wrapString(productPromo.promoText?if_exists)}
             </p>
             <#if productPromo_has_next>

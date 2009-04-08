@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    
+
     <simple-method method-name="deletePaymentMethod" short-description="Delete Payment Method">
         <call-map-processor xml-resource="component://accounting/script/org/ofbiz/accounting/payment/PaymentMapProcs.xml"
                 processor-name="deletePaymentMethod" in-map-name="parameters" out-map-name="context"/>

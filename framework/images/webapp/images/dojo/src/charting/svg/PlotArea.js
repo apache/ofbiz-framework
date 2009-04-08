@@ -25,9 +25,9 @@ if(dojo.render.svg.capable){
 		initialize: function(){
 			//	summary
 			//	Initialize the PlotArea.
-		
+
 			this.destroy();	//	kill everything first.
-			
+
 			//	start with the background
 			this.nodes.main = document.createElement("div");
 
@@ -41,7 +41,7 @@ if(dojo.render.svg.capable){
 			var defs = document.createElementNS(dojo.svg.xmlns.svg, "defs");
 			var clip = document.createElementNS(dojo.svg.xmlns.svg, "clipPath");
 			clip.setAttribute("id",this.getId()+"-clip");
-			var rect = document.createElementNS(dojo.svg.xmlns.svg, "rect");		
+			var rect = document.createElementNS(dojo.svg.xmlns.svg, "rect");
 			rect.setAttribute("x", area.left);
 			rect.setAttribute("y", area.top);
 			rect.setAttribute("width", area.right-area.left);
@@ -49,7 +49,7 @@ if(dojo.render.svg.capable){
 			clip.appendChild(rect);
 			defs.appendChild(clip);
 			this.nodes.area.appendChild(defs);
-			
+
 			this.nodes.background = document.createElementNS(dojo.svg.xmlns.svg, "rect");
 			this.nodes.background.setAttribute("id", this.getId()+"-background");
 			this.nodes.background.setAttribute("width", this.size.width);

@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,14 +18,14 @@
     under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="CommonFixedAssetMaintDecorator">
         <section>
             <actions>
                 <set field="headerItem" value="ListFixedAssetMaints"/>
-                <set field="tabButtonItem" value="ListFixedAssetMaints"/>                
+                <set field="tabButtonItem" value="ListFixedAssetMaints"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
@@ -250,7 +250,7 @@
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditWorkEffortNotes">
         <section>
             <actions>

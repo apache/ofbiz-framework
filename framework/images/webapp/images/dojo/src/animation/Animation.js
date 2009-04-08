@@ -85,7 +85,7 @@ dojo.lang.extend(dojo.animation.Animation, {
 	// public methods
 	play: function(/*Boolean?*/ gotoStart) {
 		// summary:  Play the animation.
-		// goToStart: If true, will restart the animation from the beginning.  
+		// goToStart: If true, will restart the animation from the beginning.
 		//				Otherwise, starts from current play counter.
 		// description: Sends an "onPlay" event to any observers.
 		//				Also sends an "onBegin" event if starting from the beginning.
@@ -205,7 +205,7 @@ dojo.lang.extend(dojo.animation.Animation, {
 			} else {
 				this._percent = step * 100;
 			}
-			
+
 			// Perform accelleration
 			if(this.accel && this.accel.getValue) {
 				step = this.accel.getValue(step);

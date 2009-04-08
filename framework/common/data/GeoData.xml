@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <!-- 
+    <!--
         Based on: ISO 3166 http://www.iso.org/iso/en/prods-services/iso3166ma/index.html
         See also: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
                   http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
@@ -277,7 +277,7 @@ under the License.
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="DEU"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="AUT"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="BEL"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="BGR"/>    
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="BGR"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="CYP"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="DNK"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="ESP"/>
@@ -295,7 +295,7 @@ under the License.
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="NLD"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="POL"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="PRT"/>
-    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="ROU"/>    
+    <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="ROU"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="GBR"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="CZE"/>
     <GeoAssoc geoAssocTypeId="GROUP_MEMBER" geoIdTo="EU" geoId="SVK"/>

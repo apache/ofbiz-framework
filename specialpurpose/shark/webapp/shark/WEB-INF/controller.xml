@@ -18,12 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <description>Shark Workflow Manager Component Site Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
     <errorpage>/error/error.jsp</errorpage>
-    
+
     <!-- event handlers -->
     <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
     <handler name="soap" type="request" class="org.ofbiz.webapp.event.SOAPEventHandler"/>
@@ -35,7 +35,7 @@ under the License.
 
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
-        
+
     <preprocessor>
         <!-- Events to run on every request before security (chains exempt) -->
         <event name="check509CertLogin" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="check509CertLogin"/>
@@ -98,12 +98,12 @@ under the License.
         <security https="false" auth="false"/>
         <response name="success" type="request" value="main"/>
     </request-map>
-    
+
     <request-map uri="authview">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-    
+
     <request-map uri="main">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
@@ -112,7 +112,7 @@ under the License.
     <request-map uri="repository">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="repository"/>
-    </request-map>    
+    </request-map>
     <request-map uri="processes">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="processList"/>

@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,13 +18,13 @@
     under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="FindPartySkills">
         <section>
             <actions>
                 <set field="titleProperty" value="HumanResFindPartySkill"/>
-                <set field="headerItem" value="PartySkills"/> 
+                <set field="headerItem" value="PartySkills"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="partySkillsCtx" from-field="parameters"/>
             </actions>
@@ -51,14 +51,14 @@
                     </decorator-section>
                 </decorator-screen>
             </widgets>
-        </section> 
+        </section>
     </screen>
     <screen name="EditPartySkills">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleViewPartySkill"/>
-                <set field="headerItem" value="Employee"/>            
-                <set field="tabButtonItem" value="EditPartySkills"/>    
+                <set field="headerItem" value="Employee"/>
+                <set field="tabButtonItem" value="EditPartySkills"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="skillTypeId" from-field="parameters.skillTypeId"/>
                 <set field="partySkillsCtx.partyId" from-field="parameters.partyId"/>
@@ -74,13 +74,13 @@
                      </decorator-section>
                  </decorator-screen>
             </widgets>
-        </section> 
+        </section>
     </screen>
     <screen name="NewPartySkill">
         <section>
             <actions>
                 <set field="titleProperty" value="HumanResEditPartySkill"/>
-                <set field="headerItem" value="PartySkills"/>                
+                <set field="headerItem" value="PartySkills"/>
                 <set field="partyId" from-field="parameters.employeePartyId"/>
                 <set field="skillTypeId" from-field="parameters.skillTypeId"/>
                 <entity-one entity-name="PartySkill" value-field="partySkill"/>
@@ -98,6 +98,6 @@
                     </decorator-section>
                 </decorator-screen>
             </widgets>
-        </section> 
-    </screen>  
+        </section>
+    </screen>
 </screens>

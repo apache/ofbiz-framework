@@ -53,7 +53,7 @@ under the License.
     <param-name>scriptLocationPath</param-name>
     <param-value>/WEB-INF/bsh</param-value>
     <description>BeanShell Script Location</description>
-  </context-param>    
+  </context-param>
 
     <filter>
         <filter-name>ContextFilter</filter-name>
@@ -74,7 +74,7 @@ under the License.
         <init-param>
             <param-name>redirectPath</param-name>
             <param-value>/control/main</param-value>
-        </init-param>        
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>ContextFilter</filter-name>
@@ -85,7 +85,7 @@ under the License.
   <listener><listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
   <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
   <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
-  
+
   <servlet>
     <servlet-name>ControlServlet</servlet-name>
     <display-name>ControlServlet</display-name>
@@ -122,7 +122,7 @@ under the License.
     <error-code>500</error-code>
     <location>/error/error.jsp</location>
   </error-page>
--->  
+-->
 
 <!-- HTTP Response Code definitions:
 | "400"   ; Bad Request

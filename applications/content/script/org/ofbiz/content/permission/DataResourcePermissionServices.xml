@@ -25,7 +25,7 @@
         <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
 
         <!-- setting the roleEntity or this service -->
-        <set field="roleEntityField" value="dataResourceId"/> 
+        <set field="roleEntityField" value="dataResourceId"/>
         <set field="roleEntity" value="DataResourceRole"/>
 
         <!-- mainAction based call outs -->
@@ -87,7 +87,7 @@
         <!-- check role permission -->
         <set field="primaryPermission" value="CONTENTMGR_ROLE"/>
         <call-simple-method method-name="genericBasePermissionCheck"
-                            xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>        
+                            xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
     </simple-method>
 
     <!-- DataResource Create Permission -->
@@ -104,7 +104,7 @@
         <set field="primaryPermission" value="CONTENTMGR_ROLE"/>
         <call-simple-method method-name="genericBasePermissionCheck"
                             xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
-        
+
         <!-- this is about the same as the VIEW permission; but left as a unique service for extending purposes -->
     </simple-method>
 

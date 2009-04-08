@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<jndi-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<jndi-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/jndi-config.xsd">
 
     <!-- this jndi-server has no parameters so the factory will use the default
@@ -44,7 +44,7 @@ under the License.
             security-credentials="admin"/>
 
     <!-- Note that in most cases this is not necessary or desired for Weblogic, the default above is easier/better -->
-    <jndi-server name="localweblogic" 
+    <jndi-server name="localweblogic"
             context-provider-url="t3://127.0.0.1:7001"
             initial-context-factory="weblogic.jndi.WLInitialContextFactory"
             url-pkg-prefixes=""

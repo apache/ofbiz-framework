@@ -39,7 +39,7 @@ under the License.
         <td width="15%" align="center">${orderTerm.termValue?default("")}</td>
         <td width="15%" align="center">${orderTerm.termDays?default("")}</td>
         <td width="35%" align="center">${orderTerm.textValue?default("")}</td>
-      </tr>  
+      </tr>
     </#list>
       </table>
     </div>

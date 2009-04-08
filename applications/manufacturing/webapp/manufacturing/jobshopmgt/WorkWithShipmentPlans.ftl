@@ -20,9 +20,9 @@ under the License.
 <#if shipment?exists>
 <div class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.ManufacturingWorkWithShipmentPlans} ${shipment.shipmentId}</h3>        
+    <h3>${uiLabelMap.ManufacturingWorkWithShipmentPlans} ${shipment.shipmentId}</h3>
   </div>
-  <div class="screenlet-body">    
+  <div class="screenlet-body">
     ${listShipmentPlanForm.renderFormString(context)}
     <#if workInProgress>
         <br/>
@@ -63,9 +63,9 @@ under the License.
 <#else>
 <div class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.ManufacturingWorkWithShipmentPlans}</h3>        
+    <h3>${uiLabelMap.ManufacturingWorkWithShipmentPlans}</h3>
   </div>
-  <div class="screenlet-body">    
+  <div class="screenlet-body">
     <#if listShipmentPlansForm?has_content>
         ${listShipmentPlansForm.renderFormString(context)}
     </#if>

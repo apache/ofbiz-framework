@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -24,12 +24,12 @@ import org.ofbiz.base.util.*;
 orderId = request.getParameter("orderId");
 paymentMethodTypes = delegator.findList("PaymentMethodType", EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE"), null, null, null, false);
 context.paymentMethodTypes = paymentMethodTypes;
-    
+
 workEffortId = request.getParameter("workEffortId");
 partyId = request.getParameter("partyId");
 roleTypeId = request.getParameter("roleTypeId");
 fromDate = request.getParameter("fromDate");
-    
+
 donePage = request.getParameter("DONE_PAGE") ?: "orderview?orderId=" + orderId;
 if (workEffortId)
     donePage += "&workEffortId=" + workEffortId;
@@ -38,7 +38,7 @@ if (partyId)
 if (roleTypeId)
     donePage += "&roleTypeId=" + roleTypeId;
 if (fromDate)
-    donePage += "&fromDate=" + fromDate;    
+    donePage += "&fromDate=" + fromDate;
 context.donePage = donePage;
 
- 
+

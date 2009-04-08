@@ -124,7 +124,7 @@ public class UtilJavaParse {
         serviceMethodNames.add("runAsync");
         serviceMethodNames.add("runAsyncWait");
         serviceMethodNames.add("registerCallback");
-        serviceMethodNames.add("schedule"); // NOTE: the service name may be the 1st, 2nd or 3rd param for variations on this 
+        serviceMethodNames.add("schedule"); // NOTE: the service name may be the 1st, 2nd or 3rd param for variations on this
         serviceMethodNames.add("addRollbackService");
         serviceMethodNames.add("addCommitService");
     }

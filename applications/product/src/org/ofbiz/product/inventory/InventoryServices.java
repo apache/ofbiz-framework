@@ -50,7 +50,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
 /**
- * Inventory Services 
+ * Inventory Services
  */
 public class InventoryServices {
 
@@ -675,7 +675,7 @@ public class InventoryServices {
                BigDecimal tmpQuantityOnHandTotal = currentQuantityOnHandTotal.divide(assocQuantity, generalRounding);
                BigDecimal tmpAvailableToPromiseTotal = currentAvailableToPromiseTotal.divide(assocQuantity, generalRounding);
 
-               // reset the minimum QOH and ATP quantities if those quantities for this product are less 
+               // reset the minimum QOH and ATP quantities if those quantities for this product are less
                if (minQuantityOnHandTotal == null || tmpQuantityOnHandTotal.compareTo(minQuantityOnHandTotal) < 0) {
                    minQuantityOnHandTotal = tmpQuantityOnHandTotal;
                }
@@ -688,7 +688,7 @@ public class InventoryServices {
                         "currentATP = " + currentAvailableToPromiseTotal + " minQOH = " + minQuantityOnHandTotal + " minATP = " + minAvailableToPromiseTotal, module);
                }
            }
-          // the final QOH and ATP quantities are the minimum of all the products 
+          // the final QOH and ATP quantities are the minimum of all the products
           quantityOnHandTotal = minQuantityOnHandTotal;
           availableToPromiseTotal = minAvailableToPromiseTotal;
         }
@@ -862,9 +862,9 @@ public class InventoryServices {
         for (GenericValue onePrice: productPrices) {
             if (onePrice.getString("productPriceTypeId").equals("DEFAULT_PRICE")) { //defaultPrice
                 result.put("defultPrice", onePrice.getBigDecimal("price"));
-            }else if (onePrice.getString("productPriceTypeId").equals("WHOLESALE_PRICE")) {//
+            } else if (onePrice.getString("productPriceTypeId").equals("WHOLESALE_PRICE")) {//
                 result.put("wholeSalePrice", onePrice.getBigDecimal("price"));
-            }else if (onePrice.getString("productPriceTypeId").equals("LIST_PRICE")) {//listPrice
+            } else if (onePrice.getString("productPriceTypeId").equals("LIST_PRICE")) {//listPrice
                 result.put("listPrice", onePrice.getBigDecimal("price"));
             } else {
                 result.put("defultPrice", onePrice.getBigDecimal("price"));

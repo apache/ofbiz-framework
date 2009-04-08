@@ -73,7 +73,7 @@ public class LayoutWorker {
         }
 
 
-        // This code finds the idField and the upload FileItems 
+        // This code finds the idField and the upload FileItems
         FileItem fi = null;
         FileItem imageFi = null;
         for (int i=0; i < lst.size(); i++) {

@@ -30,14 +30,14 @@ under the License.
 <#assign partnerContactFaxSize = 10/>
 <#assign partnerContactEmailSize = 65/>
 <#assign shipmentNotesSize = 65/>
-<n:PROCESS_SHIPMENT_001 
-    xmlns:n="http://www.openapplications.org/161B_PROCESS_SHIPMENT_001" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:os="http://www.openapplications.org/oagis_segments" 
+<n:PROCESS_SHIPMENT_001
+    xmlns:n="http://www.openapplications.org/161B_PROCESS_SHIPMENT_001"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:os="http://www.openapplications.org/oagis_segments"
 	xmlns:of="http://www.openapplications.org/oagis_fields">
   <os:CNTROLAREA>
     <os:BSR>
-      <of:VERB>PROCESS</of:VERB> 
+      <of:VERB>PROCESS</of:VERB>
       <of:NOUN>SHIPMENT</of:NOUN>
       <of:REVISION>001</of:REVISION>
     </os:BSR>
@@ -136,7 +136,7 @@ under the License.
             </n:DOCUMNTREF>
         </n:SHIPITEM>
         </#if>
-        </#list> 
+        </#list>
         <#list externalIdSet?if_exists as externalId>
         <n:DOCUMNTREF>
           <of:DOCTYPE>PARTNER_SO</of:DOCTYPE>

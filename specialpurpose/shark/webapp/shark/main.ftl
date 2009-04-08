@@ -24,7 +24,7 @@ under the License.
         <tr>
           <td width="90%" >
             <div class="boxhead">&nbsp;${uiLabelMap.SharkMainPage}</div>
-          </td>        
+          </td>
         </tr>
       </table>
     </td>

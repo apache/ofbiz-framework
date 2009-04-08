@@ -172,12 +172,12 @@ dojo.event = new function(){
 		if(!ao.adviceObj){
 			dojo.raise("bad adviceObj for adviceFunc: "+ao.adviceFunc);
 		}
-		
+
 		if(!ao.adviceFunc){
 			dojo.debug("bad adviceFunc for srcFunc: "+ao.srcFunc);
 			dojo.debugShallow(ao);
-		} 
-		
+		}
+
 		return ao;
 	}
 
@@ -197,28 +197,28 @@ dojo.event = new function(){
 		//			dojo.event.connect(scope1, "functionName1", scope2, "functionName2");
 		//			dojo.event.connect("after", scope1, "functionName1", scope2, "functionName2");
 		//			dojo.event.connect("before", scope1, "functionName1", scope2, "functionName2");
-		//			dojo.event.connect("around", 	scope1, "functionName1", 
+		//			dojo.event.connect("around", 	scope1, "functionName1",
 		//											scope2, "functionName2",
 		//											aroundFunctionReference);
-		//			dojo.event.connect("around", 	scope1, "functionName1", 
+		//			dojo.event.connect("around", 	scope1, "functionName1",
 		//											scope2, "functionName2",
 		//											scope3, "aroundFunctionName");
-		//			dojo.event.connect("before-around", 	scope1, "functionName1", 
+		//			dojo.event.connect("before-around", 	scope1, "functionName1",
 		//													scope2, "functionName2",
 		//													aroundFunctionReference);
-		//			dojo.event.connect("after-around", 		scope1, "functionName1", 
+		//			dojo.event.connect("after-around", 		scope1, "functionName1",
 		//													scope2, "functionName2",
 		//													aroundFunctionReference);
-		//			dojo.event.connect("after-around", 		scope1, "functionName1", 
+		//			dojo.event.connect("after-around", 		scope1, "functionName1",
 		//													scope2, "functionName2",
 		//													scope3, "aroundFunctionName");
-		//			dojo.event.connect("around", 	scope1, "functionName1", 
+		//			dojo.event.connect("around", 	scope1, "functionName1",
 		//											scope2, "functionName2",
 		//											scope3, "aroundFunctionName", true, 30);
-		//			dojo.event.connect("around", 	scope1, "functionName1", 
+		//			dojo.event.connect("around", 	scope1, "functionName1",
 		//											scope2, "functionName2",
 		//											scope3, "aroundFunctionName", null, null, 10);
-		// adviceType: 
+		// adviceType:
 		//		Optional. String. One of "before", "after", "around",
 		//		"before-around", or "after-around". FIXME
 		// srcObj:
@@ -413,7 +413,7 @@ dojo.event = new function(){
 		//			- srcObj
 		//			- srcFunc
 		//			- adviceObj
-		//			- adviceFunc 
+		//			- adviceFunc
 		//			- aroundObj
 		//			- aroundFunc
 		//			- once
@@ -500,7 +500,7 @@ dojo.event.MethodInvocation.prototype.proceed = function(){
 		var meth = ti[1];
 		return mobj[meth].call(mobj, this);
 	}
-} 
+}
 
 
 dojo.event.MethodJoinPoint = function(/*Object*/obj, /*String*/funcName){
@@ -531,7 +531,7 @@ dojo.event.MethodJoinPoint.getForMethod = function(/*Object*/obj, /*String*/func
 		}
 	}else if((!dojo.lang.isFunction(obj[funcName]))&&(!dojo.lang.isAlien(obj[funcName]))){
 		// FIXME: should we throw an exception here instead?
-		return null; 
+		return null;
 	}
 	// we hide our joinpoint instance in obj[funcName + '$joinpoint']
 	var jpname = funcName + "$joinpoint";
@@ -551,7 +551,7 @@ dojo.event.MethodJoinPoint.getForMethod = function(/*Object*/obj, /*String*/func
 		obj[jpfuncname] = obj[funcName];
 		// joinpoint = obj[jpname] = new dojo.event.MethodJoinPoint(obj, funcName);
 		joinpoint = obj[jpname] = new dojo.event.MethodJoinPoint(obj, jpfuncname);
-		obj[funcName] = function(){ 
+		obj[funcName] = function(){
 			var args = [];
 
 			if((isNode)&&(!arguments.length)){
@@ -582,8 +582,8 @@ dojo.event.MethodJoinPoint.getForMethod = function(/*Object*/obj, /*String*/func
 					}
 				}
 			}
-			// return joinpoint.run.apply(joinpoint, arguments); 
-			return joinpoint.run.apply(joinpoint, args); 
+			// return joinpoint.run.apply(joinpoint, arguments);
+			return joinpoint.run.apply(joinpoint, args);
 		}
 		obj[funcName].__preJoinArity = origArity;
 	}
@@ -592,7 +592,7 @@ dojo.event.MethodJoinPoint.getForMethod = function(/*Object*/obj, /*String*/func
 
 dojo.lang.extend(dojo.event.MethodJoinPoint, {
 	unintercept: function(){
-		// summary: 
+		// summary:
 		//		destroy the connection to all listeners that may have been
 		//		registered on this joinpoint
 		this.object[this.methodname] = this.methodfunc;
@@ -618,19 +618,19 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 			aargs[x] = args[x];
 		}
 
-		var unrollAdvice  = function(marr){ 
+		var unrollAdvice  = function(marr){
 			if(!marr){
 				dojo.debug("Null argument to unrollAdvice()");
 				return;
 			}
-		  
+
 			var callObj = marr[0]||dj_global;
 			var callFunc = marr[1];
-			
+
 			if(!callObj[callFunc]){
 				dojo.raise("function \"" + callFunc + "\" does not exist on \"" + callObj + "\"");
 			}
-			
+
 			var aroundObj = marr[2]||dj_global;
 			var aroundFunc = marr[3];
 			var msg = marr[6];
@@ -684,16 +684,16 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 				if((hasDelay)&&((dojo.render.html)||(dojo.render.svg))){  // FIXME: the render checks are grotty!
 					dj_global["setTimeout"](function(){
 						if(msg){
-							callObj[callFunc].call(callObj, to); 
+							callObj[callFunc].call(callObj, to);
 						}else{
-							callObj[callFunc].apply(callObj, args); 
+							callObj[callFunc].apply(callObj, args);
 						}
 					}, delay);
 				}else{ // many environments can't support delay!
 					if(msg){
-						callObj[callFunc].call(callObj, to); 
+						callObj[callFunc].call(callObj, to);
 					}else{
-						callObj[callFunc].apply(callObj, args); 
+						callObj[callFunc].apply(callObj, args);
 					}
 				}
 			}
@@ -703,7 +703,7 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 			if(this.squelch){
 				try{
 					return unrollAdvice.apply(this, arguments);
-				}catch(e){ 
+				}catch(e){
 					dojo.debug(e);
 				}
 			}else{
@@ -724,11 +724,11 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 			}else if(this.methodfunc){
 				result = this.object[this.methodname].apply(this.object, args);
 			}
-		}catch(e){ 
-			if(!this.squelch){ 
+		}catch(e){
+			if(!this.squelch){
 				dojo.debug(e,"when calling",this.methodname,"on",this.object,"with arguments",args);
 				dojo.raise(e);
-			} 
+			}
 		}
 
 		if((this["after"])&&(this.after.length>0)){
@@ -762,23 +762,23 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 		// 		An object that can have the following properties:
 		//			- adviceType
 		//			- adviceObj
-		//			- adviceFunc 
+		//			- adviceFunc
 		//			- aroundObj
 		//			- aroundFunc
 		//			- once
 		//			- delay
 		//			- rate
 		//			- adviceMsg
-		this.addAdvice(	args["adviceObj"], args["adviceFunc"], 
-						args["aroundObj"], args["aroundFunc"], 
-						args["adviceType"], args["precedence"], 
-						args["once"], args["delay"], args["rate"], 
+		this.addAdvice(	args["adviceObj"], args["adviceFunc"],
+						args["aroundObj"], args["aroundFunc"],
+						args["adviceType"], args["precedence"],
+						args["once"], args["delay"], args["rate"],
 						args["adviceMsg"]);
 	},
 
-	addAdvice: function(	thisAdviceObj, thisAdvice, 
-							thisAroundObj, thisAround, 
-							adviceType, precedence, 
+	addAdvice: function(	thisAdviceObj, thisAdvice,
+							thisAroundObj, thisAround,
+							adviceType, precedence,
 							once, delay, rate, asMessage){
 		// summary:
 		//		add advice to this joinpoint using positional parameters
@@ -791,7 +791,7 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 		// thisAroundFunc:
 		//		the name of the function that will be used to mediate the
 		//		advice call.
-		// adviceType: 
+		// adviceType:
 		//		Optional. String. One of "before", "after", "around",
 		//		"before-around", or "after-around". FIXME
 		// once:
@@ -814,7 +814,7 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 		}
 
 		var ao = [thisAdviceObj, thisAdvice, thisAroundObj, thisAround, delay, rate, asMessage];
-		
+
 		if(once){
 			if(this.hasAdvice(thisAdviceObj, thisAdvice, adviceType, arr) >= 0){
 				return;
@@ -837,7 +837,7 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 		//		the scope in which to locate/execute the named adviceFunc.
 		// thisAdviceFunc:
 		//		the name of the function being conected
-		// adviceType: 
+		// adviceType:
 		//		Optional. String. One of "before", "after", "around",
 		//		"before-around", or "after-around". FIXME
 		// arr:
@@ -864,7 +864,7 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 		//		the scope in which to locate/execute the named adviceFunc.
 		// thisAdviceFunc:
 		//		the name of the function being conected
-		// adviceType: 
+		// adviceType:
 		//		Optional. String. One of "before", "after", "around",
 		//		"before-around", or "after-around". FIXME
 		// once:

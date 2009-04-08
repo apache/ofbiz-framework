@@ -27,7 +27,7 @@ under the License.
     <td width='100%'>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
-          <td>          
+          <td>
             <#list 1..shoppingCart.getShipGroupSize() as currIndex>
               <#assign shipGroupIndex = currIndex - 1>
               <#assign supplier =  delegator.findByPrimaryKey("PartyGroup", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", shoppingCart.getSupplierPartyId(shipGroupIndex)))?if_exists />
@@ -85,7 +85,7 @@ under the License.
                     </div>
                   </td>
                 </tr>
-                <#assign rowCount = rowCount + 1>   
+                <#assign rowCount = rowCount + 1>
               </#list>
               <#if (rowCount > 0)>
               <tr>

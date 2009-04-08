@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Product Component Maintenance Services</description>
     <vendor>OFBiz</vendor>
@@ -86,8 +86,8 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>  
-        <attribute name="canDropShip" type="String" mode="IN" optional="true"/>  
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
+        <attribute name="canDropShip" type="String" mode="IN" optional="true"/>
         <attribute name="supplierProducts" type="java.util.List" mode="OUT" optional="false"/>
     </service>
     <service name="convertFeaturesForSupplier" engine="java"

@@ -15,7 +15,7 @@ License for the specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Assetmaint Services: Fixed Asset </description>
     <vendor>OFBiz</vendor>
@@ -30,7 +30,7 @@ under the License.
         <attribute type="String" mode="IN" name="productId" optional="false"/>
         <attribute type="String" mode="IN" name="facilityId" optional="false"/>
     </service>
-    
+
     <service name="assetMaintPermissionCheck" engine="simple"
             location="component://assetmaint/script/org/ofbiz/assetmaint/FixedAssetMaintEvents.xml" invoke="assetMaintPermissionCheck">
         <description>Asset Maintentance Permission Checking Logic</description>

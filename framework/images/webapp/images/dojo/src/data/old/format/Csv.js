@@ -22,11 +22,11 @@ dojo.data.old.format.Csv = new function() {
 		 * Given a string containing CSV records, this method parses
 		 * the string and returns a data structure containing the parsed
 		 * content.  The data structure we return is an array of length
-		 * R, where R is the number of rows (lines) in the CSV data.  The 
-		 * return array contains one sub-array for each CSV line, and each 
-		 * sub-array contains C string values, where C is the number of 
+		 * R, where R is the number of rows (lines) in the CSV data.  The
+		 * return array contains one sub-array for each CSV line, and each
+		 * sub-array contains C string values, where C is the number of
 		 * columns in the CSV data.
-		 * 
+		 *
 		 * For example, given this CSV string as input:
 		 * <pre>
 		 *   "Title, Year, Producer \n Alien, 1979, Ridley Scott \n Blade Runner, 1982, Ridley Scott"
@@ -34,18 +34,18 @@ dojo.data.old.format.Csv = new function() {
 		 * We will return this data structure:
 		 * <pre>
 		 *   [["Title", "Year", "Producer"]
-		 *    ["Alien", "1979", "Ridley Scott"],  
+		 *    ["Alien", "1979", "Ridley Scott"],
 		 *    ["Blade Runner", "1982", "Ridley Scott"]]
 		 * </pre>
 		 */
 		dojo.lang.assertType(csvFileContents, String);
-		
+
 		var lineEndingCharacters = new RegExp("\r\n|\n|\r");
 		var leadingWhiteSpaceCharacters = new RegExp("^\\s+",'g');
 		var trailingWhiteSpaceCharacters = new RegExp("\\s+$",'g');
 		var doubleQuotes = new RegExp('""','g');
 		var arrayOfOutputRecords = [];
-		
+
 		var arrayOfInputLines = csvFileContents.split(lineEndingCharacters);
 		for (var i in arrayOfInputLines) {
 			var singleLine = arrayOfInputLines[i];
@@ -60,8 +60,8 @@ dojo.data.old.format.Csv = new function() {
 					var lastChar = field.charAt(field.length - 1);
 					var secondToLastChar = field.charAt(field.length - 2);
 					var thirdToLastChar = field.charAt(field.length - 3);
-					if ((firstChar == '"') && 
-							((lastChar != '"') || 
+					if ((firstChar == '"') &&
+							((lastChar != '"') ||
 							 ((lastChar == '"') && (secondToLastChar == '"') && (thirdToLastChar != '"')) )) {
 						if (j+1 === listOfFields.length) {
 							// alert("The last field in record " + i + " is corrupted:\n" + field);
@@ -102,11 +102,11 @@ dojo.data.old.format.Csv = new function() {
 			}
 		}
 	};
-	
+
 	this.getCsvStringFromResultSet = function(/* dojo.data.old.ResultSet */ resultSet) {
 		dojo.unimplemented('dojo.data.old.format.Csv.getCsvStringFromResultSet');
 		var csvString = null;
 		return csvString; // String
 	};
-	
+
 }();

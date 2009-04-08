@@ -53,7 +53,7 @@ under the License.
             <#assign rowClass = "1">
           <#else>
             <#assign rowClass = "2">
-          </#if> 
+          </#if>
         </#list>
         <input type="hidden" name="_rowCount" value="${featureNum}">
         <tr><td colspan="11" align="center"><input type="submit" value='${uiLabelMap.CommonCreate}'/></td></tr>

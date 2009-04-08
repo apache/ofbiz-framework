@@ -20,18 +20,18 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    
-    
+
+
     <simple-method method-name="createCommunicationEventWithPermission" short-description="Create a CommunicationEvent with permission check">
         <set field="parameters.permission" value="true"/>
         <call-simple-method method-name="createCommunicationEvent"/>
     </simple-method>
-        
+
     <simple-method method-name="createCommunicationEventWithoutPermission" short-description="Create a CommunicationEvent without permission check">
         <set field="parameters.permission" value="false"/>
         <call-simple-method method-name="createCommunicationEvent"/>
     </simple-method>
-        
+
     <simple-method method-name="createCommunicationEvent" short-description="Create a CommunicationEvent with or w/o permission check">
         <if-not-empty field="parameters.parentCommEventId">
             <entity-and list="roles" entity-name="CommunicationEventRole">
@@ -47,14 +47,14 @@ under the License.
                 <call-service service-name="setCommunicationEventRoleStatus" in-map-name="newStat"/>
             </if-not-empty>
         </if-not-empty>
-        
+
         <if-empty field="parameters.statusId">
-            <set value="COM_ENTERED" field="parameters.statusId"/>     
+            <set value="COM_ENTERED" field="parameters.statusId"/>
         </if-empty>
 
         <make-value value-field="newEntity" entity-name="CommunicationEvent"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        
+
         <if-empty field="parameters.communicationEventId">
             <sequenced-id sequence-name="CommunicationEvent" field="newEntity.communicationEventId"/>
             <else>
@@ -64,7 +64,7 @@ under the License.
         <field-to-result field="newEntity.communicationEventId" result-name="communicationEventId"/>
 
         <if-empty field="newEntity.partyIdFrom">
-            <set field="newEntity.partyIdFrom" from-field="userLogin.partyId"/>            
+            <set field="newEntity.partyIdFrom" from-field="userLogin.partyId"/>
         </if-empty>
 
         <!-- if only contactMechId and no partyIdTo is provided for creation email address find the related party -->
@@ -100,7 +100,7 @@ under the License.
             <set from-field="newEntity.communicationEventId" field="eventRequest.communicationEventId"/>
             <create-value value-field="eventRequest"/>
         </if-not-empty>
-        
+
         <!-- partyIdTo role-->
         <if-not-empty field="newEntity.partyIdTo">
             <set field="commRole.communicationEventId" from-field="newEntity.communicationEventId"/>
@@ -115,14 +115,14 @@ under the License.
                 </else>
             </if-compare>
         </if-not-empty>
-    
+
         <!-- partyIdFrom role-->
         <if-not-empty field="newEntity.partyIdFrom">
             <set field="commRole.communicationEventId" from-field="newEntity.communicationEventId"/>
             <set field="commRole.partyId" from-field="newEntity.partyIdFrom"/>
             <set field="commRole.roleTypeId" value="ORIGINATOR"/>
             <set field="commRole.contactMechId" from-field="newEntity.contactMechIdFrom"/>
-            <set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>            
+            <set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>
             <if-compare field="parameters.permission" value="true" operator="equals">
                 <call-service service-name="createCommunicationEventRole" in-map-name="commRole"/>
                 <else>
@@ -141,7 +141,7 @@ under the License.
             to-field="oldStatusId">
             <call-simple-method method-name="setCommunicationEventStatus"/>
         </if-compare-field>
-        
+
         <!-- if the from- or to-party changed change also the roles -->
         <if-not-empty field="parameters.partyIdFrom">
             <if>
@@ -177,7 +177,7 @@ under the License.
                     <field-map field-name="contactMechId" from-field="parameters.contactMechIdTo"/>
                     <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
                 </entity-and>
-                <first-from-list entry="partyContactMech" list="partyContactMechs"/>                
+                <first-from-list entry="partyContactMech" list="partyContactMechs"/>
                 <set field="parameters.partyIdTo" from-field="partyContactMech.partyId"/>
                 <set field="event.partyIdTo" from-field="partyContactMech.partyId"/>
             </if-not-empty>
@@ -235,7 +235,7 @@ under the License.
                             </if-not-empty>
                         </iterate>
                     </if-not-empty>
-                </if-compare>  
+                </if-compare>
             </iterate>
         </if-not-empty>
         <!-- delete the roles when exist and the event itself -->
@@ -243,7 +243,7 @@ under the License.
         <remove-value value-field="event"/>
     </simple-method>
     <simple-method method-name="deleteCommunicationEventWorkEffort" short-description="delete commEvent and workEffort">
-        
+
         <entity-one entity-name="CommunicationEvent" value-field="event"/>
         <!-- remove related workeffort when this is the only communicationevent connected to it -->
         <get-related value-field="event" relation-name="CommunicationEventWorkEff" list="workEffortComs"/>
@@ -268,14 +268,14 @@ under the License.
     <!-- since these ancillary operations on communication event cause them to be updated,
         they will all use the CME_UPDATE permission -->
     <simple-method method-name="createCommunicationEventPurpose" short-description="Create a CommunicationEventPurpose">
-        
+
         <make-value value-field="newEntity" entity-name="CommunicationEventPurpose"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>        
-        <create-value value-field="newEntity"/>    
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeCommunicationEventPurpose" short-description="Remove a CommunicationEventPurpose">
-        <entity-one entity-name="CommunicationEventPurpose" value-field="eventPurpose"/>        
+        <entity-one entity-name="CommunicationEventPurpose" value-field="eventPurpose"/>
         <remove-value value-field="eventPurpose"/>
     </simple-method>
     <simple-method method-name="createCommunicationEventRole"
@@ -289,7 +289,7 @@ under the License.
             <set-service-fields service-name="createPartyRole" map="parameters" to-map="partyRole"/>
             <set field="partyRole.userLogin" from-field="sysUserLogin"/>
             <call-service service-name="createPartyRole" in-map-name="partyRole" include-user-login="false"/>
-            
+
             <make-value value-field="newEntity" entity-name="CommunicationEventRole"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
             <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -319,15 +319,15 @@ under the License.
                     <call-service service-name="deleteCommunicationEvent" in-map-name="inMapDel"/>
                 </if-empty>
             </if-compare>
-        </if-not-empty>        
+        </if-not-empty>
     </simple-method>
 
     <simple-method method-name="markEventRead" short-description="Marks a Communication Event as Read">
         <if-empty field="parameters.communicationEventId">
-            <set from-field="parameters.messageId" field="parameters.communicationEventId"/>   
+            <set from-field="parameters.messageId" field="parameters.communicationEventId"/>
         </if-empty>
         <entity-one entity-name="CommunicationEvent" value-field="event"/>
-        
+
         <if>
             <condition>
                 <or>
@@ -349,7 +349,7 @@ under the License.
                     </then>
                 </if>
             </then>
-        </if>        
+        </if>
     </simple-method>
 
     <simple-method method-name="sendEmailDated"
@@ -389,7 +389,7 @@ under the License.
             <if-empty field="parameters.lastName">
                 <add-error><fail-message message="Please enter a lastName"/></add-error>
             </if-empty>
-    
+
             <if-empty field="parameters.firstName">
                 <add-error><fail-message message="Please enter a firstName"/></add-error>
                 <check-errors/>
@@ -438,7 +438,7 @@ under the License.
     <simple-method method-name="createCustRequestCommEvent" short-description="Create CustRequestCommEvent" >
         <make-value value-field="newEntity" entity-name="CustRequestCommEvent"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>    
+        <create-value value-field="newEntity"/>
     </simple-method>
 
     <simple-method method-name="setCommunicationEventStatus" short-description="Set The Communication Event Status">

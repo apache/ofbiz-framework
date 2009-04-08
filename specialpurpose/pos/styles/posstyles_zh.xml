@@ -132,7 +132,7 @@ under the License.
         <font_size value="14"/>
         <font_weight value="1"/>
         <font_italic value="0"/>
-    </style>        
+    </style>
     <style name="altButton">
         <color_back value="678FB9"/>
         <color_fore value="990000"/>

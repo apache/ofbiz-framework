@@ -100,8 +100,8 @@ under the License.
                             <#assign rowColor = "#D4D0C8">
                         <#else>
                             <#assign rowColor = "white">
-                        </#if>        
-                    </#list>          
+                        </#if>
+                    </#list>
                 </fo:table-body>
             </fo:table>
             </fo:block>

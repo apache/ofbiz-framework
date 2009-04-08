@@ -18,11 +18,11 @@ dojo.require("dojo.dom");
 //
 // a particular dojoML tag would be handled by a registered tagHandler with a hook for a default handler
 // if the widget system is loaded, a widget builder would be attach itself as the default handler
-// 
+//
 // widget tags are no longer registered themselves:
-// they are now arbitrarily namespaced, so we cannot register them all, and the non-prefixed portions 
-// are no longer guaranteed unique 
-// 
+// they are now arbitrarily namespaced, so we cannot register them all, and the non-prefixed portions
+// are no longer guaranteed unique
+//
 // therefore dojo.widget.tags should go with this parser code out of the widget module
 //
 
@@ -36,12 +36,12 @@ dojo.widget.Parse = function(/*Object*/fragment){
 		// if we have items to parse/create at this level, do it!
 		try{
 			if(frag && frag.tagName && (frag != frag.nodeRef)){
-				
-				// these are in fact, not ever for widgets per-se anymore, 
+
+				// these are in fact, not ever for widgets per-se anymore,
 				// but for other markup elements (aka components)
 				var djTags = dojo.widget.tags;
-				
-				// we split so that you can declare multiple 
+
+				// we split so that you can declare multiple
 				// non-destructive components from the same ctor node
 				var tna = String(frag.tagName).split(";");
 				for(var x=0; x<tna.length; x++){
@@ -100,7 +100,7 @@ dojo.widget.Parse = function(/*Object*/fragment){
 
 	this.parsePropertySets = function(/*Object*/fragment){
 		// summary: checks the top level of a raw JavaScript object
-		//	structure for any propertySets.  It stores an array of references to 
+		//	structure for any propertySets.  It stores an array of references to
 		//	propertySets that it finds.
 		return [];
 		/*
@@ -128,7 +128,7 @@ dojo.widget.Parse = function(/*Object*/fragment){
 			}else{
 				var frag = fragment[item];
 				if(frag.tagName && dojo.widget.tags[frag.tagName.toLowerCase()]){
-					// TODO: it isn't a property or property set, it's a fragment, 
+					// TODO: it isn't a property or property set, it's a fragment,
 					// so do something else
 					// FIXME: needs to be a better/stricter check
 					// TODO: handle xlink:href for external property sets
@@ -151,19 +151,19 @@ dojo.widget.Parse = function(/*Object*/fragment){
 				switch(item.toLowerCase()){
 				case "checked":
 				case "disabled":
-					if (typeof properties[item] != "boolean"){ 
+					if (typeof properties[item] != "boolean"){
 						properties[item] = true;
 					}
 					break;
 				}
-			} 
+			}
 		}
 		return properties; // Object
 	}
 
 	this.getDataProvider = function(/*Object*/objRef, /*String*/dataUrl){
-		// FIXME: this is currently sync.  To make this async, we made need to move 
-		//this step into the widget ctor, so that it is loaded when it is needed 
+		// FIXME: this is currently sync.  To make this async, we made need to move
+		//this step into the widget ctor, so that it is loaded when it is needed
 		// to populate the widget
 		dojo.io.bind({
 			url: dataUrl,
@@ -186,7 +186,7 @@ dojo.widget.Parse = function(/*Object*/fragment){
 		}
 		return ""; // String
 	}
-	
+
 	//FIXME: doesn't use the componentType param?
 	this.getPropertySetsByType = function(componentType){
 		// summary: returns the propertySet(s) that match(es) the
@@ -210,7 +210,7 @@ dojo.widget.Parse = function(/*Object*/fragment){
 		var ppl = "dojo:propertyproviderlist";
 		var propertySets = [];
 		var tagname = fragment.tagName;
-		if(fragment[ppl]){ 
+		if(fragment[ppl]){
 			var propertyProviderIds = fragment[ppl].value.split(" ");
 			// FIXME: should the propertyProviderList attribute contain #
 			// 		  syntax for reference to ids or not?
@@ -238,14 +238,14 @@ dojo.widget.Parse = function(/*Object*/fragment){
 
 	this.createComponentFromScript = function(/*Node*/nodeRef, /*String*/componentName, /*Object*/properties, /*String?*/ns){
 		// summary:
-		// nodeRef: the node to be replaced... in the future, we might want to add 
+		// nodeRef: the node to be replaced... in the future, we might want to add
 		// an alternative way to specify an insertion point
 		// componentName: the expected dojo widget name, i.e. Button of ContextMenu
 		// properties: an object of name value pairs
 		// ns: the namespace of the widget.  Defaults to "dojo"
 
-		properties.fastMixIn = true;			
-		// FIXME: we pulled it apart and now we put it back together ... 
+		properties.fastMixIn = true;
+		// FIXME: we pulled it apart and now we put it back together ...
 		var ltn = (ns || "dojo") + ":" + componentName.toLowerCase();
 		if(dojo.widget.tags[ltn]){
 			return [dojo.widget.tags[ltn](properties, this, null, null, properties)]; // Array
@@ -283,19 +283,19 @@ dojo.widget.createWidget = function(/*String*/name, /*String*/props, /*Node*/ref
 		if(pos > -1){ name = name.substring(pos+1); }
 		var lowerCaseName = name.toLowerCase();
 		var namespacedName = ns + ":" + lowerCaseName;
-		isNode = (dojo.byId(name) && !dojo.widget.tags[namespacedName]); 
+		isNode = (dojo.byId(name) && !dojo.widget.tags[namespacedName]);
 	}
 
 	if((arguments.length == 1) && (isNode || !isNameStr)){
-		// we got a DOM node 
-		var xp = new dojo.xml.Parse(); 
-		// FIXME: we should try to find the parent! 
-		var tn = isNode ? dojo.byId(name) : name; 
-		return dojo.widget.getParser().createComponents(xp.parseElement(tn, null, true))[0]; 
+		// we got a DOM node
+		var xp = new dojo.xml.Parse();
+		// FIXME: we should try to find the parent!
+		var tn = isNode ? dojo.byId(name) : name;
+		return dojo.widget.getParser().createComponents(xp.parseElement(tn, null, true))[0];
 	}
 
 	function fromScript(placeKeeperNode, name, props, ns){
-		props[namespacedName] = { 
+		props[namespacedName] = {
 			dojotype: [{value: lowerCaseName}],
 			nodeRef: placeKeeperNode,
 			fastMixIn: true

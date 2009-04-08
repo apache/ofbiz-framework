@@ -20,7 +20,7 @@ dojo.require("dojo.lang.assert");
 dojo.data.old.Item = function(/* dojo.data.old.provider.Base */ dataProvider) {
 	/**
 	 * summary:
-	 * An Item has attributes and attribute values, sort of like 
+	 * An Item has attributes and attribute values, sort of like
 	 * a record in a database, or a 'struct' in C.  Instances of
 	 * the Item class know how to store and retrieve their
 	 * attribute values.
@@ -41,7 +41,7 @@ dojo.data.old.Item.compare = function(/* dojo.data.old.Item */ itemOne, /* dojo.
 	 * Given two Items to compare, this method returns 0, 1, or -1.
 	 * This method is designed to be used by sorting routines, like
 	 * the JavaScript built-in Array sort() method.
-	 * 
+	 *
 	 * Example:
 	 * <pre>
 	 *   var a = dataProvider.newItem("kermit");
@@ -62,7 +62,7 @@ dojo.data.old.Item.compare = function(/* dojo.data.old.Item */ itemOne, /* dojo.
 		var attributeArrayTwo = itemTwo.getAttributes();
 		if (attributeArrayOne.length != attributeArrayTwo.length) {
 			if (attributeArrayOne.length > attributeArrayTwo.length) {
-				return 1; 
+				return 1;
 			} else {
 				return -1;
 			}
@@ -77,7 +77,7 @@ dojo.data.old.Item.compare = function(/* dojo.data.old.Item */ itemOne, /* dojo.
 			}
 			if (arrayOfValuesOne.length != arrayOfValuesTwo.length) {
 				if (arrayOfValuesOne.length > arrayOfValuesTwo.length) {
-					return 1; 
+					return 1;
 				} else {
 					return -1;
 				}
@@ -92,7 +92,7 @@ dojo.data.old.Item.compare = function(/* dojo.data.old.Item */ itemOne, /* dojo.
 		}
 	} else {
 		if (nameOne > nameTwo) {
-			return 1; 
+			return 1;
 		} else {
 			return -1;  // 0, 1, or -1
 		}
@@ -130,7 +130,7 @@ dojo.data.old.Item.prototype.toString = function() {
 dojo.data.old.Item.prototype.compare = function(/* dojo.data.old.Item */ otherItem) {
 	/**
 	 * summary: Compares this Item to another Item, and returns 0, 1, or -1.
-	 */ 
+	 */
 	return dojo.data.old.Item.compare(this, otherItem); // 0, 1, or -1
 };
 
@@ -148,7 +148,7 @@ dojo.data.old.Item.prototype.getName = function() {
 dojo.data.old.Item.prototype.get = function(/* string or dojo.data.old.Attribute */ attributeId) {
 	/**
 	 * summary: Returns a single literal value, like "foo" or 33.
-	 */ 
+	 */
 	// dojo.lang.assertType(attributeId, [String, dojo.data.old.Attribute]);
 	var literalOrValueOrArray = this._dictionaryOfAttributeValues[attributeId];
 	if (dojo.lang.isUndefined(literalOrValueOrArray)) {
@@ -167,7 +167,7 @@ dojo.data.old.Item.prototype.get = function(/* string or dojo.data.old.Attribute
 dojo.data.old.Item.prototype.getValue = function(/* string or dojo.data.old.Attribute */ attributeId) {
 	/**
 	 * summary: Returns a single instance of dojo.data.old.Value.
-	 */ 
+	 */
 	// dojo.lang.assertType(attributeId, [String, dojo.data.old.Attribute]);
 	var literalOrValueOrArray = this._dictionaryOfAttributeValues[attributeId];
 	if (dojo.lang.isUndefined(literalOrValueOrArray)) {
@@ -189,7 +189,7 @@ dojo.data.old.Item.prototype.getValue = function(/* string or dojo.data.old.Attr
 dojo.data.old.Item.prototype.getValues = function(/* string or dojo.data.old.Attribute */ attributeId) {
 	/**
 	 * summary: Returns an array of dojo.data.old.Value objects.
-	 */ 
+	 */
 	// dojo.lang.assertType(attributeId, [String, dojo.data.old.Attribute]);
 	var literalOrValueOrArray = this._dictionaryOfAttributeValues[attributeId];
 	if (dojo.lang.isUndefined(literalOrValueOrArray)) {
@@ -212,11 +212,11 @@ dojo.data.old.Item.prototype.getValues = function(/* string or dojo.data.old.Att
 
 dojo.data.old.Item.prototype.load = function(/* string or dojo.data.old.Attribute */ attributeId, /* anything */ value) {
 	/**
-	 * summary: 
+	 * summary:
 	 * Used for loading an attribute value into an item when
 	 * the item is first being loaded into memory from some
 	 * data store (such as a file).
-	 */ 
+	 */
 	// dojo.lang.assertType(attributeId, [String, dojo.data.old.Attribute]);
 	this._dataProvider.registerAttribute(attributeId);
 	var literalOrValueOrArray = this._dictionaryOfAttributeValues[attributeId];
@@ -244,10 +244,10 @@ dojo.data.old.Item.prototype.load = function(/* string or dojo.data.old.Attribut
 
 dojo.data.old.Item.prototype.set = function(/* string or dojo.data.old.Attribute */ attributeId, /* anything */ value) {
 	/**
-	 * summary: 
+	 * summary:
 	 * Used for setting an attribute value as a result of a
 	 * user action.
-	 */ 
+	 */
 	// dojo.lang.assertType(attributeId, [String, dojo.data.old.Attribute]);
 	this._dataProvider.registerAttribute(attributeId);
 	this._dictionaryOfAttributeValues[attributeId] = value;
@@ -260,17 +260,17 @@ dojo.data.old.Item.prototype.setValue = function(/* string or dojo.data.old.Attr
 
 dojo.data.old.Item.prototype.addValue = function(/* string or dojo.data.old.Attribute */ attributeId, /* anything */ value) {
 	/**
-	 * summary: 
+	 * summary:
 	 * Used for adding an attribute value as a result of a
 	 * user action.
-	 */ 
+	 */
 	this.load(attributeId, value);
 	this._dataProvider.noteChange(this, attributeId, value);
 };
 
 dojo.data.old.Item.prototype.setValues = function(/* string or dojo.data.old.Attribute */ attributeId, /* Array */ arrayOfValues) {
 	/**
-	 * summary: 
+	 * summary:
 	 * Used for setting an array of attribute values as a result of a
 	 * user action.
 	 */
@@ -291,10 +291,10 @@ dojo.data.old.Item.prototype.setValues = function(/* string or dojo.data.old.Att
 
 dojo.data.old.Item.prototype.getAttributes = function() {
 	/**
-	 * summary: 
+	 * summary:
 	 * Returns an array containing all of the attributes for which
 	 * this item has attribute values.
-	 */ 
+	 */
 	var arrayOfAttributes = [];
 	for (var key in this._dictionaryOfAttributeValues) {
 		arrayOfAttributes.push(this._dataProvider.getAttribute(key));
@@ -305,7 +305,7 @@ dojo.data.old.Item.prototype.getAttributes = function() {
 dojo.data.old.Item.prototype.hasAttribute = function(/* string or dojo.data.old.Attribute */ attributeId) {
 	/**
 	 * summary: Returns true if the given attribute of the item has been assigned any value.
-	 */ 
+	 */
 	// dojo.lang.assertType(attributeId, [String, dojo.data.old.Attribute]);
 	return (attributeId in this._dictionaryOfAttributeValues); // boolean
 };
@@ -313,7 +313,7 @@ dojo.data.old.Item.prototype.hasAttribute = function(/* string or dojo.data.old.
 dojo.data.old.Item.prototype.hasAttributeValue = function(/* string or dojo.data.old.Attribute */ attributeId, /* anything */ value) {
 	/**
 	 * summary: Returns true if the given attribute of the item has been assigned the given value.
-	 */ 
+	 */
 	var arrayOfValues = this.getValues(attributeId);
 	for (var i in arrayOfValues) {
 		var candidateValue = arrayOfValues[i];

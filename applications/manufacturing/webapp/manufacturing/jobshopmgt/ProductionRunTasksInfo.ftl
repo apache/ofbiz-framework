@@ -24,7 +24,7 @@ under the License.
     <#assign taskForm = taskInfo.taskForm>
     <h3>${task.workEffortName?if_exists} [${task.workEffortId}]</h3>
   </div>
-  <div class="screenlet-body">    
+  <div class="screenlet-body">
     ${taskForm.renderFormString(context)}
   </div>
 </div>

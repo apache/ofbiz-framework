@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if productCategoryId?has_content> 
+<#if productCategoryId?has_content>
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductCategoryRollupParentCategories}</h3>
@@ -30,7 +30,7 @@ under the License.
                 <td align="center"><b>${uiLabelMap.ProductThruDateTimeSequence}</b></td>
                 <td><b>&nbsp;</b></td>
             </tr>
-            <#if currentProductCategoryRollups.size() != 0>            
+            <#if currentProductCategoryRollups.size() != 0>
                 <form method="post" action="<@ofbizUrl>updateProductCategoryToCategory</@ofbizUrl>" name="updateProductCategoryForm">
                     <input type="hidden" name="showProductCategoryId" value="${productCategoryId}">
                     <#assign rowClass = "2">
@@ -57,13 +57,13 @@ under the License.
                             <a href="<@ofbizUrl>removeProductCategoryFromCategory?showProductCategoryId=${productCategoryId}&productCategoryId=${productCategoryRollup.productCategoryId}&parentProductCategoryId=${productCategoryRollup.parentProductCategoryId}&fromDate=${productCategoryRollup.fromDate}</@ofbizUrl>" class="buttontext">
                             ${uiLabelMap.CommonDelete}</a>
                         </td>
-                    </tr> 
+                    </tr>
                     <#-- toggle the row color -->
                     <#if rowClass == "2">
                         <#assign rowClass = "1">
                     <#else>
                         <#assign rowClass = "2">
-                    </#if>                   
+                    </#if>
                     </#list>
                     <tr valign="middle">
                         <td colspan="4" align="center">
@@ -147,7 +147,7 @@ under the License.
                             <#assign rowClass = "1">
                         <#else>
                             <#assign rowClass = "2">
-                        </#if>      
+                        </#if>
                     </#list>
                     <tr valign="middle">
                         <td colspan="4" align="center">

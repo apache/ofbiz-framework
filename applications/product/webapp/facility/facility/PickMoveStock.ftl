@@ -28,7 +28,7 @@ under the License.
     <div class="screenlet-body">
           <form method="post" action="<@ofbizUrl>processPhysicalStockMove</@ofbizUrl>" name='selectAllForm' style='margin: 0;'>
               <#-- general request fields -->
-              <input type="hidden" name="facilityId" value="${facilityId?if_exists}">   
+              <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
               <input type="hidden" name="_useRowSubmit" value="Y">
               <#assign rowCount = 0>
               <table cellspacing="0" class="basic-table hover-bar">
@@ -70,14 +70,14 @@ under the License.
                             <td>${moveByOisgirInfo.availableToPromiseTotalTo?if_exists}</td>
                             <td>${targetProductFacilityLocation.minimumStock?if_exists}</td>
                             <td>${targetProductFacilityLocation.moveQuantity?if_exists}</td>
-                            <td align="right">              
+                            <td align="right">
                                 <input type="hidden" name="productId_o_${rowCount}" value="${product.productId?if_exists}">
                                 <input type="hidden" name="facilityId_o_${rowCount}" value="${facilityId?if_exists}">
                                 <input type="hidden" name="locationSeqId_o_${rowCount}" value="${facilityLocationFrom.locationSeqId?if_exists}">
                                 <input type="hidden" name="targetLocationSeqId_o_${rowCount}" value="${facilityLocationTo.locationSeqId?if_exists}">
                                 <input type="text" name="quantityMoved_o_${rowCount}" size="6" value="${totalQuantity?string.number}">
                             </td>
-                            <td align="right">              
+                            <td align="right">
                                 <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'moveInfoId_tableRow_${rowCount}');">
                             </td>
                         </tr>
@@ -104,18 +104,18 @@ under the License.
                             <td>${moveByPflInfo.availableToPromiseTotalTo?if_exists}</td>
                             <td>${targetProductFacilityLocation.minimumStock?if_exists}</td>
                             <td>${targetProductFacilityLocation.moveQuantity?if_exists}</td>
-                            <td align="right">              
+                            <td align="right">
                                 <input type="hidden" name="productId_o_${rowCount}" value="${product.productId?if_exists}">
                                 <input type="hidden" name="facilityId_o_${rowCount}" value="${facilityId?if_exists}">
                                 <input type="hidden" name="locationSeqId_o_${rowCount}" value="${facilityLocationFrom.locationSeqId?if_exists}">
                                 <input type="hidden" name="targetLocationSeqId_o_${rowCount}" value="${facilityLocationTo.locationSeqId?if_exists}">
                                 <input type="text" name="quantityMoved_o_${rowCount}" size="6" value="${totalQuantity?string.number}">
                             </td>
-                            <td align="right">              
+                            <td align="right">
                                 <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'moveInfoId_tableRow_${rowCount}');">
                             </td>
                         </tr>
-                        <#assign rowCount = rowCount + 1>   
+                        <#assign rowCount = rowCount + 1>
                     </#list>
                     <tr>
                         <td colspan="13" align="right">
@@ -127,7 +127,7 @@ under the License.
                 </#if>
                 <#assign messageCount = 0>
                 <#list pflWarningMessageList?if_exists as pflWarningMessage>
-                    <#assign messageCount = messageCount + 1>   
+                    <#assign messageCount = messageCount + 1>
                     <tr><td colspan="13"><h3>${messageCount}:${pflWarningMessage}.</h3></td></tr>
                 </#list>
             </table>

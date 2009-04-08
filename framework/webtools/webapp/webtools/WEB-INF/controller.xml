@@ -18,15 +18,15 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
-    <include location="component://common/webcommon/WEB-INF/tempexpr-controller.xml"/>    
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+    <include location="component://common/webcommon/WEB-INF/tempexpr-controller.xml"/>
     <description>WebTools Site Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
     <handler name="datavision" type="view" class="org.ofbiz.webapp.view.DataVisionViewHandler"/>
-    
+
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
     <preprocessor>
@@ -40,7 +40,7 @@ under the License.
     -->
 
     <!-- Request Mappings -->
-    
+
     <!-- Begin Utility Requests -->
     <request-map uri="httpService">
         <event type="java" path="org.ofbiz.service.engine.HttpEngine" invoke="httpEngine"/>
@@ -62,7 +62,7 @@ under the License.
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-    
+
     <request-map uri="ping">
         <event type="service" invoke="ping"/>
         <response name="error" type="view" value="ping"/>
@@ -78,7 +78,7 @@ under the License.
         <security auth="true" https="true" cert="false"/>
         <response name="success" type="view" value="showDateTime"/>
     </request-map>
-    
+
     <request-map uri="TestService">
         <event type="service" invoke="testScv"/>
         <response name="error" type="view" value="error"/>
@@ -110,7 +110,7 @@ under the License.
         <response name="error" type="view" value="error"/>
     </request-map>
     <!-- End Utility Requests -->
-    
+
     <request-map uri="main">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="main"/>
@@ -135,7 +135,7 @@ under the License.
         <response name="success" type="view" value="ViewGeneric"/>
         <response name="error" type="view" value="ViewGeneric"/>
     </request-map>
-    
+
     <request-map uri="ViewRelations">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewRelations"/>
@@ -169,7 +169,7 @@ under the License.
         <response name="success" type="view" value="EntityEoModelBundle"/>
         <response name="error" type="view" value="EntityEoModelBundle"/>
     </request-map>
-    
+
     <!-- UtilCache Maintenance Requests -->
     <request-map uri="FindUtilCache">
         <security https="true" auth="true"/>
@@ -319,7 +319,7 @@ under the License.
         <response name="success" type="view" value="FindJob"/>
         <response name="sync_success" type="view" value="serviceResult"/>
         <response name="error" type="view" value="scheduleJob"/>
-    </request-map>   
+    </request-map>
     <request-map uri="serviceResult">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="serviceResult"/>
@@ -329,8 +329,8 @@ under the License.
         <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="saveServiceResultsToSession"/>
         <response name="success" type="view" value="runService"/>
         <response name="error" type="view" value="error"/>
-    </request-map>   
-    
+    </request-map>
+
     <!-- Available services requests -->
     <request-map uri="serviceEcaDetail">
         <security https="true" auth="true"/>
@@ -342,7 +342,7 @@ under the License.
         <response name="success" type="view" value="ServiceList"/>
         <response name="error" type="view" value="ServiceList"/>
     </request-map>
-    
+
     <!-- PerformanceTest requests -->
     <request-map uri="EntityPerformanceTest">
         <security https="true" auth="true"/>
@@ -398,7 +398,7 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="xmldsrawdump"/>
     </request-map>
-        
+
     <!-- EntitySync requests -->
     <request-map uri="EntitySyncStatus"><security https="true" auth="true"/><response name="success" type="view" value="EntitySyncStatus"/></request-map>
     <request-map uri="resetEntitySyncStatusToNotStarted">
@@ -425,7 +425,7 @@ under the License.
         <response name="success" type="view" value="EntitySyncStatus"/>
         <response name="error" type="view" value="EntitySyncStatus"/>
     </request-map>
-    
+
     <!-- Artifact Info Requests -->
     <request-map uri="ArtifactInfo">
         <security https="true" auth="true"/>
@@ -437,44 +437,44 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="SearchLabels"/>
     </request-map>
-    
+
     <request-map uri="SaveLabelsToXmlFile">
         <security https="true" auth="true"/>
         <event type="service" invoke="saveLabelsToXmlFile"/>
         <response name="success" type="view" value="SearchLabels"/>
     </request-map>
-    
+
     <request-map uri="UpdateLabel">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="UpdateLabel"/>
     </request-map>
-    
+
     <request-map uri="UpdateLabelKey">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateLabelKey"/>
         <response name="success" type="view" value="SearchLabels"/>
         <response name="error" type="view" value="UpdateLabel"/>
     </request-map>
-    
+
     <request-map uri="UpdateAndSaveLabelKey">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateAndSaveLabelKey"/>
         <response name="success" type="view" value="SearchLabels"/>
         <response name="error" type="view" value="UpdateLabel"/>
     </request-map>
-    
+
     <request-map uri="ViewReferences">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewReferences"/>
         <response name="error" type="view" value="ViewReferences"/>
     </request-map>
-    
+
     <request-map uri="ViewFile">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewFile"/>
         <response name="error" type="view" value="ViewFile"/>
     </request-map>
-    
+
     <!-- cert requests -->
     <request-map uri="myCertificates">
         <security https="true"/>
@@ -544,7 +544,7 @@ under the License.
     <view-map name="main" type="screen" page="component://webtools/widget/CommonScreens.xml#main"/>
     <view-map name="ping" type="ftl" page="/ping.ftl"/>
     <view-map name="showDateTime" type="ftl" page="/showDateTime.ftl"/>
-    
+
     <view-map name="entityref" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRef"/>
     <view-map name="entityref_list" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRefList"/>
     <view-map name="entityref_main" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityRefMain"/>
@@ -554,7 +554,7 @@ under the License.
     <view-map name="FindGeneric" type="screen" page="component://webtools/widget/EntityScreens.xml#FindGeneric"/>
     <view-map name="ViewGeneric" type="screen" page="component://webtools/widget/EntityScreens.xml#ViewGeneric"/>
     <view-map name="ViewRelations" type="screen" page="component://webtools/widget/EntityScreens.xml#ViewRelations"/>
-    
+
     <!-- these are NOT regions because they generate text output that should never be decorated -->
     <view-map name="tablesMySql" page="/entity/tablesMySql.jsp"/>
     <view-map name="droptablesMySql" page="/entity/droptablesMySql.jsp"/>
@@ -564,8 +564,8 @@ under the License.
     <view-map name="ModelGroupWriter" page="/entity/ModelGroupWriter.jsp"/>
     <view-map name="ModelInduceFromDb" page="/entity/ModelInduceFromDb.jsp"/>
     <view-map name="EntityEoModelBundle" type="screen" page="component://webtools/widget/EntityScreens.xml#EntityEoModelBundle"/>
-    
-    <view-map name="checkdb" type="screen" page="component://webtools/widget/EntityScreens.xml#CheckDb"/>   
+
+    <view-map name="checkdb" type="screen" page="component://webtools/widget/EntityScreens.xml#CheckDb"/>
     <view-map name="xmldsdump" type="screen" page="component://webtools/widget/EntityScreens.xml#xmldsdump"/>
     <view-map name="xmldsrawdump" page="/entity/xmldsrawdump.jsp"/>
 
@@ -605,22 +605,22 @@ under the License.
     <view-map name="EntityImportDir" page="component://webtools/widget/EntityScreens.xml#EntityImportDir" type="screen"/>
     <view-map name="EntityImport" page="component://webtools/widget/EntityScreens.xml#EntityImport" type="screen"/>
     <view-map name="EntityImportReaders" page="component://webtools/widget/EntityScreens.xml#EntityImportReaders" type="screen"/>
-    
+
     <view-map name="ViewComponents" page="component://webtools/widget/MiscScreens.xml#ViewComponents" type="screen"/>
     <view-map name="minervaobjects" page="component://webtools/widget/EntityScreens.xml#minervaobjects" type="screen"/>
-    
+
     <!-- cert views -->
-    <view-map name="viewbrowsercerts" type="screen" page="component://webtools/widget/CommonScreens.xml#browsercerts"/> 
-    
+    <view-map name="viewbrowsercerts" type="screen" page="component://webtools/widget/CommonScreens.xml#browsercerts"/>
+
     <!-- Artifact Info Views -->
-    <view-map name="ArtifactInfo" type="screen" page="component://webtools/widget/ArtifactInfoScreens.xml#ArtifactInfo"/> 
+    <view-map name="ArtifactInfo" type="screen" page="component://webtools/widget/ArtifactInfoScreens.xml#ArtifactInfo"/>
 
     <!-- Label Manager Views -->
     <view-map name="SearchLabels" type="screen" page="component://webtools/widget/LabelManagerScreens.xml#SearchLabels"/>
     <view-map name="UpdateLabel" type="screen" page="component://webtools/widget/LabelManagerScreens.xml#UpdateLabel"/>
     <view-map name="ViewReferences" type="screen" page="component://webtools/widget/LabelManagerScreens.xml#ViewReferences"/>
     <view-map name="ViewFile" type="screen" page="component://webtools/widget/LabelManagerScreens.xml#ViewFile"/>
-    
+
     <!-- Temporal expression views -->
     <view-map name="editTemporalExpression" type="screen" page="component://webtools/widget/TempExprScreens.xml#EditTemporalExpression"/>
     <view-map name="findTemporalExpression" type="screen" page="component://webtools/widget/TempExprScreens.xml#FindTemporalExpression"/>

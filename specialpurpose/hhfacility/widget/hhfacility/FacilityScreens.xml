@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="GlobalDecorator">
         <section>
@@ -77,14 +77,14 @@ under the License.
             <widgets>
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
-                        <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/menu.ftl"/></html></platform-specific>  
+                        <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/menu.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
 
-    <screen name="receipt"> 
+    <screen name="receipt">
         <section>
             <widgets>
                 <decorator-screen name="FacilityDecorator">
@@ -158,7 +158,7 @@ under the License.
                 <decorator-screen name="FacilityDecorator">
                     <decorator-section name="body">
                         <include-form name="ProductQtyEnter" location="component://hhfacility/webapp/hhfacility/forms/FacilityForms.xml"/>
-                        <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/setFocusOnField.ftl"/></html></platform-specific> 
+                        <platform-specific><html><html-template location="component://hhfacility/webapp/hhfacility/setFocusOnField.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

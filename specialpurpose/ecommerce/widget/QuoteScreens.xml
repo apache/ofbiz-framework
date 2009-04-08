@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="ListQuotes">
@@ -61,7 +61,7 @@ under the License.
                 <get-related-one value-field="quote" relation-name="StatusItem" to-value-field="statusItem"/>
                 <get-related-one value-field="quote" relation-name="Uom" to-value-field="currency"/>
                 <get-related-one value-field="quote" relation-name="ProductStore" to-value-field="store"/>
-                
+
                 <get-related value-field="quote" relation-name="QuoteItem" list="quoteItems"/>
                 <get-related value-field="quote" relation-name="QuoteAdjustment" list="quoteAdjustments"/>
                 <get-related value-field="quote" relation-name="QuoteRole" list="quoteRoles"/>

@@ -21,7 +21,7 @@ under the License.
 <br />
 <#if security.hasPermission("PERIOD_MAINT", session)>
    <div class="screenlet">
-     <div class="screenlet-title-bar">      
+     <div class="screenlet-title-bar">
          <ul>
            <li class="h3">${uiLabelMap.AccountingShowOnlyPeriodsWithOrganization}</li>
          </ul>

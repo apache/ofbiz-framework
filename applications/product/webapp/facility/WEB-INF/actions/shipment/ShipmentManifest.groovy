@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -24,7 +24,7 @@ import org.ofbiz.content.report.*
 shipmentId = request.getParameter("shipmentId");
 shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
 
-if (shipment) {   
+if (shipment) {
     shipmentPackageRouteSegs = shipment.getRelated("ShipmentPackageRouteSeg", null, ['shipmentRouteSegmentId', 'shipmentPackageSeqId']);
     shipmentPackageDatas = [] as LinkedList;
     if (shipmentPackageRouteSegs) {
@@ -39,7 +39,7 @@ if (shipment) {
                         shipmentPackageContents.each { shipmentPackageContent ->
                             shipmentItemsData = [:];
                             packageQuantity = shipmentPackageContent.getDouble("quantity");
-                            shipmentItem = shipmentPackageContent.getRelatedOne("ShipmentItem");  
+                            shipmentItem = shipmentPackageContent.getRelatedOne("ShipmentItem");
                             if (shipmentItem) {
                                 shippedQuantity = shipmentItem.getDouble("quantity");
                                 shipmentItemsData.shipmentItem = shipmentItem;

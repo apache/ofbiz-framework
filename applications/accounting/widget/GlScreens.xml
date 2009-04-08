@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="PartyAccountsSummary">
@@ -73,7 +73,7 @@ under the License.
                                             <link target="BalanceSheet" text="${uiLabelMap.AccountingBalanceSheet}" style="buttontext">
                                                 <parameter param-name="organizationPartyId"/>
                                             </link>
-                                        </container>     
+                                        </container>
                                     </container>
                                 </container>
                             </widgets>
@@ -231,7 +231,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditAcctgTrans">
         <section>
             <actions>
@@ -240,7 +240,7 @@ under the License.
                 <set field="tabButtonItem" value="FindAcctgTrans"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
                 <set field="acctgTransId" from-field="parameters.acctgTransId"/>
-                
+
                 <entity-one entity-name="AcctgTrans" value-field="acctgTrans"/>
                 <entity-one entity-name="AcctgTransEntry" value-field="acctgTransEntry">
                     <field-map field-name="acctgTransId"/>
@@ -292,7 +292,7 @@ under the License.
                                                     <if-compare field="acctgTrans.isPosted" operator="equals" value="Y"/>
                                                 </condition>
                                                 <widgets>
-                                                    <include-form name="ViewAcctgTrans" location="component://accounting/widget/GlForms.xml"/>                                                    
+                                                    <include-form name="ViewAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
                                                 </widgets>
                                                 <fail-widgets>
                                                     <include-form name="EditAcctgTrans" location="component://accounting/widget/GlForms.xml"/>
@@ -312,10 +312,10 @@ under the License.
                                                     <container style="h3">
                                                         <label text="${uiLabelMap.PageTitleViewTransactionEntries}"/>
                                                     </container>
-                                                </container>    
+                                                </container>
                                                 <container style="screenlet-body">
-                                                    <include-form name="ViewAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/> 
-                                                </container>    
+                                                    <include-form name="ViewAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
+                                                </container>
                                             </widgets>
                                             <fail-widgets>
                                                 <container style="screenlet-title-bar">
@@ -325,10 +325,10 @@ under the License.
                                                 </container>
                                                 <container style="screenlet-body">
                                                     <include-form name="ListAcctgTransEntries" location="component://accounting/widget/GlForms.xml"/>
-                                                </container>                                               
+                                                </container>
                                             </fail-widgets>
                                         </section>
-                                    </container>  
+                                    </container>
                                 </container>
                             </widgets>
                         </section>
@@ -553,12 +553,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="FindGlAccountReconciliation" location="component://accounting/widget/GlForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>    
+                        </container>
                         <section>
                             <condition>
                                 <if-compare field="parameters.performSearch" operator="equals" value="Y"/>
@@ -572,7 +572,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="ListGlAccountReconciliation" location="component://accounting/widget/GlForms.xml"/>
                                             </widgets>
                                         </section>
@@ -607,7 +607,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="EditGlReconciliation" location="component://accounting/widget/GlForms.xml"/>
                                             </widgets>
                                         </section>
@@ -625,7 +625,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="ListGlReconciliationEntries" location="component://accounting/widget/GlForms.xml"/>
                                             </widgets>
                                         </section>
@@ -658,7 +658,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="FindGlAccountReconciliations" location="component://accounting/widget/GlForms.xml"/>
                                     </widgets>
                                 </section>
@@ -677,7 +677,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="ListGlAccountReconciliations" location="component://accounting/widget/GlForms.xml"/>
                                             </widgets>
                                         </section>

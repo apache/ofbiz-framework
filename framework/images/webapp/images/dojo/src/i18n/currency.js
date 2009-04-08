@@ -43,7 +43,7 @@ dojo.i18n.currency.format = function(value, iso, flags /*optional*/, locale /*op
 	var result = dojo.i18n.number.format(value, flags, locale);
 
 	var sym = formatData.symbol;
-	if (formatData.adjSpace == "symbol"){ 
+	if (formatData.adjSpace == "symbol"){
 		if (formatData.placement == "after"){
 			sym = " " + sym;// TODO: nbsp?
 		}else{
@@ -113,14 +113,14 @@ dojo.i18n.currency.parse = function(value, iso, locale, flags /*optional*/){
 };
 
 /**
-  Validates whether a string denotes a monetary value. 
+  Validates whether a string denotes a monetary value.
 
   @param value  A string
   @param iso the ISO 4217 currency code
   @param locale the locale to determine formatting used.  By default, the locale defined by the
     host environment: dojo.locale
   @param flags  An object
-    flags.symbol  A currency symbol such as Yen "�", Pound "�", or the Euro sign "�".  
+    flags.symbol  A currency symbol such as Yen "�", Pound "�", or the Euro sign "�".
         The default is specified by the iso code.  For more than one symbol use an array, e.g. ["$", ""], makes $ optional.
         The empty array [] makes the default currency symbol optional.
     flags.placement  The symbol can come "before" or "after".  The default is specified by the iso code.

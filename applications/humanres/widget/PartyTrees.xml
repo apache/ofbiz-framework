@@ -17,10 +17,10 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-tree.xsd">
 
-    <tree name="OrgTree" root-node-name="node-root" entity-name="PartyAndGroup" open-depth="1"> 
+    <tree name="OrgTree" root-node-name="node-root" entity-name="PartyAndGroup" open-depth="1">
         <node name="node-root" entity-name="PartyAndGroup" render-style="expand-collapse">
             <entity-one entity-name="PartyAndGroup" value-field="partyAndGroup"/>
             <include-screen name="PartyGroupTreeLine" location="component://humanres/widget/CommonScreens.xml"/>
@@ -28,7 +28,7 @@ under the License.
                 <entity-condition entity-name="PartyRelationship" filter-by-date="true">
                     <condition-list combine="and">
                         <condition-expr field-name="partyIdFrom" operator="equals" from-field="partyId"/>
-                        <condition-expr field-name="partyRelationshipTypeId" operator="equals" value="GROUP_ROLLUP"/> 
+                        <condition-expr field-name="partyRelationshipTypeId" operator="equals" value="GROUP_ROLLUP"/>
                     </condition-list>
                 </entity-condition>
             </sub-node>
@@ -42,7 +42,7 @@ under the License.
                 <entity-condition entity-name="Employment" filter-by-date="true">
                     <condition-list combine="and">
                         <condition-expr field-name="partyIdFrom" operator="equals" from-field="partyRelationship.partyIdTo"/>
-                        <condition-expr field-name="roleTypeIdTo" operator="equals" value="EMPLOYEE"/> 
+                        <condition-expr field-name="roleTypeIdTo" operator="equals" value="EMPLOYEE"/>
                     </condition-list>
                 </entity-condition>
             </sub-node>

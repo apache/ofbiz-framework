@@ -21,6 +21,6 @@ import org.ofbiz.accounting.payment.PaymentWorker;
 
 partyId = parameters.partyId ? parameters.partyId : userLogin.partyId;
 showOld = "true".equals(parameters.SHOW_OLD);
-context.showOld = showOld; 
-context.partyId = partyId; 
+context.showOld = showOld;
+context.partyId = partyId;
 context.paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, partyId, showOld);

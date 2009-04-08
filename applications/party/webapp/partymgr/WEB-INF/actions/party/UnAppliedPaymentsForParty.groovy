@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -32,8 +32,8 @@ if (actualCurrency == null) {
     actualCurrency = true;
 }
 findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-    
-payExprs = 
+
+payExprs =
     EntityCondition.makeCondition([
         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_NOTPAID"),
         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PMNT_CANCELLED"),
@@ -62,7 +62,7 @@ while (payment = payIterator.next()) {
             amount = payment.amount;
             paymentCurrencyUomId = payment.currencyUomId;
         }
-        paymentList.add([paymentId : payment.paymentId, 
+        paymentList.add([paymentId : payment.paymentId,
                          effectiveDate : payment.effectiveDate,
                          unAppliedAmount : unAppliedAmount,
                          amount : amount,

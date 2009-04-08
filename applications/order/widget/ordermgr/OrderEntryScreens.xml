@@ -86,7 +86,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <!-- list all assets in a tabular format -->
     <screen name="FindQuoteForCart">
         <section>

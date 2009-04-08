@@ -27,7 +27,7 @@ dojo.widget.defineWidget(
 	// iconSrc: String
 	//	path of icon for associated floating pane
 	iconSrc: '',
-	
+
 	// caption: String
 	//	name of associated floating pane
 	caption: 'Untitled',
@@ -75,7 +75,7 @@ dojo.widget.defineWidget(
 	addChild: function(/*Widget*/ child) {
 		// summary: add taskbar item for specified FloatingPane
 		// TODO: this should not be called addChild(), as that has another meaning.
-		if(!this.containerNode){ 
+		if(!this.containerNode){
 			this._addChildStack.push(child);
 		}else if(this._addChildStack.length > 0){
 			var oarr = this._addChildStack;
@@ -83,8 +83,8 @@ dojo.widget.defineWidget(
 			dojo.lang.forEach(oarr, this.addChild, this);
 		}
 		var tbi = dojo.widget.createWidget("TaskBarItem",
-			{	windowId: child.widgetId, 
-				caption: child.title, 
+			{	windowId: child.widgetId,
+				caption: child.title,
 				iconSrc: child.iconSrc
 			});
 		dojo.widget.TaskBar.superclass.addChild.call(this,tbi);

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -95,13 +95,13 @@ if (fileType) {
         contentType = contentType.substring(i1 + 9);
         contentType = "--" + contentType;
     }
-        
+
     defaultFileName = filenameToUse + "_temp";
     uploadObject = new HttpRequestFileUpload();
     uploadObject.setOverrideFilename(defaultFileName);
     uploadObject.setSavePath(imageServerPath + "/" + filePathPrefix);
     uploadObject.doUpload(request);
-    
+
     clientFileName = uploadObject.getFilename();
     if (clientFileName) {
         context.clientFileName = clientFileName;
@@ -110,26 +110,26 @@ if (fileType) {
         } else {
             filenameToUse += ".jpg";
         }
-        
+
         context.clientFileName = clientFileName;
         context.filenameToUse = filenameToUse;
-        
+
         characterEncoding = request.getCharacterEncoding();
         imageUrl = imageUrlPrefix + "/" + filePathPrefix + java.net.URLEncoder.encode(filenameToUse, characterEncoding);
-        
+
         try {
             file = new File(imageServerPath + "/" + filePathPrefix, defaultFileName);
             file1 = new File(imageServerPath + "/" + filePathPrefix, filenameToUse);
             try {
                 file1.delete();
-            } catch(Exception e) { 
+            } catch (Exception e) {
                 System.out.println("error deleting existing file (not neccessarily a problem)");
             }
             file.renameTo(file1);
-        } catch(Exception e) { 
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         if (imageUrl) {
             context.imageUrl = imageUrl;
             configItem.set("imageUrl", imageUrl);

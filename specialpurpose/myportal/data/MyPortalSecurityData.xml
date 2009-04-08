@@ -52,7 +52,7 @@ under the License.
     <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="PARTYMGR_CME_UPDATE"/>
     <!-- and can upload content for task/project -->
     <SecurityGroupPermission groupId="MYPORTAL_EMPL-NOEML" permissionId="CONTENTMGR_ROLE_CREATE"/>
-    
+
     <SecurityPermission permissionId="MYPORTAL_CUSTOMER" description="Use the customer screens in MYPORTAL."/>
     <SecurityGroup description="Customer user of MYPORTAL, Limited access to own custRequests, and project" groupId="MYPORTAL_CUSTOMER"/>
     <SecurityGroupPermission groupId="MYPORTAL_CUSTOMER" permissionId="PARTYMGR_CME-NOTE_CREATE"/><!-- allow customer to read/write internal notes -->

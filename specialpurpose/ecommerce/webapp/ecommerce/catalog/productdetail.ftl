@@ -152,13 +152,13 @@ ${virtualJavaScript?if_exists}
             if (index == -1) {
               <#if featureOrderFirst?exists>
                 var Variable1 = eval("list" + "${featureOrderFirst}" + "()");
-              </#if>  
+              </#if>
             } else {
                 var Variable1 = eval("list" + OPT[(currentFeatureIndex+1)] + selectedValue + "()");
             }
             // set the product ID to NULL to trigger the alerts
             setAddProductId('NULL');
-        
+
             // set the variant price to NULL
             setVariantPrice('NULL');
         } else {
@@ -170,7 +170,7 @@ ${virtualJavaScript?if_exists}
 
             // set the product ID
             setAddProductId(sku);
-        
+
             // set the variant price
             setVariantPrice(sku);
 
@@ -182,13 +182,13 @@ ${virtualJavaScript?if_exists}
     function validate(x){
         var msg=new Array();
         msg[0]="Please use correct date format [yyyy-mm-dd]";
-        
+
         var y=x.split("-");
         if(y.length!=3){ alert(msg[0]);return false; }
         if((y[2].length>2)||(parseInt(y[2])>31)) { alert(msg[0]); return false; }
         if(y[2].length==1){ y[2]="0"+y[2]; }
         if((y[1].length>2)||(parseInt(y[1])>12)){ alert(msg[0]); return false; }
-        if(y[1].length==1){ y[1]="0"+y[1]; }            
+        if(y[1].length==1){ y[1]="0"+y[1]; }
         if(y[0].length>4){ alert(msg[0]); return false; }
         if(y[0].length<4) {
             if(y[0].length==2) {
@@ -199,7 +199,7 @@ ${virtualJavaScript?if_exists}
             }
         }
         return (y[0]+"-"+y[1]+"-"+y[2]);
-    }    
+    }
 
     function additemSubmit(){
         <#if product.productTypeId?if_exists == "ASSET_USAGE">
@@ -235,7 +235,7 @@ ${virtualJavaScript?if_exists}
         </#if>
     }
 
-    <#if product.virtualVariantMethodEnum?if_exists == "VV_FEATURETREE" && featureLists?has_content>	
+    <#if product.virtualVariantMethodEnum?if_exists == "VV_FEATURETREE" && featureLists?has_content>
 	    function checkRadioButton() {
 		    var block1 = document.getElementById("addCart1");
 		    var block2 = document.getElementById("addCart2");
@@ -249,13 +249,13 @@ ${virtualJavaScript?if_exists}
 				         	return;
 				         }
 				    	<#break>
-				    </#if>		    
+				    </#if>
 			    </#list>
 	        </#list>
 	        block1.style.display = "block";
 	        block2.style.display = "none";
 	    }
-    </#if>  
+    </#if>
  //-->
  </script>
 
@@ -309,7 +309,7 @@ ${virtualJavaScript?if_exists}
           </#list>
         </div>
       </#if>
-      
+
       <#-- for prices:
               - if price < competitivePrice, show competitive or "Compare At" price
               - if price < listPrice, show list price
@@ -427,9 +427,9 @@ ${virtualJavaScript?if_exists}
                 <#list featureList as feature>
                     <#if feature_index == 0>
                         <div>${feature.description}: <select id="FT${feature.productFeatureTypeId}" name="FT${feature.productFeatureTypeId}" onChange="javascript:checkRadioButton();">
-                        <option value="select" selected="selected"> select option </option> 
+                        <option value="select" selected="selected"> select option </option>
                     <#else>
-                        <option value="${feature.productFeatureId}">${feature.description} <#if feature.price?exists>(+ <@ofbizCurrency amount=feature.price?string isoCode=feature.currencyUomId/>)</#if></option> 
+                        <option value="${feature.productFeatureId}">${feature.description} <#if feature.price?exists>(+ <@ofbizCurrency amount=feature.price?string isoCode=feature.currencyUomId/>)</#if></option>
                     </#if>
                 </#list>
                 </select>
@@ -441,13 +441,13 @@ ${virtualJavaScript?if_exists}
               <input type="text" size="5" name="quantity" value="1"/>
               <a href="javascript:javascript:addItem();" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>
               &nbsp;
-            </div>            
+            </div>
             <div id="addCart2" style="display:block;>
               <span style="white-space: nowrap;"><b>${uiLabelMap.CommonQuantity}:</b></span>&nbsp;
               <input type="text" size="5" value="1" disabled="disabled"/>
               <a href="javascript:alert('Please select all features first');" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>
               &nbsp;
-            </div>            
+            </div>
           </#if>
           <#if !product.virtualVariantMethodEnum?exists || product.virtualVariantMethodEnum == "VV_VARIANTTREE">
            <#if variantTree?exists && (variantTree.size() > 0)>
@@ -468,7 +468,7 @@ ${virtualJavaScript?if_exists}
             <div><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
             <#assign inStock = false>
           </#if>
-         </#if> 
+         </#if>
         <#else>
           <input type="hidden" name="add_product_id" value="${product.productId}"/>
           <#assign isStoreInventoryNotAvailable = !(Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryAvailable(request, product, 1.0))>
@@ -497,7 +497,7 @@ ${virtualJavaScript?if_exists}
               <#assign hiddenStyle = "visible">
             <#else>
               <#assign hiddenStyle = "hidden">
-            </#if>           
+            </#if>
             <div id="add_amount" class="${hiddenStyle}">
               <span style="white-space: nowrap;"><b>${uiLabelMap.CommonAmount}:</b></span>&nbsp;
               <input type="text" size="5" name="add_amount" value=""/>

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -45,7 +45,7 @@ if (orderPartyId && !orderPartyId.equals("_NA_")) {
     orderPerson = orderParty.getRelatedOne("Person");
     context.orderParty = orderParty;
     context.orderPerson = orderPerson;
-    if (orderParty) { 
+    if (orderParty) {
         context.paymentMethodList = EntityUtil.filterByDate(orderParty.getRelated("PaymentMethod"), true);
 
         billingAccountList = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, orderPartyId, delegator, dispatcher);
@@ -58,7 +58,7 @@ if (orderPartyId && !orderPartyId.equals("_NA_")) {
 
 if (request.getParameter("useShipAddr") && cart.getShippingContactMechId()) {
     shippingContactMech = cart.getShippingContactMechId();
-    postalAddress = delegator.findByPrimaryKey("PostalAddress", [contactMechId : shippingContactMech]);    
+    postalAddress = delegator.findByPrimaryKey("PostalAddress", [contactMechId : shippingContactMech]);
     context.postalFields = postalAddress;
 } else {
     context.postalFields = UtilHttp.getParameterMap(request);
@@ -68,12 +68,12 @@ if (cart) {
     if (cart.getPaymentMethodIds()) {
         checkOutPaymentId = cart.getPaymentMethodIds().get(0);
         context.checkOutPaymentId = checkOutPaymentId;
-        if (!orderParty) {                                
+        if (!orderParty) {
             paymentMethod = delegator.findByPrimaryKey("PaymentMethod", [paymentMethodId : checkOutPaymentId]);
             if ("CREDIT_CARD".equals(paymentMethod?.paymentMethodTypeId)) {
                 paymentMethodType = "CC";
-                account = paymentMethod.getRelatedOne("CreditCard");       
-                context.creditCard = account; 
+                account = paymentMethod.getRelatedOne("CreditCard");
+                context.creditCard = account;
                 context.paymentMethodType = paymentMethodType;
             } else if ("EFT_ACCOUNT".equals(paymentMethod.paymentMethodTypeId)) {
                 paymentMethodType = "EFT";

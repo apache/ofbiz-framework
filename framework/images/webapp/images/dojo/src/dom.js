@@ -22,7 +22,7 @@ dojo.dom.DOCUMENT_NODE                 = 9;
 dojo.dom.DOCUMENT_TYPE_NODE            = 10;
 dojo.dom.DOCUMENT_FRAGMENT_NODE        = 11;
 dojo.dom.NOTATION_NODE                 = 12;
-	
+
 dojo.dom.dojoml = "http://www.dojotoolkit.org/2004/dojoml";
 
 /**
@@ -255,10 +255,10 @@ dojo.dom.getAncestors = function(/*Node*/node, /*function?*/filterFunction, /*bo
 		if(!isFunction || filterFunction(node)){
 			ancestors.push(node);
 		}
-		if(returnFirstHit && ancestors.length > 0){ 
+		if(returnFirstHit && ancestors.length > 0){
 			return ancestors[0]; 	//	Node
 		}
-		
+
 		node = node.parentNode;
 	}
 	if(returnFirstHit){ return null; }
@@ -287,7 +287,7 @@ dojo.dom.isDescendantOf = function(/* Node */node, /* Node */ancestor, /* boolea
 	// guaranteeDescendant allows us to be a "true" isDescendantOf function
 	if(guaranteeDescendant && node) { node = node.parentNode; }
 	while(node) {
-		if(node == ancestor){ 
+		if(node == ancestor){
 			return true; 	//	boolean
 		}
 		node = node.parentNode;
@@ -326,7 +326,7 @@ dojo.dom.createDocument = function(){
 		(_document.implementation.createDocument)){
 		doc = _document.implementation.createDocument("", "", null);
 	}
-	
+
 	return doc;	//	DOMDocument
 }
 
@@ -423,8 +423,8 @@ dojo.dom.insertAfter = function(/*Node*/node, /*Node*/ref, /*boolean?*/force){
 dojo.dom.insertAtPosition = function(/*Node*/node, /*Node*/ref, /*string*/position){
 	//	summary:
 	//		attempt to insert node in relation to ref based on position
-	if((!node)||(!ref)||(!position)){ 
-		return false;	//	boolean 
+	if((!node)||(!ref)||(!position)){
+		return false;	//	boolean
 	}
 	switch(position.toLowerCase()){
 		case "before":
@@ -448,10 +448,10 @@ dojo.dom.insertAtPosition = function(/*Node*/node, /*Node*/ref, /*string*/positi
 dojo.dom.insertAtIndex = function(/*Node*/node, /*Element*/containingNode, /*number*/insertionIndex){
 	//	summary:
 	//		insert node into child nodes nodelist of containingNode at
-	//		insertionIndex. insertionIndex should be between 0 and 
+	//		insertionIndex. insertionIndex should be between 0 and
 	//		the number of the childNodes in containingNode. insertionIndex
 	//		specifys after how many childNodes in containingNode the node
-	//		shall be inserted. If 0 is given, node will be appended to 
+	//		shall be inserted. If 0 is given, node will be appended to
 	//		containingNode.
 	var siblingNodes = containingNode.childNodes;
 
@@ -470,7 +470,7 @@ dojo.dom.insertAtIndex = function(/*Node*/node, /*Element*/containingNode, /*num
 
 	return dojo.dom.insertAfter(node, siblingNodes[insertionIndex-1]);	//	boolean
 }
-	
+
 dojo.dom.textContent = function(/*Node*/node, /*string*/text){
 	//	summary:
 	//		implementation of the DOM Level 3 attribute; scan node for text
@@ -532,14 +532,14 @@ dojo.dom.isTag = function(/* Node */node /* ... */){
 	return "";	//	string
 }
 
-dojo.dom.setAttributeNS = function(	/*Element*/elem, /*string*/namespaceURI, 
+dojo.dom.setAttributeNS = function(	/*Element*/elem, /*string*/namespaceURI,
 									/*string*/attrName, /*string*/attrValue){
 	//	summary:
 	//		implementation of DOM2 setAttributeNS that works cross browser.
 	if(elem == null || ((elem == undefined)&&(typeof elem == "undefined"))){
 		dojo.raise("No element given to dojo.dom.setAttributeNS");
 	}
-	
+
 	if(!((elem.setAttributeNS == undefined)&&(typeof elem.setAttributeNS == "undefined"))){ // w3c
 		elem.setAttributeNS(namespaceURI, attrName, attrValue);
 	}else{ // IE
@@ -550,10 +550,10 @@ dojo.dom.setAttributeNS = function(	/*Element*/elem, /*string*/namespaceURI,
 			attrName,
 			namespaceURI
 		);
-		
+
 		// set value
 		attribute.nodeValue = attrValue;
-		
+
 		// attach to element
 		elem.setAttributeNode(attribute);
 	}

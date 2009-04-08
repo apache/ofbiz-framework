@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<ofbiz-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<ofbiz-containers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-containers.xsd">
     <!-- load the ofbiz component container (always first) -->
     <container name="component-container" class="org.ofbiz.base.container.ComponentContainer"/>
@@ -36,7 +36,7 @@ under the License.
     <container name="naming-container" class="org.ofbiz.base.container.NamingServiceContainer">
         <property name="port" value="1099"/>
     </container>
-    
+
     <!-- RMI Service Dispatcher -->
     <container name="rmi-dispatcher" class="org.ofbiz.service.rmi.RmiServiceContainer">
         <property name="bound-name" value="RMIDispatcher"/>
@@ -48,16 +48,16 @@ under the License.
         <property name="ssl-keystore" value="framework/base/config/ofbizrmi.jks"/>
         <property name="ssl-keystore-type" value="JKS"/>
         <property name="ssl-keystore-pass" value="changeit"/>
-        <property name="ssl-keystore-alias" value="rmissl"/> 
+        <property name="ssl-keystore-alias" value="rmissl"/>
         <property name="ssl-client-auth" value="false"/>
     </container>
 
     <!-- JavaMail Listener Container - Triggers MCA Rules -->
-    <!-- if delete-mail is set to true, will delete messages after fetching them. otherwise, will try to mark them as seen 
-         mail.store.protocol supports both imap and pop3, but pop3 will not be able to mark messages as seen, so you would need to delete them 
-         Sounds like mail.store.protocol value should be "imaps" for GMail inbound emails to work. 
+    <!-- if delete-mail is set to true, will delete messages after fetching them. otherwise, will try to mark them as seen
+         mail.store.protocol supports both imap and pop3, but pop3 will not be able to mark messages as seen, so you would need to delete them
+         Sounds like mail.store.protocol value should be "imaps" for GMail inbound emails to work.
          Not tested found here https://sourceforge.net/forum/message.php?msg_id=5879468 -->
-    <!-- To use the mail listerner just uncomment and go...        
+    <!-- To use the mail listerner just uncomment and go...
     <container name="javamail-container" class="org.ofbiz.service.mail.JavaMailContainer">
         <property name="delegator-name" value="default"/>
         <property name="dispatcher-name" value="JavaMailDispatcher"/>

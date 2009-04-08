@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -57,13 +57,13 @@ if (shipment) {
             shipmentRouteSegmentDatas.add(shipmentRouteSegmentData);
         }
     }
-    
+
     shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId']);
     facilities = delegator.findList("Facility", null, null, ['facilityName'], null, false);
     shipmentMethodTypes = delegator.findList("ShipmentMethodType", null, null, ['description'], null, false);
     weightUoms = delegator.findList("Uom", EntityCondition.makeCondition([uomTypeId : 'WEIGHT_MEASURE']), null, null, null, false);
     currencyUoms = delegator.findList("Uom", EntityCondition.makeCondition([uomTypeId : 'CURRENCY_MEASURE']), null, null, null, false);
-    
+
     carrierPartyRoles = delegator.findList("PartyRole", EntityCondition.makeCondition([roleTypeId : 'CARRIER']), null, null, null, false);
     carrierPartyDatas = [] as LinkedList;
     carrierPartyRoles.each { carrierPartyRole ->
@@ -74,7 +74,7 @@ if (shipment) {
         carrierPartyData.partyGroup = party.getRelatedOne("PartyGroup");
         carrierPartyDatas.add(carrierPartyData);
     }
-    
+
     context.shipment = shipment;
     context.shipmentRouteSegmentDatas = shipmentRouteSegmentDatas;
     context.shipmentPackages = shipmentPackages;

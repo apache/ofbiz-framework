@@ -18,12 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="main-decorator">
         <section>
             <actions>
-                <!-- base/top/specific map first, then more common map added for shared labels --> 
+                <!-- base/top/specific map first, then more common map added for shared labels -->
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
@@ -48,7 +48,7 @@ under the License.
                 <set field="layoutSettings.styleSheets[]" value="/partymgr/static/partymgr.css" global="true"/>
                 <set field="activeApp" value="partymgr" global="true"/>
                 <set field="applicationMenuName" value="PartyAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://party/widget/partymgr/PartyMenus.xml" global="true"/> 
+                <set field="applicationMenuLocation" value="component://party/widget/partymgr/PartyMenus.xml" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.PartyManagerApplication}" global="true"/>
             </actions>
             <widgets>
@@ -59,7 +59,7 @@ under the License.
     <screen name="CommonPartyDecorator">
         <section>
             <actions>
-                
+
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="Party" value-field="party"/>
                 <entity-one entity-name="Person" value-field="lookupPerson"/>
@@ -110,7 +110,7 @@ under the License.
                                         </container>
                                     </widgets>
                                 </section>
-                                
+
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -155,7 +155,7 @@ under the License.
                                     <link target="EditSecurityGroup" style="smallSubmit" text="${uiLabelMap.PartyNewSecurityGroup}"/>
                                     <link target="EditCertIssuerProvisions" style="smallSubmit" text="${uiLabelMap.PartyCertIssuers}"/>
                                 </container>
-                                
+
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>

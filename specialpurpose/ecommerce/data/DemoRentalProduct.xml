@@ -50,16 +50,16 @@ headerLogo="/images/opentravelsystem_logo.jpg"
     <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_ODR_BACKORDER" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#BackorderNotice" subject="OFBiz Demo - Backorder Notification #${orderId}" fromAddress="ofbiztest@yahoo.com"/>
     <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_ODR_CHANGE" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderChangeNotice" subject="OFBiz Demo - Order Change Notification #${orderId}" fromAddress="ofbiztest@yahoo.com"/>
     <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_ODR_PAYRETRY" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#PaymentRetryNotice" subject="OFBiz Demo - Order Payment Notification #${orderId}" fromAddress="ofbiztest@yahoo.com"/>
-    
+
     <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_RTN_ACCEPT" bodyScreenLocation="component://ecommerce/widget/EmailReturnScreens.xml#ReturnAccept" subject="OFBiz Demo - Return Accepted #${returnHeader.returnId}" fromAddress="ofbiztest@yahoo.com"/>
     <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_RTN_COMPLETE" bodyScreenLocation="component://ecommerce/widget/EmailReturnScreens.xml#ReturnComplete" subject="OFBiz Demo - Return Completed #${returnHeader.returnId}" fromAddress="ofbiztest@yahoo.com"/>
     <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_RTN_CANCEL" bodyScreenLocation="component://ecommerce/widget/EmailReturnScreens.xml#ReturnCancel" subject="OFBiz Demo - Return Cancelled #${returnHeader.returnId}" fromAddress="ofbiztest@yahoo.com"/>
-    
+
     <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_GC_PURCHASE" bodyScreenLocation="component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardPurchase" fromAddress="ofbiztest@yahoo.com" subject="A Gift From ${senderName}!"/>
     <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_GC_RELOAD" bodyScreenLocation="component://ecommerce/widget/EmailGiftCardScreens.xml#GiftCardReload" fromAddress="ofbiztest@yahoo.com" subject="Gift Card Reload Results"/>
-    
+
     <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_TELL_FRIEND" bodyScreenLocation="component://ecommerce/widget/EmailProductScreens.xml#TellFriend" subject="${sendFrom} has sent you a link!" fromAddress="ofbiztest@yahoo.com"/>
-    
+
     <ProductStoreEmailSetting productStoreId="RentalStore" emailType="PRDS_PWD_RETRIEVE" bodyScreenLocation="component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail" subject="OFBiz Demo - Password Reminder (${userLoginId})" fromAddress="ofbiztest@yahoo.com"/>
 
     <ProductStoreFacility productStoreId="RentalStore" facilityId="WebStoreWarehouse" fromDate="2001-05-13 12:00:00.0"/>
@@ -67,7 +67,7 @@ headerLogo="/images/opentravelsystem_logo.jpg"
     <ProductStoreKeywordOvrd productStoreId="RentalStore" keyword="gizmo" fromDate="2001-05-13 12:00:00.0" target="100" targetTypeEnumId="KOTT_PRODCAT"/>
 
     <WebSite webSiteId="OpenTravelSystem" siteName="The Open source Travel System" productStoreId="RentalStore"/>
-    
+
     <!-- product catalog -->
     <ProdCatalog prodCatalogId="RentalCatalog" catalogName="Rental Catalog" useQuickAdd="N"/>
     <ProductStoreCatalog productStoreId="RentalStore" prodCatalogId="RentalCatalog" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
@@ -143,7 +143,7 @@ headerLogo="/images/opentravelsystem_logo.jpg"
     <ProductPrice productId="BoatRowSimple" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="EUR" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="550.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="BoatRowSimple" productPricePurposeId="PURCHASE" productPriceTypeId="COMPETITIVE_PRICE" currencyUomId="EUR" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="922.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="Cap" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="EUR" productStoreGroupId="_NA_" fromDate="2003-03-04 18:50:45.25" price="5.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    
+
     <!-- allocate products to categories -->
     <ProductCategoryMember productCategoryId="RentalPromo" productId="RoomLux" fromDate="2004-10-18 20:39:58.563"/>
     <ProductCategoryMember productCategoryId="RentalPromo" productId="RoomStd" fromDate="2004-10-18 20:40:12.749"/>

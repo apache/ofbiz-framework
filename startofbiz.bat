@@ -34,7 +34,7 @@ rem for /f "tokens=2* delims=:" %%a in (tmp.tmp)  do for %%b IN (%%a) do set IPA
 rem del tmp.tmp
 rem set RMIIF=-Djava.rmi.server.hostname=%IPADDR%
 rem # Not needed anymore, for history
-rem set MISC=-Duser.language=en 
+rem set MISC=-Duser.language=en
 rem set VMARGS=%MEMIF% %MISC% %DEBUG% %RMIIF%
 rem ####################################################################
 

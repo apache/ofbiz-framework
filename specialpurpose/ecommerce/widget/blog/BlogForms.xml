@@ -57,7 +57,7 @@
     </form>
 
     <form name="listFindBlogContent" type="list" target=""
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" 
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext"
         paginate-target="/CMSContentFind" view-size="20">
         <actions>
             <service service-name="performFind" result-map-list="listIt">
@@ -84,7 +84,7 @@
         </field>
     </form>
 
-    <form name="AddBlogResponse" target="createBlogResponse" title="" type="single" 
+    <form name="AddBlogResponse" target="createBlogResponse" title="" type="single"
         default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="ContentAssocDataResourceViewTo" default-field-type="hidden" map-name="rsp"/>
         <field name="contentName" entry-name="contentName" map-name="rsp">
@@ -144,7 +144,7 @@
         </sort-order>
     </form>
 
-    <form name="EditBlogResponse" target="updateBlogResponse" title="" type="single" 
+    <form name="EditBlogResponse" target="updateBlogResponse" title="" type="single"
         default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <auto-fields-entity entity-name="Content" default-field-type="hidden" map-name="content"/>
         <auto-fields-entity entity-name="DataResource" default-field-type="hidden" map-name="dataResource"/>
@@ -219,15 +219,15 @@
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <form name="editFormSubmit" target="" title="" type="single" skip-start="true" skip-end="true" 
+    <form name="editFormSubmit" target="" title="" type="single" skip-start="true" skip-end="true"
         default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
     </form>
 
-    <form name="editFormEnd" target="" title="" type="single" skip-start="true" 
-        default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">        
+    <form name="editFormEnd" target="" title="" type="single" skip-start="true"
+        default-title-style="treeHeader" default-tooltip-style="tabletext" default-widget-style="inputBox">
     </form>
 
 </forms>

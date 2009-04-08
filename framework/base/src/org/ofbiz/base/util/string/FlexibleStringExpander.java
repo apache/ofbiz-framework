@@ -232,7 +232,7 @@ public class FlexibleStringExpander implements Serializable {
                 // checks to see if this starts with a "bsh:", if so treat the rest of the string as a bsh scriptlet
                 strElems.add(new BshElem(original.substring(start + 6, end)));
             } else if (original.indexOf("groovy:", start + 2) == start + 2) {
-                // checks to see if this starts with a "groovy:", if so treat the rest of the string as a groovy scriptlet                
+                // checks to see if this starts with a "groovy:", if so treat the rest of the string as a groovy scriptlet
                 strElems.add(new GroovyElem(original.substring(start + 9, end)));
             } else {
                 int ptr = original.indexOf(openBracket, start + 2);

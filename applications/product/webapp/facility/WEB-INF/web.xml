@@ -23,7 +23,7 @@ under the License.
 <web-app>
     <display-name>Open For Business - Facility Manager</display-name>
     <description>Facility Manager Module of the Open For Business Project</description>
-    
+
     <context-param>
         <param-name>webSiteId</param-name>
         <param-value>FACILITY</param-value>
@@ -53,7 +53,7 @@ under the License.
         <param-name>serviceReaderUrls</param-name>
         <param-value>/WEB-INF/services.xml</param-value>
         <description>Configuration File(s) For The Service Dispatcher</description>
-    </context-param>   
+    </context-param>
 
     <filter>
         <filter-name>ContextFilter</filter-name>
@@ -74,18 +74,18 @@ under the License.
         <init-param>
             <param-name>redirectPath</param-name>
             <param-value>/control/main</param-value>
-        </init-param>        
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>ContextFilter</filter-name>
             <url-pattern>/*</url-pattern>
-    </filter-mapping> 
+    </filter-mapping>
 
     <listener><listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
     <listener><listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
     <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
     <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
-  
+
     <servlet>
         <servlet-name>ControlServlet</servlet-name>
         <display-name>ControlServlet</display-name>

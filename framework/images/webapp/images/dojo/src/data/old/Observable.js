@@ -25,7 +25,7 @@ dojo.data.old.Observable.prototype.addObserver = function(/* object */ observer)
 	/**
 	 * summary: Registers an object as an observer of this item,
 	 * so that the object will be notified when the item changes.
-	 */ 
+	 */
 	dojo.lang.assertType(observer, Object);
 	dojo.lang.assertType(observer.observedObjectHasChanged, Function);
 	if (!this._arrayOfObservers) {
@@ -40,7 +40,7 @@ dojo.data.old.Observable.prototype.removeObserver = function(/* object */ observ
 	/**
 	 * summary: Removes the observer registration for a previously
 	 * registered object.
-	 */ 
+	 */
 	if (!this._arrayOfObservers) {
 		return;
 	}
@@ -53,7 +53,7 @@ dojo.data.old.Observable.prototype.removeObserver = function(/* object */ observ
 dojo.data.old.Observable.prototype.getObservers = function() {
 	/**
 	 * summary: Returns an array with all the observers of this item.
-	 */ 
+	 */
 	return this._arrayOfObservers; // Array or undefined
 };
 

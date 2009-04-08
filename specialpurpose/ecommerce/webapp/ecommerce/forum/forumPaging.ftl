@@ -23,7 +23,7 @@ under the License.
 <#--<br/>== viewIndex: ${viewIndex} ==viewSize: ${viewSize} ==lowIndex: ${lowIndex}== highIndex: ${highIndex} == ListSize: ${listSize}-->
 <#if forumMessages?has_content && forumMessages?size gt 0>
     <#assign listSize = forumMessages?size/>
-    <#if highIndex gt listSize><#assign highIndex = listSize></#if> 
+    <#if highIndex gt listSize><#assign highIndex = listSize></#if>
     <div class="product-prevnext">
       <#assign r = listSize / viewSize />
       <#assign viewIndexMax = Static["java.lang.Math"].ceil(r)>

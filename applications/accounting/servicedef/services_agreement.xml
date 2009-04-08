@@ -17,12 +17,12 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Accounting Services: Agreements </description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
-    
+
     <!-- Agreement  -->
     <service name="createAgreement" default-entity-name="Agreement" engine="simple"
                 location="component://accounting/script/org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="createAgreement" auth="true">
@@ -201,9 +201,9 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="updateAgreementRole" default-entity-name="AgreementRole" engine="simple"
-            location="component://accounting/script/org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="updateAgreementRole" auth="true">            
-        <description>Update an Agreement Role</description>        
-        <auto-attributes mode="IN" include="pk" optional="false"/>        
+            location="component://accounting/script/org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="updateAgreementRole" auth="true">
+        <description>Update an Agreement Role</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     <service name="deleteAgreementRole" default-entity-name="AgreementRole" engine="simple"
@@ -211,7 +211,7 @@ under the License.
         <description>Delete an Agreement Role</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    
+
     <service name="getCommissionForProduct" engine="java"
                 location="org.ofbiz.accounting.agreement.AgreementServices" invoke="getCommissionForProduct" auth="true">
         <description>Get commission receiving parties and amounts for a product. &lt;br/&gt;
@@ -232,16 +232,16 @@ under the License.
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="commissions" type="List" mode="OUT" optional="false"/>
     </service>
-    
+
     <!--AgrementWorkEffortAppl-->
     <service name="createAgreementWorkEffortAppl" engine="simple" default-entity-name="AgreementWorkEffortAppl"
             location="component://accounting/script/org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="createAgreementWorkEffortAppl">
         <description> Create AgreementWorkEffortAppl </description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>       
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="deleteAgreementWorkEffortAppl" engine="simple" default-entity-name="AgreementWorkEffortAppl"
             location="component://accounting/script/org/ofbiz/accounting/agreement/AgreementServices.xml" invoke="deleteAgreementWorkEffortAppl">
-        <description>Delete AgreementWorkEffortAppl</description>        
+        <description>Delete AgreementWorkEffortAppl</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 

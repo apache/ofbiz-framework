@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="CommonPortletEdit" type="single" target="setPortalPortletAttributes" title="">
@@ -27,7 +27,7 @@ under the License.
                 <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
                 <field-map field-name="portalPortletId" from-field="parameters.portalPortletId"/>
                 <field-map field-name="portletSeqId" from-field="parameters.portletSeqId"/>
-            </service>       
+            </service>
         </actions>
         <field name="portalPageId"><hidden/></field>
         <field name="portalPortletId"><hidden/></field>

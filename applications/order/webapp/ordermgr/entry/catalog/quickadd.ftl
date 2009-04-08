@@ -39,7 +39,7 @@ under the License.
         </form>
       </td>
     </tr>
-    <#if productCategory.categoryImageUrl?exists || productCategory.longDescription?exists>  
+    <#if productCategory.categoryImageUrl?exists || productCategory.longDescription?exists>
       <tr><td colspan='2'><hr class='sepbar'></td></tr>
       <tr>
         <td valign="top" width="0" colspan='2'>
@@ -62,19 +62,19 @@ under the License.
     <input type='hidden' name='category_id' value='${categoryId}'>
     <div align="right">
       <a href="javascript:document.bulkaddform.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddAllToCart}</span></a>
-    </div>     
-    <table border='1' cellpadding='2' cellspacing='0'>      
+    </div>
+    <table border='1' cellpadding='2' cellspacing='0'>
       <#list productCategoryMembers as productCategoryMember>
         <#assign product = productCategoryMember.getRelatedOneCache("Product")>
         <tr>
-            ${setRequestAttribute("optProductId", productCategoryMember.productId)} 
+            ${setRequestAttribute("optProductId", productCategoryMember.productId)}
             ${screens.render(quickaddsummaryScreen)}
-        </tr>        
-      </#list> 
+        </tr>
+      </#list>
     </table>
     <div align="right">
       <a href="javascript:document.bulkaddform.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddAllToCart}</span></a>
-    </div>      
+    </div>
   </form>
   </center>
 <#else>

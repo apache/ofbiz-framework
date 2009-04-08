@@ -32,7 +32,7 @@ under the License.
     <AgreementType agreementTypeId="OTHER_AGREEMENT" description="Other" hasTable="N" parentTypeId=""/>
     <AgreementType agreementTypeId="COMMISSION_AGREEMENT" description="Commission" hasTable="N" parentTypeId=""/>
     <AgreementType agreementTypeId="EULA" description="End User License Agreement" hasTable="N" parentTypeId=""/>
-    
+
     <CommunicationEventPrpTyp communicationEventPrpTypId="ACTIVITY_REQUEST" description="Activity Request" hasTable="N" parentTypeId=""/>
     <CommunicationEventPrpTyp communicationEventPrpTypId="CONFERENCE" description="Conference" hasTable="N" parentTypeId=""/>
     <CommunicationEventPrpTyp communicationEventPrpTypId="CUSTOMER_SERVICE_CAL" description="Customer Service Call" hasTable="N" parentTypeId=""/>
@@ -41,7 +41,7 @@ under the License.
     <CommunicationEventPrpTyp communicationEventPrpTypId="SALES_FOLLOW_UP" description="Sales Follow Up" hasTable="N" parentTypeId=""/>
     <CommunicationEventPrpTyp communicationEventPrpTypId="SEMINAR" description="Seminar" hasTable="N" parentTypeId=""/>
     <CommunicationEventPrpTyp communicationEventPrpTypId="SUPPORT_CALL" description="Support Call" hasTable="N" parentTypeId=""/>
-    
+
     <CommunicationEventType communicationEventTypeId="EMAIL_COMMUNICATION" description="Email" hasTable="N" parentTypeId=""/>
     <CommunicationEventType communicationEventTypeId="FACE_TO_FACE_COMMUNI" description="Face-To-Face" hasTable="N" parentTypeId=""/>
     <CommunicationEventType communicationEventTypeId="FAX_COMMUNICATION" description="Fax" hasTable="N" parentTypeId=""/>
@@ -50,7 +50,7 @@ under the License.
     <CommunicationEventType communicationEventTypeId="WEB_SITE_COMMUNICATI" description="Web Site" hasTable="N" parentTypeId=""/>
     <CommunicationEventType communicationEventTypeId="COMMENT_NOTE" description="Comment/Note" hasTable="N" parentTypeId=""/>
     <CommunicationEventType communicationEventTypeId="AUTO_EMAIL_COMM" description="Auto Email" hasTable="N" parentTypeId=""/>
-    
+
     <ContactMechPurposeType contactMechPurposeTypeId="SHIPPING_LOCATION" description="Shipping Destination Address"/>
     <ContactMechPurposeType contactMechPurposeTypeId="SHIP_ORIG_LOCATION" description="Shipping Origin Address"/>
     <ContactMechPurposeType contactMechPurposeTypeId="BILLING_LOCATION" description="Billing (AP) Address"/>
@@ -121,7 +121,7 @@ under the License.
     <PartyContentType description="User Defined Content"  parentTypeId="" partyContentTypeId="USERDEF"/>
     <PartyContentType description="Logo Image URL"  parentTypeId="" partyContentTypeId="LGOIMGURL"/>
     <PartyContentType description="Vendor Shipping Info"  parentTypeId="" partyContentTypeId="VNDSHPINF"/>
-    
+
     <EnumerationType description="Employment Status" enumTypeId="EMPLOY_STTS" hasTable="N" parentTypeId=""/>
     <Enumeration description="Full-time Employed" enumCode="FULLTIME" enumId="EMPS_FULLTIME" sequenceId="01" enumTypeId="EMPLOY_STTS"/>
     <Enumeration description="Part-time Employed" enumCode="PARTTIME" enumId="EMPS_PARTTIME" sequenceId="02" enumTypeId="EMPLOY_STTS"/>
@@ -247,9 +247,9 @@ under the License.
     <PartyClassificationType description="Annual Revenue" hasTable="N" parentTypeId="" partyClassificationTypeId="ANNUAL_REVENUE"/>
     <PartyClassificationType description="Number of Employees" hasTable="N" parentTypeId="" partyClassificationTypeId="NUMBER_OF_EMPLOYEES"/>
     <PartyClassificationType description="Value Rating" hasTable="N" parentTypeId="" partyClassificationTypeId="VALUE_RATING"/>
-    <PartyClassificationType description="SIC Code" hasTable="N" parentTypeId="" partyClassificationTypeId="SIC_CODE"/>  
+    <PartyClassificationType description="SIC Code" hasTable="N" parentTypeId="" partyClassificationTypeId="SIC_CODE"/>
     <PartyClassificationType description="Ownership" hasTable="N" parentTypeId="" partyClassificationTypeId="OWNERSHIP"/>
-  
+
     <PartyQualType description="Work experience" hasTable="N" parentTypeId="" partyQualTypeId="EXPERIENCE"/>
     <PartyQualType description="Certification" hasTable="N" parentTypeId="" partyQualTypeId="CERTIFICATION"/>
     <PartyQualType description="Degree" hasTable="N" parentTypeId="" partyQualTypeId="DEGREE"/>
@@ -279,7 +279,7 @@ under the License.
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Owner" partyRelationshipTypeId="OWNER" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Parent Account" partyRelationshipTypeId="PARENT_ACCOUNT" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Reports To" partyRelationshipTypeId="REPORTS_TO" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
-  
+
     <PartyType description="Automated Agent" hasTable="N" parentTypeId="" partyTypeId="AUTOMATED_AGENT"/>
     <PartyType description="Person" hasTable="Y" parentTypeId="" partyTypeId="PERSON"/>
     <PartyType description="Party Group" hasTable="Y" parentTypeId="" partyTypeId="PARTY_GROUP"/>
@@ -319,7 +319,7 @@ under the License.
     <StatusValidChange condition="" statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
     <StatusValidChange condition="" statusId="COM_UNKNOWN_PARTY" statusIdTo="COM_ENTERED" transitionName="Corrected"/>
     <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_COMPLETE" transitionName="Complete"/>
-    
+
     <StatusValidChange condition="" statusId="COM_ENTERED" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="COM_PENDING" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="COM_READ" statusIdTo="COM_CANCELLED" transitionName="Cancel"/>
@@ -336,12 +336,12 @@ under the License.
     <StatusValidChange condition="" statusId="COM_ROLE_CREATED" statusIdTo="COM_ROLE_READ" transitionName="Read"/>
     <StatusValidChange condition="" statusId="COM_ROLE_CREATED" statusIdTo="COM_ROLE_COMPLETED" transitionName="Completed"/>
     <StatusValidChange condition="" statusId="COM_ROLE_READ" statusIdTo="COM_ROLE_COMPLETED" transitionName="Completed"/>
-    
+
     <StatusType description="Party Relationship" hasTable="N" parentTypeId="" statusTypeId="PARTY_REL_STATUS"/>
 
     <StatusType description="Party Invitation" hasTable="N" parentTypeId="" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Sent" sequenceId="01" statusCode="SENT" statusId="PARTYINV_SENT" statusTypeId="PARTY_INV_STATUS"/>
-    <StatusItem description="Invitation Pending" sequenceId="02" statusCode="PENDING" statusId="PARTYINV_PENDING" statusTypeId="PARTY_INV_STATUS"/>    
+    <StatusItem description="Invitation Pending" sequenceId="02" statusCode="PENDING" statusId="PARTYINV_PENDING" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Accepted" sequenceId="05" statusCode="ACCEPTED" statusId="PARTYINV_ACCEPTED" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Declined" sequenceId="06" statusCode="DECLINED" statusId="PARTYINV_DECLINED" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Cancelled" sequenceId="10" statusCode="CANCELLED" statusId="PARTYINV_CANCELLED" statusTypeId="PARTY_INV_STATUS"/>
@@ -395,17 +395,17 @@ under the License.
     <TermType description="Purchasing" parentTypeId="" hasTable="" termTypeId="PURCHASING"/>
     <TermType description="Vendor Customer ID" parentTypeId="PURCHASING" termTypeId="PURCH_VENDOR_ID"/>
     <TermType description="Preferred Freight" parentTypeId="PURCHASING" termTypeId="PURCH_FREIGHT"/>
-    
+
     <TermType description="Other" hasTable="N" parentTypeId="" termTypeId="OTHER_TERM"/>
-    
+
     <!-- User preferences data -->
     <UserPrefGroupType userPrefGroupTypeId="GLOBAL_PREFERENCES" description="Global preferences"/>
     <UserPreference userLoginId="_NA_" userPrefTypeId="ORGANIZATION_PARTY" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefValue="DEFAULT"/>
-    
+
     <EnumerationType description="Global preferences" enumTypeId="GLOBAL_PREFERENCES" hasTable="N" parentTypeId=""/>
     <Enumeration description="Organization party" enumCode="" enumId="ORGANIZATION_PARTY" sequenceId="01" enumTypeId="GLOBAL_PREFERENCES"/>
     <Enumeration description="Visual Theme" enumCode="" enumId="VISUAL_THEME" sequenceId="02" enumTypeId="GLOBAL_PREFERENCES"/>
-    
+
     <WebSite webSiteId="PARTY" siteName="Party Manager" visualThemeSetId="BACKOFFICE"/>
-    
+
 </entity-engine-xml>

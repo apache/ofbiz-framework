@@ -18,14 +18,14 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Product Component Maintenance Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
     <!-- Product Category Maintenance Services -->
-    <service name="copyCategoryProductMembers" engine="simple" transaction-timeout="600" 
+    <service name="copyCategoryProductMembers" engine="simple" transaction-timeout="600"
             location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" invoke="copyCategoryProductMembers" auth="true">
         <description>Copy Product Members from one Category to Another, optionally filtering by the given valid date (otherwise no date filtering done), and optionally recursing (if recurse=Y) down the from category</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
@@ -62,7 +62,7 @@ under the License.
             location="org.ofbiz.product.product.ProductUtilServices" invoke="removeDuplicateOpenEndedCategoryMembers" auth="true" transaction-timeout="36000000" require-new-transaction="true">
         <description>Remove Duplicate, excluding fromDate, Category Members that have no thruDate</description>
     </service>
-    
+
     <service name="makeStandAloneFromSingleVariantVirtuals" engine="java"
             location="org.ofbiz.product.product.ProductUtilServices" invoke="makeStandAloneFromSingleVariantVirtuals" auth="true" transaction-timeout="36000000" require-new-transaction="true">
         <description>Make Stand Alone From Single Variant Virtuals</description>
@@ -74,7 +74,7 @@ under the License.
         <attribute name="removeOld" type="Boolean" mode="IN" optional="false"/>
         <attribute name="test" type="Boolean" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="setAllProductImageNames" engine="java"
             location="org.ofbiz.product.product.ProductUtilServices" invoke="setAllProductImageNames" auth="true" transaction-timeout="36000000" require-new-transaction="true">
         <description>Set All Product Image Names; pattern example: /images/products/${size}/${productId}.jpg; defaults to values in the catalog.properties file (image.url.prefix + / + image.filename.format)</description>
@@ -84,7 +84,7 @@ under the License.
             location="org.ofbiz.product.product.ProductUtilServices" invoke="clearAllVirtualProductImageNames" auth="true" transaction-timeout="36000000" require-new-transaction="true">
         <description>Set All Product Image Names</description>
     </service>
-    
+
     <service name="attachProductFeaturesToCategory" engine="java"
             location="org.ofbiz.product.product.ProductUtilServices" invoke="attachProductFeaturesToCategory" auth="true" transaction-timeout="36000000" require-new-transaction="true">
         <description>Attach Product Features To Category Through Groups</description>
@@ -97,17 +97,17 @@ under the License.
       location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="checkImageUrlForAllCategories" transaction-timeout="36000000">
         <description>check For Image Urls exists or not for all categories</description>
         <attribute name="topCategory" type="String" mode="IN" optional="true"/>
-        <attribute name="excludeEmpty" type="Boolean" mode="IN" optional="true"/>                
+        <attribute name="excludeEmpty" type="Boolean" mode="IN" optional="true"/>
         <attribute name="categoriesMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="getAllCategories" engine="simple"
       location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="getAllCategories">
         <description>Get all categories of a category </description>
-        <attribute name="topCategory" type="String" mode="IN" optional="true"/>   
+        <attribute name="topCategory" type="String" mode="IN" optional="true"/>
         <attribute name="categories" type="java.util.List" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="getRelatedCategories" engine="simple"
       location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="getRelatedCategories">
         <description>Get all related categories of a category </description>
@@ -119,29 +119,29 @@ under the License.
       location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="checkImageUrlForCategoryAndProduct">
         <description>check For Image Urls exists or not for category</description>
         <attribute name="categoryId" type="String" mode="IN" optional="false"/>
-        <attribute name="fileNotExists" type="java.util.List" mode="OUT" optional="true"/>        
+        <attribute name="fileNotExists" type="java.util.List" mode="OUT" optional="true"/>
         <attribute name="fileExists" type="java.util.List" mode="OUT" optional="true"/>
     </service>
     <service name="checkImageUrlForCategory" engine="simple"
       location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="checkImageUrlForCategory">
         <description>check For Image Urls exists or not For Product</description>
-        <attribute name="categoryId" type="String" mode="IN" optional="false"/>        
-        <attribute name="filesImageMap" type="java.util.Map" mode="OUT" optional="true"/>        
+        <attribute name="categoryId" type="String" mode="IN" optional="false"/>
+        <attribute name="filesImageMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
     <service name="checkImageUrlForProduct" engine="simple"
       location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="checkImageUrlForProduct">
         <description>check For Image Urls exists or not For Product</description>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>        
-        <attribute name="filesImageMap" type="java.util.Map" mode="OUT" optional="true"/>        
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="filesImageMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="checkImageUrl" engine="simple"
       location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="checkImageUrl">
         <description>check For Image Urls exists or not</description>
         <attribute name="imageUrl" type="String" mode="IN" optional="false"/>
-        <attribute name="isExists" type="String" mode="OUT" optional="true"/>        
+        <attribute name="isExists" type="String" mode="OUT" optional="true"/>
     </service>
-    
+
     <!-- ============================== -->
     <!-- Promotion Maintenance Services -->
     <!-- ============================== -->

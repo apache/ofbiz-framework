@@ -38,7 +38,7 @@ function aroundSubmitOrder(invocation) {
     if(paymentMethodTypeOption == "none"){
         document.setPaymentInformation.action = "<@ofbizUrl>quickAnonAddGiftCardToCart</@ofbizUrl>";
     }
-    
+
     dojo.io.bind({ url: formToSubmit.action, load: function(type, evaldObj){
        if(type == "load"){
            if(paymentMethodTypeOption == "EXT_OFFLINE"){
@@ -56,7 +56,7 @@ function aroundSubmitOrder(invocation) {
                    return result;
                }
            }
-       }        
+       }
     },formNode: document.setPaymentInformation});
 }
 
@@ -66,8 +66,8 @@ function getGCInfo() {
         load: function(type, data, evt){
           if(type == "load"){
             document.getElementById("giftCardSection").innerHTML = data;
-          }        
-        },mimetype: "text/html"});    
+          }
+        },mimetype: "text/html"});
     } else {
         document.getElementById("giftCardSection").innerHTML = "";
     }
@@ -81,14 +81,14 @@ function getPaymentInformation() {
       if(paymentMethodTypeOption == "CREDIT_CARD"){
         dojo.io.bind({url: "<@ofbizUrl>quickAnonCcInfo</@ofbizUrl>",
           load: function(type, data, evt){
-            if(type == "load"){document.getElementById("paymentInfoSection").innerHTML = data;}        
+            if(type == "load"){document.getElementById("paymentInfoSection").innerHTML = data;}
           },mimetype: "text/html"});
         document.setPaymentInformation.paymentMethodTypeId.value = "CREDIT_CARD";
         document.setPaymentInformation.action = "<@ofbizUrl>quickAnonEnterCreditCard</@ofbizUrl>";
       } else if(paymentMethodTypeOption == "EFT_ACCOUNT"){
         dojo.io.bind({url: "<@ofbizUrl>quickAnonEftInfo</@ofbizUrl>",
           load: function(type, data, evt){
-            if(type == "load"){document.getElementById("paymentInfoSection").innerHTML = data;}        
+            if(type == "load"){document.getElementById("paymentInfoSection").innerHTML = data;}
           },mimetype: "text/html"});
          document.setPaymentInformation.paymentMethodTypeId.value = "EFT_ACCOUNT";
         document.setPaymentInformation.action = "<@ofbizUrl>quickAnonEnterEftAccount</@ofbizUrl>";
@@ -100,7 +100,7 @@ function getPaymentInformation() {
         document.setPaymentInformation.paymentMethodTypeId.value = "none";
         document.getElementById("paymentInfoSection").innerHTML = "";
       }
-   }    
+   }
 }
 </script>
 <form id="setPaymentInformation" type="POST" action="<@ofbizUrl>quickAnonAddGiftCardToCart</@ofbizUrl>" name="setPaymentInformation">
@@ -130,14 +130,14 @@ function getPaymentInformation() {
                        <option value="none">Select One</option>
                      <#if productStorePaymentMethodTypeIdMap.CREDIT_CARD?exists>
                        <option value="CREDIT_CARD" <#if (parameters.paymentMethodTypeId?default("") == "CREDIT_CARD")> selected</#if>>${uiLabelMap.AccountingVisaMastercardAmexDiscover}</option>
-                     </#if> 
+                     </#if>
                      <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT?exists>
                        <option value="EFT_ACCOUNT" <#if (parameters.paymentMethodTypeId?default("") == "EFT_ACCOUNT")> selected</#if>>${uiLabelMap.AccountingAHCElectronicCheck}</option>
                      </#if>
                      <#if productStorePaymentMethodTypeIdMap.EXT_OFFLINE?exists>
                        <option value="EXT_OFFLINE" <#if (parameters.paymentMethodTypeId?default("") == "EXT_OFFLINE")> selected</#if>>${uiLabelMap.OrderPaymentOfflineCheckMoney}</option>
                      </#if>
-                   </select>                 
+                   </select>
                  </td>
               </tr>
               <tr><td nowrap colspan="3"><div id="paymentInfoSection"></div></td></tr>

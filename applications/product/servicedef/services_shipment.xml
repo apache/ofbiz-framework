@@ -91,9 +91,9 @@ under the License.
     </service>
     <service name="quickShipPurchaseOrder" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="quickShipPurchaseOrder" auth="true">
-        <description>The mirror of quickShipEntireOrder, this service automatically creates shipments for an entire purchase order.  
+        <description>The mirror of quickShipEntireOrder, this service automatically creates shipments for an entire purchase order.
           All order items on each ship group is created as a Shipment.  All items on a Shipment are automatically issued to a Package.
-          The shipment's status is first set to CREATED and then set as SHIPPED.  The facilityId is used to set the destinationFacilityId 
+          The shipment's status is first set to CREATED and then set as SHIPPED.  The facilityId is used to set the destinationFacilityId
           of the Shipment.
         </description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
@@ -128,7 +128,7 @@ under the License.
         <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
         <override name="primaryReturnId" optional="false"/>
     </service>
-        
+
     <service name="createShipment" default-entity-name="Shipment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipment" auth="true">
         <description>Create Shipment</description>
@@ -181,7 +181,7 @@ under the License.
     <service name="balanceItemIssuancesForShipment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="balanceItemIssuancesForShipment" auth="true">
         <description>
-            Release the purchase order's items assigned to the shipment but not 
+            Release the purchase order's items assigned to the shipment but not
             actually received; it is invoked as a seca when the purchase shipment
             is marked as 'received'
         </description>
@@ -194,12 +194,12 @@ under the License.
     </service>
     <service name="quickDropShipOrder" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="quickDropShipOrder" auth="true">
-        <description>Creates a drop shipment for a ship group and calls updateShipment twice in succession to set 
+        <description>Creates a drop shipment for a ship group and calls updateShipment twice in succession to set
             shipment status to PURCH_SHIP_SHIPPED and then to PURCH_SHIP_RECEIVED</description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
-    </service> 
+    </service>
 
     <!-- ShipmentItem Services -->
     <service name="createShipmentItem" default-entity-name="ShipmentItem" engine="simple"
@@ -220,11 +220,11 @@ under the License.
         <description>Delete ShipmentItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="splitShipmentItemByQuantity" engine="simple"
         location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="splitShipmentItemByQuantity">
         <description>Splits the specified ShipmentItem creating a new ShipmentItem with the given newItemQuantity.
-            NOTE that this does manage OrderShipment records, but NOTHING else, so it is only to be used for Shipment 
+            NOTE that this does manage OrderShipment records, but NOTHING else, so it is only to be used for Shipment
             Plan stuff BEFORE the items are issued, shipment packed, etc.</description>
         <auto-attributes entity-name="ShipmentItem" include="pk" mode="IN" optional="false"/>
         <attribute name="newItemQuantity" type="BigDecimal" mode="IN" optional="false"/>
@@ -344,7 +344,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="newShipmentRouteSegmentId" type="String" mode="OUT" optional="false"/>
-    </service> 
+    </service>
     <service name="quickScheduleShipmentRouteSegment" default-entity-name="ShipmentRouteSegment" engine="java"
             location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="quickScheduleShipmentRouteSegment" auth="true">
         <description>Schedules a shipment route segment with the carrier and service level in the ShipmentRouteSegment entity.
@@ -426,7 +426,7 @@ under the License.
         <description>Cancel an ItemIssuance from Sales Shipment</description>
         <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
         <attribute name="cancelQuantity" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="canceledQuantity" type="BigDecimal" mode="OUT" optional="false"/>        
+        <attribute name="canceledQuantity" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
     <service name="issueInventoryItemToShipment" engine="simple"
@@ -612,8 +612,8 @@ under the License.
         <description>
           Whenever a ShipmentReceipt is generated, check the Shipment associated
           with it to see if all items were received. If so, change its status to
-          PURCH_SHIP_RECEIVED. The check is accomplished by counting the 
-          products shipped (from ShipmentAndItem) and matching them with the 
+          PURCH_SHIP_RECEIVED. The check is accomplished by counting the
+          products shipped (from ShipmentAndItem) and matching them with the
           products received (from ShipmentReceipt).
         </description>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
@@ -631,8 +631,8 @@ under the License.
         <attribute name="inventoryItemDetailSeqId" type="String" mode="IN" optional="true"/>
         <attribute name="priorityOrderId" type="String" mode="IN" optional="true"/>
         <attribute name="priorityOrderItemSeqId" type="String" mode="IN" optional="true"/>
-        <attribute name="currentInventoryItemId" type="String" mode="IN" optional="true"><!-- allow this to be passed in to update an existing InventoryItem, and all else is the same; if not passed in a new one will be created --></attribute>        
-        <attribute name="inventoryItemId" type="String" mode="OUT" optional="true"></attribute>        
+        <attribute name="currentInventoryItemId" type="String" mode="IN" optional="true"><!-- allow this to be passed in to update an existing InventoryItem, and all else is the same; if not passed in a new one will be created --></attribute>
+        <attribute name="inventoryItemId" type="String" mode="OUT" optional="true"></attribute>
         <override name="quantityAccepted" optional="false"/>
         <override name="quantityRejected" optional="false"/>
         <override name="inventoryItemTypeId" optional="false"/>
@@ -762,14 +762,14 @@ under the License.
     <service name="getShipmentPackageValueFromOrders" engine="java"
             location="org.ofbiz.shipment.shipment.ShipmentServices" invoke="getShipmentPackageValueFromOrders" auth="true" use-transaction="false">
         <description>Calculates the total value of a shipment package by totalling the results of the getOrderItemInvoicedAmountAndQuantity
-            service for the orderItem related to each ShipmentPackageContent, prorated by the quantity of the orderItem issued to the 
+            service for the orderItem related to each ShipmentPackageContent, prorated by the quantity of the orderItem issued to the
             ShipmentPackageContent. Value is converted according to the incoming currencyUomId.</description>
         <attribute name="shipmentId" type="String" mode="IN" optional="false"/>
         <attribute name="shipmentPackageSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="false"/>
         <attribute name="packageValue" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="issueSerializedInvToShipmentPackageAndSetTracking" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="issueSerializedInvToShipmentPackageAndSetTracking" auth="true">
         <description></description>
@@ -778,7 +778,7 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>        
+        <attribute name="shipGroupSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="reservedDatetime" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="requireInventory" type="String" mode="IN" optional="true"/>
@@ -790,7 +790,7 @@ under the License.
         <attribute name="quantityNotReserved" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="promisedDatetime" type="Timestamp" mode="IN" optional="false"/>
         <attribute name="shipmentPackageSeqId" type="String" mode="IN" optional="true"/>
-    </service>    
+    </service>
     <service name="setShipmentStatusPackedAndShipped" engine="simple"
         location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="setShipmentStatusPackedAndShipped" auth="true">
         <description>Move a shipment into Packed status and then to Shipped status</description>
@@ -804,5 +804,5 @@ under the License.
         <attribute name="screenUri" type="String" mode="IN" optional="true"/>
         <attribute name="comments" type="String" mode="IN" optional="true"/>
         <attribute name="body" type="String" mode="OUT" optional="true"/>
-    </service>        
+    </service>
 </services>

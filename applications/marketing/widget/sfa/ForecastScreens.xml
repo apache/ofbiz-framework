@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="CommonSalesForecastDecorator">
@@ -38,14 +38,14 @@ under the License.
                                     </widgets>
                                 </section>
                             </widgets>
-                        </section>                    
+                        </section>
                         <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="FindSalesForecast">
         <section>
             <actions>
@@ -81,7 +81,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditSalesForecast">
         <section>
             <actions>
@@ -105,9 +105,9 @@ under the License.
                                         <widgets>
                                             <container style="button-bar">
                                                 <link target="EditSalesForecast" text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.SfaSalesForecast}" style="buttontext"/>
-                                            </container>                                
+                                            </container>
                                     </widgets>
-                                </section>    
+                                </section>
                                 <include-form name="EditSalesForecast" location="component://marketing/widget/sfa/forms/ForecastForms.xml"/>
                             </container>
                         </container>
@@ -116,7 +116,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditSalesForecastDetail">
         <section>
             <actions>
@@ -150,6 +150,6 @@ under the License.
                     </decorator-section>
                 </decorator-screen>
             </widgets>
-        </section>  
+        </section>
     </screen>
 </screens>

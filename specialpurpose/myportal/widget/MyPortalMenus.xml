@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">      
-    <menu name="MyPortalAppBar" title="${uiLabelMap.PageTitleMyPortal} ${partyNameView.personalTitle} ${partyNameView.firstName} ${partyNameView.middleName} ${partyNameView.lastName} ${partyNameView.groupName}" 
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
+    <menu name="MyPortalAppBar" title="${uiLabelMap.PageTitleMyPortal} ${partyNameView.personalTitle} ${partyNameView.firstName} ${partyNameView.middleName} ${partyNameView.lastName} ${partyNameView.groupName}"
         extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="main" parent-portal-page-value="${parameters.parentPortalPageId}"/>
         <menu-item name="Preferences" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
@@ -33,7 +33,7 @@ under the License.
     <menu name="MyTasksMenu" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="myTasks" title="${uiLabelMap.MyPortalMyTasks}"><link target="/projectmgr/control/MyTasks" url-mode="inter-app"/></menu-item>
     </menu>
-    
+
     <menu name="MyTimesheetMenu">
         <menu-item name="setToComplete" title="${uiLabelMap.MyPortalToComplete}">
             <condition>

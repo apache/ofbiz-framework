@@ -37,7 +37,7 @@ under the License.
                 </#if>
                 <form method="post" action="<@ofbizUrl>createBulkProductPromoCodeEmail?productPromoCodeId=${productPromoCodeId?if_exists}</@ofbizUrl>" enctype="multipart/form-data" style="margin: 0;">
                     <input type="hidden" name="productPromoCodeId" value="${productPromoCodeId?if_exists}"/>
-                    <input type="hidden" name="productPromoId" value="${productPromoId}"/>            
+                    <input type="hidden" name="productPromoId" value="${productPromoId}"/>
                     <input type="file" size="40" name="uploadedFile">
                     <input type="submit" value="${uiLabelMap.CommonUpload}">
                 </form>

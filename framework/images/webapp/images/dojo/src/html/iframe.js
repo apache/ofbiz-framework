@@ -27,7 +27,7 @@ dojo.html.iframeContentDocument = function(/* HTMLIFrameElement */iframe_el){
 	//	returns a reference to the document object inside iframe_el
 	var doc = iframe_el.contentDocument // W3
 		|| ((iframe_el.contentWindow)&&(iframe_el.contentWindow.document))	// IE
-		|| ((iframe_el.name)&&(document.frames[iframe_el.name])&&(document.frames[iframe_el.name].document)) 
+		|| ((iframe_el.name)&&(document.frames[iframe_el.name])&&(document.frames[iframe_el.name].document))
 		|| null;
 	return doc;	//	HTMLDocument
 }
@@ -76,7 +76,7 @@ dojo.lang.extend(dojo.html.BackgroundIframe, {
 	size: function(/* HTMLElement */node) {
 		// summary:
 		//		Call this function if the iframe is connected to dojo.body()
-		//		rather than the node being shadowed 
+		//		rather than the node being shadowed
 
 		//	(TODO: erase)
 		if(!this.iframe){ return; }
@@ -103,7 +103,7 @@ dojo.lang.extend(dojo.html.BackgroundIframe, {
 	show: function(){
 		//	summary:
 		//		show the iframe
-		if(this.iframe){ 
+		if(this.iframe){
 			this.iframe.style.display = "block";
 		}
 	},
@@ -111,7 +111,7 @@ dojo.lang.extend(dojo.html.BackgroundIframe, {
 	hide: function(){
 		//	summary:
 		//		hide the iframe
-		if(this.iframe){ 
+		if(this.iframe){
 			this.iframe.style.display = "none";
 		}
 	},

@@ -27,7 +27,7 @@ under the License.
     <div class="screenlet-body">
       <table border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td>           
+          <td>
             <form method="post" name="addBulkToShoppingList" action="<@ofbizUrl>addBulkToShoppingList</@ofbizUrl>" style='margin: 0;'>
               <#assign index = 0/>
               <#list shoppingCart.items() as cartLine>

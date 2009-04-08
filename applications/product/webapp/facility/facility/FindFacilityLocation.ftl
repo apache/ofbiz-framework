@@ -16,13 +16,13 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-    
+
     <h1>${title}</h1>
     <div class="button-bar">
       <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
       <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacilityLocation}</a>
     </div>
-        
+
     <form action="<@ofbizUrl>FindFacilityLocation</@ofbizUrl>" method="GET" name="findFacilityLocation">
         <table class="basic-table" cellspacing="0">
         <#if !(facilityId?exists)>
@@ -62,14 +62,14 @@ under the License.
         <tr>
             <td class="label">${uiLabelMap.ProductPosition}</td>
             <td><input type="text" name="positionId" value="" size="19" maxlength="20"></td>
-        </tr>             
+        </tr>
         <tr>
             <td>&nbsp;</td>
             <td><input type="submit" name="look_up" value="${uiLabelMap.CommonFind}"></td>
         </tr>
         </table>
     </form>
-    
+
     <#if foundLocations?exists>
         <#-- TODO: Put this in a screenlet - make it look more like the party find screen -->
         <br/>
@@ -98,14 +98,14 @@ under the License.
             <td>${(location.aisleId)?if_exists}</td>
             <td>${(location.sectionId)?if_exists}</td>
             <td>${(location.levelId)?if_exists}</td>
-            <td>${(location.positionId)?if_exists}</td>       
+            <td>${(location.positionId)?if_exists}</td>
             <td class="button-col">
               <a href="<@ofbizUrl>EditInventoryItem?facilityId=${(location.facilityId)?if_exists}&locationSeqId=${(location.locationSeqId)?if_exists}</@ofbizUrl>">${uiLabelMap.ProductNewInventoryItem}</a>
               <#if itemId?exists>
                 <a href="<@ofbizUrl>UpdateInventoryItem?inventoryItemId=${itemId}&facilityId=${facilityId}&locationSeqId=${(location.locationSeqId)?if_exists}</@ofbizUrl>">${uiLabelMap.ProductSetItem} ${itemId}</a>
-              </#if>   
+              </#if>
               <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${(location.facilityId)?if_exists}&locationSeqId=${(location.locationSeqId)?if_exists}</@ofbizUrl>">${uiLabelMap.CommonEdit}</a>
-            </td>     
+            </td>
         </tr>
         <#-- toggle the row color -->
         <#if rowClass == "2">

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -101,9 +101,9 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     createTestList = [];
     calls = 1000;
     startTime = System.currentTimeMillis();
-    for (int i = 0; i < calls; i++) { 
+    for (int i = 0; i < calls; i++) {
         dummy = delegator.makeValue("JobSandbox", [poolId : "pool", jobName : "Initial Name" + i, serviceName : "foo", statusId : "SERVICE_FINISHED", jobId : "_~WRITE_TEST~_" + i]);
-        createTestList.add(dummy); 
+        createTestList.add(dummy);
         delegator.create(dummy);
     }
     totalTime = System.currentTimeMillis() - startTime;
@@ -119,9 +119,9 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     performanceList.add(perfRow);
 
     calls = 1000;
-    startTime = System.currentTimeMillis();    
-    for (int i = 0; i < calls; i++) { 
-        dummy = createTestList.get(i); 
+    startTime = System.currentTimeMillis();
+    for (int i = 0; i < calls; i++) {
+        dummy = createTestList.get(i);
         dummy.jobName = "This was a test from the performance groovy script";
         dummy.store();
     }
@@ -139,8 +139,8 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
 
     calls = 1000;
     startTime = System.currentTimeMillis();
-    for (int i = 0; i < calls; i++) { 
-        dummy = createTestList.get(i); 
+    for (int i = 0; i < calls; i++) {
+        dummy = createTestList.get(i);
         dummy.remove();
     }
     totalTime = System.currentTimeMillis() - startTime;

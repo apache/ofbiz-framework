@@ -60,7 +60,7 @@ under the License.
     <target name="docs" depends="prepare-docs">
         <javadoc packagenames="org.ofbiz.googlebase.*"
                  classpathref="local.class.path"
-                 destdir="${build.dir}/javadocs" 
+                 destdir="${build.dir}/javadocs"
                  windowtitle="Open for Business - ${desc}">
             <sourcepath path="${src.dir}"/>
         </javadoc>

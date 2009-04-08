@@ -47,7 +47,7 @@ dojo.declare(
 
 		//	set up the series.
 		var columns=thead.getElementsByTagName("tr")[0].getElementsByTagName("th");	//	should be <tr><..>
-		
+
 		//	assume column 0 == X
 		for (var i=1; i<columns.length; i++){
 			var key="column"+i;
@@ -223,7 +223,7 @@ dojo.declare(
 			if (!isNaN(n)){
 				var b=false;
 				for(var j=0; j<a.length&&!b; j++){
-					if (n==a[j]) b=true; 
+					if (n==a[j]) b=true;
 				}
 				if(!b){ a.push(n); }
 			}

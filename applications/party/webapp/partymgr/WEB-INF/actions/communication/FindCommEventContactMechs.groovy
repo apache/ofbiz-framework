@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -16,14 +16,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- 
+
 
 /**
  * This script finds and places in the context of the form current (un-expired) contact mechs for the logged in user and the
  * party for whom the communication event is intended.  It currently just does searches for email but should be
- * expanded to work off other communication event types.  
+ * expanded to work off other communication event types.
  */
- 
+
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.util.EntityUtil;
 
@@ -32,12 +32,12 @@ partyIdTo = context.partyIdTo;
 
 if (parameters.communicationEventTypeId) {
    if ("EMAIL_COMMUNICATION".equals(parameters.communicationEventTypeId)) {
-      userEmailAddresses = delegator.findByAnd("PartyContactWithPurpose", [contactMechTypeId : "EMAIL_ADDRESS" , partyId : partyIdFrom]); 
+      userEmailAddresses = delegator.findByAnd("PartyContactWithPurpose", [contactMechTypeId : "EMAIL_ADDRESS" , partyId : partyIdFrom]);
       userEmailAddresses = EntityUtil.filterByDate(userEmailAddresses, UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate", true);
-      context.userEmailAddresses = userEmailAddresses;    
-      
+      context.userEmailAddresses = userEmailAddresses;
+
       targetEmailAddresses = delegator.findByAnd("PartyContactWithPurpose", [contactMechTypeId : "EMAIL_ADDRESS", partyId : partyIdTo]);
       targetEmailAddresses = EntityUtil.filterByDate(targetEmailAddresses, UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate", true);
-      context.targetEmailAddresses = targetEmailAddresses;    
+      context.targetEmailAddresses = targetEmailAddresses;
    }
 }

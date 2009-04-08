@@ -21,7 +21,7 @@ under the License.
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
 <#-- It is important to set defaults for facilityLocation and facilityLocationInfo in case the picklisted item has no location defined in facility.
-  Because these defaults are scalars, we must then use the ?is_hash check directive as well before trying to access them --> 
+  Because these defaults are scalars, we must then use the ?is_hash check directive as well before trying to access them -->
 <#macro pickInfoDetail pickQuantity picklistBinInfoList product facilityLocation="" facilityLocationInfo="">
     <fo:table-row>
         <fo:table-cell padding="2pt" background-color="${rowColor}">

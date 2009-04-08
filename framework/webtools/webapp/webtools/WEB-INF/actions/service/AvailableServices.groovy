@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -29,7 +29,7 @@ import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 
-List getEcaListForService(String selectedService){
+List getEcaListForService(String selectedService) {
     ecaMap = org.ofbiz.service.eca.ServiceEcaUtil.getServiceEventMap(selectedService);
 
     if (!ecaMap) return null;
@@ -73,7 +73,7 @@ List getEcaListForService(String selectedService){
             runOnFailure.setAccessible(false);
 
             //extract actions
-            actions = curRuleClass.getDeclaredField("actionsAndSets");            
+            actions = curRuleClass.getDeclaredField("actionsAndSets");
             actions.setAccessible(true);
             actionsVal = actions.get(curRule);
             if (actionsVal) {
@@ -239,7 +239,7 @@ List getEcaListForService(String selectedService){
                     lhsValueName = condValClass.getDeclaredField("lhsValueName");
                     lhsValueName.setAccessible(true);
                     lhsValueNameVal = lhsValueName.get(condVal);
-                    if (lhsValueNameVal){
+                    if (lhsValueNameVal) {
                         condMap.lhsValueName = lhsValueNameVal as String;
                     }
                     lhsValueName.setAccessible(false);
@@ -257,7 +257,7 @@ List getEcaListForService(String selectedService){
                     rhsMapName = condValClass.getDeclaredField("rhsMapName");
                     rhsMapName.setAccessible(true);
                     rhsMapNameVal = rhsMapName.get(condVal);
-                    if (rhsMapNameVal){
+                    if (rhsMapNameVal) {
                         condMap.rhsMapName = rhsMapNameVal as String;
                     }
                     rhsMapName.setAccessible(false);
@@ -266,7 +266,7 @@ List getEcaListForService(String selectedService){
                     rhsValueName = condValClass.getDeclaredField("rhsValueName");
                     rhsValueName.setAccessible(true);
                     rhsValueNameVal = rhsValueName.get(condVal);
-                    if (rhsValueNameVal){
+                    if (rhsValueNameVal) {
                         condMap.rhsValueName = rhsValueNameVal as String;
                     }
                     rhsValueName.setAccessible(false);
@@ -336,7 +336,7 @@ if (selectedService) {
         curServiceMap.requireNewTransaction = requireNewTransaction;
         curServiceMap.export = export;
 
-        if(permissionGroups && !permissionGroups.equals("NA")){
+        if (permissionGroups && !permissionGroups.equals("NA")) {
             permList = new ArrayList(permissionGroups.size());
             permissionGroups.each { curPerm ->  //This is a ModelPermGroup
                 curPerm.permissions.each { curPermObj ->
@@ -426,8 +426,8 @@ if (selectedService) {
     }
 
     showWsdl = parameters.show_wsdl;
-    
-    if(showWsdl?.equals("true")) {
+
+    if (showWsdl?.equals("true")) {
         try {
             wsdl = curServiceModel.toWSDL("http://${request.getServerName()}:${UtilProperties.getPropertyValue("url.properties", "port.http", "80")}${parameters._CONTROL_PATH_}/SOAPService");
             curServiceMap.wsdl = UtilXml.writeXmlDocument(wsdl);
@@ -451,7 +451,7 @@ if (!selectedService) {
     servicesFoundCount = 0;
     serviceNames.each { serviceName ->
         //add first char of service name to list
-        if(serviceName){
+        if (serviceName) {
             serviceCharAt1 = serviceName[0];
             if (!serviceNamesAlphaList.contains(serviceCharAt1)) {
                 serviceNamesAlphaList.add(serviceCharAt1);
@@ -478,7 +478,7 @@ if (!selectedService) {
 
             if (canIncludeService && constraintName.equals("default_entity_name")) {
                 canIncludeService = curServiceModel.defaultEntityName.equals(constraintVal);
-                if(constraintVal.equals("NA")){
+                if (constraintVal.equals("NA")) {
                     canIncludeService = curServiceModel.defaultEntityName ? false : true;
                 }
             }
@@ -513,7 +513,7 @@ if (!selectedService) {
 
             servicesList.add(curServiceMap);
             servicesFoundCount++;
-        }        
+        }
     }
 
     context.servicesList = servicesList;

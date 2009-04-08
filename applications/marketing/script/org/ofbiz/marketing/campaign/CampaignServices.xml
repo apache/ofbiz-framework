@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- MarketingCampaign methods -->
     <simple-method method-name="createMarketingCampaign" short-description="Create an MarketingCampaign">
@@ -28,11 +28,11 @@ under the License.
         <make-value entity-name="MarketingCampaign" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <!-- MarketingCampaign uses a sequenced id, so get the next one now and set it... -->        
+        <!-- MarketingCampaign uses a sequenced id, so get the next one now and set it... -->
         <sequenced-id sequence-name="MarketingCampaign" field="newEntity.marketingCampaignId"/>
-        
+
         <create-value value-field="newEntity"/>
-        
+
         <field-to-result field="newEntity.marketingCampaignId" result-name="marketingCampaignId"/>
     </simple-method>
     <simple-method method-name="updateMarketingCampaign" short-description="Update an MarketingCampaign">
@@ -43,7 +43,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="MarketingCampaign" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        
+
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteMarketingCampaign" short-description="Delete an MarketingCampaign">
@@ -55,7 +55,7 @@ under the License.
         <find-by-primary-key entity-name="MarketingCampaign" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- MarketingCampaignPrice methods -->
     <simple-method method-name="addPriceRuleToMarketingCampaign" short-description="Add PriceRule To MarketingCampaign">
         <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run addPriceRuleToMarketingCampaign you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
@@ -76,7 +76,7 @@ under the License.
         <find-by-primary-key entity-name="MarketingCampaignPrice" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- MarketingCampaignPromo methods -->
     <simple-method method-name="addPromoToMarketingCampaign" short-description="Add Promo To MarketingCampaign">
         <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run addPromoToMarketingCampaign you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
@@ -97,7 +97,7 @@ under the License.
         <find-by-primary-key entity-name="MarketingCampaignPromo" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- MarketingCampaignRole methods -->
     <simple-method method-name="addRoleToMarketingCampaign" short-description="Add Role To MarketingCampaign">
         <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run addRoleToMarketingCampaign you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
@@ -131,16 +131,16 @@ under the License.
         </if>
 
         <entity-one entity-name="MarketingCampaign" value-field="marketingCampaign"/>
-        
+
         <!-- okay, now check for all errors -->
         <check-errors/>
-        
-        
+
+
         <make-value entity-name="MarketingCampaignRole" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        
+
     </simple-method>
     <simple-method method-name="updateMarketingCampaignRole" short-description="Update Add Role To MarketingCampaign">
         <!-- allow if userLogin.partyId = parameters.partyId or has permission -->
@@ -156,7 +156,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="MarketingCampaign" value-field="marketingCampaign"/>
-        
+
         <entity-one entity-name="MarketingCampaignRole" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>

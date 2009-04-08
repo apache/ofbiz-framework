@@ -17,13 +17,13 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
 <screen name="ContentOnly">
   <section>
     <widgets>
-      <sub-content content-id="${contentId}" map-key="MAIN" 
+      <sub-content content-id="${contentId}" map-key="MAIN"
         enable-edit-name="enableEdit"
        edit-request="EditAddSubContent?MASTER_contentId=${MASTER_contentId}&amp;MASTER_caContentIdTo=${MASTER_caContentIdTo}&amp;MASTER_caContentAssocTypeId=${MASTER_caContentAssocTypeId}&amp;MASTER_caFromDate=${MASTER_caFromDate}&amp;MASTER_drDataResourceId=${MASTER_drDataResourceId}&amp;caContentIdTo=${caContentIdTo}"/>
     </widgets>
@@ -34,11 +34,11 @@ under the License.
   <section>
     <widgets>
       <container style="floatleft">
-            <sub-content content-id="${contentId}" map-key="AUX" 
+            <sub-content content-id="${contentId}" map-key="AUX"
         enable-edit-name="enableEdit"
        edit-request="EditAddSubContent?MASTER_contentId=${MASTER_contentId}&amp;MASTER_caContentIdTo=${MASTER_caContentIdTo}&amp;MASTER_caContentAssocTypeId=${MASTER_caContentAssocTypeId}&amp;MASTER_caFromDate=${MASTER_caFromDate}&amp;MASTER_drDataResourceId=${MASTER_drDataResourceId}&amp;caContentIdTo=${caContentIdTo}"/>
       </container>
-      <sub-content content-id="${contentId}" map-key="MAIN" 
+      <sub-content content-id="${contentId}" map-key="MAIN"
         enable-edit-name="enableEdit"
        edit-request="EditAddSubContent?MASTER_contentId=${MASTER_contentId}&amp;MASTER_caContentIdTo=${MASTER_caContentIdTo}&amp;MASTER_caContentAssocTypeId=${MASTER_caContentAssocTypeId}&amp;MASTER_caFromDate=${MASTER_caFromDate}&amp;MASTER_drDataResourceId=${MASTER_drDataResourceId}&amp;caContentIdTo=${caContentIdTo}"/>
     </widgets>
@@ -49,11 +49,11 @@ under the License.
   <section>
     <widgets>
       <container style="topcentered">
-        <sub-content content-id="${contentId}" map-key="AUX" 
+        <sub-content content-id="${contentId}" map-key="AUX"
         enable-edit-name="enableEdit"
        edit-request="EditAddSubContent?MASTER_contentId=${MASTER_contentId}&amp;MASTER_caContentIdTo=${MASTER_caContentIdTo}&amp;MASTER_caContentAssocTypeId=${MASTER_caContentAssocTypeId}&amp;MASTER_caFromDate=${MASTER_caFromDate}&amp;MASTER_drDataResourceId=${MASTER_drDataResourceId}&amp;caContentIdTo=${caContentIdTo}"/>
       </container>
-      <sub-content content-id="${contentId}" map-key="MAIN" 
+      <sub-content content-id="${contentId}" map-key="MAIN"
         enable-edit-name="enableEdit"
        edit-request="EditAddSubContent?MASTER_contentId=${MASTER_contentId}&amp;MASTER_caContentIdTo=${MASTER_caContentIdTo}&amp;MASTER_caContentAssocTypeId=${MASTER_caContentAssocTypeId}&amp;MASTER_caFromDate=${MASTER_caFromDate}&amp;MASTER_drDataResourceId=${MASTER_drDataResourceId}&amp;caContentIdTo=${caContentIdTo}"/>
     </widgets>

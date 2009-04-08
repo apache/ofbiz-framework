@@ -653,7 +653,7 @@ public class ModelServiceReader implements Serializable {
             if (param == null) {
                 if (!service.inheritedParameters && (service.implServices.size() > 0 || "group".equals(service.engineName))) {
                     // create a temp def to place in the ModelService
-                    // this will get read when we read implemented services 
+                    // this will get read when we read implemented services
                     directToParams = false;
                     param = new ModelParam();
                     param.name = name;

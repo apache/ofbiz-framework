@@ -24,7 +24,7 @@ under the License.
     <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_DELETE"/>
     <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_UPDATE"/>
     <SecurityGroupPermission groupId="COMPDOCADMIN" permissionId="CONTENTMGR_ADMIN"/>
-    
+
     <RoleType roleTypeId="APPROVER" description="Approver"/>
     <RoleType roleTypeId="REVIEWER" description="Reviewer"/>
     <Party partyId="approver" partyTypeId="PERSON"/>
@@ -33,9 +33,9 @@ under the License.
     <PartyRole partyId="approver" roleTypeId="REVIEWER"/>
     <PartyRole partyId="admin" roleTypeId="APPROVER"/>
     <UserLogin userLoginId="approver" partyId="approver"/>
-    <UserLoginSecurityGroup groupId="COMPDOCADMIN" userLoginId="approver" fromDate="2006-01-01 12:00:00.0"/>    
-    
-    
+    <UserLoginSecurityGroup groupId="COMPDOCADMIN" userLoginId="approver" fromDate="2006-01-01 12:00:00.0"/>
+
+
     <DataResource dataResourceId="DR1103b" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/pdftest2.pdf" mimeTypeId="application/pdf" dataResourceName="Personal Profile"/>
     <DataResource dataResourceId="DR1105b" dataResourceTypeId="OFBIZ_FILE_BIN" objectInfo="/applications/content/data/mswordtest2.doc" mimeTypeId="application/msword" dataResourceName="2nd Quarter Review"/>
 
@@ -61,8 +61,8 @@ under the License.
 
         <!-- A CDT (Composite Document Template) that can be used independently, or as part of CD0001 defined below -->
     <Content contentId="CDT1201" contentTypeId="COMPDOC_TEMPLATE" contentName="Demo Template Root (CDT) 1201"  ownerContentId=""/>
-    
-    
+
+
     <Content contentId="CDT1101" dataResourceId="DR1101" contentTypeId="TEMPLATE" contentName="Letter of inquiry"/>
     <Content contentId="CDT1102" dataResourceId="DR1102" contentTypeId="TEMPLATE" contentName="POA Contract"/>
     <Content contentId="CDT1103" dataResourceId="DR1103" contentTypeId="TEMPLATE" contentName="Personal Profile"/>
@@ -130,7 +130,7 @@ under the License.
     <ContentRevision contentId="CDT1201" contentRevisionSeqId="000013"/>
     <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000013" itemContentId="CDT1103" oldDataResourceId="DR1103a" newDataResourceId="DR1103b"/>
     <ContentRevisionItem contentId="CDT1201" contentRevisionSeqId="000013" itemContentId="CDT1105" oldDataResourceId="DR1105a" newDataResourceId="DR1105b"/>
-    
+
     <ContentRevision contentId="CDI1201" contentRevisionSeqId="000005"/>
     <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000005" itemContentId="CDI1103" newDataResourceId="DR1103a"/>
     <ContentRevision contentId="CDI1201" contentRevisionSeqId="000006"/>
@@ -146,7 +146,7 @@ under the License.
     <ContentRevision contentId="CDI1201" contentRevisionSeqId="000014"/>
     <ContentRevisionItem contentId="CDI1201" contentRevisionSeqId="000014" itemContentId="CDI1105" oldDataResourceId="DR1105a" newDataResourceId="DR1105b"/>
 
-    
+
     <!-- sample approval entries for CDT CD0001 -->
     <ContentApproval contentApprovalId="CA0101" contentId="CDT1201" contentRevisionSeqId="000002" partyId="admin" approvalStatusId="CNTAP_READY"/>
     <ContentApproval contentApprovalId="CA0102" contentId="CDT1201" contentRevisionSeqId="000002" partyId="approver" approvalStatusId="CNTAP_READY"/>

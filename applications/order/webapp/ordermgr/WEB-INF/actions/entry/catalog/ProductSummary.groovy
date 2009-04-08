@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -56,7 +56,7 @@ context.remove("totalPrice");
 if (!product && productId) {
     product = delegator.findByPrimaryKeyCache("Product", [productId : productId]);
 }
-if (product) {    
+if (product) {
     resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", [productId : product.productId, facilityId : facilityId, useCache : true]);
     totalAvailableToPromise = resultOutput.availableToPromiseTotal;
     if (totalAvailableToPromise && totalAvailableToPromise.doubleValue() > 0) {
@@ -86,20 +86,20 @@ if (product) {
     // get the product price
     if (cart.isSalesOrder()) {
         // sales order: run the "calculateProductPrice" service
-        priceContext = [product : product, currencyUomId : cart.getCurrency(), 
+        priceContext = [product : product, currencyUomId : cart.getCurrency(),
                 autoUserLogin : autoUserLogin, userLogin : userLogin];
         priceContext.webSiteId = webSiteId;
         priceContext.prodCatalogId = catalogId;
         priceContext.productStoreId = productStoreId;
         priceContext.agreementId = cart.getAgreementId();
-        priceContext.partyId = cart.getPartyId();  // IMPORTANT: otherwise it'll be calculating prices using the logged in user which could be a CSR instead of the customer 
+        priceContext.partyId = cart.getPartyId();  // IMPORTANT: otherwise it'll be calculating prices using the logged in user which could be a CSR instead of the customer
         priceContext.checkIncludeVat = "Y";
         priceMap = dispatcher.runSync("calculateProductPrice", priceContext);
 
         context.price = priceMap;
     } else {
         // purchase order: run the "calculatePurchasePrice" service
-        priceContext = [product : product, currencyUomId : cart.getCurrency(), 
+        priceContext = [product : product, currencyUomId : cart.getCurrency(),
                 partyId : cart.getPartyId(), userLogin : userLogin];
         priceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
 

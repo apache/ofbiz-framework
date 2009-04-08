@@ -43,7 +43,7 @@ dojo.cal.iCalendar.fromText =  function (/* string */text) {
 
 dojo.cal.iCalendar.Component = function (/* string */ body ) {
 	// summary
-	// A component is the basic container of all this stuff. 
+	// A component is the basic container of all this stuff.
 
 	if (!this.name) {
 		this.name = "COMPONENT"
@@ -112,8 +112,8 @@ dojo.extend(dojo.cal.iCalendar.Component, {
 		for (var x=0; x<this._ValidProperties.length; x++) {
 			var evtProperty = this._ValidProperties[x];
 			var found = false;
-	
-			for (var y=0; y<this.properties.length; y++) {	
+
+			for (var y=0; y<this.properties.length; y++) {
 				var prop = this.properties[y];
 				var propName = prop.name.toLowerCase();
 				if (dojo.lang.isArray(evtProperty)) {
@@ -123,7 +123,7 @@ dojo.extend(dojo.cal.iCalendar.Component, {
 						var evtPropertyName = evtProperty[z].name.toLowerCase();
 						if((this[evtPropertyName])  && (evtPropertyName != propName )) {
 							alreadySet=true;
-						} 
+						}
 					}
 					if (!alreadySet) {
 						this[propName] = prop;
@@ -144,19 +144,19 @@ dojo.extend(dojo.cal.iCalendar.Component, {
 				}
 			}
 
-			if (evtProperty.required && !found) {	
+			if (evtProperty.required && !found) {
 				dojo.debug("iCalendar - " + this.name + ": Required Property not found: " + evtProperty.name);
 			}
 		}
 
-		// parse any rrules		
+		// parse any rrules
 		if (dojo.lang.isArray(this.rrule)) {
 			for(var x=0; x<this.rrule.length; x++) {
 				var rule = this.rrule[x].value;
 
 				//add a place to cache dates we have checked for recurrance
 				this.rrule[x].cache = function() {};
-				
+
 				var temp = rule.split(";");
 				for (var y=0; y<temp.length; y++) {
 					var pair = temp[y].split("=");
@@ -167,14 +167,14 @@ dojo.extend(dojo.cal.iCalendar.Component, {
 						this.rrule[x][key]= val;
 					} else {
 						var valArray = val.split(",");
-						this.rrule[x][key] = valArray; 
+						this.rrule[x][key] = valArray;
 					}
-				}	
+				}
 			}
 			this.recurring = true;
 		}
 
-	}, 
+	},
 
 	toString: function () {
 		// summary
@@ -197,7 +197,7 @@ dojo.cal.iCalendar.Property = function (prop) {
 }
 
 dojo.extend(dojo.cal.iCalendar.Property, {
-	toString: function () {	
+	toString: function () {
 		// summary
 		// output a string reprensentation of this component.
 		return "[iCalenday.Property; " + this.name + ": " + this.value + "]";
@@ -259,13 +259,13 @@ dojo.extend(dojo.cal.iCalendar.VCalendar, {
 					calculatedEvents[dateStr] = [];
 				}
 
-				if (!dojo.lang.inArray(calculatedEvents[dateStr], this.recurring[x])) { 
+				if (!dojo.lang.inArray(calculatedEvents[dateStr], this.recurring[x])) {
 					calculatedEvents[dateStr].push(this.recurring[x]);
-				} 
+				}
 			}
 		}
 		this.recurringEvents = calculatedEvents;
-	
+
 	},
 
 	getEvents: function(/* Date */ date) {
@@ -279,20 +279,20 @@ dojo.extend(dojo.cal.iCalendar.VCalendar, {
 		if (dojo.lang.isArray(this.nonRecurringEvents[dateStr])) {
 			nonRecur= this.nonRecurringEvents[dateStr];
 			dojo.debug("Number of nonRecurring Events: " + nonRecur.length);
-		} 
-		
+		}
+
 
 		if (dojo.lang.isArray(this.recurringEvents[dateStr])) {
 			recur= this.recurringEvents[dateStr];
-		} 
+		}
 
 		events = recur.concat(nonRecur);
 
 		if (events.length > 0) {
 			return events;
-		} 
+		}
 
-		return null;			
+		return null;
 	}
 });
 
@@ -355,7 +355,7 @@ var VEventProperties = [
 ];
 
 dojo.cal.iCalendar.VEvent = function (/* string */ body) {
-	// summary 
+	// summary
 	// VEVENT Component
 	this._ValidProperties = VEventProperties;
 	this.name = "VEVENT";
@@ -372,11 +372,11 @@ dojo.extend(dojo.cal.iCalendar.VEvent, {
 
 			var recurranceSet = [];
 			var weekdays=["su","mo","tu","we","th","fr","sa"];
-			var order = { 
+			var order = {
 				"daily": 1, "weekly": 2, "monthly": 3, "yearly": 4,
 				"byday": 1, "bymonthday": 1, "byweekno": 2, "bymonth": 3, "byyearday": 4};
 
-			// expand rrules into the recurrance 
+			// expand rrules into the recurrance
 			for (var x=0; x<this.rrule.length; x++) {
 				var rrule = this.rrule[x];
 				var freq = rrule.freq.toLowerCase();
@@ -440,7 +440,7 @@ dojo.extend(dojo.cal.iCalendar.VEvent, {
 									set.push(tmpDate);
 								}
 							}
-							break;	
+							break;
 						case "daily":
 							nextDate = new Date(dtstart);
 							set.push(nextDate);
@@ -452,7 +452,7 @@ dojo.extend(dojo.cal.iCalendar.VEvent, {
 								}
 							}
 							break;
-	
+
 					}
 
 					if ((rrule["bymonth"]) && (order["bymonth"]<freqInt))	{
@@ -474,17 +474,17 @@ dojo.extend(dojo.cal.iCalendar.VEvent, {
 						}
 					}
 
-					
+
 					// while the spec doesn't prohibit it, it makes no sense to have a bymonth and a byweekno at the same time
 					// and if i'm wrong then i don't know how to apply that rule.  This is also documented elsewhere on the web
-					if (rrule["byweekno"] && !rrule["bymonth"]) {	
+					if (rrule["byweekno"] && !rrule["bymonth"]) {
 						dojo.debug("TODO: no support for byweekno yet");
 					}
 
 
 					// while the spec doesn't prohibit it, it makes no sense to have a bymonth and a byweekno at the same time
 					// and if i'm wrong then i don't know how to apply that rule.  This is also documented elsewhere on the web
-					if (rrule["byyearday"] && !rrule["bymonth"] && !rrule["byweekno"] ) {	
+					if (rrule["byyearday"] && !rrule["bymonth"] && !rrule["byweekno"] ) {
 						if (rrule["byyearday"].length > 1) {
 							var regex = "([+-]?)([0-9]{1,3})";
 							for (var z=1; x<rrule["byyearday"].length; z++) {
@@ -515,7 +515,7 @@ dojo.extend(dojo.cal.iCalendar.VEvent, {
 						}
 					}
 
-					if (rrule["bymonthday"]  && (order["bymonthday"]<freqInt)) {	
+					if (rrule["bymonthday"]  && (order["bymonthday"]<freqInt)) {
 						if (rrule["bymonthday"].length > 0) {
 							var regex = "([+-]?)([0-9]{1,3})";
 							for (var z=0; z<rrule["bymonthday"].length; z++) {
@@ -554,7 +554,7 @@ dojo.extend(dojo.cal.iCalendar.VEvent, {
 						}
 					}
 
-					if (rrule["byday"]  && (order["byday"]<freqInt)) {	
+					if (rrule["byday"]  && (order["byday"]<freqInt)) {
 						if (rrule["bymonth"]) {
 							if (rrule["byday"].length > 0) {
 								var regex = "([+-]?)([0-9]{0,1}?)([A-Za-z]{1,2})";
@@ -567,21 +567,21 @@ dojo.extend(dojo.cal.iCalendar.VEvent, {
 									if (z==0) {
 										for (var zz=0; zz < set.length; zz++) {
 											if (regexResult[1] == "-") {
-												//find the nth to last occurance of date 
+												//find the nth to last occurance of date
 												var numDaysFound = 0;
 												var lastDayOfMonth = dojo.date.getDaysInMonth(set[zz]);
 												var daysToSubtract = 1;
-												set[zz].setDate(lastDayOfMonth); 
+												set[zz].setDate(lastDayOfMonth);
 												if (weekdays[set[zz].getDay()] == day) {
 													numDaysFound++;
 													daysToSubtract=7;
 												}
 												daysToSubtract = 1;
 												while (numDaysFound < occurance) {
-													set[zz].setDate(set[zz].getDate()-daysToSubtract);	
+													set[zz].setDate(set[zz].getDate()-daysToSubtract);
 													if (weekdays[set[zz].getDay()] == day) {
 														numDaysFound++;
-														daysToSubtract=7;	
+														daysToSubtract=7;
 													}
 												}
 											} else {
@@ -612,7 +612,7 @@ dojo.extend(dojo.cal.iCalendar.VEvent, {
 													lastDayOfMonth.setDate(daysInMonth);
 
 													set[zz].setDate(1);
-												
+
 													if (weekdays[set[zz].getDay()] == day) {
 														numDaysFound++;
 													}
@@ -626,7 +626,7 @@ dojo.extend(dojo.cal.iCalendar.VEvent, {
 															} else {
 																subset.push(tmpDate);
 																tmpDate = new Date(tmpDate);
-																daysToAdd=7;	
+																daysToAdd=7;
 																tmpDate.setDate(tmpDate.getDate() + daysToAdd);
 															}
 														} else {
@@ -634,7 +634,7 @@ dojo.extend(dojo.cal.iCalendar.VEvent, {
 														}
 													}
 													var t = set.concat(subset);
-													set = t; 
+													set = t;
 												}
 											}
 										}
@@ -664,8 +664,8 @@ dojo.extend(dojo.cal.iCalendar.VEvent, {
 					}
 
 					dojo.debug("TODO: Process BYrules for units larger than frequency");
-			
-					//add this set of events to the complete recurranceSet	
+
+					//add this set of events to the complete recurranceSet
 					var tmp = recurranceSet.concat(set);
 					recurranceSet = tmp;
 				}

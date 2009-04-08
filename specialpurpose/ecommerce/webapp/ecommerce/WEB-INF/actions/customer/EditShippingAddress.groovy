@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -25,7 +25,7 @@ if (userLogin) {
     person = delegator.findByPrimaryKey("Person", [partyId : party.partyId]);
     context.firstName = person.firstName;
     context.lastName = person.lastName;
-    
+
     contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false));
     if (contactMech) {
         postalAddress = contactMech.getRelatedOne("PostalAddress");
@@ -48,7 +48,7 @@ if (userLogin) {
     } else {
         context.shipToContactMechId = null;
     }
-    
+
     shipToContactMechList = ContactHelper.getContactMech(party, "PHONE_SHIPPING", "TELECOM_NUMBER", false)
     if (shipToContactMechList) {
         shipToTelecomNumber = (EntityUtil.getFirst(shipToContactMechList)).getRelatedOne("TelecomNumber");

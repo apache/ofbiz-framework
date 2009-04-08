@@ -36,12 +36,12 @@ dojo.collections.Store = function(/* array? */jsonArray){
 		}
 		return null;	// null
 	};
-	this.getByIndex = function(/*number*/idx){ 
+	this.getByIndex = function(/*number*/idx){
 		//	summary
 		//	Get the internal data object by index.
 		return data[idx]; 	// object
 	};
-	
+
 	this.getData = function(){
 		//	summary
 		//	Get an array of source objects.
@@ -61,7 +61,7 @@ dojo.collections.Store = function(/* array? */jsonArray){
 		}
 		return null;	//	null
 	};
-	this.getDataByIndex = function(/*number*/idx){ 
+	this.getDataByIndex = function(/*number*/idx){
 		//	summary
 		//	Get the source object at index idx.
 		return data[idx].src; 	//	object
@@ -71,7 +71,7 @@ dojo.collections.Store = function(/* array? */jsonArray){
 		var parts=fieldPath.split("."), i=0, o=obj, field;
 		if(parts.length>1) {
 			field = parts.pop();
-			do{ 
+			do{
 				if(parts[i].indexOf("()")>-1){
 					var temp=parts[i++].split("()")[0];
 					if(!o[temp]){
@@ -121,14 +121,14 @@ dojo.collections.Store = function(/* array? */jsonArray){
 		//	Set up the internal data.
 		data = []; 	//	don't fire onClearData
 		for(var i=0; i<arr.length; i++){
-			data.push({ 
-				key:arr[i][this.keyField], 
+			data.push({
+				key:arr[i][this.keyField],
 				src:arr[i]
 			});
 		}
 		this.onSetData();
 	};
-	
+
 	this.clearData = function(){
 		//	summary
 		//	Clears the internal data array.
@@ -136,7 +136,7 @@ dojo.collections.Store = function(/* array? */jsonArray){
 		this.onClearData();
 	};
 
-	this.addData = function(/*obj*/obj,/*string?*/key){ 
+	this.addData = function(/*obj*/obj,/*string?*/key){
 		//	summary
 		//	Add an object with optional key to the internal data array.
 		var k = key || obj[this.keyField];
@@ -166,7 +166,7 @@ dojo.collections.Store = function(/* array? */jsonArray){
 		}
 		this.onAddDataRange(objects);
 	};
-	
+
 	this.removeData = function(/*obj*/obj){
 		//	summary
 		//	remove the passed object from the internal data array.
@@ -204,7 +204,7 @@ dojo.extend(dojo.collections.Store, {
 	getField:function(/*object*/obj, /*string*/field){
 		//	helper to get the nested value if needed.
 		var parts=field.split("."), i=0, o=obj;
-		do{ 
+		do{
 			if(parts[i].indexOf("()")>-1){
 				var temp=parts[i++].split("()")[0];
 				if(!o[temp]){
@@ -217,7 +217,7 @@ dojo.extend(dojo.collections.Store, {
 				o = o[parts[i++]];
 			}
 		} while (i<parts.length && o != null);
-		
+
 		if(i < parts.length){
 			dojo.raise("dojo.collections.Store.getField(obj, '" + field + "'): '" + field + "' is not a property of the passed object.");
 		}

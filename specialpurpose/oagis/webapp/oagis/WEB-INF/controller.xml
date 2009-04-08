@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,7 +20,7 @@
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <description>Oagis Component Site Configuration File</description>
 
     <!-- event handlers -->
@@ -28,7 +28,7 @@
 
     <!-- view handlers -->
     <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.ScreenXmlViewHandler"/>
-        
+
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
     <preprocessor>
@@ -51,99 +51,99 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindMessageInfo"/>
     </request-map>
-    
+
     <request-map uri="EditMessageInfo">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditMessageInfo"/>
     </request-map>
-    
+
     <request-map uri="createOagisMessageInfo">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createOagisMessageInfo"/>
         <response name="success" type="view" value="EditMessageInfo"/>
         <response name="error" type="view" value="EditMessageInfo"/>
     </request-map>
-    
+
     <request-map uri="updateOagisMessageInfo">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updateOagisMessageInfo"/>
         <response name="success" type="view" value="EditMessageInfo"/>
         <response name="error" type="view" value="EditMessageInfo"/>
     </request-map>
-    
+
     <request-map uri="FindMessageErrorInfo">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindMessageErrorInfo"/>
     </request-map>
-    
+
     <request-map uri="EditMessageErrorInfo">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditMessageErrorInfo"/>
     </request-map>
-    
+
     <request-map uri="createOagisMessageErrorInfo">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createOagisMessageErrorInfo"/>
         <response name="success" type="view" value="EditMessageErrorInfo"/>
         <response name="error" type="view" value="EditMessageErrorInfo"/>
     </request-map>
-    
+
     <request-map uri="updateOagisMessageErrorInfo">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updateOagisMessageErrorInfo"/>
         <response name="success" type="view" value="EditMessageErrorInfo"/>
         <response name="error" type="view" value="EditMessageErrorInfo"/>
     </request-map>
-    
+
     <!-- TO DO
-    
+
     <request-map uri="UploadOagisMessage">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="UploadOagisMessage"/>
     </request-map>
-    
+
     <request-map uri="importConfirmBODOagisMessage">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="importConfirmBOD"/>
         <response name="success" type="view" value="UploadOagisMessage"/>
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
-    
+
     <request-map uri="importSyncInventoryOagisMessage">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="importConfirmBOD"/>
         <response name="success" type="view" value="UploadOagisMessage"/>
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
-    
+
     <request-map uri="importAcknowledgementDeliveryOagisMessage">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="importConfirmBOD"/>
         <response name="success" type="view" value="UploadOagisMessage"/>
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
-    
+
     <request-map uri="importProcessShipmentOagisMessage">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="importConfirmBOD"/>
         <response name="success" type="view" value="UploadOagisMessage"/>
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
-    
+
     <request-map uri="importShowShipmentOagisMessage">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="importConfirmBOD"/>
         <response name="success" type="view" value="UploadOagisMessage"/>
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
-    
+
     <request-map uri="importAcknowledgementDeliveryOagisMessage">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="importConfirmBOD"/>
         <response name="success" type="view" value="UploadOagisMessage"/>
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
-    
+
     <request-map uri="importReceiveDeliveryOagisMessage">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="importConfirmBOD"/>
@@ -151,7 +151,7 @@
         <response name="error" type="view" value="UploadOagisMessage"/>
     </request-map>
     -->
-    
+
     <request-map uri="oagisReceiveShowShipment">
         <security https="true" auth="false"/>
         <event type="stream" invoke="oagisReceiveShowShipment"/>
@@ -169,7 +169,7 @@
         <event type="stream" invoke="oagisReceiveSyncInventory"/>
         <response name="success" type="none"/>
     </request-map>
-    
+
     <request-map uri="oagisReceiveAcknowledgeDeliveryPo">
         <security https="true" auth="false"/>
         <event type="stream" invoke="oagisReceiveAcknowledgeDeliveryPo"/>
@@ -181,7 +181,7 @@
         <event type="stream" invoke="oagisReceiveAcknowledgeDeliveryRma"/>
         <response name="success" type="none"/>
     </request-map>
-    
+
     <request-map uri="oagisMessageHandler">
         <security https="true" auth="false" cert="true"/>
         <event type="stream" invoke="oagisMessageHandler"/>
@@ -200,7 +200,7 @@
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://oagis/widget/MessageInfoScreens.xml#FindMessageInfo"/>
-    
+
     <view-map name="FindMessageInfo" type="screen" page="component://oagis/widget/MessageInfoScreens.xml#FindMessageInfo"/>
     <view-map name="EditMessageInfo" type="screen" page="component://oagis/widget/MessageInfoScreens.xml#EditMessageInfo"/>
     <view-map name="FindMessageErrorInfo" type="screen" page="component://oagis/widget/MessageInfoScreens.xml#FindMessageErrorInfo"/>

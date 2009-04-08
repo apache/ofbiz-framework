@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -26,8 +26,8 @@ Event.observe(window, 'load', function() {
     var validateCart = new Validation('cartForm', {immediate: true, onSubmit: false});
     var validateShip = new Validation('shippingForm', {immediate: true, onSubmit: false});
     var validateShipOption = new Validation('shippingOptionForm', {immediate: true, onSubmit: false});
-    var validateBill = new Validation('billingForm', {immediate: true, onSubmit: false});    
-    
+    var validateBill = new Validation('billingForm', {immediate: true, onSubmit: false});
+
     // Goto Edit Cart Panel
     Event.observe($('openCartPanel'), 'click', function() {
         showEditCartPanel();
@@ -43,11 +43,11 @@ Event.observe(window, 'load', function() {
                 showEditShippingOptionPanel();
             }
             Effect.Fade('processingShippingOptions', {duration: 0.0});
-            Effect.Appear('savePartyAndShippingContact', {duration: 0.0});               
+            Effect.Appear('savePartyAndShippingContact', {duration: 0.0});
         }
     });
 
-    // Goto Edit Shipping  panel  
+    // Goto Edit Shipping  panel
     Event.observe($('updateShoppingCart'), 'click', function() {
         if (validateCart.validate()) {
             showEditShippingPanel();
@@ -56,7 +56,7 @@ Event.observe(window, 'load', function() {
     // Goto Edit Shipping Panel
     Event.observe($('openShippingPanel'), 'click', function() {
         showEditShippingPanel();
-        setShippingOption(); 
+        setShippingOption();
     });
 
     // Set Shipping Method to card and goto Billing step
@@ -66,8 +66,8 @@ Event.observe(window, 'load', function() {
         if (setShippingOption()){
             showEditBillingPanel();
         }
-        Effect.Fade('processingBilling', {duration: 0.0});            
-        Effect.Appear('saveShippingMethod', {duration: 0.0});        
+        Effect.Fade('processingBilling', {duration: 0.0});
+        Effect.Appear('saveShippingMethod', {duration: 0.0});
     });
 
     Event.observe($('openShippingOptionPanel'), 'click', function() {
@@ -77,7 +77,7 @@ Event.observe(window, 'load', function() {
 
     // Billing
     Event.observe($('openBillingPanel'), 'click', function() {
-        showEditBillingPanel();  
+        showEditBillingPanel();
     });
 
     Event.observe($('savePaymentAndBillingContact'), 'click', function() {
@@ -87,17 +87,17 @@ Event.observe(window, 'load', function() {
             if (processBillingAndPayment()) {
                 showOrderSubmitPanel();
             }
-            Effect.Fade('processingOrderSubmitPanel', {duration: 0.0});                    
+            Effect.Fade('processingOrderSubmitPanel', {duration: 0.0});
             Effect.Appear('savePaymentAndBillingContact', {duration: 0.0});
         }
     });
-    
+
     // For Billing Address Same As Shipping
     Event.observe('useShippingAddressForBilling', 'click', function() {
         useShippingAddressForBillingToggle();
         validateBill.validate();
     });
-    
+
     // Initiate Observing Edit Cart Events
     initCartProcessObservers();
 
@@ -139,9 +139,9 @@ function getServerError(data) {
         });
     }
     if (data._ERROR_MESSAGE_ != undefined) {
-        serverError = data._ERROR_MESSAGE_; 
+        serverError = data._ERROR_MESSAGE_;
     }
-    return serverError;    
+    return serverError;
 }
 
 // Begin Show/Hide Step panels
@@ -162,7 +162,7 @@ function hideEditShippingOptionPanel() {
      if ($('editShippingOptionPanel').visible()) {
          Effect.BlindUp('editShippingOptionPanel', {duration: 0.0});
          Effect.BlindDown('shippingOptionSummaryPanel', {duration: 0.0});
-     }    
+     }
 }
 function hideEditBillingPanel() {
     if ($('editBillingPanel').visible()) {
@@ -174,8 +174,8 @@ function hideOrderSubmitPanel() {
     if ($('orderSubmitPanel').visible()) {
         Effect.BlindUp('orderSubmitPanel', {duration: 0.0});
         Effect.Fade('processingOrderButton', {duration: 0.0});
-        
-    }    
+
+    }
 }
 
 function showEditCartPanel() {
@@ -235,7 +235,7 @@ function showOrderSubmitPanel() {
          hideEditShippingPanel();
          hideEditShippingOptionPanel();
          hideEditBillingPanel();
-         Effect.BlindDown('orderSubmitPanel', {duration: 0.0});               
+         Effect.BlindDown('orderSubmitPanel', {duration: 0.0});
     }
 }
 
@@ -244,9 +244,9 @@ function showOrderSubmitPanel() {
 
 function createUpdateCustomerAndShippingAddress() {
     var result = false;
-    
+
     new Ajax.Request('createUpdateShippingAddress', {
-        asynchronous: false, 
+        asynchronous: false,
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
             var serverError = getServerError(data);
@@ -292,7 +292,7 @@ function getShipOptions() {
                         if (shipOption.productStoreShipMethId){
                             optionList.push("<option value = " + shipOption.shippingMethod + ":" + shipOption.productStoreShipMethId + " > " + shipOption.shippingDesc  + " </option>");
                         } else {
-                            optionList.push("<option value = " + shipOption.shippingMethod + " > " + shipOption.shippingDesc  + " </option>");    
+                            optionList.push("<option value = " + shipOption.shippingMethod + " > " + shipOption.shippingDesc  + " </option>");
                         }
                     });
                     $('shipMethod').update(optionList);
@@ -326,7 +326,7 @@ function setShippingOption() {
                 //$('shippingDescription').value = data.shippingDescription;
                 //$('shippingTotal').value = data.shippingTotal;
                 //$('cartGrandTotal').value = data.cartGrandTotal;
-                //$('totalSalesTax').value = data.totalSalesTax; 
+                //$('totalSalesTax').value = data.totalSalesTax;
                 result = true;
             }
         }, parameters: $('shippingOptionForm').serialize(), requestHeaders: {Accept: 'application/json'}
@@ -356,7 +356,7 @@ function useShippingAddressForBillingToggle() {
 function processBillingAndPayment() {
     var result = false;
     new Ajax.Request('createUpdateBillingAndPayment', {
-        asynchronous: false, 
+        asynchronous: false,
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
             var serverError = getServerError(data);
@@ -376,7 +376,7 @@ function processBillingAndPayment() {
         }, parameters: $('billingForm').serialize(), requestHeaders: {Accept: 'application/json'}
     });
     return result;
-    
+
 }
 
 function initCartProcessObservers() {
@@ -395,12 +395,12 @@ function initCartProcessObservers() {
     });
     if ($('initializedCompletedCartDiscount') != undefined && $('initializedCompletedCartDiscount').value == 0) {
         $('completedCartDiscountRow').hide();
-    }    
+    }
 }
 
 function addPromoCode() {
     new Ajax.Request('silentAddPromoCode', {
-        asynchronous: false, 
+        asynchronous: false,
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
             var serverError = getServerError(data);
@@ -421,7 +421,7 @@ function getProductLineItemIndex(event, productId) {
     var productIdParam = "productId=" + productId;
     var formValues = $('cartForm').serialize() + "&" + productIdParam;
     new Ajax.Request('getShoppingCartItemIndex', {
-        asynchronous: false, 
+        asynchronous: false,
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
             itemIndex = data.itemIndex;
@@ -439,7 +439,7 @@ function removeItem(event) {
     var productId = $(productIdElementId).value;
     var itemIndex = getProductLineItemIndex(event,productId);
     var formValues = "update_" + itemIndex + "= 0";
-    updateCartData(qtyId, formValues, 0, itemIndex); 
+    updateCartData(qtyId, formValues, 0, itemIndex);
 }
 
 function cartItemQtyChanged(event) {
@@ -453,13 +453,13 @@ function cartItemQtyChanged(event) {
         var formValues = $('cartForm').serialize() + '&' + qtyParam;
         updateCartData(elementId, formValues, qtyElement.value, itemIndex);
     } else {
-        qtyElement.value = "";  
+        qtyElement.value = "";
     }
 }
 
 function updateCartData(elementId, formValues, itemQty, itemIndex) {
     new Ajax.Request('cartItemQtyUpdate', {
-        asynchronous: true, 
+        asynchronous: true,
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
             if (data.totalQuantity == 0) {
@@ -470,7 +470,7 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
                 $('quickCheckoutEnabled').hide();
                 $('quickCheckoutDisabled').show();
                 $('onePageCheckoutEnabled').hide();
-                $('onePageCheckoutDisabled').show();                
+                $('onePageCheckoutDisabled').show();
             } else {
                 // Used for edit cart
                 $('microCartQuantity').update(data.totalQuantity);
@@ -480,7 +480,7 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
                 $('cartTotalSalesTax').update(data.totalSalesTaxCurrencyFormatted);
                 $('microCartTotal').update(data.displayGrandTotalCurrencyFormatted);
                 $('cartDisplayGrandTotal').update(data.displayGrandTotalCurrencyFormatted);
-                // Used for summary 
+                // Used for summary
                 $('completedCartSubTotal').update(data.subTotalCurrencyFormatted);
                 $('completedCartTotalShipping').update(data.totalShippingCurrencyFormatted);
                 $('completedCartTotalSalesTax').update(data.totalSalesTaxCurrencyFormatted);
@@ -543,7 +543,7 @@ function updateShippingSummary() {
     if ($F('shipToExtension')) {
         extension = "-" + $F('shipToExtension');
         }
-    var shippingContactPhoneNumber = $F('shipToCountryCode')+ "-" + $F('shipToAreaCode') 
+    var shippingContactPhoneNumber = $F('shipToCountryCode')+ "-" + $F('shipToAreaCode')
         + "-" + $F('shipToContactNumber') + extension;
     $('completedShipToAttn').update("Attn: " + fullName);
     $('completedShippingContactNumber').update(shippingContactPhoneNumber);

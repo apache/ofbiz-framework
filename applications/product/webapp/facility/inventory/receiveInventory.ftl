@@ -22,7 +22,7 @@ under the License.
 <h1>${title}</h1>
         <#if invalidProductId?exists>
             <div class="errorMessage">${invalidProductId}</div>
-        </#if>        
+        </#if>
         <div class="button-bar">
           <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
         </div>
@@ -144,7 +144,7 @@ under the License.
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                     <input type="text" name="ownerPartyId" value="" size="20" maxlength="20">
-                    <a href="javascript:call_fieldlookup2(document.selectAllForm.ownerPartyId, 'LookupPartyName');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"/></a>            
+                    <a href="javascript:call_fieldlookup2(document.selectAllForm.ownerPartyId, 'LookupPartyName');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"/></a>
                 </td>
               </tr>
               <tr>

@@ -37,7 +37,7 @@ under the License.
             <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
         </#list>
     </#if>
-    
+
     <#-- Append CSS for catalog -->
     <#if catalogStyleSheet?exists>
         <link rel="stylesheet" href="${catalogStyleSheet}" type="text/css"/>
@@ -53,7 +53,7 @@ under the License.
     <#if metaKeywords?exists>
         <meta name="keywords" content="${metaKeywords}"/>
     </#if>
-    
+
     <#if requireDojo?exists>
         <script type="text/javascript">
           dojo.require("dojo.widget.*");

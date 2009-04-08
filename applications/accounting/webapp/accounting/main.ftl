@@ -21,9 +21,9 @@ under the License.
   <tr>
      <td colspan="3"><h1>${uiLabelMap.AccountingAgreements}</h1></td>
   </tr>
-  
+
   <tr>
-     <td colspan="3">  
+     <td colspan="3">
 <ul>
 <li><a href="<@ofbizUrl>FindAgreement</@ofbizUrl>">${uiLabelMap.AccountingAgreementAvailable}</a></li>
 </ul>
@@ -33,33 +33,33 @@ under the License.
   <tr>
      <td colspan="3"><h1 class="h1">${uiLabelMap.AccountingBillingMenu}</h1></td>
   </tr>
-  
+
   <tr>
-     <td colspan="3">  
+     <td colspan="3">
 <ul>
 <li><a href="<@ofbizUrl>FindBillingAccount</@ofbizUrl>">${uiLabelMap.CommonShow} ${uiLabelMap.AccountingCustomer} ${uiLabelMap.AccountingBillingAccount}</a></li>
 </ul>
 <br/>
      </td>
   </tr>
-  
+
   <tr>
      <td colspan="3"><h1 class="h1">${uiLabelMap.AccountingFixedAssets}</h1></td>
   </tr>
-  
+
   <tr>
-     <td colspan="3">  
+     <td colspan="3">
 <ul>
 <li><a href="<@ofbizUrl>ListFixedAssets</@ofbizUrl>">${uiLabelMap.AccountingShowAllFixedAssets}</a></li>
 </ul>
 <br/>
      </td>
   </tr>
-  
+
   <tr>
      <td colspan="3"><h1 class="h1">${uiLabelMap.AccountingInvoicesMenu}</h1></td>
   </tr>
-  
+
   <tr valign="top">
 <td>
 <ul>

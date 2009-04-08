@@ -18,13 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="GenericTransactionDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="transaction"/> 
+                <set field="headerItem" value="transaction"/>
             </actions>
             <widgets>
                 <!-- main defines the regions of the HTML page -->
@@ -34,11 +34,11 @@ under the License.
                         <section>
                             <widgets>
                                 <include-menu name="TransactionsTabBar" location="component://accounting/widget/Menus.xml"/>
-            
+
                                 <container>
                                     <label style="h1">${uiLabelMap[labelTitleProperty]}</label>
                                 </container>
-                                
+
                                 <!-- Now call the SimpleScreen form -->
                                 <decorator-section-include name="body"/>
                             </widgets>
@@ -54,7 +54,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindGatewayResponses"/> <!-- shows up in browser title bar -->
-                <set field="tabButtonItem" value="gatewayresponsestab"/> 
+                <set field="tabButtonItem" value="gatewayresponsestab"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
             </actions>
@@ -84,7 +84,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleViewGatewayResponse"/>
-                <set field="tabButtonItem" value="gatewayresponsestab"/> 
+                <set field="tabButtonItem" value="gatewayresponsestab"/>
 
                 <set field="paymentGatewayResponseId" from-field="parameters.paymentGatewayResponseId"/>
                 <set field="orderPaymentPreferenceId" from-field="parameters.orderPaymentPreferenceId"/>
@@ -104,7 +104,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ViewGatewayResponseRelations" location="component://accounting/widget/TransactionForms.xml"/>
                                     </widgets>
                                 </section>
@@ -118,7 +118,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ViewGatewayResponse" location="component://accounting/widget/TransactionForms.xml"/>
                                     </widgets>
                                 </section>
@@ -135,7 +135,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="AccountingAuthorize"/>
-                <set field="tabButtonItem" value="authorizetransactiontab"/> 
+                <set field="tabButtonItem" value="authorizetransactiontab"/>
 
                 <set field="orderId" from-field="parameters.orderId"/>
                 <set field="orderPaymentPreferenceId" from-field="parameters.orderPaymentPreferenceId"/>
@@ -158,12 +158,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="AuthorizeTransaction" location="component://accounting/widget/TransactionForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -175,7 +175,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="AccountingCapture"/>
-                <set field="tabButtonItem" value="capturetransactiontab"/> 
+                <set field="tabButtonItem" value="capturetransactiontab"/>
 
                 <set field="orderId" from-field="parameters.orderId"/>
                 <set field="orderPaymentPreferenceId" from-field="parameters.orderPaymentPreferenceId"/>
@@ -184,7 +184,7 @@ under the License.
                     <field-map field-name="orderPaymentPreferenceId" from-field="orderPaymentPreferenceId"/>
                 </entity-one>
                 <set field="paymentMethodTypeId" from-field="opp.paymentMethodTypeId"/>
-                
+
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/transaction/CaptureTransaction.groovy"/>
             </actions>
             <widgets>
@@ -198,7 +198,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="CaptureTransaction" location="component://accounting/widget/TransactionForms.xml"/>
                                     </widgets>
                                 </section>

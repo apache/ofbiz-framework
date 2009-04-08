@@ -36,7 +36,7 @@ under the License.
         <fo:block font-family="Helvetica" font-style="normal" font-weight="bold">the quick brown fox jumps over the lazy dog 1234657890</fo:block>
         <fo:block font-family="Helvetica" font-style="italic" font-weight="bold">the quick brown fox jumps over the lazy dog 1234657890</fo:block>
         <fo:block font-family="Helvetica" font-style="italic" font-weight="normal">the quick brown fox jumps over the lazy dog 1234657890</fo:block>
-        <fo:block color="red">Times</fo:block>        
+        <fo:block color="red">Times</fo:block>
         <fo:block font-family="Times" font-style="normal" font-weight="normal">the quick brown fox jumps over the lazy dog 1234657890</fo:block>
         <fo:block font-family="Times" font-style="normal" font-weight="bold">the quick brown fox jumps over the lazy dog 1234657890</fo:block>
         <fo:block font-family="Times" font-style="italic" font-weight="bold">the quick brown fox jumps over the lazy dog 1234657890</fo:block>

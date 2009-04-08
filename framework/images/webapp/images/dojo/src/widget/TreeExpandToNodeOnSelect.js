@@ -23,25 +23,25 @@ dojo.widget.defineWidget(
 {
 	selector: "",
 	controller: "",
-	
+
 	/**
 	* if true, then selected node will be expanded too
 	*/
 	withSelected: false,
-	
+
 	initialize: function() {
 		this.selector = dojo.widget.byId(this.selector);
 		this.controller = dojo.widget.byId(this.controller);
-		
-		dojo.event.topic.subscribe(this.selector.eventNames.select, this, "onSelect");	
+
+		dojo.event.topic.subscribe(this.selector.eventNames.select, this, "onSelect");
 	},
 
-	
+
 	onSelectEvent: function(message) {
-		this.controller.expandToNode(message.node, this.withSelected)		
+		this.controller.expandToNode(message.node, this.withSelected)
 	}
-	
-	
-	
+
+
+
 
 });

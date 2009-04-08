@@ -12,7 +12,7 @@ dojo.provide("dojo.lang.func");
 dojo.require("dojo.lang.common");
 
 dojo.lang.hitch = function(/*Object*/thisObject, /*Function|String*/method){
-	// summary: 
+	// summary:
 	//		Returns a function that will only ever execute in the a given scope
 	//		(thisObject). This allows for easy use of object member functions
 	//		in callbacks and other places in which the "this" keyword may
@@ -93,9 +93,9 @@ dojo.lang.curry = function(thisObj, func /* args ... */){
 	//					dojo.debug.apply(dojo, arguments);
 	//				}
 	//			};
-	//		
+	//
 	//		dojo.lang.curry() can be used most simply in this way:
-	//		
+	//
 	//			tmp = dojo.lang.curry(foo, foo.bar, "arg one", "thinger");
 	//			tmp("blah", "this is superfluous");
 	//			// debugs: "arg one thinger blah this is superfluous"
@@ -210,7 +210,7 @@ dojo.lang.delayThese = function(/*Array*/farr, /*Function, optional*/cb, /*Integ
 	 * alternate: (array funcArray, function callback)
 	 * alternate: (array funcArray)
 	 */
-	if(!farr.length){ 
+	if(!farr.length){
 		if(typeof onend == "function"){
 			onend();
 		}

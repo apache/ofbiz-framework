@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ContactList methods -->
     <simple-method method-name="createContactList" short-description="Create an ContactList">
@@ -30,7 +30,7 @@ under the License.
             <sequenced-id sequence-name="ContactList" field="newEntity.contactListId"/>
             <else>
                 <set field="newEntity.contactListId" from-field="parameters.contactListId"/>
-            </else>            
+            </else>
         </if-empty>
         <field-to-result field="newEntity.contactListId" result-name="contactListId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -51,7 +51,7 @@ under the License.
         <entity-one entity-name="ContactList" value-field="lookedUpValue" auto-field-map="true"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- ContactListParty methods -->
     <simple-method method-name="inlineCheckContactListMechType" short-description="inlineCheckContactListMechType">
         <!-- check the preferredContactMechId, make sure it is the right type -->
@@ -99,18 +99,18 @@ under the License.
         <entity-one entity-name="ContactList" value-field="contactList"/>
         <call-simple-method method-name="inlineCheckContactListMechType"/>
         <call-simple-method method-name="inlineCheckContactListStatusParameter"/>
-        
+
         <!-- okay, now check for all errors -->
         <check-errors/>
-        
-        
+
+
         <make-value entity-name="ContactListParty" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
-        
+
         <create-value value-field="newEntity"/>
-        
+
         <set-service-fields service-name="createContactListPartyStatus" map="newEntity" to-map="createContactListPartyStatusMap"/>
         <call-service service-name="createContactListPartyStatus" in-map-name="createContactListPartyStatusMap"/>
     </simple-method>
@@ -130,7 +130,7 @@ under the License.
         <entity-one entity-name="ContactList" value-field="contactList"/>
         <call-simple-method method-name="inlineCheckContactListMechType"/>
         <call-simple-method method-name="inlineCheckContactListStatusParameter"/>
-        
+
         <entity-one entity-name="ContactListParty" value-field="lookedUpValue"/>
         <if-not-empty field="parameters.statusId">
             <if-compare-field field="parameters.statusId" to-field="lookedUpValue.statusId" operator="not-equals">
@@ -143,14 +143,14 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="updatePartyEmailContactListParty" short-description="Update ContactList Party Contact Mech">
-        <set field="lookupMap.preferredContactMechId" from-field="parameters.oldContactMechId"/>       
+        <set field="lookupMap.preferredContactMechId" from-field="parameters.oldContactMechId"/>
         <find-by-and entity-name="ContactListParty" map="lookupMap" list="ContactListParties"/>
         <iterate entry="contactlistparty" list="ContactListParties">
         <set field="contactlistparty.preferredContactMechId" from-field="parameters.contactMechId"/>
-        <log level="info" message="Replacing preferredContactMechId: ${parameters.oldContactMechId} of the ContactList: ${contactlistparty.contactListId} with new preferredContactMechId: ${parameters.contactMechId}"/>        
+        <log level="info" message="Replacing preferredContactMechId: ${parameters.oldContactMechId} of the ContactList: ${contactlistparty.contactListId} with new preferredContactMechId: ${parameters.contactMechId}"/>
         <store-value value-field="contactlistparty"/>
-        </iterate>         
-    </simple-method>    
+        </iterate>
+    </simple-method>
     <simple-method method-name="deleteContactListParty" short-description="Remove Party from ContactList">
         <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteContactListParty you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
@@ -171,14 +171,14 @@ under the License.
             <then><add-error><fail-message message="Security Error: to run createContactListPartyStatus you must run it for yourself or have the MARKETING_CREATE or MARKETING_UPDATE or MARKETING_ADMIN permissions."/></add-error></then>
         </if>
         <check-errors/>
-        
+
         <make-value entity-name="ContactListPartyStatus" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <now-timestamp field="newEntity.statusDate"/>
         <set from-field="userLogin.userLoginId" field="newEntity.setByUserLoginId"/>
-        
+
         <!-- if statusId is CLPT_PENDING, set optInVerifyCode; else if statusId is CLPT_ACCEPTED, make sure optInVerifyCode is the same as the last CLPT_PENDING -->
         <if>
             <condition><if-compare field="newEntity.statusId" operator="equals" value="CLPT_PENDING"/></condition>
@@ -235,7 +235,7 @@ under the License.
         <entity-one entity-name="ContactList" value-field="contactList"/>
         <entity-one entity-name="ContactListParty" value-field="contactListParty"/>
         <get-related-one value-field="contactListParty" relation-name="PreferredContactMech" to-value-field="preferredContactMech"/>
-        
+
         <if>
             <condition>
                 <and>
@@ -258,10 +258,10 @@ under the License.
                     <order-by field-name="-statusDate"/>
                 </entity-condition>
                 <first-from-list entry="contactListPartyStatus" list="lastContactListPartyStatusList"/>
-                
+
                 <!-- TODO: if preferredContactMech.contactMechTypeId != EMAIL_ADDRESS, return an error -->
                 <!-- TODO: if preferredContactMech is empty, should we try to find the ContactMech we want based on the Party? -->
-                
+
                 <!-- TODO: this could really use some more work to be more flexible, or easier to maintain, like perhaps a general EmailSendSettings entity or something -->
                 <set from-field="preferredContactMech.infoString" field="sendMailFromScreenMap.sendTo"/>
                 <set from-field="contactList.verifyEmailFrom" field="sendMailFromScreenMap.sendFrom"/>
@@ -269,11 +269,11 @@ under the License.
                 <set from-field="contactList.verifyEmailScreen" field="sendMailFromScreenMap.bodyScreenUri"/>
                 <set from-field="contactList.verifyEmailWebSiteId" field="sendMailFromScreenMap.webSiteId"/>
                 <set value="text/html" field="sendMailFromScreenMap.contentType"/>
-                
+
                 <set from-field="contactList" field="sendMailFromScreenMap.bodyParameters.contactList"/>
                 <set from-field="contactListParty" field="sendMailFromScreenMap.bodyParameters.contactListParty"/>
                 <set from-field="contactListPartyStatus" field="sendMailFromScreenMap.bodyParameters.contactListPartyStatus"/>
-                
+
                 <call-service service-name="sendMailFromScreen" in-map-name="sendMailFromScreenMap"/>
             </then>
             <else>

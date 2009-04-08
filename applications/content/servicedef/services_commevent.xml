@@ -18,20 +18,20 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Content Component Services</description>
     <vendor>OFBiz</vendor>
 
     <!--
         This service must do two things:
-        
+
         First, call persistContentAndAssoc service to create the Content, DataResource and ImageDataResource/ElectronicText/??? entities.
             Note that is will not create a ContentAssoc entity, which persistContentAndAssoc can do.
             It should be able to auto populate the service parameters for persistContentAndAssoc from this service's input parameters
             using ModelService.makeValid (or the simple method equivalent).
             persistContentAndAssoc will return contentId.
-        
+
         Second, it must create a CommunicationEventContent record.
             The fromData should be defaulted if not passed in.
     -->
@@ -60,7 +60,7 @@ under the License.
         <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
          <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="updateCommEventContentAssoc" engine="simple"
                 location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="updateCommEventContentAssoc" auth="true">
         <description>Update CommEventContentAssoc</description>
@@ -70,7 +70,7 @@ under the License.
         <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
          <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="removeCommEventContentAssoc" engine="simple"
                 location="component://content/script/org/ofbiz/content/content/ContentServices.xml" invoke="removeCommEventContentAssoc" auth="true">
         <description>Remove CommEventContentAssoc</description>

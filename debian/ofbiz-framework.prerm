@@ -30,7 +30,7 @@ if [ -x "/etc/init.d/ofbiz" ]; then
 	fi
 fi
 
-. /usr/share/dbconfig-common/dpkg/prerm 
+. /usr/share/dbconfig-common/dpkg/prerm
 dbc_go ofbiz "$@"
 
 case "$1" in

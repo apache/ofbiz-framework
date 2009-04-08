@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="LookupPartyName">
         <section>
@@ -141,7 +141,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="LookupContact">
         <section>
             <condition>
@@ -263,7 +263,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <!-- PartyClassificationGroup Lookup Screen -->
     <screen name="LookupPartyClassificationGroup">
         <section>
@@ -272,7 +272,7 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                
+
                 <set field="title" value="${uiLabelMap.PartyLookupPartyClassificationGroup}"/>
                 <set field="queryString" from-field="result.queryString"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>

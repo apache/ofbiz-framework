@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -50,7 +50,7 @@ if (action) {
             offsetQOH = Integer.parseInt(offsetQOHQty);
             hasOffsetQOH = true;
             searchParameterString = searchParameterString + "&offsetQOHQty=" + offsetQOH;
-        } catch(NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
         }
     }
     if (offsetATPQty) {
@@ -58,7 +58,7 @@ if (action) {
             offsetATP = Integer.parseInt(offsetATPQty);
             hasOffsetATP = true;
             searchParameterString = searchParameterString + "&offsetATPQty=" + offsetATP;
-        } catch(NumberFormatException nfe) {
+        } catch (NumberFormatException nfe) {
         }
     }
 
@@ -90,7 +90,7 @@ if (action) {
         conditionMap.partyId = productSupplierId;
         searchParameterString = searchParameterString + "&productSupplierId=" + productSupplierId;
     }
-    
+
     // set distinct on so we only get one row per product
     findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
     searchCondition = EntityCondition.makeCondition(conditionMap, EntityOperator.AND);
@@ -116,8 +116,8 @@ if (action) {
         whereConditionsList.add(EntityCondition.makeCondition("internalName", EntityOperator.LIKE, "%" + internalName + "%"));
         searchParameterString = searchParameterString + "&internalName=" + internalName;
     }
-    
-    // add search on productId 
+
+    // add search on productId
     if (productId) {
         whereConditionsList.add(EntityCondition.makeCondition("productId", EntityOperator.LIKE, productId + "%"));
         searchParameterString = searchParameterString + "&productId=" + productId;

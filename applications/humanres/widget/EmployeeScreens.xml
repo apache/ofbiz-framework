@@ -21,14 +21,14 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="FindEmployee">
-        <section>                        
+        <section>
             <actions>
                 <set field="titleProperty" value="${uiLabelMap.CommonFind} ${uiLabelMap.HumanResEmployee}"/>
                 <set field="headerItem" value="Employees"/>
-            </actions>            
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                                                                                       
+                    <decorator-section name="body">
                         <section>
                             <actions>
                                 <service service-name="findParty" auto-field-map="true"/>
@@ -42,7 +42,7 @@ under the License.
                                     <widgets>
                                         <platform-specific>
                                             <html><html-template location="component://humanres/webapp/humanres/humanres/findEmployee.ftl"/></html>
-                                        </platform-specific>                                        
+                                        </platform-specific>
                                     </widgets>
                                 </section>
                             </widgets>
@@ -52,19 +52,19 @@ under the License.
                         </section>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>            
+            </widgets>
         </section>
     </screen>
     <screen name="NewEmployee">
-        <section>                        
+        <section>
             <actions>
                 <set field="titleProperty" value="PartyCreateNewEmployee"/>
                 <set field="headerItem" value="Employees"/>
                 <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
-            </actions>            
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                                                                                       
+                    <decorator-section name="body">
                         <screenlet title="${uiLabelMap.HumanResNewEmployee}">
                             <section>
                                 <widgets>
@@ -74,7 +74,7 @@ under the License.
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>            
+            </widgets>
         </section>
     </screen>
     <screen name="EmployeeProfile">
@@ -84,10 +84,10 @@ under the License.
                 <set field="tabButtonItem" value="EmployeeProfile"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>                
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>                
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/progress_bar.css" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>    
+                <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -151,7 +151,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleViewPartySkill"/>
-                <set field="tabButtonItem" value="EditEmployeeSkills"/>    
+                <set field="tabButtonItem" value="EditEmployeeSkills"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="skillTypeId" from-field="parameters.skillTypeId"/>
                 <set field="partySkillsCtx.partyId" from-field="parameters.partyId"/>
@@ -167,7 +167,7 @@ under the License.
                      </decorator-section>
                  </decorator-screen>
             </widgets>
-        </section> 
+        </section>
     </screen>
     <screen name="EditEmployeeQuals">
         <section>
@@ -220,7 +220,7 @@ under the License.
                 <set field="tabButtonItem" value="EditEmployeeEmploymentApps"/>
                 <set field="referredByPartyId" from-field="parameters.partyId"/>
                 <set field="employmentAppCtx.applicationId" from-field="parameters.applicationId"/>
-                <set field="parameters.insideEmployee" value="true"/> 
+                <set field="parameters.insideEmployee" value="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
@@ -233,16 +233,16 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen> 
+    </screen>
     <screen name="EditEmployeeResumes">
-        <section>            
+        <section>
             <actions>
                 <set field="headerItem" value="PartyResume"></set>
                 <set field="tabButtonItem" value="EditEmployeeResumes"/>
                 <set field="resumeId" from-field="parameters.resumeId"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="PartyResume" value-field="partyResume"/>
-            </actions>            
+            </actions>
             <widgets>
                 <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
@@ -252,7 +252,7 @@ under the License.
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>                              
+            </widgets>
         </section>
     </screen>
     <screen name="EditEmployeePerformanceNotes">
@@ -294,7 +294,7 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>    
+    </screen>
     <screen name="CurrentEmploymentData">
         <section>
             <actions>

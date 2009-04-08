@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -159,7 +159,7 @@ if (entitySyncId) {
 checkAll = "true".equals(parameters.checkAll);
 tobrowser = parameters.tobrowser != null;
 context.tobrowser = tobrowser;
-  
+
 entityFromCond = null;
 entityThruCond = null;
 entityDateCond = null;
@@ -180,7 +180,7 @@ if (entityFromCond && entityThruCond) {
 reader = delegator.getModelReader();
 modelEntities = reader.getEntityCache().values() as TreeSet;
 context.modelEntities = modelEntities;
-  
+
 if (tobrowser) {
     session.setAttribute("xmlrawdump_entitylist", passedEntityNames);
     session.setAttribute("entityDateCond", entityDateCond);
@@ -191,7 +191,7 @@ if (tobrowser) {
     numberWritten = 0;
 
     // single file
-    if(filename && numberOfEntities) {
+    if (filename && numberOfEntities) {
         writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "UTF-8")));
         writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         writer.println("<entity-engine-xml>");
@@ -243,7 +243,7 @@ if (tobrowser) {
     context.results = results;
     if (outpath) {
         outdir = new File(outpath);
-        if(!outdir.exists()){
+        if (!outdir.exists()) {
             outdir.mkdir();
         }
         if (outdir.isDirectory() && outdir.canWrite()) {
@@ -251,12 +251,12 @@ if (tobrowser) {
                 numberWritten = 0;
                 fileName = preConfiguredSetName ? UtilFormatOut.formatPaddedNumber((long) fileNumber, 3) + "_" : "";
                 fileName = fileName + curEntityName;
-    
+
                 values = null;
                 beganTransaction = false;
                 try {
                     beganTransaction = TransactionUtil.begin(3600);
-                    
+
                     me = delegator.getModelEntity(curEntityName);
                     if (me instanceof ModelViewEntity) {
                         results.add("[$fileNumber] [vvv] $curEntityName skipping view entity");

@@ -26,16 +26,16 @@ under the License.
     <!-- ================================================================== -->
 
     <property name="name" value="ofbiz-base"/>
-    
+
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                    -->
-    <!-- ================================================================== -->               
+    <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
         <!-- compile start -->
     <javac15 destdir="${build.dir}/classes" srcdir="${src.dir}"/>
     </target>
-    
+
     <target name="jar" depends="classes">
         <jar jarfile="${build.dir}/lib/ofbiz.jar" manifest="${src.dir}/org/ofbiz/base/start/Start.mf">
             <fileset dir="${build.dir}/classes"/>
@@ -50,16 +50,16 @@ under the License.
         <copy todir="${basedir}/../..">
             <fileset dir="${build.dir}/lib" includes="ofbiz.jar"/>
         </copy>
-    </target>    
-    
+    </target>
+
     <!-- ================================================================== -->
     <!-- Build JavaDoc                                                      -->
     <!-- ================================================================== -->
 
     <target name="docs" depends="prepare-docs">
-        <javadoc packagenames="org.ofbiz.base.*" 
+        <javadoc packagenames="org.ofbiz.base.*"
                  classpathref="local.class.path"
-                 destdir="${build.dir}/javadocs" 
+                 destdir="${build.dir}/javadocs"
                  Windowtitle="Open for Business - Start API">
             <sourcepath path="${src.dir}"/>
         </javadoc>

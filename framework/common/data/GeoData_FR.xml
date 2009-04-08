@@ -429,7 +429,7 @@ under the License.
     <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-BBY93" geoIdTo="FR-93"/>
     <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-CTL94" geoIdTo="FR-94"/>
     <GeoAssoc geoAssocTypeId="COUNTY_SEAT" geoId="FR-PTO95" geoIdTo="FR-95"/>
-    
+
     <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-RAL"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-PIC"/>
     <GeoAssoc geoAssocTypeId="REGIONS" geoId="FRA" geoIdTo="FR-AUV"/>

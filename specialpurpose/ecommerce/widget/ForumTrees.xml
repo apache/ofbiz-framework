@@ -21,7 +21,7 @@ under the License.
 <trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-tree.xsd">
 
-    <tree name="ResponseTree" root-node-name="node-root" 
+    <tree name="ResponseTree" root-node-name="node-root"
         default-render-style="simple" default-wrap-style="responseTreeWrapper">
         <node name="node-root" >
             <entity-one entity-name="Content"  use-cache="false" value-field="rsp">
@@ -37,8 +37,8 @@ under the License.
                         <condition-list combine="or">
                             <condition-expr field-name="caThruDate" operator="equals"/>
                             <condition-expr field-name="caThruDate" operator="greater" from-field="nowTimestamp"/>
-                        </condition-list> 
-                    </condition-list> 
+                        </condition-list>
+                    </condition-list>
                     <order-by field-name="caFromDate DESC"/>
                 </entity-condition>
             </sub-node>
@@ -54,12 +54,12 @@ under the License.
                         <condition-list combine="or">
                             <condition-expr field-name="caThruDate" operator="equals"/>
                             <condition-expr field-name="caThruDate" operator="greater" from-field="nowTimestamp"/>
-                        </condition-list> 
-                    </condition-list> 
+                        </condition-list>
+                    </condition-list>
                     <order-by field-name="caFromDate DESC"/>
                 </entity-condition>
             </sub-node>
         </node>
     </tree>
-    
+
 </trees>

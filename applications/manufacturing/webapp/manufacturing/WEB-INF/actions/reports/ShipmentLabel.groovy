@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -25,7 +25,7 @@ shipment = delegator.findByPrimaryKey("Shipment", [shipmentId : shipmentId]);
 
 context.shipmentIdPar = shipment.shipmentId;
 
-if (shipment) {    
+if (shipment) {
     shipmentPackages = delegator.findByAnd("ShipmentPackage", [shipmentId : shipmentId]);
     records = [];
     orderReaders = [:];
@@ -35,10 +35,10 @@ if (shipment) {
             shipmentItem = shipmentPackageComponent.getRelatedOne("ShipmentItem");
             orderShipments = shipmentItem.getRelated("OrderShipment");
             orderShipment = EntityUtil.getFirst(orderShipments);
-            
+
             String orderId = null;
             String orderItemSeqId = null;
-            if (orderShipment) {            
+            if (orderShipment) {
                 orderId = orderShipment.orderId;
                 orderItemSeqId = orderShipment.orderItemSeqId;
             }
@@ -53,7 +53,7 @@ if (shipment) {
             }
             record.shipmentPackageSeqId = shipmentPackageComponent.shipmentPackageSeqId;
             record.orderId = orderId;
-            record.orderItemSeqId = orderItemSeqId;            
+            record.orderItemSeqId = orderItemSeqId;
             product = delegator.findByPrimaryKey("Product", [productId : record.productId]);
             record.productName = product.internalName;
             record.shipDate = shipment.estimatedShipDate;
@@ -77,13 +77,13 @@ if (shipment) {
         }
     }
     context.records = records;
-    
+
     // check permission
     hasPermission = false;
     if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
         hasPermission = true;
-    } 
-    context.hasPermission = hasPermission;    
+    }
+    context.hasPermission = hasPermission;
 }
 
 return "success";

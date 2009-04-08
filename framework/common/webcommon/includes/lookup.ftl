@@ -59,9 +59,9 @@ under the License.
         var num_id = (re_id.exec(String(window.location))
                 ? new Number(RegExp.$1) : 0);
         var obj_caller = (window.opener ? window.opener.lookups[num_id] : null);
-        if (obj_caller == null) 
+        if (obj_caller == null)
             obj_caller = window.opener;
-        
+
         var bkColor = "yellow";
         function setSourceColor(src){
         if(src != null)
@@ -86,11 +86,11 @@ under the License.
             obj_caller.target.value = value;
             var thisForm = obj_caller.target.form;
             var evalString = "";
-             
+
     		if (arguments.length > 2 ) {
         		for(var i=1; i < arguments.length; i=i+2) {
                     evalString = "setSourceColor(thisForm." + arguments[i] + ")";
-                    eval(evalString); 
+                    eval(evalString);
         			evalString = "thisForm." + arguments[i] + ".value='" + arguments[i+1] + "'";
         			eval(evalString);
         		}

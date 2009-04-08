@@ -60,7 +60,7 @@ dojo.html.toggleShowing = function(/* HTMLElement */node){
 }
 
 // Simple mapping of tag names to display values
-// FIXME: simplistic 
+// FIXME: simplistic
 dojo.html.displayMap = { tr: '', td: '', th: '', img: 'inline', span: 'inline', input: 'inline', button: 'inline' };
 
 dojo.html.suggestDisplayByTagName = function(/* HTMLElement */node){

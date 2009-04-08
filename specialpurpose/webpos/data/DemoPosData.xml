@@ -20,6 +20,6 @@ under the License.
 
 <entity-engine-xml>
     <WebSite webSiteId="WebStorePos" siteName="Web POS Site" productStoreId="9100"/>
-    
+
     <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="PERSONAL_CHECK" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService=""/>
 </entity-engine-xml>

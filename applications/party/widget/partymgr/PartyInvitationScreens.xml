@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="CommonPartyInvitationDecorator">
         <section>
@@ -94,7 +94,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="PartyInvitations">
         <section>
             <actions>
@@ -134,7 +134,7 @@ under the License.
             </widgets>
         </section>
     </screen>
- 
+
     <screen name="EditPartyInvitation">
         <section>
             <actions>
@@ -166,7 +166,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-  
+
     <screen name="EditPartyInvitationsGroupAssocs">
         <section>
             <actions>
@@ -186,7 +186,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditPartyInvitationsRoleAssocs">
         <section>
             <actions>

@@ -60,7 +60,7 @@ under the License.
             <set field="insideEmployee" from-field="parameters.insideEmployee"/>
         </actions>
         <alt-target use-when="insideEmployee==null" target="updatePartyQual"/>
-        <auto-fields-service service-name="updatePartyQual"/>        
+        <auto-fields-service service-name="updatePartyQual"/>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
                 <sub-hyperlink target="viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
@@ -97,7 +97,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
     </form>
-    <form name="AddPartyQual" type="single" target="createPartyQual" 
+    <form name="AddPartyQual" type="single" target="createPartyQual"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <set field="insideEmployee" from-field="parameters.insideEmployee"/>
@@ -129,6 +129,6 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>

@@ -54,7 +54,7 @@ under the License.
         </else>
         </if-compare>
     </simple-method>
-    
+
     <simple-method method-name="FindProductsByIdentification" short-description="Find products by good identification" login-required="false">
         <!--  Search by good identification -->
         <entity-condition entity-name="GoodIdentificationAndProduct" list="products">

@@ -18,11 +18,11 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
 
     <!-- cleanSyncRemoveInfo ECA, should also run on a schedule, like once a day or something -->
-    <eca service="runEntitySync" event="return">  
+    <eca service="runEntitySync" event="return">
         <action service="cleanSyncRemoveInfo" mode="async"/>
     </eca>
 </service-eca>

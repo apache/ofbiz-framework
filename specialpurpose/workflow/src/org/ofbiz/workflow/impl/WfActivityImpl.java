@@ -754,7 +754,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
             context.put("assignedRoleTypeId", res.resourceRoleId());
         }
 
-        // first we will pull out the values from the context for the actual parameters 
+        // first we will pull out the values from the context for the actual parameters
         if (actualParameters != null) {
             List params = StringUtil.split(actualParameters, ",");
             Iterator i = params.iterator();

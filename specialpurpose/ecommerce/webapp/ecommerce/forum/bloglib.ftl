@@ -42,7 +42,7 @@ under the License.
   <#if thisNode?has_content>
   <#assign thisOwnerContentId=thisNode.value.ownerContentId?if_exists/>
   </#if>
-  
+
   <#assign userLoginId=""/>
   <#if content?has_content && content.createdByUserLogin?has_content>
       <#assign userLoginId=content.createdByUserLogin/>

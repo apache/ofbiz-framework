@@ -18,10 +18,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<component-loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<component-loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/component-loader.xsd">
-    <load-components parent-directory="framework"/> 
-    <load-components parent-directory="themes"/> 
+    <load-components parent-directory="framework"/>
+    <load-components parent-directory="themes"/>
     <load-components parent-directory="applications"/>
     <load-components parent-directory="specialpurpose"/>
     <load-components parent-directory="hot-deploy"/>

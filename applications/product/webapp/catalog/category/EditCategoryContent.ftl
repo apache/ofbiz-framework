@@ -20,7 +20,7 @@ under the License.
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductOverrideSimpleFields}</h3>
     </div>
-    <div class="screenlet-body">        
+    <div class="screenlet-body">
         <form action="<@ofbizUrl>updateCategoryContent</@ofbizUrl>" method="post" style="margin: 0;" name="categoryForm">
             <table cellspacing="0" class="basic-table">
                 <tr>
@@ -34,7 +34,7 @@ under the License.
                         </#list>
                         </select>
                     </td>
-                </tr>            
+                </tr>
                 <tr>
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductName}</td>
                     <td>&nbsp;</td>

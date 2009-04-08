@@ -19,7 +19,7 @@ under the License.
 -->
 
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="EditContentType">
@@ -41,7 +41,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditContentTypeAttr">
         <section>
             <actions>
@@ -61,10 +61,10 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditContentAssocType">
         <section>
-            <actions>            
+            <actions>
                 <set field="titleProperty" value="PageTitleEditContentAssoc"/>
                 <set field="headerItem" value="ContentSetupMenu"/>
                 <set field="currentMenuItemName" to-scope="user" value="assocType"/>
@@ -81,7 +81,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditContentPurposeType">
         <section>
             <actions>
@@ -101,7 +101,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditContentAssocPredicate">
         <section>
             <actions>
@@ -121,7 +121,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditContentPurposeOperation">
         <section>
             <actions>
@@ -141,7 +141,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="UserPermissions">
         <section>
             <actions>
@@ -166,7 +166,7 @@ under the License.
     </screen>
     <screen name="EditContentOperation">
         <section>
-            <actions>            
+            <actions>
                 <set field="titleProperty" value="PageTitleEditContentOperation"/>
                 <set field="headerItem" value="ContentSetupMenu"/>
                 <set field="currentMenuItemName" to-scope="user" value="contentOp"/>

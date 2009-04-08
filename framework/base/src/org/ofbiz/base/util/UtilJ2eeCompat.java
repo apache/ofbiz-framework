@@ -57,7 +57,7 @@ public class UtilJ2eeCompat {
     }
 
     protected static void initCompatibilityOptions(ServletContext context) {
-        // this check to see if we should flush is done because on most servers this 
+        // this check to see if we should flush is done because on most servers this
         // will just slow things down and not solve any problems, but on Tomcat, Orion, etc it is necessary
         if (useOutputStreamNotWriterValue == null || doFlushOnRenderValue == null) {
             boolean doflush = true;

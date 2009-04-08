@@ -55,18 +55,18 @@ under the License.
                 <parameter param-name="resumeId"/>
             </hyperlink>
        </field>
-    </form>     
+    </form>
     <form name="EditPartyResume" type="single" target="createPartyResume" title="" default-map-name="partyResume"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="partyResume != null" target="updatePartyResume"/>
         <field name="resumeId" use-when="resumeId!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="resumeId" use-when="resumeId==null" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="contentId"><lookup target-form-name="LookupContent"/></field>
-        <field name="partyId" use-when="partyResume!=null&amp;&amp;partyId!=null" title="${uiLabelMap.FormFieldTitle_partyId}"><hidden/></field>                
+        <field name="partyId" use-when="partyResume!=null&amp;&amp;partyId!=null" title="${uiLabelMap.FormFieldTitle_partyId}"><hidden/></field>
         <field name="partyId" use-when="partyResume==null&amp;&amp;partyId==null" title="${uiLabelMap.FormFieldTitle_partyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="resumeDate"><date-time/></field>
         <field name="resumeText"><text/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" use-when="resumeId!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>

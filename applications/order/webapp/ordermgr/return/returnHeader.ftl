@@ -34,14 +34,14 @@ under the License.
             <form name="returnhead" method="post" action="<@ofbizUrl>createReturn</@ofbizUrl>">
             <input type="hidden" name="returnHeaderTypeId" value="CUSTOMER_RETURN"/>
         </#if>
-    
+
         <table cellspacing="0" class="basic-table">
           <#if returnHeader?exists>
           <tr>
             <td width='14%'>&nbsp;</td>
             <td width='6%' align='right' nowrap class="label">${uiLabelMap.OrderReturnId}</td>
             <td width='6%'>&nbsp;</td>
-            <td width='74%' align='left'>${returnHeader.returnId}</td>                
+            <td width='74%' align='left'>${returnHeader.returnId}</td>
           </tr>
           </#if>
           <tr>
@@ -67,7 +67,7 @@ under the License.
                 </#if>
              </select>
           </#if>
-            </td>                
+            </td>
           </tr>
           <tr>
             <td width='14%'>&nbsp;</td>
@@ -79,7 +79,7 @@ under the License.
               </#if>
               <input type='text' size='25' name='entryDate' value='${entryDate?if_exists}'>
               <a href="javascript:call_cal(document.returnhead.entryDate, '');"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>
-            </td>                
+            </td>
           </tr>
           <tr>
             <td width='14%'>&nbsp;</td>
@@ -90,7 +90,7 @@ under the License.
               <a href="javascript:call_fieldlookup2(document.returnhead.fromPartyId,'LookupPartyName');">
                 <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
               </a>
-            </td>                
+            </td>
           </tr>
           <tr>
             <td width='14%'>&nbsp;</td>
@@ -106,8 +106,8 @@ under the License.
                 <#list facilityList as facility>
                   <option value="${facility.facilityId}" <#if (facilityList?size == 1)>selected</#if>>${facility.facilityName?default(facility.facilityId)}</option>
                 </#list>
-            </td>                
-          </tr>  
+            </td>
+          </tr>
           <tr>
             <td width='14%'>&nbsp;</td>
             <td width='6%' align='right' nowrap class="label">${uiLabelMap.AccountingBillingAccount}</td>
@@ -127,7 +127,7 @@ under the License.
               <#else>
                 <input type='text' size='20' name='billingAccountId'>
               </#if>
-            </td>                
+            </td>
           </tr>
           <tr>
             <td width='14%'>&nbsp;</td>
@@ -214,11 +214,11 @@ under the License.
               <#if (addressEditable)>
                 <#list addresses as address >
                   <@displayAddress postalAddress = address.postalAddress editable = true/>
-                </#list>             
+                </#list>
                 <input type='radio' name="originContactMechId" value="" <#if (!postalAddressFrom?has_content)> checked="checked"</#if>>${uiLabelMap.CommonNoAddress}
               <#else>
                  <#if (postalAddressFrom?has_content)>
-                   <@displayAddress postalAddress = postalAddressFrom editable = false />  
+                   <@displayAddress postalAddress = postalAddressFrom editable = false />
                  <#else>
                    ${uiLabelMap.CommonNoAddress}
                  </#if>
@@ -235,34 +235,34 @@ under the License.
                 <@displayAddress postalAddress = postalAddressTo editable=false />
               </#if>
             </td>
-          </tr>    
+          </tr>
           <tr>
             <td width='14%'>&nbsp;</td>
             <td width='6%'>&nbsp;</td>
-            <td width='6%'>&nbsp;</td>   
+            <td width='6%'>&nbsp;</td>
             <td width='74%'>
               <input type="submit" value="${uiLabelMap.CommonUpdate}"/>
             </td>
-          </tr>     
+          </tr>
         <#else>
           <input type="hidden" name="statusId" value="RETURN_REQUESTED">
           <tr>
             <td width='14%'>&nbsp;</td>
             <td width='6%'>&nbsp;</td>
-            <td width='6%'>&nbsp;</td>   
+            <td width='6%'>&nbsp;</td>
             <td width='74%'>
               <input type="submit" value="${uiLabelMap.CommonCreateNew}"/>
             </td>
-          </tr>     
+          </tr>
         </#if>
         </table>
         <#macro displayAddress postalAddress editable>
             <#if postalAddress?has_content>
                     <div>
                       <#if (editable)>
-                        <input type='radio' name="originContactMechId" value="${postalAddress.contactMechId?if_exists}" 
-                          <#if ( postalAddressFrom?has_content && postalAddressFrom.contactMechId?default("") == postalAddress.contactMechId)>checked="checked"</#if>>        
-                      </#if>              
+                        <input type='radio' name="originContactMechId" value="${postalAddress.contactMechId?if_exists}"
+                          <#if ( postalAddressFrom?has_content && postalAddressFrom.contactMechId?default("") == postalAddress.contactMechId)>checked="checked"</#if>>
+                      </#if>
                       <#if postalAddress.toName?has_content><span class="label">${uiLabelMap.CommonTo}</span>&nbsp;${postalAddress.toName}<br/></#if>
                       <#if postalAddress.attnName?has_content><span class="label">${uiLabelMap.CommonAttn}</span>&nbsp;${postalAddress.attnName}<br/></#if>
                       <#if postalAddress.address1?has_content>&nbsp;&nbsp;&nbsp;&nbsp;${postalAddress.address1}<br/></#if>

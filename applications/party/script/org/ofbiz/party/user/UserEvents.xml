@@ -306,7 +306,7 @@ under the License.
         <set field="workPhoneContext.partyId" from-field="tempMap.partyId"/>
         <set field="faxPhoneContext.partyId" from-field="tempMap.partyId"/>
         <set field="mobilePhoneContext.partyId" from-field="tempMap.partyId"/>
-        <set field="emailContext.partyId" from-field="tempMap.partyId"/>        
+        <set field="emailContext.partyId" from-field="tempMap.partyId"/>
 
         <if-not-empty field="newUserLogin">
             <!-- If password encryption is enabled, encrpyt it now -->
@@ -323,7 +323,7 @@ under the License.
 
         <create-value value-field="partyDataSource"/>
         <call-service service-name="createPartyRole" in-map-name="partyRoleContext"/>
-        
+
         <!-- shipping address -->
         <if-compare field="parameters.USE_ADDRESS" operator="equals" value="false">
             <!-- address not used, do nothing -->

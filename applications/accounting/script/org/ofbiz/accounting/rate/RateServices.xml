@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="updateRateAmount" short-description="update/create a rate amount value">
@@ -42,7 +42,7 @@ under the License.
         <if-empty field="parameters.workEffortId">
             <set field="parameters.workEffortId" value="_NA_"/>
         </if-empty>
-        
+
         <!-- try to find existing value -->
         <entity-and entity-name="RateAmount" list="rateAmounts" filter-by-date="true">
             <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
@@ -68,13 +68,13 @@ under the License.
         <now-timestamp field="newEntity.fromDate"/>
         <clear-field field="newEntity.thruDate"/>
         <create-value value-field="newEntity"/>
-    </simple-method>   
+    </simple-method>
 
     <simple-method method-name="deleteRateAmount" short-description="update/create a rate amount value">
         <set value="_CREATE" field="securityAction"/>
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
-        
+
         <!-- set defaults -->
         <if-empty field="parameters.rateCurrencyUomId">
             <property-to-field resource="general.properties" property="currency.uom.id.default" field="parameters.rateCurrencyUomId"/>
@@ -108,7 +108,7 @@ under the License.
         <set value="_READ" field="securityAction"/>
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
-        <!-- 
+        <!--
            Search for the applicable rate from most specific to most general in the RateAmount entity
            Defaults for periodTypeId is per hour and default currency is the currency in general.properties
            The order is:
@@ -116,7 +116,7 @@ under the License.
                2. for specific rateTypeId, partyId (party)
                3. for specific rateTypeId, emplPositionTypeId (emplPositionType)
                4. for specific rateTypeId (rateType)
-               
+
                Then will be checked if the requested periodTypeId and currency can be found, if not isue an error message
         -->
         <if-empty field="parameters.rateCurrencyUomId">
@@ -125,13 +125,13 @@ under the License.
         <if-empty field="parameters.periodTypeId">
             <set field="parameters.periodTypeId" value="RATE_HOUR"/>
         </if-empty>
-        
+
         <if><!-- workeffort level -->
             <condition>
                 <and>
                     <not><if-empty field="parameters.workEffortId"/></not>
                     <if-compare field="parameters.workEffortId" value="_NA_" operator="not-equals"/>
-                </and>           
+                </and>
             </condition>
             <then>
                 <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
@@ -146,14 +146,14 @@ under the License.
                 </if-not-empty>
             </then>
         </if>
-        
+
         <if><!-- party level -->
             <condition>
                 <and>
                     <if-empty field="level"/>
                     <not><if-empty field="parameters.partyId"/></not>
                     <if-compare field="parameters.partyId" value="_NA_" operator="not-equals"/>
-                </and>           
+                </and>
             </condition>
             <then>
                 <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
@@ -168,14 +168,14 @@ under the License.
                 </if-not-empty>
             </then>
         </if>
-        
+
         <if><!-- emplPositionType level -->
             <condition>
                 <and>
                     <if-empty field="level"/>
                     <not><if-empty field="parameters.emplPositionTypeId"/></not>
                     <if-compare field="parameters.emplPositionTypeId" value="_NA_" operator="not-equals"/>
-                </and>           
+                </and>
             </condition>
             <then>
                 <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
@@ -190,14 +190,14 @@ under the License.
                 </if-not-empty>
             </then>
         </if>
-        
+
         <if-empty field="level">
             <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
                 <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
             </entity-and>
             <set field="level" value="rateType"/>
         </if-empty>
-        
+
         <if-empty field="amounts">
             <entity-one entity-name="RateType" value-field="rateType"/>
             <log level="error" message="A valid rate amount could not be found for rateType: ${rateType.description}"/>
@@ -221,7 +221,7 @@ under the License.
                 <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, workEffort: ${workEffort.workEffortName}, party: ${partyNameView.lastName} ${partyNameView.middleName} ${partyNameView.firstName}${partyNameView.groupName} However.....not for the period: ${period.description} and currency: ${currencyUomId.description}"/>
             </if-empty>
         </if-compare>
-        
+
         <if-compare field="level" value="party" operator="equals">
             <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
                 <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
@@ -239,7 +239,7 @@ under the License.
                 <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, party: ${partyNameView.lastName} ${partyNameView.middleName} ${partyNameView.firstName}${partyNameView.groupName} However..... NOT   for the period: ${period.description} and currency: ${currencyUomId.description}"/>
             </if-empty>
         </if-compare>
-        
+
         <if-compare field="level" value="emplPositionType" operator="equals">
             <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
                 <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
@@ -258,7 +258,7 @@ under the License.
                 <check-errors/>
             </if-empty>
         </if-compare>
-        
+
         <if-compare field="level" value="rateType" operator="equals">
             <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
                 <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
@@ -287,15 +287,15 @@ under the License.
             <field-to-result field="level"/>
             <field-to-result field="amount.fromDate" result-name="fromDate"/>
         </if-not-empty>
-        
+
     </simple-method>
-        
+
     <!-- party rate services -->
     <simple-method method-name="updatePartyRate" short-description="Update/Create PartyRate">
         <set value="_CREATE" field="securityAction"/>
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
-        
+
         <!-- check if already exist is so expire current record -->
         <entity-and entity-name="PartyRate" list="partyRates" filter-by-date="true">
             <field-map field-name="partyId" from-field="parameters.partyId"/>
@@ -313,7 +313,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <call-simple-method method-name="checkOtherDefaultRate"/>
         <create-value value-field="newEntity"/>
-        
+
         <if-not-empty field="parameters.rateAmount">
             <set-service-fields service-name="updateRateAmount" map="parameters" to-map="updRate"/>
             <call-service service-name="updateRateAmount" in-map-name="updRate"/>
@@ -340,14 +340,14 @@ under the License.
         <set value="_UPDATE" field="securityAction"/>
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
-        
+
         <entity-one entity-name="PartyRate" value-field="lookedUpValue"/>
         <now-timestamp field="lookedUpValue.thruDate"/>
         <store-value value-field="lookedUpValue"/>
-        
+
         <set-service-fields service-name="deleteRateAmount" map="parameters" to-map="delRateAmount"/>
         <set field="delRateAmount.fromDate" from-field="parameters.rateAmountFromDate"/>
-        <call-service service-name="deleteRateAmount" in-map-name="delRateAmount"/>        
+        <call-service service-name="deleteRateAmount" in-map-name="delRateAmount"/>
     </simple-method>
 
     <!-- migrate service -->
@@ -365,11 +365,11 @@ under the License.
             <set field="rateAmount.partyId" value="_NA_"/>
             <property-to-field resource="general.properties" property="currency.uom.id.default" field="rateAmount.rateCurrencyUomId"/>
             <create-value value-field="rateAmount"/>
-        </iterate>        
+        </iterate>
         <entity-condition entity-name="OldPartyRate" list="partyRates"/>
         <iterate entry="oldPartyRate" list="oldPartyRates">
             <make-value value-field="partyRate" entity-name="PartyRate"/>
-            <set-pk-fields value-field="oldPartyRate" map="partyRate"/>            
+            <set-pk-fields value-field="oldPartyRate" map="partyRate"/>
             <set-nonpk-fields value-field="oldPartyRate" map="partyRate"/>
             <create-value value-field="partyRate"/>
             <make-value value-field="rateAmount" entity-name="RateAmount"/>

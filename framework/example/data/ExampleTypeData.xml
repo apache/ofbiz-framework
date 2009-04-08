@@ -22,11 +22,11 @@ under the License.
     <ExampleType exampleTypeId="MADE_UP" description="Made Up" parentTypeId=""/>
     <ExampleType exampleTypeId="CONTRIVED" description="Contrived" parentTypeId="MADE_UP"/>
     <ExampleType exampleTypeId="INSPIRED" description="Inspired" parentTypeId="MADE_UP"/>
-    
+
     <ExampleFeatureApplType exampleFeatureApplTypeId="REQUIRED" description="Required" parentTypeId=""/>
     <ExampleFeatureApplType exampleFeatureApplTypeId="DESIRED" description="Desired" parentTypeId=""/>
     <ExampleFeatureApplType exampleFeatureApplTypeId="NOT_ALLOWED" description="Not Allowed" parentTypeId=""/>
-    
+
     <StatusType description="Example" statusTypeId="EXAMPLE_STATUS" hasTable="N" parentTypeId=""/>
     <StatusItem description="In Design" sequenceId="01" statusCode="IN_DESIGN" statusId="EXST_IN_DESIGN" statusTypeId="EXAMPLE_STATUS"/>
     <StatusItem description="Defined" sequenceId="02" statusCode="DEFINED" statusId="EXST_DEFINED" statusTypeId="EXAMPLE_STATUS"/>
@@ -45,7 +45,7 @@ under the License.
     <StatusValidChange condition="" statusId="EXST_APPROVED" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
     <StatusValidChange condition="" statusId="EXST_IMPLEMENTED" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
     <StatusValidChange condition="" statusId="EXST_TESTED" statusIdTo="EXST_CANCELLED" transitionName="Cancel Example"/>
-    
+
     <EnumerationType description="Example Feature Source" enumTypeId="EXMPL_FEAT_SOURCE" hasTable="N" parentTypeId=""/>
     <Enumeration description="Customer" enumCode="CUSTOMER" enumId="EXFTSRC_CUSTOMER" sequenceId="01" enumTypeId="EXMPL_FEAT_SOURCE"/>
     <Enumeration description="Partner" enumCode="PARTNER" enumId="EXFTSRC_PARTNER" sequenceId="02" enumTypeId="EXMPL_FEAT_SOURCE"/>

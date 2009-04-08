@@ -22,7 +22,7 @@ under the License.
         <Panel x="0" y="0" w="306" h="50" style="numButton">
             <Edit name="numeric_input" x="2" y="2" w="300" h="42" style="input" border="0" alignment="Left"/>
         </Panel>
-        <Panel x="0" y="50" w="306" h="282" style="numButton"> 
+        <Panel x="0" y="50" w="306" h="282" style="numButton">
             <Button name="numSeven" x="0" y="0" w="75" h="68" style="numButton" content="7" alignment="Center"/>
             <Button name="numEight" x="76" y="0" w="75" h="68" style="numButton" content="8" alignment="Center"/>
             <Button name="numNine" x="152" y="0" w="75" h="68" style="numButton" content="9" alignment="Center"/>
@@ -39,5 +39,5 @@ under the License.
             <Button name="numZero" x="76" y="207" w="75" h="68" style="numButton" content="0" alignment="Center"/>
             <Button name="numDZero" x="152" y="207" w="75" h="68" style="numButton" content="00" alignment="Center"/>
         </Panel>
-    </Components>    
+    </Components>
 </XPage>

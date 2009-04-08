@@ -33,12 +33,12 @@ under the License.
     <tr>
       <td>
         <table width="100%" border="0" height="200">
-          <tr bgcolor="#CC6666"> 
-            <td height="45"> 
+          <tr bgcolor="#CC6666">
+            <td height="45">
               <div align="center"><font face="Verdana, Arial, Helvetica, sans-serif" size="4" color="#FFFFFF"><b>:ERROR MESSAGE:</b></font></div>
             </td>
           </tr>
-          <tr> 
+          <tr>
             <td>
               <div align="left"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><%=UtilFormatOut.replaceString(errorMsg, "\n", "<br/>")%></font></div>
             </td>

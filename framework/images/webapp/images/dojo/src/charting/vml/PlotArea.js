@@ -24,10 +24,10 @@ if(dojo.render.vml.capable){
 		initialize:function(){
 			//	summary
 			//	Initialize the PlotArea.
-		
+
 			this.destroy();	//	kill everything first.
 			var main = this.nodes.main = document.createElement("div");
-			
+
 			//	start with the background
 			var area = this.nodes.area = document.createElement("div");
 			area.id = this.getId();
@@ -35,7 +35,7 @@ if(dojo.render.vml.capable){
 			area.style.height=this.size.height+"px";
 			area.style.position="absolute";
 			main.appendChild(area);
-		
+
 			var bg = this.nodes.background = document.createElement("div");
 			bg.id = this.getId()+"-background";
 			bg.style.width=this.size.width+"px";

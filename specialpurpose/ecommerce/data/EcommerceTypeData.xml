@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entity-engine-xml>
-  
+
     <!-- Ecommerce Default Visual Theme -->
     <VisualTheme visualThemeId="EC_DEFAULT" visualThemeSetId="ECOMMERCE" description="OFBiz Ecommerce Standard Floating Layout"/>
     <VisualThemeResource visualThemeId="EC_DEFAULT" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/ecommerce/images/blog.css" sequenceId="01"/>

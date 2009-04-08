@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -16,12 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- 
+
 import org.ofbiz.entity.util.*
 import org.ofbiz.entity.condition.*
 import org.ofbiz.service.ServiceUtil
 
-facilityId = request.getParameter("facilityId"); 
+facilityId = request.getParameter("facilityId");
 purchaseOrderId = request.getParameter("purchaseOrderId");
 productId = request.getParameter("productId");
 shipmentId = request.getParameter("shipmentId");
@@ -38,7 +38,7 @@ if (facility) {
         result = dispatcher.runSync("getPartyAccountingPreferences", [organizationPartyId : owner.partyId, userLogin : request.getAttribute("userLogin")]);
         if (!ServiceUtil.isError(result) && result.partyAccountingPreference) {
             ownerAcctgPref = result.partyAccountingPreference;
-        } 
+        }
     }
 }
 
@@ -51,8 +51,8 @@ if (purchaseOrderId) {
 }
 
 product = null;
-if (productId) {  
-    product = delegator.findOne("Product", [productId : productId], false);      
+if (productId) {
+    product = delegator.findOne("Product", [productId : productId], false);
 }
 
 shipments = null;
@@ -67,7 +67,7 @@ if (purchaseOrder && !shipmentId) {
                 (!shipment.destinationFacilityId || facilityId.equals(shipment.destinationFacilityId))) {
                 shipments.add(shipment);
             }
-        }        
+        }
     }
 }
 
@@ -92,9 +92,9 @@ if (purchaseOrder) {
                 issuanceQty += ((Double)shippedQuantities.get(issuance.orderItemSeqId)).doubleValue();
             }
             shippedQuantities.put(issuance.orderItemSeqId, issuanceQty);
-        }               
+        }
         purchaseOrderItems = EntityUtil.filterByOr(orderItems, exprs);
-    } else {    
+    } else {
         purchaseOrderItems = purchaseOrder.getRelated("OrderItem");
     }
 }
@@ -105,10 +105,10 @@ if (purchaseOrder && facility) {
         orderCurrencyUomId = purchaseOrder.currencyUom;
         if (!orderCurrencyUomId.equals(ownerCurrencyUomId)) {
             purchaseOrderItems.each { item ->
-                serviceResults = dispatcher.runSync("convertUom", 
+                serviceResults = dispatcher.runSync("convertUom",
                         [uomId : orderCurrencyUomId, uomIdTo : ownerCurrencyUomId, originalValue : item.unitPrice]);
                 if (ServiceUtil.isError(serviceResults)) {
-                    request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(serviceResults)); 
+                    request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(serviceResults));
                     return;
                 } else {
                     convertedValue = serviceResults.convertedValue;
@@ -143,19 +143,19 @@ if (purchaseOrderItems) {
                     }
                     if (rejected) {
                         totalReceived += rejected.doubleValue();
-                    }                                            
+                    }
                 }
-            }            
+            }
         }
         receivedQuantities.put(thisItem.orderItemSeqId, new Double(totalReceived));
         //----------------------
         salesOrderItemAssocs = delegator.findList("OrderItemAssoc", EntityCondition.makeCondition([orderItemAssocTypeId : 'PURCHASE_ORDER',
                                                                      toOrderId : thisItem.orderId,
-                                                                     toOrderItemSeqId : thisItem.orderItemSeqId]), 
+                                                                     toOrderItemSeqId : thisItem.orderItemSeqId]),
                                                                      null, null, null, false);
         if (salesOrderItemAssocs) {
             salesOrderItem = EntityUtil.getFirst(salesOrderItemAssocs);
-            salesOrderItems.put(thisItem.orderItemSeqId, salesOrderItem);        
+            salesOrderItems.put(thisItem.orderItemSeqId, salesOrderItem);
         }
     }
 }
@@ -190,7 +190,7 @@ if (ownerAcctgPref) {
         purchaseOrderItems.each { orderItem ->
             productId = orderItem.productId;
             if (productId) {
-                result = dispatcher.runSync("getProductCost", [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId, 
+                result = dispatcher.runSync("getProductCost", [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId,
                                                                costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute("userLogin")]);
                 if (!ServiceUtil.isError(result)) {
                     standardCosts.put(productId, result.productCost);
@@ -201,7 +201,7 @@ if (ownerAcctgPref) {
 
     // get the unit cost of a single product
     if (productId) {
-        result = dispatcher.runSync("getProductCost", [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId, 
+        result = dispatcher.runSync("getProductCost", [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId,
                                                        costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute("userLogin")]);
         if (!ServiceUtil.isError(result)) {
             standardCosts.put(productId, result.productCost);

@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Manufacturing Services - Production Run</description>
     <vendor>OFBiz</vendor>
@@ -332,7 +332,7 @@ under the License.
     </service>
     <service name="createProductionRunForMktgPkg" engine="java"
             location="org.ofbiz.manufacturing.jobshopmgt.ProductionRunServices" invoke="createProductionRunForMktgPkg" auth="true">
-        <description>Creates a production run for a marketing package when the product is out of stock (ATP quantity less than zero.)  
+        <description>Creates a production run for a marketing package when the product is out of stock (ATP quantity less than zero.)
                 Attempts to produce enough to bring total ATP quantity of the product back up to zero, but will only produce what is
                 available based on the components required.</description>
         <attribute mode="IN" name="orderId" optional="false" type="String"/>

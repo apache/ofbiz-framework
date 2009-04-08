@@ -93,7 +93,7 @@ binary-indep: debian/copyright
 	dh_installdirs -v
 	cp -a debian/*.xslt debian/*.class debian/ofbiz-framework/usr/share/ofbiz/support
 	dh_link
-#	tar -c . --exclude debian --exclude src --exclude build.xml --exclude build/classes --exclude framework/example | tar -C debian/ofbiz-svn-$(UPSTREAM_VERSION)/var/lib/ofbiz/$(UPSTREAM_VERSION) -x 
+#	tar -c . --exclude debian --exclude src --exclude build.xml --exclude build/classes --exclude framework/example | tar -C debian/ofbiz-svn-$(UPSTREAM_VERSION)/var/lib/ofbiz/$(UPSTREAM_VERSION) -x
 #	dh_strip
 #	dh_shlibdeps
 	dh_installinit -N ofbiz-framework

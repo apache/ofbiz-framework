@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
     <title>Entity of an Open For Business Project Component</title>
     <description>old depreciated entities</description>
@@ -49,5 +49,5 @@ under the License.
       <key-map field-name="partyId"/>
     </relation>
   </entity>
-  
+
 </entitymodel>
