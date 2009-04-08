@@ -121,9 +121,9 @@ under the License.
                             <platform-specific>
                                 <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
                             </platform-specific>
-                            <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/request/requestRoles.ftl"/></html>
-                            </platform-specific>
+                            <screenlet title="${uiLabelMap.OrderRequestRoles}">
+                                <include-form name="ViewRequestRoles" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            </screenlet>
                             <screenlet title="${uiLabelMap.PartyListCommunicationEvents}" navigation-form-name="ViewRequestCommunicationEvents">
                                 <include-form name="ViewRequestCommunicationEvents" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>

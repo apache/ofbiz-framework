@@ -93,19 +93,22 @@ under the License.
                             </screenlet>
                         </container>
                         <container style="righthalf">                            
+                            <screenlet title="${uiLabelMap.OrderCustRequestStatusList}" navigation-form-name="ViewRequest">
+                                <include-form name="ViewRequestStatus" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            </screenlet>
                             <platform-specific>
                                 <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
                             </platform-specific>
-                            <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/request/requestRoles.ftl"/></html>
-                            </platform-specific>
-                            <screenlet title="${uiLabelMap.PartyListCommunicationEvents}" navigation-form-name="ViewRequestCommunicationEvents">
+                            <screenlet title="${uiLabelMap.OrderRequestRoles}">
+                                <include-form name="ViewRequestRoles" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            </screenlet>
+                            <screenlet title="${uiLabelMap.PartyListCommunicationEvents}" navigation-form-name="ViewRequest">
                                 <include-form name="ViewRequestCommunicationEvents" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
-                            <screenlet title="${uiLabelMap.WorkEffortWorkEfforts}" navigation-form-name="ViewRequestWorkEfforts">
+                            <screenlet title="${uiLabelMap.WorkEffortWorkEfforts}" navigation-form-name="ViewRequest">
                                 <include-form name="ViewRequestWorkEfforts" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
-                            <screenlet title="${uiLabelMap.CommonContent}">
+                            <screenlet title="${uiLabelMap.CommonContent}" navigation-form-name="ViewRequest">
                                  <include-form name="ListCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
                         </container>
@@ -655,6 +658,33 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+    <screen name="CreateCustRequestNotification">
+        <section>
+            <actions>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <entity-one entity-name="PartyNameView" value-field="person">
+                    <field-map field-name="partyId" from-field="custRequest.fromPartyId"/>
+                </entity-one>
+                <set field="title" value="${uiLabelMap.OrderCustRequestNotificationMailCreation} #${custRequestId}"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://order/webapp/ordermgr/request/CreateCustRequestNotification.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CompletedCustRequestNotification">
+        <section>
+            <actions>
+                <entity-one entity-name="CustRequest" value-field="custRequest"/>
+                <entity-one entity-name="PartyNameView" value-field="person">
+                    <field-map field-name="partyId" from-field="custRequest.fromPartyId"/>
+                </entity-one>
+                <set field="title" value="${uiLabelMap.OrderCustRequestNotificationMailCompleted} #${custRequestId}"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://order/webapp/ordermgr/request/CompletedCustRequestNotification.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
     
 </screens>

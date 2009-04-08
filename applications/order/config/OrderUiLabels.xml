@@ -1684,6 +1684,9 @@
         <value xml:lang="zh">(不清除订单的话不能修改。)</value>
         <value xml:lang="zh_CN">(必须清空订单才能改变)</value>
     </property>
+    <property key="OrderCannotCancelRequestAlreadyWorkedOn">
+        <value xml:lang="en">You cannot cancel this customer request, work has already started on it.</value>
+    </property>
     <property key="OrderCannotChangeQuantityInPromotion">
         <value xml:lang="de">Sie können die Menge auf dem Aktionselement ${productName} (Produkt ID: ${productId}) nicht ändern, Menge nicht angepasst.</value>
         <value xml:lang="en">Sorry, you can't change the quantity on the promotion item ${productName} (product ID: ${productId}, not setting quantity.</value>
@@ -2368,6 +2371,17 @@
         <value xml:lang="ru">Налоговый номер пользователя</value>
         <value xml:lang="th">หมายเลขผู้เสียภาษี</value>
         <value xml:lang="zh">客户税务标识</value>
+    </property>
+    <property key="OrderCustRequestNotificationMailCompleted">
+        <value xml:lang="en">Customer Request Completed Notification Mai</value>
+        <value xml:lang="it">Notifica mail per richiesta cliente completata</value>
+    </property>
+    <property key="OrderCustRequestNotificationMailCreation">
+        <value xml:lang="en">Customer Request Creation Notification Mail</value>
+        <value xml:lang="it">Notifica mail per richiesta cliente creata</value>
+    </property>
+    <property key="OrderCustRequestStatusList">
+        <value xml:lang="en">Customer Request Status List</value>
     </property>
     <property key="OrderDate">
         <value xml:lang="de">Auftragsdatum</value>

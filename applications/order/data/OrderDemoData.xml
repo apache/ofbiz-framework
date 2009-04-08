@@ -18,16 +18,16 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    <screen name="CreateUserNotification">
-        <section>
-            <actions>
-                <set field="title" value="${uiLabelMap.MyPortalCustRequestNotificationMailCreation}"/>
-                </actions>
-            <widgets>
-                <platform-specific><html><html-template location="component://party/templates/email/CreatePartyNotification.ftl"/></html></platform-specific>
-                </widgets>
-            </section>
-    </screen>
-</screens>
+<entity-engine-xml>
+
+    <EmailTemplateSetting 
+        emailTemplateSettingId="CUST_REQ_ACCEPTED" 
+        bodyScreenLocation="component://order/widget/ordermgr/RequestScreens.xml#CreateCustRequestNotification" 
+        subject="OFBiz - Your Request Is Created[${custRequestId}]" 
+        fromAddress="ofbiztest@yahoo.com"/>
+    <EmailTemplateSetting emailTemplateSettingId="CUST_REQ_COMPLETED" 
+        bodyScreenLocation="component://order/widget/ordermgr/RequestScreens.xml#CompletedCustRequestNotification" 
+        subject="OFBiz - Your Request Is Complete[${custRequestId}]" 
+        fromAddress="ofbiztest@yahoo.com"/>
+
+</entity-engine-xml>
