@@ -218,7 +218,7 @@ under the License.
             <link target="resequenceCompDocPart">
                 <parameter param-name="contentId"/>
                 <parameter param-name="dir" value="up"/>
-                <parameter param-name="contentAssocTypeId" value="COMPDOC_PART"
+                <parameter param-name="contentAssocTypeId" value="COMPDOC_PART"/>
                 <parameter param-name="contentIdTo"/>
                 <parameter param-name="caContentAssocTypeId" from-field="contentAssocTypeId"/>
                 <parameter param-name="caSequenceNum" from-field="seqNumBefore"/>
@@ -234,7 +234,7 @@ under the License.
             <link target="resequenceCompDocPart">
                 <parameter param-name="contentId"/>
                 <parameter param-name="dir" value="down"/>
-                <parameter param-name="contentAssocTypeId" value="COMPDOC_PART"
+                <parameter param-name="contentAssocTypeId" value="COMPDOC_PART"/>
                 <parameter param-name="contentIdTo"/>
                 <parameter param-name="caContentAssocTypeId" from-field="contentAssocTypeId"/>
                 <parameter param-name="caSequenceNum" from-field="seqNumBefore"/>
