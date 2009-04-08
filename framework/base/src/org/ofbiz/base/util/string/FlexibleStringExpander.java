@@ -29,6 +29,7 @@ import java.util.TimeZone;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.base.util.*;
 import org.codehaus.groovy.control.CompilationFailedException;
+import org.codehaus.groovy.runtime.InvokerHelper;
 
 import bsh.EvalError;
 
@@ -307,13 +308,16 @@ public class FlexibleStringExpander implements Serializable {
     }
 
     protected static class GroovyElem implements StrElem {
-        protected final String str;
+        protected final String originalString;
+        protected final Class parsedScript;
         protected GroovyElem(String script) {
-            this.str = script;
+            this.originalString = script;
+            this.parsedScript = GroovyUtil.groovyClassLoader.parseClass(script);
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
-                Object obj = GroovyUtil.eval(this.str, UtilMisc.makeMapWritable(context));
+                // this approach will re-parse the script each time: Object obj = GroovyUtil.eval(this.str, UtilMisc.makeMapWritable(context));
+                Object obj = InvokerHelper.createScript(this.parsedScript, GroovyUtil.getBinding(context)).run();
                 if (obj != null) {
                     try {
                         buffer.append(ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
@@ -322,11 +326,14 @@ public class FlexibleStringExpander implements Serializable {
                     }
                 } else {
                     if (Debug.verboseOn()) {
-                        Debug.logVerbose("Groovy scriptlet evaluated to null [" + this.str + "], got no return so inserting nothing.", module);
+                        Debug.logVerbose("Groovy scriptlet evaluated to null [" + this.originalString + "], got no return so inserting nothing.", module);
                     }
                 }
             } catch (CompilationFailedException e) {
-                Debug.logWarning(e, "Error evaluating Groovy scriptlet [" + this.str + "], inserting nothing; error was: " + e, module);
+                Debug.logWarning(e, "Error evaluating Groovy scriptlet [" + this.originalString + "], inserting nothing; error was: " + e, module);
+            } catch (Exception e) {
+                // handle other things, like the groovy.lang.MissingPropertyException
+                Debug.logWarning(e, "Error evaluating Groovy scriptlet [" + this.originalString + "], inserting nothing; error was: " + e, module);
             }
         }
     }

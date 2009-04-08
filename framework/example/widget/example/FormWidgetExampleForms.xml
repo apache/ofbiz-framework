@@ -39,8 +39,8 @@ under the License.
         <field name="field9"
                title="${uiLabelMap.ExampleDateField9Title}"
                tooltip="${uiLabelMap.ExampleDateField9Tooltip}">
-            <!-- tooltip="Same as above, uses the ${'${'bsh:...} notation to call an util method to get the now timestamp}"-->
-            <!-- tooltip="Same as above, uses the \${bsh:...} notation to call an util method to get the now timestamp}"-->
+            <!-- tooltip="Same as above, uses the ${'${'groovy:...} notation to call an util method to get the now timestamp}"-->
+            <!-- tooltip="Same as above, uses the \${groovy:...} notation to call an util method to get the now timestamp}"-->
             <date-time default-value="${groovy:org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
         </field>
         <!-- ***************** -->
@@ -108,7 +108,7 @@ under the License.
                entry-name="exampleDateField"
                title="${uiLabelMap.ExampleDateField8Title}"
                tooltip="${uiLabelMap.ExampleDateField8Tooltip}">
-            <display description="${bsh:org.ofbiz.base.util.UtilDateTime.toDateString(exampleDateField, &quot;MMMM, dd, yyyy&quot;);}"/>
+            <display description="${bsh:org.ofbiz.base.util.UtilDateTime.toDateString(exampleDateField, &quot;MMMM,dd,yyyy&quot;);}"/>
         </field>
     </form>
 
