@@ -16,12 +16,12 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if productPromoId?exists && productPromo?exists>   
+<#if productPromoId?exists && productPromo?exists>
     <div class="screenlet">
         <div class="screenlet-title-bar">
             <h3>${uiLabelMap.PageTitleEditProductPromoStores}</h3>
         </div>
-        <div class="screenlet-body"> 
+        <div class="screenlet-body">
             <table cellspacing="0" class="basic-table">
                 <tr class="header-row">
                     <td><b>${uiLabelMap.ProductStoreNameId}</b></td>
@@ -29,8 +29,8 @@ under the License.
                     <td align="center"><b>${uiLabelMap.ProductThruDateTimeSequence}</b></td>
                     <td><b>&nbsp;</b></td>
                 </tr>
-                <#assign line = 0>  
-                <#assign rowClass = "2">     
+                <#assign line = 0>
+                <#assign rowClass = "2">
                 <#list productStorePromoAppls as productStorePromoAppl>
                 <#assign line = line + 1>
                 <#assign productStore = productStorePromoAppl.getRelatedOne("ProductStore")>
@@ -62,7 +62,7 @@ under the License.
                     <#assign rowClass = "1">
                 <#else>
                     <#assign rowClass = "2">
-                </#if> 
+                </#if>
                 </#list>
             </table>
         </div>

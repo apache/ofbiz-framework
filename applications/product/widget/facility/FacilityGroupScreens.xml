@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="FindFacilityGroup">
         <section>
@@ -70,13 +70,13 @@ under the License.
                                 <platform-specific>
                                     <html><html-template location="component://product/webapp/facility/group/FacilityGroupTabBar.ftl"/></html>
                                 </platform-specific>
-            
+
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- 
+
 import java.util.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
@@ -76,7 +76,7 @@ if (shoppingListId) {
     if (shoppingList) {
         shoppingListItemTotal = 0.0;
         shoppingListChildTotal = 0.0;
-    
+
         shoppingListItems = shoppingList.getRelatedCache("ShoppingListItem");
         if (shoppingListItems) {
             shoppingListItemDatas = new ArrayList(shoppingListItems.size());
@@ -100,8 +100,8 @@ if (shoppingListId) {
                     rentalValue = 0;
                     if (persons) {
                         if (persons > 2) {
-                            persons -= 2; 
-                            if (reservNthPPPerc) { 
+                            persons -= 2;
+                            if (reservNthPPPerc) {
                                 rentalValue = persons * reservNthPPPerc;
                             } else if (reserv2ndPPPerc) {
                                 rentalValue = persons * reserv2ndPPPerc;
@@ -111,7 +111,7 @@ if (shoppingListId) {
                         if (persons == 2) {
                             if (reserv2ndPPPerc) {
                                 rentalValue += reserv2ndPPPerc;
-                            } else if (reservNthPPPerc) { 
+                            } else if (reservNthPPPerc) {
                                 rentalValue = persons * reservNthPPPerc;
                             }
                         }
@@ -139,7 +139,7 @@ if (shoppingListId) {
 
         shoppingListType = shoppingList.getRelatedOne("ShoppingListType");
         context.shoppingListType = shoppingListType;
-    
+
         // get the child shopping lists of the current list for the logged in user
         childShoppingLists = delegator.findByAndCache("ShoppingList", [partyId : userLogin.partyId, parentShoppingListId : shoppingListId], ["listName"]);
         // now get prices for each child shopping list...

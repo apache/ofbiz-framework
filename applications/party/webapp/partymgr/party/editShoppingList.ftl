@@ -84,7 +84,7 @@ under the License.
               </#list>
             </select>
           </td>
-        </tr>                           
+        </tr>
         <tr>
           <td class="label">${uiLabelMap.PartyPublic}?</td>
           <td>
@@ -95,7 +95,7 @@ under the License.
               <option>${uiLabelMap.CommonNo}</option>
             </select>
           </td>
-        </tr>                           
+        </tr>
         <tr>
           <td class="label">${uiLabelMap.PartyParentList}</td>
           <td>
@@ -120,7 +120,7 @@ under the License.
           </tr>
         </#if>
       </table>
-    </form>           
+    </form>
   </div>
 </div>
 <#if childShoppingListDatas?has_content>
@@ -135,7 +135,7 @@ under the License.
   </div>
   <div class="screenlet-body">
     <table class="basic-table" cellspacing="0">
-      <tr class="header-row"> 
+      <tr class="header-row">
         <td>${uiLabelMap.PartyListName}</td>
         <td>&nbsp;</td>
       </tr>
@@ -146,7 +146,7 @@ under the License.
           <td class="button-col align-float">
             <a href="<@ofbizUrl>editShoppingList?shoppingListId=${childShoppingList.shoppingListId}</@ofbizUrl>">${uiLabelMap.PartyGotoList}</a>
             <a href="<@ofbizUrl>addListToCart?shoppingListId=${childShoppingList.shoppingListId}</@ofbizUrl>">${uiLabelMap.PartyAddListToCart}</a>
-          </td>                      
+          </td>
         </tr>
       </#list>
     </table>
@@ -173,7 +173,7 @@ under the License.
           <td>${uiLabelMap.PartyTotal}</td>
           <td>&nbsp;</td>
         </tr>
-        <#assign alt_row = false>        
+        <#assign alt_row = false>
         <#list shoppingListItemDatas as shoppingListItemData>
           <#assign shoppingListItem = shoppingListItemData.shoppingListItem>
           <#assign product = shoppingListItemData.product>
@@ -193,7 +193,7 @@ under the License.
                 <input size="6" type="text" name="quantity" value="${shoppingListItem.quantity?string.number}">
               </td>
               <td>
-                <input size="6" type="text" name="quantityPurchased" 
+                <input size="6" type="text" name="quantityPurchased"
                   <#if shoppingListItem.quantityPurchased?has_content>
                     value="${shoppingListItem.quantityPurchased?if_exists?string.number}"
                   </#if>>

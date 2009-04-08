@@ -25,14 +25,14 @@ under the License.
     </ul>
     <br class="clear"/>
   </div>
-<#if periods?has_content> 
+<#if periods?has_content>
   <#if (maxConcurrentEntries < 2)>
     <#assign entryWidth = 100>
-  <#else> 
+  <#else>
     <#assign entryWidth = (100 / (maxConcurrentEntries))>
   </#if>
-<table cellspacing="0" class="basic-table calendar">              
-  <tr class="header-row">             
+<table cellspacing="0" class="basic-table calendar">
+  <tr class="header-row">
     <td>${uiLabelMap.CommonTime}</td>
     <td colspan=${maxConcurrentEntries}>${uiLabelMap.WorkEffortCalendarEntries}</td>
   </tr>
@@ -71,6 +71,6 @@ under the License.
   </tr>
   </#list>
 </table>
-<#else>               
+<#else>
   <div class="screenlet-body">${uiLabelMap.WorkEffortFailedCalendarEntries}!</div>
 </#if>

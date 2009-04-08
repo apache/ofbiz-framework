@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -42,18 +42,18 @@ if (shipment) {
         recordGroup.QUANTITY = shipmentPlan.quantity;
         product = delegator.findByPrimaryKey("Product", [productId : orderLine.productId]);
         recordGroup.PRODUCT_NAME = product.internalName;
-     
+
         inputPar = [productId : orderLine.productId,
                                      quantity : shipmentPlan.quantity,
                                      fromDate : "" + new Date(),
                                      userLogin: userLogin];
-                            
+
         result = [:];
         result = dispatcher.runSync("getNotAssembledComponents",inputPar);
         if (result)
             components = (List)result.get("notAssembledComponents");
         componentsIt = components.iterator();
-        while(componentsIt) {
+        while (componentsIt) {
             oneComponent = (org.ofbiz.manufacturing.bom.BOMNode)componentsIt.next();
             record = new HashMap(recordGroup);
             record.componentId = oneComponent.getProduct().productId;
@@ -88,7 +88,7 @@ if (shipment) {
     hasPermission = false;
     if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
         hasPermission = true;
-    } 
+    }
     context.hasPermission = hasPermission;
 }
 

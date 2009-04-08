@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    
+
     <screen name="CommonFixedAssetDecorator">
         <section>
             <actions>
@@ -61,7 +61,7 @@ under the License.
                             <fail-widgets>
                                 <label style="h3" text="${uiLabelMap.AccountingViewPermissionError}"/>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -174,7 +174,7 @@ under the License.
             </widgets>
         </section>
     </screen>
- 
+
     <!-- provide a calendar to show occupation-->
     <screen name="CommonCalendarDecorator">
         <section>
@@ -289,8 +289,8 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
-    <!-- Fixed Asset Idents --> 
+
+    <!-- Fixed Asset Idents -->
     <screen name="EditFixedAssetIdents">
         <section>
             <actions>
@@ -313,7 +313,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <!-- Fixed Asset Registrations --> 
+    <!-- Fixed Asset Registrations -->
     <screen name="EditFixedAssetRegistrations">
         <section>
             <actions>
@@ -336,7 +336,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <!-- Fixed Asset Maintenance --> 
+    <!-- Fixed Asset Maintenance -->
     <screen name="CommonFixedAssetMaintDecorator">
         <section>
             <actions>
@@ -387,7 +387,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditFixedAssetMaintenance"/>
-                <set field="tabButtonItem" value="ListFixedAssetMaints"/>                
+                <set field="tabButtonItem" value="ListFixedAssetMaints"/>
                 <set field="tabButtonItemFixedAssetMaint" value="EditFixedAssetMaint"/>
                 <set field="labelTitleProperty" value="PageTitleEditFixedAssetMaintenance"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
@@ -424,12 +424,12 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <!-- Fixed Asset Meter --> 
+    <!-- Fixed Asset Meter -->
     <screen name="EditFixedAssetMeters">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditFixedAssetMeters"/>
-                <set field="tabButtonItem" value="EditFixedAssetMeters"/>                
+                <set field="tabButtonItem" value="EditFixedAssetMeters"/>
                 <set field="tabButtonItemFixedAssetMaint" value="EditFixedAssetMeters"/>
                 <set field="labelTitleProperty" value="PageTitleEditFixedAssetMaintenance"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
@@ -449,7 +449,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <!-- Fixed Asset Children --> 
+    <!-- Fixed Asset Children -->
     <screen name="FixedAssetChildren">
         <section>
             <actions>
@@ -464,20 +464,20 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonFixedAssetDecorator" location="${parameters.fixedAssetDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-tree name="TreeFixedAsset" location="component://accounting/widget/AccountingTrees.xml"/> 
+                        <include-tree name="TreeFixedAsset" location="component://accounting/widget/AccountingTrees.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    <!-- Fixed Asset Maint Order --> 
+    <!-- Fixed Asset Maint Order -->
     <screen name="EditFixedAssetMaintOrders">
         <section>
             <actions>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap"/>
                 <set field="titleProperty" value="PageTitleEditFixedAssetMaintOrders"/>
-                <set field="tabButtonItem" value="ListFixedAssetMaints"/>                
-                <set field="tabButtonItemFixedAssetMaint" value="EditFixedAssetMaintOrders"/>                
+                <set field="tabButtonItem" value="ListFixedAssetMaints"/>
+                <set field="tabButtonItemFixedAssetMaint" value="EditFixedAssetMaintOrders"/>
                 <set field="labelTitleProperty" value="PageTitleEditFixedAssetMaintenance"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
@@ -504,7 +504,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditPartyFixedAssetAssignments"/>
-                <set field="tabButtonItem" value="EditPartyFixedAssetAssignments"/>                
+                <set field="tabButtonItem" value="EditPartyFixedAssetAssignments"/>
                 <set field="labelTitleProperty" value="PageTitleEditPartyFixedAssetAssignments"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="partyId" from-field="parameters.partyId"/>
@@ -564,7 +564,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="FixedAssetGeoLocation">
         <section>
             <actions>
@@ -581,6 +581,6 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>    
-    
+    </screen>
+
 </screens>

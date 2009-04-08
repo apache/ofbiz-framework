@@ -99,7 +99,7 @@ dojo.math.matrix.sum = function() {
 			dojo.debug ("can't add matrices of different dimensions: first dimensions were " + rows + "x" + cols + ", current dimensions are "+arg.length + "x" + arg[0].length);
 			return 0;
 		}
-		
+
 		// The actual addition:
 		for (var r=0; r<rows; r++){
 			for (var c=0; c<cols; c++){
@@ -119,7 +119,7 @@ dojo.math.matrix.inverse = function(a){
 
 	// Formula used to Calculate Inverse:
 	// inv(A) = 1/det(A) * adj(A)
-	
+
 	var tms = a.length;
 	var m = dojo.math.matrix.create(tms, tms);
 	var mm = dojo.math.matrix.adjoint(a);
@@ -178,7 +178,7 @@ dojo.math.matrix.upperTriangle = function(m){
 		}
 		v = 1;
 		var stop_loop = 0;
-		
+
 		// check if there is a 0 in diagonal
 		while ((m[col][col] == 0) && !stop_loop) {
 			// if so,  switch rows until there is no 0 in diagonal:
@@ -196,7 +196,7 @@ dojo.math.matrix.upperTriangle = function(m){
 				dojo.math.matrix.iDF *= -1; // each switch changes determinant factor
 			}
 		}
-		
+
 		// loop over lower-right triangle (where row>col):
 		// for each row, make m[row][col] = 0 by linear operations that don't change the determinant:
 		for (var row = col + 1; row < tms; row++) {
@@ -235,11 +235,11 @@ dojo.math.matrix.create = function(a, b, value){
 }
 
 // Erel implement Matlab[TM] functions "ones" and "zeros"
-dojo.math.matrix.ones = function(a,b) { 
-	return dojo.math.matrix.create(a,b,1); 
+dojo.math.matrix.ones = function(a,b) {
+	return dojo.math.matrix.create(a,b,1);
 }
-dojo.math.matrix.zeros = function(a,b) { 
-	return dojo.math.matrix.create(a,b,0); 
+dojo.math.matrix.zeros = function(a,b) {
+	return dojo.math.matrix.create(a,b,0);
 }
 
 // Erel: added function that returns identity matrix.
@@ -299,7 +299,7 @@ dojo.math.matrix.adjoint = function(a){
 				}
 				ia++;
 			}
-		
+
 			det = dojo.math.matrix.determinant(ap);
 			m[i][j] = Math.pow(-1 , (i + j)) * det;
 		}

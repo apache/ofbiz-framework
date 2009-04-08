@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entity-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entity-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-eca.xsd">
     <!-- Product Keyword Indexing ECAs -->
     <eca entity="Product" operation="create-store" event="return">
@@ -43,9 +43,9 @@ under the License.
         <action service="checkProductInventoryDiscontinuation" mode="async"/>
     </eca>
     <!-- update the totals for serialized inventory items -->
-    <eca entity="InventoryItem" operation="create-store" event="return">           
-        <action service="updateSerializedInventoryTotals" mode="sync"/> 
-    </eca>    
+    <eca entity="InventoryItem" operation="create-store" event="return">
+        <action service="updateSerializedInventoryTotals" mode="sync"/>
+    </eca>
     <!-- Just in case an InventoryItem is ever created with ATP/QOH values, catch and handle that -->
     <eca entity="InventoryItem" operation="create" event="return">
         <action service="createInventoryItemCheckSetAtpQoh" mode="sync"/>
@@ -58,5 +58,5 @@ under the License.
     <!-- The InventoryItemDetail entity should never be updated/stored or deleted/removed, but we'll catch those too anyway... -->
     <eca entity="InventoryItemDetail" operation="create-store-remove" event="return">
         <action service="updateInventoryItemFromDetail" mode="sync"/>
-    </eca>    
+    </eca>
 </entity-eca>

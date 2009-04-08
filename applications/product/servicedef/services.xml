@@ -71,7 +71,7 @@ under the License.
         <attribute name="newInternalName" type="String" mode="IN" optional="true"/>
         <attribute name="newProductName" type="String" mode="IN" optional="true"/>
         <attribute name="newDescription" type="String" mode="IN" optional="true"/>
-        <attribute name="newLongDescription" type="String" mode="IN" optional="true"/>        
+        <attribute name="newLongDescription" type="String" mode="IN" optional="true"/>
         <attribute name="duplicatePrices" type="String" mode="IN" optional="true"/>
         <attribute name="duplicateIDs" type="String" mode="IN" optional="true"/>
         <attribute name="duplicateContent" type="String" mode="IN" optional="true"/>
@@ -205,7 +205,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    
+
     <service name="findProductsById" engine="java"  auth="true"
             location="org.ofbiz.product.ProductServices" invoke="findProductByGoodIdentification">
         <description>Find the productId corresponding to a reference and a reference type</description>
@@ -236,7 +236,7 @@ under the License.
             invoke="deleteProductAssoc" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
- 
+
     <!-- Product Price Services -->
     <service name="createProductPrice" default-entity-name="ProductPrice" engine="simple"
                 location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="createProductPrice" auth="true">
@@ -299,7 +299,7 @@ under the License.
         <description>Delete an ProductPaymentMethodType</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- GoodIdentification Services -->
     <service name="createGoodIdentification" default-entity-name="GoodIdentification" engine="simple"
                 location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="createGoodIdentification" auth="true">
@@ -401,7 +401,7 @@ under the License.
         <attribute name="fileDataResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="file" type="String" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="createSimpleTextContentForProduct" default-entity-name="ProductContent" engine="simple"
         location="component://product/script/org/ofbiz/product/product/ProductContentServices.xml" invoke="createSimpleTextContentForProduct" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -419,7 +419,7 @@ under the License.
         <attribute name="textDataResourceId" type="String" mode="IN" optional="true"/>
         <attribute name="text" type="String" mode="IN" optional="true" allow-html="safe"/>
     </service>
-    
+
     <service name="createSimpleTextContentForAlternateLocale" engine="simple" location="component://product/script/org/ofbiz/product/product/ProductContentServices.xml" invoke="createSimpleTextContentForAlternateLocale">
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="mainContentId" type="String" mode="IN" optional="false"/>
@@ -427,7 +427,7 @@ under the License.
         <override name="localeString" optional="false"/>
         <override name="contentId" mode="INOUT"/>
     </service>
-    
+
     <service name="addAdditionalViewForProduct" default-entity-name="ProductContent" engine="java"
         location="org.ofbiz.product.product.ProductServices" invoke="addAdditionalViewForProduct" auth="true">
         <implements service="uploadFileInterface"/>
@@ -467,7 +467,7 @@ under the License.
         </required-permissions>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    
+
     <!-- supplier product feature services -->
     <service name="createSupplierProductFeature" default-entity-name="SupplierProductFeature" engine="simple"
         location="component://product/script/org/ofbiz/product/supplier/SupplierProductServices.xml" invoke="createSupplierProductFeature" auth="true">
@@ -503,13 +503,13 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="supplierProductFeatures" type="java.util.List" mode="OUT" optional="false"/>
     </service>
-    
+
     <service name="createProductMaint" default-entity-name="ProductMaint" engine="simple"
         location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="createProductMaint" auth="true">
         <description>Create a ProductMaint</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="productMaintSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->        
+        <override name="productMaintSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->
     </service>
     <service name="updateProductMaint" default-entity-name="ProductMaint" engine="simple"
         location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="updateProductMaint" auth="true">
@@ -655,7 +655,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="productCategoryTypeId" optional="false"/>
     </service>
-    
+
     <service name="duplicateProductCategory" engine="simple"
                 location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" invoke="duplicateProductCategory" auth="true">
         <description>Duplicate a Product Category using from oldProductCategoryId to a new productCategoryId</description>
@@ -828,38 +828,38 @@ under the License.
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
     </service>
 
-    <!-- Product Category Attribute SErvices --> 
+    <!-- Product Category Attribute SErvices -->
     <service name="createProductCategoryAttribute" default-entity-name="ProductCategoryAttribute" engine="simple"
-            location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" 
+            location="component://product/script/org/ofbiz/product/category/CategoryServices.xml"
             invoke="createProductCategoryAttribute" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateProductCategoryAttribute" default-entity-name="ProductCategoryAttribute" engine="simple"
-            location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" 
+            location="component://product/script/org/ofbiz/product/category/CategoryServices.xml"
             invoke="updateProductCategoryAttribute" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductCategoryAttribute" default-entity-name="ProductCategoryAttribute" engine="simple"
-            location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" 
+            location="component://product/script/org/ofbiz/product/category/CategoryServices.xml"
             invoke="deleteProductCategoryAttribute" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
-    <!-- Product Category Link Services --> 
+
+    <!-- Product Category Link Services -->
     <service name="createProductCategoryLink" default-entity-name="ProductCategoryLink" engine="simple"
-            location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" 
+            location="component://product/script/org/ofbiz/product/category/CategoryServices.xml"
             invoke="createProductCategoryLink" auth="true">
         <description>Create a ProductCategoryLink</description>
         <permission-service service-name="productCategoryGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="fromDate" optional="true"/>        
-        <override name="linkSeqId" optional="true"/>        
+        <override name="fromDate" optional="true"/>
+        <override name="linkSeqId" optional="true"/>
     </service>
     <service name="updateProductCategoryLink" default-entity-name="ProductCategoryLink" engine="simple"
-            location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" 
+            location="component://product/script/org/ofbiz/product/category/CategoryServices.xml"
             invoke="updateProductCategoryLink" auth="true">
         <description>Update a ProductCategoryLink</description>
         <permission-service service-name="productCategoryGenericPermission" main-action="UPDATE"/>
@@ -867,13 +867,13 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductCategoryLink" default-entity-name="ProductCategoryLink" engine="simple"
-            location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" 
+            location="component://product/script/org/ofbiz/product/category/CategoryServices.xml"
             invoke="deleteProductCategoryLink" auth="true">
         <description>Delete a ProductCategoryLink</description>
         <permission-service service-name="productCategoryGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="duplicateCategoryEntities" engine="simple"
                 location="component://product/script/org/ofbiz/product/category/CategoryServices.xml" invoke="duplicateCategoryEntities" auth="true">
         <description>Duplicates a named entity from one productCategoryId to another</description>
@@ -983,7 +983,7 @@ under the License.
         <attribute name="productContentTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- Product Configuration Services -->
     <service name="createProductConfig" default-entity-name="ProductConfig" engine="simple"
                 location="component://product/script/org/ofbiz/product/config/ConfigServices.xml" invoke="createProductConfig" auth="true">
@@ -1156,8 +1156,8 @@ under the License.
         </description>
         <attribute type="String" mode="IN" name="inventoryItemId" optional="false"/>
     </service>
-    
-    <!-- Permission Services -->    
+
+    <!-- Permission Services -->
     <service name="productGenericPermission" engine="simple"
         location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="productGenericPermission">
         <implements service="permissionInterface"/>
@@ -1192,7 +1192,7 @@ under the License.
         <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <!--VendorProduct Services -->
     <service name="createVendorProduct" engine="simple" default-entity-name="VendorProduct"
             location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="createVendorProduct" auth="true">
@@ -1202,7 +1202,7 @@ under the License.
             location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="deleteVendorProduct" auth="true">
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- ProductCategoryGlAccount Services -->
     <service name="createProductCategoryGlAccount" default-entity-name="ProductCategoryGlAccount" engine="simple"
                 location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="createProductCategoryGlAccount" auth="true">
@@ -1221,13 +1221,13 @@ under the License.
         <description>Delete a ProductCategoryGlAccount</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="catalogPermissionCheck" engine="simple"
         location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="catalogPermissionCheck" auth="true">
         <description>Catalog Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
-    
+
     <service name="prodCatalogToPartyPermissionCheck" engine="simple"
             location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="prodCatalogToPartyPermissionCheck">
         <description>ProdCatalogToParty Permission Checking Logic</description>

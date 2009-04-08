@@ -20,7 +20,7 @@ under the License.
 
 <!-- These forms are for generating printed documents, such as invoices, bills, statements, etc. -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <!-- generate a PDF for the order, sharing the same BSH file as the HTML page for viewing the order -->
@@ -31,7 +31,7 @@ under the License.
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                
+
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderView.groovy"/>
             </actions>
             <widgets>

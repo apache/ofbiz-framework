@@ -68,7 +68,7 @@ dojo.hostenv.createXdPackage = function(/*String*/contents){
 	output.push("\ndefinePackage: function(dojo){");
 	output.push(contents);
 	output.push("\n}});");
-	
+
 	return output.join(""); //String
 }
 
@@ -137,7 +137,7 @@ dojo.hostenv.loadUri = function(/*String*/uri, /*Function?*/cb, /*boolean*/curre
 		//Increment inFlightCount
 		//This will stop the modulesLoaded from firing all the way.
 		this.inFlightCount++;
-				
+
 		//Start timer
 		if(!this.xdTimer){
 			this.xdTimer = setInterval("dojo.hostenv.watchInFlightXDomain();", 100);
@@ -168,7 +168,7 @@ dojo.hostenv.loadUri = function(/*String*/uri, /*Function?*/cb, /*boolean*/curre
 	}else{
 		var contents = this.getText(uri, null, true);
 		if(contents == null){ return 0; /*boolean*/}
-		
+
 		if(this.isXDomain){
 			var pkg = this.createXdPackage(contents);
 			dj_eval(pkg);
@@ -241,7 +241,7 @@ dojo.hostenv.packageLoaded = function(/*Object*/pkg){
 		}
 
 		//Now update the inflight status for any provided packages in this loaded package.
-		//Do this at the very end (in a *separate* for loop) to avoid shutting down the 
+		//Do this at the very end (in a *separate* for loop) to avoid shutting down the
 		//inflight timer check too soon.
 		for(var i = 0; i < provideList.length; i++){
 			this.xdInFlight[provideList[i]] = false;
@@ -257,7 +257,7 @@ dojo.hostenv.xdLoadFlattenedBundle = function(/*String*/moduleName, /*String*/bu
  	var bundlePackage = [moduleName, "nls", bundleName].join(".");
 	var bundle = dojo.hostenv.startPackage(bundlePackage);
 	bundle[jsLoc] = bundleData;
-	
+
 	//Assign the bundle for the original locale(s) we wanted.
 	var mapName = [moduleName, jsLoc, bundleName].join(".");
 	var bundleMap = dojo.hostenv.xdBundleMap[mapName];
@@ -274,7 +274,7 @@ dojo.hostenv.xdBundleMap = {};
 dojo.xdRequireLocalization = function(/*String*/moduleName, /*String*/bundleName, /*String?*/locale, /*String*/availableFlatLocales){
 	//summary: Internal xd loader function. The xd version of dojo.requireLocalization.
 	var locales = availableFlatLocales.split(",");
-	
+
 	//Find the best-match locale to load.
 	var jsLoc = dojo.hostenv.normalizeLocale(locale);
 
@@ -303,7 +303,7 @@ dojo.xdRequireLocalization = function(/*String*/moduleName, /*String*/bundleName
 			bundleMap = dojo.hostenv.xdBundleMap[mapName] = {};
 		}
 		bundleMap[jsLoc.replace('-', '_')] = true;
-		
+
 		//Do just a normal dojo.require so the package tracking stuff works as usual.
 		dojo.require(moduleName + ".nls" + (bestLocale ? "." + bestLocale : "") + "." + bundleName);
 	}
@@ -361,7 +361,7 @@ dojo.hostenv.unpackXdDependency = function(dep){
 		case "hostenv.conditionalLoadModule":
 			var modMap = dep[1];
 			var common = modMap["common"]||[];
-			var newDeps = (modMap[dojo.hostenv.name_]) ? common.concat(modMap[dojo.hostenv.name_]||[]) : common.concat(modMap["default"]||[]);	
+			var newDeps = (modMap[dojo.hostenv.name_]) ? common.concat(modMap[dojo.hostenv.name_]||[]) : common.concat(modMap["default"]||[]);
 			dojo.hostenv.flattenRequireArray(newDeps);
 			break;
 		case "require":
@@ -381,7 +381,7 @@ dojo.hostenv.unpackXdDependency = function(dep){
 }
 
 dojo.hostenv.xdWalkReqs = function(){
-	//summary: Internal xd loader function. 
+	//summary: Internal xd loader function.
 	//Walks the requires and evaluates package contents in
 	//the right order.
 	var reqChain = null;
@@ -397,7 +397,7 @@ dojo.hostenv.xdWalkReqs = function(){
 }
 
 dojo.hostenv.xdTraceReqs = function(/*Object*/reqs, /*Array*/reqChain){
-	//summary: Internal xd loader function. 
+	//summary: Internal xd loader function.
 	//Trace the requires to chain the correct order of required modules.
 	if(reqs && reqs.length > 0){
 		var nextReq;
@@ -414,7 +414,7 @@ dojo.hostenv.xdTraceReqs = function(/*Object*/reqs, /*Array*/reqChain){
 }
 
 dojo.hostenv.xdEvalReqs = function(/*Array*/reqChain){
-	//summary: Internal xd loader function. 
+	//summary: Internal xd loader function.
 	//Does a depth first, breadth second search and eval of required modules.
 	if(reqChain.length > 0){
 		var req = reqChain[reqChain.length - 1];
@@ -471,7 +471,7 @@ dojo.hostenv.watchInFlightXDomain = function(){
 	}
 
 	//If any are true, then still waiting.
-	//Come back later.	
+	//Come back later.
 	for(var param in this.xdInFlight){
 		if(this.xdInFlight[param]){
 			return;
@@ -500,7 +500,7 @@ dojo.hostenv.watchInFlightXDomain = function(){
 	this.resetXd();
 
 	//Clear inflight count so we will finally do finish work.
-	this.inFlightCount = 0; 
+	this.inFlightCount = 0;
 	this.callLoaded();
 }
 
@@ -526,8 +526,8 @@ dojo.hostenv.xdHasCalledPreload = false;
 dojo.hostenv.xdRealCallLoaded = dojo.hostenv.callLoaded;
 dojo.hostenv.callLoaded = function(){
 	//summary: Internal xd loader function. Overrides callLoaded() from loader.js
-	//description: The method is overridden because xd loading needs to preload 
-	//any flattened i18n bundles before dojo starts executing code, 
+	//description: The method is overridden because xd loading needs to preload
+	//any flattened i18n bundles before dojo starts executing code,
 	//since xd loading cannot do it synchronously, as the i18n code normally expects.
 
 	//If getModulePrefix for dojo returns anything other than "src", that means
@@ -539,7 +539,7 @@ dojo.hostenv.callLoaded = function(){
 		if(this.localesGenerated){
 			this.registerNlsPrefix = function(){
 				//Need to set the nls prefix to be the xd location.
-				dojo.registerModulePath("nls", dojo.hostenv.getModulePrefix("dojo") + "/../nls");	
+				dojo.registerModulePath("nls", dojo.hostenv.getModulePrefix("dojo") + "/../nls");
 			};
 			this.preloadLocalizations();
 		}

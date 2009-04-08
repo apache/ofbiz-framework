@@ -25,7 +25,7 @@ under the License.
             <Label name="reasonLabel" x="20" y="90" w="100" h="40" content="ReasonInOut" style="editAndList"/>
             <ComboBox name="reasonCombo" x="120" y="80" w="300" h="40" editable="false" style="editAndList"/>
             <Label name="reasonCommentLabel" x="20" y="140" w="100" h="40" content="reasonCommentInOut" style="editAndList"/>
-            <Edit name="reasonCommentEdit"  x="120" y="130" w="300" h="40" style="editAndList"/>            
+            <Edit name="reasonCommentEdit"  x="120" y="130" w="300" h="40" style="editAndList"/>
             <Button name="BtnCancel" x="460" y="20" w="180" h="40" content="Cancel" style="dialogButton"/>
             <Button name="BtnOk" x="460" y="80" w="180" h="40" content="Ok" style="dialogButton"/>
         </Panel>

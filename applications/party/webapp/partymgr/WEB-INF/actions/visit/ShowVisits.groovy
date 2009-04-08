@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -33,38 +33,38 @@ context.showAll = showAll;
 sort = parameters.sort;
 context.sort = sort;
 
-visitListIt = null;          
+visitListIt = null;
 sortList = ["-fromDate"];
 if (sort) sortList.add(0, sort);
-    
+
 boolean beganTransaction = false;
 try {
     beganTransaction = TransactionUtil.begin();
 
     if (partyId) {
-        visitListIt = delegator.find("Visit", EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId), null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));    
+        visitListIt = delegator.find("Visit", EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId), null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
     } else if (showAll.equalsIgnoreCase("true")) {
         visitListIt = delegator.find("Visit", null, null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
     } else {
-        // show active visits       
-        visitListIt = delegator.find("Visit", EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));  
+        // show active visits
+        visitListIt = delegator.find("Visit", EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), null, null, sortList, new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
     }
-    
+
     viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 1);
     viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: UtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize"));
     context.viewIndex = viewIndex;
     context.viewSize = viewSize;
-     
+
     // get the indexes for the partial list
     lowIndex = (((viewIndex - 1) * viewSize) + 1);
     highIndex = viewIndex * viewSize;
-   
+
     // get the partial list for this page
     visitList = visitListIt.getPartialList(lowIndex, viewSize);
     if (!visitList) {
         visitList = new ArrayList();
     }
-    
+
     // attempt to get the full size
     visitListIt.last();
     visitListSize = visitListIt.currentIndex();
@@ -72,7 +72,7 @@ try {
         highIndex = visitListSize;
     }
     context.visitSize = visitListSize;
-    
+
     visitListIt.close();
 } catch (Exception e) {
     String errMsg = "Failure in operation, rolling back transaction";

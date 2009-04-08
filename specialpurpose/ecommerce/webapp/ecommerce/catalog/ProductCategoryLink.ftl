@@ -25,7 +25,7 @@ under the License.
     <#assign titleText = productCategoryLink.titleText?if_exists/>
     <#assign imageUrl = productCategoryLink.imageUrl?if_exists/>
     <#assign detailText = productCategoryLink.detailText?if_exists/>
-    
+
     <#if productCategoryLink.linkTypeEnumId == "PCLT_SEARCH_PARAM">
       <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, "keywordsearch?" + productCategoryLink.linkInfo)/>
     <#elseif productCategoryLink.linkTypeEnumId == "PCLT_ABS_URL">
@@ -38,7 +38,7 @@ under the License.
       <#assign imageUrl = productCategoryLink.imageUrl?default(linkCategoryContentWrapper.get("CATEGORY_IMAGE_URL"))?if_exists/>
       <#assign detailText = productCategoryLink.detailText?default(linkCategoryContentWrapper.get("DESCRIPTION"))?if_exists/>
     </#if>
-    
+
     <div class="productcategorylink">
       <#if imageUrl?string?has_content>
         <div class="smallimage"><a href="${linkUrl}"><img src="<@ofbizContentUrl>${imageUrl}</@ofbizContentUrl>" alt="${titleText?default("Link Image")}"/></a></div>

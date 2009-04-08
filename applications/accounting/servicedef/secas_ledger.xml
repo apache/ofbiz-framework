@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
 
     <!-- this eca automatically posts the accounting transactions to GL -->
@@ -33,7 +33,7 @@ under the License.
         <condition field-name="inventoryItemId" operator="is-not-empty"/>
         <action service="createAcctgTransForSalesShipmentIssuance" mode="sync"/>
     </eca>
-    
+
     <!-- create an accounting transactions every time an issuance to sales shipment is canceled -->
     <eca service="cancelOrderItemIssuanceFromSalesShipment" event="commit">
         <condition field-name="canceledQuantity" operator="greater" value="0" type="BigDecimal"/>
@@ -53,21 +53,21 @@ under the License.
         <condition field-name="workEffortId" operator="is-not-empty"/>
         <condition field-name="costComponentTypeId" operator="not-equals" value="ACTUAL_MAT_COST"/>
         <action service="createAcctgTransForWorkEffortCost" mode="sync"/>
-    </eca> 
+    </eca>
 
     <eca service="updateInventoryItem" event="commit">
         <condition field-name="ownerPartyId" operator="is-not-empty"/>
         <condition-field field-name="ownerPartyId" operator="not-equals" to-field-name="oldOwnerPartyId"/>
         <action service="createAcctgTransForInventoryItemOwnerChange" mode="sync"/>
     </eca>
-    
+
     <eca service="assignInventoryToWorkEffort" event="commit">
         <action service="createAcctgTransForWorkEffortIssuance" mode="sync"/>
     </eca>
 
     <!--creating inventory item detail when unitCost is not empty and recieptId is  empty-->
     <eca service="createInventoryItemDetail" event="commit">
-        <condition field-name="unitCost" operator="is-not-empty"/>        
+        <condition field-name="unitCost" operator="is-not-empty"/>
         <condition field-name="receiptId" operator="is-empty"/>
         <action service="createAcctgTransForInventoryItemCostChange" mode="sync"/>
     </eca>
@@ -93,8 +93,8 @@ under the License.
         <condition field-name="statusId" operator="equals" value="PMNT_RECEIVED"/>
         <condition field-name="oldStatusId" operator="not-equals" value="PMNT_RECEIVED"/>
         <action service="createAcctgTransAndEntriesForIncomingPayment" mode="sync"/>
-    </eca> 
-    
+    </eca>
+
     <!-- attemp to create AcctgTrans for Purchase Invoice -->
     <eca service="setInvoiceStatus" event="commit">
         <condition field-name="invoiceId" operator="is-not-empty"/>
@@ -104,7 +104,7 @@ under the License.
         <action service="createAcctgTransForPurchaseInvoice" mode="sync"/>
     </eca>
 
-    <!-- attemp to create AcctgTrans for Sales Invoice -->        
+    <!-- attemp to create AcctgTrans for Sales Invoice -->
     <eca service="setInvoiceStatus" event="commit">
         <condition field-name="invoiceId" operator="is-not-empty"/>
         <condition field-name="statusId" operator="equals" value="INVOICE_READY"/>
@@ -112,18 +112,18 @@ under the License.
         <condition field-name="oldStatusId" operator="not-equals" value="INVOICE_PAID"/>
         <action service="createAcctgTransForSalesInvoice" mode="sync"/>
     </eca>
-    
+
     <!--attempt to create AcctgTrans and Entries for Outgoing Payment -->
     <eca service="createPayment" event="commit">
         <condition field-name="statusId" operator="equals" value="PMNT_SENT"/>
         <action service="createAcctgTransAndEntriesForOutgoingPayment" mode="sync"/>
     </eca>
-    
+
     <!--attempt to create AcctgTrans and Entries for Outgoing when set PaymentStatus -->
     <eca service="setPaymentStatus" event="commit">
         <condition field-name="statusId" operator="equals" value="PMNT_SENT"/>
         <condition field-name="oldStatusId" operator="not-equals" value="PMNT_SENT"/>
         <action service="createAcctgTransAndEntriesForOutgoingPayment" mode="sync"/>
-    </eca>     
-    
+    </eca>
+
 </service-eca>

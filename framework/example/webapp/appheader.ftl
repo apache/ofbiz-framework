@@ -23,11 +23,11 @@ under the License.
     <li>
       <h2>${uiLabelMap.ExampleApplication}</h2>
       <ul>
-      <#if userLogin?has_content>    	
+      <#if userLogin?has_content>
         <li <#if selected = "${uiLabelMap.ExampleExample}"> class="selected"</#if>><a href="<@ofbizUrl>FindExample?portalPageId=${uiLabelMap.ExampleExample}</@ofbizUrl>">${uiLabelMap.ExampleExample}</a></li>
         <li <#if selected = "${uiLabelMap.ExampleFeature}"> class="selected"</#if>><a href="<@ofbizUrl>FindExampleFeature?portalPageId=${uiLabelMap.ExampleFeature}</@ofbizUrl>">${uiLabelMap.ExampleFeature}</a></li>
         <li <#if selected = "${uiLabelMap.ExampleFormWidgetExamples}"> class="selected"</#if>><a href="<@ofbizUrl>FormWidgetExamples?portalPageId=${uiLabelMap.ExampleFormWidgetExamples}</@ofbizUrl>">${uiLabelMap.ExampleFormWidgetExamples}</a></li>
-        <li <#if selected = "${uiLabelMap.ExampleAjaxExamples}"> class="selected"</#if>><a href="<@ofbizUrl>authview/findExampleAjax?portalPageId=${uiLabelMap.ExampleAjaxExamples}</@ofbizUrl>">${uiLabelMap.ExampleAjaxExamples}</a></li>        
+        <li <#if selected = "${uiLabelMap.ExampleAjaxExamples}"> class="selected"</#if>><a href="<@ofbizUrl>authview/findExampleAjax?portalPageId=${uiLabelMap.ExampleAjaxExamples}</@ofbizUrl>">${uiLabelMap.ExampleAjaxExamples}</a></li>
         <#if portalPages?has_content>
         	<#list portalPages as page>
         	  <#if page.portalPageName?has_content>

@@ -39,7 +39,7 @@ dojo.widget.defineWidget(
 	//		when you click on it;
 	//		"textarea" means that the node will be converted into a multi-line <textarea> for editing.
 	mode: "text",
-	
+
 	// name: String
 	//		This is passed as the third argument to onSave().
 	name: "",
@@ -65,7 +65,7 @@ dojo.widget.defineWidget(
 	// deprecated
 	textValue: "",
 	defaultText: "",
-	
+
 	postMixInProperties: function(){
 		if(this.textValue){
 			dojo.deprecated("InlineEditBox: Use value parameter instead of textValue; will be removed in 0.5");
@@ -93,7 +93,7 @@ dojo.widget.defineWidget(
 		dojo.event.connect(this.editable, "onmouseover", this, "onMouseOver");
 		dojo.event.connect(this.editable, "onmouseout", this, "onMouseOut");
 		dojo.event.connect(this.editable, "onclick", this, "_beginEdit");
-		
+
 		// get value and display it
 		if(this.value){
 			this.editable.innerHTML = this.value;
@@ -103,7 +103,7 @@ dojo.widget.defineWidget(
 			this.editable.innerHTML = this.value;
 		}
 	},
-	
+
 	onMouseOver: function(){
 		if(!this.editing){
 			if (this.disabled){
@@ -116,7 +116,7 @@ dojo.widget.defineWidget(
 			}
 		}
 	},
-	
+
 	onMouseOut: function(){
 		if(!this.editing){
 			dojo.html.removeClass(this.editable, "editableRegion");
@@ -194,12 +194,12 @@ dojo.widget.defineWidget(
 		}
 		this.doFade = false;
 	},
-	
+
 	setText: function(txt){
 		dojo.deprecated("setText() is deprecated, call setValue() instead, will be removed in 0.5");
 		this.setValue(txt);
 	},
-	
+
 	setValue: function(/*String*/ txt){
 		// sets the text without informing the server
 		txt = "" + txt;
@@ -230,7 +230,7 @@ dojo.widget.defineWidget(
 			this.submitButton.disabled = false;
 		}
 	},
-	
+
 	disable: function(){
 		this.submitButton.disabled = true;
 		this.cancelButton.disabled = true;
@@ -238,13 +238,13 @@ dojo.widget.defineWidget(
 		ee.disabled = true;
 		dojo.widget.InlineEditBox.superclass.disable.apply(this, arguments);
 	},
-	
+
 	enable: function(){
 		this.checkForValueChange();
 		this.cancelButton.disabled = false;
 		var ee = this[this.mode.toLowerCase()];
 		ee.disabled = false;
-		
+
 		dojo.widget.InlineEditBox.superclass.enable.apply(this, arguments);
 	}
 });

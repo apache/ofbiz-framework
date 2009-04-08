@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Example Services</description>
     <vendor>OFBiz</vendor>
@@ -55,7 +55,7 @@ under the License.
             <exclude field-name="statusEndDate"/>
         </auto-attributes>
     </service>
-    
+
     <service name="createExampleItem" default-entity-name="ExampleItem" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ExampleItem</description>
         <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
@@ -115,7 +115,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <!-- Permission Services -->    
+    <!-- Permission Services -->
     <service name="exampleGenericPermission" engine="simple"
              location="component://example/script/org/ofbiz/example/ExamplePermissionServices.xml" invoke="exampleGenericPermission">
         <implements service="permissionInterface"/>

@@ -94,7 +94,7 @@ dojo.widget.defineWidget(
 			this.map.addControl(new (methodmap[this.controls[i].toLowerCase()])());
 		}
 	},
-	
+
 	findCenter:function(/* GLatLngBounds */bounds){
 		//	summary
 		//	Returns the center point given the Bounds object.
@@ -165,7 +165,7 @@ dojo.widget.defineWidget(
 			if(c=="long") c="lng";
 			a.push(c);
 		}
-		
+
 		//	parse the data
 		var b=table.getElementsByTagName("tbody")[0];
 		if(!b){
@@ -180,7 +180,7 @@ dojo.widget.defineWidget(
 			for(var j=0; j<a.length; j++){
 				var col=a[j];
 				if(col=="lat"||col=="lng"){
-					o[col]=parseFloat(cells[j].innerHTML);					
+					o[col]=parseFloat(cells[j].innerHTML);
 				}else{
 					o[col]=cells[j].innerHTML;
 				}

@@ -17,12 +17,12 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="FindQuotes" target="FindQuote" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="Quote" default-field-type="find"/> 
+        <auto-fields-entity entity-name="Quote" default-field-type="find"/>
         <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}"></field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}">
             <drop-down allow-empty="true">
@@ -73,7 +73,7 @@ under the License.
         </field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
     </form>
-    <form name="ListQuotes" list-name="listIt" target="" title="" type="list" 
+    <form name="ListQuotes" list-name="listIt" target="" title="" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="FindQuote">
           <actions>
               <service service-name="performFind" result-map="result" result-map-list="listIt">
@@ -330,7 +330,7 @@ under the License.
         <field name="coeffName" title="${uiLabelMap.OrderOrderQuoteCoeffName}" use-when="quoteCoefficient!=null"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="ManageQuotePrices"  title="" type="multi" list-name="quoteItemAndCostInfos" target="autoUpdateQuotePrices?quoteId=${quoteId}" use-row-submit="true"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ManageQuotePrices">
         <field name="custRequestId" title="${uiLabelMap.OrderOrderQuoteViewRequest}" widget-style="buttontext">
@@ -420,7 +420,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ViewQuoteProfit" title="" type="list" list-name="quoteItemAndCostInfos" target="" 
+    <form name="ViewQuoteProfit" title="" type="list" list-name="quoteItemAndCostInfos" target=""
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ViewQuoteProfit">
         <field name="custRequestId" title="${uiLabelMap.OrderOrderQuoteViewRequest}" widget-style="buttontext">
             <hyperlink target-type="inter-app" also-hidden="false" description="${custRequestId}-${custRequestItemSeqId}" target="/workeffort/control/requestitem">

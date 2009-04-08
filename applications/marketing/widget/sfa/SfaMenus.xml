@@ -28,7 +28,7 @@ under the License.
         <menu-item name="Forecast" title="${uiLabelMap.SfaForecasts}"><link target="FindSalesForecast"/></menu-item>
         <menu-item name="Opportunities" title="${uiLabelMap.SfaOpportunities}"><link target="FindOpportunity"/></menu-item>
     </menu>
-    
+
     <menu name="OpportunityTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ViewOpportunity" title="${uiLabelMap.SfaOpportunitySummary}">
             <link target="ViewOpportunity">
@@ -41,21 +41,21 @@ under the License.
             </link>
         </menu-item>
     </menu>
-    
+
     <menu name="AccountTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile">
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
             </link>
         </menu-item>
-    </menu>    
+    </menu>
     <menu name="AccountSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           menu-container-style="button-bar button-style-2 no-clear">
         <menu-item name="NewAccounts" title="${uiLabelMap.PageTitleCreateAccount}">
             <link target="NewAccounts"/>
         </menu-item>
-    </menu>    
-    
+    </menu>
+
     <menu name="LeadTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile">
@@ -80,9 +80,9 @@ under the License.
                 <parameter param-name="partyId" from-field="parameters.partyId"/>
                 <parameter param-name="partyGroupId" from-field="parameters.partyGroupId"/>
             </link>
-        </menu-item>      
+        </menu-item>
     </menu>
-    
+
     <menu name="LeadSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           menu-container-style="button-bar button-style-2 no-clear">
         <menu-item name="CreateLead" title="${uiLabelMap.CommonCreateNew}">
@@ -91,7 +91,7 @@ under the License.
         <menu-item name="CreateLeadFromVCard" title="${uiLabelMap.SfaImportLead}">
             <link target="CreateLeadFromVCard"/>
         </menu-item>
-    </menu>    
+    </menu>
 
     <menu name="ContactTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
@@ -102,7 +102,7 @@ under the License.
         <menu-item name="MergeContacts" title="${uiLabelMap.SfaMergeContacts}">
             <link target="MergeContacts"/>
         </menu-item>
-    </menu>    
+    </menu>
     <menu name="ContactSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           menu-container-style="button-bar button-style-2 no-clear">
         <menu-item name="CreateContact" title="${uiLabelMap.CommonCreateNew}">
@@ -111,7 +111,7 @@ under the License.
         <menu-item name="CreateContactFromVCard" title="${uiLabelMap.SfaCreateContactFromVCard}">
             <link target="CreateContactFromVCard"/>
         </menu-item>
-    </menu>    
+    </menu>
     <menu name="SalesForecastTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditSalesForecast" title="${uiLabelMap.SfaSalesForecast}">
             <link target="EditSalesForecast">

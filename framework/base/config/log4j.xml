@@ -109,8 +109,8 @@
     </appender>
 
     <!-- chainsaw remote socket log monitor -->
-    <appender name="socket" class="org.apache.log4j.net.SocketHubAppender">        
-        <param name="port" value="4445"/>        
+    <appender name="socket" class="org.apache.log4j.net.SocketHubAppender">
+        <param name="port" value="4445"/>
     </appender>
 
     <!-- fatal error SMTP notification -->

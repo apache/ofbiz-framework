@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entity-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entity-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entity-eca.xsd">
     <!-- WorkEffort Keyword Indexing ECAs -->
     <eca entity="WorkEffort" operation="create-store" event="return">

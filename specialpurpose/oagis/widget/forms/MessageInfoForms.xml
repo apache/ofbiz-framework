@@ -31,7 +31,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="OagisMessageInfo" default-field-type="display"/>
     </form>
-    
+
     <form name="FindMessageInfos" type="single" target="FindMessageInfo"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="OagisMessageInfo" default-field-type="find"/>
@@ -39,7 +39,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-    </form> 
+    </form>
 
      <form name="EditMessageInfo" type="single" title="" target="updateOagisMessageInfo" default-map-name="oagisMessageInfo" paginate-target="FindMessageInfo"
         header-row-style="header-row" default-table-style="basic-table">
@@ -52,12 +52,12 @@ under the License.
          </field>
          <field name="orderId" >
              <lookup target-form-name="/ordermgr/control/LookupOrderHeader"/>
-         </field>     
+         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-    </form>   
-    
+    </form>
+
     <form name="ListMessageErrorInfos" type="list" list-name="listIt" title="" paginate-target="FindMessageErrorInfo"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -78,7 +78,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <form name="FindMessageErrorInfos" type="single" target="FindMessageErrorInfo"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="OagisMessageErrorInfo" default-field-type="find"/>
@@ -86,8 +86,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-    </form> 
-    
+    </form>
+
      <form name="EditMessageErrorInfo" type="single" title="" target="updateOagisMessageErrorInfo" default-map-name="oagisMessageErrorInfo" paginate-target="FindMessageErrorInfo"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="oagisMessageErrorInfo==null" target="createOagisMessageErrorInfo"/>

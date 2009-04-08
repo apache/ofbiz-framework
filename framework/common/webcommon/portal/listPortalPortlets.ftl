@@ -31,10 +31,10 @@ margin: 1em;
     <br class="clear"/>
   </div>
   <#if portalPortlets?has_content>
-    <#assign orderByList = Static["org.ofbiz.base.util.UtilMisc"].toList("portalPortletId")/> 
-     
+    <#assign orderByList = Static["org.ofbiz.base.util.UtilMisc"].toList("portalPortletId")/>
+
     <table cellspacing="20" class="basic-table">
-      <#assign leftColumn = true/> 
+      <#assign leftColumn = true/>
       <#list portalPortlets as portalPortlet>
         <#if leftColumn==true>
         <tr>
@@ -66,7 +66,7 @@ margin: 1em;
         <#if leftColumn==false>
         </tr>
         </#if>
-        <#assign leftColumn = !leftColumn/> 
+        <#assign leftColumn = !leftColumn/>
       </#list>
     </table>
     <#else/>

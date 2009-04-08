@@ -21,31 +21,31 @@ dojo.widget.defineWidget(
 	[dojo.widget.PopupMenu2, dojo.widget.TreeCommon],
 	function() {
 		this.listenedTrees = {};
-		
+
 	},
 {
 
 	listenTreeEvents: ["afterTreeCreate","beforeTreeDestroy"],
 	listenNodeFilter: function(elem) { return elem instanceof dojo.widget.Widget},
-	
+
 	onAfterTreeCreate: function(message) {
 		var tree = message.source;
 		this.bindDomNode(tree.domNode);
 	},
-	
+
 	onBeforeTreeDestroy: function(message) {
 		this.unBindDomNode(message.source.domNode);
 	},
-	
-	
+
+
 	getTreeNode: function() {
-		
+
 		var source = this.getTopOpenEvent().target;
 		var treeNode = this.domElement2TreeNode(source);
 		return treeNode;
-	
+
 	},
-		
+
 	open: function() {
 		var result = dojo.widget.PopupMenu2.prototype.open.apply(this, arguments);
 
@@ -57,22 +57,22 @@ dojo.widget.defineWidget(
 		}
 		return result;
 	},
-	
+
 	close: function(){
-		
+
 		for(var i=0; i< this.children.length; i++) {
 			/* notify menu entries */
 			if (this.children[i].menuClose) {
 				this.children[i].menuClose(this.getTreeNode());
 			}
 		}
-		
+
 
 		var result = dojo.widget.PopupMenu2.prototype.close.apply(this, arguments);
-		
+
 		return result
 	}
-	
+
 });
 
 
@@ -92,7 +92,7 @@ dojo.widget.defineWidget(
 		}
 	},
 
-		
+
 	getTreeNode: function() {
 		var menu = this;
 
@@ -120,7 +120,7 @@ dojo.widget.defineWidget(
 		);
 
 	},
-	
+
 	menuClose: function(treeNode) {
 
 		treeNode.viewUnemphasize()

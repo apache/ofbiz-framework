@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="dataresourcesetup" default-menu-item-name="content" default-associated-content-id="${userLogin.userLoginId}" title="" type="simple"
         menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">

@@ -30,7 +30,7 @@ under the License.
     </fo:table-cell>
     <fo:table-cell padding="1mm" text-align="right"><fo:block><@ofbizCurrency amount=returnAdjustment.amount isoCode=returnHeader.currencyUomId/></fo:block></fo:table-cell>
     </fo:table-row>
-    <#if returnAdjustment.amount?has_content> 
+    <#if returnAdjustment.amount?has_content>
          <#assign total = total + returnAdjustment.get("amount")>
     </#if>
 </#macro>
@@ -73,7 +73,7 @@ under the License.
                 <fo:table-cell padding="1mm" text-align="right"><fo:block><@ofbizCurrency amount=(returnItem.returnPrice * returnItem.returnQuantity) isoCode=returnHeader.currencyUomId/></fo:block></fo:table-cell>
               </fo:table-row>
               <#assign total = total + returnItem.returnQuantity.doubleValue() * returnItem.returnPrice.doubleValue()/>
-              
+
               <#assign returnItemAdjustments = returnItem.getRelated("ReturnAdjustment")>
               <#if (returnItemAdjustments?has_content)>
                   <#list returnItemAdjustments as returnItemAdjustment>
@@ -81,9 +81,9 @@ under the License.
                   </#list>
               </#if>
             </#list>
-            
+
             <#-- order level adjustments -->
-            <#if (returnAdjustments?has_content)>                  
+            <#if (returnAdjustments?has_content)>
                 <#list returnAdjustments as returnAdjustment>
                     <@displayReturnAdjustment returnAdjustment=returnAdjustment/>
                 </#list>

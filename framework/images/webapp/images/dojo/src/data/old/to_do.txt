@@ -8,17 +8,17 @@ Existing Features
  * notifications: widgets are notified when data changes
  * notification available per-item or per-resultSet
  * can create ad-hoc attributes
- * attributes can be loosely-typed 
+ * attributes can be loosely-typed
  * attributes can have meta-data like type and display name
  * half-implemented support for sorting
  * half-implemented support for export to .json
- * API for getting data in simple arrays 
+ * API for getting data in simple arrays
  * API for getting ResultSets with iterators (precursor to support for something like the openrico.org live grid)
- 
+
 ~~~~~~~~~~~~~~~~~~~~~~~~
 To-Do List
  * be able to import data from an html <table></table>
- * think about being able to import data from some type of XML 
+ * think about being able to import data from some type of XML
  * think about integration with dojo.undo.Manager
  * think more about how to represent the notion of different data types
  * think about what problems we'll run into when we have a MySQL data provider

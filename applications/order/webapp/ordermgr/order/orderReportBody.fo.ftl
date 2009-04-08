@@ -24,16 +24,16 @@ under the License.
        <fo:table-column column-width="1in"/>
        <fo:table-column column-width="1in"/>
        <fo:table-column column-width="1in"/>
-  
+
        <fo:table-header>
            <fo:table-row>
                <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.OrderProduct}</fo:block></fo:table-cell>
                <fo:table-cell text-align="center"><fo:block font-weight="bold">${uiLabelMap.OrderQuantity}</fo:block></fo:table-cell>
                <fo:table-cell text-align="center"><fo:block font-weight="bold">${uiLabelMap.OrderUnitList}</fo:block></fo:table-cell>
                <fo:table-cell text-align="center"><fo:block font-weight="bold">${uiLabelMap.OrderSubTotal}</fo:block></fo:table-cell>
-           </fo:table-row>        
+           </fo:table-row>
        </fo:table-header>
-        
+
             <fo:table-body>
            <#list orderItemList as orderItem>
                  <#assign orderItemType = orderItem.getRelatedOne("OrderItemType")?if_exists>
@@ -52,7 +52,7 @@ under the License.
                               </#if>
                                </fo:block>
                           </fo:table-cell>
-                              <fo:table-cell text-align="right"><fo:block>${remainingQuantity}</fo:block></fo:table-cell>            
+                              <fo:table-cell text-align="right"><fo:block>${remainingQuantity}</fo:block></fo:table-cell>
                             <fo:table-cell text-align="right"><fo:block><@ofbizCurrency amount=orderItem.unitPrice isoCode=currencyUomId/></fo:block></fo:table-cell>
                             <fo:table-cell text-align="right"><fo:block>
                             <#if orderItem.statusId != "ITEM_CANCELLED">
@@ -79,7 +79,7 @@ under the License.
             </#if>
           </#list>
 
-           <#-- summary of order amounts --> 
+           <#-- summary of order amounts -->
                     <fo:table-row>
                         <fo:table-cell></fo:table-cell>
                         <fo:table-cell number-columns-spanned="2"><fo:block font-weight="bold">${uiLabelMap.OrderItemsSubTotal}</fo:block></fo:table-cell>
@@ -119,31 +119,31 @@ under the License.
                    <fo:table-row >
                        <fo:table-cell number-columns-spanned="3">
                            <fo:block font-weight="bold">${uiLabelMap.OrderNotes}</fo:block>
-                       </fo:table-cell>    
-                   </fo:table-row>    
+                       </fo:table-cell>
+                   </fo:table-row>
                 <#list orderNotes as note>
                  <#if (note.internalNote?has_content) && (note.internalNote != "Y")>
                     <fo:table-row>
                         <fo:table-cell number-columns-spanned="6">
-                            <fo:block><fo:leader leader-length="19cm" leader-pattern="rule" /></fo:block>    
+                            <fo:block><fo:leader leader-length="19cm" leader-pattern="rule" /></fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
                         <fo:table-cell number-columns-spanned="1">
-                        <fo:block>${note.noteInfo?if_exists}</fo:block>    
+                        <fo:block>${note.noteInfo?if_exists}</fo:block>
                     </fo:table-cell>
                         <fo:table-cell number-columns-spanned="2">
                         <#assign notePartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", note.noteParty, "compareDate", note.noteDateTime, "lastNameFirst", "Y", "userLogin", userLogin))/>
                         <fo:block>${uiLabelMap.CommonBy}: ${notePartyNameResult.fullName?default("${uiLabelMap.OrderPartyNameNotFound}")}</fo:block>
                     </fo:table-cell>
                         <fo:table-cell number-columns-spanned="1">
-                        <fo:block>${uiLabelMap.CommonAt}: ${note.noteDateTime?string?if_exists}</fo:block>    
+                        <fo:block>${uiLabelMap.CommonAt}: ${note.noteDateTime?string?if_exists}</fo:block>
                     </fo:table-cell>
                   </fo:table-row>
-                  </#if>                  
+                  </#if>
                   </#list>
             </#if>
             </fo:table-body>
-    </fo:table>    
+    </fo:table>
     </#if>
 </#escape>

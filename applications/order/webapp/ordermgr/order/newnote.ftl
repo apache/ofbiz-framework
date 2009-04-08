@@ -25,7 +25,7 @@ under the License.
       </ul>
       <br class="clear"/>
     </div>
-    <div class="screenlet-body">      
+    <div class="screenlet-body">
         <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
         <a href="javascript:document.createnoteform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
 
@@ -52,7 +52,7 @@ under the License.
         </form>
 
         <a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonGoBack}</a>
-        <a href="javascript:document.createnoteform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>      
+        <a href="javascript:document.createnoteform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
     </div>
 </div>
 <#else>

@@ -1506,7 +1506,7 @@
     <property key="WebtoolsLabelManagerClearCacheAfterFixingDuplicateLabels">
         <value xml:lang="en">Clear Cache After Fixing Duplicated Labels</value>
         <value xml:lang="fr">Purgez les caches après avoir supprimé les traductions dupliquées</value>
-    </property>    
+    </property>
     <property key="WebtoolsLabelManagerFileName">
         <value xml:lang="en">File Name</value>
         <value xml:lang="fr">Nom de fichier</value>

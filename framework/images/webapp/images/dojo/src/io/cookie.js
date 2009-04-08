@@ -10,8 +10,8 @@
 
 dojo.provide("dojo.io.cookie");
 
-dojo.io.cookie.setCookie = function(/*String*/name, /*String*/value, 
-									/*Number?*/days, /*String?*/path, 
+dojo.io.cookie.setCookie = function(/*String*/name, /*String*/value,
+									/*Number?*/days, /*String?*/path,
 									/*String?*/domain, /*boolean?*/secure){
 	//summary: sets a cookie.
 	var expires = -1;
@@ -55,9 +55,9 @@ dojo.io.cookie.deleteCookie = function(/*String*/name){
 	dojo.io.cookie.setCookie(name, "-", 0);
 }
 
-dojo.io.cookie.setObjectCookie = function(	/*String*/name, /*Object*/obj, 
-											/*Number?*/days, /*String?*/path, 
-											/*String?*/domain, /*boolean?*/secure, 
+dojo.io.cookie.setObjectCookie = function(	/*String*/name, /*Object*/obj,
+											/*Number?*/days, /*String?*/path,
+											/*String?*/domain, /*boolean?*/secure,
 											/*boolean?*/clearCurrent){
 	//summary: Takes an object, serializes it to a cookie value, and either
 	//sets a cookie with the serialized value.

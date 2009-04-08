@@ -143,7 +143,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="password" type="xs:string" use="required"/>        
+        <xs:attribute name="password" type="xs:string" use="required"/>
         <xs:attribute name="is-truststore" use="required">
             <xs:simpleType>
                 <xs:restriction base="xs:token">

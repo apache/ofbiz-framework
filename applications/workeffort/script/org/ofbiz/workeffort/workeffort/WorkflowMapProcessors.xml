@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
   <simple-map-processor name="assignmentMap">
     <process field="workEffortId"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortIdMissing"/></not-empty></process>
@@ -68,8 +68,8 @@ under the License.
   </simple-map-processor>
   <simple-map-processor name="workEffortContactMech">
     <process field="workEffortId"><copy/><not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortIdMissing"/></not-empty></process>
-    <process field="contactMechId"><copy/></process> 
-    <process field="comments"><copy/></process> 
+    <process field="contactMechId"><copy/></process>
+    <process field="comments"><copy/></process>
   </simple-map-processor>
   <simple-map-processor name="emailAddress">
     <process field="contactMechId"><copy set-if-null="false"/></process>
@@ -78,7 +78,7 @@ under the License.
         <copy to-field="infoString"/>
         <not-empty><fail-property resource="WorkEffortUiLabels" property="WorkEffortEmailAddressIsMissing"/></not-empty>
         <validate-method method="isEmail"><fail-property resource="WorkEffortUiLabels" property="WorkEffortEmailAddressNotFormatted"/></validate-method></process>
-  </simple-map-processor>  
+  </simple-map-processor>
   <simple-map-processor name="createWorkEffortAssocMap">
       <process field="workEffortIdFrom"><copy/></process>
       <process field="workEffortIdTo"><copy/></process>

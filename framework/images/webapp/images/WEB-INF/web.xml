@@ -24,7 +24,7 @@ under the License.
   <description>Demo Store Images for the Open For Business Project</description>
 
   <session-config>
-    <session-timeout>1</session-timeout>    
+    <session-timeout>1</session-timeout>
   </session-config>
 
   <welcome-file-list>

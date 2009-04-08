@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <!-- Custom apps can use their own agreement decorator by specifying its
@@ -57,13 +57,13 @@ under the License.
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.AccountingViewPermissionError}</label>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    
+
     <!-- list all assets in a tabular format -->
     <screen name="FindAgreement">
         <section>
@@ -133,12 +133,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditAgreement" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                         <platform-specific>
                             <html><html-template location="component://accounting/webapp/accounting/agreement/CopyAgreement.ftl"/></html>
                         </platform-specific>
@@ -175,12 +175,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListAgreementItems" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -194,7 +194,7 @@ under the License.
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
                 <set field="buttonBarItem" value="EditAgreementItem"/>
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>                
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
@@ -216,12 +216,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditAgreementItem" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -283,12 +283,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListAgreementPromoAppls" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -325,12 +325,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditAgreementPromoAppl" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -368,12 +368,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListAgreementItemTerms" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -411,12 +411,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditAgreementItemTerm" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -458,12 +458,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListAgreementItemProducts" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -476,7 +476,7 @@ under the License.
                 <set field="titleProperty" value="AccountingPageTitleAgreementPriceList"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                
+
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="AgreementProductAppl" list="agreementProducts">
@@ -495,7 +495,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ViewAgreementInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
@@ -509,7 +509,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ViewAgreementItemInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
@@ -523,7 +523,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListAgreementItemProductsForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
@@ -541,7 +541,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditAgreementItemProduct"/>
                 <set field="headerItem" value="agreement"/>
                 <set field="tabButtonItem" value="AgreementItems"/>
-                
+
                 <set field="agreementId" from-field="parameters.agreementId"/>
                 <set field="agreementItemSeqId" from-field="parameters.agreementItemSeqId"/>
                 <set field="productId" from-field="parameters.productId"/>
@@ -567,18 +567,18 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditAgreementItemProduct" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ListAgreementItemSupplierProducts">
         <section>
             <actions>
@@ -614,12 +614,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListAgreementItemSupplierProducts" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -632,7 +632,7 @@ under the License.
                 <set field="titleProperty" value="AccountingPageTitleAgreementPriceList"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
-                
+
                 <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
                 <entity-one entity-name="AgreementItem" value-field="agreementItem"/>
                 <entity-and entity-name="SupplierProduct" list="agreementProducts">
@@ -651,7 +651,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ViewAgreementInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
@@ -665,7 +665,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ViewAgreementItemInfoForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
@@ -679,7 +679,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListAgreementItemSupplierProductsForReport" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
@@ -730,12 +730,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditAgreementItemSupplierProduct" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -784,12 +784,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListAgreementItemParties" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -827,12 +827,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditAgreementItemParty" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -870,12 +870,12 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListAgreementGeographicalApplic" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -913,18 +913,18 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditAgreementGeographicalApplic" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditAgreementWorkEffortAppls">
         <section>
             <actions>
@@ -961,12 +961,12 @@ under the License.
                         <screenlet id="add-agreement-roles"  title="${uiLabelMap.PageTitleAddAgreementRoles}" collapsible="true">
                             <section>
                                 <widgets>
-                                    <include-form name="AddAgreementRole" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>                                    
+                                    <include-form name="AddAgreementRole" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
                                 </widgets>
                             </section>
                         </screenlet>
                         <include-form name="ListAgreementRoles" location="component://accounting/webapp/accounting/agreement/AgreementForms.xml"/>
-                    </decorator-section>   
+                    </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>

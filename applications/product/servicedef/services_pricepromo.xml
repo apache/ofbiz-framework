@@ -51,14 +51,14 @@ under the License.
         <attribute name="defaultPrice" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="competitivePrice" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="averageCost" type="BigDecimal" mode="OUT" optional="true"/>
-        <attribute name="promoPrice" type="BigDecimal" mode="OUT" optional="true"/>      
+        <attribute name="promoPrice" type="BigDecimal" mode="OUT" optional="true"/>
         <attribute name="specialPromoPrice" type="BigDecimal" mode="OUT" optional="true"><!-- used for the Product [Special Promo] Type ProductPromo Action --></attribute>
         <attribute name="isSale" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="validPriceFound" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="currencyUsed" type="String" mode="OUT" optional="false"/>
         <attribute name="orderItemPriceInfos" type="java.util.List" mode="OUT" optional="false"/>
         <attribute name="allQuantityPrices" type="java.util.List" mode="OUT" optional="true">
-            <!-- Populated when findAllQuantityPrices is Y; 
+            <!-- Populated when findAllQuantityPrices is Y;
                 is a List of Map where each Map has all other return attributes normally created for a price calculation;
                 each Map in the List will also contain a field called "quantityProductPriceRule" with the GenericValue object representing the ProductPriceRule with the quantity condition that the List entry is based on
             -->
@@ -223,7 +223,7 @@ under the License.
             location="org.ofbiz.product.promo.PromoServices" invoke="importPromoCodesFromFile" auth="true">
         <description>Creates several ProductPromoCode from an uploaded list of promo codes (one code per line)</description>
         <implements service="uploadFileInterface"/>
-        <auto-attributes mode="IN" entity-name="ProductPromoCode" include="nonpk" optional="true"/>        
+        <auto-attributes mode="IN" entity-name="ProductPromoCode" include="nonpk" optional="true"/>
     </service>
 
     <service name="createProductPromoCodeEmail" default-entity-name="ProductPromoCodeEmail" engine="simple"
@@ -241,7 +241,7 @@ under the License.
                 location="org.ofbiz.product.promo.PromoServices" invoke="importPromoCodeEmailsFromFile" auth="true">
         <description>Create several ProductPromoCodeEmail from an uploaded list of emails (one address per line)</description>
         <implements service="uploadFileInterface"/>
-        <attribute name="productPromoCodeId" type="String" mode="IN" optional="false"/>        
+        <attribute name="productPromoCodeId" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="createProductPromoCodeParty" default-entity-name="ProductPromoCodeParty" engine="simple"
@@ -331,7 +331,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
-        
+
         <attribute name="price" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="validPriceFound" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="orderItemPriceInfos" type="java.util.List" mode="OUT" optional="false"/>

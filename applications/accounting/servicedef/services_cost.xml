@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Cost Services</description>
     <vendor>OFBiz</vendor>
@@ -48,18 +48,18 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
-    <service name="createWorkEffortCostCalc" default-entity-name="WorkEffortCostCalc" engine="simple" 
-        location="component://accounting/script/org/ofbiz/accounting/cost/CostServices.xml" invoke="createWorkEffortCostCalc" auth="true"> 
-        <description>Create a WorkEffortCostCalc entry</description> 
+    <service name="createWorkEffortCostCalc" default-entity-name="WorkEffortCostCalc" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/cost/CostServices.xml" invoke="createWorkEffortCostCalc" auth="true">
+        <description>Create a WorkEffortCostCalc entry</description>
         <permission-service service-name="acctgCostPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
 
-    <service name="removeWorkEffortCostCalc" default-entity-name="WorkEffortCostCalc" engine="simple" 
-        location="component://accounting/script/org/ofbiz/accounting/cost/CostServices.xml" invoke="removeWorkEffortCostCalc" auth="true"> 
-        <description>Remove a WorkEffortCostCalc entry</description> 
+    <service name="removeWorkEffortCostCalc" default-entity-name="WorkEffortCostCalc" engine="simple"
+        location="component://accounting/script/org/ofbiz/accounting/cost/CostServices.xml" invoke="removeWorkEffortCostCalc" auth="true">
+        <description>Remove a WorkEffortCostCalc entry</description>
         <permission-service service-name="acctgCostPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -70,7 +70,7 @@ under the License.
         <description>Accounting Cost Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
-    
+
     <service name="createProductAverageCost" default-entity-name="ProductAverageCost" engine="entity-auto" invoke="create" auth="true">
         <description>Create Product Average Cost record</description>
         <permission-service service-name="acctgCostPermissionCheck" main-action="CREATE"/>
@@ -79,18 +79,18 @@ under the License.
         <override name="fromDate" optional="true"/>
         <override name="averageCost" optional="false"/>
     </service>
-    
+
     <service name="updateProductAverageCost" default-entity-name="ProductAverageCost" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Product Average Cost record</description>
         <permission-service service-name="acctgCostPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="deleteProductAverageCost" default-entity-name="ProductAverageCost" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Product Average Cost record</description>
         <permission-service service-name="acctgCostPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
 </services>

@@ -18,10 +18,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="ListAccounts" type="list" list-name="partyList" paginate-target="FindAccount" 
+    <form name="ListAccounts" type="list" list-name="partyList" paginate-target="FindAccount"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <entity-one entity-name="PartyGroup" value-field="partyGroup"/>

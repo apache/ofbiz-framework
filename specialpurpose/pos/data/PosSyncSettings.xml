@@ -67,7 +67,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.order" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.accounting.invoice" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.accounting.payment" applEnumId="ESIA_INCLUDE"/>
-    <!-- include inventory and issuance info --> 
+    <!-- include inventory and issuance info -->
     <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.shipment.issuance" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.product.inventory" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5506" entityOrPackage="org.ofbiz.pos.PosTerminalLog" applEnumId="ESIA_INCLUDE"/>
@@ -77,21 +77,21 @@ under the License.
 <!-- Some examples of EntitySync settings for pulling and pushing data around -->
     <!-- POS example meant to be used for pulling data from MCS to PSS -->
     <!-- NOTE: for pulling setup the EntitySync record lives on the server the data is pulled from and should ONLY BE USED FOR ONE CLIENT! -->
-    <EntitySync entitySyncId="5500" runStatusId="ESR_NOT_STARTED" syncSplitMillis="600000" 
+    <EntitySync entitySyncId="5500" runStatusId="ESR_NOT_STARTED" syncSplitMillis="600000"
             keepRemoveInfoHours="24" forPullOnly="Y"/>
     <EntitySyncIncludeGroup entitySyncId="5500" entityGroupId="5500"/>
     <!-- POS example meant to be used for pushing data from PSS to MCS -->
-    <EntitySync entitySyncId="5506" runStatusId="ESR_NOT_STARTED" syncSplitMillis="600000" targetServiceName="remoteStoreEntitySyncDataRmi" 
+    <EntitySync entitySyncId="5506" runStatusId="ESR_NOT_STARTED" syncSplitMillis="600000" targetServiceName="remoteStoreEntitySyncDataRmi"
             keepRemoveInfoHours="24" forPushOnly="Y"/>
     <EntitySyncIncludeGroup entitySyncId="5506" entityGroupId="5506"/>
 
     <!-- POS example meant to be used for pushing data from POS to PSS -->
-    <EntitySync entitySyncId="5505" runStatusId="ESR_NOT_STARTED" syncSplitMillis="600000" targetServiceName="remoteStoreEntitySyncDataRmi" 
+    <EntitySync entitySyncId="5505" runStatusId="ESR_NOT_STARTED" syncSplitMillis="600000" targetServiceName="remoteStoreEntitySyncDataRmi"
             keepRemoveInfoHours="24" forPushOnly="Y"/>
     <EntitySyncIncludeGroup entitySyncId="5505" entityGroupId="5505"/>
     <!-- POS example meant to be used for pulling data from PSS to POS -->
     <!-- NOTE: for pulling setup the EntitySync record lives on the server the data is pulled from and should ONLY BE USED FOR ONE CLIENT! -->
-    <EntitySync entitySyncId="5501" runStatusId="ESR_NOT_STARTED" syncSplitMillis="600000" 
+    <EntitySync entitySyncId="5501" runStatusId="ESR_NOT_STARTED" syncSplitMillis="600000"
             keepRemoveInfoHours="24" forPullOnly="Y"/>
     <EntitySyncIncludeGroup entitySyncId="5501" entityGroupId="5501"/>
 

@@ -33,7 +33,7 @@ dojo.undo.browser = {
 	locationTimer: null,
 
 	/**
-	 * 
+	 *
 	 */
 	setInitialState: function(/*Object*/args){
 		//summary: Sets the state object and back callback for the very first page that is loaded.
@@ -72,7 +72,7 @@ dojo.undo.browser = {
 		//		});
 		//
 		//	BROWSER NOTES:
-		//  Safari 1.2: 
+		//  Safari 1.2:
 		//	back button "works" fine, however it's not possible to actually
 		//	DETECT that you've moved backwards by inspecting window.location.
 		//	Unless there is some other means of locating.
@@ -86,10 +86,10 @@ dojo.undo.browser = {
 		//	previous hash value, but to the last full page load. This suggests
 		//	that the iframe is the correct way to capture the back button in
 		//	these cases.
-		//	Don't test this page using local disk for MSIE. MSIE will not create 
-		//	a history list for iframe_history.html if served from a file: URL. 
-		//	The XML served back from the XHR tests will also not be properly 
-		//	created if served from local disk. Serve the test pages from a web 
+		//	Don't test this page using local disk for MSIE. MSIE will not create
+		//	a history list for iframe_history.html if served from a file: URL.
+		//	The XML served back from the XHR tests will also not be properly
+		//	created if served from local disk. Serve the test pages from a web
 		//	server to test in that browser.
 		//	IE 6.0:
 		//	same behavior as IE 5.5 SP2
@@ -101,7 +101,7 @@ dojo.undo.browser = {
 		//If addToHistory is called, then that means we prune the
 		//forward stack -- the user went back, then wanted to
 		//start a new forward path.
-		this.forwardStack = []; 
+		this.forwardStack = [];
 
 		var hash = null;
 		var url = null;
@@ -115,7 +115,7 @@ dojo.undo.browser = {
 		}
 		if(args["changeUrl"]){
 			hash = "#"+ ((args["changeUrl"]!==true) ? args["changeUrl"] : (new Date()).getTime());
-			
+
 			//If the current hash matches the new one, just replace the history object with
 			//this new one. It doesn't make sense to track different state objects for the same
 			//logical URL. This matches the browser behavior of only putting in one history
@@ -134,7 +134,7 @@ dojo.undo.browser = {
 			this.changingUrl = true;
 			setTimeout("window.location.href = '"+hash+"'; dojo.undo.browser.changingUrl = false;", 1);
 			this.bookmarkAnchor.href = hash;
-			
+
 			if(dojo.render.html.ie){
 				url = this._loadIframeHistory();
 
@@ -150,7 +150,7 @@ dojo.undo.browser = {
 					//Use apply to set "this" to args, and to try to avoid memory leaks.
 					oldCB.apply(this, [handleName]);
 				}
-		
+
 				//Set interceptor function in the right place.
 				if(args["back"]){
 					args.back = tcb;
@@ -159,9 +159,9 @@ dojo.undo.browser = {
 				}else if(args["handle"]){
 					args.handle = tcb;
 				}
-		
+
 				var oldFW = args["forward"]||args["forwardButton"]||args["handle"];
-		
+
 				//The function takes handleName as a parameter, in case the
 				//callback we are overriding was "handle". In that case,
 				//we will need to pass the handle name to handle.
@@ -209,7 +209,7 @@ dojo.undo.browser = {
 				this.handleBackButton();
 				return;
 			}
-			
+
 			// first check to see if we could have gone forward. We always halt on
 			// a no-hash item.
 			if(this.forwardStack.length > 0){
@@ -218,7 +218,7 @@ dojo.undo.browser = {
 					return;
 				}
 			}
-	
+
 			// ok, that didn't work, try someplace back in the history stack
 			if((hsl >= 2)&&(this.historyStack[hsl-2])){
 				if(this.historyStack[hsl-2].urlHash==window.location.hash){
@@ -233,7 +233,7 @@ dojo.undo.browser = {
 		//summary: private method. Do not call this directly.
 		if(!dojo.render.html.opera){
 			var query = this._getUrlQuery(ifrLoc.href);
-			if(query == null){ 
+			if(query == null){
 				// alert("iframeLoaded");
 				// we hit the end of the history, so we should go back
 				if(this.historyStack.length == 1){
@@ -246,7 +246,7 @@ dojo.undo.browser = {
 				this.moveForward = false;
 				return;
 			}
-	
+
 			//Check the back stack first, since it is more likely.
 			//Note that only one step back or forward is supported.
 			if(this.historyStack.length >= 2 && query == this._getUrlQuery(this.historyStack[this.historyStack.length-2].url)){
@@ -311,12 +311,12 @@ dojo.undo.browser = {
 			return segments[1]; //String
 		}
 	},
-	
+
 	_loadIframeHistory: function(){
 		//summary: private method. Do not call this directly.
 		var url = dojo.hostenv.getBaseScriptUri()+"iframe_history.html?"+(new Date()).getTime();
 		this.moveForward = true;
-		dojo.io.setIFrameSrc(this.historyIframe, url, false);	
+		dojo.io.setIFrameSrc(this.historyIframe, url, false);
 		return url; //String
 	}
 }

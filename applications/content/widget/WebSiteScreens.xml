@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="FindWebSite">
         <section>
@@ -26,7 +26,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindWebSite"/>
                 <set field="headerItem" value="websites"/>
                 <set field="labelTitleProperty" value="PageTitleFindWebSite"/>
-                
+
                 <entity-condition entity-name="WebSite" list="webSites">
                     <order-by field-name="webSiteId"/>
                 </entity-condition>
@@ -47,7 +47,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <container><link  text="${uiLabelMap.CommonCreateNew} ${uiLabelMap.ContentWebSite}" target="EditWebSite" style="buttontext"/></container>
                                                 <include-form name="ListWebSites" location="component://content/webapp/content/website/WebSiteForms.xml"/>
                                             </widgets>
@@ -87,7 +87,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="EditWebSite" location="component://content/webapp/content/website/WebSiteForms.xml"/>
                                             </widgets>
                                         </section>
@@ -100,7 +100,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="WebSiteContent">
         <section>
             <actions>
@@ -111,7 +111,7 @@ under the License.
                 <entity-one entity-name="WebSite" value-field="webSite"/>
                 <entity-and entity-name="WebSiteContent" list="webSiteContent">
                     <field-map field-name="webSiteId" from-field="webSiteId"/>
-                </entity-and>                
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWebSiteDecorator" location="${parameters.mainDecoratorLocation}">
@@ -126,7 +126,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="ListWebSiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
                                             </widgets>
                                         </section>
@@ -140,7 +140,7 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="CreateWebSiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
                                             </widgets>
                                         </section>
@@ -154,12 +154,12 @@ under the License.
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
-                                            <widgets>    
+                                            <widgets>
                                                 <include-form name="AutoCreateWebsiteContent" location="component://content/webapp/content/website/WebSiteForms.xml"/>
                                             </widgets>
                                         </section>
                                     </container>
-                                </container> 
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -167,7 +167,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditWebSiteParties">
         <section>
             <actions>
@@ -205,7 +205,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditWebSiteCMS"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <entity-one entity-name="WebSite" value-field="webSite"/>
-                
+
                 <script location="component://content/webapp/content/WEB-INF/actions/website/WebSitePublishPoint.groovy"/>
             </actions>
             <widgets>
@@ -215,15 +215,15 @@ under the License.
                             <condition>
                                 <not>
                                     <if-empty field="contentRoot"/>
-                                </not>                                
+                                </not>
                             </condition>
-                            <widgets>                                                                
+                            <widgets>
                                 <container id="cmsnav" style="left">
-                                    <include-screen name="WebSiteCMSNav"/>                    
+                                    <include-screen name="WebSiteCMSNav"/>
                                 </container>
                                 <container id="cmsmain" style="leftonly">
                                     <include-screen name="WebSiteCMSContent"/>
-                                </container>                                                                
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <container id="norender" style="tableheadtext">
@@ -254,7 +254,7 @@ under the License.
                     </container>
                     <container style="screenlet-body">
                         <section>
-                            <widgets>    
+                            <widgets>
                                 <platform-specific>
                                     <html>
                                         <html-template location="component://content/webapp/content/website/WebSiteCMSNav.ftl"/>
@@ -276,7 +276,7 @@ under the License.
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
 
                 <set field="contentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
-                <set field="dataResourceTypeId" from-field="parameters.dataResourceTypeId"/> 
+                <set field="dataResourceTypeId" from-field="parameters.dataResourceTypeId"/>
                 <set field="contentIdFrom" from-field="parameters.contentIdFrom"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <set field="contentId" from-field="parameters.contentId"/>
@@ -296,7 +296,7 @@ under the License.
                     <field-map field-name="fromDate" from-field="parameters.fromDate"/>
                 </entity-one>
                 <entity-and entity-name="ContentPurpose" list="currentPurposes">
-                    <field-map field-name="contentId" from-field="contentId"/>                    
+                    <field-map field-name="contentId" from-field="contentId"/>
                 </entity-and>
                 <entity-condition entity-name="ContentPurposeType" list="purposeTypes">
                     <order-by field-name="description"/>

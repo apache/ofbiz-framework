@@ -116,7 +116,7 @@ dojo.i18n.number.parse = function(value, locale /*optional*/, flags /*optional*/
 };
 
 /**
-  Validates whether a string is in an integer format. 
+  Validates whether a string is in an integer format.
 
   @param value  A string.
   @param locale the locale to determine formatting used.  By default, the locale defined by the
@@ -126,7 +126,7 @@ dojo.i18n.number.parse = function(value, locale /*optional*/, flags /*optional*/
       Default is [true, false], (i.e. sign is optional).
     flags.separator  The character used as the thousands separator.  Default is specified by the locale.
       For more than one symbol use an array, e.g. [",", ""], makes ',' optional.
-      The empty array [] makes the default separator optional.   
+      The empty array [] makes the default separator optional.
   @return  true or false.
 */
 dojo.i18n.number.isInteger = function(value, locale /*optional*/, flags /*optional*/) {
@@ -145,7 +145,7 @@ dojo.i18n.number.isInteger = function(value, locale /*optional*/, flags /*option
 };
 
 /**
-  Validates whether a string is a real valued number. 
+  Validates whether a string is a real valued number.
   Format is the usual exponential notation.
 
   @param value  A string.
@@ -157,7 +157,7 @@ dojo.i18n.number.isInteger = function(value, locale /*optional*/, flags /*option
     flags.decimal  The character used for the decimal point.  The default is specified by the locale.
     flags.exponent  Express in exponential notation.  Can be true, false, or [true, false].
       Default is [true, false], (i.e. the exponential part is optional).
-    flags.eSigned  The leading plus-or-minus sign on the exponent.  Can be true, false, 
+    flags.eSigned  The leading plus-or-minus sign on the exponent.  Can be true, false,
       or [true, false].  Default is [true, false], (i.e. sign is optional).
     flags in regexp.integer can be applied.
   @return  true or false.
@@ -220,7 +220,7 @@ dojo.i18n.number.FORMAT_TABLE = {
 	'en-nz': [",",",", ".", 3],
 	'en-us': [",",",", ".", 3],
 	'en-za': [",",",", ".", 3],
-	
+
 	'es-ar': [".",".", ",", 3],
 	'es-bo': [".",".", ",", 3],
 	'es-cl': [".",".", ",", 3],
@@ -240,41 +240,41 @@ dojo.i18n.number.FORMAT_TABLE = {
 	'es-sv': [",", ",",".", 3],
 	'es-uy': [".",".",",", 3],
 	'es-ve': [".",".", ",", 3],
-	
+
 	'fi-fi': [" "," ", ",", 3],
-	
+
 	'fr-be': [".",".",",", 3],
 	'fr-ca': [" ", " ", ",", 3],
-	
+
 	'fr-ch': [" ", " ",".", 3],
-	
+
 	'fr-fr': [" "," ", ",", 3],
 	'fr-lu': [".",".", ",", 3],
-	
+
 	'he-il': [",",",", ".", 3],
-	
+
 	'hu-hu': [" ", " ",",", 3],
-	
+
 	'it-ch': [" "," ", ".", 3],
-	
+
 	'it-it': [".",".", ",", 3],
 	'ja-jp': [",",",", ".", 3],
 	'ko-kr': [",", ",",".", 3],
-	
+
 	'no-no': [".",".", ",", 3],
-	
+
 	'nl-be': [" "," ", ",", 3],
 	'nl-nl': [".",".", ",", 3],
 	'pl-pl': [".", ".",",", 3],
-	
+
 	'pt-br': [".",".", ",", 3],
 	'pt-pt': [".",".", "$", 3],
 	'ru-ru': [" ", " ",",", 3],
-	
+
 	'sv-se': ["."," ", ",", 3],
-	
+
 	'tr-tr': [".",".", ",", 3],
-	
+
 	'zh-cn': [",",",", ".", 3],
 	'zh-hk': [",",",",".", 3],
 	'zh-tw': [",", ",",".", 3],

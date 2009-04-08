@@ -21,22 +21,22 @@ dojo.io.RhinoHTTPTransport = new function(){
 			//use for the particular type of request. This type of transport can
 			//only be used inside the Rhino JavaScript engine.
 
-			// We have to limit to text types because Rhino doesnt support 
-			// a W3C dom implementation out of the box.  In the future we 
+			// We have to limit to text types because Rhino doesnt support
+			// a W3C dom implementation out of the box.  In the future we
 			// should provide some kind of hook to inject your own, because
 			// in all my projects I use XML for Script to provide a W3C DOM.
 			if(dojo.lang.find(["text/plain", "text/html", "text/xml", "text/javascript", "text/json", "application/json"],
 				(req.mimetype.toLowerCase() || "")) < 0){
 				return false;
 			}
-			
-			// We only handle http requests!  Unfortunately, because the method is 
+
+			// We only handle http requests!  Unfortunately, because the method is
 			// protected, I can't directly create a java.net.HttpURLConnection, so
 			// this is the only way to test.
 			if(req.url.substr(0, 7) != "http://"){
 				return false;
 			}
-			
+
 			return true;
 		}
 
@@ -78,35 +78,35 @@ dojo.io.RhinoHTTPTransport = new function(){
 
 			req.load("load", ret, req);
 		}
-		
+
 		function connect(req){
 			var content = req.content || {};
 			var query;
-	
+
 			if (req.sendTransport){
 				content["dojo.transport"] = "rhinohttp";
 			}
-	
+
 			if(req.postContent){
 				query = req.postContent;
 			}else{
 				query = dojo.io.argsFromMap(content, req.encoding);
 			}
-	
+
 			var url_text = req.url;
 			if(req.method.toLowerCase() == "get" && query != ""){
 				url_text = url_text + "?" + query;
 			}
-			
+
 			var url  = new java.net.URL(url_text);
 			var conn = url.openConnection();
-			
+
 			//
 			// configure the connection
 			//
-			
+
 			conn.setRequestMethod(req.method.toUpperCase());
-			
+
 			if(req.headers){
 				for(var header in req.headers){
 					if(header.toLowerCase() == "content-type" && !req.contentType){
@@ -128,14 +128,14 @@ dojo.io.RhinoHTTPTransport = new function(){
 				var byte_array = (new java.lang.String(query)).getBytes();
 				output_stream.write(byte_array, 0, byte_array.length);
 			}
-			
+
 			// do it to it!
 			conn.connect();
 
 			// perform the load
 			doLoad(req, conn);
 		}
-		
+
 		this.bind = function(req){
 			//summary: function that sends the request to the server.
 

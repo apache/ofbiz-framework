@@ -32,7 +32,7 @@ if(dojo.render.svg.capable){
 			//	Bindings: y
 			var area = plotarea.getArea();
 			var group = document.createElementNS(dojo.svg.xmlns.svg, "g");
-			
+
 			//	precompile the data
 			var n = plot.series.length;	//	how many series
 			var data = [];
@@ -61,7 +61,7 @@ if(dojo.render.svg.capable){
 						yA = y;
 						y = yOrigin;
 					}
-					
+
 					var bar=document.createElementNS(dojo.svg.xmlns.svg, "rect");
 					bar.setAttribute("fill", data[j][i].series.color);
 					bar.setAttribute("stroke-width", "0");
@@ -87,7 +87,7 @@ if(dojo.render.svg.capable){
 			//	Bindings: y
 			var area = plotarea.getArea();
 			var group = document.createElementNS(dojo.svg.xmlns.svg, "g");
-			
+
 			//	precompile the data
 			var n = plot.series.length;	//	how many series
 			var data = [];
@@ -114,7 +114,7 @@ if(dojo.render.svg.capable){
 					if(value > 0){
 						x = xOrigin;
 					}
-					
+
 					var bar=document.createElementNS(dojo.svg.xmlns.svg, "rect");
 					bar.setAttribute("fill", data[j][i].series.color);
 					bar.setAttribute("stroke-width", "0");
@@ -167,7 +167,7 @@ if(dojo.render.svg.capable){
 					var x = plot.axisX.getCoord(low, plotarea, plot);
 					var w = plot.axisX.getCoord(high, plotarea, plot) - x;
 					var y = yStart + (barH*j);
-					
+
 					var bar=document.createElementNS(dojo.svg.xmlns.svg, "rect");
 					bar.setAttribute("fill", data[j][i].series.color);
 					bar.setAttribute("stroke-width", "0");
@@ -229,7 +229,7 @@ if(dojo.render.svg.capable){
 					if(j==0){ cmd.push("M"); }
 					else { cmd.push("L"); }
 					cmd.push(x+","+y);
-					
+
 					//	points on the line
 					var c=document.createElementNS(dojo.svg.xmlns.svg, "circle");
 					c.setAttribute("cx",x);
@@ -326,7 +326,7 @@ if(dojo.render.svg.capable){
 						cmd.push(cx + "," + y);
 					}
 					cmd.push(x+","+y);
-					
+
 					//	points on the line
 					var c=document.createElementNS(dojo.svg.xmlns.svg, "circle");
 					c.setAttribute("cx",x);
@@ -375,7 +375,7 @@ if(dojo.render.svg.capable){
 		 *	Single plotters: one series at a time.
 		 *********************************************************/
 		DataBar: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -385,7 +385,7 @@ if(dojo.render.svg.capable){
 			//	Bindings: x/y
 			var area = plotarea.getArea();
 			var group = document.createElementNS(dojo.svg.xmlns.svg, "g");
-			
+
 			var n = data.length;
 			var w = (area.right-area.left)/(plot.axisX.range.upper - plot.axisX.range.lower);	//	the width of each group.
 			var yOrigin = plot.axisY.getCoord(plot.axisX.origin, plotarea, plot);
@@ -415,7 +415,7 @@ if(dojo.render.svg.capable){
 			return group;	//	SVGGElement
 		},
 		Line: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -443,7 +443,7 @@ if(dojo.render.svg.capable){
 				if(i==0){ cmd.push("M"); }
 				else { cmd.push("L"); }
 				cmd.push(x+","+y);
-				
+
 				//	points on the line
 				var c=document.createElementNS(dojo.svg.xmlns.svg, "circle");
 				c.setAttribute("cx",x);
@@ -460,7 +460,7 @@ if(dojo.render.svg.capable){
 			return line;	//	SVGGElement
 		},
 		CurvedLine: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -502,7 +502,7 @@ if(dojo.render.svg.capable){
 					cmd.push(cx + "," + y);
 				}
 				cmd.push(x+","+y);
-				
+
 				//	points on the line
 				var c=document.createElementNS(dojo.svg.xmlns.svg, "circle");
 				c.setAttribute("cx",x);
@@ -519,7 +519,7 @@ if(dojo.render.svg.capable){
 			return line;	// SVGGElement
 		},
 		Area: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -548,7 +548,7 @@ if(dojo.render.svg.capable){
 				if(i==0){ cmd.push("M"); }
 				else { cmd.push("L"); }
 				cmd.push(x+","+y);
-				
+
 				//	points on the line
 				var c=document.createElementNS(dojo.svg.xmlns.svg, "circle");
 				c.setAttribute("cx",x);
@@ -571,7 +571,7 @@ if(dojo.render.svg.capable){
 			return line;	//	SVGGElement
 		},
 		CurvedArea: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -614,7 +614,7 @@ if(dojo.render.svg.capable){
 					cmd.push(cx + "," + y);
 				}
 				cmd.push(x+","+y);
-				
+
 				//	points on the line
 				var c=document.createElementNS(dojo.svg.xmlns.svg, "circle");
 				c.setAttribute("cx",x);
@@ -637,7 +637,7 @@ if(dojo.render.svg.capable){
 			return line;	//	SVGGElement
 		},
 		HighLow: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -647,7 +647,7 @@ if(dojo.render.svg.capable){
 			//	Bindings: x/high/low
 			var area = plotarea.getArea();
 			var group = document.createElementNS(dojo.svg.xmlns.svg, "g");
-			
+
 			var n = data.length;
 			var part = ((area.right-area.left)/(plot.axisX.range.upper - plot.axisX.range.lower))/4;
 			var w = part*2;
@@ -680,7 +680,7 @@ if(dojo.render.svg.capable){
 			return group;	//	SVGGElement
 		},
 		HighLowClose: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -690,7 +690,7 @@ if(dojo.render.svg.capable){
 			//	Bindings: x/high/low/close
 			var area = plotarea.getArea();
 			var group = document.createElementNS(dojo.svg.xmlns.svg, "g");
-			
+
 			var n = data.length;
 			var part = ((area.right-area.left)/(plot.axisX.range.upper - plot.axisX.range.lower))/4;
 			var w = part*2;
@@ -738,7 +738,7 @@ if(dojo.render.svg.capable){
 			return group;	//	SVGGElement
 		},
 		HighLowOpenClose: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -748,7 +748,7 @@ if(dojo.render.svg.capable){
 			//	Bindings: x/high/low/open/close
 			var area = plotarea.getArea();
 			var group = document.createElementNS(dojo.svg.xmlns.svg, "g");
-			
+
 			var n = data.length;
 			var part = ((area.right-area.left)/(plot.axisX.range.upper - plot.axisX.range.lower))/4;
 			var w = part*2;
@@ -807,7 +807,7 @@ if(dojo.render.svg.capable){
 			return group;	//	SVGGElement
 		},
 		Scatter: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -837,7 +837,7 @@ if(dojo.render.svg.capable){
 			return group;	//	SVGGElement
 		},
 		Bubble: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo

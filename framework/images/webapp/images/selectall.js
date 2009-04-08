@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,7 +20,7 @@
 // Check Box Select/Toggle Functions for Select/Toggle All
 
 function toggle(e) {
-    e.checked = !e.checked;    
+    e.checked = !e.checked;
 }
 
 function checkToggleDefault(e) {
@@ -28,15 +28,15 @@ function checkToggleDefault(e) {
 }
 function checkToggle(e, formName) {
     var cform = document[formName];
-    if (e.checked) {      
+    if (e.checked) {
         var len = cform.elements.length;
         var allchecked = true;
         for (var i = 0; i < len; i++) {
             var element = cform.elements[i];
-            if (element.name.substring(0, 10) == "_rowSubmit" && !element.checked) {       
+            if (element.name.substring(0, 10) == "_rowSubmit" && !element.checked) {
                 allchecked = false;
             }
-            cform.selectAll.checked = allchecked;            
+            cform.selectAll.checked = allchecked;
         }
     } else {
         cform.selectAll.checked = false;
@@ -64,11 +64,11 @@ function selectAll(formName) {
     var cform = document[formName];
     var len = cform.elements.length;
     for (var i = 0; i < len; i++) {
-        var element = cform.elements[i];                   
+        var element = cform.elements[i];
         if ((element.name == "selectAll" || element.name.substring(0, 10) == "_rowSubmit") && !element.checked) {
             toggle(element);
-        } 
-    }     
+        }
+    }
 }
 
 function removeSelectedDefault() {
@@ -205,7 +205,7 @@ function confirmActionFormLink(msg, formName) {
     var agree = confirm(msg);
     if (agree) {
         if (formName != null) document.forms[formName].submit();
-    } 
+    }
 }
 
 // ===== Ajax Functions - based on protoype.js ===== //
@@ -294,11 +294,11 @@ function ajaxSubmitFormUpdateAreas(form, areaCsvString) {
             }
            $('content-messages').addClassName('errorMessage');
            $('content-messages' ).update(data._ERROR_MESSAGE_LIST_ + " " + data._ERROR_MESSAGE_);
-           new Effect.Appear('content-messages',{duration: 0.5}); 
+           new Effect.Appear('content-messages',{duration: 0.5});
         }else {
         	if($('content-messages')) {
                 $('content-messages').removeClassName('errorMessage');
-                new Effect.Fade('content-messages',{duration: 0.0});   
+                new Effect.Fade('content-messages',{duration: 0.0});
             }
             ajaxUpdateAreas(areaCsvString);
         }
@@ -318,7 +318,7 @@ function ajaxAutoCompleter(areaCsvString) {
     for (var i = 0; i < numAreas * 3; i = i + 3) {
 	    var optionsDivId = areaArray[i] + "_autoCompleterOptions";
 	    $(areaArray[i]).insert({after: '<div class="autocomplete"' + 'id=' + optionsDivId + '></div>'});
-        new Ajax.Autocompleter($(areaArray[i]), optionsDivId, areaArray[i + 1], {parameters: areaArray[i + 2]});	
+        new Ajax.Autocompleter($(areaArray[i]), optionsDivId, areaArray[i + 1], {parameters: areaArray[i + 2]});
     }
 }
 
@@ -333,7 +333,7 @@ function ajaxAutoCompleteDropDown(descriptionElement, hiddenElement, data, optio
     var update = hiddenElement + "_autoCompleterOptions";
     $(descriptionElement).insert({after: '<div class="autocomplete"' + 'id=' + update + '></div>'});
     new Autocompleter.Local($(descriptionElement), update, $H(data), {autoSelect: options.autoSelect, frequency: options.frequency, minChars: options.minChars, choices: options.choices, partialSearch: options.partialSearch, partialChars: options.partialChars, ignoreCase: options.ignoreCase, fullSearch: options.fullSearch, afterUpdateElement: setKeyAsParameter});
-    
+
     function setKeyAsParameter(text, li) {
         $(hiddenElement).value = li.id;
     }
@@ -394,7 +394,7 @@ function toggleScreenlet(link, areaId, expandTxt, collapseTxt){
                 }
             }
         }
-    });    
+    });
 }
 
 /** In Place Editor for display elements
@@ -463,7 +463,7 @@ function expandAll(expanded) {
 
   divs=document.getElementsByTagName('div');
   for(i=0;i<divs.length;i++) {
-    if(/fieldgroup$/.test(divs[i].className)) {      
+    if(/fieldgroup$/.test(divs[i].className)) {
       links=divs[i].getElementsByTagName('a');
       if(links.length>0) {
         divs1=divs[i].getElementsByTagName('div');

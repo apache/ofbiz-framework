@@ -32,31 +32,31 @@ under the License.
           <!-- Suspended Processes -->
           <#if workEffortStatus == "WF_SUSPENDED">
             <form action="<@ofbizUrl>releasehold</@ofbizUrl>" method="post" name="activityForm">
-              <input type="hidden" name="workEffortId" value="${workEffortId}">                        
+              <input type="hidden" name="workEffortId" value="${workEffortId}">
               <table class="basic-table" cellspacing='0'>
                 <tr>
                   <td>${uiLabelMap.OrderProcessingInHold}&nbsp;${uiLabelMap.OrderProcessingInHoldNote}</td>
-                  <td align="right" valign="center">                                        
+                  <td align="right" valign="center">
                     <a href="javascript:document.activityForm.submit()" class="buttontext">${uiLabelMap.OrderRelease}</a>
                   </td>
                 </tr>
               </table>
-            </form> 
+            </form>
           </#if>
           <!-- Active Processes -->
           <#if workEffortStatus == "WF_RUNNING">
             <form action="<@ofbizUrl>holdorder</@ofbizUrl>" method="post" name="activityForm">
-              <input type="hidden" name="workEffortId" value="${workEffortId}">                        
+              <input type="hidden" name="workEffortId" value="${workEffortId}">
               <table class="basic-table" cellspacing='0'>
                 <tr>
                   <td>${uiLabelMap.OrderProcessingInActive}</td>
-                  <td align="right" valign="center">                                        
+                  <td align="right" valign="center">
                     <a href="javascript:document.activityForm.submit()" class="buttontext">${uiLabelMap.OrderHold}</a>
                   </td>
                 </tr>
               </table>
-            </form> 
-          </#if>                               
+            </form>
+          </#if>
         </td>
       </tr>
     </table>
@@ -72,7 +72,7 @@ under the License.
     </ul>
     <br class="clear"/>
   </div>
-  <div class="screenlet-body">   
+  <div class="screenlet-body">
     <table class="basic-table" cellspacing='0'>
       <tr>
         <td>
@@ -80,7 +80,7 @@ under the License.
             <input type="hidden" name="workEffortId" value="${workEffortId}">
             <input type="hidden" name="partyId" value="${assignPartyId}">
             <input type="hidden" name="roleTypeId" value="${assignRoleTypeId}">
-            <input type="hidden" name="fromDate" value="${fromDate}">             
+            <input type="hidden" name="fromDate" value="${fromDate}">
             <table class="basic-table" cellspacing='0'>
               <tr>
                 <td>
@@ -93,14 +93,14 @@ under the License.
                         </#if>
                       </#if>
                     </#list>
-                  </select> 
+                  </select>
                 </td>
-                <td valign="center">                                        
+                <td valign="center">
                   <a href="javascript:document.transitionForm.submit()" class="buttontext">${uiLabelMap.CommonContinue}</a>
                 </td>
               </tr>
             </table>
-          </form>                   
+          </form>
         </td>
       </tr>
     </table>

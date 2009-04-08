@@ -121,7 +121,7 @@ public class ProductConfigWorker {
                     configWrapper.setSelected(k, cnt, comments);
                     ProductConfigWrapper.ConfigOption option = configWrapper.getItemOtion(k, cnt);
 
-                    //  set selected variant products 
+                    //  set selected variant products
                     if (UtilValidate.isNotEmpty(option) && (option.hasVirtualComponent())) {
                         List<GenericValue> components = option.getComponents();
                         int variantIndex = 0;

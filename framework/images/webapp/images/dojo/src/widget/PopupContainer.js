@@ -218,13 +218,13 @@ dojo.declare(
 
 		if(this.parent){
 			setTimeout(
-				dojo.lang.hitch(this, 
+				dojo.lang.hitch(this,
 					function(){
 						try{
 							if(this.parent['focus']){
 								this.parent.focus();
 							}else{
-								this.parent.domNode.focus(); 
+								this.parent.domNode.focus();
 							}
 						}catch(e){dojo.debug("No idea how to focus to parent", e);}
 					}
@@ -320,7 +320,7 @@ dojo.declare(
 dojo.widget.defineWidget(
 	"dojo.widget.PopupContainer",
 	[dojo.widget.HtmlWidget, dojo.widget.PopupContainerBase], {
-		// summary: dojo.widget.PopupContainer is the widget version of dojo.widget.PopupContainerBase	
+		// summary: dojo.widget.PopupContainer is the widget version of dojo.widget.PopupContainerBase
 	});
 
 

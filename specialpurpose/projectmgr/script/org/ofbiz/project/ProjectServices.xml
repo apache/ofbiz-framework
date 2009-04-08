@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,13 +20,13 @@
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    
+
     <simple-method method-name="createProject" short-description="Create a project">
         <if-not-empty field="parameters.templateId">
             <set field="parameters.projectId" from-field="parameters.templateId"/>
             <call-simple-method method-name="copyProject"/>
             <else>
-                <set field="parameters.currentStatusId" value="PRJ_ACTIVE"/>       
+                <set field="parameters.currentStatusId" value="PRJ_ACTIVE"/>
                 <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
             </else>
         </if-not-empty>
@@ -42,7 +42,7 @@
             <call-simple-method method-name="updProjectRole"/>
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="updateProject" short-description="Update a project">
         <set-service-fields service-name="updateWorkEffort" map="parameters" to-map="updWorkEffort"/>
         <call-service service-name="updateWorkEffort" in-map-name="updWorkEffort"/>
@@ -57,9 +57,9 @@
             <call-simple-method method-name="updProjectRole"/>
         </if-not-empty>
     </simple-method>
-    
-    <simple-method method-name="updProjectRole" 
-        short-description="update/create a specif role and type for a project 
+
+    <simple-method method-name="updProjectRole"
+        short-description="update/create a specif role and type for a project
                             input map: updProjectRole.newPartyId, updProjectRole.roleTypeId">
         <entity-and entity-name="WorkEffortPartyAssignment" list="workEffortPartyAssignments" filter-by-date="true">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
@@ -94,11 +94,11 @@
             </then>
         </if>
     </simple-method>
-    
+
     <simple-method method-name="createProjectTask" short-description="Create a project task and optionally assign">
         <!-- create task -->
         <if-empty field="parameters.statusId">
-            <set field="parameters.statusId" value="PTS_CREATED"/>            
+            <set field="parameters.statusId" value="PTS_CREATED"/>
         </if-empty>
         <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         <set field="parameters.workEffortId" from-field="newEntity.workEffortId"/>
@@ -115,8 +115,8 @@
             <call-simple-method method-name="createWorkEffortSkillStandard" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         </if-not-empty>
     </simple-method>
-    
-    <simple-method method-name="updateTaskAssigment" 
+
+    <simple-method method-name="updateTaskAssigment"
         short-description="Update task to resource assignment, if required create a new one by re-assigment">
         <field-to-result field="parameters.workEffortId" result-name="workEffortId"/>
         <if>
@@ -182,8 +182,8 @@
             </else>
         </if>
     </simple-method>
-    
-    <simple-method method-name="updateTaskStatusToComplete" 
+
+    <simple-method method-name="updateTaskStatusToComplete"
         short-description="Check partyassignments on a task, if all completes set task status to completed and set actual completiondate to now">
         <entity-and entity-name="WorkEffortPartyAssignment" list="assignments" filter-by-date="true">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
@@ -203,7 +203,7 @@
             <!-- check for related customer request, set these too to completed -->
             <entity-and list="custRequests" entity-name="CustRequestWorkEffort">
                 <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
-            </entity-and>            
+            </entity-and>
             <if-not-empty field="custRequests">
                 <iterate entry="custReq" list="custRequests">
                     <set field="updStat.custRequestId" from-field="custReq.custRequestId"/>
@@ -213,11 +213,11 @@
             </if-not-empty>
         </if-empty>
     </simple-method>
-    
+
     <simple-method method-name="scheduleProject" short-description="Project Scheduler sets the planningdates according task requirements and available resources">
-        <!-- 
+        <!--
                 theory behind the program
-                - - - - - - - - - - - - - 
+                - - - - - - - - - - - - -
                 (program under development)
                 Assumptions for tasks and resources
                 1. a workday has 8 hours.
@@ -225,7 +225,7 @@
                 3. The order of the execution of the tasks is set by the workeffortassociation.
                 4. The default start of the project is today
                 5. default length of a task is 3 day if not planned hours entered
-                
+
                 The steps of the program are:
                 1. read all tasks  and check if there are predesessors, when not set he estimated dates
                     for critical path processing:
@@ -233,27 +233,27 @@
                     * EF - Earliest Finish time
                     * LS - Latest Start time
                     * LF - Latest Finish time
-                    
+
                     EF = LF task is on the critical path
-                    
-                2. call a recursive java function to set all the dependant tasks.                 
+
+                2. call a recursive java function to set all the dependant tasks.
         -->
-        
+
         <field-to-result field="parameters.projectId" result-name="projectId"/>
-        
+
         <!-- find a starting point being either the estimated start date of a project or the earliest actual start date. -->
         <entity-condition entity-name="ProjectAndPhaseAndTask" list="tasks">
             <condition-expr field-name="actualStartDate" operator="not-equals" from-field="null"/>
             <order-by field-name="-actualStartDate"/>
         </entity-condition>
-        
+
         <if-not-empty field="tasks">
             <!-- remove all estimated dates -->
             <iterate entry="task" list="tasks">
                 <clear-field field="task.estimatedStartDate"/>
                 <clear-field field="task.estimatedCompletionDate"/>
             </iterate>
-            
+
             <first-from-list entry="task" list="tasks"/>
             <set field="startDate" from-field="task.actualStartDate"/>
             <set field="taskId" from-field="task.workEffortId"/>
@@ -334,8 +334,8 @@
                 </if-not-empty>
             </then>
         </while>
-        
-        
+
+
         <!-- create the tasklist -->
         <entity-one entity-name="WorkEffort" value-field="project">
             <field-map field-name="workEffortId" from-field="parameters.projectId"/>
@@ -366,10 +366,10 @@
                         </if-empty>
                     </iterate>
                 </if-not-empty>
-            </iterate>       
+            </iterate>
         </if-not-empty>
-    </simple-method>        
-    
+    </simple-method>
+
     <simple-method method-name="updateTimeEntryByWorkeffort" short-description="Update workeffort by workeffortId and timesheetId ">
         <field-to-result field="parameters.timesheetId" result-name="timesheetId"/>
         <if-empty field="parameters.workEffortId">
@@ -379,7 +379,7 @@
             <return/>
         </if-compare>
         <entity-one entity-name="Timesheet" value-field="timesheet"/>
-        
+
         <!-- check if party assigned to task, when not add with roletype of project, if assigned check status -->
         <entity-and entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
@@ -401,14 +401,14 @@
             <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         </if-empty>
         <check-errors/>
-        
+
         <!-- check if the actual start date is set, when not set it to todays date -->
         <if-empty field="project.actualStartDate">
             <entity-one entity-name="WorkEffort" value-field="workEffort"/>
             <now-timestamp field="workEffort.actualStartDate"/>
             <store-value value-field="workEffort"/>
         </if-empty>
-        
+
         <get-related value-field="timesheet" relation-name="TimeEntry" list="timeEntries"/>
 
         <!-- update existing entries -->
@@ -418,7 +418,7 @@
                 <if-compare-field field="timeEntry.workEffortId" to-field="parameters.workEffortId" operator="equals">
                     <if-compare-field field="timeEntry.rateTypeId" to-field="parameters.rateTypeId" operator="equals">
                         <if-not-empty field="timeEntry.hours">
-                            <remove-value value-field="timeEntry"/> 
+                            <remove-value value-field="timeEntry"/>
                             <else>
                                 <!-- translate the date into the daynumber -->
                                 <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getIntervalInDays" ret-field="dayNumber">
@@ -432,7 +432,7 @@
                                         <set field="hours" value="0" type="Double"/>
                                     </else>
                                 </if-not-empty>
-                                <call-simple-method method-name="updateTimeEntry"/>                        
+                                <call-simple-method method-name="updateTimeEntry"/>
                                 <set field="parameters.hoursDay${dayNumber}" value="-999999"/>
                             </else>
                         </if-not-empty>
@@ -440,7 +440,7 @@
                 </if-compare-field>
             </iterate>
         </if-not-empty>
-        
+
         <!-- process not yet done fields -->
         <loop count="7" field="dayNr">
             <if-not-empty field="parameters.hoursDay${dayNr}">
@@ -450,11 +450,11 @@
                         <field field="timesheet.fromDate" type="java.sql.Timestamp"/>
                         <field field="dayNr" type="int"/>
                     </call-class-method>
-                    <call-simple-method method-name="updateTimeEntry"/>                        
+                    <call-simple-method method-name="updateTimeEntry"/>
                 </if-compare>
             </if-not-empty>
         </loop>
-        
+
         <!-- update the assignment status if required -->
         <if-compare field="parameters.checkComplete" value="Y" operator="equals">
             <entity-and entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
@@ -471,7 +471,7 @@
                 <call-service service-name="updateTaskAssigment" in-map-name="upStat"/>
             </if-compare>
         </if-compare>
-    </simple-method>          
+    </simple-method>
 
     <simple-method method-name="getProjectIdAndNameFromTask" short-description="Get the projectId when a phase or task is provided." login-required="true">
         <if-empty field="parameters.taskId">
@@ -503,17 +503,17 @@
         <field-to-result field="task.workEffortId" result-name="taskId"/>
         <field-to-result field="task.workEffortName" result-name="taskName"/>
     </simple-method>
-    
+
     <simple-method method-name="copyProjectToTemplate" short-description="copy a project to a workeffortType starting with 'template'">
         <set field="toTemplate" value="dummy"/>
         <call-simple-method method-name="copyProject"/>
     </simple-method>
-    
+
     <simple-method method-name="copyProject" short-description="copy a project with related phases and tasks however no actual data">
         <entity-one entity-name="WorkEffort" value-field="project">
             <field-map field-name="workEffortId" from-field="parameters.projectId"/>
-        </entity-one> 
-        
+        </entity-one>
+
         <if-empty field="project">
             <field-to-result field="parameters.projectId" result-name="projectId"/>
             <add-error error-list-name="error_list"><fail-message message="Project: ${parameters.projectId} not found"/></add-error>
@@ -528,26 +528,26 @@
             <set field="parameters.workEffortTypeId" value="PROJECT_TEMPLATE"/>
             <else>
                 <set field="parameters.workEffortTypeId" value="PROJECT"/>
-            </else>            
+            </else>
         </if-not-empty>
         <set field="parameters.currentStatusId" value="PRJ_ACTIVE"/>
         <clear-field field="parameters.workEffortId"/>
         <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         <set field="newProjectId" from-field="newEntity.workEffortId"/>
-        
+
         <!-- copy assigned parties -->
         <get-related value-field="project" relation-name="WorkEffortPartyAssignment" list="partiesAll"/>
         <filter-list-by-date list="partiesAll" to-list="parties"/>
         <if-not-empty field="parties">
             <iterate entry="party" list="parties">
-                <set field="parameters.workEffortId" from-field="newProjectId"/>            
+                <set field="parameters.workEffortId" from-field="newProjectId"/>
                 <set field="parameters.partyId" from-field="party.partyId"/>
                 <set field="parameters.roleTypeId" from-field="party.roleTypeId"/>
-                <set field="parameters.statusId" value="PAS_ASSIGNED"/>            
+                <set field="parameters.statusId" value="PAS_ASSIGNED"/>
                 <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
             </iterate>
         </if-not-empty>
-        
+
         <get-related value-field="project" relation-name="ChildWorkEffort" list="phases"/>
         <if-not-empty field="phases">
             <iterate entry="phase" list="phases">
@@ -556,15 +556,15 @@
                     <set field="parameters.workEffortTypeId" value="PHASE_TEMPLATE"/>
                     <else>
                         <set field="parameters.workEffortTypeId" value="PHASE"/>
-                    </else>            
+                    </else>
                 </if-not-empty>
                 <set field="parameters.workEffortName" from-field="phase.workEffortName"/>
                 <set field="parameters.workEffortParentId" from-field="newProjectId"/>
-                <set field="parameters.currentStatusId" value="_NA_"/>            
+                <set field="parameters.currentStatusId" value="_NA_"/>
                 <clear-field field="parameters.workEffortId"/>
                 <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
                 <set field="newPhaseId" from-field="newEntity.workEffortId"/>
-                
+
                 <get-related value-field="phase" relation-name="ChildWorkEffort" list="tasks"/>
                 <if-not-empty field="tasks">
                     <iterate entry="task" list="tasks">
@@ -573,12 +573,12 @@
                             <set field="newTask.workEffortTypeId" value="TASK_TEMPLATE"/>
                             <else>
                                 <set field="newTask.workEffortTypeId" value="TASK"/>
-                            </else>            
+                            </else>
                         </if-not-empty>
                         <set field="parameters.workEffortName" from-field="task.workEffortName"/>
                         <set field="parameters.priority" from-field="task.priority"/>
                         <set field="parameters.workEffortParentId" from-field="newPhaseId"/>
-                        <set field="parameters.currentStatusId" value="PTS_CREATED"/>            
+                        <set field="parameters.currentStatusId" value="PTS_CREATED"/>
                         <clear-field field="parameters.workEffortId"/>
                         <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
                     </iterate>
@@ -587,7 +587,7 @@
         </if-not-empty>
         <field-to-result field="newProjectId" result-name="projectId"/>
     </simple-method>
-    
+
     <simple-method method-name="getProject" short-description="get Project information" login-required="true">
         <if-empty field="parameters.projectId">
             <return/>
@@ -607,7 +607,7 @@
             <field-map field-name="statusId" from-field="project.currentStatusId"/>
         </entity-one>
         <set field="highInfo.createdDate" from-field="project.createdDate"/>
-        <set field="highInfo.parentProjectId" from-field="parentProject.workEffortId"/> 
+        <set field="highInfo.parentProjectId" from-field="parentProject.workEffortId"/>
         <!-- loop through the related phases and tasks -->
         <get-related value-field="project" relation-name="ChildWorkEffort" list="phases"/>
         <if-not-empty field="phases">
@@ -626,7 +626,7 @@
                 </if-not-empty>
             </iterate>
         </if-not-empty>
-        
+
         <!-- translate squenceId back into statusId -->
         <entity-and entity-name="StatusItem" list="statusses">
             <field-map field-name="sequenceId" from-field="highInfo.sequenceId"/>
@@ -634,7 +634,7 @@
         </entity-and>
         <first-from-list entry="status" list="statusses"/>
         <set field="highInfo.currentStatusId" from-field="status.statusId"/>
-        
+
         <!-- make sure these statusvalues do not influence the total status if there are other active ones -->
         <if>
             <condition>
@@ -642,7 +642,7 @@
                     <or>
                         <if-compare field="highInfo.currentStatusId" value="PTS_COMPLETED" operator="equals"/>
                         <if-compare field="highInfo.currentStatusId" value="PTS_ON_HOLD" operator="equals"/>
-                        <if-compare field="highInfo.currentStatusId" value="PTS_CANCELLED" operator="equals"/>                    
+                        <if-compare field="highInfo.currentStatusId" value="PTS_CANCELLED" operator="equals"/>
                     </or>
                     <not>
                         <if-empty field="allTaskStatus"/>
@@ -657,14 +657,14 @@
         <if-compare field="project.currentStatusId" value="PRJ_CLOSED" operator="equals">
             <set field="highInfo.currentStatusId" value="PRJ_CLOSED"/>
         </if-compare>
-        
+
         <call-simple-method method-name="createDates"/>
-        
+
         <!-- results -->
         <field-to-result field="highInfo" result-name="projectInfo"/>
-        <field-to-result field="parameters.projectId" result-name="projectId"/>        
+        <field-to-result field="parameters.projectId" result-name="projectId"/>
     </simple-method>
-    
+
     <simple-method method-name="getProjectPhaseList" short-description="get Project Phase information" login-required="true">
         <if-empty field="parameters.projectId">
             <return/>
@@ -673,7 +673,7 @@
             <field-map field-name="workEffortTypeId" value="PHASE"/>
             <field-map field-name="workEffortParentId" from-field="parameters.projectId"/>
             <order-by field-name="workEffortName"/>
-        </entity-and>        
+        </entity-and>
         <if-not-empty field="phases">
         <iterate entry="phase" list="phases">
             <!-- get the phase seq id -->
@@ -686,7 +686,7 @@
             <set field="highInfo.phaseName" from-field="phase.workEffortName"/>
             <set field="highInfo.phaseDescription" from-field="phase.description"/>
             <set field="highInfo.scopeEnumId" from-field="phase.scopeEnumId"/>
-            
+
             <!-- loop through the related tasks and combine information -->
             <get-related value-field="phase" relation-name="ChildWorkEffort" list="tasks"/>
             <if-not-empty field="tasks">
@@ -700,10 +700,10 @@
                     <call-simple-method method-name="getHours" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
                 </iterate>
             </if-not-empty>
-            
+
             <!-- merge estimated and actual dates -->
             <call-simple-method method-name="createDates"/>
-            
+
             <!-- translate squenceId back into statusId -->
             <entity-and entity-name="StatusItem" list="statusses">
                 <field-map field-name="sequenceId" from-field="highInfo.sequenceId"/>
@@ -712,7 +712,7 @@
             <first-from-list entry="status" list="statusses"/>
             <clear-field field="highInfo.sequenceId"/>
             <set field="highInfo.currentStatusId" from-field="status.statusId"/>
-            
+
             <!-- however the status 'completed' can only be 'completed' when all related tasks are completed -->
             <if>
                 <condition>
@@ -730,16 +730,16 @@
                     <set field="highInfo.currentStatusId" value="PTS_CREATED_IP"/>
                 </then>
             </if>
-            
+
             <field-to-list field="highInfo" list="phaseList"/>
         </iterate>
         </if-not-empty>
-        
+
         <!-- results -->
         <field-to-result field="phaseList"/>
-        <field-to-result field="parameters.projectId" result-name="projectId"/>        
+        <field-to-result field="parameters.projectId" result-name="projectId"/>
     </simple-method>
-    
+
     <simple-method method-name="getProjectTaskList" short-description="get Project Phase/task information" login-required="true">
         <if-empty field="parameters.projectId">
             <return/>
@@ -748,7 +748,7 @@
             <field-map field-name="projectId" from-field="parameters.projectId"/>
             <order-by field-name="phaseName"/>
             <order-by field-name="workEffortName"/>
-        </entity-and>        
+        </entity-and>
         <if-not-empty field="tasks">
             <iterate entry="lowInfo" list="tasks">
                 <set field="highInfo.phaseName" from-field="lowInfo.phaseName"/>
@@ -765,9 +765,9 @@
         </if-not-empty>
         <!-- results -->
         <field-to-result field="taskList"/>
-        <field-to-result field="parameters.projectId" result-name="projectId"/>        
+        <field-to-result field="parameters.projectId" result-name="projectId"/>
     </simple-method>
-    
+
     <simple-method method-name="getProjectTask" short-description="get Project task information" login-required="true">
         <entity-one entity-name="WorkEffort" value-field="lowInfo">
             <field-map field-name="workEffortId" from-field="parameters.taskId"/>
@@ -808,7 +808,7 @@
                         <clear-field field="highInfo"/>
                     </then>
                 </if>
-                
+
                 <if-empty field="projectParty">
                     <set field="projectParty.partyId" from-field="task.partyId"/>
                     <entity-one entity-name="PartyNameView" value-field="partyNameView">
@@ -821,24 +821,24 @@
                     <set field="projectParty.fromDate" from-field="task.fromDate"/>
                     <set field="projectParty.thruDate" from-field="task.thruDate"/>
                 </if-empty>
-                
+
                 <!-- get the planned/actual hours -->
                 <set field="lowInfo" from-field="task"/>
                 <set field="parameters.hoursPartyId" from-field="task.partyId"/>
                 <call-simple-method method-name="getHours" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
-                <set field="projectParty.plannedHours" from-field="highInfo.plannedHours" type="Double"/>                    
-                <set field="projectParty.actualHours" from-field="highInfo.actualHours" type="Double"/>                    
-                
+                <set field="projectParty.plannedHours" from-field="highInfo.plannedHours" type="Double"/>
+                <set field="projectParty.actualHours" from-field="highInfo.actualHours" type="Double"/>
+
             </iterate>
             <if-not-empty field="projectParty">
                 <field-to-list field="projectParty" list="projectParties"/>
             </if-not-empty>
             <if-not-empty field="projectParties">
-                <field-to-result field="projectParties"/>                                                                                       
+                <field-to-result field="projectParties"/>
             </if-not-empty>
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="getTasksByParties" short-description="get task information by party member" login-required="true">
         <!-- get the list of tasks optionaly selected for a party -->
         <entity-condition entity-name="WorkEffortPartyAssignment" list="tasks" filter-by-date="true">
@@ -866,7 +866,7 @@
                         <clear-field field="highInfo"/>
                     </then>
                 </if>
-                
+
                 <if-empty field="taskParty">
                     <set field="taskParty.partyId" from-field="task.partyId"/>
                     <entity-one entity-name="PartyNameView" value-field="partyNameView">
@@ -880,26 +880,26 @@
                     <set field="taskParty.fromDate" from-field="task.fromDate"/>
                     <set field="taskParty.thruDate" from-field="task.thruDate"/>
                 </if-empty>
-                
+
                 <!-- get the planned hours -->
                 <set field="lowInfo" from-field="task"/>
                 <set field="parameters.hoursPartyId" from-field="task.partyId"/>
                 <get-related-one value-field="task" relation-name="WorkEffort" to-value-field="lowInfo"/>
                 <call-simple-method method-name="getHours" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
-                <set field="taskParty.plannedHours" from-field="highInfo.plannedHours" type="Double"/>                    
-                <set field="taskParty.actualHours" from-field="highInfo.actualHours" type="Double"/>                    
-                <set field="taskParty.originalActualHours" from-field="highInfo.originalActualHours" type="Double"/>                    
-                
+                <set field="taskParty.plannedHours" from-field="highInfo.plannedHours" type="Double"/>
+                <set field="taskParty.actualHours" from-field="highInfo.actualHours" type="Double"/>
+                <set field="taskParty.originalActualHours" from-field="highInfo.originalActualHours" type="Double"/>
+
             </iterate>
             <if-not-empty field="taskParty">
                 <field-to-list field="taskParty" list="taskParties"/>
             </if-not-empty>
             <if-not-empty field="taskParties">
-                <field-to-result field="taskParties"/>                                                                                       
+                <field-to-result field="taskParties"/>
             </if-not-empty>
         </if-not-empty>
     </simple-method>
-    
+
     <!-- Internal functions  -->
     <simple-method method-name="combineInfo" short-description="combine lower level status, dates of tasks.">
         <!-- in/output highInfo infoMap -->
@@ -945,7 +945,7 @@
                 </else>
             </if-empty>
         </if-not-empty>
-        
+
         <!-- combine the priorities -->
         <if-not-empty field="lowInfo.priority">
             <if-empty field="highInfo.priority">
@@ -957,7 +957,7 @@
                 </else>
             </if-empty>
         </if-not-empty>
-        
+
         <!-- if lowlevel type equals TASK then get create the status first -->
         <if-compare field="lowInfo.workEffortTypeId" value="TASK" operator="equals">
             <if-compare field="lowInfo.currentStatusId" value="PTS_CREATED" operator="equals">
@@ -971,8 +971,8 @@
                     <set field="lowInfo.currentStatusId" value="PTS_CREATED_IP"/><!-- task is in progress -->
                 </if-not-empty>
             </if-compare>
-        </if-compare>    
-            
+        </if-compare>
+
         <entity-one entity-name="StatusItem" value-field="status">
             <field-map field-name="statusId" from-field="lowInfo.currentStatusId"/>
         </entity-one>
@@ -998,27 +998,27 @@
                 </if>
             </else>
         </if-empty>
-        
+
     </simple-method>
-    
+
     <simple-method method-name="createDates" short-description="merge the estimated and actual dates">
 
         <!-- input/output is 'highInfo map -->
-        
+
         <!-- create dates taking the last known one to save space on the list -->
         <if-not-empty field="highInfo.actualStartDate">
             <set field="highInfo.startDate" from-field="highInfo.actualStartDate"/>
             <else>
                 <set field="highInfo.startDate" from-field="highInfo.estimatedStartDate"/>
             </else>
-        </if-not-empty> 
+        </if-not-empty>
         <if-not-empty field="highInfo.actualCompletionDate">
             <set field="highInfo.completionDate" from-field="highInfo.actualCompletionDate"/>
             <else>
                 <set field="highInfo.completionDate" from-field="highInfo.estimatedCompletionDate"/>
             </else>
-        </if-not-empty> 
-    </simple-method>    
+        </if-not-empty>
+    </simple-method>
 
     <simple-method method-name="updateTimeEntry" short-description="">
         <if-compare field="hours" value="-1" operator="equals">
@@ -1043,10 +1043,10 @@
                     <set field="teCreMap.fromDate" from-field="fromDate"/>
                     <call-service service-name="createTimeEntry" in-map-name="teCreMap"/>
                 </if-compare>
-            </else>            
+            </else>
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="createTimeEntryInTimesheet" short-description="Creates TimeEntry and searches for a timesheetId if not provided">
         <if-not-empty field="parameters.fromDate">
             <if-empty field="parameters.timesheetId">
@@ -1067,7 +1067,7 @@
                                 <fail-message message="Cannot add to timesheet ${timesheet.timesheetId} because the status does not allow additions or modifications."/>
                             </add-error>
                             <check-errors/>
-                        </else>                        
+                        </else>
                     </if-compare>
                     <else>
                         <!-- create new timesheet -->
@@ -1098,14 +1098,14 @@
                 <add-error><fail-message message="Could not find invoice with ID [${parameters.invoiceId}], not adding Timesheet Entries to it."/></add-error>
                 <check-errors/>
             </if-empty>
-            <if-compare field="invoice.statusId" operator="not-equals" value="INVOICE_IN_PROCESS"> 
+            <if-compare field="invoice.statusId" operator="not-equals" value="INVOICE_IN_PROCESS">
                 <add-error><fail-message message="Invoice with ID [${parameters.invoiceId}], has the wrong status, not adding Timesheet Entries to it."/></add-error>
                 <check-errors/>
             </if-compare>
             <entity-and list="entries" entity-name="TimeEntry">
                 <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
             </entity-and>
-            <iterate list="entries" entry="timeEntry">                    
+            <iterate list="entries" entry="timeEntry">
                    <clear-field field="timeEntry.invoiceId"/>
                    <clear-field field="timeEntry.invoiceItemSeqId"/>
                    <store-value value-field="timeEntry"/>
@@ -1163,7 +1163,7 @@
                 </else>
             </if-empty>
         </iterate>
-    </simple-method>    
+    </simple-method>
 
     <simple-method method-name="addValidationPartiesToTask" short-description="SECA to add either project-testing or -approval parties to a task when a task is set to complete">
         <!-- check if this is the last party which completed his task -->
@@ -1173,7 +1173,7 @@
                 <condition-expr field-name="statusId" operator="not-equals" value="PAS_COMPLETED"/>
                 <condition-expr field-name="partyId" operator="not-equals" from-field="parameters.partyId"/>
             </condition-list>
-        </entity-condition>  
+        </entity-condition>
         <if-empty field="openTasks">
             <set field="getProject.taskId" from-field="parameters.workEffortId"/>
             <call-service service-name="getProjectIdAndNameFromTask" in-map-name="getProject">
@@ -1202,7 +1202,7 @@
                     <now-date-to-env field="newAssign.fromDate"/>
                     <set field="newAssign.statusId" value="PAS_ASSIGNED"/>
                     <create-value value-field="newAssign"/>
-                </iterate>            
+                </iterate>
                 <else>
                     <log level="info" message="No validation parties defined in this project: no validation parties added...."></log>
                 </else>

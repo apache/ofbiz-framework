@@ -22,7 +22,7 @@ under the License.
       <li class="h3">${uiLabelMap.WebtoolsFindValues}</li>
     </ul>
     <br class="clear"/>
-  </div> 
+  </div>
   <div class="screenlet-body">
     <h2>${uiLabelMap.WebtoolsForEntity}: ${entityName}</h2>
     <br/>
@@ -41,7 +41,7 @@ under the License.
           <li class="h3">${uiLabelMap.WebtoolsToFindAll} ${entityName}, ${uiLabelMap.WebtoolsLeaveAllEntriesBlank}.</li>
         </ul>
         <br class="clear"/>
-      </div> 
+      </div>
       <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>FindGeneric?entityName=${entityName}</@ofbizUrl>">
           <input type="hidden" name="find" value="true">
@@ -69,19 +69,19 @@ under the License.
             </table>
         </form>
         <br/>
-    
+
         <#if hasCreatePermission == 'Y'>
             <div class="button-bar">
             <a href='<@ofbizUrl>ViewGeneric?entityName=${entityName}</@ofbizUrl>' class="smallSubmit">${uiLabelMap.CommonCreateNew} ${entityName}</a>
             </div>
         </#if>
-        
+
         <#macro tableNav>
             <div class="button-bar">
                 <ul>
                     <#if (viewIndex > 0)>
                         <li><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexFirst}</@ofbizUrl>' class="nav-next">${uiLabelMap.CommonFirst}</a></li>
-                        <li>|</li> 
+                        <li>|</li>
                         <li><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexPrevious}</@ofbizUrl>' class="nav-previous">${uiLabelMap.CommonPrevious}</a></li>
                         <li>|</li>
                     </#if>
@@ -91,7 +91,7 @@ under the License.
                     <#if (arraySize > highIndex)>
                         <li>|</li>
                         <li><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexNext}</@ofbizUrl>' class="nav-next">${uiLabelMap.CommonNext}</a></li>
-                        <li>|</li>                 
+                        <li>|</li>
                         <li><a href='<@ofbizUrl>FindGeneric?${curFindString}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndexLast}</@ofbizUrl>' class="nav-next">${uiLabelMap.CommonLast}</a></li>
                     </#if>
                 </ul>
@@ -109,7 +109,7 @@ under the License.
           <li class="h3">${uiLabelMap.WebtoolsFindValuesResults}</li>
         </ul>
         <br class="clear"/>
-      </div> 
+      </div>
       <div class="screenlet-body">
           <table class="basic-table hover-bar" cellspacing="0">
             <tr class="header-row">
@@ -142,11 +142,11 @@ under the License.
                 </tr>
             </#if>
         </table>
-        
+
         <#if (arraySize > 0)>
             <@tableNav/>
         </#if>
-        
+
         <#if hasCreatePermission == 'Y'>
             <a href='<@ofbizUrl>ViewGeneric?entityName=${entityName}</@ofbizUrl>' class="smallSubmit">${uiLabelMap.CommonCreateNew} ${entityName}</a>
         <#else>

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -32,35 +32,35 @@ inventoryList = [];
 if (lookupFlag) {
     paramList = paramList + "&lookupFlag=" + lookupFlag;
     andExprs = [];
-     
+
     //define main condition
     mainCond = null;
 
     // now do the filtering
-    
+
     eventDate = parameters.eventDate;
-    if (eventDate?.length() > 8) {            
+    if (eventDate?.length() > 8) {
     eventDate = eventDate.trim();
     if (eventDate.length() < 14) eventDate = eventDate + " " + "00:00:00.000";
     paramList = paramList + "&eventDate=" + eventDate;
         andExprs.add(EntityCondition.makeCondition("eventDate", EntityOperator.GREATER_THAN, ObjectType.simpleTypeConvert(eventDate, "Timestamp", null, null)));
     }
-    
+
     if (productId) {
         paramList = paramList + "&productId=" + productId;
         andExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
-    } 
+    }
     andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "INITIAL_QOH"));
     andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "ERROR"));
     andExprs.add(EntityCondition.makeCondition("mrpEventTypeId", EntityOperator.NOT_EQUAL, "REQUIRED_MRP"));
 
-    mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND); 
-    
+    mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
+
     if ( mainCond) {
     // do the lookup
         inventoryList = delegator.findList("MrpEvent", mainCond, null, ["productId", "eventDate"], null, false);
     }
-    
+
     context.inventoryList = inventoryList;
 }
 context.paramList = paramList;
@@ -74,9 +74,9 @@ if (inventoryList)
 
 lowIndex = viewIndex * viewSize;
 highIndex = (viewIndex + 1) * viewSize;
-if (listSize < highIndex) 
+if (listSize < highIndex)
     highIndex = listSize;
-if( highIndex < 1 )
+if ( highIndex < 1 )
     highIndex = 0;
 context.viewIndex = viewIndex;
 context.listSize = listSize;

@@ -21,7 +21,7 @@ under the License.
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
 
-    <!-- General Interfaces -->    
+    <!-- General Interfaces -->
     <service name="oagisMessageIdOutInterface" engine="interface">
         <attribute name="logicalId" type="String" mode="OUT" optional="true"/>
         <attribute name="component" type="String" mode="OUT" optional="true"/>
@@ -42,21 +42,21 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="createOagisMessageErrorInfo" engine="simple" default-entity-name="OagisMessageErrorInfo" 
+    <service name="createOagisMessageErrorInfo" engine="simple" default-entity-name="OagisMessageErrorInfo"
             location="component://oagis/script/org/ofbiz/oagis/OagisMessageServices.xml" invoke="createOagisMessageErrorInfo" auth="true">
          <description>Create MessageErrorInfo</description>
          <auto-attributes mode="IN" include="pk" optional="false"/>
          <auto-attributes mode="IN" include="nonpk" optional="true"/>
-         <override name="errorSeqId" optional="true"/>        
-    </service>        
+         <override name="errorSeqId" optional="true"/>
+    </service>
     <service name="updateOagisMessageErrorInfo" engine="simple" default-entity-name="OagisMessageErrorInfo"
              location="component://oagis/script/org/ofbiz/oagis/OagisMessageServices.xml" invoke="updateOagisMessageErrorInfo" auth="true">
         <description>Update MessageErrorInfo</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    
-    <service name="createOagisMsgErrInfosFromErrMapList" engine="simple" 
+
+    <service name="createOagisMsgErrInfosFromErrMapList" engine="simple"
             location="component://oagis/script/org/ofbiz/oagis/OagisMessageServices.xml" invoke="createOagisMsgErrInfosFromErrMapList" auth="true">
          <description>Create MessageErrorInfo From Error Map List</description>
         <auto-attributes entity-name="OagisMessageInfo" mode="IN" include="pk" optional="false"/>
@@ -71,7 +71,7 @@ under the License.
         <attribute name="isErrorRetry" type="Boolean" mode="IN" optional="true"/>
         <override name="outputStream" optional="true"/>
     </service>
-    
+
     <service name="oagisReReceiveMessage" engine="java" transaction-timeout="300"
         location="org.ofbiz.oagis.OagisServices" invoke="oagisReReceiveMessage" auth="false">
         <attribute name="logicalId" type="String" mode="IN" optional="true"/>
@@ -79,8 +79,8 @@ under the License.
         <attribute name="task" type="String" mode="IN" optional="true"/>
         <attribute name="referenceId" type="String" mode="IN" optional="false"/>
     </service>
-    
-    <!-- Confirm BOD Messages, general flow and error handling -->    
+
+    <!-- Confirm BOD Messages, general flow and error handling -->
     <service name="oagisSendConfirmBod" engine="java" transaction-timeout="300" max-retry="3"
         location="org.ofbiz.oagis.OagisServices" invoke="oagisSendConfirmBod" auth="true">
         <description>Send ConfirmBod</description>
@@ -101,13 +101,13 @@ under the License.
         <implements service="oagisMessageIdOutInterface"/>
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- ==================================== -->
     <!-- Outgoing Message Services -->
     <service name="oagisSendProcessShipment" max-retry="0" engine="java"
         location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisSendProcessShipment">
         <description>Prepare and Optionally Send OAGIS Process Shipment Message.
-            Note on usage: you can pass in either sendToUrl, saveToFilename, or outputStream. 
+            Note on usage: you can pass in either sendToUrl, saveToFilename, or outputStream.
             If none are passed in the URL in oagis.properties will be used at the target for the message.</description>
         <attribute name="sendToUrl" type="String" mode="IN" optional="true"/>
         <attribute name="saveToFilename" type="String" mode="IN" optional="true"/>
@@ -119,7 +119,7 @@ under the License.
         location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisSendProcessShipmentsFromBackOrderSet">
         <attribute name="noLongerOnBackOrderIdSet" type="Set" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="oagisSendReceiveDelivery" max-retry="0" engine="java"
         location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisSendReceiveDelivery">
         <description>Prepare and Send Receive Delivery</description>
@@ -129,7 +129,7 @@ under the License.
         <attribute name="outputStream" type="java.io.OutputStream" mode="IN" optional="true"/>
         <attribute name="returnId" mode="IN" type="String" optional="false"/>
     </service>
-    
+
     <!-- ==================================== -->
     <!-- Incoming Message Services -->
     <service name="oagisReceiveSyncInventory" engine="java" transaction-timeout="300" max-retry="3"
@@ -139,7 +139,7 @@ under the License.
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
         <attribute name="isErrorRetry" type="Boolean" mode="IN" optional="true"/>
     </service>
-    
+
     <!-- DEJ20070808 added max-rety=3 because this is run async persisted just in case there is a transaction problem under heavy load -->
     <service name="oagisReceiveShowShipment" engine="java" transaction-timeout="300" max-retry="3"
         location="org.ofbiz.oagis.OagisShipmentServices" invoke="oagisReceiveShowShipment" auth="true">
@@ -148,7 +148,7 @@ under the License.
         <attribute name="document" type="org.w3c.dom.Document" mode="IN" optional="false"/>
         <attribute name="isErrorRetry" type="Boolean" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="oagisReceiveAcknowledgeDeliveryPo" engine="java" transaction-timeout="300" max-retry="3"
         location="org.ofbiz.oagis.OagisInventoryServices" invoke="oagisReceiveAcknowledgeDeliveryPo" auth="true">
         <description>Process Acknowledge Delivery for PO message</description>

@@ -356,7 +356,7 @@ dojo.io.XMLHTTPTransport = new function(){
 				try{
 					var tif = this.inFlight[x];
 					if(!tif || tif.http._aborted || !tif.http.readyState){
-						this.inFlight.splice(x, 1); continue; 
+						this.inFlight.splice(x, 1); continue;
 					}
 					if(4==tif.http.readyState){
 						// remove it so we can clean refs
@@ -372,7 +372,7 @@ dojo.io.XMLHTTPTransport = new function(){
 							if(typeof tif.http.abort == "function"){
 								tif.http.abort();
 							}
-		
+
 							// remove it so we can clean refs
 							this.inFlight.splice(x, 1);
 							tif.req[(typeof tif.req.timeout == "function") ? "timeout" : "handle"]("timeout", null, tif.http, tif.req);
@@ -504,7 +504,7 @@ dojo.io.XMLHTTPTransport = new function(){
 				// enforce multipart when sending files
 				kwArgs.multipart = true;
 			}else if(!kwArgs["multipart"]){
-				// default 
+				// default
 				kwArgs.multipart = false;
 			}
 		}
@@ -528,7 +528,7 @@ dojo.io.XMLHTTPTransport = new function(){
 			if(content) {
 				query += dojo.io.argsFromMap(content, kwArgs.encoding);
 			}
-			
+
 			if(kwArgs.method.toLowerCase() == "get" || !kwArgs.multipart){
 				break;
 			}
@@ -540,7 +540,7 @@ dojo.io.XMLHTTPTransport = new function(){
 					if(q[i].length){
 						var p = q[i].split("=");
 						t.push(	"--" + this.multipartBoundary,
-								"Content-Disposition: form-data; name=\"" + p[0] + "\"", 
+								"Content-Disposition: form-data; name=\"" + p[0] + "\"",
 								"",
 								p[1]);
 					}
@@ -596,12 +596,12 @@ dojo.io.XMLHTTPTransport = new function(){
 
 		// much of this is from getText, but reproduced here because we need
 		// more flexibility
-		var http = dojo.hostenv.getXmlhttpObject(kwArgs);	
+		var http = dojo.hostenv.getXmlhttpObject(kwArgs);
 		var received = false;
 
 		// build a handler function that calls back to the handler obj
 		if(async){
-			var startTime = 
+			var startTime =
 			// FIXME: setting up this callback handler leaks on IE!!!
 			this.inFlight.push({
 				"req":		kwArgs,
@@ -625,7 +625,7 @@ dojo.io.XMLHTTPTransport = new function(){
         http.open("POST", url, async, kwArgs.user, kwArgs.password);
 			}
 			setHeaders(http, kwArgs);
-			http.setRequestHeader("Content-Type", kwArgs.multipart ? ("multipart/form-data; boundary=" + this.multipartBoundary) : 
+			http.setRequestHeader("Content-Type", kwArgs.multipart ? ("multipart/form-data; boundary=" + this.multipartBoundary) :
 				(kwArgs.contentType || "application/x-www-form-urlencoded"));
 			try{
 				http.send(query);
@@ -667,7 +667,7 @@ dojo.io.XMLHTTPTransport = new function(){
 
 		kwArgs.abort = function(){
 			try{// khtml doesent reset readyState on abort, need this workaround
-				http._aborted = true; 
+				http._aborted = true;
 			}catch(e){/*squelsh*/}
 			return http.abort();
 		}

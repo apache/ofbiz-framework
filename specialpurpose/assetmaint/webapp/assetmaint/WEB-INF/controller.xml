@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,10 +21,10 @@
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <!-- Note: The order of the following include elements is important -->
-    <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>    
-    <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>    
-    <include location="component://product/webapp/facility/WEB-INF/controller.xml"/>    
-    <include location="component://accounting/webapp/accounting/WEB-INF/controller.xml"/>    
+    <include location="component://workeffort/webapp/workeffort/WEB-INF/controller.xml"/>
+    <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>
+    <include location="component://product/webapp/facility/WEB-INF/controller.xml"/>
+    <include location="component://accounting/webapp/accounting/WEB-INF/controller.xml"/>
 
     <description>Asset Maintenance Component Site Configuration File</description>
 
@@ -60,7 +60,7 @@
         <response name="error" type="view" value="month"/>
     </request-map>
 
-    <!--  WorkEffort request mappings --> 
+    <!--  WorkEffort request mappings -->
     <request-map uri="EditWorkEfforts">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditWorkEfforts"/>

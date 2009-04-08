@@ -42,13 +42,13 @@ under the License.
         <description>Delete a CostComponent</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="recreateCostComponent" default-entity-name="CostComponent" engine="simple" 
+    <service name="recreateCostComponent" default-entity-name="CostComponent" engine="simple"
                 location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="recreateCostComponent" auth="true">
         <description>Create a CostComponent and cancel the existing ones</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
     </service>
-    <service name="cancelCostComponents" engine="simple" 
+    <service name="cancelCostComponents" engine="simple"
                 location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="cancelCostComponents" auth="true">
         <description>Cancels CostComponent</description>
         <attribute mode="IN" name="costComponentId" optional="true" type="String"/>

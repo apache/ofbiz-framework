@@ -17,8 +17,8 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-    
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="ListBlogs" type="list" list-name="blogs" separate-columns="true" paginate-target="blogMain"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
@@ -35,7 +35,7 @@ under the License.
         <field name="lastModifiedDate"><display type="date"/></field>
         <field name="lastModifiedByUserLogin"><display/></field>
     </form>
-    
+
     <form name="BlogContent" type="list" list-name="blogContent" separate-columns="true" paginate-target="blogContent"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="contentId"><hidden/></field>
@@ -50,7 +50,7 @@ under the License.
         <field name="localeString"><display-entity entity-name="CountryCode" key-field-name="countryCode" description="${countryName}[${countryCode}]"></display-entity></field>
         <field name="contentTypeId"><display-entity entity-name="ContentType"></display-entity></field>
     </form>
-    
+
     <form name="EditBlog" type="single" target="updateBlog" title="" default-map-name="content"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="content==null" target="newBlog"/>
@@ -62,6 +62,6 @@ under the License.
         <field name="description" title="${uiLabelMap.ContentBlogDescription}"><text size="30" maxlength="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
-    
-    
+
+
 </forms>

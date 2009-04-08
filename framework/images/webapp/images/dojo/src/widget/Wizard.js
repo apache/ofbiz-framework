@@ -24,7 +24,7 @@ dojo.widget.defineWidget(
 	// summary
 	//		A set of panels that display sequentially, typically notating a step-by-step
 	//		procedure like an install
-	
+
 	templatePath: dojo.uri.dojoUri("src/widget/templates/Wizard.html"),
 	templateCssPath: dojo.uri.dojoUri("src/widget/templates/Wizard.css"),
 
@@ -194,7 +194,7 @@ dojo.widget.defineWidget(
 	//		If it's not OK (for example, mandatory field hasn't been entered), then
 	//		returns an error message (String) explaining the reason.
 	passFunction: "",
-	
+
 	// doneFunction: String
 	//		Name of function that is run if you press the "Done" button from this panel
 	doneFunction: "",

@@ -83,7 +83,7 @@ dojo.widget.defineWidget("dojo.widget.PageContainer", dojo.widget.HtmlWidget, {
 		// Summary: Add the given child to this page container
 
 		page.hide();
-		
+
 		// since we are setting the width/height of the child elements, they need
 		// to be position:relative, or IE has problems (See bug #2033)
 		page.domNode.style.position="relative";
@@ -308,17 +308,17 @@ dojo.widget.defineWidget(
 				(evt.keyCode == evt.KEY_LEFT_ARROW) ){
 				var current = 0;
 				var next = null;	// the next button to focus on
-				
+
 				// find currently focused button in children array
 				var current = dojo.lang.find(this.children, this.pane2button[this._currentChild]);
-				
+
 				// pick next button to focus on
 				if(evt.keyCode == evt.KEY_RIGHT_ARROW){
-					next = this.children[ (current+1) % this.children.length ]; 
+					next = this.children[ (current+1) % this.children.length ];
 				}else{ // is LEFT_ARROW
 					next = this.children[ (current+ (this.children.length-1)) % this.children.length ];
 				}
-				
+
 				dojo.event.browser.stopEvent(evt);
 				next.onClick();
 			}
@@ -340,7 +340,7 @@ dojo.widget.defineWidget("dojo.widget.PageButton", dojo.widget.HtmlWidget,
 	// label: String
 	//  Name to print on the button
 	label: "foo",
-	
+
 	// closeButton: Boolean
 	//	true iff we should also print a close icon to destroy corresponding page
 	closeButton: false,
@@ -353,7 +353,7 @@ dojo.widget.defineWidget("dojo.widget.PageButton", dojo.widget.HtmlWidget,
 
 	onCloseButtonMouseOver: function(){
 		// summary
-		//	The close button changes color a bit when you mouse over	
+		//	The close button changes color a bit when you mouse over
 		dojo.html.addClass(this.closeButtonNode, "closeHover");
 	},
 
@@ -367,14 +367,14 @@ dojo.widget.defineWidget("dojo.widget.PageButton", dojo.widget.HtmlWidget,
 		// summary
 		//	Handle clicking the close button for this tab
 	},
-	
+
 	setSelected: function(){
 		// summary
 		//	This is run whenever the page corresponding to this button has been selected
 		dojo.html.addClass(this.domNode, "current");
 		this.titleNode.setAttribute("tabIndex","0");
 	},
-	
+
 	clearSelected: function(){
 		// summary
 		//	This function is run whenever the page corresponding to this button has been deselected (and another page has been shown)
@@ -398,15 +398,15 @@ dojo.lang.extend(dojo.widget.Widget, {
 	// label: String
 	//		Label or title of this widget.  Used by TabContainer to the name the tab, etc.
 	label: "",
-	
+
 	// selected: Boolean
 	//		Is this child currently selected?
 	selected: false,
-	
+
 	// closable: Boolean
 	//		True if user can close (destroy) this child, such as (for example) clicking the X on the tab.
 	closable: false,	// true if user can close this tab pane
-	
+
 	onClose: function(){
 		// summary: Callback if someone tries to close the child, child will be closed if func returns true
 		return true;

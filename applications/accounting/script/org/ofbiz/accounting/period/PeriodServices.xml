@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="findCustomTimePeriods" short-description="Find a CustomTimePeriod">
         <if-not-empty field="parameters.organizationPartyId">
@@ -27,7 +27,7 @@ under the License.
             <call-service service-name="getParentOrganizations" in-map-name="getParentOrganizationsCallMap">
                 <result-to-field result-name="parentOrganizationPartyIdList"/>
             </call-service>
-            
+
             <iterate entry="curOrganizationPartyId" list="parentOrganizationPartyIdList">
                 <clear-field field="orgTimePeriodList"/>
                 <entity-condition entity-name="CustomTimePeriod" list="orgTimePeriodList">
@@ -46,7 +46,7 @@ under the License.
                 <list-to-list list="orgTimePeriodList" to-list="listSoFar"/>
             </iterate>
         </if-not-empty>
-        
+
         <if-compare field="parameters.excludeNoOrganizationPeriods" operator="not-equals" value="Y">
             <entity-condition entity-name="CustomTimePeriod" list="generalCustomTimePeriodList">
                 <condition-list combine="and">
@@ -64,9 +64,9 @@ under the License.
             </entity-condition>
             <list-to-list list="generalCustomTimePeriodList" to-list="listSoFar"/>
         </if-compare>
-        
+
         <!--
-            * We might want to implement this sometime in the future, but for now is not needed 
+            * We might want to implement this sometime in the future, but for now is not needed
             * go through the list and check each one to see if it has a child in the list, if so don't copy it
         <if-compare field="parameters.excludeParentPeriods" operator="equals" value="Y"></if-compare>
         -->

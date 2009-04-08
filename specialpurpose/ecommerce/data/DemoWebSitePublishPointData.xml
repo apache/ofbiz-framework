@@ -19,27 +19,27 @@ under the License.
 -->
 <entity-engine-xml>
     <!-- for forum data see the forumdata.xml file in the content component -->
-    
+
     <!-- NOTE DEJ20060610 This is just a skeleton for the most part and does not have complete content -->
     <Content contentId="WebStoreCONTENT" contentTypeId="WEB_SITE_PUB_PT" contentName="WebStore Content Root" description="Ecommerce Content Categories"/>
     <WebSiteContent webSiteId="WebStore" contentId="WebStoreCONTENT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2001-01-01 00:00:00"/>
-    
+
     <Content contentId="CNTGIZMOS" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreCONTENT" contentName="Gizmos" description="Gizmos" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
     <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="CNTGIZMOS" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
     <ContentAttribute contentId="CNTGIZMOS" attrName="publishOperation" attrValue="HAS_USER_ROLE"/>
-    
+
     <Content contentId="CNTGIZMOSLRG" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="CNTGIZMOS" contentName="Large Gizmos" description="Large Widgets" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
     <ContentAssoc contentId="CNTGIZMOS" contentIdTo="CNTGIZMOSLRG" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    
+
     <Content contentId="CNTGIZMOSSML" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="CNTGIZMOS" contentName="Small Gizmos" description="Large Widgets" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
     <ContentAssoc contentId="CNTGIZMOS" contentIdTo="CNTGIZMOSSML" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    
+
     <Content contentId="GIZMOSLRG" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="CNTGIZMOS" contentName="Advocacy" description="Advocacy" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
     <ContentAssoc contentId="CNTGIZMOS" contentIdTo="GIZMOSLRG" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
 
     <Content contentId="GIZMOSSML" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreCONTENT" contentName="Case Studies" description="Case Studies" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
     <ContentAssoc contentId="CNTGIZMOS" contentIdTo="GIZMOSSML" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    
+
     <Content contentId="CNTWIDGETS" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreCONTENT" contentName="Widgets" description="Widgets" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
     <ContentAttribute contentId="CNTWIDGETS" attrName="publishOperation" attrValue="HAS_USER_ROLE"/>
     <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="CNTWIDGETS" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
@@ -77,9 +77,9 @@ under the License.
             </div>
         ]]></textData>
     </ElectronicText>
-    <Content contentId="STORE_POLICIES" contentTypeId="DOCUMENT" ownerContentId="WebStoreCONTENT" dataResourceId="STORE_POLICIES" 
+    <Content contentId="STORE_POLICIES" contentTypeId="DOCUMENT" ownerContentId="WebStoreCONTENT" dataResourceId="STORE_POLICIES"
         contentName="Store Policies 1" description="Store Policies 1 Description" mimeTypeId="text/html" localeString="en_US" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="STORE_POLICIES" mapKey="policies" contentAssocTypeId="SUB_CONTENT" 
+    <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="STORE_POLICIES" mapKey="policies" contentAssocTypeId="SUB_CONTENT"
         fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
     <DataResource dataResourceId="STORE_POLICIES2" dataResourceTypeId="ELECTRONIC_TEXT" mimeTypeId="text/html" localeString="en_US" isPublic="Y" dataResourceName="Store Policies"/>
     <ElectronicText dataResourceId="STORE_POLICIES2">
@@ -94,8 +94,8 @@ under the License.
             </div>
         ]]></textData>
     </ElectronicText>
-    <Content contentId="STORE_POLICIES2" contentTypeId="DOCUMENT" ownerContentId="WebStoreCONTENT" dataResourceId="STORE_POLICIES2" 
+    <Content contentId="STORE_POLICIES2" contentTypeId="DOCUMENT" ownerContentId="WebStoreCONTENT" dataResourceId="STORE_POLICIES2"
         contentName="Store Policies 2" description="Store Policies 2 Description" mimeTypeId="text/html" localeString="en_US" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="STORE_POLICIES2" mapKey="policies2" contentAssocTypeId="SUB_CONTENT" 
+    <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="STORE_POLICIES2" mapKey="policies2" contentAssocTypeId="SUB_CONTENT"
         fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
 </entity-engine-xml>

@@ -53,7 +53,7 @@ under the License.
     <AcctgTransType acctgTransTypeId="OUTGOING_PAYMENT" description="Outgoing Payment" hasTable="N" parentTypeId=""/><!-- FIXME: replace with "DISBURSEMENT" -->
 
     <AcctgTransType acctgTransTypeId="PAYMENT_APPL" description="Payment Applied" hasTable="N" parentTypeId=""/>
-        
+
     <AcctgTransEntryType acctgTransEntryTypeId="_NA_" description="Not Applicable" hasTable="N" parentTypeId=""/>
 
     <StatusType description="Acctg Entry Reconcile" hasTable="N" parentTypeId="" statusTypeId="ACCTG_ENREC_STATUS"/>
@@ -81,11 +81,11 @@ under the License.
     <Enumeration description="Automatic Replenish" enumCode="AUTOMATIC" enumId="FARP_AUTOMATIC" sequenceId="01" enumTypeId="FARP_TYPE"/>
     <Enumeration description="Manual Replenish" enumCode="MANUAL" enumId="FARP_MANUAL" sequenceId="02" enumTypeId="FARP_TYPE"/>
     <Enumeration description="No Replenish" enumCode="NONE" enumId="FARP_NONE" sequenceId="03" enumTypeId="FARP_TYPE"/>
-    
+
     <EnumerationType description="Financial Account Replenish Method" enumTypeId="FARP_METHOD" hasTable="N" parentTypeId=""/>
     <Enumeration description="Top-off" enumCode="TOP_OFF" enumId="FARP_TOP_OFF" sequenceId="01" enumTypeId="FARP_METHOD"/>
     <Enumeration description="Replenish-level" enumCode="REPLENISH_LEVEL" enumId="FARP_REPLENISH_LEVEL" sequenceId="02" enumTypeId="FARP_METHOD"/>
-    
+
     <FinAccountTransType description="Deposit" finAccountTransTypeId="DEPOSIT" hasTable="N" parentTypeId=""/>
     <FinAccountTransType description="Withdraw" finAccountTransTypeId="WITHDRAWAL" hasTable="N" parentTypeId=""/>
     <FinAccountTransType description="Adjustment" finAccountTransTypeId="ADJUSTMENT" hasTable="N" parentTypeId=""/>
@@ -119,7 +119,7 @@ under the License.
     <Enumeration description="Initial Deposit" enumId="FATR_IDEPOSIT" enumCode="IDEPOSIT" enumTypeId="FINACCT_TRANS_REASON" sequenceId="02"/>
     <Enumeration description="Replenishment" enumId="FATR_REPLENISH" enumCode="REPLENISH" enumTypeId="FINACCT_TRANS_REASON" sequenceId="03"/>
     <Enumeration description="Refund" enumId="FATR_REFUND" enumCode="REFUND" enumTypeId="FINACCT_TRANS_REASON" sequenceId="04"/>
-    
+
     <FixedAssetType description="Equipment" fixedAssetTypeId="EQUIPMENT" hasTable="N" parentTypeId=""/>
     <FixedAssetType description="The fixed asset used in the operation-routing definition" fixedAssetTypeId="PRODUCTION_EQUIPMENT" hasTable="N" parentTypeId=""/>
     <FixedAssetType description="Group of machines, used for task and routing definition" fixedAssetTypeId="GROUP_EQUIPMENT" hasTable="N" parentTypeId=""/>
@@ -149,7 +149,7 @@ under the License.
     <Enumeration description="Desktop" enumCode="DESKTOP" enumId="FAC_DESKTOP" sequenceId="01" enumTypeId="FXAST_COMPU_HARDWARE"/>
     <Enumeration description="Laptop" enumCode="LAPTOP" enumId="FAC_LAPTOP" sequenceId="01" enumTypeId="FXAST_COMPU_HARDWARE"/>
     <Enumeration description="Monitor" enumCode="MONITOR" enumId="FAC_MONITOR" sequenceId="01" enumTypeId="FXAST_COMPU_HARDWARE"/>
-    
+
     <EnumerationType description="Computer Software" enumTypeId="FXAST_COMPU_SOFTWARE" hasTable="N" parentTypeId="FXAST_CLASS"/>
     <Enumeration description="Programming Software" enumCode="PRG_SOFTWARE" enumId="FAC_PRG_SOFTWARE" sequenceId="01" enumTypeId="FXAST_COMPU_SOFTWARE"/>
     <Enumeration description="System Software" enumCode="SYS_SOFTWARE" enumId="FAC_SYS_SOFTWARE" sequenceId="01" enumTypeId="FXAST_COMPU_SOFTWARE"/>
@@ -170,7 +170,7 @@ under the License.
     <StatusItem description="In Process" sequenceId="05" statusCode="IN_PROCESS" statusId="FAM_IN_PROCESS" statusTypeId="FIXEDAST_MNT_STATUS"/>
     <StatusItem description="Completed" sequenceId="10" statusCode="COMPLETED" statusId="FAM_COMPLETED" statusTypeId="FIXEDAST_MNT_STATUS"/>
     <StatusItem description="Cancelled" sequenceId="99" statusCode="CANCELLED" statusId="FAM_CANCELLED" statusTypeId="FIXEDAST_MNT_STATUS"/>
-    
+
     <!-- The following three elements set up a regularly scheduled job that will automatically create
         fixed asset maintenances from ProductMaint time intervals. -->
     <TemporalExpression tempExprId="FAM_AUTO_CREATE" tempExprTypeId="FREQUENCY" integer1="12" integer2="5"/>
@@ -186,10 +186,10 @@ under the License.
     <FixedAssetProductType description="Sale of Asset" fixedAssetProductTypeId="FAPT_SALE"/>
 
     <!-- These classes are used to classify gl accounts for financial statement purposes: balance sheet, income statement, cash flow statement,
-        statement of shareholders' equity.  We could get fancier with different types of accounts: Investments vs PP&E, classes of equity, 
+        statement of shareholders' equity.  We could get fancier with different types of accounts: Investments vs PP&E, classes of equity,
         classes of debt, etc. over time -->
     <!--
-        
+
         DEBIT
             |___> NON_POSTING
             |
@@ -241,7 +241,7 @@ under the License.
                       |_________> CURRENT_LIABILITY
                       |
                       |_________> LONGTERM_LIABILITY
-        
+
         RESOURCE
 
     -->
@@ -257,8 +257,8 @@ under the License.
     <GlAccountClass description="Current Liability" glAccountClassId="CURRENT_LIABILITY" parentClassId="LIABILITY"/>
     <GlAccountClass description="Long Term Liability" glAccountClassId="LONGTERM_LIABILITY" parentClassId="LIABILITY"/>
     <GlAccountClass description="Equity" glAccountClassId="EQUITY" parentClassId="CREDIT"/>
-    <GlAccountClass description="Owners Equity" glAccountClassId="OWNERS_EQUITY" parentClassId="EQUITY"/>  
-    <GlAccountClass description="Retained Earnings" glAccountClassId="RETAINED_EARNINGS" parentClassId="EQUITY"/>  
+    <GlAccountClass description="Owners Equity" glAccountClassId="OWNERS_EQUITY" parentClassId="EQUITY"/>
+    <GlAccountClass description="Retained Earnings" glAccountClassId="RETAINED_EARNINGS" parentClassId="EQUITY"/>
     <GlAccountClass description="Equity Distribution" glAccountClassId="DISTRIBUTION" parentClassId="DEBIT"/>
     <GlAccountClass description="Return of Capital" glAccountClassId="RETURN_OF_CAPITAL" parentClassId="DISTRIBUTION"/>
     <GlAccountClass description="Dividends" glAccountClassId="DIVIDEND" parentClassId="DISTRIBUTION"/>
@@ -270,7 +270,7 @@ under the License.
     <GlAccountClass description="Cash Expense" glAccountClassId="CASH_EXPENSE" parentClassId="EXPENSE"/>
     <GlAccountClass description="Interest Expense" glAccountClassId="INTEREST_EXPENSE" parentClassId="CASH_EXPENSE"/> <!-- useful for EBITDA, coverage ratios, etc. -->
     <GlAccountClass description="Cost of Goods Sold Expense" glAccountClassId="COGS_EXPENSE" parentClassId="CASH_EXPENSE"/> <!-- used for Gross Profit -->
-    <GlAccountClass description="Selling, General, and Administrative Expense" glAccountClassId="SGA_EXPENSE" parentClassId="CASH_EXPENSE"/> 
+    <GlAccountClass description="Selling, General, and Administrative Expense" glAccountClassId="SGA_EXPENSE" parentClassId="CASH_EXPENSE"/>
     <GlAccountClass description="Non-Cash Expense" glAccountClassId="NON_CASH_EXPENSE" parentClassId="EXPENSE"/>
     <GlAccountClass description="Depreciation" glAccountClassId="DEPRECIATION" parentClassId="NON_CASH_EXPENSE"/>
     <GlAccountClass description="Amortization" glAccountClassId="AMORTIZATION" parentClassId="NON_CASH_EXPENSE"/>
@@ -303,7 +303,7 @@ under the License.
     <GlAccountType description="Inventory Item Value Adjustment" glAccountTypeId="INV_ADJ_VAL" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Raw Materials Inventory" glAccountTypeId="RAWMAT_INVENTORY" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Work In Progress Inventory" glAccountTypeId="WIP_INVENTORY" hasTable="N" parentTypeId=""/>
-    
+
     <GlAccountType description="Tax" glAccountTypeId="TAX_ACCOUNT" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Profit Loss" glAccountTypeId="PROFIT_LOSS_ACCOUNT" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Sales" glAccountTypeId="SALES_ACCOUNT" hasTable="N" parentTypeId=""/>
@@ -325,11 +325,11 @@ under the License.
     <GlAccountType description="Uninvoiced Shipment Receipts" glAccountTypeId="UNINVOICED_SHIP_RCPT" hasTable="N" parentTypeId="CURRENT_LIABILITY"/>
     <GlAccountType description="Purchase Price Variance" glAccountTypeId="PURCHASE_PRICE_VAR" hasTable="N" parentTypeId="OTHER_EXPENSE"/>
     <GlAccountType description="Prepaid Expenses" glAccountTypeId="PREPAID_EXPENSES" hasTable="N" parentTypeId="CURRENT_ASSET"/>
-    
+
     <GlAccountType description="Income" glAccountTypeId="INCOME" hasTable="N" parentTypeId=""/>
     <GlAccountType description="Other Income" glAccountTypeId="OTHER_INCOME" hasTable="N" parentTypeId="INCOME"/>
     <GlAccountType description="Interest Income" glAccountTypeId="INTEREST_INCOME" hasTable="N" parentTypeId="INCOME"/>
-    
+
     <GlAccountType description="Interest Income Receivables" glAccountTypeId="INTRSTINC_RECEIVABLE" hasTable="N" parentTypeId="ACCOUNTS_RECEIVABLE"/>
     <GlAccountType description="Prepaid Expenses" glAccountTypeId="PREPAID_EXPENSES" hasTable="N" parentTypeId="CURRENT_ASSET"/>
 
@@ -347,7 +347,7 @@ under the License.
     <GlAccountType description="Foreign Exchange Gain/Loss" glAccountTypeId="FX_GAIN_LOSS_ACCT" hasTable="N" parentTypeId="OTHER_EXPENSE"/>
     <GlAccountType description="Foreign Exchange Gain" glAccountTypeId="FX_GAIN_ACCOUNT" hasTable="N" parentTypeId="FX_GAIN_LOSS_ACCT"/>
     <GlAccountType description="Foreign Exchange Loss" glAccountTypeId="FX_LOSS_ACCOUNT" hasTable="N" parentTypeId="FX_GAIN_LOSS_ACCT"/>
-   
+
     <GlResourceType description="Money" glResourceTypeId="MONEY"/>
     <GlResourceType description="Raw Materials" glResourceTypeId="RAW_MATERIALS"/>
     <GlResourceType description="Labor" glResourceTypeId="LABOR"/>
@@ -433,7 +433,7 @@ under the License.
     <InvoiceItemType description="Invoice Inventory Product Item" hasTable="N" invoiceItemTypeId="PINV_INVPRD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
     <InvoiceItemType description="Invoice Supplies (to Expense) Product Item" hasTable="N" invoiceItemTypeId="PINV_SUPLPRD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
     <InvoiceItemType description="Invoice Fixed Asset Product Item" hasTable="N" invoiceItemTypeId="PINV_FXASTPRD_ITEM" parentTypeId="PINV_PROD_ITEM"/>
-    
+
     <InvoiceItemType description="Invoice Work-Effort Item" hasTable="N" invoiceItemTypeId="PINV_WE_ITEM" parentTypeId=""/>
     <InvoiceItemType description="Invoice Time-Entry Item" hasTable="N" invoiceItemTypeId="PINV_TE_ITEM" parentTypeId=""/>
 
@@ -484,11 +484,11 @@ under the License.
     <InvoiceItemType description="Return Warranty" hasTable="N" invoiceItemTypeId="SRT_WARRANTY_ADJ" parentTypeId=""/>
     <InvoiceItemType description="Return Marketing Package Adjustment" hasTable="N" invoiceItemTypeId="SRT_MKTG_PKG_ADJ" parentTypeId=""/>
     <InvoiceItemType description="Return Manual Adjustment" hasTable="N" invoiceItemTypeId="SRT_MAN_ADJ" parentTypeId=""/>
-    
+
     <!-- invoice item types for commission invoices -->
     <InvoiceItemType description="Commission Invoice Line Item" hasTable="N" invoiceItemTypeId="COMM_INV_ITEM" parentTypeId=""/>
     <InvoiceItemType description="Commission Invoice Adjustment" hasTable="N" invoiceItemTypeId="COMM_INV_ADJ" parentTypeId=""/>
-    
+
     <InvoiceType description="Purchase Invoice" hasTable="N" invoiceTypeId="PURCHASE_INVOICE" parentTypeId="PURCHASE_INVOICE"/>
     <InvoiceType description="Sales Invoice" hasTable="N" invoiceTypeId="SALES_INVOICE" parentTypeId="SALES_INVOICE"/>
     <InvoiceType description="Customer Return" hasTable="N" invoiceTypeId="CUST_RTN_INVOICE" parentTypeId="PURCHASE_INVOICE"/>
@@ -573,14 +573,14 @@ under the License.
     <!-- items for commission invoices -->
     <InvoiceItemTypeMap invoiceTypeId="COMMISSION_INVOICE" invoiceItemMapKey="COM_COMM_ITEM" invoiceItemTypeId="COMM_INV_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="COMMISSION_INVOICE" invoiceItemMapKey="COM_COMM_ADJ" invoiceItemTypeId="COMM_INV_ADJ"/>
-    
+
     <InvoiceItemTypeMap invoiceTypeId="INTEREST_INVOICE" invoiceItemMapKey="INT_INV_CHRG" invoiceItemTypeId="INV_INTRST_CHRG"/>
 
 <!--New invoiceType: "Payrol"-->
     <InvoiceType description="Payrol" hasTable="N" invoiceTypeId="PAYROL_INVOICE" parentTypeId="PURCHASE_INVOICE"/>
 <!--    invoiceItem Types:-->
     <InvoiceItemType description="Payrol" hasTable="N" invoiceItemTypeId="PAYROL" parentTypeId=""/><!-- to group the itemType parentId's -->
-    
+
     <InvoiceItemType description="Earnings and Hours" hasTable="N" invoiceItemTypeId="PAYROL_EARN_HOURS" parentTypeId="PAYROL"/>
     <InvoiceItemType description="Hourly Rate" hasTable="N" invoiceItemTypeId="PAYROL_HRLY_RATE" parentTypeId="PAYROL_EARN_HOURS"/>
     <InvoiceItemType description="Sick Hourly Rate" hasTable="N" invoiceItemTypeId="PAYROL_HRLY_RATE_SIC" parentTypeId="PAYROL_EARN_HOURS"/>
@@ -594,7 +594,7 @@ under the License.
     <InvoiceItemType description="Office Exp. reimboursement" hasTable="N" invoiceItemTypeId="PAYROL_OFF_EXP_REIMB" parentTypeId="PAYROL_EARN_HOURS"/>
     <InvoiceItemType description="Pay Period adj(over pay)" hasTable="N" invoiceItemTypeId="PAYROL_PAYPER_OVRPAY" parentTypeId="PAYROL_EARN_HOURS"/>
     <InvoiceItemType description="Pay Period adj pay" hasTable="N" invoiceItemTypeId="PAYROL_PAYPER_PAY" parentTypeId="PAYROL_EARN_HOURS"/>
-    
+
     <InvoiceItemType description="Deductions from Gross" hasTable="N" invoiceItemTypeId="PAYROL_DD_FROM_GROSS" parentTypeId="PAYROL"/>
     <InvoiceItemType description="125*Compy. Contr Other Prem." hasTable="N" invoiceItemTypeId="PAYROL_DD_125COMPY" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>/>
     <InvoiceItemType description="125*PPO (pre tax)" hasTable="N" invoiceItemTypeId="PAYROL_DD_125PPO" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
@@ -609,13 +609,13 @@ under the License.
     <InvoiceItemType description="Union Dues" hasTable="N" invoiceItemTypeId="PAYROL_DD_UNION" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
     <InvoiceItemType description="Unpaid Salary Time off." hasTable="N" invoiceItemTypeId="PAYROL_DD_SAL_TIMOFF" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
     <InvoiceItemType description="Wage Garnishment" hasTable="N" invoiceItemTypeId="PAYROL_DD_WAG_GARN" parentTypeId="PAYROL_DD_FROM_GROSS" defaultGlAccountId=""/>
-    
+
     <InvoiceItemType description="Taxes" hasTable="N" invoiceItemTypeId="PAYROL_TAXES" parentTypeId="PAYROL"/>
     <InvoiceItemType description="Federal Witholding" hasTable="N" invoiceItemTypeId="PAYROL_TAX_FEDERAL" parentTypeId="PAYROL_TAXES" defaultGlAccountId=""/>
     <InvoiceItemType description="Social Security Employee" hasTable="N" invoiceItemTypeId="PAYROL_SOC_SEC_EMPL" parentTypeId="PAYROL_TAXES" defaultGlAccountId=""/>
     <InvoiceItemType description="Medicare Employee" hasTable="N" invoiceItemTypeId="PAYROL_TAX_MED_EMPL" parentTypeId="PAYROL_TAXES" defaultGlAccountId=""/>
     <InvoiceItemType description="MD Withholding" hasTable="N" invoiceItemTypeId="PAYROL_TAX_MD_WITHOL" parentTypeId="PAYROL_TAXES" defaultGlAccountId=""/>
-    
+
     <!-- An Enumeration to identify the taxable invoice item types.  For these, the only important fields are enumId and enumTypeId. -->
     <EnumerationType description="Taxable Invoice Item Types" enumTypeId="TAXABLE_INV_ITM_TY" hasTable="N" parentTypeId=""/>
     <Enumeration description="Sales Invoice Sales Tax" enumCode="INV_SALES_TAX" enumId="INV_SALES_TAX" sequenceId="01" enumTypeId="TAXABLE_INV_ITM_TY"/>
@@ -623,7 +623,7 @@ under the License.
     <Enumeration description="Purchase Invoice Sales Tax" enumCode="PINV_SALES_TAX" enumId="PINV_SALES_TAX" sequenceId="03" enumTypeId="TAXABLE_INV_ITM_TY"/>
     <Enumeration description="Purchase Invoice Line Item Sales Tax" enumCode="PITM_SALES_TAX" enumId="PITM_SALES_TAX" sequenceId="04" enumTypeId="TAXABLE_INV_ITM_TY"/>
     <Enumeration description="Customer Return Sales Tax Adjustment" enumCode="CRT_SALES_TAX_ADJ" enumId="CRT_SALES_TAX_ADJ" sequenceId="05" enumTypeId="TAXABLE_INV_ITM_TY"/>
-    
+
     <PaymentMethodType description="Credit Card" paymentMethodTypeId="CREDIT_CARD"/>
     <PaymentMethodType description="Gift Card" paymentMethodTypeId="GIFT_CARD"/>
     <PaymentMethodType description="Gift Certificate" paymentMethodTypeId="GIFT_CERTIFICATE"/>
@@ -663,8 +663,8 @@ under the License.
 
     <!-- payment types for POS PAID IN/OUT -->
     <PaymentType description="POS Paid Out" hasTable="N" parentTypeId="DISBURSEMENT" paymentTypeId="POS_PAID_OUT"/>
-    <PaymentType description="POS Paid In" hasTable="N" parentTypeId="RECEIPT" paymentTypeId="POS_PAID_IN"/>    
-    
+    <PaymentType description="POS Paid In" hasTable="N" parentTypeId="RECEIPT" paymentTypeId="POS_PAID_IN"/>
+
     <!-- Credit Cart Types -->
     <EnumerationType description="Credit Card Type" enumTypeId="CREDIT_CARD_TYPE" hasTable="N" parentTypeId=""/>
     <Enumeration description="Visa" enumCode="Visa" enumId="CCT_VISA" sequenceId="01" enumTypeId="CREDIT_CARD_TYPE"/>
@@ -679,7 +679,7 @@ under the License.
     <Enumeration description="Switch" enumCode="Switch" enumId="CCT_SWITCH" sequenceId="10" enumTypeId="CREDIT_CARD_TYPE"/>
     <Enumeration description="Visa Electron" enumCode="VisaElectron" enumId="CCT_VISAELECTRON" sequenceId="11" enumTypeId="CREDIT_CARD_TYPE"/>
     <Enumeration description="Universal Air Travel Plan" enumCode="UATP" enumId="CCT_UATP" sequenceId="12" enumTypeId="CREDIT_CARD_TYPE"/>
-    
+
     <StatusType description="Budget" hasTable="N" parentTypeId="" statusTypeId="BUDGET_STATUS"/>
     <StatusType description="Party Asset" hasTable="N" parentTypeId="" statusTypeId="PARTY_ASSET_STATUS"/>
 
@@ -718,8 +718,8 @@ under the License.
     <StatusValidChange condition="" statusId="INVOICE_READY" statusIdTo="INVOICE_PAID" transitionName="Pay"/>
     <StatusValidChange condition="" statusId="INVOICE_READY" statusIdTo="INVOICE_WRITEOFF" transitionName="Write Off"/>
     <StatusValidChange condition="" statusId="INVOICE_PAID" statusIdTo="INVOICE_READY" transitionName="Unpay"/>
-    
-    
+
+
     <!-- payment status -->
     <StatusType description="Payment Status" hasTable="N" parentTypeId="" statusTypeId="PMNT_STATUS"/>
     <StatusItem description="Not Paid" sequenceId="01" statusCode="NOT_PAID" statusId="PMNT_NOT_PAID" statusTypeId="PMNT_STATUS"/>
@@ -732,7 +732,7 @@ under the License.
     <StatusValidChange condition="" statusId="PMNT_NOT_PAID" statusIdTo="PMNT_CANCELLED" transitionName="Payment Cancelled"/>
     <StatusValidChange condition="" statusId="PMNT_SENT" statusIdTo="PMNT_CONFIRMED" transitionName="Payment Confirmed"/>
     <StatusValidChange condition="" statusId="PMNT_RECEIVED" statusIdTo="PMNT_CONFIRMED" transitionName="Payment Confirmed"/>
-    
+
     <SettlementTerm settlementTermId="COD" termName="Cash Due on Delivery" termValue="0" uomId="TF_day"/>
     <SettlementTerm settlementTermId="NET_15" termName="Net Due in 15 Days" termValue="15" uomId="TF_day"/>
     <SettlementTerm settlementTermId="NET_30" termName="Net Due in 30 Days" termValue="30" uomId="TF_day"/>
@@ -768,21 +768,21 @@ under the License.
     <EnumerationType description="Order Sequence Mode" enumTypeId="ORDER_SEQMD" hasTable="N" parentTypeId=""/>
     <Enumeration description="Standard (faster, may have gaps, per system)" enumCode="STANDARD" enumId="ODRSQ_STANDARD" sequenceId="01" enumTypeId="ORDER_SEQMD"/>
     <Enumeration description="Enforced Sequence (no gaps, per organization)" enumCode="ENF_SEQ" enumId="ODRSQ_ENF_SEQ" sequenceId="02" enumTypeId="ORDER_SEQMD"/>
-    
+
     <!-- Standard Industrial Cost Types -->
     <FixedAssetStdCostType description="Standard Setup Cost" hasTable="N" parentTypeId="" fixedAssetStdCostTypeId="SETUP_COST"/>
     <FixedAssetStdCostType description="Standard Usage Cost" hasTable="N" parentTypeId="" fixedAssetStdCostTypeId="USAGE_COST"/>
 
-    <!-- Example: California is a tax exemption inheritor of the USA, there is a tax exemption inheritance from USA to CA, taxAuthGeoId=USA toTaxAuthGeoId=CA -->    
+    <!-- Example: California is a tax exemption inheritor of the USA, there is a tax exemption inheritance from USA to CA, taxAuthGeoId=USA toTaxAuthGeoId=CA -->
     <TaxAuthorityAssocType taxAuthorityAssocTypeId="EXEMPT_INHER" description="Exemption Inheritance"/>
     <TaxAuthorityAssocType taxAuthorityAssocTypeId="COLLECT_AGENT" description="Collection Agent"/>
-    
+
     <TaxAuthorityRateType taxAuthorityRateTypeId="SALES_TAX" description="Sales Tax"/>
     <TaxAuthorityRateType taxAuthorityRateTypeId="USE_TAX" description="Use Tax"/>
     <TaxAuthorityRateType taxAuthorityRateTypeId="INCOME_TAX" description="Income Tax"/>
     <TaxAuthorityRateType taxAuthorityRateTypeId="EXPORT_TAX" description="Export Tax"/>
     <TaxAuthorityRateType taxAuthorityRateTypeId="IMPORT_TAX" description="Import Tax"/>
-    
+
     <!-- Rate Types -->
     <RateType rateTypeId="STANDARD" description="Standard Rate"/>
     <RateType rateTypeId="DISCOUNTED" description="Discounted Rate"/>
@@ -795,7 +795,7 @@ under the License.
     <PeriodType description="Rate amount per Week" periodTypeId="RATE_WEEK" periodLength="1" uomId="TF_wk"/>
     <PeriodType description="Rate amount per month" periodTypeId="RATE_MONTH" periodLength="1" uomId="TF_mon"/>
     <PeriodType description="Rate amount per Quarter" periodTypeId="RATE_QUARTER" periodLength="3" uomId="TF_mon"/>
-    
+
     <!-- create 'Not Applicable'  records-->
     <WorkEffort workEffortId="_NA_"/>
     <EmplPositionType emplPositionTypeId="_NA_"/>
@@ -803,7 +803,7 @@ under the License.
     <WebSite webSiteId="ACCOUNTING" siteName="Accounting Manager" visualThemeSetId="BACKOFFICE"/>
     <WebSite webSiteId="ACCOUNTING_P" siteName="Account Payable Manager" visualThemeSetId="BACKOFFICE"/>
     <WebSite webSiteId="ACCOUNTING_R" siteName="Account Receivable Manager" visualThemeSetId="BACKOFFICE"/>
-    
+
     <!-- Points of Title Transfer -->
     <EnumerationType description="Points of Title Transfer" enumTypeId="PTSOFTTFR" hasTable="N" parentTypeId=""/>
     <Enumeration description="Desination" enumCode="DEST" enumId="POTT_DEST" sequenceId="01" enumTypeId="PTSOFTTFR"/>
@@ -823,50 +823,50 @@ under the License.
     <Enumeration description="Delivered Ex Quay" enumCode="DEQ" enumId="POTT_DEQ" sequenceId="21" enumTypeId="PTSOFTTFR"/>
     <Enumeration description="Delivered Duty Paid" enumCode="DDP" enumId="POTT_DDP" sequenceId="22" enumTypeId="PTSOFTTFR"/>
     <Enumeration description="Delivered Duty Unpaid" enumCode="DDQ" enumId="POTT_DDQ" sequenceId="23" enumTypeId="PTSOFTTFR"/>
-    
+
     <ProductAverageCostType productAverageCostTypeId="SIMPLE_AVG_COST" hasTable="N" description="Simple Average Cost"/>
     <ProductAverageCostType productAverageCostTypeId="WEIGHTED_AVG_COST" hasTable="N" description="Weighted Average Cost"/>
     <ProductAverageCostType productAverageCostTypeId="MOVING_AVG_COST" hasTable="N" description="Moving Average Cost"/>
-    
+
     <!--
         INCOTERM options found here: http://www.foreign-trade.com/reference/incoterms.cfm
-     
+
         EX-Works
         One of the simplest and most basic shipment arrangements places the minimum responsibility on the seller with greater responsibility on the buyer. In an EX-Works transaction, goods are basically made available for pickup at the shipper/seller's factory or warehouse and "delivery" is accomplished when the merchandise is released to the consignee's freight forwarder. The buyer is responsible for making arrangements with their forwarder for insurance, export clearance and handling all other paperwork.
-        
+
         FOB (Free On Board)
         One of the most commonly used-and misused-terms, FOB means that the shipper/seller uses his freight forwarder to move the merchandise to the port or designated point of origin. Though frequently used to describe inland movement of cargo, FOB specifically refers to ocean or inland waterway transportation of goods. "Delivery" is accomplished when the shipper/seller releases the goods to the buyer's forwarder. The buyer's responsibility for insurance and transportation begins at the same moment.
-        
+
         FCA (Free Carrier)
         In this type of transaction, the seller is responsible for arranging transportation, but he is acting at the risk and the expense of the buyer. Where in FOB the freight forwarder or carrier is the choice of the buyer, in FCA the seller chooses and works with the freight forwarder or the carrier. "Delivery" is accomplished at a predetermined port or destination point and the buyer is responsible for Insurance.
-        
+
         FAS (Free Alongside Ship)*
         In these transactions, the buyer bears all the transportation costs and the risk of loss of goods. FAS requires the shipper/seller to clear goods for export, which is a reversal from past practices. Companies selling on these terms will ordinarily use their freight forwarder to clear the goods for export. "Delivery" is accomplished when the goods are turned over to the Buyers Forwarder for insurance and transportation.
-        
+
         CFR (Cost and Freight)
         This term formerly known as CNF (C&F) defines two distinct and separate responsibilities-one is dealing with the actual cost of merchandise "C" and the other "F" refers to the freight charges to a predetermined destination point. It is the shipper/seller's responsibility to get goods from their door to the port of destination. "Delivery" is accomplished at this time. It is the buyer's responsibility to cover insurance from the port of origin or port of shipment to buyer's door. Given that the shipper is responsible for transportation, the shipper also chooses the forwarder.
-        
+
         CIF (Cost, Insurance and Freight)
         This arrangement similar to CFR, but instead of the buyer insuring the goods for the maritime phase of the voyage, the shipper/seller will insure the merchandise. In this arrangement, the seller usually chooses the forwarder. "Delivery" as above, is accomplished at the port of destination.
-        
+
         CPT (Carriage Paid To)
         In CPT transactions the shipper/seller has the same obligations found with CIF, with the addition that the seller has to buy cargo insurance, naming the buyer as the insured while the goods are in transit.
-        
+
         CIP (Carriage and Insurance Paid To)
         This term is primarily used for multimodal transport. Because it relies on the carrier's insurance, the shipper/seller is only required to purchase minimum coverage. When this particular agreement is in force, Freight Forwarders often act in effect, as carriers. The buyer's insurance is effective when the goods are turned over to the Forwarder.
-        
+
         DAF (Delivered At Frontier)
         Here the seller's responsibility is to hire a forwarder to take goods to a named frontier, which usually a border crossing point, and clear them for export. "Delivery" occurs at this time. The buyer's responsibility is to arrange with their forwarder for the pick up of the goods after they are cleared for export, carry them across the border, clear them for importation and effect delivery. In most cases, the buyer's forwarder handles the task of accepting the goods at the border across the foreign soil.
-        
+
         DES (Delivered Ex Ship)
         In this type of transaction, it is the seller's responsibility to get the goods to the port of destination or to engage the forwarder to the move cargo to the port of destination uncleared. "Delivery" occurs at this time. Any destination charges that occur after the ship is docked are the buyer's responsibility.
-        
+
         DEQ (Delivered Ex Quay)*
         In this arrangement, the buyer/consignee is responsible for duties and charges and the seller is responsible for delivering the goods to the quay, wharf or port of destination. In a reversal of previous practice, the buyer must also arrange for customs clearance.
-        
+
         DDP (Delivered Duty Paid)
         DDP terms tend to be used in intermodal or courier-type shipments. Whereby, the shipper/seller is responsible for dealing with all the tasks involved in moving goods from the manufacturing plant to the buyer/consignee's door. It is the shipper/seller's responsibility to insure the goods and absorb all costs and risks including the payment of duty and fees.
-        
+
         DDQ (Delivered Duty Unpaid)
         This arrangement is basically the same as with DDP, except for the fact that the buyer is responsible for the duty, fees and taxes.
     -->

@@ -22,16 +22,16 @@ Refer to the Guidelines in the OFBiz documentation : http://docs.ofbiz.org/x/Ah
 To use OFBiz with WASCE 2 or Geronimo 2.0.3 follow the following steps (all steps assume WASCE 2 or Geronimo 2.0.3  is already installed and working)
 
 =======================================================================================================================================================
-    In function of your OS, copy in the geronimo script (.sh or .bat), the 2 lines below in (at the top) 
-      of the doneSetArgs section (Windows) 
-      or the <<elif [ "$1" = "run" ]>> block (Linux) 
+    In function of your OS, copy in the geronimo script (.sh or .bat), the 2 lines below in (at the top)
+      of the doneSetArgs section (Windows)
+      or the <<elif [ "$1" = "run" ]>> block (Linux)
 
     For the ofbiz.home value:
-    On Windows dont' worry about the /or \ in , they work both.     
+    On Windows dont' worry about the /or \ in , they work both.
     On Linux depending on your distribution you might need to put inside quotes around the ofbizHome value, then don't forget to escape them
     For instance on Ubuntu 6.06 LTS inside quotes are needed, but don't put them for Suze 10...
-    
-    Note : 
+
+    Note :
     If you prefer on WASCE you may use the setven scvript to set your env value. Notably if you want to separate things and have more var to set
     Then copy the 2 lines below in the setJavaOpts section (Windows) or somewhere in the setEnv script you will find in GERONIMO_HOME/bin (Linux)
     This script does not exist in Geronimo but is anticipated and taken into account.
@@ -93,7 +93,7 @@ by
         permission java.security.AllPermission;
         };
 
-    To work cleanly on Windows you will also have to add the option -DXorg.apache.geronimo.JarFileClassLoader=false 
+    To work cleanly on Windows you will also have to add the option -DXorg.apache.geronimo.JarFileClassLoader=false
     see https://issues.apache.org/jira/browse/GERONIMO-4037 for more.
 
     Debug stuff : -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
@@ -108,6 +108,6 @@ Derby
 -----
 If you are using the embedded Derby database you should consider this.
 OFBiz creates 2 folders for the Derby Database under the runtime directory: ofbiz and ofbizolap, these contain all the setup data for OFBiz.
-If you run Geronimo, under your Geronimo bin directory you will see the 2 same directories. 
-But those will not contain any data as you are not running OFBiz with the necessary parameters (you are running Geronimo, not OFBiz). 
+If you run Geronimo, under your Geronimo bin directory you will see the 2 same directories.
+But those will not contain any data as you are not running OFBiz with the necessary parameters (you are running Geronimo, not OFBiz).
 Simply replace the 2 directories: ofbiz & ofbizolap in your Geronimo bin directory by the 2 directories from your OFBiz runtime directory.

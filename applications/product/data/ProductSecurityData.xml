@@ -38,7 +38,7 @@ under the License.
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_UPDATE"/>
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="CATALOG_ROLE_DELETE"/>
     <SecurityGroupPermission groupId="CATALOGADMIN_LTD" permissionId="OFBTOOLS_VIEW"/>
-    
+
     <SecurityGroup description="Catalog Admin group, has all catalog permissions." groupId="CATALOGADMIN"/>
     <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_ADMIN"/>
     <SecurityGroupPermission groupId="CATALOGADMIN" permissionId="CATALOG_PRICE_MAINT"/>
@@ -47,7 +47,7 @@ under the License.
 
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
-    
+
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_ADMIN"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_PRICE_MAINT"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
@@ -60,11 +60,11 @@ under the License.
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_PRICE_MAINT"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_VIEW_ALLOW"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="CATALOG_PURCHASE_ALLOW"/>
-    
+
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="CATALOG_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="CATALOG_ADMIN"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="CATALOG_PRICE_MAINT"/>
-    
+
     <!-- Shipping Rate security -->
     <SecurityPermission description="View operations in the Shipping Rate Editor." permissionId="SHIPRATE_VIEW"/>
     <SecurityPermission description="Create operations in the Shipping Rate Editor." permissionId="SHIPRATE_CREATE"/>
@@ -76,7 +76,7 @@ under the License.
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="SHIPRATE_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SHIPRATE_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="SHIPRATE_ADMIN"/>
-    
+
     <!-- Facility Manager security -->
     <SecurityPermission description="View operations in the Facility Manager." permissionId="FACILITY_VIEW"/>
     <SecurityPermission description="Create operations in the Facility Manager." permissionId="FACILITY_CREATE"/>

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Product Component Services</description>
     <vendor>OFBiz</vendor>
@@ -206,7 +206,7 @@ under the License.
         location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeProductFeatureIactn" auth="true">
         <description>Remove a ProductFeatureIactn</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>  
+    </service>
     <!-- ProductFeatureType Services -->
     <service name="createProductFeatureType" default-entity-name="ProductFeatureType" engine="simple"
                 location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureType" auth="true">

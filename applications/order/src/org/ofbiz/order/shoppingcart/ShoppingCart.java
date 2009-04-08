@@ -1125,7 +1125,7 @@ public class ShoppingCart implements Serializable {
     public void setCancelBackOrderDate(Timestamp cancelBackOrderDate) {
         this.cancelBackOrderDate = cancelBackOrderDate;
     }
-	
+
     public Timestamp getCancelBackOrderDate() {
         return this.cancelBackOrderDate;
     }

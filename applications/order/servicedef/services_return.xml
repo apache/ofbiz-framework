@@ -71,7 +71,7 @@ under the License.
         <override name="returnTypeId" optional="false"/>
         <override name="returnItemTypeId" optional="false"/>
         <override name="orderId" optional="false"/>
-        <override name="returnQuantity" optional="false"/>        
+        <override name="returnQuantity" optional="false"/>
     </service>
     <service name="updateReturnItem" engine="simple" default-entity-name="ReturnItem"
             location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="updateReturnItem">
@@ -100,7 +100,7 @@ under the License.
     </service>
     <service name="createPaymentApplicationsFromReturnItemResponse" engine="java"
             location="org.ofbiz.order.order.OrderReturnServices" invoke="createPaymentApplicationsFromReturnItemResponse">
-            <description>Creates PaymentApplications for each return item billing related to the return response until 
+            <description>Creates PaymentApplications for each return item billing related to the return response until
                 the responseAmount is reached or all items are paid.</description>
         <attribute name="returnItemResponseId" type="String" mode="IN" optional="false"/>
     </service>
@@ -133,12 +133,12 @@ under the License.
         <implements service="returnAdjustmentInterface"/>
         <attribute name="originalReturnPrice" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="originalReturnQuantity" type="BigDecimal" mode="IN" optional="true"/>
-        <override name="returnAdjustmentId" optional="false"/>        
+        <override name="returnAdjustmentId" optional="false"/>
     </service>
     <service name="removeReturnAdjustment" engine="simple" location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml"
                  invoke="removeReturnAdjustment">
         <description>Simple remove service</description>
-        <auto-attributes entity-name="ReturnAdjustment" include="pk" mode="IN" optional="false"/>        
+        <auto-attributes entity-name="ReturnAdjustment" include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createReturnAndItemOrAdjustment" engine="simple" location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml"
                  invoke="createReturnAndItemOrAdjustment">
@@ -165,15 +165,15 @@ under the License.
         <auto-attributes mode="IN" include="all" entity-name="ReturnItem" optional="true"/>
         <attribute name="currentStatusId" type="String" mode="OUT" optional="true"/>
     </service>
-    
+
     <!-- services to verify that returns refunds aren't issued more than once -->
-    <service name="getReturnAmountByOrder" engine="java" 
+    <service name="getReturnAmountByOrder" engine="java"
              location="org.ofbiz.order.order.OrderReturnServices" invoke="getReturnAmountByOrder">
         <description>Finds the refunded or credited payment amounts for each order on a return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="orderReturnAmountMap" type="Map" mode="OUT"/>
     </service>
-    <service name="checkPaymentAmountForRefund" engine="java" 
+    <service name="checkPaymentAmountForRefund" engine="java"
              location="org.ofbiz.order.order.OrderReturnServices" invoke="checkPaymentAmountForRefund">
         <description>Makes sure the return is not over-refunding/crediting any order, or return an error</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
@@ -246,7 +246,7 @@ under the License.
     <service name="processSubscriptionReturn" engine="java" auth="true"
             location="org.ofbiz.order.order.OrderReturnServices" invoke="processSubscriptionReturn">
         <description>Process subscription changes from a return</description>
-        <attribute name="returnId" type="String" mode="IN" optional="false"/> 
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
 
     <!-- other return services -->
@@ -294,11 +294,11 @@ under the License.
         <description>Create a new ReturnItemShipment</description>
         <auto-attributes entity-name="ReturnItemShipment" include="all" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="getStatusItemsForReturn" engine="simple"
             location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="getStatusItemsForReturn">
         <description>Get the return status associated with customer/vendor return</description>
         <attribute name="returnHeaderTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="statusItems" type="List" mode="OUT" optional="false"/>
-    </service>    
+    </service>
 </services>

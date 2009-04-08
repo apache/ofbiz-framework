@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -56,7 +56,7 @@ partyTasks.each { ptItem ->
 }
 
 // get this user's roles
-partyRoles = delegator.findByAnd("PartyRole", [partyId = userLogin.partyId]);  
+partyRoles = delegator.findByAnd("PartyRole", [partyId = userLogin.partyId]);
 
 // build the role list
 pRolesList = [];
@@ -72,11 +72,11 @@ expressions.add(EntityCondition.makeCondition(custList, EntityOperator.OR));
 if (pRolesList) expressions.add(EntityCondition.makeCondition(pRolesList, EntityOperator.OR));
 expressions.add(EntityCondition.makeCondition(baseList, EntityOperator.AND));
 conditions = EntityCondition.makeCondition(expressions, EntityOperator.AND);
-    
+
 // invoke the query
-roleTasks = delegator.findList("OrderTaskList", conditions, null, sortOrder, null, false);    
+roleTasks = delegator.findList("OrderTaskList", conditions, null, sortOrder, null, false);
 roleTasks = EntityUtil.filterByAnd(roleTasks, baseList);
-roleTasks = EntityUtil.filterByDate(roleTasks);  
+roleTasks = EntityUtil.filterByDate(roleTasks);
 context.roleTasks = roleTasks;
 
 // Add to the map of orderId and currency

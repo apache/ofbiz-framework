@@ -36,7 +36,7 @@ if(typeof window != 'undefined'){
 		}
 
 		if(
-			((djConfig["baseScriptUri"] == "")||(djConfig["baseRelativePath"] == "")) && 
+			((djConfig["baseScriptUri"] == "")||(djConfig["baseRelativePath"] == "")) &&
 			(document && document.getElementsByTagName)
 		){
 			var scripts = document.getElementsByTagName("script");

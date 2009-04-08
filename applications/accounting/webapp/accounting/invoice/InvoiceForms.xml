@@ -631,5 +631,5 @@ under the License.
         <field name="partyIdTo"><ignored/></field>
         <field name="amountToApply"><ignored/></field>
     </form>
-    
+
 </forms>

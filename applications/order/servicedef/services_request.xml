@@ -108,7 +108,7 @@ under the License.
         <description>Delete a CustRequestParty record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    <service name="createCustRequestNote" engine="simple" 
+    <service name="createCustRequestNote" engine="simple"
             location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestNote" auth="true">
         <description>Create a note for a CustRequest</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
@@ -168,7 +168,7 @@ under the License.
         <attribute name="custRequestName" mode="IN" type="String" optional="true"/>
         <attribute name="custRequestId" mode="OUT" type="String" optional="false"/>
     </service>
-    
+
     <!-- custRequest content services -->
     <service name="createCustRequestContent" engine="simple"
         location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml"

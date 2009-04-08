@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Project Manager service definitions.</description>
 
@@ -48,13 +48,13 @@ under the License.
     <service name="projectMgrPermission" engine="simple"
         location="component://projectmgr/script/org/ofbiz/project/ProjectPermissionServices.xml" invoke="projectMgrPermission">
         <implements service="permissionInterface"/>
-        <attribute name="projectId" type="String" mode="IN" optional="true"/>        
-        <attribute name="phaseId" type="String" mode="IN" optional="true"/>        
-        <attribute name="workEffortId" type="String" mode="IN" optional="true"/>        
-        <attribute name="taskId" type="String" mode="IN" optional="true"/>        
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>        
-        <attribute name="timesheetId" type="String" mode="IN" optional="true"/>        
-        <attribute name="timeEntryId" type="String" mode="IN" optional="true"/>        
+        <attribute name="projectId" type="String" mode="IN" optional="true"/>
+        <attribute name="phaseId" type="String" mode="IN" optional="true"/>
+        <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
+        <attribute name="taskId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="timesheetId" type="String" mode="IN" optional="true"/>
+        <attribute name="timeEntryId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="updateTimeEntryByWorkeffort" engine="simple"
@@ -84,12 +84,12 @@ under the License.
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="projectInfo" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="createProject" engine="simple" default-entity-name="WorkEffort"
         location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="createProject">
         <description>Copy a project planning from a template.</description>
         <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
-        <implements service="interfaceWorkEffort"/>        
+        <implements service="interfaceWorkEffort"/>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
@@ -104,7 +104,7 @@ under the License.
         <override name="workEffortName" optional="false"/>
         <override name="currentStatusId" optional="false"/>
     </service>
-    
+
     <service name="updateProject" default-entity-name="WorkEffort" engine="simple"
         location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="updateProject">
         <description>Update a Project</description>
@@ -119,7 +119,7 @@ under the License.
         location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="createProjectTask">
         <description>Create a new task and optionally assign to a resource.</description>
         <permission-service service-name="projectMgrPermission" main-action="CREATE"/>
-        <implements service="interfaceWorkEffort"/>        
+        <implements service="interfaceWorkEffort"/>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
@@ -135,7 +135,7 @@ under the License.
         <override name="currentStatusId" optional="false"/>
         <override name="workEffortParentId" optional="false"/>
     </service>
-    
+
     <service name="copyProject" engine="simple"
         location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="copyProject">
         <description>Copy a project planning data but ignore the actual data.</description>
@@ -144,7 +144,7 @@ under the License.
         <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
         <attribute name="workEffortId" type="String" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="copyProjectToTemplate" engine="simple"
         location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="copyProjectToTemplate">
         <description>Copy a project planning data to a template project.</description>
@@ -153,14 +153,14 @@ under the License.
         <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
         <attribute name="workEffortId" type="String" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="scheduleProject" engine="simple"
         location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="scheduleProject">
         <description>(re) calculate the estimated start and enddates of tasks within a project</description>
         <permission-service service-name="projectMgrPermission" main-action="UPDATE"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
     </service>
-    
+
     <service name="getProjectIdAndNameFromTask" engine="simple"
         location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="getProjectIdAndNameFromTask">
         <description>Get the projectId and Name when a phase or task is provided.</description>
@@ -173,7 +173,7 @@ under the License.
         <attribute name="phaseName" type="String" mode="OUT" optional="true"/>
         <attribute name="taskName" type="String" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="getProjectPhaseList" engine="simple"
         location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="getProjectPhaseList">
         <description>Get project phase information and related task info.</description>
@@ -181,7 +181,7 @@ under the License.
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
         <attribute name="phaseList" type="List" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="getProjectTaskList" engine="simple"
         location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="getProjectTaskList">
         <description>Get project phase information and related task info.</description>
@@ -189,7 +189,7 @@ under the License.
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
         <attribute name="taskList" type="List" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="getProjectTask" engine="simple"
         location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="getProjectTask">
         <description>Get project task information and related timesheet info.</description>
@@ -200,16 +200,16 @@ under the License.
         <attribute name="projectName" type="String" mode="OUT" optional="true"/>
         <attribute name="taskInfo" type="Map" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="getProjectsByParties" engine="simple"
         location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="getProjectsByParties">
         <description>Get project information by party</description>
-        <permission-service service-name="projectMgrPermission" main-action="VIEW"/>        
+        <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="projectParties" type="List" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="getTasksByParties" engine="simple"
         location="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml" invoke="getTasksByParties">
         <description>Get project information by party</description>
@@ -251,5 +251,5 @@ under the License.
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="statusId" type="String" mode="IN" optional="true"/>
     </service>
-    
+
 </services>

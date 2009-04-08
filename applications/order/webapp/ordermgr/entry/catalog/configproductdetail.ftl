@@ -147,10 +147,10 @@ function getConfigDetails(event) {
        }
 
        new Ajax.Request('/ordermgr/control/getConfigDetailsEvent',{parameters: $('configFormId').serialize(),  requestHeaders: {Accept: 'application/json'},
-        
-           onSuccess: function(transport){     
+
+           onSuccess: function(transport){
                 var data = transport.responseText.evalJSON(true);
-                
+
                 if (data._ERROR_MESSAGE_LIST_ != undefined) {
                    //console.log(data._ERROR_MESSAGE_LIST_);
                    //alert(data._ERROR_MESSAGE_LIST_);
@@ -167,7 +167,7 @@ function getConfigDetails(event) {
                   event.stop();
                 }
             },
-            
+
            onFailure: function(transport) {
              var data = transport.responseText.evalJSON(true);
              //console.log('Failure');
@@ -229,7 +229,7 @@ function getConfigDetails(event) {
           </#list>
         </div>
       </#if>
-      
+
       <#-- for prices:
               - if totalPrice is present, use it (totalPrice is the price calculated from the parts)
               - if price < competitivePrice, show competitive or "Compare At" price
@@ -282,7 +282,7 @@ function getConfigDetails(event) {
       <#if daysToShip?exists>
         <div><b>${uiLabelMap.ProductUsuallyShipsIn} <font color='red'>${daysToShip}</font> ${uiLabelMap.CommonDays}!<b></div>
       </#if>
-     
+
       <#if disFeatureList?exists && 0 < disFeatureList.size()>
         <p>&nbsp;</p>
         <#list disFeatureList as currentFeature>
@@ -484,11 +484,11 @@ function getConfigDetails(event) {
             <#if question.isStandard()>
               <#-- Standard item: all the options are always included -->
               <#assign options = question.options>
-              <#assign optionCounter = 0>              
+              <#assign optionCounter = 0>
               <#list options as option>
                 <div>${option.description} <#if !option.isAvailable()> (*)</#if></div>
-                <div>${uiLabelMap.CommonComments}: <input type='text' name='comments_${counter}_${optionCounter}' id='comments_${counter}_${optionCounter}' value='${option.comments?if_exists}' ></div>                                  
-                <#assign optionCounter = optionCounter + 1>                 
+                <div>${uiLabelMap.CommonComments}: <input type='text' name='comments_${counter}_${optionCounter}' id='comments_${counter}_${optionCounter}' value='${option.comments?if_exists}' ></div>
+                <#assign optionCounter = optionCounter + 1>
               </#list>
             <#else>
               <#if question.isSingleChoice()>
@@ -506,9 +506,9 @@ function getConfigDetails(event) {
                   <div><input type="radio" name='${counter}' value='<#if !question.isSelected()>checked</#if>'> No option</div>
                 </#if>
                 <#assign optionComment = "">
-                <#assign optionCounter = 0>              
+                <#assign optionCounter = 0>
                 <#list options as option>
-                  <#assign componentCounter = 0>                  
+                  <#assign componentCounter = 0>
                   <#if showOffsetPrice?exists && "Y" == showOffsetPrice>
                     <#assign shownPrice = option.price - selectedPrice>
                   <#else>
@@ -516,7 +516,7 @@ function getConfigDetails(event) {
                   </#if>
                   <#if option.isSelected()>
                     <#assign optionComment = option.getComments()?if_exists>
-                  </#if>                   
+                  </#if>
                     <#-- Render virtual compoennts -->
                     <#if option.hasVirtualComponent()>
                       <div >
@@ -544,7 +544,7 @@ function getConfigDetails(event) {
                     </#if>
                   <#assign optionCounter = optionCounter + 1>
                 </#list>
-                <div>${uiLabelMap.CommonComments}: <input type="text" name='comments_${counter}_0' id='comments_${counter}_0' value='${optionComment?if_exists}' /></div>                
+                <div>${uiLabelMap.CommonComments}: <input type="text" name='comments_${counter}_0' id='comments_${counter}_0' value='${optionComment?if_exists}' /></div>
                 <#else>
                 <#-- And this is the select box implementation -->
                 <select name='${counter}'>
@@ -573,14 +573,14 @@ function getConfigDetails(event) {
                   <#assign optionCounter = optionCounter + 1>
                 </#list>
                 </select>
-                <div>${uiLabelMap.CommonComments}: <input type="text" name='comments_${counter}_0' id='comments_${counter}_0' value='${optionComment?if_exists}' /></div>                 
+                <div>${uiLabelMap.CommonComments}: <input type="text" name='comments_${counter}_0' id='comments_${counter}_0' value='${optionComment?if_exists}' /></div>
                 </#if>
               <#else>
                 <#-- Multi choice question -->
                 <#assign options = question.options>
                 <#assign optionCounter = 0>
                 <#list options as option>
-                    <#assign componentCounter = 0>                
+                    <#assign componentCounter = 0>
                     <#-- Render virtual compoennts -->
                     <#if option.hasVirtualComponent()>
                       <div >
@@ -603,7 +603,7 @@ function getConfigDetails(event) {
                       ${option.description} +<@ofbizCurrency amount=option.price isoCode=price.currencyUsed/><#if !option.isAvailable()> (*)</#if>
                     </div>
                     </#if>
-                    <div>${uiLabelMap.CommonComments}: <input type="text" name='comments_${counter}_${optionCounter}' id='comments_${counter}_${optionCounter}' value='${option.comments?if_exists}'></div>                    
+                    <div>${uiLabelMap.CommonComments}: <input type="text" name='comments_${counter}_${optionCounter}' id='comments_${counter}_${optionCounter}' value='${option.comments?if_exists}'></div>
                   <#assign optionCounter = optionCounter + 1>
                 </#list>
               </#if>

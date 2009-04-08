@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <!-- ============== Basic Permission Checking ============= -->
@@ -126,14 +126,14 @@ under the License.
         <if-compare-field to-field="userLogin.partyId" field="parameters.partyId" operator="equals">
             <set field="hasPermission" type="Boolean" value="true"/>
             <field-to-result field="hasPermission"/>
-            
+
             <else>
                 <set field="altPermission" value="PARTYMGR_PCM"/>
                 <call-simple-method method-name="basePermissionCheck"/>
             </else>
         </if-compare-field>
     </simple-method>
-    
+
     <!-- Accept/Decline/Cancel PartyInvitation Permission Checks -->
     <simple-method method-name="accAndDecPartyInvitationPermissionCheck" short-description="Accept and Decline PartyInvitation Permission Logic">
         <set field="hasPermission" type="Boolean" value="false"/>
@@ -164,7 +164,7 @@ under the License.
                         </add-error>
                     </else>
                     </if-not-empty>
-                </else>    
+                </else>
                 </if-empty>
             <else>
                 <if-compare-field field="partyInvitation.partyId" to-field="userLogin.partyId" operator="equals">
@@ -217,7 +217,7 @@ under the License.
                             </add-error>
                         </else>
                         </if-not-empty>
-                    </else>    
+                    </else>
                     </if-empty>
                 <else>
                     <if-compare-field field="partyInvitation.partyId" to-field="userLogin.partyId" operator="equals">

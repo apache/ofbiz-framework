@@ -81,7 +81,7 @@ under the License.
     <td>
       <select name="defaultWeightUomId">
           <option value=''>${uiLabelMap.CommonNone}</option>
-          <#list weightUomList as uom>                      
+          <#list weightUomList as uom>
             <option value='${uom.uomId}'
                <#if (facility.defaultWeightUomId?has_content) && (uom.uomId == facility.defaultWeightUomId)>
                SELECTED
@@ -95,7 +95,7 @@ under the License.
     <td class="label">${uiLabelMap.ProductFacilityDefaultInventoryItemType}</td>
     <td>
       <select name="defaultInventoryItemTypeId">
-          <#list inventoryItemTypes as nextInventoryItemType>                      
+          <#list inventoryItemTypes as nextInventoryItemType>
             <option value='${nextInventoryItemType.inventoryItemTypeId}'
                <#if (facility.defaultInventoryItemTypeId?has_content) && (nextInventoryItemType.inventoryItemTypeId == facility.defaultInventoryItemTypeId)>
                SELECTED

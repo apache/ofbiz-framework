@@ -24,22 +24,22 @@ dojo.declare("dojo.data.core.Result", null, {
 		this.fromKwArgs(keywordArgs || {});
 		this.items = null;
 		this.resultMetadata = null;
-		this.length = -1; // -1 until completion 
+		this.length = -1; // -1 until completion
 		this.store = store;
-		
+
 		this._aborted = false;
 		this._abortFunc = null;
 	},
 
-	/* Whether the request should be made synchronously. 
-	 * We default to true if there's no {sync:false} property in the keywordArgs 
+	/* Whether the request should be made synchronously.
+	 * We default to true if there's no {sync:false} property in the keywordArgs
 	 * in the initializer for a given instance of dojo.data.core.Result.
 	 */
 	sync: true,
-		
+
 	//timeout: function(type){ }, todo: support this
 	//timeoutSeconds: 0, todo: support this
-		
+
 	// the abort method needs to be filled in by the transport that accepts the
 	// bind() request
 	abort: function() {
@@ -48,7 +48,7 @@ dojo.declare("dojo.data.core.Result", null, {
 			this._abortFunc();
 		}
 	},
-	
+
 	fromKwArgs: function(/* object */ kwArgs) {
 		if (typeof kwArgs.saveResult == "undefined") {
 			this.saveResult = kwArgs.onnext ? false : true;

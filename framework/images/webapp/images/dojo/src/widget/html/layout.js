@@ -105,7 +105,7 @@ dojo.widget.html.layout = function(/*DomNode*/ container, /*Object[]*/ children,
 				child.resizeTo(w, f.height);
 			}else{
 				dojo.html.setMarginBox(elm, { width: w, height: f.height });
-			}	
+			}
 
 			f.width -= w;
 			if(pos=="left"){

@@ -25,8 +25,8 @@ under the License.
   <div class="screenlet-body">
     <#if shoppingCart?has_content && shoppingCart.size() gt 0>
       <div id="checkoutPanel" align="center">
-          
-<#-- ========================================================================================================================== -->      
+
+<#-- ========================================================================================================================== -->
         <div id="cartPanel" class="screenlet">
           <div class="screenlet-header"><div class="boxhead">${uiLabelMap.EcommerceStep} 1: ${uiLabelMap.PageTitleShoppingCart}</div></div>
           <div id="cartSummaryPanel" class="screenlet-body" style="display: none;">
@@ -43,7 +43,7 @@ under the License.
                   <td align="right"><div><b>${uiLabelMap.EcommerceItemTotal}</b></div></td>
                 </tr>
                 <tr><td colspan="6"><hr/></td></tr>
-              </thead>                
+              </thead>
               <tbody>
                 <#assign itemCount = 0>
                 <#list shoppingCart.items() as cartLine>
@@ -100,8 +100,8 @@ under the License.
               </tbody>
             </table>
           </div>
-          
-<#-- ============================================================= -->            
+
+<#-- ============================================================= -->
           <div id="editCartPanel" class="screenlet-body">
             <form name="cartForm" id="cartForm" method="post" action="<@ofbizUrl></@ofbizUrl>">
               <input type="hidden" name="removeSelected" value="false">
@@ -158,7 +158,7 @@ under the License.
                         <td nowrap align="center"><div id="addPromoCode_${cartLineIndex}" class="tabletext"><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency()/></div></td>
                       <#else>
                         <td nowrap align="center"><div class="tabletext"><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency()/></div></td>
-                      </#if>                                
+                      </#if>
                       <td align="center"><div id="displayItem_${cartLineIndex}"><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency()/></div></td>
                       <#if !cartLine.getIsPromo()>
                         <td align="right"><a href="javascript:void(0);"><img id="remove_${cartLineIndex?if_exists}" src="<@ofbizContentUrl>/ecommerce/images/remove.png</@ofbizContentUrl>" border="0" height="30" hspace="0" vspace="0" width="40"></a></td>
@@ -166,7 +166,7 @@ under the License.
                     </tr>
                     <tr><td colspan="7"><hr/></td></tr>
                     <#assign itemCount = itemCount + 1>
-                  </#list>                      
+                  </#list>
                   <tr>
                     <td colspan="4"></td>
                     <td><div align="right"><b>${uiLabelMap.CommonSubtotal}:</b></div></td>
@@ -209,7 +209,7 @@ under the License.
             </div>
           </div>
         </div>
-        
+
 <#-- ========================================================================================================================== -->
         <div id="shippingPanel" class="screenlet">
           <div class="screenlet-header"><div class="boxhead">${uiLabelMap.EcommerceStep} 2: ${uiLabelMap.FacilityShipping}</div></div>
@@ -230,7 +230,7 @@ under the License.
                     </td>
                     <td width="10%" valign="top">${uiLabelMap.EcommerceLocation}:</td>
                     <td width="50%" valign="top">
-                      <div>    
+                      <div>
                         <div id="completedShipToAddress1"></div>
                         <div id="completedShipToAddress2"></div>
                         <div id="completedShipToGeo"></div>
@@ -241,7 +241,7 @@ under the License.
               </table>
             </div>
           </div>
-          
+
 <#-- ============================================================= -->
           <div id="editShippingPanel" class="screenlet-body" style="display: none;">
             <form name="shippingForm" id="shippingForm" action="<@ofbizUrl>createUpdateShippingAddress</@ofbizUrl>" method="post">
@@ -293,16 +293,16 @@ under the License.
                       <div>
                       <#if shipToTelecomNumber?has_content>
                         <div>
-                          <input name="countryCode" class="required" id="shipToCountryCode" value="${shipToTelecomNumber.countryCode?if_exists}" size="5" maxlength=3> - 
-                          <input name="areaCode" class="required" id="shipToAreaCode" value="${shipToTelecomNumber.areaCode?if_exists}")}" size="5" maxlength=3> - 
-                          <input name="contactNumber" class="required" id="shipToContactNumber" value="${shipToTelecomNumber.contactNumber?if_exists}")}" size="10" maxlength=7> - 
+                          <input name="countryCode" class="required" id="shipToCountryCode" value="${shipToTelecomNumber.countryCode?if_exists}" size="5" maxlength=3> -
+                          <input name="areaCode" class="required" id="shipToAreaCode" value="${shipToTelecomNumber.areaCode?if_exists}")}" size="5" maxlength=3> -
+                          <input name="contactNumber" class="required" id="shipToContactNumber" value="${shipToTelecomNumber.contactNumber?if_exists}")}" size="10" maxlength=7> -
                           <input name="extension" id="shipToExtension" value="${shipToExtension?if_exists}")}" size="5" maxlength=3>
                         </div>
                       <#else>
                         <div>
-                          <input name="countryCode" class="required" id="shipToCountryCode" value="${parameters.countryCode?if_exists}" size="5" maxlength=3> - 
-                          <input name="areaCode" class="required" id="shipToAreaCode" value="${parameters.areaCode?if_exists}" size="5" maxlength=3> - 
-                          <input name="contactNumber" class="required" id="shipToContactNumber" value="${parameters.contactNumber?if_exists}" size="10" maxlength=7> - 
+                          <input name="countryCode" class="required" id="shipToCountryCode" value="${parameters.countryCode?if_exists}" size="5" maxlength=3> -
+                          <input name="areaCode" class="required" id="shipToAreaCode" value="${parameters.areaCode?if_exists}" size="5" maxlength=3> -
+                          <input name="contactNumber" class="required" id="shipToContactNumber" value="${parameters.contactNumber?if_exists}" size="10" maxlength=7> -
                           <input name="extension" id="shipToExtension" value="${parameters.extension?if_exists}" size="5" maxlength=3>
                         </div>
                       </#if>
@@ -359,7 +359,7 @@ under the License.
                       <div class="field-label">
                         <label for="state">${uiLabelMap.CommonState}*<span id="advice-required-shipToStateProvinceGeoId" style="display:none" class="errorMessage">(required)</span></label>
                       </div>
-                      <div> 
+                      <div>
                         <select id="shipToStateProvinceGeoId" name="shipToStateProvinceGeoId">
                           <#if shipToStateProvinceGeoId?has_content>
                             <option value='${shipToStateProvinceGeoId!}'>${shipToStateProvinceGeo!(shipToStateProvinceGeoId!)}</option>
@@ -368,7 +368,7 @@ under the License.
                           </#if>
                           ${screens.render("component://common/widget/CommonScreens.xml#states")}
                         </select>
-                      </div> 
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -380,8 +380,8 @@ under the License.
             </div>
           </div>
         </div>
-          
-<#-- ========================================================================================================================== -->         
+
+<#-- ========================================================================================================================== -->
         <div id="shippingOptionPanel" class="screenlet">
           <div class="screenlet-header"><div class="boxhead">${uiLabelMap.EcommerceStep} 3: ${uiLabelMap.PageTitleShippingOptions}</div></div>
           <div id="shippingOptionSummaryPanel" class="screenlet-body" style="display: none;">
@@ -398,7 +398,7 @@ under the License.
               </table>
             </div>
           </div>
-            
+
 <#-- ============================================================= -->
           <div id="editShippingOptionPanel" class="screenlet-body" style="display: none;">
             <form name="shippingOptionForm" id="shippingOptionForm" action="<@ofbizUrl></@ofbizUrl>" method="post">
@@ -422,7 +422,7 @@ under the License.
             </div>
           </div>
         </div>
-                
+
 <#-- ========================================================================================================================== -->
         <div id="billingPanel" class="screenlet">
           <div class="screenlet-header"><div class="boxhead">${uiLabelMap.EcommerceStep} 4: ${uiLabelMap.AccountingBilling}</div></div>
@@ -444,7 +444,7 @@ under the License.
                     </td>
                     <td valign="top" width="5%">${uiLabelMap.EcommerceLocation}:</td>
                     <td valign="top" width="50%">
-                      <div>    
+                      <div>
                         <div id="completedBillToAddress1"></div>
                         <div id="completedBillToAddress2"></div>
                         <div id="completedBillToGeo"></div>
@@ -459,9 +459,9 @@ under the License.
               </table>
             </div>
           </div>
-                     
-<#-- ============================================================= -->            
-          
+
+<#-- ============================================================= -->
+
           <div id="editBillingPanel" class="screenlet-body" style="display: none;">
             <form name="billingForm" id="billingForm" class="theform" action="<@ofbizUrl></@ofbizUrl>" method="post">
               <input type="hidden" id ="billToContactMechId" name="billToContactMechId" value="${billToContactMechId?if_exists}"/>
@@ -566,23 +566,23 @@ under the License.
                       </div>
                       <#if billToTelecomNumber?has_content>
                         <div>
-                          <input name="countryCode" class="required" id="billToCountryCode" value="${billToTelecomNumber.countryCode?if_exists}" size="5" maxlength=3> - 
-                          <input name="areaCode" class="required" id="billToAreaCode" value="${billToTelecomNumber.areaCode?if_exists}" size="5" maxlength=3> - 
-                          <input name="contactNumber" class="required" id="billToContactNumber" value="${billToTelecomNumber.contactNumber?if_exists}" size="10" maxlength=7> - 
+                          <input name="countryCode" class="required" id="billToCountryCode" value="${billToTelecomNumber.countryCode?if_exists}" size="5" maxlength=3> -
+                          <input name="areaCode" class="required" id="billToAreaCode" value="${billToTelecomNumber.areaCode?if_exists}" size="5" maxlength=3> -
+                          <input name="contactNumber" class="required" id="billToContactNumber" value="${billToTelecomNumber.contactNumber?if_exists}" size="10" maxlength=7> -
                           <input name="extension" id="billToExtension" value="${billToExtension?if_exists}" size="5" maxlength=3>
                         </div>
                       <#else>
                         <div>
-                          <input name="countryCode" class="required" id="billToCountryCode" value="${parameters.countryCode?if_exists}" size="5" maxlength=3> - 
-                          <input name="areaCode" class="required" id="billToAreaCode" value="${parameters.areaCode?if_exists}" size="5" maxlength=3> - 
-                          <input name="contactNumber" class="required" id="billToContactNumber" value="${parameters.contactNumber?if_exists}" size="10" maxlength=7> - 
+                          <input name="countryCode" class="required" id="billToCountryCode" value="${parameters.countryCode?if_exists}" size="5" maxlength=3> -
+                          <input name="areaCode" class="required" id="billToAreaCode" value="${parameters.areaCode?if_exists}" size="5" maxlength=3> -
+                          <input name="contactNumber" class="required" id="billToContactNumber" value="${parameters.contactNumber?if_exists}" size="10" maxlength=7> -
                           <input name="extension" id="billToExtension" value="${parameters.extension?if_exists}" size="5" maxlength=3>
                         </div>
-                      </#if>  
+                      </#if>
                     </div>
                   </td>
                   <td width="20%">&nbsp;</td>
-                  <td valign="top"> 
+                  <td valign="top">
                     <div class="form-row">
                       <div><input class="checkbox" id="useShippingAddressForBilling" name="useShippingAddressForBilling" type="checkbox" value="Y" <#if useShippingAddressForBilling?has_content && useShippingAddressForBilling?default("")=="Y">checked</#if>>${uiLabelMap.FacilityBillingAddressSameShipping}</div>
                     </div>
@@ -604,7 +604,7 @@ under the License.
                         </div>
                       </div>
                       <div class="form-row">
-                        <div class="field-label">                
+                        <div class="field-label">
                           <label for="city">${uiLabelMap.CommonCity}*<span id="advice-required-billToCity" style="display:none" class="errorMessage"> (required)</span></label>
                         </div>
                         <div>
@@ -613,7 +613,7 @@ under the License.
                       </div>
                       <div class="form-row">
                         <div class="field-label">
-                          <label for="billToPostalCode">${uiLabelMap.PartyZipCode}*<span id="advice-required-billToPostalCode" style="display:none" class="errorMessage"> (required)</span></label>   
+                          <label for="billToPostalCode">${uiLabelMap.PartyZipCode}*<span id="advice-required-billToPostalCode" style="display:none" class="errorMessage"> (required)</span></label>
                         </div>
                         <div>
                           <input id="billToPostalCode" name="billToPostalCode" class="required" type="text" value="${billToPostalCode?if_exists}" size="12" maxlength="10"/>
@@ -636,7 +636,7 @@ under the License.
                         <div class="field-label">
                           <label for="state">${uiLabelMap.CommonState}*<span id="advice-required-billToStateProvinceGeoId" style="display:none" class="errorMessage"> (required)</span></label>
                         </div>
-                        <div>  
+                        <div>
                           <select id="billToStateProvinceGeoId" name="billToStateProvinceGeoId">
                             <#if billToStateProvinceGeoId?has_content>
                               <option value='${billToStateProvinceGeoId!}'>${billToStateProvinceGeo!(billToStateProvinceGeoId!)}</option>
@@ -657,7 +657,7 @@ under the License.
             </div>
           </div>
         </div>
-                      
+
 <#-- ========================================================================================================================== -->
         <div class="screenlet">
           <div class="screenlet-header"><div class="boxhead">${uiLabelMap.EcommerceStep} 5: ${uiLabelMap.OrderSubmitOrder}</div></div>
@@ -666,13 +666,13 @@ under the License.
               <div align="right">
                 <input type="button" id="processOrderButton" name="processOrderButton" value="${uiLabelMap.OrderSubmitOrder}" class="mediumSubmit">
                 <input type="button" style="display: none;" id="processingOrderButton" name="processingOrderButton" value="${uiLabelMap.OrderSubmittingOrder}" class="mediumSubmit">
-              </div>              
+              </div>
             </form>
           </div>
         </div>
       </div>
     </#if>
-      
+
 <#-- ========================================================================================================================== -->
     <div id="emptyCartCheckoutPanel" align="center" <#if shoppingCart?has_content && shoppingCart.size() gt 0> style="display: none;"</#if>>
       <div>

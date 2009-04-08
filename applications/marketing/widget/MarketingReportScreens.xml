@@ -22,7 +22,7 @@ under the License.
     <screen name="CommonMarketReportDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="Reports"/>                
+                <set field="headerItem" value="Reports"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

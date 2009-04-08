@@ -20,7 +20,7 @@ dojo.widget.defineWidget(
 {
 	// summary
 	//		Grid showing various colors, so the user pick a certain color
-	
+
 	// palette: String
 	//		Size of grid, either "7x10" or "3x4".
 	palette: "7x10",

@@ -13,8 +13,8 @@ dojo.require("dojo.widget.*");
 dojo.require("dojo.widget.HtmlWidget");
 dojo.require("dojo.io.*");
 
-dojo.widget.defineWidget("my.widget.demoEngine.SourcePane", 
-	dojo.widget.HtmlWidget, 
+dojo.widget.defineWidget("my.widget.demoEngine.SourcePane",
+	dojo.widget.HtmlWidget,
 	{
 		templatePath: dojo.uri.dojoUri("src/widget/demoEngine/templates/SourcePane.html"),
 		templateCssPath: dojo.uri.dojoUri("src/widget/demoEngine/templates/SourcePane.css"),
@@ -22,7 +22,7 @@ dojo.widget.defineWidget("my.widget.demoEngine.SourcePane",
 			dojo.html.addClass(this.domNode,this.domNodeClass);
 			dojo.debug("PostCreate");
 		},
-	
+
 		getSource: function() {
 			if (this.href) {
 				dojo.io.bind({
@@ -31,7 +31,7 @@ dojo.widget.defineWidget("my.widget.demoEngine.SourcePane",
 					mimetype: "text/plain"
 				});
 			}
-		},	
+		},
 
 		fillInSource: function(type, source, e) {
 			this.sourceNode.value=source;

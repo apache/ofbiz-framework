@@ -15,15 +15,15 @@ dojo.require("dojo.logging.ConsoleLogger");
 // 	Console logger, for use with FireFox Firebug, Safari and Opera's consoles.
 // description:
 //  This package redirects the normal dojo debugging output to the console log in modern browsers.
-//  When using Firebug, it does this  by sending the entire object to the console, 
-//	rather than just overriding dojo.hostenv.println, so that Firebug's interactive 
+//  When using Firebug, it does this  by sending the entire object to the console,
+//	rather than just overriding dojo.hostenv.println, so that Firebug's interactive
 //	object inspector is available.
 // see: http://www.joehewitt.com/software/firebug/docs.php
 
 if (window.console) {
 	if (console.info != null) {
 		// using a later version of Firebug -- lots of fun stuff!
-		
+
 		dojo.hostenv.println = function() {
 			// summary: Write all of the arguments to the Firebug console
 			// description: Uses console.info() so that the (i) icon prints next to the debug line
@@ -49,7 +49,7 @@ if (window.console) {
 			if (obj == null || obj.constructor == null) {
 				return dojo.debug(obj);
 			}
-	
+
 			// figure out type via a standard constructor (Object, String, Date, etc)
 			var type = obj.declaredClass;
 			if (type == null) {
@@ -66,14 +66,14 @@ if (window.console) {
 				} else {
 					var propNames = [];
 					if (showMethods) {
-						for (var prop in obj) {	
+						for (var prop in obj) {
 							propNames.push(prop);
 						}
 					} else {
-						for (var prop in obj) {	
+						for (var prop in obj) {
 							if (typeof obj[prop] != "function") { propNames.push(prop);	}
 							else dojo.debug(prop);
-						}					
+						}
 					}
 					if (sort) propNames.sort();
 					var sortedObj = {};
@@ -84,12 +84,12 @@ if (window.console) {
 
 				return dojo.debug(type+": %o\n%2.o",obj,sortedObj);
 			}
-		
-			// otherwise just output the constructor + object, 
+
+			// otherwise just output the constructor + object,
 			//	which is nice for a DOM element, etc
 			return dojo.debug(obj.constructor + ": ", obj);
 		}
-		
+
 	} else if (console.log != null) {
 		// using Safari or an old version of Firebug
 		dojo.hostenv.println=function() {

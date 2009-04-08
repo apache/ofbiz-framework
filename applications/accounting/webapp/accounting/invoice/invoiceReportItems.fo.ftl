@@ -95,7 +95,7 @@ under the License.
             </#if>
 
             <#if newShipmentId?exists & newShipmentId != currentShipmentId>
-                <#-- the shipment id is printed at the beginning for each 
+                <#-- the shipment id is printed at the beginning for each
                      group of invoice items created for the same shipment
                 -->
                 <fo:table-row height="14px">
@@ -117,22 +117,22 @@ under the License.
                 </fo:table-row>
                 <fo:table-row height="14px" space-start=".15in">
                     <fo:table-cell>
-                        <fo:block> ${invoiceItem.invoiceItemSeqId} </fo:block>               
-                    </fo:table-cell>    
+                        <fo:block> ${invoiceItem.invoiceItemSeqId} </fo:block>
+                    </fo:table-cell>
                     <fo:table-cell>
-                        <fo:block text-align="left">${invoiceItem.productId?if_exists} </fo:block>               
-                    </fo:table-cell>    
+                        <fo:block text-align="left">${invoiceItem.productId?if_exists} </fo:block>
+                    </fo:table-cell>
                     <fo:table-cell>
-                        <fo:block text-align="right">${description?if_exists}</fo:block>               
-                    </fo:table-cell>       
+                        <fo:block text-align="right">${description?if_exists}</fo:block>
+                    </fo:table-cell>
                       <fo:table-cell>
-                        <fo:block text-align="center"> <#if invoiceItem.quantity?exists>${invoiceItem.quantity?string.number}</#if> </fo:block>               
+                        <fo:block text-align="center"> <#if invoiceItem.quantity?exists>${invoiceItem.quantity?string.number}</#if> </fo:block>
                     </fo:table-cell>
                     <fo:table-cell text-align="right">
-                        <fo:block> <#if invoiceItem.quantity?exists><@ofbizCurrency amount=invoiceItem.amount?if_exists isoCode=invoice.currencyUomId?if_exists/></#if> </fo:block>               
+                        <fo:block> <#if invoiceItem.quantity?exists><@ofbizCurrency amount=invoiceItem.amount?if_exists isoCode=invoice.currencyUomId?if_exists/></#if> </fo:block>
                     </fo:table-cell>
                     <fo:table-cell text-align="right">
-                        <fo:block> <@ofbizCurrency amount=(Static["org.ofbiz.accounting.invoice.InvoiceWorker"].getInvoiceItemTotal(invoiceItem)) isoCode=invoice.currencyUomId?if_exists/> </fo:block>               
+                        <fo:block> <@ofbizCurrency amount=(Static["org.ofbiz.accounting.invoice.InvoiceWorker"].getInvoiceItemTotal(invoiceItem)) isoCode=invoice.currencyUomId?if_exists/> </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
         </#list>
@@ -168,11 +168,11 @@ under the License.
            </fo:table-cell>
            <fo:table-cell number-columns-spanned="1" text-align="right">
               <fo:block>
-                 <@ofbizCurrency amount=invoiceNoTaxTotal isoCode=invoice.currencyUomId?if_exists/>     
+                 <@ofbizCurrency amount=invoiceNoTaxTotal isoCode=invoice.currencyUomId?if_exists/>
               </fo:block>
            </fo:table-cell>
         </fo:table-row>
-    </fo:table-body>        
+    </fo:table-body>
  </fo:table>
 
  <#-- a block with the invoice message-->

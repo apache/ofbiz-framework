@@ -21,7 +21,7 @@ dojo.widget.defineWidget(
 	from: "",
 	to: "",
 	auto: "false",
-	postMixInProperties: function(){ 
+	postMixInProperties: function(){
 		// fix for very strange Opera 9 bug
 		if(dojo.render.html.opera){
 			this.action = this.action.split("/").pop();

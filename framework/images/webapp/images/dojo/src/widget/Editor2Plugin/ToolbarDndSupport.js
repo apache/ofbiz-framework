@@ -63,6 +63,6 @@ dojo.declare("dojo.widget.Editor2Plugin.ToolbarDndSupport", null,{
 		if(curInst){
 		}
 	},
-	getState: function(){	
+	getState: function(){
 	}
 });*/

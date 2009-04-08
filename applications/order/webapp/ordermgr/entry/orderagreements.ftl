@@ -75,8 +75,8 @@ under the License.
           </td>
         </tr>
       </#if>
-      
-      <#if "PURCHASE_ORDER" == cart.getOrderType()> 
+
+      <#if "PURCHASE_ORDER" == cart.getOrderType()>
         <tr>
           <td>&nbsp;</td>
           <td align='right' valign='middle' class='tableheadtext'>
@@ -86,9 +86,9 @@ under the License.
           <td align='left'>
             <input type='text' size='15' maxlength='100' name='orderId' value=""/>
           </td>
-        </tr>  
+        </tr>
       </#if>
-      
+
       <tr>
         <td>&nbsp;</td>
         <td align='right' valign='middle' class='tableheadtext' nowrap>
@@ -99,7 +99,7 @@ under the License.
           <input type='text' size='60' maxlength='100' name='orderName'/>
         </td>
       </tr>
-      
+
       <#if cart.getOrderType() != "PURCHASE_ORDER">
       <tr>
         <td>&nbsp;</td>
@@ -110,7 +110,7 @@ under the License.
         <td align='left'>
           <input type="text" class='inputBox' name="correspondingPoId" size="15">
         </td>
-      </tr>                                                           
+      </tr>
       </#if>
 
       <tr>
@@ -194,7 +194,7 @@ under the License.
           </a>
         </td>
       </tr>
-      
+
       <#if cart.getOrderType() == "PURCHASE_ORDER">
         <tr>
           <td>&nbsp;</td>
@@ -211,7 +211,7 @@ under the License.
           </td>
         </tr>
       </#if>
-      
+
     </table>
   </div>
 </div>

@@ -44,7 +44,7 @@ dojo.dnd.TreeDropTargetV3 = function(domNode, controller, type, treeNode){
 
 	this.treeNode = treeNode;
 	this.controller = controller; // I will sync-ly process drops
-	
+
 	dojo.dnd.HtmlDropTarget.call(this, domNode, type);
 }
 
@@ -72,13 +72,13 @@ dojo.lang.extend(dojo.dnd.TreeDropTargetV3, {
 		this.hideIndicator();
 
 		this.position = position;
-		
+
 		var node = this.treeNode;
-			
-		
+
+
 		node.contentNode.style.width = dojo.html.getBorderBox(node.labelNode).width + "px";
 
-		if (position == "onto") {					
+		if (position == "onto") {
 			node.contentNode.style.border = this.indicatorStyle;
 		} else {
 			// FIXME: bottom-top or highlight should cover ONLY top/bottom or div itself,
@@ -88,8 +88,8 @@ dojo.lang.extend(dojo.dnd.TreeDropTargetV3, {
 				node.contentNode.style.borderTop = this.indicatorStyle;
 			} else if (position == "after") {
 				node.contentNode.style.borderBottom = this.indicatorStyle;
-			}									
-		}  
+			}
+		}
 	},
 
 	hideIndicator: function() {
@@ -120,7 +120,7 @@ dojo.lang.extend(dojo.dnd.TreeDropTargetV3, {
 		if (accepts && this.treeNode.isFolder && !this.treeNode.isExpanded) {
 			this.setAutoExpandTimer();
 		}
-		
+
 		if (accepts) {
 			this.cacheNodeCoords();
 		}
@@ -141,7 +141,7 @@ dojo.lang.extend(dojo.dnd.TreeDropTargetV3, {
 		for(var i=0; i<dragObjects.length; i++) {
 			// there may be NO treeNode
 			var sourceTreeNode = dragObjects[i].treeNode;
-			
+
 			if (sourceTreeNode === this.treeNode) return false;
 		}
 
@@ -166,23 +166,23 @@ dojo.lang.extend(dojo.dnd.TreeDropTargetV3, {
 		this.autoExpandTimer = dojo.lang.setTimeout(autoExpand, _this.autoExpandDelay);
 	},
 
-		
+
 
 	getAcceptPosition: function(e, dragObjects) {
 
 
 		var DndMode = this.treeNode.tree.DndMode;
 
-		// disable ONTO mode possibility if impossible 
+		// disable ONTO mode possibility if impossible
 		if (DndMode & dojo.widget.TreeV3.prototype.DndModes.ONTO &&
 			// check if ONTO is allowed localy
 			// check dynamically cause may change w/o regeneration of dropTarget
-			this.treeNode.actionIsDisabledNow(this.treeNode.actions.ADDCHILD) 
+			this.treeNode.actionIsDisabledNow(this.treeNode.actions.ADDCHILD)
 		) {
 			// disable ONTO if can't move
 			DndMode &= ~dojo.widget.TreeV3.prototype.DndModes.ONTO;
 		}
-		
+
 
 		var position = this.getPosition(e, DndMode);
 
@@ -193,23 +193,23 @@ dojo.lang.extend(dojo.dnd.TreeDropTargetV3, {
 		if (position=="onto") {
 			return position;
 		}
-		
+
 		for(var i=0; i<dragObjects.length; i++) {
 			var source = dragObjects[i].dragSource;
 			if (source.treeNode && this.isAdjacentNode(source.treeNode, position)) { // skip check if same parent
 				continue;
-			}		
-						
+			}
+
 			if (!this.controller.canMove(source.treeNode ? source.treeNode : source, this.treeNode.parent)) {
 				return false;
 			}
 		}
-		
+
 		return position;
-	
+
 	},
 
-	
+
 
 	onDropEnd: function(e) {
 		this.clearAutoExpandTimer();
@@ -234,7 +234,7 @@ dojo.lang.extend(dojo.dnd.TreeDropTargetV3, {
 
 
 	onDragMove: function(e, dragObjects){
-		
+
 		var position = this.getAcceptPosition(e, dragObjects);
 
 		if (position) {
@@ -258,17 +258,17 @@ dojo.lang.extend(dojo.dnd.TreeDropTargetV3, {
 	 */
 	cacheNodeCoords: function() {
 		var node = this.treeNode.contentNode;
-		
+
 		this.cachedNodeY = dojo.html.getAbsolutePosition(node).y;
 		this.cachedNodeHeight = dojo.html.getBorderBox(node).height;
 	},
-	
-	
+
+
 
 	/* get DndMode and see which position e fits */
 	getPosition: function(e, DndMode) {
 		var mousey = e.pageY || e.clientY + dojo.body().scrollTop;
-		
+
 		var relY = mousey - this.cachedNodeY;
 		var p = relY / this.cachedNodeHeight;
 
@@ -321,12 +321,12 @@ dojo.lang.extend(dojo.dnd.TreeDropTargetV3, {
 	onDrop: function(e) {
 		// onDropEnd will clean position
 
-		
+
 		var position = this.position;
 
 //dojo.debug(position);
 		var source = e.dragObject.dragSource;
-		
+
 		//dojo.debug("onDrop "+source.treeNode+" " + position + " "+this.treeNode);
 
 
@@ -338,16 +338,16 @@ dojo.lang.extend(dojo.dnd.TreeDropTargetV3, {
 			targetIndex = this.getTargetParentIndex(source, position);
 			targetParent = this.treeNode.parent;
 		}
-		
+
 		//dojo.profile.start("onDrop "+sourceTreeNode);
 		var r = this.getDropHandler(e, source, targetParent, targetIndex)();
-		
+
 		//dojo.profile.end("onDrop "+sourceTreeNode);
-			
+
 		return r;
 
 	},
-	
+
 	/**
 	 * determine, which action I should perform with nodes
 	 * e.g move, clone..
@@ -357,7 +357,7 @@ dojo.lang.extend(dojo.dnd.TreeDropTargetV3, {
 		var _this = this;
 		handler = function () {
 			var result;
-			
+
 			//dojo.debug("Move "+source.treeNode+" to parent "+targetParent+":"+targetIndex);
 			if (source.treeNode) {
 				result = _this.controller.move(source.treeNode, targetParent, targetIndex, true);
@@ -366,7 +366,7 @@ dojo.lang.extend(dojo.dnd.TreeDropTargetV3, {
 				if (dojo.lang.isFunction(source.onDrop)) {
 					source.onDrop(targetParent, targetIndex);
 				}
-				
+
 				var treeNode = source.getTreeNode();
 				if (treeNode) {
 					result = _this.controller.createChild(targetParent, targetIndex, treeNode, true);
@@ -374,25 +374,25 @@ dojo.lang.extend(dojo.dnd.TreeDropTargetV3, {
 					result = true;
 				}
 			}
-			
+
 			if (result instanceof dojo.Deferred) {
 				// this Deferred is always sync
 				var isSuccess = result.fired == 0;
 				if (!isSuccess) {
 					_this.handleDropError(source, targetParent, targetIndex, result);
 				}
-				
-				return isSuccess;				
-				
+
+				return isSuccess;
+
 			} else {
 				return result;
 			}
 		}
-		
+
 		return handler;
 	},
-	
-	
+
+
 	handleDropError: function(source, parent, index, result) {
 		dojo.debug("TreeDropTargetV3.handleDropError: DND error occured");
 		dojo.debugShallow(result);

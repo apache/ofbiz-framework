@@ -47,7 +47,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="blogDecorator">
         <section>
             <widgets>
@@ -76,7 +76,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="blogArtDecorator">
         <section>
             <widgets>
@@ -105,12 +105,12 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="BlogMain">
         <section>
             <actions>
                 <set field="headerItem" value="Blog"/>
-                <entity-condition entity-name="ContentAssocViewTo" list="blogs" use-cache="true">                                  
+                <entity-condition entity-name="ContentAssocViewTo" list="blogs" use-cache="true">
                     <condition-list combine="and">
                         <condition-expr field-name="contentIdStart" operator="equals" value="BLOGROOT"/>
                         <condition-list combine="or">
@@ -155,7 +155,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="BlogContent">
         <section>
             <actions>
@@ -203,7 +203,7 @@ under the License.
                         <decorator-screen name="blogArtDecorator">
                             <decorator-section name="body">
                                 <sub-content content-id="${contentId}" map-key="IMAGE"/>
-                                <include-form name="EditArticle" location="component://ecommerce/widget/blog/BlogForms.xml"/>                                
+                                <include-form name="EditArticle" location="component://ecommerce/widget/blog/BlogForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </widgets>

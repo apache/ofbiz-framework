@@ -40,7 +40,7 @@ under the License.
                 <field-map field-name="entityName" value="PerfReview"/>
                 <field-map field-name="orderBy" value="perfReviewId"/>
             </service>
-        </actions>  
+        </actions>
         <auto-fields-entity entity-name="PerfReview" default-field-type="display"/>
         <field name="perfReviewId">
            <hyperlink also-hidden="false" description="${perfReviewId}" target="EditPerfReview">
@@ -49,7 +49,7 @@ under the License.
                 <parameter param-name="employeeRoleTypeId"/>
             </hyperlink>
         </field>
-    </form>     
+    </form>
     <form name="EditPerfReview" type="single" target="updatePerfReview" title="" default-map-name="perfReview"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="perfReview==null" target="createPerfReview"/>
@@ -67,9 +67,9 @@ under the License.
         </field>
         <field name="paymentId" title="${uiLabelMap.FormFieldTitle_paymentId}"><lookup target-form-name="LookupPayment"/></field>
         <field name="emplPositionId" title="${uiLabelMap.FormFieldTitle_emplPositionId}"><lookup target-form-name="LookupEmplPosition"/></field>
-        <field name="submitButton" use-when="perfReview==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
+        <field name="submitButton" use-when="perfReview==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="submitButton" use-when="perfReview!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-    </form>        
+    </form>
     <form name="ListPerfReviewItems" type="list" target="updatePerfReviewItem" title="updatePerfReviewItem" paginate-target="findPerfReviewItems"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -78,7 +78,7 @@ under the License.
                 <order-by field-name="perfReviewItemSeqId"/>
             </entity-condition>
         </actions>
-        <auto-fields-service default-field-type="display" service-name="updatePerfReviewItem"/>        
+        <auto-fields-service default-field-type="display" service-name="updatePerfReviewItem"/>
         <field name="perfReviewItemSeqId" widget-style="linktext">
             <hyperlink also-hidden="false" description="${perfReviewItemSeqId}" target="EditPerfReviewItem">
                 <parameter param-name="perfReviewItemSeqId"/>
@@ -95,12 +95,12 @@ under the License.
                 <parameter param-name="perfReviewItemSeqId"/>
             </hyperlink>
         </field>
-    </form>      
+    </form>
     <form name="AddPerfReviewItem" type="single" target="createPerfReviewItem" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createPerfReviewItem"/>
         <field name="perfReviewId"><hidden/></field>
-        <field name="perfReviewItemSeqId"><ignored/></field>        
+        <field name="perfReviewItemSeqId"><ignored/></field>
         <field name="employeePartyId"><hidden/></field>
         <field name="employeeRoleTypeId"><hidden/></field>
         <field name="perfReviewItemTypeId">

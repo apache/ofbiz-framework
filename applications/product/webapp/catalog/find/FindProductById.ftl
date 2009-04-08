@@ -52,7 +52,7 @@ under the License.
                   <#assign rowClass = "1">
                 <#else>
                   <#assign rowClass = "2">
-                </#if> 
+                </#if>
                 <#assign product = goodIdentification.getRelatedOneCache("Product")/>
                 <#assign goodIdentificationType = goodIdentification.getRelatedOneCache("GoodIdentificationType")/>
                 <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
@@ -67,6 +67,6 @@ under the License.
                 </tr>
             </#list>
           </table>
-        </#if>  
+        </#if>
     </div>
 </div>

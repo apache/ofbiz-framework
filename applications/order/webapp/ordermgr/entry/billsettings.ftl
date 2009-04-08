@@ -21,7 +21,7 @@ under the License.
 function shipBillAddr() {
     if (document.checkoutsetupform.useShipAddr.checked) {
         window.location = "<@ofbizUrl>setBilling?createNew=Y&finalizeMode=payment&paymentMethodType=${paymentMethodType?if_exists}&useShipAddr=Y</@ofbizUrl>";
-    } else { 
+    } else {
         window.location = "<@ofbizUrl>setBilling?createNew=Y&finalizeMode=payment&paymentMethodType=${paymentMethodType?if_exists}</@ofbizUrl>";
     }
 }
@@ -72,7 +72,7 @@ function makeExpDate() {
                   <td>&nbsp;</td>
                 </tr>
                 <tr><td colspan="3"><hr/></td></tr>
-              </#if>                                    
+              </#if>
               <tr>
                 <td width="1%">
                   <input type="radio" name="checkOutPaymentId" value="EXT_OFFLINE" <#if checkOutPaymentId?exists && checkOutPaymentId == "EXT_OFFLINE">checked="checked"</#if>/>
@@ -81,7 +81,7 @@ function makeExpDate() {
                   <span>${uiLabelMap.OrderPaymentOfflineCheckMoney}</span>
                 </td>
               </tr>
-             <tr><td colspan="3"><hr/></td></tr>                  
+             <tr><td colspan="3"><hr/></td></tr>
               <tr>
                 <td width="1%">
                   <input type="radio" name="checkOutPaymentId" value="EXT_COD" <#if checkOutPaymentId?exists && checkOutPaymentId == "EXT_COD">checked="checked"</#if>/>
@@ -95,7 +95,7 @@ function makeExpDate() {
                 <#list paymentMethodList as paymentMethod>
                   <#if paymentMethod.paymentMethodTypeId == "CREDIT_CARD">
                     <#assign creditCard = paymentMethod.getRelatedOne("CreditCard")>
-                    <tr>                 
+                    <tr>
                       <td width="1%">
                         <input type="radio" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if checkOutPaymentId?exists && paymentMethod.paymentMethodId == checkOutPaymentId>checked="checked"</#if>/>
                       </td>
@@ -104,7 +104,7 @@ function makeExpDate() {
                           CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
                           <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                           &nbsp;${uiLabelMap.OrderCardSecurityCode}&nbsp;<input type="text" size="5" maxlength="10" name="securityCode_${paymentMethod.paymentMethodId}" value=""/>
-                        </span>                            
+                        </span>
                       </td>
                       <td align="right"><a href="/partymgr/control/editcreditcard?party_id=${orderParty.partyId}&amp;paymentMethodId=${paymentMethod.paymentMethodId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></td>
                     </tr>
@@ -124,12 +124,12 @@ function makeExpDate() {
                     </tr>
                     <tr><td colspan="2"><hr/></td></tr>
                   </#if>
-                </#list>  
+                </#list>
               <#else>
-                <div><b>${uiLabelMap.AccountingNoPaymentMethods}</b></div>                                                     
+                <div><b>${uiLabelMap.AccountingNoPaymentMethods}</b></div>
               </#if>
             </table>
-          </form>  
+          </form>
         <#elseif paymentMethodType?exists || finalizeMode?default("") == "payment">
           <#-- after initial screen; show detailed screens for selected type -->
           <#if paymentMethodType == "CC">
@@ -144,17 +144,17 @@ function makeExpDate() {
             </#if>
           </#if>
           <#if paymentMethodType == "EFT">
-            <#if postalAddress?has_content>                  
+            <#if postalAddress?has_content>
               <form method="post" action="<@ofbizUrl>updateEftAndPostalAddress</@ofbizUrl>" name="checkoutsetupform">
                 <input type="hidden" name="paymentMethodId" value="${eftAccount.paymentMethodId?if_exists}"/>
                 <input type="hidden" name="contactMechId" value="${postalAddress.contactMechId?if_exists}"/>
             <#elseif requestParameters.useShipAddr?exists>
               <form method="post" action="<@ofbizUrl>createEftAccount</@ofbizUrl>" name="checkoutsetupform">
-            <#else>                    
+            <#else>
               <form method="post" action="<@ofbizUrl>createEftAndPostalAddress</@ofbizUrl>" name="checkoutsetupform">
-            </#if>        
+            </#if>
           </#if>
-          
+
           <input type="hidden" name="contactMechTypeId" value="POSTAL_ADDRESS"/>
           <input type="hidden" name="partyId" value="${cart.getPartyId()}"/>
           <input type="hidden" name="paymentMethodType" value="${paymentMethodType}"/>
@@ -163,7 +163,7 @@ function makeExpDate() {
           <#if requestParameters.useShipAddr?exists>
             <input type="hidden" name="contactMechId" value="${postalFields.contactMechId}"/>
           </#if>
-            
+
           <table width="100%" border="0" cellpadding="1" cellspacing="0">
             <#if cart.getShippingContactMechId()?exists>
             <tr>
@@ -178,7 +178,7 @@ function makeExpDate() {
               <td colspan="3"><hr/></td>
             </tr>
             </#if>
-            
+
             <#if orderPerson?has_content>
               <#assign toName = "">
               <#if orderPerson.personalTitle?has_content><#assign toName = orderPerson.personalTitle + " "></#if>
@@ -189,7 +189,7 @@ function makeExpDate() {
             <#else>
               <#assign toName = postalFields.toName?default("")>
             </#if>
-            
+
             <#-- generic address information -->
             <tr>
               <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonToName}</div></td>
@@ -259,8 +259,8 @@ function makeExpDate() {
                   ${screens.render("component://common/widget/CommonScreens.xml#countries")}
                 </select>
               *</td>
-            </tr> 
-            
+            </tr>
+
             <#-- credit card fields -->
             <#if paymentMethodType == "CC">
               <#if !creditCard?has_content>
@@ -363,8 +363,8 @@ function makeExpDate() {
                 </td>
               </tr>-->
               <tr>
-                <td width="26%" align="right" valign="top"><div>${uiLabelMap.AccountingExpirationDate}</div></td>        
-                <td width="5">&nbsp;</td>                    
+                <td width="26%" align="right" valign="top"><div>${uiLabelMap.AccountingExpirationDate}</div></td>
+                <td width="5">&nbsp;</td>
                 <td width="74%">
                   <#assign expMonth = "">
                   <#assign expYear = "">
@@ -376,7 +376,7 @@ function makeExpDate() {
                     </#if>
                   </#if>
                   <select name="expMonth" onchange="javascript:makeExpDate();">
-                    <#if creditCard?has_content && expMonth?has_content><#assign ccExprMonth = expMonth><#else><#assign ccExprMonth = requestParameters.expMonth?if_exists></#if>                        
+                    <#if creditCard?has_content && expMonth?has_content><#assign ccExprMonth = expMonth><#else><#assign ccExprMonth = requestParameters.expMonth?if_exists></#if>
                     <option value="${ccExprMonth?if_exists}">${ccExprMonth?if_exists}</option>
                     <option></option>
                     <option value="01">01</option>
@@ -393,9 +393,9 @@ function makeExpDate() {
                     <option value="12">12</option>
                   </select>
                   <select name="expYear" onchange="javascript:makeExpDate();">
-                    <#if creditCard?has_content && expYear?has_content><#assign ccExprYear = expYear><#else><#assign ccExprYear = requestParameters.expYear?if_exists></#if> 
+                    <#if creditCard?has_content && expYear?has_content><#assign ccExprYear = expYear><#else><#assign ccExprYear = requestParameters.expYear?if_exists></#if>
                     <option value="${ccExprYear?if_exists}">${ccExprYear?if_exists}</option>
-                    <option></option>          
+                    <option></option>
                     <option value="2005">2005</option>
                     <option value="2006">2006</option>
                     <option value="2007">2007</option>
@@ -406,7 +406,7 @@ function makeExpDate() {
                     <option value="2012">2012</option>
                     <option value="2013">2013</option>
                   </select>
-                *</td>                                                       
+                *</td>
               </tr>
               <tr>
                 <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonDescription}</div></td>
@@ -415,8 +415,8 @@ function makeExpDate() {
                   <input type="text" size="20" maxlength="30" name="description" value="${creditCard.description?if_exists}"/>
                 </td>
               </tr>
-                </#if>  
-                
+                </#if>
+
                 <#-- eft fields -->
                 <#if paymentMethodType =="EFT">
                   <#if !eftAccount?has_content>
@@ -479,13 +479,13 @@ function makeExpDate() {
                   <input type="text" size="30" maxlength="60" name="description" value="${eftAccount.description?if_exists}"/>
                 </td>
               </tr>
-            </#if>  	                                               
-          </table>                    	                                                                     
+            </#if>
+          </table>
         <#else>
           <#-- initial screen show a list of options -->
-            
+
           <script type="text/javascript">
-            
+
               function setCheckoutPaymentId( selectedValue ) {
                   checkoutForm = document.getElementById('checkoutsetupform');
                   if( selectedValue.match('^EXT_.*') ) {
@@ -499,8 +499,8 @@ function makeExpDate() {
           <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform" id="checkoutsetupform">
             <input type="hidden" name="finalizeMode" value="payment"/>
             <input type="hidden" name="createNew" value="Y"/>
-            <table width="100%" border="0" cellpadding="1" cellspacing="0"> 
-              <#if !requestParameters.createNew?exists>                                    
+            <table width="100%" border="0" cellpadding="1" cellspacing="0">
+              <#if !requestParameters.createNew?exists>
               <tr>
                 <td width='1%' nowrap><input type="radio" name="paymentMethodTypeAndId" value="EXT_OFFLINE" <#if checkOutPaymentId?exists && checkOutPaymentId == "EXT_OFFLINE">checked="checked"</#if> onchange="setCheckoutPaymentId(this.value)" onClick="setCheckoutPaymentId(this.value)"/></td>
                 <td width='50%'nowrap><div>${uiLabelMap.OrderPaymentOfflineCheckMoney}</div></td>

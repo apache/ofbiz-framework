@@ -152,4 +152,3 @@ under the License.
       </#if>
     </div>
   </div>
-  

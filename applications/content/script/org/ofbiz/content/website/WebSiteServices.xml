@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <!-- WebSite Services -->
@@ -26,7 +26,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="WebSite"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        
+
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateWebSite" short-description="Update a WebSite">
@@ -49,7 +49,7 @@ under the License.
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp field="nowTimestamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimestamp"/> 
+            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -89,7 +89,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="WebSiteContentType"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="WebSiteContentType" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>        
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- WebSite Path Alias -->
@@ -124,12 +124,12 @@ under the License.
         <make-value value-field="newEntity" entity-name="WebSiteRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        
+
         <if-empty field="newEntity.fromDate">
             <now-timestamp field="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
-        
+
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateWebSiteRole" short-description="Update WebSite Role">
@@ -153,7 +153,7 @@ under the License.
         </entity-one>
         <now-timestamp field="now"/>
         <log level="always" message="Parameters: ${parameters}"/>
-        
+
         <if-instance-of field="parameters.webSiteContentTypeId" class="String">
             <!-- just one checked -->
             <entity-one entity-name="WebSiteContentType" value-field="wct">
@@ -190,6 +190,6 @@ under the License.
                     <call-service service-name="createWebSiteContent" in-map-name="wcc"/>
                 </iterate>
             </else>
-        </if-instance-of>                
+        </if-instance-of>
     </simple-method>
 </simple-methods>

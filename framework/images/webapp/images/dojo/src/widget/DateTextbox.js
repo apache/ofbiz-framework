@@ -37,14 +37,14 @@ dojo.widget.defineWidget(
 
 			// First initialize properties in super-class.
 			dojo.widget.DateTextbox.superclass.mixInProperties.apply(this, arguments);
-	
+
 			// Get properties from markup attributes, and assign to flags object.
-			if(localProperties.format){ 
+			if(localProperties.format){
 				this.flags.format = localProperties.format;
 			}
 		},
 
-		isValid: function(){ 
+		isValid: function(){
 			// summary: see dojo.widget.ValidationTextbox
 
 			if(this.flags.format){
@@ -80,20 +80,20 @@ dojo.widget.defineWidget(
 
 			// First initialize properties in super-class.
 			dojo.widget.TimeTextbox.superclass.mixInProperties.apply(this, arguments);
-	
+
 			// Get properties from markup attributes, and assign to flags object.
-			if(localProperties.format){ 
+			if(localProperties.format){
 				this.flags.format = localProperties.format;
 			}
-			if(localProperties.amsymbol){ 
+			if(localProperties.amsymbol){
 				this.flags.amSymbol = localProperties.amsymbol;
 			}
-			if(localProperties.pmsymbol){ 
+			if(localProperties.pmsymbol){
 				this.flags.pmSymbol = localProperties.pmsymbol;
 			}
 		},
 
-		isValid: function(){ 
+		isValid: function(){
 			// summary: see dojo.widget.ValidationTextbox
 			if(this.flags.format){
 				dojo.deprecated("dojo.widget.TimeTextbox", "format attribute is deprecated; use displayFormat or formatLength instead", "0.5");

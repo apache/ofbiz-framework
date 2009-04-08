@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,26 +18,26 @@
     under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="EditSkillTypes">
-        <section>                        
+        <section>
             <actions>
                 <set field="headerItem" value="SkillType"/>
                 <set field="titleProperty" value="PageTitleListSkillTypes"/>
                 <set field="skillTypeId" from-field="parameters.skillTypeId"/>
                 <entity-one entity-name="SkillType" value-field="skillType"/>
-            </actions>            
+            </actions>
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                                                                                       
+                    <decorator-section name="body">
                         <screenlet id="AddSkillTypePanel" title="${uiLabelMap.HumanResAddSkillType}" collapsible="true">
                             <include-form name="AddSkillType" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
-                        </screenlet> 
+                        </screenlet>
                         <include-form name="ListSkillTypes" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>            
+            </widgets>
         </section>
     </screen>
     <screen name="EditResponsibilityTypes">
@@ -53,31 +53,31 @@
                     <decorator-section name="body">
                         <screenlet id="AddResponsibilityTypePanel" title="${uiLabelMap.HumanResAddEmplPositionResponsibility}" collapsible="true">
                             <include-form name="AddResponsibilityType" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
-                        </screenlet>    
-                        <include-form name="ListResponsibilityTypes" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>                        
+                        </screenlet>
+                        <include-form name="ListResponsibilityTypes" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
     <screen name="EditTerminationTypes">
-        <section>                        
+        <section>
             <actions>
                 <set field="tabButtonItem" value="TerminationType"/>
                 <set field="titleProperty" value="HumanResTerminationTypes"/>
                 <set field="terminationTypeId" from-field="parameters.terminationTypeId"/>
                 <entity-one entity-name="TerminationType" value-field="terminationType"/>
-            </actions>            
+            </actions>
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                                                                                       
+                    <decorator-section name="body">
                         <screenlet id="AddTerminationTypePanel" title="${uiLabelMap.HumanResAddTerminationType}" collapsible="true">
                             <include-form name="AddTerminationType" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                         </screenlet>
                         <include-form name="ListTerminationTypes" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>            
+            </widgets>
         </section>
     </screen>
     <screen name="FindEmplPositionTypes">
@@ -85,7 +85,7 @@
             <actions>
                 <set field="titleProperty" value="HumanResFindPositionTypes"/>
                 <set field="headerItem" value="EmplPositionTypes"/>
-                <set field="tabButtonItem" value="EmplPositionTypes"/>                
+                <set field="tabButtonItem" value="EmplPositionTypes"/>
                 <set field="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
                 <set field="emplPositionTypeCtx" from-field="parameters"/>
             </actions>
@@ -115,7 +115,7 @@
             <actions>
                 <set field="titleProperty" value="HumanResFindPositionTypes"/>
                 <set field="headerItem" value="EmplPositionTypes"/>
-                <set field="tabButtonItem" value="EmplPositionTypes"/>  
+                <set field="tabButtonItem" value="EmplPositionTypes"/>
                 <set field="tabButtonItem2" value="EditEmplPositionType"/>
                 <set field="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
                 <entity-one entity-name="EmplPositionType" value-field="emplPositionType"/>
@@ -127,7 +127,7 @@
                             <condition>
                                 <not>
                                     <if-empty field="emplPositionTypeId"/>
-                                </not>                                
+                                </not>
                             </condition>
                             <widgets>
                                 <include-menu location="component://humanres/widget/Menus.xml" name="EmplPositionTypeTabBar"/>
@@ -150,7 +150,7 @@
             <actions>
                 <set field="titleProperty" value="HumanResEmplPositionTypeRate"/>
                 <set field="headerItem" value="EmplPositionTypes"/>
-                <set field="tabButtonItem" value="EmplPositionTypes"/> 
+                <set field="tabButtonItem" value="EmplPositionTypes"/>
                 <set field="tabButtonItem2" value="EditEmplPositionTypeRate"/>
                 <set field="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
                 <entity-one entity-name="EmplPositionTypeRate" value-field="emplPositionTypeRate"/>
@@ -169,23 +169,23 @@
         </section>
     </screen>
     <screen name="EditTerminationReasons">
-        <section>            
+        <section>
             <actions>
                 <set field="titleProperty" value="HumanResAddTerminationReason"/>
                 <set field="tabButtonItem" value="TerminationReason"/>
                 <set field="terminationReasonId" from-field="parameters.terminationReasonId"/>
                 <entity-one entity-name="TerminationReason" value-field="terminationReason"/>
-            </actions>            
+            </actions>
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                        
+                    <decorator-section name="body">
                         <screenlet id="AddTerminationReasonPanel" title="${uiLabelMap.HumanResAddTerminationReason}" collapsible="true">
                             <include-form name="AddTerminationReason" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                         </screenlet>
                         <include-form name="ListTerminationReasons" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>                              
+            </widgets>
         </section>
     </screen>
 </screens>

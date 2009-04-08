@@ -32,9 +32,9 @@ dojo.widget.defineWidget(
 		var self=this;
 		this.timeZoneOffset=0;	//	this is fun.
 		this.label="";		//	optional label.
-		
+
 		this.date=new Date();
-		
+
 		this.handColor="#788598";
 		this.handStroke="#6f7b8c";
 	//	this.secondHandColor="#c90405";
@@ -86,13 +86,13 @@ dojo.widget.defineWidget(
 				this.draw();
 			}
 		},
-		start:function(){ 
+		start:function(){
 			// summary: start the clock.
-			this.timer.start(); 
+			this.timer.start();
 		},
-		stop:function(){ 
+		stop:function(){
 			// summary: stop the clock.
-			this.timer.stop(); 
+			this.timer.stop();
 		},
 
 		_initPoly:function(parent, points){
@@ -130,7 +130,7 @@ dojo.widget.defineWidget(
 			this._placeHand(this.hands.second, angle);
 			this._placeHand(this.shadows.second.shadow, angle, this.shadows.second.shift);
 		},
-		
+
 		init:function(){
 			// summary: initialize the widget by creating the initial shapes.
 			//	start by setting up the domNode
@@ -142,7 +142,7 @@ dojo.widget.defineWidget(
 			while(this.domNode.childNodes.length>0){
 				this.domNode.removeChild(this.domNode.childNodes[0]);
 			}
-			
+
 			//	set ourselves up.
 			this.domNode.style.width="150px";
 			this.domNode.style.height="150px";
@@ -150,27 +150,27 @@ dojo.widget.defineWidget(
 			this.surface=dojo.gfx.createSurface(this.domNode, 150, 150);
 			this.surface.createRect({width: 150, height: 150});
 			this.surface.createImage({width: 150, height: 150, src: this.image+""});
-			
+
 			var hP=[ {x: -3, y: -4}, {x: 3, y: -4}, {x: 1, y: -27}, { x:-1, y:-27}, {x: -3, y: -4} ];
 			var mP=[ {x: -3, y: -4}, {x: 3, y: -4}, {x: 1, y: -38}, {x:-1, y:-38}, {x: -3, y: -4} ];
 			var sP=[ {x: -2, y: -2}, {x: 2, y: -2}, {x: 1, y: -45}, {x: -1, y: -45}, {x: -2, y: -2} ];
-			
+
 			this.shadows.hour.shadow = this._initPoly(this.surface, hP)
 				.setFill([0, 0, 0, 0.1]);
 			this.hands.hour = this._initPoly(this.surface, hP)
 				.setStroke({color: this.handStroke, width:1 })
-				.setFill({ 
-					type:"linear", 
-					x1:0, y1:0, x2:0, y2:-27, 
+				.setFill({
+					type:"linear",
+					x1:0, y1:0, x2:0, y2:-27,
 					colors:[{offset:0, color:"#fff"}, {offset:0.33, color:this.handColor}]
 				});
 			this.shadows.minute.shadow = this._initPoly(this.surface, mP)
 				.setFill([0, 0, 0, 0.1]);
 			this.hands.minute = this._initPoly(this.surface, mP)
 				.setStroke({color: this.handStroke, width:1 })
-				.setFill({ 
-					type:"linear", 
-					x1:0, y1:0, x2:0, y2:-38, 
+				.setFill({
+					type:"linear",
+					x1:0, y1:0, x2:0, y2:-38,
 					colors:[{offset:0, color:"#fff"}, {offset:0.33, color:this.handColor}]
 				});
 
@@ -221,7 +221,7 @@ dojo.widget.defineWidget(
 			}
 			this.labelNode.innerHTML=this.label||"&nbsp;";
 			this.domNode.appendChild(this.labelNode);
-			
+
 			this.draw();
 		},
 		postCreate:function(){

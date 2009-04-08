@@ -61,7 +61,7 @@ import org.ofbiz.service.ServiceUtil;
 /**
  * InvoiceServices - Services for creating invoices
  *
- * Note that throughout this file we use BigDecimal to do arithmetic. It is 
+ * Note that throughout this file we use BigDecimal to do arithmetic. It is
  * critical to understand the way BigDecimal works if you wish to modify the
  * computations in this file. The most important things to keep in mind:
  *
@@ -585,7 +585,7 @@ public class InvoiceServices {
 
                             // If the OrderAdjustment is associated to a ProductPromo,
                             // and the field ProductPromo.overrideOrgPartyId is set,
-                            // copy the value to InvoiceItem.overrideOrgPartyId: this 
+                            // copy the value to InvoiceItem.overrideOrgPartyId: this
                             // represent an organization override for the payToPartyId
                             if (UtilValidate.isNotEmpty(adj.getString("productPromoId"))) {
                                 try {

@@ -20,7 +20,7 @@ under the License.
 <#-- looping macro -->
 <#macro categoryList parentCategory category>
   <#if parentCategory.productCategoryId != category.productCategoryId>
-    <#local pStr = "&amp;pcategory=" + parentCategory.productCategoryId>  
+    <#local pStr = "&amp;pcategory=" + parentCategory.productCategoryId>
   </#if>
   <#if curCategoryId?exists && curCategoryId == category.productCategoryId>
     <div class="browsecategorytext">
@@ -35,15 +35,15 @@ under the License.
   <#else>
     <div class="browsecategorytext">
         <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?has_content>
-          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybutton">${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")} [${category.productCategoryId}]</a>            
+          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybutton">${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")} [${category.productCategoryId}]</a>
         <#elseif catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("DESCRIPTION")?has_content>
-          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybutton">${catContentWrappers[category.productCategoryId].get("DESCRIPTION")} [${category.productCategoryId}]</a>            
+          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybutton">${catContentWrappers[category.productCategoryId].get("DESCRIPTION")} [${category.productCategoryId}]</a>
         <#else>
           <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybutton">${category.categoryName?default(category.description)?if_exists} [${category.productCategoryId}]</a>
-       </#if>          
+       </#if>
     </div>
   </#if>
-  
+
   <#if (Static["org.ofbiz.product.category.CategoryWorker"].checkTrailItem(request, category.getString("productCategoryId"))) || (curCategoryId?exists && curCategoryId == category.productCategoryId)>
     <#local subCatList = Static["org.ofbiz.product.category.CategoryWorker"].getRelatedCategoriesRet(request, "subCatList", category.getString("productCategoryId"), true)>
     <#if subCatList?exists>

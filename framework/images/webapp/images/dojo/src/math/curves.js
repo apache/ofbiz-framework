@@ -148,7 +148,7 @@ dojo.math.curves = {
 
 			retVal[0] = this.center[0] + this.radius*Math.sin(theta);
 			retVal[1] = this.center[1] - this.radius*Math.cos(theta);
-	
+
 			return retVal;	//	array
 		}
 

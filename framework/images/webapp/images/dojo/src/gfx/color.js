@@ -94,7 +94,7 @@ dojo.gfx.color.named = {
 };
 
 dojo.gfx.color.blend = function(a, b, weight){
-	// summary: 
+	// summary:
 	//		blend colors a and b (both as RGB array or hex strings) with weight
 	//		from -1 to +1, 0 being a 50/50 blend
 	if(typeof a == "string"){
@@ -108,7 +108,7 @@ dojo.gfx.color.blend = function(a, b, weight){
 	// alex: this interface blows.
 	// map -1 to 1 to the range 0 to 1
 	weight = ((weight + 1)/2);
-	
+
 	var c = [];
 
 	// var stop = (1000*weight);

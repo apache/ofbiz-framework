@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -56,9 +56,9 @@
         <actions>
             <entity-one entity-name="SalaryStep" auto-field-map="true"/>
             <entity-condition entity-name="SalaryStep"><order-by field-name="salaryStepSeqId"/></entity-condition>
-        </actions>  
-        <auto-fields-service service-name="updateSalaryStep"/>       
-        <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}"><display also-hidden="true"/></field>                   
+        </actions>
+        <auto-fields-service service-name="updateSalaryStep"/>
+        <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}"><display also-hidden="true"/></field>
         <field name="payGradeId"><hidden/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
@@ -70,8 +70,8 @@
         </field>
     </form>
     <form name="AddSalaryStep" type="single" target="createSalaryStep"
-        header-row-style="header-row" default-table-style="basic-table">    
-        <auto-fields-service service-name="createSalaryStep"/>        
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createSalaryStep"/>
         <field name="salaryStepSeqId"><ignored/></field>
         <field name="payGradeId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>

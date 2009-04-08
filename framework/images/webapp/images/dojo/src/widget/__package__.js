@@ -9,9 +9,9 @@
 */
 
 dojo.kwCompoundRequire({
-	common: ["dojo.xml.Parse", 
-			 "dojo.widget.Widget", 
-			 "dojo.widget.Parse", 
+	common: ["dojo.xml.Parse",
+			 "dojo.widget.Widget",
+			 "dojo.widget.Parse",
 			 "dojo.widget.Manager"],
 	browser: ["dojo.widget.DomWidget",
 			  "dojo.widget.HtmlWidget"],

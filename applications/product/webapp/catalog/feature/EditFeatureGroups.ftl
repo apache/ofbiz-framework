@@ -45,7 +45,7 @@ under the License.
               <#assign rowClass = "1">
             <#else>
               <#assign rowClass = "2">
-            </#if> 
+            </#if>
           </#list>
         </table>
         <br/>

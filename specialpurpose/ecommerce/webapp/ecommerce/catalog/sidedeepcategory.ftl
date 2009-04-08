@@ -27,7 +27,7 @@ under the License.
   <#else>
       <#assign categoryName = category.categoryName?if_exists>
   </#if>
-  <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("DESCRIPTION")?exists> 
+  <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("DESCRIPTION")?exists>
       <#assign categoryDescription = catContentWrappers[category.productCategoryId].get("DESCRIPTION")>
   <#else>
       <#assign categoryDescription = category.description?if_exists>

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,7 +27,7 @@ function other_choice(dropDown) {
 function activate(field) {
   field.disabled=false;
   if(document.styleSheets)field.style.visibility  = 'visible';
-  field.focus(); 
+  field.focus();
 }
 
 function process_choice(selection,textfield) {
@@ -35,9 +35,9 @@ function process_choice(selection,textfield) {
   if(b) {
     activate(textfield); }
   else {
-    textfield.disabled = true;    
+    textfield.disabled = true;
     if(document.styleSheets)textfield.style.visibility  = 'hidden';
-    textfield.value = ''; 
+    textfield.value = '';
   }
 }
 
@@ -45,6 +45,6 @@ function check_choice(dropDown) {
   if(!other_choice(dropDown)) {
     dropDown.blur();
     alert('Please check your menu selection first');
-    dropDown.focus(); 
+    dropDown.focus();
   }
 }

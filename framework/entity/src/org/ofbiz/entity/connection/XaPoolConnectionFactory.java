@@ -108,7 +108,7 @@ public class XaPoolConnectionFactory {
             // set the transaction manager in the pool
             pds.setTransactionManager(TransactionFactory.getTransactionManager());
 
-            // configure the pool settings 
+            // configure the pool settings
             try {
                 pds.setMaxSize(Integer.parseInt(jotmJdbcElement.getAttribute("pool-maxsize")));
                 pds.setMinSize(Integer.parseInt(jotmJdbcElement.getAttribute("pool-minsize")));

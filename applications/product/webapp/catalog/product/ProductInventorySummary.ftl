@@ -25,7 +25,7 @@ under the License.
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductInventorySummary}</h3>
     </div>
-    <div class="screenlet-body"> 
+    <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">
             <tr class="header-row">
                 <td><b>${uiLabelMap.ProductFacility}</b></td>
@@ -54,7 +54,7 @@ under the License.
                     <#assign outgoingProductionRunList = manufacturingOutQuantitySummary.outgoingProductionRunList?if_exists>
                     <#assign outgoingQuantityTotal = manufacturingOutQuantitySummary.estimatedQuantityTotal?if_exists>
                     <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                        <td>${(facility.facilityName)?if_exists} [${facilityId?default("[No Facility]")}] 
+                        <td>${(facility.facilityName)?if_exists} [${facilityId?default("[No Facility]")}]
                         <a href="/facility/control/ReceiveInventory?facilityId=${facilityId}&productId=${productId}&externLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.ProductInventoryReceive}</a></td>
                         <td><#if totalAvailableToPromise?exists>${totalAvailableToPromise}<#else>&nbsp;</#if></td>
                         <td><#if totalQuantityOnHand?exists>${totalQuantityOnHand}<#else>&nbsp;</#if></td>

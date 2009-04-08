@@ -28,15 +28,15 @@ under the License.
 <#if periods?has_content>
   <#if (maxConcurrentEntries < 2)>
     <#assign entryWidth = 100>
-  <#else> 
+  <#else>
     <#assign entryWidth = (100 / (maxConcurrentEntries))>
   </#if>
-<table cellspacing="0" class="basic-table calendar">              
-  <tr class="header-row">             
+<table cellspacing="0" class="basic-table calendar">
+  <tr class="header-row">
     <td>${uiLabelMap.CommonTime}</td>
     <td colspan=${maxConcurrentEntries}>${uiLabelMap.WorkEffortCalendarEntries}</td>
   </tr>
-  <#list periods as period>              
+  <#list periods as period>
     <#assign currentPeriod = false/>
     <#if (nowTimestamp >= period.start) && (nowTimestamp <= period.end)><#assign currentPeriod = true/></#if>
   <tr<#if currentPeriod> class="current-period"<#else><#if (period.calendarEntries?size > 0)> class="active-period"</#if></#if>>
@@ -67,8 +67,8 @@ under the License.
       <td width="${entryWidth?string("#")}%">&nbsp;</td>
     </#if>
   </tr>
-  </#list>                  
+  </#list>
 </table>
-<#else>               
+<#else>
   <div class="screenlet-body">${uiLabelMap.WorkEffortFailedCalendarEntries}!</div>
 </#if>

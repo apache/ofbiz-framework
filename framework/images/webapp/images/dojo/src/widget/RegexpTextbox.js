@@ -20,8 +20,8 @@ dojo.widget.defineWidget(
 		summary
 		  A subclass of ValidationTextbox.
 		  Over-rides isValid to test input based on a regular expression.
-		  Has a new property that can be specified as attributes in the markup. 
-		
+		  Has a new property that can be specified as attributes in the markup.
+
 		regexp: String
 		       The regular expression string to use
 		flags: String

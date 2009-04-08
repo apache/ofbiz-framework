@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -29,7 +29,7 @@ import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.transaction.*;
 
 messages = [];
-    
+
 xpdlLoc = parameters.XPDL_LOCATION;
 xpdlIsUrl = parameters.XPDL_IS_URL != null;
 xpdlImport = parameters.XPDL_IMPORT != null;
@@ -57,7 +57,7 @@ try {
     messages.add(e.toString());
     Debug.log(e);
 }
-    
+
 if (toBeStored && xpdlImport) {
     beganTransaction = false;
     try {

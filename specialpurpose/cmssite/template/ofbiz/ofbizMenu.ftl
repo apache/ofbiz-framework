@@ -32,7 +32,7 @@ under the License.
         <a href="VideosConf.html">Conference Videos</a>
         <a href="http://docs.ofbiz.org/x/PQM">Framework Intro Videos</a>
 
-        
+
         <h2>Demo Sites</h2>
         <h3>Trunk Demo</h3>
         <a href="http://demo.hotwaxmedia.com/ecommerce/control/main" target="_blank">eCommerce Demo</a>
@@ -43,14 +43,14 @@ under the License.
         <a href="https://demo40.hotwaxmedia.com/catalog/control/login/main?USERNAME=demoadmin&amp;PASSWORD=ofbiz" target="_blank">Management Apps</a>
         <h3>Other Demos</h3>
         <a href="http://docs.ofbiz.org/x/yg4" target="_blank">Alternative Demo Servers</a>
-      
+
         <h2>Download OFBiz</h2>
         <a href="http://docs.ofbiz.org/x/rwM">Getting Started (Read this first)</a>
         <a href="http://docs.ofbiz.org/x/mAM">Copyright &amp; License</a>
 
         <a href="http://docs.ofbiz.org/x/mgM">Source Access (Recommended)</a>
         <a href="http://build.hotwaxmedia.com/">Nightly Builds (Ready to use)</a>
-        
+
         <h2>Resources &amp; Tools</h2>
         <a href="http://docs.ofbiz.org/x/Swg">Main Documentation Page</a>
         <a href="http://docs.ofbiz.org/x/yAk">Mailing Lists</a>
@@ -75,12 +75,12 @@ under the License.
         <a href="http://sourceforge.net/projects/ofbiz">The Old SourceForge.net Site</a>
         <a href="http://incubator.apache.org/projects/ofbiz.html">Apache Incubator Status</a>
         -->
-        
+
         <h2>Apache OFBiz Related Blogs</h2>
         <a href="http://osofbiz.blogspot.com">Open Source Business and Open For Business by David E. Jones</a>
 
         <a href="http://ofbiz-new.blogspot.com">What's New in OFBiz by Si Chen</a>
-        
+
         <h2>Apache OFBiz Communities</h2>
         <h3>Locales</h3>
   <!-- not really a community?
@@ -112,12 +112,12 @@ under the License.
         <a href="http://www.nereide.biz" target="_blank"><b>Nereide</b></a>
         <a href="mailto:dirk.osterkamp@agrenon.com" target="_blank"><b>Agrenon GmbH</b></a>
 
-        
+
         <h2>Apache Software Foundation</h2>
-        <a href="http://www.apache.org" target="_blank"><b>Apache Software Foundation</b></a>  
-        <a href="http://www.apache.org/foundation/sponsorship.html" target="_blank"><b>Sponsorship</b></a>  
+        <a href="http://www.apache.org" target="_blank"><b>Apache Software Foundation</b></a>
+        <a href="http://www.apache.org/foundation/sponsorship.html" target="_blank"><b>Sponsorship</b></a>
         <a href="http://www.apache.org/foundation/thanks.html" target="_blank"><b>Sponsors</b></a>
-        
+
         <h2>OFBiz Infra Sponsorship</h2>
         <h3>Demos, Nightly Builds, API Site, and Docs Site Provided by <a href="http://www.hotwaxmedia.com/?atc=OFB" target="_blank">Hotwax Media</a> and <a href="http://www.contegix.com/" target="_blank">Contegix</a></h3>
 

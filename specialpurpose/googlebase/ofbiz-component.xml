@@ -29,7 +29,7 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/GoogleBaseSecurityData.xml"/>
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
-    
+
     <webapp name="googlebase"
         title="Google Base"
         menu-name="secondary"

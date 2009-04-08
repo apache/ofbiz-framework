@@ -58,12 +58,12 @@ under the License.
     </xs:complexType>
 </xs:schema>
 <!--
-    
+
     Container properties are relative to the implementation class for details
     of which properties are available see the docs on the class defined.
-    
+
     Example:
-    
+
     <ofbiz-containers>
         <container name="jetty-container" class="org.ofbiz.base.container.JettyContainer">
             <property name="default-listener">
@@ -82,5 +82,5 @@ under the License.
             <property name="party" value="${ofbiz.home}/applications/party/component.xml"/>
         </container>
     </ofbiz-containers>
-    
+
 -->

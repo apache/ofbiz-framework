@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Handheld Facility Demo Services</description>
 
@@ -50,9 +50,9 @@ under the License.
     <service name="updateProductStocktake" engine="java"
                 location="org.ofbiz.hhfacility.FacilityServices" invoke="updateProductStocktake" auth="true">
         <description>
-            Pass this a productId, facilityId, locationSeqId and a desired QOH and it will adjust stock levels to match. 
+            Pass this a productId, facilityId, locationSeqId and a desired QOH and it will adjust stock levels to match.
             QOH is expected to be what you can see on the shelf.
-            Pass in locationSeqIdNew and all inventoryItems found with the above criteria will be moved to the new location. 
+            Pass in locationSeqIdNew and all inventoryItems found with the above criteria will be moved to the new location.
         </description>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
         <attribute name="locationSeqId" type="String" mode="IN" optional="false"/>

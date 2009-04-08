@@ -1108,12 +1108,12 @@ under the License.
                                         </service>
                                         <set field="phases" from-field="result.phaseList"/>
                                     </actions>
-                                    <widgets>                
+                                    <widgets>
                                         <container style="screenlet">
                                             <screenlet title="${uiLabelMap.ProjectMgrPhases}">
                                                 <include-form name="ListPhaseInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                                             </screenlet>
-                                        </container>               
+                                        </container>
                                     </widgets>
                                 </section>
                             </container>
@@ -1128,7 +1128,7 @@ under the License.
                                     <widgets>
                                         <screenlet title="${uiLabelMap.ProjectMgrTasks}" navigation-form-name="ListTaskInfo">
                                             <include-form name="ListTaskInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                        </screenlet>                
+                                        </screenlet>
                                     </widgets>
                                 </section>
                             </container>
@@ -1152,5 +1152,5 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
 </screens>

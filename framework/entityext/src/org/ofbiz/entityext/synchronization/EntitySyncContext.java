@@ -210,7 +210,7 @@ public class EntitySyncContext {
 
     /**
      * To see if it is running check:
-     *  - in the running status 
+     *  - in the running status
      *  - AND when the entitySync was last updated, and if it was more than maxRunningNoUpdateMillis ago, then don't consider it to be running
      * @return boolean representing if the EntitySync should be considered running
      */

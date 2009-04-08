@@ -81,7 +81,7 @@ cometd = new function(){
 			dojo.debug("no cometd root specified in djConfig and no root passed");
 			return;
 		}
-		
+
 		// FIXME: we need to select a way to handle JSONP-style stuff
 		// generically here. We already know if the server is gonna be on
 		// another domain (or can know it), so we should select appropriate
@@ -215,7 +215,7 @@ cometd = new function(){
 
 	// public API functions called by end users
 	this.publish = function(/*string*/channel, /*object*/data, /*object*/properties){
-		// summary: 
+		// summary:
 		//		publishes the passed message to the cometd server for delivery
 		//		on the specified topic
 		// channel:
@@ -239,9 +239,9 @@ cometd = new function(){
 		return this.currentTransport.sendMessage(message);
 	}
 
-	this.subscribe = function(	/*string*/				channel, 
-								/*boolean, optional*/	useLocalTopics, 
-								/*object, optional*/	objOrFunc, 
+	this.subscribe = function(	/*string*/				channel,
+								/*boolean, optional*/	useLocalTopics,
+								/*object, optional*/	objOrFunc,
 								/*string, optional*/	funcName){ // return: boolean
 		// summary:
 		//		inform the server of this client's interest in channel
@@ -280,15 +280,15 @@ cometd = new function(){
 		});
 	}
 
-	this.subscribed = function(	/*string*/				channel, 
+	this.subscribed = function(	/*string*/				channel,
 								/*obj*/					message){
 		dojo.debug(channel);
 		dojo.debugShallow(message);
 	}
 
-	this.unsubscribe = function(/*string*/				channel, 
-								/*boolean, optional*/	useLocalTopics, 
-								/*object, optional*/	objOrFunc, 
+	this.unsubscribe = function(/*string*/				channel,
+								/*boolean, optional*/	useLocalTopics,
+								/*object, optional*/	objOrFunc,
 								/*string, optional*/	funcName){ // return: boolean
 		// summary:
 		//		inform the server of this client's disinterest in channel
@@ -324,7 +324,7 @@ cometd = new function(){
 		});
 	}
 
-	this.unsubscribed = function(/*string*/				channel, 
+	this.unsubscribed = function(/*string*/				channel,
 								/*obj*/					message){
 		dojo.debug(channel);
 		dojo.debugShallow(message);

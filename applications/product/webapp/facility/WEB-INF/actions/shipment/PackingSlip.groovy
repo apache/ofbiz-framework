@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -47,12 +47,12 @@ shipmentItems.each { shipmentItem ->
 }
 
 // Add in the total of all previously shipped items
-previousShipmentIter = delegator.find("Shipment", 
+previousShipmentIter = delegator.find("Shipment",
         EntityCondition.makeCondition(
             UtilMisc.toList(
                 EntityCondition.makeCondition("primaryOrderId", EntityOperator.EQUALS, shipment.getString("primaryOrderId")),
                 EntityCondition.makeCondition("shipmentTypeId", EntityOperator.EQUALS, "SALES_SHIPMENT"),
-                EntityCondition.makeCondition("createdDate", EntityOperator.LESS_THAN_EQUAL_TO, 
+                EntityCondition.makeCondition("createdDate", EntityOperator.LESS_THAN_EQUAL_TO,
                         ObjectType.simpleTypeConvert(shipment.getString("createdDate"), "Timestamp", null, null))
             ),
         EntityOperator.AND), null, null, null, null);

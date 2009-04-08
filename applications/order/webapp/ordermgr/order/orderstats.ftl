@@ -30,7 +30,7 @@ under the License.
             <td align="right">${uiLabelMap.CommonToday}</td>
             <td align="right">${uiLabelMap.OrderWTD}</td>
             <td align="right">${uiLabelMap.OrderMTD}</td>
-            <td align="right">${uiLabelMap.OrderYTD}</td>      
+            <td align="right">${uiLabelMap.OrderYTD}</td>
           </tr>
           <tr>
           <td colspan="2">&nbsp;</td>
@@ -83,7 +83,7 @@ under the License.
             <td align="right">${weekItemCountPaid?string.number}</td>
             <td align="right">${monthItemCountPaid?string.number}</td>
             <td align="right">${yearItemCountPaid?string.number}</td>
-          </tr>      
+          </tr>
           <tr class="alternate-row">
             <td>&nbsp;</td>
             <td>${uiLabelMap.OrderPendingPaymentItemsSoldIncludesPromotions}</td>
@@ -91,7 +91,7 @@ under the License.
             <td align="right">${weekItemCountPending?string.number}</td>
             <td align="right">${monthItemCountPending?string.number}</td>
             <td align="right">${yearItemCountPending?string.number}</td>
-          </tr>      
+          </tr>
           <tr><td colspan="6"><hr/></td></tr>
           <tr>
             <td class="label">${uiLabelMap.OrderOrdersPending}</td>
@@ -112,7 +112,7 @@ under the License.
             <td align="right">--</td>
             <td align="right">--</td>
             <td align="right">--</td>
-          </tr> 
+          </tr>
           <tr>
             <td>&nbsp;</td>
             <td>${uiLabelMap.OrderWaitingCompletion}</td>
@@ -120,7 +120,7 @@ under the License.
             <td align="right">--</td>
             <td align="right">--</td>
             <td align="right">--</td>
-          </tr>             
+          </tr>
           <tr><td colspan="6"><hr/></td></tr>
           <tr>
             <td class="label">${uiLabelMap.OrderStatusChanges}</td>
@@ -141,7 +141,7 @@ under the License.
             <td align="right">${weekApprove?size?default(0)?string.number}</td>
             <td align="right">${monthApprove?size?default(0)?string.number}</td>
             <td align="right">${yearApprove?size?default(0)?string.number}</td>
-          </tr>      
+          </tr>
           <tr class="alternate-row">
             <td>&nbsp;</td>
             <td>${uiLabelMap.OrderCompleted}</td>
@@ -149,7 +149,7 @@ under the License.
             <td align="right">${weekComplete?size?default(0)?string.number}</td>
             <td align="right">${monthComplete?size?default(0)?string.number}</td>
             <td align="right">${yearComplete?size?default(0)?string.number}</td>
-          </tr>      
+          </tr>
           <tr>
             <td>&nbsp;</td>
             <td>${uiLabelMap.OrderCancelled}</td>
@@ -157,7 +157,7 @@ under the License.
             <td align="right">${weekCancelled?size?default(0)?string.number}</td>
             <td align="right">${monthCancelled?size?default(0)?string.number}</td>
             <td align="right">${yearCancelled?size?default(0)?string.number}</td>
-          </tr>  
+          </tr>
           <tr class="alternate-row">
             <td>&nbsp;</td>
             <td>${uiLabelMap.OrderRejected}</td>
@@ -165,7 +165,7 @@ under the License.
             <td align="right">${weekRejected?size?default(0)?string.number}</td>
             <td align="right">${monthRejected?size?default(0)?string.number}</td>
             <td align="right">${yearRejected?size?default(0)?string.number}</td>
-          </tr>                         
+          </tr>
         </table>
     </div>
 </div>

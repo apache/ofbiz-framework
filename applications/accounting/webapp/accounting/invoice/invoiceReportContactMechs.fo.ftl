@@ -39,7 +39,7 @@ under the License.
     </#if>
     <#if billingPartyTaxId?has_content>
         <fo:block>Tax ID: ${billingPartyTaxId}</fo:block>
-    </#if>            
+    </#if>
         </fo:table-cell>
     </fo:table-row>
   </fo:table-body>

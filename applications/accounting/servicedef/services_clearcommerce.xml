@@ -17,8 +17,8 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
- 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Clear Commerce Services</description>
     <vendor>OFBiz</vendor>
@@ -50,12 +50,12 @@ under the License.
         location="org.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccCredit">
         <description>ClearCommerce Credit Card Credit</description>
         <implements service="ccCreditInterface"/>
-        <attribute name="orderId" type="String" mode="IN" optional="false"/> 
+        <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="pbOrder" type="Map" mode="IN" optional="true"/> <!-- map of the 3 values below -->
-        <attribute name="OrderFrequencyCycle" type="String" mode="IN" optional="true"/> 
-        <attribute name="OrderFrequencyInterval" type="String" mode="IN" optional="true"/> 
+        <attribute name="OrderFrequencyCycle" type="String" mode="IN" optional="true"/>
+        <attribute name="OrderFrequencyInterval" type="String" mode="IN" optional="true"/>
         <attribute name="TotalNumberPayments" type="String" mode="IN" optional="true"/>
-        
+
     </service>
     <service name="clearCommerceCCReport" engine="java"
         location="org.ofbiz.accounting.thirdparty.clearcommerce.CCPaymentServices" invoke="ccReport">

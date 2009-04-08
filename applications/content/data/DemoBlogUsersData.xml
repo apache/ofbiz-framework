@@ -51,33 +51,33 @@ under the License.
     <ContentPurpose contentId="BLOGROOTBIGAL" contentPurposeTypeId="ARTICLE"/>
     <UserLoginSecurityGroup userLoginId="bigal" groupId="CONTENT_USER"  fromDate="2004-09-15 00:00:00.000"/>
     <!-- Updating BLOGROOTBIGAL with bigal as creator so that he will be found as "owner" for subrecords.
-         This is used in a screen permission test. 
+         This is used in a screen permission test.
          -->
     <Party partyId="BLOG_USERS" partyTypeId="PARTY_GROUP"/>
     <Party partyId="BLOG_EDITORS" partyTypeId="PARTY_GROUP"/>
     <Party partyId="BLOG_ADMINS" partyTypeId="PARTY_GROUP"/>
     <Party partyId="BLOG_AUTHORS" partyTypeId="PARTY_GROUP"/>
     <Party partyId="BLOG_PUBLISHERS" partyTypeId="PARTY_GROUP"/>
-     
+
     <DataSource dataSourceId="BLOG_SITE" dataSourceTypeId="WEBSITE_ENTRY" description="Blog Site"/>
-     
+
     <PartyRole partyId="BLOG_USERS" roleTypeId="CONTENT_USER"/>
     <PartyRole partyId="BLOG_EDITORS" roleTypeId="CONTENT_EDITOR"/>
     <PartyRole partyId="BLOG_AUTHORS" roleTypeId="CONTENT_AUTHOR"/>
     <PartyRole partyId="BLOG_ADMINS" roleTypeId="CONTENT_ADMIN"/>
     <PartyRole partyId="BLOG_PUBLISHERS" roleTypeId="CONTENT_ADMIN"/>
-     
+
     <UserLogin userLoginId="blog_guest" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
     <UserLogin userLoginId="blog_admin" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
     <UserLogin userLoginId="blog_author" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
     <UserLogin userLoginId="blog_editor" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a" passwordHint=""/>
-    
-    <Content contentId="BLOGROOTBIGAL"  
-     createdByUserLogin="bigal" 
-     lastModifiedByUserLogin="bigal" 
-     createdDate="2004-10-16 17:32:31.285" 
-     lastModifiedDate="2004-10-16 17:32:31.291"/> 
-     
+
+    <Content contentId="BLOGROOTBIGAL"
+     createdByUserLogin="bigal"
+     lastModifiedByUserLogin="bigal"
+     createdDate="2004-10-16 17:32:31.285"
+     lastModifiedDate="2004-10-16 17:32:31.291"/>
+
     <Party partyId="AUTHOR_MADMAX" partyTypeId="PERSON" createdDate="2004-03-27 09:37:40.989" createdByUserLogin="admin" lastModifiedDate="2004-03-27 09:37:40.989" lastModifiedByUserLogin="admin"/>
     <Person partyId="AUTHOR_MADMAX" lastName="Max" firstName="Mad"/>
     <UserLogin userLoginId="madmax" partyId="AUTHOR_MADMAX" currentPassword="{SHA}47ca69ebb4bdc9ae0adec130880165d2cc05db1a"/>
@@ -86,13 +86,13 @@ under the License.
     <ContentPurpose contentId="BLOGROOTMADMAX" contentPurposeTypeId="ARTICLE"/>
     <UserLoginSecurityGroup userLoginId="madmax" groupId="CONTENT_USER"  fromDate="2004-09-15 00:00:00.000"/>
     <!-- Updating biBLOGROOTMADMAXgal with madmax as creator so that he will be found as "owner" for subrecords.
-         This is used in a screen permission test. 
+         This is used in a screen permission test.
          -->
-    <Content contentId="BLOGROOTMADMAX"  
-     createdByUserLogin="madmax" 
-     lastModifiedByUserLogin="madmax" 
-     createdDate="2004-10-16 17:32:31.285" 
-     lastModifiedDate="2004-10-16 17:32:31.291"/> 
-     
-     
+    <Content contentId="BLOGROOTMADMAX"
+     createdByUserLogin="madmax"
+     lastModifiedByUserLogin="madmax"
+     createdDate="2004-10-16 17:32:31.285"
+     lastModifiedDate="2004-10-16 17:32:31.291"/>
+
+
 </entity-engine-xml>

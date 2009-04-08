@@ -44,7 +44,7 @@ under the License.
     <tr>
       <td><hr/></td>
     </tr>
-    
+
     <tr>
       <td>
         <#if surveyQuestionAndAppl.surveyQuestionTypeId == "BOOLEAN">

@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Product Services</description>
     <vendor>OFBiz</vendor>
-    
+
     <service name="migrateFacilityRole" engine="simple"
             location="component://product/script/org/ofbiz/product/UpgradeServices.xml" invoke="migrateFacilityRole">
         <description>
@@ -34,5 +34,5 @@ under the License.
             party/data/PartyTypeData.xml
         </description>
     </service>
-    
+
 </services>

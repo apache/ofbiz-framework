@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- SecurityGroup methods -->
     <simple-method method-name="createSecurityGroup" short-description="Create an SecurityGroup">
@@ -28,7 +28,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="SecurityGroup"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        
+
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateSecurityGroup" short-description="Update an SecurityGroup">
@@ -50,7 +50,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="SecurityPermission"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        
+
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateSecurityPermission" short-description="Update an SecurityPermission">
@@ -71,11 +71,11 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="SecurityGroupPermission"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-       
+
         <!-- clear the org.ofbiz.security.Security object's custom cache by newEntity -->
         <call-bsh><![CDATA[ org.ofbiz.security.Security.securityGroupPermissionCache.remove(newEntity); ]]></call-bsh>
-        
-        <create-value value-field="newEntity"/>        
+
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeSecurityPermissionFromSecurityGroup" short-description="Remove SecurityPermission From SecurityGroup">
         <check-permission permission="SECURITY" action="_DELETE"><fail-message message="Security Error: to run removeSecurityPermissionFromSecurityGroup you must have the SECURITY_DELETE or SECURITY_ADMIN permission"/></check-permission>
@@ -85,7 +85,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="SecurityGroupPermission" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
-        
+
         <!-- clear the org.ofbiz.security.Security object's custom cache by lookupPKMap -->
         <call-bsh><![CDATA[ org.ofbiz.security.Security.securityGroupPermissionCache.remove(lookupPKMap); ]]></call-bsh>
     </simple-method>
@@ -98,14 +98,14 @@ under the License.
         <make-value value-field="newEntity" entity-name="UserLoginSecurityGroup"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        
+
         <if-empty field="newEntity.fromDate">
             <now-timestamp field="nowTimestamp"/>
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
-        
+
         <create-value value-field="newEntity"/>
-        
+
         <!-- clear the org.ofbiz.security.Security object's custom cache by userLoginId -->
         <call-bsh><![CDATA[ org.ofbiz.security.Security.userLoginSecurityGroupByUserLoginId.remove(parameters.get("userLoginId")); ]]></call-bsh>
     </simple-method>
@@ -118,7 +118,7 @@ under the License.
         <find-by-primary-key entity-name="UserLoginSecurityGroup" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
-        
+
         <!-- clear the org.ofbiz.security.Security object's custom cache by userLoginId -->
         <call-bsh><![CDATA[ org.ofbiz.security.Security.userLoginSecurityGroupByUserLoginId.remove(parameters.get("userLoginId")); ]]></call-bsh>
     </simple-method>
@@ -130,11 +130,11 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="UserLoginSecurityGroup" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
-        
+
         <!-- clear the org.ofbiz.security.Security object's custom cache by userLoginId -->
         <call-bsh><![CDATA[ org.ofbiz.security.Security.userLoginSecurityGroupByUserLoginId.remove(parameters.get("userLoginId")); ]]></call-bsh>
     </simple-method>
-    
+
     <!-- ProtectedView to SecurityGroup methods -->
     <simple-method method-name="addProtectedViewToSecurityGroup" short-description="Add ProtectedView To SecurityGroup">
         <check-permission permission="SECURITY" action="_CREATE"><fail-message message="Security Error: to run addProtectedViewToSecurityGroup you must have the SECURITY_CREATE or SECURITY_ADMIN permission"/></check-permission>
@@ -143,11 +143,11 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProtectedView"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-               
+
         <!-- clear the org.ofbiz.security.Security object's custom cache by newEntity -->
         <call-bsh><![CDATA[ org.ofbiz.security.Security.userLoginSecurityGroupByUserLoginId.remove(newEntity); ]]></call-bsh>
-        
-        <create-value value-field="newEntity"/>        
+
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProtectedViewToSecurityGroup" short-description="Update ProtectedView to SecurityGroup">
         <check-permission permission="SECURITY" action="_UPDATE"><fail-message message="Security Error: to run updateProtectedViewToSecurityGroup you must have the SECURITY_UPDATE or SECURITY_ADMIN permission"/></check-permission>
@@ -157,20 +157,20 @@ under the License.
         <find-by-primary-key entity-name="ProtectedView" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
-        
+
         <!-- clear the org.ofbiz.security.Security object's custom cache by lookupPKMap -->
         <call-bsh><![CDATA[ org.ofbiz.security.Security.userLoginSecurityGroupByUserLoginId.remove(lookupPKMap); ]]></call-bsh>
     </simple-method>
     <simple-method method-name="removeProtectedViewFromSecurityGroup" short-description="Remove ProtectedView From SecurityGroup">
         <check-permission permission="SECURITY" action="_DELETE"><fail-message message="Security Error: to run removeProtectedViewFromSecurityGroup you must have the SECURITY_DELETE or SECURITY_ADMIN permission"/></check-permission>
         <check-errors/>
-        
+
         <make-value entity-name="ProtectedView" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProtectedView" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
-        
+
         <!-- clear the org.ofbiz.security.Security object's custom cache by lookupPKMap -->
         <call-bsh><![CDATA[ org.ofbiz.security.Security.userLoginSecurityGroupByUserLoginId.remove(lookupPKMap); ]]></call-bsh>
-    </simple-method>    
+    </simple-method>
 </simple-methods>

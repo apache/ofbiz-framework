@@ -124,7 +124,7 @@
     <screen name="Contact">
         <section>
             <actions>
-                <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/> 
+                <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetContactMechs.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -224,7 +224,7 @@
     <screen name="UserLogin">
         <section>
             <actions>
-                <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/> 
+                <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
                 <entity-one entity-name="Party" value-field="party"/>
                 <entity-and entity-name="UserLogin" list="userLogins">
                     <field-map field-name="partyId" from-field="partyId"/>
@@ -452,7 +452,7 @@
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ShipperAccount">
         <section>
             <actions>
@@ -466,7 +466,7 @@
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="contactsAndAccounts">
         <section>
             <actions>
@@ -506,7 +506,7 @@
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="mytasks">
         <section>
             <condition>
@@ -523,5 +523,5 @@
             </widgets>
         </section>
     </screen>
-    
+
 </screens>

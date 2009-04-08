@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
   <!-- ContactMech map procs -->
   <simple-map-processor name="facilityContactMech">
@@ -69,10 +69,10 @@ under the License.
         <copy to-field="infoString"/>
         <not-empty><fail-message message="Email Address is missing"/></not-empty>
         <validate-method method="isEmail"><fail-message message="Email Address is not formatted correctly, must be like foo@bar.com"/></validate-method>
-    </process>    
+    </process>
   </simple-map-processor>
 
-  <!-- FacilityContactMechPurpose map procs -->  
+  <!-- FacilityContactMechPurpose map procs -->
   <simple-map-processor name="createFacilityContactMechPurpose">
     <process field="facilityId"><copy/></process>
     <process field="contactMechId"><copy/><not-empty><fail-message message="Contact Mech ID is missing"/></not-empty></process>
@@ -86,5 +86,5 @@ under the License.
         <not-empty><fail-message message="From Date is missing"/></not-empty>
         <convert type="Timestamp"><fail-message message="From Date is not a valid Date-Time."/></convert>
     </process>
-  </simple-map-processor>    
+  </simple-map-processor>
 </simple-map-processors>

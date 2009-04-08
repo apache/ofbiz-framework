@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -22,13 +22,13 @@ import org.ofbiz.party.contact.ContactHelper;
 
 if (userLogin) {
     party = userLogin.getRelatedOne("Party");
-    
+
     contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_EMAIL", "EMAIL_ADDRESS", false));
     if (contactMech) {
         context.emailContactMechId = contactMech.contactMechId;
         context.emailAddress = contactMech.infoString;
     }
-    
+
     contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_PHONE", "TELECOM_NUMBER", false));
     if (contactMech) {
         partyContactMech = EntityUtil.getFirst(delegator.findByAnd("PartyContactMech", [partyId : party.partyId, contactMechId : contactMech.contactMechId]));
@@ -38,7 +38,7 @@ if (userLogin) {
             context.countryCode = telecomNumber.countryCode;
             context.areaCode = telecomNumber.areaCode;
             context.contactNumber = telecomNumber.contactNumber;
-            context.extension = partyContactMech.extension; 
+            context.extension = partyContactMech.extension;
         }
     }
 }

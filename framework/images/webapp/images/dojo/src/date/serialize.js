@@ -56,17 +56,17 @@ dojo.date.setIso8601Date = function(/*String*/dateObject, /*String*/formattedStr
 		var gd = dateObject.getDay();
 		var day =  gd ? gd : 7;
 		var offset = Number(dayofweek) + (7 * Number(week));
-		
+
 		if(day <= 4){ dateObject.setDate(offset + 1 - day); }
 		else{ dateObject.setDate(offset + 8 - day); }
 	} else{
 		if(month){
 			dateObject.setDate(1);
-			dateObject.setMonth(month - 1); 
+			dateObject.setMonth(month - 1);
 		}
 		if(date){ dateObject.setDate(date); }
 	}
-	
+
 	return dateObject; // Date
 };
 
@@ -111,7 +111,7 @@ dojo.date.setIso8601Time = function(/*Date*/dateObject, /*String*/formattedStrin
 
 	if(offset !== 0){
 		dateObject.setTime(dateObject.getTime() + offset * 60000);
-	}	
+	}
 	return dateObject; // Date
 };
 
@@ -149,7 +149,7 @@ dojo.date.toRfc3339 = function(/*Date?*/dateObject, /*String?*/selector){
 	if(selector != "dateOnly"){
 		var time = [_(dateObject.getHours(),2), _(dateObject.getMinutes(),2), _(dateObject.getSeconds(),2)].join(':');
 		var timezoneOffset = dateObject.getTimezoneOffset();
-		time += (timezoneOffset > 0 ? "-" : "+") + 
+		time += (timezoneOffset > 0 ? "-" : "+") +
 					_(Math.floor(Math.abs(timezoneOffset)/60),2) + ":" +
 					_(Math.abs(timezoneOffset)%60,2);
 		formattedDate.push(time);
@@ -165,7 +165,7 @@ dojo.date.fromRfc3339 = function(/*String*/rfcDate){
 //		A string such as 2005-06-30T08:05:00-07:00
 //		"any" is also supported in place of a time.
 
-	// backwards compatible support for use of "any" instead of just not 
+	// backwards compatible support for use of "any" instead of just not
 	// including the time
 	if(rfcDate.indexOf("Tany")!=-1){
 		rfcDate = rfcDate.replace("Tany","");

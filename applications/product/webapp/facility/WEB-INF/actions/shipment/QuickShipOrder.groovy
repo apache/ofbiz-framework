@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -46,7 +46,7 @@ if (shipmentId) {
     if (shipment) {
         // nuke event message - throws off the flow
         request.setAttribute("_EVENT_MESSAGE_", null);
-        
+
         // set the shipment context info
         context.shipmentType = shipment.getRelatedOneCache("ShipmentType");
         context.statusItem = shipment.getRelatedOne("StatusItem");
@@ -63,7 +63,7 @@ if (shipmentId) {
         context.shipmentRoutes = shipment.getRelated("ShipmentRouteSegment", null, ['shipmentRouteSegmentId']);
         context.shipment = shipment;
         context.shipmentId = shipmentId;
-        
+
         weightUoms = delegator.findList("Uom", EntityCondition.makeCondition(['uomTypeId' : 'WEIGHT_MEASURE']), null, ['description'], null, false);
         defaultWeightUom = UtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom");
         if (defaultWeightUom) {
@@ -73,5 +73,5 @@ if (shipmentId) {
             }
         }
         context.weightUomList = weightUoms;
-    }    
+    }
 }

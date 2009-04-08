@@ -24,7 +24,7 @@ dojo.require("dojo.experimental");
 
 dojo.declare(
 	"dojo.widget.Spinner",
-	null, 
+	null,
 	{
 		// summary: Mixin for validation widgets with a spinner
 		// description: This class basically (conceptually) extends dojo.widget.ValidationTextbox.

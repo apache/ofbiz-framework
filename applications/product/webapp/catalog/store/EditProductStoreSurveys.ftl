@@ -20,7 +20,7 @@ under the License.
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.PageTitleEditProductStoreSurveys}</h3>
     </div>
-    <div class="screenlet-body"> 
+    <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">
             <tr class="header-row">
               <td><b>${uiLabelMap.CommonType}</b></td>
@@ -50,7 +50,7 @@ under the License.
                     <#assign rowClass = "1">
                 <#else>
                     <#assign rowClass = "2">
-                </#if>    
+                </#if>
             </#list>
         </table>
     </div>
@@ -59,7 +59,7 @@ under the License.
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.PageTitleAddProductStoreSurveys}</h3>
     </div>
-    <div class="screenlet-body"> 
+    <div class="screenlet-body">
         <form name="addSurvey" action="<@ofbizUrl>createProductStoreSurveyAppl</@ofbizUrl>" method="post">
             <input type="hidden" name="productStoreId" value="${productStoreId}">
             <table cellspacing="0" class="basic-table">
@@ -76,7 +76,7 @@ under the License.
               <tr>
                 <td class="label">${uiLabelMap.CommonGroup} ${uiLabelMap.CommonName}</td>
                 <td>
-                  <input type="text" size="20" name="groupName">          
+                  <input type="text" size="20" name="groupName">
                 </td>
               </tr>
               <tr>

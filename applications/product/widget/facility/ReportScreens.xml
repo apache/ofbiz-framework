@@ -43,7 +43,7 @@ under the License.
                 <set field="productsSoldThruTimestamp" from-field="parameters.productsSoldThruTimestamp" type="Timestamp"/>
                 <set field="internalName" from-field="parameters.internalName"/>
                 <set field="productId" from-field="parameters.productId"/>
-   
+
                 <script location="component://product/webapp/facility/WEB-INF/actions/facility/ViewFacilityInventoryByProduct.groovy"/>
                 <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
             </actions>

@@ -16,8 +16,8 @@ dojo.require("dojo.charting.Series");
 dojo.charting.RenderPlotSeries = { Singly:"single", Grouped:"grouped" };
 
 dojo.charting.Plot = function(
-	/* dojo.charting.Axis? */xaxis, 
-	/* dojo.charting.Axis? */yaxis, 
+	/* dojo.charting.Axis? */xaxis,
+	/* dojo.charting.Axis? */yaxis,
 	/* dojo.charting.Series[]? */series
 ){
 	//	summary

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
   <!-- ========================================================= -->
   <!-- ======================== Defaults ======================= -->
@@ -74,7 +74,7 @@ under the License.
   <!-- ========================================================= -->
   <!-- org.ofbiz.common.email -->
   <!-- ========================================================= -->
-    
+
     <entity entity-name="EmailTemplateSetting" package-name="org.ofbiz.common.email" title="Email Template Setting Entity">
         <field name="emailTemplateSettingId" type="id-ne"></field>
         <field name="description" type="description"></field>
@@ -87,7 +87,7 @@ under the License.
         <field name="contentType" type="long-varchar"></field>
         <prim-key field="emailTemplateSettingId"/>
     </entity>
-    
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.common.enum -->
   <!-- ========================================================= -->
@@ -207,7 +207,7 @@ under the License.
             <key-map field-name="geoIdTo" rel-field-name="geoId"/>
         </view-link>
     </view-entity>
-    <entity entity-name="GeoAssocType" package-name="org.ofbiz.common.geo" 
+    <entity entity-name="GeoAssocType" package-name="org.ofbiz.common.geo"
         title="Geographic Boundary Association Entity">
       <field name="geoAssocTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
@@ -228,7 +228,7 @@ under the License.
         </relation>
         <relation type="one" fk-name="GPT_TYPE_UOM" title="Elevation" rel-entity-name="Uom">
             <key-map field-name="elevationUomId" rel-field-name="uomId"/>
-        </relation>    
+        </relation>
     </entity>
     <entity entity-name="GeoType" package-name="org.ofbiz.common.geo" default-resource-name="CommonEntityLabels"
         title="Geographic Boundary Type Entity">
@@ -241,7 +241,7 @@ under the License.
         <key-map field-name="parentTypeId" rel-field-name="geoTypeId"/>
       </relation>
     </entity>
-    
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.common.keyword -->
   <!-- ========================================================= -->
@@ -303,7 +303,7 @@ under the License.
             <key-map field-name="parentTypeId" rel-field-name="customMethodTypeId"/>
         </relation>
     </entity>
-    
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.common.note -->
   <!-- ========================================================= -->

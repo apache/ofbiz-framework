@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -55,7 +55,7 @@
         <field name="title" title="${uiLabelMap.ProductTitle}"><text size="30" maxlength="60"/></field>
         <field name="subtitle" title="${uiLabelMap.ProductSubTitle}"><text size="60" maxlength="250"/></field>
         <field name="payToPartyId"><lookup target-form-name="LookupPartyName"/></field>
-        
+
         <field name="inventoryFacilityId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
@@ -93,7 +93,7 @@
         <field name="reqShipAddrForDigItems">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        
+
         <field name="isDemoStore">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
@@ -215,7 +215,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="visualThemeId">
             <drop-down allow-empty="false">
                 <entity-options key-field-name="visualThemeId" description="${visualThemeId} - ${description}" entity-name="VisualTheme">
@@ -292,7 +292,7 @@
         <field name="reqReturnInventoryReceive">
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>        
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <sort-order>
             <field-group>
                 <sort-field name="productStoreId"/>
@@ -310,7 +310,7 @@
                 <sort-field name="isImmediatelyFulfilled"/>
                 <sort-field name="checkInventory"/>
                 <sort-field name="requireInventory"/>
-                <sort-field name="requirementMethodEnumId"/>                
+                <sort-field name="requirementMethodEnumId"/>
                 <sort-field name="reserveInventory"/>
                 <sort-field name="reserveOrderEnumId"/>
                 <sort-field name="balanceResOnOrderCreation"/>
@@ -388,7 +388,7 @@
             <field-group title="${uiLabelMap.CommonUpload}" collapsible="true" initially-collapsed="true">
                 <sort-field name="enableDigProdUpload"/>
                 <sort-field name="digProdUploadCategoryId"/>
-            </field-group>            
+            </field-group>
         </sort-order>
     </form>
 
@@ -427,7 +427,7 @@
         <field name="finAccountTypeId" use-when="finAccountSetting==null">
             <drop-down allow-empty="false">
                 <entity-options entity-name="FinAccountType" description="${description}" key-field-name="finAccountTypeId"/>
-            </drop-down>            
+            </drop-down>
         </field>
 
         <field name="replenishMethodEnumId">
@@ -637,7 +637,7 @@
         <field name="includeNoChargeItems" title="${uiLabelMap.ProductIncludeFreeship}" tooltip="${uiLabelMap.ProductIncludeFreeshipMessage}">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
-        
+
         <field name="includeGeoId" title="${uiLabelMap.ProductIncludeGeo}" tooltip="${uiLabelMap.ProductIncludeGeoMessage}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName}">
@@ -661,8 +661,8 @@
         <field name="sequenceNumber" title="${uiLabelMap.FormFieldTitle_sequenceNum}" tooltip="${uiLabelMap.ProductUsedForDisplayOrdering}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
-    
+
+
     <form name="ListShipmentCostEstimates" target="" title="" type="list"  list-name="estimates"
         paginate-target="EditProductStoreShipmentCostEstimates" odd-row-style="alternate-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="ShipmentCostEstimate" default-field-type="display"/>
@@ -737,19 +737,19 @@
         </field>
         <field name="partyId"><text/></field>
         <field name="roleTypeId"><text/></field>
-        
+
         <field name="flatPercent" title="${uiLabelMap.ProductFlatBasePercent}" tooltip="${uiLabelMap.ProductShipamountOrderTotalPercent}"><text/></field>
         <field name="flatPrice" title="${uiLabelMap.ProductFlatBasePrice}" tooltip="${uiLabelMap.ProductShipamountPrice}"><text/></field>
         <field name="flatItemPrice" title="${uiLabelMap.ProductFlatItemPrice}" tooltip="${uiLabelMap.ProductShipamountTotalQuantityPrice}"><text/></field>
         <field name="shippingPricePercent" title="${uiLabelMap.ProductFlatShippingPercent}" tooltip="${uiLabelMap.ProductShipamountShippingTotalPercent}"><text/></field>
-        
+
         <field name="productFeatureGroupId" title="${uiLabelMap.ProductFeatureGroup}" tooltip="${uiLabelMap.ProductFeatureMessage}"><text/></field>
         <field name="featurePercent" title="${uiLabelMap.ProductFeaturePerFeaturePercent}" tooltip="${uiLabelMap.ProductShipamount} : ${uiLabelMap.ProductShipamount} + ((${uiLabelMap.ProductOrderTotal} * ${uiLabelMap.ProductPercent}) * ${uiLabelMap.ProductTotalFeaturesApplied})"><text/></field>
         <field name="featurePrice" title="${uiLabelMap.ProductFeaturePerFeaturePrice}" tooltip="${uiLabelMap.ProductShipamount} : ${uiLabelMap.ProductShipamount} + (${uiLabelMap.ProductPrice} * ${uiLabelMap.ProductTotalFeaturesApplied})"><text/></field>
 
         <field name="oversizeUnit" title="${uiLabelMap.ProductOversizeUnit}" tooltip="${uiLabelMap.ProductEach} ((${uiLabelMap.ProductHeight} * 2) + (${uiLabelMap.ProductWidth} * 2) + ${uiLabelMap.ProductDept}) >= ${uiLabelMap.CommonThis} ${uiLabelMap.ProductNumber}"><text/></field>
         <field name="oversizePrice" title="${uiLabelMap.ProductOversizeSurcharge}" tooltip="${uiLabelMap.ProductShipamount} : ${uiLabelMap.ProductShipamount} + (${uiLabelMap.ProductOversizeNumber} * ${uiLabelMap.ProductSurcharge})"><text/></field>
-        
+
         <field name="WeightTitle2" title="${uiLabelMap.CommonEmptyHeader}" tooltip="${uiLabelMap.ProductMinMax}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="wmin" title="${uiLabelMap.ProductMinWt}"><text/></field>
         <field name="wmax" title="${uiLabelMap.ProductMaxWt}"><text/></field>
@@ -771,7 +771,7 @@
             </drop-down>
         </field>
         <field name="wprice" title="${uiLabelMap.ProductPerUnitPrice}" tooltip="${uiLabelMap.ProductOnlyAppliesWithinSpan}"><text/></field>
-        
+
         <field name="QuantityTitle2" title="${uiLabelMap.CommonEmptyHeader}" tooltip="${uiLabelMap.ProductMinMax}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="qmin" title="${uiLabelMap.ProductMinQt}"><text/></field>
         <field name="qmax" title="${uiLabelMap.ProductMaxQt}"><text/></field>
@@ -792,7 +792,7 @@
             </drop-down>
         </field>
         <field name="qprice" title="${uiLabelMap.ProductPerUnitPrice}" tooltip="${uiLabelMap.ProductOnlyAppliesWithinSpan}"><text/></field>
-        
+
         <field name="PriceTitle2" title="${uiLabelMap.CommonEmptyHeader}" tooltip="${uiLabelMap.ProductMinMax}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="pmin" title="${uiLabelMap.ProductMinPr}"><text/></field>
         <field name="pmax" title="${uiLabelMap.ProductMaxPr}"><text/></field>
@@ -814,7 +814,7 @@
         </field>
         <field name="pprice" title="${uiLabelMap.ProductPerUnitPrice}" tooltip="${uiLabelMap.ProductOnlyAppliesWithinSpan}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        
+
         <sort-order>
             <field-group>
                 <sort-field name="productStoreId"/>
@@ -828,8 +828,8 @@
                 <sort-field name="flatPercent"/>
                 <sort-field name="flatPrice"/>
                 <sort-field name="flatItemPrice"/>
-                <sort-field name="shippingPricePercent"/>                
-            </field-group>    
+                <sort-field name="shippingPricePercent"/>
+            </field-group>
             <field-group title="${uiLabelMap.ProductFeatureTitle}" collapsible="true" initially-collapsed="true">
                 <sort-field name="productFeatureGroupId"/>
                 <sort-field name="featurePercent"/>
@@ -880,13 +880,13 @@
         </field>
         <field name="partyId"><display/></field>
         <field name="roleTypeId"><display/></field>
-        
+
         <field name="FlatTitle" title="${uiLabelMap.ProductFlatTitle}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="orderPricePercent" title="${uiLabelMap.ProductFlatBasePercent}" tooltip="${uiLabelMap.ProductShipamountOrderTotalPercent}"><display/></field>
         <field name="orderFlatPrice" title="${uiLabelMap.ProductFlatBasePrice}" tooltip="${uiLabelMap.ProductShipamountPrice}"><display/></field>
         <field name="orderItemFlatPrice" title="${uiLabelMap.ProductFlatItemPrice}" tooltip="${uiLabelMap.ProductShipamountTotalQuantityPrice}"><display/></field>
         <field name="shippingPricePercent" title="${uiLabelMap.ProductFlatShippingPercent}" tooltip="${uiLabelMap.ProductShipamountShippingTotalPercent}"><display/></field>
-        
+
         <field name="FeatureTitle" title="${uiLabelMap.ProductFeatureTitle}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="productFeatureGroupId" title="${uiLabelMap.ProductFeatureGroup}" tooltip="${uiLabelMap.ProductFeatureMessage}"><display/></field>
         <field name="featurePercent" title="${uiLabelMap.ProductFeaturePerFeaturePercent}" tooltip="${uiLabelMap.ProductShipamount} : ${uiLabelMap.ProductShipamount} + ((${uiLabelMap.ProductOrderTotal} * ${uiLabelMap.ProductPercent}) * ${uiLabelMap.ProductTotalFeaturesApplied})"><display/></field>
@@ -895,7 +895,7 @@
         <field name="OversizeTitle" title="${uiLabelMap.ProductOversizeTitle}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="oversizeUnit" title="${uiLabelMap.ProductOversizeUnit}" tooltip="${uiLabelMap.ProductEach} ((${uiLabelMap.ProductHeight} * 2) + (${uiLabelMap.ProductWidth} * 2) + ${uiLabelMap.ProductDept}) >= ${uiLabelMap.CommonThis} ${uiLabelMap.ProductNumber}"><display/></field>
         <field name="oversizePrice" title="${uiLabelMap.ProductOversizeSurcharge}" tooltip="${uiLabelMap.ProductShipamount} : ${uiLabelMap.ProductShipamount} + (${uiLabelMap.ProductNumber} ${uiLabelMap.ProductOversize} ${uiLabelMap.ProductProducts} * ${uiLabelMap.ProductSurcharge})"><display/></field>
-        
+
         <field name="WeightTitle1" title="${uiLabelMap.ProductWeightTitle1}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="WeightTitle2" title="${uiLabelMap.CommonEmptyHeader}" tooltip="${uiLabelMap.ProductMinMax}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="weightBreakId">
@@ -905,7 +905,7 @@
             <display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/>
         </field>
         <field name="weightUnitPrice" title="${uiLabelMap.ProductPerUnitPrice}" tooltip="${uiLabelMap.ProductOnlyAppliesWithinSpan}"><display/></field>
-        
+
         <field name="QuantityTitle1" title="${uiLabelMap.ProductQuantityTitle1}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="QuantityTitle2" title="${uiLabelMap.CommonEmptyHeader}" tooltip="${uiLabelMap.ProductMinMax}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="quantityBreakId">
@@ -915,7 +915,7 @@
             <display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/>
         </field>
         <field name="quantityUnitPrice" title="${uiLabelMap.ProductPerUnitPrice}" tooltip="${uiLabelMap.ProductOnlyAppliesWithinSpan}"><display/></field>
-        
+
         <field name="PriceTitle1" title="${uiLabelMap.ProductPriceTitle1}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="PriceTitle2" title="${uiLabelMap.CommonEmptyHeader}" tooltip="${uiLabelMap.ProductMinMax}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="priceBreakId">
@@ -951,12 +951,12 @@
             <drop-down current="selected" allow-empty="false">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${enumCode} - ${description}">
                     <entity-constraint name="enumTypeId" operator="equals" value="CREDIT_CARD_TYPE"/>
-                </entity-options> 
+                </entity-options>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListProductStoreVendorShipments" type="list" list-name="productStoreVendorShipmentList" target="deleteProductStoreVendorShipment" 
+    <form name="ListProductStoreVendorShipments" type="list" list-name="productStoreVendorShipmentList" target="deleteProductStoreVendorShipment"
         paginate-target="EditProductStoreVendorShipments" odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productStoreId"><hidden/></field>
         <field name="carrierPartyId"><display/></field>
@@ -1064,7 +1064,7 @@
         <field name="productStoreId"><hidden/></field>
         <field name="paymentMethodTypeId" title="${uiLabelMap.CommonPaymentMethodType}" use-when="productStorePaymentSetting!=null">
             <display-entity entity-name="PaymentMethodType" also-hidden="true" description="${description}" key-field-name="paymentMethodTypeId"/>
-        </field>        
+        </field>
         <field name="paymentMethodTypeId" title="${uiLabelMap.CommonPaymentMethodType}" use-when="productStorePaymentSetting==null">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PaymentMethodType" description="${description}">
@@ -1074,7 +1074,7 @@
         </field>
         <field name="paymentServiceTypeEnumId" title="${uiLabelMap.ProductServiceType}" use-when="productStorePaymentSetting!=null">
             <display-entity entity-name="Enumeration" also-hidden="true" description="${description}" key-field-name="enumId"/>
-        </field>         
+        </field>
         <field name="paymentServiceTypeEnumId" title="${uiLabelMap.ProductServiceType}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">

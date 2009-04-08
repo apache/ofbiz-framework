@@ -19,7 +19,7 @@ under the License.
 -->
 
 <ofbiz-component name="entity"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
     <classpath type="dir" location="dtd"/>
@@ -31,6 +31,6 @@ under the License.
 
     <!-- these are for unit testing -->
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_test.xml"/>
-    
+
     <test-suite loader="main" location="testdef/entitytests.xml"/>
 </ofbiz-component>

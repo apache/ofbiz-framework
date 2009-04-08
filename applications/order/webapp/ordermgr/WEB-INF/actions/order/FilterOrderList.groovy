@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -53,7 +53,7 @@ if ((state.hasFilter("filterPartiallyReceivedPOs") ||
     orderHeaderList.each { orderHeader ->
         facilityId = orderHeader.originFacilityId ?: productStore.inventoryFacilityId;
         orderReadHelper = OrderReadHelper.getHelper(orderHeader);
-        if ("PURCHASE_ORDER".equals(orderHeader.orderTypeId)) {                
+        if ("PURCHASE_ORDER".equals(orderHeader.orderTypeId)) {
             if (orderReadHelper.getRejectedOrderItems() &&
                     state.hasFilter("filterPOsWithRejectedItems")) {
                 filterPOsWithRejectedItems.add(orderHeader.get("orderId"));
@@ -63,7 +63,7 @@ if ((state.hasFilter("filterPartiallyReceivedPOs") ||
             } else if (orderReadHelper.getPartiallyReceivedItems() &&
                     state.hasFilter("filterPartiallyReceivedPOs")) {
                 filterPartiallyReceivedPOs.add(orderHeader.orderId);
-            }            
+            }
         }
     }
 }

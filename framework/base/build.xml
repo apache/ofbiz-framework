@@ -35,10 +35,10 @@ under the License.
         <fileset dir="${lib.dir}/scripting" includes="*.jar"/>
         <fileset dir="../start/build/lib" includes="*.jar"/>
     </path>
-    
+
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                    -->
-    <!-- ================================================================== -->               
+    <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
         <!-- make sure we have crypto packages available -->
@@ -49,7 +49,7 @@ under the License.
         </condition>
 
         <!-- compile base -->
-    <javac15 destdir="${build.dir}/classes" srcdir="${src.dir}">            
+    <javac15 destdir="${build.dir}/classes" srcdir="${src.dir}">
             <exclude name="${exclude.crypto}"/>
             <exclude name="org/ofbiz/base/util/OfbizJsBsfEngine.java"/>
         </javac15>
@@ -68,17 +68,17 @@ under the License.
             <zipfileset dir="${ofbiz.home.dir}" prefix="META-INF" includes="NOTICE,LICENSE"/>
         </jar>
     </target>
-    
+
     <!-- ================================================================== -->
     <!-- Build JavaDoc                                                      -->
     <!-- ================================================================== -->
 
     <target name="docs" depends="prepare-docs">
-        <javadoc packagenames="org.ofbiz.base.*" 
+        <javadoc packagenames="org.ofbiz.base.*"
                  classpathref="local.class.path"
-                 destdir="${build.dir}/javadocs" 
+                 destdir="${build.dir}/javadocs"
                  Windowtitle="Open for Business - Base API">
-            <sourcepath path="${src.dir}"/>            
+            <sourcepath path="${src.dir}"/>
         </javadoc>
     </target>
 </project>

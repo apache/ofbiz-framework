@@ -345,7 +345,7 @@ under the License.
         <set value="PACKER" field="itemIssuanceRoleCreate.roleTypeId"/>
         <call-service service-name="createItemIssuanceRole" in-map-name="itemIssuanceRoleCreate"/>
     </simple-method>
-    
+
     <simple-method method-name="issueInventoryItemToFixedAssetMaint" short-description="Issue InventoryItem To FixedAssetMaint">
         <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
         <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
@@ -358,9 +358,9 @@ under the License.
         <if-compare-field field="parameters.quantity" to-field="inventoryItem.availableToPromiseTotal" operator="greater" type="BigDecimal">
             <add-error><fail-message message="Not issuing InventoryItem to FixedAssetMaint [${fixedAssetMaint.fixedAssetId:fixedAssetMaint.maintHistSeqId}] because the quantity to issue [${parameters.quantity}] is greater than the quantity left to issue (ie the ATP or Available To Promise) [${intentoryItem.availableToPromiseTotal}] for inventoryItem [${orderItemShipGrpInvRes.inventoryItemId}]"/></add-error>
         </if-compare-field>
-        
+
         <check-errors/>
-        
+
         <!-- create the ItemIssuance -->
         <set from-field="parameters.quantity" field="itemIssuanceCreate.quantity"/>
         <set from-field="parameters.inventoryItemId" field="itemIssuanceCreate.inventoryItemId"/>
@@ -408,7 +408,7 @@ under the License.
         </calculate>
         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
     </simple-method>
-    
+
     <simple-method method-name="cancelOrderItemIssuanceFromSalesShipment" short-description="Cancel an ItemIssuance quantity from Sales Shipment">
         <set value="Cancel Order Item Issuance from Sales Shipment" field="operationName"/>
         <check-permission permission="FACILITY" action="_UPDATE">
@@ -419,16 +419,16 @@ under the License.
         <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
         <get-related-one value-field="itemIssuance" relation-name="OrderHeader" to-value-field="orderHeader"/>
         <get-related-one value-field="itemIssuance" relation-name="InventoryItem" to-value-field="inventoryItem"/>
-        <get-related-one value-field="itemIssuance" relation-name="Shipment" to-value-field="shipment"/>        
-        
+        <get-related-one value-field="itemIssuance" relation-name="Shipment" to-value-field="shipment"/>
+
         <!-- issuance can be canceled only if the sales shipment is not packed -->
- 
+
         <if-compare field="shipment.statusId" operator="not-equals" value="SHIPMENT_CANCELLED">
-            <set from-field="itemIssuance.shipmentId" field="shipmentId"/>        
+            <set from-field="itemIssuance.shipmentId" field="shipmentId"/>
             <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
             <check-errors/>
         </if-compare>
-        
+
         <!-- make sure the order is of orderTypeId: SALES_ORDER -->
         <if-compare field="orderHeader.orderTypeId" operator="not-equals" value="SALES_ORDER">
             <add-error><fail-message message="Not canceling ItemIssuance because the order is not a Sales Order"/></add-error>
@@ -439,7 +439,7 @@ under the License.
             <calcop field="itemIssuance.quantity" operator="subtract">
                 <calcop operator="get" field="itemIssuance.cancelQuantity"/>
             </calcop>
-        </calculate> 
+        </calculate>
 
         <!-- if not provided, get the left issued quantity -->
          <set from-field="parameters.cancelQuantity" field="toCancelQuantity"/>
@@ -456,7 +456,7 @@ under the License.
             <return response-code="success"/>
         </if-compare>
 
-        <!-- make sure specified quantity is not greater than issued quantity left -->      
+        <!-- make sure specified quantity is not greater than issued quantity left -->
         <if-compare-field field="toCancelQuantity" to-field="qtyIssuedLeft" operator="greater" type="BigDecimal">
             <add-error><fail-message message="Not cancelling ItemIssuance because the quantity to cancel [${toCancelQuantity}] is greater than the quantity left [${qtyIssuedLeft}] for ItemIssuance [${parameters.itemIssuanceId}]"/></add-error>
         </if-compare-field>
@@ -467,27 +467,27 @@ under the License.
             <calcop operator="add" field="itemIssuance.cancelQuantity"/>
             <calcop operator="add" field="toCancelQuantity"/>
         </calculate>
-        <set from-field="totalCancelQty" field="itemIssuanceUpdate.cancelQuantity"/>        
+        <set from-field="totalCancelQty" field="itemIssuanceUpdate.cancelQuantity"/>
         <set from-field="parameters.itemIssuanceId" field="itemIssuanceUpdate.itemIssuanceId"/>
-        <call-service service-name="updateItemIssuance" in-map-name="itemIssuanceUpdate"/>        
-        
+        <call-service service-name="updateItemIssuance" in-map-name="itemIssuanceUpdate"/>
+
         <!-- increment InventoryItem quantityOnHand AND availableToPromise -->
         <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
         <set from-field="itemIssuance.inventoryItemId" field="createDetailMap.inventoryItemId"/>
         <set from-field="itemIssuance.itemIssuanceId" field="createDetailMap.itemIssuanceId"/>
         <set from-field="toCancelQuantity" field="createDetailMap.availableToPromiseDiff"/>
         <set from-field="toCancelQuantity" field="createDetailMap.quantityOnHandDiff"/>
-        <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>    
-        
+        <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
+
         <!-- reassign inventory reservations  -->
         <set field="reassignInventoryReservationsCtx.productId" from-field="inventoryItem.productId"/>
         <set field="reassignInventoryReservationsCtx.facilityId" from-field="inventoryItem.facilityId"/>
         <call-service service-name="reassignInventoryReservations" in-map-name="reassignInventoryReservationsCtx"/>
-      
+
         <!-- reserve the order item -->
         <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="false">
             <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
-        </entity-one>           
+        </entity-one>
         <if-compare value="Y" operator="equals" field="productStore.isImmediatelyFulfilled">
             <log level="verbose" message="ProductStore with id ${productStore.productStoreId}, is immediatly fulfilled. Not reserving inventory"/>
             <else>
@@ -495,15 +495,15 @@ under the License.
                 <set field="reserveStoreInventoryMap.orderId" from-field="itemIssuance.orderId"/>
                 <set field="reserveStoreInventoryMap.orderItemSeqId" from-field="itemIssuance.orderItemSeqId"/>
                 <set field="reserveStoreInventoryMap.shipGroupSeqId" from-field="itemIssuance.shipGroupSeqId"/>
-                <set field="reserveStoreInventoryMap.quantity" from-field="toCancelQuantity"/>                
+                <set field="reserveStoreInventoryMap.quantity" from-field="toCancelQuantity"/>
                 <set field="reserveStoreInventoryMap.productStoreId" from-field="orderHeader.productStoreId"/>
                 <call-service service-name="reserveStoreInventory" in-map-name="reserveStoreInventoryMap"/>
-            </else>            
+            </else>
         </if-compare>
-        
+
         <field-to-result field="toCancelQuantity" result-name="canceledQuantity"/>
-    </simple-method>    
-    
+    </simple-method>
+
     <simple-method method-name="issueInventoryItemToShipment" short-description="Issue InventoryItem To Shipment">
         <set field="shipmentId" from-field="parameters.shipmentId"/>
         <set field="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>
@@ -529,9 +529,9 @@ under the License.
         <!-- make sure specified quantity is not greater than total return quantity -->
         <if-compare-field field="parameters.quantity" to-field="quantityNotIssued" operator="greater" type="BigDecimal">
             <add-error><fail-message message="Not issuing InventoryItem to Shipment [${parameters.shipmentId}:${parameters.shipmentItemSeqId}] because the quantity to issue [${parameters.quantity}] is greater than the quantity left to return for inventoryItem [${parameters.inventoryItemId}]"/></add-error>
-        </if-compare-field>        
+        </if-compare-field>
         <check-errors/>
-        
+
         <!-- create the ItemIssuance -->
         <set field="itemIssuanceCreate.quantity" from-field="parameters.quantity"/>
         <set field="itemIssuanceCreate.inventoryItemId" from-field="parameters.inventoryItemId"/>
@@ -554,5 +554,5 @@ under the License.
             <calcop field="parameters.quantity" operator="negative"/>
         </calculate>
         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-    </simple-method>    
+    </simple-method>
 </simple-methods>

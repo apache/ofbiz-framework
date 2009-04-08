@@ -65,11 +65,11 @@ under the License.
           <#assign lineOptionalFeatures = cartLine.getOptionalProductFeatures()>
           <tr><td colspan="8"><hr></td></tr>
           <tr valign="top">
-            <td>&nbsp;</td>         
+            <td>&nbsp;</td>
             <td>
           <table border="0">
           <tr><td colspan="2">
-                <div>                    
+                <div>
                   <#if cartLine.getProductId()?exists>
                     <#-- product item -->
                     <a href="<@ofbizUrl>product?product_id=${cartLine.getProductId()}</@ofbizUrl>" class="buttontext">${cartLine.getProductId()}</a> -
@@ -82,8 +82,8 @@ under the License.
                       <#assign isStoreInventoryNotRequiredAndNotAvailable = Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequiredAndAvailable(request, itemProduct, cartLine.getQuantity(), false, false)>
                       <#if isStoreInventoryNotRequiredAndNotAvailable && itemProduct.inventoryMessage?has_content>
                           <b>(${itemProduct.inventoryMessage})</b>
-                      </#if>                                          
-                    </#if>   
+                      </#if>
+                    </#if>
                   <#else>
                     <#-- this is a non-product item -->
                     <b>${cartLine.getItemTypeDescription()?if_exists}</b> : ${cartLine.getName()?if_exists}
@@ -100,11 +100,11 @@ under the License.
                    </#if>
                     <#-- show links to survey response for this item -->
                     <#if cartLine.getAttribute("surveyResponses")?has_content>
-                        <br/>Surveys: 
+                        <br/>Surveys:
                        <#list cartLine.getAttribute("surveyResponses") as surveyResponseId>
-                        <a href="/content/control/ViewSurveyResponses?surveyResponseId=${surveyResponseId}&externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${surveyResponseId}</a> 
+                        <a href="/content/control/ViewSurveyResponses?surveyResponseId=${surveyResponseId}&externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${surveyResponseId}</a>
                        </#list>
-                    </#if>                    
+                    </#if>
                 </div>
             </td></tr>
             <#if cartLine.getRequirementId()?has_content>
@@ -140,7 +140,7 @@ under the License.
               <tr>
                 <td colspan="2">
                   <div>
-                    <a href="/catalog/control/EditProductInventoryItems?productId=${productId}" class="buttontext"><b>${uiLabelMap.ProductInventory}</b></a>: 
+                    <a href="/catalog/control/EditProductInventoryItems?productId=${productId}" class="buttontext"><b>${uiLabelMap.ProductInventory}</b></a>:
                     ${uiLabelMap.ProductAtp} = ${availableToPromiseMap.get(productId)}, ${uiLabelMap.ProductQoh} = ${quantityOnHandMap.get(productId)}
                     <#if product.productTypeId == "MARKETING_PKG_AUTO" || product.productTypeId == "MARKETING_PKG_PICK">
                     ${uiLabelMap.ProductMarketingPackageATP} = ${mktgPkgATPMap.get(productId)}, ${uiLabelMap.ProductMarketingPackageQOH} = ${mktgPkgQOHMap.get(productId)}
@@ -169,7 +169,7 @@ under the License.
                   </td>
                 </tr>
             </#if>
-            
+
             <#-- ship before/after date -->
             <tr>
               <td colspan="2">
@@ -177,7 +177,7 @@ under the License.
                <tr>
                 <td>
                   <div>${uiLabelMap.OrderShipAfterDate}
-                    <input type="text" size="20" maxlength="30" name="shipAfterDate_${cartLineIndex}" 
+                    <input type="text" size="20" maxlength="30" name="shipAfterDate_${cartLineIndex}"
                       value="${cartLine.getShipAfterDate()?default("")}"/>
                     <a href="javascript:call_cal(document.cartform.shipAfterDate_${cartLineIndex},'${shoppingCart.getShipAfterDate()?default("")}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
                   </div>
@@ -185,7 +185,7 @@ under the License.
                 <td>&nbsp;</td>
                 <td>
                   <div>${uiLabelMap.OrderShipBeforeDate}
-                    <input type="text" size="20" maxlength="30" name="shipBeforeDate_${cartLineIndex}" 
+                    <input type="text" size="20" maxlength="30" name="shipBeforeDate_${cartLineIndex}"
                       value="${cartLine.getShipBeforeDate()?default("")}"/>
                     <a href="javascript:call_cal(document.cartform.shipBeforeDate_${cartLineIndex},'${shoppingCart.getShipBeforeDate()?default("")}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.OrderCalendarClickHereForCalendar}"/></a>
                   </div>
@@ -235,10 +235,10 @@ under the License.
                 <#else>
                     <input size="6" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}"/>
                 </#if>
-                <#if (cartLine.getSelectedAmount() > 0) >                  
-                  <br/><b>${uiLabelMap.OrderAmount}:</b><br/><input size="6" type="text" name="amount_${cartLineIndex}" value="${cartLine.getSelectedAmount()?string.number}"/>                  
-                </#if>                  
-              </div>                 
+                <#if (cartLine.getSelectedAmount() > 0) >
+                  <br/><b>${uiLabelMap.OrderAmount}:</b><br/><input size="6" type="text" name="amount_${cartLineIndex}" value="${cartLine.getSelectedAmount()?string.number}"/>
+                </#if>
+              </div>
             </td>
             <td nowrap align="right">
               <div>
@@ -246,10 +246,10 @@ under the License.
                   <@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=currencyUomId/>
                 <#else>
                     <#if (cartLine.getSelectedAmount() > 0) >
-                        <#assign price = cartLine.getBasePrice() / cartLine.getSelectedAmount()>                                                         
+                        <#assign price = cartLine.getBasePrice() / cartLine.getSelectedAmount()>
                     <#else>
-                        <#assign price = cartLine.getBasePrice()>                           
-                    </#if>                     
+                        <#assign price = cartLine.getBasePrice()>
+                    </#if>
                     <input size="6" type="text" name="price_${cartLineIndex}" value="${price}"/>
                 </#if>
               </div>
@@ -281,8 +281,8 @@ under the License.
               </tr>
             </#list>
         </#if>
-        
-        <tr> 
+
+        <tr>
           <td colspan="6" align="right" valign="bottom">
             <div><b>${uiLabelMap.OrderCartTotal}:</b></div>
           </td>
@@ -290,11 +290,11 @@ under the License.
             <hr/>
             <div><b><@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=currencyUomId/></b></div>
           </td>
-        </tr>       
+        </tr>
         <tr>
           <td colspan="8">&nbsp;</td>
-        </tr>      
-      </table>    
+        </tr>
+      </table>
     </form>
   <#else>
     <div>${uiLabelMap.OrderNoOrderItemsToDisplay}</div>

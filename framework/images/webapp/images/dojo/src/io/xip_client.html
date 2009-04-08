@@ -11,14 +11,14 @@
 	This file is really focused on just sending one message to the server, and
 	receiving one response. The code does not expect to be re-used for multiple messages.
 	This might be reworked later if performance indicates a need for it.
-	
+
 	xip fragment identifier/hash values have the form:
 	#id:cmd:realEncodedMessage
 
 	id: some ID that should be unique among messages. No inherent meaning,
 	        just something to make sure the hash value is unique so the message
 	        receiver knows a new message is available.
-	        
+
 	cmd: command to the receiver. Valid values are:
 	         - init: message used to init the frame. Sent as the first URL when loading
 	                 the page. Contains some config parameters.
@@ -32,7 +32,7 @@
 	         - end: the end message of a block of messages. The message can now be acted upon.
 	                If the message is small enough that it doesn't need to be segmented, then
 	                just one hash value message can be sent with "end" as the command.
-	
+
 	To reassemble a segmented message, the realEncodedMessage parts just have to be concatenated
 	together.
 	*/
@@ -56,7 +56,7 @@
 		xipUseFrameRecursion = false;
 	}
 	xipInit();
-	
+
 	function send(encodedData){
 		if(xipUseFrameRecursion == "true"){
 			var clientEndPoint = window.open(xipStateId + "_clientEndPoint");
@@ -64,7 +64,7 @@
 		}else{
 			if(!xipIsSending){
 				xipIsSending = true;
-	
+
 				xipRequestData = encodedData || "";
 
 				//Get a handle to the server iframe.
@@ -72,13 +72,13 @@
 				if (!xipServerWindow){
 					xipServerWindow = document.getElementById(xipStateId + "_frame").contentWindow;
 				}
-	
+
 				sendRequestStart();
 			}
 		}
 	}
 
-	//Modify the server URL if it is a local path and 
+	//Modify the server URL if it is a local path and
 	//This is done for local/same domain testing.
 	function fixServerUrl(ifpServerUrl){
 		if(ifpServerUrl.indexOf("..") == 0){
@@ -87,8 +87,8 @@
 		}
 		return ifpServerUrl;
 	}
-	
-	
+
+
 	function pollHash(){
 		//Can't use location.hash because at least Firefox does a decodeURIComponent on it.
 		var urlParts = window.location.href.split("#");
@@ -123,7 +123,7 @@
 				setServerUrl("ok");
 				break;
 			case "part":
-				xipResponseMessage += msg.message;			
+				xipResponseMessage += msg.message;
 				setServerUrl("ok");
 				break;
 			case "end":
@@ -133,7 +133,7 @@
 				break;
 		}
 	}
-	
+
 	function sendRequestStart(){
 		//Break the message into parts, if necessary.
 		xipRequestParts = [];
@@ -147,12 +147,12 @@
 			reqIndex += partLength;
 		}
 		xipRequestParts.push(reqData.substring(reqIndex, reqData.length));
-		
+
 		xipPartIndex = 0;
 		sendRequestPart();
-		
+
 	}
-	
+
 	function sendRequestPart(){
 		if(xipPartIndex < xipRequestParts.length){
 			//Get the message part.
@@ -165,12 +165,12 @@
 			}else if (xipPartIndex == 0){
 				cmd = "start";
 			}
-			
+
 			setServerUrl(cmd, partData);
 			xipPartIndex++;
 		}
 	}
-	
+
 	function setServerUrl(cmd, message){
 		var serverUrl = makeServerUrl(cmd, message);
 
@@ -181,7 +181,7 @@
 			xipServerWindow.location = serverUrl;
 		}
 	}
-	
+
 	function makeServerUrl(cmd, message){
 		var serverUrl = xipServerUrl + "#" + (xipIdCounter++) + ":" + cmd;
 		if(message){
@@ -216,13 +216,13 @@
 		//Remove the query param for the IE7 recursive case.
 		xipServerUrl = fixServerUrl(config.server).replace(/(\?|\&)dojo\.fr\=1/, "");
 		xipUseFrameRecursion = config["fr"];
-		
+
 		if(xipUseFrameRecursion == "endpoint"){
 			xipMasterFrame = parent.parent;
 		}else{
 			xipMasterFrame = parent;
 		}
-		
+
 		//Start counter to inspect hash value.
 		setInterval(pollHash, 10);
 
@@ -230,8 +230,8 @@
 		document.getElementById("iframeHolder").innerHTML = '<iframe src="'
 			+ makeServerUrl("init", 'id=' + xipStateId + '&client=' + encodeURIComponent(clientUrl)
 			+ '&fr=' + xipUseFrameRecursion) + '" id="' + xipStateId + '_frame"></iframe>';
-			
-		
+
+
 	}
 
 	if(typeof(window.addEventListener) == "undefined"){
@@ -239,7 +239,7 @@
 	}else{
 		window.addEventListener('load', onClientLoad, false);
 	}
-	
+
 	// -->
 	</script>
 </head>
@@ -248,7 +248,7 @@
 
 	<p>This file is used for Dojo's XMLHttpRequest Iframe Proxy. This is the "client" file used
 	internally by dojo.io.XhrIframeProxy.</p>
-	
+
 	<span id="iframeHolder"></span>
 </body>
 </html>

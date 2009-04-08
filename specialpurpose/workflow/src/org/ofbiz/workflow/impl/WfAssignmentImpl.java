@@ -187,7 +187,7 @@ public class WfAssignmentImpl implements WfAssignment {
             throw new WfException(e.getMessage(), e);
         }
 
-        // change the status 
+        // change the status
         changeStatus("CAL_DELEGATED");
     }
 

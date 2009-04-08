@@ -2,7 +2,7 @@
 <web-app>
     <display-name>Open For Business - @component-resource-name@ Component</display-name>
     <description>@component-resource-name@ Component of the Open For Business Project</description>
-    
+
     <context-param>
         <param-name>webSiteId</param-name>
         <param-value>EXAMPLE</param-value>
@@ -11,7 +11,7 @@
     <context-param>
         <param-name>localDispatcherName</param-name><param-value>example</param-value>
         <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
-    </context-param>    
+    </context-param>
     <context-param>
         <param-name>entityDelegatorName</param-name><param-value>default</param-value>
         <description>The Name of the Entity Delegator to use, defined in entityengine.xml</description>
@@ -31,7 +31,7 @@
         <param-value>false</param-value>
         <description>Remove unnecessary whitespace from HTML output.</description>
     </context-param>
-    
+
     <filter>
         <filter-name>ContextFilter</filter-name>
         <display-name>ContextFilter</display-name>
@@ -42,15 +42,15 @@
             <param-value>/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/includes/maincss.css</param-value>
         </init-param>
         <init-param><param-name>errorCode</param-name><param-value>403</param-value></init-param>
-        <init-param><param-name>redirectPath</param-name><param-value>/control/main</param-value></init-param>        
+        <init-param><param-name>redirectPath</param-name><param-value>/control/main</param-value></init-param>
     </filter>
-    <filter-mapping><filter-name>ContextFilter</filter-name><url-pattern>/*</url-pattern></filter-mapping> 
+    <filter-mapping><filter-name>ContextFilter</filter-name><url-pattern>/*</url-pattern></filter-mapping>
 
     <listener><listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
     <listener><listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
     <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
     <!-- <listener><listener-class>org.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
-  
+
     <servlet>
         <servlet-name>ControlServlet</servlet-name>
         <display-name>ControlServlet</display-name>

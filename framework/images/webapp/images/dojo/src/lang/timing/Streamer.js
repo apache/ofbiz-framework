@@ -12,9 +12,9 @@ dojo.provide("dojo.lang.timing.Streamer");
 dojo.require("dojo.lang.timing.Timer");
 
 dojo.lang.timing.Streamer = function(
-	/* function */input, 
-	/* function */output, 
-	/* int */interval, 
+	/* function */input,
+	/* function */output,
+	/* int */interval,
 	/* int */minimum,
 	/* array */initialData
 ){
@@ -50,7 +50,7 @@ dojo.lang.timing.Streamer = function(
 		while(typeof(obj) == "undefined" && queue.length > 0){
 			obj = queue.shift();
 		}
-		
+
 		//	check to see if the input function needs to be fired
 		//	stop before firing the output function
 		//	TODO: relegate this to the output function?

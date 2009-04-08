@@ -33,12 +33,12 @@ under the License.
         <fo:static-content flow-name="xsl-region-before">
             <fo:block line-height="10pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
 
-                <#if shipment?exists>                
+                <#if shipment?exists>
                     Doc.E1
                 <#else>
                     Doc.E0
-                </#if>                
-          
+                </#if>
+
             </fo:block>
         </fo:static-content>
 

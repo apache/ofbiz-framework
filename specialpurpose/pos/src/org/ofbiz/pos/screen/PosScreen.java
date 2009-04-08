@@ -85,7 +85,7 @@ public class PosScreen extends XPage implements Runnable, DialogCallback, FocusL
     public void pageCreated() {
         super.pageCreated();
 
-        // initial settings 
+        // initial settings
         this.setEnabled(false);
         this.setVisible(false);
 

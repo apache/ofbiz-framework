@@ -48,9 +48,9 @@ under the License.
                       <a href="javascript:document.orderStatus.submit()" class="lightbuttontext">${orderHeader.orderId}</a>&nbsp;
                     </form>
                 </#if>
-                ${uiLabelMap.CommonInformation} 
-                <#if (orderHeader.orderId)?exists> 
-                    ${externalOrder?if_exists} [ 
+                ${uiLabelMap.CommonInformation}
+                <#if (orderHeader.orderId)?exists>
+                    ${externalOrder?if_exists} [
                     <form name= "orderPdf" method= "post" action= "<@ofbizUrl>order.pdf</@ofbizUrl>">
                       <input type= "hidden" name= "orderId" value= "${(orderHeader.orderId)?if_exists}">
                       <a href="javascript:document.orderPdf.submit()" class="lightbuttontext" target="_blank">PDF</a> ]
@@ -86,7 +86,7 @@ under the License.
                   </td>
                   <td width="5">&nbsp;</td>
                   <td valign="top" width="80%">
-                    <#if orderHeader?has_content>                                      
+                    <#if orderHeader?has_content>
                       <div class="tabletext">${localOrderReadHelper.getStatusString(locale)}</div>
                     <#else>
                       <div class="tabletext"><b>${uiLabelMap.OrderNotYetOrdered}</b></div>
@@ -121,7 +121,7 @@ under the License.
             </table>
         </div>
     </div>
-      
+
       <#if paymentMethods?has_content || paymentMethodType?has_content || billingAccount?has_content>
         <#-- order payment info -->
     <div class="screenlet">
@@ -135,20 +135,20 @@ under the License.
                   <tr>
                     <#if paymentMethodType.paymentMethodTypeId == "EXT_OFFLINE">
                       <td colspan="3" valign="top">
-                        <div class="tabletext" align="center"><b>${uiLabelMap.AccountingOfflinePayment}</b></div>                            
-                        <#if orderHeader?has_content && paymentAddress?has_content> 
+                        <div class="tabletext" align="center"><b>${uiLabelMap.AccountingOfflinePayment}</b></div>
+                        <#if orderHeader?has_content && paymentAddress?has_content>
                           <div class="tabletext" align="center"><hr/></div>
                           <div class="tabletext" align="center"><b>${uiLabelMap.OrderSendPaymentTo}:</b></div>
                           <#if paymentAddress.toName?has_content><div class="tabletext" align="center">${paymentAddress.toName}</div></#if>
                           <#if paymentAddress.attnName?has_content><div class="tabletext" align="center"><b>${uiLabelMap.PartyAddrAttnName}:</b> ${paymentAddress.attnName}</div></#if>
                           <div class="tabletext" align="center">${paymentAddress.address1}</div>
-                          <#if paymentAddress.address2?has_content><div class="tabletext" align="center">${paymentAddress.address2}</div></#if>                            
+                          <#if paymentAddress.address2?has_content><div class="tabletext" align="center">${paymentAddress.address2}</div></#if>
                           <div class="tabletext" align="center">${paymentAddress.city}<#if paymentAddress.stateProvinceGeoId?has_content>, ${paymentAddress.stateProvinceGeoId}</#if> ${paymentAddress.postalCode?if_exists}
-                          <div class="tabletext" align="center">${paymentAddress.countryGeoId}</div>                                                                                                                
+                          <div class="tabletext" align="center">${paymentAddress.countryGeoId}</div>
                           <div class="tabletext" align="center"><hr/></div>
                           <div class="tabletext" align="center"><b>${uiLabelMap.EcommerceBeSureToIncludeYourOrderNb}</b></div>
-                        </#if>                         
-                      </td>                  
+                        </#if>
+                      </td>
                     <#else>
                       <#assign outputted = true>
                       <td colspan="3" valign="top">
@@ -340,7 +340,7 @@ under the License.
                         <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b> ${shippingAddress.toName}<br/></#if>
                         <#if shippingAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b> ${shippingAddress.attnName}<br/></#if>
                         ${shippingAddress.address1}<br/>
-                        <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br/></#if>                            
+                        <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br/></#if>
                         ${shippingAddress.city}<#if shippingAddress.stateProvinceGeoId?has_content>, ${shippingAddress.stateProvinceGeoId} </#if>
                         ${shippingAddress.postalCode?if_exists}<br/>
                         ${shippingAddress.countryGeoId?if_exists}
@@ -388,7 +388,7 @@ under the License.
                           <div class="tabletext">
                             <#if (orderShipmentInfoSummaryList?size > 1)>${orderShipmentInfoSummary.shipmentPackageSeqId}: </#if>
                             Code: ${orderShipmentInfoSummary.trackingCode?default("[Not Yet Known]")}
-                            <#if orderShipmentInfoSummary.boxNumber?has_content>${uiLabelMap.OrderBoxNumber}${orderShipmentInfoSummary.boxNumber}</#if> 
+                            <#if orderShipmentInfoSummary.boxNumber?has_content>${uiLabelMap.OrderBoxNumber}${orderShipmentInfoSummary.boxNumber}</#if>
                             <#if orderShipmentInfoSummary.carrierPartyId?has_content>(${uiLabelMap.ProductCarrier}: ${orderShipmentInfoSummary.carrierPartyId})</#if>
                           </div>
                         </#list>

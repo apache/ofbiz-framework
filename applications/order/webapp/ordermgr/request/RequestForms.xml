@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="FindRequests" target="FindRequest" title="" type="single" default-map-name="parameters"
         header-row-style="header-row" default-table-style="basic-table">
@@ -80,8 +80,8 @@ under the License.
           </service>
         </actions>
     </form>
-    
-    <form name="ListRequestList" type="list" use-row-submit="true" list-name="custRequests" title="List of customer requests" 
+
+    <form name="ListRequestList" type="list" use-row-submit="true" list-name="custRequests" title="List of customer requests"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestName">
@@ -149,7 +149,7 @@ under the License.
         <field name="configId"><ignored/></field>
     </form>
 
-    <form name="ListRequestQuoteItems" type="list" use-row-submit="true"  title="" list-name="quotes" 
+    <form name="ListRequestQuoteItems" type="list" use-row-submit="true"  title="" list-name="quotes"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="RequestItemQuotes">
         <auto-fields-entity entity-name="QuoteItem" default-field-type="display"/>
         <field name="quoteId" widget-style="buttontext">
@@ -182,7 +182,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="ViewRequestStatus" type="list" 
+    <form name="ViewRequestStatus" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CustRequestStatus">
@@ -195,8 +195,8 @@ under the License.
         <field name="custRequestStatusId"><hidden/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
     </form>
-    
-    <form name="ViewRequestRoles" type="list" 
+
+    <form name="ViewRequestRoles" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-and entity-name="CustRequestParty">
@@ -211,8 +211,8 @@ under the License.
         <field name="fromDate"><display type="date"/></field>
         <field name="thruDate"><display type="date"/></field>
     </form>
-    
-    
+
+
     <form name="ViewRequestWorkEfforts" type="list" list-name="requestWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="workEffortId">
@@ -406,7 +406,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
     </form>
 
-    <form name="ListRequestItemNotes" type="list" use-row-submit="true"  title="" list-name="notes" 
+    <form name="ListRequestItemNotes" type="list" use-row-submit="true"  title="" list-name="notes"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="RequestItemNotes">
         <auto-fields-entity entity-name="CustRequestItemNoteView" default-field-type="display"/>
         <field name="noteId"><hidden/></field>
@@ -421,7 +421,7 @@ under the License.
         <auto-fields-entity entity-name="Requirement" default-field-type="display"/>
         <field name="requirementId"><hidden/></field>
     </form>
-    
+
     <form name="EditRequestItemNote" type="single" target="createrequestitemnote" title="" default-map-name="quoteItem"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="custRequestId"><hidden/></field>
@@ -431,8 +431,8 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    
-    <form name="ListRequestRoles" type="list" use-row-submit="true" title="" list-name="custRequestParties" target="updateCustRequestParty" 
+
+    <form name="ListRequestRoles" type="list" use-row-submit="true" title="" list-name="custRequestParties" target="updateCustRequestParty"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="RequestRoles">
         <auto-fields-entity entity-name="CustRequestParty" default-field-type="display"/>
         <field name="custRequestId"><hidden/></field>
@@ -447,7 +447,7 @@ under the License.
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
             <display-entity also-hidden="true" entity-name="RoleType"/>
         </field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>        
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteCustRequestParty">
@@ -456,9 +456,9 @@ under the License.
                 <parameter param-name="roleTypeId"/>
                 <parameter param-name="fromDate"/>
             </hyperlink>
-        </field>    
+        </field>
     </form>
-    
+
     <form name="EditRequestRole" type="single" target="createCustRequestParty" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="custRequestId"><hidden/></field>
@@ -495,7 +495,7 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        
+
         <field name="deleteLink" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteCustRequestItemWorkEffort">
                 <parameter param-name="custRequestId"/>
@@ -510,11 +510,11 @@ under the License.
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestItemSeqId"><hidden/></field>
         <field name="workEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
-        
+
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    
-    <!-- request form -->  
+
+    <!-- request form -->
     <form name="requestInfo" type="single" title="request information" default-map-name="custRequest"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
@@ -526,7 +526,7 @@ under the License.
             </service>
         </actions>
         <field name="custRequestId"><hidden/></field>
-        <field name="custRequestTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="CustRequestType" description="${description}"/></field>  
+        <field name="custRequestTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="CustRequestType" description="${description}"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="fromPartyId" title="${uiLabelMap.PartyPartyId}">
             <hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultTo.fullName} [${custRequest.fromPartyId}]">
@@ -540,11 +540,11 @@ under the License.
         <field name="reason" title="${uiLabelMap.CommonReason}"><display/></field>
         <field name="custRequestDate" title="${uiLabelMap.OrderRequestDate}"><display/></field>
         <field name="createdDate" title="${uiLabelMap.OrderRequestCreatedDate}"><display/></field>
-        <field name="lastModifiedDate" title="${uiLabelMap.OrderRequestLastModifiedDate}"><display/></field>       
+        <field name="lastModifiedDate" title="${uiLabelMap.OrderRequestLastModifiedDate}"><display/></field>
     </form>
-    
+
     <!--Customer Request Content-->
-    <form name="AddCustRequestContent" type="upload" default-map-name="content" 
+    <form name="AddCustRequestContent" type="upload" default-map-name="content"
         focus-field-name="contentId" header-row-style="header-row" default-table-style="basic-table" target="createCustRequestContent?custRequestId=${parameters.custRequestId}">
         <actions>
             <set field="custRequestId" from-field="parameters.custRequestId"/>
@@ -676,5 +676,5 @@ under the License.
         </field>
         <field name="updateButton" widget-style="smallSubmit"><submit /></field>
     </form>
-    
+
 </forms>

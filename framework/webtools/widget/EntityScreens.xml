@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="EntitySQLProcessor">
@@ -31,7 +31,7 @@ under the License.
                 <set field="selGroup" from-field="parameters.group"/>
                 <set field="rowLimit" from-field="parameters.rowLimit" type="Integer"/>
                 <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
-                
+
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntitySQLProcessor.groovy"/>
             </actions>
             <widgets>
@@ -83,7 +83,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEntityImportDir"/>
                 <set field="tabButtonItem" value="entityImportDir"/>
                 <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
-                
+
                 <set field="messages" from-field="parameters.messages"/>
             </actions>
             <widgets>
@@ -116,7 +116,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEntityImport"/>
                 <set field="tabButtonItem" value="entityImport"/>
                 <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
-                
+
                 <set field="messages" from-field="parameters.messages"/>
             </actions>
             <widgets>
@@ -149,7 +149,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEntityImportReaders"/>
                 <set field="tabButtonItem" value="entityImportReaders"/>
                 <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
-                
+
                 <set field="messages" from-field="parameters.messages"/>
             </actions>
             <widgets>
@@ -276,9 +276,9 @@ under the License.
             <actions>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="WebtoolsEntityReferenceChart"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRef.groovy"/>                            
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRef.groovy"/>
             </actions>
-            <widgets> 
+            <widgets>
                 <section>
                     <widgets>
                         <platform-specific>
@@ -287,7 +287,7 @@ under the License.
                             </html>
                         </platform-specific>
                     </widgets>
-                </section>                               
+                </section>
             </widgets>
             <fail-widgets>
                 <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
@@ -301,12 +301,12 @@ under the License.
             </condition>
             <actions>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="titleProperty" value="WebtoolsEntityReferenceChart"/>           
+                <set field="titleProperty" value="WebtoolsEntityReferenceChart"/>
                 <service service-name="getEntityRefData" result-map="result"/>
                 <set field="numberOfEntities" from-field="result.numberOfEntities"/>
                 <set field="packagesList" from-field="result.packagesList"/>
             </actions>
-            <widgets> 
+            <widgets>
                 <section>
                     <widgets>
                         <platform-specific>
@@ -315,7 +315,7 @@ under the License.
                             </html>
                         </platform-specific>
                     </widgets>
-                </section>                               
+                </section>
             </widgets>
             <fail-widgets>
                 <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
@@ -332,7 +332,7 @@ under the License.
                 <set field="titleProperty" value="WebtoolsEntityReference"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRefList.groovy"/>
             </actions>
-            <widgets> 
+            <widgets>
                 <section>
                     <widgets>
                         <platform-specific>
@@ -341,7 +341,7 @@ under the License.
                             </html>
                         </platform-specific>
                     </widgets>
-                </section>                               
+                </section>
             </widgets>
             <fail-widgets>
                 <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
@@ -358,7 +358,7 @@ under the License.
                 <set field="numberOfEntities" from-field="result.numberOfEntities"/>
                 <set field="packagesList" from-field="result.packagesList"/>
             </actions>
-            <widgets> 
+            <widgets>
                 <platform-specific>
                     <xsl-fo>
                         <html-template location="component://webtools/webapp/webtools/entity/EntityRefReport.fo.ftl"/>
@@ -385,7 +385,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="CheckDb">
         <section>
             <actions>
@@ -394,7 +394,7 @@ under the License.
                 <set field="tabButtonItem" value="checkDb"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/CheckDb.groovy"/>
             </actions>
-            <widgets>  
+            <widgets>
                 <decorator-screen name="CommonEntityDecorator" location="component://webtools/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <container style="screenlet">
@@ -425,7 +425,7 @@ under the License.
                 <set field="titleProperty" value="WebtoolsPerformanceTests"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityPerformanceTest.groovy"/>
             </actions>
-            <widgets>  
+            <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <platform-specific>

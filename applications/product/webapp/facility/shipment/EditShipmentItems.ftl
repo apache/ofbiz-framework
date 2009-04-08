@@ -95,7 +95,7 @@ under the License.
                     <input type="hidden" name="shipmentItemSeqId" value="${shipmentItem.shipmentItemSeqId}"/>
                     <td>&nbsp;</td>
                     <td colspan="2">
-                        <div><span class="label">${uiLabelMap.ProductAddToPackage}</span> 
+                        <div><span class="label">${uiLabelMap.ProductAddToPackage}</span>
                         <select name="shipmentPackageSeqId">
                             <#list shipmentPackages as shipmentPackage>
                                 <option>${shipmentPackage.shipmentPackageSeqId}</option>

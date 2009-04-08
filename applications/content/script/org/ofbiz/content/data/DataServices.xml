@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
   <!-- Methods for DataResource -->
     <simple-method method-name="createDataResource" short-description="Create a Data Resource">
@@ -65,7 +65,7 @@ under the License.
         <field-to-result field="parameters.dataResourceId" result-name="dataResourceId"/>
     </simple-method>
 
-    <simple-method method-name="deleteDataResource" short-description="Delete a Data Resource">        
+    <simple-method method-name="deleteDataResource" short-description="Delete a Data Resource">
         <entity-one entity-name="DataResource" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
@@ -91,7 +91,7 @@ under the License.
         <find-by-primary-key entity-name="DataCategory" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
   <!-- Methods for DataResourceMetaData -->
     <simple-method method-name="createDataResourceMetaData" short-description="Create Data Resource Meta Data">
         <check-permission permission="CONTENTMGR" action="_CREATE"><fail-message message="Security Error: to run createDataResourceMetaData you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/></check-permission>
@@ -120,8 +120,8 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataResourceMetaData" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
-    </simple-method>    
-    
+    </simple-method>
+
   <!-- Methods for DataResourcePurpose -->
     <simple-method method-name="createDataResourcePurpose" short-description="Create Data Resource Purpose">
         <check-permission permission="CONTENTMGR" action="_CREATE"><fail-message message="Security Error: to run createDataResourcePurpose you must have the CONTENTMGR_CREATE or CONTENTMGR_ADMIN permission"/></check-permission>
@@ -150,8 +150,8 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataResourcePurpose" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
-    </simple-method>    
-    
+    </simple-method>
+
   <!-- Methods for DataResourceRole -->
     <simple-method method-name="createDataResourceRole" short-description="Create Data Resource Role">
         <make-value entity-name="DataResourceRole" value-field="newEntity"/>
@@ -162,7 +162,7 @@ under the License.
             <now-timestamp field="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
-        
+
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateDataResourceRole" short-description="Update Data Resource Role">
@@ -172,13 +172,13 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="removeDataResourceRole" short-description="Remove Data Resource Role">        
+    <simple-method method-name="removeDataResourceRole" short-description="Remove Data Resource Role">
         <make-value entity-name="DataResourceRole" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataResourceRole" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
   <!-- Methods for DataCategory -->
     <simple-method method-name="createDataCategory" short-description="Create Data Category">
         <make-value entity-name="DataCategory" value-field="newEntity"/>
@@ -194,7 +194,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="removeDataCategory" short-description="Remove Data DateCategory">       
+    <simple-method method-name="removeDataCategory" short-description="Remove Data DateCategory">
         <make-value entity-name="DataCategory" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataCategory" map="lookupKeyValue" value-field="lookedUpValue"/>
@@ -222,7 +222,7 @@ under the License.
         <find-by-primary-key entity-name="DataResourceType" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for DataResourceAttribute -->
     <simple-method method-name="createDataResourceAttribute" short-description="Create Data Resource Attribute">
         <make-value entity-name="DataResourceAttribute" value-field="newEntity"/>
@@ -237,13 +237,13 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="removeDataResourceAttribute" short-description="Remove Data Resource Attribute">        
+    <simple-method method-name="removeDataResourceAttribute" short-description="Remove Data Resource Attribute">
         <make-value entity-name="DataResourceAttribute" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataResourceAttribute" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-   
+
     <!-- Methods for DataResourceTypeAttr -->
     <simple-method method-name="createDataResourceTypeAttr" short-description="Create Data Resource Type Attribute">
         <make-value entity-name="DataResourceTypeAttr" value-field="newEntity"/>
@@ -258,13 +258,13 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="removeDataResourceTypeAttr" short-description="Remove Data Resource Type Attribute">        
+    <simple-method method-name="removeDataResourceTypeAttr" short-description="Remove Data Resource Type Attribute">
         <make-value entity-name="DataResourceTypeAttr" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataResourceTypeAttr" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for CharacterSet -->
     <simple-method method-name="createCharacterSet" short-description="Create Character Set">
         <make-value entity-name="CharacterSet" value-field="newEntity"/>
@@ -286,7 +286,7 @@ under the License.
         <find-by-primary-key entity-name="CharacterSet" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for FileExtension -->
     <simple-method method-name="createFileExtension" short-description="Create Data Resource Role">
         <make-value entity-name="FileExtension" value-field="newEntity"/>
@@ -308,7 +308,7 @@ under the License.
         <find-by-primary-key entity-name="FileExtension" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for MetaDataPredicate -->
     <simple-method method-name="createMetaDataPredicate" short-description="Create Data Resource Role">
         <make-value entity-name="MetaDataPredicate" value-field="newEntity"/>
@@ -330,7 +330,7 @@ under the License.
         <find-by-primary-key entity-name="MetaDataPredicate" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for MimeType -->
     <simple-method method-name="createMimeType" short-description="Create MimeType">
         <make-value entity-name="MimeType" value-field="newEntity"/>
@@ -346,7 +346,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="removeMimeType" short-description="Remove MimeType">        
+    <simple-method method-name="removeMimeType" short-description="Remove MimeType">
         <make-value entity-name="MimeType" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="MimeType" map="lookupKeyValue" value-field="lookedUpValue"/>
@@ -357,7 +357,7 @@ under the License.
     <simple-method method-name="createMimeTypeHtmlTemplate" short-description="Create MimeTypeHtmlTemplate">
         <make-value entity-name="MimeTypeHtmlTemplate" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>        
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateMimeTypeHtmlTemplate" short-description="Update MimeTypeHtmlTemplate">
@@ -380,7 +380,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result result-name="dataResourceId" field="newEntity.dataResourceId"/> 
+        <field-to-result result-name="dataResourceId" field="newEntity.dataResourceId"/>
     </simple-method>
 
     <simple-method method-name="updateElectronicText" short-description="Update Electronic Text">
@@ -395,7 +395,7 @@ under the License.
     <simple-method method-name="removeElectronicText" short-description="Remove Electronic Text">
         <make-value entity-name="ElectronicText" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
-        
+
         <find-by-primary-key entity-name="ElectronicText" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
@@ -478,14 +478,14 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="removeOtherDataResource" short-description="Remove Other Data Resource">        
+    <simple-method method-name="removeOtherDataResource" short-description="Remove Other Data Resource">
         <make-value entity-name="OtherDataResource" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="OtherDataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
-    <!-- 
+    <!--
     getElectronicText
     Passed a Content GenericValue or a contentId, this service returns the text data from
         ElectronicText in result.textData.
@@ -497,7 +497,7 @@ under the License.
         <set field="userLogin" from-field="parameters.userLogin"/>
         <set field="currentContent" from-field="parameters.content"/>
         <log level="always" message="GETELECTRONICTEXT, currentContent:${currentContent}"/>
-        
+
         <if-empty field="currentContent">
             <if-not-empty field="parameters.contentId">
                 <entity-one entity-name="Content" value-field="currentContent" use-cache="true"/>
@@ -531,14 +531,14 @@ under the License.
         <log level="always" message="result:${result}"/>
         <log level="always" message="parameters:${parameters}"/>
     </simple-method>
-    
+
     <simple-method method-name="attachUploadToDataResource" short-description="Attach an uploaded file to a data resource">
         <set field="isUpdate" value="false"/>
         <property-to-field resource="content.properties" property="content.upload.always.local.file" field="forceLocal"/>
         <if-compare field="forceLocal" value="true" operator="equals">
             <set field="parameters.dataResourceTypeId" value="LOCAL_FILE"/>
         </if-compare>
-        
+
         <if-empty field="parameters.dataResourceTypeId">
             <!-- create default behavior -->
             <if>
@@ -572,7 +572,7 @@ under the License.
                             </then>
                         </else-if>
                         <else>
-                            <set field="parameters.dataResourceTypeId" value="OTHER_OBJECT"/>    
+                            <set field="parameters.dataResourceTypeId" value="OTHER_OBJECT"/>
                         </else>
                     </if>
                 </then>
@@ -736,7 +736,7 @@ under the License.
 
         <!-- fields serviceName and fileField are required to be set by calling method -->
         <set-service-fields service-name="createOtherDataResource" map="dataResource" to-map="serviceContext"/>
-        <set from-field="parameters.uploadedFile" field="serviceContext.dataResourceContent"/>        
+        <set from-field="parameters.uploadedFile" field="serviceContext.dataResourceContent"/>
 
         <if-compare field="isUpdate" value="true" operator="equals">
             <call-service service-name="updateOtherDataResource" in-map-name="serviceContext"/>
@@ -792,7 +792,7 @@ under the License.
 
         <!-- fields serviceName and fileField are required to be set by calling method -->
         <set-service-fields service-name="createImageDataResource" map="dataResource" to-map="serviceContext"/>
-        <set from-field="parameters.uploadedFile" field="serviceContext.imageData"/>        
+        <set from-field="parameters.uploadedFile" field="serviceContext.imageData"/>
 
         <if-compare field="isUpdate" value="true" operator="equals">
             <call-service service-name="updateImageDataResource" in-map-name="serviceContext"/>

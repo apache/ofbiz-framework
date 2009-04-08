@@ -32,7 +32,7 @@ margin: 1em;
     <br class="clear"/>
   </div>
   <#if visualThemes?has_content>
-    <#assign orderByList = Static["org.ofbiz.base.util.UtilMisc"].toList("visualThemeId")/> 
+    <#assign orderByList = Static["org.ofbiz.base.util.UtilMisc"].toList("visualThemeId")/>
     <table cellspacing="0" class="basic-table">
       <#list visualThemes as visualTheme>
         <#assign screenshots = delegator.findByAnd("VisualThemeResource", Static["org.ofbiz.base.util.UtilMisc"].toMap(

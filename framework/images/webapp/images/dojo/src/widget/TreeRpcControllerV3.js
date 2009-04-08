@@ -24,7 +24,7 @@ dojo.widget.defineWidget(
 	// to hook on this and report to server
 
 	extraRpcOnEdit: false,
-				
+
 	/**
 	 * Make request to server about moving children.
 	 *
@@ -40,7 +40,7 @@ dojo.widget.defineWidget(
 
 		//if (newParent.isTreeNode) newParent.markLoading();
 
-		
+
 		var params = {
 			// where from
 			child: this.getInfo(child),
@@ -54,39 +54,39 @@ dojo.widget.defineWidget(
 		};
 
 
-		var deferred = this.runRpc({		
+		var deferred = this.runRpc({
 			url: this.getRpcUrl('move'),
-			sync: sync,			
+			sync: sync,
 			params: params
 		});
 
 		var _this = this;
-		var args = arguments;	
-		
+		var args = arguments;
+
 		//deferred.addCallback(function(res) { dojo.debug("doMove fired "+res); return res});
-		
-		deferred.addCallback(function() {			
+
+		deferred.addCallback(function() {
 			dojo.widget.TreeBasicControllerV3.prototype.doMove.apply(_this,args);
 		});
 
-		
+
 		return deferred;
 	},
 
 	// -------------- detach
-	
+
 	prepareDetach: function(node, sync) {
-		var deferred = this.startProcessing(node);		
+		var deferred = this.startProcessing(node);
 		return deferred;
 	},
-	
+
 	finalizeDetach: function(node) {
 		this.finishProcessing(node);
 	},
 
 	doDetach: function(node, sync){
 
-		
+
 		var params = {
 			node: this.getInfo(node),
 			tree: this.getInfo(node.tree)
@@ -95,101 +95,101 @@ dojo.widget.defineWidget(
 		var deferred = this.runRpc({
 			url: this.getRpcUrl('detach'),
 			sync: sync,
-			params: params			
+			params: params
 		});
-		
-		
+
+
 		var _this = this;
 		var args = arguments;
-		
-		deferred.addCallback(function() {			
+
+		deferred.addCallback(function() {
 			dojo.widget.TreeBasicControllerV3.prototype.doDetach.apply(_this,args);
 		});
-		
-						
+
+
 		return deferred;
 
 	},
 
-	// -------------------------- Inline edit node ---------------------	
+	// -------------------------- Inline edit node ---------------------
 
 	/**
 	 * send edit start request if needed
-	 * useful for server-side locking 
+	 * useful for server-side locking
 	 */
 	requestEditConfirmation: function(node, action, sync) {
-		if (!this.extraRpcOnEdit) {			
+		if (!this.extraRpcOnEdit) {
 			return dojo.Deferred.prototype.makeCalled();
 		}
-	
+
 		//dojo.debug("requestEditConfirmation "+node+" "+action);
-		
+
 		var _this = this;
-	
+
 		var deferred = this.startProcessing(node);
-			
+
 		//dojo.debug("startProcessing "+node);
-		
+
 		var params = {
 			node: this.getInfo(node),
 			tree: this.getInfo(node.tree)
 		}
-		
+
 		deferred.addCallback(function() {
 			//dojo.debug("add action on requestEditConfirmation "+action);
 			return _this.runRpc({
 				url: _this.getRpcUrl(action),
 				sync: sync,
-				params: params			
+				params: params
 			});
 		});
-		
-		
+
+
 		deferred.addBoth(function(r) {
 			//dojo.debug("finish rpc with "+r);
 			_this.finishProcessing(node);
 			return r;
 		});
-	
+
 		return deferred;
 	},
-	
+
 	editLabelSave: function(node, newContent, sync) {
 		var deferred = this.startProcessing(node);
-						
+
 		var _this = this;
-		
+
 		var params = {
 			node: this.getInfo(node),
 			tree: this.getInfo(node.tree),
 			newContent: newContent
 		}
-		
-	
+
+
 		deferred.addCallback(function() {
 			return _this.runRpc({
 				url: _this.getRpcUrl('editLabelSave'),
 				sync: sync,
-				params: params			
+				params: params
 			});
 		});
-		
-		
+
+
 		deferred.addBoth(function(r) {
 			_this.finishProcessing(node);
 			return r;
 		});
-	
+
 		return deferred;
 	},
-	
-	editLabelStart: function(node, sync) {		
+
+	editLabelStart: function(node, sync) {
 		if (!this.canEditLabel(node)) {
 			return false;
 		}
-		
+
 		var _this = this;
-		
+
 		if (!this.editor.isClosed()) {
 			//dojo.debug("editLabelStart editor open");
 			var deferred = this.editLabelFinish(this.editor.saveOnBlur, sync);
@@ -198,31 +198,31 @@ dojo.widget.defineWidget(
 			});
 			return deferred;
 		}
-						
+
 		//dojo.debug("editLabelStart closed, request");
 		var deferred = this.requestEditConfirmation(node, 'editLabelStart', sync);
-		
+
 		deferred.addCallback(function() {
 			//dojo.debug("start edit");
 			_this.doEditLabelStart(node);
 		});
-	
-		
+
+
 		return deferred;
-	
+
 	},
 
 	editLabelFinish: function(save, sync) {
 		var _this = this;
-		
+
 		var node = this.editor.node;
-		
+
 		var deferred = dojo.Deferred.prototype.makeCalled();
-		
+
 		if (!save && !node.isPhantom) {
 			deferred = this.requestEditConfirmation(this.editor.node,'editLabelFinishCancel', sync);
 		}
-		
+
 		if (save) {
 			if (node.isPhantom) {
 				deferred = this.sendCreateChildRequest(
@@ -231,38 +231,38 @@ dojo.widget.defineWidget(
 					{title:this.editor.getContents()},
 					sync
 				);
-			} else {				
+			} else {
 				// this deferred has new information from server
 				deferred = this.editLabelSave(node, this.editor.getContents(), sync);
 			}
 		}
-		
-		deferred.addCallback(function(server_data) {			
+
+		deferred.addCallback(function(server_data) {
 			_this.doEditLabelFinish(save, server_data);
 		});
-		
+
 		deferred.addErrback(function(r) {
 			//dojo.debug("Error occured");
 			//dojo.debugShallow(r);
 			_this.doEditLabelFinish(false);
 			return false;
 		});
-		
+
 		return deferred;
 	},
-	
-			
-	
+
+
+
 	/**
 	 * TODO: merge server-side info
 	 */
 	createAndEdit: function(parent, index, sync) {
 		var data = {title:parent.tree.defaultChildTitle};
-		
+
 		if (!this.canCreateChild(parent, index, data)) {
 			return false;
 		}
-		
+
 		/* close editor first */
 		if (!this.editor.isClosed()) {
 			//dojo.debug("editLabelStart editor open");
@@ -272,59 +272,59 @@ dojo.widget.defineWidget(
 			});
 			return deferred;
 		}
-			
+
 		var _this = this;
-		
+
 		/* load parent and create child*/
 		var deferred = this.prepareCreateChild(parent, index, data, sync);
-		
-		
+
+
 		deferred.addCallback(function() {
-			var child = _this.makeDefaultNode(parent, index);			
+			var child = _this.makeDefaultNode(parent, index);
 			child.isPhantom = true;
 			return child;
 		});
-		
-		
+
+
 		deferred.addBoth(function(r) {
 			_this.finalizeCreateChild(parent, index, data, sync);
 			return r;
 		});
-		
+
 		/* expand parent */
 		deferred.addCallback(function(child) {
 			var d = _this.exposeCreateChild(parent, index, data, sync);
 			d.addCallback(function() { return child });
 			return d;
 		});
-		
-		
+
+
 		deferred.addCallback(function(child) {
 			//dojo.debug("start edit");
 			_this.doEditLabelStart(child);
 			return child;
 		});
-		
-		
-		
+
+
+
 		return deferred;
-	
+
 	},
 
 	prepareDestroyChild: function(node, sync) {
 		//dojo.debug(node);
-		var deferred = this.startProcessing(node);		
+		var deferred = this.startProcessing(node);
 		return deferred;
 	},
-	
+
 	finalizeDestroyChild: function(node) {
 		this.finishProcessing(node);
 	},
-		
+
 
 	doDestroyChild: function(node, sync){
 
-		
+
 		var params = {
 			node: this.getInfo(node),
 			tree: this.getInfo(node.tree)
@@ -333,18 +333,18 @@ dojo.widget.defineWidget(
 		var deferred = this.runRpc({
 			url: this.getRpcUrl('destroyChild'),
 			sync: sync,
-			params: params			
+			params: params
 		});
-		
-		
+
+
 		var _this = this;
 		var args = arguments;
-		
-		deferred.addCallback(function() {			
+
+		deferred.addCallback(function() {
 			dojo.widget.TreeBasicControllerV3.prototype.doDestroyChild.apply(_this,args);
 		});
-		
-						
+
+
 		return deferred;
 
 	},
@@ -365,37 +365,37 @@ dojo.widget.defineWidget(
 			sync: sync,
 			params: params
 		});
-		
+
 		return deferred;
 	},
-		
 
-	doCreateChild: function(parent, index, data, sync){		
-		
+
+	doCreateChild: function(parent, index, data, sync){
+
 		if (dojo.lang.isUndefined(data.title)) {
 			data.title = parent.tree.defaultChildTitle;
 		}
 
 		var deferred = this.sendCreateChildRequest(parent,index,data,sync);
-		
+
 		var _this = this;
 		var args = arguments;
-		
-		
+
+
 		deferred.addCallback(function(server_data) {
 			dojo.lang.mixin(data, server_data); // add my data as less priority
 			//dojo.debug("Create ");
 			//dojo.debug(server_data);
 			return dojo.widget.TreeBasicControllerV3.prototype.doCreateChild.call(_this,parent,index,data);
 		});
-		
-						
+
+
 		return deferred;
 	},
-	
-	// TODO: merge server data into cloned node, like in createChild	
+
+	// TODO: merge server data into cloned node, like in createChild
 	doClone: function(child, newParent, index, deep, sync) {
-		
+
 		var params = {
 			child: this.getInfo(child),
 			oldParent: this.getInfo(child.parent),
@@ -406,24 +406,24 @@ dojo.widget.defineWidget(
 			deep: deep ? true : false, // undefined -> false
 			tree: this.getInfo(child.tree)
 		}
-		
-		
+
+
 		var deferred = this.runRpc({
 			url: this.getRpcUrl('clone'),
 			sync: sync,
 			params: params
 		});
-		
+
 		var _this = this;
 		var args = arguments;
-		
-		deferred.addCallback(function() {			
+
+		deferred.addCallback(function() {
 			dojo.widget.TreeBasicControllerV3.prototype.doClone.apply(_this,args);
 		});
-		
-						
-		return deferred;	
+
+
+		return deferred;
 	}
 
-	
+
 });

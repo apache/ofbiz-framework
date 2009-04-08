@@ -148,7 +148,7 @@ under the License.
         <description>Reset the ship Groups in the cart and put the items in default group</description>
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="prepareVendorShipGroups" engine="java" auth="false"
             location="org.ofbiz.order.shoppingcart.ShoppingCartServices" invoke="prepareVendorShipGroups">
         <description>Split the default shipgroup to individual shipgroups that are unique to a vendor</description>

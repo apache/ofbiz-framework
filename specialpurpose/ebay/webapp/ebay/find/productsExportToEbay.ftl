@@ -21,7 +21,7 @@ under the License.
          document.forms["ProductsExportToEbay"].action = "<@ofbizUrl>ProductsExportToEbay?categoryCode="+categ+"</@ofbizUrl>";
          document.forms["ProductsExportToEbay"].submit();
      }
-     
+
      function activateSubmitButton() {
          categ = document.forms["ProductsExportToEbay"].ebayCategory.value;
          if (categ != null && categ.substring(0, 1) == 'Y') {
@@ -29,7 +29,7 @@ under the License.
          } else {
              document.forms["ProductsExportToEbay"].submitButton.disabled = true;
          }
-    } 
+    }
 </script>
 <div>
     <form method="post" action="<@ofbizUrl>PostProductsToEbay</@ofbizUrl>" name="ProductsExportToEbay">

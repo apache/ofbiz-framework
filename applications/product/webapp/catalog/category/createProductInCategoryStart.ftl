@@ -26,7 +26,7 @@ under the License.
     <div class="screenlet-title-bar">
         <h3><b>&nbsp;</b></h3>
     </div>
-    <div class="screenlet-body">    
+    <div class="screenlet-body">
         <form name="createProductInCategoryCheckExistingForm" method="post" action="<@ofbizUrl>CreateProductInCategoryCheckExisting</@ofbizUrl>" style="margin: 0;">
             <input type="hidden" name="productCategoryId" value="${productCategoryId}">
             <table cellspacing="0" class="basic-table">

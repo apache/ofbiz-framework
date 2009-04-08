@@ -705,7 +705,7 @@ authorization.)
 
 108 Void error. See RESPMSG. Make sure the transaction ID entered has not already been
 voided. If not, then look at the Transaction Detail screen for this transaction to see if it
-has settled. (The Batch field is set to a number greater than zero if the transaction has 
+has settled. (The Batch field is set to a number greater than zero if the transaction has
 been settled). If the transaction has already settled, your only recourse is a reversal
 (credit a payment or submit a payment for a credit).
 109 Time-out waiting for host response
@@ -721,31 +721,31 @@ cardholder account.
 115 System busy, try again later
 116 VPS Internal error. Failed to lock terminal number
 117 Failed merchant rule check. One or more of the following three failures occurred:
-An attempt was made to submit a transaction that failed to meet the security settings 
+An attempt was made to submit a transaction that failed to meet the security settings
 specified on the Payflow Pro Java SDK Security Settings page. If the transaction
 exceeded the Maximum Amount security setting, then no values are returned for AVS
 or CSC.
 AVS validation failed. The AVS return value should appear in the RESPMSG.
 CSC validation failed. The CSC return value should appear in the RESPMSG.
-118 Invalid keywords found in string fields 
+118 Invalid keywords found in string fields
 122 Merchant sale total will exceed the credit cap with current transaction. ACH
 transactions only.
-125 Fraud Protection Services Filter _ Declined by filters 
+125 Fraud Protection Services Filter _ Declined by filters
 
-126 Fraud Protection Services Filter _ Flagged for review by filters 
+126 Fraud Protection Services Filter _ Flagged for review by filters
 Important Note: Result code 126 indicates that a transaction triggered a fraud filter.
 This is not an error, but a notice that the transaction is in a review status. The
 transaction has been authorized but requires you to review and to manually accept the
 transaction before it will be allowed to settle.
-Result code 126 is intended to give you an idea of the kind of transaction that is 
+Result code 126 is intended to give you an idea of the kind of transaction that is
 considered suspicious to enable you to evaluate whether you can benefit from using the
 Fraud Protection Services.
 To eliminate result 126, turn the filters off.
 For more information, see the User Guide for Payflow Pro With Fraud Protection
 Services or User Guide for Payflow Link Guide With Fraud Protection Services.
-127 Fraud Protection Services Filter _ Not processed by filters 
+127 Fraud Protection Services Filter _ Not processed by filters
 128 Fraud Protection Services Filter _ Declined by merchant after being flagged for
-review by filters 
+review by filters
 131 Version 1 Payflow Pro SDK client no longer supported. Upgrade to the most recent
 version of the Payflow Pro client.
 150 Issuing bank timed out
@@ -773,7 +773,7 @@ transaction.
 1023 Buyer Authentication Service _ merchant status for 3D secure is invalid
 1041 Buyer Authentication Service _ Validate Authentication failed: missing or
 invalid PARES
-1042 Buyer Authentication Service _ Validate Authentication failed: PARES format is 
+1042 Buyer Authentication Service _ Validate Authentication failed: PARES format is
 invalid
 1043 Buyer Authentication Service _ Validate Authentication failed: Cannot find
 successful Verify Enrollment
@@ -793,7 +793,7 @@ invalid currency code in PARES
 invalid XID in PARES
 1051 Buyer Authentication Service _ Validate Authentication failed: Mismatched or
 invalid order date in PARES
-1052 Buyer Authentication Service _ Validate Authentication failed: This PARES was 
+1052 Buyer Authentication Service _ Validate Authentication failed: This PARES was
 already validated for a previous Validate Authentication transaction
 
  */
@@ -811,8 +811,8 @@ already validated for a previous Validate Authentication transaction
 -11 Proxy authorization failed
 -12 Timeout waiting for response
 -13 Select failure
--14 Too many connections 
--15 Failed to set socket options 
+-14 Too many connections
+-15 Failed to set socket options
 -20 Proxy read failed
 -21 Proxy write failed
 -22 Failed to initialize SSL certificate

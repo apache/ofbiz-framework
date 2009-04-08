@@ -22,7 +22,7 @@ under the License.
 <web-app>
     <display-name>Open For Business - Ebay</display-name>
     <description>eBay component of the Open For Business Project</description>
-    
+
     <context-param>
         <param-name>webSiteId</param-name>
         <param-value>EBAY</param-value>
@@ -37,7 +37,7 @@ under the License.
         <param-name>localDispatcherName</param-name>
         <param-value>ebay</param-value>
         <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
-    </context-param>    
+    </context-param>
     <context-param>
         <param-name>mainDecoratorLocation</param-name>
         <param-value>component://ebay/widget/EbayScreens.xml</param-value>
@@ -63,16 +63,16 @@ under the License.
         <init-param>
             <param-name>redirectPath</param-name>
             <param-value>/control/main</param-value>
-        </init-param>        
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>ContextFilter</filter-name>
             <url-pattern>/*</url-pattern>
-    </filter-mapping> 
+    </filter-mapping>
 
     <listener><listener-class>org.ofbiz.webapp.control.ControlEventListener</listener-class></listener>
     <listener><listener-class>org.ofbiz.webapp.control.LoginEventListener</listener-class></listener>
-    
+
     <servlet>
         <servlet-name>ControlServlet</servlet-name>
         <display-name>ControlServlet</display-name>

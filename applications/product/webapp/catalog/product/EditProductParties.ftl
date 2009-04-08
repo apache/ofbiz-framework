@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if productId?exists && product?exists>    
+<#if productId?exists && product?exists>
   <table cellspacing="0" class="basic-table">
     <tr class="header-row">
       <td>${uiLabelMap.PartyPartyId}</td>

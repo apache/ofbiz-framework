@@ -19,7 +19,7 @@ dojo.require("dojo.html.display");
 dojo.require("dojo.html.iframe");
 
 dojo.declare(
-	"dojo.widget.ModalDialogBase", 
+	"dojo.widget.ModalDialogBase",
 	null,
 	{
 		// summary
@@ -35,7 +35,7 @@ dojo.declare(
 		// bgColor: String
 		//	color of viewport when displaying a dialog
 		bgColor: "black",
-		
+
 		// bgOpacity: Number
 		//	opacity (0~1) of viewport color (see bgColor attribute)
 		bgOpacity: 0.4,
@@ -170,7 +170,7 @@ dojo.declare(
 
 		_sizeBackground: function() {
 			if(this.bgOpacity > 0) {
-				
+
 				var viewport = dojo.html.getViewport();
 				var h = viewport.height;
 				var w = viewport.width;
@@ -204,7 +204,7 @@ dojo.declare(
 
 			var scroll_offset = dojo.html.getScroll().offset;
 			var viewport_size = dojo.html.getViewport();
-			
+
 			// find the size of the dialog (dialog needs to be showing to get the size)
 			var mb;
 			if(this.isShowing()){
@@ -216,7 +216,7 @@ dojo.declare(
 				dojo.html.hide(this.domNode);
 				dojo.html.setVisibility(this.domNode, true);
 			}
-			
+
 			var x = scroll_offset.x + (viewport_size.width - mb.width)/2;
 			var y = scroll_offset.y + (viewport_size.height - mb.height)/2;
 			with(this.domNode.style){
@@ -241,7 +241,7 @@ dojo.declare(
 				// opera won't tab to a div
 				}else if (!dojo.render.html.opera){
 					try {
-						this.tabStart.focus(); 
+						this.tabStart.focus();
 					} catch(e){}
 				}
 			}
@@ -260,9 +260,9 @@ dojo.declare(
 			this.setBackgroundOpacity();
 			this._sizeBackground();
 			this._showBackground();
-			this._fromTrap = true; 
+			this._fromTrap = true;
 
-			// set timeout to allow the browser to render dialog 
+			// set timeout to allow the browser to render dialog
 			setTimeout(dojo.lang.hitch(this, function(){
 				try{
 					this.tabStart.focus();
@@ -277,7 +277,7 @@ dojo.declare(
 
 			// workaround for FF focus going into outer space
 			if (this.focusElement) {
-				dojo.byId(this.focusElement).focus(); 
+				dojo.byId(this.focusElement).focus();
 				dojo.byId(this.focusElement).blur();
 			}
 
@@ -308,7 +308,7 @@ dojo.declare(
 				this.onResized();
 			}
 		},
-		
+
 		onBackgroundClick: function(){
 			// summary
 			//		Callback on background click.
@@ -333,7 +333,7 @@ dojo.widget.defineWidget(
 		// blockDuration: Integer
 		//	number of seconds for which the user cannot dismiss the dialog
 		blockDuration: 0,
-		
+
 		// lifetime: Integer
 		//	if set, this controls the number of seconds the dialog will be displayed before automatically disappearing
 		lifetime: 0,
@@ -383,7 +383,7 @@ dojo.widget.defineWidget(
 			this.placeModalDialog();
 			dojo.widget.Dialog.superclass.onLoad.call(this);
 		},
-		
+
 		fillInTemplate: function(){
 			// dojo.event.connect(this.domNode, "onclick", this, "killEvent");
 		},
@@ -396,7 +396,7 @@ dojo.widget.defineWidget(
 				clearInterval(this.timer);
 			}
 		},
-		
+
 		setTimerNode: function(node){
 			// summary
 			//	specify into which node to write the remaining # of seconds

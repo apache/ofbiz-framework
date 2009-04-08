@@ -11,7 +11,7 @@
 /*
 * Rhino host environment
 */
-// make jsc shut up (so we can use jsc for sanity checking) 
+// make jsc shut up (so we can use jsc for sanity checking)
 /*@cc_on
 @if (@_jscript_version >= 7)
 var loadClass; var print; var load; var quit; var version; var Packages; var java;
@@ -76,7 +76,7 @@ dojo.hostenv.loadUri = function(uri, cb){
 	}
 }
 
-dojo.hostenv.exit = function(exitcode){ 
+dojo.hostenv.exit = function(exitcode){
 	quit(exitcode);
 }
 
@@ -86,7 +86,7 @@ dojo.hostenv.exit = function(exitcode){
 //   1. get an EcmaError and look at e.getSourceName(): try {eval ("static in return")} catch(e) { ...
 //   Won't work because NativeGlobal.java only does a put of "name" and "message", not a wrapped reflecting object.
 //   Even if the EcmaError object had the sourceName set.
-//  
+//
 //   2. var e = Packages.org.mozilla.javascript.Context.getCurrentContext().reportError('');
 //   Won't work because it goes directly to the errorReporter, not the return value.
 //   We want context.interpreterSourceFile and context.interpreterLine, which are used in static Context.getSourcePositionFromStack
@@ -117,7 +117,7 @@ dojo.hostenv.exit = function(exitcode){
 // Note may get different answers based on:
 //    Context.setOptimizationLevel(-1)
 //    Context.setGeneratingDebug(true)
-//    Context.setGeneratingSource(true) 
+//    Context.setGeneratingSource(true)
 //
 // Some somewhat helpful posts:
 //    http://groups.google.com/groups?hl=en&lr=&ie=UTF-8&oe=UTF-8&safe=off&selm=9v9n0g%246gr1%40ripley.netscape.com
@@ -129,7 +129,7 @@ dojo.hostenv.exit = function(exitcode){
 
 // do it by using java java.lang.Exception
 function dj_rhino_current_script_via_java(depth) {
-    var optLevel = Packages.org.mozilla.javascript.Context.getCurrentContext().getOptimizationLevel();  
+    var optLevel = Packages.org.mozilla.javascript.Context.getCurrentContext().getOptimizationLevel();
    // if (optLevel == -1){ dojo.unimplemented("getCurrentScriptURI (determine current script path for rhino when interpreter mode)", ''); }
     var caw = new java.io.CharArrayWriter();
     var pw = new java.io.PrintWriter(caw);
@@ -149,7 +149,7 @@ function dj_rhino_current_script_via_java(depth) {
 	if(!fname){ fname = matches[1]; }
     // print("got fname '" + fname + "' from stack string '" + s + "'");
     if (!fname){ throw Error("could not find js file in printStackTrace output: " + s); }
-    //print("Rhino getCurrentScriptURI returning '" + fname + "' from: " + s); 
+    //print("Rhino getCurrentScriptURI returning '" + fname + "' from: " + s);
     return fname;
 }
 
@@ -230,7 +230,7 @@ dojo.doc = function(){
 }
 
 dojo.body = function(){
-	return document.body;	
+	return document.body;
 }
 
 function setTimeout(func, delay){
@@ -239,7 +239,7 @@ function setTimeout(func, delay){
 	var def={
 		sleepTime:delay,
 		hasSlept:false,
-		
+
 		run:function(){
 			if (!this.hasSlept){
 				this.hasSlept=true;
@@ -250,7 +250,7 @@ function setTimeout(func, delay){
 			} catch(e){dojo.debug("Error running setTimeout thread:" + e);}
 		}
 	};
-	
+
 	var runnable=new java.lang.Runnable(def);
 	var thread=new java.lang.Thread(runnable);
 	thread.start();

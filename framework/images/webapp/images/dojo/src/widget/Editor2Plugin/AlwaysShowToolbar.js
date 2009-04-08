@@ -49,7 +49,7 @@ dojo.declare("dojo.widget.Editor2Plugin.AlwaysShowToolbar", null,
 
 		if(!this._scrollSetUp){
 			this._scrollSetUp = true;
-			var editorWidth =  dh.getMarginBox(this.editor.domNode).width; 
+			var editorWidth =  dh.getMarginBox(this.editor.domNode).width;
 			this._scrollThreshold = dh.abs(tdn, true).y;
 			// dojo.debug("threshold:", this._scrollThreshold);
 			if((isIE)&&(db)&&(dh.getStyle(db, "background-image")=="none")){

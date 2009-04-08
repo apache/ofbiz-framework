@@ -2,15 +2,15 @@
 <!-- ====================================================
 	License information for this file is provided in LICENSE.TXT, as published
 	on the Open Applications Group web site. www.openapplications.org
-	
+
 	For support, more information, or to report implementation bugs,
 	please contact the Open Applications Group at xml@openapplications.org
-	
+
 	$Revision: 7.2.1 $
 	$Date: 31 October 2001 $
 	Open Applications Group XSD
 	Copyright 1998-2001, All Rights Reserved
-	
+
 	$Name: 002_confirm_bod_004.xsd $
 
 	cmk	6.0.0	06/15/98	Initial Release
@@ -20,9 +20,9 @@
 	mlr	6.1.1	06/19/99	Bug fix: CONFIRMMSG within CONFIRM
 	cmk	6.1.2	06/24/99	Update entities for resource inclusion
 	rjj	7.0.0	10/15/2000	Bug Fix: Added attributes VERB,NOUN, and REVISION to CONFIRM_BOD.
-	ajw	7.2		09/30/2001	Removed FIXED attributes VERB,NOUN,REVISION from first CONTROLAREA					
-	ajw	7.2.1	10/31/2001	W3C Schema Release 
-	
+	ajw	7.2		09/30/2001	Removed FIXED attributes VERB,NOUN,REVISION from first CONTROLAREA
+	ajw	7.2.1	10/31/2001	W3C Schema Release
+
 	Structure Overview
 
 		CONFIRM_BOD (CONFIRM)

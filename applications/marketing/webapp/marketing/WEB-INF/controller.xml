@@ -18,12 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <description>Marketing Manager Module Site Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
-    
+
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
     <preprocessor>
@@ -39,20 +39,20 @@ under the License.
     <!-- Request Mappings -->
     <request-map uri="MarketingReport">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="MarketingReport"/>        
+        <response name="success" type="view" value="MarketingReport"/>
     </request-map>
 
     <request-map uri="view"><security https="true" auth="false"/><response name="success" type="request" value="main"/></request-map>
     <request-map uri="authview"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
-    <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>    
-    
+    <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
+
     <request-map uri="changeDelegator">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="changeDelegator"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="error"/>
-    </request-map>    
-    
+    </request-map>
+
     <!-- =========== DataSource =========== -->
     <request-map uri="FindDataSource"><security https="true" auth="true"/><response name="success" type="view" value="FindDataSource"/></request-map>
     <request-map uri="EditDataSource"><security https="true" auth="true"/><response name="success" type="view" value="EditDataSource"/></request-map>
@@ -71,7 +71,7 @@ under the License.
         <response name="success" type="view" value="FindDataSource"/>
         <response name="error" type="view" value="FindDataSource"/>
     </request-map>
-    
+
     <!-- =========== DataSourceType =========== -->
     <request-map uri="FindDataSourceType"><security https="true" auth="true"/><response name="success" type="view" value="FindDataSourceType"/></request-map>
     <request-map uri="EditDataSourceType"><security https="true" auth="true"/><response name="success" type="view" value="EditDataSourceType"/></request-map>
@@ -109,7 +109,7 @@ under the License.
         <response name="success" type="view" value="FindTrackingCode"/>
         <response name="error" type="view" value="FindTrackingCode"/>
     </request-map>
-    
+
     <request-map uri="FindTrackingCodeOrders"><security https="true" auth="true"/><response name="success" type="view" value="FindTrackingCodeOrders"/></request-map>
     <request-map uri="FindTrackingCodeVisits"><security https="true" auth="true"/><response name="success" type="view" value="FindTrackingCodeVisits"/></request-map>
     <request-map uri="FindTrackingCodeType"><security https="true" auth="true"/><response name="success" type="view" value="FindTrackingCodeType"/></request-map>
@@ -146,12 +146,12 @@ under the License.
         <response name="error" type="view" value="EditMarketingCampaign"/>
     </request-map>
     <request-map uri="removeMarketingCampaign">
-        <security https="true" auth="true"/>       
+        <security https="true" auth="true"/>
         <event type="service" invoke="deleteMarketingCampaign"/>
         <response name="success" type="view" value="FindMarketingCampaign"/>
         <response name="error" type="view" value="FindMarketingCampaign"/>
     </request-map>
-    
+
     <request-map uri="EditMarketingCampaignRoles">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditMarketingCampaignRoles"/>
@@ -188,7 +188,7 @@ under the License.
         <response name="success" type="view" value="ListMarketingCampaignRoles"/>
         <response name="error" type="view" value="ListMarketingCampaignRoles"/>
     </request-map>
-    
+
     <!--  SegmentGroup requests -->
     <request-map uri="viewSegmentGroup"><security https="true" auth="true"/><response name="success" type="view" value="viewSegmentGroup"/></request-map>
     <request-map uri="FindSegmentGroup"><security https="true" auth="true"/><response name="success" type="view" value="FindSegmentGroup"/></request-map>
@@ -210,7 +210,7 @@ under the License.
         <response name="success" type="view" value="FindSegmentGroup"/>
         <response name="error" type="view" value="FindSegmentGroup"/>
     </request-map>
-    
+
     <!--  SegmentGroupClassification requests -->
     <request-map uri="listSegmentGroupClass"><security https="true" auth="true"/><response name="success" type="view" value="listSegmentGroupClass"/></request-map>
     <request-map uri="createSegmentGroupClassification">
@@ -231,8 +231,8 @@ under the License.
         <response name="success" type="view" value="listSegmentGroupClass"/>
         <response name="error" type="view" value="listSegmentGroupClass"/>
     </request-map>
-    
-    
+
+
     <!--  SegmentGroupGeo requests -->
     <request-map uri="listSegmentGroupGeo"><security https="true" auth="true"/><response name="success" type="view" value="listSegmentGroupGeo"/></request-map>
     <request-map uri="createSegmentGroupGeo">
@@ -253,7 +253,7 @@ under the License.
         <response name="success" type="view" value="listSegmentGroupGeo"/>
         <response name="error" type="view" value="listSegmentGroupGeo"/>
     </request-map>
-    
+
     <!--  SegmentGroupRole requests -->
     <request-map uri="listSegmentGroupRole"><security https="true" auth="true"/><response name="success" type="view" value="listSegmentGroupRole"/></request-map>
     <request-map uri="createSegmentGroupRole">
@@ -274,7 +274,7 @@ under the License.
         <response name="success" type="view" value="listSegmentGroupRole"/>
         <response name="error" type="view" value="listSegmentGroupRole"/>
     </request-map>
-    
+
     <!--  ContactList request mappings -->
     <request-map uri="FindContactLists"><security https="true" auth="true"/><response name="success" type="view" value="FindContactLists"/></request-map>
     <request-map uri="ListContactLists"><security https="true" auth="true"/><response name="success" type="view" value="ListContactLists"/></request-map>
@@ -298,7 +298,7 @@ under the License.
         <response name="success" type="view" value="ListContactLists"/>
         <response name="error" type="view" value="ListContactLists"/>
     </request-map>
-    
+
     <request-map uri="EditContactListParty"><security https="true" auth="true"/><response name="success" type="view" value="EditContactListParty"/></request-map>
     <request-map uri="FindContactListParties"><security https="true" auth="true"/><response name="success" type="view" value="FindContactListParties"/></request-map>
     <request-map uri="ListContactListParties"><security https="true" auth="true"/><response name="success" type="view" value="ListContactListParties"/></request-map>
@@ -320,7 +320,7 @@ under the License.
         <response name="success" type="view" value="ListContactListParties"/>
         <response name="error" type="view" value="ListContactListParties"/>
     </request-map>
-    
+
     <request-map uri="ListContactListCommEvents"><security https="true" auth="true"/><response name="success" type="view" value="ListContactListCommEvents"/></request-map>
     <request-map uri="EditContactListCommEvent"><security https="true" auth="true"/><response name="success" type="view" value="EditContactListCommEvent"/></request-map>
     <request-map uri="FindContactListCommEvents"><security https="true" auth="true"/><response name="success" type="view" value="FindContactListCommEvents"/></request-map>
@@ -342,16 +342,16 @@ under the License.
         <response name="success" type="view" value="ListContactListCommEvents"/>
         <response name="error" type="view" value="ListContactListCommEvents"/>
     </request-map>
-    
+
     <!-- Lookup request mappings -->
     <request-map uri="LookupSegmentGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupSegmentGroup"/></request-map>
     <request-map uri="LookupProductStore"><security https="true" auth="true"/><response name="success" type="view" value="LookupProductStore"/></request-map>
     <request-map uri="LookupGeo"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeo"/></request-map>
-    
+
     <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPartyClassificationGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyClassificationGroup"/></request-map>
     <request-map uri="LookupContactMech"><security https="true" auth="true"/><response name="success" type="view" value="LookupContactMech"/></request-map>
-    
+
     <request-map uri="LookupCommEvent"><security https="true" auth="true"/><response name="success" type="view" value="LookupCommEvent"/></request-map>
     <request-map uri="LookupPreferredContactMech"><security https="true" auth="true"/><response name="success" type="view" value="LookupPreferredContactMech"/></request-map>
     <request-map uri="LookupCommEvent"><security https="true" auth="true"/><response name="success" type="view" value="LookupCommEvent"/></request-map>
@@ -364,18 +364,18 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="MarketingCampaignReport"/>
     </request-map>
-    
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://marketing/widget/CommonScreens.xml#main"/>
     <view-map name="MarketingReport" type="screen" page="component://marketing/widget/MarketingReportScreens.xml#MarketingReportList"/>
-    
+
     <view-map name="FindDataSource"  type="screen" page="component://marketing/widget/DataSourceScreens.xml#ListDataSource"/>
     <view-map name="EditDataSource" type="screen" page="component://marketing/widget/DataSourceScreens.xml#EditDataSource"/>
     <view-map name="FindDataSourceType"  type="screen" page="component://marketing/widget/DataSourceScreens.xml#ListDataSourceType"/>
     <view-map name="EditDataSourceType" type="screen" page="component://marketing/widget/DataSourceScreens.xml#EditDataSourceType"/>
-    
+
     <view-map name="FindTrackingCode" type="screen" page="component://marketing/widget/TrackingCodeScreens.xml#ListTrackingCode"/>
     <view-map name="EditTrackingCode" type="screen" page="component://marketing/widget/TrackingCodeScreens.xml#EditTrackingCode"/>
     <view-map name="FindTrackingCodeOrders" type="screen" page="component://marketing/widget/TrackingCodeScreens.xml#ListTrackingCodeOrders"/>

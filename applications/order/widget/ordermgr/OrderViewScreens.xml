@@ -124,9 +124,9 @@ under the License.
             <widgets>
                 <section>
                     <condition>
-                        <not>                                            
-                            <if-empty field="listProjectAssoOrder"/>                                                
-                        </not>                                        
+                        <not>
+                            <if-empty field="listProjectAssoOrder"/>
+                        </not>
                     </condition>
                     <widgets>
                         <screenlet title="${uiLabelMap.PageTitleProjectInformation}">
@@ -163,7 +163,7 @@ under the License.
                 <set field="titleProperty" value="OrderLookupOrder"/>
                 <set field="headerItem" value="orderlist"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderList.groovy"/>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/FilterOrderList.groovy"/>                
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/FilterOrderList.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">

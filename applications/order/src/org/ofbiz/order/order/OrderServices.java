@@ -3499,7 +3499,7 @@ public class OrderServices {
                 Debug.logInfo("Unable to locate shopping cart item for seqId #" + itemSeqId, module);
             }
         }
-        // Create Estimated Delivery dates 
+        // Create Estimated Delivery dates
         for (Map.Entry<String, String> entry : itemEstimatedDeliveryDateMap.entrySet()) {
             String itemSeqId =  entry.getKey();
             String estimatedDeliveryDate = entry.getValue();
@@ -3640,7 +3640,7 @@ public class OrderServices {
         // - promotional, shipping and tax adjustments are removed
 
         // Inventory reservations
-        // find ship group associations 
+        // find ship group associations
         List shipGroupAssocs = null;
         try {
             shipGroupAssocs = delegator.findByAnd("OrderItemShipGroupAssoc", UtilMisc.toMap("orderId", orderId));

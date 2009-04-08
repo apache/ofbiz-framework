@@ -13,37 +13,37 @@ dojo.provide("dojo.widget.TreeDemo");
 dojo.require("dojo.Deferred");
 
 dojo.widget.TreeDemo = {
-	
+
 	reportIfDefered: function(res) {
-		if (res instanceof dojo.Deferred) {			
+		if (res instanceof dojo.Deferred) {
 			res.addCallbacks(
 				function(res) { /* dojo.debug("OK " + (res ? res: '')); */ return res },
 				function(err) { dojo.debug("Error"); dojo.debugShallow(err); }
 			);
-		}		
+		}
 	},
-	
+
 	resetRandomChildren: function(maxCount) {
 		this.randomChildrenMaxCount = maxCount;
 		this.randomChildrenCount = 0;
 		this.randomChildrenDepth = 0;
 	},
-	
-	
-	makeRandomChildren: function(title) {		
+
+
+	makeRandomChildren: function(title) {
 
 		this.randomChildrenDepth++;
-			
+
 		var children = [];
-		for (var i=1; i<=5; i++) {				
+		for (var i=1; i<=5; i++) {
 
 			var t = title+(this.randomChildrenDepth==1 ? '' : '.')+i;
 			var node = {title: t};
-				
-			children.push(node);		
-			this.randomChildrenCount++	
+
+			children.push(node);
+			this.randomChildrenCount++
 			if (this.randomChildrenCount >= this.randomChildrenMaxCount) {
-				break;			
+				break;
 			}
 		}
 
@@ -52,33 +52,33 @@ dojo.widget.TreeDemo = {
 		dojo.lang.forEach(children, function(child) {
 			var t = title+(_this.randomChildrenDepth==1 ? '' : '.')+i;
 			i++;
-		
+
 			// first node is always folder for tests
 			if (_this.randomChildrenCount<_this.randomChildrenMaxCount && (
 				_this.randomChildrenDepth==1 && child === children[0] || _this.randomChildrenDepth<5 && Math.random()>0.3 )
 			  ) {
 				//dojo.debug("add child "+t);
-				child.children = _this.makeRandomChildren(t);	
+				child.children = _this.makeRandomChildren(t);
 			}
 		});
-				
+
 
 			//dojo.debug("out "+nodeOrTree);
-			
+
 		this.randomChildrenDepth--;
-			
-		return children;			
+
+		return children;
 	},
-	
+
 	bindDemoMenu: function(controller) {
 		var _t = this;
-		
+
 		dojo.event.topic.subscribe('treeContextMenuDestroy/engage',
-			function (menuItem) { 
+			function (menuItem) {
 				var node = menuItem.getTreeNode();
 				//if (confirm("Delete node with descendants: "+node.title.replace(/(<([^>]+)>)/ig," ") +" ?")) {
-				_t.reportIfDefered(controller.destroyChild(node)); 
-				
+				_t.reportIfDefered(controller.destroyChild(node));
+
 			}
 		);
 
@@ -124,7 +124,7 @@ dojo.widget.TreeDemo = {
 
 
 	}
-	
-	
-	
+
+
+
 }

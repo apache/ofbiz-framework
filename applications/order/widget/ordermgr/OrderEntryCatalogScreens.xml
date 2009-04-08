@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <!-- Column Included Screens -->
@@ -64,7 +64,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="breadcrumbs">
         <section>
             <actions>
@@ -192,13 +192,13 @@ under the License.
     <screen name="inlineProductDetail">
         <section>
             <actions>
-                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/InlineProductDetail.groovy"/>                
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/InlineProductDetail.groovy"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/catalog/inlineProductDetail.ftl"/></html></platform-specific>
             </widgets>
         </section>
-    </screen>    
+    </screen>
     <screen name="keywordsearch">
         <section>
             <actions>
@@ -223,11 +223,11 @@ under the License.
             <actions>
                 <!--<set field="leftbarScreenName" value="leftbar"/>
                 <set field="MainColumnStyle" value="center"/>-->
-                
+
                 <set field="title-property" value="PageTitleAdvancedSearch"/>
                 <set field="headerItem" value="Advanced Search"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/AdvancedSearchOptions.groovy"/>
-                
+
                 <entity-condition entity-name="PartyRoleAndPartyDetail" list="supplerPartyRoleAndPartyDetails">
                     <condition-expr field-name="roleTypeId" value="SUPPLIER"/>
                     <order-by field-name="groupName"/>

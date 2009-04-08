@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>OFBiz Service Engine Services</description>
     <vendor>OFBiz</vendor>
@@ -50,7 +50,7 @@ under the License.
         <required-permissions join-type="AND">
             <check-permission permission="SERVICE_INVOKE_ANY"/>
         </required-permissions>
-        <auto-attributes entity-name="JobSandbox" include="pk" mode="IN" optional="false"/>        
+        <auto-attributes entity-name="JobSandbox" include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="resetScheduledJob" engine="java"
@@ -87,9 +87,9 @@ under the License.
         <description>Inteface to describe services call with streams</description>
         <attribute name="inputStream" type="java.io.InputStream" mode="IN"/>
         <attribute name="outputStream" type="java.io.OutputStream" mode="IN"/>
-        <attribute name="contentType" type="String" mode="OUT"/> 
+        <attribute name="contentType" type="String" mode="OUT"/>
     </service>
-    
+
     <service name="serviceEcaConditionInterface" engine="interface">
         <description>Interface to describe services which are used as SECA conditions</description>
         <attribute name="serviceContext" type="Map" mode="IN"/>

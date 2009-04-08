@@ -96,7 +96,7 @@ under the License.
           </form>
           <form method="post" action="<@ofbizUrl>anonOnePageCheckout</@ofbizUrl>" style="margin: 0;">
             <div align="center"><input type="submit" class="smallSubmit" value="${uiLabelMap.EcommerceOnePageCheckout}"/></div>
-          </form>          
+          </form>
         </div>
     </div>
     </#if>

@@ -84,7 +84,7 @@ under the License.
                 <td><span class="label">${uiLabelMap.ProductItem}</span> ${shipmentPackageContent.shipmentItemSeqId}</td>
                 <td colspan="2">
                     <div>
-                        <span class="label">${uiLabelMap.ProductQuantity}</span> 
+                        <span class="label">${uiLabelMap.ProductQuantity}</span>
                         ${shipmentPackageContent.quantity?if_exists}
                         <a href="<@ofbizUrl>deleteShipmentPackageContent?shipmentId=${shipmentId}&shipmentPackageSeqId=${shipmentPackageContent.shipmentPackageSeqId}&shipmentItemSeqId=${shipmentPackageContent.shipmentItemSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
                     </div>
@@ -100,7 +100,7 @@ under the License.
                 <td>&nbsp;</td>
                 <td>
                     <div>
-                        <span class="label">${uiLabelMap.ProductAddFromItem}</span> 
+                        <span class="label">${uiLabelMap.ProductAddFromItem}</span>
                         <select name="shipmentItemSeqId">
                             <#list shipmentItems as shipmentItem>
                                 <option>${shipmentItem.shipmentItemSeqId}</option>
@@ -130,7 +130,7 @@ under the License.
                 <td><span class="label">${uiLabelMap.ProductTrack}</span> <input type="text" size="22" name="trackingCode" value="${shipmentPackageRouteSeg.trackingCode?if_exists}"/></td>
                 <td colspan="2">
                     <div>
-                        <span class="label">${uiLabelMap.ProductBox}</span> 
+                        <span class="label">${uiLabelMap.ProductBox}</span>
                         <input type="text" size="5" name="boxNumber" value="${shipmentPackageRouteSeg.boxNumber?if_exists}"/>
                         <a href="javascript:document.updateShipmentPackageRouteSegForm${shipmentPackageData_index}${shipmentPackageRouteSeg_index}.submit();" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                         <a href="<@ofbizUrl>deleteShipmentPackageRouteSeg?shipmentId=${shipmentId}&shipmentPackageSeqId=${shipmentPackageRouteSeg.shipmentPackageSeqId}&shipmentRouteSegmentId=${shipmentPackageRouteSeg.shipmentRouteSegmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
@@ -186,7 +186,7 @@ under the License.
         -->
         </table>
     </div>
-</div>    
+</div>
 <#else>
 <div class="screenlet">
     <div class="screenlet-title-bar">

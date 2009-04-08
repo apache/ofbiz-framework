@@ -22,7 +22,7 @@ under the License.
     </#list>
 
     <table class="basic-table" cellspacing="0">
-        
+
     <#list serviceParameters as serviceParameter>
       <tr>
         <td class="label">${serviceParameter.name} (${serviceParameter.type})</td>
@@ -35,6 +35,6 @@ under the License.
     </#list>
       <tr>
         <td colspan="2" align="center"><input type="submit" value="${uiLabelMap.CommonSubmit}"></td>
-      </tr>      
+      </tr>
     </table>
 </form>

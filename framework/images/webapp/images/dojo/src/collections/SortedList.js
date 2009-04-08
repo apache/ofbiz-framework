@@ -69,7 +69,7 @@ dojo.collections.SortedList=function(/* object? */ dictionary){
 		var e=this.getIterator();
 		while (!e.atEnd()){
 			var item=e.get();
-			if(item.value==o){ 
+			if(item.value==o){
 				return true;	//	bool
 			}
 		}

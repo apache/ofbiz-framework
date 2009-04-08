@@ -19816,7 +19816,7 @@
     <property key="ProductVerify">
         <value xml:lang="en">Verify</value>
     </property>
-    <property key="ProductVerifyPick"> 
+    <property key="ProductVerifyPick">
         <value xml:lang="en">Verify Pick</value>
     </property>
     <property key="ProductViewEstimates">

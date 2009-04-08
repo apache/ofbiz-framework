@@ -359,15 +359,15 @@ dojo.hostenv.getBaseScriptUri = function(){
 	//Additional properties for dojo.hostenv
 	var _addHostEnv = {
 		pkgFileName: "__package__",
-	
+
 		// for recursion protection
 		loading_modules_: {},
 		loaded_modules_: {},
 		addedToLoadingCount: [],
 		removedFromLoadingCount: [],
-	
+
 		inFlightCount: 0,
-	
+
 		// FIXME: it should be possible to pull module prefixes in from djConfig
 		modulePrefixes_: {
 			dojo: {name: "dojo", value: "src"}
@@ -395,16 +395,16 @@ dojo.hostenv.getBaseScriptUri = function(){
 		getTextStack: [],
 		loadUriStack: [],
 		loadedUris: [],
-	
+
 		//WARNING: This variable is referenced by packages outside of bootstrap: FloatingPane.js and undo/browser.js
 		post_load_: false,
-		
+
 		//Egad! Lots of test files push on this directly instead of using dojo.addOnLoad.
 		modulesLoadedListeners: [],
 		unloadListeners: [],
 		loadNotifying: false
 	};
-	
+
 	//Add all of these properties to dojo.hostenv
 	for(var param in _addHostEnv){
 		dojo.hostenv[param] = _addHostEnv[param];
@@ -514,7 +514,7 @@ dojo.hostenv.unloaded = function(){
 
 dojo.addOnLoad = function(/*Object?*/obj, /*String|Function*/functionName) {
 // summary:
-//	Registers a function to be triggered after the DOM has finished loading 
+//	Registers a function to be triggered after the DOM has finished loading
 //	and widgets declared in markup have been instantiated.  Images and CSS files
 //	may or may not have finished downloading when the specified function is called.
 //	(Note that widgets' CSS and HTML code is guaranteed to be downloaded before said
@@ -561,7 +561,7 @@ dojo.addOnUnload = function(/*Object?*/obj, /*String|Function?*/functionName){
 dojo.hostenv.modulesLoaded = function(){
 	if(this.post_load_){ return; }
 	if(this.loadUriStack.length==0 && this.getTextStack.length==0){
-		if(this.inFlightCount > 0){ 
+		if(this.inFlightCount > 0){
 			dojo.debug("files still in flight!");
 			return;
 		}
@@ -583,8 +583,8 @@ dojo.hostenv.getModuleSymbols = function(/*String*/modulename){
 	var syms = modulename.split(".");
 	for(var i = syms.length; i>0; i--){
 		var parentModule = syms.slice(0, i).join(".");
-		if((i==1) && !this.moduleHasPrefix(parentModule)){		
-			// Support default module directory (sibling of dojo) for top-level modules 
+		if((i==1) && !this.moduleHasPrefix(parentModule)){
+			// Support default module directory (sibling of dojo) for top-level modules
 			syms[0] = "../" + syms[0];
 		}else{
 			var parentModulePath = this.getModulePrefix(parentModule);
@@ -603,30 +603,30 @@ dojo.hostenv.loadModule = function(/*String*/moduleName, /*Boolean?*/exactOnly, 
 //	loads a Javascript module from the appropriate URI
 //
 // description:
-//	loadModule("A.B") first checks to see if symbol A.B is defined. 
+//	loadModule("A.B") first checks to see if symbol A.B is defined.
 //	If it is, it is simply returned (nothing to do).
-//	
+//
 //	If it is not defined, it will look for "A/B.js" in the script root directory,
 //	followed by "A.js".
-//	
+//
 //	It throws if it cannot find a file to load, or if the symbol A.B is not
 //	defined after loading.
-//	
+//
 //	It returns the object A.B.
-//	
+//
 //	This does nothing about importing symbols into the current package.
 //	It is presumed that the caller will take care of that. For example, to import
 //	all symbols:
-//	
+//
 //	   with (dojo.hostenv.loadModule("A.B")) {
 //	      ...
 //	   }
-//	
+//
 //	And to import just the leaf symbol:
-//	
+//
 //	   var B = dojo.hostenv.loadModule("A.B");
 //	   ...
-//	
+//
 //	dj_load is an alias for dojo.hostenv.loadModule
 
 	if(!moduleName){ return; }
@@ -646,7 +646,7 @@ dojo.hostenv.loadModule = function(/*String*/moduleName, /*Boolean?*/exactOnly, 
 	var relpath = moduleName.replace(/\./g, '/') + '.js';
 
 	var nsyms = moduleName.split(".");
-	
+
 	// this line allowed loading of a module manifest as if it were a namespace
 	// it's an interesting idea, but shouldn't be combined with 'namespaces' proper
 	// and leads to unwanted dependencies
@@ -707,7 +707,7 @@ dojo.hostenv.loadModule = function(/*String*/moduleName, /*Boolean?*/exactOnly, 
 		// pass in false so we can give better error
 		module = this.findModule(moduleName, false);
 		if(!module){
-			dojo.raise("symbol '" + moduleName + "' is not defined after loading '" + relpath + "'"); 
+			dojo.raise("symbol '" + moduleName + "' is not defined after loading '" + relpath + "'");
 		}
 	}
 
@@ -736,7 +736,7 @@ dojo.hostenv.startPackage = function(/*String*/packageName){
 	var evaledPkg = dojo.evalObjPath(strippedPkgName, true);
 	this.loaded_modules_[fullPkgName] = evaledPkg;
 	this.loaded_modules_[strippedPkgName] = evaledPkg;
-	
+
 	return evaledPkg; // Object
 }
 
@@ -771,7 +771,7 @@ dojo.kwCompoundRequire = function(/*Object containing Arrays*/modMap){
 //	the hostenv.name_ item. The items in the "common" array will _always_ be
 //	loaded, regardless of which list is chosen.  Here's how it's normally
 //	called:
-//	
+//
 //	dojo.kwCompoundRequire({
 //		browser: [
 //			["foo.bar.baz", true, true], // an example that passes multiple args to loadModule()
@@ -802,7 +802,7 @@ dojo.require = function(/*String*/ resourceName){
 	// description
 	//	dojo.require() is similar to C's #include command or java's "import" command.
 	//	You call dojo.require() to pull in the resources (ie, javascript source files)
-	//	that define the functions you are using. 
+	//	that define the functions you are using.
 	//
 	//	Note that in the case of a build, many resources have already been included
 	//	into dojo.js (ie, many of the javascript source files have been compressed and
@@ -834,7 +834,7 @@ dojo.provide = function(/*String*/ resourceName){
 	//	Each javascript source file is called a resource.  When a resource
 	//	is loaded by the browser, dojo.provide() registers that it has
 	//	been loaded.
-	//	
+	//
 	//	For backwards compatibility reasons, in addition to registering the resource,
 	//	dojo.provide() also ensures that the javascript object for the module exists.  For
 	//	example, dojo.provide("dojo.html.common"), in addition to registering that common.js
@@ -852,7 +852,7 @@ dojo.registerModulePath = function(/*String*/module, /*String*/prefix){
 	// summary: maps a module name to a path
 	// description: An unregistered module is given the default path of ../<module>,
 	//	relative to Dojo root. For example, module acme is mapped to ../acme.
-	//	If you want to use a different module name, use dojo.registerModulePath. 
+	//	If you want to use a different module name, use dojo.registerModulePath.
 	return dojo.hostenv.setModulePrefix(module, prefix);
 }
 
@@ -917,7 +917,7 @@ dojo.hostenv.localesGenerated /***BUILD:localesGenerated***/; // value will be i
 dojo.hostenv.registerNlsPrefix = function(){
 // summary:
 //	Register module "nls" to point where Dojo can find pre-built localization files
-	dojo.registerModulePath("nls","nls");	
+	dojo.registerModulePath("nls","nls");
 }
 
 dojo.hostenv.preloadLocalizations = function(){
@@ -1006,7 +1006,7 @@ dojo.requireLocalization = function(/*String*/moduleName, /*String*/bundleName, 
 // The structure on disk is intended to be most convenient for developers and translators, but in memory
 // it is more logical and efficient to store in a different order.  Locales cannot use dashes, since the
 // resulting path will not evaluate as valid JS, so we translate them to underscores.
-	
+
 	//Find the best-match locale to load if we have available flat locales.
 	var bestLocale = "";
 	if(availableFlatLocales){
@@ -1021,7 +1021,7 @@ dojo.requireLocalization = function(/*String*/moduleName, /*String*/bundleName, 
 		}
 		if(!bestLocale){
 			bestLocale = "ROOT";
-		}		
+		}
 	}
 
 	//See if the desired locale is already loaded.
@@ -1067,7 +1067,7 @@ dojo.requireLocalization = function(/*String*/moduleName, /*String*/bundleName, 
 			}else{
 				bundle[jsLoc] = parent;
 			}
-			
+
 			if(availableFlatLocales){
 				//Stop the locale path searching if we know the availableFlatLocales, since
 				//the first call to this function will load the only bundle that is needed.
@@ -1135,7 +1135,7 @@ if(typeof window != 'undefined'){
 		}
 
 		if(
-			((djConfig["baseScriptUri"] == "")||(djConfig["baseRelativePath"] == "")) && 
+			((djConfig["baseScriptUri"] == "")||(djConfig["baseRelativePath"] == "")) &&
 			(document && document.getElementsByTagName)
 		){
 			var scripts = document.getElementsByTagName("script");
@@ -1700,7 +1700,7 @@ dojo.dom.DOCUMENT_NODE                 = 9;
 dojo.dom.DOCUMENT_TYPE_NODE            = 10;
 dojo.dom.DOCUMENT_FRAGMENT_NODE        = 11;
 dojo.dom.NOTATION_NODE                 = 12;
-	
+
 dojo.dom.dojoml = "http://www.dojotoolkit.org/2004/dojoml";
 
 /**
@@ -1933,10 +1933,10 @@ dojo.dom.getAncestors = function(/*Node*/node, /*function?*/filterFunction, /*bo
 		if(!isFunction || filterFunction(node)){
 			ancestors.push(node);
 		}
-		if(returnFirstHit && ancestors.length > 0){ 
+		if(returnFirstHit && ancestors.length > 0){
 			return ancestors[0]; 	//	Node
 		}
-		
+
 		node = node.parentNode;
 	}
 	if(returnFirstHit){ return null; }
@@ -1965,7 +1965,7 @@ dojo.dom.isDescendantOf = function(/* Node */node, /* Node */ancestor, /* boolea
 	// guaranteeDescendant allows us to be a "true" isDescendantOf function
 	if(guaranteeDescendant && node) { node = node.parentNode; }
 	while(node) {
-		if(node == ancestor){ 
+		if(node == ancestor){
 			return true; 	//	boolean
 		}
 		node = node.parentNode;
@@ -2004,7 +2004,7 @@ dojo.dom.createDocument = function(){
 		(_document.implementation.createDocument)){
 		doc = _document.implementation.createDocument("", "", null);
 	}
-	
+
 	return doc;	//	DOMDocument
 }
 
@@ -2101,8 +2101,8 @@ dojo.dom.insertAfter = function(/*Node*/node, /*Node*/ref, /*boolean?*/force){
 dojo.dom.insertAtPosition = function(/*Node*/node, /*Node*/ref, /*string*/position){
 	//	summary:
 	//		attempt to insert node in relation to ref based on position
-	if((!node)||(!ref)||(!position)){ 
-		return false;	//	boolean 
+	if((!node)||(!ref)||(!position)){
+		return false;	//	boolean
 	}
 	switch(position.toLowerCase()){
 		case "before":
@@ -2126,10 +2126,10 @@ dojo.dom.insertAtPosition = function(/*Node*/node, /*Node*/ref, /*string*/positi
 dojo.dom.insertAtIndex = function(/*Node*/node, /*Element*/containingNode, /*number*/insertionIndex){
 	//	summary:
 	//		insert node into child nodes nodelist of containingNode at
-	//		insertionIndex. insertionIndex should be between 0 and 
+	//		insertionIndex. insertionIndex should be between 0 and
 	//		the number of the childNodes in containingNode. insertionIndex
 	//		specifys after how many childNodes in containingNode the node
-	//		shall be inserted. If 0 is given, node will be appended to 
+	//		shall be inserted. If 0 is given, node will be appended to
 	//		containingNode.
 	var siblingNodes = containingNode.childNodes;
 
@@ -2148,7 +2148,7 @@ dojo.dom.insertAtIndex = function(/*Node*/node, /*Element*/containingNode, /*num
 
 	return dojo.dom.insertAfter(node, siblingNodes[insertionIndex-1]);	//	boolean
 }
-	
+
 dojo.dom.textContent = function(/*Node*/node, /*string*/text){
 	//	summary:
 	//		implementation of the DOM Level 3 attribute; scan node for text
@@ -2210,14 +2210,14 @@ dojo.dom.isTag = function(/* Node */node /* ... */){
 	return "";	//	string
 }
 
-dojo.dom.setAttributeNS = function(	/*Element*/elem, /*string*/namespaceURI, 
+dojo.dom.setAttributeNS = function(	/*Element*/elem, /*string*/namespaceURI,
 									/*string*/attrName, /*string*/attrValue){
 	//	summary:
 	//		implementation of DOM2 setAttributeNS that works cross browser.
 	if(elem == null || ((elem == undefined)&&(typeof elem == "undefined"))){
 		dojo.raise("No element given to dojo.dom.setAttributeNS");
 	}
-	
+
 	if(!((elem.setAttributeNS == undefined)&&(typeof elem.setAttributeNS == "undefined"))){ // w3c
 		elem.setAttributeNS(namespaceURI, attrName, attrValue);
 	}else{ // IE
@@ -2228,10 +2228,10 @@ dojo.dom.setAttributeNS = function(	/*Element*/elem, /*string*/namespaceURI,
 			attrName,
 			namespaceURI
 		);
-		
+
 		// set value
 		attribute.nodeValue = attrValue;
-		
+
 		// attach to element
 		elem.setAttributeNode(attribute);
 	}
@@ -2248,7 +2248,7 @@ dojo.xml.Parse = function(){
 	// summary:
 	//		generic class for taking a DOM node and parsing it into an object
 	//		based on the "dojo tag name" of that node.
-	// 
+	//
 	//		supported dojoTagName's:
 	//			<prefix:tag> => prefix:tag
 	//			<dojo:tag> => dojo:tag
@@ -2256,7 +2256,7 @@ dojo.xml.Parse = function(){
 	//			<tag dojoType="type"> => dojo:type
 	//			<tag dojoType="prefix:type"> => prefix:type
 	//			<tag dojo:type="type"> => dojo:type
-	//			<tag class="classa dojo-type classb"> => dojo:type	
+	//			<tag class="classa dojo-type classb"> => dojo:type
 
 	var isIE = ((dojo.render.html.capable)&&(dojo.render.html.ie));
 
@@ -2318,12 +2318,12 @@ dojo.xml.Parse = function(){
 		try{
 			// FIXME: IE really really doesn't like this, so we squelch errors for it
 			djt = node.getAttribute("dojo:type");
-		}catch(e){ 
-			// FIXME: log?  
+		}catch(e){
+			// FIXME: log?
 		}
 		if(djt){ return "dojo:"+djt.toLowerCase(); }
-		// <tag class="classa dojo-type classb"> => dojo:type	
-		if((dj_global["djConfig"])&&(!djConfig["ignoreClassNames"])){ 
+		// <tag class="classa dojo-type classb"> => dojo:type
+		if((dj_global["djConfig"])&&(!djConfig["ignoreClassNames"])){
 			// FIXME: should we make this optionally enabled via djConfig?
 			var classes = node.className||node.getAttribute("class");
 			// FIXME: following line, without check for existence of classes.indexOf
@@ -2332,7 +2332,7 @@ dojo.xml.Parse = function(){
 				var aclasses = classes.split(" ");
 				for(var x=0, c=aclasses.length; x<c; x++){
 					if(aclasses[x].slice(0, 5) == "dojo-"){
-						return "dojo:"+aclasses[x].substr(5).toLowerCase(); 
+						return "dojo:"+aclasses[x].substr(5).toLowerCase();
 					}
 				}
 			}
@@ -2343,8 +2343,8 @@ dojo.xml.Parse = function(){
 
 
 	this.parseElement = function(	/*DomNode*/node,
-									/*Boolean*/hasParentNodeSet, 
-									/*Boolean*/optimizeForDojoML, 
+									/*Boolean*/hasParentNodeSet,
+									/*Boolean*/optimizeForDojoML,
 									/*Integer*/thisIdx	){
 		// summary:
 		//		recursively parse the passed node, returning a normalized data
@@ -2374,7 +2374,7 @@ dojo.xml.Parse = function(){
 			}
 		}catch(e){/*continue*/}
 
-		
+
 		// look for a dojoml qualified name
 		// process dojoml only when optimizeForDojoML is true
 		var process = true;
@@ -2401,7 +2401,7 @@ dojo.xml.Parse = function(){
 					parsedNodeSet[tagName][attr] = [];
 				}
 				parsedNodeSet[tagName][attr].push(attributeSet[attr]);
-			}	
+			}
 			// FIXME: we might want to make this optional or provide cloning instead of
 			// referencing, but for now, we include a node reference to allow
 			// instantiated components to figure out their "roots"
@@ -2443,7 +2443,7 @@ dojo.xml.Parse = function(){
 					break;
 				case  dojo.dom.PROCESSING_INSTRUCTION_NODE: // processing instruction node... not meaningful here
 					break;
-				case  dojo.dom.COMMENT_NODE: // comment node... not not sure if this would ever be meaningful 
+				case  dojo.dom.COMMENT_NODE: // comment node... not not sure if this would ever be meaningful
 					break;
 				case  dojo.dom.DOCUMENT_NODE: // document node... not sure if this would ever be meaningful
 					break;
@@ -2470,7 +2470,7 @@ dojo.xml.Parse = function(){
 		// 		representation of a DOM node.
 		// usage:
 		//		a node with the following serialization:
-		//			<div foo="bar" baz="thud">...</div>	
+		//			<div foo="bar" baz="thud">...</div>
 		//		would yeild the following return structure when passed into this
 		//		function:
 		//			{
@@ -2493,16 +2493,16 @@ dojo.xml.Parse = function(){
 				if((typeof attnode == "object")&&
 					(typeof attnode.nodeValue == 'undefined')||
 					(attnode.nodeValue == null)||
-					(attnode.nodeValue == '')){ 
-					continue; 
+					(attnode.nodeValue == '')){
+					continue;
 				}
 			}
 
 			var nn = attnode.nodeName.split(":");
 			nn = (nn.length == 2) ? nn[1] : attnode.nodeName;
-						
-			parsedAttributeSet[nn] = { 
-				value: attnode.nodeValue 
+
+			parsedAttributeSet[nn] = {
+				value: attnode.nodeValue
 			};
 		}
 		return parsedAttributeSet;
@@ -2513,7 +2513,7 @@ dojo.provide("dojo.lang.common");
 
 dojo.lang.inherits = function(/*Function*/subclass, /*Function*/superclass){
 	// summary: Set up inheritance between two classes.
-	if(!dojo.lang.isFunction(superclass)){ 
+	if(!dojo.lang.isFunction(superclass)){
 		dojo.raise("dojo.inherits: superclass argument ["+superclass+"] must be a function (subclass: ["+subclass+"']");
 	}
 	subclass.prototype = new superclass();
@@ -2539,7 +2539,7 @@ dojo.lang._mixin = function(/*Object*/ obj, /*Object*/ props){
 		}
 	}
 	// IE doesn't recognize custom toStrings in for..in
-	if(dojo.render.html.ie 
+	if(dojo.render.html.ie
 		&& (typeof(props["toString"]) == "function")
 		&& (props["toString"] != obj["toString"])
 		&& (props["toString"] != tobj["toString"]))
@@ -2550,7 +2550,7 @@ dojo.lang._mixin = function(/*Object*/ obj, /*Object*/ props){
 }
 
 dojo.lang.mixin = function(/*Object*/obj, /*Object...*/props){
-	// summary:	Adds all properties and methods of props to obj. 
+	// summary:	Adds all properties and methods of props to obj.
 	for(var i=1, l=arguments.length; i<l; i++){
 		dojo.lang._mixin(obj, arguments[i]);
 	}
@@ -2574,23 +2574,23 @@ dojo.inherits = dojo.lang.inherits;
 dojo.mixin = dojo.lang.mixin;
 dojo.extend = dojo.lang.extend;
 
-dojo.lang.find = function(	/*Array*/		array, 
+dojo.lang.find = function(	/*Array*/		array,
 							/*Object*/		value,
 							/*Boolean?*/	identity,
 							/*Boolean?*/	findLast){
-	// summary:	
+	// summary:
 	//		Return the index of value in array, returning -1 if not found.
 	// array: just what you think
 	// value: the value to locate
-	// identity: 
+	// identity:
 	//		If true, matches with identity comparison (===). If false, uses
 	//		normal comparison (==).
-	// findLast: 
+	// findLast:
 	//		If true, returns index of last instance of value.
 	// examples:
 	//		find(array, value[, identity [findLast]]) // recommended
  	//		find(value, array[, identity [findLast]]) // deprecated
-							
+
 	// support both (array, value) and (value, array)
 	if(!dojo.lang.isArrayLike(array) && dojo.lang.isArrayLike(value)) {
 		dojo.deprecated('dojo.lang.find(value, array)', 'use dojo.lang.find(array, value) instead', "0.5");
@@ -2666,7 +2666,7 @@ dojo.lang.isArray = function(/*anything*/ it){
 }
 
 dojo.lang.isArrayLike = function(/*anything*/ it){
-	// summary:	
+	// summary:
 	//		Return true if it can be used as an array (i.e. is an object with
 	//		an integer length property).
 	if((!it)||(dojo.lang.isUndefined(it))){ return false; }
@@ -2718,7 +2718,7 @@ dojo.lang.isBoolean = function(/*anything*/ it){
  */
 dojo.lang.isNumber = function(/*anything*/ it){
 	// summary:	Return true if it is a number.
-	// description: 
+	// description:
 	//		WARNING - In most cases, isNaN(it) is sufficient to determine whether or not
 	// 		something is a number or can be used as such. For example, a number or string
 	// 		can be used interchangably when accessing array items (array["1"] is the same as
@@ -2729,7 +2729,7 @@ dojo.lang.isNumber = function(/*anything*/ it){
 	// 		the same type of thing). That is really where isNumber "shines".
 	//
 	// Recommendation - Use isNaN(it) when possible
-	
+
 	return (it instanceof Number || typeof it == "number"); // Boolean
 }
 
@@ -2738,7 +2738,7 @@ dojo.lang.isNumber = function(/*anything*/ it){
  */
 dojo.lang.isUndefined = function(/*anything*/ it){
 	// summary: Return true if it is not defined.
-	// description: 
+	// description:
 	//		WARNING - In some cases, isUndefined will not behave as you
 	// 		might expect. If you do isUndefined(foo) and there is no earlier
 	// 		reference to foo, an error will be thrown before isUndefined is
@@ -2756,7 +2756,7 @@ dojo.lang.isUndefined = function(/*anything*/ it){
 dojo.provide("dojo.lang.func");
 
 dojo.lang.hitch = function(/*Object*/thisObject, /*Function|String*/method){
-	// summary: 
+	// summary:
 	//		Returns a function that will only ever execute in the a given scope
 	//		(thisObject). This allows for easy use of object member functions
 	//		in callbacks and other places in which the "this" keyword may
@@ -2837,9 +2837,9 @@ dojo.lang.curry = function(thisObj, func /* args ... */){
 	//					dojo.debug.apply(dojo, arguments);
 	//				}
 	//			};
-	//		
+	//
 	//		dojo.lang.curry() can be used most simply in this way:
-	//		
+	//
 	//			tmp = dojo.lang.curry(foo, foo.bar, "arg one", "thinger");
 	//			tmp("blah", "this is superfluous");
 	//			// debugs: "arg one thinger blah this is superfluous"
@@ -2954,7 +2954,7 @@ dojo.lang.delayThese = function(/*Array*/farr, /*Function, optional*/cb, /*Integ
 	 * alternate: (array funcArray, function callback)
 	 * alternate: (array funcArray)
 	 */
-	if(!farr.length){ 
+	if(!farr.length){
 		if(typeof onend == "function"){
 			onend();
 		}
@@ -3003,7 +3003,7 @@ dojo.lang.mixin(dojo.lang, {
 				if(obj[x] && (!tmp[x])){
 					count++;
 					break;
-				} 
+				}
 			}
 			return count == 0; // boolean
 		}else if(dojo.lang.isArrayLike(obj) || dojo.lang.isString(obj)){
@@ -3092,7 +3092,7 @@ dojo.lang.mixin(dojo.lang, {
 		}
 
 		var ob = obj ? obj : dj_global;
-		dojo.lang.map(arr, 
+		dojo.lang.map(arr,
 			function(val){
 				reducedValue = binary_func.call(ob, reducedValue, val);
 			}
@@ -3109,7 +3109,7 @@ dojo.lang.mixin(dojo.lang, {
 		//			http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Global_Objects:Array:forEach
 		if(dojo.lang.isString(anArray)){
 			// anArray: String
-			anArray = anArray.split(""); 
+			anArray = anArray.split("");
 		}
 		if(Array.forEach){
 			Array.forEach(anArray, callback, thisObject);
@@ -3118,16 +3118,16 @@ dojo.lang.mixin(dojo.lang, {
 			if(!thisObject){
 				thisObject=dj_global;
 			}
-			for(var i=0,l=anArray.length; i<l; i++){ 
+			for(var i=0,l=anArray.length; i<l; i++){
 				callback.call(thisObject, anArray[i], i, anArray);
 			}
 		}
 	},
 
 	_everyOrSome: function(/*Boolean*/every, /*Array*/arr, /*Function*/callback, /*Object?*/thisObject){
-		if(dojo.lang.isString(arr)){ 
+		if(dojo.lang.isString(arr)){
 			//arr: String
-			arr = arr.split(""); 
+			arr = arr.split("");
 		}
 		if(Array.every){
 			return Array[ every ? "every" : "some" ](arr, callback, thisObject);
@@ -3159,7 +3159,7 @@ dojo.lang.mixin(dojo.lang, {
 		//		dojo.lang.every([1, 2, 3, 4], function(item){ return item>1; });
 		//		// returns false
 		//		dojo.lang.every([1, 2, 3, 4], function(item){ return item>0; });
-		//		// returns true 
+		//		// returns true
 		return this._everyOrSome(true, arr, callback, thisObject); // Boolean
 	},
 
@@ -3270,7 +3270,7 @@ dojo.lang.setTimeout = function(/*Function*/func, /*int*/delay /*, ...*/){
 	if(dojo.lang.isString(func)){
 		func = context[func];
 	}
-	
+
 	var args = [];
 	for (var i = argsStart; i < arguments.length; i++){
 		args.push(arguments[i]);
@@ -3289,7 +3289,7 @@ dojo.lang.clearTimeout = function(/*int*/timer){
 }
 
 dojo.lang.getNameInObj = function(/*Object*/ns, /*unknown*/item){
-	// summary: 
+	// summary:
 	//		looks for a value in the object ns with a value matching item and
 	//		returns the property name
 	// ns: if null, dj_global is used
@@ -3307,12 +3307,12 @@ dojo.lang.getNameInObj = function(/*Object*/ns, /*unknown*/item){
 dojo.lang.shallowCopy = function(/*Object*/obj, /*Boolean?*/deep){
 	// summary:
 	//		copies object obj one level deep, or full depth if deep is true
-	var i, ret;	
+	var i, ret;
 
 	if(obj === null){ /*obj: null*/ return null; } // null
-	
+
 	if(dojo.lang.isObject(obj)){
-		// obj: Object	
+		// obj: Object
 		ret = new obj.constructor();
 		for(i in obj){
 			if(dojo.lang.isUndefined(ret[i])){
@@ -3384,9 +3384,9 @@ dojo.lang.setObjPathValue = function(/*String*/objpath, /*anything*/value, /*Obj
 dojo.provide("dojo.lang.declare");
 
 
-dojo.lang.declare = function(	/*String*/ className, 
-								/*Function|Array*/ superclass, 
-								/*Function?*/ init, 
+dojo.lang.declare = function(	/*String*/ className,
+								/*Function|Array*/ superclass,
+								/*Function?*/ init,
 								/*Object|Array*/ props){
 	/*
 	 *	summary: Create a feature-rich constructor with a compact notation
@@ -3402,17 +3402,17 @@ dojo.lang.declare = function(	/*String*/ className,
 	 *	description:
 	 *		Create a constructor using a compact notation for inheritance and
 	 *		prototype extension. "superclass" argument may be a Function, or an
-	 *		array of Functions. 
+	 *		array of Functions.
 	 *
 	 *		If "superclass" is an array, the first element is used as the
 	 *		prototypical ancestor and any following Functions become mixin
-	 *		ancestors. 
-	 * 
+	 *		ancestors.
+	 *
 	 *		All "superclass(es)" must be Functions (not mere Objects).
 	 *
 	 *		Using mixin ancestors provides a type of multiple inheritance.
 	 *		Mixin ancestors prototypical properties are copied to the subclass,
-	 *		and any inializater/constructor is invoked. 
+	 *		and any inializater/constructor is invoked.
 	 *
 	 *		Properties of object "props" are copied to the constructor
 	 *		prototype. If "props" is an array, properties of each object in the
@@ -3420,10 +3420,10 @@ dojo.lang.declare = function(	/*String*/ className,
 	 *
 	 *		name of the class ("className" argument) is stored in
 	 *		"declaredClass" property
-	 * 
+	 *
 	 *		Initializer functions are called when an object is instantiated
 	 *		from this constructor.
-	 * 
+	 *
 	 *		Aliased as "dojo.declare"
 	 *
 	 * Usage:
@@ -3431,24 +3431,24 @@ dojo.lang.declare = function(	/*String*/ className,
 	 *		dojo.declare("my.classes.bar", my.classes.foo,
 	 *			function(){
 	 *				// initialization function
-	 *				this.myComplicatedObject = new ReallyComplicatedObject(); 
+	 *				this.myComplicatedObject = new ReallyComplicatedObject();
 	 *			},
 	 *			{ // properties to be added to the class prototype
 	 *				someValue: 2,
-	 *				someMethod: function(){ 
-	 *					doStuff(); 
+	 *				someMethod: function(){
+	 *					doStuff();
 	 *				}
 	 *			}
 	 *		);
 	 *
 	 */
-	if((dojo.lang.isFunction(props))||((!props)&&(!dojo.lang.isFunction(init)))){ 
+	if((dojo.lang.isFunction(props))||((!props)&&(!dojo.lang.isFunction(init)))){
 		// parameter juggling to support omitting init param (also allows
 		// reordering init and props arguments)
 		var temp = props;
 		props = init;
 		init = temp;
-	}	
+	}
 	var mixins = [ ];
 	if(dojo.lang.isArray(superclass)){
 		mixins = superclass;
@@ -3463,7 +3463,7 @@ dojo.lang.declare = function(	/*String*/ className,
 	if(scp){
 		scp.prototyping = true;
 		ctor.prototype = new superclass();
-		scp.prototyping = false; 
+		scp.prototyping = false;
 	}
 	ctor.superclass = scp;
 	ctor.mixins = mixins;
@@ -3486,7 +3486,7 @@ dojo.lang.declare = function(	/*String*/ className,
 }
 
 dojo.lang.declare._makeConstructor = function(){
-	return function(){ 
+	return function(){
 		// get the generational context (which object [or prototype] should be constructed)
 		var self = this._getPropContext();
 		var s = self.constructor.superclass;
@@ -3515,7 +3515,7 @@ dojo.lang.declare._common = {
 		var result, stack = this.___proto;
 		this.___proto = ptype;
 		try { result = ptype[method].apply(this,(args||[])); }
-		catch(e) { throw e; }	
+		catch(e) { throw e; }
 		finally { this.___proto = stack; }
 		return result;
 	},
@@ -3575,7 +3575,7 @@ dojo.ns = {
 			// FIXME: do we really ever have re-entrancy situation? this would appear to be really bad
 			// original code did not throw an exception, although that seems the only course
 			// adding debug output here to track if this occurs.
-			dojo.debug('dojo.namespace.require: re-entrant request to load namespace "' + name + '" must fail.'); 
+			dojo.debug('dojo.namespace.require: re-entrant request to load namespace "' + name + '" must fail.');
 			return false; // Boolean
 		}
 		// workaround so we don't break the build system
@@ -3623,7 +3623,7 @@ dojo.ns.Ns.prototype.resolve = function(/*String*/name, /*String*/domain, /*Bool
 		if(dojo.hostenv.findModule(fullName, false)){
 			this._loaded[fullName] = true;
 		}else{
-			if(!omitModuleCheck){dojo.raise("dojo.ns.Ns.resolve: module '" + fullName + "' not found after loading via namespace '" + this.name + "'");} 
+			if(!omitModuleCheck){dojo.raise("dojo.ns.Ns.resolve: module '" + fullName + "' not found after loading via namespace '" + this.name + "'");}
 			this._failed[fullName] = true;
 		}
 	}
@@ -3652,7 +3652,7 @@ dojo.registerNamespaceResolver = function(/*String*/name, /*Function*/resolver){
 	//
 	// example:
 	//  dojo.registerNamespaceResolver("acme",
-	//    function(name){ 
+	//    function(name){
 	//      return "acme.widget."+dojo.string.capitalize(name);
 	//    }
 	//  );
@@ -3832,12 +3832,12 @@ dojo.event = new function(){
 		if(!ao.adviceObj){
 			dojo.raise("bad adviceObj for adviceFunc: "+ao.adviceFunc);
 		}
-		
+
 		if(!ao.adviceFunc){
 			dojo.debug("bad adviceFunc for srcFunc: "+ao.srcFunc);
 			dojo.debugShallow(ao);
-		} 
-		
+		}
+
 		return ao;
 	}
 
@@ -3857,28 +3857,28 @@ dojo.event = new function(){
 		//			dojo.event.connect(scope1, "functionName1", scope2, "functionName2");
 		//			dojo.event.connect("after", scope1, "functionName1", scope2, "functionName2");
 		//			dojo.event.connect("before", scope1, "functionName1", scope2, "functionName2");
-		//			dojo.event.connect("around", 	scope1, "functionName1", 
+		//			dojo.event.connect("around", 	scope1, "functionName1",
 		//											scope2, "functionName2",
 		//											aroundFunctionReference);
-		//			dojo.event.connect("around", 	scope1, "functionName1", 
+		//			dojo.event.connect("around", 	scope1, "functionName1",
 		//											scope2, "functionName2",
 		//											scope3, "aroundFunctionName");
-		//			dojo.event.connect("before-around", 	scope1, "functionName1", 
+		//			dojo.event.connect("before-around", 	scope1, "functionName1",
 		//													scope2, "functionName2",
 		//													aroundFunctionReference);
-		//			dojo.event.connect("after-around", 		scope1, "functionName1", 
+		//			dojo.event.connect("after-around", 		scope1, "functionName1",
 		//													scope2, "functionName2",
 		//													aroundFunctionReference);
-		//			dojo.event.connect("after-around", 		scope1, "functionName1", 
+		//			dojo.event.connect("after-around", 		scope1, "functionName1",
 		//													scope2, "functionName2",
 		//													scope3, "aroundFunctionName");
-		//			dojo.event.connect("around", 	scope1, "functionName1", 
+		//			dojo.event.connect("around", 	scope1, "functionName1",
 		//											scope2, "functionName2",
 		//											scope3, "aroundFunctionName", true, 30);
-		//			dojo.event.connect("around", 	scope1, "functionName1", 
+		//			dojo.event.connect("around", 	scope1, "functionName1",
 		//											scope2, "functionName2",
 		//											scope3, "aroundFunctionName", null, null, 10);
-		// adviceType: 
+		// adviceType:
 		//		Optional. String. One of "before", "after", "around",
 		//		"before-around", or "after-around". FIXME
 		// srcObj:
@@ -4073,7 +4073,7 @@ dojo.event = new function(){
 		//			- srcObj
 		//			- srcFunc
 		//			- adviceObj
-		//			- adviceFunc 
+		//			- adviceFunc
 		//			- aroundObj
 		//			- aroundFunc
 		//			- once
@@ -4160,7 +4160,7 @@ dojo.event.MethodInvocation.prototype.proceed = function(){
 		var meth = ti[1];
 		return mobj[meth].call(mobj, this);
 	}
-} 
+}
 
 
 dojo.event.MethodJoinPoint = function(/*Object*/obj, /*String*/funcName){
@@ -4191,7 +4191,7 @@ dojo.event.MethodJoinPoint.getForMethod = function(/*Object*/obj, /*String*/func
 		}
 	}else if((!dojo.lang.isFunction(obj[funcName]))&&(!dojo.lang.isAlien(obj[funcName]))){
 		// FIXME: should we throw an exception here instead?
-		return null; 
+		return null;
 	}
 	// we hide our joinpoint instance in obj[funcName + '$joinpoint']
 	var jpname = funcName + "$joinpoint";
@@ -4211,7 +4211,7 @@ dojo.event.MethodJoinPoint.getForMethod = function(/*Object*/obj, /*String*/func
 		obj[jpfuncname] = obj[funcName];
 		// joinpoint = obj[jpname] = new dojo.event.MethodJoinPoint(obj, funcName);
 		joinpoint = obj[jpname] = new dojo.event.MethodJoinPoint(obj, jpfuncname);
-		obj[funcName] = function(){ 
+		obj[funcName] = function(){
 			var args = [];
 
 			if((isNode)&&(!arguments.length)){
@@ -4242,8 +4242,8 @@ dojo.event.MethodJoinPoint.getForMethod = function(/*Object*/obj, /*String*/func
 					}
 				}
 			}
-			// return joinpoint.run.apply(joinpoint, arguments); 
-			return joinpoint.run.apply(joinpoint, args); 
+			// return joinpoint.run.apply(joinpoint, arguments);
+			return joinpoint.run.apply(joinpoint, args);
 		}
 		obj[funcName].__preJoinArity = origArity;
 	}
@@ -4252,7 +4252,7 @@ dojo.event.MethodJoinPoint.getForMethod = function(/*Object*/obj, /*String*/func
 
 dojo.lang.extend(dojo.event.MethodJoinPoint, {
 	unintercept: function(){
-		// summary: 
+		// summary:
 		//		destroy the connection to all listeners that may have been
 		//		registered on this joinpoint
 		this.object[this.methodname] = this.methodfunc;
@@ -4278,19 +4278,19 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 			aargs[x] = args[x];
 		}
 
-		var unrollAdvice  = function(marr){ 
+		var unrollAdvice  = function(marr){
 			if(!marr){
 				dojo.debug("Null argument to unrollAdvice()");
 				return;
 			}
-		  
+
 			var callObj = marr[0]||dj_global;
 			var callFunc = marr[1];
-			
+
 			if(!callObj[callFunc]){
 				dojo.raise("function \"" + callFunc + "\" does not exist on \"" + callObj + "\"");
 			}
-			
+
 			var aroundObj = marr[2]||dj_global;
 			var aroundFunc = marr[3];
 			var msg = marr[6];
@@ -4344,16 +4344,16 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 				if((hasDelay)&&((dojo.render.html)||(dojo.render.svg))){  // FIXME: the render checks are grotty!
 					dj_global["setTimeout"](function(){
 						if(msg){
-							callObj[callFunc].call(callObj, to); 
+							callObj[callFunc].call(callObj, to);
 						}else{
-							callObj[callFunc].apply(callObj, args); 
+							callObj[callFunc].apply(callObj, args);
 						}
 					}, delay);
 				}else{ // many environments can't support delay!
 					if(msg){
-						callObj[callFunc].call(callObj, to); 
+						callObj[callFunc].call(callObj, to);
 					}else{
-						callObj[callFunc].apply(callObj, args); 
+						callObj[callFunc].apply(callObj, args);
 					}
 				}
 			}
@@ -4363,7 +4363,7 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 			if(this.squelch){
 				try{
 					return unrollAdvice.apply(this, arguments);
-				}catch(e){ 
+				}catch(e){
 					dojo.debug(e);
 				}
 			}else{
@@ -4384,11 +4384,11 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 			}else if(this.methodfunc){
 				result = this.object[this.methodname].apply(this.object, args);
 			}
-		}catch(e){ 
-			if(!this.squelch){ 
+		}catch(e){
+			if(!this.squelch){
 				dojo.debug(e,"when calling",this.methodname,"on",this.object,"with arguments",args);
 				dojo.raise(e);
-			} 
+			}
 		}
 
 		if((this["after"])&&(this.after.length>0)){
@@ -4422,23 +4422,23 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 		// 		An object that can have the following properties:
 		//			- adviceType
 		//			- adviceObj
-		//			- adviceFunc 
+		//			- adviceFunc
 		//			- aroundObj
 		//			- aroundFunc
 		//			- once
 		//			- delay
 		//			- rate
 		//			- adviceMsg
-		this.addAdvice(	args["adviceObj"], args["adviceFunc"], 
-						args["aroundObj"], args["aroundFunc"], 
-						args["adviceType"], args["precedence"], 
-						args["once"], args["delay"], args["rate"], 
+		this.addAdvice(	args["adviceObj"], args["adviceFunc"],
+						args["aroundObj"], args["aroundFunc"],
+						args["adviceType"], args["precedence"],
+						args["once"], args["delay"], args["rate"],
 						args["adviceMsg"]);
 	},
 
-	addAdvice: function(	thisAdviceObj, thisAdvice, 
-							thisAroundObj, thisAround, 
-							adviceType, precedence, 
+	addAdvice: function(	thisAdviceObj, thisAdvice,
+							thisAroundObj, thisAround,
+							adviceType, precedence,
 							once, delay, rate, asMessage){
 		// summary:
 		//		add advice to this joinpoint using positional parameters
@@ -4451,7 +4451,7 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 		// thisAroundFunc:
 		//		the name of the function that will be used to mediate the
 		//		advice call.
-		// adviceType: 
+		// adviceType:
 		//		Optional. String. One of "before", "after", "around",
 		//		"before-around", or "after-around". FIXME
 		// once:
@@ -4474,7 +4474,7 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 		}
 
 		var ao = [thisAdviceObj, thisAdvice, thisAroundObj, thisAround, delay, rate, asMessage];
-		
+
 		if(once){
 			if(this.hasAdvice(thisAdviceObj, thisAdvice, adviceType, arr) >= 0){
 				return;
@@ -4497,7 +4497,7 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 		//		the scope in which to locate/execute the named adviceFunc.
 		// thisAdviceFunc:
 		//		the name of the function being conected
-		// adviceType: 
+		// adviceType:
 		//		Optional. String. One of "before", "after", "around",
 		//		"before-around", or "after-around". FIXME
 		// arr:
@@ -4524,7 +4524,7 @@ dojo.lang.extend(dojo.event.MethodJoinPoint, {
 		//		the scope in which to locate/execute the named adviceFunc.
 		// thisAdviceFunc:
 		//		the name of the function being conected
-		// adviceType: 
+		// adviceType:
 		//		Optional. String. One of "before", "after", "around",
 		//		"before-around", or "after-around". FIXME
 		// once:
@@ -4567,7 +4567,7 @@ dojo.event.topic = new function(){
 		//		calls to the function will cause a publish event on the topic
 		//		with the arguments passed to the function passed to registered
 		//		listeners.
-		// topic: 
+		// topic:
 		//		a unique, opaque string that names the topic
 		// obj:
 		//		the scope to locate the function in
@@ -4582,7 +4582,7 @@ dojo.event.topic = new function(){
 		//		susbscribes the function to the topic. Subsequent events
 		//		dispached to the topic will create a function call for the
 		//		obj.funcName() function.
-		// topic: 
+		// topic:
 		//		a unique, opaque string that names the topic
 		// obj:
 		//		the scope to locate the function in
@@ -4595,7 +4595,7 @@ dojo.event.topic = new function(){
 	this.unsubscribe = function(/*String*/topic, /*Object*/obj, /*String*/funcName){
 		// summary:
 		//		unsubscribes the obj.funcName() from the topic
-		// topic: 
+		// topic:
 		//		a unique, opaque string that names the topic
 		// obj:
 		//		the scope to locate the function in
@@ -4606,7 +4606,7 @@ dojo.event.topic = new function(){
 	}
 
 	this.destroy = function(/*String*/topic){
-		// summary: 
+		// summary:
 		//		destroys the topic and unregisters all listeners
 		// topic:
 		//		a unique, opaque string that names the topic
@@ -4615,7 +4615,7 @@ dojo.event.topic = new function(){
 	}
 
 	this.publishApply = function(/*String*/topic, /*Array*/args){
-		// summary: 
+		// summary:
 		//		dispatches an event to the topic using the args array as the
 		//		source for the call arguments to each listener. This is similar
 		//		to JavaScript's built-in Function.apply()
@@ -4628,7 +4628,7 @@ dojo.event.topic = new function(){
 	}
 
 	this.publish = function(/*String*/topic, /*Object*/message){
-		// summary: 
+		// summary:
 		//		manually "publish" to the passed topic
 		// topic:
 		//		a unique, opaque string that names the topic
@@ -4667,8 +4667,8 @@ dojo.event.topic.TopicImpl = function(topicName){
 		var tf = listenerMethod||listenerObject;
 		var to = (!listenerMethod) ? dj_global : listenerObject;
 		return dojo.event.kwConnect({ // dojo.event.MethodJoinPoint
-			srcObj:		this, 
-			srcFunc:	"sendMessage", 
+			srcObj:		this,
+			srcFunc:	"sendMessage",
 			adviceObj:	to,
 			adviceFunc: tf
 		});
@@ -4688,8 +4688,8 @@ dojo.event.topic.TopicImpl = function(topicName){
 		var tf = (!listenerMethod) ? listenerObject : listenerMethod;
 		var to = (!listenerMethod) ? null : listenerObject;
 		return dojo.event.kwDisconnect({ // dojo.event.MethodJoinPoint
-			srcObj:		this, 
-			srcFunc:	"sendMessage", 
+			srcObj:		this,
+			srcFunc:	"sendMessage",
 			adviceObj:	to,
 			adviceFunc: tf
 		});
@@ -4700,7 +4700,7 @@ dojo.event.topic.TopicImpl = function(topicName){
 	}
 
 	this.setSquelch = function(/*Boolean*/shouldSquelch){
-		// summary: 
+		// summary:
 		//		determine whether or not exceptions in the calling of a
 		//		listener in the chain should stop execution of the chain.
 		this._getJoinPoint().squelch = shouldSquelch;
@@ -4711,7 +4711,7 @@ dojo.event.topic.TopicImpl = function(topicName){
 		this._getJoinPoint().disconnect();
 	}
 
-	this.registerPublisher = function(	/*Object*/publisherObject, 
+	this.registerPublisher = function(	/*Object*/publisherObject,
 										/*Function or String*/publisherMethod){
 		// summary:
 		//		registers the passed function as a publisher on this topic.
@@ -4832,7 +4832,7 @@ dojo.event.browser = new function(){
 				break;
 		}
 	}
-	
+
 	this.clean = function(/*DOMNode*/node){
 		// summary:
 		//		removes native event handlers so that destruction of the node
@@ -4840,7 +4840,7 @@ dojo.event.browser = new function(){
 		//		it's critical for manual node removal on IE.
 		// node:
 		//		A DOM node. All of it's children will also be cleaned.
-		if(dojo.render.html.ie){ 
+		if(dojo.render.html.ie){
 			dojo._ie_clobber.clobber(node);
 		}
 	}
@@ -4875,9 +4875,9 @@ dojo.event.browser = new function(){
 		}
 	}
 
-	this.removeListener = function(	/*DOMNode*/ node, 
-									/*String*/	evtName, 
-									/*Function*/fp, 
+	this.removeListener = function(	/*DOMNode*/ node,
+									/*String*/	evtName,
+									/*Function*/fp,
 									/*Boolean*/	capture){
 		// summary:
 		//		clobbers the listener from the node
@@ -4946,7 +4946,7 @@ dojo.event.browser = new function(){
 			newfp = fp;
 		}
 
-		if(node.addEventListener){ 
+		if(node.addEventListener){
 			node.addEventListener(evtName.substr(2), newfp, capture);
 			return newfp;
 		}else{
@@ -4967,7 +4967,7 @@ dojo.event.browser = new function(){
 	}
 
 	this.isEvent = function(/*Object*/obj){
-		// summary: 
+		// summary:
 		//		Tries to determine whether or not the object is a DOM event.
 
 		// FIXME: event detection hack ... could test for additional attributes
@@ -4978,7 +4978,7 @@ dojo.event.browser = new function(){
 	}
 
 	this.currentEvent = null;
-	
+
 	this.callListener = function(/*Function*/listener, /*DOMNode*/curTarget){
 		// summary:
 		//		calls the specified listener in the context of the passed node
@@ -4995,7 +4995,7 @@ dojo.event.browser = new function(){
 	}
 
 	this._stopPropagation = function(){
-		dojo.event.browser.currentEvent.cancelBubble = true; 
+		dojo.event.browser.currentEvent.cancelBubble = true;
 	}
 
 	this._preventDefault = function(){
@@ -5080,7 +5080,7 @@ dojo.event.browser = new function(){
 				evt = window.event;
 			}
 		}
-		
+
 		if((evt["type"])&&(evt["type"].indexOf("key") == 0)){ // key events
 			evt.keys = this.revKeys;
 			// FIXME: how can we eliminate this iteration?
@@ -5228,7 +5228,7 @@ dojo.event.browser = new function(){
 						case 63249://scrolllock
 						case 63289://numlock
 							break;
-						default: 
+						default:
 							evt.key = evt.charCode >= evt.KEY_SPACE ? String.fromCharCode(evt.charCode) : evt.keyCode;
 					}
 				}else{
@@ -5285,7 +5285,7 @@ dojo.provide("dojo.widget.Manager");
 dojo.widget.manager = new function(){
 	this.widgets = [];
 	this.widgetIds = [];
-	
+
 	// map of widgetId-->widget for widgets without parents (top level widgets)
 	this.topWidgets = {};
 
@@ -5348,7 +5348,7 @@ dojo.widget.manager = new function(){
 			this.removeById(widgetIndex);
 		}
 	}
-	
+
 	// FIXME: suboptimal performance
 	this.removeById = function(id) {
 		if(!dojo.lang.isString(id)){
@@ -5372,7 +5372,7 @@ dojo.widget.manager = new function(){
 
 	this.getWidgetsByType = function(type){
 		var lt = type.toLowerCase();
-		var getType = (type.indexOf(":") < 0 ? 
+		var getType = (type.indexOf(":") < 0 ?
 			function(x) { return x.widgetType.toLowerCase(); } :
 			function(x) { return x.getNamespacedType(); }
 		);
@@ -5433,15 +5433,15 @@ dojo.widget.manager = new function(){
 			widgetPackages.push(pname);
 		}
 	}
-	
+
 	this.getWidgetPackageList = function() {
 		return dojo.lang.map(widgetPackages, function(elt) { return(elt!==true ? elt : undefined); });
 	}
-	
+
 	this.getImplementation = function(widgetName, ctorObject, mixins, ns){
 		// try and find a name for the widget
 		var impl = this.getImplementationName(widgetName, ns);
-		if(impl){ 
+		if(impl){
 			// var tic = new Date();
 			var ret = ctorObject ? new impl(ctorObject) : new impl();
 			// dojo.debug(new Date() - tic);
@@ -5463,7 +5463,7 @@ dojo.widget.manager = new function(){
 		//renderPrefixCache.push("");
 		// empty prefix is included automatically
 	}
-	
+
 	var findImplementationInModule = function(lowerCaseWidgetName, module){
 		if(!module){return null;}
 		for(var i=0, l=renderPrefixCache.length, widgetModule; i<=l; i++){
@@ -5487,14 +5487,14 @@ dojo.widget.manager = new function(){
 
 	this.getImplementationName = function(widgetName, ns){
 		/*
-		 * Locate an implementation (constructor) for 'widgetName' in namespace 'ns' 
+		 * Locate an implementation (constructor) for 'widgetName' in namespace 'ns'
 		 * widgetNames are case INSENSITIVE
-		 * 
+		 *
 		 * 1. Return value from implementation cache, if available, for quick turnaround.
 		 * 2. Locate a namespace registration for 'ns'
 		 * 3. If no namespace found, register the conventional one (ns.widget)
 		 * 4. Allow the namespace resolver (if any) to load a module for this widget.
-		 * 5. Permute the widget name and capable rendering prefixes to locate, cache, and return 
+		 * 5. Permute the widget name and capable rendering prefixes to locate, cache, and return
 		 *    an appropriate widget implementation.
 		 * 6. If no implementation is found, attempt to load the namespace manifest,
 		 *    and then look again for an implementation to cache and return.
@@ -5512,7 +5512,7 @@ dojo.widget.manager = new function(){
 		if(impl){
 			return impl;
 		}
-		
+
 		// (one time) store a list of the render prefixes we are capable of rendering
 		if(!renderPrefixCache.length){
 			buildPrefixCache();
@@ -5525,7 +5525,7 @@ dojo.widget.manager = new function(){
 			dojo.ns.register(ns, ns + '.widget');
 			nsObj = dojo.ns.get(ns);
 		}
-		
+
 		// allow the namespace to resolve the widget module
 		if(nsObj){nsObj.resolve(widgetName);}
 
@@ -5540,20 +5540,20 @@ dojo.widget.manager = new function(){
 			impl = findImplementation(lowerCaseWidgetName, nsObj.module);
 			if(impl){return(imps[lowerCaseWidgetName] = impl)};
 		}
-	
+
 		// this is an error condition under new rules
-		dojo.deprecated('dojo.widget.Manager.getImplementationName', 
-			'Could not locate widget implementation for "' + widgetName + '" in "' + nsObj.module + '" registered to namespace "' + nsObj.name + '". '										
+		dojo.deprecated('dojo.widget.Manager.getImplementationName',
+			'Could not locate widget implementation for "' + widgetName + '" in "' + nsObj.module + '" registered to namespace "' + nsObj.name + '". '
 			+ "Developers must specify correct namespaces for all non-Dojo widgets", "0.5");
 
 		// backward compat: if the user has not specified any namespace and their widget is not in dojo.widget.*
 		// search registered widget packages [sic]
-		// note: registerWidgetPackage itself is now deprecated 
+		// note: registerWidgetPackage itself is now deprecated
 		for(var i=0; i<widgetPackages.length; i++){
 			impl = findImplementation(lowerCaseWidgetName, widgetPackages[i]);
 			if(impl){return(imps[lowerCaseWidgetName] = impl)};
 		}
-		
+
 		throw new Error('Could not locate widget implementation for "' + widgetName + '" in "' + nsObj.module + '" registered to namespace "' + nsObj.name + '"');
 	}
 
@@ -5650,7 +5650,7 @@ dojo.uri = new function() {
 
 	this.Uri = function (/*dojo.uri.Uri||String...*/) {
 		// summary: Constructor to create an object representing a URI.
-		// description: 
+		// description:
 		//  Each argument is evaluated in order relative to the next until
 		//  a canonical uri is produced. To get an absolute Uri relative
 		//  to the current document use
@@ -5797,10 +5797,10 @@ dojo.html.getScroll = function(){
 	var _document = dojo.doc();
 	var top = _window.pageYOffset || _document.documentElement.scrollTop || dojo.body().scrollTop || 0;
 	var left = _window.pageXOffset || _document.documentElement.scrollLeft || dojo.body().scrollLeft || 0;
-	return { 
-		top: top, 
-		left: left, 
-		offset:{ x: left, y: top }	//	note the change, NOT an Array with added properties. 
+	return {
+		top: top,
+		left: left,
+		offset:{ x: left, y: top }	//	note the change, NOT an Array with added properties.
 	};	//	object
 }
 
@@ -5826,7 +5826,7 @@ dojo.html.getAttribute = function(/* HTMLElement */node, /* string */attr){
 	// FIXME: need to add support for attr-specific accessors
 	if((!node)||(!node.getAttribute)){
 		// if(attr !== 'nwType'){
-		//	alert("getAttr of '" + attr + "' with bad node"); 
+		//	alert("getAttr of '" + attr + "' with bad node");
 		// }
 		return null;
 	}
@@ -5834,13 +5834,13 @@ dojo.html.getAttribute = function(/* HTMLElement */node, /* string */attr){
 
 	// first try the approach most likely to succeed
 	var v = node.getAttribute(ta.toUpperCase());
-	if((v)&&(typeof v == 'string')&&(v!="")){ 
-		return v;	//	string 
+	if((v)&&(typeof v == 'string')&&(v!="")){
+		return v;	//	string
 	}
 
 	// try returning the attributes value, if we couldn't get it as a string
-	if(v && v.value){ 
-		return v.value;	//	string 
+	if(v && v.value){
+		return v.value;	//	string
 	}
 
 	// this should work on Opera 7, but it's a little on the crashy side
@@ -5853,13 +5853,13 @@ dojo.html.getAttribute = function(/* HTMLElement */node, /* string */attr){
 	}
 	return null;	//	string
 }
-	
+
 dojo.html.hasAttribute = function(/* HTMLElement */node, /* string */attr){
 	//	summary
 	//	Determines whether or not the specified node carries a value for the attribute in question.
 	return dojo.html.getAttribute(dojo.byId(node), attr) ? true : false;	//	boolean
 }
-	
+
 dojo.html.getCursorPosition = function(/* DOMEvent */e){
 	//	summary
 	//	Returns the mouse position relative to the document (not the viewport).
@@ -5963,26 +5963,26 @@ dojo.a11y = {
 	//   if true generate accessible widgets
 	imgPath:dojo.uri.dojoUri("src/widget/templates/images"),
 	doAccessibleCheck: true,
-	accessible: null,		
+	accessible: null,
 
-	checkAccessible: function(){ 
-	// summary: 
+	checkAccessible: function(){
+	// summary:
 	//		perform check for accessibility if accessibility checking is turned
 	//		on and the accessibility test has not been performed yet
-		if(this.accessible === null){ 
+		if(this.accessible === null){
 			this.accessible = false; //default
-			if(this.doAccessibleCheck == true){ 
+			if(this.doAccessibleCheck == true){
 				this.accessible = this.testAccessible();
 			}
 		}
 		return this.accessible; /* Boolean */
 	},
-	
+
 	testAccessible: function(){
-	// summary: 
-	//		Always perform the accessibility check to determine if high 
-	//		contrast mode is on or display of images are turned off. Currently only checks 
-	//		in IE and Mozilla. 
+	// summary:
+	//		Always perform the accessibility check to determine if high
+	//		contrast mode is on or display of images are turned off. Currently only checks
+	//		in IE and Mozilla.
 		this.accessible = false; //default
 		if (dojo.render.html.ie || dojo.render.html.mozilla){
 			var div = document.createElement("div");
@@ -5992,10 +5992,10 @@ dojo.a11y = {
 			dojo.body().appendChild(div);
 			// in FF and IE the value for the current background style of the added div
 			// will be "none" in high contrast mode
-			// in FF the return value will be url(invalid-url:) when running over http 
+			// in FF the return value will be url(invalid-url:) when running over http
 			var bkImg = null;
 			if (window.getComputedStyle  ) {
-				var cStyle = getComputedStyle(div, ""); 
+				var cStyle = getComputedStyle(div, "");
 				bkImg = cStyle.getPropertyValue("background-image");
 			}else{
 				bkImg = div.currentStyle.backgroundImage;
@@ -6010,28 +6010,28 @@ dojo.a11y = {
 				var testImg = new Image();
 				if(testImg.fileSize) {
 					testImg.src = this.imgPath + "/tab_close.gif";
-					if(testImg.fileSize < 0){ 
+					if(testImg.fileSize < 0){
 						this.accessible = true;
 					}
-				}	
+				}
 			}*/
 			dojo.body().removeChild(div);
 		}
 		return this.accessible; /* Boolean */
 	},
-	
-	setCheckAccessible: function(/* Boolean */ bTest){ 
-	// summary: 
+
+	setCheckAccessible: function(/* Boolean */ bTest){
+	// summary:
 	//		Set whether or not to check for accessibility mode.  Default value
-	//		of module is true - perform check for accessibility modes. 
+	//		of module is true - perform check for accessibility modes.
 	//		bTest: Boolean - true to check; false to turn off checking
 		this.doAccessibleCheck = bTest;
 	},
 
 	setAccessibleMode: function(){
 	// summary:
-	//		perform the accessibility check and sets the correct mode to load 
-	//		a11y widgets. Only runs if test for accessiiblity has not been performed yet. 
+	//		perform the accessibility check and sets the correct mode to load
+	//		a11y widgets. Only runs if test for accessiiblity has not been performed yet.
 	//		Call testAccessible() to force the test.
 		if (this.accessible === null){
 			if (this.checkAccessible()){
@@ -6068,12 +6068,12 @@ dojo.declare("dojo.widget.Widget", null,
 {
 	// parent: Widget
 	//		the parent of this widget
-	parent: null, 
+	parent: null,
 
 	// isTopLevel: Boolean
 	//		should this widget eat all events that bubble up to it?
 	//		obviously, top-level and modal widgets should set these appropriately
-	isTopLevel:  false, 
+	isTopLevel:  false,
 
 	// disabled: Boolean
 	//		should this widget respond to user input?
@@ -6082,7 +6082,7 @@ dojo.declare("dojo.widget.Widget", null,
 
 	// isContainer: Boolean
 	//		can this widget contain other widgets?
-	isContainer: false, 
+	isContainer: false,
 
 	// widgetId: String
 	//		a unique, opaque ID string that can be assigned by users or by the
@@ -6099,14 +6099,14 @@ dojo.declare("dojo.widget.Widget", null,
 	//		defaults to 'dojo'.  "namespace" is a reserved word in JavaScript, so we abbreviate
 	ns: "dojo",
 
-	getNamespacedType: function(){ 
+	getNamespacedType: function(){
 		// summary:
 		//		get the "full" name of the widget. If the widget comes from the
 		//		"dojo" namespace and is a Button, calling this method will
 		//		return "dojo:button", all lower-case
 		return (this.ns ? this.ns + ":" + this.widgetType : this.widgetType).toLowerCase(); // String
 	},
-	
+
 	toString: function(){
 		// summary:
 		//		returns a string that represents the widget. When a widget is
@@ -6147,7 +6147,7 @@ dojo.declare("dojo.widget.Widget", null,
 		//		children of resize.
 		this.notifyChildrenOfResize();
 	},
-	
+
 	notifyChildrenOfResize: function(){
 		// summary: dispatches resized events to all children of this widget
 		for(var i=0; i<this.children.length; i++){
@@ -6168,7 +6168,7 @@ dojo.declare("dojo.widget.Widget", null,
 		// args: Object
 		//		a normalized view of the parameters that the widget should take
 		// fragment: Object
-		//		if the widget is being instantiated from markup, this object 
+		//		if the widget is being instantiated from markup, this object
 		// parent: Widget?
 		//		the widget, if any, that this widget will be the child of.  If
 		//		none is passed, the global default widget is used.
@@ -6184,7 +6184,7 @@ dojo.declare("dojo.widget.Widget", null,
 		//		Below is a list of the methods that are called, in the order
 		//		they are fired, along with notes about what they do and if/when
 		//		you should over-ride them in your widget:
-		//			
+		//
 		//			mixInProperties:
 		//				takes the args and does lightweight type introspection
 		//				on pre-existing object properties to initialize widget
@@ -6242,9 +6242,9 @@ dojo.declare("dojo.widget.Widget", null,
 		this.postCreate(args, fragment, parent);
 		//dojo.profile.end(this.widgetType + " postCreate");
 		// dojo.debug(this.widgetType, "done!");
-		
+
 		//dojo.profile.end(this.widgetType + " create");
-		
+
 		return this;
 	},
 
@@ -6281,14 +6281,14 @@ dojo.declare("dojo.widget.Widget", null,
 				widget.destroy();
 				continue;
 			}
-			
+
 			i++; // skip data object
 		}
-				
+
 	},
 
 	getChildrenOfType: function(/*String*/type, recurse){
-		// summary: 
+		// summary:
 		//		return an array of descendant widgets who match the passed type
 		// recurse: Boolean
 		//		should we try to get all descendants that match? Defaults to
@@ -6358,7 +6358,7 @@ dojo.declare("dojo.widget.Widget", null,
 		}
 		*/
 		// dojo.profile.end("satisfyPropertySets");
-		
+
 		return args;
 	},
 
@@ -6403,7 +6403,7 @@ dojo.declare("dojo.widget.Widget", null,
 		//		lower-case name of the property. This allows for consistent
 		//		access semantics regardless of the case preservation of the
 		//		source of the property names.
-		
+
 		if((args["fastMixIn"])||(frag["fastMixIn"])){
 			// dojo.profile.start("mixInProperties_fastMixIn");
 			// fast mix in assumes case sensitivity, no type casting, etc...
@@ -6424,10 +6424,10 @@ dojo.declare("dojo.widget.Widget", null,
 		// problematic assignments and bugs in the future and will need to be
 		// documented with big bright neon lights.
 
-		// FIXME: fails miserably if a mixin property has a default value of null in 
+		// FIXME: fails miserably if a mixin property has a default value of null in
 		// a widget
 
-		// NOTE: caching lower-cased args in the prototype is only 
+		// NOTE: caching lower-cased args in the prototype is only
 		// acceptable if the properties are invariant.
 		// if we have a name-cache, get it
 		var lcArgs = dojo.widget.lcArgsCache[this.widgetType];
@@ -6445,7 +6445,7 @@ dojo.declare("dojo.widget.Widget", null,
 				var y = lcArgs[(new String(x)).toLowerCase()];
 				if(y){
 					args[y] = args[x];
-					x = y; 
+					x = y;
 				}
 			}
 			if(visited[x]){ continue; }
@@ -6465,13 +6465,13 @@ dojo.declare("dojo.widget.Widget", null,
 						// FIXME: need to determine if always over-writing instead
 						// of attaching here is appropriate. I suspect that we
 						// might want to only allow attaching w/ action items.
-						
+
 						// RAR, 1/19/05: I'm going to attach instead of
 						// over-write here. Perhaps function objects could have
 						// some sort of flag set on them? Or mixed-into objects
 						// could have some list of non-mutable properties
 						// (although I'm not sure how that would alleviate this
-						// particular problem)? 
+						// particular problem)?
 
 						// this[x] = new Function(args[x]);
 
@@ -6479,17 +6479,17 @@ dojo.declare("dojo.widget.Widget", null,
 						// that these event handlers should execute in the
 						// context of the widget, so that the "this" pointer
 						// takes correctly.
-						
-						// argument that contains no punctuation other than . is 
+
+						// argument that contains no punctuation other than . is
 						// considered a function spec, not code
 						if(args[x].search(/[^\w\.]+/i) == -1){
 							this[x] = dojo.evalObjPath(args[x], false);
 						}else{
 							var tn = dojo.lang.nameAnonFunc(new Function(args[x]), this);
 							dojo.event.kwConnect({
-								srcObj: this, 
-								srcFunc: x, 
-								adviceObj: this, 
+								srcObj: this,
+								srcFunc: x,
+								adviceObj: this,
 								adviceFunc: tn
 							});
 						}
@@ -6497,7 +6497,7 @@ dojo.declare("dojo.widget.Widget", null,
 						this[x] = args[x].split(";");
 					} else if (this[x] instanceof Date) {
 						this[x] = new Date(Number(args[x])); // assume timestamp
-					}else if(typeof this[x] == "object"){ 
+					}else if(typeof this[x] == "object"){
 						// FIXME: should we be allowing extension here to handle
 						// other object types intelligently?
 
@@ -6529,7 +6529,7 @@ dojo.declare("dojo.widget.Widget", null,
 		}
 		// dojo.profile.end("mixInProperties");
 	},
-	
+
 	postMixInProperties: function(/*Object*/args, /*Object*/frag, /*Widget*/parent){
 		// summary
 		//	Called after the parameters to the widget have been read-in,
@@ -6554,7 +6554,7 @@ dojo.declare("dojo.widget.Widget", null,
 	},
 
 	uninitialize: function(){
-		// summary: 
+		// summary:
 		//		stub function. Over-ride to implement custom widget tear-down
 		//		behavior.
 		return false;
@@ -6587,7 +6587,7 @@ dojo.declare("dojo.widget.Widget", null,
 
 	// Detach the given child widget from me, but don't destroy it
 	removeChild: function(/*Widget*/widget){
-		// summary: 
+		// summary:
 		//		removes the passed widget instance from this widget but does
 		//		not destroy it
 		for(var x=0; x<this.children.length; x++){
@@ -6605,33 +6605,33 @@ dojo.declare("dojo.widget.Widget", null,
 		//		returns null if this is the first child of the parent,
 		//		otherwise returns the next sibling to the "left".
 		var idx = this.getParentIndex();
- 
+
 		 // first node is idx=0 not found is idx<0
 		if (idx<=0) return null;
- 
+
 		return this.parent.children[idx-1]; // Widget
 	},
- 
+
 	getSiblings: function(){
 		// summary: gets an array of all children of our parent, including "this"
 		return this.parent.children; // Array
 	},
- 
+
 	getParentIndex: function(){
 		// summary: what index are we at in the parent's children array?
 		return dojo.lang.indexOf(this.parent.children, this, true); // int
 	},
- 
+
 	getNextSibling: function(){
 		// summary:
 		//		returns null if this is the last child of the parent,
 		//		otherwise returns the next sibling to the "right".
- 
+
 		var idx = this.getParentIndex();
- 
+
 		if (idx == this.parent.children.length-1){return null;} // last node
 		if (idx < 0){return null;} // not found
- 
+
 		return this.parent.children[idx+1]; // Widget
 	}
 });
@@ -6685,22 +6685,22 @@ dojo.widget.tags["dojo:connect"] = function(fragment, widgetParser, parentComp){
 //	- place the clone
 // this is quite dumb
 dojo.widget.buildWidgetFromParseTree = function(/*String*/				type,
-												/*Object*/				frag, 
+												/*Object*/				frag,
 												/*dojo.widget.Parse*/	parser,
-												/*Widget, optional*/	parentComp, 
+												/*Widget, optional*/	parentComp,
 												/*int, optional*/		insertionIndex,
 												/*Object*/				localProps){
 
 	// summary: creates a tree of widgets from the data structure produced by the first-pass parser (frag)
-	
-	// test for accessibility mode 
+
+	// test for accessibility mode
 	dojo.a11y.setAccessibleMode();
 	//dojo.profile.start("buildWidgetFromParseTree");
-	// FIXME: for codepath from createComponentFromScript, we are now splitting a path 
+	// FIXME: for codepath from createComponentFromScript, we are now splitting a path
 	// that we already split and then joined
 	var stype = type.split(":");
 	stype = (stype.length == 2) ? stype[1] : type;
-	
+
 	// FIXME: we don't seem to be doing anything with this!
 	// var propertySets = parser.getPropertySets(frag);
 	var localProperties = localProps || parser.parseProperties(frag[frag["ns"]+":"+stype]);
@@ -6749,10 +6749,10 @@ dojo.widget.defineWidget = function(widgetClass, renderer, superclasses, init, p
 			p = 2;
 		}
 		if(dojo.lang.isFunction(arguments[p])){
-			// init (function), props (object) 
+			// init (function), props (object)
 			args.push(arguments[p], arguments[p+1]);
 		}else{
-			// props (object) 
+			// props (object)
 			args.push(null, arguments[p]);
 		}
 		dojo.widget._defineWidget.apply(this, args);
@@ -6773,13 +6773,13 @@ dojo.widget._defineWidget = function(widgetClass /*string*/, renderer /*string*/
 
 	// deprecated in favor of namespace system, remove for 0.5
 	dojo.widget.manager.registerWidgetPackage(module);
-	
+
 	var pos = module.indexOf(".");
 	var nsName = (pos > -1) ? module.substring(0,pos) : module;
 
 	// FIXME: hrm, this might make things simpler
 	//dojo.widget.tags.addParseTreeHandler(nsName+":"+type.toLowerCase());
-	
+
 	props=(props)||{};
 	props.widgetType = type;
 	if((!init)&&(props["classConstructor"])){
@@ -6797,11 +6797,11 @@ dojo.provide("dojo.widget.Parse");
 //
 // a particular dojoML tag would be handled by a registered tagHandler with a hook for a default handler
 // if the widget system is loaded, a widget builder would be attach itself as the default handler
-// 
+//
 // widget tags are no longer registered themselves:
-// they are now arbitrarily namespaced, so we cannot register them all, and the non-prefixed portions 
-// are no longer guaranteed unique 
-// 
+// they are now arbitrarily namespaced, so we cannot register them all, and the non-prefixed portions
+// are no longer guaranteed unique
+//
 // therefore dojo.widget.tags should go with this parser code out of the widget module
 //
 
@@ -6815,12 +6815,12 @@ dojo.widget.Parse = function(/*Object*/fragment){
 		// if we have items to parse/create at this level, do it!
 		try{
 			if(frag && frag.tagName && (frag != frag.nodeRef)){
-				
-				// these are in fact, not ever for widgets per-se anymore, 
+
+				// these are in fact, not ever for widgets per-se anymore,
 				// but for other markup elements (aka components)
 				var djTags = dojo.widget.tags;
-				
-				// we split so that you can declare multiple 
+
+				// we split so that you can declare multiple
 				// non-destructive components from the same ctor node
 				var tna = String(frag.tagName).split(";");
 				for(var x=0; x<tna.length; x++){
@@ -6879,7 +6879,7 @@ dojo.widget.Parse = function(/*Object*/fragment){
 
 	this.parsePropertySets = function(/*Object*/fragment){
 		// summary: checks the top level of a raw JavaScript object
-		//	structure for any propertySets.  It stores an array of references to 
+		//	structure for any propertySets.  It stores an array of references to
 		//	propertySets that it finds.
 		return [];
 		/*
@@ -6907,7 +6907,7 @@ dojo.widget.Parse = function(/*Object*/fragment){
 			}else{
 				var frag = fragment[item];
 				if(frag.tagName && dojo.widget.tags[frag.tagName.toLowerCase()]){
-					// TODO: it isn't a property or property set, it's a fragment, 
+					// TODO: it isn't a property or property set, it's a fragment,
 					// so do something else
 					// FIXME: needs to be a better/stricter check
 					// TODO: handle xlink:href for external property sets
@@ -6930,19 +6930,19 @@ dojo.widget.Parse = function(/*Object*/fragment){
 				switch(item.toLowerCase()){
 				case "checked":
 				case "disabled":
-					if (typeof properties[item] != "boolean"){ 
+					if (typeof properties[item] != "boolean"){
 						properties[item] = true;
 					}
 					break;
 				}
-			} 
+			}
 		}
 		return properties; // Object
 	}
 
 	this.getDataProvider = function(/*Object*/objRef, /*String*/dataUrl){
-		// FIXME: this is currently sync.  To make this async, we made need to move 
-		//this step into the widget ctor, so that it is loaded when it is needed 
+		// FIXME: this is currently sync.  To make this async, we made need to move
+		//this step into the widget ctor, so that it is loaded when it is needed
 		// to populate the widget
 		dojo.io.bind({
 			url: dataUrl,
@@ -6965,7 +6965,7 @@ dojo.widget.Parse = function(/*Object*/fragment){
 		}
 		return ""; // String
 	}
-	
+
 	//FIXME: doesn't use the componentType param?
 	this.getPropertySetsByType = function(componentType){
 		// summary: returns the propertySet(s) that match(es) the
@@ -6989,7 +6989,7 @@ dojo.widget.Parse = function(/*Object*/fragment){
 		var ppl = "dojo:propertyproviderlist";
 		var propertySets = [];
 		var tagname = fragment.tagName;
-		if(fragment[ppl]){ 
+		if(fragment[ppl]){
 			var propertyProviderIds = fragment[ppl].value.split(" ");
 			// FIXME: should the propertyProviderList attribute contain #
 			// 		  syntax for reference to ids or not?
@@ -7017,14 +7017,14 @@ dojo.widget.Parse = function(/*Object*/fragment){
 
 	this.createComponentFromScript = function(/*Node*/nodeRef, /*String*/componentName, /*Object*/properties, /*String?*/ns){
 		// summary:
-		// nodeRef: the node to be replaced... in the future, we might want to add 
+		// nodeRef: the node to be replaced... in the future, we might want to add
 		// an alternative way to specify an insertion point
 		// componentName: the expected dojo widget name, i.e. Button of ContextMenu
 		// properties: an object of name value pairs
 		// ns: the namespace of the widget.  Defaults to "dojo"
 
-		properties.fastMixIn = true;			
-		// FIXME: we pulled it apart and now we put it back together ... 
+		properties.fastMixIn = true;
+		// FIXME: we pulled it apart and now we put it back together ...
 		var ltn = (ns || "dojo") + ":" + componentName.toLowerCase();
 		if(dojo.widget.tags[ltn]){
 			return [dojo.widget.tags[ltn](properties, this, null, null, properties)]; // Array
@@ -7062,19 +7062,19 @@ dojo.widget.createWidget = function(/*String*/name, /*String*/props, /*Node*/ref
 		if(pos > -1){ name = name.substring(pos+1); }
 		var lowerCaseName = name.toLowerCase();
 		var namespacedName = ns + ":" + lowerCaseName;
-		isNode = (dojo.byId(name) && !dojo.widget.tags[namespacedName]); 
+		isNode = (dojo.byId(name) && !dojo.widget.tags[namespacedName]);
 	}
 
 	if((arguments.length == 1) && (isNode || !isNameStr)){
-		// we got a DOM node 
-		var xp = new dojo.xml.Parse(); 
-		// FIXME: we should try to find the parent! 
-		var tn = isNode ? dojo.byId(name) : name; 
-		return dojo.widget.getParser().createComponents(xp.parseElement(tn, null, true))[0]; 
+		// we got a DOM node
+		var xp = new dojo.xml.Parse();
+		// FIXME: we should try to find the parent!
+		var tn = isNode ? dojo.byId(name) : name;
+		return dojo.widget.getParser().createComponents(xp.parseElement(tn, null, true))[0];
 	}
 
 	function fromScript(placeKeeperNode, name, props, ns){
-		props[namespacedName] = { 
+		props[namespacedName] = {
 			dojotype: [{value: lowerCaseName}],
 			nodeRef: placeKeeperNode,
 			fastMixIn: true
@@ -7121,7 +7121,7 @@ dojo.provide("dojo.html.style");
 
 dojo.html.getClass = function(/* HTMLElement */node){
 	//	summary
-	//	Returns the string value of the list of CSS classes currently assigned directly 
+	//	Returns the string value of the list of CSS classes currently assigned directly
 	//	to the node in question. Returns an empty string if no class attribute is found;
 	node = dojo.byId(node);
 	if(!node){ return ""; }
@@ -7136,7 +7136,7 @@ dojo.html.getClass = function(/* HTMLElement */node){
 
 dojo.html.getClasses = function(/* HTMLElement */node) {
 	//	summary
-	//	Returns an array of CSS classes currently assigned directly to the node in question. 
+	//	Returns an array of CSS classes currently assigned directly to the node in question.
 	//	Returns an empty array if no classes are found;
 	var c = dojo.html.getClass(node);
 	return (c == "") ? [] : c.split(/\s+/g);	//	array
@@ -7225,10 +7225,10 @@ dojo.html.classMatchType = {
 
 
 dojo.html.getElementsByClass = function(
-	/* string */classStr, 
-	/* HTMLElement? */parent, 
-	/* string? */nodeType, 
-	/* integer? */classMatchType, 
+	/* string */classStr,
+	/* HTMLElement? */parent,
+	/* string? */nodeType,
+	/* integer? */classMatchType,
 	/* boolean? */useNonXpath
 ){
 	//	summary
@@ -7245,7 +7245,7 @@ dojo.html.getElementsByClass = function(
 	var reClass = new RegExp("(\\s|^)((" + classes.join(")|(") + "))(\\s|$)");
 	var srtLength = classes.join(" ").length;
 	var candidateNodes = [];
-	
+
 	if(!useNonXpath && _document.evaluate) { // supports dom 3 xpath
 		var xpath = ".//" + (nodeType || "*") + "[contains(";
 		if(classMatchType != dojo.html.classMatchType.ContainsAny){
@@ -7283,7 +7283,7 @@ dojo.html.getElementsByClass = function(
 			var nodeClasses = dojo.html.getClasses(node);
 			if(nodeClasses.length == 0){ continue outer; }
 			var matches = 0;
-	
+
 			for(var j = 0; j < nodeClasses.length; j++){
 				if(reClass.test(nodeClasses[j])){
 					if(classMatchType == dojo.html.classMatchType.ContainsAny){
@@ -7298,7 +7298,7 @@ dojo.html.getElementsByClass = function(
 					}
 				}
 			}
-	
+
 			if(matches == classes.length){
 				if(	(classMatchType == dojo.html.classMatchType.IsOnly)&&
 					(matches == nodeClasses.length)){
@@ -7337,7 +7337,7 @@ dojo.html.getComputedStyle = function(/* HTMLElement */node, /* string */cssSele
 	var cssSelector = dojo.html.toSelectorCase(cssSelector);
 	var property = dojo.html.toCamelCase(cssSelector);
 	if(!node || !node.style){
-		return inValue;			
+		return inValue;
 	} else if (document.defaultView && dojo.html.isDescendantOf(node, node.ownerDocument)){ // W3, gecko, KHTML
 		try{
 			// mozilla segfaults when margin-* and node is removed from doc
@@ -7345,7 +7345,7 @@ dojo.html.getComputedStyle = function(/* HTMLElement */node, /* string */cssSele
 			var cs = document.defaultView.getComputedStyle(node, "");
 			if(cs){
 				return cs.getPropertyValue(cssSelector);	//	integer
-			} 
+			}
 		}catch(e){ // reports are that Safari can throw an exception above
 			if(node.style.getPropertyValue){ // W3
 				return node.style.getPropertyValue(cssSelector);	//	integer
@@ -7356,7 +7356,7 @@ dojo.html.getComputedStyle = function(/* HTMLElement */node, /* string */cssSele
 	} else if(node.currentStyle){ // IE
 		return node.currentStyle[property];	//	integer
 	}
-	
+
 	if(node.style.getPropertyValue){ // W3
 		return node.style.getPropertyValue(cssSelector);	//	integer
 	}else{
@@ -7400,11 +7400,11 @@ dojo.html.setStyleText = function (/* HTMLElement */target, /* string */text) {
 
 dojo.html.copyStyle = function(/* HTMLElement */target, /* HTMLElement */source){
 	//	summary
-	// work around for opera which doesn't have cssText, and for IE which fails on setAttribute 
-	if(!source.style.cssText){ 
-		target.setAttribute("style", source.getAttribute("style")); 
+	// work around for opera which doesn't have cssText, and for IE which fails on setAttribute
+	if(!source.style.cssText){
+		target.setAttribute("style", source.getAttribute("style"));
 	}else{
-		target.style.cssText = source.style.cssText; 
+		target.style.cssText = source.style.cssText;
 	}
 	dojo.html.addClass(target, dojo.html.getClass(source));
 }
@@ -7413,10 +7413,10 @@ dojo.html.getUnitValue = function(/* HTMLElement */node, /* string */cssSelector
 	//	summary
 	//	Get the value of passed selector, with the specific units used
 	var s = dojo.html.getComputedStyle(node, cssSelector);
-	if((!s)||((s == 'auto')&&(autoIsZero))){ 
-		return { value: 0, units: 'px' };	//	object 
+	if((!s)||((s == 'auto')&&(autoIsZero))){
+		return { value: 0, units: 'px' };	//	object
 	}
-	// FIXME: is regex inefficient vs. parseInt or some manual test? 
+	// FIXME: is regex inefficient vs. parseInt or some manual test?
 	var match = s.match(/(\-?[\d.]+)([a-z%]*)/i);
 	if (!match){return dojo.html.getUnitValue.bad;}
 	return { value: Number(match[1]), units: match[2].toLowerCase() };	//	object
@@ -7428,13 +7428,13 @@ dojo.html.getPixelValue = function(/* HTMLElement */node, /* string */cssSelecto
 	//	Get the value of passed selector in pixels.
 	var result = dojo.html.getUnitValue(node, cssSelector, autoIsZero);
 	// FIXME: there is serious debate as to whether or not this is the right solution
-	if(isNaN(result.value)){ 
-		return 0; //	integer 
-	}	
-	// FIXME: code exists for converting other units to px (see Dean Edward's IE7) 
+	if(isNaN(result.value)){
+		return 0; //	integer
+	}
+	// FIXME: code exists for converting other units to px (see Dean Edward's IE7)
 	// but there are cross-browser complexities
-	if((result.value)&&(result.units != 'px')){ 
-		return NaN;	//	integer 
+	if((result.value)&&(result.units != 'px')){
+		return NaN;	//	integer
 	}
 	return result.value;	//	integer
 }
@@ -7443,15 +7443,15 @@ dojo.html.setPositivePixelValue = function(/* HTMLElement */node, /* string */se
 	//	summary
 	//	Attempt to set the value of selector on node as a positive pixel value.
 	if(isNaN(value)){return false;}
-	node.style[selector] = Math.max(0, value) + 'px'; 
+	node.style[selector] = Math.max(0, value) + 'px';
 	return true;	//	boolean
 }
 
 dojo.html.styleSheet = null;
 
 // FIXME: this is a really basic stub for adding and removing cssRules, but
-// it assumes that you know the index of the cssRule that you want to add 
-// or remove, making it less than useful.  So we need something that can 
+// it assumes that you know the index of the cssRule that you want to add
+// or remove, making it less than useful.  So we need something that can
 // search for the selector that you you want to remove.
 dojo.html.insertCssRule = function(/* string */selector, /* string */declaration, /* integer? */index) {
 	//	summary
@@ -7463,8 +7463,8 @@ dojo.html.insertCssRule = function(/* string */selector, /* string */declaration
 			// FIXME: should create a new style sheet here
 			// fall back on an exsiting style sheet
 			dojo.html.styleSheet = document.styleSheets[0];
-		} else { 
-			return null;	//	integer 
+		} else {
+			return null;	//	integer
 		} // fail
 	}
 
@@ -7473,8 +7473,8 @@ dojo.html.insertCssRule = function(/* string */selector, /* string */declaration
 			index = dojo.html.styleSheet.cssRules.length;
 		} else if (dojo.html.styleSheet.rules) { // IE
 			index = dojo.html.styleSheet.rules.length;
-		} else { 
-			return null;	//	integer 
+		} else {
+			return null;	//	integer
 		} // fail
 	}
 
@@ -7483,7 +7483,7 @@ dojo.html.insertCssRule = function(/* string */selector, /* string */declaration
 		return dojo.html.styleSheet.insertRule(rule, index);	//	integer
 	} else if (dojo.html.styleSheet.addRule) { // IE
 		return dojo.html.styleSheet.addRule(selector, declaration, index);	//	integer
-	} else { 
+	} else {
 		return null; // integer
 	} // fail
 }
@@ -7554,7 +7554,7 @@ dojo.html.insertCssText = function(/* string */cssStr, /* HTMLDocument? */doc, /
 	//	summary
 	//	Attempt to insert CSS rules into the document through inserting a style element
 	// DomNode Style  = insertCssText(String ".dojoMenu {color: green;}"[, DomDoc document, dojo.uri.Uri Url ])
-	if(!cssStr){ 
+	if(!cssStr){
 		return; //	HTMLStyleElement
 	}
 	if(!doc){ doc = document; }
@@ -7566,14 +7566,14 @@ dojo.html.insertCssText = function(/* string */cssStr, /* HTMLDocument? */doc, /
 	// IE is b0rken enough to require that we add the element to the doc
 	// before changing it's properties
 	var head = doc.getElementsByTagName("head")[0];
-	if(!head){ // must have a head tag 
+	if(!head){ // must have a head tag
 		dojo.debug("No head tag in document, aborting styles");
 		return;	//	HTMLStyleElement
 	}else{
 		head.appendChild(style);
 	}
 	if(style.styleSheet){// IE
-		var setFunc = function(){ 
+		var setFunc = function(){
 			try{
 				style.styleSheet.cssText = cssStr;
 			}catch(e){ dojo.debug(e); }
@@ -7643,11 +7643,11 @@ dojo.html.getActiveStyleSheet = function(){
 	//	return the title of the currently active stylesheet
 	var i = 0, a, els = dojo.doc().getElementsByTagName("link");
 	while (a = els[i++]) {
-		if (a.getAttribute("rel").indexOf("style") != -1 
-			&& a.getAttribute("title") 
+		if (a.getAttribute("rel").indexOf("style") != -1
+			&& a.getAttribute("title")
 			&& !a.disabled
 		){
-			return a.getAttribute("title");	//	string 
+			return a.getAttribute("title");	//	string
 		}
 	}
 	return null;	//	string
@@ -7661,7 +7661,7 @@ dojo.html.getPreferredStyleSheet = function(){
 		if(a.getAttribute("rel").indexOf("style") != -1
 			&& a.getAttribute("rel").indexOf("alt") == -1
 			&& a.getAttribute("title")
-		){ 
+		){
 			return a.getAttribute("title"); 	//	string
 		}
 	}
@@ -7789,13 +7789,13 @@ dojo.widget.waiNames  = ["waiRole", "waiState"];
 dojo.widget.wai = {
 	// summary: Contains functions to set accessibility roles and states
 	//		onto widget elements
-	waiRole: { 	
+	waiRole: {
 				// name: String:
 				//		information for mapping accessibility role
-				name: "waiRole", 
+				name: "waiRole",
 				// namespace: String:
 				//		URI of the namespace for the set of roles
-				"namespace": "http://www.w3.org/TR/xhtml2", 
+				"namespace": "http://www.w3.org/TR/xhtml2",
 				// alias: String:
 				//		The alias to assign the namespace
 				alias: "x2",
@@ -7803,13 +7803,13 @@ dojo.widget.wai = {
 				//		The prefix to assign to the role value
 				prefix: "wairole:"
 	},
-	waiState: { 
+	waiState: {
 				// name: String:
 				//		information for mapping accessibility state
-				name: "waiState", 
+				name: "waiState",
 				// namespace: String:
 				//		URI of the namespace for the set of states
-				"namespace": "http://www.w3.org/2005/07/aaa", 
+				"namespace": "http://www.w3.org/2005/07/aaa",
 				// alias: String:
 				//		The alias to assign the namespace
 				alias: "aaa",
@@ -7820,7 +7820,7 @@ dojo.widget.wai = {
 	setAttr: function(/*DomNode*/node, /*String*/ ns, /*String*/ attr, /*String|Boolean*/value){
 		// summary: Use appropriate API to set the role or state attribute onto the element.
 		// description: In IE use the generic setAttribute() api.  Append a namespace
-		//   alias to the attribute name and appropriate prefix to the value. 
+		//   alias to the attribute name and appropriate prefix to the value.
 		//   Otherwise, use the setAttribueNS api to set the namespaced attribute. Also
 		//   add the appropriate prefix to the attribute value.
 		if(dojo.render.html.ie){
@@ -7832,7 +7832,7 @@ dojo.widget.wai = {
 
 	getAttr: function(/*DomNode*/ node, /*String*/ ns, /*String|Boolena*/ attr){
 		// Summary:  Use the appropriate API to retrieve the role or state value
-		// Description: In IE use the generic getAttribute() api.  An alias value 
+		// Description: In IE use the generic getAttribute() api.  An alias value
 		// 	was added to the attribute name to simulate a namespace when the attribute
 		//  was set.  Otherwise use the getAttributeNS() api to retrieve the state value
 		if(dojo.render.html.ie){
@@ -7843,7 +7843,7 @@ dojo.widget.wai = {
 	},
 	removeAttr: function(/*DomNode*/ node, /*String*/ ns, /*String|Boolena*/ attr){
 		// summary:  Use the appropriate API to remove the role or state value
-		// description: In IE use the generic removeAttribute() api.  An alias value 
+		// description: In IE use the generic removeAttribute() api.  An alias value
 		// 	was added to the attribute name to simulate a namespace when the attribute
 		//  was set.  Otherwise use the removeAttributeNS() api to remove the state value
 		var success = true; //only IE returns a value
@@ -7862,7 +7862,7 @@ dojo.widget.attachTemplateNodes = function(rootNode, /*Widget*/ targetObj, event
 	//		the dom node and it's descendants. This function iterates over all
 	//		nodes and looks for these properties:
 	//			* dojoAttachPoint
-	//			* dojoAttachEvent	
+	//			* dojoAttachEvent
 	//			* waiRole
 	//			* waiState
 	//			* any "dojoOn*" proprties passed in the events array
@@ -7882,7 +7882,7 @@ dojo.widget.attachTemplateNodes = function(rootNode, /*Widget*/ targetObj, event
 		return str.replace(/^\s+|\s+$/g, "");
 	}
 
-	if(!rootNode){ 
+	if(!rootNode){
 		rootNode = targetObj.domNode;
 	}
 
@@ -7931,8 +7931,8 @@ dojo.widget.attachTemplateNodes = function(rootNode, /*Widget*/ targetObj, event
 					if(!thisFunc){
 						thisFunc = tevt;
 					}
-	
-					var tf = function(){ 
+
+					var tf = function(){
 						var ntf = new String(thisFunc);
 						return function(evt){
 							if(_this[ntf]){
@@ -7944,7 +7944,7 @@ dojo.widget.attachTemplateNodes = function(rootNode, /*Widget*/ targetObj, event
 					// dojo.event.browser.addListener(baseNode, tevt, dojo.lang.hitch(_this, thisFunc));
 				}
 			}
-	
+
 			for(var y=0; y<events.length; y++){
 				//alert(events[x]);
 				var evtVal = baseNode.getAttribute(events[y]);
@@ -7958,7 +7958,7 @@ dojo.widget.attachTemplateNodes = function(rootNode, /*Widget*/ targetObj, event
 					}
 					for(var z=0; z<funcs.length; z++){
 						if(!funcs[z].length){ continue; }
-						var tf = function(){ 
+						var tf = function(){
 							var ntf = new String(funcs[z]);
 							return function(evt){
 								if(_this[ntf]){
@@ -7985,7 +7985,7 @@ dojo.widget.attachTemplateNodes = function(rootNode, /*Widget*/ targetObj, event
 			var wai = dojo.widget.wai[name];
 			var val = baseNode.getAttribute(wai.name);
 			if(val){
-				if(val.indexOf('-') == -1){ 
+				if(val.indexOf('-') == -1){
 					dojo.widget.wai.setAttr(baseNode, wai.name, "role", val);
 				}else{
 					// this is a state-value pair
@@ -8009,7 +8009,7 @@ dojo.widget.getDojoEventsFromStr = function(str){
 	//		dojoOn*
 	// str: String
 	//		the template string to search
-	
+
 	// var lstr = str.toLowerCase();
 	var re = /(dojoOn([a-z]+)(\s?))=/gi;
 	var evts = str ? str.match(re)||[] : [];
@@ -8027,7 +8027,7 @@ dojo.widget.getDojoEventsFromStr = function(str){
 	return ret; // Array
 }
 
-dojo.declare("dojo.widget.DomWidget", 
+dojo.declare("dojo.widget.DomWidget",
 	dojo.widget.Widget,
 	function(){
 		// summary:
@@ -8039,7 +8039,7 @@ dojo.declare("dojo.widget.DomWidget",
 			this.create(arguments[0]);
 		}
 	},
-	{							 
+	{
 		// templateNode: DomNode
 		//		a node that represents the widget template. Pre-empts both templateString and templatePath.
 		templateNode: null,
@@ -8072,7 +8072,7 @@ dojo.declare("dojo.widget.DomWidget",
 		//		Nodes may by assigned to other properties, usually through the
 		//		template system's dojoAttachPonit syntax, but the domNode
 		//		property is the canonical "top level" node in widget UI.
-		domNode: null, 
+		domNode: null,
 
 		// containerNode DomNode:
 		//		holds child elements. "containerNode" is generally set via a
@@ -8115,7 +8115,7 @@ dojo.declare("dojo.widget.DomWidget",
 			}
 			return widget; // Widget
 		},
-		
+
 		addWidgetAsDirectChild: function(/*Widget*/	widget, overrideContainerNode, pos, ref, insertIndex){
 			// summary:
 			//		Process the given child widget, inserting it's dom node as
@@ -8134,9 +8134,9 @@ dojo.declare("dojo.widget.DomWidget",
 			}
 			var cn = (overrideContainerNode) ? overrideContainerNode : this.containerNode;
 			if(!pos){ pos = "after"; }
-			if(!ref){ 
+			if(!ref){
 				if(!cn){ cn = dojo.body(); }
-				ref = cn.lastChild; 
+				ref = cn.lastChild;
 			}
 			if(!insertIndex) { insertIndex = 0; }
 			widget.domNode.setAttribute("dojoinsertionindex", insertIndex);
@@ -8171,7 +8171,7 @@ dojo.declare("dojo.widget.DomWidget",
 			// insertionIndex: int
 			//		where in the children[] array to place it
 
-			// we need to insert the child at the right point in the parent's 
+			// we need to insert the child at the right point in the parent's
 			// 'children' array, based on the insertionIndex
 
 			widget.dojoInsertionIndex = insertionIndex;
@@ -8195,7 +8195,7 @@ dojo.declare("dojo.widget.DomWidget",
 
 			widget.parent = this;
 			widget.addedTo(this, idx+1);
-			
+
 			// If this widget was created programatically, then it was erroneously added
 			// to dojo.widget.manager.topWidgets.  Fix that here.
 			delete dojo.widget.manager.topWidgets[widget.widgetId];
@@ -8205,7 +8205,7 @@ dojo.declare("dojo.widget.DomWidget",
 			// summary: detach child domNode from parent domNode
 			dojo.dom.removeNode(widget.domNode);
 
-			// remove child widget from parent widget 
+			// remove child widget from parent widget
 			return dojo.widget.DomWidget.superclass.removeChild.call(this, widget); // Widget
 		},
 
@@ -8217,22 +8217,22 @@ dojo.declare("dojo.widget.DomWidget",
 			//		an opaque data structure generated by the first-pass parser
 			if(!frag){return null;} // null
 			if(!frag[this.getNamespacedType()]){
-				dojo.raise("Error: no frag for widget type " + this.getNamespacedType() 
+				dojo.raise("Error: no frag for widget type " + this.getNamespacedType()
 					+ ", id " + this.widgetId
 					+ " (maybe a widget has set it's type incorrectly)");
 			}
 			return frag[this.getNamespacedType()]["nodeRef"]; // DomNode
 		},
-		
+
 		postInitialize: function(/*Object*/ args, /*Object*/ frag, /*Widget*/ parentComp){
 			// summary:
 			//		Replace the source domNode with the generated dom
 			//		structure, and register the widget with its parent.
 			//		This is an implementation of the stub function defined in
 			//		dojo.widget.Widget.
-			
+
 			//dojo.profile.start(this.widgetType + " postInitialize");
-			
+
 			var sourceNodeRef = this.getFragNodeRef(frag);
 			// Stick my generated dom into the output tree
 			//alert(this.widgetId + ": replacing " + sourceNodeRef + " with " + this.domNode.innerHTML);
@@ -8293,7 +8293,7 @@ dojo.declare("dojo.widget.DomWidget",
 				var templatefrag = parser.parseElement(this.domNode, null, true);
 				// createSubComponents not createComponents because frag has already been created
 				dojo.widget.getParser().createSubComponents(templatefrag, this);
-	
+
 				//find all the sub widgets defined in the template file of this widget
 				var subwidgets = [];
 				var stack = [this];
@@ -8308,7 +8308,7 @@ dojo.declare("dojo.widget.DomWidget",
 						}
 					}
 				}
-	
+
 				//connect event to this widget/attach dom node
 				for(var i = 0; i < subwidgets.length; i++){
 					var widget = subwidgets[i];
@@ -8333,9 +8333,9 @@ dojo.declare("dojo.widget.DomWidget",
 							}
 							if(dojo.lang.isFunction(widget[tevt])){
 								dojo.event.kwConnect({
-									srcObj: widget, 
-									srcFunc: tevt, 
-									targetObj: this, 
+									srcObj: widget,
+									srcFunc: tevt,
+									targetObj: this,
 									targetFunc: thisFunc
 								});
 							}else{
@@ -8343,10 +8343,10 @@ dojo.declare("dojo.widget.DomWidget",
 							}
 						}
 					}
-	
+
 					if(widget.extraArgs['dojoattachpoint']){
 						//don't attach widget.domNode here, as we do not know which
-						//dom node we should connect to (in checkbox widget case, 
+						//dom node we should connect to (in checkbox widget case,
 						//it is inputNode). So we make the widget itself available
 						this[widget.extraArgs['dojoattachpoint']] = widget;
 					}
@@ -8360,7 +8360,7 @@ dojo.declare("dojo.widget.DomWidget",
 			 * basically if you have a widget that you instantiate from script
 			 * and that widget is a container, and it contains a reference to a parent
 			 * instance, the parser will start recursively parsing until the browser
-			 * complains.  So the solution is to set an initialization property of 
+			 * complains.  So the solution is to set an initialization property of
 			 * dojoDontFollow: true and then it won't recurse where it shouldn't
 			 */
 			if(this.isContainer && !frag["dojoDontFollow"]){
@@ -8381,7 +8381,7 @@ dojo.declare("dojo.widget.DomWidget",
 
 			// DOM widgets construct themselves from a template
 			var ts = dojo.widget._templateCache[this.widgetType];
-			
+
 			// Handle style for this widget here, as even if templatePath
 			// is not set, style specified by templateCssString or templateCssPath
 			// should be applied. templateCssString has higher priority
@@ -8397,17 +8397,17 @@ dojo.declare("dojo.widget.DomWidget",
 				}
 				dojo.widget._cssFiles[cpath.toString()] = true;
 			}
-		
+
 			if((this["templateCssString"])&&(!dojo.widget._cssStrings[this.templateCssString])){
 				dojo.html.insertCssText(this.templateCssString, null, cpath);
 				dojo.widget._cssStrings[this.templateCssString] = true;
 			}
-			if(	
+			if(
 				(!this.preventClobber)&&(
 					(this.templatePath)||
 					(this.templateNode)||
 					(
-						(this["templateString"])&&(this.templateString.length) 
+						(this["templateString"])&&(this.templateString.length)
 					)||
 					(
 						(typeof ts != "undefined")&&( (ts["string"])||(ts["node"]) )
@@ -8439,8 +8439,8 @@ dojo.declare("dojo.widget.DomWidget",
 //				avoidCache = true;
 				args["templatePath"] = args["templatepath"];
 			}
-			dojo.widget.fillFromTemplateCache(	this, 
-												args["templatePath"], 
+			dojo.widget.fillFromTemplateCache(	this,
+												args["templatePath"],
 												null,
 												avoidCache);
 			var ts = dojo.widget._templateCache[this.templatePath?this.templatePath.toString():this.widgetType];
@@ -8454,8 +8454,8 @@ dojo.declare("dojo.widget.DomWidget",
 			}
 			var matches = false;
 			var node = null;
-			// var tstr = new String(this.templateString); 
-			var tstr = this.templateString; 
+			// var tstr = new String(this.templateString);
+			var tstr = this.templateString;
 			// attempt to clone a template node, if there is one
 			if((!this.templateNode)&&(this.templateString)){
 				matches = this.templateString.match(/\$\{([^\}]+)\}/g);
@@ -8478,7 +8478,7 @@ dojo.declare("dojo.widget.DomWidget",
 						var value;
 						if((kval)||(dojo.lang.isString(kval))){
 							value = new String((dojo.lang.isFunction(kval)) ? kval.call(this, key, this.templateString) : kval);
-							// Safer substitution, see heading "Attribute values" in  
+							// Safer substitution, see heading "Attribute values" in
 							// http://www.w3.org/TR/REC-html40/appendix/notes.html#h-B.3.2
 							while (value.indexOf("\"") > -1) {
 								value=value.replace("\"","&quot;");
@@ -8489,10 +8489,10 @@ dojo.declare("dojo.widget.DomWidget",
 				}else{
 					// otherwise, we are required to instantiate a copy of the template
 					// string if one is provided.
-					
+
 					// FIXME: need to be able to distinguish here what should be done
 					// or provide a generic interface across all DOM implementations
-					// FIMXE: this breaks if the template has whitespace as its first 
+					// FIMXE: this breaks if the template has whitespace as its first
 					// characters
 					// node = this.createNodesFromText(this.templateString, true);
 					// this.templateNode = node[0].cloneNode(true); // we're optimistic here
@@ -8502,7 +8502,7 @@ dojo.declare("dojo.widget.DomWidget",
 					}
 				}
 			}
-			if((!this.templateNode)&&(!matches)){ 
+			if((!this.templateNode)&&(!matches)){
 				dojo.debug("DomWidget.buildFromTemplate: could not create template");
 				return false;
 			}else if(!matches){
@@ -8519,7 +8519,7 @@ dojo.declare("dojo.widget.DomWidget",
 			// dojo.profile.start("attachTemplateNodes");
 			this.attachTemplateNodes();
 			// dojo.profile.end("attachTemplateNodes");
-		
+
 			// relocate source contents to templated container node
 			// this.containerNode must be able to receive children, or exceptions will be thrown
 			if (this.isContainer && this.containerNode){
@@ -8531,7 +8531,7 @@ dojo.declare("dojo.widget.DomWidget",
 		},
 
 		attachTemplateNodes: function(baseNode, targetObj){
-			// summary: 
+			// summary:
 			//		hooks up event handlers and property/node linkages. Calls
 			//		dojo.widget.attachTemplateNodes to do all the hard work.
 			// baseNode: DomNode
@@ -8540,7 +8540,7 @@ dojo.declare("dojo.widget.DomWidget",
 			//		defaults to "this"
 			if(!baseNode){ baseNode = this.domNode; }
 			if(!targetObj){ targetObj = this; }
-			return dojo.widget.attachTemplateNodes(baseNode, targetObj, 
+			return dojo.widget.attachTemplateNodes(baseNode, targetObj,
 						dojo.widget.getDojoEventsFromStr(this.templateString));
 		},
 
@@ -8554,7 +8554,7 @@ dojo.declare("dojo.widget.DomWidget",
 
 			// dojo.unimplemented("dojo.widget.DomWidget.fillInTemplate");
 		},
-		
+
 		// method over-ride
 		destroyRendering: function(){
 			// summary: UI destructor.  Destroy the dom nodes associated w/this widget.
@@ -8629,7 +8629,7 @@ dojo.html.toggleShowing = function(/* HTMLElement */node){
 }
 
 // Simple mapping of tag names to display values
-// FIXME: simplistic 
+// FIXME: simplistic
 dojo.html.displayMap = { tr: '', td: '', th: '', img: 'inline', span: 'inline', input: 'inline', button: 'inline' };
 
 dojo.html.suggestDisplayByTagName = function(/* HTMLElement */node){
@@ -8772,7 +8772,7 @@ dojo.html.sumAncestorProperties = function(/* HTMLElement */node, /* string */pr
 	//	Returns the sum of the passed property on all ancestors of node.
 	node = dojo.byId(node);
 	if(!node){ return 0; } // FIXME: throw an error?
-	
+
 	var retVal = 0;
 	while(node){
 		if(dojo.html.getComputedStyle(node, 'position') == 'fixed'){
@@ -8788,35 +8788,35 @@ dojo.html.sumAncestorProperties = function(/* HTMLElement */node, /* string */pr
 	return retVal;	//	integer
 }
 
-dojo.html.setStyleAttributes = function(/* HTMLElement */node, /* string */attributes) { 
+dojo.html.setStyleAttributes = function(/* HTMLElement */node, /* string */attributes) {
 	//	summary
 	//	allows a dev to pass a string similar to what you'd pass in style="", and apply it to a node.
 	node = dojo.byId(node);
-	var splittedAttribs=attributes.replace(/(;)?\s*$/, "").split(";"); 
-	for(var i=0; i<splittedAttribs.length; i++){ 
-		var nameValue=splittedAttribs[i].split(":"); 
+	var splittedAttribs=attributes.replace(/(;)?\s*$/, "").split(";");
+	for(var i=0; i<splittedAttribs.length; i++){
+		var nameValue=splittedAttribs[i].split(":");
 		var name=nameValue[0].replace(/\s*$/, "").replace(/^\s*/, "").toLowerCase();
 		var value=nameValue[1].replace(/\s*$/, "").replace(/^\s*/, "");
 		switch(name){
 			case "opacity":
-				dojo.html.setOpacity(node, value); 
-				break; 
+				dojo.html.setOpacity(node, value);
+				break;
 			case "content-height":
-				dojo.html.setContentBox(node, {height: value}); 
-				break; 
+				dojo.html.setContentBox(node, {height: value});
+				break;
 			case "content-width":
-				dojo.html.setContentBox(node, {width: value}); 
-				break; 
+				dojo.html.setContentBox(node, {width: value});
+				break;
 			case "outer-height":
-				dojo.html.setMarginBox(node, {height: value}); 
-				break; 
+				dojo.html.setMarginBox(node, {height: value});
+				break;
 			case "outer-width":
-				dojo.html.setMarginBox(node, {width: value}); 
-				break; 
+				dojo.html.setMarginBox(node, {width: value});
+				break;
 			default:
-				node.style[dojo.html.toCamelCase(name)]=value; 
+				node.style[dojo.html.toCamelCase(name)]=value;
 		}
-	} 
+	}
 }
 
 dojo.html.boxSizing = {
@@ -8899,8 +8899,8 @@ dojo.html.getAbsolutePosition = dojo.html.abs = function(/* HTMLElement */node, 
 			var curnode = node;
 			do{
 				var n = curnode["offsetLeft"];
-				//FIXME: ugly hack to workaround the submenu in 
-				//popupmenu2 does not shown up correctly in opera. 
+				//FIXME: ugly hack to workaround the submenu in
+				//popupmenu2 does not shown up correctly in opera.
 				//Someone have a better workaround?
 				if(!h.opera || n>0){
 					ret.x += isNaN(n) ? 0 : n;
@@ -8985,7 +8985,7 @@ dojo.html.getMarginExtent = function(/* HTMLElement */node, /* string */side){
 
 dojo.html.getPaddingExtent = function(/* HTMLElement */node, /* string */side){
 	//	summary
-	//	Returns the width of the requested padding 
+	//	Returns the width of the requested padding
 	return dojo.html._sumPixelValues(node, ["padding-" + side], true);	//	integer
 }
 
@@ -9011,7 +9011,7 @@ dojo.html.getBoxSizing = function(/* HTMLElement */node){
 	//	Returns which box model the passed element is working with
 	var h = dojo.render.html;
 	var bs = dojo.html.boxSizing;
-	if(((h.ie)||(h.opera)) && node.nodeName!="IMG"){ 
+	if(((h.ie)||(h.opera)) && node.nodeName!="IMG"){
 		var cm = document["compatMode"];
 		if((cm == "BackCompat")||(cm == "QuirksMode")){
 			return bs.BORDER_BOX; 	//	string
@@ -9798,7 +9798,7 @@ dojo.gfx.color.named = {
 };
 
 dojo.gfx.color.blend = function(a, b, weight){
-	// summary: 
+	// summary:
 	//		blend colors a and b (both as RGB array or hex strings) with weight
 	//		from -1 to +1, 0 being a 50/50 blend
 	if(typeof a == "string"){
@@ -9812,7 +9812,7 @@ dojo.gfx.color.blend = function(a, b, weight){
 	// alex: this interface blows.
 	// map -1 to 1 to the range 0 to 1
 	weight = ((weight + 1)/2);
-	
+
 	var c = [];
 
 	// var stop = (1000*weight);
@@ -9905,7 +9905,7 @@ dojo.lfx.Line = function(/*int*/ start, /*int*/ end){
 		dojo.lang.forEach(this.start, function(s,i){
 			diff[i] = this.end[i] - s;
 		}, this);
-		
+
 		this.getValue = function(/*float*/ n){
 			var res = [];
 			dojo.lang.forEach(this.start, function(s, i){
@@ -9915,7 +9915,7 @@ dojo.lfx.Line = function(/*int*/ start, /*int*/ end){
 		}
 	}else{
 		var diff = end - start;
-			
+
 		this.getValue = function(/*float*/ n){
 			//	summary: returns the point on the line
 			//	n: a floating point number greater than 0 and less than 1
@@ -9966,7 +9966,7 @@ dojo.lang.extend(dojo.lfx.IAnimation, {
 	easing: null,
 	repeatCount: 0,
 	rate: 25,
-	
+
 	// events
 	handler: null,
 	beforeBegin: null,
@@ -9976,12 +9976,12 @@ dojo.lang.extend(dojo.lfx.IAnimation, {
 	onPlay: null,
 	onPause: null,
 	onStop: null,
-	
+
 	// public methods
 	play: null,
 	pause: null,
 	stop: null,
-	
+
 	connect: function(/*Event*/ evt, /*Object*/ scope, /*Function*/ newFunc){
 		// summary: Convenience function.  Quickly connect to an event
 		//			of this object and save the old functions connected to it.
@@ -10015,7 +10015,7 @@ dojo.lang.extend(dojo.lfx.IAnimation, {
 		}
 		return this; // dojo.lfx.IAnimation
 	},
-	
+
 	repeat: function(/*int*/ count){
 		// summary: Set the repeat count of this object.
 		// count: How many times to repeat the animation.
@@ -10028,11 +10028,11 @@ dojo.lang.extend(dojo.lfx.IAnimation, {
 	_paused: false
 });
 
-dojo.lfx.Animation = function(	/*Object*/ handlers, 
-								/*int*/ duration, 
-								/*dojo.lfx.Line*/ curve, 
-								/*function*/ easing, 
-								/*int*/ repeatCount, 
+dojo.lfx.Animation = function(	/*Object*/ handlers,
+								/*int*/ duration,
+								/*dojo.lfx.Line*/ curve,
+								/*function*/ easing,
+								/*int*/ repeatCount,
 								/*int*/ rate){
 	//	summary
 	//		a generic animation object that fires callbacks into it's handlers
@@ -10068,7 +10068,7 @@ dojo.lfx.Animation = function(	/*Object*/ handlers,
 	if(rate){ this.rate = rate; }
 	if(handlers){
 		dojo.lang.forEach([
-				"handler", "beforeBegin", "onBegin", 
+				"handler", "beforeBegin", "onBegin",
 				"onEnd", "onPlay", "onStop", "onAnimate"
 			], function(item){
 				if(handlers[item]){
@@ -10103,7 +10103,7 @@ dojo.lang.extend(dojo.lfx.Animation, {
 		}else if(this._active && !this._paused){
 			return this; // dojo.lfx.Animation
 		}
-		
+
 		this.fire("handler", ["beforeBegin"]);
 		this.fire("beforeBegin");
 
@@ -10111,7 +10111,7 @@ dojo.lang.extend(dojo.lfx.Animation, {
 			setTimeout(dojo.lang.hitch(this, function(){ this.play(null, gotoStart); }), delay);
 			return this; // dojo.lfx.Animation
 		}
-		
+
 		this._startTime = new Date().valueOf();
 		if(this._paused){
 			this._startTime -= (this.duration * this._percent / 100);
@@ -10120,7 +10120,7 @@ dojo.lang.extend(dojo.lfx.Animation, {
 
 		this._active = true;
 		this._paused = false;
-		
+
 		var step = this._percent / 100;
 		var value = this.curve.getValue(step);
 		if(this._percent == 0 ){
@@ -10201,7 +10201,7 @@ dojo.lang.extend(dojo.lfx.Animation, {
 			}else{
 				this._percent = step * 100;
 			}
-			
+
 			// Perform easing
 			if((this.easing)&&(dojo.lang.isFunction(this.easing))){
 				step = this.easing(step);
@@ -10240,14 +10240,14 @@ dojo.lfx.Combine = function(/*dojo.lfx.IAnimation...*/ animations){
 	dojo.lfx.IAnimation.call(this);
 	this._anims = [];
 	this._animsEnded = 0;
-	
+
 	var anims = arguments;
 	if(anims.length == 1 && (dojo.lang.isArray(anims[0]) || dojo.lang.isArrayLike(anims[0]))){
 		/* animations: dojo.lfx.IAnimation[]
 		   pId: a */
 		anims = anims[0];
 	}
-	
+
 	dojo.lang.forEach(anims, function(anim){
 		this._anims.push(anim);
 		anim.connect("onEnd", dojo.lang.hitch(this, "_onAnimsEnded"));
@@ -10257,7 +10257,7 @@ dojo.inherits(dojo.lfx.Combine, dojo.lfx.IAnimation);
 dojo.lang.extend(dojo.lfx.Combine, {
 	// private members
 	_animsEnded: 0,
-	
+
 	// public methods
 	play: function(/*int?*/ delay, /*bool?*/ gotoStart){
 		// summary: Start the animations.
@@ -10272,7 +10272,7 @@ dojo.lang.extend(dojo.lfx.Combine, {
 			setTimeout(dojo.lang.hitch(this, function(){ this.play(null, gotoStart); }), delay);
 			return this; // dojo.lfx.Combine
 		}
-		
+
 		if(gotoStart || this._anims[0].percent == 0){
 			this.fire("onBegin");
 		}
@@ -10280,14 +10280,14 @@ dojo.lang.extend(dojo.lfx.Combine, {
 		this._animsCall("play", null, gotoStart);
 		return this; // dojo.lfx.Combine
 	},
-	
+
 	pause: function(){
 		// summary: Pauses the running animations.
 		this.fire("onPause");
-		this._animsCall("pause"); 
+		this._animsCall("pause");
 		return this; // dojo.lfx.Combine
 	},
-	
+
 	stop: function(/*bool?*/ gotoEnd){
 		// summary: Stops the running animations.
 		// gotoEnd: If true, the animations will end.
@@ -10295,7 +10295,7 @@ dojo.lang.extend(dojo.lfx.Combine, {
 		this._animsCall("stop", gotoEnd);
 		return this; // dojo.lfx.Combine
 	},
-	
+
 	// private methods
 	_onAnimsEnded: function(){
 		this._animsEnded++;
@@ -10304,7 +10304,7 @@ dojo.lang.extend(dojo.lfx.Combine, {
 		}
 		return this; // dojo.lfx.Combine
 	},
-	
+
 	_animsCall: function(/*String*/ funcName){
 		var args = [];
 		if(arguments.length > 1){
@@ -10326,14 +10326,14 @@ dojo.lfx.Chain = function(/*dojo.lfx.IAnimation...*/ animations) {
 	dojo.lfx.IAnimation.call(this);
 	this._anims = [];
 	this._currAnim = -1;
-	
+
 	var anims = arguments;
 	if(anims.length == 1 && (dojo.lang.isArray(anims[0]) || dojo.lang.isArrayLike(anims[0]))){
 		/* animations: dojo.lfx.IAnimation[]
 		   pId: a */
 		anims = anims[0];
 	}
-	
+
 	var _this = this;
 	dojo.lang.forEach(anims, function(anim, i, anims_arr){
 		this._anims.push(anim);
@@ -10348,7 +10348,7 @@ dojo.inherits(dojo.lfx.Chain, dojo.lfx.IAnimation);
 dojo.lang.extend(dojo.lfx.Chain, {
 	// private members
 	_currAnim: -1,
-	
+
 	// public methods
 	play: function(/*int?*/ delay, /*bool?*/ gotoStart){
 		// summary: Start the animation sequence.
@@ -10367,7 +10367,7 @@ dojo.lang.extend(dojo.lfx.Chain, {
 			setTimeout(dojo.lang.hitch(this, function(){ this.play(null, gotoStart); }), delay);
 			return this; // dojo.lfx.Chain
 		}
-		
+
 		if(currentAnimation){
 			if(this._currAnim == 0){
 				this.fire("handler", ["begin", this._currAnim]);
@@ -10378,7 +10378,7 @@ dojo.lang.extend(dojo.lfx.Chain, {
 		}
 		return this; // dojo.lfx.Chain
 	},
-	
+
 	pause: function(){
 		// summary: Pauses the running animation sequence.
 		if( this._anims[this._currAnim] ) {
@@ -10387,7 +10387,7 @@ dojo.lang.extend(dojo.lfx.Chain, {
 		}
 		return this; // dojo.lfx.Chain
 	},
-	
+
 	playPause: function(){
 		// summary: If the animation sequence is playing, pause it; otherwise,
 		//			play it.
@@ -10403,7 +10403,7 @@ dojo.lang.extend(dojo.lfx.Chain, {
 		}
 		return this; // dojo.lfx.Chain
 	},
-	
+
 	stop: function(){
 		// summary: Stops the running animations.
 		var currAnim = this._anims[this._currAnim];
@@ -10413,7 +10413,7 @@ dojo.lang.extend(dojo.lfx.Chain, {
 		}
 		return currAnim; // dojo.lfx.IAnimation
 	},
-	
+
 	// private methods
 	_playNext: function(){
 		if( this._currAnim == -1 || this._anims.length == 0 ) { return this; }
@@ -10498,8 +10498,8 @@ dojo.lfx.html._byId = function(nodes){
 	}
 }
 
-dojo.lfx.html.propertyAnimation = function(	/*DOMNode[]*/ nodes, 
-											/*Object[]*/ propertyMap, 
+dojo.lfx.html.propertyAnimation = function(	/*DOMNode[]*/ nodes,
+											/*Object[]*/ propertyMap,
 											/*int*/ duration,
 											/*function*/ easing,
 											/*Object*/ handlers){
@@ -10519,12 +10519,12 @@ dojo.lfx.html.propertyAnimation = function(	/*DOMNode[]*/ nodes,
 		"duration": duration,
 		"easing": easing||dojo.lfx.easeDefault
 	};
-	
+
 	var setEmUp = function(args){
 		if(args.nodes.length==1){
 			// FIXME: we're only supporting start-value filling when one node is
 			// passed
-			
+
 			var pm = args.propertyMap;
 			if(!dojo.lang.isArray(args.propertyMap)){
 				// it's stupid to have to pack an array with a set of objects
@@ -10550,7 +10550,7 @@ dojo.lfx.html.propertyAnimation = function(	/*DOMNode[]*/ nodes,
 
 	var coordsAsInts = function(coords){
 		var cints = [];
-		dojo.lang.forEach(coords, function(c){ 
+		dojo.lang.forEach(coords, function(c){
 			cints.push(Math.round(c));
 		});
 		return cints;
@@ -10613,10 +10613,10 @@ dojo.lfx.html.propertyAnimation = function(	/*DOMNode[]*/ nodes,
 			return ret;
 		}
 	}
-	
+
 	var anim = new dojo.lfx.Animation({
-			beforeBegin: function(){ 
-				setEmUp(targs); 
+			beforeBegin: function(){
+				setEmUp(targs);
 				anim.curve = new propLine(targs.propertyMap);
 			},
 			onAnimate: function(propValues){
@@ -10625,7 +10625,7 @@ dojo.lfx.html.propertyAnimation = function(	/*DOMNode[]*/ nodes,
 				});
 			}
 		},
-		targs.duration, 
+		targs.duration,
 		null,
 		targs.easing
 	);
@@ -10636,7 +10636,7 @@ dojo.lfx.html.propertyAnimation = function(	/*DOMNode[]*/ nodes,
 			}
 		}
 	}
-	
+
 	return anim; // dojo.lfx.Animation
 }
 
@@ -10718,7 +10718,7 @@ dojo.lfx.html.fadeOut = function(/*DOMNode[]*/ nodes, /*int?*/ duration, /*Funct
 	// nodes: An array of DOMNodes or one DOMNode.
 	// duration: Duration of the animation in milliseconds.
 	// easing: An easing function.
-	// callback: Function to run at the end of the animation.	
+	// callback: Function to run at the end of the animation.
 	return dojo.lfx.html.fade(nodes, { end: 0 }, duration, easing, callback); // dojo.lfx.Animation
 }
 
@@ -10728,14 +10728,14 @@ dojo.lfx.html.fadeShow = function(/*DOMNode[]*/ nodes, /*int?*/ duration, /*Func
 	// nodes: An array of DOMNodes or one DOMNode.
 	// duration: Duration of the animation in milliseconds.
 	// easing: An easing function.
-	// callback: Function to run at the end of the animation.	
+	// callback: Function to run at the end of the animation.
 	nodes=dojo.lfx.html._byId(nodes);
 	dojo.lang.forEach(nodes, function(node){
 		dojo.html.setOpacity(node, 0.0);
 	});
 
 	var anim = dojo.lfx.html.fadeIn(nodes, duration, easing, callback);
-	anim.connect("beforeBegin", function(){ 
+	anim.connect("beforeBegin", function(){
 		if(dojo.lang.isArrayLike(nodes)){
 			dojo.lang.forEach(nodes, dojo.html.show);
 		}else{
@@ -10761,7 +10761,7 @@ dojo.lfx.html.fadeHide = function(/*DOMNode[]*/ nodes, /*int?*/ duration, /*Func
 		}
 		if(callback){ callback(nodes, anim); }
 	});
-	
+
 	return anim; // dojo.lfx.Animation
 }
 
@@ -10776,7 +10776,7 @@ dojo.lfx.html.wipeIn = function(/*DOMNode[]*/ nodes, /*int?*/ duration, /*Functi
 
 	dojo.lang.forEach(nodes, function(node){
 		var oprop = {  };	// old properties of node (before we mucked w/them)
-		
+
 		// get node height, either it's natural height or it's height specified via style or class attributes
 		// (for FF, the node has to be (temporarily) rendered to measure height)
 		// TODO: should this offscreen code be part of dojo.html, so that getBorderBox() works on hidden nodes?
@@ -10795,12 +10795,12 @@ dojo.lfx.html.wipeIn = function(/*DOMNode[]*/ nodes, /*int?*/ duration, /*Functi
 		var anim = dojo.lfx.propertyAnimation(node,
 			{	"height": {
 					start: 1, // 0 causes IE to display the whole panel
-					end: function(){ return height; } 
+					end: function(){ return height; }
 				}
-			}, 
-			duration, 
+			},
+			duration,
 			easing);
-	
+
 		anim.connect("beforeBegin", function(){
 			oprop.overflow = node.style.overflow;
 			oprop.height = node.style.height;
@@ -10810,8 +10810,8 @@ dojo.lfx.html.wipeIn = function(/*DOMNode[]*/ nodes, /*int?*/ duration, /*Functi
 			}
 			dojo.html.show(node);
 		});
-		
-		anim.connect("onEnd", function(){ 
+
+		anim.connect("onEnd", function(){
 			with(node.style){
 				overflow = oprop.overflow;
 				height = oprop.height;
@@ -10820,7 +10820,7 @@ dojo.lfx.html.wipeIn = function(/*DOMNode[]*/ nodes, /*int?*/ duration, /*Functi
 		});
 		anims.push(anim);
 	});
-	
+
 	return dojo.lfx.combine(anims); // dojo.lfx.Combine
 }
 
@@ -10832,14 +10832,14 @@ dojo.lfx.html.wipeOut = function(/*DOMNode[]*/ nodes, /*int?*/ duration, /*Funct
 	// callback: Function to run at the end of the animation.
 	nodes = dojo.lfx.html._byId(nodes);
 	var anims = [];
-	
+
 	dojo.lang.forEach(nodes, function(node){
 		var oprop = {  };	// old properties of node (before we mucked w/them)
 		var anim = dojo.lfx.propertyAnimation(node,
 			{	"height": {
 					start: function(){ return dojo.html.getContentBox(node).height; },
 					end: 1 // 0 causes IE to display the whole panel
-				} 
+				}
 			},
 			duration,
 			easing,
@@ -10852,8 +10852,8 @@ dojo.lfx.html.wipeOut = function(/*DOMNode[]*/ nodes, /*int?*/ duration, /*Funct
 					}
 					dojo.html.show(node);
 				},
-				
-				"onEnd": function(){ 
+
+				"onEnd": function(){
 					dojo.html.hide(node);
 					with(node.style){
 						overflow = oprop.overflow;
@@ -10884,7 +10884,7 @@ dojo.lfx.html.slideTo = function(/*DOMNode*/ nodes,
 	nodes = dojo.lfx.html._byId(nodes);
 	var anims = [];
 	var compute = dojo.html.getComputedStyle;
-	
+
 	if(dojo.lang.isArray(coords)){
 		/* coords: Array
 		   pId: a */
@@ -10894,7 +10894,7 @@ dojo.lfx.html.slideTo = function(/*DOMNode*/ nodes,
 	dojo.lang.forEach(nodes, function(node){
 		var top = null;
 		var left = null;
-		
+
 		var init = (function(){
 			var innerNode = node;
 			return function(){
@@ -10911,7 +10911,7 @@ dojo.lfx.html.slideTo = function(/*DOMNode*/ nodes,
 			}
 		})();
 		init();
-		
+
 		var anim = dojo.lfx.propertyAnimation(node,
 			{	"top": { start: top, end: (coords.top||0) },
 				"left": { start: left, end: (coords.left||0)  }
@@ -10927,7 +10927,7 @@ dojo.lfx.html.slideTo = function(/*DOMNode*/ nodes,
 
 		anims.push(anim);
 	});
-	
+
 	return dojo.lfx.combine(anims); // dojo.lfx.Combine
 }
 
@@ -10953,7 +10953,7 @@ dojo.lfx.html.slideBy = function(/*DOMNode*/ nodes, /*Object*/ coords, /*int?*/ 
 	dojo.lang.forEach(nodes, function(node){
 		var top = null;
 		var left = null;
-		
+
 		var init = (function(){
 			var innerNode = node;
 			return function(){
@@ -10970,7 +10970,7 @@ dojo.lfx.html.slideBy = function(/*DOMNode*/ nodes, /*Object*/ coords, /*int?*/ 
 			}
 		})();
 		init();
-		
+
 		var anim = dojo.lfx.propertyAnimation(node,
 			{
 				"top": { start: top, end: top+(coords.top||0) },
@@ -10994,7 +10994,7 @@ dojo.lfx.html.explode = function(/*DOMNode*/ start,
 								 /*int?*/ duration,
 								 /*Function?*/ easing,
 								 /*Function?*/ callback){
-	// summary: Returns an animation that will 
+	// summary: Returns an animation that will
 	// start:
 	// endNode:
 	// duration: Duration of the animation in milliseconds.
@@ -11031,8 +11031,8 @@ dojo.lfx.html.explode = function(/*DOMNode*/ start,
 	dojo.lang.forEach(["height", "width", "top", "left"], function(type){
 		props[type] = { start: startCoords[type], end: endCoords[type] }
 	});
-	
-	var anim = new dojo.lfx.propertyAnimation(outline, 
+
+	var anim = new dojo.lfx.propertyAnimation(outline,
 		props,
 		duration,
 		easing,
@@ -11058,7 +11058,7 @@ dojo.lfx.html.implode = function(/*DOMNode*/ startNode,
 								 /*int?*/ duration,
 								 /*Function?*/ easing,
 								 /*Function?*/ callback){
-	// summary: Returns an animation that will 
+	// summary: Returns an animation that will
 	// startNode:
 	// end:
 	// duration: Duration of the animation in milliseconds.
@@ -11085,7 +11085,7 @@ dojo.lfx.html.implode = function(/*DOMNode*/ startNode,
 	dojo.lang.forEach(["height", "width", "top", "left"], function(type){
 		props[type] = { start: startCoords[type], end: endCoords[type] }
 	});
-	
+
 	var anim = new dojo.lfx.propertyAnimation(outline,
 		props,
 		duration,
@@ -11132,18 +11132,18 @@ dojo.lfx.html.highlight = function(/*DOMNode[]*/ nodes,
 		var rgb = new dojo.gfx.color.Color(startColor);
 		var endRgb = new dojo.gfx.color.Color(color);
 
-		var anim = dojo.lfx.propertyAnimation(node, 
-			{ "background-color": { start: rgb, end: endRgb } }, 
-			duration, 
+		var anim = dojo.lfx.propertyAnimation(node,
+			{ "background-color": { start: rgb, end: endRgb } },
+			duration,
 			easing,
 			{
-				"beforeBegin": function(){ 
+				"beforeBegin": function(){
 					if(bgImage){
 						node.style.backgroundImage = "none";
 					}
 					node.style.backgroundColor = "rgb(" + rgb.toRgb().join(",") + ")";
 				},
-				"onEnd": function(){ 
+				"onEnd": function(){
 					if(bgImage){
 						node.style.backgroundImage = bgImage;
 					}
@@ -11181,19 +11181,19 @@ dojo.lfx.html.unhighlight = function(/*DOMNode[]*/ nodes,
 		var rgb = new dojo.gfx.color.Color(endColor);
 
 		var bgImage = dojo.html.getStyle(node, "background-image");
-		
-		var anim = dojo.lfx.propertyAnimation(node, 
+
+		var anim = dojo.lfx.propertyAnimation(node,
 			{ "background-color": { start: color, end: rgb } },
-			duration, 
+			duration,
 			easing,
 			{
-				"beforeBegin": function(){ 
+				"beforeBegin": function(){
 					if(bgImage){
 						node.style.backgroundImage = "none";
 					}
 					node.style.backgroundColor = "rgb(" + color.toRgb().join(",") + ")";
 				},
-				"onEnd": function(){ 
+				"onEnd": function(){
 					if(callback){
 						callback(node, anim);
 					}
@@ -11215,7 +11215,7 @@ dojo.lfx.toggle.plain = {
 		dojo.html.show(node);
 		if(dojo.lang.isFunction(callback)){ callback(); }
 	},
-	
+
 	hide: function(node, duration, easing, callback){
 		dojo.html.hide(node);
 		if(dojo.lang.isFunction(callback)){ callback(); }
@@ -11254,15 +11254,15 @@ dojo.lfx.toggle.explode = {
 
 dojo.provide("dojo.widget.HtmlWidget");
 
-dojo.declare("dojo.widget.HtmlWidget", dojo.widget.DomWidget, {								 
+dojo.declare("dojo.widget.HtmlWidget", dojo.widget.DomWidget, {
 	// summary
 	//	Base class for all browser based widgets, or at least "html" widgets.
 	//	The meaning of "html" has become unclear; in practice, all widgets derive from this class.
-	
+
 	// templateCssPath: String
 	//	Path to CSS file for this widget
 	templateCssPath: null,
-	
+
 	// templatePath: String
 	//	Path to template (HTML file) for this widget
 	templatePath: null,
@@ -11315,7 +11315,7 @@ dojo.declare("dojo.widget.HtmlWidget", dojo.widget.DomWidget, {
 	/////////////////////////////////////////////////////////
 	isShowing: function(){
 		// summary
-		//	Tests whether widget is set to show-mode or hide-mode (see show() and 
+		//	Tests whether widget is set to show-mode or hide-mode (see show() and
 		//	hide() methods)
 		//
 		//	This function is poorly named.  Even if widget is in show-mode,
@@ -11403,7 +11403,7 @@ dojo.declare("dojo.widget.HtmlWidget", dojo.widget.DomWidget, {
 	resizeTo: function(w, h){
 		// summary: explicitly set this widget's size (in pixels).
 		dojo.html.setMarginBox(this.domNode, { width: w, height: h });
-		
+
 		// can't do sizing if widget is hidden because referencing node.offsetWidth/node.offsetHeight returns 0.
 		// do sizing on show() instead.
 		if(this.isShowing()){
@@ -11468,7 +11468,7 @@ dojo.string.repeat = function(/* string */str, /* integer */count, /* string? */
 
 dojo.string.pad = function(/* string */str, /* integer */len/*=2*/, /* string */ c/*='0'*/, /* integer */dir/*=1*/) {
 	//	summary
-	//	Pad 'str' to guarantee that it is at least 'len' length with the character 'c' at either the 
+	//	Pad 'str' to guarantee that it is at least 'len' length with the character 'c' at either the
 	//	start (dir=1) or end (dir=-1) of the string
 	var out = String(str);
 	if(!c) {
@@ -11505,7 +11505,7 @@ dojo.provide("dojo.io.common");
 
 /******************************************************************************
  *	Notes about dojo.io design:
- *	
+ *
  *	The dojo.io.* package has the unenviable task of making a lot of different
  *	types of I/O feel natural, despite a universal lack of good (or even
  *	reasonable!) I/O capability in the host environment. So lets pin this down
@@ -11549,7 +11549,7 @@ dojo.provide("dojo.io.common");
  *	A discussion between Dylan, Mark, Tom, and Alex helped to lay down a lot
  *	the IO API interface. A transcript of it can be found at:
  *		http://dojotoolkit.org/viewcvs/viewcvs.py/documents/irc/irc_io_api_log.txt?rev=307&view=auto
- *	
+ *
  *	Also referenced in the design of the API was the DOM 3 L&S spec:
  *		http://www.w3.org/TR/2004/REC-DOM-Level-3-LS-20040407/load-save.html
  ******************************************************************************/
@@ -11582,28 +11582,28 @@ dojo.lang.extend(dojo.io.Request, {
 
 	/** The URL to hit */
 	url: "",
-	
+
 	/** The mime type used to interrpret the response body */
 	mimetype: "text/plain",
-	
+
 	/** The HTTP method to use */
 	method: "GET",
-	
+
 	/** An Object containing key-value pairs to be included with the request */
 	content: undefined, // Object
-	
+
 	/** The transport medium to use */
 	transport: undefined, // String
-	
+
 	/** If defined the URL of the page is physically changed */
 	changeUrl: undefined, // String
-	
+
 	/** A form node to use in the request */
 	formNode: undefined, // HTMLFormElement
-	
+
 	/** Whether the request should be made synchronously */
 	sync: false,
-	
+
 	bindSuccess: false,
 
 	/** Cache/look for the request in the cache before attempting to request?
@@ -11613,7 +11613,7 @@ dojo.lang.extend(dojo.io.Request, {
 
 	/** Prevent the browser from caching this by adding a query string argument to the URL */
 	preventCache: false,
-	
+
 	// events stuff
 	load: function(/*String*/type, /*Object*/data, /*Object*/transportImplementation, /*Object*/kwArgs){
 		// summary:
@@ -11682,18 +11682,18 @@ dojo.lang.extend(dojo.io.Request, {
 		//		kwArgs: Object
 		//				Object that contains the request parameters that were given to the
 		//				bind call. Useful for storing and retrieving state from when bind
-		//				was called.	
+		//				was called.
 	},
 
 	//FIXME: change IframeIO.js to use timeouts?
 	// The number of seconds to wait until firing a timeout callback.
 	// If it is zero, that means, don't do a timeout check.
 	timeoutSeconds: 0,
-	
+
 	// the abort method needs to be filled in by the transport that accepts the
 	// bind() request
 	abort: function(){ },
-	
+
 	// backButton: function(){ },
 	// forwardButton: function(){ },
 
@@ -11707,7 +11707,7 @@ dojo.lang.extend(dojo.io.Request, {
 		if(!kwArgs["method"] && kwArgs["formNode"] && kwArgs["formNode"].method) {
 			kwArgs.method = kwArgs["formNode"].method;
 		}
-		
+
 		// backwards compatibility
 		if(!kwArgs["handle"] && kwArgs["handler"]){ kwArgs.handle = kwArgs.handler; }
 		if(!kwArgs["load"] && kwArgs["loaded"]){ kwArgs.load = kwArgs.loaded; }
@@ -11787,7 +11787,7 @@ dojo.io.bind = function(/*dojo.io.Request or Object*/request){
 		}
 	}else{
 		// otherwise we do our best to auto-detect what available transports
-		// will handle 
+		// will handle
 		for(var x=0; x<dojo.io.transports.length; x++){
 			var tmp = dojo.io.transports[x];
 			if((this[tmp])&&(this[tmp].canHandle(request))){
@@ -11943,9 +11943,9 @@ dojo.io.setIFrameSrc = function(/*DOMNode*/ iframe, /*String*/ src, /*Boolean*/ 
 				idoc.location.replace(src);
 			}
 		}
-	}catch(e){ 
-		dojo.debug(e); 
-		dojo.debug("setIFrameSrc: "+e); 
+	}catch(e){
+		dojo.debug(e);
+		dojo.debug("setIFrameSrc: "+e);
 	}
 }
 
@@ -11954,7 +11954,7 @@ dojo.io.sampleTranport = new function(){
 	this.canHandle = function(kwArgs){
 		// canHandle just tells dojo.io.bind() if this is a good transport to
 		// use for the particular type of request.
-		if(	
+		if(
 			(
 				(kwArgs["mimetype"] == "text/plain") ||
 				(kwArgs["mimetype"] == "text/html") ||
@@ -12280,7 +12280,7 @@ dojo.undo.browser = {
 	locationTimer: null,
 
 	/**
-	 * 
+	 *
 	 */
 	setInitialState: function(/*Object*/args){
 		//summary: Sets the state object and back callback for the very first page that is loaded.
@@ -12319,7 +12319,7 @@ dojo.undo.browser = {
 		//		});
 		//
 		//	BROWSER NOTES:
-		//  Safari 1.2: 
+		//  Safari 1.2:
 		//	back button "works" fine, however it's not possible to actually
 		//	DETECT that you've moved backwards by inspecting window.location.
 		//	Unless there is some other means of locating.
@@ -12333,10 +12333,10 @@ dojo.undo.browser = {
 		//	previous hash value, but to the last full page load. This suggests
 		//	that the iframe is the correct way to capture the back button in
 		//	these cases.
-		//	Don't test this page using local disk for MSIE. MSIE will not create 
-		//	a history list for iframe_history.html if served from a file: URL. 
-		//	The XML served back from the XHR tests will also not be properly 
-		//	created if served from local disk. Serve the test pages from a web 
+		//	Don't test this page using local disk for MSIE. MSIE will not create
+		//	a history list for iframe_history.html if served from a file: URL.
+		//	The XML served back from the XHR tests will also not be properly
+		//	created if served from local disk. Serve the test pages from a web
 		//	server to test in that browser.
 		//	IE 6.0:
 		//	same behavior as IE 5.5 SP2
@@ -12348,7 +12348,7 @@ dojo.undo.browser = {
 		//If addToHistory is called, then that means we prune the
 		//forward stack -- the user went back, then wanted to
 		//start a new forward path.
-		this.forwardStack = []; 
+		this.forwardStack = [];
 
 		var hash = null;
 		var url = null;
@@ -12362,7 +12362,7 @@ dojo.undo.browser = {
 		}
 		if(args["changeUrl"]){
 			hash = "#"+ ((args["changeUrl"]!==true) ? args["changeUrl"] : (new Date()).getTime());
-			
+
 			//If the current hash matches the new one, just replace the history object with
 			//this new one. It doesn't make sense to track different state objects for the same
 			//logical URL. This matches the browser behavior of only putting in one history
@@ -12381,7 +12381,7 @@ dojo.undo.browser = {
 			this.changingUrl = true;
 			setTimeout("window.location.href = '"+hash+"'; dojo.undo.browser.changingUrl = false;", 1);
 			this.bookmarkAnchor.href = hash;
-			
+
 			if(dojo.render.html.ie){
 				url = this._loadIframeHistory();
 
@@ -12397,7 +12397,7 @@ dojo.undo.browser = {
 					//Use apply to set "this" to args, and to try to avoid memory leaks.
 					oldCB.apply(this, [handleName]);
 				}
-		
+
 				//Set interceptor function in the right place.
 				if(args["back"]){
 					args.back = tcb;
@@ -12406,9 +12406,9 @@ dojo.undo.browser = {
 				}else if(args["handle"]){
 					args.handle = tcb;
 				}
-		
+
 				var oldFW = args["forward"]||args["forwardButton"]||args["handle"];
-		
+
 				//The function takes handleName as a parameter, in case the
 				//callback we are overriding was "handle". In that case,
 				//we will need to pass the handle name to handle.
@@ -12456,7 +12456,7 @@ dojo.undo.browser = {
 				this.handleBackButton();
 				return;
 			}
-			
+
 			// first check to see if we could have gone forward. We always halt on
 			// a no-hash item.
 			if(this.forwardStack.length > 0){
@@ -12465,7 +12465,7 @@ dojo.undo.browser = {
 					return;
 				}
 			}
-	
+
 			// ok, that didn't work, try someplace back in the history stack
 			if((hsl >= 2)&&(this.historyStack[hsl-2])){
 				if(this.historyStack[hsl-2].urlHash==window.location.hash){
@@ -12480,7 +12480,7 @@ dojo.undo.browser = {
 		//summary: private method. Do not call this directly.
 		if(!dojo.render.html.opera){
 			var query = this._getUrlQuery(ifrLoc.href);
-			if(query == null){ 
+			if(query == null){
 				// alert("iframeLoaded");
 				// we hit the end of the history, so we should go back
 				if(this.historyStack.length == 1){
@@ -12493,7 +12493,7 @@ dojo.undo.browser = {
 				this.moveForward = false;
 				return;
 			}
-	
+
 			//Check the back stack first, since it is more likely.
 			//Note that only one step back or forward is supported.
 			if(this.historyStack.length >= 2 && query == this._getUrlQuery(this.historyStack[this.historyStack.length-2].url)){
@@ -12558,12 +12558,12 @@ dojo.undo.browser = {
 			return segments[1]; //String
 		}
 	},
-	
+
 	_loadIframeHistory: function(){
 		//summary: private method. Do not call this directly.
 		var url = dojo.hostenv.getBaseScriptUri()+"iframe_history.html?"+(new Date()).getTime();
 		this.moveForward = true;
-		dojo.io.setIFrameSrc(this.historyIframe, url, false);	
+		dojo.io.setIFrameSrc(this.historyIframe, url, false);
 		return url; //String
 	}
 }
@@ -12910,7 +12910,7 @@ dojo.io.XMLHTTPTransport = new function(){
 				try{
 					var tif = this.inFlight[x];
 					if(!tif || tif.http._aborted || !tif.http.readyState){
-						this.inFlight.splice(x, 1); continue; 
+						this.inFlight.splice(x, 1); continue;
 					}
 					if(4==tif.http.readyState){
 						// remove it so we can clean refs
@@ -12926,7 +12926,7 @@ dojo.io.XMLHTTPTransport = new function(){
 							if(typeof tif.http.abort == "function"){
 								tif.http.abort();
 							}
-		
+
 							// remove it so we can clean refs
 							this.inFlight.splice(x, 1);
 							tif.req[(typeof tif.req.timeout == "function") ? "timeout" : "handle"]("timeout", null, tif.http, tif.req);
@@ -13058,7 +13058,7 @@ dojo.io.XMLHTTPTransport = new function(){
 				// enforce multipart when sending files
 				kwArgs.multipart = true;
 			}else if(!kwArgs["multipart"]){
-				// default 
+				// default
 				kwArgs.multipart = false;
 			}
 		}
@@ -13082,7 +13082,7 @@ dojo.io.XMLHTTPTransport = new function(){
 			if(content) {
 				query += dojo.io.argsFromMap(content, kwArgs.encoding);
 			}
-			
+
 			if(kwArgs.method.toLowerCase() == "get" || !kwArgs.multipart){
 				break;
 			}
@@ -13094,7 +13094,7 @@ dojo.io.XMLHTTPTransport = new function(){
 					if(q[i].length){
 						var p = q[i].split("=");
 						t.push(	"--" + this.multipartBoundary,
-								"Content-Disposition: form-data; name=\"" + p[0] + "\"", 
+								"Content-Disposition: form-data; name=\"" + p[0] + "\"",
 								"",
 								p[1]);
 					}
@@ -13150,12 +13150,12 @@ dojo.io.XMLHTTPTransport = new function(){
 
 		// much of this is from getText, but reproduced here because we need
 		// more flexibility
-		var http = dojo.hostenv.getXmlhttpObject(kwArgs);	
+		var http = dojo.hostenv.getXmlhttpObject(kwArgs);
 		var received = false;
 
 		// build a handler function that calls back to the handler obj
 		if(async){
-			var startTime = 
+			var startTime =
 			// FIXME: setting up this callback handler leaks on IE!!!
 			this.inFlight.push({
 				"req":		kwArgs,
@@ -13179,7 +13179,7 @@ dojo.io.XMLHTTPTransport = new function(){
         http.open("POST", url, async, kwArgs.user, kwArgs.password);
 			}
 			setHeaders(http, kwArgs);
-			http.setRequestHeader("Content-Type", kwArgs.multipart ? ("multipart/form-data; boundary=" + this.multipartBoundary) : 
+			http.setRequestHeader("Content-Type", kwArgs.multipart ? ("multipart/form-data; boundary=" + this.multipartBoundary) :
 				(kwArgs.contentType || "application/x-www-form-urlencoded"));
 			try{
 				http.send(query);
@@ -13221,7 +13221,7 @@ dojo.io.XMLHTTPTransport = new function(){
 
 		kwArgs.abort = function(){
 			try{// khtml doesent reset readyState on abort, need this workaround
-				http._aborted = true; 
+				http._aborted = true;
 			}catch(e){/*squelsh*/}
 			return http.abort();
 		}
@@ -13234,8 +13234,8 @@ dojo.io.XMLHTTPTransport = new function(){
 }
 dojo.provide("dojo.io.cookie");
 
-dojo.io.cookie.setCookie = function(/*String*/name, /*String*/value, 
-									/*Number?*/days, /*String?*/path, 
+dojo.io.cookie.setCookie = function(/*String*/name, /*String*/value,
+									/*Number?*/days, /*String?*/path,
 									/*String?*/domain, /*boolean?*/secure){
 	//summary: sets a cookie.
 	var expires = -1;
@@ -13279,9 +13279,9 @@ dojo.io.cookie.deleteCookie = function(/*String*/name){
 	dojo.io.cookie.setCookie(name, "-", 0);
 }
 
-dojo.io.cookie.setObjectCookie = function(	/*String*/name, /*Object*/obj, 
-											/*Number?*/days, /*String?*/path, 
-											/*String?*/domain, /*boolean?*/secure, 
+dojo.io.cookie.setObjectCookie = function(	/*String*/name, /*Object*/obj,
+											/*Number?*/days, /*String?*/path,
+											/*String?*/domain, /*boolean?*/secure,
 											/*boolean?*/clearCurrent){
 	//summary: Takes an object, serializes it to a cookie value, and either
 	//sets a cookie with the serialized value.
@@ -14306,7 +14306,7 @@ dojo.html.clearSelection = function(){
 	var _window = dojo.global();
 	var _document = dojo.doc();
 	try{
-		if(_window["getSelection"]){ 
+		if(_window["getSelection"]){
 			if(dojo.render.html.safari){
 				// pulled from WebCore/ecma/kjs_window.cpp, line 2536
 				_window.getSelection().collapse();
@@ -14331,11 +14331,11 @@ dojo.html.disableSelection = function(/*DomNode*/element){
 	// summary: disable selection on a node
 	element = dojo.byId(element)||dojo.body();
 	var h = dojo.render.html;
-	
+
 	if(h.mozilla){
 		element.style.MozUserSelect = "none";
 	}else if(h.safari){
-		element.style.KhtmlUserSelect = "none"; 
+		element.style.KhtmlUserSelect = "none";
 	}else if(h.ie){
 		element.unselectable = "on";
 	}else{
@@ -14347,10 +14347,10 @@ dojo.html.disableSelection = function(/*DomNode*/element){
 dojo.html.enableSelection = function(/*DomNode*/element){
 	// summary: enable selection on a node
 	element = dojo.byId(element)||dojo.body();
-	
+
 	var h = dojo.render.html;
-	if(h.mozilla){ 
-		element.style.MozUserSelect = ""; 
+	if(h.mozilla){
+		element.style.MozUserSelect = "";
 	}else if(h.safari){
 		element.style.KhtmlUserSelect = "";
 	}else if(h.ie){
@@ -14396,12 +14396,12 @@ dojo.lang.mixin(dojo.html.selection, {
 			return dojo.html.selectionType[dojo.doc().selection.type.toUpperCase()];
 		}else{
 			var stype = dojo.html.selectionType.TEXT;
-	
+
 			// Check if the actual selection is a CONTROL (IMG, TABLE, HR, etc...).
 			var oSel;
 			try {oSel = dojo.global().getSelection();}
 			catch (e) {}
-			
+
 			if(oSel && oSel.rangeCount==1){
 				var oRange = oSel.getRangeAt(0);
 				if (oRange.startContainer == oRange.endContainer && (oRange.endOffset - oRange.startOffset) == 1
@@ -14428,13 +14428,13 @@ dojo.lang.mixin(dojo.html.selection, {
 		}
 	},
 	getSelectedElement: function() {
-		// summary: 
+		// summary:
 		//		Retrieves the selected element (if any), just in the case that a single
 		//		element (object like and image or a table) is selected.
 		if ( dojo.html.selection.getType() == dojo.html.selectionType.CONTROL ){
 			if(dojo.doc()["selection"]){ //IE
 				var range = dojo.doc().selection.createRange();
-		
+
 				if ( range && range.item ){
 					return dojo.doc().selection.createRange().item(0);
 				}
@@ -14445,7 +14445,7 @@ dojo.lang.mixin(dojo.html.selection, {
 		}
 	},
 	getParentElement: function() {
-		// summary: 
+		// summary:
 		//		Get the parent element of the current selection
 		if(dojo.html.selection.getType() == dojo.html.selectionType.CONTROL){
 			var p = dojo.html.selection.getSelectedElement();
@@ -14457,11 +14457,11 @@ dojo.lang.mixin(dojo.html.selection, {
 				var selection = dojo.global().getSelection();
 				if(selection){
 					var node = selection.anchorNode;
-		
+
 					while ( node && node.nodeType != dojo.dom.ELEMENT_NODE ){
 						node = node.parentNode;
 					}
-		
+
 					return node;
 				}
 			}
@@ -14502,7 +14502,7 @@ dojo.lang.mixin(dojo.html.selection, {
 		}
 	},
 	hasAncestorElement: function(/*String*/tagName /* ... */){
-		// summary: 
+		// summary:
 		// 		Check whether current selection has a  parent element which is of type tagName (or one of the other specified tagName)
 		return (dojo.html.selection.getAncestorElement.apply(this, arguments) != null);
 	},
@@ -14639,7 +14639,7 @@ dojo.lang.mixin(dojo.html.selection, {
 			if ( selection.type.toUpperCase() != "NONE" ){
 				selection.clear();
 			}
-		
+
 			return selection;
 		}else{
 			var selection = dojo.global().getSelection();
@@ -14647,7 +14647,7 @@ dojo.lang.mixin(dojo.html.selection, {
 			for ( var i = 0; i < selection.rangeCount; i++ ){
 				selection.getRangeAt(i).deleteContents();
 			}
-		
+
 			return selection;
 		}
 	}
@@ -14657,7 +14657,7 @@ dojo.provide("dojo.Deferred");
 
 dojo.Deferred = function(/*Function?*/ canceller){
 	/*
-	NOTE: this namespace and documentation are imported wholesale 
+	NOTE: this namespace and documentation are imported wholesale
 		from MochiKit
 
 	Encapsulates a sequence of callbacks in response to a value that
@@ -14745,7 +14745,7 @@ dojo.Deferred = function(/*Function?*/ canceller){
 	cancellable Deferreds.
 
 	*/
-	
+
 	this.chain = [];
 	this.id = this._nextId();
 	this.fired = -1;
@@ -14816,7 +14816,7 @@ dojo.lang.extend(dojo.Deferred, {
 			this.results[0].cancel();
 		}
 	},
-			
+
 
 	_pause: function(){
 		// summary: Used internally to signal that it's waiting on another Deferred
@@ -14857,7 +14857,7 @@ dojo.lang.extend(dojo.Deferred, {
 
 	callback: function(res){
 		// summary:	Begin the callback sequence with a non-error value.
-		
+
 		/*
 		callback or errback should only be called once on a given
 		Deferred.
@@ -15091,7 +15091,7 @@ dojo.widget.defineWidget(
 
 		setupDefaultShortcuts: function(){
 			// summary: add some default key handlers
-			// description: 
+			// description:
 			// 		Overwrite this to setup your own handlers. The default
 			// 		implementation does not use Editor2 commands, but directly
 			//		executes the builtin commands within the underlying browser
@@ -15942,7 +15942,7 @@ dojo.widget.defineWidget(
 
 				var isLastNode = (sel.focusNode == this.document.body.lastChild);
 				if(!isLastNode){ return; }
-				var isText = (sel.focusNode.nodeType == 3); 
+				var isText = (sel.focusNode.nodeType == 3);
 				if(!isText){ return; }
 				var isLastChar = (sel.focusOffset == sel.focusNode.nodeValue.length);
 				if(!isLastChar){ return; }
@@ -16713,7 +16713,7 @@ dojo.widget.defineWidget(
 {
 	// summary
 	//		Grid showing various colors, so the user pick a certain color
-	
+
 	// palette: String
 	//		Size of grid, either "7x10" or "3x4".
 	palette: "7x10",
@@ -17314,26 +17314,26 @@ dojo.lang.getType = function(/* anything */ value){
 	// summary: Attempts to determine what type value is.
 	// value: Any literal value or object instance.
 	try{
-		if(dojo.lang.isArray(value)){ 
-			return "array";	//	string 
+		if(dojo.lang.isArray(value)){
+			return "array";	//	string
 		}
-		if(dojo.lang.isFunction(value)){ 
-			return "function";	//	string 
+		if(dojo.lang.isFunction(value)){
+			return "function";	//	string
 		}
-		if(dojo.lang.isString(value)){ 
-			return "string";	//	string 
+		if(dojo.lang.isString(value)){
+			return "string";	//	string
 		}
-		if(dojo.lang.isNumber(value)){ 
-			return "number";	//	string 
+		if(dojo.lang.isNumber(value)){
+			return "number";	//	string
 		}
-		if(dojo.lang.isBoolean(value)){ 
-			return "boolean";	//	string 
+		if(dojo.lang.isBoolean(value)){
+			return "boolean";	//	string
 		}
-		if(dojo.lang.isAlien(value)){ 
-			return "alien";	//	string 
+		if(dojo.lang.isAlien(value)){
+			return "alien";	//	string
 		}
-		if(dojo.lang.isUndefined(value)){ 
-			return "undefined";	//	string 
+		if(dojo.lang.isUndefined(value)){
+			return "undefined";	//	string
 		}
 		// FIXME: should this go first?
 		for(var name in dojo.lang.whatAmI.custom){
@@ -17341,8 +17341,8 @@ dojo.lang.getType = function(/* anything */ value){
 				return name;	//	string
 			}
 		}
-		if(dojo.lang.isObject(value)){ 
-			return "object";	//	string 
+		if(dojo.lang.isObject(value)){
+			return "object";	//	string
 		}
 	}catch(e){}
 	return "unknown";	//	string
@@ -17352,7 +17352,7 @@ dojo.lang.isNumeric = function(/* anything */ value){
 	// summary:
 	//		Returns true if value can be interpreted as a number
 	// value: Any literal value or object instance.
-	// examples: 
+	// examples:
 	//		dojo.lang.isNumeric(3);                 // returns true
 	//		dojo.lang.isNumeric("3");               // returns true
 	//		dojo.lang.isNumeric(new Number(3));     // returns true
@@ -17363,11 +17363,11 @@ dojo.lang.isNumeric = function(/* anything */ value){
 	//		dojo.lang.isNumeric(new Number("foo")); // returns false
 	//		dojo.lang.isNumeric(false);             // returns false
 	//		dojo.lang.isNumeric(true);              // returns false
-	return (!isNaN(value) 
-		&& isFinite(value) 
-		&& (value != null) 
-		&& !dojo.lang.isBoolean(value) 
-		&& !dojo.lang.isArray(value) 
+	return (!isNaN(value)
+		&& isFinite(value)
+		&& (value != null)
+		&& !dojo.lang.isBoolean(value)
+		&& !dojo.lang.isArray(value)
 		&& !/^\s*$/.test(value)
 	);	//	boolean
 }
@@ -17375,20 +17375,20 @@ dojo.lang.isNumeric = function(/* anything */ value){
 dojo.lang.isBuiltIn = function(/* anything */ value){
 	// summary:
 	//		Returns true if value is of a type provided by core JavaScript
-	// description: 
+	// description:
 	//		Returns true for any literal, and for any object that is an
 	//		instance of a built-in type like String, Number, Boolean, Array,
-	//		Function, or Error.  
+	//		Function, or Error.
 	// value: Any literal value or object instance.
-	
+
 	return (dojo.lang.isArray(value)
-		|| dojo.lang.isFunction(value)	
+		|| dojo.lang.isFunction(value)
 		|| dojo.lang.isString(value)
 		|| dojo.lang.isNumber(value)
 		|| dojo.lang.isBoolean(value)
 		|| (value == null)
 		|| (value instanceof Error)
-		|| (typeof value == "error") 
+		|| (typeof value == "error")
 	);	//	boolean
 }
 
@@ -17396,20 +17396,20 @@ dojo.lang.isPureObject = function(/* anything */ value){
 	// summary:
 	//		Returns true for any value where the value of value.constructor ==
 	//		Object
-	// description: 
+	// description:
 	//		Returns true for any literal, and for any object that is an
 	//		instance of a built-in type like String, Number, Boolean, Array,
 	//		Function, or Error.
 	// value:
 	//		Any literal value or object instance.
-	// examples: 
+	// examples:
 	//		dojo.lang.isPureObject(new Object()); // returns true
 	//		dojo.lang.isPureObject({a: 1, b: 2}); // returns true
 	//
 	//		dojo.lang.isPureObject(new Date());   // returns false
 	//		dojo.lang.isPureObject([11, 2, 3]);   // returns false
-	return ((value != null) 
-		&& dojo.lang.isObject(value) 
+	return ((value != null)
+		&& dojo.lang.isObject(value)
 		&& value.constructor == Object
 	);	//	boolean
 }
@@ -17417,7 +17417,7 @@ dojo.lang.isPureObject = function(/* anything */ value){
 dojo.lang.isOfType = function(/* anything */ value, /* function */ type, /* object? */ keywordParameters) {
 	/* summary:
 	 *	 Returns true if 'value' is of type 'type'
-	 * description: 
+	 * description:
 	 *	 Given a value and a datatype, this method returns true if the
 	 *	 type of the value matches the datatype. The datatype parameter
 	 *	 can be an array of datatypes, in which case the method returns
@@ -17426,8 +17426,8 @@ dojo.lang.isOfType = function(/* anything */ value, /* function */ type, /* obje
 	 * type: A class of object, or a literal type, or the string name of a type, or an array with a list of types.
 	 * keywordParameters: {optional: boolean}
 	 */
-	 
-	/* examples: 
+
+	/* examples:
 	 *   dojo.lang.isOfType("foo", String);                // returns true
 	 *   dojo.lang.isOfType(12345, Number);                // returns true
 	 *   dojo.lang.isOfType(false, Boolean);               // returns true
@@ -17449,7 +17449,7 @@ dojo.lang.isOfType = function(/* anything */ value, /* function */ type, /* obje
 	 *   dojo.lang.isOfType(12345, [Number, String, Boolean]); // returns true
 	 *   dojo.lang.isOfType(false, [Number, String, Boolean]); // returns true
 	 *
-	 *   dojo.lang.isOfType(null, Date, {optional: true} );    // returns true	// description: 
+	 *   dojo.lang.isOfType(null, Date, {optional: true} );    // returns true	// description:
 	 */
 	var optional = false;
 	if(keywordParameters){
@@ -17520,20 +17520,20 @@ dojo.lang.isOfType = function(/* anything */ value, /* function */ type, /* obje
 dojo.lang.getObject=function(/* String */ str){
 	// summary:
 	//   Will return an object, if it exists, based on the name in the passed string.
-	var parts=str.split("."), i=0, obj=dj_global; 
-	do{ 
-		obj=obj[parts[i++]]; 
-	}while(i<parts.length&&obj); 
+	var parts=str.split("."), i=0, obj=dj_global;
+	do{
+		obj=obj[parts[i++]];
+	}while(i<parts.length&&obj);
 	return (obj!=dj_global)?obj:null;	//	Object
 }
 
 dojo.lang.doesObjectExist=function(/* String */ str){
 	// summary:
 	//   Check to see if object [str] exists, based on the passed string.
-	var parts=str.split("."), i=0, obj=dj_global; 
-	do{ 
-		obj=obj[parts[i++]]; 
-	}while(i<parts.length&&obj); 
+	var parts=str.split("."), i=0, obj=dj_global;
+	do{
+		obj=obj[parts[i++]];
+	}while(i<parts.length&&obj);
 	return (obj&&obj!=dj_global);	//	boolean
 }
 
@@ -17541,11 +17541,11 @@ dojo.provide("dojo.lang.assert");
 
 
 dojo.lang.assert = function(/* boolean */ booleanValue, /* string? */ message){
-	/* summary: 
+	/* summary:
 	 *   Throws an exception if the assertion fails.
-	 * description: 
+	 * description:
 	 *   If the asserted condition is true, this method does nothing. If the
-	 *   condition is false, we throw an error with a error message. 
+	 *   condition is false, we throw an error with a error message.
 	 * booleanValue: Must be true for the assertion to succeed.
 	 * message: A string describing the assertion.
 	 */
@@ -17564,9 +17564,9 @@ dojo.lang.assert = function(/* boolean */ booleanValue, /* string? */ message){
 }
 
 dojo.lang.assertType = function(/* anything */ value, /* misc. */ type, /* object? */ keywordParameters){
-	/* summary: 
+	/* summary:
 	 *   Throws an exception if 'value' is not of type 'type'
-	 * description: 
+	 * description:
 	 *   Given a value and a data type, this method checks the type of the value
 	 *   to make sure it matches the data type, and throws an exception if there
 	 *   is a mismatch.
@@ -17574,8 +17574,8 @@ dojo.lang.assertType = function(/* anything */ value, /* misc. */ type, /* objec
 	 * type: A class of object, or a literal type, or the string name of a type, or an array with a list of types.
 	 * keywordParameters: {optional: boolean}
 	 */
-	 
-	/* examples: 
+
+	/* examples:
 	 *   dojo.lang.assertType("foo", String);
 	 *   dojo.lang.assertType(12345, Number);
 	 *   dojo.lang.assertType(false, Boolean);
@@ -17598,9 +17598,9 @@ dojo.lang.assertType = function(/* anything */ value, /* misc. */ type, /* objec
 }
 
 dojo.lang.assertValidKeywords = function(/* object */ object, /* array */ expectedProperties, /* string? */ message){
-	/* summary: 
+	/* summary:
 	 *   Throws an exception 'object' has any properties other than the 'expectedProperties'.
-	 * description: 
+	 * description:
 	 *   Given an anonymous object and a list of expected property names, this
 	 *   method check to make sure the object does not have any properties
 	 *   that aren't on the list of expected properties, and throws an Error
@@ -17610,8 +17610,8 @@ dojo.lang.assertValidKeywords = function(/* object */ object, /* array */ expect
 	 * expectedProperties: An array of strings (or an object with all the expected properties).
 	 * message: A message describing the assertion.
 	 */
-	 
-	/* examples: 
+
+	/* examples:
 	 *   dojo.lang.assertValidKeywords({a: 1, b: 2}, ["a", "b"]);
 	 *   dojo.lang.assertValidKeywords({a: 1, b: 2}, ["a", "b", "c"]);
 	 *   dojo.lang.assertValidKeywords({foo: "iggy"}, ["foo"]);
@@ -17657,7 +17657,7 @@ dojo.AdapterRegistry = function(/*Boolean?*/ returnWrappers){
 
 dojo.lang.extend(dojo.AdapterRegistry, {
 	register: function(name, check, /*Function*/ wrap, directReturn, override){
-		// summary: 
+		// summary:
 		//		register a check function to determine if the wrap function or
 		//		object gets selected
 		// name: String
@@ -17812,7 +17812,7 @@ dojo.html.iframeContentDocument = function(/* HTMLIFrameElement */iframe_el){
 	//	returns a reference to the document object inside iframe_el
 	var doc = iframe_el.contentDocument // W3
 		|| ((iframe_el.contentWindow)&&(iframe_el.contentWindow.document))	// IE
-		|| ((iframe_el.name)&&(document.frames[iframe_el.name])&&(document.frames[iframe_el.name].document)) 
+		|| ((iframe_el.name)&&(document.frames[iframe_el.name])&&(document.frames[iframe_el.name].document))
 		|| null;
 	return doc;	//	HTMLDocument
 }
@@ -17861,7 +17861,7 @@ dojo.lang.extend(dojo.html.BackgroundIframe, {
 	size: function(/* HTMLElement */node) {
 		// summary:
 		//		Call this function if the iframe is connected to dojo.body()
-		//		rather than the node being shadowed 
+		//		rather than the node being shadowed
 
 		//	(TODO: erase)
 		if(!this.iframe){ return; }
@@ -17888,7 +17888,7 @@ dojo.lang.extend(dojo.html.BackgroundIframe, {
 	show: function(){
 		//	summary:
 		//		show the iframe
-		if(this.iframe){ 
+		if(this.iframe){
 			this.iframe.style.display = "block";
 		}
 	},
@@ -17896,7 +17896,7 @@ dojo.lang.extend(dojo.html.BackgroundIframe, {
 	hide: function(){
 		//	summary:
 		//		hide the iframe
-		if(this.iframe){ 
+		if(this.iframe){
 			this.iframe.style.display = "none";
 		}
 	},
@@ -18115,13 +18115,13 @@ dojo.declare(
 
 		if(this.parent){
 			setTimeout(
-				dojo.lang.hitch(this, 
+				dojo.lang.hitch(this,
 					function(){
 						try{
 							if(this.parent['focus']){
 								this.parent.focus();
 							}else{
-								this.parent.domNode.focus(); 
+								this.parent.domNode.focus();
 							}
 						}catch(e){dojo.debug("No idea how to focus to parent", e);}
 					}
@@ -18217,7 +18217,7 @@ dojo.declare(
 dojo.widget.defineWidget(
 	"dojo.widget.PopupContainer",
 	[dojo.widget.HtmlWidget, dojo.widget.PopupContainerBase], {
-		// summary: dojo.widget.PopupContainer is the widget version of dojo.widget.PopupContainerBase	
+		// summary: dojo.widget.PopupContainer is the widget version of dojo.widget.PopupContainerBase
 	});
 
 
@@ -18381,9 +18381,9 @@ dojo.widget.defineWidget(
 	dojo.widget.HtmlWidget,
 	function(){
 		// summary:
-		//		A widget that can be used as a standalone widget 
+		//		A widget that can be used as a standalone widget
 		//		or as a baseclass for other widgets
-		//		Handles replacement of document fragment using either external uri or javascript/java 
+		//		Handles replacement of document fragment using either external uri or javascript/java
 		//		generated markup or DomNode content, instanciating widgets within content and runs scripts.
 		//		Dont confuse it with an iframe, it only needs document fragments.
 		//		It's useful as a child of LayoutContainer, SplitContainer, or TabContainer.
@@ -18392,7 +18392,7 @@ dojo.widget.defineWidget(
 		//		reference holder to the inline scripts container, if scriptSeparation is true
 		// bindArgs: String[]
 		//		Send in extra args to the dojo.io.bind call
-		
+
 		// per widgetImpl variables
 		this._styleNodes =  [];
 		this._onLoadStack = [];
@@ -18408,7 +18408,7 @@ dojo.widget.defineWidget(
 		//		bindArgs="preventCache:false;" overrides cacheContent
 		this.bindArgs = {};
 
-	
+
 	}, {
 		isContainer: true,
 
@@ -18470,10 +18470,10 @@ dojo.widget.defineWidget(
 				this.setHandler(this.handler);
 			}
 			if(this.isShowing() || this.preload){
-				this.loadContents(); 
+				this.loadContents();
 			}
 		},
-	
+
 		show: function(){
 			// if refreshOnShow is true, reload the contents every time; otherwise, load only the first time
 			if(this.refreshOnShow){
@@ -18483,14 +18483,14 @@ dojo.widget.defineWidget(
 			}
 			dojo.widget.ContentPane.superclass.show.call(this);
 		},
-	
+
 		refresh: function(){
 			// summary:
 			//		Force a refresh (re-download) of content, be sure to turn of cache
 			this.isLoaded=false;
 			this.loadContents();
 		},
-	
+
 		loadContents: function() {
 			// summary:
 			//		Download if isLoaded is false, else ignore
@@ -18503,7 +18503,7 @@ dojo.widget.defineWidget(
 				this._downloadExternalContent(this.href, this.cacheContent && !this.refreshOnShow);
 			}
 		},
-		
+
 		setUrl: function(/*String||dojo.uri.Uri*/ url) {
 			// summary:
 			//		Reset the (external defined) content of this pane and replace with new url
@@ -18525,7 +18525,7 @@ dojo.widget.defineWidget(
 			bind.abort();
 			delete this._ioBindObj;
 		},
-	
+
 		_downloadExternalContent: function(url, useCache) {
 			this.abort();
 			this._handleDefaults(this.loadingMessage, "onDownloadStart");
@@ -18554,7 +18554,7 @@ dojo.widget.defineWidget(
 				}, useCache)
 			);
 		},
-	
+
 		_cacheSetting: function(bindObj, useCache){
 			for(var x in this.bindArgs){
 				if(dojo.lang.isUndefined(bindObj[x])){
@@ -18570,11 +18570,11 @@ dojo.widget.defineWidget(
 
 		onLoad: function(e){
 			// summary:
-			//		Event hook, is called after everything is loaded and widgetified 
+			//		Event hook, is called after everything is loaded and widgetified
 			this._runStack("_onLoadStack");
 			this.isLoaded=true;
 		},
-	
+
 		onUnLoad: function(e){
 			// summary:
 			//		Deprecated, use onUnload (lowercased load)
@@ -18591,25 +18591,25 @@ dojo.widget.defineWidget(
 				this.onUnLoad.apply(this, arguments);
 			}
 		},
-	
+
 		_runStack: function(stName){
 			var st = this[stName]; var err = "";
 			var scope = this.scriptScope || window;
 			for(var i = 0;i < st.length; i++){
 				try{
 					st[i].call(scope);
-				}catch(e){ 
+				}catch(e){
 					err += "\n"+st[i]+" failed: "+e.description;
 				}
 			}
 			this[stName] = [];
-	
+
 			if(err.length){
 				var name = (stName== "_onLoadStack") ? "addOnLoad" : "addOnUnLoad";
 				this._handleDefaults(name+" failure\n "+err, "onExecError", "debug");
 			}
 		},
-	
+
 		addOnLoad: function(obj, func){
 			// summary
 			//		Stores function refs and calls them one by one in the order they came in
@@ -18617,10 +18617,10 @@ dojo.widget.defineWidget(
 			//	obj: Function||Object?
 			//		holder object
 			//	func: Function
-			//		function that will be called 
+			//		function that will be called
 			this._pushOnStack(this._onLoadStack, obj, func);
 		},
-	
+
 		addOnUnload: function(obj, func){
 			// summary
 			//		Stores function refs and calls them one by one in the order they came in
@@ -18628,7 +18628,7 @@ dojo.widget.defineWidget(
 			//	obj: Function||Object
 			//		holder object
 			//	func: Function
-			//		function that will be called 
+			//		function that will be called
 			this._pushOnStack(this._onUnloadStack, obj, func);
 		},
 
@@ -18638,7 +18638,7 @@ dojo.widget.defineWidget(
 			dojo.deprecated(this.widgetType + ".addOnUnLoad, use addOnUnload instead. (lowercased Load)", 0.5);
 			this.addOnUnload.apply(this, arguments);
 		},
-	
+
 		_pushOnStack: function(stack, obj, func){
 			if(typeof func == 'undefined') {
 				stack.push(obj);
@@ -18646,39 +18646,39 @@ dojo.widget.defineWidget(
 				stack.push(function(){ obj[func](); });
 			}
 		},
-	
+
 		destroy: function(){
 			// make sure we call onUnload
 			this.onUnload();
 			dojo.widget.ContentPane.superclass.destroy.call(this);
 		},
- 
+
 		onExecError: function(/*Object*/e){
 			// summary:
 			//		called when content script eval error or Java error occurs, preventDefault-able
 			//		default is to debug not alert as in 0.3.1
 		},
-	
+
 		onContentError: function(/*Object*/e){
-			// summary: 
+			// summary:
 			//		called on DOM faults, require fault etc in content, preventDefault-able
 			//		default is to display errormessage inside pane
 		},
-	
+
 		onDownloadError: function(/*Object*/e){
-			// summary: 
+			// summary:
 			//		called when download error occurs, preventDefault-able
 			//		default is to display errormessage inside pane
 		},
-	
+
 		onDownloadStart: function(/*Object*/e){
 			// summary:
 			//		called before download starts, preventDefault-able
 			//		default is to display loadingMessage inside pane
 			//		by changing e.text in your event handler you can change loading message
 		},
-	
-		// 
+
+		//
 		onDownloadEnd: function(url, data){
 			// summary:
 			//		called when download is finished
@@ -18688,7 +18688,7 @@ dojo.widget.defineWidget(
 			data = this.splitAndFixPaths(data, url);
 			this.setContent(data);
 		},
-	
+
 		// useful if user wants to prevent default behaviour ie: _setContent("Error...")
 		_handleDefaults: function(e, handler, messType){
 			if(!handler){ handler = "onContentError"; }
@@ -18700,7 +18700,7 @@ dojo.widget.defineWidget(
 			e.toString = function(){ return this.text; };
 
 			if(typeof e.returnValue != "boolean"){
-				e.returnValue = true; 
+				e.returnValue = true;
 			}
 			if(typeof e.preventDefault != "function"){
 				e.preventDefault = function(){ this.returnValue = false; };
@@ -18716,7 +18716,7 @@ dojo.widget.defineWidget(
 						dojo.debug(e.toString()); break;
 					default:
 					// makes sure scripts can clean up after themselves, before we setContent
-					if(this._callOnUnload){ this.onUnload(); } 
+					if(this._callOnUnload){ this.onUnload(); }
 					// makes sure we dont try to call onUnLoad again on this event,
 					// ie onUnLoad before 'Loading...' but not before clearing 'Loading...'
 					this._callOnUnload = false;
@@ -18732,7 +18732,7 @@ dojo.widget.defineWidget(
 			}
 			arguments.callee._loopStop = false;
 		},
-	
+
 		// pathfixes, require calls, css stuff and neccesary content clean
 		splitAndFixPaths: function(s, url){
 			// summary:
@@ -18744,7 +18744,7 @@ dojo.widget.defineWidget(
 			var titles = [], scripts = [],tmp = [];// init vars
 			var match = [], requires = [], attr = [], styles = [];
 			var str = '', path = '', fix = '', tagFix = '', tag = '', origPath = '';
-	
+
 			if(!url) { url = "./"; } // point to this page if not set
 
 			if(s){ // make sure we dont run regexes on empty content
@@ -18757,7 +18757,7 @@ dojo.widget.defineWidget(
 					titles.push(match[1]);
 					s = s.substring(0, match.index) + s.substr(match.index + match[0].length);
 				};
-		
+
 				/************** adjust paths *****************/
 				if(this.adjustPaths){
 					// attributepaths one tag can have multiple paths example:
@@ -18768,12 +18768,12 @@ dojo.widget.defineWidget(
 					var regexFindAttr = /\s(src|href|style)=(['"]?)([\w()\[\]\/.,\\'"-:;#=&?\s@]+?)\2/i;
 					// these are the supported protocols, all other is considered relative
 					var regexProtocols = /^(?:[#]|(?:(?:https?|ftps?|file|javascript|mailto|news):))/;
-		
+
 					while(tag = regexFindTag.exec(s)){
 						str += s.substring(0, tag.index);
 						s = s.substring((tag.index + tag[0].length), s.length);
 						tag = tag[0];
-			
+
 						// loop through attributes
 						tagFix = '';
 						while(attr = regexFindAttr.exec(tag)){
@@ -18837,8 +18837,8 @@ dojo.widget.defineWidget(
 						// remove all invalid variables etc like djConfig and dojo.hostenv.writeIncludes()
 						var sc = match[2].replace(regexInvalid, "");
 						if(!sc){ continue; }
-		
-						// cut out all dojo.require (...) calls, if we have execute 
+
+						// cut out all dojo.require (...) calls, if we have execute
 						// scripts false widgets dont get there require calls
 						// takes out possible widgetpackage registration as well
 						while(tmp = regexRequires.exec(sc)){
@@ -18857,7 +18857,7 @@ dojo.widget.defineWidget(
 					match = s.match(/<body[^>]*>\s*([\s\S]+)\s*<\/body>/im);
 					if(match) { s = match[1]; }
 				}
-	
+
 				/*** replace scriptScope prefix in html Event handler
 				* working order: find tags with scriptScope in a tag attribute
 				* then replace all standalone scriptScope occurencies with reference to to this widget
@@ -18866,7 +18866,7 @@ dojo.widget.defineWidget(
 				if(this.executeScripts && this.scriptSeparation){
 					var regex = /(<[a-zA-Z][a-zA-Z0-9]*\s[^>]*?\S=)((['"])[^>]*scriptScope[^>]*>)/;
 					var regexAttr = /([\s'";:\(])scriptScope(.*)/; // we rely on that attribute begins ' or "
-					str = ""; 
+					str = "";
 					while(tag = regex.exec(s)){
 						tmp = ((tag[3]=="'") ? '"': "'");fix= "";
 						str += s.substring(0, tag.index) + tag[1];
@@ -18887,11 +18887,11 @@ dojo.widget.defineWidget(
 				"scripts": 		scripts,
 				"url": 			url};
 		},
-	
-		
+
+
 		_setContent: function(cont){
 			this.destroyChildren();
-	
+
 			// remove old stylenodes from HEAD
 			for(var i = 0; i < this._styleNodes.length; i++){
 				if(this._styleNodes[i] && this._styleNodes[i].parentNode){
@@ -18915,7 +18915,7 @@ dojo.widget.defineWidget(
 				this._handleDefaults(e, "onContentError");
 			}
 		},
-	
+
 		setContent: function(data){
 			// summary:
 			//		Replaces old content with data content, include style classes from old content
@@ -18924,7 +18924,7 @@ dojo.widget.defineWidget(
 			this.abort();
 			if(this._callOnUnload){ this.onUnload(); }// this tells a remote script clean up after itself
 			this._callOnUnload = true;
-	
+
 			if(!data || dojo.html.isNode(data)){
 				// if we do a clean using setContent(""); or setContent(#node) bypass all parsing, extractContent etc
 				this._setContent(data);
@@ -18933,9 +18933,9 @@ dojo.widget.defineWidget(
 			}else{
 				// need to run splitAndFixPaths? ie. manually setting content
 				// adjustPaths is taken care of inside splitAndFixPaths
-				if(typeof data.xml != "string"){ 
+				if(typeof data.xml != "string"){
 					this.href = ""; // so we can refresh safely
-					data = this.splitAndFixPaths(data); 
+					data = this.splitAndFixPaths(data);
 				}
 
 				this._setContent(data.xml);
@@ -18948,7 +18948,7 @@ dojo.widget.defineWidget(
 						this._styleNodes.push(dojo.html.insertCssText(data.styles[i]));
 					}
 				}
-	
+
 				if(this.parseContent){
 					for(var i = 0; i < data.requires.length; i++){
 						try{
@@ -18966,7 +18966,7 @@ dojo.widget.defineWidget(
 					if(_self.executeScripts){
 						_self._executeScripts(data.scripts);
 					}
-	
+
 					if(_self.parseContent){
 						var node = _self.containerNode || _self.domNode;
 						var parser = new dojo.xml.Parse();
@@ -18974,7 +18974,7 @@ dojo.widget.defineWidget(
 						// createSubComponents not createComponents because frag has already been created
 						dojo.widget.getParser().createSubComponents(frag, _self);
 					}
-	
+
 					_self.onResized();
 					_self.onLoad();
 				}
@@ -19000,7 +19000,7 @@ dojo.widget.defineWidget(
 				return fcn.apply(this, arguments);
 			}
 		},
-	
+
 		_runHandler: function() {
 			var ret = true;
 			if(dojo.lang.isFunction(this.handler)) {
@@ -19010,7 +19010,7 @@ dojo.widget.defineWidget(
 			this.onLoad();
 			return ret;
 		},
-	
+
 		_executeScripts: function(scripts) {
 			// loop through the scripts in the order they came in
 			var self = this;
@@ -19702,7 +19702,7 @@ dojo.widget.defineWidget(
 		shareGroup: '',
 		checkAvailability: function(){
 			// summary: returns whether items in this toolbar can be executed
-			// description: 
+			// description:
 			//		For unshared toolbar, when clicking on a toolbar, the corresponding
 			//		editor will be focused, and this function always return true. For shared
 			//		toolbar, if the current focued editor is not one of the instances sharing
@@ -19895,7 +19895,7 @@ dojo.widget.html.layout = function(/*DomNode*/ container, /*Object[]*/ children,
 				child.resizeTo(w, f.height);
 			}else{
 				dojo.html.setMarginBox(elm, { width: w, height: f.height });
-			}	
+			}
 
 			f.width -= w;
 			if(pos=="left"){
@@ -19956,7 +19956,7 @@ dojo.provide("dojo.dnd.DragAndDrop");
 //				that respond to drop events to take application-level actions.
 
 dojo.declare("dojo.dnd.DragSource", null, {
-	// String: 
+	// String:
 	//		what kind of drag source are we? Used to determine if we can be
 	//		dropped on a given DropTarget
 	type: "",
@@ -19991,11 +19991,11 @@ dojo.declare("dojo.dnd.DragSource", null, {
 });
 
 dojo.declare("dojo.dnd.DragObject", null, {
-	// String: 
+	// String:
 	//		what kind of drag object are we? Used to determine if we can be
 	//		dropped on a given DropTarget
 	type: "",
-	
+
 	register: function(){
 		// summary: register this DragObject with the manager
 		var dm = dojo.dnd.dragManager;
@@ -20012,7 +20012,7 @@ dojo.declare("dojo.dnd.DragObject", null, {
 	},
 
 	onDragMove: function(/*dojo.dnd.DragEvent*/evt){
-		// summary: 
+		// summary:
 		//		Implemented by subclasses. Should change the UI for the drag
 		//		icon i.e., "it moves itself"
 	},
@@ -20047,7 +20047,7 @@ dojo.declare("dojo.dnd.DragObject", null, {
 dojo.declare("dojo.dnd.DropTarget", null, {
 
 	acceptsType: function(/*String*/type){
-		// summary: 
+		// summary:
 		//		determines whether or not this DropTarget will accept the given
 		//		type. The default behavior is to consult this.acceptedTypes and
 		//		if "*" is a member, to always accept the type.
@@ -20058,7 +20058,7 @@ dojo.declare("dojo.dnd.DropTarget", null, {
 	},
 
 	accepts: function(/*Array*/dragObjects){
-		// summary: 
+		// summary:
 		//		determines if we'll accept all members of the passed array of
 		//		dojo.dnd.DragObject instances
 		if(!dojo.lang.inArray(this.acceptedTypes, "*")){ // wildcard
@@ -20265,7 +20265,7 @@ dojo.declare("dojo.dnd.HtmlDragManager", dojo.dnd.DragManager, {
 			// so we can drag links
 			if(dojo.render.html.ie){
 				//dojo.profile.start("register DragSource IE");
-				
+
 				dojo.event.browser.addListener(ds.domNode, "ondragstart", this.cancelEvent);
 				// terribly slow
 				//dojo.event.connect(ds.domNode, "ondragstart", this.cancelEvent);
@@ -20286,7 +20286,7 @@ dojo.declare("dojo.dnd.HtmlDragManager", dojo.dnd.DragManager, {
 			delete this.dragSources[dpIdx];
 			ds.domNode.setAttribute(dp, null);
 			if(dojo.render.html.ie){
-				dojo.event.browser.removeListener(ds.domNode, "ondragstart", this.cancelEvent);			
+				dojo.event.browser.removeListener(ds.domNode, "ondragstart", this.cancelEvent);
 			}
 		}
 	},
@@ -20305,7 +20305,7 @@ dojo.declare("dojo.dnd.HtmlDragManager", dojo.dnd.DragManager, {
 	/**
 	* Get the DOM element that is meant to drag.
 	* Loop through the parent nodes of the event target until
-	* the element is found that was created as a DragSource and 
+	* the element is found that was created as a DragSource and
 	* return it.
 	*
 	* @param event object The event for which to get the drag source.
@@ -20346,7 +20346,7 @@ dojo.declare("dojo.dnd.HtmlDragManager", dojo.dnd.DragManager, {
 
 		// find a selection object, if one is a parent of the source node
 		var ds = this.getDragSource(e);
-		
+
 		// this line is important.  if we aren't selecting anything then
 		// we need to return now, so preventDefault() isn't called, and thus
 		// the event is propogated to other handling code
@@ -20385,7 +20385,7 @@ dojo.declare("dojo.dnd.HtmlDragManager", dojo.dnd.DragManager, {
 		// let ctrl be used for multiselect or another action
 		// if I use same key to trigger treeV3 node selection and here,
 		// I have bugs with drag'n'drop. why ?? no idea..
-		if((!e.shiftKey)&&(!e.ctrlKey)){ 
+		if((!e.shiftKey)&&(!e.ctrlKey)){
 		//if(!e.shiftKey){
 			if(this.currentDropTarget) {
 				this.currentDropTarget.onDropStart();
@@ -20422,12 +20422,12 @@ dojo.declare("dojo.dnd.HtmlDragManager", dojo.dnd.DragManager, {
 				// while the mouse doesnt "hold" the dragged object anymore ... and so on
 				dojo.lang.delayThese([
 					function() {
-						// in FF1.5 this throws an exception, see 
+						// in FF1.5 this throws an exception, see
 						// http://dojotoolkit.org/pipermail/dojo-interest/2006-April/006751.html
 						try{
 							tempDragObj.dragSource.onDragEnd(e)
 						} catch(err) {
-							// since the problem seems passing e, we just copy all 
+							// since the problem seems passing e, we just copy all
 							// properties and try the copy ...
 							var ecopy = {};
 							for (var i in e) {
@@ -20536,7 +20536,7 @@ dojo.declare("dojo.dnd.HtmlDragManager", dojo.dnd.DragManager, {
 			// selectedSources (elements that move along) then the first one is the master
 			// and for it the events will be fired etc.
 			this.dragSource = this.selectedSources[0];
-			
+
 			dojo.lang.forEach(this.selectedSources, function(tempSource){
 				if(!tempSource){ return; }
 				var tdo = tempSource.onDragStart(e);
@@ -20661,7 +20661,7 @@ dojo.dnd.dragManager = new dojo.dnd.HtmlDragManager();
 	dojo.event.connect(d, "onmouseout", dm, "onMouseOut");
 	dojo.event.connect(d, "onmousedown", dm, "onMouseDown");
 	dojo.event.connect(d, "onmouseup", dm, "onMouseUp");
-	// TODO: process scrolling of elements, not only window (focus manager would 
+	// TODO: process scrolling of elements, not only window (focus manager would
 	// probably come to rescue here as well)
 	dojo.event.connect(window, "onscroll", dm, "onScroll");
 })();
@@ -20703,7 +20703,7 @@ dojo.declare("dojo.dnd.HtmlDragSource", dojo.dnd.DragSource, {
 				this.constrainingContainer = container;
 			}
 		},
-		
+
 		/*
 		*
 		* see dojo.dnd.DragSource.onSelected
@@ -20732,7 +20732,7 @@ dojo.declare("dojo.dnd.HtmlDragSource", dojo.dnd.DragSource, {
 				this.dragObjects.push(dojo.byId(arguments[i]));
 			}
 		}
-	}, 
+	},
 
 	function(node, type){
 		node = dojo.byId(node);
@@ -20748,8 +20748,8 @@ dojo.declare("dojo.dnd.HtmlDragSource", dojo.dnd.DragSource, {
 	}
 );
 
-dojo.declare("dojo.dnd.HtmlDragObject", 
-	dojo.dnd.DragObject, 
+dojo.declare("dojo.dnd.HtmlDragObject",
+	dojo.dnd.DragObject,
 	{
 		dragClass: "",
 		opacity: 0.5,
@@ -20818,7 +20818,7 @@ dojo.declare("dojo.dnd.HtmlDragObject",
 
 			this.dragClone = this.createDragNode();
 
-			this.containingBlockPosition = this.domNode.offsetParent ? 
+			this.containingBlockPosition = this.domNode.offsetParent ?
 				dojo.html.getAbsolutePosition(this.domNode.offsetParent, true) : {x:0, y:0};
 
 			if(this.constrainToContainer){
@@ -20959,7 +20959,7 @@ dojo.declare("dojo.dnd.HtmlDragObject",
 				this.constrainingContainer = this.domNode.parentNode;
 			}
 		}
-	}, 
+	},
 	function(node, type){
 		this.domNode = dojo.byId(node);
 		this.type = type;
@@ -20970,8 +20970,8 @@ dojo.declare("dojo.dnd.HtmlDragObject",
 	}
 );
 
-dojo.declare("dojo.dnd.HtmlDropTarget", 
-	dojo.dnd.DropTarget, 
+dojo.declare("dojo.dnd.HtmlDropTarget",
+	dojo.dnd.DropTarget,
 	{
 		vertical: false,
 		onDragOver: function(e){
@@ -20985,7 +20985,7 @@ dojo.declare("dojo.dnd.HtmlDropTarget",
 				var pos = dojo.html.getAbsolutePosition(child, true);
 				var inner = dojo.html.getBorderBox(child);
 				this.childBoxes.push({top: pos.y, bottom: pos.y+inner.height,
-					left: pos.x, right: pos.x+inner.width, height: inner.height, 
+					left: pos.x, right: pos.x+inner.width, height: inner.height,
 					width: inner.width, node: child});
 			}
 
@@ -21049,8 +21049,8 @@ dojo.declare("dojo.dnd.HtmlDropTarget",
 				if(child.node === dragObjects[0].dragSource.domNode){
 					hide = true;
 				}else{
-					var currentPosChild = before ? 
-							(i>0?this.childBoxes[i-1]:child) : 
+					var currentPosChild = before ?
+							(i>0?this.childBoxes[i-1]:child) :
 							(i<this.childBoxes.length-1?this.childBoxes[i+1]:child);
 					if(currentPosChild.node === dragObjects[0].dragSource.domNode){
 						hide = true;
@@ -21152,7 +21152,7 @@ dojo.declare("dojo.dnd.HtmlDropTarget",
 
 			return false;
 		}
-	}, 
+	},
 
 	function(node, types){
 		if(arguments.length == 0){ return; }
@@ -21251,7 +21251,7 @@ dojo.provide("dojo.widget.Dialog");
 
 
 dojo.declare(
-	"dojo.widget.ModalDialogBase", 
+	"dojo.widget.ModalDialogBase",
 	null,
 	{
 		// summary
@@ -21267,7 +21267,7 @@ dojo.declare(
 		// bgColor: String
 		//	color of viewport when displaying a dialog
 		bgColor: "black",
-		
+
 		// bgOpacity: Number
 		//	opacity (0~1) of viewport color (see bgColor attribute)
 		bgOpacity: 0.4,
@@ -21402,7 +21402,7 @@ dojo.declare(
 
 		_sizeBackground: function() {
 			if(this.bgOpacity > 0) {
-				
+
 				var viewport = dojo.html.getViewport();
 				var h = viewport.height;
 				var w = viewport.width;
@@ -21436,7 +21436,7 @@ dojo.declare(
 
 			var scroll_offset = dojo.html.getScroll().offset;
 			var viewport_size = dojo.html.getViewport();
-			
+
 			// find the size of the dialog (dialog needs to be showing to get the size)
 			var mb;
 			if(this.isShowing()){
@@ -21448,7 +21448,7 @@ dojo.declare(
 				dojo.html.hide(this.domNode);
 				dojo.html.setVisibility(this.domNode, true);
 			}
-			
+
 			var x = scroll_offset.x + (viewport_size.width - mb.width)/2;
 			var y = scroll_offset.y + (viewport_size.height - mb.height)/2;
 			with(this.domNode.style){
@@ -21473,7 +21473,7 @@ dojo.declare(
 				// opera won't tab to a div
 				}else if (!dojo.render.html.opera){
 					try {
-						this.tabStart.focus(); 
+						this.tabStart.focus();
 					} catch(e){}
 				}
 			}
@@ -21492,9 +21492,9 @@ dojo.declare(
 			this.setBackgroundOpacity();
 			this._sizeBackground();
 			this._showBackground();
-			this._fromTrap = true; 
+			this._fromTrap = true;
 
-			// set timeout to allow the browser to render dialog 
+			// set timeout to allow the browser to render dialog
 			setTimeout(dojo.lang.hitch(this, function(){
 				try{
 					this.tabStart.focus();
@@ -21509,7 +21509,7 @@ dojo.declare(
 
 			// workaround for FF focus going into outer space
 			if (this.focusElement) {
-				dojo.byId(this.focusElement).focus(); 
+				dojo.byId(this.focusElement).focus();
 				dojo.byId(this.focusElement).blur();
 			}
 
@@ -21540,7 +21540,7 @@ dojo.declare(
 				this.onResized();
 			}
 		},
-		
+
 		onBackgroundClick: function(){
 			// summary
 			//		Callback on background click.
@@ -21565,7 +21565,7 @@ dojo.widget.defineWidget(
 		// blockDuration: Integer
 		//	number of seconds for which the user cannot dismiss the dialog
 		blockDuration: 0,
-		
+
 		// lifetime: Integer
 		//	if set, this controls the number of seconds the dialog will be displayed before automatically disappearing
 		lifetime: 0,
@@ -21615,7 +21615,7 @@ dojo.widget.defineWidget(
 			this.placeModalDialog();
 			dojo.widget.Dialog.superclass.onLoad.call(this);
 		},
-		
+
 		fillInTemplate: function(){
 			// dojo.event.connect(this.domNode, "onclick", this, "killEvent");
 		},
@@ -21628,7 +21628,7 @@ dojo.widget.defineWidget(
 				clearInterval(this.timer);
 			}
 		},
-		
+
 		setTimerNode: function(node){
 			// summary
 			//	specify into which node to write the remaining # of seconds
@@ -21711,7 +21711,7 @@ dojo.widget.defineWidget(
 		this.startSize  = {'w':mb.width, 'h':mb.height};
 
 		dojo.event.kwConnect({
-			srcObj: dojo.body(), 
+			srcObj: dojo.body(),
 			srcFunc: "onmousemove",
 			targetObj: this,
 			targetFunc: "_changeSizing",
@@ -21733,7 +21733,7 @@ dojo.widget.defineWidget(
 		}
 		var dx = this.startPoint.x - e.clientX;
 		var dy = this.startPoint.y - e.clientY;
-		
+
 		var newW = this.startSize.w - dx;
 		var newH = this.startSize.h - dy;
 
@@ -21747,13 +21747,13 @@ dojo.widget.defineWidget(
 				newH = mb.height;
 			}
 		}
-		
+
 		if(this.targetWidget){
 			this.targetWidget.resizeTo(newW, newH);
 		}else{
 			dojo.html.setMarginBox(this.targetDomNode, { width: newW, height: newH});
 		}
-		
+
 		e.preventDefault();
 	},
 
@@ -22240,7 +22240,7 @@ dojo.declare("dojo.widget.Editor2Plugin.AlwaysShowToolbar", null,
 
 		if(!this._scrollSetUp){
 			this._scrollSetUp = true;
-			var editorWidth =  dh.getMarginBox(this.editor.domNode).width; 
+			var editorWidth =  dh.getMarginBox(this.editor.domNode).width;
 			this._scrollThreshold = dh.abs(tdn, true).y;
 			// dojo.debug("threshold:", this._scrollThreshold);
 			if((isIE)&&(db)&&(dh.getStyle(db, "background-image")=="none")){
@@ -22498,7 +22498,7 @@ dojo.widget.Editor2BrowserCommandNames={
 //			'inlinedirrtl':
 }
 
-dojo.lang.declare("dojo.widget.Editor2BrowserCommand", dojo.widget.Editor2Command, 
+dojo.lang.declare("dojo.widget.Editor2BrowserCommand", dojo.widget.Editor2Command,
 	function(editor,name){
 		// summary:
 		//		dojo.widget.Editor2BrowserCommand is the base class for all the browser built
@@ -22604,7 +22604,7 @@ dojo.widget.defineWidget(
 		// contentFile: String
 		//	TODO
 		contentFile: "",
-		
+
 		// contentClass: String
 		//	TODO
 		contentClass: "",
@@ -22789,8 +22789,8 @@ dojo.widget.defineWidget(
 		_inSourceMode: false,
 		_htmlEditNode: null,
 
-		// toolbarGroup: String: 
-		//		This instance of editor will share the same toolbar with other editor with the same toolbarGroup. 
+		// toolbarGroup: String:
+		//		This instance of editor will share the same toolbar with other editor with the same toolbarGroup.
 		//		By default, toolbarGroup is empty and standalone toolbar is used for this instance.
 		toolbarGroup: '',
 
@@ -22840,7 +22840,7 @@ dojo.widget.defineWidget(
 							dojo.widget.Editor2ToolbarGroups[this.toolbarGroup] = this.toolbarWidget;
 						}
 						dojo.event.connect(this, "close", this.toolbarWidget, "hide");
-	
+
 						this.toolbarLoaded();
 				}
 			}

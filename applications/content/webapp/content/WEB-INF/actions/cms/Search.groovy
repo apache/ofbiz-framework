@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -60,7 +60,7 @@ try {
     searcher = new IndexSearcher(indexPath);
     Debug.logInfo("in search, searcher:" + searcher, "");
     analyzer = new StandardAnalyzer();
-} catch(java.io.FileNotFoundException e) {
+} catch (java.io.FileNotFoundException e) {
     request.setAttribute("errorMsgReq", "No index file exists.");
     Debug.logError("in search, error:" + e.getMessage(), "");
 }
@@ -73,7 +73,7 @@ if (queryLine || siteId) {
         combQuery.add(query, true, false);
     }
     Debug.logInfo("in search, combQuery(0):" + combQuery, "");
-    
+
     if (siteId) {
         termQuery = new TermQuery(new Term("site", siteId));
         combQuery.add(termQuery, true, false);
@@ -86,29 +86,29 @@ if (searchFeature1 || searchFeature2 || searchFeature3 || !featureIdByType.isEmp
     featureQuery = new BooleanQuery();
     anyOrAll = paramMap.any_or_all;
     featuresRequired = true;
-    
-    if (anyOrAll && "any".equals(anyOrAll)) { 
+
+    if (anyOrAll && "any".equals(anyOrAll)) {
         featuresRequired = false;
     }
-    
+
     if (searchFeature1) {
         termQuery = new TermQuery(new Term("feature", searchFeature1));
         featureQuery.add(termQuery, featuresRequired, false);
         Debug.logInfo("in search searchFeature1, termQuery:" + termQuery.toString(), "");
     }
-    
+
     if (searchFeature2) {
         termQuery = new TermQuery(new Term("feature", searchFeature2));
         featureQuery.add(termQuery, featuresRequired, false);
         Debug.logInfo("in search searchFeature2, termQuery:" + termQuery.toString(), "");
     }
-    
+
     if (searchFeature3) {
         termQuery = new TermQuery(new Term("feature", searchFeature3));
         featureQuery.add(termQuery, featuresRequired, false);
         Debug.logInfo("in search searchFeature3, termQuery:" + termQuery.toString(), "");
     }
-    
+
     if (!featureIdByType.isEmpty()) {
         values = featureIdByType.values();
         values.each { val ->
@@ -118,12 +118,12 @@ if (searchFeature1 || searchFeature2 || searchFeature3 || !featureIdByType.isEmp
         }
         combQuery.add(featureQuery, featuresRequired, false);
     }
-    
+
     if (searcher) {
         Debug.logInfo("in search searchFeature3, combQuery:" + combQuery.toString(), "");
         Hits hits = searcher.search(combQuery);
         Debug.logInfo("in search, hits:" + hits.length(), "");
-        
+
         contentList = [] as ArrayList;
         hitSet = [:] as HashSet;
         for (int start = 0; start < hits.length(); start++) {
@@ -135,6 +135,6 @@ if (searchFeature1 || searchFeature2 || searchFeature3 || !featureIdByType.isEmp
                  hitSet.add(contentId);
              }
         }
-        context.queryResults = contentList; 
+        context.queryResults = contentList;
     }
 }

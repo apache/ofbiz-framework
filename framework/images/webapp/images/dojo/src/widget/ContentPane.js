@@ -23,9 +23,9 @@ dojo.widget.defineWidget(
 	dojo.widget.HtmlWidget,
 	function(){
 		// summary:
-		//		A widget that can be used as a standalone widget 
+		//		A widget that can be used as a standalone widget
 		//		or as a baseclass for other widgets
-		//		Handles replacement of document fragment using either external uri or javascript/java 
+		//		Handles replacement of document fragment using either external uri or javascript/java
 		//		generated markup or DomNode content, instanciating widgets within content and runs scripts.
 		//		Dont confuse it with an iframe, it only needs document fragments.
 		//		It's useful as a child of LayoutContainer, SplitContainer, or TabContainer.
@@ -34,7 +34,7 @@ dojo.widget.defineWidget(
 		//		reference holder to the inline scripts container, if scriptSeparation is true
 		// bindArgs: String[]
 		//		Send in extra args to the dojo.io.bind call
-		
+
 		// per widgetImpl variables
 		this._styleNodes =  [];
 		this._onLoadStack = [];
@@ -50,7 +50,7 @@ dojo.widget.defineWidget(
 		//		bindArgs="preventCache:false;" overrides cacheContent
 		this.bindArgs = {};
 
-	
+
 	}, {
 		isContainer: true,
 
@@ -112,10 +112,10 @@ dojo.widget.defineWidget(
 				this.setHandler(this.handler);
 			}
 			if(this.isShowing() || this.preload){
-				this.loadContents(); 
+				this.loadContents();
 			}
 		},
-	
+
 		show: function(){
 			// if refreshOnShow is true, reload the contents every time; otherwise, load only the first time
 			if(this.refreshOnShow){
@@ -125,14 +125,14 @@ dojo.widget.defineWidget(
 			}
 			dojo.widget.ContentPane.superclass.show.call(this);
 		},
-	
+
 		refresh: function(){
 			// summary:
 			//		Force a refresh (re-download) of content, be sure to turn of cache
 			this.isLoaded=false;
 			this.loadContents();
 		},
-	
+
 		loadContents: function() {
 			// summary:
 			//		Download if isLoaded is false, else ignore
@@ -145,7 +145,7 @@ dojo.widget.defineWidget(
 				this._downloadExternalContent(this.href, this.cacheContent && !this.refreshOnShow);
 			}
 		},
-		
+
 		setUrl: function(/*String||dojo.uri.Uri*/ url) {
 			// summary:
 			//		Reset the (external defined) content of this pane and replace with new url
@@ -167,7 +167,7 @@ dojo.widget.defineWidget(
 			bind.abort();
 			delete this._ioBindObj;
 		},
-	
+
 		_downloadExternalContent: function(url, useCache) {
 			this.abort();
 			this._handleDefaults(this.loadingMessage, "onDownloadStart");
@@ -196,7 +196,7 @@ dojo.widget.defineWidget(
 				}, useCache)
 			);
 		},
-	
+
 		_cacheSetting: function(bindObj, useCache){
 			for(var x in this.bindArgs){
 				if(dojo.lang.isUndefined(bindObj[x])){
@@ -212,11 +212,11 @@ dojo.widget.defineWidget(
 
 		onLoad: function(e){
 			// summary:
-			//		Event hook, is called after everything is loaded and widgetified 
+			//		Event hook, is called after everything is loaded and widgetified
 			this._runStack("_onLoadStack");
 			this.isLoaded=true;
 		},
-	
+
 		onUnLoad: function(e){
 			// summary:
 			//		Deprecated, use onUnload (lowercased load)
@@ -233,25 +233,25 @@ dojo.widget.defineWidget(
 				this.onUnLoad.apply(this, arguments);
 			}
 		},
-	
+
 		_runStack: function(stName){
 			var st = this[stName]; var err = "";
 			var scope = this.scriptScope || window;
 			for(var i = 0;i < st.length; i++){
 				try{
 					st[i].call(scope);
-				}catch(e){ 
+				}catch(e){
 					err += "\n"+st[i]+" failed: "+e.description;
 				}
 			}
 			this[stName] = [];
-	
+
 			if(err.length){
 				var name = (stName== "_onLoadStack") ? "addOnLoad" : "addOnUnLoad";
 				this._handleDefaults(name+" failure\n "+err, "onExecError", "debug");
 			}
 		},
-	
+
 		addOnLoad: function(obj, func){
 			// summary
 			//		Stores function refs and calls them one by one in the order they came in
@@ -259,10 +259,10 @@ dojo.widget.defineWidget(
 			//	obj: Function||Object?
 			//		holder object
 			//	func: Function
-			//		function that will be called 
+			//		function that will be called
 			this._pushOnStack(this._onLoadStack, obj, func);
 		},
-	
+
 		addOnUnload: function(obj, func){
 			// summary
 			//		Stores function refs and calls them one by one in the order they came in
@@ -270,7 +270,7 @@ dojo.widget.defineWidget(
 			//	obj: Function||Object
 			//		holder object
 			//	func: Function
-			//		function that will be called 
+			//		function that will be called
 			this._pushOnStack(this._onUnloadStack, obj, func);
 		},
 
@@ -280,7 +280,7 @@ dojo.widget.defineWidget(
 			dojo.deprecated(this.widgetType + ".addOnUnLoad, use addOnUnload instead. (lowercased Load)", 0.5);
 			this.addOnUnload.apply(this, arguments);
 		},
-	
+
 		_pushOnStack: function(stack, obj, func){
 			if(typeof func == 'undefined') {
 				stack.push(obj);
@@ -288,39 +288,39 @@ dojo.widget.defineWidget(
 				stack.push(function(){ obj[func](); });
 			}
 		},
-	
+
 		destroy: function(){
 			// make sure we call onUnload
 			this.onUnload();
 			dojo.widget.ContentPane.superclass.destroy.call(this);
 		},
- 
+
 		onExecError: function(/*Object*/e){
 			// summary:
 			//		called when content script eval error or Java error occurs, preventDefault-able
 			//		default is to debug not alert as in 0.3.1
 		},
-	
+
 		onContentError: function(/*Object*/e){
-			// summary: 
+			// summary:
 			//		called on DOM faults, require fault etc in content, preventDefault-able
 			//		default is to display errormessage inside pane
 		},
-	
+
 		onDownloadError: function(/*Object*/e){
-			// summary: 
+			// summary:
 			//		called when download error occurs, preventDefault-able
 			//		default is to display errormessage inside pane
 		},
-	
+
 		onDownloadStart: function(/*Object*/e){
 			// summary:
 			//		called before download starts, preventDefault-able
 			//		default is to display loadingMessage inside pane
 			//		by changing e.text in your event handler you can change loading message
 		},
-	
-		// 
+
+		//
 		onDownloadEnd: function(url, data){
 			// summary:
 			//		called when download is finished
@@ -330,7 +330,7 @@ dojo.widget.defineWidget(
 			data = this.splitAndFixPaths(data, url);
 			this.setContent(data);
 		},
-	
+
 		// useful if user wants to prevent default behaviour ie: _setContent("Error...")
 		_handleDefaults: function(e, handler, messType){
 			if(!handler){ handler = "onContentError"; }
@@ -342,7 +342,7 @@ dojo.widget.defineWidget(
 			e.toString = function(){ return this.text; };
 
 			if(typeof e.returnValue != "boolean"){
-				e.returnValue = true; 
+				e.returnValue = true;
 			}
 			if(typeof e.preventDefault != "function"){
 				e.preventDefault = function(){ this.returnValue = false; };
@@ -358,7 +358,7 @@ dojo.widget.defineWidget(
 						dojo.debug(e.toString()); break;
 					default:
 					// makes sure scripts can clean up after themselves, before we setContent
-					if(this._callOnUnload){ this.onUnload(); } 
+					if(this._callOnUnload){ this.onUnload(); }
 					// makes sure we dont try to call onUnLoad again on this event,
 					// ie onUnLoad before 'Loading...' but not before clearing 'Loading...'
 					this._callOnUnload = false;
@@ -374,7 +374,7 @@ dojo.widget.defineWidget(
 			}
 			arguments.callee._loopStop = false;
 		},
-	
+
 		// pathfixes, require calls, css stuff and neccesary content clean
 		splitAndFixPaths: function(s, url){
 			// summary:
@@ -386,7 +386,7 @@ dojo.widget.defineWidget(
 			var titles = [], scripts = [],tmp = [];// init vars
 			var match = [], requires = [], attr = [], styles = [];
 			var str = '', path = '', fix = '', tagFix = '', tag = '', origPath = '';
-	
+
 			if(!url) { url = "./"; } // point to this page if not set
 
 			if(s){ // make sure we dont run regexes on empty content
@@ -399,7 +399,7 @@ dojo.widget.defineWidget(
 					titles.push(match[1]);
 					s = s.substring(0, match.index) + s.substr(match.index + match[0].length);
 				};
-		
+
 				/************** adjust paths *****************/
 				if(this.adjustPaths){
 					// attributepaths one tag can have multiple paths example:
@@ -410,12 +410,12 @@ dojo.widget.defineWidget(
 					var regexFindAttr = /\s(src|href|style)=(['"]?)([\w()\[\]\/.,\\'"-:;#=&?\s@]+?)\2/i;
 					// these are the supported protocols, all other is considered relative
 					var regexProtocols = /^(?:[#]|(?:(?:https?|ftps?|file|javascript|mailto|news):))/;
-		
+
 					while(tag = regexFindTag.exec(s)){
 						str += s.substring(0, tag.index);
 						s = s.substring((tag.index + tag[0].length), s.length);
 						tag = tag[0];
-			
+
 						// loop through attributes
 						tagFix = '';
 						while(attr = regexFindAttr.exec(tag)){
@@ -479,8 +479,8 @@ dojo.widget.defineWidget(
 						// remove all invalid variables etc like djConfig and dojo.hostenv.writeIncludes()
 						var sc = match[2].replace(regexInvalid, "");
 						if(!sc){ continue; }
-		
-						// cut out all dojo.require (...) calls, if we have execute 
+
+						// cut out all dojo.require (...) calls, if we have execute
 						// scripts false widgets dont get there require calls
 						// takes out possible widgetpackage registration as well
 						while(tmp = regexRequires.exec(sc)){
@@ -499,7 +499,7 @@ dojo.widget.defineWidget(
 					match = s.match(/<body[^>]*>\s*([\s\S]+)\s*<\/body>/im);
 					if(match) { s = match[1]; }
 				}
-	
+
 				/*** replace scriptScope prefix in html Event handler
 				* working order: find tags with scriptScope in a tag attribute
 				* then replace all standalone scriptScope occurencies with reference to to this widget
@@ -508,7 +508,7 @@ dojo.widget.defineWidget(
 				if(this.executeScripts && this.scriptSeparation){
 					var regex = /(<[a-zA-Z][a-zA-Z0-9]*\s[^>]*?\S=)((['"])[^>]*scriptScope[^>]*>)/;
 					var regexAttr = /([\s'";:\(])scriptScope(.*)/; // we rely on that attribute begins ' or "
-					str = ""; 
+					str = "";
 					while(tag = regex.exec(s)){
 						tmp = ((tag[3]=="'") ? '"': "'");fix= "";
 						str += s.substring(0, tag.index) + tag[1];
@@ -529,11 +529,11 @@ dojo.widget.defineWidget(
 				"scripts": 		scripts,
 				"url": 			url};
 		},
-	
-		
+
+
 		_setContent: function(cont){
 			this.destroyChildren();
-	
+
 			// remove old stylenodes from HEAD
 			for(var i = 0; i < this._styleNodes.length; i++){
 				if(this._styleNodes[i] && this._styleNodes[i].parentNode){
@@ -557,7 +557,7 @@ dojo.widget.defineWidget(
 				this._handleDefaults(e, "onContentError");
 			}
 		},
-	
+
 		setContent: function(data){
 			// summary:
 			//		Replaces old content with data content, include style classes from old content
@@ -566,7 +566,7 @@ dojo.widget.defineWidget(
 			this.abort();
 			if(this._callOnUnload){ this.onUnload(); }// this tells a remote script clean up after itself
 			this._callOnUnload = true;
-	
+
 			if(!data || dojo.html.isNode(data)){
 				// if we do a clean using setContent(""); or setContent(#node) bypass all parsing, extractContent etc
 				this._setContent(data);
@@ -575,9 +575,9 @@ dojo.widget.defineWidget(
 			}else{
 				// need to run splitAndFixPaths? ie. manually setting content
 				// adjustPaths is taken care of inside splitAndFixPaths
-				if(typeof data.xml != "string"){ 
+				if(typeof data.xml != "string"){
 					this.href = ""; // so we can refresh safely
-					data = this.splitAndFixPaths(data); 
+					data = this.splitAndFixPaths(data);
 				}
 
 				this._setContent(data.xml);
@@ -590,7 +590,7 @@ dojo.widget.defineWidget(
 						this._styleNodes.push(dojo.html.insertCssText(data.styles[i]));
 					}
 				}
-	
+
 				if(this.parseContent){
 					for(var i = 0; i < data.requires.length; i++){
 						try{
@@ -608,7 +608,7 @@ dojo.widget.defineWidget(
 					if(_self.executeScripts){
 						_self._executeScripts(data.scripts);
 					}
-	
+
 					if(_self.parseContent){
 						var node = _self.containerNode || _self.domNode;
 						var parser = new dojo.xml.Parse();
@@ -616,7 +616,7 @@ dojo.widget.defineWidget(
 						// createSubComponents not createComponents because frag has already been created
 						dojo.widget.getParser().createSubComponents(frag, _self);
 					}
-	
+
 					_self.onResized();
 					_self.onLoad();
 				}
@@ -642,7 +642,7 @@ dojo.widget.defineWidget(
 				return fcn.apply(this, arguments);
 			}
 		},
-	
+
 		_runHandler: function() {
 			var ret = true;
 			if(dojo.lang.isFunction(this.handler)) {
@@ -652,7 +652,7 @@ dojo.widget.defineWidget(
 			this.onLoad();
 			return ret;
 		},
-	
+
 		_executeScripts: function(scripts) {
 			// loop through the scripts in the order they came in
 			var self = this;

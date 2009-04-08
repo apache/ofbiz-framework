@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="CommonConfigDecorator">
         <section>
@@ -55,7 +55,7 @@ under the License.
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -65,7 +65,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindConfigItems"/>
-                <set field="headerItem" value="configs"/>                
+                <set field="headerItem" value="configs"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonConfigDecorator">
@@ -89,7 +89,7 @@ under the License.
                 <set field="headerItem" value="configs"/>
                 <set field="tabButtonItem" value="EditProductConfigItem"/>
                 <set field="labelTitleProperty" value="ProductConfigItem"/>
-                
+
                 <set field="configItemId" from-field="parameters.configItemId"/>
                 <entity-one entity-name="ProductConfigItem" value-field="configItem" auto-field-map="true"/>
             </actions>
@@ -122,13 +122,13 @@ under the License.
                 <set field="headerItem" value="configs"/>
                 <set field="tabButtonItem" value="EditProductConfigOptions"/>
                 <set field="labelTitleProperty" value="ProductConfigOptions"/>
-                
+
                 <set field="configItemId" from-field="parameters.configItemId"/>
                 <entity-one entity-name="ProductConfigItem" value-field="configItem" auto-field-map="true"/>
-                
+
                 <set field="configOptionId" from-field="parameters.configOptionId"/>
                 <entity-one entity-name="ProductConfigOption" value-field="configOption" auto-field-map="true"/>
-                
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="ProductConfigProduct" value-field="productConfigProduct" auto-field-map="true"/>
                 <entity-condition entity-name="ProductConfigOption" list="configOptionList">
@@ -170,7 +170,7 @@ under the License.
                         </screenlet>
                     </widgets>
                     <fail-widgets>
-                    
+
                         <screenlet title="${uiLabelMap.ProductCreateNewConfigOptions}">
                             <include-form name="CreateConfigOption" location="component://product/webapp/catalog/config/ConfigForms.xml"/>
                         </screenlet>
@@ -216,7 +216,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditProductConfigItemContent">
         <section>
             <actions>
@@ -224,10 +224,10 @@ under the License.
                 <set field="headerItem" value="configs"/>
                 <set field="tabButtonItem" value="EditProductConfigItemContent"/>
                 <set field="labelTitleProperty" value="ProductContent"/>
-                
+
                 <set field="configItemId" from-field="parameters.configItemId"/>
                 <entity-one entity-name="ProductConfigItem" value-field="configItem" auto-field-map="true"/>
-                
+
                 <script location="component://product/webapp/catalog/WEB-INF/actions/config/EditProductConfigItemContent.groovy"/>
             </actions>
             <widgets>
@@ -248,12 +248,12 @@ under the License.
                 <set field="headerItem" value="configs"/>
                 <set field="tabButtonItem" value="EditProductConfigItemContent"/>
                 <set field="labelTitleProperty" value=""/>
-                
+
                 <set field="configItemId" from-field="parameters.configItemId"/>
                 <entity-one entity-name="ProductConfigItem" value-field="configItem" auto-field-map="true"/>
 
                 <set field="fromDate" from-field="requetParameters.fromDate" type="Timestamp"/>
-                
+
                 <script location="component://product/webapp/catalog/WEB-INF/actions/config/EditProductConfigItemContentContent.groovy"/>
             </actions>
             <widgets>

@@ -12,8 +12,8 @@ dojo.provide("dojo.widget.demoEngine.DemoItem");
 dojo.require("dojo.widget.*");
 dojo.require("dojo.widget.HtmlWidget");
 
-dojo.widget.defineWidget("my.widget.demoEngine.DemoItem", 
-	dojo.widget.HtmlWidget, 
+dojo.widget.defineWidget("my.widget.demoEngine.DemoItem",
+	dojo.widget.HtmlWidget,
 	{
 		templatePath: dojo.uri.dojoUri("src/widget/demoEngine/templates/DemoItem.html"),
 		templateCssPath: dojo.uri.dojoUri("src/widget/demoEngine/templates/DemoItem.css"),

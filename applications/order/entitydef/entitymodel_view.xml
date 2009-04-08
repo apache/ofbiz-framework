@@ -468,7 +468,7 @@ under the License.
       <alias entity-alias="OI" name="correspondingPoId"/>
       <alias entity-alias="OI" name="orderItemTypeId"/>
       <alias entity-alias="OI" name="itemDescription"/>
-      <alias entity-alias="OI" name="orderItemSeqId"/>      
+      <alias entity-alias="OI" name="orderItemSeqId"/>
       <view-link entity-alias="OT" rel-entity-alias="OH">
         <key-map field-name="orderId"/>
       </view-link>
@@ -1168,7 +1168,7 @@ under the License.
     <view-entity entity-name="CustRequestAndRole"
             package-name="org.ofbiz.order.request"
             title="Customer Request And Role View Entity">
-      <description>See CustRequest for descriptions of date fields</description>      
+      <description>See CustRequest for descriptions of date fields</description>
       <member-entity entity-alias="CR" entity-name="CustRequest"/>
       <member-entity entity-alias="CRP" entity-name="CustRequestParty"/>
       <alias entity-alias="CR" name="custRequestId"/>
@@ -1186,7 +1186,7 @@ under the License.
       <alias entity-alias="CRP" name="partyId"/>
       <alias entity-alias="CRP" name="roleTypeId"/>
       <alias entity-alias="CRP" name="fromDate"/>
-      <alias entity-alias="CRP" name="thruDate"/>  
+      <alias entity-alias="CRP" name="thruDate"/>
       <view-link entity-alias="CR" rel-entity-alias="CRP">
         <key-map field-name="custRequestId"/>
       </view-link>
@@ -1197,7 +1197,7 @@ under the License.
         <key-map field-name="custRequestId"/>
         <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
-        <key-map field-name="fromDate"/>  
+        <key-map field-name="fromDate"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="Party">
         <key-map field-name="partyId"/>
@@ -1348,7 +1348,7 @@ under the License.
       <member-entity entity-alias="SI" entity-name="StatusItem"/>
       <alias-all entity-alias="QWE"/>
       <alias-all entity-alias="WE"/>
-      <!--alias name="statusId" field="statusId" entity-alias="SI"/-->      
+      <!--alias name="statusId" field="statusId" entity-alias="SI"/-->
       <alias name="statusItemDescription" field="description" entity-alias="SI"/>
       <view-link entity-alias="QWE" rel-entity-alias="WE">
         <key-map field-name="workEffortId"/>
@@ -1459,7 +1459,7 @@ under the License.
       <member-entity entity-alias="RQR" entity-name="RequirementRole"/>
       <alias entity-alias="RQ" name="requirementTypeId" group-by="false"/>
       <alias entity-alias="RQ" name="statusId" group-by="false"/>
-      <alias entity-alias="RQ" name="productId" function="count-distinct"/> 
+      <alias entity-alias="RQ" name="productId" function="count-distinct"/>
       <alias entity-alias="RQR" name="partyId" group-by="true"/>
       <alias entity-alias="RQR" name="roleTypeId" group-by="false"/>
       <alias entity-alias="RQR" name="fromDate" group-by="false"/>
@@ -1471,7 +1471,7 @@ under the License.
     <view-entity entity-name="CustRequestAndContent"
       package-name="org.ofbiz.order.request"
       title="Customer Request And Content View Entity">
-      <description>Show Content of CustRequest</description>      
+      <description>Show Content of CustRequest</description>
       <member-entity entity-alias="CRC" entity-name="CustRequestContent"/>
       <member-entity entity-alias="CT" entity-name="Content"/>
       <alias-all entity-alias="CRC">
@@ -1522,7 +1522,7 @@ under the License.
         <key-map field-name="communicationEventId"/>
       </view-link>
     </view-entity>
-   
+
     <view-entity entity-name="OrderItemAndShipGrpInvResAndItemSum"
             package-name="org.ofbiz.order.order"
             never-cache="true"

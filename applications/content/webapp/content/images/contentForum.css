@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -25,7 +25,7 @@
         font-family:verdana, arial, sans-serif;
         margin-left:10px;
         }
-        
+
 .responsetext {
         color:#222222;
         font-size:8pt;
@@ -34,11 +34,11 @@
         font-family:verdana, arial, sans-serif;
         margin-left:20px;
         }
-        
-.responseTreeWrapper { 
-        color:black; 
-        background:#ffffff; 
-        font-size:8pt; 
+
+.responseTreeWrapper {
+        color:black;
+        background:#ffffff;
+        font-size:8pt;
         font-weight:normal;
         font-family:verdana, arial, sans-serif;
         text-align:left;
@@ -48,15 +48,15 @@
         border-top:1px solid black;
         border-left:1px solid black;
         }
-        
+
 .responseSelected {
-        background:#BBBBBB; 
+        background:#BBBBBB;
         border:1px dashed black;
-        }        
-.forummenuwrapper { 
-        color:#8B008B; 
+        }
+.forummenuwrapper {
+        color:#8B008B;
         background:#D4D0C8;
-        font-size:10pt; 
+        font-size:10pt;
         text-decoration:none;
         margin-left:12px;
         margin-right:20px;
@@ -73,7 +73,7 @@
         font-family:verdana, arial, sans-serif;
         margin-left:10px;
         }
-        
+
 .forumtext {
         color:#222222;
         font-size:12pt;
@@ -82,11 +82,11 @@
         font-family:verdana, arial, sans-serif;
         margin-left:20px;
         }
-        
-.forumtitle{ 
-        color:#8B008B; 
+
+.forumtitle{
+        color:#8B008B;
         background:#D4D0C8;
-        font-size:22pt; 
+        font-size:22pt;
         font-weight:bold;
         text-align:left;
         font-family:verdana, arial, sans-serif;
@@ -94,26 +94,26 @@
         display:inline;
         float:left;
         }
-        
-.forumtitleboxed { 
-        color:#8B008B; 
+
+.forumtitleboxed {
+        color:#8B008B;
         background:#D4D0C8;
-        font-size:22pt; 
+        font-size:22pt;
         text-decoration:none;
         border:1px solid black;
         padding:4px;
         display:inline;
         float:left;
         }
-        
+
 .forumhr {
         color:#8B008B;
         background:#D4D0C8;
         border:1px solid #8B008B;
         padding:4px;
         height:22pt;
-        }        
-        
+        }
+
 .forumwrapper {
         background:#D4D0C8;
         border:1px solid #8B008B;
@@ -123,7 +123,7 @@
         font-weight:normal;
         text-align:left;
         font-family:verdana, arial, sans-serif;
-        }        
+        }
 
 .forumcontentwrapper {
         background:#f8f8f8;
@@ -135,4 +135,4 @@
         font-weight:normal;
         text-align:left;
         font-family:verdana, arial, sans-serif;
-        }        
+        }

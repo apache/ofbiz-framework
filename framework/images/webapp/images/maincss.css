@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -549,12 +549,12 @@ margin-top: 1em;
 padding-top: 0.5em;
 }
 
-.treeWrapper { 
-background-color: #ffffff; 
+.treeWrapper {
+background-color: #ffffff;
 border-top: 0.1em solid #000000;
 border-left: 0.1em solid #000000;
-color: #000000; 
-font-size: 1.6em; 
+color: #000000;
+font-size: 1.6em;
 font-weight: normal;
 margin-left: 1.2em;
 margin-top: 0.2em;
@@ -749,7 +749,7 @@ margin-right: 1em;
 width: 22em;
 border-right: 0.5px dotted #ccc;
 background-color: #eee;
-height: 100%;  
+height: 100%;
 }
 
 #column-container .right {

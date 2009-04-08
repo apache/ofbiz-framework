@@ -31,7 +31,7 @@ under the License.
             </div>
             <div>
                 <span class="label">${uiLabelMap.CommonRemove}</span>
-                ${uiLabelMap.FormFieldTitle_rate}&nbsp;<input type="checkbox" name="removeWorkEffortAssignmentRates" value="Y"/>               
+                ${uiLabelMap.FormFieldTitle_rate}&nbsp;<input type="checkbox" name="removeWorkEffortAssignmentRates" value="Y"/>
                 ${uiLabelMap.WorkEffortAssoc}&nbsp;<input type="checkbox" name="removeWorkEffortAssocs" value="Y"/>
                 ${uiLabelMap.ProductContent}&nbsp;<input type="checkbox" name="removeWorkEffortContents" value="Y"/>
                 ${uiLabelMap.WorkEffortNotes}&nbsp;<input type="checkbox" name="removeWorkEffortNotes" value="Y"/>

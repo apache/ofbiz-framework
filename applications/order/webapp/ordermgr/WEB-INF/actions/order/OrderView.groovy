@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -93,7 +93,7 @@ if (orderHeader) {
         partyId = displayParty.partyId;
         context.displayParty = displayParty;
         context.partyId = partyId;
-        
+
         paymentMethodValueMaps = PaymentWorker.getPartyPaymentMethodValueMaps(delegator, displayParty.partyId, false);
         context.paymentMethodValueMaps = paymentMethodValueMaps;
     }
@@ -166,7 +166,7 @@ if (orderHeader) {
     context.invoices = allInvoices;
 
     ecl = EntityCondition.makeCondition([
-                                    EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId), 
+                                    EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId),
                                     EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")],
                                 EntityOperator.AND);
     orderPaymentPreferences = delegator.findList("OrderPaymentPreference", ecl, null, null, null, false);
@@ -180,10 +180,10 @@ if (orderHeader) {
     osisCond = EntityCondition.makeCondition([orderId : orderId], EntityOperator.AND);
     osisOrder = ["shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId"];
     osisFields = ["shipGroupSeqId", "shipmentId", "shipmentRouteSegmentId", "carrierPartyId", "shipmentMethodTypeId"] as Set;
-    osisFields.add("shipmentPackageSeqId"); 
-    osisFields.add("trackingCode"); 
+    osisFields.add("shipmentPackageSeqId");
+    osisFields.add("trackingCode");
     osisFields.add("boxNumber");
-    osisFindOptions = new EntityFindOptions(); 
+    osisFindOptions = new EntityFindOptions();
     osisFindOptions.setDistinct(true);
     orderShipmentInfoSummaryList = delegator.findList("OrderShipmentInfoSummary", osisCond, osisFields, osisOrder, osisFindOptions, false);
     context.orderShipmentInfoSummaryList = orderShipmentInfoSummaryList;
@@ -211,7 +211,7 @@ if (orderHeader) {
 
     cmvm = ContactMechWorker.getOrderContactMechValueMaps(delegator, orderId);
     context.orderContactMechValueMaps = cmvm;
-    
+
     orderItemChangeReasons = delegator.findByAnd("Enumeration", [enumTypeId : "ODR_ITM_CH_REASON"], ["sequenceId"]);
     context.orderItemChangeReasons = orderItemChangeReasons;
 
@@ -371,7 +371,7 @@ if (workEffortId && assignPartyId && assignRoleTypeId && fromDate) {
 }
 
 if (orderHeader) {
-    // list to find all the POSTAL_ADDRESS for the shipment party. 
+    // list to find all the POSTAL_ADDRESS for the shipment party.
     orderParty = delegator.findByPrimaryKey("Party", [partyId : partyId]);
     shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
     context.shippingContactMechList = shippingContactMechList;
@@ -388,7 +388,7 @@ if (orderHeader) {
         returnableItems = returnableItemServiceMap.returnableItems;
     }
     context.returnableItems = returnableItems;
-    
+
     // get the catalogIds for appending items
     if (context.request != null) {
         if ("SALES_ORDER".equals(orderType)) {
@@ -407,7 +407,7 @@ if (orderHeader) {
 }
 
 if (orderHeader) {
-   // list to find all the POSTAL_ADDRESS for the party. 
+   // list to find all the POSTAL_ADDRESS for the party.
    orderParty = delegator.findByPrimaryKey("Party", [partyId : partyId]);
    postalContactMechList = ContactHelper.getContactMechByType(orderParty,"POSTAL_ADDRESS", false);
    context.postalContactMechList = postalContactMechList;

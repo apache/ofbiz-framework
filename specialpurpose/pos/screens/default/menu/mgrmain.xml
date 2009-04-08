@@ -66,5 +66,5 @@ under the License.
         <Button name="" x="306" y="310" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="" x="408" y="310" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <Button name="mgrShutDown" x="510" y="310" w="100" h="60" style="posButton" content="EXIT" alignment="Center"/>
-    </Components>    
+    </Components>
 </XPage>

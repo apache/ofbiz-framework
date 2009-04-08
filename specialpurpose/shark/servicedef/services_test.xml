@@ -24,7 +24,7 @@ under the License.
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
-    <service name="sharkTest" engine="workflow" export="true" use-transaction="false" 
+    <service name="sharkTest" engine="workflow" export="true" use-transaction="false"
             location="ofb_test" invoke="Test1">
         <description>Shark Workflow Test Service</description>
     </service>

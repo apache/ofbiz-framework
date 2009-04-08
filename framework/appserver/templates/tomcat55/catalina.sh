@@ -42,9 +42,9 @@
 #   JAVA_OPTS       (Optional) Java runtime options used when the "start",
 #                   "stop", or "run" command is executed.
 
-# BEGIN OfBiz settings 
+# BEGIN OfBiz settings
 JAVA_OPTS="$JAVA_OPTS -Dofbiz.home=${ofbizHome}"
-# END OfBiz settings 
+# END OfBiz settings
 
 #   JPDA_TRANSPORT  (Optional) JPDA transport used when the "jpda start"
 #                   command is executed. The default is "dt_socket".
@@ -138,7 +138,7 @@ if $os400; then
   # 2. owned by the PRIMARY group of the user
   # this will not work if the user belongs in secondary groups
   BASEDIR="$CATALINA_HOME"
-  . "$CATALINA_HOME"/bin/setclasspath.sh 
+  . "$CATALINA_HOME"/bin/setclasspath.sh
 else
   if [ -r "$CATALINA_HOME"/bin/setclasspath.sh ]; then
     BASEDIR="$CATALINA_HOME"

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="main-decorator">
         <section>
@@ -29,7 +29,7 @@ under the License.
                 <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                
+
                 <set field="MainColumnStyle" value="nocolumns" global="true"/>
 
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.ProductCatalogCompanyName" global="true"/>
@@ -132,7 +132,7 @@ under the License.
                                         <include-menu name="CatalogTabBar" location="component://product/widget/catalog/Menus.xml"/>
                                     </widgets>
                                 </section>
-                                
+
                                 <container>
                                     <link target="EditProdCatalog" text="${uiLabelMap.ProductNewProdCatalog}" style="buttontext"/>
                                 </container>
@@ -293,7 +293,7 @@ under the License.
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
                 <set field="MainColumnStyle" value="leftonly"/>
-    
+
                 <set field="titleProperty" value="PageTitleChooseTopCategory"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/ChooseTopCategory.groovy"/>
             </actions>
@@ -302,7 +302,7 @@ under the License.
                     <decorator-section name="body">
                         <container>
                             <link target="EditCategory" text="${uiLabelMap.ProductNewCategory}" style="buttontext"/>
-                        </container> 
+                        </container>
                         <platform-specific><html><html-template location="component://product/webapp/catalog/ChooseTopCategory.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>
@@ -315,7 +315,7 @@ under the License.
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
                 <set field="MainColumnStyle" value="leftonly"/>
-    
+
                 <set field="titleProperty" value="ProductFastLoadCatalogIntoCache"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/FastLoadCache.groovy"/>
             </actions>
@@ -336,7 +336,7 @@ under the License.
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
                 <set field="MainColumnStyle" value="leftonly"/>
                 <set field="headerItem" value="main"/>
-    
+
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-field="product"/>
             </actions>

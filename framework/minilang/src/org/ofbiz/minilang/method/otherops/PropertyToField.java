@@ -79,7 +79,7 @@ public class PropertyToField extends MethodOperation {
         }
 
         // note that expanding the value string here will handle defaultValue and the string from
-        //  the properties file; if we decide later that we don't want the string from the properties 
+        //  the properties file; if we decide later that we don't want the string from the properties
         //  file to be expanded we should just expand the defaultValue at the beginning of this method.
         value = methodContext.expandString(value);
 

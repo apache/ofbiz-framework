@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -42,8 +42,8 @@ if (userLogin) {
         if (billToCountryProvinceGeo) {
             context.billToCountryProvinceGeo = billToCountryProvinceGeo.geoName;
         }
-        
-        creditCards = []; 
+
+        creditCards = [];
         paymentMethod = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findList("PaymentMethod", EntityCondition.makeCondition([partyId : party.partyId]), null, ["fromDate"], null, false)));
         if (paymentMethod) {
             creditCard = paymentMethod.getRelatedOne("CreditCard");
@@ -55,7 +55,7 @@ if (userLogin) {
                 context.lastNameOnCard = creditCard.lastNameOnCard;
                 context.expMonth = (creditCard.expireDate).substring(0, 2);
                 context.expYear = (creditCard.expireDate).substring(3);
-           } 
+           }
         }
         if (shipToContactMechId) {
             if (billToContactMechId && billToContactMechId.equals(shipToContactMechId)) {
@@ -63,7 +63,7 @@ if (userLogin) {
             }
         }
     }
-    
+
     billToContactMechList = ContactHelper.getContactMech(party, "PHONE_BILLING", "TELECOM_NUMBER", false)
     if (billToContactMechList) {
         billToTelecomNumber = (EntityUtil.getFirst(billToContactMechList)).getRelatedOne("TelecomNumber");
@@ -71,4 +71,4 @@ if (userLogin) {
         context.billToTelecomNumber = billToTelecomNumber;
         context.billToExtension = pcm.extension;
     }
-} 
+}

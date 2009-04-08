@@ -13,9 +13,9 @@ dojo.provide("dojo.lang.declare");
 dojo.require("dojo.lang.common");
 dojo.require("dojo.lang.extras");
 
-dojo.lang.declare = function(	/*String*/ className, 
-								/*Function|Array*/ superclass, 
-								/*Function?*/ init, 
+dojo.lang.declare = function(	/*String*/ className,
+								/*Function|Array*/ superclass,
+								/*Function?*/ init,
 								/*Object|Array*/ props){
 	/*
 	 *	summary: Create a feature-rich constructor with a compact notation
@@ -31,17 +31,17 @@ dojo.lang.declare = function(	/*String*/ className,
 	 *	description:
 	 *		Create a constructor using a compact notation for inheritance and
 	 *		prototype extension. "superclass" argument may be a Function, or an
-	 *		array of Functions. 
+	 *		array of Functions.
 	 *
 	 *		If "superclass" is an array, the first element is used as the
 	 *		prototypical ancestor and any following Functions become mixin
-	 *		ancestors. 
-	 * 
+	 *		ancestors.
+	 *
 	 *		All "superclass(es)" must be Functions (not mere Objects).
 	 *
 	 *		Using mixin ancestors provides a type of multiple inheritance.
 	 *		Mixin ancestors prototypical properties are copied to the subclass,
-	 *		and any inializater/constructor is invoked. 
+	 *		and any inializater/constructor is invoked.
 	 *
 	 *		Properties of object "props" are copied to the constructor
 	 *		prototype. If "props" is an array, properties of each object in the
@@ -49,10 +49,10 @@ dojo.lang.declare = function(	/*String*/ className,
 	 *
 	 *		name of the class ("className" argument) is stored in
 	 *		"declaredClass" property
-	 * 
+	 *
 	 *		Initializer functions are called when an object is instantiated
 	 *		from this constructor.
-	 * 
+	 *
 	 *		Aliased as "dojo.declare"
 	 *
 	 * Usage:
@@ -60,24 +60,24 @@ dojo.lang.declare = function(	/*String*/ className,
 	 *		dojo.declare("my.classes.bar", my.classes.foo,
 	 *			function(){
 	 *				// initialization function
-	 *				this.myComplicatedObject = new ReallyComplicatedObject(); 
+	 *				this.myComplicatedObject = new ReallyComplicatedObject();
 	 *			},
 	 *			{ // properties to be added to the class prototype
 	 *				someValue: 2,
-	 *				someMethod: function(){ 
-	 *					doStuff(); 
+	 *				someMethod: function(){
+	 *					doStuff();
 	 *				}
 	 *			}
 	 *		);
 	 *
 	 */
-	if((dojo.lang.isFunction(props))||((!props)&&(!dojo.lang.isFunction(init)))){ 
+	if((dojo.lang.isFunction(props))||((!props)&&(!dojo.lang.isFunction(init)))){
 		// parameter juggling to support omitting init param (also allows
 		// reordering init and props arguments)
 		var temp = props;
 		props = init;
 		init = temp;
-	}	
+	}
 	var mixins = [ ];
 	if(dojo.lang.isArray(superclass)){
 		mixins = superclass;
@@ -92,7 +92,7 @@ dojo.lang.declare = function(	/*String*/ className,
 	if(scp){
 		scp.prototyping = true;
 		ctor.prototype = new superclass();
-		scp.prototyping = false; 
+		scp.prototyping = false;
 	}
 	ctor.superclass = scp;
 	ctor.mixins = mixins;
@@ -115,7 +115,7 @@ dojo.lang.declare = function(	/*String*/ className,
 }
 
 dojo.lang.declare._makeConstructor = function(){
-	return function(){ 
+	return function(){
 		// get the generational context (which object [or prototype] should be constructed)
 		var self = this._getPropContext();
 		var s = self.constructor.superclass;
@@ -144,7 +144,7 @@ dojo.lang.declare._common = {
 		var result, stack = this.___proto;
 		this.___proto = ptype;
 		try { result = ptype[method].apply(this,(args||[])); }
-		catch(e) { throw e; }	
+		catch(e) { throw e; }
 		finally { this.___proto = stack; }
 		return result;
 	},

@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-    
+
 <form method="post" action="<@ofbizUrl>SearchInventoryItemsByLabels</@ofbizUrl>">
   <input type="hidden" name="facilityId" value="${facility.facilityId}"/>
   <table>

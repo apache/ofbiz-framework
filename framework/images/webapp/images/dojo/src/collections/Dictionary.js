@@ -85,15 +85,15 @@ dojo.collections.Dictionary=function(/* dojo.collections.Dictionary? */dictionar
 	this.getKeyList=function(){
 		//	summary
 		//	Returns an array of the keys in the dictionary.
-		return (this.getIterator()).map(function(entry){ 
-			return entry.key; 
+		return (this.getIterator()).map(function(entry){
+			return entry.key;
 		});	//	array
 	};
 	this.getValueList=function(){
 		//	summary
 		//	Returns an array of the values in the dictionary.
-		return (this.getIterator()).map(function(entry){ 
-			return entry.value; 
+		return (this.getIterator()).map(function(entry){
+			return entry.value;
 		});	//	array
 	};
 	this.item=function(/* string */k){

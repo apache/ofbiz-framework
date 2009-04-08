@@ -24,7 +24,7 @@ under the License.
   <description>multiflex Ecommerce Visual Theme</description>
 
   <session-config>
-    <session-timeout>1</session-timeout>    
+    <session-timeout>1</session-timeout>
   </session-config>
 
   <welcome-file-list>

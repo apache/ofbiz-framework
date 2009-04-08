@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ========= AcctgTrans methods ========= -->
     <simple-method method-name="createAcctgTrans" short-description="Create an AcctgTrans">
@@ -26,10 +26,10 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.isPosted" value="N"/>
 
-        <!-- AcctgTrans uses a sequenced id, so get the next one now and set it... -->        
+        <!-- AcctgTrans uses a sequenced id, so get the next one now and set it... -->
         <sequenced-id sequence-name="AcctgTrans" field="newEntity.acctgTransId"/>
         <field-to-result field="newEntity.acctgTransId" result-name="acctgTransId"/>
-        
+
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
 
@@ -39,19 +39,19 @@ under the License.
         <entity-one entity-name="AcctgTrans" value-field="lookedUpValue"/>
         <if-compare field="lookedUpValue.isPosted" operator="equals" value="Y">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
-            <check-errors/>    
+            <check-errors/>
         </if-compare>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        
+
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
-        
+
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteAcctgTrans" short-description="Delete an AcctgTrans">
         <entity-one entity-name="AcctgTrans" value-field="lookedUpValue"/>
         <if-compare field="lookedUpValue.isPosted" operator="equals" value="Y">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
-            <check-errors/>    
+            <check-errors/>
         </if-compare>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
@@ -61,7 +61,7 @@ under the License.
         <set from-field="userLogin.userLoginId" field="lookedUpACTX.lastModifiedByUserLogin"/>
         <store-value value-field="lookedUpACTX"/>
     </simple-method>
-    
+
     <!-- ========= AcctgTransEntry methods ========= -->
     <simple-method method-name="createAcctgTransEntry" short-description="Add Entry To AcctgTrans">
         <make-value entity-name="AcctgTransEntry" value-field="newEntity"/>
@@ -70,7 +70,7 @@ under the License.
         <entity-one entity-name="AcctgTrans" value-field="acctgTrans"/>
         <if-compare field="acctgTrans.isPosted" operator="equals" value="Y">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
-            <check-errors/>    
+            <check-errors/>
         </if-compare>
         <make-next-seq-id value-field="newEntity" seq-field-name="acctgTransEntrySeqId" numeric-padding="5"/>
         <field-to-result field="newEntity.acctgTransEntrySeqId" result-name="acctgTransEntrySeqId"/>
@@ -83,7 +83,7 @@ under the License.
         <if-empty field="parameters.currencyUomId">
             <set from-field="partyAcctgPreference.baseCurrencyUomId" field="newEntity.currencyUomId"/>
         </if-empty>
-        
+
         <!-- if the amount field is empty, then determine it from the origAmount and origCurrencyUomId fields:
              if origCurrencyUomId is different from the base currency of the organization, then the amount value will be converted -->
         <if-empty field="newEntity.amount">
@@ -122,7 +122,7 @@ under the License.
         <entity-one entity-name="AcctgTrans" value-field="acctgTrans"/>
         <if-compare field="acctgTrans.isPosted" operator="equals" value="Y">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
-            <check-errors/>    
+            <check-errors/>
         </if-compare>
         <entity-one entity-name="AcctgTransEntry" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -135,7 +135,7 @@ under the License.
         <entity-one entity-name="AcctgTrans" value-field="acctgTrans"/>
         <if-compare field="acctgTrans.isPosted" operator="equals" value="Y">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
-            <check-errors/>    
+            <check-errors/>
         </if-compare>
         <entity-one entity-name="AcctgTransEntry" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
@@ -145,10 +145,10 @@ under the License.
     </simple-method>
 
     <!-- AcctgTrans Trial Balance and Post routines -->
-    <simple-method method-name="calculateAcctgTransTrialBalance" short-description="Calculate Trial Balance for a AcctgTrans">       
+    <simple-method method-name="calculateAcctgTransTrialBalance" short-description="Calculate Trial Balance for a AcctgTrans">
         <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals"/>
         <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode"/>
- 
+
         <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
 
         <!-- get all AcctgTransEntry for this trans, for each if debit add to debits total if credit add to credits total -->
@@ -178,14 +178,14 @@ under the License.
                     <!-- uh-oh, bad debitCreditFlag... -->
                       <add-error><fail-message message="Bad debitCreditFlag [${acctgTransEntry.debitCreditFlag}] (was not D or C) in Accounting Transaction Entry with acctgTransId=[${acctgTransEntry.acctgTransId}] and acctgTransEntrySeqId=[${acctgTransEntry.acctgTransEntrySeqId}]"/></add-error>
                 </else>
-                </if-compare>                
+                </if-compare>
             </else>
             </if-compare>
         </iterate>
-        
+
         <!-- check-errors just in case we had some bad debitCreditFlags -->
         <check-errors/>
-        
+
         <!-- should now have the debitTotal and creditTotal, calculate the debitCreditDifference -->
         <calculate field="debitCreditDifference" type="BigDecimal"  decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="add">
@@ -193,7 +193,7 @@ under the License.
                 <calcop operator="negative" field="creditTotal"/>
             </calcop>
         </calculate>
-        
+
         <field-to-result field="debitTotal"/>
         <field-to-result field="creditTotal"/>
         <field-to-result field="debitCreditDifference"/>
@@ -217,12 +217,12 @@ under the License.
         <if-compare field="trialBalanceResultMap.debitCreditDifference" operator="less-equals" value="-0.01" type="BigDecimal">
             <add-error><fail-message message="Not posting GL Accounting Transaction with ID [${parameters.acctgTransId}] because the trial balance failed: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}"/></add-error>
         </if-compare>
-            
+
         <entity-condition entity-name="AcctgTransEntry" list="acctgTransEntryList">
             <condition-expr field-name="acctgTransId" from-field="parameters.acctgTransId"/>
             <order-by field-name="acctgTransEntrySeqId"/>
         </entity-condition>
-        
+
         <!-- check the scheduled posting date, but only if it's set -->
         <if-not-empty field="acctgTrans.scheduledPostingDate">
             <set field="scheduledPostingDate" from-field="acctgTrans.scheduledPostingDate"/>
@@ -238,7 +238,7 @@ under the License.
         <set value="FISCAL_MONTH" field="onlyIncludePeriodTypeIdList[]"/>
         <set value="FISCAL_WEEK" field="onlyIncludePeriodTypeIdList[]"/>
         <set value="FISCAL_BIWEEK" field="onlyIncludePeriodTypeIdList[]"/>
-        
+
         <!-- get current period(s) and check if closed -->
         <!-- also check if the glAccountId, amount, currencyUomId fields are all set -->
         <iterate entry="acctgTransEntry" list="acctgTransEntryList">
@@ -246,7 +246,7 @@ under the License.
             <if-empty field="customTimePeriodListByOrganizationPartyIdMap.${acctgTransEntry.organizationPartyId}">
                 <clear-field field="findCustomTimePeriodCallMap"/>
                 <clear-field field="customTimePeriodList"/>
-    
+
                 <set from-field="acctgTrans.transactionDate" field="findCustomTimePeriodCallMap.findDate"/>
                 <set from-field="acctgTransEntry.organizationPartyId" field="findCustomTimePeriodCallMap.organizationPartyId"/>
                 <set from-field="onlyIncludePeriodTypeIdList" field="findCustomTimePeriodCallMap.onlyIncludePeriodTypeIdList"/>
@@ -255,7 +255,7 @@ under the License.
                 <call-service service-name="findCustomTimePeriods" in-map-name="findCustomTimePeriodCallMap">
                     <result-to-field result-name="customTimePeriodList"/>
                 </call-service>
-                
+
                 <if-empty field="customTimePeriodList">
                     <add-error><fail-message message="Could not find a CustomTimePeriod (fiscal period) for the Transaction Date [${acctgTrans.transactionDate}] (is for Organization Party with ID [${acctgTransEntry.organizationPartyId}])"/></add-error>
                 </if-empty>
@@ -265,7 +265,7 @@ under the License.
                         <add-error><fail-message message="CustomTimePeriod (fiscal period) [${customTimePeriod.customTimePeriodId}] is CLOSED, cannot post to it (is for the Transaction Date [${acctgTrans.transactionDate}] and Organization Party with ID [${acctgTransEntry.organizationPartyId}])"/></add-error>
                     </if-compare>
                 </iterate>
-                
+
                 <!-- save this customTimePeriodList for the current entry for later use -->
                 <set from-field="customTimePeriodList" field="customTimePeriodListByOrganizationPartyIdMap.${acctgTransEntry.organizationPartyId}"/>
             </if-empty>
@@ -344,7 +344,7 @@ under the License.
                                     <calculate field="postingAmount" type="BigDecimal">
                                         <calcop field="acctgTransEntry.amount" operator="negative"/>
                                     </calculate>
-                                </if-compare>    
+                                </if-compare>
                             </else>
                         </if-compare>
                     <else>
@@ -358,13 +358,13 @@ under the License.
                                         <calculate field="postingAmount" type="BigDecimal">
                                             <calcop field="acctgTransEntry.amount" operator="negative"/>
                                         </calculate>
-                                    </if-compare>    
+                                    </if-compare>
                                 </else>
                             </if-compare>
                             <else>
                                 <log level="warning" message="GL account ${glAccount.glAccountId} is of class ${glAccount.glAccountClassId} which is neither debit nor credit - cannot update posted balance"/>
-                            </else>    
-                        </if-compare>                    
+                            </else>
+                        </if-compare>
                     </else>
                 </if-compare>
                 <log level="verbose" message="GL account: [${acctgTransEntry.glAccountId}] initial balance: [${glAccountOrganization.postedBalance}] ${acctgTransEntry.debitCreditFlag} [${acctgTransEntry.amount}]"/>
@@ -406,20 +406,20 @@ under the License.
                             <calcop operator="add">
                                 <calcop operator="get" field="acctgTransEntry.amount"/>
                                 <calcop operator="get" field="glAccountHistory.postedDebits"/>
-                            </calcop> 
+                            </calcop>
                         </calculate>
                     <else>
                         <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
-                            <calculate field="glAccountHistory.postedCredits" type="BigDecimal">                                    
+                            <calculate field="glAccountHistory.postedCredits" type="BigDecimal">
                                 <calcop operator="add">
                                     <calcop operator="get" field="acctgTransEntry.amount"/>
                                     <calcop operator="get" field="glAccountHistory.postedCredits"/>
-                                </calcop> 
+                                </calcop>
                             </calculate>
                             <else>
                                 <add-error><fail-message message="Bad debitCreditFlag [${acctgTransEntry.debitCreditFlag}] (was not D or C) in Accounting Transaction Entry with acctgTransId=[${acctgTransEntry.acctgTransId}] and acctgTransEntrySeqId=[${acctgTransEntry.acctgTransEntrySeqId}]"/></add-error>
                             </else>
-                        </if-compare>    
+                        </if-compare>
                     </else>
                     </if-compare>
                     <store-value value-field="glAccountHistory"/>

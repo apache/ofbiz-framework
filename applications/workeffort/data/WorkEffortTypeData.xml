@@ -31,7 +31,7 @@ under the License.
     <Enumeration description="Need Support or Help" enumCode="NEED_HELP" enumId="WEDR_NEED_HELP" sequenceId="01" enumTypeId="WORK_EFF_DEL_REAS"/>
     <Enumeration description="My Part Finished" enumCode="PART_FINISHED" enumId="WEDR_PART_FINISHED" sequenceId="02" enumTypeId="WORK_EFF_DEL_REAS"/>
     <Enumeration description="Completely Finished" enumCode="WHOLE_FINISHED" enumId="WEDR_WHOLE_FINISHED" sequenceId="03" enumTypeId="WORK_EFF_DEL_REAS"/>
-    
+
     <EnumerationType description="Work Effort Scope Classification" enumTypeId="WORK_EFF_SCOPE" hasTable="N" parentTypeId="WORK_EFFORT"/>
     <Enumeration description="General, public access" enumCode="PUBLIC" enumId="WES_PUBLIC" sequenceId="01" enumTypeId="WORK_EFF_SCOPE"/>
     <Enumeration description="Restricted, private access" enumCode="PRIVATE" enumId="WES_PRIVATE" sequenceId="02" enumTypeId="WORK_EFF_SCOPE"/>
@@ -58,7 +58,7 @@ under the License.
     <StatusValidChange condition="" statusId="CAL_SENT" statusIdTo="CAL_DECLINED" transitionName="Decline"/>
     <StatusValidChange condition="" statusId="CAL_SENT" statusIdTo="CAL_DELEGATED" transitionName="Delegate"/>
     <StatusValidChange condition="" statusId="CAL_SENT" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
-    
+
     <StatusType description="Task" hasTable="N" parentTypeId="CALENDAR_STATUS" statusTypeId="TASK_STATUS"/>
     <StatusItem description="Accepted" sequenceId="01" statusCode="ACCEPTED" statusId="CAL_ACCEPTED" statusTypeId="TASK_STATUS"/>
     <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="CAL_COMPLETED" statusTypeId="TASK_STATUS"/>
@@ -67,7 +67,7 @@ under the License.
     <StatusValidChange condition="" statusId="CAL_ACCEPTED" statusIdTo="CAL_COMPLETED" transitionName="Complete"/>
     <StatusValidChange condition="" statusId="CAL_ACCEPTED" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="CAL_ACCEPTED" statusIdTo="CAL_DELEGATED" transitionName="Delegate"/>
-    
+
     <StatusType description="Event" hasTable="N" parentTypeId="CALENDAR_STATUS" statusTypeId="EVENT_STATUS"/>
     <StatusItem description="Tentative" sequenceId="01" statusCode="TENTATIVE" statusId="CAL_TENTATIVE" statusTypeId="EVENT_STATUS"/>
     <StatusItem description="Confirmed" sequenceId="02" statusCode="CONFIRMED" statusId="CAL_CONFIRMED" statusTypeId="EVENT_STATUS"/>
@@ -79,14 +79,14 @@ under the License.
     <StatusValidChange condition="" statusId="CAL_TENTATIVE" statusIdTo="CAL_CANCELLED" transitionName="Cancel"/>
     <StatusValidChange condition="" statusId="CAL_TENTATIVE" statusIdTo="CAL_CONFIRMED" transitionName="Confirm"/>
     <StatusValidChange condition="" statusId="CAL_CONFIRMED" statusIdTo="CAL_COMPLETED" transitionName="Complete"/>
-    
+
     <StatusType description="Timesheet" hasTable="N" parentTypeId="" statusTypeId="TIMESHEET_STATUS"/>
     <StatusItem description="In-Process" sequenceId="01" statusCode="IN_PROCESS" statusId="TIMESHEET_IN_PROCESS" statusTypeId="TIMESHEET_STATUS"/>
     <StatusItem description="Completed" sequenceId="02" statusCode="COMPLETED" statusId="TIMESHEET_COMPLETED" statusTypeId="TIMESHEET_STATUS"/>
     <StatusItem description="Approved" sequenceId="03" statusCode="APPROVED" statusId="TIMESHEET_APPROVED" statusTypeId="TIMESHEET_STATUS"/>
     <StatusValidChange condition="" statusId="TIMESHEET_IN_PROCESS" statusIdTo="TIMESHEET_COMPLETED" transitionName="Confirm complete"/>
     <StatusValidChange condition="" statusId="TIMESHEET_COMPLETED" statusIdTo="TIMESHEET_APPROVED" transitionName="Approve"/>
-    
+
     <!-- Project Statuses -->
     <StatusType description="Project" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="WE_PROJECT_STATUS"/>
     <StatusItem description="Planning" sequenceId="01" statusCode="PLANNING" statusId="WEPR_PLANNING" statusTypeId="WE_PROJECT_STATUS"/>
@@ -105,24 +105,24 @@ under the License.
     <StatusItem description="Offered" sequenceId="01" statusCode="OFFERED" statusId="PRTYASGN_OFFERED" statusTypeId="PRTYASGN_STATUS"/>
     <StatusItem description="Assigned" sequenceId="02" statusCode="ASSIGNED" statusId="PRTYASGN_ASSIGNED" statusTypeId="PRTYASGN_STATUS"/>
     <StatusItem description="Unassigned" sequenceId="03" statusCode="UNASSIGNED" statusId="PRTYASGN_UNASSIGNED" statusTypeId="PRTYASGN_STATUS"/>
-    
+
     <!-- Status items for WorkEffortPartyAssignment.availabilityStatusId -->
     <StatusType description="Work Effort Party Availability" hasTable="N" parentTypeId="" statusTypeId="WEPA_AVAILABILITY"/>
     <StatusItem description="Available" sequenceId="01" statusCode="AVAILABLE" statusId="WEPA_AV_AVAILABLE" statusTypeId="WEPA_AVAILABILITY"/>
     <StatusItem description="Busy" sequenceId="02" statusCode="BUSY" statusId="WEPA_AV_BUSY" statusTypeId="WEPA_AVAILABILITY"/>
     <StatusItem description="Away" sequenceId="03" statusCode="AWAY" statusId="WEPA_AV_AWAY" statusTypeId="WEPA_AVAILABILITY"/>
-    
+
     <!-- Status items for WorkEffortFixedAssetAssign.statusId -->
     <StatusType description="Fixed Asset Assignment Status" hasTable="N" statusTypeId="FA_ASGN_STATUS"/>
     <StatusItem description="Requested" sequenceId="01" statusCode="REQUESTED" statusId="FA_ASGN_REQUESTED" statusTypeId="FA_ASGN_STATUS"/>
     <StatusItem description="Assigned" sequenceId="02" statusCode="ASSIGNED" statusId="FA_ASGN_ASSIGNED" statusTypeId="FA_ASGN_STATUS"/>
     <StatusItem description="Request Denied" sequenceId="03" statusCode="DENIED" statusId="FA_ASGN_DENIED" statusTypeId="FA_ASGN_STATUS"/>
-    
+
     <!-- Status items for WorkEffortFixedAssetAssign.availabilityStatusId -->
     <StatusType description="Work Effort Fixed Asset Availability" hasTable="N" statusTypeId="WEFA_AVAILABILITY"/>
     <StatusItem description="Available" sequenceId="01" statusCode="AVAILABLE" statusId="WEFA_AVAILABLE" statusTypeId="WEFA_AVAILABILITY"/>
     <StatusItem description="In Use" sequenceId="02" statusCode="BUSY" statusId="WEFA_IN_USE" statusTypeId="WEFA_AVAILABILITY"/>
-    
+
     <WorkEffortAssocType description="Breakdown/Detail" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_BREAKDOWN"/>
     <WorkEffortAssocType description="Dependency" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_DEPENDENCY"/>
     <WorkEffortAssocType description="Concurrency" hasTable="N" parentTypeId="WORK_EFF_DEPENDENCY" workEffortAssocTypeId="WORK_EFF_CONCURRENCY"/>
@@ -137,7 +137,7 @@ under the License.
     <WorkEffortContentType workEffortContentTypeId="PROPOSAL_MEDIA" description="Proposal Media" parentTypeId=""/>
     <WorkEffortContentType workEffortContentTypeId="SUPPORTING_MEDIA" description="Supporting Media" parentTypeId=""/>
     <WorkEffortContentType workEffortContentTypeId="CREATED_MEDIA" description="Created Media" parentTypeId=""/>
-    
+
     <WorkEffortPurposeType description="Project" workEffortPurposeTypeId="WEPT_PROJECT"/>
     <WorkEffortPurposeType description="Phase" workEffortPurposeTypeId="WEPT_PHASE"/>
     <WorkEffortPurposeType description="Production Run" workEffortPurposeTypeId="WEPT_PRODUCTION_RUN"/>
@@ -154,7 +154,7 @@ under the License.
 
     <WorkEffortPurposeType description="Phone Call" workEffortPurposeTypeId="WEPT_TASK_PHONE_CALL"/>
     <WorkEffortPurposeType description="Email" workEffortPurposeTypeId="WEPT_TASK_EMAIL"/>
-    
+
     <WorkEffortType description="Workflow Process" hasTable="N" parentTypeId="" workEffortTypeId="WORK_FLOW"/>
     <WorkEffortType description="Workflow Activity" hasTable="N" parentTypeId="" workEffortTypeId="ACTIVITY"/>
     <WorkEffortType description="Task" hasTable="N" parentTypeId="" workEffortTypeId="TASK"/>
@@ -169,20 +169,20 @@ under the License.
     <WorkEffortType description="Production Run Header" hasTable="N" parentTypeId="" workEffortTypeId="PROD_ORDER_HEADER"/>
     <WorkEffortType description="Production Run Task" hasTable="N" parentTypeId="" workEffortTypeId="PROD_ORDER_TASK"/>
     <WorkEffortType description="Fixed Asset Usage (rental)" hasTable="N" parentTypeId="" workEffortTypeId="ASSET_USAGE"/>
-    
+
     <WorkEffortType description="Business Travel" hasTable="N" parentTypeId="EVENT" workEffortTypeId="BUSINESS_TRAVEL"/>
     <WorkEffortType description="Meeting" hasTable="N" parentTypeId="EVENT" workEffortTypeId="MEETING"/>
-    <WorkEffortType description="Personal Time Off" hasTable="N" parentTypeId="EVENT" workEffortTypeId="PERSONAL_TIMEOFF"/>    
-    <WorkEffortType description="Publish Properties" hasTable="N" workEffortTypeId="PUBLISH_PROPS"/>    
+    <WorkEffortType description="Personal Time Off" hasTable="N" parentTypeId="EVENT" workEffortTypeId="PERSONAL_TIMEOFF"/>
+    <WorkEffortType description="Publish Properties" hasTable="N" workEffortTypeId="PUBLISH_PROPS"/>
 
     <!-- Routing status, (workEffort Template) -->
     <StatusType description="Manufacturing Task and Routing status" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="ROUTING_STATUS"/>
-    
+
     <StatusItem description="Well defined and usable" sequenceId="01" statusCode="ACTIVE" statusId="ROU_ACTIVE" statusTypeId="ROUTING_STATUS"/>
-    
+
     <!-- Production Run status -->
     <StatusType description="Production Run Status" hasTable="N" parentTypeId="WORK_EFFORT_STATUS" statusTypeId="PRODUCTION_RUN"/>
-    
+
     <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PRUN_CREATED" statusTypeId="PRODUCTION_RUN"/>
     <StatusItem description="Scheduled" sequenceId="02" statusCode="SCHEDULED" statusId="PRUN_SCHEDULED" statusTypeId="PRODUCTION_RUN"/>
     <StatusItem description="Confirmed" sequenceId="03" statusCode="DOC_PRINTED" statusId="PRUN_DOC_PRINTED" statusTypeId="PRODUCTION_RUN"/>
@@ -208,7 +208,7 @@ under the License.
     <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUNT_PROD_NEEDED" description="Production Run Task and Needed Product Association" hasTable="N" parentTypeId=""/>
     <WorkEffortGoodStandardType workEffortGoodStdTypeId="PRUNT_PROD_DELIV" description="Production Run Task and Deliverable Product Association" hasTable="N" parentTypeId=""/>
     <WorkEffortGoodStandardType workEffortGoodStdTypeId="GENERAL_SALES" description="Product to Represent General Sales of the WorkEffort" hasTable="N" parentTypeId=""/>
-    
+
     <!--  <StatusType description="WorkEffort Assignment" hasTable="N" parentTypeId="" statusTypeId="WORK_EFFORT_ASSIGN"/> -->
     <StatusType description="Work Effort Good Standard Status" hasTable="N" parentTypeId="" statusTypeId="WEFG_STATUS"/>
     <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="WEGS_CREATED" statusTypeId="WEFG_STATUS"/>
@@ -223,7 +223,7 @@ under the License.
     <StatusValidChange condition="" statusId="WERV_PENDING" statusIdTo="WERV_APPROVED" transitionName="Review Approved"/>
     <StatusValidChange condition="" statusId="WERV_PENDING" statusIdTo="WERV_DELETED" transitionName="Review Deleted"/>
     <StatusValidChange condition="" statusId="WERV_APPROVED" statusIdTo="WERV_DELETED" transitionName="Review Deleted"/>
-    
+
     <WebSite webSiteId="WORKEFFORT" siteName="Work Effort Manager" visualThemeSetId="BACKOFFICE"/>
-    
+
 </entity-engine-xml>

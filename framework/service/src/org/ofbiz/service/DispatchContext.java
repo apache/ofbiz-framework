@@ -125,7 +125,7 @@ public class DispatchContext implements Serializable {
 
     /**
      * Uses an existing map of name value pairs and extracts the keys which are used in serviceName
-     * Note: This goes not guarantee the context will be 100% valid, there may be missing fields 
+     * Note: This goes not guarantee the context will be 100% valid, there may be missing fields
      * @param serviceName The name of the service to obtain parameters for
      * @param mode The mode to use for building the new map (i.e. can be IN or OUT)
      * @param context The initial set of values to pull from
@@ -140,7 +140,7 @@ public class DispatchContext implements Serializable {
 
     /**
      * Uses an existing map of name value pairs and extracts the keys which are used in serviceName
-     * Note: This goes not guarantee the context will be 100% valid, there may be missing fields 
+     * Note: This goes not guarantee the context will be 100% valid, there may be missing fields
      * @param model The ModelService object of the service to obtain parameters for
      * @param mode The mode to use for building the new map (i.e. can be IN or OUT)
      * @param context The initial set of values to pull from

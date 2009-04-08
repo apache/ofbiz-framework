@@ -27,16 +27,16 @@ under the License.
     <classpath type="jar" location="build/lib/*"/>
 
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
-    
+
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ProjectMgrTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ProjectMgrSecurityData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/ProjectMgrPortletData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/ProjectMgrDemoData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/ProjectMgrDemoPasswordData.xml"/>
-    
+
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
-    
+
     <webapp name="projectmgr"
         title="Project"
         server="default-server"

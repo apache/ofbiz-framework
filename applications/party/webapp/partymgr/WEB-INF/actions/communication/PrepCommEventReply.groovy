@@ -40,7 +40,7 @@ if (parentCommEventId) {
                 if ("EMAIL_ADDRESS" == contactMechTypeId) {
                     parameters.contactMechIdTo = (String) contactMech.getString("contactMechId");
                 }
-                
+
             }
         }
         parameters.contactMechIdFrom = parentEvent.contactMechIdTo;
@@ -48,7 +48,7 @@ if (parentCommEventId) {
         parameters.partyIdFrom = userLogin.partyId;
         parameters.partyIdTo = parentEvent.partyIdFrom;
         parameters.statusId = "COM_IN_PROGRESS";
-        
+
         parameters.subject = "RE: " + parentEvent.subject;
         parameters.content = "\n\n\n--------------- In reply to:\n\n" + parentEvent.content;
     }

@@ -34,14 +34,14 @@ dojo.widget.defineWidget(
 		// caption: String
 		//	text to display in button
 		caption: "",
-		
+
 		templatePath: dojo.uri.dojoUri("src/widget/templates/ButtonTemplate.html"),
 		templateCssPath: dojo.uri.dojoUri("src/widget/templates/ButtonTemplate.css"),
-		
+
 		// inactiveImg: Url
 		//	prefix of filename holding images (left, center, right) for button in normal state
 		inactiveImg: "src/widget/templates/images/soriaButton-",
-		
+
 		// activeImg: Url
 		//	prefix of filename holding images (left, center, right) for button when it's being hovered over
 		activeImg: "src/widget/templates/images/soriaActive-",
@@ -53,7 +53,7 @@ dojo.widget.defineWidget(
 		// disabledImg: Url
 		//	prefix of filename holding images (left, center, right) for button when it's disabled (aka, grayed-out)
 		disabledImg: "src/widget/templates/images/soriaDisabled-",
-		
+
 		// widget2height: Number
 		//	shape of the button's end pieces;
 		//	the height of the end pieces is a function of the button's height (which in turn is a function of the button's content),
@@ -70,7 +70,7 @@ dojo.widget.defineWidget(
 		postCreate: function(){
 			this._sizeMyself();
 		},
-	
+
 		_sizeMyself: function(){
 			// we cannot size correctly if any of our ancestors are hidden (display:none),
 			// so temporarily attach to document.body
@@ -79,9 +79,9 @@ dojo.widget.defineWidget(
 				dojo.html.insertBefore(placeHolder, this.domNode);
 			}
 			dojo.body().appendChild(this.domNode);
-			
+
 			this._sizeMyselfHelper();
-			
+
 			// Put this.domNode back where it was originally
 			if(placeHolder){
 				dojo.html.insertBefore(this.domNode, placeHolder);
@@ -94,9 +94,9 @@ dojo.widget.defineWidget(
 			this.height = mb.height;
 			this.containerWidth = mb.width;
 			var endWidth= this.height * this.width2height;
-	
+
 			this.containerNode.style.left=endWidth+"px";
-	
+
 			this.leftImage.height = this.rightImage.height = this.centerImage.height = this.height;
 			this.leftImage.width = this.rightImage.width = endWidth+1;
 			this.centerImage.width = this.containerWidth;
@@ -112,18 +112,18 @@ dojo.widget.defineWidget(
 				this.domNode.setAttribute("tabIndex", "0");
 				dojo.widget.wai.setAttr(this.domNode, "waiState", "disabled", false);
 			}
-				
+
 			this.domNode.style.height=this.height + "px";
 			this.domNode.style.width= (this.containerWidth+2*endWidth) + "px";
 		},
-	
+
 		onMouseOver: function(/*Event*/ e){
 			// summary: callback when user mouses-over the button
 			if( this.disabled ){ return; }
 			dojo.html.prependClass(this.buttonNode, "dojoButtonHover");
 			this._setImage(this.activeImg);
 		},
-	
+
 		onMouseDown: function(/*Event*/ e){
 			// summary: callback when user starts to click the button
 			if( this.disabled ){ return; }
@@ -139,7 +139,7 @@ dojo.widget.defineWidget(
 			dojo.html.removeClass(this.buttonNode, "dojoButtonDepressed");
 			this._setImage(this.activeImg);
 		},
-	
+
 		onMouseOut: function(/*Event*/ e){
 			// summary: callback when the user moves the mouse off the button
 			if( this.disabled ){ return; }
@@ -180,7 +180,7 @@ dojo.widget.defineWidget(
 			// summary: callback when button loses focus
 			var menu = dojo.widget.getWidgetById(this.menuId);
 			if ( !menu ) { return; }
-	
+
 			if ( menu.close && menu.isShowingNow ){
 				menu.close();
 			}
@@ -188,11 +188,11 @@ dojo.widget.defineWidget(
 
 		buttonClick: function(/*Event*/ e){
 			// summary: internal function for handling button clicks
-			if(!this.disabled){ 
+			if(!this.disabled){
 				// focus may fail when tabIndex is not supported on div's
 				// by the browser, or when the node is disabled
 				try { this.domNode.focus(); } catch(e2) {};
-				this.onClick(e); 
+				this.onClick(e);
 			}
 		},
 
@@ -205,9 +205,9 @@ dojo.widget.defineWidget(
 			this.centerImage.src=dojo.uri.dojoUri(prefix + "c.gif");
 			this.rightImage.src=dojo.uri.dojoUri(prefix + "r.gif");
 		},
-		
+
 		_toggleMenu: function(/*String*/ menuId){
-			var menu = dojo.widget.getWidgetById(menuId); 
+			var menu = dojo.widget.getWidgetById(menuId);
 			if ( !menu ) { return; }
 			if ( menu.open && !menu.isShowingNow) {
 				var pos = dojo.html.getAbsolutePosition(this.domNode, false);
@@ -218,14 +218,14 @@ dojo.widget.defineWidget(
 				menu.toggle();
 			}
 		},
-		
+
 		setCaption: function(/*String*/ content){
 			// summary: reset the caption (text) of the button; takes an HTML string
 			this.caption=content;
 			this.containerNode.innerHTML=content;
 			this._sizeMyself();
 		},
-		
+
 		setDisabled: function(/*Boolean*/ disabled){
 			// summary: set disabled state of button
 			this.disabled=disabled;
@@ -257,10 +257,10 @@ dojo.widget.defineWidget(
 		// disabledDownArray: Url
 		//	path of arrow image to display to the right of the button text, when the button is disabled
 		disabledDownArrow: "src/widget/templates/images/whiteDownArrow.gif",
-	
+
 		fillInTemplate: function(){
 			dojo.widget.DropDownButton.superclass.fillInTemplate.apply(this, arguments);
-	
+
 			this.arrow = document.createElement("img");
 			dojo.html.setClass(this.arrow, "downArrow");
 
@@ -297,17 +297,17 @@ dojo.widget.defineWidget(
 		// menuId: String
 		//	widget id of the menu that this button should activate
 		menuId: "",
-	
+
 		templatePath: dojo.uri.dojoUri("src/widget/templates/ComboButtonTemplate.html"),
-	
+
 		// splitWidth: Integer
 		//	# of pixels between left & right part of button
 		splitWidth: 2,
-		
+
 		// arrowWidth: Integer
 		//	width of segment holding down arrow
 		arrowWidth: 5,
-	
+
 		_sizeMyselfHelper: function(/*Event*/ e){
 			var mb = dojo.html.getMarginBox(this.containerNode);
 			this.height = mb.height;
@@ -323,9 +323,9 @@ dojo.widget.defineWidget(
 				dojo.widget.wai.setAttr(this.domNode, "waiState", "disabled", false);
 				this.domNode.setAttribute("tabIndex", "0");
 			}
-	
+
 			// left part
-			this.leftImage.height = this.rightImage.height = this.centerImage.height = 
+			this.leftImage.height = this.rightImage.height = this.centerImage.height =
 				this.arrowBackgroundImage.height = this.height;
 			this.leftImage.width = endWidth+1;
 			this.centerImage.width = this.containerWidth;
@@ -339,18 +339,18 @@ dojo.widget.defineWidget(
 			this.rightPart.style.height = this.height + "px";
 			this.rightPart.style.width = this.arrowWidth + endWidth + "px";
 			this._setImageR(this.disabled ? this.disabledImg : this.inactiveImg);
-	
+
 			// outer container
 			this.domNode.style.height=this.height + "px";
 			var totalWidth = this.containerWidth+this.splitWidth+this.arrowWidth+2*endWidth;
 			this.domNode.style.width= totalWidth + "px";
 		},
-	
+
 		_setImage: function(prefix){
 			this.leftImage.src=dojo.uri.dojoUri(prefix + "l.gif");
 			this.centerImage.src=dojo.uri.dojoUri(prefix + "c.gif");
 		},
-	
+
 		/*** functions on right part of button ***/
 		rightOver: function(/*Event*/ e){
 			// summary:
@@ -360,7 +360,7 @@ dojo.widget.defineWidget(
 			dojo.html.prependClass(this.rightPart, "dojoButtonHover");
 			this._setImageR(this.activeImg);
 		},
-	
+
 		rightDown: function(/*Event*/ e){
 			// summary:
 			//	callback when mouse-down right part of button;
@@ -380,7 +380,7 @@ dojo.widget.defineWidget(
 			dojo.html.removeClass(this.rightPart, "dojoButtonDepressed");
 			this._setImageR(this.activeImg);
 		},
-	
+
 		rightOut: function(/*Event*/ e){
 			// summary:
 			//	callback when moving the mouse off of the right part of button;
@@ -401,14 +401,14 @@ dojo.widget.defineWidget(
 			try { this.domNode.focus(); } catch(e2) {};
 			this._toggleMenu(this.menuId);
 		},
-	
+
 		_setImageR: function(prefix){
 			this.arrowBackgroundImage.src=dojo.uri.dojoUri(prefix + "c.gif");
 			this.rightImage.src=dojo.uri.dojoUri(prefix + "r.gif");
 		},
 
 		/*** keyboard functions ***/
-		
+
 		onKey: function(/*Event*/ e){
 			if (!e.key) { return; }
 			var menu = dojo.widget.getWidgetById(this.menuId);

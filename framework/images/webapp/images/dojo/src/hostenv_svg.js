@@ -12,7 +12,7 @@
 if(typeof window == 'undefined'){
 	dojo.raise("attempt to use adobe svg hostenv when no window object");
 }
-dojo.debug = function(){ 
+dojo.debug = function(){
 	if (!djConfig.isDebug) { return; }
 	var args = arguments;
 	var isJUM = dj_global["jum"];
@@ -20,7 +20,7 @@ dojo.debug = function(){
 	for (var i = 0; i < args.length; ++i){ s += args[i]; }
 	if (isJUM){ // this seems to be the only way to get JUM to "play nice"
 		jum.debug(s);
-	} else{ 
+	} else{
 		dojo.hostenv.println(s);
 	}
 };
@@ -52,7 +52,7 @@ dojo.render.svg.adobe = (window.parseXML != null);
 
 //	from old hostenv_adobesvg.
 dojo.hostenv.startPackage("dojo.hostenv");
-dojo.hostenv.println = function(s){ 
+dojo.hostenv.println = function(s){
 	try {
 		var ti = document.createElement("text");
 		ti.setAttribute("x","50");
@@ -72,7 +72,7 @@ dojo.hostenv.loadedUris = [];
 dojo.hostenv.modules_ = {};
 dojo.hostenv.modulesLoadedFired = false;
 dojo.hostenv.modulesLoadedListeners = [];
-dojo.hostenv.getText = function(uri, cb, data){ 
+dojo.hostenv.getText = function(uri, cb, data){
 	if (!cb) var cb = function(result){ window.alert(result); };
 	if (!data) {
 		window.getUrl(uri, cb);
@@ -99,7 +99,7 @@ dojo.hostenv.loadModule = function(moduleName){
 			dojo.raise("dojo.require('" + moduleName + "'): module does not exist.");
 		} else currentObj = currentObj[a[i]];
 	}
-	return; 
+	return;
 };
 dojo.hostenv.startPackage = function(moduleName){
 	var a = moduleName.split(".");
@@ -111,7 +111,7 @@ dojo.hostenv.startPackage = function(moduleName){
 		if (!currentObj[a[i]]) currentObj[a[i]] = {};
 		currentObj = currentObj[a[i]];
 	}
-	return; 
+	return;
 };
 
 //	wrapper objects for ASVG
@@ -182,7 +182,7 @@ if (window.parseXML){
 		//	we ignore the setting and getting of content-type.
 		var uri = null;
 		var method = "POST";
-		var isAsync = true;	
+		var isAsync = true;
 		var cb = function(d){
 			this.responseText = d.content;
 			try {
@@ -210,7 +210,7 @@ if (window.parseXML){
 		this.getAllResponseHeaders = function(){ return []; };
 		this.getResponseHeader = function(n){ return null; };
 		this.setRequestHeader = function(nm, val){ };
-		this.open = function(meth, url, async){ 
+		this.open = function(meth, url, async){
 			method = meth;
 			uri = url;
 		};

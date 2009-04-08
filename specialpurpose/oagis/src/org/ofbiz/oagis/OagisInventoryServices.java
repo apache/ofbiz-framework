@@ -341,7 +341,7 @@ public class OagisInventoryServices {
                 Debug.logError(e, errMsg, module);
             }
 
-            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times 
+            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times
             result.putAll(ServiceUtil.returnSuccess("Errors found processing message; information saved and return error sent back"));
             return result;
         } else {
@@ -627,7 +627,7 @@ public class OagisInventoryServices {
 
             String errMsg = "Found business level errors in message processing, not saving results; first error is: " + errorMapList.get(0);
 
-            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times 
+            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times
             result.putAll(ServiceUtil.returnSuccess(errMsg));
 
             // however, we still don't want to save the partial results, so set rollbackOnly
@@ -868,7 +868,7 @@ public class OagisInventoryServices {
 
                             /* DEJ20070711 Commenting this out because it shouldn't happen, ie more likely the ITEM element will be filled
                              * than INVDETAIL->SERIALNUM, and this isn't a reliable way to look it up (may be more than 1 record for a given
-                             * serialNumber for different products 
+                             * serialNumber for different products
                              // this is a Serialized Inventory Item. If the productId from the message is not valid then lets read it from InventoryItem in Ofbiz database.
                              if (productId == null || "".equals(productId)) {
                              try {
@@ -1161,7 +1161,7 @@ public class OagisInventoryServices {
             }
             String errMsg = "Found business level errors in message processing, not saving results; first error is: " + errorMapList.get(0);
 
-            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times 
+            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times
             result.putAll(ServiceUtil.returnSuccess(errMsg));
 
             // however, we still don't want to save the partial results, so set rollbackOnly
@@ -1496,7 +1496,7 @@ public class OagisInventoryServices {
 
             String errMsg = "Found business level errors in message processing, not saving results; first error is: " + errorMapList.get(0);
 
-            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times 
+            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times
             result.putAll(ServiceUtil.returnSuccess(errMsg));
 
             // however, we still don't want to save the partial results, so set rollbackOnly

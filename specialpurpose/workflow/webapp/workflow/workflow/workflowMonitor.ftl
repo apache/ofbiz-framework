@@ -57,7 +57,7 @@ under the License.
       <br />
       <div class="screenlet">
         <div class="screenlet-title-bar">
-          <h3>${uiLabelMap.WorkflowWorkflowActivityListFor}: ${workflowDefworkflowPackageId} / ${workflowDef.workflowProcessId}</h3> 
+          <h3>${uiLabelMap.WorkflowWorkflowActivityListFor}: ${workflowDefworkflowPackageId} / ${workflowDef.workflowProcessId}</h3>
         </div>
         <table class="basic-table dark-grid" cellspacing="0">
           <tr class="header-row">
@@ -86,7 +86,7 @@ under the License.
                 <#else>
                   N/A
                 </#if>
-              </td>                                                                    
+              </td>
             </tr>
           </#list>
         </table>

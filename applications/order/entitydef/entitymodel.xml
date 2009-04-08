@@ -69,26 +69,26 @@ under the License.
       <field name="taxAuthorityRateSeqId" type="id-ne"></field>
       <field name="sourceReferenceId" type="id-long"></field>
       <field name="sourcePercentage" type="fixed-point">
-          <description>for tax entries this is the tax percentage</description>          
+          <description>for tax entries this is the tax percentage</description>
       </field>
       <field name="customerReferenceId" type="id-long">
-          <description>for tax entries this is partyTaxId</description>          
+          <description>for tax entries this is partyTaxId</description>
       </field>
       <field name="primaryGeoId" type="id">
-          <description>for tax entries this is the primary jurisdiction Geo (the smallest or most local Geo that this tax is for, usually a state/province, perhaps a county or a city)</description>          
+          <description>for tax entries this is the primary jurisdiction Geo (the smallest or most local Geo that this tax is for, usually a state/province, perhaps a county or a city)</description>
        </field>
       <field name="secondaryGeoId" type="id">
-          <description>for tax entries this is the secondary jurisdiction Geo (usually a country, or other Geo that the primary is within)</description>          
+          <description>for tax entries this is the secondary jurisdiction Geo (usually a country, or other Geo that the primary is within)</description>
       </field>
       <field name="exemptAmount" type="currency-amount">
-          <description>an amount that would normally apply, but not to this order; for tax exemption represents the what the tax would have been</description>          
+          <description>an amount that would normally apply, but not to this order; for tax exemption represents the what the tax would have been</description>
       </field>
       <field name="taxAuthGeoId" type="id">
-          <description>these taxAuth fields deprecate the primaryGeoId and secondaryGeoId fields and will be used with the newer tax calc stuff</description>          
+          <description>these taxAuth fields deprecate the primaryGeoId and secondaryGeoId fields and will be used with the newer tax calc stuff</description>
       </field>
       <field name="taxAuthPartyId" type="id"></field>
       <field name="overrideGlAccountId" type="id">
-          <description>used to specify the override or actual glAccountId used for the adjustment, avoids problems if configuration changes after initial posting, etc</description>          
+          <description>used to specify the override or actual glAccountId used for the adjustment, avoids problems if configuration changes after initial posting, etc</description>
       </field>
       <field name="includeInTax" type="indicator"></field>
       <field name="includeInShipping" type="indicator"></field>
@@ -662,7 +662,7 @@ under the License.
       <field name="orderItemChangeId" type="id-ne"></field>
       <field name="orderId" type="id-ne"></field>
       <field name="orderItemSeqId" type="id-ne"></field>
-      <field name="changeTypeEnumId" type="id"></field>      
+      <field name="changeTypeEnumId" type="id"></field>
       <field name="changeDatetime" type="date-time"></field>
       <field name="changeUserLogin" type="id-vlong"></field>
       <field name="quantity" type="fixed-point"></field>
@@ -670,8 +670,8 @@ under the License.
       <field name="unitPrice" type="currency-amount"></field>
       <field name="itemDescription" type="description"></field>
       <field name="reasonEnumId" type="id"></field>
-      <field name="changeComments" type="comment"></field>      
-      <prim-key field="orderItemChangeId"/>     
+      <field name="changeComments" type="comment"></field>
+      <prim-key field="orderItemChangeId"/>
       <relation type="one-nofk" rel-entity-name="OrderHeader">
         <key-map field-name="orderId"/>
       </relation>
@@ -681,13 +681,13 @@ under the License.
       </relation>
       <relation type="one" fk-name="ORDER_ITCH_TYPE" rel-entity-name="Enumeration">
         <key-map field-name="changeTypeEnumId" rel-field-name="enumId"/>
-      </relation>            
+      </relation>
       <relation type="one" fk-name="ORDER_ITCH_REAS" title="Reason" rel-entity-name="Enumeration">
           <key-map field-name="reasonEnumId" rel-field-name="enumId"/>
       </relation>
       <relation type="one" fk-name="ORDER_ITCH_USER" rel-entity-name="UserLogin">
         <key-map field-name="changeUserLogin" rel-field-name="userLoginId"/>
-      </relation>      
+      </relation>
     </entity>
     <entity entity-name="OrderItemContactMech"
             package-name="org.ofbiz.order.order"
@@ -890,7 +890,7 @@ under the License.
       <field name="promisedDatetime" type="date-time"></field>
       <field name="currentPromisedDate" type="date-time"></field>
       <field name="priority" type="indicator"><description>Sets priority for Inventory Reservation</description></field>
-      <field name="sequenceId" type="numeric"></field> 
+      <field name="sequenceId" type="numeric"></field>
       <field name="oldPickStartDate" col-name="PICK_START_DATE" type="date-time"></field> <!-- this is no longer used and is here for migration or whatever if needed -->
       <prim-key field="orderId"/>
       <prim-key field="shipGroupSeqId"/>
@@ -979,16 +979,16 @@ under the License.
       <field name="paymentMethodId" type="id"></field>
       <field name="finAccountId" type="id"><description>For paying with a fin account instead of payment method on file</description></field>
       <field name="securityCode" type="long-varchar" encrypt="true">
-          <description>NOTE: THIS SHOULD NEVER BE PERSISTED OUTSIDE THE SCOPE OF A SINGLE TRANSACTION, 
-              TYPICALLY ONLY FOR AUTHORIZATION PURPOSES, SHOULD BE REMOVED IMMEDIATELY FOLLOWING USE; 
-              this is the 3 digit on back (for Visa, MC, etc) or 4 digit on front (Amex, etc) card 
+          <description>NOTE: THIS SHOULD NEVER BE PERSISTED OUTSIDE THE SCOPE OF A SINGLE TRANSACTION,
+              TYPICALLY ONLY FOR AUTHORIZATION PURPOSES, SHOULD BE REMOVED IMMEDIATELY FOLLOWING USE;
+              this is the 3 digit on back (for Visa, MC, etc) or 4 digit on front (Amex, etc) card
               verification code; also note that this field is longer than needed to accommodate encryption.
           </description>
       </field>
       <field name="track2" type="long-varchar" encrypt="true">
-          <description>NOTE: THIS SHOULD NEVER BE PERSISTED OUTSIDE THE SCOPE OF A SINGLE TRANSACTION, 
-              TYPICALLY ONLY FOR AUTHORIZATION PURPOSES, SHOULD BE REMOVED IMMEDIATELY FOLLOWING USE; 
-              this is raw track2 data, exactly as read by the magnetic swipe reader; 
+          <description>NOTE: THIS SHOULD NEVER BE PERSISTED OUTSIDE THE SCOPE OF A SINGLE TRANSACTION,
+              TYPICALLY ONLY FOR AUTHORIZATION PURPOSES, SHOULD BE REMOVED IMMEDIATELY FOLLOWING USE;
+              this is raw track2 data, exactly as read by the magnetic swipe reader;
               also note that this field is longer than needed to accommodate encryption.
           </description>
       </field>
@@ -1402,7 +1402,7 @@ under the License.
       <field name="quoteUnitPrice" type="currency-amount"></field>
       <field name="reservStart" type="date-time"></field>
       <field name="reservLength" type="fixed-point"></field>
-      <field name="reservPersons" type="fixed-point"></field>             
+      <field name="reservPersons" type="fixed-point"></field>
       <field name="configId" type="id"></field>
       <field name="estimatedDeliveryDate" type="date-time"></field>
       <field name="comments" type="comment"></field>
@@ -1631,7 +1631,7 @@ under the License.
       <field name="priority" type="numeric"></field>
       <field name="custRequestDate" type="date-time">
         <description>
-          When the customer (or whoever) submitted the request, maybe out of OFBiz : comming by mail, email, etc.          
+          When the customer (or whoever) submitted the request, maybe out of OFBiz : comming by mail, email, etc.
         </description>
       </field>
       <field name="responseRequiredDate" type="date-time">
@@ -1646,34 +1646,34 @@ under the License.
       <field name="salesChannelEnumId" type="id"></field>
       <field name="fulfillContactMechId" type="id">
         <description>
-          Field to support a location of a cust request--ie, product literature sent to an address, service call at a localtion, etc. 
+          Field to support a location of a cust request--ie, product literature sent to an address, service call at a localtion, etc.
         </description>
       </field>
       <field name="currencyUomId" type="id"></field>
       <field name="openDateTime" type="date-time">
         <description>
           Used when the customer service person, or anyone assigned to handle the incoming request, opens it for action.
-          You  cantake the customer requestdate and openDateTime to see the efficiency of the customer service people.          
+          You  cantake the customer requestdate and openDateTime to see the efficiency of the customer service people.
         </description>
       </field>
       <field name="closedDateTime" type="date-time">
         <description>
           Used when the customer service person, or anyone assigned to handle the incoming request, closes it as resolution.
-          In some customer response systems, the openDateTime and closedDateTime can happen more than once as the customer is not satified with the resolution.          
+          In some customer response systems, the openDateTime and closedDateTime can happen more than once as the customer is not satified with the resolution.
         </description>
       </field>
       <field name="internalComment" type="comment"></field>
       <field name="reason" type="description"></field>
       <field name="createdDate" type="date-time">
         <description>
-          When it is actually stored in the system. 
+          When it is actually stored in the system.
         </description>
       </field>
       <field name="createdByUserLogin" type="id-vlong"></field>
       <field name="lastModifiedDate" type="date-time">
         <description>
-          Last modified date can be till the closedDateTime which is when the customer service people, or anyone assigned to handle the incoming request, says it is resolved. 
-          This gives when the last action was done to see if the steps to resolve the request are happening in a timely manner.              
+          Last modified date can be till the closedDateTime which is when the customer service people, or anyone assigned to handle the incoming request, says it is resolved.
+          This gives when the last action was done to see if the steps to resolve the request are happening in a timely manner.
         </description>
       </field>
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
@@ -1780,7 +1780,7 @@ under the License.
       <field name="maximumAmount" type="currency-amount"></field>
       <field name="reservStart" type="date-time"></field>
       <field name="reservLength" type="fixed-point"></field>
-      <field name="reservPersons" type="fixed-point"></field>       
+      <field name="reservPersons" type="fixed-point"></field>
       <field name="configId" type="id"></field>
       <field name="description" type="description"></field>
       <field name="story" type="very-long"></field>
@@ -1866,7 +1866,7 @@ under the License.
       <field name="partyId" type="id-ne"></field>
       <field name="roleTypeId" type="id-ne"></field>
       <field name="fromDate" type="date-time"></field>
-      <field name="thruDate" type="date-time"></field>  
+      <field name="thruDate" type="date-time"></field>
       <prim-key field="custRequestId"/>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
@@ -2222,7 +2222,7 @@ under the License.
             never-cache="true"
             title="Return Adjustment Entity">
       <description>Tax, shipping, and promotional adjustments which are carried over from the order to the return.
-        Note that both includeInTax and includeInShipping should default to true, except in the case where this adjustment is a tax or shipping adjustment 
+        Note that both includeInTax and includeInShipping should default to true, except in the case where this adjustment is a tax or shipping adjustment
         then should be ignored.</description>
       <field name="returnAdjustmentId" type="id-ne"></field>
       <field name="returnAdjustmentTypeId" type="id"></field>
@@ -2244,26 +2244,26 @@ under the License.
       <field name="taxAuthorityRateSeqId" type="id-ne"></field>
       <field name="sourceReferenceId" type="id-long"></field>
       <field name="sourcePercentage" type="fixed-point">
-          <description>for tax entries this is the tax percentage</description>          
+          <description>for tax entries this is the tax percentage</description>
       </field>
       <field name="customerReferenceId" type="id-long">
-          <description>for tax entries this is partyTaxId</description>          
+          <description>for tax entries this is partyTaxId</description>
       </field>
       <field name="primaryGeoId" type="id">
-          <description>for tax entries this is the primary jurisdiction Geo (the smallest or most local Geo that this tax is for, usually a state/province, perhaps a county or a city)</description>          
+          <description>for tax entries this is the primary jurisdiction Geo (the smallest or most local Geo that this tax is for, usually a state/province, perhaps a county or a city)</description>
        </field>
       <field name="secondaryGeoId" type="id">
-          <description>for tax entries this is the secondary jurisdiction Geo (usually a country, or other Geo that the primary is within)</description>          
+          <description>for tax entries this is the secondary jurisdiction Geo (usually a country, or other Geo that the primary is within)</description>
       </field>
       <field name="exemptAmount" type="currency-amount">
-          <description>an amount that would normally apply, but not to this order; for tax exemption represents the what the tax would have been</description>          
+          <description>an amount that would normally apply, but not to this order; for tax exemption represents the what the tax would have been</description>
       </field>
       <field name="taxAuthGeoId" type="id">
-          <description>these taxAuth fields deprecate the primaryGeoId and secondaryGeoId fields and will be used with the newer tax calc stuff</description>          
+          <description>these taxAuth fields deprecate the primaryGeoId and secondaryGeoId fields and will be used with the newer tax calc stuff</description>
       </field>
       <field name="taxAuthPartyId" type="id"></field>
       <field name="overrideGlAccountId" type="id">
-          <description>used to specify the override or actual glAccountId used for the adjustment, avoids problems if configuration changes after initial posting, etc</description>          
+          <description>used to specify the override or actual glAccountId used for the adjustment, avoids problems if configuration changes after initial posting, etc</description>
       </field>
       <field name="includeInTax" type="indicator"></field>
       <field name="includeInShipping" type="indicator"></field>
@@ -2330,7 +2330,7 @@ under the License.
       <relation type="one" fk-name="RETURN_ADJ_TYPPAR" title="Parent" rel-entity-name="ReturnAdjustmentType">
         <key-map field-name="parentTypeId" rel-field-name="returnAdjustmentTypeId"/>
       </relation>
-    </entity> 
+    </entity>
     <entity entity-name="ReturnHeader"
             package-name="org.ofbiz.order.return"
             title="Return Entity">
@@ -2793,7 +2793,7 @@ under the License.
             <key-map field-name="workEffortId"/>
         </relation>
     </entity>
-    
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.order.opportunity -->
   <!-- ========================================================= -->
@@ -2810,7 +2810,7 @@ under the License.
         <field name="currencyUomId" type="id-ne"/>
         <field name="marketingCampaignId" type="id-ne"/>
         <field name="dataSourceId" type="id-ne"/>
-        <field name="estimatedCloseDate" type="date-time"/>        
+        <field name="estimatedCloseDate" type="date-time"/>
         <field name="opportunityStageId" type="id-ne"/>
         <field name="typeEnumId" type="id-ne"/>
         <field name="createdByUserLogin" type="id-vlong"/>
@@ -2830,7 +2830,7 @@ under the License.
         <relation fk-name="SLSOPP_USRLGN" rel-entity-name="UserLogin" type="one">
             <key-map field-name="createdByUserLogin" rel-field-name="userLoginId"/>
         </relation>
-    </entity>        
+    </entity>
 
     <entity entity-name="SalesOpportunityHistory"
             package-name="org.ofbiz.order.opportunity"
@@ -2842,7 +2842,7 @@ under the License.
         <field name="estimatedAmount" type="currency-amount"/>
         <field name="estimatedProbability" type="fixed-point"/>
         <field name="currencyUomId" type="id-ne"/>
-        <field name="estimatedCloseDate" type="date-time"/>        
+        <field name="estimatedCloseDate" type="date-time"/>
         <field name="opportunityStageId" type="id-ne"/>
         <field name="changeNote" type="very-long">
             <description>Used to track a reason for this change</description> <!-- maybe one day this should be a link to NoteData -->
@@ -2879,10 +2879,10 @@ under the License.
         </relation>
         <relation fk-name="SLSOPPRL_PARTY" rel-entity-name="Party" type="one">
             <key-map field-name="partyId"/>
-        </relation>        
+        </relation>
         <relation fk-name="SLSOPPRL_ROLETYPE" rel-entity-name="RoleType" type="one">
             <key-map field-name="roleTypeId"/>
-        </relation>        
+        </relation>
         <relation fk-name="SLSOPPRL_PTYROLE" rel-entity-name="PartyRole" type="one"> <!-- make sure the party actually is in the role specified -->
             <key-map field-name="partyId"/>
             <key-map field-name="roleTypeId"/>
@@ -2898,7 +2898,7 @@ under the License.
         <field name="sequenceNum" type="numeric"/>
         <prim-key field="opportunityStageId"/>
     </entity>
-    
+
     <entity entity-name="SalesOpportunityWorkEffort"
             package-name="org.ofbiz.order.opportunity"
             title="Relates sales opportunities to their work efforts.">
@@ -2911,7 +2911,7 @@ under the License.
         </relation>
         <relation type="one" fk-name="SOPPWEFF_WEFF" rel-entity-name="WorkEffort">
             <key-map field-name="workEffortId"/>
-        </relation>            
+        </relation>
     </entity>
 
     <entity entity-name="SalesOpportunityQuote"
@@ -2926,7 +2926,7 @@ under the License.
         </relation>
         <relation type="one" fk-name="SOPPQTE_QTE" rel-entity-name="Quote">
             <key-map field-name="quoteId"/>
-        </relation>            
+        </relation>
     </entity>
 
     <entity entity-name="SalesForecast"
@@ -2971,10 +2971,10 @@ under the License.
         </relation>
     </entity>
 
-    <entity entity-name="SalesForecastDetail" 
+    <entity entity-name="SalesForecastDetail"
             package-name="org.ofbiz.order.opportunity"
             title="Stores Details of Resourses of Sales Forecast for simulation of MRP">
-        <field name="salesForecastId" type="id-ne"/>    
+        <field name="salesForecastId" type="id-ne"/>
         <field name="salesForecastDetailId" type="id-ne"/>
         <field name="amount" type="currency-amount"/>
         <field name="quantityUomId" type="id"/>
@@ -2996,7 +2996,7 @@ under the License.
             <key-map field-name="productCategoryId"/>
         </relation>
     </entity>
-    
+
     <entity entity-name="SalesForecastHistory"
             package-name="org.ofbiz.order.opportunity"
             title="Keeps a record of changes to a sales forecast.">
@@ -3052,10 +3052,10 @@ under the License.
             <key-map field-name="salesOpportunityId"/>
         </relation>
     </entity>
-    <entity entity-name="SalesOpportunityTrckCode" 
+    <entity entity-name="SalesOpportunityTrckCode"
             package-name="org.ofbiz.order.opportunity"
             title="Sales opportunity traking code">
-        <field name="salesOpportunityId" type="id-ne"></field>    
+        <field name="salesOpportunityId" type="id-ne"></field>
         <field name="trackingCodeId" type="id-ne"></field>
         <field name="receivedDate" type="date-time"></field>
         <prim-key field="salesOpportunityId"/>

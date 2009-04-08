@@ -36,7 +36,7 @@ INSERT INTO SECURITY_GROUP_PERMISSION (GROUP_ID,PERMISSION_ID) VALUES ('FLEXADMI
 INSERT INTO SECURITY_GROUP_PERMISSION (GROUP_ID,PERMISSION_ID) VALUES ('FLEXADMIN','<%=entity.getPlainTableName()%>_DELETE');
 <%
   }
-} 
+}
 else {
   %>ERROR: You do not have permission to use this page (ENTITY_MAINT needed)<%
 }

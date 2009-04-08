@@ -239,7 +239,7 @@ under the License.
     <ProductContentType description="Add To Cart Label" hasTable="N" parentTypeId="" productContentTypeId="ADDTOCART_LABEL"/>
     <ProductContentType description="Add To Cart Image" hasTable="N" parentTypeId="" productContentTypeId="ADDTOCART_IMAGE"/>
     <ProductContentType description="Short Sales Pitch" hasTable="N" parentTypeId="" productContentTypeId="SHORT_SALES_PITCH"/>
-    
+
     <ProdConfItemContentType description="Image" hasTable="N" parentTypeId="" confItemContentTypeId="IMAGE_URL"/>
     <ProdConfItemContentType description="Description" hasTable="N" parentTypeId="" confItemContentTypeId="DESCRIPTION"/>
     <ProdConfItemContentType description="Description - Long" hasTable="N" parentTypeId="" confItemContentTypeId="LONG_DESCRIPTION"/>
@@ -356,7 +356,7 @@ under the License.
     <Enumeration description="Promotion Recurrence" enumCode="PROMO_RECURRENCE" enumId="PPIP_RECURRENCE" sequenceId="11" enumTypeId="PROD_PROMO_IN_PARAM"/>
     <Enumeration description="Order sub-total X since beginning of current year" enumCode="ORST_YEAR" enumId="PPIP_ORST_YEAR" sequenceId="12" enumTypeId="PROD_PROMO_IN_PARAM"/>
     <Enumeration description="Order sub-total X last year" enumCode="ORST_LAST_YEAR" enumId="PPIP_ORST_LAST_YEAR" sequenceId="13" enumTypeId="PROD_PROMO_IN_PARAM"/>
-    
+
     <EnumerationType description="Product Promotion Condition" enumTypeId="PROD_PROMO_COND" hasTable="N" parentTypeId="PROD_PROMO"/>
     <!-- old style very technical ...
     <Enumeration description="==" enumCode="EQ" enumId="PPC_EQ" sequenceId="01" enumTypeId="PROD_PROMO_COND"/>
@@ -392,11 +392,11 @@ under the License.
     <Enumeration description="Min Rating" enumCode="MIN" enumId="PRDR_MIN" sequenceId="01" enumTypeId="PROD_RATING_TYPE"/>
     <Enumeration description="Max Rating" enumCode="MAX" enumId="PRDR_MAX" sequenceId="02" enumTypeId="PROD_RATING_TYPE"/>
     <Enumeration description="Rating Override" enumCode="FLAT" enumId="PRDR_FLAT" sequenceId="03" enumTypeId="PROD_RATING_TYPE"/>
-    
+
     <EnumerationType description="Virtual Variant Method" enumTypeId="PROD_VVMETHOD" hasTable="N" parentTypeId=""/>
     <Enumeration description="Feature tree Generation" enumCode="FEATURETREE" enumId="VV_FEATURETREE" sequenceId="01" enumTypeId="PROD_VVMETHOD"/>
     <Enumeration description="Variant Tree generation" enumCode="VARIANTTREE" enumId="VV_VARIANTTREE" sequenceId="02" enumTypeId="PROD_VVMETHOD"/>
-    
+
     <ProductPriceType description="List Price" productPriceTypeId="LIST_PRICE"/>
     <ProductPriceType description="Default Price" productPriceTypeId="DEFAULT_PRICE"/>
     <ProductPriceType description="Average Cost" productPriceTypeId="AVERAGE_COST"/>
@@ -422,7 +422,7 @@ under the License.
     <ProductPriceActionType description="Wholesale Amount Override" productPriceActionTypeId="PRICE_WFLAT"/>
 
     <CustomMethodType customMethodTypeId="PRICE_FORMULA" description="Service with formula for calculating the unit price of a product"/>
-    
+
     <ProductStoreGroup productStoreGroupName="Not Applicable" description="Not Applicable" productStoreGroupId="_NA_" productStoreGroupTypeId="" primaryParentGroupId=""/>
 
     <ProductType description="Fixed Asset Usage" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="" productTypeId="ASSET_USAGE"/>
@@ -437,7 +437,7 @@ under the License.
     <ProductType description="Marketing Package: Auto Manufactured" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="MARKETING_PKG_AUTO"/>
     <ProductType description="Marketing Package: Pick Assembly" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="MARKETING_PKG_PICK"/>
     <ProductType description="Work In Process" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="GOOD" productTypeId="WIP"/>
-    <ProductType description="Configurable Good Configuration" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="AGGREGATED" productTypeId="AGGREGATED_CONF"/> 
+    <ProductType description="Configurable Good Configuration" isPhysical="Y" isDigital="N" hasTable="N" parentTypeId="AGGREGATED" productTypeId="AGGREGATED_CONF"/>
 
     <EnumerationType description="Product Requirement Method" enumTypeId="PROD_REQ_METHOD" hasTable="N" parentTypeId=""/>
     <!-- NONE: no requirement is created (default) -->
@@ -529,7 +529,7 @@ under the License.
     <VarianceReason varianceReasonId="VAR_SAMPLE" description="Sample (Giveaway)"/>
     <VarianceReason varianceReasonId="VAR_MISSHIP_ORDERED" description="Mis-shipped Item Ordered (+)"/>
     <VarianceReason varianceReasonId="VAR_MISSHIP_SHIPPED" description="Mis-shipped Item Shipped (-)"/>
-    
+
     <!-- Supplier preference order for SupplierProduct entries -->
     <SupplierPrefOrder supplierPrefOrderId="10_MAIN_SUPPL" description="Main Supplier"/>
     <SupplierPrefOrder supplierPrefOrderId="90_ALT_SUPPL" description="Alternative Supplier"/>

@@ -24,7 +24,7 @@ dojo.declare("dojo.widget.Editor2Plugin.FindCommand", dojo.widget.Editor2DialogC
 	find: function(text, option){
 		this._editor.focus();
 		if(window.find){ //moz
-			this._editor.window.find(text, 
+			this._editor.window.find(text,
 				option & this.SearchOption.CaseSensitive ? true : false,
 				option & this.SearchOption.SearchBackwards ? true : false,
 				option & this.SearchOption.WrapSearch ? true : false,
@@ -53,30 +53,30 @@ dojo.widget.Editor2Plugin.FindReplace ={
 		var name = name.toLowerCase();
 		var command;
 		if(name == 'find'){
-			command = new dojo.widget.Editor2Plugin.FindCommand(editor, 'find', 
-				{contentFile: "dojo.widget.Editor2Plugin.FindReplaceDialog", 
+			command = new dojo.widget.Editor2Plugin.FindCommand(editor, 'find',
+				{contentFile: "dojo.widget.Editor2Plugin.FindReplaceDialog",
 				contentClass: "Editor2FindDialog",
 				title: "Find", width: "350px", height: "150px", modal: false});
 		}else if(name == 'replace') {
-			command = new dojo.widget.Editor2DialogCommand(editor, 'replace', 
-				{contentFile: "dojo.widget.Editor2Plugin.FindReplaceDialog", 
+			command = new dojo.widget.Editor2DialogCommand(editor, 'replace',
+				{contentFile: "dojo.widget.Editor2Plugin.FindReplaceDialog",
 				contentClass: "Editor2ReplaceDialog",
-				href: dojo.uri.dojoUri("src/widget/templates/Editor2/Dialog/replace.html"), 
+				href: dojo.uri.dojoUri("src/widget/templates/Editor2/Dialog/replace.html"),
 				title: "Replace", width: "350px", height: "200px", modal: false});
 		}
-	
+
 		return command;
 	},
 	getToolbarItem: function(name){
 		var name = name.toLowerCase();
-	
+
 		var item;
 		if(name == 'replace'){
 			item = new dojo.widget.Editor2ToolbarButton('Replace');
 		}else if(name == 'find') {
 			item = new dojo.widget.Editor2ToolbarButton('Find');
 		}
-	
+
 		return item;
 	}
 }

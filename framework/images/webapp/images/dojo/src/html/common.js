@@ -73,10 +73,10 @@ dojo.html.getScroll = function(){
 	var _document = dojo.doc();
 	var top = _window.pageYOffset || _document.documentElement.scrollTop || dojo.body().scrollTop || 0;
 	var left = _window.pageXOffset || _document.documentElement.scrollLeft || dojo.body().scrollLeft || 0;
-	return { 
-		top: top, 
-		left: left, 
-		offset:{ x: left, y: top }	//	note the change, NOT an Array with added properties. 
+	return {
+		top: top,
+		left: left,
+		offset:{ x: left, y: top }	//	note the change, NOT an Array with added properties.
 	};	//	object
 }
 
@@ -102,7 +102,7 @@ dojo.html.getAttribute = function(/* HTMLElement */node, /* string */attr){
 	// FIXME: need to add support for attr-specific accessors
 	if((!node)||(!node.getAttribute)){
 		// if(attr !== 'nwType'){
-		//	alert("getAttr of '" + attr + "' with bad node"); 
+		//	alert("getAttr of '" + attr + "' with bad node");
 		// }
 		return null;
 	}
@@ -110,13 +110,13 @@ dojo.html.getAttribute = function(/* HTMLElement */node, /* string */attr){
 
 	// first try the approach most likely to succeed
 	var v = node.getAttribute(ta.toUpperCase());
-	if((v)&&(typeof v == 'string')&&(v!="")){ 
-		return v;	//	string 
+	if((v)&&(typeof v == 'string')&&(v!="")){
+		return v;	//	string
 	}
 
 	// try returning the attributes value, if we couldn't get it as a string
-	if(v && v.value){ 
-		return v.value;	//	string 
+	if(v && v.value){
+		return v.value;	//	string
 	}
 
 	// this should work on Opera 7, but it's a little on the crashy side
@@ -129,13 +129,13 @@ dojo.html.getAttribute = function(/* HTMLElement */node, /* string */attr){
 	}
 	return null;	//	string
 }
-	
+
 dojo.html.hasAttribute = function(/* HTMLElement */node, /* string */attr){
 	//	summary
 	//	Determines whether or not the specified node carries a value for the attribute in question.
 	return dojo.html.getAttribute(dojo.byId(node), attr) ? true : false;	//	boolean
 }
-	
+
 dojo.html.getCursorPosition = function(/* DOMEvent */e){
 	//	summary
 	//	Returns the mouse position relative to the document (not the viewport).

@@ -33,7 +33,7 @@ under the License.
     GenericValue prod1 = (GenericValue)prods.next();
     KeywordIndex.indexKeywords(prod1);
   }
-  
+
   if(request.getParameter("makeall") == null) {
 %>Just added the keywords from all existing product info.
 <br/><a href='makebogodata.jsp?makeall=true'>Create a LOT of products, categories, and keywords.</a>

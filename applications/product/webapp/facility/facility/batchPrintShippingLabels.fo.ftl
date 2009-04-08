@@ -19,7 +19,7 @@ under the License.
 
 <#-- FOP may require a library called JIMI to print certain graphical formats such as GIFs.  Jimi is a Sun library which cannot
 be included in OFBIZ due to licensing incompatibility, but you can download it yourself at: http://java.sun.com/products/jimi/
-and rename the ZIP file that comes with it as jimi-xxx.jar, then copy it into the same directory as fop.jar, which at this time 
+and rename the ZIP file that comes with it as jimi-xxx.jar, then copy it into the same directory as fop.jar, which at this time
 is ${ofbiz.home}/framework/webapp/lib/ -->
 
 <#escape x as x?xml>
@@ -32,7 +32,7 @@ is ${ofbiz.home}/framework/webapp/lib/ -->
           <fo:region-body margin-top="3.5in" margin-bottom="1in"/>  <#-- main body -->
         </fo:simple-page-master>
   </fo:layout-master-set>
-  
+
   <fo:page-sequence master-reference="main-page">
        <fo:flow flow-name="xsl-region-body">
        <#assign segments = Static["org.ofbiz.base.util.UtilHttp"].parseMultiFormData(parameters)>

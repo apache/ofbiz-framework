@@ -25,7 +25,7 @@ dojo.require("dojo.html.layout");
 dojo.html.getScrollbar=function(){
 	//	summary
 	//	returns the width of a scrollbar.
-	
+
 	//	set up the test nodes.
 	var scroll = document.createElement("div");
 	scroll.style.width="100px";
@@ -34,7 +34,7 @@ dojo.html.getScrollbar=function(){
 	scroll.style.position="absolute";
 	scroll.style.top="-300px";
 	scroll.style.left="0px"
-	
+
 	var test = document.createElement("div");
 	test.style.width="400px";
 	test.style.height="400px";
@@ -86,7 +86,7 @@ dojo.html.getFontMeasurements = function(){
 		div.style.fontSize = p;
 		heights[p] = Math.round(div.offsetHeight * 12/16) * 16/12 / 1000;
 	}
-	
+
 	dojo.body().removeChild(div);
 	div = null;
 	return heights; 	//	object
@@ -125,8 +125,8 @@ dojo.html.getFittedFragment = function(/* HTMLElement */node, /* string */html){
 		element.className = node.className;
 		for (var j = 0; j < node.attributes.length; j++) {
 			if (node.attributes[j].specified) {
-				if (node.attributes[j].nodeName.toLowerCase() != "style" 
-					&& node.attributes[j].nodeName.toLowerCase() != "edited" 
+				if (node.attributes[j].nodeName.toLowerCase() != "style"
+					&& node.attributes[j].nodeName.toLowerCase() != "edited"
 					&& node.attributes[j].nodeName.toLowerCase() != "contenteditable"
 					&& node.attributes[j].nodeName.toLowerCase() != "id"
 					&& node.attributes[j].nodeName.toLowerCase() != "class"
@@ -158,8 +158,8 @@ dojo.html.fitToElement = function(/* HTMLElement */node, /* string */html){
 		element.className = node.className;
 		for (var j = 0; j < node.attributes.length; j++) {
 			if (node.attributes[j].specified) {
-				if (node.attributes[j].nodeName.toLowerCase() != "style" 
-					&& node.attributes[j].nodeName.toLowerCase() != "edited" 
+				if (node.attributes[j].nodeName.toLowerCase() != "style"
+					&& node.attributes[j].nodeName.toLowerCase() != "edited"
 					&& node.attributes[j].nodeName.toLowerCase() != "contenteditable"
 					&& node.attributes[j].nodeName.toLowerCase() != "id"
 					&& node.attributes[j].nodeName.toLowerCase() != "class"
@@ -249,7 +249,7 @@ dojo.html.fitToElement = function(/* HTMLElement */node, /* string */html){
 			ret = "<"+openTags[j]+">"+ret;
 		}
 	}
-	
+
 	for(var j=0; j<chop.length; j++){
 		if(ret.charAt(0) == "\n"){ ret = ret.substr(1); }
 		while(ret.indexOf(chop[j]) == 0){
@@ -260,7 +260,7 @@ dojo.html.fitToElement = function(/* HTMLElement */node, /* string */html){
 	node.innerHTML = str;
 	clone.parentNode.removeChild(clone);
 	clone = null;
-	
+
 	//	return the remainder.
 	return ret;	//	string
 };

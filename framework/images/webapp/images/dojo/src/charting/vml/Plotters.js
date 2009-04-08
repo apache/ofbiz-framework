@@ -36,7 +36,7 @@ if(dojo.render.vml.capable){
 			//	Bindings: y
 			var area = plotarea.getArea();
 			var group = dojo.charting.Plotters._group(plotarea);
-			
+
 			//	precompile the data
 			var n = plot.series.length;	//	how many series
 			var data = [];
@@ -65,7 +65,7 @@ if(dojo.render.vml.capable){
 						yA = y;
 						y = yOrigin;
 					}
-					
+
 					var bar=document.createElement("v:rect");
 					bar.style.position="absolute";
 					bar.style.top=y+1+"px";
@@ -95,7 +95,7 @@ if(dojo.render.vml.capable){
 			//	Bindings: y
 			var area = plotarea.getArea();
 			var group = dojo.charting.Plotters._group(plotarea);
-			
+
 			//	precompile the data
 			var n = plot.series.length;	//	how many series
 			var data = [];
@@ -122,7 +122,7 @@ if(dojo.render.vml.capable){
 					if(value > 0){
 						x = xOrigin;
 					}
-					
+
 					var bar=document.createElement("v:rect");
 					bar.style.position="absolute";
 					bar.style.top=y+1+"px";
@@ -158,7 +158,7 @@ if(dojo.render.vml.capable){
 					xA = x;
 					x = xOrigin;
 				}
-				
+
 			}
 			return group;	//	HTMLDivElement
 		},
@@ -200,7 +200,7 @@ if(dojo.render.vml.capable){
 					var x = plot.axisX.getCoord(low, plotarea, plot);
 					var w = plot.axisX.getCoord(high, plotarea, plot) - x;
 					var y = yStart + (barH*j);
-					
+
 					var bar=document.createElement("v:rect");
 					bar.style.position="absolute";
 					bar.style.top=y+1+"px";
@@ -315,7 +315,7 @@ if(dojo.render.vml.capable){
 					for(var j=values.length-2; j>=0; j--){
 						var x = Math.round(plot.axisX.getCoord(values[j].x, plotarea, plot));
 						var y = Math.round(plot.axisY.getCoord(values[j].y, plotarea, plot));
-						
+
 						cmd.push("l");
 						cmd.push(x+","+y);
 					}
@@ -388,7 +388,7 @@ if(dojo.render.vml.capable){
 						var lasty = Math.round(plot.axisY.getCoord(values[j-1].y, plotarea, plot));
 						var dx=x-lastx;
 						var dy=y-lasty;
-						
+
 						cmd.push("c");
 						var cx=Math.round((x-(tension-1)*(dx/tension)));
 						cmd.push(cx+","+lasty);
@@ -436,7 +436,7 @@ if(dojo.render.vml.capable){
 						var lasty = Math.round(plot.axisY.getCoord(values[j+1].y, plotarea, plot));
 						var dx=x-lastx;
 						var dy=y-lasty;
-						
+
 						cmd.push("c");
 						var cx=Math.round((x-(tension-1)*(dx/tension)));
 						cmd.push(cx+","+lasty);
@@ -455,7 +455,7 @@ if(dojo.render.vml.capable){
 		 *	Single plotters: one series at a time.
 		 *********************************************************/
 		DataBar: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -465,7 +465,7 @@ if(dojo.render.vml.capable){
 			//	Bindings: x/y
 			var area = plotarea.getArea();
 			var group = dojo.charting.Plotters._group(plotarea);
-			
+
 			var n = data.length;
 			var w = (area.right-area.left)/(plot.axisX.range.upper - plot.axisX.range.lower);	//	the width of each group.
 			var yOrigin = plot.axisY.getCoord(plot.axisX.origin, plotarea, plot);
@@ -499,7 +499,7 @@ if(dojo.render.vml.capable){
 			return group;	//	HTMLDivElement
 		},
 		Line: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -564,7 +564,7 @@ if(dojo.render.vml.capable){
 			return group;	//	HTMLDivElement
 		},
 		CurvedLine: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -605,7 +605,7 @@ if(dojo.render.vml.capable){
 					var lasty = Math.round(plot.axisY.getCoord(data[i-1].y, plotarea, plot));
 					var dx=x-lastx;
 					var dy=y-lasty;
-					
+
 					cmd.push("c");
 					var cx=Math.round((x-(tension-1)*(dx/tension)));
 					cmd.push(cx+","+lasty);
@@ -639,7 +639,7 @@ if(dojo.render.vml.capable){
 			return group;	//	HTMLDivElement
 		},
 		Area: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -710,7 +710,7 @@ if(dojo.render.vml.capable){
 			return group;	//	HTMLDivElement
 		},
 		CurvedArea: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -753,7 +753,7 @@ if(dojo.render.vml.capable){
 					var lasty = Math.round(plot.axisY.getCoord(data[i-1].y, plotarea, plot));
 					var dx=x-lastx;
 					var dy=y-lasty;
-					
+
 					cmd.push("c");
 					var cx=Math.round((x-(tension-1)*(dx/tension)));
 					cmd.push(cx+","+lasty);
@@ -791,7 +791,7 @@ if(dojo.render.vml.capable){
 			return group;	//	HTMLDivElement
 		},
 		HighLow: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -836,9 +836,9 @@ if(dojo.render.vml.capable){
 				group.appendChild(bar);
 			}
 			return group;	//	HTMLDivElement
-		},	
+		},
 		HighLowClose: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -904,9 +904,9 @@ if(dojo.render.vml.capable){
 				group.appendChild(g);
 			}
 			return group;	//	HTMLDivElement
-		},	
+		},
 		HighLowOpenClose: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -969,7 +969,7 @@ if(dojo.render.vml.capable){
 				str.setAttribute("opacity","0.6");
 				line.appendChild(str);
 				g.appendChild(line);
-				
+
 				var line = document.createElement("v:line");
 				line.setAttribute("strokecolor", data[i].series.color);
 				line.setAttribute("strokeweight", "1px");
@@ -989,9 +989,9 @@ if(dojo.render.vml.capable){
 				group.appendChild(g);
 			}
 			return group;	//	HTMLDivElement
-		},	
+		},
 		Scatter: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo
@@ -1029,7 +1029,7 @@ if(dojo.render.vml.capable){
 			return group;	//	HTMLDivElement
 		},
 		Bubble: function(
-			/* array */data, 
+			/* array */data,
 			/* dojo.charting.PlotArea */plotarea,
 			/* dojo.charting.Plot */plot,
 			/* function? */applyTo

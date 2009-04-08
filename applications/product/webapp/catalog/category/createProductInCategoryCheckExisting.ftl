@@ -37,7 +37,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <#if products?has_content>
-        <table cellspacing="0" class="basic-table">    
+        <table cellspacing="0" class="basic-table">
             <tr>
                 <td>${uiLabelMap.ProductInternalName}</td>
                 <td>${uiLabelMap.ProductProductName}</td>
@@ -59,7 +59,7 @@ under the License.
     <div class="screenlet-body">
         <form name="createProductInCategoryForm" method="post" action="<@ofbizUrl>createProductInCategory</@ofbizUrl>" style="margin: 0;">
             <input type="hidden" name="productCategoryId" value="${productCategoryId}">
-            <table cellspacing="0" class="basic-table">    
+            <table cellspacing="0" class="basic-table">
                 <#list productFeatureAndTypeDatas?if_exists as productFeatureAndTypeData>
                 <#assign productFeatureType = productFeatureAndTypeData.productFeatureType>
                 <#assign productFeature = productFeatureAndTypeData.productFeature>

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createFacilityContactMech" short-description="Create a FacilityContactMech">
         <check-permission permission="FACILITY" action="_CREATE"><fail-message message="You do not have permission to perform this operation for this facility."/></check-permission>
@@ -246,7 +246,7 @@ under the License.
             <else><add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></add-error></else>
         </if-validate-method>
         <check-errors/>
-                
+
         <set-service-fields service-name="createFacilityContactMech" map="parameters" to-map="createFacilityContactMechMap"/>
         <set field="createFacilityContactMechMap.infoString" from-field="parameters.emailAddress"/>
         <set field="createFacilityContactMechMap.contactMechTypeId" value="EMAIL_ADDRESS"/>

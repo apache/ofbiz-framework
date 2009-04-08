@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -22,19 +22,19 @@
     <import file="../macros.xml"/>
     <filelist id="specialpurpose-builds" dir="."
         files="
-        ecommerce/build.xml, 
-        pos/build.xml, 
-        hhfacility/build.xml, 
-        assetmaint/build.xml, 
-        oagis/build.xml, 
-        googlebase/build.xml, 
-        ebay/build.xml, 
+        ecommerce/build.xml,
+        pos/build.xml,
+        hhfacility/build.xml,
+        assetmaint/build.xml,
+        oagis/build.xml,
+        googlebase/build.xml,
+        ebay/build.xml,
         projectmgr/build.xml,
         ldap/build.xml,
         webpos/build.xml"/>
     <!-- For the old OFBiz Workflow Engine add "workflow/build.xml" to the list above -->
     <!-- For Shark add "shark/build.xml" to the list above, in the specialpurpose-builds list (after workflow) -->
-    
+
     <!-- ================================================================== -->
     <!-- Removes all created files and directories                          -->
     <!-- ================================================================== -->

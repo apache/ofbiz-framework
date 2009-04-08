@@ -38,7 +38,7 @@
             var uploadValue = form.elements['uploadedFile'].value;
             if (uploadValue == null || uploadValue == "") {
                 form.action = simpleFormAction;
-            }            
+            }
         }
 
         // submit the form
@@ -60,7 +60,7 @@
 
 <#-- cms menu bar -->
 <div id="cmsmenu" style="margin-bottom: 8px;">
-    <#if (content?has_content)>        
+    <#if (content?has_content)>
         <a href="javascript:void(0);" onclick="javascript:callEditor(true, '${content.contentId}', '', 'ELECTRONIC_TEXT');" class="tabButton">${uiLabelMap.ContentQuickSubContent}</a>
         <a href="javascript:void(0);" onclick="javascript:callPathAlias('${content.contentId}');" class="tabButton">${uiLabelMap.ContentPathAlias}</a>
         <a href="javascript:void(0);" onclick="javascript:callMetaInfo('${content.contentId}');" class="tabButton">${uiLabelMap.ContentMetaTags}</a>
@@ -80,12 +80,12 @@
         <#assign dataResourceTypeId = dataResource.dataResourceTypeId/>
     <#elseif (content?has_content)>
         <#assign dataResourceTypeId = "NONE"/>
-    <#else>       
+    <#else>
         <form name="cmsdatatype">
             <table>
                 <tr>
                     <td class="label">${uiLabelMap.ContentDataType}</td>
-                    <td>            
+                    <td>
                         <select name="dataResourceTypeId">
                             <option value="NONE">${uiLabelMap.ContentResourceNone}</option>
                             <option value="SHORT_TEXT">${uiLabelMap.ContentResourceShortText}</option>
@@ -106,9 +106,9 @@
                 <#list 0..15 as x>
                     <tr><td colspan="2">&nbsp;</td></tr>
                 </#list>
-            </table>           
-        </form>        
-    </#if>    
+            </table>
+        </form>
+    </#if>
 </#if>
 
 <#-- form action -->
@@ -150,13 +150,13 @@
                     <input type="hidden" name="${paramName}" value="${requestParameters.get(paramName)}"/>
                 </#if>
             </#list>
-        <#else>            
+        <#else>
             <input type="hidden" name="contentAssocTypeId" value="${contentAssocTypeId?default('SUBSITE')}"/>
             <input type="hidden" name="ownerContentId" value="${contentIdFrom?default(contentRoot)}"/>
             <input type="hidden" name="contentIdFrom" value="${contentIdFrom?default(contentRoot)}"/>
             <input type="hidden" name="mimeTypeId" value="${mimeTypeId}"/>
         </#if>
-        <#if (dataResourceTypeId != 'NONE')>                  
+        <#if (dataResourceTypeId != 'NONE')>
             <input type="hidden" name="dataResourceTypeId" value="${dataResourceTypeId}"/>
         </#if>
         <input type="hidden" name="webSiteId" value="${webSiteId}"/>
@@ -309,7 +309,7 @@
               <td colspan="2" align="right">
                 <#if ((content.contentId)?has_content)>
                     <@renderContentAsText contentId="${content.contentId}" ignoreTemplate="true"/>
-                </#if>                
+                </#if>
               </td>
             </tr>
             <tr>

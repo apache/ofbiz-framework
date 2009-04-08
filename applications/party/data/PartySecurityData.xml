@@ -51,7 +51,7 @@ under the License.
     <SecurityGroup description="Party Admin group, has all party permissions." groupId="PARTYADMIN"/>
     <SecurityGroupPermission groupId="PARTYADMIN" permissionId="PARTYMGR_ADMIN"/>
     <SecurityGroupPermission groupId="PARTYADMIN" permissionId="OFBTOOLS_VIEW"/>
-    
+
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="PARTYMGR_ADMIN"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_CREATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PARTYMGR_DELETE"/>
@@ -75,7 +75,7 @@ under the License.
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="PARTYMGR_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="PARTYMGR_NOTE"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="PARTYMGR_ADMIN"/>
-    
+
     <!-- Security Management security -->
     <SecurityPermission description="View operations in the Security Management Screens." permissionId="SECURITY_VIEW"/>
     <SecurityPermission description="Create operations in the Security Management Screens." permissionId="SECURITY_CREATE"/>

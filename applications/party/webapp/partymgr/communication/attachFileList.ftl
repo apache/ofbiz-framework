@@ -1,4 +1,4 @@
-  <div id="partyContentList">   
+  <div id="partyContentList">
       <#if commEventContent?has_content>
         <table class="basic-table" cellspacing="0">
           <#list commEventContent as commContent>

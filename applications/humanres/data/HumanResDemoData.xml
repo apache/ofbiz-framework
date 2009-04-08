@@ -19,7 +19,7 @@ under the License.
 -->
 <entity-engine-xml>
     <Party partyId="DemoEmployee"/><PartyRole partyId="DemoEmployee" roleTypeId="EMPLOYEE"/><!-- data completed by components loaded later -->
-    
+
     <EmplPositionType emplPositionTypeId="PROGRAMMER" hasTable="N" description="Programmer"/>
     <EmplPositionType emplPositionTypeId="SYS_ADMIN" hasTable="N" description="System Administrator"/>
     <EmplPositionType emplPositionTypeId="BIZ_ANALYST" hasTable="N" description="Business Analyst"/>

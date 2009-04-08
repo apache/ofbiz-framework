@@ -304,7 +304,7 @@ public class JPublishWrapper {
             if (executeParameterActions(request, response, context, path, allowRedirect))
                 return;
 
-            // execute the page actions 
+            // execute the page actions
             if (optionalRedirect(page.executeActions(context), path, response, allowRedirect))
                 return;
 

@@ -7,9 +7,9 @@
 # to you under the Apache License, Version 2.0 (the
 # "License"); you may not use this file except in compliance
 # with the License.  You may obtain a copy of the License at
-# 
+#
 # http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing,
 # software distributed under the License is distributed on an
 # "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,15 +19,15 @@
 # ****************************************************************************
 # This script is used to start WebLogic Server.
 #
-# To create your own start script for your domain, you can initialize the 
+# To create your own start script for your domain, you can initialize the
 # environment by calling $WL_HOME/common/bin/commEnv.sh. It sets following
-# variables: 
+# variables:
 # WL_HOME        - The root directory of your WebLogic installation.
 # JAVA_HOME      - Location of the version of Java used to start WebLogic
-#                  Server. 
+#                  Server.
 # JAVA_VENDOR    - Vendor of the JVM (i.e. BEA, HP, IBM, Sun, etc.)
 # PATH           - JDK and WebLogic directories are added to system path.
-# WEBLOGIC_CLASSPATH 
+# WEBLOGIC_CLASSPATH
 #                - Classpath needed to start WebLogic Server.
 # LD_LIBRARY_PATH, LIBPATH and SHLIB_PATH
 #                - Directories to locate native libraries.
@@ -38,7 +38,7 @@
 # CLASSPATHSEP   - CLASSPATH deliminter.
 # PATHSEP        - Path deliminter.
 # POINTBASE_HOME - Point Base home directory.
-# POINTBASE_CLASSPATH 
+# POINTBASE_CLASSPATH
 #                - Classpath needed to start PointBase.
 #
 # Other variables used in this script include:
@@ -57,7 +57,7 @@
 # $WL_HOME/common/bin/commEnv.sh to specify the correct values for
 # JAVA_HOME and JAVA_VENDOR.
 #
-# For additional information, refer to the WebLogic Server Administration 
+# For additional information, refer to the WebLogic Server Administration
 # Guide (http://e-docs.bea.com/wls/docs81/adminguide/startstop.html).
 # ****************************************************************************
 
@@ -84,8 +84,8 @@ SERVER_NAME=examplesServer
 # Set JAVA_VM to java virtual machine you want to run on server side.
 # JAVA_VM=""
 
-# Set JAVA_OPTIONS to the java flags you want to pass to the vm.  If there 
-# are more than one, include quotes around them.  For instance: 
+# Set JAVA_OPTIONS to the java flags you want to pass to the vm.  If there
+# are more than one, include quotes around them.  For instance:
 # JAVA_OPTIONS="-Dweblogic.attribute=value -Djava.attribute=value"
 JAVA_OPTIONS=""
 
@@ -140,7 +140,7 @@ CLASSPATH="$CLASSPATH$CLASSPATHSEP${dir}"
 CLASSPATH="$CLASSPATH$CLASSPATHSEP${jar}"
 </#list>
 # -=-=-=-=-=-=-=-=- End OFBiz Classpath Here -=-=-=-=-=-=-=-=-
- 
+
 echo CLASSPATH="$CLASSPATH"
 echo
 echo PATH="$PATH"
@@ -158,8 +158,8 @@ echo "***************************************************"
   -Dweblogic.ProductionModeEnabled=$PRODUCTION_MODE            \
   -Djava.security.policy="$WL_HOME/server/lib/weblogic.policy" \
   -Dofbiz.home="${env.get("ofbiz.home")}"                      \
-   weblogic.Server 
-  
+   weblogic.Server
+
 
 if [ "$POINTBASE_PID" != "" ]; then
   kill -9 $POINTBASE_PID

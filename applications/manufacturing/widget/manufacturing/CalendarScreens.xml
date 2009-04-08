@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="CommonCalendarDecorator">
         <section>
@@ -102,7 +102,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -138,7 +138,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -172,7 +172,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -190,7 +190,7 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
-                    <decorator-section name="body">                        
+                    <decorator-section name="body">
                         <section>
                             <widgets>
                                 <platform-specific>
@@ -215,7 +215,7 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="CommonCalendarDecorator">
-                    <decorator-section name="body">                        
+                    <decorator-section name="body">
                         <section>
                             <widgets>
                                 <platform-specific>

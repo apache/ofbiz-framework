@@ -135,7 +135,7 @@ public class ScaleImage {
         if (resultBufImgMap.containsKey("responseMessage") && resultBufImgMap.get("responseMessage").equals("success")) {
             bufImg = (BufferedImage) resultBufImgMap.get("bufferedImage");
 
-            // get Dimensions 
+            // get Dimensions
             imgHeight = (double) bufImg.getHeight();
             imgWidth = (double) bufImg.getWidth();
             if (imgHeight == 0.0 || imgWidth == 0.0) {

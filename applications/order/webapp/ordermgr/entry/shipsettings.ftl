@@ -20,7 +20,7 @@ under the License.
 <#if security.hasEntityPermission("ORDERMGR", "_CREATE", session) || security.hasEntityPermission("ORDERMGR", "_PURCHASE_CREATE", session)>
 
 <#-- Purchase Orders -->
-        
+
 <#if facilityMaps?exists>
             <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform">
             <input type="hidden" name="finalizeMode" value="ship"/>
@@ -49,7 +49,7 @@ under the License.
                 <tr><td colspan="4"><hr/></td></tr>
 
                 <#-- company postal addresses -->
-                
+
                 <#if facilityContactMechList?has_content>
                 <#list facilityContactMechList as shippingContactMech>
                   <#if shippingContactMech.postalAddress?exists>
@@ -102,7 +102,7 @@ under the License.
 
 <#-- Sales Orders -->
 
-            <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform"> 
+            <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform">
             <input type="hidden" name="finalizeMode" value="ship"/>
             <#if (cart.getShipGroupSize() > 1)>
             <input type="hidden" name="finalizeReqShipGroups" value="true"/>
@@ -142,7 +142,7 @@ under the License.
                           <#assign facility = productStoreFacility.getRelatedOne("Facility")>
                           <option value="${productStoreFacility.facilityId}"<#if facilityId?exists><#if productStoreFacility.facilityId == facilityId> selected</#if></#if>>${facility.facilityName?if_exists} </option>
                         </#list>
-                      </select>                      
+                      </select>
                     </div>
                 </td>
               </tr>
@@ -177,12 +177,12 @@ under the License.
                         <#if shippingAddress.city?has_content>${shippingAddress.city}</#if>
                         <#if shippingAddress.stateProvinceGeoId?has_content><br/>${shippingAddress.stateProvinceGeoId}</#if>
                         <#if shippingAddress.postalCode?has_content><br/>${shippingAddress.postalCode}</#if>
-                        <#if shippingAddress.countryGeoId?has_content><br/>${shippingAddress.countryGeoId}</#if>                                                                                     
+                        <#if shippingAddress.countryGeoId?has_content><br/>${shippingAddress.countryGeoId}</#if>
                       </div>
                     </td>
                     <td>
                       <div><a href="/partymgr/control/editcontactmech?partyId=${orderParty.partyId}&amp;contactMechId=${shippingContactMech.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
-                    </td>                      
+                    </td>
                   </tr>
                   <#if shippingContactMech_has_next>
                   <tr><td colspan="3"><hr/></td></tr>
@@ -209,17 +209,17 @@ under the License.
                         <#if shippingAddress.city?has_content>${shippingAddress.city}</#if>
                         <#if shippingAddress.stateProvinceGeoId?has_content><br/>${shippingAddress.stateProvinceGeoId}</#if>
                         <#if shippingAddress.postalCode?has_content><br/>${shippingAddress.postalCode}</#if>
-                        <#if shippingAddress.countryGeoId?has_content><br/>${shippingAddress.countryGeoId}</#if>                                                                                     
+                        <#if shippingAddress.countryGeoId?has_content><br/>${shippingAddress.countryGeoId}</#if>
                       </div>
                     </td>
-                    <td>&nbsp;</td>                      
+                    <td>&nbsp;</td>
                   </tr>
                   <#if shippingContactMech_has_next>
                   <tr><td colspan="3"><hr/></td></tr>
                   </#if>
                 </#list>
             </#if>
-            </table>  
+            </table>
 </#list>
           </td>
         </tr>

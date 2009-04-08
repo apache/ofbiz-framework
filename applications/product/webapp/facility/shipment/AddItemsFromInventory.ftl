@@ -56,21 +56,21 @@ under the License.
                 <form name="issueInventoryItemToShipment" action="<@ofbizUrl>issueInventoryItemToShipment</@ofbizUrl>" method="post">
                   <input type="hidden" name="shipmentId" value="${shipmentId}"/>
                   <input type="hidden" name="shipmentItemSeqId" value="${item.shipmentItemSeqId}"/>
-                  <input type="hidden" name="totalIssuedQty" value="${item.totalQtyIssued}"/>                    
+                  <input type="hidden" name="totalIssuedQty" value="${item.totalQtyIssued}"/>
                   <span>
                     <input type="text" size="5" name="inventoryItemId"/>
                     <a href="javascript:call_fieldlookup2(document.issueInventoryItemToShipment.inventoryItemId,'LookupInventoryItem?orderId=${item.orderId}&amp;partyId=${item.partyId}&amp;productId=${item.productId}');">
                       <img src="/images/fieldlookup.gif" width="15" height="14" border="0" alt="Lookup">
                     </a>
-                  </span>                  
+                  </span>
                   <input type="text" size="5" name="quantity"/>
                   <input type="submit" value="${uiLabelMap.CommonSubmit}" class="smallSubmit"/>
                 </form>
               </div>
             </td>
-          </#if>         
+          </#if>
         </tr>
       </#list>
-    </table> 
+    </table>
   </div>
-</div> 
+</div>

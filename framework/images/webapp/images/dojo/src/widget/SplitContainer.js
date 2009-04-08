@@ -46,16 +46,16 @@ dojo.widget.defineWidget(
 	//		If true, the children's size changes as you drag the bar;
 	//		otherwise, the sizes don't change until you drop the bar (by mouse-up)
 	activeSizing: false,
-	
+
 	// sizerWidget: Integer
 	//		Size in pixels of the bar between each child
 	sizerWidth: 15,
-	
+
 	// orientation: String
 	//		either 'horizontal' or vertical; indicates whether the children are
 	//		arranged side-by-side or up/down.
 	orientation: 'horizontal',
-	
+
 	// persist: Boolean
 	//		Save splitter positions in a cookie
 	persist: true,
@@ -73,7 +73,7 @@ dojo.widget.defineWidget(
 		if (dojo.render.html.moz) {
 		        this.domNode.style.overflow = '-moz-scrollbars-none'; // hidden doesn't work
 		}
-		
+
 		var content = dojo.html.getContentBox(this.domNode);
 		this.paneWidth = content.width;
 		this.paneHeight = content.height;
@@ -104,9 +104,9 @@ dojo.widget.defineWidget(
 		}
 
 		// create the fake dragger
-		if (typeof this.sizerWidth == "object") { 
+		if (typeof this.sizerWidth == "object") {
 			try {
-				this.sizerWidth = parseInt(this.sizerWidth.toString()); 
+				this.sizerWidth = parseInt(this.sizerWidth.toString());
 			} catch(e) { this.sizerWidth = 15; }
 		}
 		this.virtualSizer = document.createElement('div');
@@ -398,7 +398,7 @@ dojo.widget.defineWidget(
 
 		dojo.event.disconnect(document.documentElement, "onmousemove", this, "changeSizing");
 		dojo.event.disconnect(document.documentElement, "onmouseup", this, "endSizing");
-		
+
 		if(this.persist){
 			this._saveState(this);
 		}
@@ -487,7 +487,7 @@ dojo.widget.defineWidget(
 		}
 
 	},
-	
+
 	_getCookieName: function(i) {
 		return this.widgetId + "_" + i;
 	},

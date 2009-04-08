@@ -4,7 +4,7 @@
 	"serviceType":"JSON-P",
 	"methods":[
 		//
-		// MAPS 
+		// MAPS
 		//
 		{
 			// http://developer.yahoo.com/maps/rest/V1/mapImage.html
@@ -87,7 +87,7 @@
 		// WEB SEARCH
 		//
 		{
-			// http://developer.yahoo.com/search/web/V1/webSearch.html 
+			// http://developer.yahoo.com/search/web/V1/webSearch.html
 			"name":"webSearch",
 			"serviceURL": "http://api.search.yahoo.com/WebSearchService/V1/webSearch",
 			"parameters":[
@@ -172,7 +172,7 @@
 		// SITE EXPLORER
 		//
 		{
-			// http://developer.yahoo.com/search/siteexplorer/V1/inlinkData.html 
+			// http://developer.yahoo.com/search/siteexplorer/V1/inlinkData.html
 			"name":"inlinkData",
 			"serviceURL": "http://api.search.yahoo.com/SiteExplorerService/V1/inlinkData",
 			"parameters":[
@@ -277,7 +277,7 @@
 		}
 		/*
 		{
-			// 
+			//
 			"name":"",
 			"serviceURL": "",
 			"parameters":[

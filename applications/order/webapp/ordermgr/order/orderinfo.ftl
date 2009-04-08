@@ -25,7 +25,7 @@ under the License.
             </#if>
             <#assign orderType = orderHeader.getRelatedOne("OrderType")/>
             <li class="h3">&nbsp;${orderType?if_exists.get("description", locale)?default(uiLabelMap.OrderOrder)}&nbsp;#<a href="<@ofbizUrl>orderview?orderId=${orderId}</@ofbizUrl>">${orderId}</a> ${externalOrder?if_exists} [&nbsp;<a href="<@ofbizUrl>order.pdf?orderId=${orderId}</@ofbizUrl>" target="_blank">PDF</a>&nbsp;]</li>
-                       
+
             <#if currentStatus.statusId == "ORDER_CREATED" || currentStatus.statusId == "ORDER_PROCESSING">
               <li><a href="javascript:document.OrderApproveOrder.submit()">${uiLabelMap.OrderApproveOrder}</a></li>
               <form name="OrderApproveOrder" method="post" action="<@ofbizUrl>changeOrderStatus/orderview</@ofbizUrl>">
@@ -75,10 +75,10 @@ under the License.
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderOrderName}</td>
               <td width="5%">&nbsp;</td>
-              <td valign="top" width="80%">${orderHeader.orderName}</td>  
-            </tr>    
+              <td valign="top" width="80%">${orderHeader.orderName}</td>
+            </tr>
             <tr><td colspan="3"><hr/></td></tr>
-            </#if>   
+            </#if>
             <#-- order status history -->
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderStatusHistory}</td>
@@ -123,7 +123,7 @@ under the License.
             <tr>
               <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.OrderSalesChannel}</td>
               <td width="5%">&nbsp;</td>
-              <td valign="top" width="80%">                
+              <td valign="top" width="80%">
                   <#if orderHeader.salesChannelEnumId?has_content>
                     <#assign channel = orderHeader.getRelatedOne("SalesChannelEnumeration")>
                     ${(channel.get("description",locale))?default("N/A")}
@@ -211,7 +211,7 @@ under the License.
             </#if>
             <#if "SALES_ORDER" == orderHeader.orderTypeId>
               <form action="setOrderReservationPriority" method="post" name="setOrderReservationPriority">
-                <input type = "hidden" name="orderId" value="${orderId}"/> 
+                <input type = "hidden" name="orderId" value="${orderId}"/>
                 <tr><td colspan="3"><hr/></td></tr>
                 <tr>
                   <td align="right" valign="top" width="15%" class="label">&nbsp;${uiLabelMap.FormFieldTitle_priority}</td>
@@ -219,7 +219,7 @@ under the License.
                   <td valign="top" width="80%">
                     <select name="priority">
                       <option value="1">${uiLabelMap.CommonHigh}</option>
-                      <option value="2"selected>${uiLabelMap.CommonNormal}</option> 
+                      <option value="2"selected>${uiLabelMap.CommonNormal}</option>
                       <option value="3">${uiLabelMap.CommonLow}</option>
                     </select>
                     <input type="submit" class="smallSubmit" value="${uiLabelMap.FormFieldTitle_reserveInventory}"/>

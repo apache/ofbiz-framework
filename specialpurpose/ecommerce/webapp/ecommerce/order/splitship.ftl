@@ -61,7 +61,7 @@ function submitForm(form, mode, value) {
                 <tr>
                   <td>
                     <div class="tabletext"><b>${uiLabelMap.CommonGroup} ${groupNumber}:</b></div>
-                    <#list group.getShipItems() as item>                          
+                    <#list group.getShipItems() as item>
                       <#assign groupItem = group.getShipItemInfo(item)>
                       <div class="tabletext">&nbsp;&nbsp;&nbsp;${item.getName()} - (${groupItem.getItemQuantity()})</div>
                     </#list>

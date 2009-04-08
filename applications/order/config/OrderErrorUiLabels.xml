@@ -2219,7 +2219,7 @@
         <value xml:lang="ru">Ошибка безопасности: для выполнения updateOrderStatusFromReceipt у вас должны быть права ORDERMGR_UPDATE или ORDERMGR_ADMIN </value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ updateOrderStatusFromReceipt คุณต้องมี ORDERMGR_UPDATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 updateOrderStatusFromReceipt，你必须具有 ORDERMGR_UPDATE 或 ORDERMGR_ADMIN 权限</value>
-    </property>    
+    </property>
     <property key="OrderSecurityErrorToRunUpdateQuote">
         <value xml:lang="en">Security Error : to run updateQuote you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar updateQuote debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
@@ -2763,7 +2763,7 @@
         <value xml:lang="fr">Entrer la réservation avant d'ajouter au panier</value>
         <value xml:lang="it">Inserire informazioni prenotazione prima di aggiungerlo al carrello</value>
         <value xml:lang="th">เข้าสู่ข้อมูลการจองก่อนที่จะเพิ่มลงตระกร้า</value>
-    </property>    
+    </property>
     <property key="cart.addToCart.dependencyVariantFeature">
         <value xml:lang="en">Error: a dependency to another feature as not been resolved.</value>
         <value xml:lang="fr">Erreur : une dépendance envers une autre option n'a pu être résolue.</value>
@@ -3715,7 +3715,7 @@
     </property>
     <property key="shoppingCartEvents.problem_parsing_item_desiredDeliveryDate_string">
         <value xml:lang="en">Problem in parsing item desired delivery date string</value>
-    </property>    
+    </property>
     <property key="shoppingCartHelper.no_items_found_to_add">
         <value xml:lang="en">No items found to add</value>
         <value xml:lang="es">No hay ítems encontrados para agregar</value>

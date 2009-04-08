@@ -14,20 +14,20 @@ dojo.provide("dojo.uuid.LightweightGenerator");
  * summary:
  *   The LightweightGenerator is intended to be small and fast,
  *   but not necessarily good.
- * 
+ *
  * description:
- *   Small: The LightweightGenerator has a small footprint. 
- *   Once comments are stripped, it's only about 25 lines of 
+ *   Small: The LightweightGenerator has a small footprint.
+ *   Once comments are stripped, it's only about 25 lines of
  *   code, and it doesn't dojo.require() any other packages.
  *
- *   Fast: The LightweightGenerator can generate lots of new 
- *   UUIDs fairly quickly (at least, more quickly than the other 
+ *   Fast: The LightweightGenerator can generate lots of new
+ *   UUIDs fairly quickly (at least, more quickly than the other
  *   dojo UUID generators).
  *
  *   Not necessarily good: We use Math.random() as our source
- *   of randomness, which may or may not provide much randomness. 
+ *   of randomness, which may or may not provide much randomness.
  */
- 
+
 dojo.uuid.LightweightGenerator = new function() {
 	var HEX_RADIX = 16;
 
@@ -43,14 +43,14 @@ dojo.uuid.LightweightGenerator = new function() {
 	}
 
 	this.generate = function(/* constructor? */ returnType) {
-		// summary: 
+		// summary:
 		//   This function generates random UUIDs, meaning "version 4" UUIDs.
-		// description: 
+		// description:
 		//   A typical generated value would be something like this:
 		//   "3b12f1df-5232-4804-897e-917bf397618a"
 		// returnType: The type of object to return. Usually String or dojo.uuid.Uuid
 
-		// examples: 
+		// examples:
 		//   var string = dojo.uuid.LightweightGenerator.generate();
 		//   var string = dojo.uuid.LightweightGenerator.generate(String);
 		//   var uuid   = dojo.uuid.LightweightGenerator.generate(dojo.uuid.Uuid);

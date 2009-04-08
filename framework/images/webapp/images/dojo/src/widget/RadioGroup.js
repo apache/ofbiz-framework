@@ -17,22 +17,22 @@ dojo.require("dojo.widget.*");
 dojo.require("dojo.widget.HtmlWidget");
 
 dojo.widget.defineWidget(
-	"dojo.widget.RadioGroup", 
+	"dojo.widget.RadioGroup",
 	dojo.widget.HtmlWidget,
 	function(){
 		// summary:
 		// 	Widget that provides useful/common functionality that may be desirable
 		// 	when interacting with ul/ol html lists.
-		//	
+		//
 		// The core behaviour of the lists this widget manages is expected to be determined
-		// by the css class names defined: 
-		// 	
-		// 	 "radioGroup" - Applied to main ol or ul 
+		// by the css class names defined:
+		//
+		// 	 "radioGroup" - Applied to main ol or ul
 		//	 "selected"	- Applied to the currently selected li, if any.
-		//   "itemContent" - Applied to the content contained in a li, this widget embeds a span 
+		//   "itemContent" - Applied to the content contained in a li, this widget embeds a span
 		//					within each <li></li> to contain the contents of the li.
 		// This widget was mostly developed under supervision/guidance from Tom Trenka.
-		
+
 		// selectedItem: DomNode: Currently selected li, if any
 		this.selectedItem=null;
 
@@ -41,14 +41,14 @@ dojo.widget.defineWidget(
 
 		// selected: String[]: List of optional ids specifying which li's should be selected by default
 		this.selected=[];
-		
+
 		// groupCssClass: String: Css class applied to main ol or ul, value is "radioGroup"
 		this.groupCssClass="radioGroup";
 
 		// selectedCssClass: String: Css class applied to the currently selected li, if any. value of "selected"
 		this.selectedCssClass="selected";
 
-		// itemContentCssClass: String: Css class Applied to the content contained in a li, this widget embeds a span 
+		// itemContentCssClass: String: Css class Applied to the content contained in a li, this widget embeds a span
 		// within each <li></li> to contain the contents of the li. value is "itemContent"
 		this.itemContentCssClass="itemContent";
 	},
@@ -56,32 +56,32 @@ dojo.widget.defineWidget(
 		isContainer:false,
 		templatePath: null,
 		templateCssPath: null,
-		
+
 		postCreate:function(){
-			// summary: Parses content of widget and sets up the default state of any 
+			// summary: Parses content of widget and sets up the default state of any
 			// default selections / etc. The onSelect function will also be fired for any
 			// default selections.
 			this._parseStructure();
 			dojo.html.addClass(this.domNode, this.groupCssClass);
 			this._setupChildren();
-			
+
 			dojo.event.browser.addListener(this.domNode, "onclick", dojo.lang.hitch(this, "onSelect"));
 			if (this.selectedItem){
 				this._selectItem(this.selectedItem);
 			}
 		},
-		
+
 		_parseStructure: function() {
 			// summary: Sets local radioGroup and items properties, also validates
 		    // that domNode contains an expected list.
-		    // 
+		    //
 		    // Exception raised if a ul or ol node can't be found in this widgets domNode.
-			if(this.domNode.tagName.toLowerCase() != "ul" 
+			if(this.domNode.tagName.toLowerCase() != "ul"
 				&& this.domNode.tagName.toLowerCase() != "ol") {
 				dojo.raise("RadioGroup: Expected ul or ol content.");
 				return;
 			}
-			
+
 			this.items=[];	//	reset the items.
 			var nl=this.domNode.getElementsByTagName("li");
 			for (var i=0; i<nl.length; i++){
@@ -90,7 +90,7 @@ dojo.widget.defineWidget(
 				}
 			}
 		},
-		
+
 		add:function(/*DomNode*/ node){
 			// summary: Allows the app to add a node on the fly, finishing up
 		    // the setup so that we don't need to deal with it on a
@@ -101,7 +101,7 @@ dojo.widget.defineWidget(
 			this.items.push(node);
 			this._setup(node);
 		},
-		
+
 		remove:function(/*DomNode*/ node){
 			// summary: Removes the specified node from this group, if it exists.
 			var idx=-1;
@@ -115,7 +115,7 @@ dojo.widget.defineWidget(
 			this.items.splice(idx,1);
 			node.parentNode.removeChild(node);
 		},
-		
+
 		clear:function(){
 			// summary: Removes all items in this list
 			for(var i=0; i<this.items.length; i++){
@@ -123,7 +123,7 @@ dojo.widget.defineWidget(
 			}
 			this.items=[];
 		},
-		
+
 		clearSelections:function(){
 			// summary: Clears any selected items from being selected
 			for(var i=0; i<this.items.length; i++){
@@ -131,14 +131,14 @@ dojo.widget.defineWidget(
 			}
 			this.selectedItem=null;
 		},
-		
+
 		_setup:function(node){
 			var span = document.createElement("span");
 			dojo.html.disableSelection(span);
 			dojo.html.addClass(span, this.itemContentCssClass);
 			dojo.dom.moveChildren(node, span);
 			node.appendChild(span);
-			
+
 			if (this.selected.length > 0) {
 				var uid = dojo.html.getAttribute(node, "id");
 				if (uid && uid == this.selected){
@@ -147,7 +147,7 @@ dojo.widget.defineWidget(
 			}
 			dojo.event.browser.addListener(node, "onclick", dojo.lang.hitch(this, "onItemSelect"));
 			if (dojo.html.hasAttribute(node, "onitemselect")) {
-				var tn = dojo.lang.nameAnonFunc(new Function(dojo.html.getAttribute(node, "onitemselect")), 
+				var tn = dojo.lang.nameAnonFunc(new Function(dojo.html.getAttribute(node, "onitemselect")),
 												this);
 				dojo.event.browser.addListener(node, "onclick", dojo.lang.hitch(this, tn));
 			}
@@ -165,15 +165,15 @@ dojo.widget.defineWidget(
 			if(this.selectedItem){
 				dojo.html.removeClass(this.selectedItem, this.selectedCssClass);
 			}
-			
+
 			this.selectedItem = node;
 			dojo.html.addClass(this.selectedItem, this.selectedCssClass);
-			
+
 			// if this is the result of an event, stop here.
 			if (!dj_undef("currentTarget", event)){
 				return;
 			}
-			
+
 			//	if there's no nofire flag, passed when this is nailed internally.
 			if(!nofire){
 				if(dojo.render.html.ie){
@@ -185,17 +185,17 @@ dojo.widget.defineWidget(
 				}
 			}
 		},
-		
+
 		getValue:function() {
 			// summary: Gets the currently selected item, if any.
 			return this.selectedItem; /*DomNode*/
 		},
-		
-		onSelect:function(e) { 
+
+		onSelect:function(e) {
 			// summary: When the ul or ol contained by this widget is selected this function
-			// is fired. A good function to listen to via dojo.event.connect. 
+			// is fired. A good function to listen to via dojo.event.connect.
 		},
-		
+
 		onItemSelect:function(e) {
 			// summary: when an individual li is selected
 			if (!dj_undef("currentTarget", e)){

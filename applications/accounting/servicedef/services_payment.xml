@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Accounting Services</description>
     <vendor>OFBiz</vendor>
@@ -37,14 +37,14 @@ under the License.
         <override name="statusId" optional="false"/>
         <override name="amount" optional="false"/>
     </service>
-    
+
     <service name="updatePayment" engine="simple" default-entity-name="Payment"
         location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="updatePayment" auth="true">
         <description>Update a Payment</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="setPaymentStatus" engine="simple" default-entity-name="Payment"
         location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="setPaymentStatus" auth="true">
         <description>Change the status of a Payment</description>
@@ -52,13 +52,13 @@ under the License.
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="checkPaymentInvoices" engine="java"
         location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="checkPaymentInvoices">
         <description>Checks to see if each invoice to which a payment is applied has been fully paid up.  If so, sets the invoice status to PAID.</description>
         <attribute name="paymentId" type="String" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="quickSendPayment" engine="simple" default-entity-name="Payment"
         location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="quickSendPayment">
         <description>Updates a Payment and then marks it as PMNT_SENT</description>
@@ -66,7 +66,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
-    <service name="createPaymentApplication" engine="simple" 
+    <service name="createPaymentApplication" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentApplication" auth="true">
         <description>Create a payment application</description>
         <attribute name="paymentId" type="String" mode="IN" optional="false"/>
@@ -87,7 +87,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="invoiceProcessing" type="String" mode="IN" optional="true"/>
-        <override name="paymentId" optional="false"/>        
+        <override name="paymentId" optional="false"/>
     </service>
     <service name="updatePaymentApplicationDef" default-entity-name="PaymentApplication" engine="java"
         location="org.ofbiz.accounting.invoice.InvoiceServices" invoke="updatePaymentApplicationDef">
@@ -98,7 +98,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="invoiceProcessing" type="String" mode="IN" optional="true"/>
-        <override name="paymentId" optional="false"/>        
+        <override name="paymentId" optional="false"/>
     </service>
     <service name="removePaymentApplication" default-entity-name="PaymentApplication" engine="simple"
         location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="removePaymentApplication">
@@ -107,8 +107,8 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="OUT" include="nonpk" optional="true"/>
     </service>
-    
-    <service name="createPaymentAndApplication" engine="simple" 
+
+    <service name="createPaymentAndApplication" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="createPaymentAndApplication" auth="true">
         <description>Create a payment and a payment application for the full amount</description>
         <auto-attributes entity-name="Payment" include="nonpk" mode="IN" optional="true"/>

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="LookupFacility">
         <section>
@@ -68,7 +68,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="LookupShipment">
         <section>
             <actions>
@@ -91,7 +91,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="LookupInventoryItem">
         <section>
             <actions>
@@ -108,5 +108,5 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>        
+    </screen>
 </screens>

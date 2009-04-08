@@ -9,28 +9,28 @@
 .TreeIsRoot {
     margin-left: 0;
 }
- 
+
 /* left vertical line (grid) for all nodes */
 .TreeIsLast {
     background-image: url('../templates/images/TreeV3/i_half.gif');
     background-repeat : no-repeat;
 }
- 
+
 .TreeExpandOpen .TreeExpand {
     background-image: url('../templates/images/TreeV3/expand_minus.gif');
 }
- 
+
 /* closed is higher priority than open */
 .TreeExpandClosed .TreeExpand {
     background-image: url('../templates/images/TreeV3/expand_plus.gif');
 }
- 
+
 /* highest priority */
 .TreeExpandLeaf .TreeExpand {
     background-image: url('../templates/images/TreeV3/expand_leaf.gif');
 }
 
-/* 
+/*
 should always override any expand setting, but do not touch children.
 if I add .TreeExpand .TreeExpandLoading same time and put it to top/bottom, then it will take precedence over +- for all descendants or always fail
 so I have to remove TreeExpand and process this one specifically
@@ -44,7 +44,7 @@ so I have to remove TreeExpand and process this one specifically
     background-repeat : no-repeat;
     background-image: url('../templates/images/TreeV3/expand_loading.gif');
 }
- 
+
 .TreeContent {
     min-height: 18px;
     min-width: 18px;
@@ -56,7 +56,7 @@ so I have to remove TreeExpand and process this one specifically
 .TreeIEContent {
 	height: 18px;
 }
- 
+
 .TreeExpand {
     width: 18px;
     height: 18px;
@@ -64,13 +64,13 @@ so I have to remove TreeExpand and process this one specifically
     display: inline;
     background-repeat : no-repeat;
 }
- 
+
 /* same style as IE selection */
 .TreeNodeEmphasized {
     background-color: Highlight;
     color: HighlightText;
 }
- 
+
 .TreeContent .RichTextEditable, .TreeContent .RichTextEditable iframe {
       background-color: #ffc;
       color: black;

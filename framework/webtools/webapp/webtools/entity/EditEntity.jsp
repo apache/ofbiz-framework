@@ -49,7 +49,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
       entity.setTableName(ModelUtil.javaNameToDbName(entity.getEntityName()));
       reader.getEntityCache().put(entity.getEntityName(), entity);
       entityName = entity.getEntityName();
-      
+
       String entityGroup = request.getParameter("entityGroup");
       delegator.getModelGroupReader().getGroupCache().put(entityName, entityGroup);
     }
@@ -132,7 +132,7 @@ if (security.hasPermission("ENTITY_MAINT", session)) {
     int kmNum = Integer.parseInt(request.getParameter("kmNum"));
     String fieldName = request.getParameter("fieldName");
     String relFieldName = request.getParameter("relFieldName");
-    
+
     ModelRelation relation = entity.getRelation(relNum);
     ModelEntity relEntity = reader.getModelEntity(relation.getRelEntityName());
     ModelKeyMap keyMap = relation.getKeyMap(kmNum);
@@ -479,11 +479,11 @@ A.listtext:hover {color:red;}
           </td>
           <td>
             <INPUT type=SUBMIT value='Set'>
-          </td>          
+          </td>
           <TD><A href='<ofbiz:url>/view/EditEntity?entityName=<%=entityName%>&relNum=<%=r%>&kmNum=<%=km%>&event=removeKeyMap</ofbiz:url>'>Remove</A></TD>
         </FORM>
       </tr>
-    <%}%>			
+    <%}%>
   <%}%>
   </TABLE>
 

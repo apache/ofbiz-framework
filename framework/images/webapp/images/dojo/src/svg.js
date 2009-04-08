@@ -215,12 +215,12 @@ dojo.svg.invert=function(/* SVGElement */node){
 	}
 };
 dojo.svg.applyMatrix=function(
-	/* SVGElement */node, 
-	/* int || SVGMatrix */a, 
-	/* int? */b, 
-	/* int? */c, 
-	/* int? */d, 
-	/* int? */e, 
+	/* SVGElement */node,
+	/* int || SVGMatrix */a,
+	/* int? */b,
+	/* int? */c,
+	/* int? */d,
+	/* int? */e,
 	/* int? */f
 ){
 	//	summary
@@ -308,7 +308,7 @@ dojo.svg.createNodesFromText=function(/* string */ txt, /* bool? */ wrap){
 	//	summary
 	//	Create a list of nodes from text
 	var docFrag=(new DOMParser()).parseFromString(txt, "text/xml").normalize();
-	if(wrap){ 
+	if(wrap){
 		return [docFrag.firstChild.cloneNode(true)];	//	array
 	}
 	var nodes=[];

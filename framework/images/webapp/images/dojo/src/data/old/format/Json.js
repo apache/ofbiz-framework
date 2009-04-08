@@ -22,7 +22,7 @@ dojo.data.old.format.Json = new function() {
 		var arrayOfJsonData = eval("(" + jsonFileContents + ")");
 		this.loadDataProviderFromArrayOfJsonData(dataProvider, arrayOfJsonData);
 	};
-	
+
 	this.loadDataProviderFromArrayOfJsonData = function(/* dojo.data.old.provider.Base */ dataProvider, /* Array */ arrayOfJsonData) {
 		dojo.lang.assertType(arrayOfJsonData, Array, {optional: true});
 		if (arrayOfJsonData && (arrayOfJsonData.length > 0)) {
@@ -47,8 +47,8 @@ dojo.data.old.format.Json = new function() {
 	// Private functions
 	// -------------------------------------------------------------------
 	function _loadDataProviderFromArrayOfArrays(/* dojo.data.old.provider.Base */ dataProvider, /* Array */ arrayOfJsonData) {
-		/** 
-		 * Example: 
+		/**
+		 * Example:
 		 * var arrayOfJsonStates = [
 		 * 	 [ "abbr",  "population",  "name" ]
 		 * 	 [  "WA",     5894121,      "Washington"    ],
@@ -70,8 +70,8 @@ dojo.data.old.format.Json = new function() {
 	}
 
 	function _loadDataProviderFromArrayOfObjects(/* dojo.data.old.provider.Base */ dataProvider, /* Array */ arrayOfJsonData) {
-		/** 
-		 * Example: 
+		/**
+		 * Example:
 		 * var arrayOfJsonStates = [
 		 * 	 { abbr: "WA", name: "Washington" },
 		 * 	 { abbr: "WV", name: "West Virginia" },
@@ -90,7 +90,7 @@ dojo.data.old.format.Json = new function() {
 					for (var j in arrayOfValues) {
 						value = arrayOfValues[j];
 						item.load(key, value);
-						// dojo.debug("loaded: " + key + " = " + value); 
+						// dojo.debug("loaded: " + key + " = " + value);
 					}
 				} else {
 					item.load(key, value);
@@ -98,6 +98,6 @@ dojo.data.old.format.Json = new function() {
 			}
 		}
 	}
-	
+
 }();
 

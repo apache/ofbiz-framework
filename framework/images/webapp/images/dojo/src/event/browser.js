@@ -106,7 +106,7 @@ dojo.event.browser = new function(){
 				break;
 		}
 	}
-	
+
 	this.clean = function(/*DOMNode*/node){
 		// summary:
 		//		removes native event handlers so that destruction of the node
@@ -114,7 +114,7 @@ dojo.event.browser = new function(){
 		//		it's critical for manual node removal on IE.
 		// node:
 		//		A DOM node. All of it's children will also be cleaned.
-		if(dojo.render.html.ie){ 
+		if(dojo.render.html.ie){
 			dojo._ie_clobber.clobber(node);
 		}
 	}
@@ -149,9 +149,9 @@ dojo.event.browser = new function(){
 		}
 	}
 
-	this.removeListener = function(	/*DOMNode*/ node, 
-									/*String*/	evtName, 
-									/*Function*/fp, 
+	this.removeListener = function(	/*DOMNode*/ node,
+									/*String*/	evtName,
+									/*Function*/fp,
 									/*Boolean*/	capture){
 		// summary:
 		//		clobbers the listener from the node
@@ -220,7 +220,7 @@ dojo.event.browser = new function(){
 			newfp = fp;
 		}
 
-		if(node.addEventListener){ 
+		if(node.addEventListener){
 			node.addEventListener(evtName.substr(2), newfp, capture);
 			return newfp;
 		}else{
@@ -241,7 +241,7 @@ dojo.event.browser = new function(){
 	}
 
 	this.isEvent = function(/*Object*/obj){
-		// summary: 
+		// summary:
 		//		Tries to determine whether or not the object is a DOM event.
 
 		// FIXME: event detection hack ... could test for additional attributes
@@ -252,7 +252,7 @@ dojo.event.browser = new function(){
 	}
 
 	this.currentEvent = null;
-	
+
 	this.callListener = function(/*Function*/listener, /*DOMNode*/curTarget){
 		// summary:
 		//		calls the specified listener in the context of the passed node
@@ -269,7 +269,7 @@ dojo.event.browser = new function(){
 	}
 
 	this._stopPropagation = function(){
-		dojo.event.browser.currentEvent.cancelBubble = true; 
+		dojo.event.browser.currentEvent.cancelBubble = true;
 	}
 
 	this._preventDefault = function(){
@@ -354,7 +354,7 @@ dojo.event.browser = new function(){
 				evt = window.event;
 			}
 		}
-		
+
 		if((evt["type"])&&(evt["type"].indexOf("key") == 0)){ // key events
 			evt.keys = this.revKeys;
 			// FIXME: how can we eliminate this iteration?
@@ -502,7 +502,7 @@ dojo.event.browser = new function(){
 						case 63249://scrolllock
 						case 63289://numlock
 							break;
-						default: 
+						default:
 							evt.key = evt.charCode >= evt.KEY_SPACE ? String.fromCharCode(evt.charCode) : evt.keyCode;
 					}
 				}else{

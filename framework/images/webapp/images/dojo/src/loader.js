@@ -21,15 +21,15 @@
 	//Additional properties for dojo.hostenv
 	var _addHostEnv = {
 		pkgFileName: "__package__",
-	
+
 		// for recursion protection
 		loading_modules_: {},
 		loaded_modules_: {},
 		addedToLoadingCount: [],
 		removedFromLoadingCount: [],
-	
+
 		inFlightCount: 0,
-	
+
 		// FIXME: it should be possible to pull module prefixes in from djConfig
 		modulePrefixes_: {
 			dojo: {name: "dojo", value: "src"}
@@ -57,16 +57,16 @@
 		getTextStack: [],
 		loadUriStack: [],
 		loadedUris: [],
-	
+
 		//WARNING: This variable is referenced by packages outside of bootstrap: FloatingPane.js and undo/browser.js
 		post_load_: false,
-		
+
 		//Egad! Lots of test files push on this directly instead of using dojo.addOnLoad.
 		modulesLoadedListeners: [],
 		unloadListeners: [],
 		loadNotifying: false
 	};
-	
+
 	//Add all of these properties to dojo.hostenv
 	for(var param in _addHostEnv){
 		dojo.hostenv[param] = _addHostEnv[param];
@@ -176,7 +176,7 @@ dojo.hostenv.unloaded = function(){
 
 dojo.addOnLoad = function(/*Object?*/obj, /*String|Function*/functionName) {
 // summary:
-//	Registers a function to be triggered after the DOM has finished loading 
+//	Registers a function to be triggered after the DOM has finished loading
 //	and widgets declared in markup have been instantiated.  Images and CSS files
 //	may or may not have finished downloading when the specified function is called.
 //	(Note that widgets' CSS and HTML code is guaranteed to be downloaded before said
@@ -223,7 +223,7 @@ dojo.addOnUnload = function(/*Object?*/obj, /*String|Function?*/functionName){
 dojo.hostenv.modulesLoaded = function(){
 	if(this.post_load_){ return; }
 	if(this.loadUriStack.length==0 && this.getTextStack.length==0){
-		if(this.inFlightCount > 0){ 
+		if(this.inFlightCount > 0){
 			dojo.debug("files still in flight!");
 			return;
 		}
@@ -245,8 +245,8 @@ dojo.hostenv.getModuleSymbols = function(/*String*/modulename){
 	var syms = modulename.split(".");
 	for(var i = syms.length; i>0; i--){
 		var parentModule = syms.slice(0, i).join(".");
-		if((i==1) && !this.moduleHasPrefix(parentModule)){		
-			// Support default module directory (sibling of dojo) for top-level modules 
+		if((i==1) && !this.moduleHasPrefix(parentModule)){
+			// Support default module directory (sibling of dojo) for top-level modules
 			syms[0] = "../" + syms[0];
 		}else{
 			var parentModulePath = this.getModulePrefix(parentModule);
@@ -265,30 +265,30 @@ dojo.hostenv.loadModule = function(/*String*/moduleName, /*Boolean?*/exactOnly, 
 //	loads a Javascript module from the appropriate URI
 //
 // description:
-//	loadModule("A.B") first checks to see if symbol A.B is defined. 
+//	loadModule("A.B") first checks to see if symbol A.B is defined.
 //	If it is, it is simply returned (nothing to do).
-//	
+//
 //	If it is not defined, it will look for "A/B.js" in the script root directory,
 //	followed by "A.js".
-//	
+//
 //	It throws if it cannot find a file to load, or if the symbol A.B is not
 //	defined after loading.
-//	
+//
 //	It returns the object A.B.
-//	
+//
 //	This does nothing about importing symbols into the current package.
 //	It is presumed that the caller will take care of that. For example, to import
 //	all symbols:
-//	
+//
 //	   with (dojo.hostenv.loadModule("A.B")) {
 //	      ...
 //	   }
-//	
+//
 //	And to import just the leaf symbol:
-//	
+//
 //	   var B = dojo.hostenv.loadModule("A.B");
 //	   ...
-//	
+//
 //	dj_load is an alias for dojo.hostenv.loadModule
 
 	if(!moduleName){ return; }
@@ -308,7 +308,7 @@ dojo.hostenv.loadModule = function(/*String*/moduleName, /*Boolean?*/exactOnly, 
 	var relpath = moduleName.replace(/\./g, '/') + '.js';
 
 	var nsyms = moduleName.split(".");
-	
+
 	// this line allowed loading of a module manifest as if it were a namespace
 	// it's an interesting idea, but shouldn't be combined with 'namespaces' proper
 	// and leads to unwanted dependencies
@@ -369,7 +369,7 @@ dojo.hostenv.loadModule = function(/*String*/moduleName, /*Boolean?*/exactOnly, 
 		// pass in false so we can give better error
 		module = this.findModule(moduleName, false);
 		if(!module){
-			dojo.raise("symbol '" + moduleName + "' is not defined after loading '" + relpath + "'"); 
+			dojo.raise("symbol '" + moduleName + "' is not defined after loading '" + relpath + "'");
 		}
 	}
 
@@ -398,7 +398,7 @@ dojo.hostenv.startPackage = function(/*String*/packageName){
 	var evaledPkg = dojo.evalObjPath(strippedPkgName, true);
 	this.loaded_modules_[fullPkgName] = evaledPkg;
 	this.loaded_modules_[strippedPkgName] = evaledPkg;
-	
+
 	return evaledPkg; // Object
 }
 
@@ -433,7 +433,7 @@ dojo.kwCompoundRequire = function(/*Object containing Arrays*/modMap){
 //	the hostenv.name_ item. The items in the "common" array will _always_ be
 //	loaded, regardless of which list is chosen.  Here's how it's normally
 //	called:
-//	
+//
 //	dojo.kwCompoundRequire({
 //		browser: [
 //			["foo.bar.baz", true, true], // an example that passes multiple args to loadModule()
@@ -464,7 +464,7 @@ dojo.require = function(/*String*/ resourceName){
 	// description
 	//	dojo.require() is similar to C's #include command or java's "import" command.
 	//	You call dojo.require() to pull in the resources (ie, javascript source files)
-	//	that define the functions you are using. 
+	//	that define the functions you are using.
 	//
 	//	Note that in the case of a build, many resources have already been included
 	//	into dojo.js (ie, many of the javascript source files have been compressed and
@@ -496,7 +496,7 @@ dojo.provide = function(/*String*/ resourceName){
 	//	Each javascript source file is called a resource.  When a resource
 	//	is loaded by the browser, dojo.provide() registers that it has
 	//	been loaded.
-	//	
+	//
 	//	For backwards compatibility reasons, in addition to registering the resource,
 	//	dojo.provide() also ensures that the javascript object for the module exists.  For
 	//	example, dojo.provide("dojo.html.common"), in addition to registering that common.js
@@ -514,7 +514,7 @@ dojo.registerModulePath = function(/*String*/module, /*String*/prefix){
 	// summary: maps a module name to a path
 	// description: An unregistered module is given the default path of ../<module>,
 	//	relative to Dojo root. For example, module acme is mapped to ../acme.
-	//	If you want to use a different module name, use dojo.registerModulePath. 
+	//	If you want to use a different module name, use dojo.registerModulePath.
 	return dojo.hostenv.setModulePrefix(module, prefix);
 }
 
@@ -579,7 +579,7 @@ dojo.hostenv.localesGenerated /***BUILD:localesGenerated***/; // value will be i
 dojo.hostenv.registerNlsPrefix = function(){
 // summary:
 //	Register module "nls" to point where Dojo can find pre-built localization files
-	dojo.registerModulePath("nls","nls");	
+	dojo.registerModulePath("nls","nls");
 }
 
 dojo.hostenv.preloadLocalizations = function(){
@@ -668,7 +668,7 @@ dojo.requireLocalization = function(/*String*/moduleName, /*String*/bundleName, 
 // The structure on disk is intended to be most convenient for developers and translators, but in memory
 // it is more logical and efficient to store in a different order.  Locales cannot use dashes, since the
 // resulting path will not evaluate as valid JS, so we translate them to underscores.
-	
+
 	//Find the best-match locale to load if we have available flat locales.
 	var bestLocale = "";
 	if(availableFlatLocales){
@@ -683,7 +683,7 @@ dojo.requireLocalization = function(/*String*/moduleName, /*String*/bundleName, 
 		}
 		if(!bestLocale){
 			bestLocale = "ROOT";
-		}		
+		}
 	}
 
 	//See if the desired locale is already loaded.
@@ -729,7 +729,7 @@ dojo.requireLocalization = function(/*String*/moduleName, /*String*/bundleName, 
 			}else{
 				bundle[jsLoc] = parent;
 			}
-			
+
 			if(availableFlatLocales){
 				//Stop the locale path searching if we know the availableFlatLocales, since
 				//the first call to this function will load the only bundle that is needed.

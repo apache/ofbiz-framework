@@ -64,13 +64,13 @@ dojo.widget.defineWidget(
 		//	digit: Boolean
 		//		Removes all characters that are not digits if true.  Default is false.
 		digit: false,
-		
+
 		// htmlfloat: String
 		//		"none", "left", or "right".  CSS float attribute applied to generated dom node.
 		htmlfloat: "none",
 
 		templatePath: dojo.uri.dojoUri("src/widget/templates/Textbox.html"),
-	
+
 		// textbox DomNode:
 		//		our DOM node
 		textbox: null,
@@ -84,30 +84,30 @@ dojo.widget.defineWidget(
 			// summary: Apply various filters to textbox value
 			if (this.trim) {
 				this.textbox.value = this.textbox.value.replace(/(^\s*|\s*$)/g, "");
-			} 
+			}
 			if (this.uppercase) {
 				this.textbox.value = this.textbox.value.toUpperCase();
-			} 
+			}
 			if (this.lowercase) {
 				this.textbox.value = this.textbox.value.toLowerCase();
-			} 
+			}
 			if (this.ucFirst) {
-				this.textbox.value = this.textbox.value.replace(/\b\w+\b/g, 
+				this.textbox.value = this.textbox.value.replace(/\b\w+\b/g,
 					function(word) { return word.substring(0,1).toUpperCase() + word.substring(1).toLowerCase(); });
-			} 
+			}
 			if (this.digit) {
 				this.textbox.value = this.textbox.value.replace(/\D/g, "");
-			} 
+			}
 		},
-	
+
 		// event handlers, you can over-ride these in your own subclasses
 		onfocus: function() {},
 		onblur: function() { this.filter(); },
-	
+
 		// All functions below are called by create from dojo.widget.Widget
 		mixInProperties: function(localProperties, frag) {
 			dojo.widget.Textbox.superclass.mixInProperties.apply(this, arguments);
-			if ( localProperties["class"] ) { 
+			if ( localProperties["class"] ) {
 				this.className = localProperties["class"];
 			}
 		}

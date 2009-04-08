@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Content Component Services</description>
     <vendor>OFBiz</vendor>
@@ -43,7 +43,7 @@ under the License.
     </service>
     <service name="sendMail" engine="java"
             location="org.ofbiz.common.email.EmailServices" invoke="sendMail">
-        <description>Send E-Mail Service.  partyId and communicationEventId aren't used by sendMail 
+        <description>Send E-Mail Service.  partyId and communicationEventId aren't used by sendMail
             but are passed down to storeEmailAsCommunication during the SECA chain.  See sendMailInterface for more comments.</description>
         <implements service="sendMailInterface"/>
         <attribute name="body" type="String" mode="INOUT" optional="false" allow-html="any"/>
@@ -91,7 +91,7 @@ under the License.
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
         <attribute name="body" type="String" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="prepareNotificationInterface" engine="interface"
             location="" invoke="">
         <description>Send Template Based Notification Service</description>

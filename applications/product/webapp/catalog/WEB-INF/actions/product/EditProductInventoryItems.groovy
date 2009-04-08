@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- 
+
 import org.ofbiz.entity.condition.*
 import org.ofbiz.product.inventory.InventoryWorker
 
@@ -25,19 +25,19 @@ if (product.isVirtual && "Y".equals(product.isVirtual)) {
     //Get the virtual product feature types
     result = dispatcher.runSync("getProductFeaturesByType", [productId : productId, productFeatureApplTypeId : 'SELECTABLE_FEATURE']);
     featureTypeIds = result.productFeatureTypes;
-    
+
     //Get the variants
     result = dispatcher.runSync("getAllProductVariants", [productId : productId]);
     variants = result.assocProducts;
     variantIterator = variants.iterator();
     variantInventorySummaries = [];
-    while(variantIterator) {
+    while (variantIterator) {
         variant = variantIterator.next();
 
         //create a map of each variant id and inventory summary (all facilities)
         inventoryAvailable = dispatcher.runSync("getProductInventoryAvailable", [productId : variant.productIdTo]);
 
-        variantInventorySummary = [productId : variant.productIdTo, 
+        variantInventorySummary = [productId : variant.productIdTo,
                                    availableToPromiseTotal : inventoryAvailable.availableToPromiseTotal,
                                    quantityOnHandTotal : inventoryAvailable.quantityOnHandTotal];
 
@@ -71,13 +71,13 @@ if (product.isVirtual && "Y".equals(product.isVirtual)) {
     dispatcher = request.getAttribute("dispatcher");
     Map contextInput = null;
     Map resultOutput = null;
-    
-    // inventory quantity summary by facility: For every warehouse the product's atp and qoh 
+
+    // inventory quantity summary by facility: For every warehouse the product's atp and qoh
     // are obtained (calling the "getInventoryAvailableByFacility" service)
     while (facilityIterator) {
         facility = facilityIterator.next();
         resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", [productId : productId, facilityId : facility.facilityId]);
-        
+
         quantitySummary = [:];
         quantitySummary.facilityId = facility.facilityId;
         quantitySummary.totalQuantityOnHand = resultOutput.quantityOnHandTotal;
@@ -90,7 +90,7 @@ if (product.isVirtual && "Y".equals(product.isVirtual)) {
             quantitySummary.mktgPkgQOH = resultOutput.quantityOnHandTotal;
             quantitySummary.mktgPkgATP = resultOutput.availableToPromiseTotal;
         }
-        
+
         quantitySummaryByFacility.put(facility.facilityId, quantitySummary);
     }
 
@@ -140,7 +140,7 @@ if (product.isVirtual && "Y".equals(product.isVirtual)) {
 
     // --------------------
     // Production Runs
-    resultOutput = dispatcher.runSync("getProductManufacturingSummaryByFacility", 
+    resultOutput = dispatcher.runSync("getProductManufacturingSummaryByFacility",
                    [productId : productId, userLogin : userLogin]);
     // incoming products
     manufacturingInQuantitySummaryByFacility = resultOutput.summaryInByFacility;
@@ -149,7 +149,7 @@ if (product.isVirtual && "Y".equals(product.isVirtual)) {
 
     showEmpty = "true".equals(request.getParameter("showEmpty"));
 
-    // Find oustanding purchase orders for this item. 
+    // Find oustanding purchase orders for this item.
     purchaseOrders = InventoryWorker.getOutstandingPurchaseOrders(productId, delegator);
 
     context.productInventoryItems = productInventoryItems;

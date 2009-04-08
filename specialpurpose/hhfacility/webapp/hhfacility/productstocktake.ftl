@@ -24,16 +24,16 @@ under the License.
     <a href="<@ofbizUrl>/fixproductnegativeqoh?facilityId=${facility.facilityId?if_exists}&productId=${product.productId?if_exists}</@ofbizUrl>">Fix negative QOH</a>
 </#if>
     <a href="<@ofbizUrl>/productstocktake?facilityId=${facility.facilityId?if_exists}&productId=${product.productId?if_exists}</@ofbizUrl>">Refresh</a>
-    
+
 <#--    <ol>
     Display of edit box for barcode
-    
+
     Bin Location
     Bin Correction
-    
+
     SKU multiples, not found and corrections.
     Product search based on keyword!!!
-    
+
     </ol>
     -->
 </span>

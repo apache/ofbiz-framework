@@ -25,20 +25,20 @@ under the License.
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <condition field-name="shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
         <condition field-name="statusId" operator="equals" value="SHIPMENT_CANCELLED"/>
-        <action service="checkCancelItemIssuanceAndOrderShipmentFromShipment" mode="sync"/> 
-    </eca>        
+        <action service="checkCancelItemIssuanceAndOrderShipmentFromShipment" mode="sync"/>
+    </eca>
     <!-- if new statusId of a SALES_SHIPMENT is SHIPMENT_PACKED, create invoice -->
     <eca service="updateShipment" event="commit">
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <condition field-name="statusId" operator="equals" value="SHIPMENT_PACKED"/>
-        <condition field-name="shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>        
-        <action service="createInvoicesFromShipment" mode="sync" run-as-user="system"/>        
+        <condition field-name="shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
+        <action service="createInvoicesFromShipment" mode="sync" run-as-user="system"/>
     </eca>
     <eca service="updateShipment" event="commit">
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <condition field-name="statusId" operator="equals" value="SHIPMENT_SHIPPED"/>
         <condition field-name="shipmentTypeId" operator="equals" value="SALES_SHIPMENT"/>
-        <action service="sendShipmentCompleteNotification" mode="async" persist="true"/>        
+        <action service="sendShipmentCompleteNotification" mode="async" persist="true"/>
     </eca>
 
     <!-- if new statusId of a PURCHASE_SHIPMENT is PURCH_SHIP_RECEIVED, create invoice -->
@@ -49,7 +49,7 @@ under the License.
         <action service="balanceItemIssuancesForShipment" mode="sync"/>
         <action service="createInvoicesFromShipment" mode="sync" run-as-user="system"/>
     </eca>
-    
+
     <!-- if new statusId of a DROP_SHIPMENT is PURCH_SHIP_SHIPPED, create purchase invoice -->
     <eca service="updateShipment" event="commit">
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
@@ -75,7 +75,7 @@ under the License.
         <condition field-name="shipmentTypeId" operator="equals" value="SALES_RETURN"/>
         <action service="createInvoicesFromReturnShipment" mode="sync" run-as-user="system"/>
     </eca>
-    
+
     <!-- if new status of a PURCHASE_RETURN is SHIPMENT_SHIPPED, create a return invoice -->
     <eca service="updateShipment" event="commit">
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
@@ -83,7 +83,7 @@ under the License.
         <condition field-name="shipmentTypeId" operator="equals" value="PURCHASE_RETURN"/>
         <action service="createInvoicesFromReturnShipment" mode="sync" run-as-user="system"/>
     </eca>
-    
+
     <!-- if new statusId is SHIPMENT_SCHEDULED, send notification -->
     <eca service="createShipment" event="commit">
         <condition field-name="statusId" operator="equals" value="SHIPMENT_SCHEDULED"/>
@@ -156,5 +156,5 @@ under the License.
     <eca service="packBulkItems" event="commit">
         <condition field-name="nextPackageSeq" operator="equals" value="0"/>
         <action service="setNextPackageSeq" mode="sync"/>
-    </eca>        
+    </eca>
 </service-eca>

@@ -20,8 +20,8 @@ dojo.uuid.TimeBasedGenerator = new function() {
 	// Number of hours between October 15, 1582 and January 1, 1970:
 	this.GREGORIAN_CHANGE_OFFSET_IN_HOURS = 3394248;
 	// Number of seconds between October 15, 1582 and January 1, 1970:
-	//   this.GREGORIAN_CHANGE_OFFSET_IN_SECONDS = 12219292800;	
-	
+	//   this.GREGORIAN_CHANGE_OFFSET_IN_SECONDS = 12219292800;
+
 	// --------------------------------------------------
 	// Private variables:
 	var _uuidPseudoNodeString = null;
@@ -31,15 +31,15 @@ dojo.uuid.TimeBasedGenerator = new function() {
 	var _cachedMillisecondsBetween1582and1970 = null;
 	var _cachedHundredNanosecondIntervalsPerMillisecond = null;
 	var _uniformNode = null;
-	
+
 	// --------------------------------------------------
 	// Private constants:
 	var HEX_RADIX = 16;
 
 	function _carry(/* array */ arrayA) {
-		// summary: 
-		//   Given an array which holds a 64-bit number broken into 4 16-bit 
-		//   elements, this method carries any excess bits (greater than 16-bits) 
+		// summary:
+		//   Given an array which holds a 64-bit number broken into 4 16-bit
+		//   elements, this method carries any excess bits (greater than 16-bits)
 		//   from each array element into the next.
 		// arrayA: An array with 4 elements, each of which is a 16-bit number.
 		arrayA[2] += arrayA[3] >>> 16;
@@ -52,8 +52,8 @@ dojo.uuid.TimeBasedGenerator = new function() {
 	}
 
 	function _get64bitArrayFromFloat(/* float */ x) {
-		// summary: 
-		//   Given a floating point number, this method returns an array which 
+		// summary:
+		//   Given a floating point number, this method returns an array which
 		//   holds a 64-bit number broken into 4 16-bit elements.
 		var result = new Array(0, 0, 0, 0);
 		result[3] = x % 0x10000;
@@ -70,7 +70,7 @@ dojo.uuid.TimeBasedGenerator = new function() {
 	}
 
 	function _addTwo64bitArrays(/* array */ arrayA, /* array */ arrayB) {
-		// summary: 
+		// summary:
 		//   Takes two arrays, each of which holds a 64-bit number broken into 4
 		//   16-bit elements, and returns a new array that holds a 64-bit number
 		//   that is the sum of the two original numbers.
@@ -80,7 +80,7 @@ dojo.uuid.TimeBasedGenerator = new function() {
 		dojo.lang.assertType(arrayB, Array);
 		dojo.lang.assert(arrayA.length == 4);
 		dojo.lang.assert(arrayB.length == 4);
-	
+
 		var result = new Array(0, 0, 0, 0);
 		result[3] = arrayA[3] + arrayB[3];
 		result[2] = arrayA[2] + arrayB[2];
@@ -91,7 +91,7 @@ dojo.uuid.TimeBasedGenerator = new function() {
 	}
 
 	function _multiplyTwo64bitArrays(/* array */ arrayA, /* array */ arrayB) {
-		// summary: 
+		// summary:
 		//   Takes two arrays, each of which holds a 64-bit number broken into 4
 		//   16-bit elements, and returns a new array that holds a 64-bit number
 		//   that is the product of the two original numbers.
@@ -101,7 +101,7 @@ dojo.uuid.TimeBasedGenerator = new function() {
 		dojo.lang.assertType(arrayB, Array);
 		dojo.lang.assert(arrayA.length == 4);
 		dojo.lang.assert(arrayB.length == 4);
-	
+
 		var overflow = false;
 		if (arrayA[0] * arrayB[0] !== 0) { overflow = true; }
 		if (arrayA[0] * arrayB[1] !== 0) { overflow = true; }
@@ -110,7 +110,7 @@ dojo.uuid.TimeBasedGenerator = new function() {
 		if (arrayA[1] * arrayB[1] !== 0) { overflow = true; }
 		if (arrayA[2] * arrayB[0] !== 0) { overflow = true; }
 		dojo.lang.assert(!overflow);
-	
+
 		var result = new Array(0, 0, 0, 0);
 		result[0] += arrayA[0] * arrayB[3];
 		_carry(result);
@@ -136,12 +136,12 @@ dojo.uuid.TimeBasedGenerator = new function() {
 	}
 
 	function _padWithLeadingZeros(/* string */ string, /* int */ desiredLength) {
-		// summary: 
+		// summary:
 		//   Pads a string with leading zeros and returns the result.
 		// string: A string to add padding to.
 		// desiredLength: The number of characters the return string should have.
 
-		// examples: 
+		// examples:
 		//   result = _padWithLeadingZeros("abc", 6);
 		//   dojo.lang.assert(result == "000abc");
 		while (string.length < desiredLength) {
@@ -151,15 +151,15 @@ dojo.uuid.TimeBasedGenerator = new function() {
 	}
 
 	function _generateRandomEightCharacterHexString() {
-		// summary: 
+		// summary:
 		//   Returns a randomly generated 8-character string of hex digits.
 
 		// FIXME: This probably isn't a very high quality random number.
-	
+
 		// Make random32bitNumber be a randomly generated floating point number
 		// between 0 and (4,294,967,296 - 1), inclusive.
 		var random32bitNumber = Math.floor( (Math.random() % 1) * Math.pow(2, 32) );
-	
+
 		var eightCharacterString = random32bitNumber.toString(HEX_RADIX);
 		while (eightCharacterString.length < 8) {
 			eightCharacterString = "0" + eightCharacterString;
@@ -168,11 +168,11 @@ dojo.uuid.TimeBasedGenerator = new function() {
 	}
 
 	function _generateUuidString(/* string? */ node) {
-		// summary: 
-		//   Generates a time-based UUID, meaning a version 1 UUID.  
-		// description: 
-		//   JavaScript code running in a browser doesn't have access to the 
-		//   IEEE 802.3 address of the computer, so if a node value isn't 
+		// summary:
+		//   Generates a time-based UUID, meaning a version 1 UUID.
+		// description:
+		//   JavaScript code running in a browser doesn't have access to the
+		//   IEEE 802.3 address of the computer, so if a node value isn't
 		//   supplied, we generate a random pseudonode value instead.
 		// node: An optional 12-character string to use as the node in the new UUID.
 		dojo.lang.assertType(node, String, {optional: true});
@@ -196,7 +196,7 @@ dojo.uuid.TimeBasedGenerator = new function() {
 			var random14bitNumber = Math.floor( (Math.random() % 1) * Math.pow(2, 14) );
 			_uuidClockSeqString = (variantCodeForDCEUuids | random14bitNumber).toString(HEX_RADIX);
 		}
-	
+
 		// Maybe we should think about trying to make the code more readable to
 		// newcomers by creating a class called "WholeNumber" that encapsulates
 		// the methods and data structures for working with these arrays that
@@ -216,7 +216,7 @@ dojo.uuid.TimeBasedGenerator = new function() {
 		var arrayMillisecondsSince1970 = nowArray;
 		var arrayMillisecondsSince1582 = _addTwo64bitArrays(_cachedMillisecondsBetween1582and1970, arrayMillisecondsSince1970);
 		var arrayHundredNanosecondIntervalsSince1582 = _multiplyTwo64bitArrays(arrayMillisecondsSince1582, _cachedHundredNanosecondIntervalsPerMillisecond);
-	
+
 		if (now.valueOf() == _dateValueOfPreviousUuid) {
 			arrayHundredNanosecondIntervalsSince1582[3] += _nextIntraMillisecondIncrement;
 			_carry(arrayHundredNanosecondIntervalsSince1582);
@@ -236,7 +236,7 @@ dojo.uuid.TimeBasedGenerator = new function() {
 			_dateValueOfPreviousUuid = now.valueOf();
 			_nextIntraMillisecondIncrement = 1;
 		}
-	
+
 		var hexTimeLowLeftHalf  = arrayHundredNanosecondIntervalsSince1582[2].toString(HEX_RADIX);
 		var hexTimeLowRightHalf = arrayHundredNanosecondIntervalsSince1582[3].toString(HEX_RADIX);
 		var hexTimeLow = _padWithLeadingZeros(hexTimeLowLeftHalf, 4) + _padWithLeadingZeros(hexTimeLowRightHalf, 4);
@@ -254,7 +254,7 @@ dojo.uuid.TimeBasedGenerator = new function() {
 	}
 
 	this.setNode = function(/* string? */ node) {
-		// summary: 
+		// summary:
 		//   Sets the 'node' value that will be included in generated UUIDs.
 		// node: A 12-character hex string representing a pseudoNode or hardwareNode.
 		dojo.lang.assert((node === null) || (node.length == 12));
@@ -262,15 +262,15 @@ dojo.uuid.TimeBasedGenerator = new function() {
 	};
 
 	this.getNode = function() {
-		// summary: 
+		// summary:
 		//   Returns the 'node' value that will be included in generated UUIDs.
 		return _uniformNode; // String (a 12-character hex string representing a pseudoNode or hardwareNode)
 	};
 
 	this.generate = function(/* misc? */ input) {
-		// summary: 
-		//   This function generates time-based UUIDs, meaning "version 1" UUIDs. 
-		// description: 
+		// summary:
+		//   This function generates time-based UUIDs, meaning "version 1" UUIDs.
+		// description:
 		// For more info, see
 		//   http://www.webdav.org/specs/draft-leach-uuids-guids-01.txt
 		//   http://www.infonuovo.com/dma/csdocs/sketch/instidid.htm
@@ -278,7 +278,7 @@ dojo.uuid.TimeBasedGenerator = new function() {
 		//   http://www.opengroup.org/onlinepubs/009629399/apdxa.htm#tagcjh_20
 		//   http://jakarta.apache.org/commons/sandbox/id/apidocs/org/apache/commons/id/uuid/clock/Clock.html
 
-		// examples: 
+		// examples:
 		//   var generate = dojo.uuid.TimeBasedGenerator.generate;
 		//   var uuid;   // an instance of dojo.uuid.Uuid
 		//   var string; // a simple string literal
@@ -297,7 +297,7 @@ dojo.uuid.TimeBasedGenerator = new function() {
 		//   uuid   = generate(dojo.uuid.Uuid); // the generated UUID has node == "017bf397618a"
 		var nodeString = null;
 		var returnType = null;
-		
+
 		if (input) {
 			if (dojo.lang.isObject(input) && !dojo.lang.isBuiltIn(input)) {
 				// input: object {node: string, hardwareNode: string, pseudoNode: string}
@@ -342,7 +342,7 @@ dojo.uuid.TimeBasedGenerator = new function() {
 			}
 			dojo.lang.assertType(returnType, Function, {optional: true});
 		}
-		
+
 		var uuidString = _generateUuidString(nodeString);
 		var returnValue;
 		if (returnType && (returnType != String)) {

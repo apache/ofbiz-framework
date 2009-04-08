@@ -48,30 +48,30 @@ dojo.widget.defineWidget(
 			dojo.widget.IpAddressTextbox.superclass.mixInProperties.apply(this, arguments);
 
 			// Get properties from markup attributes, and assign to flags object.
-			if(localProperties.allowdotteddecimal){ 
+			if(localProperties.allowdotteddecimal){
 				this.flags.allowDottedDecimal = (localProperties.allowdotteddecimal == "true");
 			}
-			if(localProperties.allowdottedhex){ 
+			if(localProperties.allowdottedhex){
 				this.flags.allowDottedHex = (localProperties.allowdottedhex == "true");
 			}
-			if(localProperties.allowdottedoctal){ 
+			if(localProperties.allowdottedoctal){
 				this.flags.allowDottedOctal = (localProperties.allowdottedoctal == "true");
 			}
-			if(localProperties.allowdecimal){ 
+			if(localProperties.allowdecimal){
 				this.flags.allowDecimal = (localProperties.allowdecimal == "true");
 			}
-			if(localProperties.allowhex){ 
+			if(localProperties.allowhex){
 				this.flags.allowHex = (localProperties.allowhex == "true");
 			}
-			if(localProperties.allowipv6){ 
+			if(localProperties.allowipv6){
 				this.flags.allowIPv6 = (localProperties.allowipv6 == "true");
 			}
-			if(localProperties.allowhybrid){ 
+			if(localProperties.allowhybrid){
 				this.flags.allowHybrid = (localProperties.allowhybrid == "true");
 			}
 		},
 
-		isValid: function(){ 
+		isValid: function(){
 			// summary: see dojo.widget.ValidationTextbox
 			return dojo.validate.isIpAddress(this.textbox.value, this.flags);
 		}
@@ -107,24 +107,24 @@ dojo.widget.defineWidget(
 			dojo.widget.UrlTextbox.superclass.mixInProperties.apply(this, arguments);
 
 			// Get properties from markup attributes, and assign to flags object.
-			if ( localProperties.scheme ) { 
+			if ( localProperties.scheme ) {
 				this.flags.scheme = ( localProperties.scheme == "true" );
 			}
-			if ( localProperties.allowip ) { 
+			if ( localProperties.allowip ) {
 				this.flags.allowIP = ( localProperties.allowip == "true" );
 			}
-			if ( localProperties.allowlocal ) { 
+			if ( localProperties.allowlocal ) {
 				this.flags.allowLocal = ( localProperties.allowlocal == "true" );
 			}
-			if ( localProperties.allowcc ) { 
+			if ( localProperties.allowcc ) {
 				this.flags.allowCC = ( localProperties.allowcc == "true" );
 			}
-			if ( localProperties.allowgeneric ) { 
+			if ( localProperties.allowgeneric ) {
 				this.flags.allowGeneric = ( localProperties.allowgeneric == "true" );
 			}
 		},
 
-		isValid: function(){ 
+		isValid: function(){
 			// summary: see dojo.widget.ValidationTextbox
 			return dojo.validate.isUrl(this.textbox.value, this.flags);
 		}
@@ -150,9 +150,9 @@ dojo.widget.defineWidget(
 
 			// First initialize properties in super-class.
 			dojo.widget.EmailTextbox.superclass.mixInProperties.apply(this, arguments);
-	
+
 			// Get properties from markup attributes, and assign to flags object.
-			if(localProperties.allowcruft){ 
+			if(localProperties.allowcruft){
 				this.flags.allowCruft = (localProperties.allowcruft == "true");
 			}
 		},
@@ -172,7 +172,7 @@ dojo.widget.defineWidget(
 		// summary:  A Textbox which tests for a list of valid email addresses
 		//
 		// listSeparator:  String
-		//		The character used to separate email addresses.  
+		//		The character used to separate email addresses.
 		//		Default is ";", ",", "\n" or " "
 
 		mixInProperties: function(/*Object*/localProperties){
@@ -180,9 +180,9 @@ dojo.widget.defineWidget(
 
 			// First initialize properties in super-class.
 			dojo.widget.EmailListTextbox.superclass.mixInProperties.apply(this, arguments);
-	
+
 			// Get properties from markup attributes, and assign to flags object.
-			if(localProperties.listseparator){ 
+			if(localProperties.listseparator){
 				this.flags.listSeparator = localProperties.listseparator;
 			}
 		},

@@ -13,7 +13,7 @@ dojo.require("dojo.lang.func");
 
 dojo.Deferred = function(/*Function?*/ canceller){
 	/*
-	NOTE: this namespace and documentation are imported wholesale 
+	NOTE: this namespace and documentation are imported wholesale
 		from MochiKit
 
 	Encapsulates a sequence of callbacks in response to a value that
@@ -101,7 +101,7 @@ dojo.Deferred = function(/*Function?*/ canceller){
 	cancellable Deferreds.
 
 	*/
-	
+
 	this.chain = [];
 	this.id = this._nextId();
 	this.fired = -1;
@@ -172,7 +172,7 @@ dojo.lang.extend(dojo.Deferred, {
 			this.results[0].cancel();
 		}
 	},
-			
+
 
 	_pause: function(){
 		// summary: Used internally to signal that it's waiting on another Deferred
@@ -213,7 +213,7 @@ dojo.lang.extend(dojo.Deferred, {
 
 	callback: function(res){
 		// summary:	Begin the callback sequence with a non-error value.
-		
+
 		/*
 		callback or errback should only be called once on a given
 		Deferred.

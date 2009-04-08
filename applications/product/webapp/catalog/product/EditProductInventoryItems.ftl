@@ -21,7 +21,7 @@ under the License.
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductInventoryItems} ${uiLabelMap.CommonFor} <#if product?exists>${(product.internalName)?if_exists} </#if> [${uiLabelMap.CommonId}:${productId?if_exists}]</h3>
     </div>
-    <div class="screenlet-body"> 
+    <div class="screenlet-body">
         <#if productId?has_content>
             <a href="/facility/control/EditInventoryItem?productId=${productId}${externalKeyParam}" class="buttontext">${uiLabelMap.ProductCreateNewInventoryItemProduct}</a>
             <#if showEmpty>

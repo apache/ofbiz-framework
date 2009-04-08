@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="RequestList">
         <section>
@@ -52,10 +52,10 @@ under the License.
                 <set field="titleProperty" value="OrderRequest"/>
                 <set field="tabButtonItem" value="editRequest"/>
                 <set field="headerItem" value="request"/>
-                
+
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
-                
+
                 <set field="statusId" from-field="custRequest.statusId"/>
                 <entity-one entity-name="StatusItem" value-field="currentStatus"/>
             </actions>
@@ -117,7 +117,7 @@ under the License.
                                 <html><html-template location="component://projectmgr/webapp/projectmgr/request/overViewRequestItems.ftl"/></html>
                             </platform-specific>
                         </container>
-                        <container style="righthalf">                           
+                        <container style="righthalf">
                             <platform-specific>
                                 <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
                             </platform-specific>

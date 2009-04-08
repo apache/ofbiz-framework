@@ -18,7 +18,7 @@
 	background:#73c74a;
 }
 
-.dojoToasterMessage{ 
+.dojoToasterMessage{
 	color:#fff;
 }
 .dojoToasterWarning{ }
@@ -33,10 +33,10 @@
 	padding:1em;
 	padding-top:0.25em;
 	background:#d4d943;
-} 
+}
 
 .dojoToasterError .dojoToasterContent{
 	padding:1em;
 	padding-top:0.25em;
 	background:#c46600;
-} 
+}

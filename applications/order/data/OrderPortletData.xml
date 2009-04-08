@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,21 +21,21 @@
 
     <!-- customer requests -->
     <PortletCategory portletCategoryId="CUST_REQUEST" description="Customer Requests"/>
-    <PortalPortlet portalPortletId="INCOM_CUST_REQUESTS" 
-        portletName="Incoming Cust.Requests" 
-        screenName="IncomingCustRequests" 
-        screenLocation="component://order/widget/ordermgr/RequestScreens.xml" 
+    <PortalPortlet portalPortletId="INCOM_CUST_REQUESTS"
+        portletName="Incoming Cust.Requests"
+        screenName="IncomingCustRequests"
+        screenLocation="component://order/widget/ordermgr/RequestScreens.xml"
         description="List Request List for a request taker" securityServiceName="portalPermissionIsEmployee" securityMainAction="VIEW"/>
     <PortletPortletCategory portalPortletId="INCOM_CUST_REQUESTS" portletCategoryId="CUST_REQUEST"/>
 
-    <PortletCategory portletCategoryId="LIST_CUSTOMER" description="List(s) available to a Customer"/>    
-    <PortalPortlet portalPortletId="ListCustRequests" 
-        portletName="List Cust Requests" 
-        screenName="ListCustRequests" 
-        screenLocation="component://order/widget/ordermgr/RequestScreens.xml" 
+    <PortletCategory portletCategoryId="LIST_CUSTOMER" description="List(s) available to a Customer"/>
+    <PortalPortlet portalPortletId="ListCustRequests"
+        portletName="List Cust Requests"
+        screenName="ListCustRequests"
+        screenLocation="component://order/widget/ordermgr/RequestScreens.xml"
         description="List Cust Requests to the customer" securityServiceName="portalPermissionIsCustomer" securityMainAction="VIEW"
-        editFormName="EditCustReqStatusId" 
+        editFormName="EditCustReqStatusId"
         editFormLocation="component://order/webapp/ordermgr/request/RequestForms.xml"/>
     <PortletPortletCategory portalPortletId="ListCustRequests" portletCategoryId="LIST_CUSTOMER"/>
-    
+
 </entity-engine-xml>

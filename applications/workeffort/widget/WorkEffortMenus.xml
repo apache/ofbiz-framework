@@ -28,7 +28,7 @@ under the License.
         <menu-item name="request" title="${uiLabelMap.WorkEffortRequestList}"><link target="requestlist"/></menu-item>
         <menu-item name="workeffort" title="${uiLabelMap.WorkEffortWorkEffort}"><link target="FindWorkEffort"/></menu-item>
         <menu-item name="timesheet" title="${uiLabelMap.WorkEffortTimesheet}"><link target="FindTimesheet"/></menu-item>
-        <menu-item name="userJobs" title="${uiLabelMap.WorkEffortJobList}"><link target="UserJobs"/></menu-item>        
+        <menu-item name="userJobs" title="${uiLabelMap.WorkEffortJobList}"><link target="UserJobs"/></menu-item>
     </menu>
     <menu name="WorkEffortTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="WorkEffort">
@@ -112,7 +112,7 @@ under the License.
             <link target="EditWorkEffortReviews">
                 <parameter param-name="workEffortId"/>
             </link>
-        </menu-item>        
+        </menu-item>
         <menu-item name="WorkEffortKeywords" title="${uiLabelMap.WorkEffortKeywords}">
             <link target="EditWorkEffortKeywords">
                 <parameter param-name="workEffortId"/>
@@ -138,11 +138,11 @@ under the License.
                 <parameter param-name="workEffortId"/>
             </link>
         </menu-item>
-    </menu>    
+    </menu>
     <menu name="MyCompanyCommsMenu">
         <menu-item name="newEvent" title="${uiLabelMap.WorkEffortNewEvent}">
             <link target="newEvent"/>
         </menu-item>
     </menu>
-    
+
 </menus>

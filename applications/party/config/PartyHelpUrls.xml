@@ -33,7 +33,7 @@
     </property>
     <property key="PARTY_FindSecurityGroup">
         <value xml:lang="en">Security</value>
-    </property>   
+    </property>
     <property key="PARTY_AddressMatchMap">
         <value xml:lang="en">Address Match Map</value>
     </property>
@@ -43,5 +43,5 @@
     <property key="PARTY_CreateNewParty">
         <value xml:lang="en">Create new party</value>
     </property>
-    
+
 </resource>

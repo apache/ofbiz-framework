@@ -12,7 +12,7 @@ dojo.provide("dojo.logging.ConsoleLogger");
 dojo.require("dojo.logging.Logger");
 
 dojo.lang.extend(dojo.logging.MemoryLogHandler,{
-	
+
 	debug:function(){
 		dojo.hostenv.println.apply(this,arguments);
 	},
@@ -28,10 +28,10 @@ dojo.lang.extend(dojo.logging.MemoryLogHandler,{
 	critical:function(){
 		dojo.hostenv.println.apply(this,arguments);
 	},
-	
+
 	emit:function(record){
 		if (!djConfig.isDebug) { return; }
-		
+
 		var funcName=null;
 		switch(record.level){
 			case 1:
@@ -52,7 +52,7 @@ dojo.lang.extend(dojo.logging.MemoryLogHandler,{
 			default:
 				funcName="debug";
 		}
-		
+
 		var logStr = String(dojo.log.getLevelName(record.level)+": "
 					+record.time.toLocaleTimeString())+": "+record.message;
 		if(record.msgArgs && record.msgArgs.length > 0){
@@ -60,7 +60,7 @@ dojo.lang.extend(dojo.logging.MemoryLogHandler,{
 		} else {
 			this[funcName].call(this, logStr);
 		}
-		
+
 		this.data.push(record);
 		if(this.numRecords != -1){
 			while(this.data.length>this.numRecords){
@@ -92,12 +92,12 @@ if(!dj_undef("console") && !dj_undef("info", console)){
 	dojo.lang.extend(dojo.logging.Logger,{
 		exception: function(msg, e, squelch){
 			var args=[msg];
-			
+
 			if(e){
 				msg+=" : "+ e.name + " " + (e.description||e.message);
 				args.push(e);
 			}
-			
+
 			this.logType("ERROR", args);
 			if(!squelch){
 				throw e;

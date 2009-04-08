@@ -43,7 +43,7 @@ under the License.
     <SecurityPermission description="Create Customer Requests in the Order Manager." permissionId="ORDERMGR_CRQ_CREATE"/>
     <SecurityPermission description="Create sales forecasts in the Order Manager." permissionId="ORDERMGR_4C_CREATE"/>
     <SecurityPermission description="Update sales forecasts in the Order Manager." permissionId="ORDERMGR_4C_UPDATE"/>
-    
+
     <SecurityGroup description="Admin group for restricted order processing." groupId="ORDERPROC"/>
     <SecurityGroup description="Order Entry Admin group; permissions for creating orders." groupId="ORDERENTRY"/>
     <SecurityGroup description="Order Admin group, has all order permissions." groupId="ORDERADMIN"/>
@@ -51,7 +51,7 @@ under the License.
     <SecurityGroup description="Limited Order Admin group for Supplier Agents." groupId="ORDERSUPPLIER_LTD"/>
     <SecurityGroup description="Order entry with purchasing permissions" groupId="ORDERPURCH"/>
     <SecurityGroup description="Order entry permission for all stores.  No special role is needed." groupId="ORDERENTRY_ALL"/>
-    
+
     <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_VIEW"/>
     <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_ROLE_VIEW"/>
     <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_ROLE_CREATE"/>
@@ -59,22 +59,22 @@ under the License.
     <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_ROLE_DELETE"/>
     <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="ORDERMGR_VIEW"/>
     <SecurityGroupPermission groupId="ORDERADMIN_LTD" permissionId="OFBTOOLS_VIEW"/>
-    
+
     <SecurityGroupPermission groupId="ORDERSUPPLIER_LTD" permissionId="ORDERMGR_VIEW"/>
     <SecurityGroupPermission groupId="ORDERSUPPLIER_LTD" permissionId="ORDERMGR_ROLE_VIEW"/>
     <SecurityGroupPermission groupId="ORDERSUPPLIER_LTD" permissionId="ORDERMGR_ROLE_CREATE"/>
     <SecurityGroupPermission groupId="ORDERSUPPLIER_LTD" permissionId="ORDERMGR_ROLE_UPDATE"/>
     <SecurityGroupPermission groupId="ORDERSUPPLIER_LTD" permissionId="OFBTOOLS_VIEW"/>
-    
+
     <SecurityGroupPermission groupId="ORDERADMIN" permissionId="ORDERMGR_ADMIN"/>
     <SecurityGroupPermission groupId="ORDERADMIN" permissionId="OFBTOOLS_VIEW"/>
-    
+
     <SecurityGroupPermission groupId="ORDERPROC" permissionId="ORDERMGR_ROLE_VIEW"/>
     <SecurityGroupPermission groupId="ORDERPROC" permissionId="ORDERMGR_NOTE"/>
     <SecurityGroupPermission groupId="ORDERPROC" permissionId="PARTYMGR_VIEW"/>
     <SecurityGroupPermission groupId="ORDERPROC" permissionId="PARTYMGR_NOTE"/>
     <SecurityGroupPermission groupId="ORDERPROC" permissionId="OFBTOOLS_VIEW"/>
-    
+
     <SecurityGroupPermission groupId="ORDERENTRY" permissionId="ORDERMGR_SALES_ENTRY"/>
     <SecurityGroupPermission groupId="ORDERENTRY" permissionId="ORDERMGR_ROLE_VIEW"/>
     <SecurityGroupPermission groupId="ORDERENTRY" permissionId="ORDERMGR_VIEW"/>
@@ -91,7 +91,7 @@ under the License.
     <SecurityGroupPermission groupId="ORDERENTRY" permissionId="CATALOG_VIEW"/>
     <SecurityGroupPermission groupId="ORDERENTRY" permissionId="OFBTOOLS_VIEW"/>
     <SecurityGroupPermission groupId="ORDERENTRY" permissionId="ORDERMGR_CRQ_CREATE"/>
-    
+
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ORDERMGR_ADMIN"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ORDERMGR_CREATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ORDERMGR_DELETE"/>
@@ -108,7 +108,7 @@ under the License.
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="ORDERMGR_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="ORDERMGR_NOTE"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="ORDERMGR_ADMIN"/>
-    
+
     <SecurityGroupPermission groupId="ORDERPURCH" permissionId="ORDERMGR_ROLE_VIEW"/>
     <SecurityGroupPermission groupId="ORDERPURCH" permissionId="ORDERMGR_VIEW"/>
     <SecurityGroupPermission groupId="ORDERPURCH" permissionId="ORDERMGR_NOTE"/>
@@ -124,7 +124,7 @@ under the License.
     <SecurityGroupPermission groupId="ORDERPURCH" permissionId="PAY_INFO_CREATE"/>
     <SecurityGroupPermission groupId="ORDERPURCH" permissionId="CATALOG_VIEW"/>
     <SecurityGroupPermission groupId="ORDERPURCH" permissionId="OFBTOOLS_VIEW"/>
-    
+
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_SALES_ENTRY"/>
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_SALES_CREATE"/>
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_SALES_UPDATE"/>
@@ -142,7 +142,7 @@ under the License.
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PAY_INFO_UPDATE"/>
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="PAY_INFO_CREATE"/>
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="CATALOG_VIEW"/>
-    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_SEND_CONFIRMATION"/> 
+    <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_SEND_CONFIRMATION"/>
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="OFBTOOLS_VIEW"/>
     <SecurityGroupPermission groupId="ORDERENTRY_ALL" permissionId="ORDERMGR_CRQ_CREATE"/>
 </entity-engine-xml>

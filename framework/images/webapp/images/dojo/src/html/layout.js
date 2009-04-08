@@ -19,7 +19,7 @@ dojo.html.sumAncestorProperties = function(/* HTMLElement */node, /* string */pr
 	//	Returns the sum of the passed property on all ancestors of node.
 	node = dojo.byId(node);
 	if(!node){ return 0; } // FIXME: throw an error?
-	
+
 	var retVal = 0;
 	while(node){
 		if(dojo.html.getComputedStyle(node, 'position') == 'fixed'){
@@ -35,35 +35,35 @@ dojo.html.sumAncestorProperties = function(/* HTMLElement */node, /* string */pr
 	return retVal;	//	integer
 }
 
-dojo.html.setStyleAttributes = function(/* HTMLElement */node, /* string */attributes) { 
+dojo.html.setStyleAttributes = function(/* HTMLElement */node, /* string */attributes) {
 	//	summary
 	//	allows a dev to pass a string similar to what you'd pass in style="", and apply it to a node.
 	node = dojo.byId(node);
-	var splittedAttribs=attributes.replace(/(;)?\s*$/, "").split(";"); 
-	for(var i=0; i<splittedAttribs.length; i++){ 
-		var nameValue=splittedAttribs[i].split(":"); 
+	var splittedAttribs=attributes.replace(/(;)?\s*$/, "").split(";");
+	for(var i=0; i<splittedAttribs.length; i++){
+		var nameValue=splittedAttribs[i].split(":");
 		var name=nameValue[0].replace(/\s*$/, "").replace(/^\s*/, "").toLowerCase();
 		var value=nameValue[1].replace(/\s*$/, "").replace(/^\s*/, "");
 		switch(name){
 			case "opacity":
-				dojo.html.setOpacity(node, value); 
-				break; 
+				dojo.html.setOpacity(node, value);
+				break;
 			case "content-height":
-				dojo.html.setContentBox(node, {height: value}); 
-				break; 
+				dojo.html.setContentBox(node, {height: value});
+				break;
 			case "content-width":
-				dojo.html.setContentBox(node, {width: value}); 
-				break; 
+				dojo.html.setContentBox(node, {width: value});
+				break;
 			case "outer-height":
-				dojo.html.setMarginBox(node, {height: value}); 
-				break; 
+				dojo.html.setMarginBox(node, {height: value});
+				break;
 			case "outer-width":
-				dojo.html.setMarginBox(node, {width: value}); 
-				break; 
+				dojo.html.setMarginBox(node, {width: value});
+				break;
 			default:
-				node.style[dojo.html.toCamelCase(name)]=value; 
+				node.style[dojo.html.toCamelCase(name)]=value;
 		}
-	} 
+	}
 }
 
 dojo.html.boxSizing = {
@@ -146,8 +146,8 @@ dojo.html.getAbsolutePosition = dojo.html.abs = function(/* HTMLElement */node, 
 			var curnode = node;
 			do{
 				var n = curnode["offsetLeft"];
-				//FIXME: ugly hack to workaround the submenu in 
-				//popupmenu2 does not shown up correctly in opera. 
+				//FIXME: ugly hack to workaround the submenu in
+				//popupmenu2 does not shown up correctly in opera.
 				//Someone have a better workaround?
 				if(!h.opera || n>0){
 					ret.x += isNaN(n) ? 0 : n;
@@ -232,7 +232,7 @@ dojo.html.getMarginExtent = function(/* HTMLElement */node, /* string */side){
 
 dojo.html.getPaddingExtent = function(/* HTMLElement */node, /* string */side){
 	//	summary
-	//	Returns the width of the requested padding 
+	//	Returns the width of the requested padding
 	return dojo.html._sumPixelValues(node, ["padding-" + side], true);	//	integer
 }
 
@@ -258,7 +258,7 @@ dojo.html.getBoxSizing = function(/* HTMLElement */node){
 	//	Returns which box model the passed element is working with
 	var h = dojo.render.html;
 	var bs = dojo.html.boxSizing;
-	if(((h.ie)||(h.opera)) && node.nodeName!="IMG"){ 
+	if(((h.ie)||(h.opera)) && node.nodeName!="IMG"){
 		var cm = document["compatMode"];
 		if((cm == "BackCompat")||(cm == "QuirksMode")){
 			return bs.BORDER_BOX; 	//	string

@@ -38,11 +38,11 @@ function clickAll(e) {
     var cform = document.selectAllForm;
     var len = cform.elements.length;
     for (var i = 0; i < len; i++) {
-        var element = cform.elements[i];                   
+        var element = cform.elements[i];
         if (element.name.substring(0, 10) == "_rowSubmit" && element.checked != e.checked) {
             element.click();
-        } 
-    }     
+        }
+    }
 }
 </script>
 <#if (product.isVirtual)?if_exists != "Y">
@@ -64,7 +64,7 @@ function clickAll(e) {
             <td><b>${uiLabelMap.ProductExistingVariant} :</b></td>
             <td align="right"><b>${uiLabelMap.CommonAll}<input type="checkbox" name="selectAll" value="${uiLabelMap.CommonY}" onclick="javascript:clickAll(this);"></b></td>
         </tr>
-    
+
         <#assign defaultSequenceNum = 10>
         <#assign rowClass = "2">
         <#list featureCombinationInfos as featureCombinationInfo>
@@ -93,7 +93,7 @@ function clickAll(e) {
                     </#list>
                     </div>
                 </td>
-                <td align="right">              
+                <td align="right">
                   <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:setProductVariantId(this, '${defaultVariantProductId}', 'productVariantId_o_${rowCount}');">
                 </td>
             </tr>

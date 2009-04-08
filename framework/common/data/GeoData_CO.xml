@@ -52,7 +52,7 @@ under the License.
     <Geo abbreviation="VAC" geoCode="VAC" geoId="CO-VAC" geoName="Valle del Cauca" geoTypeId="STATE"/>
     <Geo abbreviation="VAU" geoCode="VAU" geoId="CO-VAU" geoName="Vaupés" geoTypeId="STATE"/>
     <Geo abbreviation="VID" geoCode="VID" geoId="CO-VID" geoName="Vichada" geoTypeId="STATE"/>
-    
+
     <GeoAssoc geoIdTo="CO-AMA" geoId="COL" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoIdTo="CO-ANT" geoId="COL" geoAssocTypeId="REGIONS"/>
     <GeoAssoc geoIdTo="CO-ARA" geoId="COL" geoAssocTypeId="REGIONS"/>

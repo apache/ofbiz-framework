@@ -25,7 +25,7 @@ under the License.
                 form.action = "<@ofbizUrl>acceptassignment</@ofbizUrl>";
             } else {
                 form.action = "<@ofbizUrl>orderview</@ofbizUrl>";
-            }    
+            }
         } else {
             if (form.delegate.checked) {
                 form.action = "<@ofbizUrl>delegateassignment</@ofbizUrl>";
@@ -45,9 +45,9 @@ under the License.
         <div class="boxhead">${uiLabelMap.OrderOrderNeedingAttention}</div>
     </div>
     <div class="screenlet-body">
-        <table cellspacing="0" class="basic-table">      
-            <tr>        
-              <td width='100%'>  
+        <table cellspacing="0" class="basic-table">
+            <tr>
+              <td width='100%'>
                 <#if poList?has_content>
                   <#assign tasksFound = true>
                   <table cellspacing="0" class="basic-table">
@@ -71,7 +71,7 @@ under the License.
                             <#assign statusItem = orderHeaderAndRole.getRelatedOneCache("StatusItem")>
                             <#assign placingParty = orh.getPlacingParty()?if_exists>
                             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-                              <td><a href="<@ofbizUrl>orderview?orderId=${orderHeaderAndRole.orderId}</@ofbizUrl>" class='buttontext'>${orderHeaderAndRole.orderId}</a></td>                          
+                              <td><a href="<@ofbizUrl>orderview?orderId=${orderHeaderAndRole.orderId}</@ofbizUrl>" class='buttontext'>${orderHeaderAndRole.orderId}</a></td>
                               <td>
                                 <div>
                                   <#assign partyId = "_NA_">
@@ -102,7 +102,7 @@ under the License.
                               <td width="1">&nbsp;&nbsp;</td>
                               <td align='right'>
                                 <a href="<@ofbizUrl>OrderDeliveryScheduleInfo?orderId=${orderHeaderAndRole.orderId}</@ofbizUrl>" class='buttontext'>Schedule&nbsp;Delivery</a>
-                              </td>                       
+                              </td>
                             </tr>
                             <#-- toggle the row color -->
                             <#assign alt_row = !alt_row>
@@ -112,7 +112,7 @@ under the License.
                     </tr>
                   </table>
                 </#if>
-                                  
+
                 <#if partyTasks?has_content>
                   <#assign tasksFound = true>
                   <table cellspacing="0" class="basic-table hover-bar">
@@ -133,8 +133,8 @@ under the License.
                           <#assign alt_row = false>
                           <#list partyTasks as task>
                             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-                              <td>               
-                                <#assign orderStr = "orderId=" + task.orderId + "&partyId=" + userLogin.partyId + "&roleTypeId=" + task.roleTypeId + "&workEffortId=" + task.workEffortId + "&fromDate=" + task.get("fromDate").toString()>           
+                              <td>
+                                <#assign orderStr = "orderId=" + task.orderId + "&partyId=" + userLogin.partyId + "&roleTypeId=" + task.roleTypeId + "&workEffortId=" + task.workEffortId + "&fromDate=" + task.get("fromDate").toString()>
                                 <a href="<@ofbizUrl>orderview?${orderStr}</@ofbizUrl>" class="buttontext">
                                   ${task.orderId}
                                 </a>
@@ -152,7 +152,7 @@ under the License.
                                 <div>
                                   ${task.get("orderDate").toString()}
                                 </div>
-                              </td>  
+                              </td>
                               <td width="1" align="right"><@ofbizCurrency amount=task.grandTotal isoCode=orderCurrencyMap.get(task.orderId)/></td>
                               <td width="1">&nbsp;&nbsp;</td>
                               <td>
@@ -160,12 +160,12 @@ under the License.
                                   <#assign actualStartDate = task.get("actualStartDate").toString()>
                                 <#else>
                                   <#assign actualStartDate = "N/A">
-                                </#if>                                
+                                </#if>
                                 <div>${actualStartDate}</div>
-                              </td>          
+                              </td>
                               <td>${task.priority?default("0")}</td>
                               <td>
-                                <a href="/workeffort/control/activity?workEffortId=${task.workEffortId}${externalKeyParam}" target="workeffort" class="buttontext">                         
+                                <a href="/workeffort/control/activity?workEffortId=${task.workEffortId}${externalKeyParam}" target="workeffort" class="buttontext">
                                   ${Static["org.ofbiz.order.task.TaskWorker"].getPrettyStatus(task)}
                                 </a>
                               </td>
@@ -177,8 +177,8 @@ under the License.
                       </td>
                     </tr>
                   </table>
-                </#if> 
-                
+                </#if>
+
                 <#if roleTasks?has_content>
                   <#assign tasksFound = true>
                   <table cellspacing="0" class="basic-table">
@@ -189,7 +189,7 @@ under the License.
                           <tr class="header-row">
                             <td><a href="<@ofbizUrl>tasklist?sort=orderId</@ofbizUrl>">${uiLabelMap.OrderOrderNumber}</a></td>
                             <td><a href="<@ofbizUrl>tasklist?sort=name</@ofbizUrl>">${uiLabelMap.CommonName}</a></td>
-                            <td><a href="<@ofbizUrl>tasklist?sort=orderDate</@ofbizUrl>">${uiLabelMap.OrderOrderDate}</a></td>                                  
+                            <td><a href="<@ofbizUrl>tasklist?sort=orderDate</@ofbizUrl>">${uiLabelMap.OrderOrderDate}</a></td>
                             <td width="1" align="right"><a href="<@ofbizUrl>tasklist?sort=grandTotal</@ofbizUrl>">${uiLabelMap.CommonTotal}</a></td>
                             <td width="1">&nbsp;&nbsp;</td>
                             <td><a href="<@ofbizUrl>tasklist?sort=actualStartDate</@ofbizUrl>">${uiLabelMap.CommonStartDateTime}</a></td>
@@ -198,31 +198,31 @@ under the License.
                             <td><a href="<@ofbizUrl>tasklist?sort=priority</@ofbizUrl>">${uiLabelMap.CommonPriority}</a></td>
                             <td><a href="<@ofbizUrl>tasklist?sort=currentStatusId</@ofbizUrl>">${uiLabelMap.CommonStatus}</a></td>
                             <td>&nbsp;</td>
-                          </tr>                          
+                          </tr>
                           <#assign alt_row = false>
                           <#list roleTasks as task>
                             <form method="get" name="F${task.workEffortId}">
                               <input type="hidden" name="orderId" value="${task.orderId}">
                               <input type="hidden" name="workEffortId" value="${task.workEffortId}">
-                              <input type="hidden" name="taskStatus" value="${task.currentStatusId}">                    
+                              <input type="hidden" name="taskStatus" value="${task.currentStatusId}">
                               <#if task.statusId?exists && task.statusId == "CAL_SENT">
                                 <input type="hidden" name="partyId" value="${userLogin.partyId}">
                                 <input type="hidden" name="roleTypeId" value="${task.roleTypeId}">
                                 <input type="hidden" name="fromDate" value="${task.get("fromDate").toString()}">
-                              <#else>                          
+                              <#else>
                                 <input type="hidden" name="partyId" value="${userLogin.partyId}">
                                 <input type="hidden" name="roleTypeId" value="${task.roleTypeId}">
                                 <input type="hidden" name="fromDate" value="${task.get("fromDate").toString()}">
                                 <input type="hidden" name="fromPartyId" value="${task.wepaPartyId}">
                                 <input type="hidden" name="fromRoleTypeId" value="${task.roleTypeId}">
-                                <input type="hidden" name="fromFromDate" value="${task.get("fromDate").toString()}">  
+                                <input type="hidden" name="fromFromDate" value="${task.get("fromDate").toString()}">
                                 <input type="hidden" name="toPartyId" value="${userLogin.partyId}">
                                 <input type="hidden" name="toRoleTypeId" value="${task.roleTypeId}">
                                 <input type="hidden" name="toFromDate" value="${now}">
                                 <input type="hidden" name="startActivity" value="true">
                               </#if>
                               <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-                                <td>                        
+                                <td>
                                   <a href="javascript:viewOrder(document.F${task.workEffortId});" class="buttontext">
                                     ${task.orderId}
                                   </a>
@@ -238,7 +238,7 @@ under the License.
                                   <div>
                                     ${task.get("orderDate").toString()}
                                   </div>
-                                </td> 
+                                </td>
                                 <td width="1" align="right"><@ofbizCurrency amount=task.grandTotal isoCode=orderCurrencyMap.get(task.orderId)/></td>
                                 <td width="1">&nbsp;&nbsp;</td>
                                 <td>
@@ -246,16 +246,16 @@ under the License.
                                     <#assign actualStartDate = task.get("actualStartDate").toString()>
                                   <#else>
                                     <#assign actualStartDate = "N/A">
-                                  </#if>                                
+                                  </#if>
                                   <div>${actualStartDate}</div>
-                                </td>                                                      
+                                </td>
                                 <td>
                                   <#if task.wepaPartyId == "_NA_">
                                     <div>N/A</div>
-                                  <#else>                              
+                                  <#else>
                                     <a href="${customerDetailLink}${task.wepaPartyId}${externalKeyParam}" target="partymgr" class="buttontext">${task.wepaPartyId}</a>
                                   </#if>
-                                </td>  
+                                </td>
                                 <td>${Static["org.ofbiz.order.task.TaskWorker"].getRoleDescription(task)}</td>
                                 <td>${task.priority?default("0")}</td>
                                 <td>
@@ -276,16 +276,16 @@ under the License.
                         </table>
                       </td>
                     </tr>
-                  </table>  
+                  </table>
                 </#if>
                 <#if !tasksFound>
                   <div>${uiLabelMap.CommonNoTaskAssigned}</div>
-                </#if>                                                                       
+                </#if>
               </td>
             </tr>
         </table>
     </div>
 </div>
 <#else>
-  <h3>You do not have permission to view this page. ("ORDERMGR_VIEW" or "ORDERMGR_ADMIN" needed)</h3>         
+  <h3>You do not have permission to view this page. ("ORDERMGR_VIEW" or "ORDERMGR_ADMIN" needed)</h3>
 </#if>

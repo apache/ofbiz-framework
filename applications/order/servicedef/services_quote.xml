@@ -18,12 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Order Services: Quotes </description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
-    
+
     <!-- Quote -->
     <service name="getNextQuoteId" engine="simple"
         location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="getNextQuoteId">
@@ -31,7 +31,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="quoteId" type="String" mode="OUT" optional="false"/>
     </service>
-    
+
     <service name="createQuote" default-entity-name="Quote" engine="simple"
                 location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuote" auth="true">
         <description>Create an Quote</description>

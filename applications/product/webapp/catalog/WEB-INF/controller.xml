@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <description>Catalog Module Site Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
@@ -124,7 +124,7 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ChooseTopCategory"/>
     </request-map>
-    
+
     <!-- ================ Category Requests ================= -->
     <request-map uri="EditCategory">
         <security https="true" auth="true"/>
@@ -334,7 +334,7 @@ under the License.
         <response name="success" type="view" value="EditCategoryParties"/>
         <response name="error" type="view" value="EditCategoryParties"/>
     </request-map>
-    
+
  <!-- ================ Category Content Requests ================= -->
     <request-map uri="EditCategoryContent">
         <security https="true" auth="true"/>
@@ -346,7 +346,7 @@ under the License.
         <response name="success" type="view" value="EditCategoryContent"/>
         <response name="error" type="view" value="EditCategoryContent"/>
     </request-map>
-    
+
  <!-- ================ Category Content Assoc Requests ================= -->
     <request-map uri="EditCategoryContentContent">
         <security https="true" auth="true"/>
@@ -380,7 +380,7 @@ under the License.
         <response name="success" type="view" value="EditCategoryContent"/>
         <response name="error" type="view" value="EditCategoryContentContent"/>
     </request-map>
-    
+
     <!-- ================ Product Category Attribute Requests ================= -->
     <request-map uri="EditCategoryAttributes">
         <security https="true" auth="true"/>
@@ -404,7 +404,7 @@ under the License.
         <response name="success" type="view" value="EditCategoryAttributes"/>
         <response name="error" type="view" value="EditCategoryAttributes"/>
     </request-map>
-    
+
     <!-- ================ Product Category Link Requests ================= -->
     <request-map uri="EditProductCategoryLinks">
         <security https="true" auth="true"/>
@@ -428,7 +428,7 @@ under the License.
         <response name="success" type="view" value="EditProductCategoryLinks"/>
         <response name="error" type="view" value="EditProductCategoryLinks"/>
     </request-map>
-    
+
     <!-- ================ Product Requests ================= -->
     <request-map uri="EditProduct">
         <security https="true" auth="true"/>
@@ -457,11 +457,11 @@ under the License.
         <event type="service" path="" invoke="copyToProductVariants"/>
         <response name="success" type="view" value="EditProduct"/>
         <response name="error" type="view" value="EditProduct"/>
-    </request-map>    
+    </request-map>
     <request-map uri="ProductBarCode.pdf">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ProductBarCode.pdf"/>
-    </request-map>    
+    </request-map>
 
     <!-- ================ Product Roles Requests ================= -->
     <request-map uri="EditProductParties">
@@ -1044,7 +1044,7 @@ under the License.
         <response name="success" type="view" value="EditProductPaymentMethodTypes"/>
         <response name="error" type="view" value="EditProductPaymentMethodTypes"/>
     </request-map>
-    
+
     <!-- ================ Feature Requests ================= -->
     <request-map uri="EditFeatureCategories">
         <security https="true" auth="true"/>
@@ -1182,7 +1182,7 @@ under the License.
         <event type="service" path="" invoke="createProductFeatureIactn"/>
         <response name="success" type="view" value="EditProductFeatures"/>
         <response name="error" type="view" value="EditProductFeatures"/>
-    </request-map> 
+    </request-map>
     <request-map uri="removeFeatureIactn">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="removeProductFeatureIactn"/>
@@ -1301,7 +1301,7 @@ under the License.
         <response name="success" type="view" value="EditProductAssoc"/>
         <response name="error" type="view" value="QuickAddVariants"/>
     </request-map>
-    
+
 
     <request-map uri="QuickAddVariants">
         <security https="true" auth="true"/>
@@ -1533,7 +1533,7 @@ under the License.
         <response name="success" type="view" value="EditProductGeos"/>
         <response name="error" type="view" value="EditProductGeos"/>
     </request-map>
-    
+
     <!-- ================ ProductSubscriptionResources Requests ================= -->
     <request-map uri="EditProductSubscriptionResources"><security https="true" auth="true"/><response name="success" type="view" value="EditProductSubscriptionResources"/></request-map>
     <request-map uri="createProductSubscriptionResource">
@@ -1570,7 +1570,7 @@ under the License.
         <response name="success" type="view" value="EditSubscription"/>
         <response name="error" type="view" value="EditSubscription"/>
     </request-map>
-    
+
     <!-- ================ SubscriptionResource Requests ================= -->
     <request-map uri="FindSubscriptionResource"><security https="true" auth="true"/><response name="success" type="view" value="FindSubscriptionResource"/></request-map>
     <request-map uri="EditSubscriptionResource"><security https="true" auth="true"/><response name="success" type="view" value="EditSubscriptionResource"/></request-map>
@@ -1606,7 +1606,7 @@ under the License.
         <response name="success" type="view" value="EditSubscriptionResourceProducts"/>
         <response name="error" type="view" value="EditSubscriptionResourceProducts"/>
     </request-map>
-    
+
     <!-- ================ Subscription Attributes ================= -->
     <request-map uri="EditSubscriptionAttributes">
         <security https="true" auth="true"/>
@@ -1617,13 +1617,13 @@ under the License.
         <event type="service" path="" invoke="updateSubscriptionAttribute"/>
         <response name="success" type="view" value="EditSubscriptionAttributes"/>
     </request-map>
-    
+
     <!-- ================ Subscription Communication Event ================= -->
     <request-map uri="EditSubscriptionCommEvent">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditSubscriptionCommEvent"/>
     </request-map>
-    
+
     <request-map uri="createSubscriptionCommEvent">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createSubscriptionCommEvent"/>
@@ -1636,7 +1636,7 @@ under the License.
         <response name="success" type="view" value="EditSubscriptionCommEvent"/>
         <response name="error" type="view" value="EditSubscriptionCommEvent"/>
     </request-map>
-    
+
     <!-- ================ ProductPromo Rules Requests ================= -->
     <request-map uri="EditProductPromoRules">
         <security https="true" auth="true"/>
@@ -1846,7 +1846,7 @@ under the License.
         <event type="service" path="" invoke="deleteProductPromoCodeEmail"/>
         <response name="success" type="view" value="EditProductPromoCode"/>
         <response name="error" type="view" value="EditProductPromoCode"/>
-    </request-map>    
+    </request-map>
     <request-map uri="createBulkProductPromoCodeEmail">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createBulkProductPromoCodeEmail"/>
@@ -2436,7 +2436,7 @@ under the License.
         <response name="success" type="view" value="EditProductConfigItemContent"/>
         <response name="error" type="view" value="EditProductConfigItemContentContent"/>
     </request-map>
-    
+
     <!-- ================ Product Work Effort Requests ================= -->
     <request-map uri="EditProductWorkEfforts">
         <security https="true" auth="true"/>
@@ -2463,7 +2463,7 @@ under the License.
         <response name="success" type="view" value="EditProductWorkEfforts"/>
         <response name="error" type="view" value="EditProductWorkEfforts"/>
     </request-map>
-   
+
 
    <!-- ================ Lookup Requests ================= -->
     <request-map uri="LookupContent"><security auth="true" https="true"/><response name="success" type="view" value="LookupContent"/></request-map>
@@ -2472,7 +2472,7 @@ under the License.
     <request-map uri="LookupGeo"><security auth="true" https="true"/><response name="success" type="view" value="LookupGeo"/></request-map>
     <request-map uri="LookupOrderHeader"><security auth="true" https="true"/><response name="success" type="view" value="LookupOrderHeader"/></request-map>
     <request-map uri="LookupCommEvent"><security auth="true" https="true"/><response name="success" type="view" value="LookupCommEvent"/></request-map>
-    
+
     <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
     <request-map uri="LookupSupplierProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupSupplierProduct"/></request-map>
     <request-map uri="LookupVariantProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupVariantProduct"/></request-map>
@@ -2482,29 +2482,29 @@ under the License.
     <request-map uri="LookupProductStore"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductStore"/></request-map>
     <request-map uri="LookupFacilityLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupFacilityLocation"/></request-map>
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>
-    <request-map uri="LookupDataResource"><security auth="true" https="true"/><response name="success" type="view" value="LookupDataResource"/></request-map>    
+    <request-map uri="LookupDataResource"><security auth="true" https="true"/><response name="success" type="view" value="LookupDataResource"/></request-map>
     <request-map uri="LookupPerson"><security auth="true" https="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
-    
+
     <!-- ================ Vendor Product Requests ================= -->
     <request-map uri="EditVendorProduct">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditVendorProduct"/>
     </request-map>
-    
+
     <request-map uri="createVendorProduct">
         <security https="true" auth="true"/>
         <event type="service" invoke="createVendorProduct"/>
         <response name="success" type="view" value="EditVendorProduct"/>
         <response name="error" type="view" value="EditVendorProduct"/>
     </request-map>
-    
+
     <request-map uri="deleteVendorProduct">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteVendorProduct"/>
         <response name="success" type="view" value="EditVendorProduct"/>
         <response name="error" type="view" value="EditVendorProduct"/>
     </request-map>
-    
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -2562,7 +2562,7 @@ under the License.
     <view-map name="EditProductContentContent" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductContentContent"/>
     <view-map name="EditSupplierProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditSupplierProduct"/>
     <view-map name="EditProductConfigs" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductConfigs"/>
-    
+
 
     <view-map name="QuickAddVariants" type="screen" page="component://product/widget/catalog/ProductScreens.xml#QuickAddVariants"/>
     <view-map name="CreateVirtualWithVariantsForm" type="screen" page="component://product/widget/catalog/ProductScreens.xml#CreateVirtualWithVariantsForm"/>
@@ -2577,8 +2577,8 @@ under the License.
     <view-map name="EditSubscriptionResource" type="screen" page="component://product/widget/catalog/SubscriptionScreens.xml#EditSubscriptionResource"/>
     <view-map name="EditSubscriptionResourceProducts" type="screen" page="component://product/widget/catalog/SubscriptionScreens.xml#EditSubscriptionResourceProducts"/>
     <view-map name="EditSubscriptionCommEvent" type="screen" page="component://product/widget/catalog/SubscriptionScreens.xml#EditSubscriptionCommEvent"/>
-    
-    
+
+
     <view-map name="EditFeature" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#EditFeature"/>
     <view-map name="EditFeatureCategories" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#EditFeatureCategories"/>
     <view-map name="EditFeatureCategoryFeatures" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#EditFeatureCategoryFeatures"/>
@@ -2592,7 +2592,7 @@ under the License.
     <view-map name="CreateProductFeature" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#CreateProductFeature"/>
     <view-map name="ListFeaturePrice" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#ListFeaturePrice"/>
     <view-map name="CreateFeature" type="screen" page="component://product/widget/catalog/FeatureScreens.xml#CreateFeature"/>
-    
+
     <view-map name="FindProdCatalog" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#FindProdCatalog"/>
     <view-map name="EditProdCatalog" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalog"/>
     <view-map name="EditProdCatalogCategories" type="screen" page="component://product/widget/catalog/CatalogScreens.xml#EditProdCatalogCategories"/>
@@ -2622,14 +2622,14 @@ under the License.
     <view-map name="EditProductStoreWebSites" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreWebSites"/>
     <view-map name="EditProductStoreKeywordOvrd" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreKeywordOvrd"/>
     <view-map name="ViewProductStoreSegments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#ViewProductStoreSegments"/>
-    <view-map name="EditProductStoreFinAccountSettings" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreFinAccountSettings"/>    
+    <view-map name="EditProductStoreFinAccountSettings" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreFinAccountSettings"/>
     <view-map name="EditProductStoreVendorPayments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreVendorPayments"/>
     <view-map name="EditProductStoreVendorShipments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreVendorShipments"/>
     <view-map name="EditVendorProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditVendorProduct"/>
     <view-map name="EditKeywordThesaurus" type="screen" page="component://product/widget/catalog/ThesaurusScreens.xml#EditKeywordThesaurus"/>
 
     <view-map name="pendingReviews" type="screen" page="component://product/widget/catalog/ReviewScreens.xml#pendingReviews"/>
-    
+
     <!-- Product Configuration views -->
     <view-map name="ProductConfigItemArticle" type="screen" page="component://product/widget/catalog/ConfigScreens.xml#ProductConfigItemArticle"/>
     <view-map name="FindProductConfigItems" type="screen" page="component://product/widget/catalog/ConfigScreens.xml#FindProductConfigItems"/>
@@ -2637,13 +2637,13 @@ under the License.
     <view-map name="EditProductConfigOptions" type="screen" page="component://product/widget/catalog/ConfigScreens.xml#EditProductConfigOptions"/>
     <view-map name="EditProductConfigItemContent" type="screen" page="component://product/widget/catalog/ConfigScreens.xml#EditProductConfigItemContent"/>
     <view-map name="EditProductConfigItemContentContent" type="screen" page="component://product/widget/catalog/ConfigScreens.xml#EditProductConfigItemContentContent"/>
-    
-    <view-map name="EditProductWorkEfforts" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductWorkEfforts"/>        
+
+    <view-map name="EditProductWorkEfforts" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductWorkEfforts"/>
 
     <view-map name="ListQuantityBreaks" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListQuantityBreaks"/>
     <view-map name="ListShipmentMethodTypes" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListShipmentMethodTypes"/>
     <view-map name="ListCarrierShipmentMethods" type="screen" page="component://product/widget/catalog/ShippingScreens.xml#ListCarrierShipmentMethods"/>
-   
+
     <!-- Lookup request mappings -->
     <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
     <view-map name="LookupFixedAsset" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupFixedAsset"/>
@@ -2651,7 +2651,7 @@ under the License.
     <view-map name="LookupGeo" type="screen" page="component://common/widget/LookupScreens.xml#LookupGeo"/>
     <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader"/>
     <view-map name="LookupCommEvent" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCommEvent"/>
-    
+
     <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>
     <view-map name="LookupSupplierProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupSupplierProduct"/>
     <view-map name="LookupVariantProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupVariantProduct"/>
@@ -2662,6 +2662,6 @@ under the License.
     <view-map name="LookupFacilityLocation" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation" type="screen"/>
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
     <view-map name="LookupDataResource" page="component://content/widget/content/DataResourceScreens.xml#LookupDataResource" type="screen"/>
-    <view-map name="LookupPerson" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson" type="screen"/>    
+    <view-map name="LookupPerson" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson" type="screen"/>
     <!-- end of view mappings -->
 </site-conf>

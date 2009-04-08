@@ -10,7 +10,7 @@
 
 dojo.provide("dojo.widget.ProgressBar");
 
-dojo.require("dojo.widget.*"); 
+dojo.require("dojo.widget.*");
 dojo.require("dojo.event");
 dojo.require("dojo.dom");
 dojo.require("dojo.html.style");
@@ -25,34 +25,34 @@ dojo.widget.defineWidget(
 		// summary:
 		// a progress widget, with some calculation and server polling capabilities
 		//
-		// description: 
+		// description:
 		// (implementation) four overlapped divs:
 		// (1) lower z-index
 		// (4) higher z-index
 		// back and front percent label have the same content: when the vertical line (*)
 		// partially hides the backPercentLabel, the frontPercentLabel becomes visible
-		// 
+		//
 		//  ________________________(1)_containerNode_________________________________
 		// |__(3)_internalProgress____________                                        |
 		// |                                  | <--- (*)                              |
 		// |     (4) frontPercentLabel        | (2) backPercentLabel                  |
 		// |__________________________________|                                       |
-		// |__________________________________________________________________________| 
+		// |__________________________________________________________________________|
 		//
 		// usage:
 		// <div dojoType="ProgressBar" frontBarClass="..." backBarClass="..."
 		//   backBarClass="..." frontBarClass="..." duration="..."
 		//   showOnlyIntegers="true|false" width="..." height="..." dataSource="..."
-		//   pollInterval="..." 
-		//   hasText="true|false" isVertical="true|false" 
+		//   pollInterval="..."
+		//   hasText="true|false" isVertical="true|false"
 		//   progressValue="..." maxProgressValue="..."></div>
-	
+
 		// progressValue: String
-		// initial progress value. 
+		// initial progress value.
 		// with "%": percentual value, 0% <= progressValue <= 100%
 		// or without "%": absolute value, 0 <= progressValue <= maxProgressValue
 		progressValue: 0,
-		
+
 		// maxProgressValue: Float
 		// max sample number
 		maxProgressValue: 100,
@@ -64,7 +64,7 @@ dojo.widget.defineWidget(
 		// height: Integer
 		// ProgressBar height, (pixel)
 		height: 30,
-		
+
 		// frontPercentClass: String
 		// css class for frontPercentLabel (4)
 		frontPercentClass: "frontPercent",
@@ -88,31 +88,31 @@ dojo.widget.defineWidget(
 		// isVertical: Boolean
 		// if true, the widget is vertical
 		isVertical: false,
-		
+
 		// showOnlyIntegers: Boolean
 		// if true, the percent label shows only integer values
 		showOnlyIntegers: false,
-		
+
 		// dataSource: String
 		// dataSource uri for server polling
 		dataSource: "",
-		
+
 		// pollInterval: Integer
 		// server poll interval
 		pollInterval: 3000,
-		
+
 		// duration: Integer
 		// duration of the animation
 		duration: 1000,
 
 		templatePath: dojo.uri.dojoUri("src/widget/templates/ProgressBar.html"),
 		templateCssPath: dojo.uri.dojoUri("src/widget/templates/ProgressBar.css"),
-		
-	
+
+
 		// attach points
 		containerNode: null,
 		internalProgress: null,
-	
+
 		// private members
 		_pixelUnitRatio: 0.0,
 		_pixelPercentRatio: 0.0,
@@ -145,8 +145,8 @@ dojo.widget.defineWidget(
 			}
 			this.frontPercentLabel.className = this.frontPercentClass;
 			this.backPercentLabel.className = this.backPercentClass;
-			this.progressValue = "" + this.progressValue; 
-			this.domNode.style.height = this.height + "px"; 
+			this.progressValue = "" + this.progressValue;
+			this.domNode.style.height = this.height + "px";
 			this.domNode.style.width = this.width + "px";
 			this._intDimension = parseInt("0" + eval("this." + this._dimension));
 			this._floatDimension = parseFloat("0" + eval("this."+this._dimension));
@@ -182,10 +182,10 @@ dojo.widget.defineWidget(
 		_setupAnimation: function(){
 			var _self = this;
 			dojo.debug("internalProgress width: " + this.internalProgress.style.width);
-			this._animation = dojo.lfx.html.slideTo(this.internalProgress, 
-				{top: 0, left: parseInt(this.width)-parseInt(this.internalProgress.style.width)}, parseInt(this.duration), null, 
+			this._animation = dojo.lfx.html.slideTo(this.internalProgress,
+				{top: 0, left: parseInt(this.width)-parseInt(this.internalProgress.style.width)}, parseInt(this.duration), null,
 					function(){
-						var _backAnim = dojo.lfx.html.slideTo(_self.internalProgress, 
+						var _backAnim = dojo.lfx.html.slideTo(_self.internalProgress,
 						{ top: 0, left: 0 }, parseInt(_self.duration));
 						dojo.event.connect(_backAnim, "onEnd", function(){
 							if (!_self._animationStopped){
@@ -300,7 +300,7 @@ dojo.widget.defineWidget(
 				clearInterval(this._oInterval);
 				this._oInterval = null;
 				this.setProgressValue("100%");
-				return;	
+				return;
 			}
 			var bArgs = {
 				url: _self.dataSource,
@@ -325,27 +325,27 @@ dojo.widget.defineWidget(
 		},
 
 		_setLabelPosition: function(){
-			var _widthFront = 
+			var _widthFront =
 				dojo.html.getContentBox(this.frontPercentLabel).width;
-			var _heightFront = 
+			var _heightFront =
 				dojo.html.getContentBox(this.frontPercentLabel).height;
-			var _widthBack = 
+			var _widthBack =
 				dojo.html.getContentBox(this.backPercentLabel).width;
-			var _heightBack = 
+			var _heightBack =
 				dojo.html.getContentBox(this.backPercentLabel).height;
 			var _leftFront = (parseInt(this.width) - _widthFront)/2 + "px";
 			var _bottomFront = (parseInt(this.height) - parseInt(_heightFront))/2 + "px";
 			var _leftBack = (parseInt(this.width) - _widthBack)/2 + "px";
 			var _bottomBack = (parseInt(this.height) - parseInt(_heightBack))/2 + "px";
 			this.frontPercentLabel.style.left = _leftFront;
-			this.backPercentLabel.style.left = _leftBack; 
+			this.backPercentLabel.style.left = _leftBack;
 			this.frontPercentLabel.style.bottom = _bottomFront;
-			this.backPercentLabel.style.bottom = _bottomBack; 
+			this.backPercentLabel.style.bottom = _bottomBack;
 		},
 		_setPercentLabel: function(percentValue){
 			dojo.dom.removeChildren(this.frontPercentLabel);
 			dojo.dom.removeChildren(this.backPercentLabel);
-			var _percentValue = this.showOnlyIntegers == false ? 
+			var _percentValue = this.showOnlyIntegers == false ?
 				percentValue : parseInt(percentValue) + "%";
 			this.frontPercentLabel.
 				appendChild(document.createTextNode(_percentValue));
@@ -359,4 +359,4 @@ dojo.widget.defineWidget(
 		onChange: function(){
 		}
 	});
-	
+

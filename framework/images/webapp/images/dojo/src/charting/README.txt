@@ -13,7 +13,7 @@ Chart
 
 
 A Chart object is the main entity; it is the entire graphic.  A Chart may
-have any number of PlotArea objects, which are the basic canvas against 
+have any number of PlotArea objects, which are the basic canvas against
 which data is plotted.  A PlotArea may have any number of Plot objects,
 which is a container representing up to 2 axes and any number of series
 to be plotted against those axes; a Series represents a binding against
@@ -36,7 +36,7 @@ are custom methods to render specific types of charts.
 -------------------------------------------------------------------------
 In terms of widgets, the basic concept is that there is a central, super-
 flexible Chart widget (Chart, oddly enough), and then any number of preset
-chart type widgets, that are basically built to serve a simple, easy 
+chart type widgets, that are basically built to serve a simple, easy
 purpose.  For instance, if someone just needs to plot a series of lines,
 they would be better off using the LineChart widget; but if someone needed
 to plot a combo chart, that has 2 Y Axes (one linear, one log) against the

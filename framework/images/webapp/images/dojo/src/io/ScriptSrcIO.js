@@ -77,7 +77,7 @@ dojo.io.ScriptSrcTransport = new function(){
 				}
 			}
 		}
-	
+
 		if(doneCount >= totalCount){
 			clearInterval(this.inFlightTimer);
 			this.inFlightTimer = null;
@@ -105,7 +105,7 @@ dojo.io.ScriptSrcTransport = new function(){
 		//description: Be careful though, by removing them from the script, you may invalidate some
 		//script objects that were defined by the js file that was pulled in as the
 		//src of the script tag. Test carefully if you decide to call this method.
-		//In MSIE 6 (and probably 5.x), if you remove the script element while 
+		//In MSIE 6 (and probably 5.x), if you remove the script element while
 		//part of the response script is still executing, the browser might crash.
 		var scripts = document.getElementsByTagName("script");
 		for(var i = 0; scripts && i < scripts.length; i++){
@@ -127,7 +127,7 @@ dojo.io.ScriptSrcTransport = new function(){
 		//START duplication from BrowserIO.js (some changes made)
 		var url = kwArgs.url;
 		var query = "";
-		
+
 		if(kwArgs["formNode"]){
 			var ta = kwArgs.formNode.getAttribute("action");
 			if((ta)&&(!kwArgs["url"])){ url = ta; }
@@ -235,7 +235,7 @@ dojo.io.ScriptSrcTransport = new function(){
 		//Constant params are parameters that should always be sent with each
 		//part of a multipart URL.
 		state.constantParams = (kwArgs["constantParams"] == null ? "" : kwArgs["constantParams"]);
-	
+
 		if(kwArgs["preventCache"] ||
 			(this.preventCache == true && kwArgs["preventCache"] != false)){
 			state.nocacheParam = "dojo.preventCache=" + new Date().valueOf();
@@ -245,14 +245,14 @@ dojo.io.ScriptSrcTransport = new function(){
 
 		//Get total length URL, if we were to do it as one URL.
 		//Add some padding, extra & separators.
-		var urlLength = state.url.length + state.query.length + state.constantParams.length 
+		var urlLength = state.url.length + state.query.length + state.constantParams.length
 				+ state.nocacheParam.length + this._extraPaddingLength;
 
 		if(kwArgs["useRequestId"]){
 			urlLength += state.idParam.length;
 		}
-		
-		if(!kwArgs["checkString"] && kwArgs["useRequestId"] 
+
+		if(!kwArgs["checkString"] && kwArgs["useRequestId"]
 			&& !state["jsonp"] && !kwArgs["forceSingleRequest"]
 			&& urlLength > this.maxUrlLength){
 			if(url > this.maxUrlLength){
@@ -275,14 +275,14 @@ dojo.io.ScriptSrcTransport = new function(){
 			//Track the final URL in case we need to use that instead of api ID when receiving
 			//the load callback.
 			state.finalUrl = finalUrl;
-			
+
 			this._attach(state.id, finalUrl);
 		}
 		//END DSR
 
 		this.startWatchingInFlight();
 	}
-	
+
 	//Private properties/methods
 	this._counter = 1;
 	this._state = {};
@@ -331,10 +331,10 @@ dojo.io.ScriptSrcTransport = new function(){
 		var queryMax = this.maxUrlLength - state.idParam.length
 					 - state.constantParams.length - state.url.length
 					 - state.nocacheParam.length - this._extraPaddingLength;
-		
+
 		//Figure out if this is the last part.
 		var isDone = state.query.length < queryMax;
-	
+
 		//Break up the query string if necessary.
 		var currentQuery;
 		if(isDone){
@@ -352,16 +352,16 @@ dojo.io.ScriptSrcTransport = new function(){
 				currentQuery = state.query.substring(0, ampEnd);
 				state.query = state.query.substring(ampEnd + 1, state.query.length) //strip off amperstand with the + 1.
 			}else{
-				//= is nearer the end. Take the max amount possible. 
+				//= is nearer the end. Take the max amount possible.
 				currentQuery = state.query.substring(0, queryMax);
-			 
+
 				//Find the last query name in the currentQuery so we can prepend it to
 				//ampEnd. Could be -1 (not there), so account for that.
 				var queryName = currentQuery.substring((ampEnd == -1 ? 0 : ampEnd + 1), eqEnd);
 				state.query = queryName + "=" + state.query.substring(queryMax, state.query.length);
 			}
 		}
-		
+
 		//Now send a part of the script
 		var queryParams = [currentQuery, state.idParam, state.constantParams, state.nocacheParam];
 		if(!isDone){
@@ -417,7 +417,7 @@ dojo.io.ScriptSrcTransport = new function(){
 window.onscriptload = function(event){
 	var state = null;
 	var transport = dojo.io.ScriptSrcTransport;
-	
+
 	//Find the matching state object for event ID.
 	if(transport._state[event.id]){
 		state = transport._state[event.id];
@@ -446,7 +446,7 @@ window.onscriptload = function(event){
 				}
 			}
 		}
-		
+
 		//If state is still null, then throw an error.
 		if(state == null){
 			throw "No matching state for onscriptload event.id: " + event.id;

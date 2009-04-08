@@ -49,7 +49,7 @@ under the License.
 
     <ContentAssocType contentAssocTypeId="COMPDOC_PART" description="Composite Document Part"/>
     <ContentAssocType contentAssocTypeId="INSTANCE" description="Instance Of"/>
-    
+
     <ContentAssocPredicate contentAssocPredicateId="member-of" description="The object is a member of the subject."/>
     <ContentAssocPredicate contentAssocPredicateId="defines" description="The object defines the subject."/>
     <ContentAssocPredicate contentAssocPredicateId="extends" description="The object extends the subject."/>
@@ -103,7 +103,7 @@ under the License.
     <StatusItem description="Soft Rejected" sequenceId="11" statusCode="SOFT_REJ" statusId="CNTAP_SOFT_REJ" statusTypeId="CNTNTAPPR_STATUS"/>
     <StatusItem description="Rejected" sequenceId="12" statusCode="REJECTED" statusId="CNTAP_REJECTED" statusTypeId="CNTNTAPPR_STATUS"/>
     <StatusItem description="Approved" sequenceId="21" statusCode="APPROVED" statusId="CNTAP_APPROVED" statusTypeId="CNTNTAPPR_STATUS"/>
-    
+
     <Content contentId="TEMPLATE_MASTER" contentTypeId="TREE_ROOT" description="Template Master"/>
 
     <EnumerationType enumTypeId="CONTENT_PRIVILEGE" description="Content Privilege"/>
@@ -116,7 +116,7 @@ under the License.
     <Enumeration enumId="SUBSCRIBE_BRONZE" enumTypeId="SUBSCRIPTION_TYPE" enumCode="BRONZE" sequenceId="10" description="Bronze Level"/>
     <Enumeration enumId="SUBSCRIBE_GOLD" enumTypeId="SUBSCRIPTION_TYPE" enumCode="GOLD" sequenceId="30" description="Gold Level"/>
     <Enumeration enumId="SUBSCRIBE_SILVER" enumTypeId="SUBSCRIPTION_TYPE" enumCode="SILVER" sequenceId="20" description="Silver Level"/>
-    
+
     <DataResourceType dataResourceTypeId="LOCAL_FILE" description="Local File" hasTable="N" parentTypeId=""/>
     <DataResourceType dataResourceTypeId="OFBIZ_FILE" description="File (rel to OFBIZ_HOME)" hasTable="N" parentTypeId=""/>
     <DataResourceType dataResourceTypeId="CONTEXT_FILE" description="File (rel to webapp root)" hasTable="N" parentTypeId=""/>
@@ -179,7 +179,7 @@ under the License.
     <StatusValidChange condition="" statusId="CTNT_FINAL_DRAFT" statusIdTo="CTNT_PUBLISHED" transitionName="Final draft Published"/>
     <StatusValidChange condition="" statusId="CTNT_PUBLISHED" statusIdTo="CTNT_DEACTIVATED" transitionName="Deactivated"/>
     <StatusValidChange condition="" statusId="CTNT_AVAILABLE" statusIdTo="CTNT_DEACTIVATED" transitionName="Available to Deactivated"/>
-    
+
     <SubscriptionType description="Newsgroup" hasTable="N" parentTypeId="" subscriptionTypeId="NEWSGROUP_SUBSCR"/>
     <SubscriptionType description="Other" hasTable="N" parentTypeId="" subscriptionTypeId="OTHER_SUBSCR"/>
     <SubscriptionType description="Product Info" hasTable="N" parentTypeId="" subscriptionTypeId="PRODUCT_INFO_SUBSCR"/>
@@ -190,7 +190,7 @@ under the License.
     <WebSiteContentType webSiteContentTypeId="FORUM_ROOT" description="Forum Root" hasTable="N" parentTypeId=""/>
     <WebSiteContentType webSiteContentTypeId="MENU_ROOT" description="Menu Containers" hasTable="N" parentTypeId=""/>
     <WebSiteContentType webSiteContentTypeId="PUBLISH_POINT" description="Publish Point" hasTable="N" parentTypeId=""/>
-            
+
     <!-- survey data -->
     <SurveyApplType surveyApplTypeId="CART_ADD" description="Add-To Cart"/>
     <SurveyApplType surveyApplTypeId="CHECK_OUT" description="Check-Out"/>
@@ -209,7 +209,7 @@ under the License.
     <SurveyQuestionType surveyQuestionTypeId="GIFT_CARD" description="Gift Card Number"/>
     <SurveyQuestionType surveyQuestionTypeId="DATE" description="Date String (mm/dd/yyyy)"/>
     <SurveyQuestionType surveyQuestionTypeId="EMAIL" description="Email Address"/>
-    <SurveyQuestionType surveyQuestionTypeId="ENUMERATION" description="Enumeration"/>    
+    <SurveyQuestionType surveyQuestionTypeId="ENUMERATION" description="Enumeration"/>
     <SurveyQuestionType surveyQuestionTypeId="NUMBER_CURRENCY" description="Numeric (Currency)"/>
     <SurveyQuestionType surveyQuestionTypeId="NUMBER_FLOAT" description="Numeric (Float)"/>
     <SurveyQuestionType surveyQuestionTypeId="NUMBER_LONG" description="Numeric (Long)"/>
@@ -257,7 +257,7 @@ under the License.
 </div>]]></textData>
     </ElectronicText>
     <Content contentId="STDWRAP001" contentTypeId="DOCUMENT" dataResourceId="STDWRAP001" contentName="Standard SubContent Wrapper" description="Standard SubContent Wrapper"/>
-    
+
     <WebSite webSiteId="CONTENT_SITE" siteName="Content Manager" visualThemeSetId="BACKOFFICE"/>
-    
+
 </entity-engine-xml>

@@ -16,9 +16,9 @@ dojo.require("dojo.widget.HtmlWidget");
 dojo.widget.defineWidget("dojo.widget.Form", dojo.widget.HtmlWidget,
 	{
 		/*
-		summary: 
+		summary:
 			Widget for easily moving data to/from form
-		
+
 			description:
 				gets and sets data to and from js-object. With
 				this it's easy to create forms to application.
@@ -28,8 +28,8 @@ dojo.widget.defineWidget("dojo.widget.Form", dojo.widget.HtmlWidget,
 				server.
 
 				Note: not all Form widgets are supported ATM
-					
-			usage: 
+
+			usage:
 				<form dojoType="Form" id="myForm">
 					Name: <input type="text" name="name" />
 				</form>
@@ -79,7 +79,7 @@ dojo.widget.defineWidget("dojo.widget.Form", dojo.widget.HtmlWidget,
 				}
 			}
 		},
- 
+
 		_createFormElements: function() {
    			if(dojo.render.html.safari) {
 				// bug in safari (not registering form-elements)

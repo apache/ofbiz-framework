@@ -51,7 +51,7 @@ under the License.
       passedEntityNames.add(entityName[inc]);
     }
   }
-  
+
   String preConfiguredSetName = request.getParameter("preConfiguredSetName");
   if ("Product1".equals(preConfiguredSetName)) {
     passedEntityNames = new LinkedHashSet();
@@ -162,7 +162,7 @@ under the License.
   }
   boolean checkAll = "true".equals(request.getParameter("checkAll"));
   boolean tobrowser = request.getParameter("tobrowser")!=null?true:false;
-  
+
   EntityExpr entityFromCond = null;
   EntityExpr entityThruCond = null;
   EntityExpr entityDateCond = null;
@@ -179,12 +179,12 @@ under the License.
   } else if(entityThruCond!=null) {
     entityDateCond = entityThruCond;
   }
-  
+
 %>
 <%if (tobrowser) {
     session.setAttribute("xmlrawdump_entitylist", entityName);
     session.setAttribute("entityDateCond", entityDateCond);
-%>   
+%>
     <div class="head1">XML Export from DataSource(s)</div>
     <div class="tabletext">This page can be used to export data from the database. The exported documents will have a root tag of "&lt;entity-engine-xml&gt;".</div>
     <hr/>
@@ -202,7 +202,7 @@ under the License.
 
   int numberOfEntities = passedEntityNames.size();
   long numberWritten = 0;
-  
+
   // single file
   if(filename != null && filename.length() > 0 && numberOfEntities > 0) {
     PrintWriter writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "UTF-8")));
@@ -210,7 +210,7 @@ under the License.
     writer.println("<entity-engine-xml>");
 
     Iterator i = passedEntityNames.iterator();
-    while(i.hasNext()) { 
+    while(i.hasNext()) {
         boolean beganTransaction = TransactionUtil.begin(3600);
         try {
             String curEntityName = (String)i.next();
@@ -262,7 +262,7 @@ under the License.
             boolean beganTransaction = false;
             try{
                 beganTransaction = TransactionUtil.begin(3600);
-                
+
                 ModelEntity me = delegator.getModelEntity(curEntityName);
                 if (me instanceof ModelViewEntity) {
                     results.add("["+fileNumber +"] [vvv] " + curEntityName + " skipping view entity");
@@ -339,7 +339,7 @@ under the License.
     <hr/>
     <%if(security.hasPermission("ENTITY_MAINT", session)) {%>
       <div class="head2">Results:</div>
-    
+
       <%if(filename != null && filename.length() > 0 && numberOfEntities > 0) {%>
         <div class="tabletext">Wrote XML for all data in <%=numberOfEntities%> entities.</div>
         <div class="tabletext">Wrote <%=numberWritten%> records to XML file <%=filename%></div>
@@ -351,15 +351,15 @@ under the License.
       <%} else {%>
         <div class="tabletext">No filename specified or no entity names specified, doing nothing.</div>
       <%}%>
-    
+
       <hr/>
-    
+
       <div class="head2">Export:</div>
       <form method="post" action="<ofbiz:url>/xmldsdump</ofbiz:url>" name="entityExport">
         <div class="tabletext">Output Directory&nbsp;: <input type="text" class="inputBox" size="60" name="outpath" value="<%=UtilFormatOut.checkNull(outpath)%>"/></div>
         <div class="tabletext">Max Records Per File&nbsp;: <input type="text" class="inputBox" size="10" name="maxrecords"/></div>
         <div class="tabletext">Single Filename&nbsp;&nbsp;: <input type="text" class="inputBox" size="60" name="filename" value="<%=UtilFormatOut.checkNull(filename)%>"/></div>
-        
+
         <div class="tabletext">Records Updated Since&nbsp;&nbsp;:
           <input type="text" class="inputBox" size="25" name="entityFrom" />
           <a href="javascript:call_cal(document.entityExport.entityFrom, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Click here For Calendar'></a>
@@ -407,7 +407,7 @@ under the License.
             <%}%>
           </tr>
         </table>
-    
+
         <input type="submit" value="Export">
         <A href="<ofbiz:url>/xmldsdump?checkAll=true</ofbiz:url>" class="buttontext">Check All</A>
         <A href="<ofbiz:url>/xmldsdump</ofbiz:url>" class="buttontext">Un-Check All</A>

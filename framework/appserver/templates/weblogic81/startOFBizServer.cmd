@@ -6,9 +6,9 @@
 @rem to you under the Apache License, Version 2.0 (the
 @rem "License"); you may not use this file except in compliance
 @rem with the License.  You may obtain a copy of the License at
-@rem 
+@rem
 @rem http://www.apache.org/licenses/LICENSE-2.0
-@rem 
+@rem
 @rem Unless required by applicable law or agreed to in writing,
 @rem software distributed under the License is distributed on an
 @rem "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,23 +18,23 @@
 @rem ###################################################################
 @rem This script is used to start WebLogic Server.
 @rem
-@rem To create your own start script for your domain, you can initialize the 
-@rem environment by calling %WL_HOME%/common/bin/commEnv.cmd. 
+@rem To create your own start script for your domain, you can initialize the
+@rem environment by calling %WL_HOME%/common/bin/commEnv.cmd.
 @rem
-@rem commEnv.cmd initializes following variables: 
+@rem commEnv.cmd initializes following variables:
 @rem WL_HOME        - The root directory of your WebLogic installation.
 @rem JAVA_HOME      - Location of the version of Java used to start WebLogic
-@rem                  Server. 
+@rem                  Server.
 @rem JAVA_VENDOR    - Vendor of the JVM (i.e. BEA, HP, IBM, Sun, etc.)
 @rem PATH           - JDK and WebLogic directories are added to system path.
-@rem WEBLOGIC_CLASSPATH 
+@rem WEBLOGIC_CLASSPATH
 @rem                - Classpath needed to start WebLogic Server.
 @rem JAVA_VM        - The java arg specifying the VM to run.  (i.e.
 @rem                  -server, -hotspot, etc.)
 @rem MEM_ARGS       - The variable to override the standard memory arguments
 @rem                  passed to java.
 @rem POINTBASE_HOME - Point Base home directory.
-@rem POINTBASE_CLASSPATH 
+@rem POINTBASE_CLASSPATH
 @rem                - Classpath needed to start PointBase.
 @rem Other variables used in this script include:
 @rem SERVER_NAME    - Name of the weblogic server.
@@ -46,14 +46,14 @@
 @rem PRODUCTION_MODE - Set to true for production mode servers, false for
 @rem                  development mode.
 @rem JAVA_OPTIONS   - Java command-line options for running the server. (These
-@rem                  will be tagged on to the end of the JAVA_VM and 
+@rem                  will be tagged on to the end of the JAVA_VM and
 @rem                  MEM_ARGS)
 @rem
 @rem If you want to start the examples server using the JRockit JVM, edit
 @rem %WL_HOME%/common/bin/commEnv.cmd to specify the correct values for
 @rem JAVA_HOME and JAVA_VENDOR.
 @rem
-@rem For additional information, refer to the WebLogic Server Administration 
+@rem For additional information, refer to the WebLogic Server Administration
 @rem Guide (http://e-docs.bea.com/wls/docs81/adminguide/startstop.html).
 @rem *************************************************************************
 
@@ -78,7 +78,7 @@ call "%WL_HOME%\common\bin\commEnv.cmd"
 set SERVER_NAME=examplesServer
 
 
-@rem Set JAVA_OPTIONS to the java flags you want to pass to the vm. i.e.: 
+@rem Set JAVA_OPTIONS to the java flags you want to pass to the vm. i.e.:
 @rem set JAVA_OPTIONS=-Dweblogic.attribute=value -Djava.attribute=value
 set JAVA_OPTIONS=
 
@@ -99,8 +99,8 @@ set SERVER_CLASSES=%EXAMPLES_BUILD%\serverclasses
 set COMMON_CLASSES=%EXAMPLES_BUILD%\common
 set EX_WEBAPP_CLASSES=%EXAMPLES_BUILD%\examplesWebApp\WEB-INF\classes
 
-@rem Add PointBase classes to the classpath, so we can start the examples 
-@rem database.  Also add the examples directories specified above to the 
+@rem Add PointBase classes to the classpath, so we can start the examples
+@rem database.  Also add the examples directories specified above to the
 @rem classpath to be picked up by WebLogic Server.
 set CLASSPATH=C:\bea\weblogic81\server\lib\webservices.jar;%POINTBASE_CLASSPATH%;%CLIENT_CLASSES%;%SERVER_CLASSES%;%COMMON_CLASSES%;%CLIENT_CLASSES%\utils_common.jar
 

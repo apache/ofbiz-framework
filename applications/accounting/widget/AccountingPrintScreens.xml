@@ -20,7 +20,7 @@ under the License.
 
 <!-- These screens are for generating printed documents, such as invoices, bills, statements, etc. -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <!-- generate a PDF for the invoice.  sharing the same BSH file as the HTML page for viewing invoice -->
@@ -33,7 +33,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingInvoice"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/EditInvoice.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>                
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>
             </actions>
             <widgets>
                 <section>
@@ -81,7 +81,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="PrintCheckPDF">
         <section>
             <condition>

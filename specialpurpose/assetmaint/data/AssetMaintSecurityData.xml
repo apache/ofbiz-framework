@@ -32,6 +32,6 @@ under the License.
 
     <SecurityGroupPermission groupId="ASSETMAINTTECH" permissionId="ASSETMAINT_VIEW"/>
     <SecurityGroupPermission groupId="ASSETMAINTTECH" permissionId="ASSETMAINT_UPDATE"/>
-    
+
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ASSETMAINT_ADMIN"/>
 </entity-engine-xml>

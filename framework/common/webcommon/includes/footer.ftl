@@ -55,7 +55,7 @@ under the License.
 </#if>
 
 <div id="footer">
-  <p>${nowTimestamp?datetime?string.short} - 
+  <p>${nowTimestamp?datetime?string.short} -
   <a href="<@ofbizUrl>LookupTimezones</@ofbizUrl>">${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)}</a>
   </p>
   <p><a href="http://jigsaw.w3.org/css-validator/"><img src="<@ofbizContentUrl>/images/vcss.gif</@ofbizContentUrl>" alt="Valid CSS!"/></a>

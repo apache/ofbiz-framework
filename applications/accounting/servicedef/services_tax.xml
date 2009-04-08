@@ -18,12 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Accounting Services: TaxAuthority and related </description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
-    
+
     <!-- Tax Calc Interfaces -->
     <service name="calcTaxInterface" engine="interface" location="" invoke="">
         <description>Tax Calc Service Interface</description>
@@ -42,7 +42,7 @@ under the License.
     </service>
     <service name="calcTaxTotalForDisplayInterface" engine="interface" location="" invoke="">
         <description>Tax Calc Total For Display Service Interface</description>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"><!-- this will be used to get the taxAuthPartyId and taxAuthGeoId to use for the rate lookup, and for the payToPartyId, and as one of the columns to constrain by on the lookup --></attribute> 
+        <attribute name="productStoreId" type="String" mode="IN" optional="false"><!-- this will be used to get the taxAuthPartyId and taxAuthGeoId to use for the rate lookup, and for the payToPartyId, and as one of the columns to constrain by on the lookup --></attribute>
         <attribute name="billToPartyId" type="String" mode="IN" optional="true"><!-- would like to have this not-optional, but in some circumstances may need a tax estimate without knowing who the customer is --></attribute>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
@@ -52,7 +52,7 @@ under the License.
         <attribute name="taxPercentage" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="priceWithTax" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
-    
+
     <!-- Tax Authority Calc Services -->
     <service name="calcTax" engine="java"
         location="org.ofbiz.accounting.tax.TaxAuthorityServices" invoke="rateProductTaxCalc">
@@ -64,7 +64,7 @@ under the License.
         <description>Tax Authority Rate Product Calc Service</description>
         <implements service="calcTaxTotalForDisplayInterface"/>
     </service>
-    
+
     <!-- TaxAuthority -->
     <service name="createTaxAuthority" default-entity-name="TaxAuthority" engine="simple" auth="true"
         location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthority">
@@ -145,7 +145,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    
+
     <!-- TaxAuthorityRateProduct -->
     <service name="createTaxAuthorityRateProduct" default-entity-name="TaxAuthorityRateProduct" engine="simple" auth="true"
         location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createTaxAuthorityRateProduct">
@@ -165,7 +165,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    
+
     <!-- PartyTaxAuthInfo -->
     <service name="createPartyTaxAuthInfo" default-entity-name="PartyTaxAuthInfo" engine="simple" auth="true"
         location="component://accounting/script/org/ofbiz/accounting/tax/TaxAuthorityServices.xml" invoke="createPartyTaxAuthInfo">
@@ -195,7 +195,7 @@ under the License.
         <attribute name="taxAuthPartyGeoIds" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="String" mode="IN" optional="true"/>
     </service>
-    
+
     <!-- ZipSales Tax Services -->
     <service name="importZipSalesTaxData" engine="java" transaction-timeout="7200"
         location="org.ofbiz.order.thirdparty.zipsales.ZipSalesServices" invoke="importFlatTable">
@@ -203,7 +203,7 @@ under the License.
         <attribute name="taxFileLocation" type="String" mode="IN" optional="false"/>
         <attribute name="ruleFileLocation" type="String" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="flatZipSalesTaxCalc" engine="java"
         location="org.ofbiz.order.thirdparty.zipsales.ZipSalesServices" invoke="flatTaxCalc">
         <description>Zip Sales Calc Tax Service - change this to calcTax to run</description>

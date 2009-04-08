@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="ListSecurityGroups" type="list" list-name="securityGroups"
@@ -74,7 +74,7 @@ under the License.
             <drop-down allow-empty="false">
                 <entity-options entity-name="SecurityPermission" description="${permissionId} ${description}">
                     <entity-order-by field-name="permissionId"/>
-                </entity-options> 
+                </entity-options>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
@@ -88,7 +88,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
-    <!-- SecurityGroupUserLogin -->    
+    <!-- SecurityGroupUserLogin -->
     <form name="ListSecurityGroupUserLogins" type="list" list-name="userLoginSecurityGroups" target="updateUserLoginToSecurityGroup"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -125,7 +125,7 @@ under the License.
         <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}"><lookup target-form-name="LookupUserLoginAndPartyDetails" size="30"></lookup></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="ListUserLoginSecurityGroups" type="list" extends="ListSecurityGroupUserLogins"
         list-name="userLoginSecurityGroups" header-row-style="header-row-2" target="userLogin_updateUserLoginToSecurityGroup"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -171,8 +171,8 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-    
-    <!-- SecurityGroupProtectedViews -->    
+
+    <!-- SecurityGroupProtectedViews -->
     <form name="ListSecurityGroupProtectedViews" type="list" list-name="securityGroupProtectedViewsList" target="updateProtectedViewToSecurityGroup"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
@@ -194,7 +194,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <form name="AddSecurityGroupProtectedView" type="single" target="addProtectedViewToSecurityGroup"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="addProtectedViewToSecurityGroup"/>
@@ -205,7 +205,7 @@ under the License.
         <field name="tarpitDuration" title="${uiLabelMap.PartyTarpitDuration}"><text size="20" maxlength="20"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-                
+
     <form name="CertIssuerList" type="list" list-name="issuerProvisions"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>

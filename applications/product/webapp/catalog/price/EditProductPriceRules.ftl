@@ -20,7 +20,7 @@ under the License.
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductGlobalPriceRule}</h3>
     </div>
-    <div class="screenlet-body">  
+    <div class="screenlet-body">
         <a href="<@ofbizUrl>FindProductPriceRules</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductFindRule}</a>
         <table cellspacing="0" class="basic-table">
           <tr class="header-row">
@@ -117,7 +117,7 @@ under the License.
                         <#assign rowClass = "1">
                       <#else>
                         <#assign rowClass = "2">
-                      </#if> 
+                      </#if>
                   </#list>
                   <tr>
                     <td colspan="3">
@@ -185,7 +185,7 @@ under the License.
                         <#assign rowClass = "1">
                       <#else>
                         <#assign rowClass = "2">
-                      </#if> 
+                      </#if>
                   </#list>
                   <tr>
                     <td colspan="3">

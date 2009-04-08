@@ -14,20 +14,20 @@
   margin: 0px;
 }
 
-.sliderHandle { 
+.sliderHandle {
   top: 0px;
   left: 0px;
   z-index: 1000;
   position: absolute !important;
 }
 
-.sliderOutsetButton { 
+.sliderOutsetButton {
   border-style: outset;
   border-width: 0px 1px 1px 0px;
   border-color: black;
 }
 
-.sliderInsetButton { 
+.sliderInsetButton {
   border-style: inset;
   border-width: 1px 0px 0px 1px;
   border-color: black;
@@ -45,17 +45,17 @@
   z-index: 900;
 }
 
-.sliderBackground { 
+.sliderBackground {
   z-index: 0;
   display: block !important;
   position: relative !important;
 }
 
-.sliderProgressBackground { 
+.sliderProgressBackground {
   z-index: 800;
   position: absolute !important;
   clip: rect(0px,0px,0px,0px);
 }
 
-.sliderBackgroundSizeOnly { 
+.sliderBackgroundSizeOnly {
 }

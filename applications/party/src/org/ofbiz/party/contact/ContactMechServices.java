@@ -1002,7 +1002,7 @@ public class ContactMechServices {
             // grab all of the non-expired contact mechs using this party worker method
             List<Map<String, Object>> valueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, partyIdFrom, false);
 
-            // loop through results 
+            // loop through results
             for (Map<String, Object> thisMap: valueMaps) {
                 GenericValue contactMech = (GenericValue) thisMap.get("contactMech");
                 GenericValue partyContactMech = (GenericValue) thisMap.get("partyContactMech");

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="WorkEffortSummary">
         <section>
@@ -33,7 +33,7 @@ under the License.
                 <get-related-one value-field="workEffort" relation-name="CurrentStatusItem" to-value-field="currentStatusItem"/>
                 <get-related-one value-field="workEffort" relation-name="WorkEffortPurposeType" to-value-field="workEffortPurposeType"/>
                 <get-related-one value-field="workEffort" relation-name="ScopeEnumeration" to-value-field="scopeEnumeration"/>
-                
+
                 <entity-and entity-name="WorkEffortPartyAssignView" list="partyAssignments">
                     <field-map field-name="workEffortId"/>
                 </entity-and>

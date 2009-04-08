@@ -19,7 +19,7 @@ under the License.
 -->
 
 <ofbiz-component name="cmssite"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-component.xsd">
     <resource-loader name="main" type="component"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/CmsSiteDemoData.xml"/>

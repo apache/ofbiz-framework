@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -19,7 +19,7 @@
 
 import java.lang.*;
 import java.util.*;
-import java.text.NumberFormat; 
+import java.text.NumberFormat;
 import org.ofbiz.base.util.*;
 import org.ofbiz.service.*;
 import org.ofbiz.entity.*;
@@ -35,7 +35,7 @@ import org.ofbiz.product.product.ProductContentWrapper;
 import org.ofbiz.product.product.ProductSearch;
 import org.ofbiz.product.product.ProductSearchSession;
 import org.ofbiz.product.store.*;
- 
+
 inlineProductId = request.getAttribute("inlineProductId");
 inlineCounter = request.getAttribute("inlineCounter");
 context.inlineCounter = inlineCounter;
@@ -44,13 +44,13 @@ context.inlineProductId = inlineProductId;
 contentPathPrefix = CatalogWorker.getContentPathPrefix(request);
 catalogName = CatalogWorker.getCatalogName(request);
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
- 
+
 if (inlineProductId) {
     inlineProduct = delegator.findByPrimaryKeyCache("Product", [productId : inlineProductId]);
     if (inlineProduct) {
         context.product = inlineProduct;
         contentWrapper = new ProductContentWrapper(inlineProduct, request);
-        context.put("title", contentWrapper.get("PRODUCT_NAME"));        
+        context.put("title", contentWrapper.get("PRODUCT_NAME"));
         context.put("metaDescription", contentWrapper.get("DESCRIPTION"));
         productTemplate = product.detailScreen;
         if (productTemplate) {
@@ -108,7 +108,7 @@ if (inlineProduct) {
     productTypeId = inlineProduct.productTypeId;
     featureTypes = [:];
     featureOrder = [];
- 
+
     // make the productContentWrapper
     productContentWrapper = new ProductContentWrapper(inlineProduct, request);
     context.productContentWrapper = productContentWrapper;
@@ -119,8 +119,8 @@ if (inlineProduct) {
         mainDetailImageUrl = ContentUrlTag.getContentPrefix(request) + mainDetailImage;
         context.mainDetailImageUrl = mainDetailImageUrl.toString();
     }
- 
- 
+
+
     // get the product price
     webSiteId = CatalogWorker.getWebSiteId(request);
     autoUserLogin = request.getSession().getAttribute("autoUserLogin");
@@ -137,18 +137,18 @@ if (inlineProduct) {
         context.priceMap = priceMap;
     } else {
         // purchase order: run the "calculatePurchasePrice" service
-        priceContext = [product : inlineProduct, currencyUomId : cart.getCurrency(), 
+        priceContext = [product : inlineProduct, currencyUomId : cart.getCurrency(),
                 partyId : cart.getPartyId(), userLogin : userLogin];
         priceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
         context.priceMap = priceMap;
     }
 
- 
+
     context.variantTree = null;
     context.variantTreeSize = null;
     context.variantSample = null;
     context.variantSampleKeys = null;
-    context.variantSampleSize = null;    
+    context.variantSampleSize = null;
     if ("Y".equals(inlineProduct.isVirtual)) {
         if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod(delegator, inlineProductId))) {
             context.featureLists = ProductWorker.getSelectableProductFeaturesByTypesAndSeq(inlineProduct);
@@ -198,7 +198,7 @@ if (inlineProduct) {
                         jsBuf.append("OPT" + inlineCounter + "[" + i + "] = \"FT" + inlineCounter + feature + "\";");
                     }
                     virtualVariant.eachWithIndex { variant, i ->
-                        jsBuf.append("VIR" + inlineCounter + "[" + i + "] = \"" + variant + "\";");                  
+                        jsBuf.append("VIR" + inlineCounter + "[" + i + "] = \"" + variant + "\";");
                     }
 
                     // build the top level
@@ -209,7 +209,7 @@ if (inlineProduct) {
                     if (variantTree) {
                         featureOrder.each { featureKey ->
                             jsBuf.append("document.forms[\"configform\"].elements[\"FT" + inlineCounter + featureKey + "\"].options.length = 1;");
-                        }                           
+                        }
                         firstDetailImage = null;
                         firstLargeImage = null;
                         counter = 0;

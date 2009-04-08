@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
     <!-- ========================================================= -->
     <!-- ======================== Defaults ======================= -->
@@ -30,7 +30,7 @@ under the License.
     <!-- ========================================================= -->
     <!-- Dimensions                                                -->
     <!-- ========================================================= -->
-   
+
     <entity entity-name="ProductDimension" package-name="org.ofbiz.bi.dimension.product" title="Product Dimension">
         <description>Product dimension. The natural key is [productId]</description>
         <field name="dimensionId" type="id-ne">

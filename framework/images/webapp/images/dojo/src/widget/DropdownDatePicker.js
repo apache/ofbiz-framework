@@ -27,22 +27,22 @@ dojo.widget.defineWidget(
 	dojo.widget.DropdownContainer,
 	{
 		/*
-		summary: 
+		summary:
 			A form input for entering dates with a pop-up dojo.widget.DatePicker to aid in selection
-		
-			description: 
+
+			description:
 				This is DatePicker in a DropdownContainer, it supports all features of DatePicker.
-		
+
 				The value displayed in the widget is localized according to the default algorithm provided
 				in dojo.date.format and dojo.date.parse.  It is possible to customize the user-visible formatting
 				with either the formatLength or displayFormat attributes.  The value sent to the server is
 				typically a locale-independent value in a hidden field as defined by the name attribute.
 				RFC3339 representation is used by default, but other options are available with saveFormat.
-		
-			usage: 
-				var ddp = dojo.widget.createWidget("DropdownDatePicker", {},   
-				dojo.byId("DropdownDatePickerNode")); 
-		 	 
+
+			usage:
+				var ddp = dojo.widget.createWidget("DropdownDatePicker", {},
+				dojo.byId("DropdownDatePickerNode"));
+
 				<input dojoType="DropdownDatePicker">
 		*/
 
@@ -80,7 +80,7 @@ dojo.widget.defineWidget(
 		// Implement various attributes from DatePicker
 
 		// displayWeeks: Integer
-		//	number of weeks to display 
+		//	number of weeks to display
 		displayWeeks: 6,
 
 		// adjustWeeks: Boolean
@@ -102,7 +102,7 @@ dojo.widget.defineWidget(
 		// staticDisplay: Boolean
 		//	disable all incremental controls, must pick a date in the current display
 		staticDisplay: false,
-		
+
 		postMixInProperties: function(localProperties, frag){
 			// summary: see dojo.widget.DomWidget
 
@@ -135,7 +135,7 @@ dojo.widget.defineWidget(
 			//build the args for DatePicker based on the public attributes of DropdownDatePicker
 			this.datePicker = dojo.widget.createWidget("DatePicker", dpArgs, this.containerNode, "child");
 			dojo.event.connect(this.datePicker, "onValueChanged", this, "_updateText");
-			
+
 			if(this.value){
 				this._updateText();
 			}
@@ -163,7 +163,7 @@ dojo.widget.defineWidget(
 			this.datePicker.setDate(dateObj);
 			this._syncValueNode();
 		},
-	
+
 		_updateText: function(){
 			// summary: updates the <input> field according to the current value (ie, displays the formatted date)
 			if(this.dateFormat){
@@ -188,7 +188,7 @@ dojo.widget.defineWidget(
 		onValueChanged: function(/*Date*/dateObj){
 			//summary: triggered when this.value is changed
 		},
-		
+
 		onInputChange: function(){
 			// summary: callback when user manually types a date into the <input> field
 			if(this.dateFormat){
@@ -198,7 +198,7 @@ dojo.widget.defineWidget(
 				var input = dojo.string.trim(this.inputNode.value);
 				if(input){
 					var inputDate = dojo.date.parse(input,
-							{formatLength:this.formatLength, datePattern:this.displayFormat, selector:'dateOnly', locale:this.lang});			
+							{formatLength:this.formatLength, datePattern:this.displayFormat, selector:'dateOnly', locale:this.lang});
 					if(inputDate){
 						this.setDate(inputDate);
 					}
@@ -230,7 +230,7 @@ dojo.widget.defineWidget(
 			}
 			this.valueNode.value = value;
 		},
-		
+
 		destroy: function(/*Boolean*/finalize){
 			this.datePicker.destroy(finalize);
 			dojo.widget.DropdownDatePicker.superclass.destroy.apply(this, arguments);

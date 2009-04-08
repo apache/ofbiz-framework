@@ -20,12 +20,12 @@ under the License.
     <a href="<@ofbizUrl>EditProductStoreRoles?productStoreId=${productStoreId}&showAll=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductShowAll}</a>
 <#else>
     <a href="<@ofbizUrl>EditProductStoreRoles?productStoreId=${productStoreId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductShowActive}</a>
-</#if>  
+</#if>
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.PageTitleEditProductStoreRoles}</h3>
     </div>
-    <div class="screenlet-body"> 
+    <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">
             <tr class="header-row">
               <td><b>${uiLabelMap.PartyParty}</b></td>
@@ -66,7 +66,7 @@ under the License.
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductCreateProductStoreRole}</h3>
     </div>
-    <div class="screenlet-body"> 
+    <div class="screenlet-body">
         <form name="addProductStoreRole" action="<@ofbizUrl>storeCreateRole</@ofbizUrl>" method="post">
             <input type="hidden" name="productStoreId" value="${productStoreId}">
             <table cellspacing="0" class="basic-table">
@@ -91,7 +91,7 @@ under the License.
                 <td class="label">${uiLabelMap.CommonFromDate}</td>
                 <td>
                   <input type="text" name="fromDate" size="25">
-                  <a href="javascript:call_cal(document.addProductStoreRole.fromDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>                   
+                  <a href="javascript:call_cal(document.addProductStoreRole.fromDate, null);"><img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'></a>
                 </td>
               </tr>
               <tr>

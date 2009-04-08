@@ -50,7 +50,7 @@ function(){
 	 *		...
 	 *	</div>
 	 */
-	 
+
 	this.pos = {x: -1, y: -1};		// current cursor position, relative to the grid
 
 	this.EDGE = {
@@ -60,7 +60,7 @@ function(){
 		TOP: 3,
 		BOTTOM: 4
 	};
-	
+
 	// for conservative trigger mode, when triggered, timerScale is gradually increased from 0 to 1
 	this.timerScale = 1.0;
 
@@ -101,7 +101,7 @@ function(){
 	// effectUnits: Number
 	//	controls how much reaction the menu makes, relative to the distance of the mouse from the menu
 	effectUnits: 2,
-	
+
 	// itemPadding: Integer
 	//	padding (in pixels) betweeen each menu item
 	itemPadding: 10,
@@ -180,7 +180,7 @@ function(){
 			this.proximityBottom /= 2;
 		}
 	},
-	
+
 	postCreate: function() {
 		this._initializePositioning();
 
@@ -190,7 +190,7 @@ function(){
 		if( !this.conservativeTrigger ){
 			dojo.event.connect(document.documentElement, "onmousemove", this, "_onMouseMove");
 		}
-		
+
 		// Deactivate the menu if mouse is moved off screen (doesn't work for FF?)
 		dojo.event.connect(document.documentElement, "onmouseout", this, "_onBodyOut");
 		dojo.event.connect(this, "addChild", this, "_initializePositioning");
@@ -251,7 +251,7 @@ function(){
 			elm.style.top    = itm.posY + 'px';
 			elm.style.width  = this.itemWidth + 'px';
 			elm.style.height = this.itemHeight + 'px';
-			
+
 			if ( itm.svgNode ) {
 				itm.svgNode.style.position = 'absolute';
 				itm.svgNode.style.left = this.itemPadding+'%';
@@ -259,7 +259,7 @@ function(){
 				itm.svgNode.style.width = (100 - 2 * this.itemPadding) + '%';
 				itm.svgNode.style.height = (100 - 2 * this.itemPadding) + '%';
 				itm.svgNode.style.zIndex = 1;
-	
+
 				itm.svgNode.setSize(this.itemWidth, this.itemHeight);
 			} else {
 				itm.imgNode.style.left = this.itemPadding+'%';
@@ -342,7 +342,7 @@ function(){
 		this.pos = {x:x, y:y};
 		this._paint();
 	},
-	
+
 	_paint: function(){
 		var x=this.pos.x;
 		var y=this.pos.y;
@@ -355,7 +355,7 @@ function(){
 		var pos = this.isHorizontal ? x : y;
 		var prx = this.isHorizontal ? this.proximityLeft : this.proximityTop;
 		var siz = this.isHorizontal ? this.itemWidth : this.itemHeight;
-		var sim = this.isHorizontal ? 
+		var sim = this.isHorizontal ?
 			(1.0-this.timerScale)*this.itemWidth + this.timerScale*this.itemMaxWidth :
 			(1.0-this.timerScale)*this.itemHeight + this.timerScale*this.itemMaxHeight ;
 
@@ -543,7 +543,7 @@ function(){
 
 		var x = 0;
 		var y = 0;
-		
+
 		var mb = dojo.html.getMarginBox(itm.lblNode);
 
 		if (this.labelEdge == this.EDGE.TOP){
@@ -585,7 +585,7 @@ function(){
 	_toEdge: function(inp, def){
 		return this.EDGE[inp.toUpperCase()] || def;
 	},
-	
+
 	_expandSlowly: function(){
 		// summary: slowly expand the image to user specified max size
 		if( !this.isOver ){ return; }
@@ -621,7 +621,7 @@ dojo.widget.defineWidget(
 	// svgSrc: String
 	//	pathname to svg file of icon for this menu item
 	svgSrc: "",
-	
+
 	// caption: String
 	//	label to print next to the icon, when it is moused-over
 	caption: "",
@@ -637,7 +637,7 @@ dojo.widget.defineWidget(
 		'  <img class="dojoHtmlFisheyeListItemImage" dojoAttachPoint="imgNode" dojoAttachEvent="onMouseOver;onMouseOut;onClick">' +
 		'  <div class="dojoHtmlFisheyeListItemLabel" dojoAttachPoint="lblNode"></div>' +
 		'</div>',
-	
+
 	fillInTemplate: function() {
 		//
 		// set image
@@ -672,7 +672,7 @@ dojo.widget.defineWidget(
 		}
 		dojo.html.disableSelection(this.domNode);
 	},
-	
+
 	_createSvgNode: function(src){
 		var elm = document.createElement('embed');
 		elm.src = src;
@@ -732,7 +732,7 @@ dojo.widget.defineWidget(
 			this.parent._positionLabel(this);
 		}
 	},
-	
+
 	onMouseOut: function(/*Event*/ e) {
 		// summary: callback when user moves mouse off of this menu item
 		dojo.html.removeClass(this.lblNode, "selected");

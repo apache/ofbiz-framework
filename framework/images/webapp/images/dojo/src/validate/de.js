@@ -16,7 +16,7 @@ dojo.validate.isGermanCurrency = function(/*String*/value) {
 	var flags = {
 		symbol: "\u20AC",
 		placement: "after",
-		signPlacement: "begin", //TODO: this is really locale-dependent.  Will get fixed in v0.5 currency rewrite. 
+		signPlacement: "begin", //TODO: this is really locale-dependent.  Will get fixed in v0.5 currency rewrite.
 		decimal: ",",
 		separator: "."
 	};

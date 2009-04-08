@@ -78,7 +78,7 @@ under the License.
                   <td valign="top" width="60%">
                     <div>
                       <#if (finAccountType?has_content)>
-                        ${finAccountType.description?default(finAccountType.finAccountTypeId)}&nbsp;                        
+                        ${finAccountType.description?default(finAccountType.finAccountTypeId)}&nbsp;
                       </#if>
                       #${finAccount.finAccountCode?default(finAccount.finAccountId)} (<a href="/accounting/control/EditFinAccount?finAccountId=${finAccount.finAccountId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${finAccount.finAccountId}</a>)
                       <br/>
@@ -159,7 +159,7 @@ under the License.
                 </#if>
                   <td width="10%">
                    <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
-                    <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">                        
+                    <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                       <div>
                         <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
                         <form name="CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}" method="post" action="<@ofbizUrl>updateOrderPaymentPreference</@ofbizUrl>">
@@ -244,7 +244,7 @@ under the License.
                 </td>
                 <td width="10%">
                   <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
-                   <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">                        
+                   <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                       <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
                       <form name="CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}" method="post" action="<@ofbizUrl>updateOrderPaymentPreference</@ofbizUrl>">
                         <input type="hidden" name="orderId" value="${orderId}">
@@ -284,7 +284,7 @@ under the License.
                 </td>
                 <td width="10%">
                   <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
-                   <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">                        
+                   <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                       <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
                       <form name="CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}" method="post" action="<@ofbizUrl>updateOrderPaymentPreference</@ofbizUrl>">
                         <input type="hidden" name="orderId" value="${orderId}">
@@ -342,7 +342,7 @@ under the License.
                 </td>
                 <td width="10%">
                   <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED"))>
-                   <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">                        
+                   <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
                       <a href="javascript:document.CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}.submit()" class="buttontext">${uiLabelMap.CommonCancel}</a>
                       <form name="CancelOrderPaymentPreference_${orderPaymentPreference.orderPaymentPreferenceId}" method="post" action="<@ofbizUrl>updateOrderPaymentPreference</@ofbizUrl>">
                         <input type="hidden" name="orderId" value="${orderId}">
@@ -393,7 +393,7 @@ under the License.
             </td>
             <td width="1%">&nbsp;</td>
             <td valign="top" width="60%">
-                #<a href="/accounting/control/EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description?if_exists}              
+                #<a href="/accounting/control/EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description?if_exists}
             </td>
             <td width="10%">&nbsp;</td>
           </tr>
@@ -431,7 +431,7 @@ under the License.
    <#if (!orderHeader.statusId.equals("ORDER_COMPLETED")) && !(orderHeader.statusId.equals("ORDER_REJECTED")) && !(orderHeader.statusId.equals("ORDER_CANCELLED")) && (paymentMethodValueMaps?has_content)>
    <tr><td colspan="4"><hr/></td></tr>
    <tr><td colspan="4">
-   <form name="addPaymentMethodToOrder" method="post" action="<@ofbizUrl>addPaymentMethodToOrder</@ofbizUrl>">           
+   <form name="addPaymentMethodToOrder" method="post" action="<@ofbizUrl>addPaymentMethodToOrder</@ofbizUrl>">
    <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
    <table class="basic-table" cellspacing='0'>
    <tr>
@@ -461,7 +461,7 @@ under the License.
          </select>
       </td>
       <td width="10%">&nbsp;</td>
-   </tr>                    
+   </tr>
    <#assign openAmount = orderReadHelper.getOrderOpenAmount()>
    <tr>
       <td width="29%" align="right"><span class="label">${uiLabelMap.AccountingAmount}</span></td>
@@ -475,12 +475,12 @@ under the License.
       <td align="right" valign="top" width="29%">&nbsp;</td>
       <td width="1%">&nbsp;</td>
       <td valign="top" width="60%">
-        <input type="submit" value="${uiLabelMap.CommonAdd}" class="smallSubmit"/>        
+        <input type="submit" value="${uiLabelMap.CommonAdd}" class="smallSubmit"/>
       </td>
       <td width="10%">&nbsp;</td>
    </tr>
    </table>
-   </form>     
+   </form>
    </td></tr>
 </#if>
 </table>

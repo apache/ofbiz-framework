@@ -24,11 +24,11 @@ dojo.widget.defineWidget(
 		summary
 			Takes a bunch of pictures and displays them one by one, like a slide show.
 		Usage
-			<img dojoType="SlideShow" 
-				imgUrls="images/1.jpg;images/2.jpg;images/3.jpg;images/4.jpg;images/5.jpg;images/6.jpg" 
+			<img dojoType="SlideShow"
+				imgUrls="images/1.jpg;images/2.jpg;images/3.jpg;images/4.jpg;images/5.jpg;images/6.jpg"
 				imgUrlBase="/foo/bar/images/"
 				transitionInterval="700"
-				delay="7000" 
+				delay="7000"
 				src="images/1.jpg"
 				imgWidth="400" imgHeight="300" />
 		*/
@@ -40,7 +40,7 @@ dojo.widget.defineWidget(
 		//	List of images to use
 		//	Ex: "1.jpg;2.jpg;3.jpg"
 		imgUrls: [],
-		
+
 		// imgUrlBase: String
 		//	Path prefix to prepend to each file specified in imgUrls
 		//	Ex: "/foo/bar/images/"
@@ -53,11 +53,11 @@ dojo.widget.defineWidget(
 		// transitionInterval: Integer
 		//	Number of milliseconds to transition between pictures
 		transitionInterval: 2000,
-		
+
 		// imgWidth: Integer
 		//	Width of image in pixels
 		imgWidth: 800,
-		
+
 		// imgHeight: Integer
 		//	Height of image in pixels
 		imgHeight: 600,
@@ -65,7 +65,7 @@ dojo.widget.defineWidget(
 		// preventCache: Boolean
 		//	If true, download the image every time, rather than using cached version in browser
 		preventCache: false,
-		
+
 		// stopped: Boolean
 		//	is Animation paused?
 		stopped: false,
@@ -76,7 +76,7 @@ dojo.widget.defineWidget(
 		_foreground: "img1", // what's in the fg
 		fadeAnim: null, // references our animation
 
-		///////// our DOM nodes 
+		///////// our DOM nodes
 		startStopButton: null,
 		img1: null,
 		img2: null,
@@ -109,7 +109,7 @@ dojo.widget.defineWidget(
 				return "";
 			}
 		},
-		
+
 		togglePaused: function(){
 			// summary: pauses or restarts the slideshow
 			if(this.stopped){
@@ -132,14 +132,14 @@ dojo.widget.defineWidget(
 			if(this.fadeAnim) {
 				this.fadeAnim.stop();
 			}
-			this.fadeAnim = dojo.lfx.fadeOut(this[this._foreground], 
+			this.fadeAnim = dojo.lfx.fadeOut(this[this._foreground],
 				this.transitionInterval, null);
 			dojo.event.connect(this.fadeAnim,"onEnd",this,"_endTransition");
 			this.fadeAnim.play();
 		},
 
 		_endTransition: function(){
-			// move the _foreground image to the _background 
+			// move the _foreground image to the _background
 			with(this[this._background].style){ zIndex = parseInt(zIndex)+1; }
 			with(this[this._foreground].style){ zIndex = parseInt(zIndex)-1; }
 

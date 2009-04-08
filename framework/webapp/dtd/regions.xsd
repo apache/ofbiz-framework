@@ -39,8 +39,8 @@ under the License.
         <xs:attribute name="region"/>
     </xs:attributeGroup>
     <!--
-        NOTE: type can be direct (for direct inline content), region (for a nested region), 
-            default (for JSP/Servlet resource), or any ViewHandler defined in the corresponding controller.xml file 
+        NOTE: type can be direct (for direct inline content), region (for a nested region),
+            default (for JSP/Servlet resource), or any ViewHandler defined in the corresponding controller.xml file
     -->
     <xs:element name="put">
         <xs:complexType mixed="true">

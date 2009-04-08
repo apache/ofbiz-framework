@@ -1,5 +1,5 @@
 Event.observe(window, 'load', function() {
-    
+
     // Autocompleter for good identification field
     var j = 0;
     var autoCompleteIdent = null;
@@ -25,7 +25,7 @@ Event.observe(window, 'load', function() {
         j++;
         }
     });
-    
+
     Event.observe($('productGoodIdentification'), 'blur', function(s) {
         identValues = $('productGoodIdentification').value;
         var l = 0;
@@ -37,14 +37,14 @@ Event.observe(window, 'load', function() {
             l++;
         });
     });
-    
+
     // Autocompleter for search by field
     Event.observe($('searchBy'), 'change', function(s) {
         $('add_product_id').value = '';
         $('productToSearch').value = '';
         Form.Element.focus('productToSearch');
     });
-    
+
     var i = 0;
     var autoComplete = null;
     var products = [];
@@ -62,14 +62,14 @@ Event.observe(window, 'load', function() {
                 var data = transport.responseText.evalJSON(true);
                 products = data.productsList;
                 productsId = data.productsId;
-                autoComplete = new Autocompleter.Local('productToSearch', 'products', products, {partialSearch: false});                  
+                autoComplete = new Autocompleter.Local('productToSearch', 'products', products, {partialSearch: false});
             }
         });
         previousSearchBy = searchBy;
         i++;
         }
     });
-    
+
     Event.observe($('productToSearch'), 'blur', function(s) {
         productToSearchValues = $('productToSearch').value;
         var p = 0;

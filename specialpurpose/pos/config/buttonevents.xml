@@ -97,7 +97,7 @@ under the License.
     <event button-name="menuLock" class-name="org.ofbiz.pos.event.SecurityEvents" method-name="lock" disable-lock="false"/>
     <event button-name="menuLogout" class-name="org.ofbiz.pos.event.SecurityEvents" method-name="logout" disable-lock="false"/>
     <event button-name="menuMgr" class-name="org.ofbiz.pos.event.SecurityEvents" method-name="mgrLogin" disable-lock="false"/>
-    <event button-name="menuMain" key-code="501" class-name="org.ofbiz.pos.event.NavagationEvents" method-name="showPosScreen" disable-lock="false"/>    
+    <event button-name="menuMain" key-code="501" class-name="org.ofbiz.pos.event.NavagationEvents" method-name="showPosScreen" disable-lock="false"/>
     <event button-name="menuPay" class-name="org.ofbiz.pos.event.NavagationEvents" method-name="showPayScreen" disable-lock="false"/>
     <event button-name="menuPromo" class-name="org.ofbiz.pos.event.NavagationEvents" method-name="showPromoScreen" disable-lock="false"/>
 

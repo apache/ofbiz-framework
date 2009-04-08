@@ -81,7 +81,7 @@ expanded"><a <#if javaScriptEnabled>onclick="javascript:toggleScreenlet(this, '$
 ${menuString}
 </#if>
 </ul><br class="clear" /></div><div <#if collapsibleAreaId?has_content> id="${collapsibleAreaId}" <#if collapsed> style="${collapsed}display: none;"</#if></#if><#if padded> class="screenlet-body"</#if>>
-</#if> 
+</#if>
 </#macro>
 <#macro renderScreenletSubWidget></#macro>
 <#macro renderScreenletEnd></div></div></#macro>

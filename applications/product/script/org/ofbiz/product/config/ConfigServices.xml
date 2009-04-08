@@ -18,12 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ProductConfig methods -->
     <simple-method method-name="createProductConfig" short-description="Create a ProductConfig">
         <set field="callingMethodName" value="createProductConfig"/>
-        <set field="checkAction" value="CREATE"/> 
+        <set field="checkAction" value="CREATE"/>
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
@@ -43,7 +43,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateProductConfig" short-description="Update an ProductConfig">
         <set field="callingMethodName" value="updateProductConfig"/>
-        <set field="checkAction" value="UPDATE"/>        
+        <set field="checkAction" value="UPDATE"/>
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
@@ -58,7 +58,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteProductConfig" short-description="Delete an ProductConfig">
         <set field="callingMethodName" value="deleteProductConfig"/>
-        <set field="checkAction" value="DELETE"/>        
+        <set field="checkAction" value="DELETE"/>
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>

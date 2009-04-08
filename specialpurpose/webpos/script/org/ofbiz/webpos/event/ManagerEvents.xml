@@ -76,7 +76,7 @@ under the License.
             </if-not-empty>
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="closeTerminal" short-description="Close Terminal" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
@@ -183,7 +183,7 @@ under the License.
             <!-- // TODO: missing to call the printTotals and SyncCallbackAdaptor and SecurityEvents.logout(pos) -->
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="voidOrder" short-description="Void Order" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
@@ -253,7 +253,7 @@ under the License.
             <!--   // TODO: print void receipt -->
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="shutdown" short-description="Shutdown" login-required="true">
         <set field="posTerminalId" value="null"/>
         <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
@@ -276,7 +276,7 @@ under the License.
         </else>
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="paidOutAndIn" short-description="Paid Out and In" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
@@ -337,7 +337,7 @@ under the License.
             </if-not-empty>
         </if-not-empty>
     </simple-method>
-    
+
     <simple-method method-name="modifyPrice" short-description="Modify Price" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>

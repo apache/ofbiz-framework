@@ -21,12 +21,12 @@ under the License.
 <entity-engine-xml>
     <JobSandbox jobId="8000" jobName="BackOrder Notification" runTime="2000-01-01 00:00:00.000" serviceName="checkInventoryAvailability" poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
     <JobSandbox jobId="8001" jobName="Re-Try Failed Auths" runTime="2000-01-01 01:00:00.000" serviceName="retryFailedAuths" poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
-    <!-- Schedule this job if you want orders older than 30 days to be automatically cancelled 
+    <!-- Schedule this job if you want orders older than 30 days to be automatically cancelled
     <JobSandbox jobId="8002" jobName="Order Auto-Cancel" runTime="2000-01-01 03:00:00.000" serviceName="autoCancelOrderItems" poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
     -->
     <JobSandbox jobId="8003" jobName="Run Auto-Reorders" runTime="2000-01-01 03:00:00.000" serviceName="runShoppingListAutoReorder" poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
     <JobSandbox jobId="8004" jobName="Re-Try Failed Auths NSF" runTime="2000-01-01 01:00:00.000" serviceName="retryFailedAuthNsfs" poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
     <JobSandbox jobId="8005" jobName="Extend expired Subscriptions" runTime="2000-01-01 03:00:00.000" serviceName="runSubscriptionAutoReorders" poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
     <JobSandbox jobId="8006" jobName="Cancels all orders after date" runTime="2009-12-03 03:00:00.000" serviceName="cancelAllBackOrders" poolId="pool" runAsUser="system" tempExprId="MIDNIGHT_DAILY" maxRecurrenceCount="-1"/>
-    
+
 </entity-engine-xml>

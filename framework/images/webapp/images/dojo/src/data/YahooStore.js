@@ -15,27 +15,27 @@ dojo.require("dojo.io.ScriptSrcIO");
 
 dojo.declare("dojo.data.YahooStore", dojo.data.core.RemoteStore, {
 	/* Summary:
-	 *	  The YahooStore implements the dojo.data.core.Read API. 
-	 */	
-	_setupQueryRequest: function(result, requestKw) { 
+	 *	  The YahooStore implements the dojo.data.core.Read API.
+	 */
+	_setupQueryRequest: function(result, requestKw) {
 		var start = 1;
 		var count = 1;
 		if (result) {
 			start = result.start || start;
 			count = result.count || count;
 		}
-		var sourceUrl = "http://api.search.yahoo.com/WebSearchService/V1/webSearch?appid=dojo&language=en&query=" + 
+		var sourceUrl = "http://api.search.yahoo.com/WebSearchService/V1/webSearch?appid=dojo&language=en&query=" +
 				result.query + "&start=" + start + "&results=" + count + "&output=json";
 		requestKw.url = sourceUrl;
 		requestKw.transport = "ScriptSrcTransport";
 		requestKw.mimetype = "text/json";
 		requestKw.jsonParamName = 'callback';
 	},
-		 
-	_resultToQueryMetadata: function(json) { 
-		return json.ResultSet; 
+
+	_resultToQueryMetadata: function(json) {
+		return json.ResultSet;
 	},
-	
+
 	_resultToQueryData: function(json) {
 		var data = {}
 		for (var i = 0; i < json.ResultSet.totalResultsReturned; ++i) {

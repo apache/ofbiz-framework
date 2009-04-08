@@ -24,63 +24,63 @@ under the License.
     <StatusItem description="Planned For" sequenceId="01" statusCode="PLANNED_FOR" statusId="EMPL_POS_PLANNEDFOR" statusTypeId="EMPL_POSITION_STATUS"/>
     <StatusItem description="Active/Open" sequenceId="02" statusCode="ACTIVE" statusId="EMPL_POS_ACTIVE" statusTypeId="EMPL_POSITION_STATUS"/>
     <StatusItem description="Inactive/Closed" sequenceId="03" statusCode="INACTIVE" statusId="EMPL_POS_INACTIVE" statusTypeId="EMPL_POSITION_STATUS"/>
-    
+
     <StatusType description="Unemployment Claim" hasTable="N" parentTypeId="" statusTypeId="UNEMPL_CLAIM_STATUS"/>
-    
+
     <StatusType description="Degree status" hasTable="N" parentTypeId="" statusTypeId="HR_DEGREE_STATUS"/>
     <StatusItem description="Completed" sequenceId="01" statusCode="COMPLETE" statusId="HR_DS_COMPLETE" statusTypeId="HR_DEGREE_STATUS"/>
     <StatusItem description="Incomplete" sequenceId="02" statusCode="INCOMPLETE" statusId="HR_DS_INCOMPLETE" statusTypeId="HR_DEGREE_STATUS"/>
     <StatusItem description="Deferred" sequenceId="03" statusCode="DEFERRED" statusId="HR_DS_DEFERRED" statusTypeId="HR_DEGREE_STATUS"/>
-    
+
     <StatusType description="Job status" hasTable="N" parentTypeId="" statusTypeId="HR_JOB_STATUS"/>
     <StatusItem description="Full time" sequenceId="01" statusCode="FULLTIME" statusId="HR_JS_FULLTIME" statusTypeId="HR_JOB_STATUS"/>
     <StatusItem description="Part time" sequenceId="02" statusCode="PARTTIME" statusId="HR_JS_PARTTIME" statusTypeId="HR_JOB_STATUS"/>
     <StatusItem description="Contractor" sequenceId="03" statusCode="CONTRACTOR" statusId="HR_JS_CONTRACTOR" statusTypeId="HR_JOB_STATUS"/>
-    
+
     <StatusType description="PartyQual verification status" hasTable="N" parentTypeId="" statusTypeId="PARTYQUAL_VERIFY"/>
     <StatusItem description="Not verified" sequenceId="01" statusCode="NOT_VERIFIED" statusId="PQV_NOT_VERIFIED" statusTypeId="PARTYQUAL_VERIFY"/>
     <StatusItem description="Verified" sequenceId="02" statusCode="VERIFIED" statusId="PQV_VERIFIED" statusTypeId="PARTYQUAL_VERIFY"/>
-    
+
     <EmplPositionType description="Programmer" hasTable="N" parentTypeId="" emplPositionTypeId="PROGRAMMER"/>
     <EmplPositionType description="System Administrator" hasTable="N" parentTypeId="" emplPositionTypeId="SYS_ADMIN"/>
     <EmplPositionType description="Business Analyst" hasTable="N" parentTypeId="" emplPositionTypeId="BIZ_ANALYST"/>
-    
+
     <ResponsibilityType description="Finance Management" hasTable="N" parentTypeId="" responsibilityTypeId="FIN_MGMT"/>
     <ResponsibilityType description="Inventory Management" hasTable="N" parentTypeId="" responsibilityTypeId="INV_MGMT"/>
     <ResponsibilityType description="Purchase Management" hasTable="N" parentTypeId="" responsibilityTypeId="PUR_MGMT"/>
     <ResponsibilityType description="Resource Management" hasTable="N" parentTypeId="" responsibilityTypeId="RES_MGMT"/>
     <ResponsibilityType description="Production Management" hasTable="N" parentTypeId="" responsibilityTypeId="PROD_MGMT"/>
-    <ResponsibilityType description="Sales Management" hasTable="N" parentTypeId="" responsibilityTypeId="SALES_MGMT"/>    
-    
+    <ResponsibilityType description="Sales Management" hasTable="N" parentTypeId="" responsibilityTypeId="SALES_MGMT"/>
+
     <BenefitType description="Health" hasTable="N" parentTypeId="" benefitTypeId="HEALTH"/>
     <BenefitType description="Vacation" hasTable="N" parentTypeId="" benefitTypeId="VACATION"/>
     <BenefitType description="Sick Leave" hasTable="N" parentTypeId="" benefitTypeId="SICK_LEAVE"/>
-    
+
     <TrainingClassType trainingClassTypeId="BASIC_TRAINING" description="Basic Training"/>
     <TrainingClassType trainingClassTypeId="ONJOB_TRAINING" description="On Job Training"/>
     <TrainingClassType trainingClassTypeId="ADVAN_TRAINING" description="Advance Training"/>
     <TrainingClassType trainingClassTypeId="IMPRO_TRAINING" description="Improvement Training"/>
-    
+
     <PartyQualType description="Degree" hasTable="N" parentTypeId="" partyQualTypeId="DEGREE"/>
     <PartyQualType description="Certification" hasTable="N" parentTypeId="" partyQualTypeId="CERTIFICATION"/>
-    
+
     <EmploymentAppSourceType description="NewsPaper" hasTable="N" parentTypeId="" employmentAppSourceTypeId="NEWS_PAPER"/>
     <EmploymentAppSourceType description="PersonalReferal" hasTable="N" parentTypeId="" employmentAppSourceTypeId="PER_REF"/>
     <EmploymentAppSourceType description="Internet" hasTable="N" parentTypeId="" employmentAppSourceTypeId="INTERNET"/>
-    <EmploymentAppSourceType description="Advertisement" hasTable="N" parentTypeId="" employmentAppSourceTypeId="ADV"/>        
+    <EmploymentAppSourceType description="Advertisement" hasTable="N" parentTypeId="" employmentAppSourceTypeId="ADV"/>
 
     <DeductionType description="Federal Tax" parentTypeId="" deductionTypeId="FED_TAX"/>
     <DeductionType description="State Tax" parentTypeId="" deductionTypeId="STATE_TAX"/>
     <DeductionType description="Insurance" parentTypeId="" deductionTypeId="INSURANCE"/>
     <DeductionType description="Cafeteria Plan" parentTypeId="" deductionTypeId="CAFE_PLAN"/>
-    
+
     <TerminationType description="Resignation" hasTable="N" parentTypeId="" terminationTypeId="RESIGN"/>
     <TerminationType description="Fired" hasTable="N" parentTypeId="" terminationTypeId="FIRE"/>
     <TerminationType description="Retirement" hasTable="N" parentTypeId="" terminationTypeId="RETIRE"/>
-    
+
     <EmplLeaveType description="Medical" hasTable="N" parentTypeId="" leaveTypeId="MEDICAL"/>
     <EmplLeaveType description="Casual" hasTable="N" parentTypeId="" leaveTypeId="CASUAL"/>
-    
+
     <WebSite webSiteId="HR" siteName="Human Resource Manager" visualThemeSetId="BACKOFFICE"/>
-    
+
 </entity-engine-xml>

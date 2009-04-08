@@ -39,4 +39,4 @@ under the License.
   <Product productId="GC-002" smallImageUrl="/images/products/small/certificate.png" largeImageUrl="/images/products/large/certificate.png"/>
   <Product productId="ENCHILADAS" smallImageUrl="/images/products/small/borsa_estiva_architetto.png" largeImageUrl="/images/products/large/borsa_estiva_architetto.png"/>
   <Product productId="PIZZA" smallImageUrl="/images/products/small/pizza.png" largeImageUrl="/images/products/large/pizza.png"/>
-</entity-engine-xml> 
+</entity-engine-xml>

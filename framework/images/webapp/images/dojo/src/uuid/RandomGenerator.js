@@ -12,14 +12,14 @@ dojo.provide("dojo.uuid.RandomGenerator");
 
 dojo.uuid.RandomGenerator = new function() {
 	this.generate = function(/* constructor? */ returnType) {
-		// summary: 
+		// summary:
 		//   This function generates random UUIDs, meaning "version 4" UUIDs.
-		// description: 
+		// description:
 		//   A typical generated value would be something like this:
 		//   "3b12f1df-5232-4804-897e-917bf397618a"
 		// returnType: The type of object to return. Usually String or dojo.uuid.Uuid
 
-		// examples: 
+		// examples:
 		//   var string = dojo.uuid.RandomGenerator.generate();
 		//   var string = dojo.uuid.RandomGenerator.generate(String);
 		//   var uuid   = dojo.uuid.RandomGenerator.generate(dojo.uuid.Uuid);
@@ -29,7 +29,7 @@ dojo.uuid.RandomGenerator = new function() {
 		// For an algorithm to generate a random UUID, see
 		// sections 4.4 and 4.5 of RFC 4122:
 		//  http://www.ietf.org/rfc/rfc4122.txt
-		
+
 		var returnValue = "00000000-0000-0000-0000-000000000000"; // FIXME
 		if (returnType && (returnType != String)) {
 			returnValue = new returnType(returnValue);

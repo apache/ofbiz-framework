@@ -25,7 +25,7 @@ dojo.AdapterRegistry = function(/*Boolean?*/ returnWrappers){
 
 dojo.lang.extend(dojo.AdapterRegistry, {
 	register: function(name, check, /*Function*/ wrap, directReturn, override){
-		// summary: 
+		// summary:
 		//		register a check function to determine if the wrap function or
 		//		object gets selected
 		// name: String

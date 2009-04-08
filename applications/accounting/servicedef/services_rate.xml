@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Accounting Services: Rate and related services</description>
     <vendor>OFBiz</vendor>
@@ -68,5 +68,5 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute name="rateAmountFromDate" type="Timestamp" mode="IN" optional="true"/><!-- to be able to expire rateamount specific to a party records....-->
     </service>
-    
+
 </services>

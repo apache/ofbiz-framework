@@ -27,9 +27,9 @@ CREATE TABLE <%=entity.getPlainTableName()%> (<%for(int i=0;i<entity.fields.size
   <%=field.colName%> <%=type.sqlType%> NOT NULL,<%}else{%>
   <%=field.colName%> <%=type.sqlType%>,<%}%><%}%>
   CONSTRAINT PK_<%=entity.getPlainTableName()%> PRIMARY KEY (<%=entity.colNameString(entity.pks)%>));
-<%}%> 
+<%}%>
 <%
-} 
+}
 else {
   %>ERROR: You do not have permission to use this page (ENTITY_MAINT needed)<%
 }

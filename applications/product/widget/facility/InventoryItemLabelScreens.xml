@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="FindInventoryItemLabels">
@@ -42,7 +42,7 @@ under the License.
                                 </container>
                             </container>
                             <container style="screenlet-body">
-                                <section>    
+                                <section>
                                     <widgets>
                                         <include-form name="ListInventoryItemLabels" location="component://product/webapp/facility/labels/InventoryItemLabelForms.xml"/>
                                     </widgets>
@@ -98,7 +98,7 @@ under the License.
                                         </container>
                                     </container>
                                     <container style="screenlet-body">
-                                        <section>    
+                                        <section>
                                             <widgets>
                                                 <include-form name="EditInventoryItemLabel" location="component://product/webapp/facility/labels/InventoryItemLabelForms.xml"/>
                                             </widgets>
@@ -121,7 +121,7 @@ under the License.
                                         </container>
                                     </container>
                                     <container style="screenlet-body">
-                                        <section>    
+                                        <section>
                                             <widgets>
                                                 <include-form name="EditInventoryItemLabel" location="component://product/webapp/facility/labels/InventoryItemLabelForms.xml"/>
                                             </widgets>

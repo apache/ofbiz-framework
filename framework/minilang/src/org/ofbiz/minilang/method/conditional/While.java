@@ -35,7 +35,7 @@ import org.ofbiz.minilang.method.conditional.ConditionalFactory;
 public class While extends MethodOperation {
     public static final class WhileFactory implements Factory<While> {
         public While createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new While(element, simpleMethod);
+            return new while (element, simpleMethod);
         }
 
         public String getName() {
@@ -47,7 +47,7 @@ public class While extends MethodOperation {
 
     List<MethodOperation> thenSubOps = FastList.newInstance();
 
-    public While(Element element, SimpleMethod simpleMethod) {
+    public while (Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
 
         Element conditionElement = UtilXml.firstChildElement(element, "condition");

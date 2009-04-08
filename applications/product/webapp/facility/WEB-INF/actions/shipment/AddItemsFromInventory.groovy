@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -29,11 +29,11 @@ shipmentItems = shipment.getRelated("ShipmentItem");
 shipmentItems.each { shipmentItem ->
     productId = shipmentItem.productId;
     internalName = shipmentItem.getRelated("Product").internalName;
-    EntityCondition cond = EntityCondition.makeCondition([EntityCondition.makeCondition("returnId", shipment.primaryReturnId), 
+    EntityCondition cond = EntityCondition.makeCondition([EntityCondition.makeCondition("returnId", shipment.primaryReturnId),
                                    EntityCondition.makeCondition("productId", productId)], EntityOperator.AND);
     returnItem = EntityUtil.getFirst(delegator.findList("ReturnItem", cond, null, null, null, true));
     returnQuantity = Double.valueOf(returnItem.returnQuantity);
-    
+
     shipmentItemQty = Double.valueOf(shipmentItem.quantity);
     itemIssuances = shipmentItem.getRelated("ItemIssuance", [shipmentId : shipmentId, shipmentItemSeqId : shipmentItem.shipmentItemSeqId], ["inventoryItemId"]);
     totalQtyIssued = 0;
@@ -57,7 +57,7 @@ shipmentItems.each { shipmentItem ->
                totalQtyIssued : totalQtyIssued,
                issuedItems : issuedItems,
                qtyStillNeedToBeIssued : qtyStillNeedToBeIssued,
-               ]); 
+               ]);
 }
 context.shipmentId = shipmentId;
 context.items = items;

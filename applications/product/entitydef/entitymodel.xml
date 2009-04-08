@@ -556,11 +556,11 @@ under the License.
         <key-map field-name="productCategoryTypeId"/>
       </relation>
     </entity>
-    
+
     <!-- ========================================================= -->
     <!-- org.ofbiz.product.config -->
     <!-- ========================================================= -->
-    
+
     <entity entity-name="ProductConfig"
             package-name="org.ofbiz.product.config"
             title="Product Configuration Templates Entity">
@@ -737,14 +737,14 @@ under the License.
         <field name="configItemId" type="id-ne"></field>
         <field name="sequenceNum" type="numeric"></field>
         <field name="configOptionId" type="id-ne"></field>
-        <field name="productId" type="id-ne"></field>         
-        <field name="productOptionId" type="id-ne"></field>        
+        <field name="productId" type="id-ne"></field>
+        <field name="productOptionId" type="id-ne"></field>
         <field name="description" type="description"></field>
         <prim-key field="configId"/>
         <prim-key field="configItemId"/>
         <prim-key field="configOptionId"/>
         <prim-key field="sequenceNum"/>
-        <prim-key field="productId"/>        
+        <prim-key field="productId"/>
         <relation type="one" fk-name="PROD_OPTN_CONF" title="Config" rel-entity-name="ProductConfigConfig">
             <key-map field-name="configId"/>
             <key-map field-name="configItemId"/>
@@ -753,11 +753,11 @@ under the License.
         </relation>
         <relation type="one" fk-name="PROD_OPTN_PROD" title="Product" rel-entity-name="ProductConfigProduct">
             <key-map field-name="configItemId"/>
-            <key-map field-name="configOptionId"/>        
+            <key-map field-name="configOptionId"/>
             <key-map field-name="productId"/>
-        </relation>        
+        </relation>
     </entity>
-    
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.product.cost -->
   <!-- ========================================================= -->
@@ -920,7 +920,7 @@ under the License.
       <member-entity entity-alias="CT" entity-name="Container"/>
       <member-entity entity-alias="CTGPT" entity-name="ContainerGeoPoint"/>
       <member-entity entity-alias="GPT" entity-name="GeoPoint"/>
-      <alias-all entity-alias="GPT"/>    
+      <alias-all entity-alias="GPT"/>
       <alias entity-alias="CT" name="containerId"/>
       <alias entity-alias="CTGPT" name="fromDate"/>
       <alias entity-alias="CTGPT" name="thruDate"/>
@@ -941,7 +941,7 @@ under the License.
         <key-map field-name="geoPointId"/>
       </relation>
     </view-entity>
-  
+
     <entity entity-name="Facility" package-name="org.ofbiz.product.facility" title="Facility Entity">
         <field name="facilityId" type="id-ne"></field>
         <field name="facilityTypeId" type="id"></field>
@@ -1204,7 +1204,7 @@ under the License.
       <member-entity entity-alias="FL" entity-name="FacilityLocation"/>
       <member-entity entity-alias="FLGPT" entity-name="FacilityLocationGeoPoint"/>
       <member-entity entity-alias="GPT" entity-name="GeoPoint"/>
-      <alias-all entity-alias="GPT"/>    
+      <alias-all entity-alias="GPT"/>
       <alias entity-alias="FL" name="facilityId"/>
       <alias entity-alias="FL" name="locationSeqId"/>
       <alias entity-alias="FLGPT" name="fromDate"/>
@@ -1228,7 +1228,7 @@ under the License.
       <relation type="one-nofk" rel-entity-name="GeoPoint">
         <key-map field-name="geoPointId"/>
       </relation>
-    </view-entity>  
+    </view-entity>
     <entity entity-name="FacilityParty" package-name="org.ofbiz.product.facility" title="Facility Party Entity">
         <field name="facilityId" type="id"></field>
         <field name="partyId" type="id"></field>
@@ -1372,7 +1372,7 @@ under the License.
             <key-map field-name="locationSeqId"/>
         </relation>
     </view-entity>
-    
+
     <!-- ========================================================= -->
     <!-- org.ofbiz.product.feature -->
     <!-- ========================================================= -->
@@ -1657,7 +1657,7 @@ under the License.
         <key-map field-name="parentTypeId" rel-field-name="productFeatureTypeId"/>
       </relation>
     </entity>
-  
+
   <entity entity-name="ProductFeaturePrice"
     package-name="org.ofbiz.product.price"
     title="Product Feature Price Entity">
@@ -1692,7 +1692,7 @@ under the License.
       <index-field name="currencyUomId"/>
     </index>
   </entity>
-  
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.product.inventory -->
   <!-- ========================================================= -->
@@ -1746,7 +1746,7 @@ under the License.
       <field name="serialNumber" type="value"></field>
       <field name="softIdentifier" type="value"></field>
       <field name="activationNumber" type="value"></field>
-      <field name="activationValidThru" type="date-time"></field> 
+      <field name="activationValidThru" type="date-time"></field>
       <field name="unitCost" type="fixed-point"><description>Higher precision in case it is a calculated number</description></field>
       <field name="currencyUomId" type="id"><description>The currency Uom of the unit cost.</description></field>
       <prim-key field="inventoryItemId"/>
@@ -1942,13 +1942,13 @@ under the License.
     </view-entity>
     <view-entity entity-name="InventoryItemDetailForSum" package-name="org.ofbiz.product.inventory"
         title="Inventory Item  And Inventory Item Detail for Summation View Entity">
-        <member-entity entity-alias="II" entity-name="InventoryItem"/>        
+        <member-entity entity-alias="II" entity-name="InventoryItem"/>
         <member-entity entity-alias="IID" entity-name="InventoryItemDetail"/>
         <alias entity-alias="IID" name="quantityOnHandSum" field="quantityOnHandDiff" function="sum"/>
         <alias entity-alias="II" name="inventoryItemTypeId" group-by="true"></alias>
         <alias entity-alias="II" name="facilityId" group-by="true"></alias>
         <alias entity-alias="II" name="productId" group-by="true"></alias>
-        <alias entity-alias="IID" name="effectiveDate"><description>For query only, not in fields to select.</description></alias>   
+        <alias entity-alias="IID" name="effectiveDate"><description>For query only, not in fields to select.</description></alias>
         <view-link entity-alias="II" rel-entity-alias="IID">
             <key-map field-name="inventoryItemId"/>
         </view-link>
@@ -2311,7 +2311,7 @@ under the License.
     </entity>
     <entity entity-name="ProductPriceActionType"
             package-name="org.ofbiz.product.price"
-            default-resource-name="ProductEntityLabels"    
+            default-resource-name="ProductEntityLabels"
             title="Product Price Type Entity">
       <field name="productPriceActionTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
@@ -2523,7 +2523,7 @@ under the License.
             title="Product Entity">
       <field name="productId" type="id-ne"></field>
       <field name="productTypeId" type="id"></field>
-      <field name="primaryProductCategoryId" type="id"><description>The primary category ; it should be one of the productCategoryId already setup in ProductCategoryMember</description></field>      
+      <field name="primaryProductCategoryId" type="id"><description>The primary category ; it should be one of the productCategoryId already setup in ProductCategoryMember</description></field>
       <field name="manufacturerPartyId" type="id"></field>
       <field name="facilityId" type="id"></field>
       <field name="introductionDate" type="date-time"></field>
@@ -2584,7 +2584,7 @@ under the License.
       <field name="lastModifiedDate" type="date-time"></field>
       <field name="lastModifiedByUserLogin" type="id-vlong"></field>
       <field name="inShippingBox" type="indicator"></field>
-      <field name="defaultShipmentBoxTypeId" type="id"></field>        
+      <field name="defaultShipmentBoxTypeId" type="id"></field>
       <prim-key field="productId"/>
       <relation type="one" fk-name="PROD_TYPE" rel-entity-name="ProductType">
         <key-map field-name="productTypeId"/>
@@ -2642,7 +2642,7 @@ under the License.
       </relation>
       <relation type="one" fk-name="PROD_SHBX_TYPE" title="Default" rel-entity-name="ShipmentBoxType">
           <key-map field-name="defaultShipmentBoxTypeId" rel-field-name="shipmentBoxTypeId"/>
-      </relation>  
+      </relation>
     </entity>
     <entity entity-name="ProductAssoc"
             package-name="org.ofbiz.product.product"
@@ -2737,7 +2737,7 @@ under the License.
       <relation type="one" fk-name="PROD_RLE_PRODUCT" rel-entity-name="Product">
         <key-map field-name="productId"/>
       </relation>
-    </entity>    
+    </entity>
     <entity entity-name="ProductAttribute"
             package-name="org.ofbiz.product.product"
             title="Product Attribute Entity">
@@ -2955,9 +2955,9 @@ under the License.
             <key-map field-name="meterUomId" rel-field-name="uomId"/>
         </relation>
     </entity>
-    <entity entity-name="ProductMeterType" 
+    <entity entity-name="ProductMeterType"
             package-name="org.ofbiz.product.product"
-            default-resource-name="ProductEntityLabels"            
+            default-resource-name="ProductEntityLabels"
             title="Product Meter Type Entity">
         <field name="productMeterTypeId" type="id-ne"></field>
         <field name="description" type="description"></field>
@@ -3001,7 +3001,7 @@ under the License.
             <key-map field-name="intervalMeterTypeId" rel-field-name="productMeterTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="ProductMaintType" 
+    <entity entity-name="ProductMaintType"
             package-name="org.ofbiz.product.product"
             default-resource-name="ProductEntityLabels"
             title="Product Maintenance Type Entity">
@@ -3721,7 +3721,7 @@ under the License.
         <description>Whether the BCC on ProductStoreEmailSetting should be copied for email notifications</description>
       </field>
       <field name="allowAuthToNegative" type="indicator"></field>
-      <field name="minBalance" type="currency-amount"></field>        
+      <field name="minBalance" type="currency-amount"></field>
       <field name="replenishThreshold" type="currency-amount"></field>
       <field name="replenishMethodEnumId" type="id">
         <description>Replenish Method for Replenish Account. Can be FARP_TOP_OFF or FARP_REPLENISH_LEVEL. Default FARP_TOP_OFF.</description>
@@ -3740,7 +3740,7 @@ under the License.
       <relation type="one" fk-name="PRSTFNAC_FARPMTD" title="ReplenishMethod" rel-entity-name="Enumeration">
         <key-map field-name="replenishMethodEnumId" rel-field-name="enumId"/>
       </relation>
-    </entity>         
+    </entity>
     <entity entity-name="ProductStoreFacility"
             package-name="org.ofbiz.product.store"
             title="Product Store Inventory Facility Applicability Entity">
@@ -4157,11 +4157,11 @@ under the License.
             <key-map field-name="productStoreId"/>
         </relation>
     </extend-entity>
-    
+
     <!-- ========================================================= -->
     <!-- org.ofbiz.product.subscription -->
     <!-- ========================================================= -->
-    
+
     <entity entity-name="ProductSubscriptionResource"
             package-name="org.ofbiz.product.subscription"
             title="Product Subscription Resource Entity">
@@ -4397,7 +4397,7 @@ under the License.
             <key-map field-name="subscriptionTypeId"/>
         </relation>
     </entity>
-    
+
     <entity entity-name="SubscriptionCommEvent"
             package-name="org.ofbiz.product.subscription"
             title="Subscription Communication Event  Entity">
@@ -4545,7 +4545,7 @@ under the License.
         <key-map field-name="productId"/>
       </view-link>
     </view-entity>
-    <entity entity-name="SupplierProductFeature" 
+    <entity entity-name="SupplierProductFeature"
             package-name="org.ofbiz.product.supplier"
             title="Supplier-specific product feature information">
       <field name="partyId" type="id-ne"/>
@@ -4572,9 +4572,9 @@ under the License.
       <field name="description" type="description"></field>
       <prim-key field="supplierRatingTypeId"/>
     </entity>
-  
-  <view-entity entity-name="ProductFacilityAndPostalAddress" 
-        package-name="org.ofbiz.product.product" 
+
+  <view-entity entity-name="ProductFacilityAndPostalAddress"
+        package-name="org.ofbiz.product.product"
         title="Product Facility And Contactmech And Postal Address View Entity, to be able to list products by geographic location">
     <member-entity entity-alias="PDFT" entity-name="ProductFacility"/>
     <member-entity entity-alias="FTCT" entity-name="FacilityContactMech"/>
@@ -4594,9 +4594,9 @@ under the License.
       <key-map field-name="contactMechId"/>
     </view-link>
   </view-entity>
-  
-  <view-entity entity-name="ProductConfigAndProduct" 
-    package-name="org.ofbiz.product.product" 
+
+  <view-entity entity-name="ProductConfigAndProduct"
+    package-name="org.ofbiz.product.product"
     title="Product Config And Product  View Entity, to be able to see which products use a certain configuration item">
     <member-entity entity-alias="PDC" entity-name="ProductConfig"/>
     <member-entity entity-alias="PD" entity-name="Product"/>

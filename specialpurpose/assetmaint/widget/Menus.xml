@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,7 +27,7 @@
         <menu-item name="fixedAssetMaints" title="${uiLabelMap.AccountingFixedAssetMaints}"><link target="findFixedAssetMaints"/></menu-item>
         <menu-item name="facility" title="${uiLabelMap.ProductFacility}"><link target="FindFacility"/></menu-item>
     </menu>
-    
+
     <menu name="FixedAssetTabBar" extends="FixedAssetTabBar" extends-resource="component://accounting/widget/Menus.xml">
         <menu-item name="EditProductMaints" title="${uiLabelMap.AssetMaintProductMaint}">
             <condition><not><if-empty field="fixedAsset.instanceOfProductId"/></not></condition>
@@ -66,8 +66,8 @@
                 <parameter param-name="maintHistSeqId" from-field="fixedAssetMaint.maintHistSeqId"/>
             </link>
         </menu-item>
-    </menu>  
-    
+    </menu>
+
     <menu name="FacilityTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="ViewFacilityInventoryByProduct">
         <menu-item name="EditFacility" title="${uiLabelMap.ProductFacility}">
@@ -110,6 +110,6 @@
                 <parameter param-name="facilityId"/>
             </link>
         </menu-item>
-    </menu>  
+    </menu>
 
 </menus>

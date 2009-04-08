@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditOrderHeader" type="single" target="updateOrderHeader" title=""
         header-row-style="header-row" default-table-style="basic-table">
@@ -29,7 +29,7 @@ under the License.
         </actions>
         <alt-target target="createOrderHeader" use-when="orderHeader==null"/>
         <auto-fields-entity entity-name="OrderHeader"/>
-        
+
         <field name="orderId" use-when="orderHeader!=null" ><display/></field>
         <field name="orderId" use-when="orderHeader==null" ><ignored/></field>
         <field name="orderTypeId">
@@ -38,7 +38,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="statusId" use-when="orderHeader==null" title="${uiLabelMap.CommonStatus}">
             <drop-down>
                 <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
@@ -54,7 +54,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="salesChannelEnumId">
             <drop-down>
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
@@ -63,7 +63,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="currencyUom">
             <drop-down>
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
@@ -72,7 +72,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        
+
         <field name="firstAttemptOrderId" ><lookup target-form-name="/ordermgr/control/LookupOrderHeader"/></field>
         <field name="productStoreId">
             <lookup target-form-name="/marketing/control/LookupProductStore"/>

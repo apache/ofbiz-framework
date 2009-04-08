@@ -70,6 +70,6 @@ under the License.
         <Button name="" x="510" y="310" w="100" h="60" style="posButton" content="" alignment="Center"/>
         <!--Button name="testMsr" x="510" y="310" w="100" h="60" style="posButton" content="TEST MSR" alignment="Center"/-->
         <!--Button name="testNumeric" x="510" y="310" w="100" h="60" style="posButton" content="Num Keypad" alignment="Center"/-->
-        
-    </Components>    
+
+    </Components>
 </XPage>

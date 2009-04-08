@@ -28,7 +28,7 @@ dojo.uri = new function() {
 
 	this.Uri = function (/*dojo.uri.Uri||String...*/) {
 		// summary: Constructor to create an object representing a URI.
-		// description: 
+		// description:
 		//  Each argument is evaluated in order relative to the next until
 		//  a canonical uri is produced. To get an absolute Uri relative
 		//  to the current document use

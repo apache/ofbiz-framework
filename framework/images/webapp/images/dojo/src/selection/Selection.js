@@ -35,14 +35,14 @@ dojo.declare("dojo.selection.Selection", null,
 		items: null,
 
 		// Array: items selected, aren't stored in order (see sorted())
-		selection: null, 
+		selection: null,
 		lastSelected: null, // last item selected
 
 		// Boolean: if true, grow selection will start from 0th item when nothing is selected
-		allowImplicit: true, 
+		allowImplicit: true,
 
 		// Integer: number of *selected* items
-		length: 0, 
+		length: 0,
 
 		// Boolean:
 		//		if true, the selection is treated as an in-order and can grow
@@ -86,7 +86,7 @@ dojo.declare("dojo.selection.Selection", null,
 			this.addItems.call(this, arguments);
 		},
 
- 
+
 		setItemsCollection: function(/*Object*/collection){
 			// summary:
 			//		like setItems, but use in case you have an active
@@ -175,7 +175,7 @@ dojo.declare("dojo.selection.Selection", null,
 			if(!this.isItem(item)){ return false; } // boolean
 
 			if(this.isGrowable && grow){
-				if( (!this.isSelected(item)) && 
+				if( (!this.isSelected(item)) &&
 					this.selectFilter(item, this.selection, false, true) ){
 					this.grow(item);
 					this.lastSelected = item;
@@ -456,7 +456,7 @@ dojo.declare("dojo.selection.Selection", null,
 		},
 
 		updateSelected: function(){
-			// summary: 
+			// summary:
 			//		remove any items from the selection that are no longer in
 			//		this.items
 			for(var i = 0; i < this.selection.length; i++) {

@@ -18,13 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>OFBiz WebTools Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
-    <!-- Entity Import Services 
+    <!-- Entity Import Services
          Transacitons are turned off for these services because they set transactions and timeouts inside the services with txTimeout parameter -->
     <service name="parseEntityXmlFile" engine="java" require-new-transaction="true"
             location="org.ofbiz.webtools.WebToolsServices" invoke="parseEntityXmlFile" auth="true" use-transaction="false">
@@ -90,7 +90,7 @@ under the License.
         <attribute name="txTimeout" type="Integer" mode="IN" optional="true"/>
         <attribute name="results" type="List" mode="OUT" optional="false"/>
     </service>
-    
+
     <service name="getEntityRefData" engine="java" location="org.ofbiz.webtools.WebToolsServices" invoke="getEntityRefData" auth="true" use-transaction="false">
         <description>Gets the entity reference data - for the entity reference screen. See org.ofbiz.webtools.WebToolsServices.getEntityRefData().</description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
@@ -98,7 +98,7 @@ under the License.
         <attribute name="packagesList" type="java.util.List" mode="OUT" optional="true"/>
     </service>
     <service name="exportEntityEoModelBundle" engine="java" location="org.ofbiz.webtools.WebToolsServices" invoke="exportEntityEoModelBundle" auth="true" use-transaction="false">
-        <description>Saves specified set of entities to an Apple EOModelBundle file. 
+        <description>Saves specified set of entities to an Apple EOModelBundle file.
             See org.ofbiz.webtools.WebToolsServices.exportEoModelBundle().
             Specify either entityPackageName or entityGroupId, or leave both empty for ALL entities in the data model.
         </description>
@@ -109,7 +109,7 @@ under the License.
         <attribute name="datasourceName" type="java.lang.String" mode="IN" optional="true"/>
         <attribute name="entityNamePrefix" type="java.lang.String" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="entityMaintPermCheck" engine="java" location="org.ofbiz.webtools.WebToolsServices" invoke="entityMaintPermCheck">
         <description>Performs an entity maintenance security check. Returns hasPermission=true
           if the user has the ENTITY_MAINT permission.</description>
@@ -117,18 +117,18 @@ under the License.
     </service>
 
     <service name="exportServiceEoModelBundle" engine="java" location="org.ofbiz.webtools.WebToolsServices" invoke="exportServiceEoModelBundle" auth="true" use-transaction="false">
-        <description>Saves service and related artifacts diagram to an Apple EOModelBundle file. 
+        <description>Saves service and related artifacts diagram to an Apple EOModelBundle file.
         </description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
         <attribute name="eomodeldFullPath" type="java.lang.String" mode="IN" optional="false"/>
         <attribute name="serviceName" type="java.lang.String" mode="IN" optional="false"/>
     </service>
-    <service name="saveLabelsToXmlFile" engine="java" location="org.ofbiz.webtools.labelmanager.SaveLabelsToXmlFile" 
+    <service name="saveLabelsToXmlFile" engine="java" location="org.ofbiz.webtools.labelmanager.SaveLabelsToXmlFile"
              invoke="saveLabelsToXmlFile" auth="true" use-transaction="false">
         <description>Save labels to xml file</description>
         <attribute name="labelFileName" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="updateLabelKey" engine="java" location="org.ofbiz.webtools.labelmanager.LabelManagerFactory" 
+    <service name="updateLabelKey" engine="java" location="org.ofbiz.webtools.labelmanager.LabelManagerFactory"
              invoke="updateLabelKey" auth="true" use-transaction="false">
         <description>Update Label Key</description>
         <attribute name="key" type="String" mode="IN" optional="true"/>
@@ -141,7 +141,7 @@ under the License.
         <attribute name="localeValues" type="List" mode="IN" optional="true"/>
         <attribute name="localeComments" type="List" mode="IN" optional="true"/>
     </service>
-    <service name="updateAndSaveLabelKey" engine="java" location="org.ofbiz.webtools.labelmanager.LabelManagerFactory" 
+    <service name="updateAndSaveLabelKey" engine="java" location="org.ofbiz.webtools.labelmanager.LabelManagerFactory"
              invoke="updateAndSaveLabelKey" auth="true" use-transaction="false">
         <description>Update Label Key</description>
         <attribute name="key" type="String" mode="IN" optional="true"/>

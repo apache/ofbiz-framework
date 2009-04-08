@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
   <!-- ========================================================= -->
   <!-- ======================== Defaults ======================= -->
@@ -46,7 +46,7 @@ under the License.
             <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
         </view-link>
     </view-entity>
-  
+
     <view-entity entity-name="WorkEffortAndFulfillment"
             package-name="org.ofbiz.workeffort.workeffort"
             title="WorkEffort Requirement View Entity">
@@ -423,8 +423,8 @@ under the License.
         <key-map field-name="roleTypeId"/>
       </relation>
     </view-entity>
-  
-  <view-entity entity-name="WorkEffortAndGoods" package-name="org.ofbiz.workeffort.workeffort" 
+
+  <view-entity entity-name="WorkEffortAndGoods" package-name="org.ofbiz.workeffort.workeffort"
         title="WorkEffort and related WorkEffortGoodStandard">
       <description>WorkEffort and its WorkEffortGoodStandard</description>
       <member-entity entity-alias="WE" entity-name="WorkEffort"></member-entity>
@@ -438,7 +438,7 @@ under the License.
         <key-map field-name="workEffortId"></key-map>
       </view-link>
     </view-entity>
-    
+
     <view-entity entity-name="WorkEffortAndContentDataResource" package-name="org.ofbiz.workeffort.workeffort"
          title="WorkEffort and Content and DataResource View Entity">
         <member-entity entity-alias="WECO" entity-name="WorkEffortContent"/>
@@ -485,7 +485,7 @@ under the License.
         </relation>
     </view-entity>
 
-  <view-entity entity-name="WorkEffortAndInventoryAssign" package-name="org.ofbiz.workeffort.workeffort" 
+  <view-entity entity-name="WorkEffortAndInventoryAssign" package-name="org.ofbiz.workeffort.workeffort"
         title="Inventory Item and Product assigned for WorkEffort">
       <description>Inventory Item and Product assigned for WorkEffort</description>
       <member-entity entity-alias="WEIA" entity-name="WorkEffortInventoryAssign"></member-entity>
@@ -498,7 +498,7 @@ under the License.
         <key-map field-name="inventoryItemId"></key-map>
       </view-link>
     </view-entity>
-    <view-entity entity-name="WorkEffortAndInventoryProduced" package-name="org.ofbiz.workeffort.workeffort" 
+    <view-entity entity-name="WorkEffortAndInventoryProduced" package-name="org.ofbiz.workeffort.workeffort"
         title="Inventory Item and Product produced by WorkEffort">
       <description>Inventory Item and Product produced by WorkEffort</description>
       <member-entity entity-alias="WEIP" entity-name="WorkEffortInventoryProduced"></member-entity>
@@ -773,7 +773,7 @@ under the License.
         <key-map field-name="workReqFulfTypeId"/>
       </relation>
     </view-entity>
-    <view-entity entity-name="WorkEffortAndSalesOpportunity" 
+    <view-entity entity-name="WorkEffortAndSalesOpportunity"
             package-name="org.ofbiz.workeffort.workeffort"
             title="Sales opportunity and associated work effort">
       <member-entity entity-alias="SOWE" entity-name="SalesOpportunityWorkEffort"/>
@@ -798,7 +798,7 @@ under the License.
       <relation type="one-nofk" rel-entity-name="SalesOpportunity">
           <key-map field-name="salesOpportunityId"/>
       </relation>
-    </view-entity>    
+    </view-entity>
 
     <view-entity entity-name="WorkEffortContentAndInfo"
             package-name="org.ofbiz.workeffort.workeffort"
@@ -832,7 +832,7 @@ under the License.
       </relation>
     </view-entity>
 
-    <view-entity entity-name="WorkEffortContactMechView" 
+    <view-entity entity-name="WorkEffortContactMechView"
             package-name="org.ofbiz.workeffort.workeffort"
             title="Work Effort Contact Mech View Entity">
       <member-entity entity-alias="WECM" entity-name="WorkEffortContactMech"/>
@@ -842,6 +842,6 @@ under the License.
       <view-link entity-alias="WECM" rel-entity-alias="CM">
           <key-map field-name="contactMechId"/>
       </view-link>
-    </view-entity>    
+    </view-entity>
 
 </entitymodel>

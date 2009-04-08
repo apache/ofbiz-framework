@@ -20,14 +20,14 @@ dojo.widget.defineWidget(
 		var curInst = dojo.widget.Editor2Manager.getCurrentInstance();
 		var findcmd = curInst.getCommand('find');
 		var option = 0;
-	
+
 		if(this["find_option_casesens"].checked){
 			option |= findcmd.SearchOption.CaseSensitive;
 		}
 		if(this["find_option_backwards"].checked){
 			option |= findcmd.SearchOption.SearchBackwards;
 		}
-	
+
 		if(this["find_option_wholeword"].checked){
 			option |= findcmd.SearchOption.WholeWord;
 		}

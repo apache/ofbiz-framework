@@ -18,20 +18,20 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
- 
+
     <form name="ListPaymentMethodType" type="list" target="updatePaymentMethodType" list-name="paymentMethodTypes"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="paymentMethodTypeId"><display/></field>
         <field name="description"><display/></field>
         <field name="defaultGlAccountId" parameter-name="defaultGlAccountId">
-            <drop-down allow-empty="true">                
+            <drop-down allow-empty="true">
                 <entity-options description="${glAccountId} : ${accountName}" entity-name="GlAccount" key-field-name="glAccountId">
-                    <entity-order-by field-name="glAccountId"/>    
-                </entity-options>    
+                    <entity-order-by field-name="glAccountId"/>
+                </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>     
-    </form>    
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>

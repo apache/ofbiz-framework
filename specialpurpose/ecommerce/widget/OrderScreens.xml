@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <!-- Included Screens -->
@@ -33,7 +33,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="genericaddress">
         <section>
             <widgets>
@@ -49,7 +49,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="orderitems">
         <section>
             <widgets>
@@ -79,11 +79,11 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <widgets>  
+                            <widgets>
                                 <include-screen name="anonymousCheckoutLinks"/>
-                                <decorator-section-include name="body"/>                                
+                                <decorator-section-include name="body"/>
                             </widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -96,7 +96,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="rightonly"/>
                 <set field="parameters.formNameValue" value="custsetupform" global="true"/>
-                
+
                 <set field="titleProperty" value="PageTitleShippingInformation"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/CustSettings.groovy"/>
             </actions>
@@ -136,7 +136,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="rightonly"/>
                 <set field="parameters.formNameValue" value="optsetupform" global="true"/>
-                
+
                 <set field="titleProperty" value="PageTitleShippingOptions"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/OptionSettings.groovy"/>
             </actions>
@@ -149,7 +149,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="paymentoptions">
         <section>
             <actions>
@@ -229,7 +229,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="checkoutoptions">
         <section>
             <actions>
@@ -267,7 +267,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="checkoutshippingoptions">
         <section>
             <actions>
@@ -286,7 +286,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="checkoutpayment">
         <section>
             <actions>
@@ -306,7 +306,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="splitship">
         <section>
             <actions>
@@ -327,7 +327,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCheckoutReview"/>
-                <set field="parameters.formNameValue" value="orderreview" global="true"/>                
+                <set field="parameters.formNameValue" value="orderreview" global="true"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/CheckoutReview.groovy"/>
             </actions>
             <widgets>
@@ -339,7 +339,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ordercomplete">
         <section>
             <actions>
@@ -374,7 +374,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="orderstatus">
         <section>
             <actions>
@@ -394,7 +394,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="requestreturn">
         <section>
             <actions>
@@ -413,9 +413,9 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
-    <!-- Anonymous Checkout 3 steps entry -->    
-    
+
+    <!-- Anonymous Checkout 3 steps entry -->
+
     <screen name="quickAnonOrderHeader">
         <section>
             <widgets>
@@ -423,8 +423,8 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
-    
+
+
     <screen name="quickAnonCheckoutLinks">
         <section>
             <actions>
@@ -435,7 +435,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="quickAnonCheckoutDecorator">
         <section>
             <actions>
@@ -447,11 +447,11 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <widgets>  
+                            <widgets>
                                 <include-screen name="quickAnonCheckoutLinks"/>
-                                <decorator-section-include name="body"/>                                
+                                <decorator-section-include name="body"/>
                             </widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -464,7 +464,7 @@ under the License.
                 <set field="rightbarScreenName" value="rightbar"/>
                 <set field="MainColumnStyle" value="rightonly"/>
                 <set field="parameters.formNameValue" value="quickAnonCustSetupForm" global="true"/>
-                
+
                 <set field="titleProperty" value="PageTitleShippingInformation"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/ecommerce/images/quickAnonCustSettings.js" global="true"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/QuickAnonCustSettings.groovy"/>
@@ -490,7 +490,7 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <!--set field="parameters.formNameValue" value="quickAnonOptSetupForm" global="true"/-->
-                
+
                 <set field="titleProperty" value="PageTitleShippingOptions"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/QuickAnonOptionSettings.groovy"/>
             </actions>
@@ -499,7 +499,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="quickAnonPaymentInformation">
         <section>
             <actions>
@@ -512,7 +512,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="quickAnonOrderReview">
         <section>
             <actions>
@@ -529,11 +529,11 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="quickAnonCcInfo">
         <section>
             <actions>
-                <!-- base/top/specific map first, then more common map added for shared labels --> 
+                <!-- base/top/specific map first, then more common map added for shared labels -->
                 <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
@@ -549,7 +549,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="quickAnonEftInfo">
         <section>
             <actions>
@@ -568,8 +568,8 @@ under the License.
                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/eftinfo.ftl"/></html></platform-specific>
             </widgets>
         </section>
-    </screen>   
-    
+    </screen>
+
     <screen name="quickAnonGcInfo">
         <section>
             <actions>
@@ -588,7 +588,7 @@ under the License.
               <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/order/gcinfo.ftl"/></html></platform-specific>
             </widgets>
         </section>
-    </screen>   
+    </screen>
     <screen name="quickAnonOrderItems">
         <section>
             <actions>

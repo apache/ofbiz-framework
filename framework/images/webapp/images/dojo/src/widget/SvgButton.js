@@ -61,11 +61,11 @@ dojo.widget.SvgButton = function(){
 	this.fillInTemplate = function(x, y, textSize, label, shape){
 		// the idea is to set the text to the appropriate place given its length
 		// and the template shape
-		
+
 		// FIXME: For now, assuming text sizes are integers in SVG units
 		this.textSize = textSize || 12;
 		this.label = label;
-		// FIXEME: for now, I'm going to fake this... need to come up with a real way to 
+		// FIXEME: for now, I'm going to fake this... need to come up with a real way to
 		// determine the actual width of the text, such as computedStyle
 		var textWidth = this.label.length*this.textSize ;
 		//this.setLabel();

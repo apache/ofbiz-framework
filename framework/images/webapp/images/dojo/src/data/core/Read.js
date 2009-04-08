@@ -14,29 +14,29 @@ dojo.require("dojo.lang.declare");
 dojo.require("dojo.experimental");
 
 /* summary:
- *   This is an abstract API that data provider implementations conform to.  
+ *   This is an abstract API that data provider implementations conform to.
  *   This file defines methods signatures and intentionally leaves all the
  *   methods unimplemented.
  */
 dojo.experimental("dojo.data.core.Read");
- 
+
 dojo.declare("dojo.data.core.Read", null, {
 	get: function(/* item */ item, /* attribute || attribute-name-string */ attribute, /* value? */ defaultValue) {
 		/* summary:
 		 *   Returns a single attribute value.
 		 *   Returns defaultValue if *item* does not have a value for *attribute*.
 		 *   Returns null if null was explicitly set as the attribute value.
-		 *   Returns undefined if the item does not have a value for the given 
-		 *   attribute, or if the item does not have the attribute. 
+		 *   Returns undefined if the item does not have a value for the given
+		 *   attribute, or if the item does not have the attribute.
 		 * description:
 		 *   Saying that an "item x does not have a value for an attribute y"
-		 *   is identical to saying that an "item x does not have attribute y". 
-		 *   It is an oxymoron to say "that attribute is present but has no values" 
+		 *   is identical to saying that an "item x does not have attribute y".
+		 *   It is an oxymoron to say "that attribute is present but has no values"
 		 *   or "the item has that attribute but does not have any attribute values".
 		 *   If store.hasAttribute(item, attribute) returns false, then
 		 *   store.get(item, attribute) will return undefined.
 		 */
-		 
+
 		/* exceptions:
 		 *   Conforming implementations should throw an exception if *item* is not
 		 *   an item, or *attribute* is neither an attribute object or a string.
@@ -47,7 +47,7 @@ dojo.declare("dojo.data.core.Read", null, {
 		var attributeValue = null;
 		return attributeValue; // a literal, an item, null, or undefined (never an array)
 	},
-	
+
 	getValues: function(/* item */ item, /* attribute || attribute-name-string */ attribute) {
 		/* summary:
 		 *   This getValues() method works just like the get() method, but getValues()
@@ -58,9 +58,9 @@ dojo.declare("dojo.data.core.Read", null, {
 		 *   will return an empty array: [].  (So, if store.hasAttribute(item, attribute)
 		 *   returns false, then store.getValues(item, attribute) will return [].)
 		 */
-		 
+
 		/* exceptions:
-		 *   Throws an exception if *item* is not an item, or *attribute* is neither an 
+		 *   Throws an exception if *item* is not an item, or *attribute* is neither an
 		 *   attribute object or a string.
 		 * examples:
 		 *   var friendsOfLuke = store.get(lukeSkywalker, "friends");
@@ -69,16 +69,16 @@ dojo.declare("dojo.data.core.Read", null, {
 		var array = null;
 		return array; // an array that may contain literals and items
 	},
-	
+
 	getAttributes: function(/* item */ item) {
 		/* summary:
 		 *   Returns an array with all the attributes that this item has.  This
 		 *   method will always return an array; if the item has no attributes
 		 *   at all, getAttributes() will return an empty array: [].
 		 */
-		 
+
 		/* exceptions:
-		 *   Throws an exception if *item* is not an item. 
+		 *   Throws an exception if *item* is not an item.
 		 * examples:
 		 *   var array = store.getAttributes(kermit);
 		 */
@@ -86,14 +86,14 @@ dojo.declare("dojo.data.core.Read", null, {
 		var array = null;
 		return array; // array
 	},
-	
+
 	hasAttribute: function(/* item */ item, /* attribute || attribute-name-string */ attribute) {
 		/* summary:
 		 *   Returns true if the given *item* has a value for the given *attribute*.
 		 */
-		 
+
 		/* exceptions:
-		 *   Throws an exception if *item* is not an item, or *attribute* is neither an 
+		 *   Throws an exception if *item* is not an item, or *attribute* is neither an
 		 *   attribute object or a string.
 		 * examples:
 		 *   var trueOrFalse = store.hasAttribute(kermit, "color");
@@ -101,15 +101,15 @@ dojo.declare("dojo.data.core.Read", null, {
 		dojo.unimplemented('dojo.data.core.Read.hasAttribute');
 		return false; // boolean
 	},
-	
+
 	containsValue: function(/* item */ item, /* attribute || attribute-name-string */ attribute, /* anything */ value) {
 		/* summary:
 		 *   Returns true if the given *value* is one of the values that getValue()
 		 *   would return.
 		 */
-		 
+
 		/* exceptions:
-		 *   Throws an exception if *item* is not an item, or *attribute* is neither an 
+		 *   Throws an exception if *item* is not an item, or *attribute* is neither an
 		 *   attribute object or a string.
 		 * examples:
 		 *   var trueOrFalse = store.containsValue(kermit, "color", "green");
@@ -117,13 +117,13 @@ dojo.declare("dojo.data.core.Read", null, {
 		dojo.unimplemented('dojo.data.core.Read.containsValue');
 		return false; // boolean
 	},
-	
+
 	isItem: function(/* anything */ something) {
 		/* summary:
 		 *   Returns true if *something* is an item.  Returns false if *something*
 		 *   is a literal or is any object other than an item.
 		 */
-		 
+
 		/* examples:
 		 *   var yes = store.isItem(store.newItem());
 		 *   var no  = store.isItem("green");
@@ -131,7 +131,7 @@ dojo.declare("dojo.data.core.Read", null, {
 		dojo.unimplemented('dojo.data.core.Read.isItem');
 		return false; // boolean
 	},
-	
+
 	isItemAvailable: function(/* anything */ something) {
 		/* summary:
 		 *   Returns false if isItem(something) is false.  Returns false if
@@ -139,7 +139,7 @@ dojo.declare("dojo.data.core.Read", null, {
 		 *   in local memory (for example, if the item has not yet been fully
 		 *   loaded from the server).
 		 */
-		 
+
 		/* examples:
 		 *   var yes = store.isItemAvailable(store.newItem());
 		 *   var no  = store.isItemAvailable("green");
@@ -147,7 +147,7 @@ dojo.declare("dojo.data.core.Read", null, {
 		dojo.unimplemented('dojo.data.core.Read.isItemAvailable');
 		return false; // boolean
 	},
-	
+
 	find: function(/* object? || dojo.data.core.Result */ keywordArgs) {
 		/* summary:
 		 *   Given a query, this method executes the query and makes the
@@ -156,13 +156,13 @@ dojo.declare("dojo.data.core.Read", null, {
 		 *   A Result object will always be returned, even if the result set
 		 *   is empty.  A Result object will always be returned immediately.
 		 *   By default the Result object will be fully populated with result
-		 *   items as soon as it is created (synchronously).  The caller may 
+		 *   items as soon as it is created (synchronously).  The caller may
 		 *   request that the find() operation be executed asynchronously, in
-		 *   which case the Result object will be returned immediately but 
-		 *   will not yet be populated with result items.  
+		 *   which case the Result object will be returned immediately but
+		 *   will not yet be populated with result items.
 		 *   For more info about the Result API, see dojo.data.core.Result
 		 * keywordArgs:
-		 *   The keywordArgs parameter may either be an instance of 
+		 *   The keywordArgs parameter may either be an instance of
 		 *   dojo.data.core.Result or may be a simple anonymous object
 		 *   that may contain any of the following:
 		 *   { query: query-string or query-object,
@@ -175,10 +175,10 @@ dojo.declare("dojo.data.core.Read", null, {
 		 *     scope: object
 		 *     }
 		 *   All implementations should accept keywordArgs objects with any of
-		 *   the 7 standard properties: query, sync, saveResult, onnext, oncompleted, 
-		 *   onerror, and scope.  Some implementations may accept additional 
-		 *   properties in the keywordArgs object as valid parameters, such as 
-		 *   {maxResults:100} or {includeOutliers:true}.		 
+		 *   the 7 standard properties: query, sync, saveResult, onnext, oncompleted,
+		 *   onerror, and scope.  Some implementations may accept additional
+		 *   properties in the keywordArgs object as valid parameters, such as
+		 *   {maxResults:100} or {includeOutliers:true}.
 		 * The *query* parameter.
 		 *   The query may be optional in some data store implementations.
 		 *   The dojo.data.core.Read API does not specify the syntax or semantics
@@ -189,34 +189,34 @@ dojo.declare("dojo.data.core.Read", null, {
 		 *   or some complex keyword parameter object.  The dojo.data.core.Read
 		 *   API is completely agnostic about what the query actually is.
 		 * The *sync* parameter.
-		 *   The sync parameter specifies whether the find operation is asynchronous 
-		 *   or not, with {sync:false} for asynchronous finds operations and 
+		 *   The sync parameter specifies whether the find operation is asynchronous
+		 *   or not, with {sync:false} for asynchronous finds operations and
 		 *   {sync:true} for synchronous find operations.  If no sync parameter
 		 *   is specified, the default is {sync:true}.
 		 * The *saveResult* parameter.
 		 *   If saveResult is true, then the find call will return a Result
 		 *   object that includes a property called *items*, and *items* will
 		 *   contain an array of the items found by the query.  If no saveResult
-		 *   parameter is specified and no onnext Function is set, the default 
+		 *   parameter is specified and no onnext Function is set, the default
 		 *   saveResult value will be {saveResult:true}.  If no saveResult
-		 *   parameter is specified but an onnext Function is set, the default 
-		 *   saveResult value will be {saveResult:false}.  
+		 *   parameter is specified but an onnext Function is set, the default
+		 *   saveResult value will be {saveResult:false}.
 		 * The *onbegin* parameter.
 		 *   If an onbegin callback function is provided, the callback function
 		 *   will be called just once, before the first onnext callback is called.
 		 *   The onbegin callback function will be passed a single argument:
-		 *   the Result object.  The onbegin callback will be called even if 
+		 *   the Result object.  The onbegin callback will be called even if
 		 *   query returns zero items.
 		 * The *onnext* parameter.
 		 *   If an onnext callback function is provided, the callback function
-		 *   will be called as each item in the result is received. The callback 
+		 *   will be called as each item in the result is received. The callback
 		 *   function will be passed two arguments: the item itself, and the
 		 *   Result object.
 		 * The *oncompleted* parameter.
 		 *   If an oncompleted callback function is provided, the callback function
 		 *   will be called just once, after the last onnext callback is called.
 		 *   The oncompleted callback function will be passed a single argument:
-		 *   the Result object.  The oncompleted callback will be called even if 
+		 *   the Result object.  The oncompleted callback will be called even if
 		 *   query returns zero items.
 		 * The *onerror* parameter.
 		 *   If an onerror callback function is provided, the callback function
@@ -225,37 +225,37 @@ dojo.declare("dojo.data.core.Read", null, {
 		 *   The onerror callback function will be passed two arguments:
 		 *   an Error object and the Result object.
 		 * The *scope* parameter.
-		 *   If a scope object is provided, all of the callback function (onnext, 
+		 *   If a scope object is provided, all of the callback function (onnext,
 		 *   oncompleted, onerror) will be invoked in the context of the scope
 		 *   object.  In the body of the callback function, the value of the "this"
 		 *   keyword will be the scope object.   If no scope object is provided,
-		 *   the callback functions will be called in the context of dj_global.  
-		 *   For example, onnext.call(scope, item, result) vs. 
+		 *   the callback functions will be called in the context of dj_global.
+		 *   For example, onnext.call(scope, item, result) vs.
 		 *   onnext.call(dj_global, item, result)
 		 * returns:
 		 *   The find() method will return an instance of dojo.data.core.Result
 		 *   (or an object that extends dojo.data.core.Result or conforms to the
 		 *   dojo.data.core.Result API).  If the find() method was passed an
 		 *   instance of dojo.data.core.Result as an argument, the same instance
-		 *   will be returned.  If the find() method was passed a simple 
+		 *   will be returned.  If the find() method was passed a simple
 		 *   keywordArgs object, like {sync:true}, then the properties in the
-		 *   keywordArgs object will be copied into the Result object that 
-		 *   find() returns.  The Result object will also have additional 
-		 *   properties when it is returned.  The result.store property will 
+		 *   keywordArgs object will be copied into the Result object that
+		 *   find() returns.  The Result object will also have additional
+		 *   properties when it is returned.  The result.store property will
 		 *   have a pointer to the datastore object that find() is a method of.
-		 *   The result.length will be -1 if the find() operation has not 
+		 *   The result.length will be -1 if the find() operation has not
 		 *   finished or if there was an error; if the find() operation
 		 *   finishes successfully, result.length will be the number of items
 		 *   that were found.  If the saveResult property was set to true, or
-		 *   if no onnext callback was set, the result.item property will 
-		 *   contain an array of data items.  The result.resultMetadata property 
+		 *   if no onnext callback was set, the result.item property will
+		 *   contain an array of data items.  The result.resultMetadata property
 		 *   will contain an additional metaData that was returned by the query
 		 *   along with the data items.  For example, if the query returned a
 		 *   list of 500 houses for sales, the resultMetadata property might
-		 *   contain the average asking price of the houses, or info about 
+		 *   contain the average asking price of the houses, or info about
 		 *   how long the query took to execute.
 		 */
-		
+
 		/* exceptions:
 		 *   Throws an exception if the query is not valid, or if the query
 		 *   is required but was not supplied.
@@ -270,18 +270,18 @@ dojo.declare("dojo.data.core.Read", null, {
 		var result = null; // new dojo.data.core.Result().
 		return result; // a dojo.data.core.Result object
 	},
-	
+
 	getIdentity: function(/* item */ item) {
 		/* summary:
 		 *   Returns a unique identifer for an item.  The return value will be
 		 *   either a string or something that has a toString() method (such as,
 		 *   for example, a dojo.uuid.Uuid object).
 		 * description:
-		 * ISSUE - 
+		 * ISSUE -
 		 *   Should we move this method out of dojo.data.core.Read, and put it somewhere
 		 *   else, like maybe dojo.data.core.Identity?
 		 */
-		 
+
 		/* exceptions:
 		 *   Conforming implementations may throw an exception or return null if
 		 *   item is not an item.
@@ -293,23 +293,23 @@ dojo.declare("dojo.data.core.Read", null, {
 		var itemIdentifyString = null;
 		return itemIdentifyString; // string
 	},
-	
+
 	findByIdentity: function(/* string */ identity) {
 		/* summary:
-		 *   Given the identity of an item, this method returns the item that has 
-		 *   that identity.  Conforming implementations should return null if there 
-		 *   is no item with the given identity.  Implementations of findByIdentity() 
-		 *   may sometimes return an item from a local cache and may sometimes 
-		 *   fetch an item from a remote server, in which case the call to 
-		 *   findByIdentity() will block until the findByIdentity() implementation 
+		 *   Given the identity of an item, this method returns the item that has
+		 *   that identity.  Conforming implementations should return null if there
+		 *   is no item with the given identity.  Implementations of findByIdentity()
+		 *   may sometimes return an item from a local cache and may sometimes
+		 *   fetch an item from a remote server, in which case the call to
+		 *   findByIdentity() will block until the findByIdentity() implementation
 		 *   has the item to return.
 		 * description:
-		 * FIXME - 
+		 * FIXME -
 		 *   In our meeting on 2006-10-03 we resolved to move the findByIdentity()
 		 *   method out of the Read.js API and into the Identity.js API, as soon
 		 *   as we have an Identity.js API.
 		 */
-		 
+
 		/* examples:
 		 *   var alaska = store.getByIdentity("AK");
 		 *   assert("AK" == store.getIdentity(store.getByIdentity("AK")));

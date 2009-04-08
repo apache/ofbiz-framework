@@ -18,20 +18,20 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="empty" menu-container-style="button-bar tab-bar" default-menu-item-name="content" menu-width="100%"
         default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
     </menu>
-        
+
     <menu name="find" menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content"
         default-associated-content-id="${userLogin.userLoginId}" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="find" title="${uiLabelMap.CommonFind}">
             <link target="FindCompDocTemplate"/>
         </menu-item>
     </menu>
-        
-        
+
+
     <menu name="tree" menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content"
         selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="viewtree" title="${uiLabelMap.ContentCompDocViewTree}">
@@ -77,7 +77,7 @@ under the License.
             </link>
         </menu-item>
     </menu>
-        
+
     <menu name="subtree" menu-container-style="button-bar tab-bar" default-selected-style="selected" default-menu-item-name="content"
         selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="viewtree" title="${uiLabelMap.PageTitleViewCompDocTree}">
@@ -114,7 +114,7 @@ under the License.
             </link>
         </menu-item>
     </menu>
-     
+
     <menu name="rootTemplateLine" menu-container-style="button-bar button-style-1" default-menu-item-name="content"
         selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="edit-inplace" title="${contentName}[${contentId}]" widget-style="h2">
@@ -161,7 +161,7 @@ under the License.
         </menu-item>
             -->
     </menu>
-        
+
     <menu name="childTemplateLine" menu-container-style="button-bar button-style-1" default-menu-item-name="content" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="edit-inplace" title="${contentName} [${contentId}]">
             <link target="EditChildCompDoc">
@@ -179,7 +179,7 @@ under the License.
                 <parameter param-name="contentRevisionSeqId" from-field="rootContentRevisionSeqId"/>
             </link>
         </menu-item>
-        <!--  only one level for now, ie don't worry about an hierarchy, still not sure what that will mean or look like 
+        <!--  only one level for now, ie don't worry about an hierarchy, still not sure what that will mean or look like
         <menu-item name="child" title="+Child">
             <link target="AddChildCompDocTemplate">
                 <parameter param-name="contentIdTo" from-field="contentId"/>
@@ -244,7 +244,7 @@ under the License.
             </link>
         </menu-item>
     </menu>
-        
+
     <menu name="rootInstanceLine" menu-container-style="button-bar button-style-1" default-menu-item-name="content" selected-menuitem-context-field-name="currentMenuItemName" title="" type="simple">
         <menu-item name="edit-inplace" title="${instanceContent.contentName}[${instanceContent.contentId}]"  widget-style="h2">
             <link target="EditRootCompDoc">

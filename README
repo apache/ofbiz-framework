@@ -4,7 +4,7 @@ Welcome to Apache OFBiz!
 If you have a release build all you need to run OFBiz is a 1.5 series
 JDK (not just the JRE, the full J2SDK).
 
-However if you have downloaded ofbiz from SVN then you should 
+However if you have downloaded ofbiz from SVN then you should
 load the demo data (strongly advised) with the following command
 on the command line:
 
@@ -28,7 +28,7 @@ http://localhost:8080/webtools/
 You can log in with the user "admin" and password "ofbiz".
 
 For more details about running a build, or for information on
-getting, building, and running the source please see the 
+getting, building, and running the source please see the
 Apache OFBiz Setup Guide:
 
 http://docs.ofbiz.org/x/rwM
@@ -49,31 +49,31 @@ Enjoy!
 =========================================================================
 ==  BIS Crypto TSU exception notice                                    ==
 =========================================================================
-   This distribution includes cryptographic software.  The country in 
-   which you currently reside may have restrictions on the import, 
-   possession, use, and/or re-export to another country, of 
-   encryption software.  BEFORE using any encryption software, please 
+   This distribution includes cryptographic software.  The country in
+   which you currently reside may have restrictions on the import,
+   possession, use, and/or re-export to another country, of
+   encryption software.  BEFORE using any encryption software, please
    check your country's laws, regulations and policies concerning the
-   import, possession, or use, and re-export of encryption software, to 
+   import, possession, or use, and re-export of encryption software, to
    see if this is permitted.  See <http://www.wassenaar.org/> for more
    information.
 
    The U.S. Government Department of Commerce, Bureau of Industry and
-   Security (BIS), has classified this software as Export Commodity 
+   Security (BIS), has classified this software as Export Commodity
    Control Number (ECCN) 5D002.C.1, which includes information security
    software using or performing cryptographic functions with asymmetric
    algorithms.  The form and manner of this Apache Software Foundation
    distribution makes it eligible for export under the License Exception
-   ENC Technology Software Unrestricted (TSU) exception (see the BIS 
-   Export Administration Regulations, Section 740.13) for both object 
+   ENC Technology Software Unrestricted (TSU) exception (see the BIS
+   Export Administration Regulations, Section 740.13) for both object
    code and source code.
 
    The following provides more details on the included cryptographic
    software:
-   
-   * Various classes in OFBiz, including DesCrypt, HashCrypt, and 
+
+   * Various classes in OFBiz, including DesCrypt, HashCrypt, and
      BlowFishCrypt use libraries from the Sun Java JDK API including
-     java.security.* and javax.crypto.* (the JCE, Java Cryptography 
+     java.security.* and javax.crypto.* (the JCE, Java Cryptography
      Extensions API)
    * Other classes such as HttpClient and various related ones use
      the JSSE (Java Secure Sockets Extension) API

@@ -25,7 +25,7 @@ dojo.hostenv.getXmlhttpObject = function(/*Object*/ kwArgs){
 		}else if(kwArgs.method && kwArgs.method.toUpperCase() == "HEAD"){
 			return new dojo.hostenv.CurlRequest;
 		}else if(kwArgs.headers && kwArgs.header.referer){
-			return new dojo.hostenv.CurlRequest; 
+			return new dojo.hostenv.CurlRequest;
 		}
 	}
 	return new XMLHttpRequest; // XMLHttpRequest

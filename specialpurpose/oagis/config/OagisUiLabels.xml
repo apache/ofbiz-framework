@@ -38,7 +38,7 @@
     <property key="FormFieldTitle_component">
         <value xml:lang="en">Component</value>
         <value xml:lang="it">Componente</value>
-    </property>    
+    </property>
     <property key="FormFieldTitle_confirmation">
         <value xml:lang="en">Confirmation</value>
         <value xml:lang="it">Conferma</value>

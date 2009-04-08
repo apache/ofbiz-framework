@@ -19,7 +19,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <h3>${uiLabelMap.ProductAdvancedSearchInCategory}</h3>
-  </div>   
+  </div>
   <div class="screenlet-body">
     <form name="advtokeywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>" style="margin: 0;">
       <input type="hidden" name="VIEW_SIZE" value="25"/>
@@ -58,7 +58,7 @@ under the License.
                     </select>
                  </div>
                </td>
-            </tr>    
+            </tr>
             <tr>
               <td class="label" align="right" valign="top">
                 ${uiLabelMap.ProductCategory}:
@@ -139,7 +139,7 @@ under the License.
             </div>
           </td>
         </tr>
-        
+
         <tr>
           <td class="label" align="right" valign="top">
             ${uiLabelMap.ProductFeatures} ${uiLabelMap.CommonIds}:
@@ -173,7 +173,7 @@ under the License.
             <div>
               <input type="text" name="LIST_PRICE_LOW" size="8" value="${requestParameters.LIST_PRICE_LOW?if_exists}"/>&nbsp;
               <input type="text" name="LIST_PRICE_HIGH" size="8" value="${requestParameters.LIST_PRICE_HIGH?if_exists}"/>&nbsp;
-            </div>  
+            </div>
           </td>
         </tr>
         <#list productFeatureTypeIdsOrdered as productFeatureTypeId>

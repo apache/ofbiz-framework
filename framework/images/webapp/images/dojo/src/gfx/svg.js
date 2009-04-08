@@ -38,15 +38,15 @@ dojo.gfx.svg.getRef = function(fill){
 
 dojo.lang.extend(dojo.gfx.Shape, {
 	// summary: SVG-specific implementation of dojo.gfx.Shape methods
-	
+
 	setFill: function(fill){
 		// summary: sets a fill object (SVG)
 		// fill: Object: a fill object
-		//	(see dojo.gfx.defaultLinearGradient, 
-		//	dojo.gfx.defaultRadialGradient, 
-		//	dojo.gfx.defaultPattern, 
+		//	(see dojo.gfx.defaultLinearGradient,
+		//	dojo.gfx.defaultRadialGradient,
+		//	dojo.gfx.defaultPattern,
 		//	or dojo.gfx.color.Color)
-		
+
 		if(!fill){
 			// don't fill
 			this.fillStyle = null;
@@ -92,8 +92,8 @@ dojo.lang.extend(dojo.gfx.Shape, {
 	setStroke: function(stroke){
 		// summary: sets a stroke object (SVG)
 		// stroke: Object: a stroke object
-		//	(see dojo.gfx.defaultStroke) 
-	
+		//	(see dojo.gfx.defaultStroke)
+
 		if(!stroke){
 			// don't stroke
 			this.strokeStyle = null;
@@ -170,7 +170,7 @@ dojo.lang.extend(dojo.gfx.Shape, {
 		this.rawNode.removeAttribute("fill-opacity");
 		return fill;
 	},
-	
+
 	_applyTransform: function() {
 		var matrix = this._getRealMatrix();
 		if(matrix){
@@ -213,7 +213,7 @@ dojo.lang.extend(dojo.gfx.Shape, {
 		this.rawNode.parentNode.insertBefore(this.rawNode, this.rawNode.parentNode.firstChild);
 		return this;	// self
 	},
-	
+
 	setShape: function(newShape){
 		// summary: sets a shape object (SVG)
 		// newShape: Object: a shape object
@@ -230,7 +230,7 @@ dojo.lang.extend(dojo.gfx.Shape, {
 		}
 		return this;	// self
 	},
-	
+
 	attachFill: function(rawNode){
 		// summary: deduces a fill style from a Node.
 		// rawNode: Node: an SVG node
@@ -273,7 +273,7 @@ dojo.lang.extend(dojo.gfx.Shape, {
 		}
 		return fillStyle;	// Object
 	},
-	
+
 	_getGradient: function(defaultGradient, gradient){
 		var fillStyle = dojo.lang.shallowCopy(defaultGradient, true);
 		fillStyle.colors = [];
@@ -316,15 +316,15 @@ dojo.lang.extend(dojo.gfx.Shape, {
 			if(matrix.match(/^matrix\(.+\)$/)){
 				var t = matrix.slice(7, -1).split(",");
 				matrix = dojo.gfx.matrix.normalize({
-					xx: parseFloat(t[0]), xy: parseFloat(t[2]), 
-					yx: parseFloat(t[1]), yy: parseFloat(t[3]), 
+					xx: parseFloat(t[0]), xy: parseFloat(t[2]),
+					yx: parseFloat(t[1]), yy: parseFloat(t[3]),
 					dx: parseFloat(t[4]), dy: parseFloat(t[5])
 				});
 			}
 		}
 		return matrix;	// dojo.gfx.matrix.Matrix
 	},
-	
+
 	attachShape: function(rawNode){
 		// summary: builds a shape from a Node.
 		// rawNode: Node: an SVG node
@@ -352,7 +352,7 @@ dojo.lang.extend(dojo.gfx.Shape, {
 });
 
 dojo.declare("dojo.gfx.Group", dojo.gfx.Shape, {
-	// summary: a group shape (SVG), which can be used 
+	// summary: a group shape (SVG), which can be used
 	//	to logically group shapes (e.g, to propagate matricies)
 
 	setRawNode: function(rawNode){
@@ -402,7 +402,7 @@ dojo.gfx.Line.nodeType = "line";
 
 dojo.declare("dojo.gfx.Polyline", dojo.gfx.shape.Polyline, {
 	// summary: a polyline/polygon shape (SVG)
-	
+
 	setShape: function(points){
 		// summary: sets a polyline/polygon shape object (SVG)
 		// points: Object: a polyline/polygon shape object
@@ -410,7 +410,7 @@ dojo.declare("dojo.gfx.Polyline", dojo.gfx.shape.Polyline, {
 			// branch
 			// points: Array: an array of points
 			this.shape = dojo.gfx.makeParameters(this.shape, { points: points });
-			if(closed && this.shape.points.length){ 
+			if(closed && this.shape.points.length){
 				this.shape.points.push(this.shape.points[0]);
 			}
 		}else{
@@ -532,7 +532,7 @@ dojo.gfx._creators = {
 		// rawShape: Object: properties to be passed in to the classes "setShape" method
 		if(!this.rawNode){ return null; }
 		var shape = new shapeType();
-		var node = document.createElementNS(dojo.svg.xmlns.svg, shapeType.nodeType); 
+		var node = document.createElementNS(dojo.svg.xmlns.svg, shapeType.nodeType);
 		shape.setRawNode(node);
 		this.rawNode.appendChild(node);
 		shape.setShape(rawShape);
@@ -627,10 +627,10 @@ dojo.gfx.createSurface = function(parentNode, width, height){
 	s.rawNode.setAttribute("height", height);
 
 	var defs = new dojo.gfx.svg.Defines();
-	var node = document.createElementNS(dojo.svg.xmlns.svg, dojo.gfx.svg.Defines.nodeType); 
+	var node = document.createElementNS(dojo.svg.xmlns.svg, dojo.gfx.svg.Defines.nodeType);
 	defs.setRawNode(node);
 	s.rawNode.appendChild(node);
-	
+
 	dojo.byId(parentNode).appendChild(s.rawNode);
 	return s;	// dojo.gfx.Surface
 };

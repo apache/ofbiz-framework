@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
     <!-- ContactMech map procs -->
 

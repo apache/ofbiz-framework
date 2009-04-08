@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-        
+
     <simple-method method-name="exampleComponentFormula" short-description="Formula that the number of linear components in bom">
         <set field="arguments" from-field="parameters.arguments"/>
         <calculate field="totQuantity">
@@ -32,7 +32,7 @@ under the License.
         </calculate>
         <field-to-result field="totQuantity" result-name="quantity"/>
     </simple-method>
-    
+
     <simple-method method-name="linearComponentConsumptionFormula" short-description="Formula that the number of linear components in bom">
         <set field="arguments" from-field="parameters.arguments"/>
         <calculate field="totQuantity">

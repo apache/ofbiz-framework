@@ -95,7 +95,7 @@ dojo.dnd.TreeDropTarget = function(domNode, controller, type, treeNode){
 
 	this.treeNode = treeNode;
 	this.controller = controller; // I will sync-ly process drops
-	
+
 	dojo.dnd.HtmlDropTarget.apply(this, [domNode, type]);
 }
 
@@ -206,7 +206,7 @@ dojo.lang.extend(dojo.dnd.TreeDropTarget, {
 	getDNDMode: function() {
 		return this.treeNode.tree.DNDMode;
 	},
-		
+
 
 	getAcceptPosition: function(e, sourceTreeNode) {
 

@@ -14,8 +14,8 @@ dojo.require("dojo.lang.common");
 if(dojo.render.svg.capable){
 	dojo.extend(dojo.charting.Axis, {
 		renderLines: function(
-			/* dojo.charting.PlotArea */plotArea, 
-			/* dojo.charting.Plot */plot, 
+			/* dojo.charting.PlotArea */plotArea,
+			/* dojo.charting.Plot */plot,
 			/* string */plane
 		){
 			//	summary
@@ -29,7 +29,7 @@ if(dojo.render.svg.capable){
 					this.nodes.lines = null;
 				}
 			}
-			
+
 			var area = plotArea.getArea();
 			var g = this.nodes.lines = document.createElementNS(dojo.svg.xmlns.svg, "g");
 			g.setAttribute("id", this.getId()+"-lines");
@@ -56,8 +56,8 @@ if(dojo.render.svg.capable){
 			return g;	//	SVGGElement
 		},
 		renderTicks: function(
-			/* dojo.charting.PlotArea */plotArea, 
-			/* dojo.charting.Plot */plot, 
+			/* dojo.charting.PlotArea */plotArea,
+			/* dojo.charting.Plot */plot,
 			/* string */plane,
 			/* float */coord
 		){
@@ -72,7 +72,7 @@ if(dojo.render.svg.capable){
 					this.nodes.ticks = null;
 				}
 			}
-			
+
 			var g = this.nodes.ticks = document.createElementNS(dojo.svg.xmlns.svg, "g");
 			g.setAttribute("id", this.getId()+"-ticks");
 			for(var i=0; i<this._labels.length; i++){
@@ -97,8 +97,8 @@ if(dojo.render.svg.capable){
 			return g;	//	SVGGElement
 		},
 		renderLabels: function(
-			/* dojo.charting.PlotArea */plotArea, 
-			/* dojo.charting.Plot */plot, 
+			/* dojo.charting.PlotArea */plotArea,
+			/* dojo.charting.Plot */plot,
 			/* string */plane,
 			/* float */coord,
 			/* int */textSize,
@@ -140,14 +140,14 @@ if(dojo.render.svg.capable){
 			return g;	//	SVGGelement
 		},
 		render: function(
-			/* dojo.charting.PlotArea */plotArea, 
+			/* dojo.charting.PlotArea */plotArea,
 			/* dojo.charting.Plot */plot,
 			/* dojo.charting.Axis */drawAgainst,
 			/* string */plane
 		){
 			//	summary
 			//	Renders this axis to the given plot.
-			
+
 			//	get the origin plot point.
 			var area = plotArea.getArea();
 			var stroke = 1;

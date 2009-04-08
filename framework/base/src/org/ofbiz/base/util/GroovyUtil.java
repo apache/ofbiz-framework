@@ -82,7 +82,7 @@ public class GroovyUtil {
             Debug.logVerbose("Using Context -- " + context, module);
 
         try {
-            GroovyShell shell = new GroovyShell(getBinding(context));            
+            GroovyShell shell = new GroovyShell(getBinding(context));
             o = shell.evaluate(expression);
 
             if (Debug.verboseOn())
@@ -91,12 +91,12 @@ public class GroovyUtil {
             // read back the context info
             Binding binding = shell.getContext();
             context.putAll(binding.getVariables());
-            
+
         } catch (CompilationFailedException e) {
             Debug.logError(e, "Groovy Evaluation error.", module);
             throw e;
         }
-        
+
         return o;
     }
 

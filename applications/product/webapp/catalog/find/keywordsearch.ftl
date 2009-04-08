@@ -19,18 +19,18 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <h3>${uiLabelMap.ProductSearchProducts}, ${uiLabelMap.ProductSearchFor}:</h3>
-  </div>   
+  </div>
   <div class="screenlet-body">
     <#list searchConstraintStrings as searchConstraintString>
       <div>&nbsp;<a href="<@ofbizUrl>keywordsearch?removeConstraint=${searchConstraintString_index}&clearSearch=N</@ofbizUrl>" class="buttontext">X</a>&nbsp;${searchConstraintString}</div>
     </#list>
     <span class="label">${uiLabelMap.CommonSortedBy}:</span>${searchSortOrderString}
     <div><a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(requestParameters.SEARCH_CATEGORY_ID)?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefine} ${uiLabelMap.CommonSearch}</a></div>
-    
+
     <#if !productIds?has_content>
       <br/><h2>&nbsp;${uiLabelMap.ProductNoResultsFound}.</h2>
     </#if>
-    
+
     <#if productIds?has_content>
     <script language="JavaScript" type="text/javascript">
         function checkProductToBagTextArea(field, idValue) {
@@ -50,7 +50,7 @@ under the License.
                 }
             }
         }
-        
+
         function toggleAll(e) {
             var cform = document.products;
             var len = cform.elements.length;
@@ -61,12 +61,12 @@ under the License.
                 }
             }
         }
-        
+
         function toggle(e) {
             e.checked = !e.checked;
         }
     </script>
-    
+
     <table cellspacing="0" class="basic-table">
         <tr>
           <td><input type="checkbox" name="selectAll" value="0" onclick="javascript:toggleAll(this);"/> <b>${uiLabelMap.ProductProduct}</b></td>
@@ -91,7 +91,7 @@ under the License.
         </tr>
         <tr><td colspan="2"><hr/></td></tr>
     </table>
-    
+
     <form method="post" name="products">
       <table cellspacing="0" class="basic-table">
         <#assign listIndex = lowIndex>
@@ -109,11 +109,11 @@ under the License.
             <#assign rowClass = "1">
           <#else>
             <#assign rowClass = "2">
-          </#if> 
+          </#if>
         </#list>
       </table>
     </form>
-    
+
     <table cellspacing="0" class="basic-table">
         <tr><td colspan="2"><hr/></td></tr>
         <tr>
@@ -138,5 +138,5 @@ under the License.
         </tr>
     </table>
     </#if>
-  </div> 
-</div> 
+  </div>
+</div>

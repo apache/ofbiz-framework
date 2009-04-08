@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <include location="component://party/webapp/partymgr/WEB-INF/controller.xml"/>
@@ -71,7 +71,7 @@ under the License.
         <response name="success" type="view" value="FindAccounts"/>
         <response name="error" type="view" value="NewAccounts"/>
     </request-map>
- 
+
     <!-- Lead Requests -->
     <request-map uri="FindLeads">
         <security https="true" auth="true"/>
@@ -95,7 +95,7 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service" invoke="convertLeadToContact"/>
         <response name="success" type="request" value="viewprofile"/>
-        <response name="error" type="view" value="ConvertLead"/>  
+        <response name="error" type="view" value="ConvertLead"/>
     </request-map>
     <request-map uri="CloneLead">
         <security https="true" auth="true" external-view="false"/>
@@ -122,12 +122,12 @@ under the License.
         <event type="service" invoke="importVCard"/>
         <response name="success" type="request" value="viewprofile"/><!-- What would be the view in case a vCard has more than one contact -->
         <response name="error" type="view" value="CreateLeadFromVCard"/>
-    </request-map>  
+    </request-map>
     <request-map uri="quickAddLead">
         <security https="true" auth="true"/>
         <event type="service" invoke="createLead"/>
         <response name="success" type="request" value="viewprofile"/>
-    </request-map>   
+    </request-map>
     <!-- Contact Requests -->
     <request-map uri="FindContacts">
         <security https="true" auth="true"/>
@@ -168,13 +168,13 @@ under the License.
         <event type="service" invoke="exportVCard"/>
         <response name="success" type="view" value="FindContacts"/><!-- This need to be fixed -->
         <response name="error" type="view" value="FindContacts"/>
-    </request-map>        
+    </request-map>
     <request-map uri="quickAddContact">
         <security https="true" auth="true"/>
         <event type="service" invoke="createContact"/>
         <response name="success" type="request" value="viewprofile"/>
     </request-map>
-     
+
     <!-- Forecast Requests -->
     <request-map uri="FindSalesForecast">
         <security https="true" auth="true"/>
@@ -196,7 +196,7 @@ under the License.
         <response name="success" type="view" value="EditSalesForecast"/>
         <response name="error" type="view" value="EditSalesForecast"/>
     </request-map>
-    
+
     <request-map uri="EditSalesForecastDetail">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditSalesForecastDetail"/>
@@ -219,7 +219,7 @@ under the License.
         <response name="success" type="view" value="EditSalesForecastDetail"/>
         <response name="error" type="view" value="EditSalesForecastDetail"/>
     </request-map>
-    
+
     <!-- Lookup requests -->
     <request-map uri="LookupSalesForecast"><security https="true" auth="true"/><response name="success" type="view" value="LookupSalesForecast"/></request-map>
     <request-map uri="LookupProduct"><security auth="true" https="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
@@ -233,10 +233,10 @@ under the License.
     <view-map name="FindOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#FindOpportunity"/>
     <view-map name="ViewOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#ViewOpportunity"/>
     <view-map name="EditOpportunity" type="screen" page="component://marketing/widget/sfa/OpportunityScreens.xml#EditOpportunity"/>
-    
+
     <view-map name="FindAccounts" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#FindAccounts"/>
     <view-map name="NewAccounts" type="screen" page="component://marketing/widget/sfa/AccountScreens.xml#NewAccounts"/>
-    
+
     <view-map name="FindLeads" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#FindLeads"/>
     <view-map name="CreateLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#CreateLead"/>
     <view-map name="CloneLead" type="screen" page="component://marketing/widget/sfa/LeadScreens.xml#CloneLead"/>
@@ -252,10 +252,10 @@ under the License.
     <view-map name="FindSalesForecast" type="screen" page="component://marketing/widget/sfa/ForecastScreens.xml#FindSalesForecast"/>
     <view-map name="EditSalesForecast" type="screen" page="component://marketing/widget/sfa/ForecastScreens.xml#EditSalesForecast"/>
     <view-map name="EditSalesForecastDetail" type="screen" page="component://marketing/widget/sfa/ForecastScreens.xml#EditSalesForecastDetail"/>
-    
+
     <view-map name="LookupSalesForecast" type="screen" page="component://marketing/widget/LookupScreens.xml#LookupSalesForecast"/>
     <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>
     <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
-    
+
     <!-- end of view mappings -->
 </site-conf>

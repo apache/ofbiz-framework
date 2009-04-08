@@ -18,13 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- create and update a fixed asset of type Computer hardware. -->
     <form name="EditComputerHardware" type="single" target="updateComputerHardware" title="" default-map-name="fixedAsset">
         <alt-target use-when="fixedAsset==null" target="createComputerHardware"/>
         <auto-fields-service service-name="updateFixedAsset" map-name="fixedAsset"/>
- 
+
         <field use-when="fixedAsset!=null" name="fixedAssetId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="fixedAsset==null&amp;&amp;fixedAssetId==null" name="fixedAssetId"><text size="20" maxlength="20"/></field>
         <field use-when="fixedAsset==null&amp;&amp;fixedAssetId!=null" name="fixedAssetId" tooltip="${uiLabelMap.CommonCannotBeFound}:[${fixedAssetId}]"><text size="20" maxlength="20"/></field>
@@ -34,7 +34,7 @@ under the License.
         <field name="classEnumId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
-                    <entity-constraint name="enumTypeId" operator="equals" value="FXAST_COMPU_HARDWARE"/>                
+                    <entity-constraint name="enumTypeId" operator="equals" value="FXAST_COMPU_HARDWARE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -45,7 +45,7 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options entity-name="UomAndType" description="[${typeDescription}] ${description}">
                     <entity-order-by field-name="uomTypeId"/>
-                </entity-options> 
+                </entity-options>
             </drop-down>
         </field>
         <!--<field name="calendarId"><hidden/></field>-->  <!-- not show, can better be maintained by the system -->
@@ -53,19 +53,19 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options entity-name="TechDataCalendar" description="[${calendarId}] ${description}">
                     <entity-order-by field-name="calendarId"/>
-                </entity-options> 
+                </entity-options>
             </drop-down>
         </field>
         <field name="parentFixedAssetId"><lookup target-form-name="LookupComputerHardware"/></field>
-        <field name="locatedAtFacilityId"><lookup target-form-name="LookupFacility"/></field>        
-        <field name="locatedAtLocationSeqId"><lookup target-form-name="LookupFacilityLocation"/></field>               
-        
+        <field name="locatedAtFacilityId"><lookup target-form-name="LookupFacility"/></field>
+        <field name="locatedAtLocationSeqId"><lookup target-form-name="LookupFacilityLocation"/></field>
+
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="EditComputerSoftware" type="single" target="updateComputerSoftware" title="" default-map-name="fixedAsset">
         <alt-target use-when="fixedAsset==null" target="createComputerSoftware"/>
         <auto-fields-service service-name="updateFixedAsset" map-name="fixedAsset"/>
- 
+
         <field use-when="fixedAsset!=null" name="fixedAssetId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="fixedAsset==null&amp;&amp;fixedAssetId==null" name="fixedAssetId"><text size="20" maxlength="20"/></field>
         <field use-when="fixedAsset==null&amp;&amp;fixedAssetId!=null" name="fixedAssetId" tooltip="${uiLabelMap.CommonCannotBeFound}:[${fixedAssetId}]"><text size="20" maxlength="20"/></field>
@@ -75,7 +75,7 @@ under the License.
         <field name="classEnumId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
-                    <entity-constraint name="enumTypeId" operator="equals" value="FXAST_COMPU_SOFTWARE"/>                
+                    <entity-constraint name="enumTypeId" operator="equals" value="FXAST_COMPU_SOFTWARE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -86,7 +86,7 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options entity-name="UomAndType" description="[${typeDescription}] ${description}">
                     <entity-order-by field-name="uomTypeId"/>
-                </entity-options> 
+                </entity-options>
             </drop-down>
         </field>
         <!--<field name="calendarId"><hidden/></field>-->  <!-- not show, can better be maintained by the system -->
@@ -94,13 +94,13 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options entity-name="TechDataCalendar" description="[${calendarId}] ${description}">
                     <entity-order-by field-name="calendarId"/>
-                </entity-options> 
+                </entity-options>
             </drop-down>
         </field>
         <field name="parentFixedAssetId"><lookup target-form-name="LookupComputerHardware"/></field>
-        <field name="locatedAtFacilityId"><lookup target-form-name="LookupFacility"/></field>        
-        <field name="locatedAtLocationSeqId"><lookup target-form-name="LookupFacilityLocation"/></field>               
-        
+        <field name="locatedAtFacilityId"><lookup target-form-name="LookupFacility"/></field>
+        <field name="locatedAtLocationSeqId"><lookup target-form-name="LookupFacilityLocation"/></field>
+
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
@@ -165,7 +165,7 @@ under the License.
 
 
     <!-- list all children fixed assets in a tabular format -->
-    <form name="ChildrenFixedAssets" type="list" list-name="listIt"  
+    <form name="ChildrenFixedAssets" type="list" list-name="listIt"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="FixedAsset" list="listIt">
@@ -184,5 +184,5 @@ under the License.
         <field name="classEnumId"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="FixedAssetSearchResults"/>
     </form>
-    
+
 </forms>

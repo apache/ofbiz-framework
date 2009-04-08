@@ -18,13 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditShipment" type="single" target="updateShipment" title="" default-map-name="shipment"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="shipment==null&amp;&amp;shipmentTypeId==null" target="createShipment"/>
         <alt-target use-when="shipment==null&amp;&amp;shipmentTypeId!=null&amp;&amp;shipmentTypeId.equals(&quot;PURCHASE_RETURN&quot;)" target="createShipmentAndItemsForVendorReturn"/>
-        
+
         <auto-fields-service service-name="updateShipment"/>
         <field use-when="shipment!=null" name="shipmentId" title="${uiLabelMap.ProductShipmentId}" tooltip="${uiLabelMap.ProductNotModificationRecreatingProductShipment}"><display/></field>
         <field use-when="shipment==null&amp;&amp;shipmentId!=null" name="shipmentId" title="${uiLabelMap.ProductShipmentId}" tooltip="${uiLabelMap.ProductCouldNotFindProductShipmentWithId} [${shipmentId}]"><display description="" also-hidden="false"/></field>
@@ -34,7 +34,7 @@ under the License.
             <drop-down allow-empty="false" current="first-in-list">
                 <entity-options entity-name="ShipmentType" description="${description}"/>
             </drop-down>
-        </field>        
+        </field>
         <field use-when="shipment==null" name="statusId" title="${uiLabelMap.ProductStatusId}">
             <drop-down allow-empty="false" current="first-in-list">
                 <entity-options entity-name="StatusItem" description="${description}">
@@ -56,7 +56,7 @@ under the License.
         <field name="primaryShipGroupSeqId" title="${uiLabelMap.ProductPrimaryShipGroupSeqId}"><text/></field>
         <field name="estimatedReadyDate" title="${uiLabelMap.ProductEstimatedReadyDate}"><date-time/></field>
         <field name="estimatedShipDate" title="${uiLabelMap.ProductEstimatedShipDate}"><date-time/></field>
-        
+
         <field use-when="productStoreId!=null" name="originFacilityId" title="${uiLabelMap.ProductOriginFacility} [${shipment.primaryOrderId}]">
             <drop-down allow-empty="true" current="first-in-list">
                 <entity-options entity-name="ProductStoreFacilityByOrder" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
@@ -71,8 +71,8 @@ under the License.
                     <entity-order-by field-name="facilityName"/>
                 </entity-options>
             </drop-down>
-        </field>        
-        
+        </field>
+
         <field name="destinationFacilityId" title="${uiLabelMap.ProductDestinationFacility}">
             <drop-down allow-empty="true" current="first-in-list">
                 <entity-options entity-name="Facility" key-field-name="facilityId" description="${facilityName} [${facilityId}]">
@@ -103,17 +103,17 @@ under the License.
             </drop-down>
         </field>
         <field name="handlingInstructions" title="${uiLabelMap.ProductHandlingInstructions}"><text/></field>
-         
-        <field name="originContactMechId" title="${uiLabelMap.ProductOriginPostalAddressId}" 
+
+        <field name="originContactMechId" title="${uiLabelMap.ProductOriginPostalAddressId}"
                 tooltip="${uiLabelMap.CommonTo}: ${originPostalAddress.toName}, ${uiLabelMap.CommonAttn}: ${originPostalAddress.attnName}, ${originPostalAddress.address1}, ${originPostalAddress.address2}, ${originPostalAddress.city}, ${originPostalAddress.stateProvinceGeoId}, ${originPostalAddress.postalCode}, ${originPostalAddress.countryGeoId}">
         </field>
-        <field name="destinationContactMechId" title="${uiLabelMap.ProductDestinationPostalAddressId}" 
+        <field name="destinationContactMechId" title="${uiLabelMap.ProductDestinationPostalAddressId}"
                 tooltip="${uiLabelMap.CommonTo}: ${destinationPostalAddress.toName}, ${uiLabelMap.CommonAttn}: ${destinationPostalAddress.attnName}, ${destinationPostalAddress.address1}, ${destinationPostalAddress.address2}, ${destinationPostalAddress.city}, ${destinationPostalAddress.stateProvinceGeoId}, ${destinationPostalAddress.postalCode}, ${destinationPostalAddress.countryGeoId}">
         </field>
-        <field name="originTelecomNumberId" title="${uiLabelMap.ProductOriginPhoneNumberId}" 
+        <field name="originTelecomNumberId" title="${uiLabelMap.ProductOriginPhoneNumberId}"
                 tooltip="${originTelecomNumber.countryCode}  ${originTelecomNumber.areaCode} ${originTelecomNumber.contactNumber}">
         </field>
-        <field name="destinationTelecomNumberId" title="${uiLabelMap.ProductDestinationPhoneNumberId}" 
+        <field name="destinationTelecomNumberId" title="${uiLabelMap.ProductDestinationPhoneNumberId}"
                 tooltip="${destinationTelecomNumber.countryCode}  ${destinationTelecomNumber.areaCode} ${destinationTelecomNumber.contactNumber}">
         </field>
 
@@ -121,12 +121,12 @@ under the License.
         <field name="partyIdFrom" title="${uiLabelMap.ProductFromParty}" tooltip="${fromPerson.firstName} ${fromPerson.middleName} ${fromPerson.lastName} ${fromPartyGroup.groupName}"/>
 
         <field name="additionalShippingCharge" title="${uiLabelMap.ProductAdditionalShippingCharge}"><text/></field>
-        
+
         <field use-when="shipment!=null" name="createdDate" title="${uiLabelMap.ProductCreatedDate}"><display also-hidden="false" description="${shipment.createdDate}"/></field>
         <field use-when="shipment!=null" name="createdByUserLogin" title="${uiLabelMap.ProductCreatedByUserLogin}"><display also-hidden="false" description="${shipment.createdByUserLogin}"/></field>
         <field use-when="shipment!=null" name="lastModifiedDate" title="${uiLabelMap.ProductLastModifiedDate}"><display also-hidden="false" description="${shipment.lastModifiedDate}"/></field>
         <field use-when="shipment!=null" name="lastModifiedByUserLogin" title="${uiLabelMap.ProductLastModifiedByUserLogin}"><display also-hidden="false" description="${shipment.lastModifiedByUserLogin}"/></field>
-        
+
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
 
@@ -191,7 +191,7 @@ under the License.
         <field name="volume" title="${uiLabelMap.CommonVolume}"><display/></field>
         <field name="volumeUom" title="${uiLabelMap.CommonUom}"><display/></field>
     </form>
-    
+
     <!-- Search by Order Id -->
     <form name="findOrderItems" type="single" target="EditShipmentPlan" title=""
         header-row-style="header-row" default-table-style="basic-table">

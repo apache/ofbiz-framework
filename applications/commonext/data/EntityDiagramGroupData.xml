@@ -29,7 +29,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5000" entityOrPackage="Uom" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5000" entityOrPackage="UomConversionDated" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5000" entityOrPackage="UserPreference" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="5010" entityGroupName="Top Level: Content"/>
     <EntityGroupEntry entityGroupId="5010" entityOrPackage="Content" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5010" entityOrPackage="ContentAssoc" applEnumId="ESIA_INCLUDE"/>
@@ -37,7 +37,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5010" entityOrPackage="Survey" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5010" entityOrPackage="WebSiteContent" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5010" entityOrPackage="WebSite" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="5020" entityGroupName="Top Level: Party"/>
     <EntityGroupEntry entityGroupId="5020" entityOrPackage="Party" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5020" entityOrPackage="Person" applEnumId="ESIA_INCLUDE"/>
@@ -53,7 +53,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5020" entityOrPackage="SecurityGroup" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5020" entityOrPackage="SecurityGroupPermission" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5020" entityOrPackage="SecurityPermission" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="5030" entityGroupName="Top Level: Product"/>
     <EntityGroupEntry entityGroupId="5030" entityOrPackage="ProductStore" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5030" entityOrPackage="ProductStoreCatalog" applEnumId="ESIA_INCLUDE"/>
@@ -64,7 +64,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5030" entityOrPackage="Product" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5030" entityOrPackage="ProductStorePromoAppl" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5030" entityOrPackage="ProductPromo" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="5035" entityGroupName="Top Level: Facility"/>
     <EntityGroupEntry entityGroupId="5035" entityOrPackage="Facility" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5035" entityOrPackage="FacilityLocation" applEnumId="ESIA_INCLUDE"/>
@@ -73,7 +73,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5035" entityOrPackage="Shipment" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5035" entityOrPackage="ShipmentItem" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5035" entityOrPackage="ItemIssuance" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="5040" entityGroupName="Top Level: Order"/>
     <EntityGroupEntry entityGroupId="5040" entityOrPackage="CustRequest" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5040" entityOrPackage="CustRequestItem" applEnumId="ESIA_INCLUDE"/>
@@ -84,7 +84,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5040" entityOrPackage="OrderHeader" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5040" entityOrPackage="OrderItem" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5040" entityOrPackage="ReturnHeader" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="5050" entityGroupName="Top Level: Accounting"/>
     <EntityGroupEntry entityGroupId="5050" entityOrPackage="Invoice" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5050" entityOrPackage="PaymentApplication" applEnumId="ESIA_INCLUDE"/>
@@ -97,7 +97,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5050" entityOrPackage="AcctgTrans" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5050" entityOrPackage="AcctgTransEntry" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5050" entityOrPackage="FixedAsset" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="5060" entityGroupName="Top Level: WorkEffort"/>
     <EntityGroupEntry entityGroupId="5060" entityOrPackage="WorkEffort" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5060" entityOrPackage="WorkEffortAssoc" applEnumId="ESIA_INCLUDE"/>
@@ -107,7 +107,7 @@ under the License.
     <EntityGroupEntry entityGroupId="5060" entityOrPackage="CustRequestItemWorkEffort" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5060" entityOrPackage="Requirement" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="5060" entityOrPackage="WorkRequirementFulfillment" applEnumId="ESIA_INCLUDE"/>
-    
+
     <!-- =============================================== -->
     <!-- =============================================== -->
     <EntityGroup entityGroupId="6000" entityGroupName="Detail: Example and Common"/>
@@ -119,10 +119,10 @@ under the License.
     <EntityGroupEntry entityGroupId="6000" entityOrPackage="StatusType" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6000" entityOrPackage="Enumeration" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6000" entityOrPackage="EnumerationType" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="6050" entityGroupName="Detail: Common Entities"/>
     <EntityGroupEntry entityGroupId="6050" entityOrPackage="org.ofbiz.common" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="6100" entityGroupName="Detail Content: Content"/>
     <EntityGroupEntry entityGroupId="6100" entityOrPackage="org.ofbiz.content.content" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6100" entityOrPackage="org.ofbiz.content.data" applEnumId="ESIA_INCLUDE"/>
@@ -142,7 +142,7 @@ under the License.
     <EntityGroup entityGroupId="6230" entityGroupName="Detail Party: Agreement and Need"/>
     <EntityGroupEntry entityGroupId="6230" entityOrPackage="org.ofbiz.party.agreement" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6230" entityOrPackage="org.ofbiz.party.need" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="6300" entityGroupName="Detail Product: Product"/>
     <EntityGroupEntry entityGroupId="6300" entityOrPackage="org.ofbiz.product.product" applEnumId="ESIA_INCLUDE"/>
     <EntityGroup entityGroupId="6310" entityGroupName="Detail Product: Catalog and Category"/>
@@ -179,7 +179,7 @@ under the License.
     <EntityGroupEntry entityGroupId="6390" entityOrPackage="org.ofbiz.shipment.issuance" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6390" entityOrPackage="org.ofbiz.shipment.receipt" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6390" entityOrPackage="org.ofbiz.shipment.picklist" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="6400" entityGroupName="Detail Order: Order"/>
     <EntityGroupEntry entityGroupId="6400" entityOrPackage="org.ofbiz.order.order" applEnumId="ESIA_INCLUDE"/>
     <EntityGroup entityGroupId="6410" entityGroupName="Detail Order: Request"/>
@@ -201,7 +201,7 @@ under the License.
     <EntityGroupEntry entityGroupId="6450" entityOrPackage="org.ofbiz.order.opportunity" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6450" entityOrPackage="org.ofbiz.order.shoppinglist" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6450" entityOrPackage="org.ofbiz.order.shoppingcart" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="6500" entityGroupName="Detail Accounting: Ledger"/>
     <EntityGroupEntry entityGroupId="6500" entityOrPackage="org.ofbiz.accounting.ledger" applEnumId="ESIA_INCLUDE"/>
     <EntityGroup entityGroupId="6510" entityGroupName="Detail Accounting: Budget"/>
@@ -224,22 +224,22 @@ under the License.
     <EntityGroupEntry entityGroupId="6560" entityOrPackage="ProductMaint" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6560" entityOrPackage="ProductMeterType" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6560" entityOrPackage="ProductMeter" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="6600" entityGroupName="Detail Work Effort"/>
     <EntityGroupEntry entityGroupId="6600" entityOrPackage="org.ofbiz.workeffort.timesheet" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6600" entityOrPackage="org.ofbiz.workeffort.workeffort" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="6710" entityGroupName="Detail Manufacturing"/>
     <EntityGroupEntry entityGroupId="6710" entityOrPackage="org.ofbiz.manufacturing.bom" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6710" entityOrPackage="org.ofbiz.manufacturing.mrp" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6710" entityOrPackage="org.ofbiz.manufacturing.techdata" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6710" entityOrPackage="WorkEffort" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="6720" entityGroupName="Detail Human Resources"/>
     <EntityGroupEntry entityGroupId="6720" entityOrPackage="org.ofbiz.humanres.ability" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6720" entityOrPackage="org.ofbiz.humanres.employment" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6720" entityOrPackage="org.ofbiz.humanres.position" applEnumId="ESIA_INCLUDE"/>
-    
+
     <EntityGroup entityGroupId="6730" entityGroupName="Detail Marketing"/>
     <EntityGroupEntry entityGroupId="6730" entityOrPackage="org.ofbiz.marketing.campaign" applEnumId="ESIA_INCLUDE"/>
     <EntityGroupEntry entityGroupId="6730" entityOrPackage="org.ofbiz.marketing.contact" applEnumId="ESIA_INCLUDE"/>
@@ -249,7 +249,7 @@ under the License.
     <!-- OLAP/BI Entities (should grow significantly as this is worked on more) -->
     <EntityGroup entityGroupId="6800" entityGroupName="OLAP/BI General"/>
     <EntityGroupEntry entityGroupId="6800" entityOrPackage="org.ofbiz.bi" applEnumId="ESIA_INCLUDE"/>
-    
+
     <!-- Technical Entities -->
     <EntityGroup entityGroupId="6910" entityGroupName="Technical: Entity and Service"/>
     <EntityGroupEntry entityGroupId="6910" entityOrPackage="org.ofbiz.entity" applEnumId="ESIA_INCLUDE"/>

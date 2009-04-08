@@ -28,7 +28,7 @@ under the License.
     <td>${uiLabelMap.PartyParty}</td>
     <td>${uiLabelMap.FacilityFacility}</td>
     <td>${uiLabelMap.CommonStatus}</td>
-  </tr> 
+  </tr>
   <#list returnList as returnHeader>
   <#assign statusItem = returnHeader.getRelatedOne("StatusItem")>
   <#if returnHeader.destinationFacilityId?exists>
@@ -45,7 +45,7 @@ under the License.
       </#if>
     </td>
     <td><#if facility?exists>${facility.facilityName?default(facility.facilityId)}<#else>${uiLabelMap.CommonNone}</#if></td>
-    <td>${statusItem.get("description",locale)}</td>   
+    <td>${statusItem.get("description",locale)}</td>
   </tr>
   </#list>
 </table>

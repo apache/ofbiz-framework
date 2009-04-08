@@ -656,7 +656,7 @@ dojo.widget.defineWidget(
 		shareGroup: '',
 		checkAvailability: function(){
 			// summary: returns whether items in this toolbar can be executed
-			// description: 
+			// description:
 			//		For unshared toolbar, when clicking on a toolbar, the corresponding
 			//		editor will be focused, and this function always return true. For shared
 			//		toolbar, if the current focued editor is not one of the instances sharing

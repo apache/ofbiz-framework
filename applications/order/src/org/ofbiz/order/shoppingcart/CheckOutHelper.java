@@ -1065,7 +1065,7 @@ public class CheckOutHelper {
                             throw new GeneralException("Problem with order change; see above error");
                         }
                     }
-                // approve this as long as there are only CASH, COD and Billing Account types 
+                // approve this as long as there are only CASH, COD and Billing Account types
                 } else {
                     boolean ok = OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId, manualHold);
                     if (!ok) {

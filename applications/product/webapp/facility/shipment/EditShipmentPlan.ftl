@@ -45,13 +45,13 @@ under the License.
                     rowCountElement.setAttribute("type", "hidden");
                     rowCountElement.setAttribute("value", rowCount);
                     document.forms.addToShipmentPlan.appendChild(rowCountElement);
-            
+
                     var shipmentIdElement = document.createElement("input");
                     shipmentIdElement.setAttribute("name", "shipmentId");
                     shipmentIdElement.setAttribute("type", "hidden");
                     shipmentIdElement.setAttribute("value", ${shipmentId});
                     document.forms.addToShipmentPlan.appendChild(shipmentIdElement);
-            
+
                     document.forms.addToShipmentPlan.submit();
                 }
             </script>
@@ -72,7 +72,7 @@ under the License.
             ${listShipmentPlanForm.renderFormString(context)}
             <br/>
             <div>
-                <div align="right"><h2>${uiLabelMap.ProductShipmentTotalWeight}: ${totWeight} ${uiLabelMap.ProductShipmentTotalVolume}: ${totVolume}</h2></div> 
+                <div align="right"><h2>${uiLabelMap.ProductShipmentTotalWeight}: ${totWeight} ${uiLabelMap.ProductShipmentTotalVolume}: ${totVolume}</h2></div>
                 <div>${shipmentPlanToOrderItemsForm.renderFormString(context)}</div>
             </div>
         </div>

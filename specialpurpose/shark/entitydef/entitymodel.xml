@@ -164,7 +164,7 @@ under the License.
           <key-map field-name="subFlowId" rel-field-name="processId"/>
       </relation>
     </entity>
-    
+
     <entity entity-name="WfActivityVariable"
             package-name="org.ofbiz.shark.instance"
             title="">
@@ -179,8 +179,8 @@ under the License.
       <field name="isModified" type="indicator"></field>
       <prim-key field="activityVariableId"/>
     </entity>
-    
-    
+
+
     <entity entity-name="WfAndJoin"
             package-name="org.ofbiz.shark.instance"
             title="">

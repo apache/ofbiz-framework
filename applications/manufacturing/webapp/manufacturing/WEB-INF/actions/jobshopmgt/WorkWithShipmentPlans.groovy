@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -38,7 +38,7 @@ if (shipment) {
 }
 if (shipmentPlans) {
     boolean workInProgress = false;
-    shipmentPlans.each { shipmentPlan -> 
+    shipmentPlans.each { shipmentPlan ->
         oneRow = new HashMap(shipmentPlan);
         //    oneRow.putAll(shipmentPlan.getRelatedOne("OrderItemInventoryRes"));
         orderItem = shipmentPlan.getRelatedOne("OrderItem");
@@ -67,7 +67,7 @@ if (shipmentPlans) {
                     qtyInShipment = issuance.quantity;
                     if (issuance.cancelQuantity) {
                         qtyInShipment -= issuance.cancelQuantity;
-                    }                    
+                    }
                     qtyIssuedInShipment.issuance.shipmentId = qtyInShipment;
                 }
             }
@@ -139,7 +139,7 @@ if (shipmentPlans) {
                 // TODO: check if uom conversion is needed
                 volume = product.productHeight *
                          product.productWidth *
-                         product.productDepth * 
+                         product.productDepth *
                          quantity;
         }
         oneRow.volume = volume;

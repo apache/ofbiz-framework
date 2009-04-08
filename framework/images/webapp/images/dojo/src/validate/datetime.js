@@ -121,7 +121,7 @@ dojo.validate.isValidDate = function(dateValue, format) {
 
 	// Dynamic RE that parses the original format given
 	var re = new RegExp(reLiteral);
-	
+
 	// Test if date is in a valid format
 	if (!re.test(dateValue))  return false;
 
@@ -159,13 +159,13 @@ dojo.validate.isValidDate = function(dateValue, format) {
 	var leapyear = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
 
 	// 31st of a month with 30 days
-	if (date == 31 && (month == 4 || month == 6 || month == 9 || month == 11)) return false; 
+	if (date == 31 && (month == 4 || month == 6 || month == 9 || month == 11)) return false;
 
 	// February 30th or 31st
-	if (date >= 30 && month == 2) return false; 
+	if (date >= 30 && month == 2) return false;
 
 	// February 29th outside a leap year
-	if (date == 29 && month == 2 && !leapyear) return false; 
+	if (date == 29 && month == 2 && !leapyear) return false;
 	if (dayofyear == 366 && !leapyear)  return false;
 
 	return true;

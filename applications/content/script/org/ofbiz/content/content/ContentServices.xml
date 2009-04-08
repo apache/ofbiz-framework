@@ -18,7 +18,7 @@
   under the License.
   -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <!-- base content CRUD services -->
@@ -49,7 +49,7 @@
 
         <create-value value-field="content"/>
 
-        <field-to-result field="content.contentId" result-name="contentId"/>        
+        <field-to-result field="content.contentId" result-name="contentId"/>
     </simple-method>
     <simple-method method-name="updateContent" short-description="Update a Content Record">
         <entity-one entity-name="Content" value-field="content" auto-field-map="true"/>
@@ -75,14 +75,14 @@
         <make-value value-field="assoc" entity-name="ContentAssoc"/>
         <set-nonpk-fields value-field="assoc" map="parameters"/>
         <set-pk-fields value-field="assoc" map="parameters"/>
-        
+
         <set field="assoc.contentId" from-field="parameters.contentIdFrom" default-value="${parameters.contentId}"/>
 
         <now-timestamp field="nowTimestamp"/>
         <if-empty field="assoc.fromDate">
             <set field="assoc.fromDate" from-field="nowTimestamp"/>
         </if-empty>
-        
+
         <set field="assoc.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
         <set field="assoc.createdByUserLogin" from-field="userLogin.userLoginId"/>
         <set field="assoc.lastModifiedDate" from-field="nowTimestamp"/>
@@ -113,7 +113,7 @@
 
     <!-- update content; just status -->
     <simple-method method-name="setContentStatus" short-description="Set The Content Status">
-    
+
         <entity-one entity-name="Content" value-field="content"/>
         <field-to-result field="content.statusId" result-name="oldStatusId"/>
 
@@ -122,7 +122,7 @@
                 <field-map field-name="statusId" from-field="content.statusId"/>
                 <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
-            
+
             <if-empty field="statusChange">
                 <add-error><fail-message message="Cannot change from ${content.statusId} to ${parameters.statusId}"/></add-error>
                 <log level="error" message="Cannot change from ${content.statusId} to ${parameters.statusId}"/>
@@ -130,12 +130,12 @@
                 <else>
                     <set from-field="parameters.statusId" field="content.statusId"/>
                     <store-value value-field="content"/>
-                </else>   
+                </else>
             </if-empty>
         </if-compare-field>
     </simple-method>
 
-    <simple-method method-name="copyContentAndElectronicTextandAssoc" short-description="copy a content, electronic text and assocs and set status in progress">                
+    <simple-method method-name="copyContentAndElectronicTextandAssoc" short-description="copy a content, electronic text and assocs and set status in progress">
         <set-service-fields service-name="getContent" map="parameters" to-map="getC"/>
         <call-service service-name="getContent" in-map-name="getC">
             <result-to-field result-name="view" field="content"/>
@@ -150,18 +150,18 @@
                 <result-to-field result-name="dataResourceId" field="et.dataResourceId"/>
             </call-service>
             <call-service service-name="createElectronicText" in-map-name="et"/>
-            
+
             <set field="content.dataResourceId" from-field="et.dataResourceId"/>
-            
+
         </if-not-empty>
 
-        <clear-field field="content.contentId"/><!-- force new value -->        
+        <clear-field field="content.contentId"/><!-- force new value -->
         <clear-field field="content.statusId"/><!-- force new value -->
         <set-service-fields service-name="createContent" map="content" to-map="createContent"/>
         <call-service service-name="createContent" in-map-name="createContent">
             <result-to-field result-name="contentId" field="newContentId"/>
         </call-service>
-        
+
         <entity-and entity-name="ContentAssoc" list="assocs">
             <field-map field-name="contentId" from-field="parameters.contentId"/>
         </entity-and>
@@ -179,9 +179,9 @@
             <set-service-fields service-name="createContentAssoc" map="assocTo" to-map="assocTos"/>
             <call-service service-name="createContentAssoc" in-map-name="assocTos"/>
         </iterate>
-        
+
         <field-to-result field="newContentId" result-name="contentId"/>
-        
+
     </simple-method>
 
     <!-- Methods for ContentAssoc -->
@@ -211,7 +211,7 @@
             <set from-field="newUserLogin.userLoginId" field="newContentAssoc.lastModifiedByUserLogin"/>
             <now-timestamp field="newContentAssoc.createdDate"/>
             <now-timestamp field="newContentAssoc.lastModifiedDate"/>
-            
+
             <if-empty field="parameters.fromDate">
                 <now-timestamp field="parameters.fromDate"/>
             </if-empty>
@@ -223,7 +223,7 @@
         </if-compare>
         <check-errors/>
     </simple-method>
-        
+
     <!-- Methods for ContentMetaData -->
     <simple-method method-name="createContentMetaData" short-description="Create Content Meta Data">
         <make-value entity-name="ContentMetaData" value-field="newEntity"/>
@@ -238,13 +238,13 @@
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="removeContentMetaData" short-description="Remove Content Meta Data">        
+    <simple-method method-name="removeContentMetaData" short-description="Remove Content Meta Data">
         <make-value entity-name="ContentMetaData" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ContentMetaData" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
-    </simple-method>    
-    
+    </simple-method>
+
     <!-- Methods for ContentRole -->
     <simple-method method-name="createContentRole" short-description="Create Content Role">
         <if-empty field="parameters.fromDate">
@@ -275,7 +275,7 @@
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="deactivateAllContentRoles" short-description="Update Content Role">                        
+    <simple-method method-name="deactivateAllContentRoles" short-description="Update Content Role">
         <make-value entity-name="ContentRole" value-field="lookupKeyValue"/>
         <set from-field="parameters.contentId" field="lookupKeyValue.contentId"/>
         <set from-field="parameters.partyId" field="lookupKeyValue.partyId"/>
@@ -287,14 +287,14 @@
             <store-value value-field="role"/>
         </iterate>
     </simple-method>
-    <simple-method method-name="removeContentRole" short-description="Remove Content Role">        
+    <simple-method method-name="removeContentRole" short-description="Remove Content Role">
         <make-value entity-name="ContentRole" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ContentRole" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-        
-    
+
+
   <!-- Methods for ContentType -->
     <simple-method method-name="createContentType" short-description="Create Content Type">
         <make-value entity-name="ContentType" value-field="newEntity"/>
@@ -316,7 +316,7 @@
         <find-by-primary-key entity-name="ContentType" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for ContentTypeAttr -->
     <simple-method method-name="createContentTypeAttr" short-description="Create Content TypeAttr">
         <make-value entity-name="ContentTypeAttr" value-field="newEntity"/>
@@ -330,7 +330,7 @@
         <find-by-primary-key entity-name="ContentTypeAttr" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for ContentAssocType -->
     <simple-method method-name="createContentAssocType" short-description="Create Content AssocType">
         <make-value entity-name="ContentAssocType" value-field="newEntity"/>
@@ -352,7 +352,7 @@
         <find-by-primary-key entity-name="ContentAssocType" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for ContentPurposeType -->
     <simple-method method-name="createContentPurposeType" short-description="Create Content PurposeType">
         <make-value entity-name="ContentPurposeType" value-field="newEntity"/>
@@ -377,7 +377,7 @@
         <find-by-primary-key entity-name="ContentPurposeType" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for ContentAssocPredicate -->
     <simple-method method-name="createContentAssocPredicate" short-description="Create Content AssocPredicate">
         <make-value entity-name="ContentAssocPredicate" value-field="newEntity"/>
@@ -399,7 +399,7 @@
         <find-by-primary-key entity-name="ContentAssocPredicate" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for ContentPurposeOperation -->
     <simple-method method-name="createContentPurposeOperation" short-description="Create Content PurposeOperation">
         <make-value entity-name="ContentPurposeOperation" value-field="newEntity"/>
@@ -420,7 +420,7 @@
         <find-by-primary-key entity-name="ContentPurposeOperation" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for ContentPurpose -->
     <simple-method method-name="createContentPurpose" short-description="Create Content Purpose">
         <make-value entity-name="ContentPurpose" value-field="newEntity"/>
@@ -446,7 +446,7 @@
         <remove-by-and entity-name="ContentPurpose" map="toRemove"/>
         <call-simple-method method-name="createContentPurpose"/>
     </simple-method>
-    
+
     <!-- Methods for ContentOperation -->
     <simple-method method-name="createContentOperation" short-description="Create Content Operation">
         <make-value entity-name="ContentOperation" value-field="newEntity"/>
@@ -467,7 +467,7 @@
         <find-by-primary-key entity-name="ContentOperation" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for ContentPurposeOperation -->
     <simple-method method-name="createContentPurposeOperation" short-description="Create Content PurposeOperation">
         <make-value entity-name="ContentPurposeOperation" value-field="newEntity"/>
@@ -488,7 +488,7 @@
         <find-by-primary-key entity-name="ContentPurposeOperation" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for ContentAttribute -->
     <simple-method method-name="createContentAttribute" short-description="Create Content Attribute">
         <make-value entity-name="ContentAttribute" value-field="newEntity"/>
@@ -503,13 +503,13 @@
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="removeContentAttribute" short-description="Remove Content Attribute">        
+    <simple-method method-name="removeContentAttribute" short-description="Remove Content Attribute">
         <make-value entity-name="ContentAttribute" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ContentAttribute" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for ContentMetaData -->
     <simple-method method-name="createContentMetaData" short-description="Create Content MetaData">
         <make-value entity-name="ContentMetaData" value-field="newEntity"/>
@@ -524,7 +524,7 @@
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    <simple-method method-name="removeContentMetaData" short-description="Remove Content MetaData">        
+    <simple-method method-name="removeContentMetaData" short-description="Remove Content MetaData">
         <check-errors/>
         <make-value entity-name="ContentMetaData" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
@@ -685,16 +685,16 @@
         <set value="DOCUMENT" field="createSimpleTextContent.contentTypeId"/>
 
         <set from-field="parameters.text" field="createSimpleText.textData"/>
-        
+
         <set-service-fields service-name="createDataResource" map="parameters" to-map="createSimpleTextDataResource"/>
         <set value="ELECTRONIC_TEXT" field="createSimpleTextDataResource.dataResourceTypeId"/>
         <set value="FTL" field="createSimpleTextDataResource.dataTemplateTypeId"/>
-        
+
         <call-service service-name="createDataResource" in-map-name="createSimpleTextDataResource">
             <result-to-field result-name="dataResourceId" field="createSimpleText.dataResourceId"/>
             <result-to-field result-name="dataResourceId" field="createSimpleTextContent.dataResourceId"/>
         </call-service>
-        
+
         <call-service service-name="createElectronicText" in-map-name="createSimpleText"/>
 
         <call-service service-name="createContent" in-map-name="createSimpleTextContent">
@@ -719,7 +719,7 @@
         <set from-field="parameters.newTopicId" field="content.contentName"/>
         <set from-field="parameters.newTopicDescription" field="content.description"/>
         <set value="TOPIC" field="content.contentTypeId"/>
-        
+
         <now-timestamp field="content.lastModifiedDate"/>
         <now-timestamp field="content.createdDate"/>
         <set from-field="parameters.userLogin.userLoginId" field="content.lastModifiedByUserLogin"/>
@@ -745,7 +745,7 @@
         </if-empty>
 
         <if-empty field="createContentMap.contentTypeId">
-            <set field="createContentMap.contentTypeId" value="DOCUMENT"/> 
+            <set field="createContentMap.contentTypeId" value="DOCUMENT"/>
         </if-empty>
 
         <if-empty field="createContentMap.statusId">
@@ -762,20 +762,20 @@
 
         <field-to-result field="contentId"/>
     </simple-method>
-    
+
     <!-- This method first creates Content, DataResource and ElectronicText, ImageDataResource, etc. entities (if needed)
          by calling persistContentAndAssoc.
-        
+
         It then takes the contentId coming out of that service, the passed in communicationEventId
          and calls the "createCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
         -->
     <simple-method method-name="createCommContentDataResource" short-description="Create CommunicationEvent and Content">
-        
+
         <!--
         <check-permission permission="CONTENTMGR" action="_DELETE"><fail-message message="Security Error: to run updateContent you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/></check-permission>
         <check-errors/>
             -->
-        
+
         <now-timestamp field="nowTimestamp"/>
         <set-service-fields to-map="persistIn" service-name="persistContentAndAssoc" map="parameters"/>
         <!-- let's take a guess at what the dataResourceTypeId should be if it is empty -->
@@ -789,7 +789,7 @@
             </if-regexp>
         </if-empty>
         <log level="info" message="persistIn.dataResourceTypeId: ${persistIn.dataResourceTypeId}"/>
-        
+
         <call-service service-name="persistContentAndAssoc" in-map-name="persistIn">
             <results-to-map map-name="persistOut"/>
         </call-service>
@@ -807,13 +807,13 @@
         </call-service>
 
     </simple-method>
-    
+
     <!-- This method first updates Content, DataResource and ElectronicText, ImageDataResource, etc. entities (if needed)
          by calling persistContentAndAssoc.    It then takes the passed in contentId, communicationEventId and fromDate primary keys
          and calls the "updateCommEventContentAssoc" service to tie the CommunicationEvent and Content entities together.
         -->
     <simple-method method-name="updateCommContentDataResource" short-description="Update CommunicationEvent and Content">
-        
+
         <!--
         <check-permission permission="CONTENTMGR" action="_DELETE"><fail-message message="Security Error: to run updateContent you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/></check-permission>
         <check-errors/>
@@ -835,7 +835,7 @@
         </iterate-map>
 
     </simple-method>
-    
+
     <!-- This service ties CommunicationEvent and Content entities together along with the standard from/thruDate fields.
         -->
     <simple-method method-name="createCommEventContentAssoc" short-description="Create CommEventContentAssoc">
@@ -848,7 +848,7 @@
         <create-value value-field="commEventContentAssoc"/>
         <field-to-result field="commEventContentAssoc.fromDate" result-name="fromDate"/>
     </simple-method>
-    
+
     <!-- This service would primarily be used to update the thruDate field.
         -->
     <simple-method method-name="updateCommEventContentAssoc" short-description="Create CommEventContentAssoc">
@@ -863,7 +863,7 @@
         <set-nonpk-fields value-field="commEventContentAssoc" map="parameters"/>
         <store-value value-field="commEventContentAssoc"/>
     </simple-method>
-    
+
     <simple-method method-name="removeCommEventContentAssoc" short-description="Delete CommEventContentAssoc">
         <make-value entity-name="CommEventContentAssoc" value-field="pkCommEventContentAssoc"/>
         <set-pk-fields value-field="pkCommEventContentAssoc" map="parameters"/>
@@ -884,7 +884,7 @@
         </call-service>
         <if-not-empty field="newContentId">
             <set-service-fields service-name="createContentAssoc" map="parameters" to-map="assocData"/>
-            <set field="assocData.contentId" from-field="newContentId"/> 
+            <set field="assocData.contentId" from-field="newContentId"/>
             <call-service service-name="createContentAssoc" in-map-name="assocData">
                 <result-to-result result-name="contentId" service-result-name="contentIdFrom"/>
                 <result-to-result result-name="contentIdTo" service-result-name="contentIdTo"/>
@@ -892,23 +892,23 @@
             <field-to-result field="newContentId" result-name="contentId"/>
         </if-not-empty>
     </simple-method-->
-    
+
     <!-- retrieve Data resource information -->
-    <simple-method method-name="getDataResource" short-description="get the content and relasted resource information" login-required="false">        
+    <simple-method method-name="getDataResource" short-description="get the content and relasted resource information" login-required="false">
         <entity-one entity-name="DataResource" value-field="resultData.dataResource"/>
         <if-not-empty field="resultData.dataResource">
             <if-compare field="resultData.dataResource.dataResourceTypeId" value="ELECTRONIC_TEXT" operator="equals">
-                <get-related-one value-field="resultData.dataResource" relation-name="ElectronicText" 
+                <get-related-one value-field="resultData.dataResource" relation-name="ElectronicText"
                     to-value-field="resultData.electronicText"/>
             </if-compare>
             <if-compare field="resultData.dataResource.dataResourceTypeId" value="IMAGE_OBJECT" operator="equals">
-                <get-related-one value-field="resultData.dataResource" relation-name="ImageDataResource" 
+                <get-related-one value-field="resultData.dataResource" relation-name="ImageDataResource"
                     to-value-field="resultData.imageDataResource"/>
             </if-compare>
         </if-not-empty>
         <field-to-result field="resultData" result-name="resultData"/>
     </simple-method>
-        
+
     <simple-method method-name="getContentAndDataResource" short-description="get the content and related resource information" login-required="false">
         <entity-one entity-name="Content" value-field="resultDataContent.content">
             <field-map field-name="contentId" from-field="parameters.contentId"/>
@@ -966,7 +966,7 @@
             </else>
         </if>
     </simple-method>
-    
+
     <simple-method method-name="createArticleContent" short-description="Post a new Content article Entry">
         <set field="contentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
         <set field="origContentAssocTypeId" from-field="parameters.contentAssocTypeId"/>
@@ -974,8 +974,8 @@
         <if-compare operator="equals" field="origContentAssocTypeId" value="PUBLISH_LINK">
             <set field="ownerContentId" from-field="parameters.pubPtContentId"/>
         </if-compare>
-        <set field="contentIdFrom" from-field="parameters.contentIdFrom"/>         
-        <set field="pubPtContentId" from-field="parameters.pubPtContentId"/>   
+        <set field="contentIdFrom" from-field="parameters.contentIdFrom"/>
+        <set field="pubPtContentId" from-field="parameters.pubPtContentId"/>
         <call-object-method method-name="length" obj-field="parameters.textData" ret-field="textDataLen"/>
         <log level="info" message="textDataLen:${textDataLen}"/>
         <property-to-field resource="forum" property="descriptLen" field="descriptLen"/>
@@ -993,7 +993,7 @@
         <log level="info" message="subDescript:${subDescript}"/>
         <if-compare operator="equals" field="contentAssocTypeId" value="PUBLISH_LINK">
             <set field="ownerContentId" from-field="pubPtContentId"/>
-        </if-compare>  
+        </if-compare>
 
         <!-- determine of we need to create complex template structure or simple content structure -->
         <if>
@@ -1014,7 +1014,7 @@
                 <set field="createMain.contentName" from-field="parameters.contentName"/>
                 <set field="createMain.description" from-field="subDescript"/>
                 <set field="createMain.statusId" from-field="parameters.statusId"/>
-                <set field="createMain.contentIdFrom" from-field="contentIdFrom"/>                 
+                <set field="createMain.contentIdFrom" from-field="contentIdFrom"/>
                 <set field="createMain.partyId" from-field="userLogin.partyId"/>
                 <set field="createMain.ownerContentId" from-field="ownerContentId"/>
 
@@ -1024,10 +1024,10 @@
                 <call-service service-name="createContent" in-map-name="createMain">
                     <result-to-field result-name="contentId" field="contentId"/>
                 </call-service>
-                 
+
                 <!-- reset contentIdFrom to new contentId -->
                 <set field="contentAssocTypeId" value="SUB_CONTENT"/>
-                <set field="contentIdFrom" from-field="contentId"/>                                
+                <set field="contentIdFrom" from-field="contentId"/>
             </then>
         </if>
 
@@ -1099,7 +1099,7 @@
                 </if-empty>
             </then>
         </if>
-                
+
         <!-- we should have a primary (at least) contentId -->
         <if>
             <condition>
@@ -1130,7 +1130,7 @@
                 <call-service service-name="createTextContent" in-map-name="createSummary"/>
             </then>
         </if>
-        
+
         <!-- If a response, still link it to the publish point -->
         <if-compare operator="equals" field="origContentAssocTypeId" value="RESPONSE">
             <set field="contentAssocMap.contentId" from-field="pubPtContentId"/>
@@ -1138,14 +1138,14 @@
             <set field="contentAssocMap.contentAssocTypeId" value="RESPONSE"/>
         <log level="info" message="contentAssocMap:${contentAssocMap.contentId}"/>
              <call-service service-name="createContentAssoc" in-map-name="contentAssocMap"/>
-        </if-compare>  
+        </if-compare>
 
 
         <field-to-result field="contentId"/>
     </simple-method>
-    
+
     <simple-method method-name="getSubContentWithPermCheck" short-description="Get sub content and perform permission check on each record">
-    
+
         <set field="filterByDate" from-field="parameters.filterByDate" default-value="true" type="Boolean"/>
         <set field="useCache" from-field="parameters.useCache" default-value="true" type="Boolean"/>
         <entity-condition list="viewList" entity-name="ContentAssocViewTo" filter-by-date="${filterByDate}" use-cache="${useCache}">
@@ -1155,7 +1155,7 @@
               <condition-expr field-name="caMapKey" from-field="parameters.mapKey" ignore-if-empty="true"/>
           </condition-list>
         </entity-condition>
-        
+
         <iterate entry="view" list="viewList">
             <set field="hasPermission" value="true" type="Boolean"/>
             <if>
@@ -1184,17 +1184,17 @@
             </if-compare>
         </iterate>
         <field-to-result field="contentViewList" result-name="subContentList"/>
-        
-        
+
+
     </simple-method>
-    
+
     <simple-method method-name="getSubSubContentWithPermCheck" short-description="Get sub content and perform permission check on each record">
-    
+
         <set-service-fields service-name="getSubContentWithPermCheck" map="parameters" to-map="inMap"/>
         <call-service service-name="getSubContentWithPermCheck" in-map-name="inMap">
             <result-to-field result-name="subContentList"/>
-        </call-service>        
-        
+        </call-service>
+
         <iterate entry="view" list="subContentList">
             <entity-condition list="viewList" entity-name="ContentAssocViewTo" filter-by-date="true" use-cache="${useCache}">
               <condition-list combine="and">

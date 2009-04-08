@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="CommonPriceDecorator">
         <section>
@@ -41,7 +41,7 @@ under the License.
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -75,7 +75,7 @@ under the License.
                             <container style="screenlet-body">
                                 <include-form location="component://product/webapp/catalog/price/PriceForms.xml" name="AddPriceRules"/>
                             </container>
-                        </screenlet>    
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -86,7 +86,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditProductPriceRules"/>
                 <set field="headerItem" value="pricerules"/>
-                
+
                 <script location="component://product/webapp/catalog/WEB-INF/actions/price/EditProductPriceRules.groovy"/>
             </actions>
             <widgets>

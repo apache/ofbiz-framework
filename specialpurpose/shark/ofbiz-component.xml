@@ -26,7 +26,7 @@ under the License.
     <classpath type="jar" location="lib/*"/>
     <classpath type="jar" location="build/lib/*"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
-    
+
     <service-resource type="model" loader="main" location="servicedef/services_test.xml"/>
     <webapp name="shark"
         title="Shark"

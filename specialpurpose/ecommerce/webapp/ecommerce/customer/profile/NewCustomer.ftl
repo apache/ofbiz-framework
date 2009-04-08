@@ -69,26 +69,26 @@ under the License.
     <div class="form-row"></div>
     <span id="advice-validate-email-emailAddress" class="errorMessage" style="display:none">${uiLabelMap.PartyEmailAddressNotFormattedCorrectly}</span>
     <div class="form-row"><hr class="sepbar"/></div>
-    <div class="bothclear"></div>    
+    <div class="bothclear"></div>
 
     <div class="left center">
       <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.OrderShippingInformation}</div></div>
       <div class="form-row">
         <div class="field-label"><label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}* <span id="advice-required-shipToAddress1" style="display: none" class="errorMessage">(required)</span></label></div>
         <div><input type="text" name="shipToAddress1" id="shipToAddress1" class="required" value="${parameters.shipToAddress1?if_exists}"/></div>
-      </div>  
+      </div>
       <div class="form-row">
         <div class="field-label"><label for="shipToAddress2">${uiLabelMap.PartyAddressLine2}</label></div>
         <div><input type="text" name="shipToAddress2" id="shipToAddress2" value="${parameters.shipToAddress2?if_exists}"/></div>
-      </div>  
+      </div>
       <div class="form-row">
         <div class="field-label"><label for="shipToCity">${uiLabelMap.CommonCity}* <span id="advice-required-shipToCity" style="display: none" class="errorMessage">(required)</span></label></div>
         <div><input type="text" name="shipToCity" id="shipToCity" class="required" value="${parameters.shipToCity?if_exists}"/></div>
-      </div> 
+      </div>
       <div class="form-row">
         <div class="field-label"><label for="shipToPostalCode">${uiLabelMap.PartyZipCode}* <span id="advice-required-shipToPostalCode" style="display: none" class="errorMessage">(required)</span></label></div>
         <div><input type="text" name="shipToPostalCode" id="shipToPostalCode" class="required" value="${parameters.shipToPostalCode?if_exists}" maxlength="10"/></div>
-      </div> 
+      </div>
       <div class="form-row">
         <div class="field-label"><label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}* <span id="advice-required-shipToCountryGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
         <div>
@@ -111,7 +111,7 @@ under the License.
             </#if>
           </select>
         </div>
-      </div>  
+      </div>
       <div class="form-row">
         <div class="field-label">
           <label>${uiLabelMap.PartyPhoneNumber}*</label>
@@ -129,7 +129,7 @@ under the License.
       </div>
       <div class="form-row">
         <div><input type="checkbox" class="checkbox" name="useShippingAddressForBilling" id="useShippingAddressForBilling" value="Y" <#if parameters.useShippingAddressForBilling?has_content && parameters.useShippingAddressForBilling?default("")=="Y">checked</#if>/>&nbsp;&nbsp;${uiLabelMap.FacilityBillingAddressSameShipping}</div>
-      </div>  
+      </div>
     </div>
 
     <div class="center right">
@@ -138,11 +138,11 @@ under the License.
         <div class="form-row">
           <div class="field-label"><label for="billToAddress1">${uiLabelMap.PartyAddressLine1}* <span id="advice-required-billToAddress1" style="display: none" class="errorMessage">(required)</span></label></div>
           <div><input type="text" name="billToAddress1" id="billToAddress1" class="required" value="${parameters.billToAddress1?if_exists}"/></div>
-        </div>  
+        </div>
         <div class="form-row">
           <div class="field-label"><label for="billToAddress2">${uiLabelMap.PartyAddressLine2}</label></div>
           <div><input type="text" name="billToAddress2" id="billToAddress2" value="${parameters.billToAddress2?if_exists}"/></div>
-        </div>  
+        </div>
         <div class="form-row">
           <div class="field-label"><label for="billToCity">${uiLabelMap.CommonCity}* <span id="advice-required-billToCity" style="display: none" class="errorMessage">(required)</span></label></div>
           <div><input type="text" name="billToCity" id="billToCity" class="required" value="${parameters.billToCity?if_exists}"/></div>
@@ -150,7 +150,7 @@ under the License.
         <div class="form-row">
           <div class="field-label"><label for="billToPostalCode">${uiLabelMap.PartyZipCode}* <span id="advice-required-billToPostalCode" style="display: none" class="errorMessage">(required)</span></label></div>
           <div><input type="text" name="billToPostalCode" id="billToPostalCode" class="required" value="${parameters.billToPostalCode?if_exists}" maxlength="10"/></div>
-        </div> 
+        </div>
         <div class="form-row">
         <div class="field-label"><label for="billToCountryGeoId">${uiLabelMap.PartyCountry}* <span id="advice-required-billToCountryGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
         <div>
@@ -189,7 +189,7 @@ under the License.
             - <input type="text" name="billToExtension" id="billToExtension" value="${extension?default("${parameters.billToExtension?if_exists}")}" size="3" maxlength="3"/>
           </div>
         </div>
-      </div>  
+      </div>
     </div>
 
     <div class="bothclear"></div>

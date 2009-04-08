@@ -29,7 +29,7 @@ under the License.
 .autocomplete ul li.selected {
     background-color: yellow;
  }
- 
+
 .autocomplete ul li {
     display: block;
     margin: 0px;
@@ -52,7 +52,7 @@ under the License.
     background-repeat: repeat-x;
     height: 1em;
     text-align: center;
-    border-width: 2px; 
+    border-width: 2px;
     padding-left: 0.5em;
     height: 5em;
     width: 5em;

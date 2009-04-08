@@ -13,12 +13,12 @@
  * of the FlashObject library.
  *
  * Use this file to invoke the Macromedia Flash Player Express Install functionality
- * This file is intended for use with the FlashObject embed script. You can download FlashObject 
+ * This file is intended for use with the FlashObject embed script. You can download FlashObject
  * and this file at the following URL: http://blog.deconcept.com/flashobject/
  *
- * Usage: 
+ * Usage:
  *          var ExpressInstall = new ExpressInstall();
- *          
+ *
  *          // test to see if install is needed:
  *          if (ExpressInstall.needsUpdate) { // returns true if update is needed
  *              ExpressInstall.init(); // starts the update
@@ -32,10 +32,10 @@ class ExpressInstall {
 	public var needsUpdate:Boolean;
 	private var updater:MovieClip;
 	private var hold:MovieClip;
-	
+
 	public function ExpressInstall(){
 		// does the user need to update?
-		this.needsUpdate = (_root.MMplayerType == undefined) ? false : true;	
+		this.needsUpdate = (_root.MMplayerType == undefined) ? false : true;
 	}
 
 	public function init():Void{

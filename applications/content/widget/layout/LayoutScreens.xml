@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="FindLayout">
         <section>
@@ -80,7 +80,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <container>
                                             <link target="EditLayoutSubContent" text="${uiLabelMap.CommonCreateNew}" style="buttontext">
                                                 <parameter param-name="mode" value="add"/>
@@ -103,7 +103,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayout"/>
-                
+
                 <set field="wrapTemplateId" value="STDWRAP001"/>
                 <entity-one entity-name="ContentDataResourceView" value-field="currentValue"/>
             </actions>
@@ -118,7 +118,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
                                         <platform-specific>
                                             <html>
@@ -140,7 +140,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLayoutSubContent"/>
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutSubContent"/>
-                
+
                 <entity-one entity-name="SubContentDataResourceView" value-field="currentValue"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/layout/EditSubContent.groovy"/>
             </actions>
@@ -155,7 +155,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="EditLayoutSubContent" location="component://content/webapp/content/layout/LayoutForms.xml"/>
                                     </widgets>
                                 </section>
@@ -172,7 +172,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutText"/>
-                
+
                 <entity-one entity-name="SubContentDataResourceView" value-field="currentValue"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/layout/EditSubContent.groovy"/>
             </actions>
@@ -193,7 +193,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutHtml"/>
-                
+
                 <entity-one entity-name="SubContentDataResourceView" value-field="currentValue"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/layout/EditSubContent.groovy"/>
             </actions>
@@ -214,7 +214,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutUrl"/>
-                
+
                 <entity-one entity-name="SubContentDataResourceView" value-field="currentValue"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/layout/EditSubContent.groovy"/>
             </actions>
@@ -235,7 +235,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayoutImage"/>
-                
+
                 <entity-one entity-name="SubContentDataResourceView" value-field="currentValue"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/layout/EditSubContent.groovy"/>
             </actions>
@@ -256,7 +256,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLayout"/>
                 <set field="headerItem" value="Layout"/>
                 <set field="tabButtonItem" to-scope="user" value="EditLayout"/>
-                
+
             </actions>
             <widgets>
                 <decorator-screen name="commonLayoutDecorator" location="${parameters.mainDecoratorLocation}">
@@ -269,7 +269,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="AddLayout" location="component://content/webapp/content/layout/LayoutForms.xml"/>
                                     </widgets>
                                 </section>

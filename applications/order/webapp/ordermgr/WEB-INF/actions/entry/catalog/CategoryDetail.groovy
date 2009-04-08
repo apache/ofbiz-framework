@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -44,10 +44,10 @@ limitView = request.getAttribute("limitView") ?: true;
 context.limitView = limitView;
 
 // get the product category & members
-andMap = [productCategoryId : productCategoryId, 
-        viewIndexString : viewIndex, 
-        viewSizeString : viewSize, 
-        defaultViewSize : defaultViewSize, 
+andMap = [productCategoryId : productCategoryId,
+        viewIndexString : viewIndex,
+        viewSizeString : viewSize,
+        defaultViewSize : defaultViewSize,
         limitView : limitView];
 andMap.put("prodCatalogId", currentCatalogId);
 andMap.put("checkViewAllow", true);
@@ -82,19 +82,19 @@ while (lastViewedCategories.size() > LAST_VIEWED_TO_KEEP) {
 }
 
 // set the content path prefix
-contentPathPrefix = CatalogWorker.getContentPathPrefix(request); 
+contentPathPrefix = CatalogWorker.getContentPathPrefix(request);
 context.put("contentPathPrefix", contentPathPrefix);
 
 // little routine to see if any members have a quantity > 0 assigned
 members = context.get("productCategoryMembers");
 if (members != null && members.size() > 0) {
-    for (i = 0; i < members.size(); i++) {      
+    for (i = 0; i < members.size(); i++) {
         productCategoryMember = (GenericValue) members.get(i);
-        if (productCategoryMember.get("quantity") != null && productCategoryMember.getDouble("quantity").doubleValue() > 0.0) {            
+        if (productCategoryMember.get("quantity") != null && productCategoryMember.getDouble("quantity").doubleValue() > 0.0) {
             context.put("hasQuantities", new Boolean(true));
             break;
-        }        
-    }    
+        }
+    }
 }
 
 CategoryContentWrapper categoryContentWrapper = new CategoryContentWrapper(productCategory, request);

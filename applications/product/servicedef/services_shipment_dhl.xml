@@ -29,7 +29,7 @@ under the License.
     <attribute name="shippingKey" type="String" mode="OUT" optional="false"/>
   </service>
   <!-- DHL Rate API Services -->
-   <service name="dhlRateEstimate" engine="java" location="org.ofbiz.shipment.thirdparty.dhl.DhlServices" 
+   <service name="dhlRateEstimate" engine="java" location="org.ofbiz.shipment.thirdparty.dhl.DhlServices"
        invoke="dhlRateEstimate" auth="false">
     <description>DHL ShipIt rate inquire tool</description>
     <implements service="calcShipmentEstimateInterface"/>

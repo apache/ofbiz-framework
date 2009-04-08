@@ -46,7 +46,7 @@ dojo.widget.defineWidget(
 		mixInProperties: function(localProperties, frag){
 			// First initialize properties in super-class.
 			dojo.widget.CurrencyTextbox.superclass.mixInProperties.apply(this, arguments);
-	
+
 			// Get properties from markup attributes, and assign to flags object.
 			if(localProperties.fractional){
 				this.flags.fractional = (localProperties.fractional == "true");
@@ -57,10 +57,10 @@ dojo.widget.defineWidget(
 			if(localProperties.symbol){
 				this.flags.symbol = localProperties.symbol;
 			}
-			if(localProperties.min){ 
+			if(localProperties.min){
 				this.flags.min = parseFloat(localProperties.min);
 			}
-			if(localProperties.max){ 
+			if(localProperties.max){
 				this.flags.max = parseFloat(localProperties.max);
 			}
 		},

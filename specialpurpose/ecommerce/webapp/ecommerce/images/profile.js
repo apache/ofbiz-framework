@@ -70,11 +70,11 @@ Event.observe(window, 'load', function() {
             getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
         });
         if($('billToStateProvinceGeoId').value == "_NA_"){
-            getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates'); 	
+            getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
         } else {
             stateValue = $('billToStateProvinceGeoId').value;
             getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
-            $('billToStateProvinceGeoId').value = stateValue;	
+            $('billToStateProvinceGeoId').value = stateValue;
         }
     }
     if ($('editShipToPostalAddress')) {
@@ -93,17 +93,17 @@ Event.observe(window, 'load', function() {
 });
 
 /*
- * This function is used for validation of Phone number with only 1 error message instead of multiple (for eg: required) on label. 
- * It takes following parameters :-  
- * 1) errorDivId : div to display error, 
+ * This function is used for validation of Phone number with only 1 error message instead of multiple (for eg: required) on label.
+ * It takes following parameters :-
+ * 1) errorDivId : div to display error,
  * 2) focusedTextId : Text box, last focused,
  * 3) textToCheck1, textToCheck2 : Other text boxes to be check.
- */ 
+ */
 function validatePhoneNumber(errorDivId, focusedTextId, textToCheck1, textToCheck2) {
     if (($(focusedTextId).value == "")) {
         Effect.Appear(errorDivId, {duration: 0.5});
     } else if (($(textToCheck1).value != "") && ($(textToCheck2).value != "" )) {
-       Effect.Fade(errorDivId, {duration: 0.5}); 
+       Effect.Fade(errorDivId, {duration: 0.5});
     }
 }
 
@@ -142,7 +142,7 @@ function useShippingAddressAsBillingToggle() {
         getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
         $('billToStateProvinceGeoId').value = $F('shipToStateProvinceGeoId');
         $('billToPostalCode').value = $F('shipToPostalCode');
-        
+
         $('billToAddress1').disabled = true ;
         $('billToAddress2').disabled = true ;
         $('billToCity').disabled = true ;
@@ -168,7 +168,7 @@ function getServerError(data) {
     var serverError = "";
     if (data._ERROR_MESSAGE_LIST_ != undefined) {
         serverErrorHash = data._ERROR_MESSAGE_LIST_;
-    
+
         serverErrorHash.each(function(error) {
             if (error.message != undefined) {
                 serverError += error.message;
@@ -179,9 +179,9 @@ function getServerError(data) {
         }
     }
     if (data._ERROR_MESSAGE_ != undefined) {
-        serverError += data._ERROR_MESSAGE_; 
+        serverError += data._ERROR_MESSAGE_;
     }
-    return serverError;    
+    return serverError;
 }
 
 function inPlaceEditEmail(e) {
@@ -223,7 +223,7 @@ function createPartyPostalAddress(e) {
     popupId = 'displayCreateAddressForm';
     if (validateEditPostalAddress.validate()) {
         new Ajax.Request('createPartyPostalAddress', {
-            asynchronous: false, 
+            asynchronous: false,
             onSuccess: function(transport) {
                 var data = transport.responseText.evalJSON(true);
                 var serverError = getServerError(data);
@@ -249,7 +249,7 @@ function updatePartyPostalAddress(e) {
     popupId = 'displayEditAddressForm_' + contactMechId;
     if (validateEditPostalAddress.validate()) {
         new Ajax.Request('updatePartyPostalAddress', {
-            asynchronous: false, 
+            asynchronous: false,
             onSuccess: function(transport) {
                 var data = transport.responseText.evalJSON(true);
                 var serverError = getServerError(data);
@@ -274,7 +274,7 @@ function updatePartyShipToPostalAddress(e) {
     popupId = 'displayEditShipToPostalAddress';
     if (validateEditPostalAddress.validate()) {
         new Ajax.Request('updatePartyPostalAddress', {
-            asynchronous: false, 
+            asynchronous: false,
             onSuccess: function(transport) {
                 var data = transport.responseText.evalJSON(true);
                 var serverError = getServerError(data);
@@ -299,7 +299,7 @@ function updatePartyBillToPostalAddress(e) {
     popupId = 'displayEditBillToPostalAddress';
     if (validateEditPostalAddress.validate()) {
         new Ajax.Request('updatePartyPostalAddress', {
-            asynchronous: false, 
+            asynchronous: false,
             onSuccess: function(transport) {
                 var data = transport.responseText.evalJSON(true);
                 var serverError = getServerError(data);
@@ -400,16 +400,16 @@ function showState(id) {
             getAssociatedStateList('countryGeoId_'+id, 'stateProvinceGeoId_'+id, 'advice-required-stateProvinceGeoId_'+id, 'states_'+id);
         });
         if ($('stateProvinceGeoId_'+id).value == "_NA_") {
-            getAssociatedStateList('countryGeoId_'+id, 'stateProvinceGeoId_'+id, 'advice-required-stateProvinceGeoId_'+id, 'states_'+id);    	
+            getAssociatedStateList('countryGeoId_'+id, 'stateProvinceGeoId_'+id, 'advice-required-stateProvinceGeoId_'+id, 'states_'+id);
         } else {
             var stateValue = $('stateProvinceGeoId_'+id).value;
             getAssociatedStateList('countryGeoId_'+id, 'stateProvinceGeoId_'+id, 'advice-required-stateProvinceGeoId_'+id, 'states_'+id);
-            $('stateProvinceGeoId_'+id).value = stateValue;    	
+            $('stateProvinceGeoId_'+id).value = stateValue;
         }
     }
 }
 
 function copyShipToCountryToBillToCountry(){
     $('billToCountryGeoId').value = $F('shipToCountryGeoId');
-    getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');	
+    getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
 }

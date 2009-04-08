@@ -35,7 +35,7 @@ under the License.
 
           if(passedEntityNames.size() > 0) {
             numberOfEntities = passedEntityNames.size();
-            
+
             PrintWriter writer = null;
             ServletContext context = pageContext.getServletContext();
             if (UtilJ2eeCompat.useOutputStreamNotWriter(context)) {
@@ -52,7 +52,7 @@ under the License.
                 beganTransaction = TransactionUtil.begin();
 
                 Iterator i = passedEntityNames.iterator();
-                while(i.hasNext()) { 
+                while(i.hasNext()) {
                     String curEntityName = (String)i.next();
 
                     ModelEntity me = reader.getModelEntity(curEntityName);
@@ -90,7 +90,7 @@ under the License.
 
             writer.println("</entity-engine-xml>");
           }
-          
+
       } else {%>
 ERROR: No entityName list was found in the session, go back to the export page and try again.
     <%}%>

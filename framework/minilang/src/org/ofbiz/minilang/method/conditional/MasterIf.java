@@ -33,7 +33,7 @@ import org.ofbiz.minilang.method.*;
 public class MasterIf extends MethodOperation {
     public static final class MasterIfFactory implements Factory<MasterIf> {
         public MasterIf createMethodOperation(Element element, SimpleMethod simpleMethod) {
-            return new MasterIf(element, simpleMethod);
+            return new Masterif (element, simpleMethod);
         }
 
         public String getName() {
@@ -48,7 +48,7 @@ public class MasterIf extends MethodOperation {
 
     List<ElseIf> elseIfs = null;
 
-    public MasterIf(Element element, SimpleMethod simpleMethod) {
+    public Masterif (Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
 
         Element conditionElement = UtilXml.firstChildElement(element, "condition");
@@ -62,7 +62,7 @@ public class MasterIf extends MethodOperation {
         if (UtilValidate.isNotEmpty(elseIfElements)) {
             elseIfs = FastList.newInstance();
             for (Element elseIfElement: elseIfElements) {
-                elseIfs.add(new ElseIf(elseIfElement, simpleMethod));
+                elseIfs.add(new Elseif (elseIfElement, simpleMethod));
             }
         }
 

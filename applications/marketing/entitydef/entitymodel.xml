@@ -444,8 +444,8 @@ under the License.
       <field name="trackingCodeId" type="id-ne"></field>
       <field name="isBillable" type="indicator"></field>
       <field name="siteId" type="long-varchar"></field>
-      <field name="hasExported" type="indicator"></field>                
-      <field name="affiliateReferredTimeStamp" type="date-time"></field>  
+      <field name="hasExported" type="indicator"></field>
+      <field name="affiliateReferredTimeStamp" type="date-time"></field>
       <prim-key field="orderId"/>
       <prim-key field="trackingCodeTypeId"/>
       <relation type="one" fk-name="TKNG_CODODR_ODR" rel-entity-name="OrderHeader">
@@ -529,7 +529,7 @@ under the License.
         <!-- this means we want to use TrackingCodeVisit.fromDate but not group-by it.  because of this, we cannot have fromDate as one of the fields
             of a select on this view-entity.  this means we must explicitly specify the fields to select by, and the "view all" button in webtools won't
             work.  but it is important to have this date here: it can be a condition of searches. -->
-        <alias entity-alias="TCV" name="fromDate" group-by="false"/>  
+        <alias entity-alias="TCV" name="fromDate" group-by="false"/>
         <!-- the sequence of view-links is important.  if reversed here, it means we won't see tracking codes for which there were no visits -->
         <view-link entity-alias="TC" rel-entity-alias="TCV" rel-optional="true">
             <key-map field-name="trackingCodeId"/>
@@ -591,13 +591,13 @@ under the License.
     <view-entity entity-name="MarketingCampaignAndVisit"
                  package-name="org.ofbiz.marketing.reports"
                  title="View entity for reporting number of visits for a marketing campaign.  Note that because
-         marketingCampaignId is a field of TrackingCode, this is really very similar to TrackingCodeAndVisit, 
+         marketingCampaignId is a field of TrackingCode, this is really very similar to TrackingCodeAndVisit,
          except the group-by is with marketingCampaignId instead of trackingCodeId">
         <member-entity entity-alias="TC" entity-name="TrackingCode"/>
         <member-entity entity-alias="TCV" entity-name="TrackingCodeVisit"/>
         <alias entity-alias="TC" name="marketingCampaignId" group-by="true"/>
         <alias entity-alias="TCV" name="visitId" function="count"/>
-        <alias entity-alias="TCV" name="fromDate" group-by="false"/>  
+        <alias entity-alias="TCV" name="fromDate" group-by="false"/>
         <view-link entity-alias="TC" rel-entity-alias="TCV" rel-optional="true">
             <key-map field-name="trackingCodeId"/>
         </view-link>

@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,7 +18,7 @@
     under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="CommonFeatureDecorator">
         <section>
@@ -26,7 +26,7 @@
                 <set field="leftbarScreenName" value="leftbar"/>
                 <set field="leftbarScreenLocation" value="component://product/widget/catalog/CommonScreens.xml"/>
                 <set field="MainColumnStyle" value="leftonly"/>
-    
+
                 <!--<set field="productId" from-field="parameters.productId"/>-->
                 <!--<entity-one entity-name="Product" value-field="product"/>-->
             </actions>
@@ -48,7 +48,7 @@
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.ProductCatalogViewPermissionError}</label>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -233,18 +233,18 @@
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>    
+    </screen>
     <screen name="EditFeatureInterAction">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditFeatureInterAction"/>
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureInterAction"/>
-                
+
                 <set field="productFeatureId" from-field="parameters.productFeatureId"/>
-                <set field="productFeatureIdTo" from-field="parameters.productFeatureIdTo"/>                
-                <entity-one entity-name="ProductFeatureIactn" value-field="productFeatureIactn"/>       
-                
+                <set field="productFeatureIdTo" from-field="parameters.productFeatureIdTo"/>
+                <entity-one entity-name="ProductFeatureIactn" value-field="productFeatureIactn"/>
+
             </actions>
             <widgets>
                 <decorator-screen name="CommonFeatureDecorator">
@@ -305,7 +305,7 @@
                 <set field="tabButtonItem" value="FeatureCategory"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
-                
+
                 <!--script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditFeatureCategories.groovy"/-->
             </actions>
             <widgets>
@@ -337,7 +337,7 @@
                 <set field="titleProperty" value="PageTitleEditFeatureCategoryFeatures"/>
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureCategory"/>
-    
+
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
                 <script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditFeatureCategoryFeatures.groovy"/>
@@ -359,7 +359,7 @@
                 <set field="titleProperty" value="PageTitleEditProductFeatureGroups"/>
                 <set field="headerItem" value="featurecats"/>
                 <set field="tabButtonItem" value="FeatureGroup"/>
-    
+
                 <script location="component://product/webapp/catalog/WEB-INF/actions/feature/EditFeatureGroups.groovy"/>
             </actions>
             <widgets>
@@ -380,7 +380,7 @@
                 <set field="tabButtonItem" value="FeatureGroup"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
-                
+
                 <set field="productFeatureGroupId" from-field="parameters.productFeatureGroupId"/>
                 <set field="productFeatureCategoryId" from-field="parameters.productFeatureCategoryId"/>
                 <entity-and entity-name="ProductFeatureGroupAndAppl" list="productFeatureGroupAndAppls">

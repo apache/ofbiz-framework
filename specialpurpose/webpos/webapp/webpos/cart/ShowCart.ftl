@@ -20,7 +20,7 @@ under the License.
     function toggle(e) {
         e.checked = !e.checked;
     }
-    
+
     function checkToggle(e) {
         var cform = document.cartform;
         if (e.checked) {
@@ -37,7 +37,7 @@ under the License.
             cform.selectAll.checked = false;
         }
     }
-    
+
     function toggleAll(e) {
         var cform = document.cartform;
         var len = cform.elements.length;
@@ -48,7 +48,7 @@ under the License.
             }
         }
     }
-    
+
     function removeSelected() {
         var cform = document.cartform;
         cform.removeSelected.value = true;
@@ -93,8 +93,8 @@ under the License.
                             </#if>
                             <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists>
                             <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
-                            <#if smallImageUrl?string?has_content>                              
-                                <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="left" width="50" class="imageborder" border="0"/>                              
+                            <#if smallImageUrl?string?has_content>
+                                <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="left" width="50" class="imageborder" border="0"/>
                             </#if>
                             <#-- end code to display a small image of the product -->
                             ${cartLine.getProductId()} - ${cartLine.getName()?if_exists} : ${cartLine.getDescription()?if_exists}
@@ -119,8 +119,8 @@ under the License.
                   </tr>
                   <#-- toggle the row color -->
                   <#assign alt_row = !alt_row>
-                </#list>                
+                </#list>
             </form>
-        </#if>    
+        </#if>
     </table>
 </div>

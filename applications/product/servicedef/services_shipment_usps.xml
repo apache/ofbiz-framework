@@ -18,18 +18,18 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Common Application Components Shipment Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
-    
+
     <!-- USPS Webtools API Services -->
     <service name="uspsRateInquire" engine="java"
             location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsRateInquire" auth="false">
         <implements service="calcShipmentEstimateInterface"/>
     </service>
-    
+
     <service name="uspsTrackConfirm" engine="java"
             location="org.ofbiz.shipment.thirdparty.usps.UspsServices" invoke="uspsTrackConfirm">
         <attribute name="trackingId" type="String" mode="IN" optional="false"/>

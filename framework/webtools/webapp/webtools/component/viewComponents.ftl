@@ -24,7 +24,7 @@ under the License.
       <li class="h3">${uiLabelMap.WebtoolsComponentsLoaded}</li>
     </ul>
     <br class="clear"/>
-  </div>  
+  </div>
   <#if (components?has_content)>
   <div class="screenlet-body">
     <table class="basic-table hover-bar" cellspacing="0">

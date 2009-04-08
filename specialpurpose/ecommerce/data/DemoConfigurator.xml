@@ -25,7 +25,7 @@ under the License.
     <Product productId="HD500GB_BRAND" productTypeId="FINISHED_GOOD" productName="HD500GB" internalName="HD 450 GB" description="500 GB Hard Drive" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>
     <Product productId="ETH_BRAND" productTypeId="FINISHED_GOOD" productName="Ethernet100" internalName="Ethernet Card 10/100" description="Ethernet Card 10/100" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>
     <Product productId="MOD_BRAND" productTypeId="FINISHED_GOOD" productName="Modem56k" internalName="Modem Card 56k" description="Modem Card 56k" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>
-                       
+
     <ProductPrice productId="PC001" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2004-08-20 12:55:53.223" price="50" createdDate="2004-08-20 12:55:53.223" createdByUserLogin="admin"/>
     <ProductPrice productId="RAM1GB_BRAND" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2004-08-20 12:55:53.223" price="115" createdDate="2004-08-20 12:55:53.223" createdByUserLogin="admin"/>
     <ProductPrice productId="RAM1GB_BRAND" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2004-08-20 12:55:36.479" price="120" createdDate="2004-08-20 12:55:36.479" createdByUserLogin="admin"/>
@@ -33,7 +33,7 @@ under the License.
     <ProductPrice productId="HD500GB_BRAND" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2004-08-20 12:55:36.479" price="420" createdDate="2004-08-20 12:55:36.479" createdByUserLogin="admin"/>
     <ProductPrice productId="ETH_BRAND" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2004-08-20 12:55:36.479" price="18" createdDate="2004-08-20 12:55:36.479" createdByUserLogin="admin"/>
     <ProductPrice productId="MOD_BRAND" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2004-08-20 12:55:36.479" price="15" createdDate="2004-08-20 12:55:36.479" createdByUserLogin="admin"/>
-   
+
     <ProductConfigItem configItemId="IT0000" configItemTypeId="SINGLE" configItemName="RAM (brand)" description="Select the memory configuration:"/>
     <ProductConfigItem configItemId="IT0001" configItemTypeId="SINGLE" configItemName="HD (brand)" description="Select the Hard Disk:"/>
     <ProductConfigItem configItemId="IT0002" configItemTypeId="MULTIPLE" configItemName="PCI slot" description="Select the PCI cards:"/>
@@ -44,19 +44,19 @@ under the License.
     <ProductConfigOption configItemId="IT0001" configOptionId="OP003" configOptionName="OPT002" description="HD 500 GB" sequenceNum="20"/>
     <ProductConfigOption configItemId="IT0002" configOptionId="OP004" configOptionName="OPT001" description="Ethernet Card" sequenceNum="10"/>
     <ProductConfigOption configItemId="IT0002" configOptionId="OP005" configOptionName="OPT002" description="Modem 56k" sequenceNum="20"/>
-    
+
     <ProductConfigProduct configItemId="IT0000" configOptionId="OP000" productId="RAM1GB_BRAND" quantity="1"/>
     <ProductConfigProduct configItemId="IT0000" configOptionId="OP001" productId="RAM1GB_BRAND" quantity="2"/>
     <ProductConfigProduct configItemId="IT0001" configOptionId="OP002" productId="HD250GB_BRAND" quantity="1"/>
     <ProductConfigProduct configItemId="IT0001" configOptionId="OP003" productId="HD500GB_BRAND" quantity="1"/>
     <ProductConfigProduct configItemId="IT0002" configOptionId="OP004" productId="ETH_BRAND" quantity="1"/>
     <ProductConfigProduct configItemId="IT0002" configOptionId="OP005" productId="MOD_BRAND" quantity="1"/>
-    
+
     <ProductConfig productId="PC001" configItemId="IT0000" sequenceNum="10" fromDate="2004-08-20 12:59:26.209" configTypeId="QUESTION" defaultConfigOptionId="OP001" isMandatory="Y"/>
     <ProductConfig productId="PC001" configItemId="IT0001" sequenceNum="20" fromDate="2004-08-20 12:59:26.209" description="1st Hard Disk drive" defaultConfigOptionId="OP003" configTypeId="QUESTION" isMandatory="Y"/>
     <ProductConfig productId="PC001" configItemId="IT0001" sequenceNum="30" fromDate="2004-08-20 12:59:26.209" description="2nd Hard Disk drive" configTypeId="QUESTION" isMandatory="N"/>
     <ProductConfig productId="PC001" configItemId="IT0002" sequenceNum="40" fromDate="2004-08-20 12:59:26.209" configTypeId="QUESTION" isMandatory="N"/>
-    
+
     <WorkEffort workEffortId="TASK01" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Stock out" description="Components" revisionNumber="1" fixedAssetId="DEMO_MACHINE_GROUP" estimatedMilliSeconds="600000" estimatedSetupMillis="0"/>
     <WorkEffort workEffortId="TASK02" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Assembly" description="Assembly" revisionNumber="1" fixedAssetId="DEMO_MACHINE_GROUP" estimatedMilliSeconds="900000" estimatedSetupMillis="0"/>
     <WorkEffort workEffortId="TASK03" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Test" description="Test" revisionNumber="1" fixedAssetId="DEMO_MACHINE_GROUP" estimatedMilliSeconds="450000" estimatedSetupMillis="20000"/>
@@ -71,30 +71,30 @@ under the License.
     <ProductCategoryMember productCategoryId="PROMOTIONS" productId="PC001" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="PC-100" productId="PC001" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="PC001" fromDate="2001-05-13 12:00:00.0"/>
-    
+
     <Product productId="ENCHILADAS" productTypeId="AGGREGATED" productName="Enchiladas" internalName="Enchiladas" description="Cheese enchiladas" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
-    <Product productId="FAJITA_BEEF" productTypeId="FINISHED_GOOD" productName="Fajita beef" internalName="Fajita beef" description="Fajita beef" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>    
+    <Product productId="FAJITA_BEEF" productTypeId="FINISHED_GOOD" productName="Fajita beef" internalName="Fajita beef" description="Fajita beef" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
     <Product productId="JALAPENOS" productTypeId="FINISHED_GOOD" productName="Jalapenos" internalName="Jalapenos" description="Jalapenos" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
-    
+
     <ProductPrice productId="ENCHILADAS" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2007-12-27 12:00:00.0" price="6" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
     <ProductPrice productId="FAJITA_BEEF" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2007-12-27 12:00:00.0" price="2" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
     <ProductPrice productId="FAJITA_BEEF" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2007-12-27 12:00:00.0" price="8" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
     <ProductPrice productId="JALAPENOS" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2007-12-27 12:00:00.0" price="0.75" createdDate="2007-12-27 12:00:00.0" createdByUserLogin="admin"/>
-    
+
     <ProductConfigItem configItemId="TEXMEX0000" configItemTypeId="SINGLE" configItemName="Enchiladas type" description="Select cheese or beef (default to cheese):"/>
     <ProductConfigItem configItemId="TEXMEX0001" configItemTypeId="MULTIPLE" configItemName="Peppers" description="Add jalapenos :"/>
 
     <ProductConfigOption configItemId="TEXMEX0000" configOptionId="OP010" configOptionName="OPT001" description="Cheese enchiladas" sequenceNum="10"/>
     <ProductConfigOption configItemId="TEXMEX0000" configOptionId="OP011" configOptionName="OPT002" description="Fajita beef" sequenceNum="20"/>
     <ProductConfigOption configItemId="TEXMEX0001" configOptionId="OP012" configOptionName="OPT001" description="Jalapenos" sequenceNum="10"/>
-          
+
     <ProductConfigProduct configItemId="TEXMEX0000" configOptionId="OP010" productId="ENCHILADAS" quantity="1"/>
     <ProductConfigProduct configItemId="TEXMEX0000" configOptionId="OP011" productId="FAJITA_BEEF" quantity="1"/>
     <ProductConfigProduct configItemId="TEXMEX0001" configOptionId="OP012" productId="JALAPENOS" quantity="1"/>
-    
+
     <ProductConfig productId="ENCHILADAS" configItemId="TEXMEX0000" sequenceNum="10" fromDate="2004-08-20 12:59:26.209" description="Enchiladas type" defaultConfigOptionId="OP010" configTypeId="QUESTION" isMandatory="Y"/>
     <ProductConfig productId="ENCHILADAS" configItemId="TEXMEX0001" sequenceNum="20" fromDate="2004-08-20 12:59:26.209" description="Peppers" configTypeId="QUESTION" isMandatory="N"/>
-    
+
     <WorkEffort workEffortId="TASK11" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Stock out" description="Components" revisionNumber="1" fixedAssetId="DEMO_FOOD_GROUP" estimatedMilliSeconds="600000" estimatedSetupMillis="0"/>
     <WorkEffort workEffortId="TASK12" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Assembly" description="Assembly" revisionNumber="1" fixedAssetId="DEMO_FOOD_GROUP" estimatedMilliSeconds="900000" estimatedSetupMillis="0"/>
     <WorkEffort workEffortId="TASK13" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Test" description="Test" revisionNumber="1" fixedAssetId="DEMO_FOOD_GROUP" estimatedMilliSeconds="450000" estimatedSetupMillis="20000"/>
@@ -103,22 +103,22 @@ under the License.
     <WorkEffortAssoc workEffortIdFrom="ROUT11" workEffortIdTo="TASK11" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="10" fromDate="2007-12-27 12:00:00.0"/>
     <WorkEffortAssoc workEffortIdFrom="ROUT11" workEffortIdTo="TASK12" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="20" fromDate="2007-12-27 12:00:00.0"/>
     <WorkEffortAssoc workEffortIdFrom="ROUT11" workEffortIdTo="TASK13" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="30" fromDate="2007-12-27 12:00:00.0"/>
-    
+
     <ProductCategory productCategoryId="FOOD-001" productCategoryTypeId="CATALOG_CATEGORY"/>
     <ProductCategoryRollup fromDate="2007-12-27 12:00:00.0" parentProductCategoryId="CATALOG1" productCategoryId="FOOD-001"/>
     <ProductCategoryMember productCategoryId="PROMOTIONS" productId="ENCHILADAS" fromDate="2007-12-27 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="FOOD-001" productId="ENCHILADAS" fromDate="2007-12-27 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="ENCHILADAS" fromDate="2007-12-27 12:00:00.0"/>
-    
+
     <!-- Configurable product with virtual product options example -->
     <Product productId="PIZZA" productTypeId="AGGREGATED" productName="Gold Pizza" internalName="Pizza" description="Create your own pizza" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:49:13.418" createdByUserLogin="admin"/>
     <Product productId="DOUGH" productTypeId="FINISHED_GOOD" productName="Dough" internalName="Dough" description="Dough" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>
-    <Product productId="SAUCE" productTypeId="FINISHED_GOOD" productName="Sauce" internalName="Sauce" description="Sauce" isVirtual="Y" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>    
+    <Product productId="SAUCE" productTypeId="FINISHED_GOOD" productName="Sauce" internalName="Sauce" description="Sauce" isVirtual="Y" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>
     <Product productId="SAUCE-TM" productTypeId="FINISHED_GOOD" internalName="Tomato Sauce with Mozzarella" productName="Tomato Sauce with Mozzarella" description="Tomato Sauce with Mozzarella" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
     <Product productId="SAUCE-CM" productTypeId="FINISHED_GOOD" internalName="Chili Sauce with Mozzarella" productName="Chili Sauce with Mozzarella" description="Chili Sauce with Mozzarella" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
     <Product productId="SAUCE-TP" productTypeId="FINISHED_GOOD" internalName="Tomato Sauce with Parmesan" productName="Tomato Sauce with Parmesan" description="Tomato Sauce" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
     <Product productId="SAUCE-CP" productTypeId="FINISHED_GOOD" internalName="Chili Sauce" productName="Chili Sauce with Parmesan" description="Chili Sauce with Parmesan" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
-    <Product productId="PEPPERS" productTypeId="FINISHED_GOOD" productName="Peppers" internalName="Pepper" description="Pepper" isVirtual="Y" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>    
+    <Product productId="PEPPERS" productTypeId="FINISHED_GOOD" productName="Peppers" internalName="Pepper" description="Pepper" isVirtual="Y" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>
     <Product productId="PEPPERS-G" productTypeId="FINISHED_GOOD" internalName="Green Peppers" productName="Green Peppers" description="Green Peppers" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
     <Product productId="PEPPERS-H" productTypeId="FINISHED_GOOD" internalName="Hot Peppers" productName="Hot Peppers" description="Hot Peppers" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
     <Product productId="PEPPERS-R" productTypeId="FINISHED_GOOD" internalName="Roasted Peppers" productName="Roasted Peppers" description="Roasted Peppers" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
@@ -136,11 +136,11 @@ under the License.
     <ProductFeature productFeatureId="3001" productFeatureTypeId="TYPE" productFeatureCategoryId="3000" description="Tomato" defaultSequenceNum="1"/>
     <ProductFeature productFeatureId="3002" productFeatureTypeId="TYPE" productFeatureCategoryId="3000" description="Chili" defaultSequenceNum="2"/>
     <ProductFeature productFeatureId="3003" productFeatureTypeId="OTHER_FEATURE" productFeatureCategoryId="3000" description="Mozzarella" defaultSequenceNum="3"/>
-    <ProductFeature productFeatureId="3004" productFeatureTypeId="OTHER_FEATURE" productFeatureCategoryId="3000" description="Parmesan" defaultSequenceNum="4"/>   
-    
+    <ProductFeature productFeatureId="3004" productFeatureTypeId="OTHER_FEATURE" productFeatureCategoryId="3000" description="Parmesan" defaultSequenceNum="4"/>
+
     <ProductFeature productFeatureId="3010" productFeatureTypeId="TYPE" productFeatureCategoryId="3000" description="Green" defaultSequenceNum="1"/>
     <ProductFeature productFeatureId="3011" productFeatureTypeId="TYPE" productFeatureCategoryId="3000" description="Hot" defaultSequenceNum="2"/>
-    <ProductFeature productFeatureId="3012" productFeatureTypeId="TYPE" productFeatureCategoryId="3000" description="Roasted" defaultSequenceNum="3"/>     
+    <ProductFeature productFeatureId="3012" productFeatureTypeId="TYPE" productFeatureCategoryId="3000" description="Roasted" defaultSequenceNum="3"/>
 
     <ProductFeatureAppl productId="SAUCE" productFeatureId="3001" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:50:07.796" sequenceNum="1"/>
     <ProductFeatureAppl productId="SAUCE" productFeatureId="3002" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:50:26.411" sequenceNum="2"/>
@@ -152,16 +152,16 @@ under the License.
     <ProductFeatureAppl productId="PEPPERS" productFeatureId="3012" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:50:07.796" sequenceNum="3"/>
 
     <ProductFeatureAppl productId="SAUCE-TM" productFeatureId="3001" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="1"/>
-    <ProductFeatureAppl productId="SAUCE-TM" productFeatureId="3003" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>    
+    <ProductFeatureAppl productId="SAUCE-TM" productFeatureId="3003" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>
     <ProductFeatureAppl productId="SAUCE-CM" productFeatureId="3002" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="1"/>
-    <ProductFeatureAppl productId="SAUCE-CM" productFeatureId="3003" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>    
+    <ProductFeatureAppl productId="SAUCE-CM" productFeatureId="3003" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>
     <ProductFeatureAppl productId="SAUCE-TP" productFeatureId="3001" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="1"/>
-    <ProductFeatureAppl productId="SAUCE-TP" productFeatureId="3004" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>    
+    <ProductFeatureAppl productId="SAUCE-TP" productFeatureId="3004" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>
     <ProductFeatureAppl productId="SAUCE-CP" productFeatureId="3002" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="1"/>
-    <ProductFeatureAppl productId="SAUCE-CP" productFeatureId="3004" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>    
+    <ProductFeatureAppl productId="SAUCE-CP" productFeatureId="3004" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>
 
     <ProductFeatureAppl productId="PEPPERS-G" productFeatureId="3010" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="1"/>
-    <ProductFeatureAppl productId="PEPPERS-H" productFeatureId="3011" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>    
+    <ProductFeatureAppl productId="PEPPERS-H" productFeatureId="3011" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>
     <ProductFeatureAppl productId="PEPPERS-R" productFeatureId="3012" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="3"/>
 
     <ProductPrice productId="PIZZA" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2004-08-20 12:55:53.223" price="5" createdDate="2004-08-20 12:55:53.223" createdByUserLogin="admin"/>
@@ -170,44 +170,44 @@ under the License.
     <ProductPrice productId="SAUCE" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2004-08-20 12:55:36.479" price="1.5" createdDate="2004-08-20 12:55:36.479" createdByUserLogin="admin"/>
     <ProductPrice productId="SAUCE-TM" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="SAUCE-TM" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="SAUCE-CM" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
-    <ProductPrice productId="SAUCE-CM" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
+    <ProductPrice productId="SAUCE-CM" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="SAUCE-CM" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="SAUCE-TP" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.5" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="SAUCE-TP" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.5" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="SAUCE-CP" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.5" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
-    <ProductPrice productId="SAUCE-CP" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.5" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
+    <ProductPrice productId="SAUCE-CP" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.5" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="SAUCE-CP" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.5" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="PEPPERS-G" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="PEPPERS-G" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    <ProductPrice productId="PEPPERS-H" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
-    <ProductPrice productId="PEPPERS-H" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
+    <ProductPrice productId="PEPPERS-H" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="PEPPERS-H" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="PEPPERS-R" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.5" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="PEPPERS-R" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.5" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    
+
     <ProductConfigItem configItemId="PZ0000" configItemTypeId="SINGLE" configItemName="Dough" description="Select type:"/>
     <ProductConfigItem configItemId="PZ0001" configItemTypeId="MULTIPLE" configItemName="Toppings" description="Select the Toppings:"/>
 
     <ProductConfigOption configItemId="PZ0000" configOptionId="PZOP000" configOptionName="PZOPT001" description="Small Pizza" sequenceNum="10"/>
     <ProductConfigOption configItemId="PZ0000" configOptionId="PZOP001" configOptionName="PZOPT002" description="Large Pizza" sequenceNum="20"/>
-    <ProductConfigOption configItemId="PZ0001" configOptionId="PZOP003" configOptionName="PZOPT002" description="Peppers" sequenceNum="10"/>    
+    <ProductConfigOption configItemId="PZ0001" configOptionId="PZOP003" configOptionName="PZOPT002" description="Peppers" sequenceNum="10"/>
     <ProductConfigOption configItemId="PZ0001" configOptionId="PZOP002" configOptionName="PZOPT001" description="Sauce" sequenceNum="20"/>
-    
+
     <ProductConfigProduct configItemId="PZ0000" configOptionId="PZOP000" productId="DOUGH" quantity="1"/>
     <ProductConfigProduct configItemId="PZ0000" configOptionId="PZOP001" productId="DOUGH" quantity="2"/>
     <ProductConfigProduct configItemId="PZ0001" configOptionId="PZOP003" productId="PEPPERS" quantity="1"/>
     <ProductConfigProduct configItemId="PZ0001" configOptionId="PZOP002" productId="SAUCE" quantity="1"/>
-    
+
     <ProductConfig productId="PIZZA" configItemId="PZ0000" sequenceNum="10" fromDate="2004-08-20 12:59:26.209" configTypeId="QUESTION" isMandatory="Y"/>
     <ProductConfig productId="PIZZA" configItemId="PZ0001" sequenceNum="30" fromDate="2004-08-20 12:59:26.209" configTypeId="QUESTION" isMandatory="N"/>
-    
+
     <WorkEffort workEffortId="PZTASK01" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Stock out" description="Components" revisionNumber="1" fixedAssetId="DEMO_FOOD_GROUP" estimatedMilliSeconds="600000" estimatedSetupMillis="0"/>
     <WorkEffort workEffortId="PZTASK02" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Preparation" description="Preparation" revisionNumber="1" fixedAssetId="DEMO_FOOD_GROUP" estimatedMilliSeconds="900000" estimatedSetupMillis="0"/>
     <WorkEffort workEffortId="PZROUT01" workEffortTypeId="ROUTING" currentStatusId="ROU_ACTIVE" workEffortName="Pizza preparation" description="Pizza preparation" revisionNumber="1" quantityToProduce="0"/>
     <WorkEffortGoodStandard workEffortId="PZROUT01" productId="PIZZA" workEffortGoodStdTypeId="ROU_PROD_TEMPLATE" statusId="WEGS_CREATED" fromDate="2004-09-24 15:10:14.227"/>
     <WorkEffortAssoc workEffortIdFrom="PZROUT01" workEffortIdTo="PZTASK01" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="10" fromDate="2004-09-24 15:09:38.736"/>
     <WorkEffortAssoc workEffortIdFrom="PZROUT01" workEffortIdTo="PZTASK02" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="20" fromDate="2004-09-24 15:09:47.338"/>
-    
+
     <ProductCategoryMember productCategoryId="FOOD-001" productId="PIZZA" fromDate="2004-09-24 15:09:47.338"/>
     <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="PIZZA" fromDate="2004-09-24 15:09:47.338"/>
     <ProductCategoryMember productCategoryId="PROMOTIONS" productId="PIZZA" fromDate="2004-09-24 15:09:47.338"/>
-    
+
 </entity-engine-xml>

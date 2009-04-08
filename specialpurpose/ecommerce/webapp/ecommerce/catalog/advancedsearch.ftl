@@ -99,12 +99,12 @@ under the License.
       <td><a href="javascript:document.advtokeywordsearchform.submit()" class="buttontext">${uiLabelMap.CommonFind}</a></td>
     </tr>
   </table>
-  
+
   <#if searchOptionsHistoryList?has_content>
     <hr/>
-  
+
     <h2>${uiLabelMap.OrderLastSearches}...</h2>
-  
+
     <div>
       <a href="<@ofbizUrl>clearSearchOptionsHistoryList</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderClearSearchHistory}</a>
 	  ${uiLabelMap.OrderClearSearchHistoryNote}

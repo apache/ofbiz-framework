@@ -32,10 +32,10 @@ under the License.
             }
         }
     }
-    
+
 </script>
 
-<#macro pagination>  
+<#macro pagination>
     <table class="basic-table" cellspacing='0'>
          <tr>
         <td>
@@ -79,7 +79,7 @@ under the License.
                     <input type="checkbox" name="viewrejected" value="Y" <#if state.hasStatus('viewrejected')>checked="checked"</#if> />${uiLabelMap.CommonRejected}
                     <input type="checkbox" name="viewcancelled" value="Y" <#if state.hasStatus('viewcancelled')>checked="checked"</#if> />${uiLabelMap.CommonCancelled}
                 </div>
-            </td>            
+            </td>
           </tr>
           <tr>
             <td align="right" class="label">${uiLabelMap.CommonType}</td>
@@ -91,7 +91,7 @@ under the License.
                     <input type="checkbox" name="view_PURCHASE_ORDER" value="Y" <#if state.hasType('view_PURCHASE_ORDER')>checked="checked"</#if>/>
                     ${descr_PURCHASE_ORDER}
                 </div>
-            </td>            
+            </td>
           </tr>
           <tr>
             <td align="right" class="label">${uiLabelMap.CommonFilter}</td>
@@ -146,7 +146,7 @@ under the License.
       </ul>
       <br class="clear"/>
     </div>
-    <div class="screenlet-body">      
+    <div class="screenlet-body">
         <table class="basic-table hover-bar" cellspacing='0'>
           <tr class="header-row">
             <td width="15%">${uiLabelMap.CommonDate}</td>
@@ -156,7 +156,7 @@ under the License.
             <td width="15%">${uiLabelMap.OrderOrderBillToParty}</td>
             <td width="10%">${uiLabelMap.CommonAmount}</td>
             <td width="10%">${uiLabelMap.OrderTrackingCode}</td>
-            <#if state.hasFilter('filterInventoryProblems') || state.hasFilter('filterAuthProblems') || state.hasFilter('filterPOsOpenPastTheirETA') || state.hasFilter('filterPOsWithRejectedItems') || state.hasFilter('filterPartiallyReceivedPOs')> 
+            <#if state.hasFilter('filterInventoryProblems') || state.hasFilter('filterAuthProblems') || state.hasFilter('filterPOsOpenPastTheirETA') || state.hasFilter('filterPOsWithRejectedItems') || state.hasFilter('filterPartiallyReceivedPOs')>
                 <td width="10%">${uiLabelMap.CommonStatus}</td>
                 <td width="5%">${uiLabelMap.CommonFilter}</td>
             <#else>
@@ -164,7 +164,7 @@ under the License.
             </#if>
           </tr>
           <#list orderHeaderList as orderHeader>
-            <#assign status = orderHeader.getRelatedOneCache("StatusItem")>                               
+            <#assign status = orderHeader.getRelatedOneCache("StatusItem")>
             <#assign orh = Static["org.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeader)>
             <#assign billToParty = orh.getBillToParty()?if_exists>
             <#assign billFromParty = orh.getBillFromParty()?if_exists>
@@ -187,14 +187,14 @@ under the License.
               <td><@ofbizCurrency amount=orderHeader.grandTotal isoCode=orderHeader.currencyUom/></td>
               <td>
                 <#assign trackingCodes = orderHeader.getRelated("TrackingCodeOrder")>
-                <#list trackingCodes as trackingCode>                      
+                <#list trackingCodes as trackingCode>
                     <#if trackingCode?has_content>
                         <a href="/marketing/control/FindTrackingCodeOrders?trackingCodeId=${trackingCode.trackingCodeId}&externalLoginKey=${requestAttributes.externalLoginKey?if_exists}">${trackingCode.trackingCodeId}</a><br/>
-                    </#if>                      
+                    </#if>
                 </#list>
               </td>
               <td>${orderHeader.getRelatedOneCache("StatusItem").get("description",locale)}</td>
-              <#if state.hasFilter('filterInventoryProblems') || state.hasFilter('filterAuthProblems') || state.hasFilter('filterPOsOpenPastTheirETA') || state.hasFilter('filterPOsWithRejectedItems') || state.hasFilter('filterPartiallyReceivedPOs')> 
+              <#if state.hasFilter('filterInventoryProblems') || state.hasFilter('filterAuthProblems') || state.hasFilter('filterPOsOpenPastTheirETA') || state.hasFilter('filterPOsWithRejectedItems') || state.hasFilter('filterPartiallyReceivedPOs')>
               <td>
                   <#if filterInventoryProblems.contains(orderHeader.orderId)>
                     Inv&nbsp;

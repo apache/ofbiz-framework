@@ -77,7 +77,7 @@ dojo.widget.defineWidget(
 
 	// ------------- curvyCorners OBJECT
 
-	curvyCorners: function(settings){	
+	curvyCorners: function(settings){
 
 		// Setup Globals
 		this.box             = this.domNode;
@@ -110,7 +110,7 @@ dojo.widget.defineWidget(
 
 		//dojo.debug(this.rgb2Hex(boxColour));
 		var test  = new dojo.gfx.color.Color(boxColour);
-		//dojo.debug(test.toHex()); 
+		//dojo.debug(test.toHex());
 
 		this.boxColour       = ((boxColour != "" && boxColour != "transparent")? ((boxColour.substr(0, 3) == "rgb")? this.rgb2Hex(boxColour) : boxColour) : "#ffffff");
 		this.borderColour    = ((borderColour != "" && borderColour != "transparent" && this.borderWidth > 0)? ((borderColour.substr(0, 3) == "rgb")? this.rgb2Hex(borderColour)  : borderColour) : this.boxColour);
@@ -133,7 +133,7 @@ dojo.widget.defineWidget(
 						// Only build top bar if a top corner is to be draw
 						if(this.settings.tl.enabled || this.settings.tr.enabled ) {
 							var newMainContainer = document.createElement("DIV");
-			
+
 							with(newMainContainer.style){
 								width    = "100%";
 								fontSize = "1px";
@@ -147,13 +147,13 @@ dojo.widget.defineWidget(
 								top    = 0 - topMaxRadius + "px";
 								left   = 0 - this.borderWidth + "px";
 							}
-							
+
 							this.topContainer = this.box.appendChild(newMainContainer);
 						}
 			            break;
-	
+
 			        // Bottom
-			        case 1:      
+			        case 1:
 			            // Only build bottom bar if a top corner is to be draw
 			            if(this.settings.bl.enabled || this.settings.br.enabled) {
 							var newMainContainer = document.createElement("DIV");
@@ -175,16 +175,16 @@ dojo.widget.defineWidget(
 		            break;
 			    }
 			}
-	
+
 			// Turn off current borders
 			if(this.topContainer) this.box.style.borderTopWidth = "0px";
 			if(this.bottomContainer) this.box.style.borderBottomWidth = "0px";
-	
+
 			// Create array of available corners
 			var corners = ["tr", "tl", "br", "bl"];
-		
+
 			//Loop for each corner
-	
+
 			for(var i in corners) {
 			    // Get current corner type from array
 			    var cc = corners[i];
@@ -195,12 +195,12 @@ dojo.widget.defineWidget(
 			        if(((cc == "tr" || cc == "tl") && this.topContainer != null) || ((cc == "br" || cc == "bl") && this.bottomContainer != null)) {
 						// We need to create a filler div to fill the space upto the next horzontal corner.
 						var newCorner = document.createElement("DIV");
-		
+
 						// Setup corners properties
 						newCorner.style.position = "relative";
 						newCorner.style.fontSize = "1px";
 						newCorner.style.overflow = "hidden";
-		
+
 						// Add background image?
 						if(this.backgroundImage == "") {
 							newCorner.style.backgroundColor = this.boxColour;
@@ -218,7 +218,7 @@ dojo.widget.defineWidget(
 									left         = -this.borderWidth + "px";
 								}
 							break;
-			
+
 							case "tr":
 								with(newCorner.style){
 									height      = topMaxRadius - this.borderWidth + "px";
@@ -229,7 +229,7 @@ dojo.widget.defineWidget(
 									left         = this.borderWidth + "px";
 								}
 							break;
-	
+
 							case "bl":
 								with(newCorner.style){
 									height       = botMaxRadius - this.borderWidth + "px";
@@ -239,7 +239,7 @@ dojo.widget.defineWidget(
 									left         = -this.borderWidth + "px";
 								}
 							break;
-			
+
 							case "br":
 								with(newCorner.style){
 									height       = botMaxRadius - this.borderWidth + "px";
@@ -275,10 +275,10 @@ dojo.widget.defineWidget(
 						}
 						// THE FOLLOWING BLOCK OF CODE CREATES A ROUNDED CORNER
 						// ---------------------------------------------------- TOP
-			
+
 						// Get border radius
 						var borderRadius = parseInt(this.settings[cc].radius - this.borderWidth);
-			
+
 						// Cycle the x-axis
 						for(var intx = 0, j = this.settings[cc].radius; intx < j; intx++) {
 							// Calculate the value of y1 which identifies the pixels inside the border
@@ -287,7 +287,7 @@ dojo.widget.defineWidget(
 							} else {
 								var y1 = (Math.floor(Math.sqrt(Math.pow(borderRadius, 2) - Math.pow((intx+1), 2))) - 1);
 							}
-			
+
 							// Only calculate y2 and y3 if there is a border defined
 							if(borderRadius != j) {
 								if((intx) >= borderRadius) {
@@ -295,7 +295,7 @@ dojo.widget.defineWidget(
 								} else {
 									var y2 = Math.ceil(Math.sqrt(Math.pow(borderRadius,2) - Math.pow(intx, 2)));
 								}
-			
+
 								if((intx+1) >= j) {
 									var y3 = -1;
 								} else {
@@ -312,7 +312,7 @@ dojo.widget.defineWidget(
 
 							// Draw bar on inside of the border with foreground colour
 							if(y1 > -1) this.drawPixel(intx, 0, this.boxColour, 100, (y1+1), newCorner, -1, this.settings[cc].radius);
-	
+
 							// Only draw border/foreground antialiased pixels and border if there is a border defined
 							if(borderRadius != j) {
 								// Draw aa pixels?
@@ -320,9 +320,9 @@ dojo.widget.defineWidget(
 									// Cycle the y-axis
 									for(var inty = (y1 + 1); inty < y2; inty++) {
 										// For each of the pixels that need anti aliasing between the foreground and border colour draw single pixel divs
-										if(this.backgroundImage != "") {					
+										if(this.backgroundImage != "") {
 											var borderFract = (this.pixelFraction(intx, inty, borderRadius) * 100);
-					
+
 											if (borderFract < 30) {
 												this.drawPixel(intx, inty, this.borderColour, 100, 1, newCorner, 0, this.settings[cc].radius);
 											} else {
@@ -341,7 +341,7 @@ dojo.widget.defineWidget(
 										y1 = 0;
 									}
 									this.drawPixel(intx, y2, this.borderColour, 100, (y3 - y2 + 1), newCorner, 0, this.settings[cc].radius);
-								}	
+								}
 								// Set the colour for the outside curve
 								var outsideColour = this.borderColour;
 							} else {
@@ -349,13 +349,13 @@ dojo.widget.defineWidget(
 								var outsideColour = this.boxColour;
 								var y3 = y1;
 							}
-			
+
 							// Draw aa pixels?
-							if(this.antiAlias) {		
+							if(this.antiAlias) {
 								// Cycle the y-axis and draw the anti aliased pixels on the
 								// outside of the curve
 								for(var inty = (y3 + 1); inty < y4; inty++) {
-									// For each of the pixels that need anti aliasing between 
+									// For each of the pixels that need anti aliasing between
 									//the foreground/border colour & background draw single pixel divs
 									this.drawPixel(intx, inty, outsideColour, (this.pixelFraction(intx, inty , j) * 100), 1, newCorner, ((this.borderWidth > 0)? 0 : -1), this.settings[cc].radius);
 								}
@@ -368,20 +368,20 @@ dojo.widget.defineWidget(
 			            // We now need to store the current corner in the masterConers array
 			            this.masterCorners[this.settings[cc].radius] = newCorner.cloneNode(true);
 			        }
-			
+
 					//Now we have a new corner we need to reposition all the pixels unless
 					//the current corner is the bottom right.
-			        if(cc != "br") {	
+			        if(cc != "br") {
 						// Loop through all children (pixel bars)
 						for(var t = 0, k = newCorner.childNodes.length; t < k; t++) {
 							// Get current pixel bar
 							var pixelBar = newCorner.childNodes[t];
-	
+
 							// Get current top and left properties
 							var pixelBarTop    = parseInt(pixelBar.style.top.substring(0, pixelBar.style.top.indexOf("px")));
 							var pixelBarLeft   = parseInt(pixelBar.style.left.substring(0, pixelBar.style.left.indexOf("px")));
 							var pixelBarHeight = parseInt(pixelBar.style.height.substring(0, pixelBar.style.height.indexOf("px")));
-							
+
 							// Reposition pixels
 							if(cc == "tl" || cc == "bl") {
 								pixelBar.style.left = this.settings[cc].radius -pixelBarLeft -1 + "px"; // Left
@@ -390,20 +390,20 @@ dojo.widget.defineWidget(
 								pixelBar.style.top =  this.settings[cc].radius -pixelBarHeight -pixelBarTop + "px"; // Top
 							}
 							var value;
-					
+
 							switch(cc) {
 								case "tr":
 									value = (-1 *( Math.abs((this.boxWidth - this.settings[cc].radius + this.borderWidth) + pixelBarLeft) - (Math.abs(this.settings[cc].radius -pixelBarHeight -pixelBarTop - this.borderWidth))));
 									pixelBar.style.backgroundPosition  = value + "px";
-									
+
 								break;
-				
+
 								case "tl":
 									value = (-1 *( Math.abs((this.settings[cc].radius -pixelBarLeft -1)  - this.borderWidth) - (Math.abs(this.settings[cc].radius -pixelBarHeight -pixelBarTop - this.borderWidth))));
 									pixelBar.style.backgroundPosition  = value + "px";
 
 								break;
-				
+
 								case "bl":
 									value = (-1 *( Math.abs((this.settings[cc].radius -pixelBarLeft -1) - this.borderWidth) - (Math.abs((this.boxHeight + this.settings[cc].radius + pixelBarTop) -this.borderWidth))));
 									pixelBar.style.backgroundPosition  = value + "px";
@@ -427,13 +427,13 @@ dojo.widget.defineWidget(
 							if(newCorner.style.position == "absolute") newCorner.style.right = "0px";
 							if(this.topContainer) this.topContainer.appendChild(newCorner);
 						break;
-		
+
 						case "bl":
 							if(newCorner.style.position == "absolute") newCorner.style.bottom  = "0px";
 							if(newCorner.style.position == "absolute") newCorner.style.left = "0px";
 							if(this.bottomContainer) this.bottomContainer.appendChild(newCorner);
 						break;
-						
+
 						case "br":
 							if(newCorner.style.position == "absolute") newCorner.style.bottom = "0px";
 							if(newCorner.style.position == "absolute") newCorner.style.right = "0px";
@@ -445,7 +445,7 @@ dojo.widget.defineWidget(
 			//The last thing to do is draw the rest of the filler DIVs.
 			//We only need to create a filler DIVs when two corners have
 			//diffrent radiuses in either the top or bottom container.
-	
+
 			// Find out which corner has the biiger radius and get the difference amount
 			var radiusDiff = [];
 			radiusDiff["t"] = this.settings.tl.enabled && this.settings.tr.enabled ? Math.abs(this.settings.tl.radius - this.settings.tr.radius) : 0;
@@ -477,7 +477,7 @@ dojo.widget.defineWidget(
 							}
 							this.topContainer.appendChild(newFiller);
 						break;
-	
+
 						case "tr":
 							with(newFiller.style) {
 								bottom = "0px";
@@ -551,14 +551,14 @@ dojo.widget.defineWidget(
 			// Create pixel
 			var pixel = document.createElement("DIV");
 
-			
+
 			// Section doesn't like with (pixel.style) { DEBUG?
 			pixel.style.height   = height + "px";
 			pixel.style.width    = "1px";
 			pixel.style.position = "absolute";
 			pixel.style.fontSize = "1px";
 			pixel.style.overflow = "hidden";
-			
+
 			// Dont apply background image to border pixels
 			if(image == -1 && this.backgroundImage != "") {
 				pixel.style.backgroundImage = this.backgroundImage;
@@ -566,7 +566,7 @@ dojo.widget.defineWidget(
 			} else {
 				pixel.style.backgroundColor = colour;
 			}
-			
+
 			// Set opacity if the transparency is anything other than 100
 			if (transAmount != 100) {
 				dojo.html.setOpacity(pixel, transAmount);
@@ -574,7 +574,7 @@ dojo.widget.defineWidget(
 			// Set the pixels position
 			pixel.style.top = inty + "px";
 			pixel.style.left = intx + "px";
-		
+
 			newCorner.appendChild(pixel);
 		}
 	},
@@ -583,10 +583,10 @@ dojo.widget.defineWidget(
 	//line.  Returns a number between 0 and 1
 	pixelFraction: function(x, y, r) {
 		var pixelfraction = 0;
-		
+
 		//determine the co-ordinates of the two points on the perimeter of the pixel that the
 		//circle crosses
-		
+
 		var xvalues = [];
 		var yvalues = [];
 		var point = 0;
@@ -604,7 +604,7 @@ dojo.widget.defineWidget(
 
 		// y + 1 = Top
 		var intersect = Math.sqrt((Math.pow(r,2) - Math.pow(y+1,2)));
-		
+
 		if ((intersect >= x) && (intersect < (x+1))) {
 			whatsides = whatsides + "Top";
 			xvalues[point] = intersect - x;
@@ -636,19 +636,19 @@ dojo.widget.defineWidget(
 			case "LeftRight":
 				pixelfraction = Math.min(yvalues[0],yvalues[1]) + ((Math.max(yvalues[0],yvalues[1]) - Math.min(yvalues[0],yvalues[1]))/2);
 			break;
-			
+
 			case "TopRight":
 				pixelfraction = 1-(((1-xvalues[0])*(1-yvalues[1]))/2);
 			break;
-			
+
 			case "TopBottom":
 				pixelfraction = Math.min(xvalues[0],xvalues[1]) + ((Math.max(xvalues[0],xvalues[1]) - Math.min(xvalues[0],xvalues[1]))/2);
 			break;
-			
+
 			case "LeftBottom":
 				pixelfraction = (yvalues[0]*xvalues[1])/2;
 			break;
-			
+
 			default:
 				pixelfraction = 1;
 	    }
@@ -657,15 +657,15 @@ dojo.widget.defineWidget(
 
 	// This function converts CSS rgb(x, x, x) to hexadecimal
 	rgb2Hex: function (rgbColour) {
-		try{	
+		try{
 			// Get array of RGB values
 			var rgbArray = this.rgb2Array(rgbColour);
-			
+
 			// Get RGB values
 			var red   = parseInt(rgbArray[0]);
 			var green = parseInt(rgbArray[1]);
 			var blue  = parseInt(rgbArray[2]);
-			
+
 			// Build hex colour code
 			var hexColour = "#" + this.intToHex(red) + this.intToHex(green) + this.intToHex(blue);
 		}
@@ -705,7 +705,7 @@ dojo.widget.defineWidget(
 	rgb2Array: function(rgbColour) {
 		// Remove rgb()
 		var rgbValues = rgbColour.substring(4, rgbColour.indexOf(")"));
-	
+
 		// Split RGB into array
 		var rgbArray = rgbValues.split(", ");
 		return rgbArray;

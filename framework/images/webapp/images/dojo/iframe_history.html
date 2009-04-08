@@ -35,7 +35,7 @@
 		if((window.parent != window)&&(window.parent["dojo"])){
 			//Set the page title so IE history shows up with a somewhat correct name.
 			document.title = window.parent.document.title;
-			
+
 			//Notify parent that we are loaded.
 			var pdj = window.parent.dojo;
 			if(pdj["undo"] && pdj["undo"]["browser"]){

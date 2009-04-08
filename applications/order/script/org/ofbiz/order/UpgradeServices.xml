@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="migrateOrderItemAssociation" short-description="Migrate data from OldOrderItemAssociation to OrderItemAssoc">
@@ -35,7 +35,7 @@ under the License.
             <create-value value-field="orderItemAssoc"/>
         </iterate>
     </simple-method>
-    
+
     <simple-method method-name="migrateCustRequestRole" short-description="Migrate data from OldCustRequestRole to CustRequestParty">
         <entity-condition entity-name="OldCustRequestRole" list="oldCustRequestRoles"/>
         <now-timestamp field="fromDate"/>
@@ -47,6 +47,6 @@ under the License.
             <set field="custRequestParty.fromDate" from-field="fromDate"/>
             <create-value value-field="custRequestParty"/>
         </iterate>
-    </simple-method>    
+    </simple-method>
 </simple-methods>
 

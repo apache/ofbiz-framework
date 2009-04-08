@@ -67,7 +67,7 @@ configure_ofbiz() {
 	: ofbiz_readers "$ofbiz_readers"
 	: ofbiz_import_readers "$ofbiz_import_readers"
 	: ofbiz_override_data "$ofbiz_override_data"
-	if [ "$ofbiz_readers" ]; then 
+	if [ "$ofbiz_readers" ]; then
 		if [ "$ofbiz_import_readers" ]; then
 			extra="$extra -readers=\"$ofbiz_readers\""
 		fi
@@ -161,7 +161,7 @@ start_ofbiz() {
 }
 
 . /usr/share/debconf/confmodule
-. /usr/share/dbconfig-common/dpkg/postinst 
+. /usr/share/dbconfig-common/dpkg/postinst
 dbc_generate_include=sh:/etc/ofbiz/debconf.cfg
 [ "$1" != "triggered" ] && dbc_go ofbiz "$@"
 if [ -e /etc/ofbiz/debconf.cfg ]; then

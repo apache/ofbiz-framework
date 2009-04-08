@@ -34,8 +34,8 @@ under the License.
         <fo:block>${uiLabelMap.CommonNoPostalAddress}</fo:block>
         <fo:block>${uiLabelMap.CommonFor}: ${companyName}</fo:block>
     </#if>
- 
-    <#if sendingPartyTaxId?exists || phone?exists || email?exists || website?exists || eftAccount?exists> 
+
+    <#if sendingPartyTaxId?exists || phone?exists || email?exists || website?exists || eftAccount?exists>
     <fo:list-block provisional-distance-between-starts="1in">
         <#if sendingPartyTaxId?exists>
         <fo:list-item>

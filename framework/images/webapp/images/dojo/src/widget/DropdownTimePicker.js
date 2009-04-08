@@ -25,28 +25,28 @@ dojo.widget.defineWidget(
 	dojo.widget.DropdownContainer,
 	{
 		/*
-		summary: 
+		summary:
 			A form input for entering times with a pop-up dojo.widget.TimePicker to aid in selection
-		
-			description: 
+
+			description:
 				This is TimePicker in a DropdownContainer, it supports all features of TimeePicker.
-		
-				It is possible to customize the user-visible formatting with either the formatLength or 
-				displayFormat attributes.  The value sent to the server is typically a locale-independent 
-				value in a hidden field as defined by the name attribute. RFC3339 representation is used 
+
+				It is possible to customize the user-visible formatting with either the formatLength or
+				displayFormat attributes.  The value sent to the server is typically a locale-independent
+				value in a hidden field as defined by the name attribute. RFC3339 representation is used
 				by default, but other options are available with saveFormat.
-		
-			usage: 
-				var dtp = dojo.widget.createWidget("DropdownTimePicker", {},   
-				dojo.byId("DropdownTimePickerNode")); 
-		 	 
+
+			usage:
+				var dtp = dojo.widget.createWidget("DropdownTimePicker", {},
+				dojo.byId("DropdownTimePickerNode"));
+
 				<input dojoType="DropdownTimePicker">
 		*/
 
 		// iconURL: URL
 		//	path of icon for button to display time picker widget
 		iconURL: dojo.uri.dojoUri("src/widget/templates/images/timeIcon.gif"),
-		
+
 		// formatLength: String
 		//	Type of formatting used for visual display, appropriate to locale (choice of long, short, medium or full)
 		//	See dojo.date.format for details.
@@ -124,12 +124,12 @@ dojo.widget.defineWidget(
 				orig = c.join(":");
 				value = dojo.date.fromRfc3339(d + "T" + orig);
 			}
-			
+
 			var tpArgs = { widgetContainerId: this.widgetId, lang: this.lang, value: value };
 			this.timePicker = dojo.widget.createWidget("TimePicker", tpArgs, this.containerNode, "child");
-			
+
 			dojo.event.connect(this.timePicker, "onValueChanged", this, "_updateText");
-			
+
 			if(this.value){
 				this._updateText();
 			}
@@ -137,7 +137,7 @@ dojo.widget.defineWidget(
 			this.containerNode.explodeClassName = "timeContainer";
 			this.valueNode.name = this.name;
 		},
-		
+
 		getValue: function(){
 			// summary: return current time in time-only portion of RFC 3339 format
 			return this.valueNode.value; /*String*/
@@ -172,7 +172,7 @@ dojo.widget.defineWidget(
 			this.timePicker.setTime(value);
 			this._syncValueNode();
 		},
-	
+
 		_updateText: function(){
 			// summary: updates the <input> field according to the current value (ie, displays the formatted date)
 			if(this.timePicker.selectedTime.anyTime){
@@ -193,7 +193,7 @@ dojo.widget.defineWidget(
 		onValueChanged: function(/*Date*/dateObj){
 			// summary: triggered when this.value is changed
 		},
-		
+
 		onInputChange: function(){
 			// summary: callback when user manually types a time into the <input> field
 			if(this.dateFormat){
@@ -203,7 +203,7 @@ dojo.widget.defineWidget(
 				var input = dojo.string.trim(this.inputNode.value);
 				if(input){
 					var inputTime = dojo.date.parse(input,
-							{formatLength:this.formatLength, timePattern:this.displayFormat, selector:'timeOnly', locale:this.lang});			
+							{formatLength:this.formatLength, timePattern:this.displayFormat, selector:'timeOnly', locale:this.lang});
 					if(inputTime){
 						this.setTime(inputTime);
 					}
@@ -233,7 +233,7 @@ dojo.widget.defineWidget(
 			}
 			this.valueNode.value = value;
 		},
-		
+
 		destroy: function(/*Boolean*/finalize){
 			this.timePicker.destroy(finalize);
 			dojo.widget.DropdownTimePicker.superclass.destroy.apply(this, arguments);

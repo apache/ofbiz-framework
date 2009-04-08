@@ -35,7 +35,7 @@ under the License.
         <fo:static-content flow-name="xsl-region-before">
             <fo:block line-height="10pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
 
-                      Doc.G   
+                      Doc.G
 
             </fo:block>
         </fo:static-content>
@@ -127,7 +127,7 @@ under the License.
 <fo:table-column column-width="1.50cm"/>
 <fo:table-column column-width="1.50cm"/>
 <fo:table-column column-width="6.00cm"/>
-<!-- 
+<!--
 <fo:table-column column-width="4.00cm"/>
 -->
 <fo:table-body>
@@ -168,7 +168,7 @@ under the License.
                     ${uiLabelMap.ManufacturingReleasedNote}
             </fo:block>
         </fo:table-cell>
--->        
+-->
     </fo:table-row>
 
     <#assign row = 0>
@@ -202,7 +202,7 @@ under the License.
         </fo:table-cell>
         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
             <fo:block line-height="12pt" font-size="10pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="end">
-               
+
             </fo:block>
         </fo:table-cell>
 <!--

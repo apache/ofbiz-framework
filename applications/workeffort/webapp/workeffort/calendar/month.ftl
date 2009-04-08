@@ -37,9 +37,9 @@ height: auto;
     </ul>
     <br class="clear"/>
   </div>
-<#if periods?has_content> 
-<table cellspacing="0" class="basic-table calendar">              
-  <tr class="header-row">             
+<#if periods?has_content>
+<table cellspacing="0" class="basic-table calendar">
+  <tr class="header-row">
     <td width="1%">&nbsp;</td>
     <#list periods as day>
       <td>${day.start?date?string("EEEE")?cap_first}</td>
@@ -76,8 +76,8 @@ height: auto;
         <br/>
       </#list>
     </td>
-  
-<#--  
+
+<#--
     <td valign="top">
       <table width="100%" cellspacing="0" cellpadding="0" border="0">
         <tr>
@@ -115,6 +115,6 @@ height: auto;
   </#list>
 </table>
 
-<#else> 
+<#else>
   <div class="screenlet-body">${uiLabelMap.WorkEffortFailedCalendarEntries}!</div>
 </#if>

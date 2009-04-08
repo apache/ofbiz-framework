@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<service-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<service-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-config.xsd">
 
     <service-engine name="default">
@@ -71,7 +71,7 @@ under the License.
         <!-- default notification group for all services loaded with 'main' loader
              - uncomment this to enable error notification for all services
              - (default.fail.main, default.success.main can also be defined
-                     
+
         <notification-group name="default.error.main">
             <notification subject="Service Error ${model.serviceName}"
                           screen="component://content/widget/EmailScreens.xml#ServiceNotification"/>
@@ -79,7 +79,7 @@ under the License.
             <notify type="to">error@test.com</notify>
         </notification-group>
         -->
-        
+
         <!-- Start-Up Services -->
         <!--
            - runtime-data-id refers to the RuntimeData entity for in-parameters

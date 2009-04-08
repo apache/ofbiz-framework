@@ -1,5 +1,5 @@
 //	Copyright (c) 2004 Friendster Inc., Licensed under the Academic Free
-//	License version 2.0 or later 
+//	License version 2.0 or later
 
 dojo.require("dojo.event.*");
 dojo.require("dojo.io.BrowserIO");
@@ -128,7 +128,7 @@ dojo.io.repubsub = new function(){
 	}
 
 	if(!this["tunnelURI"]){
-		this.tunnelURI = [	"/who/", escape(this.userid), "/s/", 
+		this.tunnelURI = [	"/who/", escape(this.userid), "/s/",
 							this.getRandStr(), "/kn_journal"].join("");
 		// this.tunnelURI = this.absoluteTopicURI(this.tunnelURI);
 	}
@@ -256,7 +256,7 @@ dojo.io.repubsub = new function(){
 			this.setCookie( [
 					[this.tunnelFrameKey,"closed"],
 					["path","/"]
-				], false 
+				], false
 			);
 		}
 	}
@@ -289,15 +289,15 @@ dojo.io.repubsub = new function(){
 	this.rcvNodeReady = function(){
 		// FIXME: why is this sequence number needed? Why isn't the UID gen
 		// 		  function enough?
-        var statusURI = [this.tunnelURI, '/kn_status/', this.getRandStr(), '_', 
-						 String(this.tunnelInitCount++)].join(""); 
+        var statusURI = [this.tunnelURI, '/kn_status/', this.getRandStr(), '_',
+						 String(this.tunnelInitCount++)].join("");
             // (kn._seqNum++); // FIXME: !!!!
 		// this.canRcv = true;
 		this.log("rcvNodeReady");
 		// FIXME: initialize receiver and request the base topic
 		// dojo.io.setIFrameSrc(this.rcvNode, this.serverBaseURL+"/kn?do_method=blank");
 		var initURIArr = [	this.serverBaseURL, "/kn?kn_from=", escape(this.tunnelURI),
-							"&kn_id=", escape(this.tunnelID), "&kn_status_from=", 
+							"&kn_id=", escape(this.tunnelID), "&kn_status_from=",
 							escape(statusURI)];
 		// FIXME: does the above really need a kn_response_flush? won't the
 		// 		  server already know? If not, what good is it anyway?
@@ -349,7 +349,7 @@ dojo.io.repubsub = new function(){
 		}
 	}
 
-	this.subscribe = function(	topic /* kn_from in the old terminilogy */, 
+	this.subscribe = function(	topic /* kn_from in the old terminilogy */,
 								toObj, toFunc, dontTellServer){
 		if(!this.isInitialized){
 			this.subscriptionBacklog.push([topic, toObj, toFunc, dontTellServer]);
@@ -364,9 +364,9 @@ dojo.io.repubsub = new function(){
 		var rstr = [this.serverBaseURL+"/kn", revt.toGetString()].join("");
 		dojo.event.kwConnect({
 			once: true,
-			srcObj: this.attachPathList, 
-			srcFunc: topic, 
-			adviceObj: toObj, 
+			srcObj: this.attachPathList,
+			srcFunc: topic,
+			adviceObj: toObj,
 			adviceFunc: toFunc
 		});
 		// NOTE: the above is a local mapping, if we're not the leader, we
@@ -397,12 +397,12 @@ dojo.io.repubsub = new function(){
 	this.unSubscribe = function(topic, toObj, toFunc){
 		// first, locally disconnect
 		dojo.event.kwDisconnect({
-			srcObj: this.attachPathList, 
-			srcFunc: topic, 
-			adviceObj: toObj, 
+			srcObj: this.attachPathList,
+			srcFunc: topic,
+			adviceObj: toObj,
 			adviceFunc: toFunc
 		});
-		
+
 		// FIXME: figure out if there are any remaining listeners to the topic,
 		// 		  and if not, inform the server of our desire not to be
 		// 		  notified of updates to the topic
@@ -459,7 +459,7 @@ dojo.io.repubsubEvent = function(to, from, method, id, routeURI, payload, dispna
 	this.flushChars = 4096;
 
 	this.initFromProperties = function(evt){
-		if(evt.constructor = dojo.io.repubsubEvent){ 
+		if(evt.constructor = dojo.io.repubsubEvent){
 			for(var x in evt){
 				this[x] = evt[x];
 			}
@@ -491,11 +491,11 @@ dojo.io.repubsubEvent = function(to, from, method, id, routeURI, payload, dispna
 
 }
 
-dojo.io.repubsubEvent.prototype.properties = [["from", "kn_from"], ["to", "kn_to"], 
-									["method", "do_method"], ["id", "kn_id"], 
-									["uri", "kn_uri"], 
-									["displayname", "kn_displayname"], 
-									["userid", "kn_userid"], 
+dojo.io.repubsubEvent.prototype.properties = [["from", "kn_from"], ["to", "kn_to"],
+									["method", "do_method"], ["id", "kn_id"],
+									["uri", "kn_uri"],
+									["displayname", "kn_displayname"],
+									["userid", "kn_userid"],
 									["payload", "kn_payload"],
 									["flushChars", "kn_response_flush"],
 									["responseFormat", "kn_response_format"] ];

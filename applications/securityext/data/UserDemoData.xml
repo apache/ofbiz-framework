@@ -36,7 +36,7 @@ under the License.
     <ContactMech contactMechId="admin" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="admin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
     <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_EMAIL" partyId="admin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0"/>
-    
+
     <!-- Party for System UserLogin Account - just in case logic depends on it -->
     <Party partyId="system" partyTypeId="PERSON"/>
     <Person partyId="system" firstName="System" lastName="Account"/>
@@ -77,6 +77,6 @@ under the License.
     <UserLoginSecurityGroup groupId="FLEXADMIN" userLoginId="flexadmin" fromDate="2001-01-01 12:00:00.0"/>
     <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="demoadmin" fromDate="2001-01-01 12:00:00.0"/>
     <UserLoginSecurityGroup groupId="VIEWADMIN" userLoginId="ltdadmin" fromDate="2001-01-01 12:00:00.0"/>
-    <UserLoginSecurityGroup groupId="BIZADMIN" userLoginId="bizadmin" fromDate="2001-01-01 12:00:00.0"/>   
-    
+    <UserLoginSecurityGroup groupId="BIZADMIN" userLoginId="bizadmin" fromDate="2001-01-01 12:00:00.0"/>
+
 </entity-engine-xml>

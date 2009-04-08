@@ -23,14 +23,14 @@ under the License.
     <!-- Note: if you set require pin code to N, then you can set validate GC FinAcct to Y -->
     <ProductStoreFinActSetting productStoreId="9000" finAccountTypeId="GIFTCERT_ACCOUNT" requirePinCode="N" validateGCFinAcct="Y"
         purchaseSurveyId="1000" purchSurveySendTo="recipientEmail" purchSurveyCopyMe="copyMe" accountCodeLength="12" pinCodeLength="4" accountValidDays="365" authValidDays="30"/>
-    
+
     <!-- service for purchasing gift certificate configured as a Content and to be associated with products -->
     <Content contentId="GC_PURCHASE" serviceName="ofbGcPurchase"/>
-    
+
     <!-- associate gift certificate purchase fulfillment services with products.  virtual products ok.  MUST be async fulfillment -
         synchronous fulfillment can cause database lock problems -->
-    <ProductContent productId="GC-001" contentId="GC_PURCHASE" productContentTypeId="FULFILLMENT_EXTASYNC" fromDate="2000-01-01 00:00:00"/>    
-        
+    <ProductContent productId="GC-001" contentId="GC_PURCHASE" productContentTypeId="FULFILLMENT_EXTASYNC" fromDate="2000-01-01 00:00:00"/>
+
     <!-- payment settings for gift certificates.  the idea is that you re-configure this store's GIFT_CARD settings to use the gift certificate services,
         rather than the gift card services. -->
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="ofbGcAuthorize"/>
@@ -38,6 +38,6 @@ under the License.
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="ofbGcProcessor"/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentService="ofbGcAuthorize"/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="ofbGcRefund"/>
-    
-        
+
+
 </entity-engine-xml>

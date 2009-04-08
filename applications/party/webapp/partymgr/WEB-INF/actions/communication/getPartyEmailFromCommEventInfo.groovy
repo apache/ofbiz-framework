@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -34,8 +34,8 @@ int startName = communicationEvent.note.indexOf(nameString) + nameString.length(
 int endName = communicationEvent.note.indexOf(";", startName);
 name = communicationEvent.note.substring(startName, endName);
 if (name) {
-    counter = 0; 
-    lastBlank = 0; 
+    counter = 0;
+    lastBlank = 0;
     List names = FastList.newInstance();
     while ((nextBlank = name.indexOf(" ", lastBlank)) != -1) {
         names.add(name.substring(lastBlank, nextBlank));

@@ -18,19 +18,19 @@ under the License.
 -->
 <script language="JavaScript" type="text/javascript">
 function toggle(e) {
-    e.checked = !e.checked;    
+    e.checked = !e.checked;
 }
 function checkToggle(e) {
     var cform = document.cartform;
-    if (e.checked) {      
+    if (e.checked) {
         var len = cform.elements.length;
         var allchecked = true;
         for (var i = 0; i < len; i++) {
             var element = cform.elements[i];
-            if (element.name == "selectedItem" && !element.checked) {              
+            if (element.name == "selectedItem" && !element.checked) {
                 allchecked = false;
             }
-            cform.selectAll.checked = allchecked;            
+            cform.selectAll.checked = allchecked;
         }
     } else {
         cform.selectAll.checked = false;
@@ -40,11 +40,11 @@ function toggleAll() {
     var cform = document.cartform;
     var len = cform.elements.length;
     for (var i = 0; i < len; i++) {
-        var e = cform.elements[i];   
+        var e = cform.elements[i];
         if (e.name == "selectedItem") {
             toggle(e);
         }
-    }   
+    }
 }
 function removeSelected() {
     var cform = document.cartform;

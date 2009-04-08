@@ -59,7 +59,7 @@ under the License.
         <#if requestParameters.category_id?exists><input type='hidden' name='category_id' value='${requestParameters.category_id}'/></#if>
         <#if requestParameters.VIEW_INDEX?exists><input type='hidden' name='VIEW_INDEX' value='${requestParameters.VIEW_INDEX}'/></#if>
         <#if requestParameters.SEARCH_STRING?exists><input type='hidden' name='SEARCH_STRING' value='${requestParameters.SEARCH_STRING}'/></#if>
-        <#if requestParameters.SEARCH_CATEGORY_ID?exists><input type='hidden' name='SEARCH_CATEGORY_ID' value='${requestParameters.SEARCH_CATEGORY_ID}'/></#if>                                     
+        <#if requestParameters.SEARCH_CATEGORY_ID?exists><input type='hidden' name='SEARCH_CATEGORY_ID' value='${requestParameters.SEARCH_CATEGORY_ID}'/></#if>
         <a href="javascript:document.thecategoryform.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.ProductAddProductsUsingDefaultQuantities}</span></a>
       </form>
     </#if>
@@ -82,7 +82,7 @@ under the License.
 </#if>
 
 <#if productCategoryLinkScreen?has_content && productCategoryLinks?has_content>
-    <div class="productcategorylink-container">        
+    <div class="productcategorylink-container">
         <#list productCategoryLinks as productCategoryLink>
             ${setRequestAttribute("productCategoryLink",productCategoryLink)}
             ${screens.render(productCategoryLinkScreen)}

@@ -20,7 +20,7 @@ under the License.
 
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    
+
     <screen name="PayCash">
         <section>
             <actions>
@@ -35,7 +35,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="PayCheck">
         <section>
             <actions>
@@ -50,7 +50,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="PayGiftCard">
         <section>
             <actions>
@@ -65,7 +65,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="PayCreditCard">
         <section>
             <actions>
@@ -80,7 +80,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ClearPayment">
         <section>
             <actions>
@@ -96,7 +96,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="PaySetRef">
         <section>
             <actions>

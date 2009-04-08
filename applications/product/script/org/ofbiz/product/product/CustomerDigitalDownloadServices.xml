@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createCustomerDigitalDownloadProduct" short-description="createCustomerDigitalDownloadProduct">
         <now-timestamp field="nowTimestamp"/>
@@ -42,7 +42,7 @@ under the License.
         <set field="createProductPriceMap.fromDate" from-field="nowTimestamp"/>
         <set field="createProductPriceMap.price" from-field="parameters.price"/>
         <create-value value-field="createProductPriceMap"/>
-        
+
         <make-value value-field="createProductSupplierMap" entity-name="SupplierProduct"/>
         <set field="createProductSupplierMap.productId" from-field="productId"/>
         <set field="createProductSupplierMap.partyId" from-field="userLogin.partyId"/>
@@ -55,7 +55,7 @@ under the License.
         <field-to-result field="createProductSupplierMap.currencyUomId" result-name="currencyUomId"/>
         <field-to-result field="createProductSupplierMap.minimumOrderQuantity" result-name="minimumOrderQuantity"/>
         <field-to-result field="createProductSupplierMap.availableFromDate" result-name="availableFromDate"/>
-        
+
         <!-- create association with ProductStore.digProdUploadCategoryId -->
         <entity-one entity-name="ProductStore" value-field="productStore"/>
         <if-not-empty field="productStore.digProdUploadCategoryId">
@@ -71,7 +71,7 @@ under the License.
         <!-- make sure SupplierProduct exists for userLogin.partyId -->
         <set field="parameters.partyId" from-field="userLogin.partyId"/>
         <entity-one entity-name="SupplierProduct" value-field="supplierProduct"/>
-        
+
         <if-empty field="supplierProduct">
             <add-error><fail-message message="Cannot update this Product: you are not associated with it as the Supplier"/></add-error>
         </if-empty>
@@ -93,7 +93,7 @@ under the License.
             </then>
         </if>
 
-        <!-- update price -->        
+        <!-- update price -->
         <if-not-empty field="parameters.price">
             <entity-and entity-name="ProductPrice" list="productPriceList">
                 <field-map field-name="productId" from-field="parameters.productId"/>
@@ -115,18 +115,18 @@ under the License.
             <field-map field-name="productId" from-field="parameters.productId"/>
             <field-map field-name="partyId" from-field="userLogin.partyId"/>
         </entity-and>
-        
+
         <if-empty field="supplierProductList">
             <add-error><fail-message message="Cannot update this Product: you are not associated with it as a Supplier"/></add-error>
         </if-empty>
         <check-errors/>
-        
+
         <!-- keep the product around, just expire SupplierProduct and ProductCategoryMember records -->
         <iterate entry="supplierProduct" list="supplierProductList">
             <set field="supplierProduct.availableThruDate" from-field="nowTimestamp"/>
             <store-value value-field="supplierProduct"/>
         </iterate>
-        
+
         <entity-and entity-name="ProductCategoryMember" list="productCategoryMemberList">
             <field-map field-name="productId"/>
         </entity-and>
@@ -138,7 +138,7 @@ under the License.
 
     <simple-method method-name="addCustomerDigitalDownloadProductFile" short-description="addCustomerDigitalDownloadProductFile">
         <now-timestamp field="nowTimestamp"/>
-        
+
         <!-- make sure SupplierProduct exists for userLogin.partyId -->
         <entity-and entity-name="SupplierProduct" list="supplierProductList">
             <field-map field-name="productId" from-field="parameters.productId"/>
@@ -147,7 +147,7 @@ under the License.
         <if-empty field="supplierProductList">
             <add-error><fail-message message="Cannot update this Product: you are not associated with it as a Supplier"/></add-error>
         </if-empty>
-        
+
         <!-- make sure there is a ContentRole for userLogin.partyId and parameters.contentId and roleTypeId=OWNER -->
         <entity-and entity-name="ContentRole" list="contentRoleList">
             <field-map field-name="partyId" from-field="userLogin.partyId"/>
@@ -157,9 +157,9 @@ under the License.
         <if-empty field="contentRoleList">
             <add-error><fail-message message="Cannot add this Content: you are not associated with it as an Owner"/></add-error>
         </if-empty>
-        
+
         <check-errors/>
-        
+
         <make-value value-field="productContent" entity-name="ProductContent"/>
         <set field="productContent.productId" from-field="parameters.productId"/>
         <set field="productContent.contentId" from-field="parameters.contentId"/>
@@ -169,18 +169,18 @@ under the License.
     </simple-method>
     <simple-method method-name="removeCustomerDigitalDownloadProductFile" short-description="removeCustomerDigitalDownloadProductFile">
         <now-timestamp field="nowTimestamp"/>
-        
+
         <!-- make sure SupplierProduct exists for userLogin.partyId -->
         <entity-and entity-name="SupplierProduct" list="supplierProductList">
             <field-map field-name="productId" from-field="parameters.productId"/>
             <field-map field-name="partyId" from-field="userLogin.partyId"/>
         </entity-and>
-        
+
         <if-empty field="supplierProductList">
             <add-error><fail-message message="Cannot update this Product: you are not associated with it as a Supplier"/></add-error>
         </if-empty>
         <check-errors/>
-        
+
         <entity-one entity-name="ProductContent" value-field="productContent"/>
         <set field="productContent.thruDate" from-field="nowTimestamp"/>
         <store-value value-field="productContent"/>

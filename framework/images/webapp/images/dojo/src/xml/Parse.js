@@ -20,7 +20,7 @@ dojo.xml.Parse = function(){
 	// summary:
 	//		generic class for taking a DOM node and parsing it into an object
 	//		based on the "dojo tag name" of that node.
-	// 
+	//
 	//		supported dojoTagName's:
 	//			<prefix:tag> => prefix:tag
 	//			<dojo:tag> => dojo:tag
@@ -28,7 +28,7 @@ dojo.xml.Parse = function(){
 	//			<tag dojoType="type"> => dojo:type
 	//			<tag dojoType="prefix:type"> => prefix:type
 	//			<tag dojo:type="type"> => dojo:type
-	//			<tag class="classa dojo-type classb"> => dojo:type	
+	//			<tag class="classa dojo-type classb"> => dojo:type
 
 	var isIE = ((dojo.render.html.capable)&&(dojo.render.html.ie));
 
@@ -90,12 +90,12 @@ dojo.xml.Parse = function(){
 		try{
 			// FIXME: IE really really doesn't like this, so we squelch errors for it
 			djt = node.getAttribute("dojo:type");
-		}catch(e){ 
-			// FIXME: log?  
+		}catch(e){
+			// FIXME: log?
 		}
 		if(djt){ return "dojo:"+djt.toLowerCase(); }
-		// <tag class="classa dojo-type classb"> => dojo:type	
-		if((dj_global["djConfig"])&&(!djConfig["ignoreClassNames"])){ 
+		// <tag class="classa dojo-type classb"> => dojo:type
+		if((dj_global["djConfig"])&&(!djConfig["ignoreClassNames"])){
 			// FIXME: should we make this optionally enabled via djConfig?
 			var classes = node.className||node.getAttribute("class");
 			// FIXME: following line, without check for existence of classes.indexOf
@@ -104,7 +104,7 @@ dojo.xml.Parse = function(){
 				var aclasses = classes.split(" ");
 				for(var x=0, c=aclasses.length; x<c; x++){
 					if(aclasses[x].slice(0, 5) == "dojo-"){
-						return "dojo:"+aclasses[x].substr(5).toLowerCase(); 
+						return "dojo:"+aclasses[x].substr(5).toLowerCase();
 					}
 				}
 			}
@@ -115,8 +115,8 @@ dojo.xml.Parse = function(){
 
 
 	this.parseElement = function(	/*DomNode*/node,
-									/*Boolean*/hasParentNodeSet, 
-									/*Boolean*/optimizeForDojoML, 
+									/*Boolean*/hasParentNodeSet,
+									/*Boolean*/optimizeForDojoML,
 									/*Integer*/thisIdx	){
 		// summary:
 		//		recursively parse the passed node, returning a normalized data
@@ -146,7 +146,7 @@ dojo.xml.Parse = function(){
 			}
 		}catch(e){/*continue*/}
 
-		
+
 		// look for a dojoml qualified name
 		// process dojoml only when optimizeForDojoML is true
 		var process = true;
@@ -173,7 +173,7 @@ dojo.xml.Parse = function(){
 					parsedNodeSet[tagName][attr] = [];
 				}
 				parsedNodeSet[tagName][attr].push(attributeSet[attr]);
-			}	
+			}
 			// FIXME: we might want to make this optional or provide cloning instead of
 			// referencing, but for now, we include a node reference to allow
 			// instantiated components to figure out their "roots"
@@ -215,7 +215,7 @@ dojo.xml.Parse = function(){
 					break;
 				case  dojo.dom.PROCESSING_INSTRUCTION_NODE: // processing instruction node... not meaningful here
 					break;
-				case  dojo.dom.COMMENT_NODE: // comment node... not not sure if this would ever be meaningful 
+				case  dojo.dom.COMMENT_NODE: // comment node... not not sure if this would ever be meaningful
 					break;
 				case  dojo.dom.DOCUMENT_NODE: // document node... not sure if this would ever be meaningful
 					break;
@@ -242,7 +242,7 @@ dojo.xml.Parse = function(){
 		// 		representation of a DOM node.
 		// usage:
 		//		a node with the following serialization:
-		//			<div foo="bar" baz="thud">...</div>	
+		//			<div foo="bar" baz="thud">...</div>
 		//		would yeild the following return structure when passed into this
 		//		function:
 		//			{
@@ -265,16 +265,16 @@ dojo.xml.Parse = function(){
 				if((typeof attnode == "object")&&
 					(typeof attnode.nodeValue == 'undefined')||
 					(attnode.nodeValue == null)||
-					(attnode.nodeValue == '')){ 
-					continue; 
+					(attnode.nodeValue == '')){
+					continue;
 				}
 			}
 
 			var nn = attnode.nodeName.split(":");
 			nn = (nn.length == 2) ? nn[1] : attnode.nodeName;
-						
-			parsedAttributeSet[nn] = { 
-				value: attnode.nodeValue 
+
+			parsedAttributeSet[nn] = {
+				value: attnode.nodeValue
 			};
 		}
 		return parsedAttributeSet;

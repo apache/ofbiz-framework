@@ -22,25 +22,25 @@ dojo.widget.defineWidget(
 	saveOnBlur: true, // blur or new edit saves current
 	sync: false,  // finish editing in sync/async mode
 	selectOnOpen: true,
-	
+
 	controller: null,
-		
+
 	node: null,
-	
+
 	richTextParams: {styleSheets: 'src/widget/templates/TreeEditor.css'},
 
 	getContents: function() {
 		return this.richText.getEditorContent();
 	},
-	
+
 	open: function(node) {
-		
+
 		if (!this.richText) {
 			this.richText = dojo.widget.createWidget("RichText", this.richTextParams, node.labelNode);
 
 			dojo.event.connect("around", this.richText, "onKeyDown", this, "richText_onKeyDown" );
 			dojo.event.connect(this.richText, "onBlur", this, "richText_onBlur" );
-			
+
 			var self = this;
 			dojo.event.connect(this.richText, "onLoad", function(){
 				if (self.selectOnOpen) {
@@ -50,44 +50,44 @@ dojo.widget.defineWidget(
 		} else {
 			this.richText.open(node.labelNode);
 		}
-		
-		this.node = node;		
+
+		this.node = node;
 	},
-	
+
 	close: function(save) {
-		
+
 		this.richText.close(save);
-		
-		
-		this.node = null;	
+
+
+		this.node = null;
 	},
-	
+
 	isClosed: function() {
 		return !this.richText || this.richText.isClosed;
 	},
-	
+
 	execCommand: function() {
 		this.richText.execCommand.apply(this.richText, arguments);
 	},
-	
+
 	richText_onKeyDown: function(invocation) {
 		var e = invocation.args[0];
 		if((!e)&&(this.object)) {
 			e = dojo.event.browser.fixEvent(this.editor.window.event);
 		}
-		
+
 		switch (e.keyCode) {
 			case e.KEY_ESCAPE:
 				this.finish(false);
-				dojo.event.browser.stopEvent(e);		
+				dojo.event.browser.stopEvent(e);
 				break;
 			case e.KEY_ENTER:
 				if( e.ctrlKey && !this.singleLineMode ) {
 					this.execCommand( "inserthtml", "<br/>" );
-							
+
 				}
 				else {
-					this.finish(true);					
+					this.finish(true);
 					//dojo.debug("finish");
 				}
 				dojo.event.browser.stopEvent(e);
@@ -96,16 +96,16 @@ dojo.widget.defineWidget(
 				return invocation.proceed();
 		}
 	},
-	
+
 	richText_onBlur: function() {
 		this.finish(this.saveOnBlur);
 	},
-	
-	
+
+
 	finish: function(save) {
 		return this.controller.editLabelFinish(save, this.sync);
 	}
-		
-		
-	
+
+
+
 });

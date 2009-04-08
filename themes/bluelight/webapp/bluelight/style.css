@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -788,7 +788,7 @@ DIV.widget-container {
     margin-bottom: 2em;
 }
 
-/* ===== New Styles ===== */ 
+/* ===== New Styles ===== */
 /* ================================ */
 /* ===== Used to clear floats ===== */
 /* ================================ */
@@ -821,10 +821,10 @@ in contained elements. */
     display: none;
 }
 
-.label { 
+.label {
     /* Used for <input> element labels */
     font-weight: bold;
-    height: 1.2em; 
+    height: 1.2em;
     /* Same as <input> height */
     padding-right: 1.1em;
     text-align: right;
@@ -832,7 +832,7 @@ in contained elements. */
     width: 1%;
 }
 
-.required,input.required { 
+.required,input.required {
     /* required style for <input> elements */
     background-color: #eeeeee;
 }
@@ -942,7 +942,7 @@ in contained elements. */
     padding: 0.4em;
 }
 
-#masthead ul .logo-area { 
+#masthead ul .logo-area {
     /* placeholder */
 }
 
@@ -1030,7 +1030,7 @@ padding-bottom: 1em;
 /* ===== Secondary Navigation (App Menu) Styles ========== */
 /* ======================================================= */
 #secondary-navigation {
-    
+
 }
 
 #secondary-navigation a {
@@ -1215,7 +1215,7 @@ color:#999999;
 }
 
 .screenlet-title-bar ul .collapsed a,
-.screenlet-title-bar ul .expanded a { 
+.screenlet-title-bar ul .expanded a {
     /* IE fix */
     cursor: default;
 }
@@ -1245,11 +1245,11 @@ color:#999999;
 }
 
 .basic-nav ul { /* placeholder */
-    
+
 }
 
 .basic-nav ul li {
-    
+
 }
 
 .basic-nav ul a {
@@ -1616,7 +1616,7 @@ render borders around empty <td> elements */
 /* ======================= */ /* ===== Tree Styles ===== */
     /* ======================= */
 .basic-tree { /* placeholder */
-    
+
 }
 
 .basic-tree ul {
@@ -1799,28 +1799,28 @@ render borders around empty <td> elements */
 background: url(/images/prev-year.gif) no-repeat left center;
 padding-left: 1.8em;
 */
-    
+
 }
 
 .nav-last { /*
 background: url(/images/next-year.gif) no-repeat right center;
 padding-right: 1.8em;
 */
-    
+
 }
 
 .nav-next { /*
 background: url(/images/next.gif) no-repeat right center;
 padding-right: 1.8em;
 */
-    
+
 }
 
 .nav-previous { /*
 background: url(/images/prev.gif) no-repeat left center;
 padding-left: 1.8em;
 */
-    
+
 }
 
 /* ================================= */

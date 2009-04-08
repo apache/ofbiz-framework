@@ -118,5 +118,5 @@ under the License.
     <WorkflowParticipantType description="An automatic agent" hasTable="N" parentTypeId="" participantTypeId="SYSTEM" typeCode="SYSTEM"/>
 
     <WorkflowSpecification specificationId="XPDL" currentVersion="0.03"/>
-    
+
 </entity-engine-xml>

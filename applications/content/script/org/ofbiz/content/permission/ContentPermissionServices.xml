@@ -27,7 +27,7 @@
     <simple-method method-name="contentManagerRolePermission" short-description="Check user has Content Manager permission">
         <set field="primaryPermission" value="CONTENTMGR"/>
         <set field="altPermission" value="CONTENTMGR_ROLE"/>
-        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>                
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
     </simple-method>
 
     <simple-method method-name="genericContentPermission" short-description="Generic Service for Content Permissions">
@@ -89,7 +89,7 @@
                         <then>
                             <!-- setup default operation -->
                             <if-empty field="parameters.contentOperationId">
-                                <set field="contentOperationId" value="CONTENT_UPDATE"/> 
+                                <set field="contentOperationId" value="CONTENT_UPDATE"/>
                             </if-empty>
                             <call-simple-method method-name="updateContentPermission"/>
                         </then>
@@ -139,7 +139,7 @@
                     <add-error><fail-message message="Content Permission Service VIEW requires a contentId!"/></add-error>
                 </if-empty>
                 <check-errors/>
-        
+
                 <!-- grab the current requested content record -->
                 <entity-one entity-name="Content" value-field="content">
                     <field-map field-name="contentId" from-field="contentId"/>
@@ -190,7 +190,7 @@
             </condition>
             <then>
                 <log level="verbose" message="Found necessary ROLE permission: ${primaryPermission}_${mainAction} :: ${contentOperationId}"/>
-                
+
                 <!-- if an operation is passed, check the operation security -->
                 <if>
                     <condition>
@@ -238,7 +238,7 @@
                                                     <not>
                                                         <if-empty field="checkId"/>
                                                     </not>
-                                                </and>                                                 
+                                                </and>
                                             </condition>
                                             <then>
                                                 <entity-one entity-name="Content" value-field="currentContent">
@@ -355,7 +355,7 @@
                         <set field="checkId" from-field="contentId"/>
                         <call-simple-method method-name="checkOwnership"/>
 
-                        <!-- we are okay to update; unless we are updating the owner content; verify ownership there -->                        
+                        <!-- we are okay to update; unless we are updating the owner content; verify ownership there -->
                         <if>
                             <condition>
                                 <and>
@@ -487,7 +487,7 @@
                 </if-empty>
             </else>
         </if>
-        
+
         <!-- place holder for the content ID -->
         <set field="toCheckContentId" from-field="checkId"/>
         <log level="verbose" message="[${checkId}] Found Operations [${contentPurposeTypeId}/${contentOperationId}] :: ${operations}"/>
@@ -535,7 +535,7 @@
                                         <not>
                                             <if-empty field="statusId"/>
                                         </not>
-                                        <if-compare-field field="operation.statusId" to-field="statusId" operator="equals"/>    
+                                        <if-compare-field field="operation.statusId" to-field="statusId" operator="equals"/>
                                     </and>
                                 </or>
                             </condition>
@@ -639,7 +639,7 @@
         <set field="checkRoleTypeId" value="OWNER"/>
 
         <!-- check to see if any of the parties are owner of the content -->
-        <iterate entry="thisPartyId" list="partyIdList">            
+        <iterate entry="thisPartyId" list="partyIdList">
             <if>
                 <condition>
                     <not>
@@ -654,7 +654,7 @@
                 <else>
                     <log level="verbose" message="Field hasPermission is TRUE [${hasPermission}] did not test!"/>
                 </else>
-            </if>            
+            </if>
         </iterate>
     </simple-method>
 
@@ -724,7 +724,7 @@
                     <else>
                         <log level="verbose" message="Doing lookup without roleTypeId"/>
                         <!-- looking up any role -->
-                        <set field="lookup.${roleEntityField}" from-field="checkId"/>                        
+                        <set field="lookup.${roleEntityField}" from-field="checkId"/>
                         <set field="lookup.partyId" from-field="checkPartyId"/>
                         <find-by-and entity-name="${roleEntity}" map="lookup" list="foundRoles"/>
                         <!--
@@ -760,11 +760,11 @@
             <add-error><fail-message message="Required field 'checkId' (contentId) is missing in simple method call [findAllContentPurposes]"/></add-error>
         </if-empty>
         <check-errors/>
-        
-        <set field="purposeLookup.contentId" from-field="checkId"/> 
+
+        <set field="purposeLookup.contentId" from-field="checkId"/>
         <find-by-and entity-name="ContentPurpose" map="purposeLookup" list="contentPurposes"/>
     </simple-method>
-    
+
     <!-- method to get user's party associations -->
     <simple-method method-name="findAllAssociatedPartyIds" short-description="Finds all associated party Ids for a user">
         <set field="lookupMap.partyIdFrom" from-field="userLogin.partyId"/>

@@ -24,7 +24,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="task"/>
-                <set field="titleProperty" value="PageTitleDependencies"/>                
+                <set field="titleProperty" value="PageTitleDependencies"/>
                 <set field="tabButtonItem" value="dependencies"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <service service-name="getProjectIdAndNameFromTask" result-map="result">
@@ -73,7 +73,7 @@ under the License.
         </section>
     </screen>
     <screen name="MyTasks">
-        <section>            
+        <section>
             <actions>
                 <set field="titleProperty" value="WorkEffortMyTasks"/>
                 <set field="headerItem" value="mytasks"/>
@@ -86,16 +86,16 @@ under the License.
                     <field-map field-name="workEffortId" value="dummy"/>
                 </entity-one>
                 <set field="myTask" value="notNull"/>
-            </actions>                                                
-            <widgets>  
+            </actions>
+            <widgets>
                 <decorator-screen name="CommonMyTaskDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                                                                                                                
-                        <section>                                                        
+                    <decorator-section name="body">
+                        <section>
                             <widgets>
                                 <include-screen name="MyTaskList"/>
                                 <section>
                                     <condition>
-                                        <not><if-empty field="projects"/></not>                                        
+                                        <not><if-empty field="projects"/></not>
                                     </condition>
                                     <widgets>
                                         <container style="lefthalf">
@@ -107,7 +107,7 @@ under the License.
                                             <screenlet title="${uiLabelMap.ProjectMgrAddNewTask}">
                                                 <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                             </screenlet>
-                                        </container>                                                                             
+                                        </container>
                                     </widgets>
                                     <fail-widgets>
                                         <screenlet title="${uiLabelMap.ProjectMgrAssignATaskToMe}">
@@ -115,7 +115,7 @@ under the License.
                                         </screenlet>
                                     </fail-widgets>
                                 </section>
-                            </widgets>                            
+                            </widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
@@ -134,7 +134,7 @@ under the License.
             <widgets>
                     <section>
                         <condition>
-                            <not><if-empty field="tasks"/></not>                                        
+                            <not><if-empty field="tasks"/></not>
                         </condition>
                         <widgets>
                             <screenlet title="${uiLabelMap.PageTitleTaskAssignedToMe}" navigation-form-name="MyTasks">
@@ -156,16 +156,16 @@ under the License.
         </section>
     </screen>
     <screen name="FindTask">
-        <section>            
+        <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindTask"/>
                 <set field="headerItem" value="task"/>
                 <set field="tabButtonItem" value="find"/>
                 <set field="labelTitleProperty" value="ProjectMgrListTasks"/>
-            </actions>                                                
-            <widgets>  
+            </actions>
+            <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">                                                                                                                
+                    <decorator-section name="body">
                         <screenlet  title="${uiLabelMap.PageTitleFindTask}" collapsible="true" id="findTask">
                             <include-form name="FindTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                         </screenlet>
@@ -195,22 +195,22 @@ under the License.
             <actions>
                 <set field="headerItem" value="task"/>
                 <set field="titleProperty" value="PageTitleEditTask"/>
-                <set field="tabButtonItem" value="edittask"/>                
+                <set field="tabButtonItem" value="edittask"/>
                 <set field="labelTitleProperty" value="PageTitleEditTaskList"/>
-                <set field="workEffortId" from-field="parameters.workEffortId"/>                
-                <entity-one entity-name="WorkEffort" value-field="task"/>    
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <entity-one entity-name="WorkEffort" value-field="task"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>                                                       
+                        <section>
                             <!-- To add a new Project -->
                             <widgets>
                                 <screenlet title="${uiLabelMap.PageTitleEditTask} #${task.workEffortId} ${uiLabelMap.CommonInformation}">
                                     <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                 </screenlet>
-                            </widgets>                            
+                            </widgets>
                         </section>
                     </decorator-section>
                 </decorator-screen>
@@ -240,7 +240,7 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>     
+    </screen>
     <screen name="EditTimeEntries">
         <section>
             <actions>
@@ -275,7 +275,7 @@ under the License.
                     <field-map field-name="taskId" from-field="parameters.workEffortId"/>
                 </service>
                 <set field="projectId" from-field="result.projectId"/>
-            </actions>            
+            </actions>
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
@@ -310,7 +310,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="TaskView">        
+    <screen name="TaskView">
         <section>
             <actions>
                 <set field="titleProperty" value="ProjectMgrTaskSummary"/>
@@ -324,7 +324,7 @@ under the License.
                 <service service-name="getProjectIdAndNameFromTask" result-map="projectResult">
                     <field-map field-name="taskId" from-field="workEffortId"/>
                 </service>
-            </actions>                        
+            </actions>
             <widgets>
                 <decorator-screen name="Common${parameters.my}TaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
@@ -341,14 +341,14 @@ under the License.
                         </container>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>            
+            </widgets>
         </section>
     </screen>
     <screen name="taskInfo">
         <section>
             <widgets>
                 <screenlet title="${uiLabelMap.PageTitleTaskInformation}">
-                    <include-form name="TaskInfo" location="component://projectmgr/widget/forms/TaskForms.xml"/>  
+                    <include-form name="TaskInfo" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
@@ -360,7 +360,7 @@ under the License.
                 <set field="parameters.workEffortTypeId" value="TASK"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ChildWorkEffort.bsh"/>
             </actions>
-            <widgets>                
+            <widgets>
                 <screenlet title="${uiLabelMap.ProjectMgrSubTasks}">
                     <include-form name="ListTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                 </screenlet>
@@ -371,7 +371,7 @@ under the License.
         <section>
             <actions>
             </actions>
-            <widgets>                
+            <widgets>
                 <screenlet title="${uiLabelMap.PageTitleListTaskContent}">
                     <include-form name="ListTaskContent" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                 </screenlet>
@@ -394,15 +394,15 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="TaskTeamInfo">      
-        <section>        
-            <actions>                      
+    <screen name="TaskTeamInfo">
+        <section>
+            <actions>
                 <service service-name="getTasksByParties" result-map="result">
-                    <field-map field-name="workEffortId" from-field="workEffortId"/>                  
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
                 </service>
-                <set field="taskParties" from-field="result.taskParties"/>     
-            </actions>           
-            <widgets> 
+                <set field="taskParties" from-field="result.taskParties"/>
+            </actions>
+            <widgets>
                 <container style="screenlet">
                     <container style="screenlet-title-bar">
                         <container style="h3">
@@ -412,7 +412,7 @@ under the License.
                     <container style="screenlet-body">
                         <include-form name="ListTaskParties" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                     </container>
-                </container>       
+                </container>
             </widgets>
         </section>
     </screen>
@@ -446,7 +446,7 @@ under the License.
                      </container>
                      <container style="screenlet-body">
                          <section>
-                             <widgets>    
+                             <widgets>
                                  <include-form name="TaskBefore" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                              </widgets>
                          </section>
@@ -454,7 +454,7 @@ under the License.
                  </container>
             </widgets>
         </section>
-    </screen>  
+    </screen>
     <screen name="taskAfter">
         <section>
             <actions>
@@ -472,7 +472,7 @@ under the License.
                      </container>
                      <container style="screenlet-body">
                          <section>
-                             <widgets>    
+                             <widgets>
                                  <include-form name="TaskAfter" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                              </widgets>
                          </section>
@@ -480,13 +480,13 @@ under the License.
                  </container>
             </widgets>
         </section>
-    </screen>                  
+    </screen>
     <screen name="EditTaskFromRequest">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditTask"/>
                 <set field="headerItem" value="request"/>
-                <set field="tabButtonItem" value="edittask"/>                
+                <set field="tabButtonItem" value="edittask"/>
                 <set field="labelTitleProperty" value="PageTitleEditTask"/>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <entity-one entity-name="PartyNameView" value-field="partyName">
@@ -506,7 +506,7 @@ under the License.
                             <screenlet title="${uiLabelMap.ProjectMgrCreateByExistingTask}">
                                <include-form name="CreateCustRequestWorkEffortByExistingTaskForm" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                             </screenlet>
-                        </container>  
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -556,7 +556,7 @@ under the License.
                         </section>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>            
+            </widgets>
         </section>
     </screen>
 </screens>

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<entitymodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/entitymodel.xsd">
   <!-- ========================================================= -->
   <!-- ======================== Defaults ======================= -->
@@ -32,20 +32,20 @@ under the License.
   <!-- =========================================================
     For the test, testing is the basic entity.
     It can have a type represented by TestingType, and can be a member of a TestingNode.
-    
+
     TestingNodes represent a hierarchy of Node, each Node can have one parent
-    and many children. 
-    
+    and many children.
+
     A TestingNodeMember can be member of many TestingNodes.
-    
+
   ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
   <!--  - org.ofbiz.entity.test -->
   <!-- ========================================================= -->
 
-  <!-- ========================================================= 
-    The testing entity is a basic entity with a type 
+  <!-- =========================================================
+    The testing entity is a basic entity with a type
   ========================================================= -->
     <entity entity-name="Testing"
         package-name="org.ofbiz.entity.test"
@@ -62,7 +62,7 @@ under the License.
             <key-map field-name="testingTypeId"/>
         </relation>
     </entity>
-    <!-- ========================================================= 
+    <!-- =========================================================
      Testing entity type
     ========================================================= -->
     <entity entity-name="TestingType"
@@ -71,7 +71,7 @@ under the License.
         <field name="testingTypeId" type="id-ne"/>
         <field name="description" type="description"/>
         <prim-key field="testingTypeId"/>
-    </entity>       
+    </entity>
   <!-- =========================================================
      An entity for testing the BLOB data type
    ========================================================== -->
@@ -81,9 +81,9 @@ under the License.
         <field name="testBlobId" type="id-ne"/>
         <field name="testBlobField" type="blob"/>
          <prim-key field="testBlobId"/>
-    </entity> 
-  <!-- ========================================================= 
-    Testing Node entity : hierachy of nodes having 
+    </entity>
+  <!-- =========================================================
+    Testing Node entity : hierachy of nodes having
     'testing node member' as potential members
   ========================================================= -->
     <entity entity-name="TestingNode"
@@ -100,7 +100,7 @@ under the License.
             <key-map field-name="testingNodeId" rel-field-name="primaryParentNodeId"/>
         </relation>
     </entity>
-  <!-- ========================================================= 
+  <!-- =========================================================
     Testing Node member
     A testing member entity can belong to any testing node
   ========================================================= -->
@@ -121,7 +121,7 @@ under the License.
         <key-map field-name="testingNodeId"/>
       </relation>
     </entity>
-  <!-- ========================================================= 
+  <!-- =========================================================
     View : a Testing Node with its member(s)
   ========================================================= -->
     <view-entity entity-name="TestingNodeAndMember"

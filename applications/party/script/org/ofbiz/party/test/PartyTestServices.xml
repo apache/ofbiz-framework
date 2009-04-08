@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="testFindPartyWithSearchParameters" short-description="Test findparty service on certain search parameters" login-required="false">
@@ -30,7 +30,7 @@ under the License.
         <!-- Process tested by test case:
              1. This test the process for find party on basis of given search parameters
         -->
-        <!-- Post condition: 
+        <!-- Post condition:
              1. Selected party and information should be displayed in search result
         -->
         <set field="searchParams.partyId" value="DemoCustomer"/>
@@ -39,13 +39,13 @@ under the License.
         <call-service service-name="findParty" in-map-name="serviceCtx">
             <results-to-map map-name="partyList"/>
         </call-service>
-        
+
         <find-by-primary-key entity-name="PartyRoleDetailAndPartyDetail" map="searchParams" value-field="partyRoleDetailAndPartyDetail"/>
         <if-not-empty field="partyRoleDetailAndPartyDetail">
             <assert><not><if-empty field="partyList"/></not></assert>
         <else>
             <assert><if-empty field="partyList"/></assert>
-        </else>    
+        </else>
         </if-not-empty>
         <check-errors/>
     </simple-method>
@@ -58,7 +58,7 @@ under the License.
         <!-- Process tested by test case:
              1. This test the process for find party if no search parameters are passed
         -->
-        <!-- Post condition: 
+        <!-- Post condition:
              1. All existing parties should be displayed in search result.
         -->
         <set field="serviceCtx.lookupFlag" value="Y"/>
@@ -110,7 +110,7 @@ under the License.
             <if-compare-field field="contactMech.infoString" to-field="serviceCtx.emailAddress" operator="equals"/>
         </assert>
         <check-errors/>
-        
+
         <clear-field field="contactMech"/>
         <!-- now update with changing the email address, a new record will be created in ContactMech entity this time -->
         <set field="serviceCtx.emailAddress" value="ofbiz-test@yahoo.com"/>
@@ -126,7 +126,7 @@ under the License.
             <if-compare-field field="newContactMechId" to-field="serviceCtx.contactMechId" operator="not-equals"/>
             <if-compare-field field="contactMech.infoString" to-field="serviceCtx.emailAddress" operator="equals"/>
         </assert>
-        <check-errors/>      
+        <check-errors/>
     </simple-method>
 
     <simple-method method-name="testUpdatePartyTelecomNumber" short-description="Test updatePartyTelecomNumber service" login-required="false">
@@ -150,10 +150,10 @@ under the License.
         <!-- first try with just updating without changing the telecom number -->
         <set-service-fields service-name="updatePartyTelecomNumber" map="telecomNumber" to-map="serviceCtx"/>
         <set field="serviceCtx.partyId" from-field="partyId"/>
-        
+
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
-        </entity-one>        
+        </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
 
         <call-service service-name="updatePartyTelecomNumber" in-map-name="serviceCtx">
@@ -173,10 +173,10 @@ under the License.
             <if-compare-field field="telecomNumber.contactNumber" to-field="serviceCtx.contactNumber" operator="equals"/>
         </assert>
         <check-errors/>
-        
+
         <clear-field field="contactMech"/>
         <clear-field field="telecomNumber"/>
-                 
+
         <!-- try now with changing the telecom number, a new record will be created in ContactMech, TelecomNumber entity this time -->
         <set field="serviceCtx.contactNumber" value="555-5555"/>
         <call-service service-name="updatePartyTelecomNumber" in-map-name="serviceCtx">
@@ -195,7 +195,7 @@ under the License.
             <not><if-empty field="telecomNumber"/></not>
             <if-compare-field field="telecomNumber.contactNumber" to-field="serviceCtx.contactNumber" operator="equals"/>
         </assert>
-        <check-errors/>        
+        <check-errors/>
     </simple-method>
 
     <simple-method method-name="testUpdatePartyPostalAddress" short-description="Test updatePartyPostalAddress service" login-required="false">
@@ -219,12 +219,12 @@ under the License.
         <!-- first try with just updating without changing the postal address -->
         <set-service-fields service-name="updatePartyPostalAddress" map="postalAddress" to-map="serviceCtx"/>
         <set field="serviceCtx.partyId" from-field="partyId"/>
-        
+
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
-        </entity-one>        
+        </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
-        
+
         <call-service service-name="updatePartyPostalAddress" in-map-name="serviceCtx">
             <result-to-field result-name="contactMechId"/>
         </call-service>
@@ -243,10 +243,10 @@ under the License.
             <if-compare-field field="postalAddress.postalCode" to-field="serviceCtx.postalCode" operator="equals"/>
         </assert>
         <check-errors/>
-        
+
         <clear-field field="contactMech"/>
         <clear-field field="postalAddress"/>
-        
+
         <!-- try now with changing the postal address fields, a new record will be created in ContactMech, PostalAddress entity this time -->
         <set field="serviceCtx.stateProvinceGeoId" value="VA"/>
         <set field="serviceCtx.postalCode" value="20147"/>
@@ -289,7 +289,7 @@ under the License.
         <first-from-list list="paymentMethodAndCreditCards" entry="paymentMethodAndCreditCard"/>
         <!-- first try with just updating without changing the credit card information -->
         <set-service-fields service-name="updateCreditCard" map="paymentMethodAndCreditCard" to-map="serviceCtx"/>
-        
+
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
@@ -309,11 +309,11 @@ under the License.
             <if-compare-field field="paymentMethodAndCreditCard.cardNumber" to-field="serviceCtx.cardNumber" operator="equals"/>
         </assert>
         <check-errors/>
-        
+
         <clear-field field="paymentMethodAndCreditCard"/>
         <clear-field field="paymentMethodId"/>
         <clear-field field="oldPaymentMethodId"/>
-        
+
         <!-- try now with few changes (cardType, cardNumber in this case), a new record will be created in PaymentMethod, CreditCard entity -->
         <set field="serviceCtx.cardType" value="MasterCard"/>
         <set field="serviceCtx.cardNumber" value="5500000000000004"/>
@@ -329,7 +329,7 @@ under the License.
             <if-compare-field field="paymentMethodAndCreditCard.cardType" to-field="serviceCtx.cardType" operator="equals"/>
             <if-compare-field field="paymentMethodAndCreditCard.cardNumber" to-field="serviceCtx.cardNumber" operator="equals"/>
         </assert>
-        <check-errors/>                
+        <check-errors/>
     </simple-method>
 
     <simple-method method-name="testUpdateUserPassword" short-description="Test updatePassword service" login-required="false">
@@ -350,12 +350,12 @@ under the License.
         <call-class-method method-name="findPartyLatestUserLogin" class-name="org.ofbiz.party.party.PartyWorker" ret-field="partyUserLogin">
             <field field="partyId" type="java.lang.String"/>
             <field field="delegator" type="org.ofbiz.entity.GenericDelegator"/>
-        </call-class-method>        
+        </call-class-method>
         <set-service-fields service-name="updatePassword" map="partyUserLogin" to-map="serviceCtx"/>
         <!-- old details: userLoginId = DemoCustomer, password = ofbiz -->
         <set field="serviceCtx.newPassword" value="ofbiz-demo"/>
         <set field="serviceCtx.newPasswordVerify" value="ofbiz-demo"/>
-        
+
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
@@ -364,7 +364,7 @@ under the License.
         <call-service service-name="updatePassword" in-map-name="serviceCtx">
             <result-to-field result-name="updatedUserLogin"/>
         </call-service>
-        
+
         <entity-one entity-name="PartyAndUserLogin" value-field="partyAndUserLogin">
             <field-map field-name="userLoginId" from-field="partyUserLogin.userLoginId"/>
             <field-map field-name="partyId" from-field="partyId"/>

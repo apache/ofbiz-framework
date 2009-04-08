@@ -6,9 +6,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -22,7 +22,7 @@
     <description>Web Pos Component Site Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
     <errorpage>/error/error.jsp</errorpage>
-    
+
     <handler name="java" type="request" class="org.ofbiz.webapp.event.JavaEventHandler"/>
     <handler name="bsf" type="request" class="org.ofbiz.webapp.event.BsfEventHandler"/>
     <handler name="soap" type="request" class="org.ofbiz.webapp.event.SOAPEventHandler"/>
@@ -30,21 +30,21 @@
     <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
     <handler name="rome" type="request" class="org.ofbiz.webapp.event.RomeEventHandler"/>
-    
+
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
     <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
     <handler name="simplecontent" type="view" class="org.ofbiz.content.view.SimpleContentViewHandler"/>
     <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopViewHandler"/>
     <handler name="jsonservice" type="request" class="org.ofbiz.webapp.event.JSONServiceEventHandler"/>
-    
+
     <!-- Events run from here for the first hit in a visit -->
     <firstvisit>
         <event name="autoLoginCheck" type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="autoLoginCheck"/>
         <event name="checkTrackingCodeCookies" type="java" path="org.ofbiz.marketing.tracking.TrackingCodeEvents" invoke="checkTrackingCodeCookies"/>
         <event name="setDefaultStoreSettings" type="java" path="org.ofbiz.product.product.ProductEvents" invoke="setDefaultStoreSettings"/>
     </firstvisit>
-    
+
     <!-- Events to run on every request before security (chains exempt) -->
     <preprocessor>
         <!-- This event allows affilate/distributor entry on any page -->
@@ -54,7 +54,7 @@
         <event name="keepCartUpdated" type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="keepCartUpdated"/>
         <event name="restoreAutoSaveList" type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="restoreAutoSaveList"/>
     </preprocessor>
-    
+
     <after-login>
         <event name="updateAssociatedDistributor" type="java" path="org.ofbiz.ecommerce.misc.ThirdPartyEvents" invoke="updateAssociatedDistributor"/>
         <event name="keepCartUpdated" type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="keepCartUpdated"/>
@@ -63,7 +63,7 @@
         <!-- after login and restoring from the auto-save list, save everything to the auto-save list to handle anything that may have already been in the cart before login -->
         <event name="saveCartToAutoSaveList" type="java" path="org.ofbiz.order.shoppinglist.ShoppingListEvents" invoke="saveCartToAutoSaveList"/>
     </after-login>
-    
+
     <!-- Security Mappings -->
     <request-map uri="checkLogin" edit="false">
         <description>Verify a user is logged in.</description>
@@ -101,19 +101,19 @@
         <security https="true" auth="false"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-    
+
     <request-map uri="authview">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-    
+
     <request-map uri="main">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.webpos.WebPosEvents" invoke="existsWebPosSession"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="login"/>
     </request-map>
-    
+
     <request-map uri="Login">
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.webpos.WebPosEvents" invoke="posLogin"/>
@@ -121,7 +121,7 @@
         <response name="requirePasswordChange" type="view" value="RequirePasswordChange"/>
         <response name="error" type="view" value="Login"/>
     </request-map>
-    
+
     <request-map uri="Logout">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
@@ -135,41 +135,41 @@
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-    
+
     <request-map uri="Manager">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="Manager"/>
     </request-map>
-    
+
     <request-map uri="Payment">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="Payment"/>
     </request-map>
-    
+
     <request-map uri="Promo">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="Promo"/>
     </request-map>
-    
+
     <request-map uri="SearchProducts">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="SearchProducts"/>
     </request-map>
-    
+
     <request-map uri="FindProducts">
         <security https="true" auth="true"/>
         <event type="jsonservice" invoke="FindProducts"/>
         <response name="success" type="none"/>
         <response name="error" type="none"/>
     </request-map>
-    
+
     <request-map uri="FindProductsByIdentification">
         <security https="true" auth="true"/>
         <event type="jsonservice" invoke="FindProductsByIdentification"/>
         <response name="success" type="none"/>
         <response name="error" type="none"/>
     </request-map>
-    
+
     <request-map uri="ShowCart">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ShowCart"/>
@@ -181,14 +181,14 @@
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-    
+
     <request-map uri="EmptyCart">
         <security https="false" auth="false"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="clearCart"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-    
+
     <request-map uri="AddItem">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addToCart"/>
@@ -198,152 +198,152 @@
         <response name="viewcart" type="request-redirect" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-    
+
     <request-map uri="ManagerOpenTerminal">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ManagerOpenTerminal"/>
         <response name="error" type="view" value="ManagerOpenTerminal"/>
     </request-map>
-    
+
     <request-map uri="OpenTerminal">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/webpos/event/ManagerEvents.xml" invoke="openTerminal"/>
         <response name="success" type="view" value="Manager"/>
         <response name="error" type="view" value="ManagerOpenTerminal"/>
     </request-map>
-    
+
     <request-map uri="ManagerCloseTerminal">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ManagerCloseTerminal"/>
         <response name="error" type="view" value="ManagerCloseTerminal"/>
     </request-map>
-    
+
     <request-map uri="CloseTerminal">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/webpos/event/ManagerEvents.xml" invoke="closeTerminal"/>
         <response name="success" type="view" value="Manager"/>
         <response name="error" type="view" value="ManagerCloseTerminal"/>
     </request-map>
-    
+
     <request-map uri="ManagerVoidOrder">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ManagerVoidOrder"/>
         <response name="error" type="view" value="ManagerVoidOrder"/>
     </request-map>
-    
+
     <request-map uri="VoidOrder">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/webpos/event/ManagerEvents.xml" invoke="voidOrder"/>
         <response name="success" type="view" value="Manager"/>
         <response name="error" type="view" value="ManagerVoidOrder"/>
     </request-map>
-    
+
     <request-map uri="Shutdown">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/webpos/event/ManagerEvents.xml" invoke="shutdown"/>
         <response name="success" type="request" value="Logout"/>
         <response name="error" type="view" value="Login"/>
     </request-map>
-    
+
     <request-map uri="ManagerPaidOutAndIn">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ManagerPaidOutAndIn"/>
         <response name="error" type="view" value="ManagerPaidOutAndIn"/>
     </request-map>
-    
+
     <request-map uri="PaidOutAndIn">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/webpos/event/ManagerEvents.xml" invoke="paidOutAndIn"/>
         <response name="success" type="view" value="Manager"/>
         <response name="error" type="view" value="ManagerPaidOutAndIn"/>
     </request-map>
-    
+
     <request-map uri="ManagerModifyPrice">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ManagerModifyPrice"/>
         <response name="error" type="view" value="ManagerModifyPrice"/>
     </request-map>
-    
+
     <request-map uri="ModifyPrice">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/webpos/event/ManagerEvents.xml" invoke="modifyPrice"/>
         <response name="success" type="view" value="Manager"/>
         <response name="error" type="view" value="ManagerModifyPrice"/>
     </request-map>
-    
+
     <request-map uri="AddPayCash">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="AddPayCash"/>
         <response name="error" type="view" value="AddPayCash"/>
     </request-map>
-    
+
     <request-map uri="PayCash">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payCash"/>
         <response name="success" type="view" value="Payment"/>
         <response name="error" type="view" value="AddPayCash"/>
     </request-map>
-    
+
     <request-map uri="AddPayCheck">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="AddPayCheck"/>
         <response name="error" type="view" value="AddPayCheck"/>
     </request-map>
-    
+
     <request-map uri="PayCheck">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payCheck"/>
         <response name="success" type="view" value="Payment"/>
         <response name="error" type="view" value="AddPayCheck"/>
     </request-map>
-    
+
     <request-map uri="AddPayGiftCard">
         <security https="false" auth="true"/>
         <response name="success" type="view" value="AddPayGiftCard"/>
         <response name="error" type="view" value="AddPayGiftCard"/>
     </request-map>
-    
+
     <request-map uri="PayGiftCard">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payGiftCard"/>
         <response name="success" type="view" value="Payment"/>
         <response name="error" type="view" value="AddPayGiftCard"/>
     </request-map>
-    
+
     <request-map uri="AddPayCreditCard">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="AddPayCreditCard"/>
         <response name="error" type="view" value="AddPayCreditCard"/>
     </request-map>
-    
+
     <request-map uri="PayCreditCard">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payCredit"/>
         <response name="success" type="view" value="Payment"/>
         <response name="error" type="view" value="AddPayCreditCard"/>
     </request-map>
-    
+
     <request-map uri="PayFinish">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.webpos.WebPosEvents" invoke="completeSale"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-    
+
     <request-map uri="AddPaySetRef">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="AddPaySetRef"/>
         <response name="error" type="view" value="AddPaySetRef"/>
     </request-map>
-    
+
     <request-map uri="PaySetRef">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/webpos/event/PaymentEvents.xml" invoke="setRefNum"/>
         <response name="success" type="view" value="Payment"/>
         <response name="error" type="view" value="AddPaySetRef"/>
     </request-map>
-    
+
     <request-map uri="AddClearPayment">
-        <security https="true" auth="true"/>        
+        <security https="true" auth="true"/>
         <response name="success" type="view" value="ClearPayment"/>
         <response name="error" type="view" value="ClearPayment"/>
     </request-map>
@@ -354,26 +354,26 @@
         <response name="success" type="view" value="Payment"/>
         <response name="error" type="view" value="ClearPayment"/>
     </request-map>
-    
+
     <request-map uri="PayClearAll">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/webpos/event/PaymentEvents.xml" invoke="clearAllPayments"/>
         <response name="success" type="view" value="Payment"/>
         <response name="error" type="view" value="Payment"/>
     </request-map>
-    
+
     <request-map uri="AddPromoCode">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="AddPromoCode"/>
         <response name="error" type="view" value="AddPromoCode"/>
     </request-map>
-    
+
     <request-map uri="PromoCode">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/webpos/event/PromoEvents.xml" invoke="addPromoCode"/>
         <response name="success" type="view" value="Promo"/>
         <response name="error" type="view" value="AddPromoCode"/>
-    </request-map>    
+    </request-map>
 
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
@@ -386,21 +386,21 @@
     <view-map name="Promo" type="screen" page="component://webpos/widget/WebPosScreens.xml#Promo"/>
     <view-map name="SearchProducts" type="screen" page="component://webpos/widget/WebPosScreens.xml#SearchProducts"/>
     <view-map name="ShowCart" type="screen" page="component://webpos/widget/WebPosScreens.xml#ShowCart"/>
-    
+
     <!-- Manager view mappings -->
     <view-map name="ManagerOpenTerminal" type="screen" page="component://webpos/widget/ManagerScreens.xml#OpenTerminal"/>
     <view-map name="ManagerCloseTerminal" type="screen" page="component://webpos/widget/ManagerScreens.xml#CloseTerminal"/>
     <view-map name="ManagerVoidOrder" type="screen" page="component://webpos/widget/ManagerScreens.xml#VoidOrder"/>
     <view-map name="ManagerPaidOutAndIn" type="screen" page="component://webpos/widget/ManagerScreens.xml#PaidOutAndIn"/>
     <view-map name="ManagerModifyPrice" type="screen" page="component://webpos/widget/ManagerScreens.xml#ModifyPrice"/>
-    
+
     <!-- Payment view mappings -->
     <view-map name="AddPayCash" type="screen" page="component://webpos/widget/PaymentScreens.xml#PayCash"/>
     <view-map name="AddPayCheck" type="screen" page="component://webpos/widget/PaymentScreens.xml#PayCheck"/>
     <view-map name="AddPayGiftCard" type="screen" page="component://webpos/widget/PaymentScreens.xml#PayGiftCard"/>
     <view-map name="AddPayCreditCard" type="screen" page="component://webpos/widget/PaymentScreens.xml#PayCreditCard"/>
     <view-map name="AddPaySetRef" type="screen" page="component://webpos/widget/PaymentScreens.xml#PaySetRef"/>
-    <view-map name="ClearPayment" type="screen" page="component://webpos/widget/PaymentScreens.xml#ClearPayment"/>        
+    <view-map name="ClearPayment" type="screen" page="component://webpos/widget/PaymentScreens.xml#ClearPayment"/>
 
     <!-- Promo view mappings -->
     <view-map name="AddPromoCode" type="screen" page="component://webpos/widget/PromoScreens.xml#PromoCode"/>

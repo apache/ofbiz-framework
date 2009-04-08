@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <!-- Party Invitation Services -->
@@ -54,7 +54,7 @@ under the License.
     </simple-method>
     <simple-method method-name="createPartyInvitationGroupAssoc" short-description="Create a PartyInvitationGroupAssoc">
         <make-value entity-name="PartyInvitationGroupAssoc" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>        
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deletePartyInvitationGroupAssoc" short-description="Remove a PartyInvitationGroupAssoc">
@@ -63,7 +63,7 @@ under the License.
     </simple-method>
     <simple-method method-name="createPartyInvitationRoleAssoc" short-description="Create a PartyInvitationRoleAssoc">
         <make-value entity-name="PartyInvitationRoleAssoc" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>        
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deletePartyInvitationRoleAssoc" short-description="Remove a PartyInvitationRoleAssoc">
@@ -76,7 +76,7 @@ under the License.
         </entity-and>
         <if-not-empty field="partyInvitationGroupAssocs">
             <set field="createPartyRelationshipCtx.partyIdTo" from-field="parameters.partyId"/>
-            <set field="createPartyRelationshipCtx.partyRelationshipTypeId" value="GROUP_ROLLUP"/>            
+            <set field="createPartyRelationshipCtx.partyRelationshipTypeId" value="GROUP_ROLLUP"/>
             <iterate list="partyInvitationGroupAssocs" entry="partyInvitationGroupAssoc">
                 <set field="createPartyRelationshipCtx.partyIdFrom" from-field="partyInvitationGroupAssoc.partyIdTo"/>
                 <call-service service-name="createPartyRelationship" in-map-name="createPartyRelationshipCtx"/>

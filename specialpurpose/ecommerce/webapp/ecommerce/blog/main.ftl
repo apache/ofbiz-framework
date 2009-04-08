@@ -46,7 +46,7 @@ under the License.
         <tr>
           <#if layoutSettings.headerImageUrl?exists>
           <td width="1%"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.headerImageUrl}</@ofbizContentUrl>"/></td>
-          </#if>   
+          </#if>
           <td align="right" width="1%" nowrap="nowrap" <#if layoutSettings.headerRightBackgroundUrl?has_content>background="${layoutSettings.headerRightBackgroundUrl}"</#if>>
             <div class="insideHeaderText">
                 <#if userLogin?has_content>

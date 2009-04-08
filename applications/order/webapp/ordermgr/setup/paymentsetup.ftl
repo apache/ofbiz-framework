@@ -33,7 +33,7 @@ under the License.
         <tr>
           <td>
             <div class='boxhead'>&nbsp;Payment Processor Setup</div>
-          </td>          
+          </td>
         </tr>
       </table>
     </td>
@@ -42,7 +42,7 @@ under the License.
     <td width='100%'>
       <table width='100%' border='0' cellpadding='0' cellspacing='0' class='boxbottom'>
         <tr>
-          <td>                   
+          <td>
             <table width="100%" cellpadding="2" cellspacing="2" border="0">
               <tr class="header-row">
                 <td nowrap><div>WebSite</div></td>
@@ -51,9 +51,9 @@ under the License.
                 <td nowrap><div>Re-Auth Service</td>
                 <td nowrap><div>Capture Service</div></td>
                 <td nowrap><div>Refund Service</td>
-                <td nowrap><div>Payment Config</div></td>               
+                <td nowrap><div>Payment Config</div></td>
                 <td nowrap><div>&nbsp;</div></td>
-              </tr>             
+              </tr>
               <#if paymentSetups?has_content>
                 <#list paymentSetups as paymentSetting>
                   <#if rowStyle?exists && rowStyle == "alternate-row">
@@ -68,7 +68,7 @@ under the License.
                     <td><div>${paymentSetting.paymentReAuthService?if_exists}</div></td>
                     <td><div>${paymentSetting.paymentCaptureService?if_exists}</div></td>
                     <td><div>${paymentSetting.paymentRefundService?if_exists}</div></td>
-                    <td><div>${paymentSetting.paymentConfiguration?if_exists}</div></td>                
+                    <td><div>${paymentSetting.paymentConfiguration?if_exists}</div></td>
                     <td nowrap>
                       <div>&nbsp;
                         <#if security.hasEntityPermission("PAYPROC", "_UPDATE", session)>
@@ -92,7 +92,7 @@ under the License.
       </table>
     </td>
   </tr>
-</table> 
+</table>
 
 <#if security.hasEntityPermission("PAYPROC", "_CREATE", session)>
 <br/>
@@ -109,7 +109,7 @@ under the License.
             </#if>
           </td>
           <#if webSitePayment?has_content>
-            <td align='right' width='10%'><a href="<@ofbizUrl>paysetup</@ofbizUrl>" class="lightbuttontext">Add New</a></td>          
+            <td align='right' width='10%'><a href="<@ofbizUrl>paysetup</@ofbizUrl>" class="lightbuttontext">Add New</a></td>
           <#else>
             <td align='right' width='10%'></td>
           </#if>
@@ -121,8 +121,8 @@ under the License.
     <td width='100%'>
       <table width='100%' border='0' cellpadding='0' cellspacing='0' class='boxbottom'>
         <tr>
-          <td>  
-            <#if webSitePayment?has_content>       
+          <td>
+            <#if webSitePayment?has_content>
               <form method="post" action="<@ofbizUrl>updateWebSitePaymentSetting</@ofbizUrl>">
             <#else>
               <form method="post" action="<@ofbizUrl>createWebSitePaymentSetting</@ofbizUrl>">
@@ -137,13 +137,13 @@ under the License.
                     <div>
                       <b>${webSitePayment.siteName}</b> (This cannot be changed without re-creating the setting.)
                     </div>
-                  <#else>                    
+                  <#else>
                     <select name="webSiteId">
-                      <#list webSites as nextWebSite>                                         
+                      <#list webSites as nextWebSite>
                         <option value='${nextWebSite.webSiteId}'>${nextWebSite.siteName}</option>
                       </#list>
                     </select>
-                  </#if>                  
+                  </#if>
                 </td>
               </tr>
               <tr>
@@ -164,32 +164,32 @@ under the License.
                   </#if>
                 </td>
               </tr>
-              
+
               <tr>
                 <td width="26%" align="right"><div>Processor Auth Service</div></td>
                 <td>&nbsp;</td>
                 <td width="74%"><input type="text" name="paymentAuthService" value="${payInfo.paymentAuthService?if_exists}" size="30" maxlength="60"></td>
-              </tr>  
+              </tr>
               <tr>
                 <td width="26%" align="right"><div>Processor Re-Auth Service</div></td>
                 <td>&nbsp;</td>
                 <td width="74%"><input type="text" name="paymentReAuthService" value="${payInfo.paymentReAuthService?if_exists}" size="30" maxlength="60"></td>
-              </tr>                      
+              </tr>
               <tr>
                 <td width="26%" align="right"><div>Processor Capture Service</div></td>
                 <td>&nbsp;</td>
                 <td width="74%"><input type="text" name="paymentCaptureService" value="${payInfo.paymentCaptureService?if_exists}" size="30" maxlength="60"></td>
-              </tr> 
+              </tr>
               <tr>
                 <td width="26%" align="right"><div>Processor Refund Service</div></td>
                 <td>&nbsp;</td>
                 <td width="74%"><input type="text" name="paymentRefundService" value="${payInfo.paymentRefundService?if_exists}" size="30" maxlength="60"></td>
-              </tr>                                            
+              </tr>
               <tr>
                 <td width="26%" align="right"><div>Processor Properties URL</div></td>
                 <td>&nbsp;</td>
                 <td width="74%"><input type="text" name="paymentConfiguration" value="${payInfo.paymentConfiguration?if_exists}" size="30" maxlength="60"></td>
-              </tr>  
+              </tr>
               <tr>
                 <td colspan='2'>&nbsp;</td>
                 <td colspan='1'><input type="submit" value="${uiLabelMap.CommonUpdate}"></td>
@@ -201,9 +201,9 @@ under the License.
       </table>
     </td>
   </tr>
-</table> 
+</table>
 </#if>
-         
+
 <#else>
   <br/>
   <h3>You do not have permission to view this page. ("PAYSETUP_VIEW" or "PAYSETUP_ADMIN" needed)</h3>

@@ -18,12 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Common Application Components Shipment Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
-    
+
     <!-- UPS Rate API Services -->
     <service name="upsRateEstimate" engine="java"
             location="org.ofbiz.shipment.thirdparty.ups.UpsServices" invoke="upsRateInquire" auth="false">

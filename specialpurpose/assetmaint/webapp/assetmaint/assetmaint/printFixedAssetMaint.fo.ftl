@@ -18,7 +18,7 @@ under the License.
 -->
 <#escape x as x?xml>
   <fo:flow flow-name="xsl-region-body">
-  
+
   <#-- Print FixedAsset Information -->
   <fo:table table-layout="fixed" width="100%" border-style="solid" border-collapse="collapse" border-width="1pt">
     <fo:table-column column-width="20%"/>
@@ -51,7 +51,7 @@ under the License.
         </fo:table-row>
         </#if>
         <#if fixedAsset.locatedAtFacilityId?has_content>
-        <fo:table-row>  
+        <fo:table-row>
             <fo:table-cell><fo:block>${uiLabelMap.FormFieldTitle_locatedAtFacilityId}</fo:block></fo:table-cell>
             <fo:table-cell><fo:block>${maintenance.facilityName?if_exists}</fo:block></fo:table-cell>
         </fo:table-row>
@@ -66,7 +66,7 @@ under the License.
     </fo:table-body>
   </fo:table>
   <#-- End Print FixedAsset Information -->
-  
+
   <#-- Start Print FixedAsset Maintenance Information -->
   <fo:table table-layout="fixed" width="100%" border-style="solid" border-collapse="collapse" border-width="1pt">
     <fo:table-column column-width="20%"/>
@@ -110,7 +110,7 @@ under the License.
     </fo:table-body>
   </fo:table>
 <#-- End Print FixedAsset Maintenance Information -->
-  
+
 <#-- Start Print Maintenance Schedule Information -->
   <fo:table table-layout="fixed" width="100%" border-style="solid" border-collapse="collapse" border-width="1pt">
     <fo:table-column column-width="25%"/>
@@ -166,7 +166,7 @@ under the License.
         <fo:table-row>
           <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.AssetMaintItemIssuance}</fo:block></fo:table-cell>
           <fo:table-cell text-align="center"><fo:block font-weight="bold">${uiLabelMap.OrderQuantity}</fo:block></fo:table-cell>
-        </fo:table-row>        
+        </fo:table-row>
       </fo:table-header>
       <fo:table-body>
         <#list itemIssuanceList as itemIssuance>
@@ -180,7 +180,7 @@ under the License.
                   </#if>
                 </fo:block>
               </fo:table-cell>
-              <fo:table-cell text-align="center"><fo:block>${quantity}</fo:block></fo:table-cell>            
+              <fo:table-cell text-align="center"><fo:block>${quantity}</fo:block></fo:table-cell>
             </fo:table-row>
         </#list>
       </fo:table-body>
@@ -193,7 +193,7 @@ under the License.
       <fo:table-header>
         <fo:table-row>
           <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.WorkEffortNotes}</fo:block></fo:table-cell>
-        </fo:table-row>        
+        </fo:table-row>
       </fo:table-header>
       <fo:table-body>
         <#list notes as note>
@@ -203,7 +203,7 @@ under the License.
               <fo:block>Date : ${note.noteDateTime?string.short}</fo:block>
               <#escape x as x?html>
                 <fo:block>${note.noteInfo?if_exists}</fo:block>
-              </#escape> 
+              </#escape>
             </fo:table-cell>
           </fo:table-row>
         </#list>

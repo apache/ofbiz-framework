@@ -22,7 +22,7 @@ under the License.
         screenName="ExamplePortlet1" screenLocation="component://example/widget/example/PortletScreens.xml"
         editFormName="ExamplePortlet1Edit" editFormLocation="component://example/widget/example/PortletEditForms.xml"
         screenshot="/images/ofbiz_logo.jpg"/>
-                   
+
     <PortalPortlet portalPortletId="EXAMPLE_2" portletName="Example 2" description="Example portlet n. 2"
         screenName="ExamplePortlet2" screenLocation="component://example/widget/example/PortletScreens.xml"
         screenshot="/images/opentravelsystem_logo.jpg"/>
@@ -30,7 +30,7 @@ under the License.
     <PortalPortlet portalPortletId="EXAMPLE_3" portletName="Example 3" description="Example portlet n. 3"
         screenName="ExamplePortlet3" screenLocation="component://example/widget/example/PortletScreens.xml"
         editFormName="ExamplePortlet3Edit" editFormLocation="component://example/widget/example/PortletEditForms.xml"/>
-    
+
     <PortletCategory portletCategoryId="EXAMPLE" description="Example Portlet(s)"/>
     <PortletPortletCategory portalPortletId="EXAMPLE_1" portletCategoryId="EXAMPLE"/>
     <PortletPortletCategory portalPortletId="EXAMPLE_2" portletCategoryId="EXAMPLE"/>

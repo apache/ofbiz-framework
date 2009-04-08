@@ -20,7 +20,7 @@ under the License.
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    
+
     <menu name="AccountingAppBar" title="${uiLabelMap.AccountingManagerApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}"><link target="findInvoices"/></menu-item>
         <menu-item name="payments" title="${uiLabelMap.AccountingPaymentsMenu}"><link target="findPayments"/></menu-item>
@@ -38,7 +38,7 @@ under the License.
         <menu-item name="GlobalGLSettings" title="${uiLabelMap.AccountingGlobalGLSettings}"><link target="globalGLSettings"/></menu-item>
         <menu-item name="companies" title="${uiLabelMap.AccountingOrgGlSettings}"><link target="ListCompanies"/></menu-item>
     </menu>
-    
+
     <menu name="InvoiceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="invoiceOverview" title="${uiLabelMap.AccountingInvoiceOverview}">
             <condition>
@@ -48,7 +48,7 @@ under the License.
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-        
+
         <menu-item name="editInvoice" title="${uiLabelMap.AccountingInvoiceHeader}">
             <condition>
                 <and>
@@ -57,14 +57,14 @@ under the License.
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
-                    </or>                
+                    </or>
                 </and>
             </condition>
             <link target="editInvoice">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-        
+
         <menu-item name="listInvoiceItems" title="${uiLabelMap.AccountingInvoiceItems}">
             <condition>
                 <and>
@@ -73,7 +73,7 @@ under the License.
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
-                    </or>                
+                    </or>
                 </and>
             </condition>
             <link target="listInvoiceItems">
@@ -89,14 +89,14 @@ under the License.
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
-                    </or>                
+                    </or>
                 </and>
             </condition>
             <link target="editInvoiceTimeEntries">
                 <parameter param-name="invoiceId" from-field="invoice.invoiceId"/>
             </link>
         </menu-item>
-        
+
         <menu-item name="invoiceRoles" title="${uiLabelMap.AccountingInvoiceRoles}">
             <condition>
                 <and>
@@ -105,7 +105,7 @@ under the License.
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
-                    </or>                
+                    </or>
                 </and>
             </condition>
             <link target="invoiceRoles">
@@ -122,7 +122,7 @@ under the License.
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_APPROVED"/>
-                    </or>                
+                    </or>
                 </and>
             </condition>
             <link target="editInvoiceApplications">
@@ -139,7 +139,7 @@ under the License.
             </link>
         </menu-item>
     </menu>
-    <menu name="InvoiceSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  
+    <menu name="InvoiceSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
         <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}" >
             <link target="newInvoice"/>
         </menu-item>
@@ -178,7 +178,7 @@ under the License.
                     <or>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
-                    </or>                
+                    </or>
                 </and>
             </condition>
             <link target="setInvoiceStatus">
@@ -274,7 +274,7 @@ under the License.
                     <or>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
-                    </or>                
+                    </or>
                 </and>
             </condition>
             <link target="setInvoiceStatus">
@@ -290,7 +290,7 @@ under the License.
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_SENT"/>
                         <if-compare field="invoice.statusId" operator="equals" value="INVOICE_RECEIVED"/>
-                    </or>                
+                    </or>
                 </and>
             </condition>
             <link target="javascript:confirmActionLink('You want to cancel this invoice number ${invoice.invoiceId}?','setInvoiceStatus')" url-mode="plain">
@@ -330,7 +330,7 @@ under the License.
                 <parameter param-name="paymentId" from-field="payment.paymentId"/>
             </link>
         </menu-item>
-        
+
         <menu-item name="editPayment" title="${uiLabelMap.AccountingPaymentTabHeader}">
             <condition>
                 <and>
@@ -339,7 +339,7 @@ under the License.
                         <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
                         <if-compare field="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
                         <if-compare field="payment.statusId" operator="equals" value="PMNT_SENT"/>
-                    </or>                
+                    </or>
                 </and>
             </condition>
             <link target="editPayment">
@@ -354,20 +354,20 @@ under the License.
                         <if-compare field="payment.statusId" operator="equals" value="PMNT_NOT_PAID"/>
                         <if-compare field="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
                         <if-compare field="payment.statusId" operator="equals" value="PMNT_SENT"/>
-                    </or>                
+                    </or>
                 </and>
             </condition>
             <link target="editPaymentApplications">
                 <parameter param-name="paymentId" from-field="payment.paymentId"/>
             </link>
         </menu-item>
-    </menu>  
-          
+    </menu>
+
     <menu name="PaymentSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           menu-container-style="button-bar button-style-2">
         <actions>
             <set field="isDisbursement" value="${bsh:org.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment)}"/>
-        </actions> 
+        </actions>
         <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}">
             <condition>
                 <not><if-empty field="payment.paymentId"/></not>
@@ -419,7 +419,7 @@ under the License.
                     <or>
                         <if-compare field="payment.statusId" operator="equals" value="PMNT_RECEIVED"/>
                         <if-compare field="payment.statusId" operator="equals" value="PMNT_SENT"/>
-                    </or>                
+                    </or>
                 </and>
             </condition>
             <link target="setPaymentStatus">
@@ -527,7 +527,7 @@ under the License.
             </link>
         </menu-item>
     </menu>
-    
+
     <menu name="FixedAssetCalendarTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           selected-menuitem-context-field-name="parameters.viewMode">
         <menu-item name="D" title="${uiLabelMap.CommonDay}">
@@ -570,7 +570,7 @@ under the License.
             </link>
         </menu-item>
     </menu>
-    
+
     <menu name="PartyTopTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           selected-menuitem-context-field-name="tabButtonItemTop" default-menu-item-name="PartyAccountsSummary">
         <menu-item name="Admin" title="${uiLabelMap.AccountingSetup}">
@@ -768,7 +768,7 @@ under the License.
             </link>
         </menu-item>
     </menu>
-    
+
     <menu name="GlobalGLSettingMenus" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           default-menu-item-name="chartofaccounts">
         <menu-item name="Chartofaccounts" title="${uiLabelMap.AccountingChartOfAcctsMenu}">
@@ -780,13 +780,13 @@ under the License.
         </menu-item>
         <menu-item name="Costs" title="${uiLabelMap.ManufacturingCostCalcs}">
             <link target="EditCostCalcs"/>
-        </menu-item>  
+        </menu-item>
         <menu-item name="PaymentMethodTypes" title="${uiLabelMap.CommonPaymentMethodType}">
             <link target="editPaymentMethodType"/>
-        </menu-item> 
+        </menu-item>
         <menu-item name="InvoiceItemTypes" title="${uiLabelMap.AccountingInvoiceItemType}">
             <link target="editInvoiceItemType"/>
-        </menu-item>    
+        </menu-item>
         <menu-item name="ViewRateAmounts" title="${uiLabelMap.AccountingRates}">
             <link target="viewRateAmounts"/>
         </menu-item>

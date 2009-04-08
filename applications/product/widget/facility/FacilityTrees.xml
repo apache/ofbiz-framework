@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-tree.xsd">
     <tree name="FacilityTree" root-node-name="node-root" entity-name="Facility" expand-collapse-request="FacilityChildren?facilityId=${facilityId}"
         default-render-style="expand-collapse">
@@ -40,6 +40,6 @@ under the License.
                     <order-by field-name="facilityName"/>
                 </entity-and>
             </sub-node>
-        </node> 
+        </node>
     </tree>
 </trees>

@@ -45,7 +45,7 @@ dojo.date.getWeekend = function(/*String?*/locale){
 	var weekendStart = {/*default is 6=Saturday*/
 		eg:5,il:5,sy:5,
 		'in':0,
-		ae:4,bh:4,dz:4,iq:4,jo:4,kw:4,lb:4,ly:4,ma:4,om:4,qa:4,sa:4,sd:4,tn:4,ye:4		
+		ae:4,bh:4,dz:4,iq:4,jo:4,kw:4,lb:4,ly:4,ma:4,om:4,qa:4,sa:4,sd:4,tn:4,ye:4
 	};
 
 	var weekendEnd = {/*default is 0=Sunday*/

@@ -51,14 +51,14 @@ under the License.
     <tr>
         <td>
             <#if (shoppingCartSize > 0)>
-                <a href="javascript:document.cartform.submit();" class="posButton">${uiLabelMap.WebPosRecalculateCart}</a>                
+                <a href="javascript:document.cartform.submit();" class="posButton">${uiLabelMap.WebPosRecalculateCart}</a>
             <#else>
                 <span class="disabled">${uiLabelMap.WebPosRecalculateCart}</span>
             </#if>
         </td>
         <td>
             <#if (shoppingCartSize > 0)>
-                <a href="<@ofbizUrl>EmptyCart</@ofbizUrl>" class="posButton">${uiLabelMap.WebPosEmptyCart}</a>                
+                <a href="<@ofbizUrl>EmptyCart</@ofbizUrl>" class="posButton">${uiLabelMap.WebPosEmptyCart}</a>
             <#else>
                 <span class="disabled">${uiLabelMap.WebPosEmptyCart}</span>
             </#if>
@@ -66,7 +66,7 @@ under the License.
         <td>
             <#if (shoppingCartSize > 0)>
                 <a href="javascript:removeSelected();" class="posButton">${uiLabelMap.WebPosRemoveSelected}</a>
-            <#else>                
+            <#else>
                 <span class="disabled">${uiLabelMap.WebPosRemoveSelected}</span>
             </#if>
         </td>

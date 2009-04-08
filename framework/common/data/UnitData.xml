@@ -23,7 +23,7 @@ under the License.
       NOTE: All UomConversion conversionFactors are multipliers to change from uomId to uomIdTo.
       In other words there is 1 uomId for conversionFactor uomIdTos, for instance 1 minute for 60 seconds.
     -->
-    
+
     <!-- =============== DATA_MEASURE =============== -->
     <Uom abbreviation="b" description="Bit of Data" uomId="DATA_b" uomTypeId="DATA_MEASURE"/>
     <Uom abbreviation="Kb" description="Kilobit of Data" uomId="DATA_Kb" uomTypeId="DATA_MEASURE"/>
@@ -37,7 +37,7 @@ under the License.
     <Uom abbreviation="GB" description="Gigabyte of Data" uomId="DATA_GB" uomTypeId="DATA_MEASURE"/>
     <Uom abbreviation="TB" description="Terabyte of Data" uomId="DATA_TB" uomTypeId="DATA_MEASURE"/>
     <Uom abbreviation="PB" description="Petabyte of Data" uomId="DATA_PB" uomTypeId="DATA_MEASURE"/>
-    
+
     <UomConversion uomId="DATA_Kb" uomIdTo="DATA_b" conversionFactor="1024"/>
     <UomConversion uomId="DATA_Mb" uomIdTo="DATA_Kb" conversionFactor="1024"/>
     <UomConversion uomId="DATA_Gb" uomIdTo="DATA_Mb" conversionFactor="1024"/>
@@ -61,7 +61,7 @@ under the License.
     <UomConversion uomId="DATASPD_Mbps" uomIdTo="DATASPD_Kbps" conversionFactor="1024"/>
     <UomConversion uomId="DATASPD_Gbps" uomIdTo="DATASPD_Mbps" conversionFactor="1024"/>
     <UomConversion uomId="DATASPD_Tbps" uomIdTo="DATASPD_Gbps" conversionFactor="1024"/>
-    
+
     <!-- =============== TIME_FREQ_MEASURE =============== -->
     <Uom abbreviation="ms" description="Time in Milli-Seconds" uomId="TF_ms" uomTypeId="TIME_FREQ_MEASURE"/>
     <Uom abbreviation="s" description="Time in Seconds" uomId="TF_s" uomTypeId="TIME_FREQ_MEASURE"/>

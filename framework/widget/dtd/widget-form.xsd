@@ -107,10 +107,10 @@ under the License.
         </xs:attribute>
         <xs:attribute type="xs:string" name="default-sort-field-asc-style">
             <xs:annotation><xs:documentation>CSS style to used for form sort fields. Defaults to "sort-order-asc".</xs:documentation></xs:annotation>
-        </xs:attribute> 
+        </xs:attribute>
         <xs:attribute type="xs:string" name="default-sort-field-desc-style">
             <xs:annotation><xs:documentation>CSS style to used for form sort fields. Defaults to "sort-order-desc".</xs:documentation></xs:annotation>
-        </xs:attribute>                   
+        </xs:attribute>
         <xs:attribute name="paginate" default="true">
             <xs:simpleType>
                 <xs:restriction base="xs:token">
@@ -236,7 +236,7 @@ under the License.
         <xs:attribute name="target-type" type="xs:string"/>
     </xs:attributeGroup>
     <xs:element name="alt-row-style">
-        <xs:annotation><xs:documentation>Active a style on a line if the use-when condition is validate</xs:documentation></xs:annotation>            
+        <xs:annotation><xs:documentation>Active a style on a line if the use-when condition is validate</xs:documentation></xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.alt-row-style"/>
         </xs:complexType>
@@ -323,7 +323,7 @@ under the License.
         <xs:attribute type="xs:string" name="collapsible">
             <xs:annotation><xs:documentation>Indicate in this fields group is collapsible or not, false by default.</xs:documentation></xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="initially-collapsed">        
+        <xs:attribute type="xs:string" name="initially-collapsed">
             <xs:annotation><xs:documentation>Indicate in this fields group is initially collapsed or not, false by default. If set to true implies collapsible even if not set</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="id">
@@ -494,9 +494,9 @@ under the License.
         </xs:attribute>
         <xs:attribute type="xs:string" name="required-field-style">
             <xs:annotation>
-                <xs:documentation>The name of a style (like a CSS class) to apply to the title of this field if required. 
-                    Will default to form's default-required-field-style. 
-                    If field is required, but required-field-style is empty, an '*' will be placed to the right of text, 
+                <xs:documentation>The name of a style (like a CSS class) to apply to the title of this field if required.
+                    Will default to form's default-required-field-style.
+                    If field is required, but required-field-style is empty, an '*' will be placed to the right of text,
                     textarea and password fields.
                 </xs:documentation>
             </xs:annotation>
@@ -511,25 +511,25 @@ under the License.
         </xs:attribute>
         <xs:attribute type="xs:string" name="sort-field-style">
             <xs:annotation>
-                <xs:documentation>The name of a style (like a CSS class) to apply to the sort field link. 
+                <xs:documentation>The name of a style (like a CSS class) to apply to the sort field link.
                     Will default to form's default-sort-field-style.
                 </xs:documentation>
             </xs:annotation>
-        </xs:attribute>          
+        </xs:attribute>
         <xs:attribute type="xs:string" name="sort-field-asc-style">
             <xs:annotation>
-                <xs:documentation>The name of a style (like a CSS class) to apply to the sort field link ordered ascending. 
+                <xs:documentation>The name of a style (like a CSS class) to apply to the sort field link ordered ascending.
                     Will default to form's default-sort-field-asc-style.
                 </xs:documentation>
             </xs:annotation>
-        </xs:attribute>  
+        </xs:attribute>
         <xs:attribute type="xs:string" name="sort-field-desc-style">
             <xs:annotation>
-                <xs:documentation>The name of a style (like a CSS class) to apply to the sort field link ordered descending. 
+                <xs:documentation>The name of a style (like a CSS class) to apply to the sort field link ordered descending.
                     Will default to form's default-sort-field-desc-style.
                 </xs:documentation>
             </xs:annotation>
-        </xs:attribute>  
+        </xs:attribute>
     </xs:attributeGroup>
 
   <!-- ================== FIELD TYPES ==================== -->

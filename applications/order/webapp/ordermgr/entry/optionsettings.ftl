@@ -24,7 +24,7 @@ under the License.
       <br/>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
-          <td>          
+          <td>
             <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform">
               <input type="hidden" name="finalizeMode" value="options"/>
 <#list 1..cart.getShipGroupSize() as currIndex>
@@ -50,10 +50,10 @@ under the License.
                 <tr>
                   <td width='1%' valign="top" >
                     <#assign shippingMethod = carrierShipmentMethod.shipmentMethodTypeId + "@" + carrierShipmentMethod.partyId>
-                    <input type='radio' name='${shipGroupIndex?default("0")}_shipping_method' value='${shippingMethod}' <#if shippingMethod == chosenShippingMethod?default("N@A")>checked</#if>>       
+                    <input type='radio' name='${shipGroupIndex?default("0")}_shipping_method' value='${shippingMethod}' <#if shippingMethod == chosenShippingMethod?default("N@A")>checked</#if>>
                   </td>
-                  <td valign="top">                            
-                    <div class='tabletext'>                                                 
+                  <td valign="top">
+                    <div class='tabletext'>
                       <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId?if_exists}&nbsp;</#if>${carrierShipmentMethod.description?if_exists}
                       <#if cart.getShippingContactMechId(shipGroupIndex)?exists>
                         <#assign shippingEst = shipEstimateWrapper.getShippingEstimate(carrierShipmentMethod)?default(-1)>
@@ -66,11 +66,11 @@ under the License.
                           </#if>
                         </#if>
                       </#if>
-                    </div>                           
+                    </div>
                   </td>
                 </tr>
                 </#list>
-                <#if !carrierShipmentMethodList?exists || carrierShipmentMethodList?size == 0>                     
+                <#if !carrierShipmentMethodList?exists || carrierShipmentMethodList?size == 0>
                 <tr>
                   <td width='1%' valign="top">
                     <input type='radio' name='${shipGroupIndex?default("0")}_shipping_method' value="Default" checked>
@@ -80,7 +80,7 @@ under the License.
                   </td>
                 </tr>
                 </#if>
-                <tr><td colspan='2'><hr/></td></tr>                      
+                <tr><td colspan='2'><hr/></td></tr>
                <#else>
                    <input type='hidden' name='${shipGroupIndex?default("0")}_shipping_method' value="NO_SHIPPING@_NA_">
                </#if>

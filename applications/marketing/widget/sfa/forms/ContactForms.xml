@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    
+
     <form name="ListContacts" type="list" list-name="partyList" list-entry-name="partyRow" paginate-target="FindContact"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <row-actions>
@@ -68,7 +68,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="phoneTitle" title="${uiLabelMap.PartyPrimaryPhone}" title-area-style="group-label"><display/></field>        
+        <field name="phoneTitle" title="${uiLabelMap.PartyPrimaryPhone}" title-area-style="group-label"><display/></field>
         <field name="countryCode" title="${uiLabelMap.PartyCountryCode}"><text size="4" maxlength="10"/></field>
         <field name="areaCode" title="${uiLabelMap.PartyAreaCode}"><text size="4" maxlength="10"/></field>
         <field name="contactNumber" title="${uiLabelMap.PartyPhoneNumber}"><text size="15" maxlength="15"/></field>
@@ -96,18 +96,18 @@ under the License.
         </field>
         <field name="submitButton" position="3" title="${uiLabelMap.SfaMergeContacts}" widget-style="buttontext" tooltip-style="button-text"><submit button-type="text-link"/></field>
     </form>
-    
+
     <form name="CreateContactFromVCard" type="upload" target="createContactFromVCard" header-row-style="header-row" default-table-style="basic-table">
         <field name="infile" title="${uiLabelMap.SfaUploadVCard}"><file/></field>
         <field name="serviceName"><hidden value="createContact"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-  
+
     <form name="QuickAddContact" type="single" target="quickAddContact">
         <field name="firstName"  title="${uiLabelMap.CommonFirst} ${uiLabelMap.CommonName}*" widget-style="required"><text size="15"/></field>
         <field name="lastName" title="${uiLabelMap.CommonLast} ${uiLabelMap.CommonName}*" widget-style="required"><text size="15"/></field>
         <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="15"/></field>
         <field name="quickAdd"><hidden value="Y"/></field>
         <field name="submitButton"><submit/></field>
-    </form>  
+    </form>
 </forms>

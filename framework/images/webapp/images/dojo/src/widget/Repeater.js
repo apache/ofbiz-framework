@@ -18,12 +18,12 @@ dojo.experimental("dojo.widget.Repeater");
 dojo.widget.defineWidget("dojo.widget.Repeater", dojo.widget.HtmlWidget,
 	{
 		/*
-		summary: 
+		summary:
 			Makes it easy to add dynamicly new segments to form, ie. add new rows.
-		
-			description: 
-					
-			usage: 
+
+			description:
+
+			usage:
 				<div dojoType="Repeater" pattern="row.%{index}" useDnd="false">
 					<p>Name: <input typ="text" name="row.%{index}.name" value="" /><input type="button" rowAction="delete" value="remove this" </p>
 				</div>
@@ -135,7 +135,7 @@ dojo.widget.defineWidget("dojo.widget.Repeater", dojo.widget.HtmlWidget,
 					if (child.getAttribute("rowFunction") != null) {
 						if(typeof(this.myObject[child.getAttribute("rowFunction")]) == "undefined") {
 							dojo.debug("Function " + child.getAttribute("rowFunction") + " not found");
-						} else { 
+						} else {
 							this.myObject[child.getAttribute("rowFunction")](child);
 						} // ifelse
 					} else if (child.getAttribute("rowAction") != null) {

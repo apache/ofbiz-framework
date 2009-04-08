@@ -75,7 +75,7 @@ public class WfRequesterImpl implements WfRequester {
             throw new WfException("Context passed does not validate against defined signature: ", e);
         }
 
-        // Set the context w/ the process 
+        // Set the context w/ the process
         Map localContext = new HashMap(context);
         localContext.putAll(mgr.getInitialContext());
         process.setProcessContext(localContext);

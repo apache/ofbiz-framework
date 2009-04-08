@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
     <eca service="createFile" event="in-validate">
         <condition field-name="dataResource" operator="is-empty"/>
@@ -29,7 +29,7 @@ under the License.
         <condition field-name="surveyId" operator="is-not-empty"/>
         <action service="createSurveyQuestionAppl" mode="sync"/>
     </eca>
-    
+
     <!-- emails should not be stored as new communication event if there is no partyId or if it is already a commevent being sent out -->
     <eca service="sendMail" event="commit">
         <condition field-name="partyId" operator="is-not-empty"/>
@@ -78,7 +78,7 @@ under the License.
     </eca>
     <eca service="createDataText" event="invoke">
         <condition field-name="dataResourceTypeId" operator="is-empty"/>
-        <condition field-name="textData" operator="is-not-empty"/> 
+        <condition field-name="textData" operator="is-not-empty"/>
         <set field-name="dataResourceTypeId" value="ELECTRONIC_TEXT"/>
         <action service="createElectronicText" mode="sync" result-to-context="true"/>
     </eca>
@@ -114,7 +114,7 @@ under the License.
     <!-- create content ecas -->
     <eca service="createContent" event="commit">
         <condition field-name="partyId" operator="is-not-empty"/>
-        <condition field-name="roleTypeId" operator="is-not-empty"/>        
+        <condition field-name="roleTypeId" operator="is-not-empty"/>
         <action service="createContentRole" mode="sync" run-as-user="system"/>
     </eca>
     <eca service="createContent" event="commit">

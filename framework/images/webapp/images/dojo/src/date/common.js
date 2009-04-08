@@ -140,7 +140,7 @@ dojo.date.getTimezoneName = function(/*Date*/dateObject){
 	// If at first you don't succeed ...
 	else{
 		// If IE knows about the TZ, it appears before the year
-		// Capital letters or slash before a 4-digit year 
+		// Capital letters or slash before a 4-digit year
 		// at the end of string
 		var pat = /([A-Z\/]+) \d{4}$/;
 		if((match = str.match(pat))) {
@@ -150,7 +150,7 @@ dojo.date.getTimezoneName = function(/*Date*/dateObject){
 		// of toLocaleString instead of putting it in toString
 		else{
 			str = dateObject.toLocaleString();
-			// Capital letters or slash -- end of string, 
+			// Capital letters or slash -- end of string,
 			// after space
 			pat = / ([A-Z\/]+)$/;
 			if((match = str.match(pat))) {
@@ -181,7 +181,7 @@ dojo.date.getOrdinal = function(dateObject){
 dojo.date.compareTypes={
 	// 	summary
 	//	bitmask for comparison operations.
-	DATE:1, TIME:2 
+	DATE:1, TIME:2
 };
 dojo.date.compare=function(/* Date */ dateA, /* Date */ dateB, /* dojo.date.compareTypes */ options){
 	//	summary
@@ -193,7 +193,7 @@ dojo.date.compare=function(/* Date */ dateA, /* Date */ dateB, /* dojo.date.comp
 	with(dojo.date.compareTypes){
 		var opt=options||(DATE|TIME);
 		var d1=new Date(
-			(opt&DATE)?dA.getFullYear():now.getFullYear(), 
+			(opt&DATE)?dA.getFullYear():now.getFullYear(),
 			(opt&DATE)?dA.getMonth():now.getMonth(),
 			(opt&DATE)?dA.getDate():now.getDate(),
 			(opt&TIME)?dA.getHours():0,
@@ -218,7 +218,7 @@ dojo.date.compare=function(/* Date */ dateA, /* Date */ dateB, /* dojo.date.comp
 	return 0;	//	int
 }
 
-dojo.date.dateParts={ 
+dojo.date.dateParts={
 	//	summary
 	//	constants for use in dojo.date.add
 	YEAR:0, MONTH:1, DAY:2, HOUR:3, MINUTE:4, SECOND:5, MILLISECOND:6, QUARTER:7, WEEK:8, WEEKDAY:9
@@ -245,7 +245,7 @@ dojo.date.add = function(/* Date */ dt, /* dojo.date.dateParts */ interv, /* int
 			sum.setDate(0);
 		}
 	}
-	
+
 	var sum = new Date(dt);
 
 	with(dojo.date.dateParts){
@@ -401,7 +401,7 @@ dojo.date.diff = function(/* Date */ dtA, /* Date */ dtB, /* dojo.date.dateParts
 					var adj = 0;
 					var aDay = dtA.getDay();
 					var bDay = dtB.getDay();
-	
+
 					weeks = parseInt(days/7);
 					mod = days % 7;
 					// Mark the date advanced by the number of

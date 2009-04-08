@@ -173,7 +173,7 @@ public class HtmlWidget extends ModelScreenWidget {
                     contextMs.put(mapEntry.getKey(), newList);
                 }
             }
-            // TODO and NOTE: should get most stuff, but we could support Maps 
+            // TODO and NOTE: should get most stuff, but we could support Maps
             // and Lists in Maps and such; that's tricky because we have to go
             // through the entire Map and not just one entry, and we would
             // have to shallow copy the whole Map too

@@ -27,7 +27,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilURL;
 
 /**
- * A special location resolver that uses Strings like URLs, but with more options 
+ * A special location resolver that uses Strings like URLs, but with more options
  *
  */
 

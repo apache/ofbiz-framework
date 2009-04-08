@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -39,7 +39,7 @@ productId = requestParams.product_id ?: request.getAttribute("product_id");
  * NOTE JLR 20070221 this should be done using the same method than in add to cart. I will do it like that and remove all this after.
  *
 if (productId) {
-    previousParams = session.getAttribute("_PREVIOUS_PARAMS_"); 
+    previousParams = session.getAttribute("_PREVIOUS_PARAMS_");
     if (previousParams) {
         previousParams = UtilHttp.stripNamedParamsFromQueryString(previousParams, ["product_id"]);
         previousParams += "&product_id=" + productId;
@@ -48,7 +48,7 @@ if (productId) {
     }
     session.setAttribute("_PREVIOUS_PARAMS_", previousParams);    // for login
     context.previousParams = previousParams;
-}*/    
+}*/
 
 // get the product entity
 if (productId) {
@@ -77,7 +77,7 @@ if (productId) {
     if (product) {
         context.product = product;
         contentWrapper = new ProductContentWrapper(product, request);
-        context.put("title", contentWrapper.get("PRODUCT_NAME"));        
+        context.put("title", contentWrapper.get("PRODUCT_NAME"));
         context.put("metaDescription", contentWrapper.get("DESCRIPTION"));
 
         keywords = [];

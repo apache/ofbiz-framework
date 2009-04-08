@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,18 +21,18 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.util.EntityUtil;
 
 if (parameters.communicationEventId) {
-    communicationEventRoles = delegator.findByAnd("CommunicationEventAndRole", 
-           ["communicationEventId" : parameters.communicationEventId, 
+    communicationEventRoles = delegator.findByAnd("CommunicationEventAndRole",
+           ["communicationEventId" : parameters.communicationEventId,
             "partyId" : userLogin.partyId,
             "statusId" : "COM_ROLE_READ"
            ]);
     if (!communicationEventRoles) {
-        communicationEventRoles = delegator.findByAnd("CommunicationEventAndRole", 
-           ["communicationEventId" : parameters.communicationEventId, 
+        communicationEventRoles = delegator.findByAnd("CommunicationEventAndRole",
+           ["communicationEventId" : parameters.communicationEventId,
             "partyId" : userLogin.partyId
            ]);
     }
     if (communicationEventRoles) {
-        context.myCommunicationEventRole = communicationEventRoles.get(0); 
+        context.myCommunicationEventRole = communicationEventRoles.get(0);
     }
 }

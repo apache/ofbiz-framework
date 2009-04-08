@@ -98,10 +98,10 @@ function toggleBillingAccount(box) {
                  </#list>
                </#if>
               </table>
-             <div>&nbsp;${uiLabelMap.AccountingAgreementInformation}</div>              
-               <table>                         
+             <div>&nbsp;${uiLabelMap.AccountingAgreementInformation}</div>
+               <table>
                  <#if agreements?exists>
-                   <#if agreements.size()!=1>            
+                   <#if agreements.size()!=1>
                      <tr>
                        <td>&nbsp;</td>
                        <td align='left' valign='top' nowrap>
@@ -119,15 +119,15 @@ function toggleBillingAccount(box) {
                            </select>
                          </div>
                        </td>
-                     </tr>    
+                     </tr>
                    <#else>
-                     <#list agreements as agreement> 
-                        <input type="radio" name="agreementId" value="${agreement.agreementId?if_exists}"<#if checkThisAddress> checked</#if>>${agreement.description?if_exists} will be used for this order. 
-                     </#list> 
+                     <#list agreements as agreement>
+                        <input type="radio" name="agreementId" value="${agreement.agreementId?if_exists}"<#if checkThisAddress> checked</#if>>${agreement.description?if_exists} will be used for this order.
+                     </#list>
                    </#if>
-                 </#if>            
+                 </#if>
                </table>
-             <br />              
+             <br />
             <#-- Party Tax Info -->
             <div>&nbsp;${uiLabelMap.PartyTaxIdentification}</div>
             ${screens.render("component://order/widget/ordermgr/OrderEntryOrderScreens.xml#customertaxinfo")}

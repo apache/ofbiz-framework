@@ -18,7 +18,7 @@ under the License.
 -->
 
 <html>
-<head>  
+<head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 
@@ -54,7 +54,7 @@ under the License.
   <tr>
     <td colspan="2">&nbsp;</td>
   </tr>
- 
+
   <#list assignments as assign>
   <tr>
     <td align="right"><b>Assigned Party ID:</b></td>
@@ -69,7 +69,7 @@ under the License.
     <td>${assign.statusId?if_exists}</td>
   </tr>
   </#list>
-  
+
   <tr>
     <td colspan="2">&nbsp;</td>
   </tr>

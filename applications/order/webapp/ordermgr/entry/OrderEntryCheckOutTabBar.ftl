@@ -36,7 +36,7 @@ under the License.
       <#else>
         <li><a href="<@ofbizUrl>processorder</@ofbizUrl>">${uiLabelMap.OrderCreateOrder}</a></li>
       </#if>
-      
+
       <#list checkoutSteps?reverse as checkoutStep>
         <#assign stepUiLabel = uiLabelMap.get(checkoutStep.label)>
         <#if checkoutStep.enabled == "N">

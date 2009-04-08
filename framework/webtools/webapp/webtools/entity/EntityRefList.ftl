@@ -48,7 +48,7 @@ under the License.
                 <a href="<@ofbizUrl>ModelGroupWriter?savetofile=true</@ofbizUrl>" target='_blank'>Save Entity Group XML to File</A><BR>
                 -->
                 <a href="<@ofbizUrl>view/ModelInduceFromDb</@ofbizUrl>" target='_blank'>${uiLabelMap.WebtoolsInduceModelXMLFromDatabase}</A><BR>
-            </#if> 
+            </#if>
             <#if packageNames?has_content>
                 <hr/>
                 <div class="section-header">${uiLabelMap.WebtoolsEntityPackages}</div>

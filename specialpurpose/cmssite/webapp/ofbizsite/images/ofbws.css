@@ -13,22 +13,22 @@ A {
 color: #4B107E;
 }
 
-A:hover { 
+A:hover {
 color: #000000;
 text-decoration: underline;
 }
 
 UL {
-margin-top: 0; 
+margin-top: 0;
 margin-bottom: 0;
 }
 
 DIV.endcolumns {
   clear: both;
   font-size: 1px;
-}  
+}
 
-.main-logo { 
+.main-logo {
   height: 30px;
   border: 0;
 }
@@ -95,7 +95,7 @@ width: 210px;
 
 #link-column h2 {
 margin: 0px 0px 0px 0px;
-padding: 6px 4px 6px 4px; 
+padding: 6px 4px 6px 4px;
 /*background: #CDDADC;*/
 color: black;
 font-family: Arial, Verdana, Helvetica, sans-serif;

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -25,23 +25,23 @@ orderPaymentPreferenceId = context.orderPaymentPreferenceId;
 
 if ((!orderId) || (!orderPaymentPreferenceId)) return;
 
-if(orderId) {
+if (orderId) {
    orderHeader = delegator.findByPrimaryKey("OrderHeader", [orderId : orderId]);
    context.orderHeader = orderHeader;
 }
 
-if(orderHeader) {
+if (orderHeader) {
    orh = new OrderReadHelper(orderHeader);
    context.orh = orh;
    context.overrideAmount = orh.getOrderGrandTotal();
 }
 
-if(orderPaymentPreferenceId) {
+if (orderPaymentPreferenceId) {
    orderPaymentPreference = delegator.findByPrimaryKey("OrderPaymentPreference", [orderPaymentPreferenceId : orderPaymentPreferenceId]);
    context.orderPaymentPreference = orderPaymentPreference;
 }
 
-if(orderPaymentPreference) {
+if (orderPaymentPreference) {
    paymentMethodType = orderPaymentPreference.getRelatedOneCache("PaymentMethodType");
    context.paymentMethodType = paymentMethodType;
    context.overrideAmount = orderPaymentPreference.getBigDecimal("maxAmount");

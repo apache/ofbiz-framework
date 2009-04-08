@@ -15,21 +15,21 @@ dojo.require("dojo.lang.assert");
 dojo.declare("dojo.data.CsvStore", dojo.data.core.RemoteStore, {
 	/* summary:
 	 *   The CsvStore subclasses dojo.data.core.RemoteStore to implement
-	 *   the dojo.data.core.Read API.  
+	 *   the dojo.data.core.Read API.
 	 */
-	
+
 	/* examples:
 	 *   var csvStore = new dojo.data.CsvStore({queryUrl:"movies.csv");
 	 *   var csvStore = new dojo.data.CsvStore({url:"http://example.com/movies.csv");
 	 */
-	_setupQueryRequest: function(/* dojo.data.core.Result */ result, /* object */ requestKw) { 
+	_setupQueryRequest: function(/* dojo.data.core.Result */ result, /* object */ requestKw) {
 		// summary: See dojo.data.core.RemoteStore._setupQueryRequest()
 		var serverQueryUrl = this._serverQueryUrl ? this._serverQueryUrl : "";
 		var queryUrl = result.query ? result.query : "";
 		requestKw.url = serverQueryUrl + queryUrl;
 		requestKw.method = 'get';
 	},
-	
+
 	_resultToQueryData: function(/* varies */ serverResponseData) {
 		// summary: See dojo.data.core.RemoteStore._resultToQueryData()
 		var csvFileContentString = serverResponseData;
@@ -38,12 +38,12 @@ dojo.declare("dojo.data.CsvStore", dojo.data.core.RemoteStore, {
         var remoteStoreData = this._getRemoteStoreDataFromArrayOfObjects(arrayOfObjects);
 		return remoteStoreData;
 	},
-	
+
 	_setupSaveRequest: function(/* object */ saveKeywordArgs, /* object */ requestKw) {
 		// summary: See dojo.data.core.RemoteStore._setupSaveRequest()
 		// description: NOT IMPLEMENTED -- CsvStore is a read-only store
 	},
-	
+
 	// -------------------------------------------------------------------
 	// Private methods
 	_getArrayOfArraysFromCsvFileContents: function(/* string */ csvFileContents) {
@@ -53,28 +53,28 @@ dojo.declare("dojo.data.CsvStore", dojo.data.core.RemoteStore, {
 		 *   Given a string containing CSV records, this method parses
 		 *   the string and returns a data structure containing the parsed
 		 *   content.  The data structure we return is an array of length
-		 *   R, where R is the number of rows (lines) in the CSV data.  The 
-		 *   return array contains one sub-array for each CSV line, and each 
-		 *   sub-array contains C string values, where C is the number of 
+		 *   R, where R is the number of rows (lines) in the CSV data.  The
+		 *   return array contains one sub-array for each CSV line, and each
+		 *   sub-array contains C string values, where C is the number of
 		 *   columns in the CSV data.
 		 */
-		 
+
 		/* example:
 		 *   For example, given this CSV string as input:
 		 *     "Title, Year, Producer \n Alien, 1979, Ridley Scott \n Blade Runner, 1982, Ridley Scott"
 		 *   We will return this data structure:
 		 *     [["Title", "Year", "Producer"]
-		 *      ["Alien", "1979", "Ridley Scott"],  
+		 *      ["Alien", "1979", "Ridley Scott"],
 		 *      ["Blade Runner", "1982", "Ridley Scott"]]
 		 */
 		dojo.lang.assertType(csvFileContents, String);
-		
+
 		var lineEndingCharacters = new RegExp("\r\n|\n|\r");
 		var leadingWhiteSpaceCharacters = new RegExp("^\\s+",'g');
 		var trailingWhiteSpaceCharacters = new RegExp("\\s+$",'g');
 		var doubleQuotes = new RegExp('""','g');
 		var arrayOfOutputRecords = [];
-		
+
 		var arrayOfInputLines = csvFileContents.split(lineEndingCharacters);
 		for (var i in arrayOfInputLines) {
 			var singleLine = arrayOfInputLines[i];
@@ -89,8 +89,8 @@ dojo.declare("dojo.data.CsvStore", dojo.data.core.RemoteStore, {
 					var lastChar = field.charAt(field.length - 1);
 					var secondToLastChar = field.charAt(field.length - 2);
 					var thirdToLastChar = field.charAt(field.length - 3);
-					if ((firstChar == '"') && 
-							((lastChar != '"') || 
+					if ((firstChar == '"') &&
+							((lastChar != '"') ||
 							 ((lastChar == '"') && (secondToLastChar == '"') && (thirdToLastChar != '"')) )) {
 						if (j+1 === listOfFields.length) {
 							// alert("The last field in record " + i + " is corrupted:\n" + field);
@@ -118,11 +118,11 @@ dojo.declare("dojo.data.CsvStore", dojo.data.core.RemoteStore, {
 		/* summary:
 		 *   Converts a nested array structure into an array of keyword objects.
 		 */
-		 
+
 		/* example:
 		 *   For example, given this as input:
 		 *     [["Title", "Year", "Producer"]
-		 *      ["Alien", "1979", "Ridley Scott"],  
+		 *      ["Alien", "1979", "Ridley Scott"],
 		 *      ["Blade Runner", "1982", "Ridley Scott"]]
 		 *   We will return this as output:
 		 *     [{"Title":"Alien", "Year":"1979", "Producer":"Ridley Scott"},
@@ -145,10 +145,10 @@ dojo.declare("dojo.data.CsvStore", dojo.data.core.RemoteStore, {
 		}
 		return arrayOfItems; // Array
 	},
-	
+
 	_getRemoteStoreDataFromArrayOfObjects: function(/* object[] */ arrayOfObjects) {
 		/* summary:
-		 *   Converts an array of keyword objects in the internal record data 
+		 *   Converts an array of keyword objects in the internal record data
 		 *    structure used by RemoteStore.
 		 */
 
@@ -174,7 +174,7 @@ dojo.declare("dojo.data.CsvStore", dojo.data.core.RemoteStore, {
 		return output; // Object
 	},
 
-	// CsvStore implements the dojo.data.core.Read API, but does not yet  
+	// CsvStore implements the dojo.data.core.Read API, but does not yet
 	// implements the dojo.data.core.Write API.  CsvStore extends RemoteStore,
 	// and RemoteStore does implement the Write API, so we need to explicitly
 	// mark those Write API methods as being unimplemented.

@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -49,10 +49,10 @@ if (workEffortTypeId != null) {
 }
 
 start = null;
-if(UtilValidate.isNotEmpty(startParam)) {
+if (UtilValidate.isNotEmpty(startParam)) {
     start = new Timestamp(Long.parseLong(startParam));
 }
-if(start == null) {
+if (start == null) {
     start = UtilDateTime.getMonthStart(nowTimestamp, timeZone, locale);
 } else {
     start = UtilDateTime.getMonthStart(start, timeZone, locale);
@@ -68,7 +68,7 @@ end = UtilDateTime.getDayStart(start, numDays, timeZone, locale);
 //Find out what date to get from
 getFrom = null;
 prevMonthDays =  tempCal.get(Calendar.DAY_OF_WEEK) - tempCal.getFirstDayOfWeek();
-if(prevMonthDays < 0) prevMonthDays = 7 + prevMonthDays;
+if (prevMonthDays < 0) prevMonthDays = 7 + prevMonthDays;
 tempCal.add(Calendar.DATE,-(prevMonthDays));
 numDays += prevMonthDays;
 getFrom = new Timestamp(tempCal.getTimeInMillis());

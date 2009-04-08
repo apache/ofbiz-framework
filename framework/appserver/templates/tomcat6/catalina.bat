@@ -42,9 +42,9 @@ rem
 rem   JAVA_OPTS       (Optional) Java runtime options used when the "start",
 rem                   "stop", or "run" command is executed.
 
-rem BEGIN OfBiz settings 
+rem BEGIN OfBiz settings
 set JAVA_OPTS="%JAVA_OPTS% -Dofbiz.home=${ofbizHome}"
-rem END OfBiz settings 
+rem END OfBiz settings
 
 rem   JSSE_HOME       (Optional) May point at your Java Secure Sockets Extension
 rem                   (JSSE) installation, whose JAR files will be added to the

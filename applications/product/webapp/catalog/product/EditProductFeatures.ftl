@@ -16,12 +16,12 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if productId?exists>    
+<#if productId?exists>
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.PageTitleEditProductFeatures}</h3>
     </div>
-    <div class="screenlet-body">     
+    <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">
             <form method="post" action="<@ofbizUrl>UpdateFeatureToProductApplication</@ofbizUrl>" name="selectAllForm">
             <input type="hidden" name="_useRowSubmit" value="Y">
@@ -73,7 +73,7 @@ under the License.
                         </#list>
                         </select>
                     </td>
-                    <td align="right">              
+                    <td align="right">
                         <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'productFeatureId_tableRow_${rowCount}');">
                     </td>
                     <td>
@@ -98,7 +98,7 @@ under the License.
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductAddProductFeatureFromCategory}</h3>
     </div>
-    <div class="screenlet-body"> 
+    <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>ApplyFeaturesFromCategory</@ofbizUrl>" style='margin: 0;'>
             <input type="hidden" name="productId" value="${productId}">
             <select name='productFeatureCategoryId' size="1">
@@ -116,10 +116,10 @@ under the License.
             <span class='label'>${uiLabelMap.ProductFeatureApplicationType}: </span>
             <select name='productFeatureApplTypeId' size="1">
                 <#list productFeatureApplTypes as productFeatureApplType>
-                   <option value='${(productFeatureApplType.productFeatureApplTypeId)?if_exists}' 
+                   <option value='${(productFeatureApplType.productFeatureApplTypeId)?if_exists}'
                    <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'Y' && productFeatureApplType.productFeatureApplTypeId =="SELECTABLE_FEATURE")>selected</#if>
                    <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'N' && productFeatureApplType.productFeatureApplTypeId?if_exists =="STANDARD_FEATURE")>selected</#if>
-                   >${(productFeatureApplType.get("description",locale))?if_exists} </option>           
+                   >${(productFeatureApplType.get("description",locale))?if_exists} </option>
                 </#list>
             </select>
             <input type="submit" value='${uiLabelMap.CommonAdd}'>
@@ -130,7 +130,7 @@ under the License.
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductAddProductFeatureTypeId}</h3>
     </div>
-    <div class="screenlet-body"> 
+    <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>ApplyFeatureToProductFromTypeAndCode</@ofbizUrl>" name='addFeatureByTypeIdCode'>
             <input type="hidden" name="productId" value="${productId}">
             <span class='label'>${uiLabelMap.ProductFeatureType}: </span><select name='productFeatureTypeId' size="1">
@@ -143,10 +143,10 @@ under the License.
             <span class='label'>${uiLabelMap.ProductFeatureApplicationType}: </span>
             <select name='productFeatureApplTypeId' size="1">
                 <#list productFeatureApplTypes as productFeatureApplType>
-                   <option value='${(productFeatureApplType.productFeatureApplTypeId)?if_exists}' 
+                   <option value='${(productFeatureApplType.productFeatureApplTypeId)?if_exists}'
                    <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'Y' && productFeatureApplType.productFeatureApplTypeId =="SELECTABLE_FEATURE")>selected</#if>
                    <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'N' && productFeatureApplType.productFeatureApplTypeId =="STANDARD_FEATURE")>selected</#if>
-                   >${(productFeatureApplType.get("description",locale))?if_exists} </option>           
+                   >${(productFeatureApplType.get("description",locale))?if_exists} </option>
                 </#list>
             </select>
             <br/>
@@ -163,7 +163,7 @@ under the License.
     <div class="screenlet-title-bar">
         <h3>${uiLabelMap.ProductAddProductFeatureID}</h3>
     </div>
-    <div class="screenlet-body"> 
+    <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>ApplyFeatureToProduct</@ofbizUrl>" name="addFeatureById">
             <input type="hidden" name="productId" value="${productId}">
             <span class="label">${uiLabelMap.CommonId}: </span>
@@ -171,15 +171,15 @@ under the License.
             <span class='label'>
                 <a href="javascript:call_fieldlookup2(document.addFeatureById.productFeatureId,'LookupProductFeature');">
                     <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'>
-                </a> 
+                </a>
             </span>
             <span class="label">${uiLabelMap.ProductFeatureApplicationType}: </span>
             <select name="productFeatureApplTypeId" size="1">
                 <#list productFeatureApplTypes as productFeatureApplType>
-                   <option value='${(productFeatureApplType.productFeatureApplTypeId)?if_exists}' 
+                   <option value='${(productFeatureApplType.productFeatureApplTypeId)?if_exists}'
                    <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'Y' && productFeatureApplType.productFeatureApplTypeId =="SELECTABLE_FEATURE")>selected</#if>
                    <#if (productFeatureApplType.productFeatureApplTypeId?exists && product?exists && product.isVirtual == 'N' && productFeatureApplType.productFeatureApplTypeId =="STANDARD_FEATURE")>selected</#if>
-                   >${(productFeatureApplType.get("description",locale))?if_exists} </option>           
+                   >${(productFeatureApplType.get("description",locale))?if_exists} </option>
                 </#list>
             </select>
             <br/>

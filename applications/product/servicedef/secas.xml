@@ -20,7 +20,7 @@ under the License.
 
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
-    <!-- update inventory item -->    
+    <!-- update inventory item -->
     <eca service="updateInventoryItem" event="commit">
         <condition field-name="statusId" operator="is-not-empty"/>
         <condition-field field-name="oldStatusId" operator="not-equals" to-field-name="statusId"/>
@@ -40,9 +40,9 @@ under the License.
     </eca>
     <eca service="createItemIssuance" event="return"><!-- change the owner after item issuance transactions are created for old owner -->
         <condition field-name="orderId" operator="is-not-empty"/>
-        <condition field-name="inventoryItemId" operator="is-not-empty"/>    
+        <condition field-name="inventoryItemId" operator="is-not-empty"/>
         <action service="changeOwnerUponIssuance" mode="sync"/>
-    </eca>    
+    </eca>
 
     <!-- inventory transfer -->
     <eca service="createInventoryTransfer" event="invoke">
@@ -67,12 +67,12 @@ under the License.
 
     <!-- inventory variance -->
     <eca service="createPhysicalInventoryAndVariance" event="commit">
-        <action service="balanceInventoryItems" mode="sync"/>    
+        <action service="balanceInventoryItems" mode="sync"/>
     </eca>
 
     <!-- inventory changes -->
     <eca service="balanceInventoryItems" event="commit">
-        <action service="updateProductIfAvailableFromShipment" mode="sync"/>    
+        <action service="updateProductIfAvailableFromShipment" mode="sync"/>
     </eca>
 
     <!-- Product Price Change ECAs -->

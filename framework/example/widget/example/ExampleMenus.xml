@@ -18,8 +18,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">          
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     <menu name="ExampleAppBar" title="${uiLabelMap.ExampleApplication}" extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="Example" title="${uiLabelMap.ExampleExample}"><link target="FindExample"/></menu-item>
         <menu-item name="ExampleFeature" title="${uiLabelMap.ExampleFeature}"><link target="FindExampleFeature"/></menu-item>

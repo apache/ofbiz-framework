@@ -59,12 +59,12 @@ dojo.crypto.SHA1 = new function(){
 		return (m<<16)|(l&0xffff);
 	}
 	function r(x,n){  return (x<<n)|(x>>>(32-n)); }
-	
+
 	//	SHA rounds
 	function f(u,v,w){ return ((u&v)|(~u&w)); }
 	function g(u,v,w){ return ((u&v)|(u&w)|(v&w)); }
 	function h(u,v,w){ return (u^v^w); }
-	
+
 	function fn(i,u,v,w){
 		if(i<20) return f(u,v,w);
 		if(i<40) return h(u,v,w);
@@ -88,7 +88,7 @@ dojo.crypto.SHA1 = new function(){
 		var c=-1732584194;		//	0x98badcfe
 		var d= 271733878;		//	0x10325476
 		var e=-1009589776;		//	0xc3d2e1f0
-		
+
 		for(var i=0; i<x.length; i+=16){
 			var olda=a;
 			var oldb=b;

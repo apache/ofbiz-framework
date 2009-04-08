@@ -60,7 +60,7 @@ dojo.inherits(dojo.rpc.JsonService, dojo.rpc.RpcService);
 dojo.extend(dojo.rpc.JsonService, {
 
 	bustCache: false,
-	
+
 	contentType: "application/json-rpc",
 
 	lastSubmissionId: 0,
@@ -88,7 +88,7 @@ dojo.extend(dojo.rpc.JsonService, {
 			mimetype: "text/json",
 			load: this.resultCallback(deferredRequestHandler),
 			error: this.errorCallback(deferredRequestHandler),
-			preventCache:this.bustCache 
+			preventCache:this.bustCache
 		});
 	},
 
@@ -103,13 +103,13 @@ dojo.extend(dojo.rpc.JsonService, {
 
 	parseResults: function(obj){
 		//summary
-		//parse the result envelope and pass the results back to 
+		//parse the result envelope and pass the results back to
 		// to the callback function
 		if(!obj){ return; }
-		if (obj["Result"]!=null){ 
-			return obj["Result"]; 
-		}else if(obj["result"]!=null){ 
-			return obj["result"]; 
+		if (obj["Result"]!=null){
+			return obj["Result"];
+		}else if(obj["result"]!=null){
+			return obj["result"];
 		}else if(obj["ResultSet"]){
 			return obj["ResultSet"];
 		}else{

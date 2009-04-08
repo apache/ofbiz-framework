@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="getPortletAttributes" short-description="Get Portlet Attribute Values">
@@ -37,7 +37,7 @@ under the License.
             <set field="context.${portletAttribute.attrName}" from-field="portletAttribute.attrValue"/>
         </iterate>
     </simple-method>
-    
+
     <simple-method method-name="setPortalPortletAttributes" short-description="Sets a PortalPortlet attributes">
         <if-not-empty field="parameters">
             <iterate-map map="parameters" key="attributeKey" value="attributeValue">
@@ -55,7 +55,7 @@ under the License.
                             <set-service-fields service-name="createPortletAttribute" to-map="attributeEntityMap" map="parameters"/>
                             <set field="attributeEntityMap.attrName"  from-field="attributeKey"/>
                             <set field="attributeEntityMap.attrValue" from-field="attributeValue"/>
-                            
+
                             <entity-one entity-name="PortletAttribute" value-field="attributeItem">
                                 <field-map field-name="attrName" from-field="attributeEntityMap.attrName"/>
                             </entity-one>
@@ -70,7 +70,7 @@ under the License.
             </iterate-map>
         </if-not-empty>
     </simple-method>
-    
+
     <!--Create simple-method of copyOriginalPage-->
     <simple-method method-name="copyIfRequiredSystemPage" short-description="Check if the page is a system page, then copy before allowing the user to copy it">
         <entity-one entity-name="PortalPage" value-field="portalPage"/>
@@ -81,7 +81,7 @@ under the License.
                 <field-map field-name="ownerUserLoginId" from-field="userLogin.userLoginId"/>
             </entity-and>
             <if-empty field="getPrivatePages">
-                
+
                 <!-- copy the portal page -->
                 <set-service-fields service-name="createPortalPage" map="portalPage" to-map="createPage"/>
                 <clear-field field="createPage.portalPageId"/>
@@ -91,8 +91,8 @@ under the License.
                     <result-to-field result-name="portalPageId"/>
                 </call-service>
                 <field-to-request field="portalPageId" request-name="portalPageId"/>
-                
-                <!-- copy portlets -->  
+
+                <!-- copy portlets -->
                 <entity-and entity-name="PortalPagePortlet" list="portalPagePortlets">
                     <field-map field-name="portalPageId" from-field="parameters.portalPageId"/>
                 </entity-and>
@@ -111,7 +111,7 @@ under the License.
                         <create-value value-field="portletAttribute"/>
                     </iterate>
                 </iterate>
-                
+
                 <!-- delete the columns -->
                 <set field="delMap.portalPageId" from-field="portalPageId"/>
                 <remove-by-and entity-name="PortalPageColumn" map="delMap"/>
@@ -127,8 +127,8 @@ under the License.
                     <set field="addColumnMap.portalPageId" from-field="portalPageId"/>
                     <call-service service-name="addPortalPageColumn" in-map-name="addColumnMap"/>
                 </iterate>
-                
+
             </if-empty>
         </if-compare>
-    </simple-method>    
+    </simple-method>
 </simple-methods>

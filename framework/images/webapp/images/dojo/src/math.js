@@ -15,7 +15,7 @@ dojo.math.degToRad = function(/* float */x) {
 	//	Converts degrees to radians.
 	return (x*Math.PI) / 180; 	//	float
 }
-dojo.math.radToDeg = function(/* float */x) { 
+dojo.math.radToDeg = function(/* float */x) {
 	//	summary
 	//	Converts radians to degrees.
 	return (x*180) / Math.PI; 	//	float

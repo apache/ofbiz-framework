@@ -31,7 +31,7 @@ dojo.widget.defineWidget("dojo.widget.TabContainer", dojo.widget.PageContainer, 
 	//   Defines where tab labels go relative to tab content.
 	//   "top", "bottom", "left-h", "right-h"
 	labelPosition: "top",
-	
+
 	// closeButton: String
 	//   If closebutton=="tab", then every tab gets a close button.
 	//   DEPRECATED:  Should just say closable=true on each
@@ -70,7 +70,7 @@ dojo.widget.defineWidget("dojo.widget.TabContainer", dojo.widget.PageContainer, 
 		dojo.widget.TabContainer.superclass.fillInTemplate.apply(this, arguments);
 	},
 
-	postCreate: function(args, frag) {	
+	postCreate: function(args, frag) {
 		dojo.widget.TabContainer.superclass.postCreate.apply(this, arguments);
 
 		// size the container pane to take up the space not used by the tabs themselves
@@ -193,7 +193,7 @@ dojo.widget.defineWidget("dojo.widget.TabButton", dojo.widget.PageButton,
 		dojo.html.disableSelection(this.titleNode);
 		dojo.widget.TabButton.superclass.fillInTemplate.apply(this, arguments);
 	},
-	
+
 	onCloseButtonClick: function(/*Event*/ evt){
 		// since the close button is located inside the select button, make sure that the select
 		// button doesn't inadvertently get an onClick event
@@ -212,7 +212,7 @@ dojo.widget.defineWidget(
 		//	This is an internal widget and shouldn't be instantiated directly.
 
 		imgPath: dojo.uri.dojoUri("src/widget/templates/images/tab_close.gif"),
-		
+
 		templateString: "<div class='dojoTab' dojoAttachEvent='onClick;onKey'>"
 							+"<div dojoAttachPoint='innerDiv'>"
 								+"<span dojoAttachPoint='titleNode' tabIndex='-1' waiRole='tab'>${this.label}</span>"

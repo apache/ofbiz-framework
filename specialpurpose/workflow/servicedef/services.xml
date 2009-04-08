@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Workflow Component Services</description>
     <vendor>OFBiz</vendor>
@@ -52,24 +52,24 @@ under the License.
         <description>Attempt to initiate a workflow activity</description>
         <attribute name="workEffortId" type="String" mode="IN"/>
     </service>
-    
+
     <service name="wfCancelWorkflow" engine="java"
             location="org.ofbiz.workflow.client.WorkflowServices" invoke="cancelWorkflow">
         <description>Abort a workflow process</description>
         <attribute name="workEffortId" type="String" mode="IN"/>
     </service>
-    
+
     <service name="wfSuspendActivity" engine="java"
             location="org.ofbiz.workflow.client.WorkflowServices" invoke="suspendActivity">
         <description>Suspend a workflow activity</description>
         <attribute name="workEffortId" type="String" mode="IN"/>
     </service>
-    
+
     <service name="wfResumeActivity" engine="java"
             location="org.ofbiz.workflow.client.WorkflowServices" invoke="resumeActivity">
         <description>Resume a suspended activity</description>
         <attribute name="workEffortId" type="String" mode="IN"/>
-    </service>        
+    </service>
 
     <service name="wfChangeActivityState" engine="java"
             location="org.ofbiz.workflow.client.WorkflowServices" invoke="changeActivityState">
@@ -85,33 +85,33 @@ under the License.
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="fromDate" type="Timestamp" mode="IN"/>
     </service>
-    
+
     <service name="wfAssignActivity" engine="java"
             location="org.ofbiz.workflow.client.WorkflowServices" invoke="assignActivity">
         <description>Assign a new party or role to a workflow activity</description>
         <implements service="wfAssignmentInterface"/>
         <attribute name="removeOldAssignments" type="String" mode="IN" optional="true"/>
     </service>
-        
+
     <service name="wfAcceptAssignment" engine="java"
             location="org.ofbiz.workflow.client.WorkflowServices" invoke="acceptAssignment">
         <description>Accept a workflow user assignment</description>
-        <implements service="wfAssignmentInterface"/>       
+        <implements service="wfAssignmentInterface"/>
     </service>
 
     <service name="wfAcceptRoleAssignment" engine="java"
             location="org.ofbiz.workflow.client.WorkflowServices" invoke="acceptRoleAssignment">
         <description>Accept a workflow role assignment</description>
-        <implements service="wfAssignmentInterface"/>      
+        <implements service="wfAssignmentInterface"/>
     </service>
 
     <service name="wfCompleteAssignment" engine="java"
             location="org.ofbiz.workflow.client.WorkflowServices" invoke="completeAssignment">
         <description>Complete a workflow assignment</description>
-        <implements service="wfAssignmentInterface"/>      
+        <implements service="wfAssignmentInterface"/>
         <attribute name="result" type="java.util.Map" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="wfDelegateAssignmentInterface" engine="interface" location="" invoke="">
         <description>Interface service for assignment delegation services</description>
         <attribute name="workEffortId" type="String" mode="IN"/>
@@ -122,38 +122,38 @@ under the License.
         <attribute name="toRoleTypeId" type="String" mode="IN"/>
         <attribute name="toFromDate" type="Timestamp" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="wfDelegateAssignment" engine="java"
             location="org.ofbiz.workflow.client.WorkflowServices" invoke="delegateAssignment">
         <description>Delegate an assigned assignment to another party</description>
         <implements service="wfDelegateAssignmentInterface"/>
     </service>
-    
+
     <service name="wfDelegateAndAcceptAssignmet" engine="java"
             location="org.ofbiz.workflow.client.WorkflowServices" invoke="delegateAcceptAssignment">
         <description>Delegate an assigned assignment and accept</description>
         <implements service="wfDelegateAssignmentInterface"/>
         <attribute name="startActivity" type="Boolean" mode="IN" optional="true"/>
     </service>
-                
+
     <service name="wfActivateApplication" engine="java"
             location="org.ofbiz.workflow.WfApplicationServices" invoke="activateApplication">
         <description>Activate a workflow assignment</description>
         <attribute name="workEffortId" type="String" mode="IN"/>
         <attribute name="applicationId" type="String" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="wfGetApplicationContext" engine="java"
             location="org.ofbiz.workflow.WfApplicationServices" invoke="getApplicationContext">
         <description>Get the application Context</description>
         <attribute name="applicationId" type="String" mode="IN"/>
         <attribute name="applicationContext" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="wfCompleteApplication" engine="java"
             location="org.ofbiz.workflow.WfApplicationServices" invoke="completeApplication">
         <description>Complete a workflow assignment</description>
         <attribute name="applicationId" type="String" mode="IN"/>
         <attribute name="result" type="java.util.Map" mode="IN" optional="true"/>
-    </service>    
+    </service>
 </services>

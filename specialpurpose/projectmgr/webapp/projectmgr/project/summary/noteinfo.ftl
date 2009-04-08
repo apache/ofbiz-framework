@@ -51,31 +51,31 @@ under the License.
 	                      <#if project?has_content>
                             <a href="<@ofbizUrl>updateProjectNote?workEffortId=${project.workEffortId?if_exists}&noteId=${note.noteId}&internalNote=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
                           <#else>
-                            <a href="<@ofbizUrl>updateTaskNoteSummary?workEffortId=${task.workEffortId?if_exists}&noteId=${note.noteId}&internalNote=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>  
+                            <a href="<@ofbizUrl>updateTaskNoteSummary?workEffortId=${task.workEffortId?if_exists}&noteId=${note.noteId}&internalNote=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
                           </#if>
-                    </#if>    
+                    </#if>
                     <#if note.internalNote?if_exists == "Y">
 	                    <div>${uiLabelMap.OrderNotPrintableNote}</div>
                            <#if project?has_content>
                              <a href="<@ofbizUrl>updateProjectNote?workEffortId=${project.workEffortId?if_exists}&noteId=${note.noteId}&internalNote=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>
                           <#else>
-                            <a href="<@ofbizUrl>updateTaskNoteSummary?workEffortId=${task.workEffortId?if_exists}&noteId=${note.noteId}&internalNote=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>  
+                            <a href="<@ofbizUrl>updateTaskNoteSummary?workEffortId=${task.workEffortId?if_exists}&noteId=${note.noteId}&internalNote=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>
                           </#if>
-                    </#if>    
+                    </#if>
                   </td>
                 </tr>
-                <#if note_has_next>          
+                <#if note_has_next>
                   <tr><td colspan="3"><hr></td></tr>
                 </#if>
               </#list>
             </table>
             <#else>
-              <#if project?has_content>            
+              <#if project?has_content>
                 <div>&nbsp;${uiLabelMap.ProjectMgrProjectNoNotes}.</div>
               <#else>
                 <div>&nbsp;${uiLabelMap.ProjectMgrTaskNoNotes}.</div>
               </#if>
-                
+
             </#if>
           </td>
         </tr>
@@ -88,7 +88,7 @@ under the License.
           <br class="clear" />
         </div>
         <div class="screenlet-body">
-          <form name="createnoteform" method="post" 
+          <form name="createnoteform" method="post"
             <#if project?has_content> action="<@ofbizUrl>createNewNotesForProject</@ofbizUrl>"
             <#else> action="<@ofbizUrl>createNewNotesForTask</@ofbizUrl>"
             </#if>>
@@ -98,7 +98,7 @@ under the License.
                   <td><input type="hidden" name="workEffortId" value="${project.workEffortId}"></td>
                 <#else>
                   <td><input type="hidden" name="workEffortId" value="${task.workEffortId}"></td>
-                </#if>  
+                </#if>
               </tr>
               <tr>
                 <td width="26%" align="right"><div>${uiLabelMap.OrderNote}</div></td>
@@ -112,11 +112,11 @@ under the License.
               </tr>
               <tr>
 	            <td/><td><i>${uiLabelMap.OrderInternalNoteMessage}</i></td>
-	          </tr>  
+	          </tr>
             </table>
             <#if project?has_content>
               &nbsp;<a href="javascript:document.createnoteform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
-            <#else>  
+            <#else>
               &nbsp;<a href="javascript:document.createnoteform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
             </#if>
           </form>

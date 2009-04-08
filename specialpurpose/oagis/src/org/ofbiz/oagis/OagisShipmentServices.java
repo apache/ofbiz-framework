@@ -611,7 +611,7 @@ public class OagisShipmentServices {
 
             String errMsg = "Found business level errors in message processing, not saving those changes but saving error messages; first error is: " + errorMapList.get(0);
 
-            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times 
+            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times
             result.putAll(ServiceUtil.returnSuccess(errMsg));
 
             // however, we still don't want to save the partial results, so set rollbackOnly

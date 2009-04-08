@@ -25,13 +25,13 @@ dojo.lfx.html.fadeWipeIn = function(/*DOMNode[]*/ nodes, /*int?*/ duration, /*Fu
 		dojo.lfx.fadeIn(nodes, duration, easing),
 		dojo.lfx.wipeIn(nodes, duration, easing)
 	);
-	
+
 	if(callback){
 		anim.connect("onEnd", function(){
 			callback(nodes, anim);
 		});
 	}
-	
+
 	return anim; // dojo.lfx.Combine
 }
 
@@ -47,7 +47,7 @@ dojo.lfx.html.fadeWipeOut = function(/*DOMNode[]*/ nodes, /*int?*/ duration, /*F
 		dojo.lfx.fadeOut(nodes, duration, easing),
 		dojo.lfx.wipeOut(nodes, duration, easing)
 	);
-	
+
 	if(callback){
 		/* callback: Function
 		   pId: f */
@@ -91,7 +91,7 @@ dojo.lfx.html.scale = function(/*DOMNode[]*/nodes,
 				start: outer.height,
 				end: outer.height * actualPct
 			}];
-		
+
 		if(scaleContent){
 			var fontSize = dojo.html.getStyle(node, 'font-size');
 			var fontSizeType = null;
@@ -113,7 +113,7 @@ dojo.lfx.html.scale = function(/*DOMNode[]*/nodes,
 				end: fontSize * actualPct,
 				units: fontSizeType });
 		}
-		
+
 		if(fromCenter){
 			var positioning = dojo.html.getStyle(node, "position");
 			var originalTop = node.offsetTop;
@@ -131,7 +131,7 @@ dojo.lfx.html.scale = function(/*DOMNode[]*/nodes,
 				end: (positioning == "absolute" ? originalLeft - endLeft : (-1*endLeft))
 			});
 		}
-		
+
 		var anim = dojo.lfx.propertyAnimation(node, props, duration, easing);
 		if(callback){
 			anim.connect("onEnd", function(){
@@ -141,7 +141,7 @@ dojo.lfx.html.scale = function(/*DOMNode[]*/nodes,
 
 		anims.push(anim);
 	});
-	
+
 	return dojo.lfx.combine(anims); // dojo.lfx.Combine
 }
 

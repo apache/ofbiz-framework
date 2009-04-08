@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <!-- ################################# -->  
+    <!-- ################################# -->
     <!-- This is an example of a fixed asset (a machine or a workcenter) with standard costing information -->
     <FixedAsset fixedAssetId="WORKCENTER_COST" fixedAssetTypeId="GROUP_EQUIPMENT" fixedAssetName="Demo Workcenter with Standard Costs information"/>
     <!-- Deprecated: in the future cost information will be stored in the CostComponentCalc entity;
@@ -28,7 +28,7 @@ under the License.
     <FixedAssetStdCost fixedAssetId="WORKCENTER_COST" fixedAssetStdCostTypeId="SETUP_COST" fromDate="2005-12-31 00:01:00.0" amountUomId="USD" amount="2"/>
     <!-- This is the standard cost per hour for the usage of the fixed asset to perform a given task -->
     <FixedAssetStdCost fixedAssetId="WORKCENTER_COST" fixedAssetStdCostTypeId="USAGE_COST" fromDate="2005-12-31 00:01:00.0" amountUomId="USD" amount="8"/>
-    
+
     <!-- ################################# -->
     <!-- ################################# -->
     <!-- This is a finished good, PROD_COST, manufactured using 2 units of the raw material MAT_A_COST and 3 units of raw material MAT_B_COST -->
@@ -51,7 +51,7 @@ under the License.
     <ProductFacility productId="MAT_A_COST" facilityId="WebStoreWarehouse" minimumStock="0" reorderQuantity="5" daysToShip="1"/>
     <ProductFacility productId="MAT_B_COST" facilityId="WebStoreWarehouse" minimumStock="0" reorderQuantity="5" daysToShip="1"/>
 
-    
+
     <!-- ################################# -->
     <!-- Bill of materials definition: -->
     <ProductAssoc productId="PROD_COST" productIdTo="MAT_A_COST" productAssocTypeId="MANUF_COMPONENT" fromDate="2005-12-31 00:01:00.0" sequenceNum="10" quantity="2.0"/>

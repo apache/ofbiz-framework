@@ -25,7 +25,7 @@ under the License.
                 <xs:element minOccurs="1" maxOccurs="unbounded" ref="service-engine"/>
             </xs:sequence>
         </xs:complexType>
-    </xs:element>    
+    </xs:element>
     <xs:element name="service-engine">
         <xs:complexType>
             <xs:sequence>
@@ -224,7 +224,7 @@ under the License.
         <xs:attribute type="xs:string" name="name"/>
     </xs:attributeGroup>
     <xs:element name="notification">
-        <xs:complexType>            
+        <xs:complexType>
             <xs:attributeGroup ref="attlist.notification"/>
         </xs:complexType>
     </xs:element>

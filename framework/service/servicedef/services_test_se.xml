@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>OFBiz Service Engine Services</description>
     <vendor>OFBiz</vendor>
@@ -35,7 +35,7 @@ under the License.
     <service name="testServiceDeadLockRetryThreadB" engine="java" auth="false"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceDeadLockRetryThreadB">
     </service>
-    
+
     <!-- lock wait timeout retry testing services -->
     <service name="testServiceLockWaitTimeoutRetry" engine="java" auth="false"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetry">
@@ -47,7 +47,7 @@ under the License.
     <service name="testServiceLockWaitTimeoutRetryWaiter" engine="java" auth="false" transaction-timeout="2"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryWaiter">
     </service>
-    
+
     <!-- lock wait timeout retry testing services - a scenario that we can't do automatically with the single service because the parent owns the tx we have to have end before it will succeed -->
     <service name="testServiceLockWaitTimeoutRetryCantRecover" engine="java" auth="false" transaction-timeout="2"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryCantRecover">
@@ -69,7 +69,7 @@ under the License.
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceOwnTxSubServiceAfterSetRollbackOnlyInParentSubService">
     </service>
 
-    <!-- make sure services are running on global-commit and global-rollback -->    
+    <!-- make sure services are running on global-commit and global-rollback -->
     <service name="testServiceEcaGlobalEventExec" engine="java" auth="false"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceEcaGlobalEventExec">
         <implements service="testServiceInterface"/>

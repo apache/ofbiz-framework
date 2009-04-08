@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- ContentType forms -->
     <form name="AddContentType" target="addContentType" title="" type="single"
@@ -46,7 +46,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- ContentTypeAttr forms -->
     <form name="AddContentTypeAttr" target="addContentTypeAttr" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -80,7 +80,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- ContentAssocType forms -->
     <form name="AddContentAssocType" target="addContentAssocType" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -107,7 +107,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- ContentPurposeType forms -->
     <form name="AddContentPurposeType" target="addContentPurposeType" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -134,7 +134,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- ContentAssocPredicate forms -->
    <form name="AddContentAssocPredicate" target="addContentAssocPredicate" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -161,7 +161,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- ContentOperation forms -->
     <form name="AddContentOperation" target="addContentOperation" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">

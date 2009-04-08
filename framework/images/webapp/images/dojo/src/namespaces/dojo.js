@@ -68,7 +68,7 @@ dojo.require("dojo.ns");
 			"radiogroup": "dojo.widget.RadioGroup",
 			"realnumbertextbox": "dojo.widget.RealNumberTextbox",
 			"regexptextbox": "dojo.widget.RegexpTextbox",
-			"repeater": "dojo.widget.Repeater", 
+			"repeater": "dojo.widget.Repeater",
 			"resizabletextarea": "dojo.widget.ResizableTextarea",
 			"richtext": "dojo.widget.RichText",
 			"select": "dojo.widget.Select",
@@ -150,13 +150,13 @@ dojo.require("dojo.ns");
 	//
 	// shortName: the name to be used as the widget's tag name in the dojo: namespace
 	// packageName: the path to the Javascript module in dotted package notation
-		map[shortName]=packageName;    
+		map[shortName]=packageName;
 	};
-	
+
 	function dojoNamespaceResolver(name, domain){
 		if(!domain){ domain="html"; }
 		if(!map[domain]){ return null; }
-		return map[domain][name];    
+		return map[domain][name];
 	}
 
 	dojo.registerNamespaceResolver("dojo", dojoNamespaceResolver);

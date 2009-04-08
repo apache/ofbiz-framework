@@ -18,20 +18,20 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">    
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createOagisMessageInfo" short-description="Create MessageInfo">
         <make-value entity-name="OagisMessageInfo" value-field="newEntity"/>
         <set-pk-fields  map="parameters" value-field="newEntity"/>
-        
+
         <!-- make sure it doesn't already exist: motivation: if it already exists we'll get a HUGE error message on the create with the whole XML file in it if debug is on for that, so we want a smaller error message -->
         <find-by-primary-key map="newEntity" value-field="currentOagisMessageInfo"/>
         <if-not-empty field="currentOagisMessageInfo">
             <add-error><fail-message message="This message was already received, ie we have a duplicate combined ID for the message: ${newEntity}"/></add-error>
             <check-errors/>
         </if-not-empty>
-        
+
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
         <!--if-compare value="1" field-name="newEntity.confirmation" operator="equals" type="Integer">
@@ -39,13 +39,13 @@ under the License.
             <call-service service-name="createOagisMessageErrorInfo" in-map-name="oagisMessageErrorInfoMap"/>
         </if-compare-->
     </simple-method>
-        
+
     <simple-method method-name="updateOagisMessageInfo" short-description="Update Oagis MessageInfo">
         <entity-one entity-name="OagisMessageInfo" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <simple-method method-name="createOagisMessageErrorInfo" short-description="Create MessageErrorInfo">
         <make-value entity-name="OagisMessageErrorInfo" value-field="newEntity"/>
         <set-pk-fields  map="parameters" value-field="newEntity"/>
@@ -53,13 +53,13 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>
-        
+
     <simple-method method-name="updateOagisMessageErrorInfo" short-description="Update Oagis MessageErrorInfo">
         <entity-one entity-name="OagisMessageErrorInfo" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <simple-method method-name="createOagisMsgErrInfosFromErrMapList" short-description="Create MessageErrorInfo From Error Map List">
         <set field="createOagisMsgErrCtx.logicalId" from-field="parameters.logicalId"/>
         <set field="createOagisMsgErrCtx.component" from-field="parameters.component"/>

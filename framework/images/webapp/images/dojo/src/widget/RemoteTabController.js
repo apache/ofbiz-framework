@@ -31,12 +31,12 @@ dojo.widget.defineWidget(
 		// String
 		//	ID of page container that I connect to
 		tabContainer: "",
-	
+
 		postMixInProperties: function(){
 			this.containerId = this.tabContainer;
 			dojo.widget.RemoteTabController.superclass.postMixInProperties.apply(this, arguments);
 		},
-			
+
 		fillInTemplate: function() {
 			dojo.html.addClass(this.domNode, this["class"]);  // "class" is a reserved word in JS
 

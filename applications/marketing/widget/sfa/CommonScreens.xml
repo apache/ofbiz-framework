@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="main-decorator">
         <section>
@@ -46,7 +46,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="main">
         <section>
             <actions>
@@ -75,7 +75,7 @@ under the License.
             <widgets>
                 <container style="left">
                     <screenlet id ="SfaQuickAddContactPanel" title="${uiLabelMap.SfaQuickAddContact}" collapsible="true">
-                        <include-form name="QuickAddContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>    
+                        <include-form name="QuickAddContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
                     </screenlet>
                     <screenlet id= "SfaQuickAddLeadPanel" title="${uiLabelMap.SfaQuickAddLead}" collapsible="true">
                         <include-form name="QuickAddLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
@@ -96,10 +96,10 @@ under the License.
                         <section>
                             <widgets>
                                 <section>
-                                    <widgets>                                        
+                                    <widgets>
                                         <include-menu name="OpportunityTabBar" location="component://marketing/widget/sfa/SfaMenus.xml"/>
                                     </widgets>
-                                </section>   
+                                </section>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
@@ -215,12 +215,12 @@ under the License.
                 <set field="titleProperty" value="PageTitleViewPartyProfile"/>
                 <set field="tabButtonItem" value="profile"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
-                
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>                
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>                
+
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/progress_bar.css" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>                
-                
+                <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>
+
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/SetRoleVars.groovy"/>
@@ -231,7 +231,7 @@ under the License.
                 <section>
                     <condition>
                         <or>
-                            <not><if-empty field="leadDescription"/></not>                                        
+                            <not><if-empty field="leadDescription"/></not>
                             <not><if-empty field="accountLeadDescription"/></not>
                         </or>
                     </condition>
@@ -242,7 +242,7 @@ under the License.
                 </section>
                 <section>
                     <condition>
-                        <not><if-empty field="contactDescription"/></not>                                        
+                        <not><if-empty field="contactDescription"/></not>
                     </condition>
                     <actions>
                         <set field="headerItem" value="Contacts"/>
@@ -251,7 +251,7 @@ under the License.
                 </section>
                 <section>
                     <condition>
-                        <not><if-empty field="accountDescription"/></not>                                        
+                        <not><if-empty field="accountDescription"/></not>
                     </condition>
                     <actions>
                         <set field="headerItem" value="Accounts"/>
@@ -287,7 +287,7 @@ under the License.
                                 </section>
                                 <section>
                                     <condition>
-                                        <not><if-empty field="accountDescription"/></not>                                        
+                                        <not><if-empty field="accountDescription"/></not>
                                     </condition>
                                     <widgets>
                                         <container style="profile-left">
@@ -307,7 +307,7 @@ under the License.
                                     <condition>
                                         <and>
                                         <or>
-                                            <not><if-empty field="leadDescription"/></not>                                        
+                                            <not><if-empty field="leadDescription"/></not>
                                             <not><if-empty field="accountLeadDescription"/></not>
                                         </or>
                                             <if-compare field="headerItem" operator="equals" value="Leads"/>
@@ -344,13 +344,13 @@ under the License.
                                                     <include-screen name="Notes"
                                                         location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                                 </widgets>
-                                            </section>  
+                                            </section>
                                         </container>
                                     </widgets>
                                 </section>
                                 <section>
                                     <condition>
-                                        <not><if-empty field="contactDescription"/></not>                                        
+                                        <not><if-empty field="contactDescription"/></not>
                                     </condition>
                                     <widgets>
                                         <container style="profile-left">

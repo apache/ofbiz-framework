@@ -35,25 +35,25 @@ if (originalCommEventId) {
         parameters.contactMechIdFrom = originalEvent.contactMechIdTo;
         parameters.partyIdFrom = userLogin.partyId;
         parameters.statusId = "COM_IN_PROGRESS";
-        
+
         parameters.subject = "FW: " + originalEvent.subject;
         headcontent = "\n\n\n ________________________" + "\n" +
                   " > From: " + originalEvent.partyIdFrom + "\n" +
-                  " > To: " + originalEvent.partyIdTo + "\n" + 
-                  " > Subject: " + originalEvent.subject + "\n" + 
+                  " > To: " + originalEvent.partyIdTo + "\n" +
+                  " > Subject: " + originalEvent.subject + "\n" +
                   " > Date: " + originalEvent.entryDate + "\n >";
         bodycontent = originalEvent.content.toString();
         if (bodycontent) {
             int ix = -1;
             body  = "";
-            if (bodycontent.indexOf('\n') != -1){
+            if (bodycontent.indexOf('\n') != -1) {
                 while ((ix = bodycontent.indexOf('\n')) != -1) {
                     bodycontent = bodycontent.replace('\n',' > ');
-                    if (bodycontent != body){
+                    if (bodycontent != body) {
                         body = body + bodycontent;
                     }
                 }
-            }else{
+            } else{
                 body = bodycontent;
             }
         }

@@ -28,17 +28,17 @@ under the License.
         </fo:simple-page-master>
     </fo:layout-master-set>
     <#if hasPermission>
-        <#if records?has_content>         
+        <#if records?has_content>
             <fo:page-sequence master-reference="main">
                 <fo:static-content flow-name="xsl-region-after">
                     <fo:block text-align="right" line-height="12pt" font-size="10pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
                         ${uiLabelMap.CommonPage} <fo:page-number/>
                     </fo:block>
                 </fo:static-content>
-                <fo:flow flow-name="xsl-region-body" font-family="Helvetica">                    
+                <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
                     <fo:block><fo:leader/></fo:block>
                     <fo:block font-size="14pt">${uiLabelMap.ManufacturingOperationRunForShipment}:${shipmentIdPar}</fo:block>
-                    <fo:block><fo:leader/></fo:block>              
+                    <fo:block><fo:leader/></fo:block>
                     <fo:block space-after.optimum="8pt" font-size="8pt"/>
                     <fo:table font-size="8pt" border="0.5pt solid black">
                         <fo:table-column column-width="45pt"/>
@@ -49,84 +49,84 @@ under the License.
                         <fo:table-column column-width="60pt"/>
                         <fo:table-column column-width="60pt"/>
                         <fo:table-header>
-                            <fo:table-row font-weight="bold">                                
+                            <fo:table-row font-weight="bold">
                                 <fo:table-cell padding="2pt">
                                     <fo:block>${uiLabelMap.ManufacturingShopOrder}</fo:block>
-                                </fo:table-cell>                            
+                                </fo:table-cell>
                                 <fo:table-cell padding="2pt">
                                     <fo:block>${uiLabelMap.ManufacturingWorkCenter}</fo:block>
-                                </fo:table-cell>                                                        
+                                </fo:table-cell>
                                 <fo:table-cell padding="2pt">
                                     <fo:block>${uiLabelMap.ProductProductId}</fo:block>
                                 </fo:table-cell>
-                                <fo:table-cell padding="2pt">                                     
+                                <fo:table-cell padding="2pt">
                                     <fo:block>${uiLabelMap.CommonDescription}</fo:block>
-                                </fo:table-cell>                                    
-                                <fo:table-cell padding="2pt">                                     
+                                </fo:table-cell>
+                                <fo:table-cell padding="2pt">
                                     <fo:block>${uiLabelMap.ManufacturingOperationCodeAndDescription}</fo:block>
-                                </fo:table-cell>                                    
-                                <fo:table-cell padding="2pt">                                     
+                                </fo:table-cell>
+                                <fo:table-cell padding="2pt">
                                     <fo:block>${uiLabelMap.ManufacturingTaskRunTime}</fo:block>
-                                </fo:table-cell>                                    
-                                <fo:table-cell padding="2pt">                                     
+                                </fo:table-cell>
+                                <fo:table-cell padding="2pt">
                                     <fo:block>${uiLabelMap.ManufacturingTaskSetupTime}</fo:block>
-                                </fo:table-cell>                                                                                                           
+                                </fo:table-cell>
                             </fo:table-row>
-                        </fo:table-header>                          
-                        <fo:table-body/>                                            
-                    </fo:table> 
-                    <#list records as record>  
-                        <fo:table font-size="8pt">   
+                        </fo:table-header>
+                        <fo:table-body/>
+                    </fo:table>
+                    <#list records as record>
+                        <fo:table font-size="8pt">
                             <fo:table-column column-width="45pt"/>
                                <fo:table-column column-width="45pt"/>
                             <fo:table-column column-width="60pt"/>
                             <fo:table-column column-width="90pt"/>
                             <fo:table-column column-width="90pt"/>
                             <fo:table-column column-width="60pt"/>
-                            <fo:table-column column-width="60pt"/>     
-                            <fo:table-header/>                                         
+                            <fo:table-column column-width="60pt"/>
+                            <fo:table-header/>
                             <fo:table-body>
                                 <fo:table-row>
                                     <fo:table-cell padding="2pt">
                                         <fo:block>${record.get("workEffortId")}</fo:block>
-                                    </fo:table-cell>                            
+                                    </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block><#if estimatedReadyDatePar?has_content>${record.get("fixedAssetId")}</#if></fo:block>
-                                    </fo:table-cell>         
+                                    </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block>${record.get("productId")}</fo:block>
                                     </fo:table-cell>
-                                    <fo:table-cell padding="2pt">                                     
+                                    <fo:table-cell padding="2pt">
                                         <fo:block>${record.get("productName")}</fo:block>
-                                    </fo:table-cell>                                    
-                                    <fo:table-cell padding="2pt">                                     
+                                    </fo:table-cell>
+                                    <fo:table-cell padding="2pt">
                                         <fo:block>${record.get("taskName")} ${record.get("taskDescription")}</fo:block>
-                                    </fo:table-cell>                                    
-                                    <fo:table-cell padding="2pt" text-align="right">                                     
+                                    </fo:table-cell>
+                                    <fo:table-cell padding="2pt" text-align="right">
                                         <fo:block>${record.get("taskEstimatedTime")}</fo:block>
-                                    </fo:table-cell>                                    
-                                    <fo:table-cell padding="2pt" text-align="right">                                     
+                                    </fo:table-cell>
+                                    <fo:table-cell padding="2pt" text-align="right">
                                         <fo:block>${record.get("taskEstimatedSetup")}</fo:block>
-                                    </fo:table-cell>                                    
+                                    </fo:table-cell>
                                 </fo:table-row>
-                            </fo:table-body>      
-                        </fo:table>                                                                                                          
-                       </#list>               
-                       <fo:table font-size="8pt">   
-                        <fo:table-column column-width="450pt"/>     
-                        <fo:table-header/>                                         
+                            </fo:table-body>
+                        </fo:table>
+                       </#list>
+                       <fo:table font-size="8pt">
+                        <fo:table-column column-width="450pt"/>
+                        <fo:table-header/>
                         <fo:table-body>
                             <fo:table-row>
-                                <fo:table-cell padding="2pt" text-align="right">                                     
+                                <fo:table-cell padding="2pt" text-align="right">
                                     <fo:block>${fixedAssetTime}</fo:block>
-                                </fo:table-cell>                                    
+                                </fo:table-cell>
                             </fo:table-row>
-                        </fo:table-body>      
-                    </fo:table>         
+                        </fo:table-body>
+                    </fo:table>
                 </fo:flow>
             </fo:page-sequence>
 
-        <#else>        
+        <#else>
             <fo:page-sequence master-reference="main">
                 <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
                     <fo:block font-size="14pt">

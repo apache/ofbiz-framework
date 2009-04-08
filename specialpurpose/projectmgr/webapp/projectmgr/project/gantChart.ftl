@@ -38,7 +38,7 @@ g.setShowComp(1); // Show/Hide % Complete(0/1)
 </#list>
 
 <#--
-     
+
 TaskItem(pID, pName, pStart, pEnd, pColor, pLink, pMile, pRes, pComp, pGroup, pParent, pOpen, pDepend)
 pID: (required) is a unique ID used to identify each row for parent functions and for setting dom id for hiding/showing
 pName: (required) is the task Label
@@ -53,10 +53,9 @@ pGroup: (optional) indicates whether this is a group(parent) - 0=NOT Parent; 1=I
 pParent: (required) identifies a parent pID, this causes this task to be a child of identified task
 pOpen: UNUSED - in future can be initially set to close folder when chart is first drawn
 pDepend: dependency: need previous task finished.
-     
+
 -->
-g.Draw();   
+g.Draw();
 g.DrawDependencies();
 </script>
 
-    

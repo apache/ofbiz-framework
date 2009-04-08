@@ -14,19 +14,19 @@ dojo.require("dojo.lang.declare");
 dojo.require("dojo.experimental");
 
 /* summary:
- *   This is an abstract API that data provider implementations conform to.  
+ *   This is an abstract API that data provider implementations conform to.
  *   This file defines methods signatures and intentionally leaves all the
  *   methods unimplemented.
  */
 dojo.experimental("dojo.data.core.Write");
- 
+
 dojo.declare("dojo.data.core.Write", dojo.data.core.Read, {
 	newItem: function(/* object? */ keywordArgs) {
 		/* summary:
 		 *   Returns a newly created item.  Sets the attributes of the new
 		 *   item based on the *keywordArgs* provided.
 		 */
-		 
+
 		/* exceptions:
 		 *   Throws an exception if *keywordArgs* is a string or a number or
 		 *   anything other than a simple anonymous object.
@@ -37,14 +37,14 @@ dojo.declare("dojo.data.core.Write", dojo.data.core.Read, {
 		dojo.unimplemented('dojo.data.core.Write.newItem');
 		return newItem; // item
 	},
-	
+
 	deleteItem: function(/* item */ item) {
 		/* summary:
 		 *   Deletes an item from the store.
 		 */
-		 
+
 		/* exceptions:
-		 *   Throws an exception if the argument *item* is not an item 
+		 *   Throws an exception if the argument *item* is not an item
 		 *   (if store.isItem(item) returns false).
 		 * examples:
 		 *   var success = store.deleteItem(kermit);
@@ -52,13 +52,13 @@ dojo.declare("dojo.data.core.Write", dojo.data.core.Read, {
 		dojo.unimplemented('dojo.data.core.Write.deleteItem');
 		return false; // boolean
 	},
-	
+
 	set: function(/* item */ item, /* attribute || string */ attribute, /* almost anything */ value) {
 		/* summary:
 		 *   Sets the value of an attribute on an item.
 		 *   Replaces any previous value or values.
 		 */
-		 
+
 		/* exceptions:
 		 *   Throws an exception if *item* is not an item, or if *attribute*
 		 *   is neither an attribute object or a string.
@@ -69,7 +69,7 @@ dojo.declare("dojo.data.core.Write", dojo.data.core.Read, {
 		dojo.unimplemented('dojo.data.core.Write.set');
 		return false; // boolean
 	},
-	
+
 	setValues: function(/* item */ item, /* attribute || string */ attribute, /* array */ values) {
 		/* summary:
 		 *   Adds each value in the *values* array as a value of the given
@@ -78,7 +78,7 @@ dojo.declare("dojo.data.core.Write", dojo.data.core.Read, {
 		 *   Calling store.setValues(x, y, []) (with *values* as an empty array) has
 		 *   the same effect as calling store.clear(x, y).
 		 */
-		 
+
 		/* exceptions:
 		 *   Throws an exception if *values* is not an array, if *item* is not an
 		 *   item, or if *attribute* is neither an attribute object or a string.
@@ -90,12 +90,12 @@ dojo.declare("dojo.data.core.Write", dojo.data.core.Read, {
 		dojo.unimplemented('dojo.data.core.Write.setValues');
 		return false; // boolean
 	},
-	
+
 	unsetAttribute: function(/* item */ item, /* attribute || string */ attribute) {
 		/* summary:
 		 *   Deletes all the values of an attribute on an item.
 		 */
-		 
+
 		/* exceptions:
 		 *   Throws an exception if *item* is not an item, or if *attribute*
 		 *   is neither an attribute object or a string.
@@ -106,7 +106,7 @@ dojo.declare("dojo.data.core.Write", dojo.data.core.Read, {
 		dojo.unimplemented('dojo.data.core.Write.clear');
 		return false; // boolean
 	},
-	
+
 	save: function() {
 		/* summary:
 		 *   Saves to the server all the changes that have been made locally.
@@ -118,7 +118,7 @@ dojo.declare("dojo.data.core.Write", dojo.data.core.Read, {
 		 *   Different data store implementations may take additional optional
 		 *   parameters.
 		 * description:
-		 * ISSUE - 
+		 * ISSUE -
 		 *   Should the async save take a callback, like this:
 		 *     store.save({sync: false, onComplete: callback});
 		 *   Or should the async save return a Deferred, like this:
@@ -127,7 +127,7 @@ dojo.declare("dojo.data.core.Write", dojo.data.core.Read, {
 		 *   Or should save() return boolean, like this:
 		 *     var success = store.save();
 		 */
-		 
+
 		/* examples:
 		 *   var success = store.save();
 		 *   var success = store.save({sync: false});
@@ -135,27 +135,27 @@ dojo.declare("dojo.data.core.Write", dojo.data.core.Read, {
 		dojo.unimplemented('dojo.data.core.Write.save');
 		return false; // boolean
 	},
-	
+
 	revert: function() {
 		/* summary:
 		 *   Discards any unsaved changes.
 		 */
-		 
+
 		/* examples:
 		 *   var success = store.revert();
 		 */
 		dojo.unimplemented('dojo.data.core.Write.revert');
 		return false; // boolean
 	},
-	
+
 	isDirty: function(/* item? */ item) {
 		/* summary:
-		 *   Given an item, isDirty() returns true if the item has been modified 
-		 *   since the last save().  If isDirty() is called with no *item* argument,  
+		 *   Given an item, isDirty() returns true if the item has been modified
+		 *   since the last save().  If isDirty() is called with no *item* argument,
 		 *   then this method returns true if any item has been modified since
 		 *   the last save().
 		 */
-		 
+
 		/* exceptions:
 		 *   Throws an exception if isDirty() is passed an argument and the
 		 *   argument is not an item.

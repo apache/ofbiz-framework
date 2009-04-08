@@ -58,8 +58,8 @@ dojo.widget.defineWidget(
 
 		this.statusBar = dojo.widget.createWidget(
 			"LayoutContainer",
-			{ 
-				layoutAlign: "bottom", 
+			{
+				layoutAlign: "bottom",
 				minHeight: 28
 			},
 			this.statusBarContainerNode
@@ -68,8 +68,8 @@ dojo.widget.defineWidget(
 
 		this.statusLabel = dojo.widget.createWidget(
 			"LayoutContainer",
-			{ 
-				layoutAlign: "client", 
+			{
+				layoutAlign: "client",
 				minWidth: 50
 			},
 			this.statusLabelNode
@@ -77,7 +77,7 @@ dojo.widget.defineWidget(
 		this.statusBar.addChild(this.statusLabel);
 
 		this.resizeHandle = dojo.widget.createWidget(
-			"ResizeHandle", 
+			"ResizeHandle",
 			{ targetElmId: this.rootLayout.widgetId },
 			this.resizeHandleNode
 		);

@@ -20,9 +20,9 @@ under the License.
 <#if techDataCalendar?has_content>
 <div class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.ManufacturingEditCalendarExceptionWeekFor}&nbsp; 
-    <#if (techDataCalendar.description)?has_content>"${(techDataCalendar.get("description",locale))}"</#if> 
-    [${uiLabelMap.CommonId} ${techDataCalendar.calendarId?if_exists}]</h3>        
+    <h3>${uiLabelMap.ManufacturingEditCalendarExceptionWeekFor}&nbsp;
+    <#if (techDataCalendar.description)?has_content>"${(techDataCalendar.get("description",locale))}"</#if>
+    [${uiLabelMap.CommonId} ${techDataCalendar.calendarId?if_exists}]</h3>
   </div>
   <div class="screenlet-body">
     ${listCalendarExceptionWeekWrapper.renderFormString(context)}
@@ -31,7 +31,7 @@ under the License.
     <#if calendarExceptionWeek?has_content>
     <div class="screenlet">
       <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.PageTitleEditCalendarExceptionWeek}</h3>        
+        <h3>${uiLabelMap.PageTitleEditCalendarExceptionWeek}</h3>
       </div>
       <div class="screenlet-body">
         ${updateCalendarExceptionWeekWrapper.renderFormString(context)}
@@ -40,10 +40,10 @@ under the License.
     </#if>
     <div class="screenlet">
       <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.PageTitleAddCalendarExceptionWeek}</h3>        
+        <h3>${uiLabelMap.PageTitleAddCalendarExceptionWeek}</h3>
       </div>
       <div class="screenlet-body">
         ${addCalendarExceptionWeekWrapper.renderFormString(context)}
       </div>
-    </div>    
+    </div>
 </#if>

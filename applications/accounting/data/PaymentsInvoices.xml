@@ -56,7 +56,7 @@ under the License.
     <InvoiceStatus statusId="INVOICE_IN_PROCESS" invoiceId="demo11001" statusDate="2006-04-25 12:46:27.122" lastUpdatedStamp="2006-04-25 12:46:27.492" lastUpdatedTxStamp="2006-04-25 12:46:27.426" createdStamp="2006-04-25 12:46:27.492" createdTxStamp="2006-04-25 12:46:27.426"/>
     <InvoiceStatus statusId="INVOICE_APPROVED" invoiceId="demo11001" statusDate="2006-04-25 12:46:27.122" lastUpdatedStamp="2006-04-25 12:46:27.492" lastUpdatedTxStamp="2006-04-25 12:46:27.426" createdStamp="2006-04-25 12:46:27.492" createdTxStamp="2006-04-25 12:46:27.426"/>
     <Payment paymentId="demo10001" paymentTypeId="CUSTOMER_PAYMENT" paymentMethodTypeId="EFT_ACCOUNT" partyIdFrom="EuroCustomer" partyIdTo="Company" statusId="PMNT_RECEIVED" effectiveDate="2006-04-25 12:56:54.292" amount="820.97" currencyUomId="USD" actualCurrencyAmount="543.23" actualCurrencyUomId="EUR"/>
-    <PaymentApplication paymentApplicationId="demo11000" paymentId="demo10001" invoiceId="demo11001" amountApplied="543.23"/>      
+    <PaymentApplication paymentApplicationId="demo11000" paymentId="demo10001" invoiceId="demo11001" amountApplied="543.23"/>
 
     <!-- show on customer invoice list when DemoCustomer logs on to myportal -->
     <Party partyId="DemoCustCompany" partyTypeId="PARTY_GROUP"/>

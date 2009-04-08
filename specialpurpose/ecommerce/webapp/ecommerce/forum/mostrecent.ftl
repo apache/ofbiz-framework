@@ -39,7 +39,7 @@ under the License.
           <td class="tabletext"> <b>${uiLabelMap.CommonName}:</b>${content.contentName} </td>
       <@injectNodeTrailCsv subContentId=content.contentId redo="true" contentAssocTypeId="PUBLISH_LINK">
           <td>
-  <a class="tabButton" href="<@ofbizUrl>showforumresponse?contentId=${content.contentId}&nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" >${uiLabelMap.CommonView}</a> 
+  <a class="tabButton" href="<@ofbizUrl>showforumresponse?contentId=${content.contentId}&nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" >${uiLabelMap.CommonView}</a>
           </td>
           <td class="tabletext">
           <b>${uiLabelMap.CommonSubmitted}:</b>

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditCombo" target="uploadContentAndImage" title="" type="upload"
         default-title-style="tableheadtext" default-tooltip-style="tabletext" default-widget-style="inputBox">
@@ -172,14 +172,14 @@ under the License.
 
     </form>
 
-    <form name="listFindContent" type="list" target="" 
-        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext" 
+    <form name="listFindContent" type="list" target=""
+        default-title-style="tableheadtext" default-widget-style="inputBox" default-tooltip-style="tabletext"
         paginate-target="/FindContent">
         <field name="editContent" title="${uiLabelMap.CommonEmptyHeader}">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent">
                 <parameter param-name="contentId"/>
                 <parameter param-name="drDataResourceId"/>
-            </hyperlink> 
+            </hyperlink>
 <!--
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent">
                 <parameter param-name="caContentIdTo"/>
@@ -189,7 +189,7 @@ under the License.
                 <parameter param-name="caContentId"/>
                 <parameter param-name="contentIdStart"/>
                 <parameter param-name="caContentAssocTypeId"/>
-            </hyperlink> 
+            </hyperlink>
 -->
         </field>
 <!--
@@ -627,7 +627,7 @@ under the License.
         </field>
 <!--
         <field name="submitContentEdit" title="${uiLabelMap.CommonEmptyHeader}">
-            <hyperlink also-hidden="false" description="Submit" target="javascript:document.EditAddContent.action='${persistAction}'; document.EditAddContent.submit()" target-type="plain"/> 
+            <hyperlink also-hidden="false" description="Submit" target="javascript:document.EditAddContent.action='${persistAction}'; document.EditAddContent.submit()" target-type="plain"/>
         </field>
 -->
        <field name="deactivateExisting" >
@@ -718,6 +718,6 @@ under the License.
     </form>
     <form name="EditAddBioImage" target="persistBioImage" title="" type="upload" extends="EditAddImageMaster">
     </form>
-   
+
 
 </forms>

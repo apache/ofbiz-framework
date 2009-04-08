@@ -63,7 +63,7 @@ function gwAll(e) {
     if (selectedValue == "") {
         return;
     }
-    
+
     var cartSize = ${shoppingCartSize};
     var passed = 0;
     for (var i = 0; i < len; i++) {
@@ -121,7 +121,7 @@ function setAlternateGwp(field) {
                     </div>
                     <div>
                     &nbsp;&nbsp;${uiLabelMap.OrderNbrPersons}: <input type="text" class="inputBox" size="3" name="reservPersons" value=${requestParameters.reservPersons?default("1")}/>
-                </#if> 
+                </#if>
                 ${uiLabelMap.CommonQuantity}: <input type="text" class="inputBox" size="5" name="quantity" value="${requestParameters.quantity?default("1")}"/>
                 <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderAddToCart}"/>
                 <#-- <a href="javascript:document.quickaddform.submit()" class="buttontext"><span style="white-space: nowrap;">[${uiLabelMap.OrderAddToCart}]</span></a> -->
@@ -185,7 +185,7 @@ function setAlternateGwp(field) {
         <#assign itemsFromList = false>
         <#assign promoItems = false>
         <#list shoppingCart.items() as cartLine>
-        
+
           <#assign cartLineIndex = shoppingCart.getItemIndex(cartLine)>
           <#assign lineOptionalFeatures = cartLine.getOptionalProductFeatures()>
           <#-- show adjustment info -->
@@ -251,7 +251,7 @@ function setAlternateGwp(field) {
                     <b>${cartLine.getItemTypeDescription()?if_exists}</b> : ${cartLine.getName()?if_exists}
                   </#if>
                 </div>
-                
+
                 <#if (cartLine.getIsPromo() && cartLine.getAlternativeOptionProductIds()?has_content)>
                   <#-- Show alternate gifts if there are any... -->
                   <div class="tableheadtext">${uiLabelMap.OrderChooseFollowingForGift}:</div>

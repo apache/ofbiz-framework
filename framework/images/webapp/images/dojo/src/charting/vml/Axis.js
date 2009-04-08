@@ -14,8 +14,8 @@ dojo.require("dojo.lang.common");
 if(dojo.render.vml.capable){
 	dojo.extend(dojo.charting.Axis, {
 		renderLines: function(
-			/* dojo.charting.PlotArea */plotArea, 
-			/* dojo.charting.Plot */plot, 
+			/* dojo.charting.PlotArea */plotArea,
+			/* dojo.charting.Plot */plot,
 			/* string */plane
 		){
 			//	summary
@@ -29,7 +29,7 @@ if(dojo.render.vml.capable){
 					this.nodes.lines = null;
 				}
 			}
-			
+
 			var area = plotArea.getArea();
 			var g = this.nodes.lines = document.createElement("div");
 			g.setAttribute("id", this.getId()+"-lines");
@@ -61,8 +61,8 @@ if(dojo.render.vml.capable){
 			return g;	//	HTMLDivElement
 		},
 		renderTicks: function(
-			/* dojo.charting.PlotArea */plotArea, 
-			/* dojo.charting.Plot */plot, 
+			/* dojo.charting.PlotArea */plotArea,
+			/* dojo.charting.Plot */plot,
 			/* string */plane,
 			/* float */coord
 		){
@@ -77,7 +77,7 @@ if(dojo.render.vml.capable){
 					this.nodes.ticks = null;
 				}
 			}
-			
+
 			var g = this.nodes.ticks = document.createElement("div");
 			g.setAttribute("id", this.getId()+"-ticks");
 			for(var i=0; i<this._labels.length; i++){
@@ -104,8 +104,8 @@ if(dojo.render.vml.capable){
 			return g;	//	HTMLDivElement
 		},
 		renderLabels: function(
-			/* dojo.charting.PlotArea */plotArea, 
-			/* dojo.charting.Plot */plot, 
+			/* dojo.charting.PlotArea */plotArea,
+			/* dojo.charting.Plot */plot,
 			/* string */plane,
 			/* float */coord,
 			/* int */textSize,
@@ -166,7 +166,7 @@ if(dojo.render.vml.capable){
 			return g;	//	HTMLDivElement
 		},
 		render: function(
-			/* dojo.charting.PlotArea */plotArea, 
+			/* dojo.charting.PlotArea */plotArea,
 			/* dojo.charting.Plot */plot,
 			/* dojo.charting.Axis */drawAgainst,
 			/* string */plane
@@ -209,7 +209,7 @@ if(dojo.render.vml.capable){
 				}
 				if(this.showLabel && this.label){
 					var x = plotArea.size.width/2;
-					var y = coord + Math.round(textSize*1.5); 
+					var y = coord + Math.round(textSize*1.5);
 					var text = document.createElement("div");
 					var s=text.style;
 					text.innerHTML=this.label;

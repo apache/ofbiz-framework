@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- Party events -->
     <simple-method method-name="deleteParty" short-description="Delete Person">
@@ -72,44 +72,44 @@ under the License.
             <default-message resource="PartyUiLabels" property="PartyPartyGroupSuccessfullyUpdated"/>
         </call-service>
     </simple-method>
-    
-    <!--Party Content Events -->    
+
+    <!--Party Content Events -->
     <!-- create party content -->
     <simple-method method-name="createPartyContent" short-description="Creates Party Associated Content" login-required="false">
-        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
-            method-name="uploadImageAndParameters" 
+        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker"
+            method-name="uploadImageAndParameters"
             ret-field="formInput">
         <field field="request" type="javax.servlet.http.HttpServletRequest"/>
         <string value="dataResourceName"/>
         </call-class-method>
-        
-        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
+
+        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker"
               method-name="returnByteBuffer"
               ret-field="byteWrap">
              <field field="formInput" type="java.util.Map"/>
         </call-class-method>
-         
+
         <set-service-fields service-name="createPartyContent" map="formInput.formInput" to-map="partyContentMap"/>
         <set field="partyContentMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
         <set field="partyContentMap.uploadedFile" from-field="byteWrap"/>
         <set field="partyContentMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
-        <call-service service-name="createPartyContent" in-map-name="partyContentMap" break-on-error="false">        
-            <result-to-field result-name="contentId" field="contentId"/>     
-        </call-service>   
+        <call-service service-name="createPartyContent" in-map-name="partyContentMap" break-on-error="false">
+            <result-to-field result-name="contentId" field="contentId"/>
+        </call-service>
         <!-- set the partyId in the request -->
         <field-to-request field="formInput.formInput.partyId" request-name="partyId"/>
         <field-to-request field="contentId" request-name="contentId"/>
     </simple-method>
     <!-- Update party content -->
     <simple-method method-name="updatePartyContent" short-description="Update Party Associated Content" login-required="false">
-        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
-            method-name="uploadImageAndParameters" 
+        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker"
+            method-name="uploadImageAndParameters"
             ret-field="formInput">
         <field field="request" type="javax.servlet.http.HttpServletRequest"/>
         <string value="dataResourceName"/>
         </call-class-method>
-        
-        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
+
+        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker"
               method-name="returnByteBuffer"
               ret-field="byteWrap"
            >
@@ -119,12 +119,12 @@ under the License.
          <set field="partyContentMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
          <set field="partyContentMap.uploadedFile" from-field="byteWrap"/>
          <set field="partyContentMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
-         <call-service service-name="updatePartyContent" in-map-name="partyContentMap" break-on-error="false" >        
-            <result-to-field result-name="contentId" field="contentId"/>    
-         </call-service>   
+         <call-service service-name="updatePartyContent" in-map-name="partyContentMap" break-on-error="false" >
+            <result-to-field result-name="contentId" field="contentId"/>
+         </call-service>
         <!-- set the partyId in the request -->
         <field-to-request field="formInput.formInput.partyId" request-name="partyId"/>
         <field-to-request field="contentId" request-name="contentId"/>
     </simple-method>
-    
+
 </simple-methods>

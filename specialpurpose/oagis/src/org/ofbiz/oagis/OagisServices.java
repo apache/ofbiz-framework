@@ -420,7 +420,7 @@ public class OagisServices {
                 Debug.logError(e, errMsg, module);
             }
 
-            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times 
+            // return success here so that the message won't be retried and the Confirm BOD, etc won't be sent multiple times
             result.putAll(ServiceUtil.returnSuccess("Errors found processing message; information saved and return error sent back"));
             return result;
         } else {

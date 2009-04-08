@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="OrderPurchaseReportOptions" type="single" title=""
         header-row-style="header-row" default-table-style="basic-table">
@@ -71,7 +71,7 @@ under the License.
     </form>
 
     <!-- form for generating a report of total product sales (quantity and value) -->
-    <form name="SalesByStoreReport" type="single" target="SalesByStoreReport.pdf" title="" 
+    <form name="SalesByStoreReport" type="single" target="SalesByStoreReport.pdf" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <field name="productStoreId">
             <drop-down allow-empty="false">
@@ -151,8 +151,8 @@ under the License.
         <field name="calculatedMarkup" title="${uiLabelMap.OrderCalculatedMarkup}"><display/></field>
         <field name="percentMarkup" title="${uiLabelMap.OrderPercentageMarkup}"><display/></field>
     </form>
-    
-    <form name="OpenOrderItemsTotal" type="list" list-name="totalAmountList" 
+
+    <form name="OpenOrderItemsTotal" type="list" list-name="totalAmountList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="total" title="${uiLabelMap.CommonTotal}"><display/></field>
         <field name="totalQuantityOrdered"><display/></field>
@@ -164,7 +164,7 @@ under the License.
         <field name="totalMarkup"><display/></field>
         <field name="totalPercentMarkup"><display/></field>
     </form>
-    
+
     <!-- form for generating a report of total product purchases (quantity and value) -->
     <form name="PurchasesByOrganizationReport" type="single" target="PurchasesByOrganizationReport.pdf" title=""
         header-row-style="header-row" default-table-style="basic-table">

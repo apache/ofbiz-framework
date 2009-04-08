@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="CommonRequestDecorator">
@@ -73,7 +73,7 @@ under the License.
                 <get-related-one value-field="custRequest" relation-name="StatusItem" to-value-field="statusItem"/>
                 <get-related-one value-field="custRequest" relation-name="CurrencyUom" to-value-field="currency"/>
                 <get-related-one value-field="custRequest" relation-name="ProductStore" to-value-field="store"/>
-                
+
                 <get-related value-field="custRequest" relation-name="CustRequestItem" list="requestItems"/>
                 <get-related value-field="custRequest" relation-name="CustRequestParty" list="requestParties"/>
 

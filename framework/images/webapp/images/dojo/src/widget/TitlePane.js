@@ -20,7 +20,7 @@ dojo.widget.defineWidget(
 {
 	// summary
 	//		A pane with a title on top, that can be opened or collapsed.
-	
+
 	// labelNodeClass: String
 	//		CSS class name for <div> containing title of the pane.
 	labelNodeClass: "",
@@ -32,7 +32,7 @@ dojo.widget.defineWidget(
 	// label: String
 	//		Title of the pane
 	label: "",
-	
+
 	// open: Boolean
 	//		Whether pane is opened or closed.
 	open: true,
@@ -46,11 +46,11 @@ dojo.widget.defineWidget(
 
 		if (this.labelNodeClass) {
 			dojo.html.addClass(this.labelNode, this.labelNodeClass);
-		}	
+		}
 
 		if (this.containerNodeClass) {
 			dojo.html.addClass(this.containerNode, this.containerNodeClass);
-		}	
+		}
 
 		if (!this.open) {
 			dojo.html.hide(this.containerNode);

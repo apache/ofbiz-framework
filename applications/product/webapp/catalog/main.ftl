@@ -33,7 +33,7 @@ under the License.
             <input type="submit" value=" ${uiLabelMap.ProductEditCatalog}" class="smallSubmit"/>
           </form>
           <div class="label">${uiLabelMap.CommonOr}: <a href="<@ofbizUrl>EditProdCatalog</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewCatalog}</a></div>
-          <br/>            
+          <br/>
           <div class="label">${uiLabelMap.ProductEditCategoryWithCategoryId}:</div>
           <form method="post" action="<@ofbizUrl>EditCategory</@ofbizUrl>" style="margin: 0;">
             <input type="text" size="20" maxlength="20" name="productCategoryId" value=""/>

@@ -65,13 +65,13 @@ under the License.
         </menu-item>
         <menu-item name="threadList" title="${uiLabelMap.WebtoolsThreadList}">
             <link target="threadList"/>
-        </menu-item> 
+        </menu-item>
         <menu-item name="scheduleJob" title="${uiLabelMap.WebtoolsScheduleJob}">
             <link target="scheduleJob"/>
-        </menu-item> 
+        </menu-item>
         <menu-item name="runService" title="${uiLabelMap.PageTitleRunService}">
             <link target="runService"/>
-        </menu-item> 
+        </menu-item>
     </menu>
 
     <menu name="LoggingTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"

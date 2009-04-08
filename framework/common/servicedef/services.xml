@@ -18,13 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Common Application Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
-    <!-- Common Permission Service -->    
+    <!-- Common Permission Service -->
     <service name="commonGenericPermission" engine="simple"
         location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="commonGenericPermission">
         <implements service="permissionInterface"/>
@@ -214,7 +214,7 @@ under the License.
     </service>
 
     <service name="performFind" auth="false" engine="java" invoke="performFind" location="org.ofbiz.common.FindServices">
-        <description>Generic service to return an entity iterator.  set filterByDate to Y to exclude expired records.  
+        <description>Generic service to return an entity iterator.  set filterByDate to Y to exclude expired records.
            set noConditionFind to Y to find without conditions.  </description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
         <attribute name="inputFields" type="java.util.Map" mode="IN" optional="false"/>
@@ -228,9 +228,9 @@ under the License.
         <attribute name="queryString" type="String" mode="OUT" optional="true"/>
         <attribute name="queryStringMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
-    
+
     <service name="performFindList" auth="false" engine="java" invoke="performFindList" location="org.ofbiz.common.FindServices">
-        <description>Generic service to return an partial list.  set filterByDate to Y to exclude expired records.  
+        <description>Generic service to return an partial list.  set filterByDate to Y to exclude expired records.
             set noConditionFind to Y to find without conditions.  </description>
         <attribute name="entityName" type="String" mode="IN" optional="false"/>
         <attribute name="inputFields" type="java.util.Map" mode="IN" optional="false"/>
@@ -257,8 +257,8 @@ under the License.
         <attribute name="queryString" type="String" mode="OUT" optional="true"/>
         <attribute name="queryStringMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
-    
-    
+
+
     <!-- Keyword Thesaurus services -->
     <service name="createKeywordThesaurus" default-entity-name="KeywordThesaurus" engine="simple"
             location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="createKeywordThesaurus" auth="true">
@@ -278,7 +278,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <override name="alternateKeyword" optional="true"/>
     </service>
-    
+
     <!-- Uom conversion service -->
     <service name="createUomConversionDated" default-entity-name="UomConversionDated" engine="simple"
             location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="createUomConversionDated" auth="true">
@@ -338,7 +338,7 @@ under the License.
         <description>Used to Automatically Authenticate a username/password; create a UserLogin object</description>
         <implements service="authenticationInterface"/>
     </service>
-    <service name="createUserLogin" engine="java" auth="false" 
+    <service name="createUserLogin" engine="java" auth="false"
         location="org.ofbiz.common.login.LoginServices" invoke="createUserLogin">
         <description>Create a UserLogin</description>
         <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
@@ -354,7 +354,7 @@ under the License.
         <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
         <attribute name="newUserLogin" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="false"/>
     </service>
-    <service name="updatePassword" engine="java" default-entity-name="UserLogin" 
+    <service name="updatePassword" engine="java" default-entity-name="UserLogin"
         location="org.ofbiz.common.login.LoginServices" invoke="updatePassword" auth="true">
         <description>Update a UserLogin Password</description>
         <attribute name="userLoginId" type="String" mode="IN" optional="true"/>
@@ -364,7 +364,7 @@ under the License.
         <attribute name="passwordHint" type="String" mode="IN" optional="true"/>
         <attribute name="updatedUserLogin" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="false"/>
     </service>
-    <service name="updateUserLoginSecurity" engine="java" default-entity-name="UserLogin" 
+    <service name="updateUserLoginSecurity" engine="java" default-entity-name="UserLogin"
         location="org.ofbiz.common.login.LoginServices" invoke="updateUserLoginSecurity" auth="true">
         <description>Update UserLogin Security Settings</description>
         <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
@@ -387,11 +387,11 @@ under the License.
         <description>Interface for ROME RSS feed services; should return the WireFeed object (serializable)</description>
         <attribute name="feedType" type="String" mode="IN" optional="false"/>
         <attribute name="mainLink" type="String" mode="IN" optional="false"/>
-        <attribute name="entryLink" type="String" mode="IN" optional="false"/>        
+        <attribute name="entryLink" type="String" mode="IN" optional="false"/>
         <attribute name="wireFeed" type="com.sun.syndication.feed.WireFeed" mode="OUT" optional="false"/>
     </service>
 
-    <!-- User preferences services -->    
+    <!-- User preferences services -->
     <service name="copyUserPrefGroup" engine="java"
             location="org.ofbiz.common.preferences.PreferenceServices" invoke="copyUserPreferenceGroup" auth="true" use-transaction="true">
         <description>Copies the preferences from one userLoginId and preference group to another.
@@ -452,10 +452,10 @@ under the License.
         <implements service="permissionInterface"/>
     </service>
 
-    <!-- Visual theme services -->    
+    <!-- Visual theme services -->
     <service name="getVisualThemeResources" engine="simple"
             location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getVisualThemeResources">
-        <description>Get a visual theme resources Map. Call with visualThemeId String, 
+        <description>Get a visual theme resources Map. Call with visualThemeId String,
             and optional themeResources Map. Returns themeResources Map - a
             Map of Lists, where the resourceTypeEnumId is the key and the value
             is a List of resourceValue Strings for that resourceTypeEnumId.
@@ -464,7 +464,7 @@ under the License.
         <attribute name="themeResources" type="Map" mode="IN" optional="true"/>
         <attribute name="themeResources" type="Map" mode="OUT" optional="false"/>
     </service>
-    
+
     <service name="createVisualTheme" default-entity-name="VisualTheme" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Visual Theme</description>
         <permission-service service-name="visualThemePermissionCheck" main-action="CREATE"/>
@@ -516,7 +516,7 @@ under the License.
     </service>
 
 
-    <!-- Temporal expression services -->    
+    <!-- Temporal expression services -->
     <service name="tempExprPermissionCheck" engine="simple"
              location="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
         <implements service="permissionInterface"/>
@@ -605,7 +605,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="mode" type="String" mode="IN"/><!-- possible values: TOP, BOTTOM, UP, DOWN -->
     </service>
-    
+
     <!-- PortalPageColumn services -->
     <service name="addPortalPageColumn" default-entity-name="PortalPageColumn" engine="simple" auth="true"
         location="component://common/script/org/ofbiz/common/PortalPageServices.xml" invoke="addPortalPageColumn">

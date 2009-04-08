@@ -70,7 +70,7 @@ public class ProtectViewWorker {
                         UtilMisc.toMap("userLoginId", userLoginId, "viewNameId", viewNameId));
                 // Any views to deal with ?
                 if (UtilValidate.isNotEmpty(protectedViews)) {
-                    Long now = System.currentTimeMillis(); // we are not in a margin of some milliseconds 
+                    Long now = System.currentTimeMillis(); // we are not in a margin of some milliseconds
 
                     // Is this login/view couple already tarpitted ? (ie denied access to view for login for a period of time)
                     List<GenericValue> tarpittedLoginViews = delegator.findByAnd("TarpittedLoginView",

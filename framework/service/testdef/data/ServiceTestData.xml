@@ -23,16 +23,16 @@ under the License.
     <TestingType testingTypeId="SVCLRT_B" description="Original description for SVCLRT_B"/>
     <TestingType testingTypeId="SVCLRT_AONLY" description="Original description for SVCLRT_AONLY; only thread A will change this to make sure it is not failing"/>
     <TestingType testingTypeId="SVCLRT_BONLY" description="Original description for SVCLRT_BONLY; only thread B will change this to make sure it is not failing"/>
-    
+
     <!-- load data for service lock wait timeout recovery test -->
     <TestingType testingTypeId="SVCLWTRT" description="Original description for SVCLWTRT"/>
-    
+
     <!-- load data for service lock wait timeout recovery test - case that can't locally auto-fix, need global retry list like global-commit eca -->
     <TestingType testingTypeId="SVCLWTRTCR" description="Original description for SVCLWTRTCR"/>
-    
+
     <!-- load data for service setRollbackOnly, make sure the rollback works -->
     <TestingType testingTypeId="SVC_SRBO" description="Original description for SVC_SRBO; this is how it should be because of the tx rollback"/>
-    
+
     <!-- load data for service ECA global-commit and global-rollback events to make sure they work -->
     <TestingType testingTypeId="SVC_SECAGC" description="Original description for SVC_SECAGC; if this is still here the global-commit event didn't run"/>
     <TestingType testingTypeId="SVC_SECAGR" description="Original description for SVC_SECAGR; if this is still here the global-rollback event didn't run"/>

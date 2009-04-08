@@ -3,7 +3,7 @@
 * http://tetlaw.id.au/view/javascript/really-easy-field-validation
 * Andrew Tetlaw
 * Version 1.5.4.1 (2007-01-05)
-* 
+*
 * Copyright (c) 2007 Andrew Tetlaw
 * Permission is hereby granted, free of charge, to any person
 * obtaining a copy of this software and associated documentation
@@ -12,10 +12,10 @@
 * modify, merge, publish, distribute, sublicense, and/or sell copies
 * of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be
 * included in all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -24,7 +24,7 @@
 * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
-* 
+*
 */
 var Validator = Class.create();
 
@@ -50,7 +50,7 @@ Validator.methods = {
 	pattern : function(v,elm,opt) {return Validation.get('IsEmpty').test(v) || opt.test(v)},
 	minLength : function(v,elm,opt) {return v.length >= opt},
 	maxLength : function(v,elm,opt) {return v.length <= opt},
-	min : function(v,elm,opt) {return v >= parseFloat(opt)}, 
+	min : function(v,elm,opt) {return v >= parseFloat(opt)},
 	max : function(v,elm,opt) {return v <= parseFloat(opt)},
 	notOneOf : function(v,elm,opt) {return $A(opt).all(function(value) {
 		return v != value;
@@ -256,8 +256,8 @@ Validation.addAllThese([
 				var regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
 				if(!regex.test(v)) return false;
 				var d = new Date(v.replace(regex, '$2/$1/$3'));
-				return ( parseInt(RegExp.$2, 10) == (1+d.getMonth()) ) && 
-							(parseInt(RegExp.$1, 10) == d.getDate()) && 
+				return ( parseInt(RegExp.$2, 10) == (1+d.getMonth()) ) &&
+							(parseInt(RegExp.$1, 10) == d.getDate()) &&
 							(parseInt(RegExp.$3, 10) == d.getFullYear() );
 			}],
 	['validate-currency-dollar', 'Please enter a valid $ amount. For example $100.00 .', function(v) {

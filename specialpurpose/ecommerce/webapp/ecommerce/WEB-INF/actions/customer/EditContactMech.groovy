@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -22,9 +22,9 @@ import org.ofbiz.party.contact.ContactMechWorker;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 
-/* puts the following in the context: "contactMech", "contactMechId", 
-        "partyContactMech", "partyContactMechPurposes", "contactMechTypeId", 
-        "contactMechType", "purposeTypes", "postalAddress", "telecomNumber", 
+/* puts the following in the context: "contactMech", "contactMechId",
+        "partyContactMech", "partyContactMechPurposes", "contactMechTypeId",
+        "contactMechType", "purposeTypes", "postalAddress", "telecomNumber",
         "requestName", "donePage", "tryEntity", "contactMechTypes"
  */
 target = [:];
@@ -63,17 +63,17 @@ if (!contactMechData) contactMechData = [:];
 if (contactMechData) context.contactMechData = contactMechData;
 
 partyContactMechData = context.partyContactMech;
-if (!tryEntity) partyContactMechData = parameters; 
+if (!tryEntity) partyContactMechData = parameters;
 if (!partyContactMechData) partyContactMechData = [:];
 if (partyContactMechData) context.partyContactMechData = partyContactMechData;
 
 postalAddressData = context.postalAddress;
-if (!tryEntity) postalAddressData = parameters; 
+if (!tryEntity) postalAddressData = parameters;
 if (!postalAddressData) postalAddressData = [:];
 if (postalAddressData) context.postalAddressData = postalAddressData;
 
 telecomNumberData = context.telecomNumber;
-if (!tryEntity) telecomNumberData = parameters; 
+if (!tryEntity) telecomNumberData = parameters;
 if (!telecomNumberData) telecomNumberData = [:];
 if (telecomNumberData) context.telecomNumberData = telecomNumberData;
 

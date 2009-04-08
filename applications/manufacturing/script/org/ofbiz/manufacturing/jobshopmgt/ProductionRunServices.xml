@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <!-- Warehouse -->
@@ -75,14 +75,14 @@ under the License.
             </if-empty>
         </else>
         </if-empty>
-        
+
         <!-- kind of like the inventory reservation routine, find InventoryItems to issue from, but instead of doing the reservation just create an issuance and an inventory item detail for the change -->
         <if-not-empty field="productId">
             <now-timestamp field="nowTimestamp"/>
 
             <!-- NOTE: the inventory will be issued from the WorkEffort.facilityId -->
             <entity-one entity-name="WorkEffort" value-field="workEffort"/>
-            
+
             <!-- before we do the find, put together the orderBy list based on which reserveOrderEnumId is specified -->
             <if-compare value="INVRO_FIFO_EXP" operator="equals" field="parameters.reserveOrderEnumId">
                 <set value="+expireDate" field="orderByString"/>
@@ -146,7 +146,7 @@ under the License.
                     </iterate>
                 </then>
             </if>
-            
+
             <!-- if quantityNotIssued is not 0, then pull it from the last non-serialized inventory item found, in the quantityNotIssued field -->
             <if-compare field="parameters.quantityNotIssued" operator="not-equals" value="0" type="BigDecimal">
                 <if>
@@ -279,7 +279,7 @@ under the License.
                         <set field="inventoryItemQuantity" from-field="inventoryItem.availableToPromiseTotal"/>
                     </else>
                     </if-compare>
-                    
+
                     <if-not-empty field="inventoryItemQuantity">
                         <!-- reduce atp on inventoryItem if availableToPromise greater than 0, if not the code at the end of this method will handle it -->
                         <if-compare field="inventoryItemQuantity" operator="greater" value="0" type="BigDecimal">
@@ -289,14 +289,14 @@ under the License.
                                 <set from-field="parameters.quantityNotIssued" field="parameters.deductAmount"/>
                             </else>
                             </if-compare-field>
-                            
+
                             <!-- create WorkEffortInventoryAssign record -->
                             <set from-field="parameters.workEffortId" field="issuanceCreateMap.workEffortId"/>
                             <set from-field="inventoryItem.inventoryItemId" field="issuanceCreateMap.inventoryItemId"/>
                             <set from-field="parameters.deductAmount" field="issuanceCreateMap.quantity"/>
                             <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap">
                             </call-service>
-    
+
                             <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
                             <set from-field="inventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
                             <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
@@ -311,7 +311,7 @@ under the License.
                             <set field="createDetailMap.description" from-field="parameters.description"/>
                             <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                             <clear-field field="createDetailMap"/>
-                            
+
                             <calculate field="parameters.quantityNotIssued" >
                                 <calcop operator="subtract" field="parameters.quantityNotIssued">
                                     <calcop operator="get" field="parameters.deductAmount"/>
@@ -319,11 +319,11 @@ under the License.
                             </calculate>
                             <set field="balanceInventoryItemsInMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
                             <call-service service-name="balanceInventoryItems" in-map-name="balanceInventoryItemsInMap"/>
-    
+
                             <clear-field field="issuanceCreateMap"/>
                         </if-compare>
                     </if-not-empty>
-    
+
                     <!-- keep track of the last non-serialized inventory item for use if inventory is not sufficient for amount already issued -->
                     <!-- use env variable named lastNonSerInventoryItem -->
                     <set from-field="inventoryItem" field="lastNonSerInventoryItem"/>
@@ -398,6 +398,6 @@ under the License.
             </else>
         </if>
     </simple-method>
-    
+
 </simple-methods>
 

@@ -18,13 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <description>Content Manager Module Site Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
-    
-    <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/> 
+
+    <handler name="service-multi" type="request" class="org.ofbiz.webapp.event.ServiceMultiEventHandler"/>
     <handler name="simplecontent" type="view" class="org.ofbiz.content.view.SimpleContentViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
@@ -42,7 +42,7 @@ under the License.
     <!-- Request Mappings -->
     <request-map uri="view"><security https="false" auth="false"/><response name="success" type="request" value="main"/></request-map>
     <request-map uri="views"><security https="true" auth="false"/><response name="success" type="request" value="main"/></request-map>
-    
+
     <request-map uri="chain">
         <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
         <response name="success" type="request" value="/view"/>
@@ -50,18 +50,18 @@ under the License.
     </request-map>
 
     <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="FindWebSite"/></request-map>
-    
+
     <request-map uri="fonts.pdf">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="fonts.fo"/>
     </request-map>
-    
+
     <request-map uri="changeDelegator">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="changeDelegator"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="error"/>
-    </request-map>    
+    </request-map>
 
     <!-- ================ Blog Requests ================= -->
     <request-map uri="blogMain">
@@ -187,7 +187,7 @@ under the License.
         <response name="success" type="view" value="FindForumGroups"/>
         <response name="error" type="view" value="FindForumGroups"/>
     </request-map>
-    
+
     <request-map uri="forumGroupRoles">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ForumGroupRoles"/>
@@ -210,7 +210,7 @@ under the License.
         <response name="success" type="view" value="ForumGroupRoles"/>
         <response name="error" type="view" value="ForumGroupRoles"/>
     </request-map>
-    
+
     <request-map uri="forumGroupPurposes">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ForumGroupPurposes"/>
@@ -227,7 +227,7 @@ under the License.
         <response name="success" type="view" value="ForumGroupPurposes"/>
         <response name="error" type="view" value="ForumGroupPurposes"/>
     </request-map>
-    
+
     <request-map uri="findForums">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindForums"/>
@@ -277,7 +277,7 @@ under the License.
         <response name="success" type="view" value="FindForumThreads"/>
         <response name="error" type="view" value="FindForumThreads"/>
     </request-map>
-    
+
     <!-- ================ WebSite Requests ================= -->
     <request-map uri="FindWebSite"><security https="true" auth="true"/><response name="success" type="view" value="FindWebSite"/></request-map>
     <request-map uri="ListWebSite"><security https="true" auth="true"/><response name="success" type="view" value="ListWebSite"/></request-map>
@@ -620,12 +620,12 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="navigateDataResource"/>
     </request-map>
-    
+
     <request-map uri="listDataResources">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="listDataResources"/>
     </request-map>
-    
+
     <request-map uri="EditDataResourceType">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="EditDataResourceType"/>
@@ -772,7 +772,7 @@ under the License.
         <response name="success" type="view" value="EditDataResourceTypeAttr"/>
         <response name="error" type="view" value="EditDataResourceTypeAttr"/>
     </request-map>
-    
+
     <!-- ================ FileExtension Requests ================= -->
     <request-map uri="EditFileExtension">
         <security auth="true" https="true"/>
@@ -796,7 +796,7 @@ under the License.
         <response name="success" type="view" value="EditFileExtension"/>
         <response name="error" type="view" value="EditFileExtension"/>
     </request-map>
-    
+
     <!-- ================ MetaDataPredicate Requests ================= -->
     <request-map uri="EditMetaDataPredicate">
         <security auth="true" https="true"/>
@@ -820,7 +820,7 @@ under the License.
         <response name="success" type="view" value="EditMetaDataPredicate"/>
         <response name="error" type="view" value="EditMetaDataPredicate"/>
     </request-map>
-    
+
     <!-- ================ MimeType Requests ================= -->
     <request-map uri="EditMimeType">
         <security auth="true" https="true"/>
@@ -988,7 +988,7 @@ under the License.
         <response name="success" type="none"/>
         <response name="error" type="request" value="main"/>
     </request-map>
-    <request-map uri="stream">       
+    <request-map uri="stream">
         <event type="java" path="org.ofbiz.content.data.DataEvents" invoke="serveObjectData"/>
         <response name="success" type="none"/>
         <response name="error" type="view" value="error"/>
@@ -1135,15 +1135,15 @@ under the License.
     <request-map uri="EditChildCompDoc"><security auth="true" https="true"/><response name="success" type="view" value="EditChildCompDoc"/></request-map>
     <request-map uri="ViewCompDocTemplateTree"><security auth="true" https="true"/><response name="success" type="view" value="ViewCompDocTemplateTree"/></request-map>
     <request-map uri="ViewCompDocInstanceTree"><security auth="true" https="true"/><response name="success" type="view" value="ViewCompDocInstanceTree"/></request-map>
-    
+
     <request-map uri="AddRootCompDocInstance"><security auth="true" https="true"/><response name="success" type="view" value="AddRootCompDocInstance"/></request-map>
     <request-map uri="AddRootCompDocTemplate"><security auth="true" https="true"/><response name="success" type="view" value="AddRootCompDocTemplate"/></request-map>
     <request-map uri="ViewInstances"><security auth="true" https="true"/><response name="success" type="view" value="ViewInstances"/></request-map>
-    
+
     <request-map uri="AddChildCompDocInstance"><security auth="true" https="true"/><response name="success" type="view" value="AddChildCompDocInstance"/></request-map>
     <request-map uri="AddChildCompDocTemplate"><security auth="true" https="true"/><response name="success" type="view" value="AddChildCompDocTemplate"/></request-map>
     <request-map uri="ViewCompDocContentBinary"><security auth="true" https="true"/><response name="success" type="view" value="ViewCompDocContentBinary"/></request-map>
-   
+
     <request-map uri="createCompDocTemplate">
         <security auth="true" https="true"/>
         <event invoke="persistContentAndAssoc" path="" type="service"/>
@@ -1424,7 +1424,7 @@ under the License.
         <response name="success" type="view" value="EditSurveyMultiResps"/>
         <response name="error" type="view" value="EditSurveyMultiResps"/>
     </request-map>
-    
+
     <!-- SurveyQuestion Requests -->
     <request-map uri="EditSurveyQuestions"><security auth="true" https="true"/><response name="success" type="view" value="EditSurveyQuestions"/></request-map>
     <request-map uri="createSurveyQuestion">
@@ -1510,7 +1510,7 @@ under the License.
         <response name="success" type="view" value="EditSurveyQuestions"/>
         <response name="error" type="view" value="EditSurveyQuestions"/>
     </request-map>
-    
+
     <!-- SurveyResponse Requests -->
     <request-map uri="FindSurveyResponse"><security auth="true" https="true"/><response name="success" type="view" value="FindSurveyResponse"/></request-map>
     <request-map uri="ViewSurveyResponses"><security auth="true" https="true"/><response name="success" type="view" value="ViewSurveyResponses"/></request-map>
@@ -1640,9 +1640,9 @@ under the License.
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="EditLayout"/>
     </request-map>
-    
+
     <!-- ================ CMS Requests ================= -->
-    
+
     <request-map uri="UserPermissions"><security auth="true" https="true"/><response name="success" type="view" value="UserPermissions"/></request-map>
     <request-map uri="CMSContentFind"><security auth="true" https="true"/><response name="success" type="view" value="CMSContentFind"/></request-map>
     <request-map uri="CMSContentEdit"><security auth="true" https="true"/><response name="success" type="view" value="CMSContentEdit"/></request-map>
@@ -1728,7 +1728,7 @@ under the License.
         <response name="success" type="view" value="TestPermission"/>
         <response name="error" type="view" value="TestPermission"/>
     </request-map>
-    
+
     <!-- ================ CompDoc Requests ================= -->
     <!-- ================ SimpleContent Requests ================= -->
 
@@ -1736,7 +1736,7 @@ under the License.
         <security auth="false" https="false"/>
         <response name="success" type="view" value="ViewSimpleContent"/>
     </request-map>
-    
+
     <!-- ================ Lookup Requests ================= -->
     <request-map uri="LookupContent">
         <security auth="true" https="true"/>
@@ -1762,14 +1762,14 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="LookupSurveyResponse"/>
     </request-map>
-    
-    <!-- lookup other components -->    
+
+    <!-- lookup other components -->
     <request-map uri="LookupPerson"><security auth="true" https="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
     <request-map uri="LookupPartyAndUserLoginAndPerson"><security auth="true" https="true"/><response name="success" type="view" value="LookupPartyAndUserLoginAndPerson"/></request-map>
     <request-map uri="LookupProductFeature"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductFeature"/></request-map>
     <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupWorkEffort"><security https="true" auth="true"/><response name="success" type="view" value="LookupWorkEffort"/></request-map>
-    
+
     <!-- ================ Content Navigate Requests ================= -->
     <request-map uri="navigateContent">
         <security auth="true" https="true"/>
@@ -1793,11 +1793,11 @@ under the License.
         <response name="success" type="request-redirect" value="navigateContent"/>
         <response name="error" type="request" value="navigateContent"/>
     </request-map>
-    
+
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://content/widget/CommonScreens.xml#main"/>
     <view-map name="fonts.fo" type="screenfop" page="component://content/widget/CommonScreens.xml#fonts.fo" content-type="application/pdf" encoding="none"/>
-    
+
     <view-map name="blogMain" page="component://content/widget/forum/BlogScreens.xml#BlogMain" type="screen"/>
     <view-map name="blogContent" page="component://content/widget/forum/BlogScreens.xml#BlogContent" type="screen"/>
     <view-map name="ViewBlogArticle" page="component://content/widget/forum/BlogScreens.xml#ViewArticle" type="screen"/>
@@ -1809,7 +1809,7 @@ under the License.
     <view-map name="EditBlogImage" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogResponse"/>
     <view-map name="EditBlogResponse" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogResponse"/>
     <view-map name="LatestResponses" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#LatestResponses"/>
-    
+
     <view-map name="FindForumGroups" page="component://content/widget/forum/ForumScreens.xml#FindForumGroups" type="screen"/>
     <view-map name="ForumGroupRoles" page="component://content/widget/forum/ForumScreens.xml#ForumGroupRoles" type="screen"/>
     <view-map name="ForumGroupPurposes" page="component://content/widget/forum/ForumScreens.xml#ForumGroupPurposes" type="screen"/>
@@ -1819,7 +1819,7 @@ under the License.
     <view-map name="AddForumMessage" page="component://content/widget/forum/ForumScreens.xml#AddForumMessage" type="screen"/>
     <view-map name="AddForumThreadMessage" page="component://content/widget/forum/ForumScreens.xml#AddForumThreadMessage" type="screen"/>
     <view-map name="EditForumMessage" page="component://content/widget/forum/ForumScreens.xml#EditForumMessage" type="screen"/>
-    
+
     <view-map name="FindWebSite" page="component://content/widget/WebSiteScreens.xml#FindWebSite" type="screen"/>
     <view-map name="EditWebSite" page="component://content/widget/WebSiteScreens.xml#EditWebSite" type="screen"/>
     <view-map name="WebSiteAliases" page="component://content/widget/WebSiteScreens.xml#WebSiteAliases" type="screen"/>
@@ -1831,7 +1831,7 @@ under the License.
     <view-map name="WebSiteCMSPathAlias" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSPathAlias" type="screen"/>
     <view-map name="WebSiteCMSNav" page="component://content/widget/WebSiteScreens.xml#WebSiteCMSNav" type="screen"/>
     <view-map name="EditWebSiteParties" page="component://content/widget/WebSiteScreens.xml#EditWebSiteParties" type="screen"/>
-    
+
     <view-map name="EditContentPurpose" page="component://content/widget/content/ContentScreens.xml#EditContentPurpose" type="screen"/>
     <view-map name="EditContentRole" page="component://content/widget/content/ContentScreens.xml#EditContentRole" type="screen"/>
     <view-map name="FindContent" page="component://content/widget/content/ContentScreens.xml#FindContent" type="screen"/>
@@ -1839,7 +1839,7 @@ under the License.
     <view-map name="EditContent" page="component://content/widget/content/ContentScreens.xml#EditContent" type="screen"/>
     <view-map name="EditContentAssoc" page="component://content/widget/content/ContentScreens.xml#EditContentAssoc" type="screen"/>
     <view-map name="ListWebSite" page="component://content/widget/content/ContentScreens.xml#ListWebSite" type="screen"/>
-            
+
     <view-map name="EditContentAttribute" page="component://content/widget/content/ContentScreens.xml#EditContentAttribute" type="screen"/>
     <view-map name="EditContentMetaData" page="component://content/widget/content/ContentScreens.xml#EditContentMetaData" type="screen"/>
     <view-map name="EditContentType" page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentType" type="screen"/>
@@ -1850,7 +1850,7 @@ under the License.
     <view-map name="EditContentOperation" page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentOperation" type="screen"/>
     <view-map name="EditContentPurposeOperation"  page="component://content/widget/contentsetup/ContentSetupScreens.xml#EditContentPurposeOperation" type="screen"/>
     <view-map name="EditContentWorkEfforts" page="component://content/widget/content/ContentScreens.xml#EditContentWorkEfforts" type="screen"/>
-    
+
     <view-map name="FindDataResource"  page="component://content/widget/content/DataResourceScreens.xml#FindDataResource" type="screen"/>
     <view-map name="findDataResourceSearchResults"  page="component://content/widget/content/DataResourceScreens.xml#findDataResourceSearchResults" type="screen"/>
     <view-map name="navigateDataResource" type="screen" page="component://content/widget/content/DataResourceScreens.xml#navigateDataResource"/>
@@ -1936,7 +1936,7 @@ under the License.
     <view-map name="ViewInstances" page="component://content/widget/compdoc/CompDocScreens.xml#ViewInstances" type="screen"/>
     <view-map name="ViewCompDocContentBinary" page="" type="simplecontent"/>
     <view-map name="ViewCompDocContent" page="component://content/widget/compdoc/CompDocScreens.xml#ViewCompDocContent" type="screen"/>
-    
+
     <view-map name="ViewSimpleContent" page="" type="simplecontent"/>
 
     <!-- lookup content component -->
@@ -1952,12 +1952,12 @@ under the License.
     <view-map name="LookupProductFeature" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature" type="screen"/>
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
-    
+
     <!-- content navigate view -->
     <view-map name="navigateContent" type="screen" page="component://content/widget/content/ContentScreens.xml#navigateContent"/>
     <view-map name="EditDocumentTree" type="screen" page="component://content/widget/content/ContentScreens.xml#EditDocumentTree"/>
     <view-map name="EditDocument" type="screen" page="component://content/widget/content/ContentScreens.xml#EditDocument"/>
     <view-map name="ListDocument" type="screen" page="component://content/widget/content/ContentScreens.xml#ListDocument"/>
-        
+
         <!-- end of view mappings -->
 </site-conf>

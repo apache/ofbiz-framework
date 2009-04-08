@@ -195,7 +195,7 @@ under the License.
                       <tr>
                         <td><b>${uiLabelMap.WebtoolsCompareType}</b> ${condition.compareType?default(uiLabelMap.CommonNA)}</td>
                         <td>
-                          <b>${uiLabelMap.WebtoolsConditionService}</b> 
+                          <b>${uiLabelMap.WebtoolsConditionService}</b>
                           <#if condition.conditionService?exists && condition.conditionService?has_content>
                             <a href='<@ofbizUrl>${url}?sel_service_name=${condition.conditionService}</@ofbizUrl>'>${condition.conditionService?default(uiLabelMap.CommonNA)}</a>
                           <#else>
@@ -204,7 +204,7 @@ under the License.
                         </td>
                         <td><b>${uiLabelMap.WebtoolsFormat}</b> ${condition.format?default(uiLabelMap.CommonNA)}</td>
                       </tr>
-                      <tr>                                                    
+                      <tr>
                         <td><b>${uiLabelMap.WebtoolsIsService}</b> ${condition.isService?default(uiLabelMap.CommonNA)}</td>
                         <td><b>${uiLabelMap.WebtoolsIsConstant}</b> ${condition.isConstant?default(uiLabelMap.CommonNA)}</td>
                         <td><b>${uiLabelMap.WebtoolsOperator}</b> ${condition.operator?default(uiLabelMap.CommonNA)}</td>
@@ -272,7 +272,7 @@ under the License.
         </#if>
       </div>
     </#list>
-    
+
     <#-- Show a little form for exportServiceEoModelBundle -->
     <div class="screenlet-body">
       <form name="exportServiceEoModelBundle" method="post" action="<@ofbizUrl>exportServiceEoModelBundle</@ofbizUrl>" class="basic-form">
@@ -298,7 +298,7 @@ under the License.
           <a href='<@ofbizUrl>${url}?constraint=alpha@${alpha}</@ofbizUrl>'>${alpha}</a>
           <#assign isfirst=false>
         </#list>
-        <#if dispArrList?exists && dispArrList?has_content>                        
+        <#if dispArrList?exists && dispArrList?has_content>
           &nbsp;&nbsp;&nbsp;&nbsp;
           <script language='javascript' type='text/javascript'>
             function submitDispForm(){

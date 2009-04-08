@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -29,12 +29,12 @@
         <security https="false" auth="false"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-    
+
     <request-map uri="authview">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
     </request-map>
-    
+
     <request-map uri="changeDelegator">
         <event type="java" path="org.ofbiz.webapp.event.CoreEvents" invoke="changeDelegator"/>
         <response name="success" type="view" value="main"/>

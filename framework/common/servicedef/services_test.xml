@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>OFBIZ Test Services</description>
     <vendor>OFBiz</vendor>
@@ -27,7 +27,7 @@ under the License.
     <service name="testScv" engine="java" export="true" validate="false" require-new-transaction="true"
             location="org.ofbiz.common.CommonServices" invoke="testService">
         <description>Test service</description>
-        <attribute name="defaultValue" type="Double" mode="IN" default-value="999.9999"/> 
+        <attribute name="defaultValue" type="Double" mode="IN" default-value="999.9999"/>
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="resp" type="String" mode="OUT"/>
     </service>
@@ -108,7 +108,7 @@ under the License.
         <attribute name="message" type="String" mode="IN" optional="true"/>
         <attribute name="result" type="String" mode="OUT"/>
     </service>
-    
+
     <service name="testJMSQueue" engine="jms" location="serviceMessenger" invoke="testScv">
         <description>Test JMS Queue service</description>
         <attribute name="message" type="String" mode="IN"/>
@@ -135,7 +135,7 @@ under the License.
         <attribute name="listOfStrings" type="List" mode="IN"/>
         <attribute name="mapOfStrings" type="Map" mode="IN"/>
     </service>
-    
+
     <service name="testJavaScript" engine="javascript" auth="false"
         location="component://common/script/org/ofbiz/common/JavaScriptTest.js" invoke="">
         <description>Test JavaScript Service</description>
@@ -157,9 +157,9 @@ under the License.
             location="org.ofbiz.common.CommonServices" invoke="makeALotOfVisits">
         <description>Test JavaScript Service</description>
         <attribute name="count" type="Integer" mode="IN" optional="false"/>
-        <attribute name="rollback" type="Boolean" mode="IN" optional="true"/>     
+        <attribute name="rollback" type="Boolean" mode="IN" optional="true"/>
     </service>
-    
+
     <service name="byteBufferTest" engine="java" auth="true"
             location="org.ofbiz.common.CommonServices" invoke="byteBufferTest">
         <description>Test Passing ByteBuffer To Service</description>
@@ -176,7 +176,7 @@ under the License.
         <attribute name="_uploadFile_contentType" type="String" mode="IN" optional="false"/>
         <attribute name="_uploadFile_fileName" type="String" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="conditionReturnTrue" engine="java"
             location="org.ofbiz.common.CommonServices" invoke="conditionTrueService">
         <description>ECA Condition Service - Return TRUE</description>
@@ -192,7 +192,7 @@ under the License.
             location="org.ofbiz.common.CommonServices" invoke="streamTest">
         <implements service="serviceStreamInterface"/>
     </service>
-    
+
     <service name="ping" engine="java" export="true" require-new-transaction="true"
             location="org.ofbiz.common.CommonServices" invoke="ping">
         <description>Test Ping Service</description>

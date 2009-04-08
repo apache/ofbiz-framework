@@ -18,15 +18,15 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    
+
     <screen name="FinancialSummaryReportOptions">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFinancialSummaryReportOptions"/>
                 <set field="headerItem" value="FinancialSummryReports"/>
-                
+
                 <set field="month" from-field="parameters.month" default-value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;MM&quot;)}"/>
                 <set field="year" from-field="parameters.year" default-value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy&quot;)}"/>
             </actions>
@@ -34,7 +34,7 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label style="h1" text="${uiLabelMap.PageTitleFinancialSummaryReportOptions}"/></container>
-                        
+
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
@@ -45,7 +45,7 @@ under the License.
                                 <include-form name="SalesInvoiceByProductCategorySummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             </container>
                         </container>
-                        
+
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
@@ -56,7 +56,7 @@ under the License.
                                 <include-form name="SalesInvoiceByProductGlAccountSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             </container>
                         </container>
-                        
+
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
@@ -67,7 +67,7 @@ under the License.
                                 <include-form name="PaymentByMethodSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             </container>
                         </container>
-                       
+
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
@@ -78,7 +78,7 @@ under the License.
                                 <include-form name="InventoryIssueSummaryOptions" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                             </container>
                         </container>
-                        
+
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
@@ -94,7 +94,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="FinancialSummaryDataPrep">
         <section>
             <actions>
@@ -104,7 +104,7 @@ under the License.
                 <set field="year" from-field="parameters.year" type="Integer" default-value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy&quot;)}"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <set field="currencyUomId" from-field="parameters.currencyUomId"/>
-                
+
                 <entity-one entity-name="PartyNameView" value-field="organizationPartyName" auto-field-map="false" use-cache="true">
                     <field-map field-name="partyId" from-field="organizationPartyId"/>
                 </entity-one>
@@ -115,7 +115,7 @@ under the License.
             <widgets></widgets>
         </section>
     </screen>
-    
+
     <screen name="SalesInvoiceByProductCategorySummary">
         <section>
             <widgets>
@@ -123,12 +123,12 @@ under the License.
                 <section>
                     <actions>
                         <set field="titleProperty" value="PageTitleSalesInvoiceByProductCategorySummary"/>
-                        
+
                         <set field="rootProductCategoryId" from-field="parameters.rootProductCategoryId"/>
                         <entity-one entity-name="ProductCategory" value-field="rootProductCategory" auto-field-map="false" use-cache="true">
                             <field-map field-name="productCategoryId" from-field="rootProductCategoryId"/>
                         </entity-one>
-                        
+
                         <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/SalesInvoiceByProductCategorySummary.groovy"/>
                     </actions>
                     <widgets>
@@ -158,7 +158,7 @@ under the License.
                 <section>
                     <actions>
                         <set field="titleProperty" value="PageTitleSalesInvoiceByProductGlAccountSummary"/>
-                        
+
                         <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/SalesInvoiceByProductGlAccountSummary.bsh"/>
                     </actions>
                     <widgets>
@@ -189,7 +189,7 @@ under the License.
                 <section>
                     <actions>
                         <set field="titleProperty" value="PageTitlePaymentByMethodSummary"/>
-                        
+
                         <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/PaymentByMethodSummary.bsh"/>
                     </actions>
                     <widgets>
@@ -219,7 +219,7 @@ under the License.
                 <section>
                     <actions>
                         <set field="titleProperty" value="PageTitleInventoryIssueSummary"/>
-                        
+
                         <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/InventoryIssueSummary.bsh"/>
                     </actions>
                     <widgets>
@@ -249,7 +249,7 @@ under the License.
                 <section>
                     <actions>
                         <set field="titleProperty" value="PageTitleFinancialAccountSummary"/>
-                        
+
                         <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/FinancialAccountSummary.bsh"/>
                     </actions>
                     <widgets>
@@ -531,7 +531,7 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="TransactionTotals"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>                
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
                 <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
             </actions>
@@ -548,25 +548,25 @@ under the License.
                                 </container>
                             </container>
                          </container>
-                         <container style="screenlet">       
+                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
                                     <label text="${uiLabelMap.AccountingPostedTransactionTotals}"/>
                                 </container>
                                 <container style="screenlet-body">
-                                    <include-form name="PostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>                                      
+                                    <include-form name="PostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
                                 </container>
                             </container>
                          </container>
-                         <container style="screenlet">            
+                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.AccountingUnPostedTransactionTotals}"/>            
-                                </container>    
-                                <container style="screenlet-body">
-                                    <include-form name="UnpostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>                               
+                                    <label text="${uiLabelMap.AccountingUnPostedTransactionTotals}"/>
                                 </container>
-                            </container>          
+                                <container style="screenlet-body">
+                                    <include-form name="UnpostedTransactionTotalList" location="component://accounting/widget/ReportFinancialSummaryForms.xml"/>
+                                </container>
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>

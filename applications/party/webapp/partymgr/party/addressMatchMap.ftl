@@ -62,12 +62,12 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="h3">${uiLabelMap.PageTitleAddressMatchMap}</li>      
+      <li class="h3">${uiLabelMap.PageTitleAddressMatchMap}</li>
     </ul>
     <br class="clear"/>
   </div>
   <div class="screenlet-body">
-      <#if addressMatchMaps?has_content>        
+      <#if addressMatchMaps?has_content>
         <table class="basic-table hover-bar" cellspacing="0">
           <tr class="header-row">
             <td>${uiLabelMap.PartyAddressMatchKey}</td>

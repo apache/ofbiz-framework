@@ -525,7 +525,7 @@ public class BOMServices {
                 }
             }
         }
-        // For each party: try to expand the shipment item products 
+        // For each party: try to expand the shipment item products
         // (search for components that needs to be packaged).
         Iterator partyOrderShipmentsIt = partyOrderShipments.entrySet().iterator();
         while (partyOrderShipmentsIt.hasNext()) {

@@ -20,7 +20,7 @@ under the License.
     <a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&activeOnly=false</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductActiveAndInactive}</a>
 <#else>
     <a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&activeOnly=true</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductActiveOnly}</a>
-</#if>        
+</#if>
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <#if (listSize > 0)>
@@ -31,7 +31,7 @@ under the License.
                 <span class="submenutextinfo">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
                 <#if (listSize > highIndex)>
                     | <a class="lightbuttontext" href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}&activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonNext}</a>
-                </#if>                
+                </#if>
                 &nbsp;
             </div>
             <div class="boxhead-left">
@@ -41,13 +41,13 @@ under the License.
         </#if>
     </div>
     <div class="screenlet-body">
-        <table cellspacing="0" class="basic-table">        
+        <table cellspacing="0" class="basic-table">
             <tr class="header-row">
                 <td>${uiLabelMap.ProductProductNameId}</td>
                 <td>${uiLabelMap.CommonFromDateTime}</td>
                 <td align="center">${uiLabelMap.ProductThruDateTimeSequenceQuantity} ${uiLabelMap.CommonComments}</td>
                 <td>&nbsp;</td>
-            </tr>        
+            </tr>
             <#if (listSize > 0)>
                 <tr><td>
                 <form method="post" action="<@ofbizUrl>updateCategoryProductMember?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex}</@ofbizUrl>" name="updateCategoryProductForm">
@@ -78,7 +78,7 @@ under the License.
                                 <input type="text" size="5" name="sequenceNum${suffix}" value="${(productCategoryMember.sequenceNum)?if_exists}">
                                 <input type="text" size="5" name="quantity${suffix}" value="${(productCategoryMember.quantity)?if_exists}">
                                 <br/>
-                                <textarea name="comments${suffix}" rows="2" cols="40">${(productCategoryMember.comments)?if_exists}</textarea>        
+                                <textarea name="comments${suffix}" rows="2" cols="40">${(productCategoryMember.comments)?if_exists}</textarea>
                             </td>
                             <td align="center">
                             <a href="<@ofbizUrl>removeCategoryProductMember?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex}&productId=${(productCategoryMember.productId)?if_exists}&productCategoryId=${(productCategoryMember.productCategoryId)?if_exists}&fromDate=${productCategoryMember.getString("fromDate")}&activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="buttontext">
@@ -90,7 +90,7 @@ under the License.
                             <#assign rowClass = "1">
                         <#else>
                             <#assign rowClass = "2">
-                        </#if>      
+                        </#if>
                     </#list>
                     <tr valign="middle">
                         <td colspan="4" align="center">
@@ -100,7 +100,7 @@ under the License.
                     </tr>
                 </form>
             </#if>
-        </table>        
+        </table>
     </div>
     <div class="screenlet-title-bar">
         <#if (listSize > 0)>
@@ -111,15 +111,15 @@ under the License.
                 <span class="submenutextinfo">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
                 <#if (listSize > highIndex)>
                     | <a class="lightbuttontext" href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex+1}&activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonNext}</a>
-                </#if>                
+                </#if>
                 &nbsp;
             </div>
             <div class="boxhead-left">
                 ${uiLabelMap.PageTitleEditCategoryProducts}
             </div>
             <div class="boxhead-fill">&nbsp;</div>
-        </#if>     
-    </div>        
+        </#if>
+    </div>
 </div>
 <div class="screenlet">
     <div class="screenlet-title-bar">
@@ -127,7 +127,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">
-            <tr><td>            
+            <tr><td>
                 <form method="post" action="<@ofbizUrl>addCategoryProductMember</@ofbizUrl>" style="margin: 0;" name="addProductCategoryMemberForm">
                     <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
                     <input type="hidden" name="activeOnly" value="${activeOnly.toString()}">
@@ -137,7 +137,7 @@ under the License.
                         <span class="label">${uiLabelMap.CommonFromDate}</span> <input type="text" size="22" name="fromDate">
                         <a href="javascript:call_cal(document.addProductCategoryMemberForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                           <br/>
-                          <span class="label">${uiLabelMap.CommonComments}</span> <textarea name="comments" rows="2" cols="40"></textarea>        
+                          <span class="label">${uiLabelMap.CommonComments}</span> <textarea name="comments" rows="2" cols="40"></textarea>
                           <input type="submit" value="${uiLabelMap.CommonAdd}">
                     </div>
                 </form>
@@ -151,7 +151,7 @@ under the License.
     </div>
     <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">
-            <tr><td>    
+            <tr><td>
                 <form method="post" action="<@ofbizUrl>copyCategoryProductMembers</@ofbizUrl>" style="margin: 0;" name="copyCategoryProductMembersForm">
                     <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}">
                     <input type="hidden" name="activeOnly" value="${activeOnly.toString()}">

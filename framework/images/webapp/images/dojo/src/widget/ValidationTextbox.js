@@ -20,7 +20,7 @@ dojo.widget.defineWidget(
 		// summary:
 		//		A subclass of Textbox.
 		//		Over-ride isValid in subclasses to perform specific kinds of validation.
-		
+
 		// this property isn't a primitive and needs to be created on a per-item basis.
 		this.flags = {};
 	},
@@ -41,7 +41,7 @@ dojo.widget.defineWidget(
 		//		Basic input tag size declaration.
 		size: "",
 		// maxlength: String
-		//		Basic input tag maxlength declaration.	
+		//		Basic input tag maxlength declaration.
 		maxlength: "",
 		// promptMessage: String
 		//		Will not issue invalid message if field is populated with default user-prompt text
@@ -58,10 +58,10 @@ dojo.widget.defineWidget(
 		listenOnKeyPress: true,
 		htmlfloat: "none",
 		lastCheckedValue: null,
-	
+
 		templatePath: dojo.uri.dojoUri("src/widget/templates/ValidationTextbox.html"),
 		templateCssPath: dojo.uri.dojoUri("src/widget/templates/Validate.css"),
-		
+
 		// new DOM nodes
 		invalidSpan: null,
 		missingSpan: null,
@@ -70,32 +70,32 @@ dojo.widget.defineWidget(
 		getValue: function() {
 			return this.textbox.value;
 		},
-	
+
 		setValue: function(value) {
 			this.textbox.value = value;
 			this.update();
 		},
-	
+
 		isValid: function() {
 			// summary: Need to over-ride with your own validation code in subclasses
 			return true;
 		},
-	
+
 		isInRange: function() {
 			// summary: Need to over-ride with your own validation code in subclasses
 			return true;
 		},
-	
+
 		isEmpty: function() {
 			// summary: Checks for whitespace
 			return ( /^\s*$/.test(this.textbox.value) ); // Boolean
 		},
-	
+
 		isMissing: function() {
 			// summary: Checks to see if value is required and is whitespace
 			return ( this.required && this.isEmpty() ); // Boolean
 		},
-	
+
 		update: function() {
 			// summary:
 			//		Called by oninit, onblur, and onkeypress.
@@ -105,14 +105,14 @@ dojo.widget.defineWidget(
 			this.missingSpan.style.display = "none";
 			this.invalidSpan.style.display = "none";
 			this.rangeSpan.style.display = "none";
-	
+
 			var empty = this.isEmpty();
 			var valid = true;
-			if(this.promptMessage != this.textbox.value){ 
-				valid = this.isValid(); 
+			if(this.promptMessage != this.textbox.value){
+				valid = this.isValid();
 			}
 			var missing = this.isMissing();
-	
+
 			// Display at most one error message
 			if(missing){
 				this.missingSpan.style.display = "";
@@ -123,7 +123,7 @@ dojo.widget.defineWidget(
 			}
 			this.highlight();
 		},
-		
+
 		updateClass: function(className){
 			// summary: used to ensure that only 1 validation class is set at a time
 			var pre = this.classPrefix;
@@ -132,38 +132,38 @@ dojo.widget.defineWidget(
 			dojo.html.removeClass(this.textbox,pre+"Invalid");
 			dojo.html.addClass(this.textbox,pre+className);
 		},
-		
+
 		highlight: function() {
 			// summary: by Called oninit, and onblur.
-			
-			// highlight textbox background 
+
+			// highlight textbox background
 			if (this.isEmpty()) {
 				this.updateClass("Empty");
 			}else if (this.isValid() && this.isInRange() ){
 				this.updateClass("Valid");
-			}else if(this.textbox.value != this.promptMessage){ 
+			}else if(this.textbox.value != this.promptMessage){
 				this.updateClass("Invalid");
 			}else{
 				this.updateClass("Empty");
 			}
 		},
-	
+
 		onfocus: function(evt) {
 			if ( !this.listenOnKeyPress) {
 				this.updateClass("Empty");
 //			    this.textbox.style.backgroundColor = "";
 			}
 		},
-	
-		onblur: function(evt) { 
+
+		onblur: function(evt) {
 			this.filter();
-			this.update(); 
+			this.update();
 		},
-	
-		onkeyup: function(evt){ 
-			if(this.listenOnKeyPress){ 
+
+		onkeyup: function(evt){
+			if(this.listenOnKeyPress){
 				//this.filter();  trim is problem if you have to type two words
-				this.update(); 
+				this.update();
 			}else if (this.textbox.value != this.lastCheckedValue){
 				this.updateClass("Empty");
 //			    this.textbox.style.backgroundColor = "";
@@ -177,7 +177,7 @@ dojo.widget.defineWidget(
 				if(this[prop]){ this.messages[prop] = this[prop]; }
 			}, this);
 		},
-	
+
 		fillInTemplate: function() {
 			dojo.widget.ValidationTextbox.superclass.fillInTemplate.apply(this, arguments);
 
@@ -188,8 +188,8 @@ dojo.widget.defineWidget(
 			this.textbox.isMissing = function() { this.isMissing.call(this); };
 			this.textbox.isInRange = function() { this.isInRange.call(this); };
 			dojo.html.setClass(this.invalidSpan,this.invalidClass);
-			this.update(); 
-			
+			this.update();
+
 			// apply any filters to initial value
 			this.filter();
 

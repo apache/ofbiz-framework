@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -32,7 +32,7 @@ totalCostPriceGrandTotal = 0.0;
 totalRetailPriceGrandTotal = 0.0;
 boolean beganTransaction = false;
 if (action) {
-    conditions = [EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INV_DELIVERED")]; 
+    conditions = [EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INV_DELIVERED")];
     conditions.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null));
     conditionList = EntityCondition.makeCondition(conditions, EntityOperator.OR);
     try {
@@ -51,7 +51,7 @@ if (action) {
                 retailPrice = 0.0;
                 productPrices = product.getRelated("ProductPrice");
                 if (productPrices) {
-                    productPrices.each { productPrice ->                   
+                    productPrices.each { productPrice ->
                         if (("DEFAULT_PRICE").equals(productPrice.productPriceTypeId)) {
                             retailPrice = productPrice.getDouble("price");
                         }
@@ -79,8 +79,8 @@ if (action) {
                 if (retailPrice) {
                     retailPriceGrandTotal += retailPrice;
                 }
-                
-                resultMap = [productId : product.productId, quantityOnHand : quantityOnHandTotal, availableToPromise : availableToPromiseTotal, 
+
+                resultMap = [productId : product.productId, quantityOnHand : quantityOnHandTotal, availableToPromise : availableToPromiseTotal,
                              costPrice : costPrice, retailPrice : retailPrice];
                 inventoryItemTotals.add(resultMap);
             }
@@ -101,11 +101,11 @@ if (action) {
         // only commit the transaction if we started one... this will throw an exception if it fails
         TransactionUtil.commit(beganTransaction);
     }
-    
+
 }
 
 inventoryItemGrandTotals = [];
-inventoryItemGrandTotals.add([qohGrandTotal : qohGrandTotal, atpGrandTotal : atpGrandTotal, 
+inventoryItemGrandTotals.add([qohGrandTotal : qohGrandTotal, atpGrandTotal : atpGrandTotal,
                               totalCostPriceGrandTotal : totalCostPriceGrandTotal, totalRetailPriceGrandTotal : totalRetailPriceGrandTotal]);
 
 context.inventoryItemTotals = inventoryItemTotals;

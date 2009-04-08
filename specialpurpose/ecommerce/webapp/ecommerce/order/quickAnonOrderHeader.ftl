@@ -63,7 +63,7 @@ under the License.
                   </td>
                   <td width="5">&nbsp;</td>
                   <td valign="top" width="80%">
-                    <#if orderHeader?has_content>                                                
+                    <#if orderHeader?has_content>
                       <div class="tabletext">${localOrderReadHelper.getStatusString(locale)}</div>
                     <#else>
                       <div class="tabletext"><b>${uiLabelMap.OrderNotYetOrdered}</b></div>
@@ -135,7 +135,7 @@ under the License.
                         <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b> ${shippingAddress.toName}<br/></#if>
                         <#if shippingAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b> ${shippingAddress.attnName}<br/></#if>
                         ${shippingAddress.address1}<br/>
-                        <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br/></#if>                            
+                        <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br/></#if>
                         ${shippingAddress.city}<#if shippingAddress.stateProvinceGeoId?has_content>, ${shippingAddress.stateProvinceGeoId} </#if>
                         ${shippingAddress.postalCode?if_exists}<br/>
                         ${shippingAddress.countryGeoId?if_exists}
@@ -145,7 +145,7 @@ under the License.
                   <tr><td colspan="7"><hr/></td></tr>
                 </#if>
                   <tr><td colspan="7">
-                     ${screens.render("component://ecommerce/widget/OrderScreens.xml#quickAnonOptionSettings")}                     
+                     ${screens.render("component://ecommerce/widget/OrderScreens.xml#quickAnonOptionSettings")}
                   </td></tr>
               </table>
 

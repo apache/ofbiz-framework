@@ -48,7 +48,7 @@ under the License.
     <#list productNullResultByDayList as productNullResult>
         <#assign productResultMap = productResultMapByDayList.get(productNullResult_index)/>
         <#assign categoryResultMap = categoryResultMapByDayList.get(productNullResult_index)/>
-    
+
     	<#-- now do the null product, then iterate through the products, then categories -->
     	<tr>
     	    <td class="label">${(productNullResult_index + 1)}</td>
@@ -63,7 +63,7 @@ under the License.
         </#list>
         </tr>
     </#list>
-    
+
     <#-- Totals for the month -->
 	<tr>
 	    <td class="label">Month Total</td>

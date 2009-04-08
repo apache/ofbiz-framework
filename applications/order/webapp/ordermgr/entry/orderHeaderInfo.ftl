@@ -37,7 +37,7 @@ under the License.
     <div class="screenlet-body">
         <table width="100%" border="0" cellpadding="2" cellspacing="0">
           <tr valign="top">
-            <td><b>${uiLabelMap.OrderOrderName}</b>:</td> 
+            <td><b>${uiLabelMap.OrderOrderName}</b>:</td>
             <td>
               <form method="post" action="setOrderName" name="setCartOrderNameForm">
                 <input type="text" name="orderName" size="15" maxlength="200" value='${shoppingCart.getOrderName()?default("")}'/>
@@ -59,7 +59,7 @@ under the License.
             </tr>
             <#if shoppingCart.getOrderType() != "PURCHASE_ORDER">
             <tr valign="top">
-              <td><b>${uiLabelMap.OrderPONumber}</b>:</td> 
+              <td><b>${uiLabelMap.OrderPONumber}</b>:</td>
               <td>
                 <form method="post" action="setPoNumber" name="setCartPoNumberForm">
                   <input type="text" name="correspondingPoId" size="15" value='${shoppingCart.getPoNumber()?default("")}'/>

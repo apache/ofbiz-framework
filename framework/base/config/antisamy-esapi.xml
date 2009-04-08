@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!-- 
+<!--
 Based on the default ESAPI.properties file, which is BSD licensed.
 
 Licensed to the Apache Software Foundation (ASF) under one
@@ -9,9 +9,9 @@ regarding copyright ownership.  The ASF licenses this file
 to you under the Apache License, Version 2.0 (the
 "License"); you may not use this file except in compliance
 with the License.  You may obtain a copy of the License at
- 
+
 http://www.apache.org/licenses/LICENSE-2.0
- 
+
 Unless required by applicable law or agreed to in writing,
 software distributed under the License is distributed on an
 "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -20,11 +20,11 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<!-- 
+<!--
 W3C rules retrieved from:
 http://www.w3.org/TR/html401/struct/global.html
 -->
-    
+
 <!--
 Slashdot allowed tags taken from "Reply" page:
 <b> <i> <p> <br> <a> <ol> <ul> <li> <dl> <dt> <dd> <em> <strong> <tt> <blockquote> <div> <ecode> <quote>
@@ -38,30 +38,30 @@ Slashdot allowed tags taken from "Reply" page:
         <directive name="embedStyleSheets" value="false"/>
     </directives>
     <common-regexps>
-        <!-- 
+        <!--
         From W3C:
         This attribute assigns a class name or set of class names to an
         element. Any number of elements may be assigned the same class
-        name or names. Multiple class names must be separated by white 
+        name or names. Multiple class names must be separated by white
         space characters.
         -->
-        
+
         <regexp name="htmlTitle" value="[a-zA-Z0-9\s-_',:\[\]!\./\\\(\)]*"/> <!-- force non-empty with a '+' at the end instead of '*' -->
         <regexp name="onsiteURL" value="([\w\\/\.\?=&amp;;\#-~]+|\#(\w)+)"/>
         <regexp name="offsiteURL" value="(\s)*((ht|f)tp(s?)://|mailto:)[A-Za-z0-9]+[~a-zA-Z0-9-_\.@#$%&amp;;:,\?=/\+!]*(\s)*"/>
     </common-regexps>
-    
-    <!-- 
-    
+
+    <!--
+
     Tag.name = a, b, div, body, etc.
     Tag.action = filter: remove tags, but keep content, validate: keep content as long as it passes rules, remove: remove tag and contents
     Attribute.name = id, class, href, align, width, etc.
     Attribute.onInvalid = what to do when the attribute is invalid, e.g., remove the tag (removeTag), remove the attribute (removeAttribute), filter the tag (filterTag)
     Attribute.description = What rules in English you want to tell the users they can have for this attribute. Include helpful things so they'll be able to tune their HTML
-     
+
      -->
 
-    <!-- 
+    <!--
     Some attributes are common to all (or most) HTML tags. There aren't many that qualify for this. You have to make sure there's no
     collisions between any of these attribute names with attribute names of other tags that are for different purposes.
     -->
@@ -95,7 +95,7 @@ Slashdot allowed tags taken from "Reply" page:
 
     <!--
     This requires normal updates as browsers continue to diverge from the W3C and each other. As long as the browser wars continue
-    this is going to continue. I'm not sure war is the right word for what's going on. Doesn't somebody have to win a war after 
+    this is going to continue. I'm not sure war is the right word for what's going on. Doesn't somebody have to win a war after
     a while?
      -->
     <global-tag-attributes>
@@ -106,31 +106,31 @@ Slashdot allowed tags taken from "Reply" page:
         <!-- Tags related to JavaScript -->
         <tag name="script" action="remove"/>
         <tag name="noscript" action="remove"/>
-        
+
         <!-- Frame & related tags -->
         <tag name="iframe" action="remove"/>
         <tag name="frameset" action="remove"/>
         <tag name="frame" action="remove"/>
         <tag name="noframes" action="remove"/>
-        
+
         <!-- All reasonable formatting tags -->
         <tag name="p" action="validate">
             <attribute name="align"/>
         </tag>
 
-        <tag name="div" action="validate"/>        
+        <tag name="div" action="validate"/>
         <tag name="i" action="validate"/>
         <tag name="b" action="validate"/>
         <tag name="em" action="validate"/>
         <tag name="blockquote" action="validate"/>
         <tag name="tt" action="validate"/>
-        
+
         <tag name="br" action="truncate"/>
 
         <!-- Custom Slashdot tags, though we're trimming the idea of having a possible mismatching end tag with the endtag="" attribute -->
         <tag name="quote" action="validate"/>
-        <tag name="ecode" action="validate"/> 
-        
+        <tag name="ecode" action="validate"/>
+
         <!-- Anchor and anchor related tags -->
         <tag name="a" action="validate">
             <attribute name="href" onInvalid="filterTag"/>
@@ -160,7 +160,7 @@ Slashdot allowed tags taken from "Reply" page:
     <html-entities>
         <entity name="amp" cdata="&amp;"/>
         <entity name="nbsp" cdata="&amp;#160;"/>
-        
+
         <entity name="iexcl" cdata="&amp;#161;"/> <!--inverted exclamation mark, U+00A1 ISOnum -->
         <entity name="cent" cdata="&amp;#162;"/> <!--cent sign, U+00A2 ISOnum -->
         <entity name="pound" cdata="&amp;#163;"/> <!--pound sign, U+00A3 ISOnum -->
@@ -256,9 +256,9 @@ Slashdot allowed tags taken from "Reply" page:
         <entity name="yacute" cdata="&amp;#253;"/> <!--latin small letter y with acute, U+00FD ISOlat1 -->
         <entity name="thorn" cdata="&amp;#254;"/> <!--latin small letter thorn, U+00FE ISOlat1 -->
         <entity name="yuml" cdata="&amp;#255;"/> <!--latin small letter y with diaeresis, U+00FF ISOlat1 -->
-                                          
+
         <entity name="fnof" cdata="&amp;#402;"/> <!--latin small f with hook = function = florin, U+0192 ISOtech -->
-        
+
         <!-- Greek -->
         <entity name="Alpha" cdata="&amp;#913;"/> <!--greek capital letter alpha, U+0391 -->
         <entity name="Beta" cdata="&amp;#914;"/> <!--greek capital letter beta, U+0392 -->
@@ -285,7 +285,7 @@ Slashdot allowed tags taken from "Reply" page:
         <entity name="Chi" cdata="&amp;#935;"/> <!--greek capital letter chi, U+03A7 -->
         <entity name="Psi" cdata="&amp;#936;"/> <!--greek capital letter psi,U+03A8 ISOgrk3 -->
         <entity name="Omega" cdata="&amp;#937;"/> <!--greek capital letter omega,U+03A9 ISOgrk3 -->
-        
+
         <entity name="alpha" cdata="&amp;#945;"/> <!--greek small letter alpha,U+03B1 ISOgrk3 -->
         <entity name="beta" cdata="&amp;#946;"/> <!--greek small letter beta, U+03B2 ISOgrk3 -->
         <entity name="gamma" cdata="&amp;#947;"/> <!--greek small letter gamma,U+03B3 ISOgrk3 -->
@@ -314,7 +314,7 @@ Slashdot allowed tags taken from "Reply" page:
         <entity name="thetasym" cdata="&amp;#977;"/> <!--greek small letter theta symbol, U+03D1 NEW -->
         <entity name="upsih" cdata="&amp;#978;"/> <!--greek upsilon with hook symbol, U+03D2 NEW -->
         <entity name="piv" cdata="&amp;#982;"/> <!--greek pi symbol, U+03D6 ISOgrk3 -->
-        
+
         <!-- General Punctuation -->
         <entity name="bull" cdata="&amp;#8226;"/> <!--bullet = black small circle, U+2022 ISOpub  -->
         <!-- bullet is NOT the same as bullet operator, U+2219 -->
@@ -323,7 +323,7 @@ Slashdot allowed tags taken from "Reply" page:
         <entity name="Prime" cdata="&amp;#8243;"/> <!--double prime = seconds = inches, U+2033 ISOtech -->
         <entity name="oline" cdata="&amp;#8254;"/> <!--overline = spacing overscore, U+203E NEW -->
         <entity name="frasl" cdata="&amp;#8260;"/> <!--fraction slash, U+2044 NEW -->
-        
+
         <!-- Letterlike Symbols -->
         <entity name="weierp" cdata="&amp;#8472;"/> <!--script capital P = power set = Weierstrass p, U+2118 ISOamso -->
         <entity name="image" cdata="&amp;#8465;"/> <!--blackletter capital I = imaginary part, U+2111 ISOamso -->
@@ -332,7 +332,7 @@ Slashdot allowed tags taken from "Reply" page:
         <entity name="alefsym" cdata="&amp;#8501;"/> <!--alef symbol = first transfinite cardinal, U+2135 NEW -->
         <!-- alef symbol is NOT the same as hebrew letter alef,
              U+05D0 although the same glyph could be used to depict both characters -->
-        
+
         <!-- Arrows -->
         <entity name="larr" cdata="&amp;#8592;"/> <!--leftwards arrow, U+2190 ISOnum -->
         <entity name="uarr" cdata="&amp;#8593;"/> <!--upwards arrow, U+2191 ISOnum-->
@@ -342,21 +342,21 @@ Slashdot allowed tags taken from "Reply" page:
         <entity name="crarr" cdata="&amp;#8629;"/> <!--downwards arrow with corner leftwards
                                              = carriage return, U+21B5 NEW -->
         <entity name="lArr" cdata="&amp;#8656;"/> <!--leftwards double arrow, U+21D0 ISOtech -->
-        
+
         <!-- ISO 10646 does not say that lArr is the same as the 'is implied by' arrow
             but also does not have any other character for that function. So ? lArr can
             be used for 'is implied by' as ISOtech suggests -->
-            
+
         <entity name="uArr" cdata="&amp;#8657;"/> <!--upwards double arrow, U+21D1 ISOamsa -->
         <entity name="rArr" cdata="&amp;#8658;"/> <!--rightwards double arrow, U+21D2 ISOtech -->
-        
-        <!-- ISO 10646 does not say this is the 'implies' character but does not have 
+
+        <!-- ISO 10646 does not say this is the 'implies' character but does not have
              another character with this function so ?
              rArr can be used for 'implies' as ISOtech suggests -->
-             
+
         <entity name="dArr" cdata="&amp;#8659;"/> <!--downwards double arrow, U+21D3 ISOamsa -->
         <entity name="hArr" cdata="&amp;#8660;"/> <!--left right double arrow, U+21D4 ISOamsa -->
-        
+
         <!-- Mathematical Operators -->
         <entity name="forall" cdata="&amp;#8704;"/> <!--for all, U+2200 ISOtech -->
         <entity name="part" cdata="&amp;#8706;"/> <!--partial differential, U+2202 ISOtech  -->
@@ -366,18 +366,18 @@ Slashdot allowed tags taken from "Reply" page:
         <entity name="isin" cdata="&amp;#8712;"/> <!--element of, U+2208 ISOtech -->
         <entity name="notin" cdata="&amp;#8713;"/> <!--not an element of, U+2209 ISOtech -->
         <entity name="ni" cdata="&amp;#8715;"/> <!--contains as member, U+220B ISOtech -->
-    
+
         <!-- should there be a more memorable name than 'ni'? -->
         <entity name="prod" cdata="&amp;#8719;"/> <!--n-ary product = product sign, U+220F ISOamsb -->
-        
+
         <!-- prod is NOT the same character as U+03A0 'greek capital letter pi' though
              the same glyph might be used for both -->
-             
+
         <entity name="sum" cdata="&amp;#8721;"/> <!--n-ary sumation, U+2211 ISOamsb -->
-        
+
         <!-- sum is NOT the same character as U+03A3 'greek capital letter sigma'
              though the same glyph might be used for both -->
-        
+
         <entity name="minus" cdata="&amp;#8722;"/> <!--minus sign, U+2212 ISOtech -->
         <entity name="lowast" cdata="&amp;#8727;"/> <!--asterisk operator, U+2217 ISOtech -->
         <entity name="radic" cdata="&amp;#8730;"/> <!--square root = radical sign, U+221A ISOtech -->
@@ -391,10 +391,10 @@ Slashdot allowed tags taken from "Reply" page:
         <entity name="int" cdata="&amp;#8747;"/> <!--integral, U+222B ISOtech -->
         <entity name="there4" cdata="&amp;#8756;"/> <!--therefore, U+2234 ISOtech -->
         <entity name="sim" cdata="&amp;#8764;"/> <!--tilde operator = varies with = similar to, U+223C ISOtech -->
-        
+
         <!-- tilde operator is NOT the same character as the tilde, U+007E,
              although the same glyph might be used to represent both  -->
-             
+
         <entity name="cong" cdata="&amp;#8773;"/> <!--approximately equal to, U+2245 ISOtech -->
         <entity name="asymp" cdata="&amp;#8776;"/> <!--almost equal to = asymptotic to, U+2248 ISOamsr -->
         <entity name="ne" cdata="&amp;#8800;"/> <!--not equal to, U+2260 ISOtech -->
@@ -403,11 +403,11 @@ Slashdot allowed tags taken from "Reply" page:
         <entity name="ge" cdata="&amp;#8805;"/> <!--greater-than or equal to, U+2265 ISOtech -->
         <entity name="sub" cdata="&amp;#8834;"/> <!--subset of, U+2282 ISOtech -->
         <entity name="sup" cdata="&amp;#8835;"/> <!--superset of, U+2283 ISOtech -->
-        
-        <!-- note that nsup, 'not a superset of, U+2283' is not covered by the Symbol 
+
+        <!-- note that nsup, 'not a superset of, U+2283' is not covered by the Symbol
              font encoding and is not included. Should it be, for symmetry?
-             It is in ISOamsn  --> 
-        
+             It is in ISOamsn  -->
+
         <entity name="nsub" cdata="&amp;#8836;"/> <!--not a subset of, U+2284 ISOamsn -->
         <entity name="sube" cdata="&amp;#8838;"/> <!--subset of or equal to, U+2286 ISOtech -->
         <entity name="supe" cdata="&amp;#8839;"/> <!--superset of or equal to, U+2287 ISOtech -->
@@ -416,28 +416,28 @@ Slashdot allowed tags taken from "Reply" page:
         <entity name="perp" cdata="&amp;#8869;"/> <!--up tack = orthogonal to = perpendicular, U+22A5 ISOtech -->
         <entity name="sdot" cdata="&amp;#8901;"/> <!--dot operator, U+22C5 ISOamsb -->
         <!-- dot operator is NOT the same character as U+00B7 middle dot -->
-        
+
         <!-- Miscellaneous Technical -->
         <entity name="lceil" cdata="&amp;#8968;"/> <!--left ceiling = apl upstile, U+2308 ISOamsc  -->
         <entity name="rceil" cdata="&amp;#8969;"/> <!--right ceiling, U+2309 ISOamsc  -->
         <entity name="lfloor" cdata="&amp;#8970;"/> <!--left floor = apl downstile, U+230A ISOamsc  -->
         <entity name="rfloor" cdata="&amp;#8971;"/> <!--right floor, U+230B ISOamsc  -->
         <entity name="lang" cdata="&amp;#9001;"/> <!--left-pointing angle bracket = bra, U+2329 ISOtech -->
-        <!-- lang is NOT the same character as U+003C 'less than' 
+        <!-- lang is NOT the same character as U+003C 'less than'
              or U+2039 'single left-pointing angle quotation mark' -->
         <entity name="rang" cdata="&amp;#9002;"/> <!--right-pointing angle bracket = ket, U+232A ISOtech -->
         <!-- rang is NOT the same character as U+003E 'greater than' or U+203A 'single right-pointing angle quotation mark' -->
-        
+
         <!-- Geometric Shapes -->
         <entity name="loz" cdata="&amp;#9674;"/> <!--lozenge, U+25CA ISOpub -->
-        
+
         <!-- Miscellaneous Symbols -->
         <entity name="spades" cdata="&amp;#9824;"/> <!--black spade suit, U+2660 ISOpub -->
         <!-- black here seems to mean filled as opposed to hollow -->
         <entity name="clubs" cdata="&amp;#9827;"/> <!--black club suit = shamrock, U+2663 ISOpub -->
         <entity name="hearts" cdata="&amp;#9829;"/> <!--black heart suit = valentine, U+2665 ISOpub -->
         <entity name="diams" cdata="&amp;#9830;"/> <!--black diamond suit, U+2666 ISOpub -->
-        
+
         <entity name="quot" cdata="&amp;#34;"/> <!--quotation mark = APL quote, U+0022 ISOnum -->
         <!-- Latin Extended-A -->
         <entity name="OElig" cdata="&amp;#338;"/> <!--latin capital ligature OE, U+0152 ISOlat2 -->
@@ -446,11 +446,11 @@ Slashdot allowed tags taken from "Reply" page:
         <entity name="Scaron" cdata="&amp;#352;"/> <!--latin capital letter S with caron, U+0160 ISOlat2 -->
         <entity name="scaron" cdata="&amp;#353;"/> <!--latin small letter s with caron, U+0161 ISOlat2 -->
         <entity name="Yuml" cdata="&amp;#376;"/> <!--latin capital letter Y with diaeresis, U+0178 ISOlat2 -->
-        
+
         <!-- Spacing Modifier Letters -->
         <entity name="circ" cdata="&amp;#710;"/> <!--modifier letter circumflex accent, U+02C6 ISOpub -->
         <entity name="tilde" cdata="&amp;#732;"/> <!--small tilde, U+02DC ISOdia -->
-        
+
         <!-- General Punctuation -->
         <entity name="ensp" cdata="&amp;#8194;"/> <!--en space, U+2002 ISOpub -->
         <entity name="emsp" cdata="&amp;#8195;"/> <!--em space, U+2003 ISOpub -->

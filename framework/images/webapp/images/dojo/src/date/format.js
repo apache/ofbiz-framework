@@ -393,7 +393,7 @@ dojo.date.parse = function(/*String*/value, /*Object?*/options){
 					dojo.debug("dojo.date.parse: Could not parse weekday name: '" + v + "'.");
 					return null;
 				}
-				break;	
+				break;
 			case 'd':
 				result.setDate(v);
 				expected.date = v;
@@ -461,7 +461,7 @@ dojo.date.parse = function(/*String*/value, /*Object?*/options){
 		return null;
 	}
 
-	//TODO: implement a getWeekday() method in order to test 
+	//TODO: implement a getWeekday() method in order to test
 	//validity of input strings containing 'EEE' or 'EEEE'...
 
 	return result; /*Date*/
@@ -475,9 +475,9 @@ function _processPattern(pattern, applyPattern, applyLiteral, applyAll){
 	applyLiteral = applyLiteral || identity;
 	applyAll = applyAll || identity;
 
-	//split on single quotes (which escape literals in date format strings) 
+	//split on single quotes (which escape literals in date format strings)
 	//but preserve escaped single quotes (e.g., o''clock)
-	var chunks = pattern.match(/(''|[^'])+/g); 
+	var chunks = pattern.match(/(''|[^'])+/g);
 	var literal = false;
 
 	for(var i=0; i<chunks.length; i++){
@@ -510,9 +510,9 @@ function _buildDateTimeRE(groups, info, options, pattern){
 		    case 'E':
 				s = '\\S+';
 				break;
-			case 'h': 
-			case 'H': 
-			case 'K': 
+			case 'h':
+			case 'H':
+			case 'K':
 			case 'k':
 				s = '\\d{1,2}';
 				break;
@@ -577,10 +577,10 @@ dojo.date.strftime = function(/*Date*/dateObject, /*String*/format, /*String?*/l
 			case "b":
 			case "h": // abbreviated month name according to the current locale
 				return dojo.date.getMonthShortName(dateObject, locale);
-				
+
 			case "B": // full month name according to the current locale
 				return dojo.date.getMonthName(dateObject, locale);
-				
+
 			case "c": // preferred date and time representation for the current
 				      // locale
 				return dojo.date.format(dateObject, {locale: locale});
@@ -588,47 +588,47 @@ dojo.date.strftime = function(/*Date*/dateObject, /*String*/format, /*String?*/l
 			case "C": // century number (the year divided by 100 and truncated
 				      // to an integer, range 00 to 99)
 				return _(Math.floor(dateObject.getFullYear()/100));
-				
+
 			case "d": // day of the month as a decimal number (range 01 to 31)
 				return _(dateObject.getDate());
-				
+
 			case "D": // same as %m/%d/%y
 				return $("m") + "/" + $("d") + "/" + $("y");
-					
+
 			case "e": // day of the month as a decimal number, a single digit is
 				      // preceded by a space (range ' 1' to '31')
 				if(padChar == null){ padChar = " "; }
 				return _(dateObject.getDate());
-			
+
 			case "f": // month as a decimal number, a single digit is
 							// preceded by a space (range ' 1' to '12')
 				if(padChar == null){ padChar = " "; }
-				return _(dateObject.getMonth()+1);				
-			
+				return _(dateObject.getMonth()+1);
+
 			case "g": // like %G, but without the century.
 				break;
-			
+
 			case "G": // The 4-digit year corresponding to the ISO week number
 				      // (see %V).  This has the same format and value as %Y,
 				      // except that if the ISO week number belongs to the
 				      // previous or next year, that year is used instead.
 				dojo.unimplemented("unimplemented modifier 'G'");
 				break;
-			
+
 			case "F": // same as %Y-%m-%d
 				return $("Y") + "-" + $("m") + "-" + $("d");
-				
+
 			case "H": // hour as a decimal number using a 24-hour clock (range
 				      // 00 to 23)
 				return _(dateObject.getHours());
-				
+
 			case "I": // hour as a decimal number using a 12-hour clock (range
 				      // 01 to 12)
 				return _(dateObject.getHours() % 12 || 12);
-				
+
 			case "j": // day of the year as a decimal number (range 001 to 366)
 				return _(dojo.date.getDayOfYear(dateObject), 3);
-				
+
 			case "k": // Hour as a decimal number using a 24-hour clock (range
 					  // 0 to 23 (space-padded))
 				if (padChar == null) { padChar = " "; }
@@ -638,26 +638,26 @@ dojo.date.strftime = function(/*Date*/dateObject, /*String*/format, /*String?*/l
 					  // 1 to 12 (space-padded))
 				if (padChar == null) { padChar = " "; }
 				return _(dateObject.getHours() % 12 || 12);
-			
+
 			case "m": // month as a decimal number (range 01 to 12)
 				return _(dateObject.getMonth() + 1);
-				
+
 			case "M": // minute as a decimal number
 				return _(dateObject.getMinutes());
-			
+
 			case "n":
 				return "\n";
 
 			case "p": // either `am' or `pm' according to the given time value,
 				      // or the corresponding strings for the current locale
 				return info[dateObject.getHours() < 12 ? "am" : "pm"];
-				
+
 			case "r": // time in a.m. and p.m. notation
 				return $("I") + ":" + $("M") + ":" + $("S") + " " + $("p");
-				
+
 			case "R": // time in 24 hour notation
 				return $("H") + ":" + $("M");
-				
+
 			case "S": // second as a decimal number
 				return _(dateObject.getSeconds());
 
@@ -666,11 +666,11 @@ dojo.date.strftime = function(/*Date*/dateObject, /*String*/format, /*String?*/l
 
 			case "T": // current time, equal to %H:%M:%S
 				return $("H") + ":" + $("M") + ":" + $("S");
-				
+
 			case "u": // weekday as a decimal number [1,7], with 1 representing
 				      // Monday
 				return String(dateObject.getDay() || 7);
-				
+
 			case "U": // week number of the current year as a decimal number,
 				      // starting with the first Sunday as the first day of the
 				      // first week
@@ -678,16 +678,16 @@ dojo.date.strftime = function(/*Date*/dateObject, /*String*/format, /*String?*/l
 
 			case "V": // week number of the year (Monday as the first day of the
 				      // week) as a decimal number [01,53]. If the week containing
-				      // 1 January has four or more days in the new year, then it 
-				      // is considered week 1. Otherwise, it is the last week of 
+				      // 1 January has four or more days in the new year, then it
+				      // is considered week 1. Otherwise, it is the last week of
 				      // the previous year, and the next week is week 1.
 				return _(dojo.date.getIsoWeekOfYear(dateObject));
-				
+
 			case "W": // week number of the current year as a decimal number,
 				      // starting with the first Monday as the first day of the
 				      // first week
 				return _(dojo.date.getWeekOfYear(dateObject, 1));
-				
+
 			case "w": // day of the week as a decimal, Sunday being 0
 				return String(dateObject.getDay());
 
@@ -702,19 +702,19 @@ dojo.date.strftime = function(/*Date*/dateObject, /*String*/format, /*String?*/l
 			case "y": // year as a decimal number without a century (range 00 to
 				      // 99)
 				return _(dateObject.getFullYear()%100);
-				
+
 			case "Y": // year as a decimal number including the century
 				return String(dateObject.getFullYear());
-			
+
 			case "z": // time zone or name or abbreviation
 				var timezoneOffset = dateObject.getTimezoneOffset();
-				return (timezoneOffset > 0 ? "-" : "+") + 
+				return (timezoneOffset > 0 ? "-" : "+") +
 					_(Math.floor(Math.abs(timezoneOffset)/60)) + ":" +
 					_(Math.abs(timezoneOffset)%60);
 
 			case "Z": // time zone or name or abbreviation
 				return dojo.date.getTimezoneName(dateObject);
-			
+
 			case "%":
 				return "%";
 		}
@@ -727,7 +727,7 @@ dojo.date.strftime = function(/*Date*/dateObject, /*String*/format, /*String?*/l
 	var switchCase = null;
 	while ((index = format.indexOf("%", i)) != -1){
 		string += format.substring(i, index++);
-		
+
 		// inspect modifier flag
 		switch (format.charAt(index++)) {
 			case "_": // Pad a numeric result string with spaces.
@@ -772,12 +772,12 @@ dojo.date.strftime = function(/*Date*/dateObject, /*String*/format, /*String?*/l
 				break;
 		}
 		switchCase = null;
-		
+
 		string += property;
 		i = index;
 	}
 	string += format.substring(i);
-	
+
 	return string; // String
 };
 

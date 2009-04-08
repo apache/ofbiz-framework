@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="lookupPartyName" target="LookupPartyName" type="single"
@@ -33,10 +33,10 @@ under the License.
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><text-find/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="listLookupPartyName" type="list" list-name="listIt" paginate-target="LookupPartyName"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -49,14 +49,14 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
         </field>
-        <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}"> 
+        <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <display-entity also-hidden="false" entity-name="PartyType" description="${description}"/>
         </field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><display/></field>
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><display/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><display/></field>
     </form>
-    
+
     <form name="lookupPartyEmail" target="LookupPartyEmail" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
@@ -68,10 +68,10 @@ under the License.
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find default-option="contains"/></field>
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><text-find default-option="contains"/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find default-option="contains"/></field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="listLookupPartyEmail" type="list" list-name="listIt" paginate-target="LookupPartyEmail"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
@@ -92,7 +92,7 @@ under the License.
         <field name="name" title="${uiLabelMap.PartyName}"><display/></field>
         <field name="infoString" title="${uiLabelMap.PartyEmailAddress}"><display/></field>
     </form>
-    
+
     <form name="lookupCustomerName" target="LookupCustomerName" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="roleTypeId"><hidden value="CUSTOMER"/></field>
@@ -105,7 +105,7 @@ under the License.
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><text-find/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
     <form name="listLookupCustomerName" type="list" list-name="listIt" paginate-target="LookupCustomerName"
@@ -119,7 +119,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
         </field>
-        <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}"> 
+        <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <display-entity also-hidden="false" entity-name="PartyType" description="${description}"/>
         </field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><display/></field>
@@ -143,7 +143,7 @@ under the License.
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><text-find/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
     <form name="listLookupCustomerNameForSalesRep" type="list" list-name="listIt" paginate-target="LookupCustomerNameForSalesRep"
@@ -158,7 +158,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
         </field>
-        <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}"> 
+        <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <display-entity also-hidden="false" entity-name="PartyType" description="${description}"/>
         </field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><display/></field>
@@ -173,7 +173,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><text-find/></field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
 
@@ -196,8 +196,8 @@ under the License.
         <field name="suffix" title="${uiLabelMap.PartySuffix}"><display/></field>
         <field name="nickname" title="${uiLabelMap.PartyNickName}"><display/></field>
     </form>
-    
-    <form name="lookupPartyAndUserLoginAndPerson" type="single" target="LookupPartyAndUserLoginAndPerson" 
+
+    <form name="lookupPartyAndUserLoginAndPerson" type="single" target="LookupPartyAndUserLoginAndPerson"
         paginate-target="LookupPartyAndUserLoginAndPerson" header-row-style="header-row" default-table-style="basic-table">
         <!--<auto-fields-entity entity-name="PartyAndUserLoginAndPerson" default-field-type="find"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
@@ -207,7 +207,7 @@ under the License.
         <field name="lastName" title="${uiLabelMap.PartyLastName}"><text-find/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
         <field name="createdDate" title="${uiLabelMap.PartyCreatedDate}"><date-find/></field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
 
@@ -227,7 +227,7 @@ under the License.
         </field>
         <field name="lastName" title="${uiLabelMap.PartyName}"><display description="${firstName} ${middleName} ${lastName} ${groupName}"/></field>
     </form>
-    
+
     <form name="lookupUserLoginAndPartyDetails" type="single" target="LookupUserLoginAndPartyDetails"
         paginate-target="LookupUserLoginAndPartyDetails" header-row-style="header-row" default-table-style="basic-table">
         <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}"><text-find/></field>
@@ -237,7 +237,7 @@ under the License.
         <field name="lastName" title="${uiLabelMap.PartyLastName}"><text-find/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
         <field name="createdDate" title="${uiLabelMap.PartyCreatedDate}"><date-find/></field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
 
@@ -257,13 +257,13 @@ under the License.
         <field name="lastName" title="${uiLabelMap.PartyName}"><display description="${firstName} ${middleName} ${lastName}"/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><display description="${groupName}"/></field>
     </form>
-    
+
     <form name="lookupPartyGroup" type="single" target="LookupPartyGroup"
         header-row-style="header-row" default-table-style="basic-table">
         <!--<auto-fields-entity entity-name="PartyGroup" default-field-type="find"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text-find/></field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
@@ -294,7 +294,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
 
@@ -307,7 +307,7 @@ under the License.
                 <field-map field-name="orderBy" value="description"/>
             </service>
         </actions>
-        
+
         <field name="partyClassificationGroupId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" target-type="plain" description="${partyClassificationGroupId}" target="javascript:set_value('${partyClassificationGroupId}')"/>
         </field>
@@ -354,7 +354,7 @@ under the License.
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><date-find/></field>
         <field map-name="subjectMap" name="subject" title="${uiLabelMap.PartyCommEventSubject}"><text-find/></field>
 
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
 
@@ -404,7 +404,7 @@ under the License.
         <field name="paAddress2"><text-find/></field>
         <field name="paPostalCode"><text-find/></field>
 
-        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="submitButton" title="${uiLabelMap.CommonLookup}"><submit button-type="button"/></field>
     </form>
 
@@ -419,10 +419,10 @@ under the License.
         <field name="contactMechId"  widget-style="buttontext">
             <hyperlink description="${contactMechId}" target-type="plain" target="javascript:set_value('${contactMechId}')" also-hidden="false"/>
         </field>
-        <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}"> 
+        <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <display-entity also-hidden="false" entity-name="PartyType" description="${description}"/>
         </field>
         <field name="contactMechTypeId"><display-entity entity-name="ContactMechType"/></field>
         <field name="cmDetail"><display description="[${infoString}] [${tnCountryCode}-${tnAreaCode}-${tnContactNumber}] [${paAddress1}, ${paAddress2}, ${paCity}, ${paStateProvinceGeoId}, ${paPostalCode}, ${paPostalCodeExt} ${paCountryGeoId}]" also-hidden="false"/></field>
-    </form>    
+    </form>
 </forms>

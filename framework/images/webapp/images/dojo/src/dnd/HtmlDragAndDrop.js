@@ -55,7 +55,7 @@ dojo.declare("dojo.dnd.HtmlDragSource", dojo.dnd.DragSource, {
 				this.constrainingContainer = container;
 			}
 		},
-		
+
 		/*
 		*
 		* see dojo.dnd.DragSource.onSelected
@@ -84,7 +84,7 @@ dojo.declare("dojo.dnd.HtmlDragSource", dojo.dnd.DragSource, {
 				this.dragObjects.push(dojo.byId(arguments[i]));
 			}
 		}
-	}, 
+	},
 
 	function(node, type){
 		node = dojo.byId(node);
@@ -100,8 +100,8 @@ dojo.declare("dojo.dnd.HtmlDragSource", dojo.dnd.DragSource, {
 	}
 );
 
-dojo.declare("dojo.dnd.HtmlDragObject", 
-	dojo.dnd.DragObject, 
+dojo.declare("dojo.dnd.HtmlDragObject",
+	dojo.dnd.DragObject,
 	{
 		dragClass: "",
 		opacity: 0.5,
@@ -170,7 +170,7 @@ dojo.declare("dojo.dnd.HtmlDragObject",
 
 			this.dragClone = this.createDragNode();
 
-			this.containingBlockPosition = this.domNode.offsetParent ? 
+			this.containingBlockPosition = this.domNode.offsetParent ?
 				dojo.html.getAbsolutePosition(this.domNode.offsetParent, true) : {x:0, y:0};
 
 			if(this.constrainToContainer){
@@ -311,7 +311,7 @@ dojo.declare("dojo.dnd.HtmlDragObject",
 				this.constrainingContainer = this.domNode.parentNode;
 			}
 		}
-	}, 
+	},
 	function(node, type){
 		this.domNode = dojo.byId(node);
 		this.type = type;
@@ -322,8 +322,8 @@ dojo.declare("dojo.dnd.HtmlDragObject",
 	}
 );
 
-dojo.declare("dojo.dnd.HtmlDropTarget", 
-	dojo.dnd.DropTarget, 
+dojo.declare("dojo.dnd.HtmlDropTarget",
+	dojo.dnd.DropTarget,
 	{
 		vertical: false,
 		onDragOver: function(e){
@@ -337,7 +337,7 @@ dojo.declare("dojo.dnd.HtmlDropTarget",
 				var pos = dojo.html.getAbsolutePosition(child, true);
 				var inner = dojo.html.getBorderBox(child);
 				this.childBoxes.push({top: pos.y, bottom: pos.y+inner.height,
-					left: pos.x, right: pos.x+inner.width, height: inner.height, 
+					left: pos.x, right: pos.x+inner.width, height: inner.height,
 					width: inner.width, node: child});
 			}
 
@@ -401,8 +401,8 @@ dojo.declare("dojo.dnd.HtmlDropTarget",
 				if(child.node === dragObjects[0].dragSource.domNode){
 					hide = true;
 				}else{
-					var currentPosChild = before ? 
-							(i>0?this.childBoxes[i-1]:child) : 
+					var currentPosChild = before ?
+							(i>0?this.childBoxes[i-1]:child) :
 							(i<this.childBoxes.length-1?this.childBoxes[i+1]:child);
 					if(currentPosChild.node === dragObjects[0].dragSource.domNode){
 						hide = true;
@@ -504,7 +504,7 @@ dojo.declare("dojo.dnd.HtmlDropTarget",
 
 			return false;
 		}
-	}, 
+	},
 
 	function(node, types){
 		if(arguments.length == 0){ return; }

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method  method-name="testCreateAndUpdateContactList" short-description="Test case to check create and update contact list services" login-required="false">
@@ -28,7 +28,7 @@ under the License.
             2. Select the Contact List menu item
             3. Click Create New Contact List
             4. Enter fields in contact list form
-            
+
             Edit contact list
             1. Go to edit contact list screen
             2. Add / modify fields
@@ -37,10 +37,10 @@ under the License.
         <!-- process tested by test case:
              1. This test the process for create and update contact list
         -->
-        <!-- Post condition: 
+        <!-- Post condition:
              Contact list should be created and updated successfully
         -->
-        
+
         <!-- create contact list -->
         <set field="contactListTypeId" value="ANNOUNCEMENT"/>
         <set field="contactListName" value="Announcement List" type="String"/>

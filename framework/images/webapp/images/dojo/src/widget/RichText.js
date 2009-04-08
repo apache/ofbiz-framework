@@ -151,7 +151,7 @@ dojo.widget.defineWidget(
 
 		setupDefaultShortcuts: function(){
 			// summary: add some default key handlers
-			// description: 
+			// description:
 			// 		Overwrite this to setup your own handlers. The default
 			// 		implementation does not use Editor2 commands, but directly
 			//		executes the builtin commands within the underlying browser
@@ -1002,7 +1002,7 @@ dojo.widget.defineWidget(
 
 				var isLastNode = (sel.focusNode == this.document.body.lastChild);
 				if(!isLastNode){ return; }
-				var isText = (sel.focusNode.nodeType == 3); 
+				var isText = (sel.focusNode.nodeType == 3);
 				if(!isText){ return; }
 				var isLastChar = (sel.focusOffset == sel.focusNode.nodeValue.length);
 				if(!isLastChar){ return; }

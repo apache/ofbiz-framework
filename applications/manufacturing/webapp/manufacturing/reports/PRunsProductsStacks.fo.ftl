@@ -35,8 +35,8 @@ under the License.
 
         <fo:static-content flow-name="xsl-region-before">
             <fo:block line-height="10pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                
-          
+
+
             </fo:block>
         </fo:static-content>
 
@@ -61,16 +61,16 @@ under the License.
                                 <fo:inline font-size="6pt">${uiLabelMap.ManufacturingEstimatedCompletionDate}:</fo:inline>
                             </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                             <fo:block line-height="6pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
                                 <fo:inline font-size="6pt">${uiLabelMap.ManufacturingPlan}:</fo:inline>
                             </fo:block>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                             <fo:block line-height="6pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
                                 <fo:inline font-size="6pt">${uiLabelMap.ManufacturingEstimatedCompletionDate}:</fo:inline>
                             </fo:block>
@@ -89,19 +89,19 @@ under the License.
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-size="12pt">${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRun.productionRun.estimatedCompletionDate, "dd/MM/yyyy")}</fo:inline> 
+                                <fo:inline font-size="12pt">${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRun.productionRun.estimatedCompletionDate, "dd/MM/yyyy")}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
                                 <fo:inline font-size="12pt">${productionRun.productionRun.workEffortName}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
                         </fo:table-cell>
-                        <fo:table-cell>     
+                        <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
                                 <fo:inline font-size="12pt">${productionRun.productionRun.estimatedCompletionDate}</fo:inline>
                             </fo:block>
@@ -152,7 +152,7 @@ under the License.
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block line-height="13pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-weight="bold" font-size="12pt">${Static["org.ofbiz.base.util.UtilDateTime"].nowDateString("dd/MM/yyyy")}</fo:inline> 
+                                <fo:inline font-weight="bold" font-size="12pt">${Static["org.ofbiz.base.util.UtilDateTime"].nowDateString("dd/MM/yyyy")}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
@@ -174,7 +174,7 @@ under the License.
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="13pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-weight="bold" font-size="12pt">${nowTimestamp}</fo:inline> 
+                                <fo:inline font-weight="bold" font-size="12pt">${nowTimestamp}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
@@ -236,11 +236,11 @@ under the License.
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block line-height="24pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                                <fo:inline font-weight="bold" font-size="18pt">${stackInfo.qty}</fo:inline> 
+                                <fo:inline font-weight="bold" font-size="18pt">${stackInfo.qty}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
-                            <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="center">                        
+                            <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="center">
                               <fo:instream-foreign-object>
                                 <barcode:barcode
                                       xmlns:barcode="http://barcode4j.krysalis.org/ns"

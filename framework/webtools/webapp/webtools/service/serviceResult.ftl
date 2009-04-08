@@ -45,6 +45,6 @@ under the License.
             <td><input type="submit" value="${uiLabelMap.CommonSubmit}"/></td>
           </tr>
         </table>
-      </form>    
+      </form>
   </div>
 </div>

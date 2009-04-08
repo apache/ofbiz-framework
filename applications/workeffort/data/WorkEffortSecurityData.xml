@@ -29,8 +29,8 @@ under the License.
     <SecurityPermission description="Limited Update operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
     <SecurityPermission description="Limited Delete operations the Work Effort Manager." permissionId="WORKEFFORTMGR_ROLE_DELETE"/>
     <SecurityPermission description="ALL operations in the Work Effort Manager." permissionId="WORKEFFORTMGR_ADMIN"/>
-    
-    
+
+
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="WORKEFFORTMGR_ADMIN"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_CREATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="WORKEFFORTMGR_DELETE"/>
@@ -46,6 +46,6 @@ under the License.
     <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_VIEW"/>
     <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_CREATE"/>
     <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_UPDATE"/>
-    <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_DELETE"/>    
-    
+    <SecurityGroupPermission groupId="WORKEFFORT_USER" permissionId="WORKEFFORTMGR_ROLE_DELETE"/>
+
 </entity-engine-xml>

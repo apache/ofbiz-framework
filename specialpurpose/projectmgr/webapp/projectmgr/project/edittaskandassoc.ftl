@@ -27,12 +27,12 @@ under the License.
       </#if>
     </ul>
     <br class="clear"/>
-  </div>  
+  </div>
   <div class="screenlet-body">
     <#assign workEffortIdFrom = parameters.workEffortIdFrom>
     <#if task?has_content>
       <form name="addTaskAndAssocForm" method="get" action="<@ofbizUrl>updateTaskAndAssoc</@ofbizUrl>">
-    <#else>  
+    <#else>
       <br/>
       <form name="addTaskAndAssocForm" method="get" action="<@ofbizUrl>createTaskAndAssoc</@ofbizUrl>">
     </#if>
@@ -43,18 +43,18 @@ under the License.
           <#else>
             <td><input type="hidden" name="workEffortTypeId" value="${task.workEffortTypeId?if_exists}"/></td>
             <td><input type="hidden" name="workEffortId" value="${task.workEffortId?if_exists}"/></td>
-            <td><input type="hidden" name="workEffortName" value="${task.workEffortName?if_exists}"/></td> 
+            <td><input type="hidden" name="workEffortName" value="${task.workEffortName?if_exists}"/></td>
           </#if>
-        </tr>    
+        </tr>
         <tr>
             <td><input type="hidden" name="workEffortIdFrom" value="${workEffortIdFrom?if_exists}"/></td>
-            <td><input type="hidden" name="workEffortParentId" value="${workEffortIdFrom?if_exists}"/></td> 
+            <td><input type="hidden" name="workEffortParentId" value="${workEffortIdFrom?if_exists}"/></td>
             <td><input type="hidden" name="workEffortAssocTypeId" value="WORK_EFF_BREAKDOWN"/>
         </tr>
         <tr>
           <td width="20%">
             ${uiLabelMap.ProjectMgrTaskDetails}
-          </td> 
+          </td>
         </tr>
         <tr>
           <td class="label" >${uiLabelMap.ProjectMgrQuickAssignPartyId}</td>
@@ -62,12 +62,12 @@ under the License.
             <a href="javascript:call_fieldlookup2(document.addTaskAndAssocForm.quickAssignPartyId,'LookupPartyName');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a></td>
           </td>
         </tr>
-        <tr>    
+        <tr>
           <#if task?exists>
-            <td class="label" >${uiLabelMap.ProjectMgrWorkEffortId}</td>    
-            <td>${task.workEffortId?if_exists}</td>    
+            <td class="label" >${uiLabelMap.ProjectMgrWorkEffortId}</td>
+            <td>${task.workEffortId?if_exists}</td>
           </#if>
-        </tr>    
+        </tr>
         <tr>
           <td class="label" >${uiLabelMap.CommonName}*</td>
             <#if task?exists>
@@ -76,39 +76,39 @@ under the License.
               <td><input type="text" name="workEffortName" value=""/><span class="tooltip">${uiLabelMap.CommonRequired}</span></td>
             </#if>
         </tr>
-        <tr>    
+        <tr>
           <td class="label" >${uiLabelMap.CommonDescription}</td>
             <#if task?exists>
               <td><input type="text" name="description" value="${task.description?if_exists}"/></td>
             <#else>
               <td><input type="text" name="description" value=""/></td>
           </#if>
-        </tr>   
-        <tr>    
+        </tr>
+        <tr>
           <td class="label" >${uiLabelMap.CommonStatus}</td>
-          <td>    
+          <td>
             <select name="currentStatusId">
               <#if task?exists>
                 <#assign currentStatus = task.geRelatedOne("CurrentStatusItem")?if_exists>
                 <option SELECTED value="${currentStatus.currentStatusId}">${currentStatus.description}</option>
                 <#assign statusValidChangeToDetailList = delegator.findByAnd("StatusValidChangeToDetail", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", currentStatus.currentStatusId))>
-                <#list statusValidChangeToDetailList as statusValidChangeToDetail> 
+                <#list statusValidChangeToDetailList as statusValidChangeToDetail>
                   <option value=${statusValidChangeToDetail.statusId}>[${uiLabelMap.WorkEffortGeneral}]${statusValidChangeToDetail.description}</option>
                 </#list>
               <#else>
                 <#assign statusItemGenrals = delegator.findByAnd("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusTypeId", "CALENDAR_STATUS"))>
                 <#assign statusItemTasks = delegator.findByAnd("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusTypeId", "TASK_STATUS"))>
                 <#assign statusItemEvents = delegator.findByAnd("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusTypeId", "EVENT_STATUS"))>
-                <#list statusItemGenrals as statusItem> 
+                <#list statusItemGenrals as statusItem>
                   <option value="${statusItem.statusId?if_exists}">[${uiLabelMap.WorkEffortGeneral}]${statusItem.description}</option>
-                </#list>                
+                </#list>
                 <#list statusItemTasks as statusItem>
                   <option value="${statusItem.statusId?if_exists}">[${uiLabelMap.WorkEffortTask}]${statusItem.description}</option>
-                </#list>                
+                </#list>
                 <#list statusItemEvents as statusItem>
                   <option value="${statusItem.statusId?if_exists}">[${uiLabelMap.WorkEffortEvent}]${statusItem.description}</option>
                 </#list>
-              </#if>        
+              </#if>
             </select>
           </td>
         </tr>
@@ -116,10 +116,10 @@ under the License.
           <td class="label">${uiLabelMap.CommonPriority}</td>
           <td>
             <#if task?has_content>
-              <#assign priority = task.priority?if_exists>      
+              <#assign priority = task.priority?if_exists>
             </#if>
             <select name="priority" size="1">
-              <#if priority?exists>          
+              <#if priority?exists>
                 <option SELECTED value="${priority}">${priority}</option>
                 <option></option>
                 <option value=1>${uiLabelMap.WorkEffortPriorityOne}</option>
@@ -148,18 +148,18 @@ under the License.
         </tr>
         <tr>
           <td class="label">${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}</td>
-          <td>             
+          <td>
             <#assign enumerations = delegator.findByAnd("Enumeration", Static["org.ofbiz.base.util.UtilMisc"].toMap("enumTypeId", "WORK_EFF_SCOPE"))>
             <select name="scopeEnumId">
               <#if task?exists>
-                <#assign scopeEnumId = task.scopeEnumId?if_exists>            
-                <#list enumerations as enumeration>                    
+                <#assign scopeEnumId = task.scopeEnumId?if_exists>
+                <#list enumerations as enumeration>
                   <option <#if "${enumeration.enumId}" == scopeEnumId?if_exists>selected="selected"</#if>>${enumeration.description}</option>
                 </#list>
               <#else>
-                <#list enumerations as enumeration>                    
+                <#list enumerations as enumeration>
                   <option value="${enumeration.enumId}">${enumeration.description}</option>
-                </#list>    
+                </#list>
               </#if>
             </select>
           </td>
@@ -174,7 +174,7 @@ under the License.
             </#if>
             <a href="javascript:call_cal(document.addTaskAndAssocForm.estimatedStartDate,'${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
           </td>
-         </tr>    
+         </tr>
          <tr>
            <td class="label">${uiLabelMap.WorkEffortEstimatedCompletionDate}</td>
            <td>
@@ -207,14 +207,14 @@ under the License.
              </#if>
              <a href="javascript:call_cal(document.addTaskAndAssocForm.actualCompletionDate,'${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
            </td>
-         </tr>    
+         </tr>
          <tr>
-           <td>&nbsp;</td>    
+           <td>&nbsp;</td>
            <td>
              <input type="submit" name="submit" value="${uiLabelMap.CommonSave}"/>
            </td>
-         </tr>    
+         </tr>
        </table>
-     </form> 
+     </form>
    </div>
 </div>

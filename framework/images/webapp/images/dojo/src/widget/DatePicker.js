@@ -22,42 +22,42 @@ dojo.require("dojo.html.style");
 dojo.widget.defineWidget(
 	"dojo.widget.DatePicker",
 	dojo.widget.HtmlWidget,
-	{	
+	{
 
 		/*
-		summary: 
-			Base class for a stand-alone DatePicker widget 
-			which makes it easy to select a date, or switch by month and/or year. 
-		description: 
-			A stand-alone DatePicker widget that makes it  
-			easy to select a date, or increment by week, month, and/or year. 
-			It is designed to be used on its own, or inside of other widgets to  
-			(see dojo.widget.DropdownDatePicker) or other similar combination widgets. 
-		 	              
+		summary:
+			Base class for a stand-alone DatePicker widget
+			which makes it easy to select a date, or switch by month and/or year.
+		description:
+			A stand-alone DatePicker widget that makes it
+			easy to select a date, or increment by week, month, and/or year.
+			It is designed to be used on its own, or inside of other widgets to
+			(see dojo.widget.DropdownDatePicker) or other similar combination widgets.
+
 			Dates attributes passed in the `RFC 3339` format:
 			http://www.faqs.org/rfcs/rfc3339.html (2005-06-30T08:05:00-07:00)
 			so that they are serializable and locale-independent.
-		
-		usage: 
-			var datePicker = dojo.widget.createWidget("DatePicker", {},   
-			dojo.byId("datePickerNode")); 
-		 	 
-			<div dojoType="DatePicker"></div> 
+
+		usage:
+			var datePicker = dojo.widget.createWidget("DatePicker", {},
+			dojo.byId("datePickerNode"));
+
+			<div dojoType="DatePicker"></div>
 		*/
 
 		//start attributes
-		
+
 		// value: String|Date
 		//	form value property if =='today' will be today's date
-		value: "", 
+		value: "",
 
 		// name: String
 		// 	name of the form element
 		name: "",
 
 		// displayWeeks: Integer
-		//	total weeks to display default 
-		displayWeeks: 6, 
+		//	total weeks to display default
+		displayWeeks: 6,
 
 		// adjustWeeks: Boolean
 		//	if true, weekly size of calendar changes to acomodate the month if false, 42 day format is used
@@ -82,7 +82,7 @@ dojo.widget.defineWidget(
 		// staticDisplay: Boolean
 		//	disable all incremental controls, must pick a date in the current display
 		staticDisplay: false,
-		
+
 		// dayWidth: String
 		//	how to render the names of the days in the header. see dojo.date.getDayNames
 		dayWidth: 'narrow',
@@ -158,7 +158,7 @@ dojo.widget.defineWidget(
 			}
 
 		},
-		
+
 		getValue: function() {
 			// summary: return current date in RFC 3339 format
 			return dojo.date.toRfc3339(new Date(this.value),'dateOnly'); /*String*/
@@ -172,7 +172,7 @@ dojo.widget.defineWidget(
 		setValue: function(/*Date|String*/rfcDate) {
 			//summary: set the current date from RFC 3339 formatted string or a date object, synonymous with setDate
 			this.setDate(rfcDate);
-		},			
+		},
 
 		setDate: function(/*Date|String*/dateObj) {
 			//summary: set the current date and update the UI
@@ -198,9 +198,9 @@ dojo.widget.defineWidget(
 
 		_preInitUI: function(dateObj,initFirst,initUI) {
 			/*
-	 	              To get a sense of what month to highlight, we initialize on 
-	 	              the first Saturday of each month, since that will be either the first  
-	 	              of two or the second of three months being partially displayed, and  
+	 	              To get a sense of what month to highlight, we initialize on
+	 	              the first Saturday of each month, since that will be either the first
+	 	              of two or the second of three months being partially displayed, and
 	 	              then work forwards and backwards from that point.
 			*/
 
@@ -305,11 +305,11 @@ dojo.widget.defineWidget(
 			enableControl(this.previousYearLabelNode,decYear);
 			enableControl(this.nextYearLabelNode,incYear);
 		},
-		
+
 		_incrementWeek: function(evt) {
 			var d = new Date(this.firstDay);
 			switch(evt.target) {
-				case this.increaseWeekNode.getElementsByTagName("img").item(0): 
+				case this.increaseWeekNode.getElementsByTagName("img").item(0):
 				case this.increaseWeekNode:
 					var tmpDate = dojo.date.add(d, dojo.date.dateParts.WEEK, 1);
 					if(tmpDate < this.endDate){
@@ -325,7 +325,7 @@ dojo.widget.defineWidget(
 			}
 			this._preInitUI(d,true,true);
 		},
-	
+
 		_incrementMonth: function(evt) {
 			var d = new Date(this.curMonth);
 			var tmpDate = new Date(this.firstDay);
@@ -355,7 +355,7 @@ dojo.widget.defineWidget(
 			}
 			this._preInitUI(d,false,true);
 		},
-	
+
 		_incrementYear: function(evt) {
 			var year = this.curMonth.getFullYear();
 			var tmpDate = new Date(this.firstDay);
@@ -387,7 +387,7 @@ dojo.widget.defineWidget(
 			}
 			this._preInitUI(d,false,true);
 		},
-	
+
 		onIncrementWeek: function(/*Event*/evt) {
 			// summary: handler for increment week event
 			evt.stopPropagation();
@@ -395,7 +395,7 @@ dojo.widget.defineWidget(
 				this._incrementWeek(evt);
 			}
 		},
-	
+
 		onIncrementMonth: function(/*Event*/evt) {
 			// summary: handler for increment month event
 			evt.stopPropagation();
@@ -403,7 +403,7 @@ dojo.widget.defineWidget(
 				this._incrementMonth(evt);
 			}
 		},
-		
+
 		onIncrementYear: function(/*Event*/evt) {
 			// summary: handler for increment year event
 			evt.stopPropagation();
@@ -411,11 +411,11 @@ dojo.widget.defineWidget(
 				this._incrementYear(evt);
 			}
 		},
-	
+
 		_setMonthLabel: function(monthIndex) {
 			this.monthLabelNode.innerHTML = dojo.date.getNames('months', 'wide', 'standAlone', this.lang)[monthIndex];
 		},
-		
+
 		_setYearLabels: function(year) {
 			var y = year - 1;
 			var that = this;
@@ -427,7 +427,7 @@ dojo.widget.defineWidget(
 			f("current");
 			f("next");
 		},
-		
+
 		_getDateClassName: function(date, monthState) {
 			var currentClassName = this.classNames[monthState];
 			//we use Number comparisons because 2 dateObjects never seem to equal each other otherwise
@@ -441,7 +441,7 @@ dojo.widget.defineWidget(
 			}
 			return currentClassName;
 		},
-	
+
 		onClick: function(/*Event*/evt) {
 			//summary: the click event handler
 			dojo.event.browser.stopEvent(evt);
@@ -466,11 +466,11 @@ dojo.widget.defineWidget(
 			this.clickedNode = eventTarget;
 			this.setDate(new Date(year, month, eventTarget.innerHTML));
 		},
-		
+
 		onValueChanged: function(/*Date*/date) {
 			//summary: the set date event handler
 		},
-		
+
 		_isDisabledDate: function(dateObj){
 			if(dateObj<this.startDate||dateObj>this.endDate){
 				return true;

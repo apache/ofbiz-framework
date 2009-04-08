@@ -44,7 +44,7 @@ under the License.
         <fileset dir="../../framework/common/build/lib" includes="*.jar"/>
         <fileset dir="../../applications/product/build/lib" includes="*.jar"/>
         <fileset dir="../../applications/party/build/lib" includes="*.jar"/>
-        <fileset dir="../../applications/order/build/lib" includes="*.jar"/>            
+        <fileset dir="../../applications/order/build/lib" includes="*.jar"/>
     </path>
 
     <!-- ================================================================== -->
@@ -62,7 +62,7 @@ under the License.
     <target name="docs" depends="prepare-docs">
         <javadoc packagenames="org.ofbiz.ebay.*"
                  classpathref="local.class.path"
-                 destdir="${build.dir}/javadocs" 
+                 destdir="${build.dir}/javadocs"
                  windowtitle="Open for Business - ${desc}">
             <sourcepath path="${src.dir}"/>
         </javadoc>

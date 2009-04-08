@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- 
+
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.product.catalog.CatalogWorker;
@@ -38,8 +38,8 @@ if (party) {
 
 shoppingListId = parameters.shoppingListId ?: request.getAttribute("shoppingListId");
 
-//get the party for listid if it exists    
-if(!partyId && shoppingListId){
+//get the party for listid if it exists
+if (!partyId && shoppingListId) {
     partyId = delegator.findByPrimaryKey("ShoppingList", [shoppingListId : shoppingListId]).partyId;
 }
 context.partyId = partyId;
@@ -100,10 +100,10 @@ if (shoppingListId) {
             }
             context.shoppingListItemDatas = shoppingListItemDatas;
         }
-        
+
         shoppingListType = shoppingList.getRelatedOne("ShoppingListType");
         context.shoppingListType = shoppingListType;
-    
+
         // get the child shopping lists of the current list for the logged in user
         childShoppingLists = delegator.findByAndCache("ShoppingList", [partyId : partyId, parentShoppingListId : shoppingListId], ["listName"]);
         // now get prices for each child shopping list...
@@ -123,4 +123,4 @@ if (shoppingListId) {
         context.parentShoppingList = parentShoppingList;
     }
 }
- 
+

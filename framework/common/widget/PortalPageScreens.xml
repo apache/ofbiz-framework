@@ -72,11 +72,11 @@ under the License.
                                 <not><if-empty field="portalPage"/></not>
                             </condition>
                             <actions>
-                                <set field="portalPages[]" from-field="portalPage"/>    
+                                <set field="portalPages[]" from-field="portalPage"/>
                                 <entity-condition entity-name="PortalPageColumn" list="portalPageColumnList">
                                     <condition-expr field-name="portalPageId" from-field="parameters.portalPageId"/>
                                     <order-by field-name="columnSeqId"/>
-                                </entity-condition>               
+                                </entity-condition>
                                 <entity-condition entity-name="PortalPagePortletView" list="portalPagePortletViewList">
                                     <condition-expr field-name="portalPageId" from-field="parameters.portalPageId"/>
                                     <order-by field-name="+columnSeqId"/>

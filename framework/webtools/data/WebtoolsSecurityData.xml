@@ -35,13 +35,13 @@ under the License.
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ARTIFACT_INFO_VIEW"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="ARTIFACT_INFO_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="ARTIFACT_INFO_VIEW"/>
-    
+
     <!-- Labels Info security -->
     <SecurityPermission description="View the Labels Info pages." permissionId="LABEL_MANAGER_VIEW"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="LABEL_MANAGER_VIEW"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="LABEL_MANAGER_VIEW"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="LABEL_MANAGER_VIEW"/>
-    
+
     <!-- Data File Maintenance security -->
     <SecurityPermission description="Use the Data File Maintenance pages." permissionId="DATAFILE_MAINT"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="DATAFILE_MAINT"/>
@@ -57,7 +57,7 @@ under the License.
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="PERIOD_MAINT"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="PERIOD_MAINT"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="PERIOD_MAINT"/>
-    
+
     <!-- Enum & Status Maintenance security -->
     <SecurityPermission description="Use the Enum and Status Maintenance pages." permissionId="ENUM_STATUS_MAINT"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="ENUM_STATUS_MAINT"/>

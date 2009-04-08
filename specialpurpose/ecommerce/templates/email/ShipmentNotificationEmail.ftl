@@ -20,28 +20,28 @@ under the License.
 <#if baseEcommerceSecureUrl?exists><#assign urlPrefix = baseEcommerceSecureUrl/></#if>
 <#if shipment?has_content>
   <div class="screenlet">
-    <div class="screenlet-header">  
+    <div class="screenlet-header">
       <div class="boxhead">${title?if_exists}<br/><br/></div>
-    </div>   
+    </div>
     <table border="0" cellpadding="0" cellspacing="0">
       <tbody>
         <tr>
-          <td><b>${uiLabelMap.OrderTrackingNumber}</b></td> 
-        </tr>  
+          <td><b>${uiLabelMap.OrderTrackingNumber}</b></td>
+        </tr>
         <#list orderShipmentInfoSummaryList as orderShipmentInfoSummary>
           <tr>
             <td>
               Code: ${orderShipmentInfoSummary.trackingCode?default("[Not Yet Known]")}
               <#if orderShipmentInfoSummary.carrierPartyId?has_content>(${uiLabelMap.ProductCarrier}: ${orderShipmentInfoSummary.carrierPartyId})</#if>
-            </td>  
+            </td>
           </tr>
-        </#list> 
+        </#list>
       </tbody>
     </table>
     <br/>
-    <div class="screenlet-header">  
+    <div class="screenlet-header">
       <div class="boxhead"><b>${uiLabelMap.EcommerceShipmentItems}</b></div>
-    </div>   
+    </div>
     <div class="screenlet-body">
       <table width="100%" border="0" cellpadding="0">
         <tr valign="bottom">
@@ -53,8 +53,8 @@ under the License.
         <#assign productId = shipmentItem.productId>
         <#assign product = shipmentItem.getRelatedOne("Product")>
         <tr>
-          <td colspan="1" valign="top"> ${productId?if_exists} - ${product.internalName?if_exists}</td>   
-          <td align="right" valign="top"> ${shipmentItem.quantity?if_exists}</td>   
+          <td colspan="1" valign="top"> ${productId?if_exists} - ${product.internalName?if_exists}</td>
+          <td align="right" valign="top"> ${shipmentItem.quantity?if_exists}</td>
         </tr>
       </#list>
       <tr><td colspan="10"><hr/></td></tr>

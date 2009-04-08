@@ -18,7 +18,7 @@
   under the License.
   -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- Methods for Survey -->
     <simple-method method-name="createSurvey" short-description="Create Survey">
@@ -81,7 +81,7 @@
         <entity-one entity-name="SurveyMultiResp" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for SurveyMultiRespColumn -->
     <simple-method method-name="createSurveyMultiRespColumn" short-description="Create Survey Multi-Response Column/Category">
         <check-permission action="_CREATE" permission="CONTENTMGR">
@@ -111,7 +111,7 @@
         <entity-one entity-name="SurveyMultiRespColumn" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for SurveyPage -->
     <simple-method method-name="createSurveyPage" short-description="Create Survey Page">
         <check-permission action="_CREATE" permission="CONTENTMGR">
@@ -141,7 +141,7 @@
         <entity-one entity-name="SurveyPage" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
-    
+
     <!-- Methods for SurveyApplType -->
     <simple-method method-name="createSurveyApplType" short-description="Create SurveyApplType">
         <check-permission action="_CREATE" permission="CONTENTMGR">
@@ -200,7 +200,7 @@
             </then>
         </if>
         <check-errors/>
-        
+
         <make-value entity-name="SurveyQuestion" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="SurveyQuestion" field="newEntity.surveyQuestionId"/>
@@ -494,7 +494,7 @@
 
         <store-value value-field="surveyResponse"/>
         <field-to-result field="surveyResponse.surveyResponseId" result-name="surveyResponseId"/>
-        
+
         <!-- if a dataResourceId was passed in use it to set DataResource.relatedDetailId to the surveyResponse.surveyResponseId -->
         <if-not-empty field="parameters.dataResourceId">
             <entity-one entity-name="DataResource" value-field="dataResource"/>
@@ -549,14 +549,14 @@
         <!-- run the survey response service (async) -->
         <set from-field="surveyResponse.surveyResponseId" field="respServiceCtx.surveyResponseId"/>
         <if-not-empty field="survey.responseService">
-            <call-service-asynch service-name="${survey.responseService}" in-map-name="respServiceCtx" include-user-login="true"/>  
+            <call-service-asynch service-name="${survey.responseService}" in-map-name="respServiceCtx" include-user-login="true"/>
         </if-not-empty>
 
         <field-to-result field="surveyResponse.surveyResponseId" result-name="surveyResponseId"/>
         <field-to-result field="parameters.productStoreSurveyId" result-name="productStoreSurveyId"/>
         <field-to-result field="parameters.surveyId" result-name="surveyId"/>
     </simple-method>
-    
+
     <!-- =============== Inline method used by createSurveyResponse ============== -->
     <simple-method method-name="validateSurveyResponseInline" short-description="validateSurveyResponseInline" login-required="false">
         <!-- see if response is required -->
@@ -565,7 +565,7 @@
                 <add-error><fail-message message="The question [${surveyQuestionAndAppl.question}] requires a response."/></add-error>
             </if-empty>
         </if-compare>
-        
+
         <!-- validate the field -->
         <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="CREDIT_CARD">
             <if-validate-method field="${answerFieldName}" method="isCreditCard">
@@ -577,7 +577,7 @@
         <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="GIFT_CARD">
             <set field="finAccountMap.finAccountTypeId" value="GIFTCERT_ACCOUNT"/>
             <set field="finAccountMap.statusId" value="FNACT_ACTIVE"/>
-            <set field="codeOk" value="false"/>            
+            <set field="codeOk" value="false"/>
             <find-by-and entity-name="FinAccount" map="finAccountMap" list="finAccountList"/>
             <iterate entry="finAccount" list="finAccountList">
                 <if-compare field="finAccount.finAccountCode" operator="equals" value="${${answerFieldName}}">
@@ -640,7 +640,7 @@
         <if-not-empty field="currentAnswers">
             <set field="responseAnswer" from-field="currentAnswers[&quot;${currentFieldName}&quot;]"/>
         </if-not-empty>
-        
+
        <if>
             <condition>
                 <or>
@@ -658,7 +658,7 @@
                 <make-value entity-name="SurveyResponseAnswer" value-field="responseAnswer"/>
                 <set from-field="surveyResponse.surveyResponseId" field="responseAnswer.surveyResponseId"/>
                 <set from-field="surveyQuestionAndAppl.surveyQuestionId" field="responseAnswer.surveyQuestionId"/>
-                
+
                 <!-- If this has a surveyMultiRespColumn then set surveyMultiRespId and surveyMultiRespColId otherwise set surveyMultiRespColId to _NA_ -->
                 <if-not-empty field="surveyMultiRespColumn">
                     <set field="responseAnswer.surveyMultiRespId" from-field="surveyMultiRespColumn.surveyMultiRespId"/>
@@ -667,7 +667,7 @@
                         <set field="responseAnswer.surveyMultiRespColId" value="_NA_"/>
                     </else>
                 </if-not-empty>
-                
+
                 <create-value value-field="responseAnswer"/>
             </then>
         </if>
@@ -732,7 +732,7 @@
                     <call-service service-name="createPartyContent" in-map-name="partyContent">
                         <result-to-field result-name="contentId" field="responseAnswer.contentId"/>
                     </call-service>
-                <else>                        
+                <else>
                     <set from-field="answers[&quot;${currentFieldName}&quot;]" field="responseAnswer.contentId"/>
                 </else>
                 </if-instance-of>
@@ -740,7 +740,7 @@
 
             <if-empty field="responseAnswer.sequenceNum">
                 <set from-field="surveyQuestionAndAppl.sequenceNum" field="responseAnswer.sequenceNum"/>
-            </if-empty>      
+            </if-empty>
             <set from-field="nowTimestamp" field="responseAnswer.answeredDate"/>
             <store-value value-field="responseAnswer"/>
         </if-not-empty>

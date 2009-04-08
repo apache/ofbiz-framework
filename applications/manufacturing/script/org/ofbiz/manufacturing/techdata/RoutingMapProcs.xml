@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-map-processors xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
   <simple-map-processor name="copyRoutingTask">
     <process field="workEffortName"><copy/></process>
@@ -47,6 +47,5 @@ under the License.
     <process field="fromDate"><copy/><convert type="Timestamp"><fail-property resource="ManufacturingUiLabels" property="CommonFormatDateFieldNotCorrect"/></convert></process>
     <process field="thruDate"><copy/><convert type="Timestamp"><fail-property resource="ManufacturingUiLabels" property="CommonFormatDateFieldNotCorrect"/></convert></process>
   </simple-map-processor>
-  
+
 </simple-map-processors>
- 

@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    
+
     <screen name="EditInvoiceItemType">
         <section>
             <actions>
@@ -30,7 +30,7 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
                 <entity-condition entity-name="InvoiceItemType" list="invoiceItemTypes">
                     <order-by field-name="invoiceItemTypeId"/>
-                </entity-condition>    
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
@@ -43,15 +43,15 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListInvoiceItemType" location="component://accounting/widget/InvoiceItemTypeForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>    
+    </screen>
 </screens>

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <!-- DataResourceType forms -->
     <form name="AddDataResourceType" target="addDataResourceType" title="" type="single"
@@ -46,7 +46,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- DataResourceTypeAttr forms -->
     <form name="AddDataResourceTypeAttr" target="addDataResourceTypeAttr" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -80,7 +80,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- CharacterSet forms -->
     <form name="AddCharacterSet" target="addCharacterSet" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -107,7 +107,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- DataCategory forms -->
     <form name="AddDataCategory" target="addDataCategory" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -132,7 +132,7 @@ under the License.
         </field>
         <field name="parentCategoryId">
             <drop-down allow-empty="true">
-                <list-options list-name="dataCategoryList" 
+                <list-options list-name="dataCategoryList"
                     key-name="dataCategoryId"  description="${categoryName}"
                     />
             </drop-down>
@@ -146,7 +146,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- FileExtension forms -->
     <form name="AddFileExtension" target="addFileExtension" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -185,7 +185,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- MetaDataPredicate forms -->
     <form name="AddMetaDataPredicate" target="addMetaDataPredicate" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -212,7 +212,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <!-- MimeType forms -->
     <form name="AddMimeType" target="addMimeType" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -263,8 +263,8 @@ under the License.
         <field name="mimeTypeId" widget-style="tabletext">
             <hyperlink target-type="intra-app" target="editMimeType" description="${mimeTypeId}">
                 <parameter param-name="mimeTypeId"/>
-            </hyperlink>                
-        </field>        
+            </hyperlink>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>

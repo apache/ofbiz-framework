@@ -32,7 +32,7 @@ dojo.event.topic = new function(){
 		//		calls to the function will cause a publish event on the topic
 		//		with the arguments passed to the function passed to registered
 		//		listeners.
-		// topic: 
+		// topic:
 		//		a unique, opaque string that names the topic
 		// obj:
 		//		the scope to locate the function in
@@ -47,7 +47,7 @@ dojo.event.topic = new function(){
 		//		susbscribes the function to the topic. Subsequent events
 		//		dispached to the topic will create a function call for the
 		//		obj.funcName() function.
-		// topic: 
+		// topic:
 		//		a unique, opaque string that names the topic
 		// obj:
 		//		the scope to locate the function in
@@ -60,7 +60,7 @@ dojo.event.topic = new function(){
 	this.unsubscribe = function(/*String*/topic, /*Object*/obj, /*String*/funcName){
 		// summary:
 		//		unsubscribes the obj.funcName() from the topic
-		// topic: 
+		// topic:
 		//		a unique, opaque string that names the topic
 		// obj:
 		//		the scope to locate the function in
@@ -71,7 +71,7 @@ dojo.event.topic = new function(){
 	}
 
 	this.destroy = function(/*String*/topic){
-		// summary: 
+		// summary:
 		//		destroys the topic and unregisters all listeners
 		// topic:
 		//		a unique, opaque string that names the topic
@@ -80,7 +80,7 @@ dojo.event.topic = new function(){
 	}
 
 	this.publishApply = function(/*String*/topic, /*Array*/args){
-		// summary: 
+		// summary:
 		//		dispatches an event to the topic using the args array as the
 		//		source for the call arguments to each listener. This is similar
 		//		to JavaScript's built-in Function.apply()
@@ -93,7 +93,7 @@ dojo.event.topic = new function(){
 	}
 
 	this.publish = function(/*String*/topic, /*Object*/message){
-		// summary: 
+		// summary:
 		//		manually "publish" to the passed topic
 		// topic:
 		//		a unique, opaque string that names the topic
@@ -132,8 +132,8 @@ dojo.event.topic.TopicImpl = function(topicName){
 		var tf = listenerMethod||listenerObject;
 		var to = (!listenerMethod) ? dj_global : listenerObject;
 		return dojo.event.kwConnect({ // dojo.event.MethodJoinPoint
-			srcObj:		this, 
-			srcFunc:	"sendMessage", 
+			srcObj:		this,
+			srcFunc:	"sendMessage",
 			adviceObj:	to,
 			adviceFunc: tf
 		});
@@ -153,8 +153,8 @@ dojo.event.topic.TopicImpl = function(topicName){
 		var tf = (!listenerMethod) ? listenerObject : listenerMethod;
 		var to = (!listenerMethod) ? null : listenerObject;
 		return dojo.event.kwDisconnect({ // dojo.event.MethodJoinPoint
-			srcObj:		this, 
-			srcFunc:	"sendMessage", 
+			srcObj:		this,
+			srcFunc:	"sendMessage",
 			adviceObj:	to,
 			adviceFunc: tf
 		});
@@ -165,7 +165,7 @@ dojo.event.topic.TopicImpl = function(topicName){
 	}
 
 	this.setSquelch = function(/*Boolean*/shouldSquelch){
-		// summary: 
+		// summary:
 		//		determine whether or not exceptions in the calling of a
 		//		listener in the chain should stop execution of the chain.
 		this._getJoinPoint().squelch = shouldSquelch;
@@ -176,7 +176,7 @@ dojo.event.topic.TopicImpl = function(topicName){
 		this._getJoinPoint().disconnect();
 	}
 
-	this.registerPublisher = function(	/*Object*/publisherObject, 
+	this.registerPublisher = function(	/*Object*/publisherObject,
 										/*Function or String*/publisherMethod){
 		// summary:
 		//		registers the passed function as a publisher on this topic.

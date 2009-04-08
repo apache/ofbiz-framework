@@ -23,7 +23,7 @@ under the License.
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class='boxbottom'>
         <tr>
           <td>
-              <#if postalAddress?has_content>            
+              <#if postalAddress?has_content>
               <form method="post" action="<@ofbizUrl>updatePostalAddressOrderEntry</@ofbizUrl>" name="checkoutsetupform">
                 <input type="hidden" name="contactMechId" value="${shipContactMechId?if_exists}"/>
               <#else>
@@ -86,7 +86,7 @@ under the License.
                     <td width="5">&nbsp;</td>
                     <td width="74%">
                       <select name="stateProvinceGeoId">
-                        <option value=""></option>                       
+                        <option value=""></option>
                         ${screens.render("component://common/widget/CommonScreens.xml#states")}
                       </select>
                     </td>
@@ -102,7 +102,7 @@ under the License.
                     <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonCountry}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <select name="countryGeoId">                        
+                      <select name="countryGeoId">
                         ${screens.render("component://common/widget/CommonScreens.xml#countries")}
                       </select>
                     *</td>
@@ -116,7 +116,7 @@ under the License.
                         <option></option><option ${(selectedValue=="Y")?string("selected=\"selected\"","")}>Y</option><option ${(selectedValue=="N")?string("selected=\"selected\"","")}>N</option>
                       </select>
                     </td>
-                  </tr>                                    
+                  </tr>
                 </table>
               </form>
           </td>

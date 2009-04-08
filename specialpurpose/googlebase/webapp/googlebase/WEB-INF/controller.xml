@@ -20,7 +20,7 @@ under the License.
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>  
+    <include location="component://product/webapp/catalog/WEB-INF/controller.xml"/>
 
     <description>Google Base Component Site Configuration File</description>
 
@@ -33,14 +33,14 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ProductsExportToGoogle"/>
     </request-map>
-    
+
     <request-map uri="exportProductsToGoogle">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="exportToGoogle"/>
         <response name="success" type="view" value="ProductsExportToGoogle"/>
         <response name="error" type="view" value="ProductsExportToGoogle"/>
     </request-map>
-    
+
     <request-map uri="searchExportProductListToGoogle">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.googlebase.GoogleBaseSearchEvents" invoke="searchExportProductListToGoogle"/>

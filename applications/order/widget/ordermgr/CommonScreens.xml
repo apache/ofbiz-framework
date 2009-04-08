@@ -18,12 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="main-decorator">
         <section>
             <actions>
-                <!-- base/top/specific map first, then more common map added for shared labels --> 
+                <!-- base/top/specific map first, then more common map added for shared labels -->
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
@@ -115,14 +115,14 @@ under the License.
                                 <container>
                                     <label style="h1">[${uiLabelMap.CommonId}:${quote.quoteId}] ${quote.description}</label>
                                 </container>
-                                
+
                                 <decorator-section-include name="body"/>
-                                
+
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.OrderViewPermissionError}</label>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -151,14 +151,14 @@ under the License.
                                 <container>
                                     <label style="h1">[${uiLabelMap.CommonId}:${quote.quoteId}] ${quote.description}</label>
                                 </container>
-                                
+
                                 <decorator-section-include name="body"/>
-                                
+
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.OrderQuotePricePermissionError}</label>
                             </fail-widgets>
-                        </section>                    
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

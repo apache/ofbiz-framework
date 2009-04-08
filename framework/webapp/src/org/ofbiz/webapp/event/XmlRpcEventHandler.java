@@ -260,7 +260,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 throw new XmlRpcException(ServiceUtil.getErrorMessage(resp));
             }
 
-            // return only definied parameters 
+            // return only definied parameters
             return model.makeValid(resp, ModelService.OUT_PARAM, false, null);
         }
 

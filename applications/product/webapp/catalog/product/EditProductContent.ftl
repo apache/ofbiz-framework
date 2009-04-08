@@ -47,21 +47,21 @@ under the License.
         <td width="80%" colspan="4" valign="top">
             <input type="text" name="productName" value="${(product.productName?html)?if_exists}" size="30" maxlength="60">
         </td>
-    </tr>        
+    </tr>
     <tr>
         <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductProductDescription}</b></td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
             <textarea name="description" cols="60" rows="2">${(product.description)?if_exists}</textarea>
         </td>
-    </tr>        
+    </tr>
     <tr>
         <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductLongDescription}</b></td>
         <td>&nbsp;</td>
         <td width="80%" colspan="4" valign="top">
             <textarea class="dojo-ResizableTextArea" name="longDescription" cols="60" rows="7">${(product.longDescription)?if_exists}</textarea>
         </td>
-    </tr>        
+    </tr>
     <tr>
         <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductDetailScreen}</b></td>
         <td>&nbsp;</td>
@@ -69,7 +69,7 @@ under the License.
             <input type="text" name="detailScreen" value="${(product.detailScreen)?if_exists}" size="60" maxlength="250">
             <br/><span class="tooltip">${uiLabelMap.ProductIfNotSpecifiedDefaultsIsProductdetail} &quot;productdetail&quot;, ${uiLabelMap.ProductDetailScreenMessage}: &quot;component://ecommerce/widget/CatalogScreens.xml#productdetail&quot;</span>
         </td>
-    </tr>        
+    </tr>
     <tr>
         <td width="20%" align="right" valign="top">
             <div><b>${uiLabelMap.ProductSmallImage}</b></div>
@@ -170,7 +170,7 @@ under the License.
             </div>
         </#if>
         </td>
-    </tr>               
+    </tr>
     <tr>
         <td colspan="2">&nbsp;</td>
         <td><input type="submit" name="Update" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/></td>
@@ -188,7 +188,7 @@ under the License.
     <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadProductImage?productId=${productId}&upload_file_type=original</@ofbizUrl>" name="imageUploadForm">
         <table cellspacing="0" class="basic-table">
             <tr>
-                <td width="20%" align="right" valign="top">    
+                <td width="20%" align="right" valign="top">
                     <input type="file" size="50" name="fname">
                 <td>&nbsp;</td>
                 <td width="80%" colspan="4" valign="top">

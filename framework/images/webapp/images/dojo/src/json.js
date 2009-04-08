@@ -17,9 +17,9 @@ dojo.json = {
 	// jsonRegistry: AdapterRegistry a registry of type-based serializers
 	jsonRegistry: new dojo.AdapterRegistry(),
 
-	register: function(	/*String*/		name, 
-						/*function*/	check, 
-						/*function*/	wrap, 
+	register: function(	/*String*/		name,
+						/*function*/	check,
+						/*function*/	wrap,
 						/*optional, boolean*/ override){
 		// summary:
 		//		Register a JSON serialization function. JSON serialization
@@ -34,7 +34,7 @@ dojo.json = {
 		//				- Array-like (length property that is a number)
 		//				- Objects with a "json" method will have this method called
 		//				- Any other object will be used as {key:value, ...} pairs
-		//			
+		//
 		//		If override is given, it is used as the highest priority JSON
 		//		serialization, otherwise it will be used as the lowest.
 		// name:
@@ -54,7 +54,7 @@ dojo.json = {
 	evalJson: function(/*String*/ json){
 		// summary:
 		// 		evaluates the passed string-form of a JSON object
-		// json: 
+		// json:
 		//		a string literal of a JSON item, for instance:
 		//			'{ "foo": [ "bar", 1, { "baz": "thud" } ] }'
 		// return:

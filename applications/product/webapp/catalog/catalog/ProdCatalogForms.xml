@@ -18,22 +18,22 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditProdCatalog" type="single" target="updateProdCatalog" title="" default-map-name="prodCatalog"
         header-row-style="header-row" default-table-style="basic-table">
-        
+
         <alt-target use-when="prodCatalog==null" target="createProdCatalog"/>
-        
+
         <auto-fields-service service-name="updateProdCatalog" map-name=""/>
-        
+
         <field use-when="prodCatalog!=null" name="prodCatalogId" title="${uiLabelMap.ProductCatalogId}" tooltip="${uiLabelMap.ProductNotModificationRecreatingProductCatalog}."><display/></field>
         <field use-when="prodCatalog==null&amp;&amp;prodCatalogId!=null" name="prodCatalogId" title="${uiLabelMap.ProductCatalogId}" tooltip="${uiLabelMap.ProductCouldNotFindProductCatalogWithId} [${prodCatalogId}]"><text size="20" maxlength="20"/></field>
         <!-- this to be taken care of with auto-fields-service as soon as it uses entity field info too -->
         <field use-when="prodCatalog==null&amp;&amp;prodCatalogId==null" name="prodCatalogId" title="${uiLabelMap.ProductCatalogId}"><text size="20" maxlength="20"/></field>
 
         <field name="catalogName" title="${uiLabelMap.ProductCatalogName}"><text size="30" maxlength="60"/></field>
-        
+
         <field name="useQuickAdd" title="${uiLabelMap.ProductUseQuickAdd}">
             <drop-down allow-empty="false" no-current-selected-key="Y"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
@@ -88,7 +88,7 @@ under the License.
               <parameter param-name="partyId"/>
               <parameter param-name="roleTypeId"/>
               <parameter param-name="fromDate"/>
-            </hyperlink>  
+            </hyperlink>
         </field>
     </form>
     <form name="CreateProductStoreCatalog" type="single" target="createProdCatalogStore" title=""
@@ -123,8 +123,8 @@ under the License.
               <parameter param-name="prodCatalogId"/>
               <parameter param-name="productStoreId"/>
               <parameter param-name="fromDate"/>
-            </hyperlink>  
-        </field>        
+            </hyperlink>
+        </field>
     </form>
     <form name="EditProdCatalogCategories" type="list" target="updateProductCategoryToProdCatalog" title="" list-name="prodCatalogCategories"
         odd-row-style="alternate-row" default-table-style="basic-table">
@@ -148,7 +148,7 @@ under the License.
               <parameter param-name="partyId"/>
               <parameter param-name="fromDate"/>
               <parameter param-name="prodCatalogCategoryTypeId"/>
-            </hyperlink>  
+            </hyperlink>
         </field>
         <field name="makeTopLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditCategory" description="${uiLabelMap.ProductMakeTop}" also-hidden="false">

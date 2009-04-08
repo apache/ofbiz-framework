@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -27,7 +27,7 @@ if (parameters.userLogin) {
         if (portalPage) {
             parameters.parentPortalPageId = portalPage.parentPortalPageId;
             if (!parameters.parentPortalPageId) {
-                if(portalPage.originalPortalPageId) {
+                if (portalPage.originalPortalPageId) {
                     parameters.parentPortalPageId = portalPage.originalPortalPageId;
                 } else {
                     parameters.parentPortalPageId = portalPage.portalPageId;
@@ -61,7 +61,7 @@ if (parameters.userLogin) {
         parentPortalPageId = parameters.parentPortalPageId
     }
     // get user and system pages
-    ppCond = 
+    ppCond =
             EntityCondition.makeCondition([
                 EntityCondition.makeCondition([
                     EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId),
@@ -84,18 +84,18 @@ if (parameters.userLogin) {
             }
         }
     }
-    
+
     // get sequenceNumMin and sequenceNumMax
-    sequenceNumCond = 
+    sequenceNumCond =
             EntityCondition.makeCondition([
-                EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, parameters.userLogin.userLoginId),                           
+                EntityCondition.makeCondition("ownerUserLoginId", EntityOperator.EQUALS, parameters.userLogin.userLoginId),
                 EntityCondition.makeCondition([
                     EntityCondition.makeCondition("parentPortalPageId", EntityOperator.EQUALS, parentPortalPageId),
                     EntityCondition.makeCondition("originalPortalPageId", EntityOperator.EQUALS, parentPortalPageId)
                 ],EntityOperator.OR),
             ],EntityOperator.AND);
     sequenceNums = delegator.findList("PortalPage", sequenceNumCond, null, ["sequenceNum"], null, false);
-    if(sequenceNums){
+    if (sequenceNums) {
        context.parameters.sequenceNumMin = sequenceNums.get(0).sequenceNum;
        context.parameters.sequenceNumMax = sequenceNums.get(sequenceNums.size()-1).sequenceNum;
     }
@@ -103,7 +103,7 @@ if (parameters.userLogin) {
        context.parameters.sequenceNumMin = "null";
        context.parameters.sequenceNumMax = "null";
     }
-    
+
     context.portalPages = portalPages;
     context.userLoginSecurityGroupId = userLoginSecurityGroupId;
     parameters.portalPagesSize = portalPages.get(portalPages.size()-1).sequenceNum;

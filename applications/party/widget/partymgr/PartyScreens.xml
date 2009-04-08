@@ -64,10 +64,10 @@ under the License.
                 <set field="headerItem" value="find"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>                
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>                
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/progress_bar.css" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>    
+                <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
             </actions>
             <widgets>
@@ -482,7 +482,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleEditGroupInformation"/>
                 <set field="tabButtonItem" value="viewprofile"/>
-                <set field="headerItem" value="create"/>                
+                <set field="headerItem" value="create"/>
                 <set field="labelTitleProperty" value="PageTitleEditGroupInformation"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="viewprofile"/>
@@ -641,13 +641,13 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>       
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditPartyRates">
         <section>
             <actions>
@@ -670,16 +670,16 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="ViewSegmentRoles">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleViewPartySegmentRoles"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="ViewSegmentRoles"/>
-                
+
                 <set field="labelTitleProperty" value="ViewSegmentRoles"/>
-                
+
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="Party" value-field="party"/>
             </actions>
@@ -695,7 +695,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <!-- Create New Party Screen -->
     <screen name="CreateNewParty">
         <section>
@@ -905,15 +905,15 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
-    <!-- Party Content Screen --> 
+
+    <!-- Party Content Screen -->
     <screen name="EditPartyContents">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListContent"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="PartyContents"/>
-                <set field="partyId" from-field="parameters.partyId"/>               
+                <set field="partyId" from-field="parameters.partyId"/>
                 <set field="contentId" from-field="parameters.contentId"/>
                 <entity-one entity-name="Content" value-field="content"/>
             </actions>
@@ -933,7 +933,7 @@ under the License.
                                             <link target="EditPartyContents" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit">
                                                 <parameter param-name="partyId"/>
                                             </link>
-                                        </container> 
+                                        </container>
                                         <include-form name="ListPartyContents" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                     </widgets>
                                 </section>
@@ -955,14 +955,14 @@ under the License.
                         </container>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>            
+            </widgets>
         </section>
     </screen>
     <screen name="editCarrierAccount">
-        <section> 
+        <section>
             <actions>
-                <set field="titleProperty" value="PageTitlePartyCarrierAccount"/>                
-            </actions>           
+                <set field="titleProperty" value="PageTitlePartyCarrierAccount"/>
+            </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
@@ -996,7 +996,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="PartyFinancialHistory">
         <section>
             <actions>
@@ -1141,7 +1141,7 @@ under the License.
                                             <include-form name="partyFinancialSummary" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                         </widgets>
                                     </section>
-                                </screenlet>    
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -1174,7 +1174,7 @@ under the License.
     <screen name="PartyGeoLocation">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitlePartyGeoLocation"/>                
+                <set field="titleProperty" value="PageTitlePartyGeoLocation"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/PartyGeoLocation.groovy"/>
             </actions>
             <widgets>
@@ -1187,5 +1187,5 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen>    
+    </screen>
 </screens>

@@ -76,7 +76,7 @@ dojo.widget.html.loader = new (function(){
 		if(!e._text){ e._text = e.toString(); }
 		e.toString = function(){ return this._text; };
 		if(typeof e.returnValue != "boolean"){
-			e.returnValue = true; 
+			e.returnValue = true;
 		}
 		if(typeof e.preventDefault != "function"){
 			e.preventDefault = function(){ this.returnValue = false; };
@@ -244,10 +244,10 @@ dojo.widget.html.loader = new (function(){
 		// summary:
 		// 	handles scripts and dojo .require(...) etc calls
 		// NOTE: we need to go through here even if we have executeScripts=false
-		//		 and if we have parseWidgets true 
+		//		 and if we have parseWidgets true
 		var scripts = [], requires = [], match = [];
 		var attr = "", tmp = null, tag = "", sc = "", str = "";
-		
+
 		/***************** cut out all <script> tags, push them into scripts array ***************/
 		var regex = /<script([^>]*)>([\s\S]*?)<\/script>/i;
 		var regexSrc = /src=(['"]?)([^"']*)\1/i;
@@ -272,7 +272,7 @@ dojo.widget.html.loader = new (function(){
 				sc = match[2].replace(regexInvalid, "");
 				if(!sc){ continue; }
 
-				// cut out all dojo .require (...) calls, if we have execute 
+				// cut out all dojo .require (...) calls, if we have execute
 				// scripts false widgets don't get their require calls
 				// takes out possible widgetpackage registration as well
 				while(tmp = regexRequires.exec(sc)){
@@ -285,7 +285,7 @@ dojo.widget.html.loader = new (function(){
 			}
 			s = s.substr(0, match.index) + s.substr(match.index + match[0].length);
 		}
-		/******** scan for scriptScope in html eventHandlers 
+		/******** scan for scriptScope in html eventHandlers
 					and replace with link to this widget *********/
 		if(collectScripts){
 			var regex = /(<[a-zA-Z][a-zA-Z0-9]*\s[^>]*\S=(['"])[^>]*[^\.\]])scriptScope([^>]*>)/;
@@ -300,7 +300,7 @@ dojo.widget.html.loader = new (function(){
 		return {'s': s, 'requires': requires, 'scripts': scripts}; // object
 	};
 
-		
+
 	this.splitAndFixPaths = function(/*object*/args){
 		// summary:
 		//	pathfixes, require calls, css stuff and neccesary content clean
@@ -355,7 +355,7 @@ dojo.widget.html.loader = new (function(){
 			}
 			ret.xml = content;
 		}
-		return ret;// object 
+		return ret;// object
 	};
 
 
@@ -369,22 +369,22 @@ dojo.widget.html.loader = new (function(){
 		// 		if mixin true, it will only extend the current widget, not its prototype
 		var widget = args.widget;
 		if(dojo.lang.isString(widget)){
-			if(args.mixin){	
+			if(args.mixin){
 				dojo.raise(this.toString()+", cant use mixin when widget is a string");
 			 }
 			widget = dojo.evalObjPath(widget);
 		}
 		if(!widget || !(widget instanceof dojo.widget.HtmlWidget)){
-			dojo.raise(this.toString()+" Widget isn't defined or isn't a HtmlWidget instance"); 
+			dojo.raise(this.toString()+" Widget isn't defined or isn't a HtmlWidget instance");
 		}
 		// make sure we don't mixin more than once
 		if(widget.loader && widget.setUrl){ return; }
 
 		// extend widget prototype or mixin this widget instance
 		var widgetProto = (args.mixin) ? widget : widget.constructor.prototype;
-	
+
 		/********************************************
-		** per widgetImpl variables, mixin into widget 
+		** per widgetImpl variables, mixin into widget
 		********************************************/
 		// stuff it into a loader obj
 		widget.loader = {
@@ -455,7 +455,7 @@ dojo.widget.html.loader = new (function(){
 		};
 
 		// make sure we don't do this more than once per widget/widgetprototype
-		if(widgetProto._loader_defined || widget._loader_defined){ return; }		
+		if(widgetProto._loader_defined || widget._loader_defined){ return; }
 
 		/**************** private variables *********************/
 
@@ -503,7 +503,7 @@ dojo.widget.html.loader = new (function(){
 					widgetProto.constructor.superclass.postCreate.apply(this, arguments);
 				}
 				if(this.handler!==""){ this.setHandler(this.handler); }
-				if(this.isShowing() || this.preload){ 
+				if(this.isShowing() || this.preload){
 					this.loadContents();
 					if(!this.href){ // back/forward save initial state
 						_loader._log(this,(this.domNode||this.containerNode).innerHTML);
@@ -518,7 +518,7 @@ dojo.widget.html.loader = new (function(){
 				// if refreshOnShow is true, reload the contents every time; otherwise, load only the first time
 				if(this.refreshOnShow){
 					this.refresh();
-				}else{ 
+				}else{
 					this.loadContents();
 				}
 				if((widgetProto.constructor.superclass.show == show) || !isFunc(show)){
@@ -617,7 +617,7 @@ dojo.widget.html.loader = new (function(){
 			};
 		}
 
-		// add to onUnLoad queue 
+		// add to onUnLoad queue
 		if(!widgetProto.addOnUnLoad){
 			widgetProto.addOnUnLoad = function(obj, func){
 				stackPusher.call(this, this.loader.addOnUnLoads, obj, func);
@@ -628,22 +628,22 @@ dojo.widget.html.loader = new (function(){
 		if(!widgetProto.onExecError){
 			widgetProto.onExecError = function(){/*stub*/};
 		}
-	
+
 		// called on DOM faults, require fault etc in content, preventDefault-able
 		if(!widgetProto.onContentError){
 			widgetProto.onContentError = function(){/*stub*/};
 		}
-	
+
 		// called when download error occurs, preventDefault-able
 		if(!widgetProto.onDownloadError){
 			widgetProto.onDownloadError = function(){/*stub*/};
 		}
-	
+
 		// called before download starts, preventDefault-able
 		if(!widgetProto.onDownloadStart){
 			widgetProto.onDownloadStart = function(onDownloadStart){/*stub*/};
 		}
-	
+
 		// called when download is finished successfully
 		if(!widgetProto.onDownloadEnd){
 			widgetProto.onDownloadEnd = function(url, data){
@@ -662,7 +662,7 @@ dojo.widget.html.loader = new (function(){
 		if(!widgetProto.onSetContent){
 			widgetProto.onSetContent = function(cont){
 				this.destroyChildren();
-		
+
 				// remove old stylenodes from HEAD
 				var styleNodes = this.loader.styleNodes;
 				while(styleNodes.length){
@@ -671,7 +671,7 @@ dojo.widget.html.loader = new (function(){
 						st.parentNode.removeChild(st);
 					}
 				}
-		
+
 				var node = this.containerNode || this.domNode;
 				while(node.firstChild){
 					try{
@@ -714,7 +714,7 @@ dojo.widget.html.loader = new (function(){
 		if(!widgetProto.setContent){
 			widgetProto.setContent = function(data, dontLog){
 				this.loader.callOnUnLoad.call(this, true);
-		
+
 				if(!data||dojo.html.isNode(data)){
 					this.onSetContent(data);
 					refreshed.call(this);
@@ -729,12 +729,12 @@ dojo.widget.html.loader = new (function(){
 							collectScripts: this.executeScripts,
 							collectRequires: this.parseContent,
 							bodyExtract: this.extractContent };
-						data = _loader.splitAndFixPaths.call(this, args); 
+						data = _loader.splitAndFixPaths.call(this, args);
 					}else if(data.url!="./"){
 						 this.url = data.url;// backbutton thing
 					}
 					this.onSetContent(data.xml);
-	
+
 					// insert styles from content (in same order they came in)
 					for(var i = 0, styles = data.styles; i < styles.length; i++){
 						if(styles[i].path){
@@ -743,7 +743,7 @@ dojo.widget.html.loader = new (function(){
 							this.loader.styleNodes.push(dojo.html.insertCssText(styles[i]));
 						}
 					}
-		
+
 					if(this.parseContent){
 						for(var i = 0, requires = data.requires; i < requires.length; i++){
 							try{
@@ -758,7 +758,7 @@ dojo.widget.html.loader = new (function(){
 					// NOTE: on Xdomain loads this can break the sync thread of setContent
 					// 		if you you do any dojo. require(...) etc
 					if(dojo.hostenv.isXDomain && data.requires.length){
-						dojo.addOnLoad(function(){ 
+						dojo.addOnLoad(function(){
 							asyncParse.call(this, data);
 							if(!dontLog){
 								_loader._log(this, data);

@@ -18,13 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="EditCostCalcs">
         <section>
             <actions>
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
-                
+
                 <set field="tabButtonItem" value="Costs"/>
                 <set field="titleProperty" value="PageTitleEditCostCalcs"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>

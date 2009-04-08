@@ -33,11 +33,11 @@ under the License.
             <#if (currentPortalPage.portalPageId != portalPage.portalPageId)>
               <option value="<@ofbizUrl>dashboard?portalPageId=${portalPage.portalPageId}</@ofbizUrl>">${portalPage.portalPageName}</option>
             </#if>
-          </#list>                          
+          </#list>
         </select>
       </li>
     </#if>
-    
+
     <#if configurePortalPage?has_content>
       <li id="add-portlet">
         <a href="<@ofbizUrl>AddPortlet?portalPageId=${currentPortalPage.portalPageId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonAddAPortlet}</a>

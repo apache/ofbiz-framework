@@ -28,7 +28,7 @@ dojo.html.clearSelection = function(){
 	var _window = dojo.global();
 	var _document = dojo.doc();
 	try{
-		if(_window["getSelection"]){ 
+		if(_window["getSelection"]){
 			if(dojo.render.html.safari){
 				// pulled from WebCore/ecma/kjs_window.cpp, line 2536
 				_window.getSelection().collapse();
@@ -53,11 +53,11 @@ dojo.html.disableSelection = function(/*DomNode*/element){
 	// summary: disable selection on a node
 	element = dojo.byId(element)||dojo.body();
 	var h = dojo.render.html;
-	
+
 	if(h.mozilla){
 		element.style.MozUserSelect = "none";
 	}else if(h.safari){
-		element.style.KhtmlUserSelect = "none"; 
+		element.style.KhtmlUserSelect = "none";
 	}else if(h.ie){
 		element.unselectable = "on";
 	}else{
@@ -69,10 +69,10 @@ dojo.html.disableSelection = function(/*DomNode*/element){
 dojo.html.enableSelection = function(/*DomNode*/element){
 	// summary: enable selection on a node
 	element = dojo.byId(element)||dojo.body();
-	
+
 	var h = dojo.render.html;
-	if(h.mozilla){ 
-		element.style.MozUserSelect = ""; 
+	if(h.mozilla){
+		element.style.MozUserSelect = "";
 	}else if(h.safari){
 		element.style.KhtmlUserSelect = "";
 	}else if(h.ie){
@@ -118,12 +118,12 @@ dojo.lang.mixin(dojo.html.selection, {
 			return dojo.html.selectionType[dojo.doc().selection.type.toUpperCase()];
 		}else{
 			var stype = dojo.html.selectionType.TEXT;
-	
+
 			// Check if the actual selection is a CONTROL (IMG, TABLE, HR, etc...).
 			var oSel;
 			try {oSel = dojo.global().getSelection();}
 			catch (e) {}
-			
+
 			if(oSel && oSel.rangeCount==1){
 				var oRange = oSel.getRangeAt(0);
 				if (oRange.startContainer == oRange.endContainer && (oRange.endOffset - oRange.startOffset) == 1
@@ -150,13 +150,13 @@ dojo.lang.mixin(dojo.html.selection, {
 		}
 	},
 	getSelectedElement: function() {
-		// summary: 
+		// summary:
 		//		Retrieves the selected element (if any), just in the case that a single
 		//		element (object like and image or a table) is selected.
 		if ( dojo.html.selection.getType() == dojo.html.selectionType.CONTROL ){
 			if(dojo.doc()["selection"]){ //IE
 				var range = dojo.doc().selection.createRange();
-		
+
 				if ( range && range.item ){
 					return dojo.doc().selection.createRange().item(0);
 				}
@@ -167,7 +167,7 @@ dojo.lang.mixin(dojo.html.selection, {
 		}
 	},
 	getParentElement: function() {
-		// summary: 
+		// summary:
 		//		Get the parent element of the current selection
 		if(dojo.html.selection.getType() == dojo.html.selectionType.CONTROL){
 			var p = dojo.html.selection.getSelectedElement();
@@ -179,11 +179,11 @@ dojo.lang.mixin(dojo.html.selection, {
 				var selection = dojo.global().getSelection();
 				if(selection){
 					var node = selection.anchorNode;
-		
+
 					while ( node && node.nodeType != dojo.dom.ELEMENT_NODE ){
 						node = node.parentNode;
 					}
-		
+
 					return node;
 				}
 			}
@@ -224,7 +224,7 @@ dojo.lang.mixin(dojo.html.selection, {
 		}
 	},
 	hasAncestorElement: function(/*String*/tagName /* ... */){
-		// summary: 
+		// summary:
 		// 		Check whether current selection has a  parent element which is of type tagName (or one of the other specified tagName)
 		return (dojo.html.selection.getAncestorElement.apply(this, arguments) != null);
 	},
@@ -361,7 +361,7 @@ dojo.lang.mixin(dojo.html.selection, {
 			if ( selection.type.toUpperCase() != "NONE" ){
 				selection.clear();
 			}
-		
+
 			return selection;
 		}else{
 			var selection = dojo.global().getSelection();
@@ -369,7 +369,7 @@ dojo.lang.mixin(dojo.html.selection, {
 			for ( var i = 0; i < selection.rangeCount; i++ ){
 				selection.getRangeAt(i).deleteContents();
 			}
-		
+
 			return selection;
 		}
 	}

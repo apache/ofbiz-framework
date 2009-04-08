@@ -49,11 +49,11 @@ under the License.
 
 <#macro renderFieldTitle style title><@renderField title /></#macro>
 <#macro renderSingleFormFieldTitle></#macro>
-    
+
 <#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name useRowSubmit></#macro>
 <#macro renderFormClose focusFieldName formName></#macro>
 <#macro renderMultiFormClose></#macro>
-    
+
 <#macro renderFormatListWrapperOpen style></#macro>
 <#macro renderFormatListWrapperClose></#macro>
 
@@ -65,7 +65,7 @@ under the License.
 <#macro renderFormatHeaderRowFormCellOpen style> </#macro>
 <#macro renderFormatHeaderRowFormCellClose></#macro>
 <#macro renderFormatHeaderRowFormCellTitleSeparator style isLast></#macro>
-    
+
 <#macro renderFormatItemRowOpen itemIndex altRowStyles evenRowStyle oddRowStyle></#macro>
 <#macro renderFormatItemRowClose></#macro>
 <#macro renderFormatItemRowCellOpen style positionSpan></#macro>

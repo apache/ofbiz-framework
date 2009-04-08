@@ -18,14 +18,14 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="processList">
         <section>
             <actions>
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="SharkProcessList"/>
-                
+
                 <script location="component://shark/webapp/shark/WEB-INF/actions/process/processList.bsh"/>
             </actions>
             <widgets>
@@ -42,7 +42,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="SharkProcessDetailList"/>
-                
+
                 <script location="component://shark/webapp/shark/WEB-INF/actions/process/processDetailList.bsh"/>
             </actions>
             <widgets>
@@ -59,7 +59,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="SharkProcessHistory"/>
-                
+
                 <script location="component://shark/webapp/shark/WEB-INF/actions/process/processHistory.bsh"/>
             </actions>
             <widgets>
@@ -76,7 +76,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="SharkProcessSteps"/>
-                
+
                 <script location="component://shark/webapp/shark/WEB-INF/actions/process/processSteps.bsh"/>
             </actions>
             <widgets>

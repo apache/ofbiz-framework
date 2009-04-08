@@ -18,7 +18,7 @@
   -->
 
 <script type="text/javascript">
-    
+
     dojo.require("dojo.widget.*");
     dojo.require("dojo.event.*");
     dojo.require("dojo.io.*");
@@ -36,8 +36,8 @@
         );
         var cmsdata = dojo.byId("cmsdata");
     });
-    
-    
+
+
     function callOfbiz(url, ctx) {
         var bindArgs = {
             url: url,
@@ -49,7 +49,7 @@
             },
             load: function(type, data, evt) {
                 var innerPage = dojo.byId('cmscontent');
-                innerPage.innerHTML = data;                
+                innerPage.innerHTML = data;
             }
         };
         dojo.io.bind(bindArgs);
@@ -88,7 +88,7 @@
 <dojo:TreeSelector widgetId="webCmsTreeSelector" eventNames="select:showDataResources"></dojo:TreeSelector>
 <div dojoType="Tree" widgetId="webCmsTree" selector="webCmsTreeSelector" toggler="fade" toggleDuration="500">
     <#if (subCategories?has_content)>
-        <@fillTree assocList = subCategories/>    
+        <@fillTree assocList = subCategories/>
     </#if>
 </div>
 

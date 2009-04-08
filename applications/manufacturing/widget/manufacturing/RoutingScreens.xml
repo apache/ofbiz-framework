@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="CommonRoutingDecorator">
         <section>
@@ -141,7 +141,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditRouting"/>
                 <set field="headerItem" value="routing"/>
                 <set field="tabButtonItem" value="editRouting"/>
-                
+
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routing"/>
             </actions>
@@ -164,7 +164,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -176,7 +176,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindRoutingTask"/>
                 <set field="tabButtonItem" value="routingTask"/>
                 <set field="headerItem" value="routingTask"/>
-                
+
                 <set field="requestParameters.workEffortTypeId" to-scope="screen" default-value="ROU_TASK"/>
                 <set field="requestParameters.currentStatusId" to-scope="screen" default-value="ROU_ACTIVE"/>
             </actions>
@@ -211,7 +211,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditRoutingTask"/>
                 <set field="headerItem" value="routingTask"/>
                 <set field="tabButtonItem" value="editRoutingTask"/>
-                
+
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routingTask"/>
             </actions>
@@ -234,7 +234,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -246,7 +246,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditRoutingTaskCosts"/>
                 <set field="headerItem" value="routingTask"/>
                 <set field="tabButtonItem" value="editRoutingTaskCosts"/>
-                
+
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routingTask"/>
                 <entity-and entity-name="WorkEffortCostCalc" list="allCosts">
@@ -271,7 +271,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListRoutingTaskRoutings"/>
                 <set field="headerItem" value="routingTask"/>
                 <set field="tabButtonItem" value="listRoutingTaskRoutings"/>
-                
+
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routingTask"/>
                 <entity-and entity-name="WorkEffortAssoc" list="allRoutings">
@@ -294,7 +294,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -306,7 +306,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListRoutingTaskProducts"/>
                 <set field="headerItem" value="routingTask"/>
                 <set field="tabButtonItem" value="listRoutingTaskProducts"/>
-                
+
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="routingTask"/>
                 <entity-and entity-name="WorkEffortGoodStandard" list="allProducts">
@@ -334,7 +334,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditRoutingTaskProduct"/>
                 <set field="headerItem" value="routingTask"/>
                 <set field="tabButtonItem" value="listRoutingTaskProducts"/>
-                
+
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-and entity-name="WorkEffortGoodStandard" list="allRoutingProductLinks">
                     <field-map from-field="workEffortId" field-name="workEffortId"/>
@@ -358,7 +358,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -391,7 +391,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>                                        
+                                    <widgets>
                                         <platform-specific>
                                             <html><html-template location="component://manufacturing/webapp/manufacturing/routing/EditRoutingTaskAssoc.ftl"/></html>
                                         </platform-specific>
@@ -407,8 +407,8 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>                                                                                
-                                        <include-form name="ListRoutingTaskAssoc" location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskForms.xml"/>                                        
+                                    <widgets>
+                                        <include-form name="ListRoutingTaskAssoc" location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -425,7 +425,7 @@ under the License.
                 <set field="tabButtonItem" value="routingProductLink"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="routing"/>
-                
+
                 <set field="workEffortGoodStdTypeId" value="ROU_PROD_TEMPLATE"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <!--<entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>-->

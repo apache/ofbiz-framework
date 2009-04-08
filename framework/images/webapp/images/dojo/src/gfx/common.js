@@ -17,7 +17,7 @@ dojo.require("dojo.dom");
 
 dojo.lang.mixin(dojo.gfx, {
 	// summary: defines constants, prototypes, and utility functions
-	
+
 	// default shapes, which is used to fill in missing parameters
 	defaultPath:     {type: "path",     path: ""},
 	defaultPolyline: {type: "polyline", points: []},
@@ -29,9 +29,9 @@ dojo.lang.mixin(dojo.gfx, {
 
 	// default geometric attributes (a stroke, and fills)
 	defaultStroke: {color: "black", width: 1, cap: "butt", join: 4},
-	defaultLinearGradient: {type: "linear", x1: 0, y1: 0, x2: 100, y2: 100, 
+	defaultLinearGradient: {type: "linear", x1: 0, y1: 0, x2: 100, y2: 100,
 		colors: [{offset: 0, color: "black"}, {offset: 1, color: "white"}]},
-	defaultRadialGradient: {type: "radial", cx: 0, cy: 0, r: 100, 
+	defaultRadialGradient: {type: "radial", cx: 0, cy: 0, r: 100,
 		colors: [{offset: 0, color: "black"}, {offset: 1, color: "white"}]},
 	defaultPattern: {type: "pattern", x: 0, y: 0, width: 0, height: 0, src: ""},
 
@@ -84,23 +84,23 @@ dojo.lang.mixin(dojo.gfx, {
 		}
 		return addSpace ? " " + val : val; // String
 	},
-	
+
 	// a constant used to split a SVG/VML path into primitive components
 	pathRegExp: /([A-Za-z]+)|(\d+(\.\d+)?)|(\.\d+)|(-\d+(\.\d+)?)|(-\.\d+)/g
 });
 
 dojo.declare("dojo.gfx.Surface", null, {
 	// summary: a surface object to be used for drawings
-	
+
 	initializer: function(){
 		// summary: a constructor
-		
+
 		// underlying node
 		this.rawNode = null;
 	},
 	getEventSource: function(){
 		// summary: returns a node, which can be used to attach event listeners
-		
+
 		return this.rawNode; // Node
 	}
 });

@@ -18,7 +18,7 @@ dojo.require("dojo.lang.assert");
 dojo.data.old.Attribute = function(/* dojo.data.old.provider.Base */ dataProvider, /* string */ attributeId) {
 	/**
 	 * summary:
-	 * An Attribute object represents something like a column in 
+	 * An Attribute object represents something like a column in
 	 * a relational database.
 	 */
 	dojo.lang.assertType(dataProvider, dojo.data.old.provider.Base, {optional: true});
@@ -37,26 +37,26 @@ dojo.data.old.Attribute.prototype.toString = function() {
 
 dojo.data.old.Attribute.prototype.getAttributeId = function() {
 	/**
-	 * summary: 
+	 * summary:
 	 * Returns the string token that uniquely identifies this
 	 * attribute within the context of a data provider.
 	 * For a data provider that accesses relational databases,
-	 * typical attributeIds might be tokens like "name", "age", 
+	 * typical attributeIds might be tokens like "name", "age",
 	 * "ssn", or "dept_key".
-	 */ 
+	 */
 	return this._attributeId; // string
 };
 
 dojo.data.old.Attribute.prototype.getType = function() {
 	/**
 	 * summary: Returns the data type of the values of this attribute.
-	 */ 
+	 */
 	return this.get('type'); // dojo.data.old.Type or null
 };
 
 dojo.data.old.Attribute.prototype.setType = function(/* dojo.data.old.Type or null */ type) {
 	/**
 	 * summary: Sets the data type for this attribute.
-	 */ 
+	 */
 	this.set('type', type);
 };

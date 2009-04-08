@@ -16,7 +16,7 @@ dojo.require("dojo.gfx.shape");
 
 dojo.declare("dojo.gfx.path.Path", dojo.gfx.Shape, {
 	// summary: a generalized path shape
-	
+
 	initializer: function(rawNode){
 		// summary: a constructor of a path shape object
 		// rawNode: Node: a DOM node to be used by this path object
@@ -26,7 +26,7 @@ dojo.declare("dojo.gfx.path.Path", dojo.gfx.Shape, {
 		this.last = {};
 		this.attach(rawNode);
 	},
-	
+
 	// mode manipulations
 	setAbsoluteMode: function(mode){
 		// summary: sets an absolute or relative mode for path points
@@ -38,23 +38,23 @@ dojo.declare("dojo.gfx.path.Path", dojo.gfx.Shape, {
 		// summary: returns a current value of the absolute mode
 		return this.absolute; // Boolean
 	},
-	
+
 	getBoundingBox: function(){
 		// summary: returns the bounding box {x, y, width, height} or null
 		return "l" in this.bbox ? {x: this.bbox.l, y: this.bbox.t, width: this.bbox.r - this.bbox.l, height: this.bbox.b - this.bbox.t} : null; // dojo.gfx.Rectangle
 	},
-	
+
 	getLastPosition: function(){
 		// summary: returns the last point in the path, or null
 		return "x" in this.last ? this.last : null; // Object
 	},
-	
+
 	// segment interpretation
 	_updateBBox: function(x, y){
 		// summary: updates the bounding box of path with new point
 		// x: Number: an x coordinate
 		// y: Number: a y coordinate
-		
+
 		// we use {l, b, r, t} representation of a bbox
 		if("l" in this.bbox){
 			if(this.bbox.l > x) this.bbox.l = x;
@@ -171,10 +171,10 @@ dojo.declare("dojo.gfx.path.Path", dojo.gfx.Shape, {
 			this.shape.path = this.shape.path.concat(path);
 		}
 	},
-	
+
 	// a dictionary, which maps segment type codes to a number of their argemnts
 	_validSegments: {m: 2, l: 2, h: 1, v: 1, c: 6, s: 4, q: 4, t: 2, a: 7, z: 0},
-	
+
 	_pushSegment: function(action, args){
 		// summary: adds a segment
 		// action: String: valid SVG code for a segment's type
@@ -194,7 +194,7 @@ dojo.declare("dojo.gfx.path.Path", dojo.gfx.Shape, {
 			}
 		}
 	},
-	
+
 	_collectArgs: function(array, args){
 		// summary: converts an array of arguments to plain numeric values
 		// array: Array: an output argument (array of numbers)
@@ -214,7 +214,7 @@ dojo.declare("dojo.gfx.path.Path", dojo.gfx.Shape, {
 		}
 	},
 
-	// segments	
+	// segments
 	moveTo: function(){
 		// summary: formes a move segment
 		var args = [];
@@ -286,7 +286,7 @@ dojo.declare("dojo.gfx.path.Path", dojo.gfx.Shape, {
 		this._pushSegment("Z", []);
 		return this; // self
 	},
-	
+
 	// setShape
 	_setPath: function(path){
 		// summary: forms a path using an SVG path string
@@ -327,7 +327,7 @@ dojo.declare("dojo.gfx.path.Path", dojo.gfx.Shape, {
 		this.shape.path = this.shape.path.join("");
 		return this; // self
 	},
-	
+
 	// useful constant for descendants
 	_2PI: Math.PI * 2
 });

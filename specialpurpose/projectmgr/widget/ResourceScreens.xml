@@ -21,7 +21,7 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
         <screen name="FindResource">
-        <section>            
+        <section>
             <actions>
                 <set field="titleProperty" value="PageTitleFindResource"/>
                 <set field="labelTitleProperty" value="ProjectMgrResourceName"/>
@@ -35,8 +35,8 @@ under the License.
                     <order-by field-name="firstName"/>
                     <order-by field-name="groupName"/>
                 </entity-condition>
-            </actions>                                                
-            <widgets>  
+            </actions>
+            <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="AddResourcePanel" title="${uiLabelMap.PageTitleAddResource}" collapsible="true">
@@ -49,15 +49,15 @@ under the License.
         </section>
     </screen>
     <screen name="ListBillingHours">
-        <section>            
+        <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListBillingHours"/>
                 <set field="tabButtonItem" value="ListBillingHours"/>
                 <set field="labelTitleProperty" value="ProjectMgrProjectName"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListResourceBillingHours.groovy"/>
-            </actions>                                                
-            <widgets>  
+            </actions>
+            <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
@@ -78,10 +78,10 @@ under the License.
                 <set field="titleProperty" value="PartyProfile"/>
                 <set field="headerItem" value="find"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>                
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>                
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/progress_bar.css" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>                
+                <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
                 <entity-condition entity-name="RoleTypeAndParty" list="partyRoles">
@@ -113,7 +113,7 @@ under the License.
                                     <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                     <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                     <include-screen name="Visits" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                </container>                               
+                                </container>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -129,7 +129,7 @@ under the License.
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="EditPartyRates"/>
                 <set field="labelTitleProperty" value="PageTitleEditPartyRates"/>
-                
+
                 <set field="partyId" from-field="parameters.partyId"/>
             </actions>
             <widgets>
@@ -144,7 +144,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="viewroles">
         <section>
             <actions>

@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
     <screen name="OrderPurchaseReportOptions">
         <section>
@@ -46,7 +46,7 @@ under the License.
                                         </widgets>
                                     </section>
                                 </container>
-                            </container>                
+                            </container>
                             <container style="screenlet">
                                 <container style="screenlet-title-bar">
                                     <container style="h3">
@@ -56,7 +56,7 @@ under the License.
                                 <container style="screenlet-body">
                                     <include-form name="OpenOrderItemsReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
                                 </container>
-                            </container>                
+                            </container>
                             <container style="screenlet">
                                 <container style="screenlet-title-bar">
                                     <container style="h3">
@@ -66,7 +66,7 @@ under the License.
                                 <container style="screenlet-body">
                                     <include-form name="PurchasesByOrganizationReport" location="component://order/widget/ordermgr/ReportForms.xml"/>
                                 </container>
-                            </container>                
+                            </container>
                         </container>
                         <container style="righthalf">
                             <container style="screenlet">
@@ -78,7 +78,7 @@ under the License.
                                 <container style="screenlet-body">
                                     <include-form name="OrderPurchaseProductOptions" location="component://order/widget/ordermgr/ReportForms.xml"/>
                                 </container>
-                            </container>                
+                            </container>
                             <container style="screenlet">
                                 <container style="screenlet-title-bar">
                                     <container style="h3">
@@ -88,7 +88,7 @@ under the License.
                                 <container style="screenlet-body">
                                     <include-form name="OrderPurchasePaymentOptions" location="component://order/widget/ordermgr/ReportForms.xml"/>
                                 </container>
-                            </container>  
+                            </container>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -238,7 +238,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="OpenOrderItemsList" location="component://order/widget/ordermgr/ReportForms.xml"/>                                        
+                                        <include-form name="OpenOrderItemsList" location="component://order/widget/ordermgr/ReportForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>

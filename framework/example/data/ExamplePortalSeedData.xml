@@ -23,7 +23,7 @@ under the License.
     <PortalPage portalPageId="EXAMPLE" sequenceNum="0" portalPageName="Example Portal Page" description="The default example OFBiz portal page" ownerUserLoginId="_NA_"/>
     <PortalPageColumn portalPageId="EXAMPLE" columnSeqId="00001" columnWidthPercentage="50"/>
     <PortalPageColumn portalPageId="EXAMPLE" columnSeqId="00002"/><!-- no width in pixels or percent, use the rest of the space available -->
-    
+
     <PortalPagePortlet portalPageId="EXAMPLE" portalPortletId="EXAMPLE_1" portletSeqId="00001" columnSeqId="00001" sequenceNum="0"/>
     <PortalPagePortlet portalPageId="EXAMPLE" portalPortletId="EXAMPLE_3" portletSeqId="00001" columnSeqId="00002" sequenceNum="1"/>
 

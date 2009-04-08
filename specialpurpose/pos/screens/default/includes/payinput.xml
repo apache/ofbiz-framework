@@ -19,7 +19,7 @@ under the License.
 -->
 <XPage>
     <Components>
-        <Panel name="toppan" x="0" y="1" w="1024" h="46" border="1" style="panel">            
+        <Panel name="toppan" x="0" y="1" w="1024" h="46" border="1" style="panel">
             <Edit name="pos_input" x="2" y="2" w="1018" h="42" style="input" border="0" alignment="Right"/>
         </Panel>
     </Components>

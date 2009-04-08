@@ -26,7 +26,7 @@ function lookupInventory() {
 </script>
 <div class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.PageTitleFindInventoryEventPlan}</h3>        
+    <h3>${uiLabelMap.PageTitleFindInventoryEventPlan}</h3>
   </div>
   <div class="screenlet-body">
     <form method="post" name="lookupinventory" action="<@ofbizUrl>FindInventoryEventPlan</@ofbizUrl>">
@@ -46,7 +46,7 @@ function lookupInventory() {
                     <#if inventoryList?exists>
                         <a href="<@ofbizUrl>FindInventoryEventPlan?hideFields=Y${paramList}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonHideFields}</a>
                     </#if>
-                    <a href="javascript:lookupInventory();" class="smallSubmit">${uiLabelMap.CommonLookup}</a>                
+                    <a href="javascript:lookupInventory();" class="smallSubmit">${uiLabelMap.CommonLookup}</a>
                   </#if>
                 </p>
               </td>
@@ -65,7 +65,7 @@ function lookupInventory() {
                         <span>
                           <a href="javascript:call_fieldlookup2(document.lookupinventory.productId,'LookupProduct');">
                             <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
-                          </a> 
+                          </a>
                         </span>
                         <input type='text' size='25' readonly name='productId_description' value=''/>
                      </td>
@@ -79,7 +79,7 @@ function lookupInventory() {
                            <img src='/images/cal.gif' width='16' height='16' border='0' alt='Calendar'/>
                          </a>
                     </td>
-                  </tr>        
+                  </tr>
                   <tr>
                     <td width="25%" align="center" valign="top">
                     <td width="5">&nbsp;</td>
@@ -116,7 +116,7 @@ document.lookupinventory.productId.focus();
            <td width="50%" class="boxhead">${uiLabelMap.CommonElementsFound}</td>
             <td width="50%">
              <div class="boxhead" align="right">
-               
+
                 <#if 0 < viewIndex>
                   <a href="<@ofbizUrl>FindInventoryEventPlan?VIEW_SIZE=${viewSize}&VIEW_INDEX=${viewIndex-1}&hideFields=${requestParameters.hideFields?default("N")}${paramList}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonPrevious}</a>
                 <#else>
@@ -130,7 +130,7 @@ document.lookupinventory.productId.focus();
                 <#else>
                   <span class="submenutextrightdisabled">${uiLabelMap.CommonNext}</span>
                 </#if>
-             
+
               &nbsp;
             </div>
           </td>
@@ -176,7 +176,7 @@ document.lookupinventory.productId.focus();
                 <#else>
                     <#assign additionalErrorMessage = "No QOH information found, assuming 0.">
                 </#if>
-                <tr bgcolor="lightblue">  
+                <tr bgcolor="lightblue">
                   <th>
                       <b>[${inven.productId}]</b>&nbsp;&nbsp;${product.internalName?if_exists}
                   </th>
@@ -225,7 +225,7 @@ document.lookupinventory.productId.focus();
             </tr>
             <#assign count=count+1>
            </#list>
-  
+
        </table>
       <#else>
        <br/>

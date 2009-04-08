@@ -20,7 +20,7 @@ under the License.
 
 <entity-engine-xml>
     <Facility facilityId="WebStoreWarehouse" facilityTypeId="WAREHOUSE" facilityName="Web Store Warehouse" description="Warehouse exclusively for the Web Store " ownerPartyId="Company" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM" defaultWeightUomId="WT_lb" defaultDaysToShip="25" geoPointId="9000"/>
-    
+
     <ContactMech contactMechId="9200" contactMechTypeId="POSTAL_ADDRESS"/>
     <ContactMech contactMechId="9201" contactMechTypeId="TELECOM_NUMBER"/>
     <ContactMech contactMechId="9202" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
@@ -42,11 +42,11 @@ under the License.
     <FacilityLocation facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL03" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="03"/>
     <FacilityLocation facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL04" locationTypeEnumId="FLT_PICKLOC" areaId="TL" aisleId="TL" sectionId="TL" levelId="LL" positionId="04"/>
     <FacilityLocation facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL04" locationTypeEnumId="FLT_BULK" areaId="TL" aisleId="TL" sectionId="TL" levelId="UL" positionId="04"/>
-    <FacilityLocationGeoPoint facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL01" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>        
-    <FacilityLocationGeoPoint facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL02" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>        
-    <FacilityLocationGeoPoint facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL03" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>        
-    <FacilityLocationGeoPoint facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL04" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>        
-    
+    <FacilityLocationGeoPoint facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL01" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FacilityLocationGeoPoint facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL02" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FacilityLocationGeoPoint facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL03" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+    <FacilityLocationGeoPoint facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL04" geoPointId="9000" fromDate="2009-01-09 00:00:00.000"/>
+
     <ProductStore productStoreId="9000" storeName="OFBiz E-Commerce Store" companyName="Open For Business" title="Open For Commerce"
         subtitle="Part of the Open For Business Family of Open Source Software" payToPartyId="Company" daysToCancelNonPay="30" prorateShipping="Y" prorateTaxes="Y"
         inventoryFacilityId="WebStoreWarehouse" oneInventoryFacility="Y" checkInventory="Y" reserveInventory="Y" balanceResOnOrderCreation="Y" reserveOrderEnumId="INVRO_FIFO_REC" requireInventory="N"
@@ -58,7 +58,7 @@ under the License.
         authErrorMessage="Problem connecting to payment processor; we will continue to retry and notify you by email."
         storeCreditValidDays="90"
         visualThemeId="EC_DEFAULT" autoApproveInvoice="Y" shipIfCaptureFails="Y" autoApproveOrder="Y"/>
-    
+
     <!-- <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="testRandomAuthorize"/> -->
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveCCProcessor"/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testCCRelease"/>
@@ -74,14 +74,14 @@ under the License.
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_OFFLINE" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService=""/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_COD" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService=""/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_BILLACT" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService=""/>
-    
+
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_CONFIRM" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNotice" xslfoAttachScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNoticePdf" subject="OFBiz Demo - Order Confirmation #${orderId}" bccAddress="ofbiztest@yahoo.com" fromAddress="ofbiztest@yahoo.com"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_COMPLETE" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderCompleteNotice" subject="OFBiz Demo - Your Order Is Complete #${orderId}" fromAddress="ofbiztest@yahoo.com"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_BACKORDER" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#BackorderNotice" subject="OFBiz Demo - Backorder Notification #${orderId}" fromAddress="ofbiztest@yahoo.com"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_CHANGE" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#OrderChangeNotice" subject="OFBiz Demo - Order Change Notification #${orderId}" fromAddress="ofbiztest@yahoo.com"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_PAYRETRY" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#PaymentRetryNotice" subject="OFBiz Demo - Order Payment Notification #${orderId}" fromAddress="ofbiztest@yahoo.com"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_ODR_SHIP_COMPLT" bodyScreenLocation="component://ecommerce/widget/EmailOrderScreens.xml#ShipmentCompleteNotice" subject="OFBiz Demo - Shipment Complete Notification #${orderId}" fromAddress="ofbiztest@yahoo.com"/>
-    
+
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_RTN_ACCEPT" bodyScreenLocation="component://ecommerce/widget/EmailReturnScreens.xml#ReturnAccept" subject="OFBiz Demo - Return Accepted #${returnHeader.returnId}" fromAddress="ofbiztest@yahoo.com"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_RTN_COMPLETE" bodyScreenLocation="component://ecommerce/widget/EmailReturnScreens.xml#ReturnComplete" subject="OFBiz Demo - Return Completed #${returnHeader.returnId}" fromAddress="ofbiztest@yahoo.com"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_RTN_CANCEL" bodyScreenLocation="component://ecommerce/widget/EmailReturnScreens.xml#ReturnCancel" subject="OFBiz Demo - Return Cancelled #${returnHeader.returnId}" fromAddress="ofbiztest@yahoo.com"/>
@@ -94,11 +94,11 @@ under the License.
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_PWD_RETRIEVE" bodyScreenLocation="component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail" subject="OFBiz Demo - Password Reminder (${userLogin.userLoginId})" fromAddress="ofbiztest@yahoo.com"/>
 
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_QUO_CONFIRM" bodyScreenLocation="component://order/widget/ordermgr/QuoteScreens.xml#ViewQuoteSimple" xslfoAttachScreenLocation="component://order/widget/ordermgr/QuoteScreens.xml#QuoteReport" subject="OFBiz Demo - Quote Confirmation #${quoteId}" bccAddress="ofbiztest@yahoo.com" fromAddress="ofbiztest@yahoo.com"/>
-    
+
     <ProductStoreEmailSetting productStoreId="9000" emailType="PARTY_REGIS_CONFIRM" bodyScreenLocation="component://party/widget/partymgr/EmailPartyScreens.xml#CreatePartyNotification" subject="New Account Created" bccAddress="ofbiztest@yahoo.com" fromAddress="ofbiztest@yahoo.com"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="UPD_PRSNL_INF_CNFRM" bodyScreenLocation="component://party/widget/partymgr/EmailPartyScreens.xml#ChangePersonalInfoNotification" subject="Personal Information Updated" bccAddress="ofbiztest@yahoo.com" fromAddress="ofbiztest@yahoo.com"/>
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_EMAIL_VERIFY" bodyScreenLocation="component://party/widget/partymgr/EmailPartyScreens.xml#VerifyEmailAddressNotification" subject="Email Address Verification" bccAddress="ofbiztest@yahoo.com" fromAddress="ofbiztest@yahoo.com"/>
-    
+
     <ProductStoreFacility productStoreId="9000" facilityId="WebStoreWarehouse" fromDate="2001-05-13 12:00:00.0"/>
     <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="9000" fromDate="2001-05-13 12:00:00.0"/>
     <ProductStoreKeywordOvrd productStoreId="9000" keyword="gizmo" fromDate="2001-05-13 12:00:00.0" target="100" targetTypeEnumId="KOTT_PRODCAT"/>
@@ -163,20 +163,20 @@ under the License.
         sequenceNum="1" prodCatalogCategoryTypeId="PCCT_BROWSE_ROOT"/>
     <ProdCatalogCategory prodCatalogId="TestCatalog" productCategoryId="TSTLTDADMIN" fromDate="2001-05-13 12:00:00.0"
         sequenceNum="1" prodCatalogCategoryTypeId="PCCT_ADMIN_ALLW"/>
-    
-    <ProductCategoryLink productCategoryId="100" linkSeqId="01" fromDate="2001-05-13 12:00:00.0" 
+
+    <ProductCategoryLink productCategoryId="100" linkSeqId="01" fromDate="2001-05-13 12:00:00.0"
         titleText="See LGPL Gizmos" detailText="The LGPL license may be more restrictive than you would like, but we think you will like the gizmo anyway!"
         imageUrl="/images/products/small/handshake_01.png"
-        sequenceNum="2" linkTypeEnumId="PCLT_SEARCH_PARAM" 
+        sequenceNum="2" linkTypeEnumId="PCLT_SEARCH_PARAM"
         linkInfo="SEARCH_CATEGORY_ID1=100&amp;SEARCH_SUB_CATEGORIES1=Y&amp;SEARCH_FEAT1=8000&amp;sortOrder=SortKeywordRelevancy&amp;sortAscending=N"/>
-    <ProductCategoryLink productCategoryId="100" linkSeqId="02" fromDate="2001-05-13 12:00:00.0" 
+    <ProductCategoryLink productCategoryId="100" linkSeqId="02" fromDate="2001-05-13 12:00:00.0"
         titleText="Go To Google" detailText="If you cannot find the gizmo you want here, try it on Google."
         imageUrl="http://www.google.com/intl/en_ALL/images/logo.gif"
-        sequenceNum="1" linkTypeEnumId="PCLT_ABS_URL" 
+        sequenceNum="1" linkTypeEnumId="PCLT_ABS_URL"
         linkInfo="http://www.google.com/"/>
-    <ProductCategoryLink productCategoryId="100" linkSeqId="03" fromDate="2001-05-13 12:00:00.0" 
+    <ProductCategoryLink productCategoryId="100" linkSeqId="03" fromDate="2001-05-13 12:00:00.0"
         sequenceNum="3" linkTypeEnumId="PCLT_CAT_ID" linkInfo="101"/>
-    
+
     <Product productId="GZ-1000" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" productName="Tiny Gizmo" internalName="Tiny Gizmo" description="The smallest gizmo in town." longDescription="This gizmo is very small and runs on solar power." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <Product productId="GZ-1001" productTypeId="FINISHED_GOOD" primaryProductCategoryId="101" productName="Nan Gizmo" internalName="Nan Gizmo" description="Indian style Nan gizmo" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <Product productId="GZ-1004" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Rainbow Gizmo" internalName="Rainbow Gizmo" description="The only multi-colored gizmo" longDescription="This is the original multi-colored gizmo, only available from OFBiz!" taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
@@ -189,7 +189,7 @@ under the License.
     </ElectronicText>
     <Content contentId="GZ-1005-WARN" contentTypeId="DOCUMENT" dataResourceId="GZ-1005-WARN" mimeTypeId="text/plain" contentName="GZ-1005 Warning"/>
     <ProductContent productId="GZ-1005" contentId="GZ-1005-WARN" productContentTypeId="WARNINGS" fromDate="2001-05-13 12:00:00.0"/>
-    
+
     <Product productId="GZ-1006" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Open Gizmo" internalName="Open Gizmo" description="Gizmo based on open standards" longDescription="Highest quality gizmo around." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="Y" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <Product productId="GZ-1006-1" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Open Gizmo (LGPL)" internalName="Open Gizmo (LGPL)" description="Gizmo based on open standards" longDescription="Highest quality gizmo around." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <Product productId="GZ-1006-2" productTypeId="FINISHED_GOOD" primaryProductCategoryId="102" productName="Open Gizmo (GPL)" internalName="Open Gizmo (GPL)" description="Gizmo based on open standards" longDescription="Highest quality gizmo around." taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="Y" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
@@ -212,7 +212,7 @@ under the License.
     <Product productId="WG-9943-S4" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget S4" internalName="Giant Widget S4" description="Silver Giant Widget with 4 Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item." quantityIncluded="10.0" weight="22.0" isVirtual="N" isVariant="Y"/>
 
     <Product productId="WG-9944" productTypeId="FINISHED_GOOD" primaryProductCategoryId="202" productName="Giant Widget with feature explosion" internalName="Giant Widget feature Explosion" virtualVariantMethodEnum="VV_FEATURETREE" description="Giant Widget with Wheels" longDescription="This giant widget is mobile. It will seat one person safely. The wheels will never rust or break. Quite a unique item especially as it can have (almost) as many variants as you like" quantityIncluded="10.0" weight="22.0" isVirtual="Y" isVariant="N"/>
-    
+
     <ProductPrice productId="GZ-1000" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="15.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="GZ-1000" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="15.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="GZ-1001" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="25.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
@@ -247,14 +247,14 @@ under the License.
     <ProductPrice productId="WG-9944" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="523.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="WG-9944" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="594.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="WG-9944" productPricePurposeId="PURCHASE" productPriceTypeId="AVERAGE_COST" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="320.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    
+
     <!-- test Subscription product, a Gizmo Newsletter -->
     <Product productId="GZ-NEWS-1MO" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="101" productName="Gizmo Newsletter 1 Month" internalName="Gizmo Newsletter 1 Month Subscription" description="A 1 month subscription to the Gizmo Newsletter: can be used immediately after purchase." longDescription="This newsletter will give you regular updates on the wonderful world of Gizmos!" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <SubscriptionResource subscriptionResourceId="GZ-NEWS" description="Gizmo Newsletter"/>
     <ProductSubscriptionResource productId="GZ-NEWS-1MO" subscriptionResourceId="GZ-NEWS" fromDate="2001-05-13 12:00:00.0" useTime="1" useTimeUomId="TF_mon"/>
     <ProductPrice productId="GZ-NEWS-1MO" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="3.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="GZ-NEWS-1MO" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="5.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    
+
     <!-- test Digital Download product -->
     <Product productId="GZ-DIG" productTypeId="DIGITAL_GOOD" primaryProductCategoryId="101" productName="Digital Gizmo" internalName="Digital Gizmo" description="A digital gizmo: can be downloaded immediately after purchase." longDescription="This gizmo is part of an exciting new breed that needs no corporeal form: it is all digital! Buy and download it now!" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <DataResource dataResourceId="GZ-DIG" dataResourceTypeId="OFBIZ_FILE_BIN" mimeTypeId="image/jpeg" dataResourceName="Digital Gizmo Image" objectInfo="framework/images/webapp/images/ofbiz_logo.jpg"/>
@@ -262,9 +262,9 @@ under the License.
     <ProductContent productId="GZ-DIG" contentId="GZ-DIG" productContentTypeId="DIGITAL_DOWNLOAD" fromDate="2001-05-13 12:00:00.0" useTime="3" useTimeUomId="TF_mon"/>
     <ProductPrice productId="GZ-DIG" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="55.99" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPrice productId="GZ-DIG" productPricePurposeId="PURCHASE" productPriceTypeId="LIST_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="80.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
-    
+
     <!-- test for marketing package -->
-    <Product productId="GZ-BASKET" productTypeId="MARKETING_PKG_AUTO" productName="Gizmo Basket" internalName="Auto-Assembled Gizmo Basket" 
+    <Product productId="GZ-BASKET" productTypeId="MARKETING_PKG_AUTO" productName="Gizmo Basket" internalName="Auto-Assembled Gizmo Basket"
         description="Auto-Assembled Gizmo Basket.  Automatically assembled each time it's ordered."
         longDescription="Auto-Assembled Gizmo Basket.  This item will be automatically assembled with production runs every time it's ordered, and the inventory counts for it are based on the quantity available and on hand for the component items."
         taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N"/>
@@ -273,9 +273,9 @@ under the License.
     <ProductAssoc productId="GZ-BASKET" productIdTo="GZ-1000" productAssocTypeId="MANUF_COMPONENT" quantity="1" fromDate="2001-05-13 12:00:00.0"/>
     <ProductAssoc productId="GZ-BASKET" productIdTo="GZ-1001" productAssocTypeId="MANUF_COMPONENT" quantity="2" fromDate="2001-05-13 12:00:00.0"/>
     <ProductAssoc productId="GZ-BASKET" productIdTo="GZ-1004" productAssocTypeId="MANUF_COMPONENT" quantity="3" fromDate="2001-05-13 12:00:00.0"/>
-    
+
     <!-- test for marketing package pick assembly -->
-    <Product productId="GZ-BASKET-PICK" productTypeId="MARKETING_PKG_PICK" productName="Gizmo Basket Assembly Pick" internalName="Assembled Pick Gizmo Basket" 
+    <Product productId="GZ-BASKET-PICK" productTypeId="MARKETING_PKG_PICK" productName="Gizmo Basket Assembly Pick" internalName="Assembled Pick Gizmo Basket"
         description="Assembled Pick Gizmo Basket.  Assembled during picking."
         longDescription="Assembled Pick Gizmo Basket.  This item will be assembled during picking."
         taxable="Y" chargeShipping="Y" autoCreateKeywords="Y" isVirtual="N" isVariant="N"/>
@@ -292,7 +292,7 @@ under the License.
     <ProductPrice productId="SV-1000" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2008-12-02 12:00:00.0" price="1000" createdDate="2008-12-02 12:00:00.0" createdByUserLogin="admin"/>
     <ProductCategoryMember productCategoryId="SERV-001" productId="SV-1000" fromDate="2008-12-02 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="SV-1000" fromDate="2008-12-02 12:00:00.0"/>
-    
+
     <ProductFeatureCategory productFeatureCategoryId="8000" description="License Features"/>
     <ProductFeatureCategoryAppl productFeatureCategoryId="8000" productCategoryId="CATALOG1_SEARCH" fromDate="2001-05-13 12:00:00.0"/>
 
@@ -315,7 +315,7 @@ under the License.
     <ProductFeature productFeatureId="9003" productFeatureCategoryId="9000" productFeatureTypeId="SIZE" description="4-Wheel"/>
     <ProductFeaturePrice productFeatureId="9003" price="2.30" productPriceTypeId="AVERAGE_COST" currencyUomId="USD" fromDate="2000-01-01 00:00:00.0"/>
 
-    <ProductFeatureIactn productFeatureId="9000" productFeatureIdTo="9002" productId="WG-9944" productFeatureIactnTypeId="FEATURE_IACTN_INCOMP"/> 
+    <ProductFeatureIactn productFeatureId="9000" productFeatureIdTo="9002" productId="WG-9944" productFeatureIactnTypeId="FEATURE_IACTN_INCOMP"/>
 
     <ProductFeatureAppl productId="GZ-1006" productFeatureId="8000"
         productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
@@ -351,7 +351,7 @@ under the License.
         productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="3"/>
     <ProductFeatureAppl productId="WG-9944" productFeatureId="9003"
         productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="4"/>
-    
+
     <ProductFeatureAppl productId="WG-9943-B3" productFeatureId="9000"
         productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
     <ProductFeatureAppl productId="WG-9943-B3" productFeatureId="9002"
@@ -416,7 +416,7 @@ under the License.
     <ProductCategoryMember productCategoryId="100" productId="GZ-1001" sequenceNum="11" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-1004" sequenceNum="14" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-1005" sequenceNum="15" fromDate="2001-05-13 12:00:00.0"/>
-    <ProductCategoryMember productCategoryId="100" productId="GZ-1006" sequenceNum="16" fromDate="2001-05-13 12:00:00.0" 
+    <ProductCategoryMember productCategoryId="100" productId="GZ-1006" sequenceNum="16" fromDate="2001-05-13 12:00:00.0"
         comments="The Open Gizmo is compatibile with all other gimzos."/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-2002" sequenceNum="22" fromDate="2001-05-13 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="100" productId="GZ-2644" sequenceNum="26" fromDate="2001-05-13 12:00:00.0"/>
@@ -510,25 +510,25 @@ under the License.
     <ProductFacilityLocation productId="WG-5569" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL04" minimumStock="5" moveQuantity="20"/>
 
     <!-- some default inventory quantities, things are a bit underutilized without these... -->
-    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01" 
+    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01"
         inventoryItemId="9000" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-2644" ownerPartyId="Company" currencyUomId="USD" unitCost="2.5"/>
     <InventoryItemDetail inventoryItemId="9000" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="500" quantityOnHandDiff="500"/>
-    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL01" 
+    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL01"
         inventoryItemId="9001" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-2644" ownerPartyId="Company" currencyUomId="USD" unitCost="2.5"/>
     <InventoryItemDetail inventoryItemId="9001" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="5" quantityOnHandDiff="5"/>
-    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL02" 
+    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL02"
         inventoryItemId="9002" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-8544" ownerPartyId="Company" currencyUomId="USD" unitCost="3.0"/>
     <InventoryItemDetail inventoryItemId="9002" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="15" quantityOnHandDiff="15"/>
-    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL02" 
+    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL02"
         inventoryItemId="9003" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-8544" ownerPartyId="Company" currencyUomId="USD" unitCost="3.0"/>
     <InventoryItemDetail inventoryItemId="9003" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="3" quantityOnHandDiff="3"/>
-    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL03" 
+    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL03"
         inventoryItemId="9004" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="WG-1111" ownerPartyId="Company" currencyUomId="USD" unitCost="4.5"/>
     <InventoryItemDetail inventoryItemId="9004" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="50" quantityOnHandDiff="50"/>
-    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL03" 
+    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL03"
         inventoryItemId="9005" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="WG-1111" ownerPartyId="Company" currencyUomId="USD" unitCost="4.5"/>
     <InventoryItemDetail inventoryItemId="9005" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="5" quantityOnHandDiff="5"/>
-    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL04" 
+    <InventoryItem facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL04"
         inventoryItemId="9006" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="WG-5569" ownerPartyId="Company" currencyUomId="USD" unitCost="5.0"/>
     <InventoryItemDetail inventoryItemId="9006" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="10" quantityOnHandDiff="10"/>
 
@@ -578,7 +578,7 @@ under the License.
     <ProductPromo productPromoId="9019" promoName="Test Percent off when Customer Orders over $1000 in 12 months" userEntered="Y" useLimitPerOrder="1" createdDate="2001-05-13 12:00:00.0">
         <promoText><![CDATA[Spend more than $1000 in any 12 months on our fabulous Widgets and Gizmos and get a 5% discount.]]></promoText>
     </ProductPromo>
-    <ProductPromo productPromoId="9020" promoName="Test Promotion Recurrence - Happy hour" promoText="Get 1 Free [WG-1111], between 15:00 - 18:00 at weekdays" userEntered="Y" showToCustomer="Y" requireCode="N" useLimitPerOrder="1" createdDate="2008-01-01 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2008-01-01 12:00:00.0" lastModifiedByUserLogin="admin"/>    
+    <ProductPromo productPromoId="9020" promoName="Test Promotion Recurrence - Happy hour" promoText="Get 1 Free [WG-1111], between 15:00 - 18:00 at weekdays" userEntered="Y" showToCustomer="Y" requireCode="N" useLimitPerOrder="1" createdDate="2008-01-01 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2008-01-01 12:00:00.0" lastModifiedByUserLogin="admin"/>
     <ProductPromoRule productPromoId="9000" productPromoRuleId="01" ruleName="Rule 1: Free Widget"/>
     <ProductPromoRule productPromoId="9010" productPromoRuleId="01" ruleName="Test Percent off rule"/>
     <ProductPromoRule productPromoId="9011" productPromoRuleId="01" ruleName="Test percent off order"/>
@@ -590,7 +590,7 @@ under the License.
     <ProductPromoRule productPromoId="9017" productPromoRuleId="01" ruleName="GWP for Gizmos Only"/>
     <ProductPromoRule productPromoId="9018" productPromoRuleId="01" ruleName="GWP for Gizmos Only Not Counted"/>
     <ProductPromoRule productPromoId="9019" productPromoRuleId="01" ruleName="Percent off for Ordered Sub-Total History"/>
-    <ProductPromoRule productPromoId="9020" productPromoRuleId="01" ruleName="Test Promotion Recurrence"/>    
+    <ProductPromoRule productPromoId="9020" productPromoRuleId="01" ruleName="Test Promotion Recurrence"/>
     <ProductPromoAction productPromoId="9000" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_GWP" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="1.0" productId="WG-1111"/>
     <ProductPromoAction productPromoId="9010" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_PROD_DISC" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" quantity="1.0" amount="20.0"/>
     <ProductPromoAction productPromoId="9011" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_ORDER_PERCENT" orderAdjustmentTypeId="PROMOTION_ADJUSTMENT" amount="10.0"/>
@@ -650,8 +650,8 @@ under the License.
 
     <!-- a promotion recurrence example for happy hour-->
     <RecurrenceRule recurrenceRuleId="205" frequency="DAILY" intervalNumber="1" countNumber="-1" byHourList="15,16,17" byDayList="MO,TU,WE,TH,FR"/>
-    <RecurrenceInfo recurrenceInfoId="205" startDateTime="2008-01-01 00:00:00.000" recurrenceRuleId="205" recurrenceCount="0"/>    
-    
+    <RecurrenceInfo recurrenceInfoId="205" startDateTime="2008-01-01 00:00:00.000" recurrenceRuleId="205" recurrenceCount="0"/>
+
     <!-- a default pricing rule to play with; take 20% off all products in the PROMOTIONS category -->
     <ProductPriceRule productPriceRuleId="9000" ruleName="Test Rule 1" isSale="Y"/>
     <ProductPriceCond condValue="PROMOTIONS" inputParamEnumId="PRIP_PROD_CAT_ID" operatorEnumId="PRC_EQ" productPriceCondSeqId="01" productPriceRuleId="9000"/>

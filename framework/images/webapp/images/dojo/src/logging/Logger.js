@@ -68,7 +68,7 @@ dojo.logging.Record = function(/*Integer*/logLevel, /*String||Array*/message){
 	this.message = "";
 	this.msgArgs = [];
 	this.time = new Date();
-	
+
 	if(dojo.lang.isArray(message)){
 		if(message.length > 0 && dojo.lang.isString(message[0])){
 			this.message=message.shift();
@@ -115,7 +115,7 @@ dojo.extend(dojo.logging.Logger,{
 	},
 
 	setLevel: function(/*Integer*/lvl){
-		// summary: 
+		// summary:
 		//		set the logging level for this logger.
 		// lvl:
 		//		the logging level to set the cutoff for, as derived from the
@@ -306,10 +306,10 @@ dojo.extend(dojo.logging.Logger,{
 		// summary:
 		//		a more "user friendly" version of the log() function. Takes the
 		//		named log level instead of the corresponding integer.
-		return this.log.apply(this, [dojo.logging.log.getLevel(type), 
+		return this.log.apply(this, [dojo.logging.log.getLevel(type),
 			args]);
 	},
-	
+
 	warn:function(){
 		// summary: shorthand for warning()
 		this.warning.apply(this,arguments);
@@ -332,11 +332,11 @@ dojo.logging.LogHandler = function(level){
 	this.filters = [];
 }
 dojo.lang.extend(dojo.logging.LogHandler,{
-	
+
 	setFormatter:function(formatter){
 		dojo.unimplemented("setFormatter");
 	},
-	
+
 	flush:function(){
 		// summary:
 		//		Unimplemented. Should be implemented by subclasses to handle
@@ -354,7 +354,7 @@ dojo.lang.extend(dojo.logging.LogHandler,{
 		//		Unimplemented. Should be implemented by subclasses.
 		dojo.deprecated("dojo.logging.LogHandler.handleError", "use handle()", "0.6");
 	},
-	
+
 	handle:function(/*dojo.logging.Record*/record){
 		// summary:
 		//		Emits the record object passed in should the record meet the
@@ -363,7 +363,7 @@ dojo.lang.extend(dojo.logging.LogHandler,{
 			this.emit(record);
 		}
 	},
-	
+
 	emit:function(/*dojo.logging.Record*/record){
 		// summary:
 		//		Unimplemented. Should be implemented by subclasses to handle
@@ -437,7 +437,7 @@ dojo.logging.log.getLevel = function(/*string*/name){
 // a default handler class, it simply saves all of the handle()'d records in
 // memory. Useful for attaching to with dojo.event.connect()
 
-dojo.declare("dojo.logging.MemoryLogHandler", 
+dojo.declare("dojo.logging.MemoryLogHandler",
 	dojo.logging.LogHandler,
 	{
 		initializer: function(level, recordsToKeep, postType, postInterval){
@@ -457,7 +457,7 @@ dojo.declare("dojo.logging.MemoryLogHandler",
 			if(!dj_undef("println", dojo.hostenv)){
 				dojo.hostenv.println(logStr, record.msgArgs);
 			}
-			
+
 			this.data.push(record);
 			if(this.numRecords != -1){
 				while(this.data.length>this.numRecords){

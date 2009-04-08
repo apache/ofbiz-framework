@@ -33,7 +33,7 @@ under the License.
               <div class="tabletext"><b>${uiLabelMap.CommonDescription}</b></div>
             </td>
             <td width="5">&nbsp;</td>
-            <td width="20%">&nbsp;</td>                
+            <td width="20%">&nbsp;</td>
           </tr>
           <#list supplierProductList as supplierProduct>
             <#assign product = supplierProduct.getRelatedOneCache("Product")/>

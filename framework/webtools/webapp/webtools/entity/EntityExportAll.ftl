@@ -20,7 +20,7 @@ under the License.
 <h1>${uiLabelMap.WebtoolsExportFromDataSource}</h1>
 <br />
 <p>
-    ${uiLabelMap.WebtoolsXMLExportInfo} 
+    ${uiLabelMap.WebtoolsXMLExportInfo}
 </p>
 <#if results?has_content>
     <hr/>

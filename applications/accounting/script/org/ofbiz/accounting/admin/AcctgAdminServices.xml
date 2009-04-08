@@ -17,13 +17,13 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ========= Miscellaenous services for accounting ========= -->
-    <simple-method method-name="createPartyAcctgPreference" 
+    <simple-method method-name="createPartyAcctgPreference"
         short-description="Create accounting preference settings for a party">
         <!-- permission checking is done in the services definition file (services_other.xml) -->
-        
+
         <!-- check that the party is an INTERNAL_ORGANIZATION, as defined in PartyRole -->
         <set from-field="parameters.partyId" field="lookupParams.partyId"/>
         <set value="INTERNAL_ORGANIZATIO" field="lookupParams.roleTypeId"/>
@@ -32,7 +32,7 @@ under the License.
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingPartyMustBeInternalOrganization"/></add-error>
             <check-errors/>
         </if-empty>
-        <!-- Does not check if the Party is actually a company because real people have to pay taxes too -->    
+        <!-- Does not check if the Party is actually a company because real people have to pay taxes too -->
 
         <!-- TODO: maybe check to make sure that all fields are not null -->
         <make-value value-field="newEntity" entity-name="PartyAcctgPreference"/>
@@ -40,7 +40,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>
-    
+
     <simple-method method-name="getPartyAccountingPreferences"
             short-description="Get the accounting preference settings for a party (organization)">
         <make-value entity-name="PartyAcctgPreference" value-field="aggregatedPartyAcctgPref"/>
@@ -61,7 +61,7 @@ under the License.
                     <field-map field-name="partyId" from-field="currentOrganizationPartyId"/>
                 </entity-one>
                 <set field="containsEmptyFields" type="Boolean" value="false"/>
-                
+
                 <if-not-empty field="currentPartyAcctgPref">
                     <iterate-map map="currentPartyAcctgPref" key="entityKey" value="entityValue">
                         <if-empty field="aggregatedPartyAcctgPref.${entityKey}">
@@ -77,40 +77,40 @@ under the License.
                     <set field="containsEmptyFields" type="Boolean" value="true"/>
                 </else>
                 </if-not-empty>
-                
+
                 <entity-and entity-name="PartyRelationship" list="parentPartyRelationships" filter-by-date="true">
                     <field-map field-name="partyIdTo" from-field="currentOrganizationPartyId"/>
                     <field-map field-name="partyRelationshipTypeId" value="GROUP_ROLLUP"/>
                     <field-map field-name="roleTypeIdFrom" value="_NA_"/>
                     <field-map field-name="roleTypeIdTo" value="_NA_"/>
                 </entity-and>
-                
+
                 <if-not-empty field="parentPartyRelationships">
                     <first-from-list list="parentPartyRelationships" entry="parentPartyRelationship"/>
                     <set field="currentOrganizationPartyId" from-field="parentPartyRelationship.partyIdFrom"/>
                 <else>
                     <clear-field field="currentOrganizationPartyId"/>
-                </else>    
+                </else>
                 </if-not-empty>
             </then>
         </while>
-        
+
         <if-not-empty field="aggregatedPartyAcctgPref">
             <set field="aggregatedPartyAcctgPref.partyId" from-field="parameters.organizationPartyId"/>
             <field-to-result field="aggregatedPartyAcctgPref" result-name="partyAccountingPreference"/>
         </if-not-empty>
     </simple-method>
-    
+
     <!-- update currency conversion rates in the UomConversionDated entity -->
     <simple-method method-name="updateFXConversion" short-description="Update Foreign Exchange conversion rate">
         <!-- set the FX rate changes as of now -->
         <if-empty field="parameters.asOfTimestamp">
             <now-timestamp field="nowTimestamp"/>
         <else>
-            <set from-field="parameters.asOfTimestamp" field="nowTimestamp"/>  
-        </else>            
+            <set from-field="parameters.asOfTimestamp" field="nowTimestamp"/>
+        </else>
         </if-empty>
-        
+
         <!-- find the existing exchange rates for this currency pair -->
         <entity-condition entity-name="UomConversionDated" list="uomConversions" filter-by-date="true">
             <condition-list>
@@ -119,13 +119,13 @@ under the License.
                 <condition-expr field-name="purposeEnumId" operator="equals" from-field="parameters.purposeEnumId" ignore-if-empty="true"/>
             </condition-list>
         </entity-condition>
-        
+
         <!-- expire all of them -->
         <iterate list="uomConversions" entry="uomConversion">
             <set from-field="nowTimestamp" field="uomConversion.thruDate"/>
         </iterate>
         <store-list list="uomConversions"/>
-        
+
         <!-- now create a new conversion relationship -->
         <set-service-fields to-map="createParams" service-name="createUomConversionDated" map="parameters"/>
         <set from-field="nowTimestamp" field="createParams.fromDate"/>

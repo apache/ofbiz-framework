@@ -32,5 +32,5 @@
     <!-- video templates -->
     <MimeTypeHtmlTemplate mimeTypeId="video/quicktime" templateLocation="component://content/template/mime-type/quicktime.ftl"/>
     <MimeTypeHtmlTemplate mimeTypeId="video/mp4" templateLocation="component://content/template/mime-type/quicktime.ftl"/>
-    <MimeTypeHtmlTemplate mimeTypeId="video/x-flv" templateLocation="component://content/template/mime-type/flash-flv.ftl"/>    
+    <MimeTypeHtmlTemplate mimeTypeId="video/x-flv" templateLocation="component://content/template/mime-type/flash-flv.ftl"/>
 </entity-engine-xml>

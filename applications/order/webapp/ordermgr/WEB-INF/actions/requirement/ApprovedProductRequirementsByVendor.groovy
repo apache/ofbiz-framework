@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -16,12 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- 
+
 // Gets an entity list iterator of product requirements by vendor.
-// This report requires a two-level query:  one subquery to merge the 
-// requirements with the same productId (grouped by partyId), another 
+// This report requires a two-level query:  one subquery to merge the
+// requirements with the same productId (grouped by partyId), another
 // to count the products required by the partyId.  This is modeled with two
-// view entitities chained together, RequirementByPartyCount and 
+// view entitities chained together, RequirementByPartyCount and
 // ProductRequirementCount (see order entitymodel_view.xml).
 
 import org.ofbiz.base.util.UtilMisc;

@@ -35,7 +35,7 @@ dojo.charting.PlotArea = function(){
 		plots: null
 	};
 
-	//	this is preset for a limited color range (green to purple), 
+	//	this is preset for a limited color range (green to purple),
 	//	anticipating a max of 32 series on this plot area.
 	//	if you need more flexibility, override these numbers.
 	this._color = { h: 140, s: 120, l: 120, step: 27 };
@@ -48,8 +48,8 @@ dojo.extend(dojo.charting.PlotArea, {
 		//	Advances the internal HSV cursor and returns the next generated color.
 		var rgb=dojo.gfx.color.hsl2rgb(this._color.h, this._color.s, this._color.l);
 		this._color.h = (this._color.h + this._color.step)%360;
-		while(this._color.h < 140){ 
-			this._color.h += this._color.step; 
+		while(this._color.h < 140){
+			this._color.h += this._color.step;
 		}
 		return dojo.gfx.color.rgb2hex(rgb[0], rgb[1], rgb[2]);	//	string
 	},
@@ -61,7 +61,7 @@ dojo.extend(dojo.charting.PlotArea, {
 			right: this.size.width - this.padding.right,
 			top: this.padding.top,
 			bottom: this.size.height - this.padding.bottom,
-			toString:function(){ 
+			toString:function(){
 				var a=[ this.top, this.right, this.bottom, this.left ];
 				return "["+a.join()+"]";
 			}
@@ -86,7 +86,7 @@ dojo.extend(dojo.charting.PlotArea, {
 				plane: "y"
 			};
 		}
-		return axes;	//	object 
+		return axes;	//	object
 	},
 	getLegendInfo: function(){
 		//	summary
@@ -129,7 +129,7 @@ dojo.extend(dojo.charting.PlotArea, {
 			ay.upper=Math.max(ay.upper, y.upper);
 			ay.lower=Math.min(ay.lower, y.lower);
 		}
-		
+
 		//	now that we have all the max/min ranges, set the axes
 		for(var p in axes){
 			axes[p].range=ranges[p];
@@ -141,9 +141,9 @@ dojo.extend(dojo.charting.PlotArea, {
 		//	Render this plotArea.  Optional kwArgs are the same as that taken for Series.evaluate;
 		//	applyToData is a callback function used by plotters for customization.
 		if(!this.nodes.main
-			|| !this.nodes.area 
-			|| !this.nodes.background 
-			|| !this.nodes.plots 
+			|| !this.nodes.area
+			|| !this.nodes.background
+			|| !this.nodes.plots
 			|| !this.nodes.axes
 		){ this.initialize(); }
 
@@ -183,8 +183,8 @@ dojo.extend(dojo.charting.PlotArea, {
 			var node=this.nodes[p];
 			if(!node) continue;
 			if(!node.childNodes) continue;
-			while(node.childNodes.length > 0){ 
-				node.removeChild(node.childNodes[0]); 
+			while(node.childNodes.length > 0){
+				node.removeChild(node.childNodes[0]);
 			}
 			this.nodes[p]=null;
 		}

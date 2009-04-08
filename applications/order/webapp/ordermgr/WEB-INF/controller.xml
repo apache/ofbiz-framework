@@ -20,7 +20,7 @@ under the License.
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <description>Order Manager Module Site Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
@@ -202,7 +202,7 @@ under the License.
         <response name="success" type="view" value="editorderitems"/>
         <response name="error" type="view" value="editorderitems"/>
     </request-map>
-    
+
     <request-map uri="addpromocode">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addProductPromoCode"/>
@@ -325,7 +325,7 @@ under the License.
         <response name="success" type="request-redirect" value="orderview"><redirect-parameter name="orderId"/></response>
         <response name="error" type="view" value="orderview"/>
     </request-map>
-    
+
     <!-- Order Entry Requests -->
     <request-map uri="orderentry">
         <security https="true" auth="true"/>
@@ -557,14 +557,14 @@ under the License.
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderentry"/>
     </request-map>
-    
+
     <request-map uri="bulkAddProductsInApprovedOrder">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="bulkAddProductsInApprovedOrder"/>
-        <response name="success" type="request-redirect"  value="orderview"><redirect-parameter name="orderId"/></response>  
+        <response name="success" type="request-redirect"  value="orderview"><redirect-parameter name="orderId"/></response>
         <response name="error" type="request" value="orderview"/>
-    </request-map>    
-    
+    </request-map>
+
     <request-map uri="category">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="category"/>
@@ -612,7 +612,7 @@ under the License.
         <response name="error" type="request" value="orderentry"/>
     </request-map>
 
-    <!-- 
+    <!--
         Quick Finalize Order reuses the ecommerce checkoutoptions widget and template. We need to
         translate the controller requests here for use by ordermgr.  Note that the main entry point on submit is "checkout".
     -->
@@ -679,14 +679,14 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="custsetting"/>
     </request-map>
-    
+
     <request-map uri="updateOrderContactMech">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateOrderContactMech"/>
         <response name="success" type="view" value="orderview"/>
         <response name="error" type="view" value="orderview"/>
     </request-map>
-    
+
 
     <!-- ================================================================= -->
     <!-- ==================  MultiParty Modifs =========================== -->
@@ -945,14 +945,14 @@ under the License.
         <event type="service" invoke="removeReturnAdjustment"/>
         <response name="success" type="view" value="returnitems"/>
     </request-map>
-    
+
     <request-map uri="getStatusItemsForReturn">
         <security https="true" auth="true"/>
         <event type="jsonservice" invoke="getStatusItemsForReturn"/>
         <response name="success" type="none"/>
         <response name="error" type="none"/>
-    </request-map>    
-    
+    </request-map>
+
     <!-- Payment Processor Setup Requests -->
     <request-map uri="paysetup">
         <security https="true" auth="true"/>
@@ -970,7 +970,7 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="paysetup"/>
     </request-map>
-    
+
     <request-map uri="OrderPurchaseReportOptions"><security https="true" auth="true"/>
         <response name="success" type="view" value="OrderPurchaseReportOptions"/>
     </request-map>
@@ -1105,27 +1105,27 @@ under the License.
     <request-map uri="FindRequest"><security https="true" auth="true"/><response name="success" type="view" value="FindRequest"/></request-map>
     <request-map uri="ViewRequest"><security https="true" auth="true"/><response name="success" type="view" value="ViewRequest"/></request-map>
     <request-map uri="EditRequest"><security https="true" auth="true"/><response name="success" type="view" value="EditRequest"/></request-map>
-    
+
     <!-- CustRequest Content -->
     <request-map uri="EditCustRequestContent">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditCustRequestContent"/>
     </request-map>
-    
+
     <request-map uri="createCustRequestContent">
         <security auth="true" https="true"/>
         <event path="org/ofbiz/order/request/CustRequestEvents.xml" type="simple"  invoke="createCustRequestContent"/>
         <response name="success" type="request-redirect" value="EditCustRequestContent"><redirect-parameter name="custRequestId"/></response>
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>
-    
+
     <request-map uri="deleteCustRequestContent">
         <security auth="true" https="true"/>
         <event invoke="deleteCustRequestContent" type="service"/>
         <response name="success" type="request-redirect" value="EditCustRequestContent"><redirect-parameter name="custRequestId"/></response>
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>
-    
+
     <!-- deprecated: use EditRequest instead -->
     <request-map uri="request"><security https="true" auth="true"/><response name="success" type="view" value="EditRequest"/></request-map>
     <request-map uri="createrequest">
@@ -1211,7 +1211,7 @@ under the License.
         <response name="success" type="view" value="EditRequestItemWorkEfforts"/>
         <response name="error" type="view" value="EditRequestItemWorkEfforts"/>
     </request-map>
-    
+
     <request-map uri="RequestItemQuotes"><security https="true" auth="true"/><response name="success" type="view" value="RequestItemQuotes"/></request-map>
     <request-map uri="CreateQuoteAndQuoteItemForRequest">
         <security https="true" auth="true"/>
@@ -1273,7 +1273,7 @@ under the License.
         <response name="success" type="view" value="EditQuote"/>
         <response name="error" type="view" value="EditQuote"/>
     </request-map>
-    
+
     <request-map uri="ListQuoteRoles"><security https="true" auth="true"/><response name="success" type="view" value="ListQuoteRoles"/></request-map>
     <request-map uri="EditQuoteRole"><security https="true" auth="true"/><response name="success" type="view" value="EditQuoteRole"/></request-map>
     <request-map uri="createQuoteRole">
@@ -1288,7 +1288,7 @@ under the License.
         <response name="success" type="view" value="ListQuoteRoles"/>
         <response name="error" type="view" value="ListQuoteRoles"/>
     </request-map>
-    
+
     <request-map uri="ListQuoteItems"><security https="true" auth="true"/><response name="success" type="view" value="ListQuoteItems"/></request-map>
     <request-map uri="EditQuoteItem"><security https="true" auth="true"/><response name="success" type="view" value="EditQuoteItem"/></request-map>
     <request-map uri="createQuoteItem">
@@ -1306,7 +1306,7 @@ under the License.
         <event type="service" path="" invoke="removeQuoteItem"/>
         <response name="success" type="view" value="ListQuoteItems"/>
     </request-map>
-    
+
     <request-map uri="ListQuoteAttributes"><security https="true" auth="true"/><response name="success" type="view" value="ListQuoteAttributes"/></request-map>
     <request-map uri="EditQuoteAttribute"><security https="true" auth="true"/><response name="success" type="view" value="EditQuoteAttribute"/></request-map>
     <request-map uri="createQuoteAttribute">
@@ -1324,7 +1324,7 @@ under the License.
         <event type="service" path="" invoke="removeQuoteAttribute"/>
         <response name="success" type="view" value="ListQuoteAttributes"/>
     </request-map>
-    
+
     <request-map uri="ListQuoteCoefficients"><security https="true" auth="true"/><response name="success" type="view" value="ListQuoteCoefficients"/></request-map>
     <request-map uri="EditQuoteCoefficient"><security https="true" auth="true"/><response name="success" type="view" value="EditQuoteCoefficient"/></request-map>
     <request-map uri="createQuoteCoefficient">
@@ -1342,7 +1342,7 @@ under the License.
         <event type="service" path="" invoke="removeQuoteCoefficient"/>
         <response name="success" type="view" value="ListQuoteCoefficients"/>
     </request-map>
-    
+
     <request-map uri="ManageQuotePrices"><security https="true" auth="true"/><response name="success" type="view" value="ManageQuotePrices"/></request-map>
 
     <request-map uri="ListQuoteAdjustments"><security https="true" auth="true"/><response name="success" type="view" value="ListQuoteAdjustments"/></request-map>
@@ -1379,7 +1379,7 @@ under the License.
         <event type="service" path="" invoke="removeQuoteAdjustment"/>
         <response name="success" type="view" value="ListQuoteAdjustments"/>
     </request-map>
-    
+
     <!--  WorkEffort Quote request mappings -->
     <request-map uri="ListQuoteWorkEfforts">
         <security https="true" auth="true"/>
@@ -1411,11 +1411,11 @@ under the License.
         <response name="success" type="view" value="ListQuoteWorkEfforts"/>
         <response name="error" type="view" value="ListQuoteWorkEfforts"/>
     </request-map>
-    
+
     <!--  OrderHeader request mappings -->
     <request-map uri="ListOrderHeaders"><security https="true" auth="true"/><response name="success" type="view" value="ListOrderHeaders"/></request-map>
     <request-map uri="AddOrderHeader"><security https="true" auth="true"/><response name="success" type="view" value="EditOrderHeader"/></request-map>
-    
+
     <request-map uri="EditOrderHeader"><security https="true" auth="true"/><response name="success" type="view" value="EditOrderHeader"/></request-map>
     <request-map uri="createOrderHeader">
         <security https="true" auth="true"/>
@@ -1449,13 +1449,13 @@ under the License.
         <event type="service" path="" invoke="addPaymentMethodToOrder"/>
         <response name="success" type="request" value="authOrderPayment"/>
     </request-map>
-    
+
     <request-map uri="authOrderPayment">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="authOrderPaymentPreference"/>
         <response name="success" type="request-redirect" value="orderview"><redirect-parameter name="orderId"/></response>
     </request-map>
-    
+
     <request-map uri="updateOrderPaymentPreference">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateOrderPaymentPreference"/>
@@ -1475,7 +1475,7 @@ under the License.
     <request-map uri="LookupCustomerName"><security auth="true" https="true"/><response name="success" type="view" value="LookupCustomerName"/></request-map>
     <request-map uri="LookupProduct"><security https="true" auth="true"/><response name="success" type="view" value="LookupProduct"/></request-map>
     <request-map uri="LookupSupplierProduct"><security https="true" auth="true"/><response name="success" type="view" value="LookupSupplierProduct"/></request-map>
-    <request-map uri="LookupBulkAddSupplierProductsInApprovedOrder"><security https="true" auth="true"/><response name="success" type="view" value="LookupBulkAddSupplierProductsInApprovedOrder"/></request-map>    
+    <request-map uri="LookupBulkAddSupplierProductsInApprovedOrder"><security https="true" auth="true"/><response name="success" type="view" value="LookupBulkAddSupplierProductsInApprovedOrder"/></request-map>
     <request-map uri="LookupProductAndPrice"><security https="true" auth="true"/><response name="success" type="view" value="LookupProductAndPrice"/></request-map>
     <request-map uri="LookupProductFeature"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductFeature"/></request-map>
     <request-map uri="LookupUserLoginAndPartyDetails"><security https="true" auth="true"/><response name="success" type="view" value="LookupUserLoginAndPartyDetails"/></request-map>
@@ -1505,11 +1505,11 @@ under the License.
         <security auth="true" https="true"/>
         <response name="success" type="view" value="LookupProductCategory"/>
     </request-map>
-    
+
     <request-map uri="LookupContent"><security auth="true" https="true"/><response name="success" type="view" value="LookupContent"/></request-map>
     <!--
         These are just examples of reports developed using JasperReport and not really
-        useful reports. In order to run them you'll have to follow the notes in the 
+        useful reports. In order to run them you'll have to follow the notes in the
         OPTIONAL_LIBRARIES files, add the following entry:
         <handler name="jasperreportspdf" type="view" class="org.ofbiz.webapp.view.JasperReportsPdfViewHandler"/>
         to the handler section of this file and uncomment the following lines:
@@ -1525,8 +1525,8 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="orderreportlist"/>
     </request-map>
-    
-    
+
+
     <view-map name="orderreportlist" type="screen" page="component://order/widget/ordermgr/OrderReportScreens.xml#OrderReportList"/>
     <view-map name="orderreportjasper" type="jasperreportspdf" page="/reports/orderreport.xml" content-type="application/pdf" encoding="none"/>
     <view-map name="orderitemreportjasper" type="jasperreportspdf" page="/reports/orderitemreport.xml" content-type="application/pdf" encoding="none"/>
@@ -1642,30 +1642,30 @@ under the License.
     <view-map name="EditRequestItemWorkEfforts" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditRequestItemWorkEfforts"/>
     <view-map name="CreateQuoteAndQuoteItemForRequest" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#CreateQuoteAndQuoteItemForRequest"/>
     <view-map name="EditQuoteItemForRequest" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditQuoteItemForRequest"/>
-    <view-map name="EditCustRequestContent" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditCustRequestContent"/>      
-    
+    <view-map name="EditCustRequestContent" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditCustRequestContent"/>
+
     <view-map name="AddQuoteWorkEffort" type="screen" page="component://order/widget/ordermgr/QuoteWorkEffortScreens.xml#AddQuoteWorkEffort"/>
     <view-map name="EditQuoteWorkEffort" type="screen" page="component://order/widget/ordermgr/QuoteWorkEffortScreens.xml#EditQuoteWorkEffort"/>
     <view-map name="ListQuoteWorkEfforts" type="screen" page="component://order/widget/ordermgr/QuoteWorkEffortScreens.xml#ListQuoteWorkEfforts"/>
     <view-map name="EditOrderHeader" type="screen" page="component://order/widget/ordermgr/OrderHeaderScreens.xml#EditOrderHeader"/>
     <view-map name="ListOrderHeaders" type="screen" page="component://order/widget/ordermgr/OrderHeaderScreens.xml#ListOrderHeaders"/>
-    
+
     <view-map name="LookupPerson" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson"/>
     <view-map name="LookupPartyGroup" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyGroup"/>
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupCustomerName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCustomerName"/>
     <view-map name="LookupProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProduct"/>
     <view-map name="LookupSupplierProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupSupplierProduct"/>
-    <view-map name="LookupBulkAddSupplierProductsInApprovedOrder" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#LookupBulkAddSupplierProductsInApprovedOrder"/>    
+    <view-map name="LookupBulkAddSupplierProductsInApprovedOrder" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#LookupBulkAddSupplierProductsInApprovedOrder"/>
     <view-map name="LookupProductAndPrice" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductAndPrice"/>
     <view-map name="LookupProductFeature" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductFeature"/>
-    <view-map name="LookupUserLoginAndPartyDetails" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupUserLoginAndPartyDetails"/>    
+    <view-map name="LookupUserLoginAndPartyDetails" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupUserLoginAndPartyDetails"/>
     <view-map name="LookupPreferredContactMech" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupPreferredContactMech"/>
     <view-map name="LookupVariantProduct" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupVariantProduct"/>
 
     <view-map name="LookupFacility" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacility"/>
     <view-map name="LookupFixedAsset" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupFixedAsset"/>
-    
+
     <view-map name="LookupShoppingList" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupShoppingList"/>
     <view-map name="LookupCustRequest" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupCustRequest"/>
     <view-map name="LookupCustRequestItem" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupCustRequestItem"/>

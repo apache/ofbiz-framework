@@ -674,7 +674,7 @@ under the License.
         <description>EFT Account Test Release</description>
         <implements service="paymentReleaseInterface"/>
     </service>
-    
+
     <!-- Verify Credit Card Service-->
     <service name="verifyCreditCard" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="verifyCreditCard" auth="true">
@@ -702,7 +702,7 @@ under the License.
         <description>delete a Credit Card Gl Account</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- Update updatePaymentMethodType -->
     <service name="updatePaymentMethodType" default-entity-name="PaymentMethodType" engine="simple"
                 location="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodServices.xml" invoke="updatePaymentMethodType" auth="true">

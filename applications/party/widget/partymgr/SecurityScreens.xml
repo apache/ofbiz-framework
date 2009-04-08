@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="FindSecurityGroup">
@@ -52,11 +52,11 @@ under the License.
                                                     <link target="EditSecurityGroup" style="smallSubmit" text="${uiLabelMap.PartyNewSecurityGroup}"/>
                                                     <link target="EditCertIssuerProvisions" style="smallSubmit" text="${uiLabelMap.PartyCertIssuers}"/>
                                                 </container>
-                                                <include-form name="ListSecurityGroups" location="component://party/widget/partymgr/SecurityForms.xml"/>                                                
+                                                <include-form name="ListSecurityGroups" location="component://party/widget/partymgr/SecurityForms.xml"/>
                                             </widgets>
                                         </section>
                                     </container>
-                                </container>                                
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.PartySecurityViewPermissionError}</label>
@@ -73,7 +73,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSecurityGroup"/>
                 <set field="tabButtonItem" value="EditSecurityGroup"/>
                 <set field="labelTitleProperty" value="PartyEditSecurityGroupWithId"/>
-                
+
                 <set field="groupId" from-field="parameters.groupId"/>
                 <entity-one entity-name="SecurityGroup" value-field="securityGroup"/>
             </actions>
@@ -93,7 +93,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -105,7 +105,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditSecurityGroupPermissions"/>
                 <set field="tabButtonItem" value="EditSecurityGroupPermissions"/>
                 <set field="labelTitleProperty" value="PartyPermissionSecurityGroupWithId"/>
-                
+
                 <set field="groupId" from-field="parameters.groupId"/>
                 <entity-one entity-name="SecurityGroup" value-field="securityGroup"/>
             </actions>
@@ -165,7 +165,7 @@ under the License.
                 <set field="titleProperty" value="PartyAddUserLoginToSecurityGroup"/>
                 <set field="tabButtonItem" value="EditSecurityGroupUserLogins"/>
                 <set field="labelTitleProperty" value="PartyUserLoginsForSecurityGroup"/>
-                
+
                 <set field="groupId" from-field="parameters.groupId"/>
                 <entity-one entity-name="SecurityGroup" value-field="securityGroup"/>
             </actions>
@@ -187,7 +187,7 @@ under the License.
                 <set field="titleProperty" value="PartyAddProtectedViewToSecurityGroup"/>
                 <set field="tabButtonItem" value="EditSecurityGroupProtectedViews"/>
                 <set field="labelTitleProperty" value="PartyProtectedViewsForSecurityGroup"/>
-                
+
                 <set field="groupId" from-field="parameters.groupId"/>
                 <entity-one entity-name="SecurityGroup" value-field="securityGroup"/>
             </actions>
@@ -203,7 +203,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditX509IssuerProvisions">
         <section>
             <actions>
@@ -237,7 +237,7 @@ under the License.
                                                 </container>
                                                 <container>
                                                     <include-form name="CertIssuerList" location="component://party/widget/partymgr/SecurityForms.xml"/>
-                                                </container>                                                
+                                                </container>
                                             </widgets>
                                         </section>
                                     </container>
@@ -263,7 +263,7 @@ under the License.
                         </section>
                     </decorator-section>
                 </decorator-screen>
-            </widgets>            
+            </widgets>
         </section>
     </screen>
 

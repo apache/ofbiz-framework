@@ -17,16 +17,16 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<XPage class="net.xoetrope.swing.XDialog"> 
+<XPage class="net.xoetrope.swing.XDialog">
     <Components>
         <Panel x="0" y="0" w="1280" h="1024" style="menu">
             <ScrollPane x="20" y="20" w="150" h="372">
                 <List name="configList" x="0" y="0" w="200" h="400" style="editAndList"/>
             </ScrollPane>
             <!-- <Button name="BtnCancel" x="0" y="500" w="100" h="60" style="configureItemButtonRed" content="Cancel" alignment="Center"/> -->
-            <Button name="BtnOk" x="102" y="500" w="100" h="60" style="configureItemButtonGreen" content="Ok" alignment="Center"/>       
+            <Button name="BtnOk" x="102" y="500" w="100" h="60" style="configureItemButtonGreen" content="Ok" alignment="Center"/>
             <Button name="BtnReset" x="204" y="500" w="100" h="60" style="configureItemButtonRed" content="Reset" alignment="Center"/>
-            
+
             <ScrollPane name="optionListPane" x="625" y="20" w="150" h="372">
                 <List name="optionList" x="0" y="0" w="200" h="400" style="editAndList"/>
             </ScrollPane>

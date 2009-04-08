@@ -19,7 +19,7 @@ under the License.
 <#escape x as x?xml>
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:fox="http://xml.apache.org/fop/extensions">
     <fo:layout-master-set>
-        <fo:simple-page-master master-name="main" 
+        <fo:simple-page-master master-name="main"
              margin-top="1.0cm" margin-bottom="1in" margin-left="0.5cm" margin-right="0.5cm">
           <fo:region-body margin-top="1.0cm" margin-bottom="1.0cm"/>  <#-- main body -->
             <fo:region-before extent="1.0cm"/>  <#-- a header -->
@@ -151,9 +151,9 @@ under the License.
                     <#assign dimColor = "#D4D0C8">
                     <#assign rowColor = "white">
                     <#list productionRunComponentsData as productionRunComponentData>
-              
+
                     <#assign resQuantityComp = productionRunComponentData.estimatedQuantity - productionRunComponentData.issuedQuantity>
- 
+
                        <fo:table-row>
                             <fo:table-cell padding="2pt">
                                 <fo:block>${productionRunComponentData.productId?if_exists}</fo:block>
@@ -171,7 +171,7 @@ under the License.
                                 <fo:block>${resQuantityComp?if_exists}</fo:block>
                              </fo:table-cell>
                         </fo:table-row>
-                    </#list>          
+                    </#list>
                 </fo:table-body>
             </fo:table>
             <#-- Tasks   -->
@@ -211,7 +211,7 @@ under the License.
                                 <fo:block>${productionRunRoutingTask.estimatedMilliSeconds?if_exists}</fo:block>
                             </fo:table-cell>
                         </fo:table-row>
-                    </#list>          
+                    </#list>
                 </fo:table-body>
             </fo:table>
         </fo:flow>

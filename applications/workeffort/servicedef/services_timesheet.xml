@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>WorkEffort Timesheet Services</description>
     <vendor>OFBiz</vendor>
@@ -48,7 +48,7 @@ under the License.
         <description>Deletes Timesheet</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="createTimesheets" engine="simple" 
+    <service name="createTimesheets" engine="simple"
             location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="createTimesheets" auth="true">
         <description>Creates Timesheet for multiple Parties in a single shot</description>
         <attribute name="partyIdList" type="List" mode="IN" optional="true"/>
@@ -81,7 +81,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="OUT" optional="false"/>
     </service>
-    
+
     <service name="addWorkEffortTimeToInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
         location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="addWorkEffortTimeToInvoice">
         <description>Add WorkEffort Time to existing Invoice, with the option to combine all timeentries with the same rateType into one invoiceItem </description>
@@ -101,7 +101,7 @@ under the License.
         <attribute name="combineInvoiceItem" mode="IN" type="String" optional="true"/>
         <attribute name="thruDate" mode="IN" type="Timestamp" optional="true"/>
     </service>
-    
+
     <!-- TimesheetRole Services -->
     <service name="createTimesheetRole" default-entity-name="TimesheetRole" engine="simple" auth="true"
         location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="createTimesheetRole">
@@ -114,7 +114,7 @@ under the License.
         <description>Deletes TimesheetRole</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- TimeEntry Services -->
     <service name="createTimeEntry" default-entity-name="TimeEntry" engine="simple" auth="true"
         location="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="createTimeEntry">
@@ -146,6 +146,6 @@ under the License.
         <attribute name="currencyUomId" mode="IN" type="String" optional="true"/>
         <attribute name="rateAmount" type="BigDecimal" mode="OUT" optional="true"/>
     </service>
-    
+
     <!-- WorkEffortRate Services (WorkEffortAssignmentRate Services now depreciated and replced by RateAmount services )-->
 </services>

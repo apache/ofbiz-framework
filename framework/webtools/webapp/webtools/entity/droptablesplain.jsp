@@ -23,9 +23,9 @@ if(security.hasPermission("ENTITY_MAINT", session)) {
   TreeSet entities = new TreeSet(ec);
   Iterator classNamesIterator = entities.iterator();
   while(classNamesIterator != null && classNamesIterator.hasNext()) { ModelEntity entity = reader.getModelEntity((String)classNamesIterator.next());%>
-DROP TABLE <%=entity.getPlainTableName()%>;<%}%> 
+DROP TABLE <%=entity.getPlainTableName()%>;<%}%>
 <%
-} 
+}
 else {
   %>ERROR: You do not have permission to use this page (ENTITY_MAINT needed)<%
 }

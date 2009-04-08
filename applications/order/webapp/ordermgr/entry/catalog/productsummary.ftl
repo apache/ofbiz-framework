@@ -19,10 +19,10 @@ under the License.
 <#if product?exists>
     <#-- variable setup -->
     <#assign productUrl = Static["org.ofbiz.product.category.CatalogUrlServlet"].makeCatalogUrl(request, product.productId, categoryId, "")/>
-    
+
     <#if requestAttributes.productCategoryMember?exists>
         <#assign prodCatMem = requestAttributes.productCategoryMember>
-    </#if>    
+    </#if>
     <#assign smallImageUrl = productContentWrapper.get("SMALL_IMAGE_URL")?if_exists>
     <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
     <#-- end variable setup -->
@@ -74,7 +74,7 @@ under the License.
             <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="the${requestAttributes.formNamePrefix?if_exists}${requestAttributes.listIndex?if_exists}form" style="margin: 0;">
               <input type="hidden" name="add_product_id" value="${product.productId}"/>
               <input type="text" size="5" name="quantity" value="1"/>
-              <input type="hidden" name="clearSearch" value="N"/>              
+              <input type="hidden" name="clearSearch" value="N"/>
               <a href="javascript:document.the${requestAttributes.formNamePrefix?if_exists}${requestAttributes.listIndex?if_exists}form.submit()" class="buttontext">${uiLabelMap.OrderAddToCart}</a>
             </form>
 
@@ -93,12 +93,12 @@ under the License.
             <a href="${productUrl}" class="linktext">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</a>
           </div>
           <div>${productContentWrapper.get("DESCRIPTION")?if_exists}<#if daysToShip?exists>&nbsp;-&nbsp;${uiLabelMap.ProductUsuallyShipsIn} <b>${daysToShip}</b> ${uiLabelMap.CommonDays}!</#if></div>
-          
+
           <#-- Display category-specific product comments -->
-          <#if prodCatMem?exists && prodCatMem.comments?has_content> 
+          <#if prodCatMem?exists && prodCatMem.comments?has_content>
           <div>${prodCatMem.comments}</div>
           </#if>
-          
+
           <#-- example of showing a certain type of feature with the product -->
           <#if sizeProductFeatureAndAppls?has_content>
             <div>

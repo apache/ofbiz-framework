@@ -52,9 +52,9 @@ under the License.
   <#else>
     <p>${uiLabelMap.WebtoolsNoFilenameSpecified}</p>
   </#if>
-    
+
   <hr/>
-    
+
   <h2>${uiLabelMap.WebtoolsExport}:</h2>
   <form method="post" action="<@ofbizUrl>xmldsdump</@ofbizUrl>" name="entityExport">
     <table class="basic-table">

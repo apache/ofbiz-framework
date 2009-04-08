@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<data-files xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<data-files xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/datafiles.xsd">
     <data-file name="TaxwareOutHead" type-code="001" record-length="60" separator-style="fixed-record">
         <record name="outHead">

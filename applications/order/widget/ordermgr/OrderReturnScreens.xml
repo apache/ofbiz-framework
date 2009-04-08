@@ -58,7 +58,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <container>                            
+                                        <container>
                                             <link style="buttontext" target="returnMain" text="${uiLabelMap.OrderCreateNewReturn}"/>
                                         </container>
                                         <include-form name="FindReturns" location="component://order/webapp/ordermgr/return/ReturnForms.xml"/>
@@ -66,7 +66,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                                                
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -99,7 +99,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -122,7 +122,7 @@ under the License.
                             <widgets>
                                 <include-form name="EditReturn" location="component://order/webapp/ordermgr/return/ReturnForms.xml"/>
                             </widgets>
-                        </section>                
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -155,7 +155,7 @@ under the License.
                                     </widgets>
                                 </section>
                             </container>
-                        </container>                        
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

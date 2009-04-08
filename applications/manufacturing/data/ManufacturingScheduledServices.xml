@@ -29,7 +29,7 @@ under the License.
     <JobSandbox jobId="8400" jobName="Init BOM Low Level Codes" runTime="2000-01-01 00:00:00.000" serviceName="initLowLevelCode" poolId="pool" runAsUser="system" recurrenceInfoId="300"/>
     <!--
       The calculateAllProductsCosts service is used to run the standard cost calc routine for all the products.
-      Runtime data is set to pass the currency uom to the service (USD): chenge this to run the routine in 
+      Runtime data is set to pass the currency uom to the service (USD): chenge this to run the routine in
       another currency.
       The results of this will be available in the catalog->product->cost tab.
       NOTE: in order to function properly, this service needs that

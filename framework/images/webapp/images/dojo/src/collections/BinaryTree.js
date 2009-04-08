@@ -73,7 +73,7 @@ dojo.collections.BinaryTree=function(data){
 		}
 		return s;
 	}
-	
+
 	function searchHelper(current, data){
 		if (!current) return null;
 		var i=current.compareData(data);

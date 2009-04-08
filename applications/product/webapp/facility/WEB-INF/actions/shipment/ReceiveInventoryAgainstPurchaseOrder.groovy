@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -33,7 +33,7 @@ itemQuantitiesToReceive = session.getAttribute("purchaseOrderItemQuantitiesToRec
 if (itemQuantitiesToReceive) {
     sessionShipmentId = itemQuantitiesToReceive._shipmentId;
     sessionOrderId = itemQuantitiesToReceive._orderId;
-    if ((sessionShipmentId && !sessionShipmentId.equals(shipmentId)) || 
+    if ((sessionShipmentId && !sessionShipmentId.equals(shipmentId)) ||
         ((sessionOrderId && !sessionOrderId.equals(orderId)))        ||
          "Y".equals(request.getParameter("clearAll"))) {
 
@@ -117,9 +117,9 @@ totalAvailableToReceive = 0;
 
 // Populate the order item data for the FTL
 orderItems = orderHeader.getRelated("OrderItemAndShipGroupAssoc", oiasgaLimitMap, ['shipGroupSeqId', 'orderItemSeqId']);
-orderItems.each { orderItemAndShipGroupAssoc ->   
+orderItems.each { orderItemAndShipGroupAssoc ->
     product = orderItemAndShipGroupAssoc.getRelatedOne("Product");
-    
+
     // Get the order item, since the orderItemAndShipGroupAssoc's quantity field is manipulated in some cases
     orderItem = delegator.findOne("OrderItem", [orderId : orderId, orderItemSeqId : orderItemAndShipGroupAssoc.orderItemSeqId], false);
     orderItemData = [:];
@@ -140,7 +140,7 @@ orderItems.each { orderItemAndShipGroupAssoc ->
     receipts = delegator.findList("ShipmentReceipt", EntityCondition.makeCondition([orderId : orderId, orderItemSeqId : orderItem.orderItemSeqId]), null, null, null, false);
     fulfilledReservations = [] as ArrayList;
     if (receipts) {
-        receipts.each { rec ->  
+        receipts.each { rec ->
             accepted = rec.getDouble("quantityAccepted");
             rejected = rec.getDouble("quantityRejected");
             if (accepted) {
@@ -170,11 +170,11 @@ orderItems.each { orderItemAndShipGroupAssoc ->
 
     // Retrieve the backordered quantity
     // TODO: limit to a facility? The shipment destination facility is not necessarily the same facility as the inventory
-    conditions = [EntityCondition.makeCondition("productId", EntityOperator.EQUALS, product.productId), 
+    conditions = [EntityCondition.makeCondition("productId", EntityOperator.EQUALS, product.productId),
                   EntityCondition.makeCondition("availableToPromiseTotal", EntityOperator.LESS_THAN, new Double(0))];
     negativeInventoryItems = delegator.findList("InventoryItem",  EntityCondition.makeCondition(conditions, EntityOperator.AND), null, null, null, false);
     backOrderedQuantity = 0;
-    negativeInventoryItems.each { negativeInventoryItem -> 
+    negativeInventoryItems.each { negativeInventoryItem ->
         backOrderedQuantity += negativeInventoryItem.getDouble("availableToPromiseTotal").doubleValue();
     }
     orderItemData.backOrderedQuantity = Math.abs(backOrderedQuantity);
@@ -214,7 +214,7 @@ if (productIdToReceive) {
             }
         }
     }
-    
+
     if (candidateOrderItems) {
         quantity = 0;
         if (productQtyToReceive) {
@@ -234,24 +234,24 @@ if (productIdToReceive) {
             qtyBefore = itemQuantitiesToReceive.containsKey(orderItemSeqId) ? itemQuantitiesToReceive.get(orderItemSeqId) : 0;
             totalQuantityToReceiveBefore += qtyBefore;
             qtyMaxAvailable = orderItemDatas.get(orderItemSeqId).availableToReceive - qtyBefore;
-            
+
             if (qtyMaxAvailable <= 0) {
                 continue;
             }
-            
+
             qtyUsedForItem  = quantity - totalQuantityUsed >= qtyMaxAvailable ? qtyMaxAvailable : quantity - totalQuantityUsed;
             itemQuantitiesToReceive.put(orderItemSeqId, qtyUsedForItem + qtyBefore);
             totalQuantityUsed += qtyUsedForItem;
         }
-        
+
         // If there's any quantity to receive left after using as much as possible for every relevant order item, add an error message to the context
         if (quantity > totalQuantityUsed) {
             context.ProductReceiveInventoryAgainstPurchaseOrderQuantityExceedsAvailableToReceive = true;
         }
-        
+
         // Notify if some or all of the quantity just entered for the product will go to a backorder
         backOrderedQuantity = orderItemDatas.get(EntityUtil.getFirst(candidateOrderItems).orderItemSeqId).backOrderedQuantity - totalQuantityToReceiveBefore;
-        
+
         if (backOrderedQuantity > 0) {
             totalQtyUsedForBackorders = backOrderedQuantity >= totalQuantityUsed ? totalQuantityUsed : backOrderedQuantity;
             if (totalQtyUsedForBackorders > 0) {

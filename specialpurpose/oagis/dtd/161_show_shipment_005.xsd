@@ -2,24 +2,24 @@
 <!-- ====================================================
 	License information for this file is provided in LICENSE.TXT, as published
 	on the Open Applications Group web site. www.openapplications.org
-	
+
 	For support, more information, or to report implementation bugs,
 	please contact the Open Applications Group at xml@openapplications.org
-	
+
 	$Revision: 7.2.1 $
 	$Date: 31 October 2001 $
 	Open Applications Group xml
 	Copyright 1998-2001, All Rights Reserved
-	
+
 	$Name: 161_show_shipment_005.xsd $
 
 	rjj	7.0.0	10/15/2000	Initial Release.
 	rjj	7.0.1	10/27/2000	Changed INVITEM from required to optional within CONTAINER.
 	rjj	7.0.2	11/24/2000	Allow multiple instances of NOTES.
-	mlr	7.1		04/16/2001	Add ATTCHREF to the BOD 
-	ajw	7.2.1	10/31/2001	Confirmed ATTCHREF to SHIPMENT and SHIPUNIT elements	
-	ajw	7.2.1	10/31/2001	W3C Schema Release 
-	
+	mlr	7.1		04/16/2001	Add ATTCHREF to the BOD
+	ajw	7.2.1	10/31/2001	Confirmed ATTCHREF to SHIPMENT and SHIPUNIT elements
+	ajw	7.2.1	10/31/2001	W3C Schema Release
+
 	Structure Overview
 
 	SHOW_SHIPMENT (SHIPMENT, SHIPUNIT*)
@@ -40,7 +40,7 @@
 				INVDETAIL()
 
 Notes:
-	    
+
 -->
 <xs:schema targetNamespace="http://www.openapplications.org/161_show_shipment_005" xmlns="http://www.openapplications.org/161_show_shipment_005" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:of="http://www.openapplications.org/oagis_fields" xmlns:os="http://www.openapplications.org/oagis_segments">
 	<xs:import namespace="http://www.openapplications.org/oagis_segments" schemaLocation="oagis_segments.xsd"/>

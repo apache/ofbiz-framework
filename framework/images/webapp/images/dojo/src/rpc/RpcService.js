@@ -29,7 +29,7 @@ dojo.lang.extend(dojo.rpc.RpcService, {
 
 	parseResults: function(obj){
 		// summary
-		// parse the results coming back from an rpc request.  
+		// parse the results coming back from an rpc request.
    		// this base implementation, just returns the full object
 		// subclasses should parse and only return the actual results
 		return obj;
@@ -46,7 +46,7 @@ dojo.lang.extend(dojo.rpc.RpcService, {
 	resultCallback: function(/* dojo.Deferred */ deferredRequestHandler){
 		// summary
 		// create callback that calls the Deferred's callback method
-		var tf = dojo.lang.hitch(this, 
+		var tf = dojo.lang.hitch(this,
 			function(type, obj, e){
 				if (obj["error"]!=null) {
 					var err = new Error(obj.error);
@@ -54,7 +54,7 @@ dojo.lang.extend(dojo.rpc.RpcService, {
 					deferredRequestHandler.errback(err);
 				} else {
 					var results = this.parseResults(obj);
-					deferredRequestHandler.callback(results); 
+					deferredRequestHandler.callback(results);
 				}
 			}
 		);
@@ -93,7 +93,7 @@ dojo.lang.extend(dojo.rpc.RpcService, {
 				if(m && m["name"]){
 					dojo.debug("RpcService: Creating Method: this.", m.name, "()");
 					this[m.name] = this.generateMethod(	m.name,
-														m.parameters, 
+														m.parameters,
 														m["url"]||m["serviceUrl"]||m["serviceURL"]);
 					if(dojo.lang.isFunction(this[m.name])){
 						dojo.debug("RpcService: Successfully created", m.name, "()");
@@ -117,6 +117,6 @@ dojo.lang.extend(dojo.rpc.RpcService, {
 			mimetype: "text/json",
 			load: dojo.lang.hitch(this, function(type, object, e){ return this.processSmd(object); }),
 			sync: true
-		});		
+		});
 	}
 });

@@ -84,7 +84,7 @@ under the License.
                     <#if value?has_content>
                         <#assign labelValue = value.getLabelValue()>
                         <#assign labelComment = value.getLabelComment()>
-                    </#if>   
+                    </#if>
                 </#if>
                 <#assign showLocale = true>
                 <#if parameters.labelLocaleName?exists && parameters.labelLocaleName != "" && parameters.labelLocaleName != localeFound>

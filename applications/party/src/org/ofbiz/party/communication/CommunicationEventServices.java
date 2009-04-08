@@ -745,7 +745,7 @@ public class CommunicationEventServices {
     }
 
     /*
-     * Calls findPartyFromEmailAddress service and returns a List of the results for the array of addresses 
+     * Calls findPartyFromEmailAddress service and returns a List of the results for the array of addresses
      */
     private static List buildListOfPartyInfoFromEmailAddresses(Address [] addresses, GenericValue userLogin, LocalDispatcher dispatcher) throws GenericServiceException {
         InternetAddress emailAddress = null;

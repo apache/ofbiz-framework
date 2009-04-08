@@ -30,7 +30,7 @@ under the License.
     <Scope>sub</Scope>
     <URL>ldap://localhost:389</URL>
     <UseOFBizLoginWhenLDAPFail>true</UseOFBizLoginWhenLDAPFail>
-    
+
     <!-- for CAS-LDAP -->
     <CasLoginUri>/login</CasLoginUri>
     <CasLogoutUri>/logout</CasLogoutUri>
@@ -38,7 +38,7 @@ under the License.
     <CasValidateUri>/validate</CasValidateUri>
     <CasLdapHandler>org.ofbiz.ldap.openldap.OFBizLdapAuthenticationHandler</CasLdapHandler>
     <CasTGTCookieName>CASTGC</CasTGTCookieName>
-    
+
     <!-- for MS Active Directory -->
     <SearchType/>
     <UserDNForSearch/>

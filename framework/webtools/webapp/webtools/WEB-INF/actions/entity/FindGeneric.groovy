@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -52,11 +52,11 @@ ModelEntity modelEntity = reader.getModelEntity(entityName);
 groupByFields = FastList.newInstance();
 functionFields = FastList.newInstance();
 
-if (modelEntity instanceof ModelViewEntity) {    
+if (modelEntity instanceof ModelViewEntity) {
     aliases = modelEntity.getAliasesCopy()
     for (ModelAlias alias : aliases) {
         if (alias.getGroupBy()) {
-            groupByFields.add(alias.getName());        
+            groupByFields.add(alias.getName());
         } else if (alias.getFunction()) {
             functionFields.add(alias.getName());
         }
@@ -82,7 +82,7 @@ if (find == null) {
 }
 
 String curFindString = "entityName=" + entityName + "&find=" + find;
- 
+
 GenericEntity findByEntity = delegator.makeValue(entityName);
 List errMsgList = FastList.newInstance();
 for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
@@ -107,10 +107,10 @@ if (errMsgList) {
 curFindString = UtilFormatOut.encodeQuery(curFindString);
 context.curFindString = curFindString;
 
-try { 
-    viewIndex = Integer.valueOf((String)parameters.get("VIEW_INDEX")).intValue(); 
-} catch (NumberFormatException nfe) { 
-    viewIndex = 0; 
+try {
+    viewIndex = Integer.valueOf((String)parameters.get("VIEW_INDEX")).intValue();
+} catch (NumberFormatException nfe) {
+    viewIndex = 0;
 }
 
 context.viewIndexFirst = 0;
@@ -121,7 +121,7 @@ context.viewIndexNext = viewIndex+1;
 try {
     viewSize = Integer.valueOf((String)parameters.get("VIEW_SIZE")).intValue();
 } catch (NumberFormatException nfe) {
-    viewSize = 10; 
+    viewSize = 10;
 }
 
 context.viewSize = viewSize;
@@ -135,7 +135,7 @@ List resultPartialList = null;
 
 if ("true".equals(find)) {
     //EntityCondition condition = EntityCondition.makeCondition(findByEntity, EntityOperator.AND);
-    
+
     // small variation to support LIKE if a wildcard (%) is found in a String
     conditionList = FastList.newInstance();
     findByKeySet = findByEntity.keySet();
@@ -149,9 +149,9 @@ if ("true".equals(find)) {
         }
     }
     condition = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
-    
+
     // DEJ 20080701 avoid using redundant query, will use eli.getResultsSizeAfterPartialList() below instead: arraySize = (int) delegator.findCountByCondition(entityName, condition, null, null);
-    
+
     if ((highIndex - lowIndex + 1) > 0) {
         boolean beganTransaction = false;
         try {
@@ -161,7 +161,7 @@ if ("true".equals(find)) {
             efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
             EntityListIterator resultEli = null;
             fieldsToSelect = null;
-            
+
             if (groupByFields || functionFields) {
                 fieldsToSelect = FastSet.newInstance();
 
@@ -173,15 +173,15 @@ if ("true".equals(find)) {
                     fieldsToSelect.add(functionField)
                 }
             }
-            
+
             resultEli = delegator.find(entityName, condition, null, fieldsToSelect, null, efo);
             resultPartialList = resultEli.getPartialList(lowIndex, highIndex - lowIndex + 1);
-            
+
             arraySize = resultEli.getResultsSizeAfterPartialList();
             if (arraySize < highIndex) {
                 highIndex = arraySize;
             }
-            
+
             resultEli.close();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Failure in operation, rolling back transaction", "FindGeneric.groovy");
@@ -204,20 +204,20 @@ context.arraySize = arraySize;
 context.resultPartialList = resultPartialList;
 
 viewIndexLast = (int) (arraySize/viewSize);
-context.viewIndexLast = viewIndexLast;      
+context.viewIndexLast = viewIndexLast;
 
 List fieldList = FastList.newInstance();
 for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
     ModelField field = modelEntity.getField(fnum);
     ModelFieldType type = delegator.getEntityFieldType(modelEntity, field.getType());
-    
+
     Map fieldMap = FastMap.newInstance();
     fieldMap.put("name", field.getName());
     fieldMap.put("isPk", (field.getIsPk() == true) ? "Y" : "N");
     fieldMap.put("javaType", type.getJavaType());
     fieldMap.put("sqlType", type.getSqlType());
     fieldMap.put("param", (parameters.get(field.getName()) != null ? parameters.get(field.getName()) : ""));
-    
+
     fieldList.add(fieldMap);
 }
 context.fieldList = fieldList;
@@ -227,8 +227,8 @@ List records = FastList.newInstance();
 if (resultPartialList != null) {
     Iterator resultPartialIter = resultPartialList.iterator();
     while (resultPartialIter.hasNext()) {
-        Map record = FastMap.newInstance(); 
-             
+        Map record = FastMap.newInstance();
+
         GenericValue value = (GenericValue)resultPartialIter.next();
         String findString = "entityName=" + entityName;
         for (int pknum = 0; pknum < modelEntity.getPksSize(); pknum++) {
@@ -237,7 +237,7 @@ if (resultPartialList != null) {
             findString += "&" + pkField.getName() + "=" + value.get(pkField.getName());
         }
         record.put("findString", findString);
-        
+
         record.put("fields", value);
         records.add(record);
     }

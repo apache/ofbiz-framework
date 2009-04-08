@@ -42,9 +42,9 @@ under the License.
         <xs:annotation>
             <xs:documentation>
                 This includes all elements of the controller.xml file references.
-                
-                Note that if you define any of the event blocks in this file (the including file) they 
-                will override (replace) the one in the included file, effectively emptying it. The event 
+
+                Note that if you define any of the event blocks in this file (the including file) they
+                will override (replace) the one in the included file, effectively emptying it. The event
                 blocks are: firstvisit, preprocessor, postprocessor, after-login, and before-logout.
             </xs:documentation>
         </xs:annotation>
@@ -124,7 +124,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.default-request">
-        <xs:attribute type="xs:string" name="request-uri" use="required"/>        
+        <xs:attribute type="xs:string" name="request-uri" use="required"/>
     </xs:attributeGroup>
     <xs:element name="request-map">
         <xs:complexType>
@@ -193,7 +193,7 @@ under the License.
                     <xs:enumeration value="false"/>
                 </xs:restriction>
             </xs:simpleType>
-        </xs:attribute>        
+        </xs:attribute>
         <xs:attribute name="external-view" default="true">
             <xs:simpleType>
                 <xs:restriction base="xs:token">

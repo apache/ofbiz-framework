@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Marketing Component Services</description>
     <vendor>OFBiz</vendor>
@@ -46,7 +46,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-        
+
     <!-- MarketingCampaignPrice Services -->
     <service name="addPriceRuleToMarketingCampaign" default-entity-name="MarketingCampaignPrice" engine="simple"
             location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="addPriceRuleToMarketingCampaign" auth="true">
@@ -58,7 +58,7 @@ under the License.
         <description>Remove PriceRule from MarketingCampaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- MarketingCampaignPromo Services -->
     <service name="addPromoToMarketingCampaign" default-entity-name="MarketingCampaignPromo" engine="simple"
             location="component://marketing/script/org/ofbiz/marketing/campaign/CampaignServices.xml" invoke="addPromoToMarketingCampaign" auth="true">
@@ -70,9 +70,9 @@ under the License.
         <description>Remove Promo from MarketingCampaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="signUpForContactList" engine="java" 
+    <service name="signUpForContactList" engine="java"
             location="org.ofbiz.marketing.marketing.MarketingServices" invoke="signUpForContactList" auth="false">
-        <description>Signs an input email up for a ContactList with _NA_ party using the system userLogin.  
+        <description>Signs an input email up for a ContactList with _NA_ party using the system userLogin.
             The intent is for anonymous sign ups to email lists.  Also validates email format.</description>
         <attribute name="contactListId" type="String" mode="IN" optional="false"/>
         <attribute name="email" type="String" mode="IN" optional="false"/>
@@ -106,7 +106,7 @@ under the License.
         <description>Remove Role from Campaign</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- ContactList Services -->
     <service name="createContactList" default-entity-name="ContactList" engine="simple"
             location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="createContactList" auth="true">
@@ -128,7 +128,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-        
+
     <!-- ContactListParty Services -->
     <service name="createContactListParty" default-entity-name="ContactListParty" engine="simple"
             location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="createContactListParty" auth="true">
@@ -149,8 +149,8 @@ under the License.
             location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="updatePartyEmailContactListParty" auth="true">
         <description>Update ContactList Party Contact Mech</description>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
-        <attribute name="oldContactMechId" type="String" mode="IN" optional="false"/>        
-    </service>    
+        <attribute name="oldContactMechId" type="String" mode="IN" optional="false"/>
+    </service>
     <service name="deleteContactListParty" default-entity-name="ContactListParty" engine="simple"
             location="component://marketing/script/org/ofbiz/marketing/contact/ContactListServices.xml" invoke="deleteContactListParty" auth="true">
         <description>Remove Party from ContactList</description>
@@ -172,8 +172,8 @@ under the License.
         <description>Send ContactListParty Verify Email</description>
         <auto-attributes entity-name="ContactListParty" include="pk" mode="IN" optional="false"/>
     </service>
-    
-    
+
+
     <!-- TrackingCode Services -->
     <service name="createTrackingCode" default-entity-name="TrackingCode" engine="simple"
             location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCode" auth="true">
@@ -193,7 +193,7 @@ under the License.
         <description>Update a TrackingCode record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-        
+
     <!-- TrackingCodeType Services -->
     <service name="createTrackingCodeType" default-entity-name="TrackingCodeType" engine="simple"
             location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeType" auth="true">
@@ -212,7 +212,7 @@ under the License.
         <description>Update a TrackingCodeType record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- SegmentGroup Services -->
     <service name="createSegmentGroup" default-entity-name="SegmentGroup" engine="simple"
             location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="createSegmentGroup" auth="true">
@@ -250,7 +250,7 @@ under the License.
         <description>delete SegmentGroupClassification</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    
+
    <!-- SegmentGroupGeo -->
     <service name="createSegmentGroupGeo" engine="simple" default-entity-name="SegmentGroupGeo"
             location="component://marketing/script/org/ofbiz/marketing/segment/SegmentServices.xml" invoke="createSegmentGroupGeo">
@@ -330,7 +330,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    
+
     <!-- Tracking Code Order return  -->
     <service name="createTrackingCodeOrderReturn" default-entity-name="TrackingCodeOrderReturn" engine="simple"
             location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeOrderReturn">
@@ -352,7 +352,7 @@ under the License.
         <permission-service service-name="marketingPermissionService" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="createTrackingCodeOrderReturns"  engine="simple"
                 location="component://marketing/script/org/ofbiz/marketing/tracking/TrackingCodeServices.xml" invoke="createTrackingCodeOrderReturns">
         <description>Create TrackingCodeOrderReturn for all the Return Items with Orders that have trackingCodeOrder entry</description>
@@ -366,8 +366,8 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute name="primaryPermission" type="String" mode="IN" optional="true" default-value="MARKETING"/>
         <attribute name="altPermission" type="String" mode="IN" optional="true"/>
-    </service>    
-    
+    </service>
+
     <!-- opportunity service -->
     <service name="createOpportunity" engine="simple" default-entity-name="SalesOpportunity"
         location="component://marketing/script/org/ofbiz/sfa/opportunity/OpportunityServices.xml" invoke="createOpportunity">
@@ -376,14 +376,14 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true">
             <exclude field-name="createdByUserLogin"/>
         </auto-attributes>
-    </service> 
+    </service>
     <service name="updateOpportunity" engine="simple" default-entity-name="SalesOpportunity"
         location="component://marketing/script/org/ofbiz/sfa/opportunity/OpportunityServices.xml" invoke="updateOpportunity">
         <description>Update an opportnity</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
- 
+
     <!-- lead services -->
     <service name="createLead" engine="simple"
         location="component://marketing/script/org/ofbiz/sfa/lead/LeadServices.xml" invoke="createLead">
@@ -427,7 +427,7 @@ under the License.
         <attribute name="quickAdd" type="String" mode="IN" optional="true"/>
         <attribute name="extension" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="mergeContacts" engine="simple" 
+    <service name="mergeContacts" engine="simple"
         location="component://marketing/script/org/ofbiz/sfa/contact/ContactServices.xml" invoke="mergeContacts">
         <description>This service merges the contact details of two parties, partyId merges into partyIdTo</description>
         <attribute name="addrContactMechIdTo" type="String" mode="IN" optional="true"/>
@@ -437,7 +437,7 @@ under the License.
         <attribute name="phoneContactMechId" type="String" mode="IN" optional="true"/>
         <attribute name="emailContactMechId" type="String" mode="IN" optional="true"/>
         <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="INOUT" optional="false"/>        
+        <attribute name="partyId" type="String" mode="INOUT" optional="false"/>
         <attribute name="useAddress2" type="String" mode="IN" optional="true"/>
         <attribute name="useContactNum2" type="String" mode="IN" optional="true"/>
         <attribute name="useEmail2" type="String" mode="IN" optional="true"/>
@@ -464,7 +464,7 @@ under the License.
         <attribute name="partyGroupId" type="String" mode="IN" optional="true"/>
         <attribute name="partyGroupId" type="String" mode="OUT" optional="false"/>
     </service>
-    
+
     <!-- VCard services -->
     <service name="importVCard" engine="java" location="org.ofbiz.sfa.vcard.VCard" invoke="importVCard">
         <attribute name="infile" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
@@ -474,5 +474,5 @@ under the License.
     <service name="exportVCard" engine="java" location="org.ofbiz.sfa.vcard.VCard" invoke="exportVCard">
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
     </service>
-    
+
 </services>

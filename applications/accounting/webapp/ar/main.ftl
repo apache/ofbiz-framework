@@ -22,7 +22,7 @@ under the License.
        <td colspan="3"><h1>${uiLabelMap.AccountingAgreements}</h1></td>
     </tr>
     <tr>
-      <td colspan="3">  
+      <td colspan="3">
         <ul>
           <li><a href="<@ofbizUrl>FindAgreement</@ofbizUrl>">${uiLabelMap.AccountingAgreementAvailable}</a></li>
         </ul>
@@ -87,7 +87,7 @@ under the License.
       <td colspan="3"><h1>${uiLabelMap.AccountingReports}</h1></td>
     </tr>
     <tr>
-      <td colspan="3">  
+      <td colspan="3">
         <ul>
           <li><a href="<@ofbizUrl>ListReports</@ofbizUrl>">${uiLabelMap.AccountingArPageTitleListReports}</a></li>
         </ul>
@@ -95,4 +95,4 @@ under the License.
       </td>
     </tr>
   </table>
-</div> 
+</div>

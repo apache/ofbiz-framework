@@ -45,7 +45,7 @@ dojo.ns = {
 			// FIXME: do we really ever have re-entrancy situation? this would appear to be really bad
 			// original code did not throw an exception, although that seems the only course
 			// adding debug output here to track if this occurs.
-			dojo.debug('dojo.namespace.require: re-entrant request to load namespace "' + name + '" must fail.'); 
+			dojo.debug('dojo.namespace.require: re-entrant request to load namespace "' + name + '" must fail.');
 			return false; // Boolean
 		}
 		// workaround so we don't break the build system
@@ -93,7 +93,7 @@ dojo.ns.Ns.prototype.resolve = function(/*String*/name, /*String*/domain, /*Bool
 		if(dojo.hostenv.findModule(fullName, false)){
 			this._loaded[fullName] = true;
 		}else{
-			if(!omitModuleCheck){dojo.raise("dojo.ns.Ns.resolve: module '" + fullName + "' not found after loading via namespace '" + this.name + "'");} 
+			if(!omitModuleCheck){dojo.raise("dojo.ns.Ns.resolve: module '" + fullName + "' not found after loading via namespace '" + this.name + "'");}
 			this._failed[fullName] = true;
 		}
 	}
@@ -122,7 +122,7 @@ dojo.registerNamespaceResolver = function(/*String*/name, /*Function*/resolver){
 	//
 	// example:
 	//  dojo.registerNamespaceResolver("acme",
-	//    function(name){ 
+	//    function(name){
 	//      return "acme.widget."+dojo.string.capitalize(name);
 	//    }
 	//  );

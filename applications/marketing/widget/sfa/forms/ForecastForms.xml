@@ -18,11 +18,11 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
     <form name="FindSalesForecast" type="single" target="FindSalesForecast" extends="LookupSalesForecast"
-            extends-resource="component://marketing/webapp/marketing/lookup/LookupForms.xml" 
+            extends-resource="component://marketing/webapp/marketing/lookup/LookupForms.xml"
             header-row-style="header-row" default-table-style="basic-table">
         <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
@@ -46,15 +46,15 @@ under the License.
         <field name="createdByUserLoginId"><hidden/></field>
         <field name="modifiedByUserLoginId"><hidden/></field>
     </form>
-    
+
     <form name="EditSalesForecast" type="single" target="updateSalesForecast" default-map-name="salesForecast">
         <alt-target use-when="salesForecast==null" target="createSalesForecast"/>
         <auto-fields-service service-name="updateSalesForecast"/>
-        
+
         <field name="salesForecastId" use-when="salesForecastId!=null" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="salesForecastId" use-when="salesForecast==null&amp;&amp;salesForecastId==null"><ignored/></field>
         <field name="salesForecastId" use-when="salesForecast==null&amp;&amp;salesForecastId!=null" tooltip="${uiLabelMap.CommonCannotBeFound}: [${salesForecastId}]"><display also-hidden="false"/></field>
-         
+
         <field name="parentSalesForecastId">
             <lookup target-form-name="LookupSalesForecast"/>
         </field>
@@ -77,7 +77,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" use-when="salesForecast==null"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="salesForecast!=null"><submit button-type="button"/></field>
     </form>
-    
+
     <form name="ListSalesForecastDetails" type="list" target="updateSalesForecastDetail" view-size="10"
             odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
@@ -92,7 +92,7 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options entity-name="UomAndType" key-field-name="uomId" description="[${typeDescription}] ${description}">
                     <entity-order-by field-name="uomTypeId"/>
-                </entity-options> 
+                </entity-options>
             </drop-down>
         </field>
         <field name="productId" title="${uiLabelMap.AccountingProductId}">
@@ -109,7 +109,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <form name="AddSalesForecastDetail" type="single" target="createSalesForecastDetail">
         <auto-fields-entity entity-name="SalesForecastDetail"/>
         <field name="salesForecastId"><hidden/></field>
@@ -118,7 +118,7 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options entity-name="UomAndType" key-field-name="uomId" description="[${typeDescription}] ${description}">
                     <entity-order-by field-name="uomTypeId"/>
-                </entity-options> 
+                </entity-options>
             </drop-down>
         </field>
         <field name="productId" title="${uiLabelMap.AccountingProductId}">

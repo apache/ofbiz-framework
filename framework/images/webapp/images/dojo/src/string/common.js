@@ -46,7 +46,7 @@ dojo.string.repeat = function(/* string */str, /* integer */count, /* string? */
 
 dojo.string.pad = function(/* string */str, /* integer */len/*=2*/, /* string */ c/*='0'*/, /* integer */dir/*=1*/) {
 	//	summary
-	//	Pad 'str' to guarantee that it is at least 'len' length with the character 'c' at either the 
+	//	Pad 'str' to guarantee that it is at least 'len' length with the character 'c' at either the
 	//	start (dir=1) or end (dir=-1) of the string
 	var out = String(str);
 	if(!c) {

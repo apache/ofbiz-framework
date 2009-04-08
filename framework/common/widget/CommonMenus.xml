@@ -26,7 +26,7 @@ under the License.
             <link target="main"/>
         </menu-item>
     </menu>
-     
-    <menu name="CommonTabBarMenu" selected-menuitem-context-field-name="tabButtonItem" type="simple" 
-          menu-container-style="button-bar tab-bar no-clear" default-selected-style="selected"/> 
+
+    <menu name="CommonTabBarMenu" selected-menuitem-context-field-name="tabButtonItem" type="simple"
+          menu-container-style="button-bar tab-bar no-clear" default-selected-style="selected"/>
 </menus>

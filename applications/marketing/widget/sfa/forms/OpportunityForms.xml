@@ -20,7 +20,7 @@ under the License.
 
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    
+
     <form name="FindOpportunity" type="single" target="FindOpportunity"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="salesOpportunityId"><hidden/></field>
@@ -41,7 +41,7 @@ under the License.
         </field>
         <field name="searchButton" widget-style="smallSubmit"><submit/></field>
     </form>
-    
+
     <form name="ListOpportunity" type="list" list-name="listIt" paginate-target="FindOpportunity" view-size="20"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
         <actions>
@@ -67,7 +67,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    
+
     <form name="EditOpportunity" type="single" target="updateOpportunity" default-map-name="salesOpportunity"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="salesOpportunity==null" target="createOpportunity"/>
@@ -75,7 +75,7 @@ under the License.
         <field use-when="salesOpportunity!=null" name="salesOpportunityId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field use-when="salesOpportunity==null&amp;&amp;salesOpportunityId==null" name="salesOpportunityId"><text/></field>
         <field use-when="salesOpportunity==null&amp;&amp;salesOpportunityId!=null" name="salesOpportunityId" tooltip="${uiLabelMap.CommonCannotBeFound}: [${salesOpportunityId}]"><display/></field>
-                
+
         <field name="opportunityName" title="${uiLabelMap.SfaOpportunityName}" widget-style="required"><text size="30"/></field>
         <field name="initialAccount" title="${uiLabelMap.SfaInitialAccount}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
         <field name="typeEnumId" title="${uiLabelMap.SfaType}"></field>
@@ -124,8 +124,8 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonSave}" use-when="salesOpportunity==null"><submit button-type="button"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" use-when="salesOpportunity!=null"><submit button-type="button"/></field>
     </form>
-    
-    <form name="ViewOpportunity" type="single" default-map-name="salesOpportunity" 
+
+    <form name="ViewOpportunity" type="single" default-map-name="salesOpportunity"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="salesOpportunityId"><hidden/></field>
         <field name="opportunityName" position="1" title="${uiLabelMap.SfaOpportunityName}"><display/></field>

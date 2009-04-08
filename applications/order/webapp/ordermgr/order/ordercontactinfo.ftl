@@ -31,14 +31,14 @@ under the License.
          </#list>
       </#list>
    </select>
-</#macro>    
+</#macro>
 
 <#if displayParty?has_content || orderContactMechValueMaps?has_content>
 <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul><li class="h3">&nbsp;${uiLabelMap.OrderContactInformation}</li></ul>
       <br class="clear"/>
-    </div>    
+    </div>
     <div class="screenlet-body">
       <table class="basic-table" cellspacing='0'>
         <tr>
@@ -53,7 +53,7 @@ under the License.
               <#if partyId?exists>
                 &nbsp;(<a href="${customerDetailLink}${partyId}" target="partymgr" class="buttontext">${partyId}</a>)
                 </br>
-                <#if orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL">                
+                <#if orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL">
                 <div>
                    <a href="<@ofbizUrl>/orderentry?partyId=${partyId}&amp;orderTypeId=${orderHeader.orderTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNewOrder}</a>
                    <a href="<@ofbizUrl>/searchorders?lookupFlag=Y&amp;hideFields=Y&amp;partyId=${partyId}&amp;viewIndex=1&amp;viewSize=20</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderOtherOrders}</a>
@@ -99,9 +99,9 @@ under the License.
                      <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
                      <input type="hidden" name="contactMechPurposeTypeId" value="${contactMechPurpose.contactMechPurposeTypeId?if_exists}"/>
                      <input type="hidden" name="oldContactMechId" value="${contactMech.contactMechId?if_exists}"/>
-                     <hr/>      
+                     <hr/>
                      <div><@partyPostalAddress postalContactMechList = postalContactMechList?if_exists contactMechPurposeTypeId = contactMechPurpose.contactMechPurposeTypeId?if_exists contactPostalAddress=postalAddress?if_exists/><input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/></div>
-                  </form> 
+                  </form>
                   </#if>
                 </#if>
               <#elseif contactMech.contactMechTypeId == "TELECOM_NUMBER">

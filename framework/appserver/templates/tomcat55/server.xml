@@ -29,7 +29,7 @@
 
 <Server port="8005" shutdown="SHUTDOWN">
 
-  <!-- Comment these entries out to disable JMX MBeans support used for the 
+  <!-- Comment these entries out to disable JMX MBeans support used for the
        administration web application -->
   <Listener className="org.apache.catalina.core.AprLifecycleListener"/>
   <Listener className="org.apache.catalina.mbeans.ServerLifecycleListener"/>
@@ -97,12 +97,12 @@
                connectionTimeout="20000" disableUploadTimeout="true"/>
     <!-- Note : To disable connection timeouts, set connectionTimeout value
      to 0 -->
-    
+
     <!-- Note : To use gzip compression you could set the following properties :
-    
-               compression="on" 
-               compressionMinSize="2048" 
-               noCompressionUserAgents="gozilla, traviata" 
+
+               compression="on"
+               compressionMinSize="2048"
+               noCompressionUserAgents="gozilla, traviata"
                compressableMimeType="text/html,text/xml"
     -->
 
@@ -111,18 +111,18 @@
                maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
                enableLookups="false" disableUploadTimeout="true"
                acceptCount="100" scheme="https" secure="true"
-               clientAuth="false" sslProtocol="TLS" 
-               keystoreFile="${ofbizHome}/framework/base/config/ofbizssl.jks" 
+               clientAuth="false" sslProtocol="TLS"
+               keystoreFile="${ofbizHome}/framework/base/config/ofbizssl.jks"
                keystorePass="changeit"/>
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->
-    <Connector port="8009" 
+    <Connector port="8009"
                enableLookups="false" redirectPort="8443" protocol="AJP/1.3"/>
 
     <!-- Define a Proxied HTTP/1.1 Connector on port 8082 -->
     <!-- See proxy documentation for more information about using this. -->
     <!--
-    <Connector port="8082" 
+    <Connector port="8082"
                maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
                enableLookups="false" acceptCount="100" connectionTimeout="20000"
                proxyPort="80" disableUploadTimeout="true"/>
@@ -134,9 +134,9 @@
          on to the appropriate Host (virtual host). -->
 
     <!-- You should set jvmRoute to support load-balancing via AJP ie :
-    <Engine name="Standalone" defaultHost="localhost" jvmRoute="jvm1">         
-    --> 
-         
+    <Engine name="Standalone" defaultHost="localhost" jvmRoute="jvm1">
+    -->
+
     <!-- Define the top level container in our container hierarchy -->
     <Engine name="Catalina" defaultHost="localhost">
 
@@ -230,20 +230,20 @@
              mcastAddr = the multicast address, has to be the same for all the nodes
 
              mcastPort = the multicast port, has to be the same for all the nodes
-             
+
              mcastBindAddress = bind the multicast socket to a specific address
-             
+
              mcastTTL = the multicast TTL if you want to limit your broadcast
-             
-             mcastSoTimeout = the multicast readtimeout 
+
+             mcastSoTimeout = the multicast readtimeout
 
              mcastFrequency = the number of milliseconds in between sending a "I'm alive" heartbeat
 
              mcastDropTime = the number a milliseconds before a node is considered "dead" if no heartbeat is received
 
-             tcpThreadCount = the number of threads to handle incoming replication requests, optimal would be the same amount of threads as nodes 
+             tcpThreadCount = the number of threads to handle incoming replication requests, optimal would be the same amount of threads as nodes
 
-             tcpListenAddress = the listen address (bind address) for TCP cluster request on this host, 
+             tcpListenAddress = the listen address (bind address) for TCP cluster request on this host,
                                 in case of multiple ethernet cards.
                                 auto means that address becomes
                                 InetAddress.getLocalHost().getHostAddress()
@@ -255,7 +255,7 @@
 
              printToScreen = true means that managers will also print to std.out
 
-             expireSessionsOnShutdown = true means that 
+             expireSessionsOnShutdown = true means that
 
              useDirtyFlag = true means that we only replicate a session after setAttribute,removeAttribute has been called.
                             false means to replicate the session after each request.
@@ -274,9 +274,9 @@
                                and then return to the client.
                                The "smart" queue is a queue where when a session is added to the queue, and the same session
                                already exists in the queue from a previous request, that session will be replaced
-                               in the queue instead of replicating two requests. This almost never happens, unless there is a 
+                               in the queue instead of replicating two requests. This almost never happens, unless there is a
                                large network delay.
-        -->             
+        -->
         <!--
             When configuring for clustering, you also add in a valve to catch all the requests
             coming in, at the end of the request, the session may or may not be replicated.
@@ -293,17 +293,17 @@
 
             filter=".*\.gif;.*\.js;" means that we will not replicate the session after requests with the URI
             ending with .gif and .js are intercepted.
-            
+
             The deployer element can be used to deploy apps cluster wide.
             Currently the deployment only deploys/undeploys to working members in the cluster
             so no WARs are copied upons startup of a broken node.
             The deployer watches a directory (watchDir) for WAR files when watchEnabled="true"
             When a new war file is added the war gets deployed to the local instance,
             and then deployed to the other instances in the cluster.
-            When a war file is deleted from the watchDir the war is undeployed locally 
+            When a war file is deleted from the watchDir the war is undeployed locally
             and cluster wide
         -->
-        
+
         <!--
         <Cluster className="org.apache.catalina.cluster.tcp.SimpleTcpCluster"
                  managerClassName="org.apache.catalina.cluster.session.DeltaManager"
@@ -311,14 +311,14 @@
                  useDirtyFlag="true"
                  notifyListenersOnReplication="true">
 
-            <Membership 
+            <Membership
                 className="org.apache.catalina.cluster.mcast.McastService"
                 mcastAddr="228.0.0.4"
                 mcastPort="45564"
                 mcastFrequency="500"
                 mcastDropTime="3000"/>
 
-            <Receiver 
+            <Receiver
                 className="org.apache.catalina.cluster.tcp.ReplicationListener"
                 tcpListenAddress="auto"
                 tcpListenPort="4001"
@@ -333,16 +333,16 @@
 
             <Valve className="org.apache.catalina.cluster.tcp.ReplicationValve"
                    filter=".*\.gif;.*\.js;.*\.jpg;.*\.png;.*\.htm;.*\.html;.*\.css;.*\.txt;"/>
-                   
+
             <Deployer className="org.apache.catalina.cluster.deploy.FarmWarDeployer"
                       tempDir="/tmp/war-temp/"
                       deployDir="/tmp/war-deploy/"
                       watchDir="/tmp/war-listen/"
                       watchEnabled="false"/>
-                      
+
             <ClusterListener className="org.apache.catalina.cluster.session.ClusterSessionListener"/>
         </Cluster>
-        -->        
+        -->
 
 
 

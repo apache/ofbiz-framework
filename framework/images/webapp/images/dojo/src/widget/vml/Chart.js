@@ -78,7 +78,7 @@ dojo.widget.defineWidget(
 		//	Parse the properties off the main tag
 		var bRangeX=false;
 		var bRangeY=false;
-		if (node.getAttribute("width")){ 
+		if (node.getAttribute("width")){
 			this.properties.width=node.getAttribute("width");
 		}
 		if (node.getAttribute("height")){
@@ -89,7 +89,7 @@ dojo.widget.defineWidget(
 		}
 		if (node.getAttribute("padding")){
 			if (node.getAttribute("padding").indexOf(",") > -1)
-				var p=node.getAttribute("padding").split(","); 
+				var p=node.getAttribute("padding").split(",");
 			else var p=node.getAttribute("padding").split(" ");
 			if (p.length==1){
 				var pad=parseFloat(p[0]);
@@ -136,7 +136,7 @@ dojo.widget.defineWidget(
 			var p=table.getAttribute("axisAt");
 			if (p.indexOf(",")>-1) p=p.split(",");
 			else p=p.split(" ");
-			
+
 			//	x axis
 			if (!isNaN(parseFloat(p[0]))){
 				this.properties.axes.x.plotAt=parseFloat(p[0]);
@@ -253,7 +253,7 @@ dojo.widget.defineWidget(
 		line.setAttribute("strokecolor", "#666");
 		line.setAttribute("strokeweight", stroke*2+"px");
 		this.axisGroup.appendChild(line);
-		
+
 		//	labels
 		var size=10;
 
@@ -288,7 +288,7 @@ dojo.widget.defineWidget(
 		t.style.fontSize=size+"px";
 		t.innerHTML=dojo.math.round(parseFloat(this.properties.axes.y.range.max),2);
 		this.vectorNode.appendChild(t);
-		
+
 		t=document.createElement("div");
 		t.style.position="absolute";
 		t.style.top=(this.properties.height-this.properties.padding.bottom-size)+"px";
@@ -301,7 +301,7 @@ dojo.widget.defineWidget(
 		t.innerHTML=dojo.math.round(parseFloat(this.properties.axes.y.range.min),2);
 		this.vectorNode.appendChild(t);
 	},
-	
+
 	init:function(){
 		//	summary
 		//	Initialize the chart
@@ -355,7 +355,7 @@ dojo.widget.defineWidget(
 			var ranges=this.parseProperties(table);
 			var bRangeX=false;
 			var bRangeY=false;
-		
+
 			//	fix the axes
 			var axisValues = this.parseData(table);
 			if(!bRangeX){
@@ -381,7 +381,7 @@ dojo.widget.vml.Chart.Plotter=new function(){
 	var self=this;
 	var plotters = {};
 	var types=dojo.widget.Chart.PlotTypes;
-	
+
 	this.getX=function(/* string||number */value, /* dojo.widget.Chart */chart){
 		//	summary
 		//	Calculate the x coord on the passed chart for the passed value
@@ -405,7 +405,7 @@ dojo.widget.vml.Chart.Plotter=new function(){
 		var ofst=0;
 		if(min<0)ofst+=Math.abs(min);
 		min+=ofst; max+=ofst; v+=ofst;
-		
+
 		var ymin=chart.properties.height-chart.properties.padding.top-chart.properties.padding.bottom;
 		var ymax = 0;
 		var y=(((ymin-ymax)/(max-min))*(max-v))+ymax;
@@ -470,7 +470,7 @@ dojo.widget.vml.Chart.Plotter=new function(){
 			bar.appendChild(fill);
 			chart.dataGroup.appendChild(bar);
 		}
-	};	
+	};
 	plotters["line"]=function(/* dojo.widget.Chart.DataSeries */series, /* dojo.widget.Chart */chart){
 		//	summary
 		//	plot the passed series as a line with tensioning
@@ -505,7 +505,7 @@ dojo.widget.vml.Chart.Plotter=new function(){
 				var lasty=Math.round(self.getY(series.values[i-1].value, chart));
 				var dx=x-lastx;
 				var dy=y-lasty;
-				
+
 				path.push("c");
 				var cx=Math.round((x-(tension-1)*(dx/tension)));
 				path.push(cx+","+lasty);
@@ -553,7 +553,7 @@ dojo.widget.vml.Chart.Plotter=new function(){
 				var lasty=Math.round(self.getY(series.values[i-1].value, chart));
 				var dx=x-lastx;
 				var dy=y-lasty;
-				
+
 				path.push("c");
 				var cx=Math.round((x-(tension-1)*(dx/tension)));
 				path.push(cx+","+lasty);
@@ -593,13 +593,13 @@ dojo.widget.vml.Chart.Plotter=new function(){
 			point.appendChild(fill);
 			chart.dataGroup.appendChild(point);
 		}
-	};	
+	};
 	plotters["bubble"]=function(/* dojo.widget.Chart.DataSeries */series, /* dojo.widget.Chart */chart){
 		//	summary
 		//	plot the passed series as a series of bubbles (scatter with 3rd dimension)
 		//	added param for series[n].value: size
 		var minR=1;
-		
+
 		//	do this off the x axis?
 		var min=chart.properties.axes.x.range.min;
 		var max=chart.properties.axes.x.range.max;
@@ -609,7 +609,7 @@ dojo.widget.vml.Chart.Plotter=new function(){
 		var xmin=chart.properties.padding.left;
 		var xmax=chart.properties.width-chart.properties.padding.right;
 		var factor=(max-min)/(xmax-xmin)*25;
-		
+
 		for (var i=0; i<series.values.length; i++){
 			var size = series.values[i].size;
 			if (isNaN(parseFloat(size))) size=minR;
@@ -627,7 +627,7 @@ dojo.widget.vml.Chart.Plotter=new function(){
 			point.setAttribute("title", series.label + ": " + series.values[i].value + " (" + size + ")");
 			point.setAttribute("stroked", "false");
 			point.style.position="absolute";
-			
+
 			point.style.top=top+"px";
 			point.style.left=left+"px";
 			point.style.width=diameter+"px";
@@ -636,7 +636,7 @@ dojo.widget.vml.Chart.Plotter=new function(){
 			var fill=document.createElement("v:fill");
 			fill.setAttribute("opacity", "0.8");
 			point.appendChild(fill);
-			
+
 			chart.dataGroup.appendChild(point);
 		}
 	};

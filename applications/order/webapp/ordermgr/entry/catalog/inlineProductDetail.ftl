@@ -20,9 +20,9 @@ under the License.
 ${virtualJavaScript?if_exists}
 <#assign addedJavaScript = requestAttributes.addedJavaScript?default("N")/>
 <#if ("N" == addedJavaScript)>
-  ${setRequestAttribute("addedJavaScript", "Y")} 
+  ${setRequestAttribute("addedJavaScript", "Y")}
   <script language="JavaScript" type="text/javascript">
- 
+
      function popupDetailInline(inlineCounter) {
         var imageField = 'detailImage' + inlineCounter;
         var defaultDetailImage = document.getElementById(imageField);
@@ -33,14 +33,14 @@ ${virtualJavaScript?if_exists}
         if (window[fieldName] == null || window[fieldName] == "null") {
             window[fieldName] = defaultDetailImage;
         }
-      
+
         if (window[fieldName] == "_NONE_") {
             alert("No detail image available to display.");
             return;
         }
         popUp("<@ofbizUrl>detailImage?detail=" + window[fieldName] + "</@ofbizUrl>", 'detailImage', '400', '550');
     }
- 
+
     function setAddProductIdInline(inlineCounter, name) {
         var add_product_id = 'add_product_id' + inlineCounter;
         var product_id_display = 'product_id_display' + inlineCounter;
@@ -54,7 +54,7 @@ ${virtualJavaScript?if_exists}
             } else {
                 elem.appendChild(txt);
             }
-            
+
             checkOption(inlineCounter);
         } else {
             //document.configform.quantity.disabled = false;
@@ -67,17 +67,17 @@ ${virtualJavaScript?if_exists}
             }
         }
     }
-    
+
     function checkOption(inlineCounter) {
         var option = document.getElementById(inlineCounter.substring(0, inlineCounter.length - 2));
         if (option.checked) {
             option.checked=false;
-        } 
+        }
     }
-        
+
     function setVariantPriceInline(inlineCounter, sku) {
-        var variant_price_display = 'variant_price_display' + inlineCounter; 
-        if (sku == '' || sku == 'NULL' || isVirtualInline(inlineCounter, sku) == true) { 
+        var variant_price_display = 'variant_price_display' + inlineCounter;
+        if (sku == '' || sku == 'NULL' || isVirtualInline(inlineCounter, sku) == true) {
             var elem = document.getElementById(variant_price_display);
             var txt = document.createTextNode('');
             if(elem.hasChildNodes()) {
@@ -86,9 +86,9 @@ ${virtualJavaScript?if_exists}
                 elem.appendChild(txt);
             }
         }
-        else { 
-            var elem = document.getElementById(variant_price_display); 
-            var functionName = 'getVariantPrice' + inlineCounter;        
+        else {
+            var elem = document.getElementById(variant_price_display);
+            var functionName = 'getVariantPrice' + inlineCounter;
             var price =  window[functionName](sku);
             var txt = document.createTextNode('+' + price);
             if(elem.hasChildNodes()) {
@@ -110,7 +110,7 @@ ${virtualJavaScript?if_exists}
         </#if>
         return isVirtual;
     }
-    
+
     function toggleAmtInline(inlineCounter, toggle) {
         var fieldName = 'add_amount' + inlineCounter;
         if (toggle == 'Y') {
@@ -120,7 +120,7 @@ ${virtualJavaScript?if_exists}
         if (toggle == 'N') {
             changeObjectVisibility(fieldName, "hidden");
         }
-    }    
+    }
 
     function findIndexInline(varname, name ) {
         for (i = 0; i < window[varname].length; i++) {
@@ -134,38 +134,38 @@ ${virtualJavaScript?if_exists}
     function checkOptionToggle(inlineCounter, disable) {
         var index = inlineCounter.indexOf('_');
         var optionElementName = inlineCounter.substring(0,index);
-        var option = document.getElementById(optionElementName);           
+        var option = document.getElementById(optionElementName);
         if ("true" == disable) {
-            option.disabled = true;                  
+            option.disabled = true;
             if (option.checked == true) {
                 option.checked == false;
-            }          
-        } else {       
+            }
+        } else {
             //check all virtual product for the option
-        }        
+        }
     }
-    
+
     function checkOptionVariants(optionName) {
         var option = document.getElementById(optionName);
         if (option.checked == false) {
             return false;
-        } 
-        
+        }
+
         var fieldName = "add_product_id" + optionName + "_";
         var index = 15 + optionName.toString().length;
-        var cform = document.forms["configform"];  
+        var cform = document.forms["configform"];
         var len = cform.elements.length;
         for (var i = 0; i < len; i++) {
             var element = cform.elements[i];
             if (element.name.substring(0, index) == fieldName) {
-                 if (element.value == '' || element.value == 'NULL') { 
+                 if (element.value == '' || element.value == 'NULL') {
                     option.checked = false;
-                    alert('Please select all features first');                    
+                    alert('Please select all features first');
                     return false;
                 }
-            }             
-        }     
-    }    
+            }
+        }
+    }
 
     function getListInline(inlineCounter, name, index, src) {
         currentFeatureIndex = findIndexInline('OPT'+inlineCounter, name);
@@ -183,24 +183,24 @@ ${virtualJavaScript?if_exists}
             document.forms["configform"].elements[name].selectedIndex = (index*1)+1;
         }
 
-        if (currentFeatureIndex < (window['OPT'+ inlineCounter].length-1)) {  
+        if (currentFeatureIndex < (window['OPT'+ inlineCounter].length-1)) {
             // eval the next list if there are more
             var selectedValue = document.forms["configform"].elements[name].options[(index*1)+1].value;
             if (index == -1) {
-                var featureOrderFirst = window['OPT'+ inlineCounter][(currentFeatureIndex)].toString(); 
+                var featureOrderFirst = window['OPT'+ inlineCounter][(currentFeatureIndex)].toString();
                 var length = featureOrderFirst.length;
-                featureOrderFirst = featureOrderFirst.substring(2, length); 
+                featureOrderFirst = featureOrderFirst.substring(2, length);
                 var Variable1 = eval("list" + featureOrderFirst + "()");
             } else {
                 var Variable1 = eval("list" + window['OPT'+ inlineCounter][(currentFeatureIndex+1)] + selectedValue + "()");
-            }     
+            }
 
             // set the product ID to NULL to trigger the alerts
             setAddProductIdInline(inlineCounter, 'NULL');
-        
+
             // set the variant price to NULL
             setVariantPriceInline(inlineCounter, 'NULL');
-            
+
             //checkOptionToggle(inlineCounter, 'false');
         } else {
             // this is the final selection -- locate the selected index of the last selection
@@ -211,26 +211,26 @@ ${virtualJavaScript?if_exists}
 
             // set the product ID
             setAddProductIdInline(inlineCounter, sku);
-        
+
             // set the variant price
             setVariantPriceInline(inlineCounter, sku);
-            
+
             // check for amount box
-            var functionName = 'checkAmtReq' + inlineCounter;        
+            var functionName = 'checkAmtReq' + inlineCounter;
             toggleAmtInline(inlineCounter, window[functionName](sku));
-            
+
             //checkOptionToggle(inlineCounter, 'true');
         }
     }
- 
- 
+
+
  </script>
-</#if> 
+</#if>
 
 <#if product.virtualVariantMethodEnum?if_exists == "VV_FEATURETREE" && featureLists?has_content>
   <script language="JavaScript" type="text/javascript">
         function checkRadioButtoninline${inlineCounter}(inlineCounter, productId) {
-        var add_product_id = 'add_product_id' + inlineCounter;          
+        var add_product_id = 'add_product_id' + inlineCounter;
             <#list featureLists as featureList>
                 <#list featureList as feature>
                     <#if feature_index == 0>
@@ -241,14 +241,14 @@ ${virtualJavaScript?if_exists}
                              return;
                          }
                         <#break>
-                    </#if>            
+                    </#if>
                 </#list>
             </#list>
-            document.configform[add_product_id].value = productId;    
+            document.configform[add_product_id].value = productId;
         }
   </script>
-</#if> 
- 
+</#if>
+
 
 <#assign price = priceMap?if_exists/>
 <div id="inlineproductdetail${inlineCounter}">
@@ -260,10 +260,10 @@ ${virtualJavaScript?if_exists}
         <#assign productLargeImageUrl = firstLargeImage>
       </#if>
       <#if productLargeImageUrl?string?has_content>
-        <input type="hidden" name="detailImage${inlineCounter}" value="${firstDetailImage?default(mainDetailImageUrl?default("_NONE_"))}"/>      
+        <input type="hidden" name="detailImage${inlineCounter}" value="${firstDetailImage?default(mainDetailImageUrl?default("_NONE_"))}"/>
         <a href="javascript:popupDetailInline('${inlineCounter}');"><img src='<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>' name='mainImage${inlineCounter}' vspace='5' hspace='5' border='0' width='100' align='left'></a>
       </#if>
-    </td>  
+    </td>
     <td align="right" valign="top" width="100%">
     <#--    <h2>${productContentWrapper.get("PRODUCT_NAME")?if_exists}</h2>  -->
         <#assign inStock = true>
@@ -273,9 +273,9 @@ ${virtualJavaScript?if_exists}
                 <#list featureList as feature>
                     <#if feature_index == 0>
                         <div>${feature.description}: <select id="FT${inlineCounter}${feature.productFeatureTypeId}" name="FT${inlineCounter}${feature.productFeatureTypeId}" onChange="javascript:checkRadioButtoninline${inlineCounter}('${inlineCounter}', '${product.productId}');">
-                        <option value="select" selected="selected"> select option </option> 
+                        <option value="select" selected="selected"> select option </option>
                     <#else>
-                        <option value="${feature.productFeatureId}">${feature.description} <#if feature.price?exists>(+ <@ofbizCurrency amount=feature.price?string isoCode=feature.currencyUomId/>)</#if></option> 
+                        <option value="${feature.productFeatureId}">${feature.description} <#if feature.price?exists>(+ <@ofbizCurrency amount=feature.price?string isoCode=feature.currencyUomId/>)</#if></option>
                     </#if>
                 </#list>
                 </select>
@@ -283,7 +283,7 @@ ${virtualJavaScript?if_exists}
             </#list>
               <input type="hidden" name="product_id${inlineCounter}" value="${product.productId}"/>
               <input type="hidden" name="add_product_id${inlineCounter}" value="NULL"/>
-          </#if>  
+          </#if>
           <#if !product.virtualVariantMethodEnum?exists || product.virtualVariantMethodEnum == "VV_VARIANTTREE">
            <#if variantTree?exists && (variantTree.size() > 0)>
             <#list featureSet as currentType>
@@ -305,7 +305,7 @@ ${virtualJavaScript?if_exists}
             <div><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
             <#assign inStock = false>
           </#if>
-         </#if> 
+         </#if>
         <#else>
           <input type="hidden" name="product_id${inlineCounter}" value="${product.productId}"/>
           <input type="hidden" name="add_product_id${inlineCounter}" value="${product.productId}"/>
@@ -318,7 +318,7 @@ ${virtualJavaScript?if_exists}
             <#else>
               <div><b>${product.inventoryMessage?if_exists}</b></div>
             </#if>
-          </#if>          
+          </#if>
         </#if>
       </td></tr>
       <tr><td COLSPAN="2" align="right">
@@ -336,15 +336,15 @@ ${virtualJavaScript?if_exists}
               <#assign hiddenStyle = "visible">
             <#else>
               <#assign hiddenStyle = "hidden">
-            </#if>           
+            </#if>
             <div id="add_amount${inlineCounter}" class="${hiddenStyle}">
               <span style="white-space: nowrap;"><b>${uiLabelMap.CommonAmount}:</b></span>&nbsp;
               <input type="text" size="5" name="add_amount${inlineCounter}" value=""/>
             </div>
            </#if>
-        </#if>      
-      </td></tr>      
-      
+        </#if>
+      </td></tr>
+
       <tr><td COLSPAN="2" align="right">
       <#if variantTree?exists && 0 < variantTree.size()>
         <script language="JavaScript" type="text/javascript">eval("list"+ "${inlineCounter}" + "${featureOrderFirst}" + "()");</script>

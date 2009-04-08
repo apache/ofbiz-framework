@@ -19,7 +19,7 @@ under the License.
 -->
 
 <entity-engine-xml>
-    
+
     <!-- Project Manager security -->
     <!-- General, all projects -->
     <SecurityPermission permissionId="PROJECTMGR_ADMIN" description="ALL operations in the Project Manager."/>
@@ -35,22 +35,22 @@ under the License.
     <SecurityPermission description="Be able to update any weekly timesheet." permissionId="PROJECTMGR_TIMESHEET_UPDATE"/>
     <SecurityPermission description="Be able to create a weekly timesheet for the loginid." permissionId="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
     <SecurityPermission description="Be able to update(report) on an existing own timesheet" permissionId="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
-    
+
     <!-- add permission to general groups -->
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="PROJECTMGR_ADMIN"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="PROJECTMGR_ADMIN"/>
-    
+
     <SecurityGroup description="Project Admin group, has update access to own projects." groupId="PROJECTADMIN"/>
     <SecurityGroupPermission groupId="PROJECTADMIN" permissionId="PROJECTMGR_ROLE_ADMIN"/>
     <SecurityGroupPermission groupId="PROJECTADMIN" permissionId="PROJECTMGR_VIEW"/>
     <SecurityGroupPermission groupId="PROJECTADMIN" permissionId="PROJECTMGR_TIMESHEET_CREATE"/>
     <SecurityGroupPermission groupId="PROJECTADMIN" permissionId="PROJECTMGR_TIMESHEET_UPDATE"/>
-    
+
     <SecurityGroup description="Project User group, has read, task create/assign and timesheet create/update access to own projects." groupId="PROJECTUSER"/>
     <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_VIEW"/>
     <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_ROLE_VIEW"/>
     <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_ROLE_TASK_CREATE"/>
     <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
     <SecurityGroupPermission groupId="PROJECTUSER" permissionId="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
-    
+
 </entity-engine-xml>

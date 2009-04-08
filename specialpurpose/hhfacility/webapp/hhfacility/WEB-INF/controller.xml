@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <description>Facility Handheld Demo</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
@@ -40,7 +40,7 @@ under the License.
         <event name="test" type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
     </postprocessor>
     -->
-    
+
     <!-- Request Mappings -->
     <request-map uri="main">
         <security https="true" auth="true"/>
@@ -89,7 +89,7 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="facilities"/>
     </request-map>
-    
+
     <!-- these requests correspond to POSTs of forms and call services to do their work.
         OFBiz automatically parses form fields to service inputs.
         User can be re-directed to other requests or views after the service is called.
@@ -101,40 +101,40 @@ under the License.
         <!-- <response name="error" type="view" value="poreceipt"/> -->
     </request-map>
 
-    
+
     <request-map uri="productqtyreceipt">
         <security https="true" auth="true"/>
-        <event type="service" invoke="tc_ProductExists"/> 
+        <event type="service" invoke="tc_ProductExists"/>
         <response name="success" type="view" value="qtyreceipt"/>
         <response name="error" type="view" value="productreceipt"/>
     </request-map>
-    
+
     <request-map uri="receiveproductqty">
         <security https="true" auth="true"/>
-        <event type="service" invoke="tc_ReceiveProductQty"/> 
+        <event type="service" invoke="tc_ReceiveProductQty"/>
         <response name="success" type="view" value="productreceipt"/>
         <response name="error" type="view" value="qtyreceipt"/>
     </request-map>
-    
+
     <request-map uri="productstocktake">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="productstocktake"/>
     </request-map>
-    
+
     <request-map uri="updateproductstocktake">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateProductStocktake"/> 
+        <event type="service" invoke="updateProductStocktake"/>
         <response name="success" type="view" value="productstocktake"/>
         <response name="error" type="view" value="productstocktake"/>
     </request-map>
 
     <request-map uri="fixproductnegativeqoh">
         <security https="true" auth="true"/>
-        <event type="service" invoke="fixProductNegativeQOH"/> 
+        <event type="service" invoke="fixProductNegativeQOH"/>
         <response name="success" type="view" value="productstocktake"/>
         <response name="error" type="view" value="productstocktake"/>
     </request-map>
-    
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->

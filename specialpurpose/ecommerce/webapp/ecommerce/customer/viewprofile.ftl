@@ -139,7 +139,7 @@ under the License.
             </td>
             <td width="5">&nbsp;</td>
             <td valign="top" width="80%">
-              <#list partyContactMechValueMap.partyContactMechPurposes?if_exists as partyContactMechPurpose> 
+              <#list partyContactMechValueMap.partyContactMechPurposes?if_exists as partyContactMechPurpose>
                   <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
                     <div class="tabletext">
                       <#if contactMechPurposeType?exists>
@@ -494,7 +494,7 @@ under the License.
             <select name="partyContentTypeId" class="selectBox">
               <option value="">${uiLabelMap.PartySelectPurpose}</option>
               <#list partyContentTypes as partyContentType>
-                <option value="${partyContentType.partyContentTypeId}">${partyContentType.get("description", locale)?default(partyContentType.partyContentTypeId)}</option>          
+                <option value="${partyContentType.partyContentTypeId}">${partyContentType.get("description", locale)?default(partyContentType.partyContentTypeId)}</option>
               </#list>
             </select>
             <select name="mimeTypeId" class="selectBox">

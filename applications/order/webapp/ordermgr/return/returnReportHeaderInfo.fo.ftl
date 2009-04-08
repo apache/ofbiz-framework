@@ -41,7 +41,7 @@ under the License.
                 <fo:block padding="1mm" font-weight="bold">${uiLabelMap.CommonStatus}</fo:block>
               </fo:table-cell>
             </fo:table-row>
-                                  
+
             <fo:table-row>
               <fo:table-cell text-align="center" border-style="solid" border-width="0.2pt">
                 <fo:block padding="1mm">${returnHeader.entryDate?string("yyyy-MM-dd")}</fo:block>

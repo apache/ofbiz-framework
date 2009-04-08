@@ -19,7 +19,7 @@ dojo.require("dojo.event.*");
 dojo.widget.manager = new function(){
 	this.widgets = [];
 	this.widgetIds = [];
-	
+
 	// map of widgetId-->widget for widgets without parents (top level widgets)
 	this.topWidgets = {};
 
@@ -82,7 +82,7 @@ dojo.widget.manager = new function(){
 			this.removeById(widgetIndex);
 		}
 	}
-	
+
 	// FIXME: suboptimal performance
 	this.removeById = function(id) {
 		if(!dojo.lang.isString(id)){
@@ -106,7 +106,7 @@ dojo.widget.manager = new function(){
 
 	this.getWidgetsByType = function(type){
 		var lt = type.toLowerCase();
-		var getType = (type.indexOf(":") < 0 ? 
+		var getType = (type.indexOf(":") < 0 ?
 			function(x) { return x.widgetType.toLowerCase(); } :
 			function(x) { return x.getNamespacedType(); }
 		);
@@ -167,15 +167,15 @@ dojo.widget.manager = new function(){
 			widgetPackages.push(pname);
 		}
 	}
-	
+
 	this.getWidgetPackageList = function() {
 		return dojo.lang.map(widgetPackages, function(elt) { return(elt!==true ? elt : undefined); });
 	}
-	
+
 	this.getImplementation = function(widgetName, ctorObject, mixins, ns){
 		// try and find a name for the widget
 		var impl = this.getImplementationName(widgetName, ns);
-		if(impl){ 
+		if(impl){
 			// var tic = new Date();
 			var ret = ctorObject ? new impl(ctorObject) : new impl();
 			// dojo.debug(new Date() - tic);
@@ -197,7 +197,7 @@ dojo.widget.manager = new function(){
 		//renderPrefixCache.push("");
 		// empty prefix is included automatically
 	}
-	
+
 	var findImplementationInModule = function(lowerCaseWidgetName, module){
 		if(!module){return null;}
 		for(var i=0, l=renderPrefixCache.length, widgetModule; i<=l; i++){
@@ -221,14 +221,14 @@ dojo.widget.manager = new function(){
 
 	this.getImplementationName = function(widgetName, ns){
 		/*
-		 * Locate an implementation (constructor) for 'widgetName' in namespace 'ns' 
+		 * Locate an implementation (constructor) for 'widgetName' in namespace 'ns'
 		 * widgetNames are case INSENSITIVE
-		 * 
+		 *
 		 * 1. Return value from implementation cache, if available, for quick turnaround.
 		 * 2. Locate a namespace registration for 'ns'
 		 * 3. If no namespace found, register the conventional one (ns.widget)
 		 * 4. Allow the namespace resolver (if any) to load a module for this widget.
-		 * 5. Permute the widget name and capable rendering prefixes to locate, cache, and return 
+		 * 5. Permute the widget name and capable rendering prefixes to locate, cache, and return
 		 *    an appropriate widget implementation.
 		 * 6. If no implementation is found, attempt to load the namespace manifest,
 		 *    and then look again for an implementation to cache and return.
@@ -246,7 +246,7 @@ dojo.widget.manager = new function(){
 		if(impl){
 			return impl;
 		}
-		
+
 		// (one time) store a list of the render prefixes we are capable of rendering
 		if(!renderPrefixCache.length){
 			buildPrefixCache();
@@ -259,7 +259,7 @@ dojo.widget.manager = new function(){
 			dojo.ns.register(ns, ns + '.widget');
 			nsObj = dojo.ns.get(ns);
 		}
-		
+
 		// allow the namespace to resolve the widget module
 		if(nsObj){nsObj.resolve(widgetName);}
 
@@ -274,20 +274,20 @@ dojo.widget.manager = new function(){
 			impl = findImplementation(lowerCaseWidgetName, nsObj.module);
 			if(impl){return(imps[lowerCaseWidgetName] = impl)};
 		}
-	
+
 		// this is an error condition under new rules
-		dojo.deprecated('dojo.widget.Manager.getImplementationName', 
-			'Could not locate widget implementation for "' + widgetName + '" in "' + nsObj.module + '" registered to namespace "' + nsObj.name + '". '										
+		dojo.deprecated('dojo.widget.Manager.getImplementationName',
+			'Could not locate widget implementation for "' + widgetName + '" in "' + nsObj.module + '" registered to namespace "' + nsObj.name + '". '
 			+ "Developers must specify correct namespaces for all non-Dojo widgets", "0.5");
 
 		// backward compat: if the user has not specified any namespace and their widget is not in dojo.widget.*
 		// search registered widget packages [sic]
-		// note: registerWidgetPackage itself is now deprecated 
+		// note: registerWidgetPackage itself is now deprecated
 		for(var i=0; i<widgetPackages.length; i++){
 			impl = findImplementation(lowerCaseWidgetName, widgetPackages[i]);
 			if(impl){return(imps[lowerCaseWidgetName] = impl)};
 		}
-		
+
 		throw new Error('Could not locate widget implementation for "' + widgetName + '" in "' + nsObj.module + '" registered to namespace "' + nsObj.name + '"');
 	}
 

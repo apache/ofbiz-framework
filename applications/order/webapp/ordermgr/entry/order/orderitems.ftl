@@ -39,21 +39,21 @@ under the License.
           <#list orderItems?if_exists as orderItem>
             <#assign itemType = orderItem.getRelatedOne("OrderItemType")?if_exists>
             <tr><td colspan="6"><hr/></td></tr>
-            <tr>     
-              <#if orderItem.productId?exists && orderItem.productId == "_?_">           
-                <td colspan="1" valign="top">    
+            <tr>
+              <#if orderItem.productId?exists && orderItem.productId == "_?_">
+                <td colspan="1" valign="top">
                   <b><div> &gt;&gt; ${orderItem.itemDescription}</div></b>
                 </td>
-              <#else>                  
-                <td valign="top">                      
-                  <div> 
-                    <#if orderItem.productId?exists>                       
+              <#else>
+                <td valign="top">
+                  <div>
+                    <#if orderItem.productId?exists>
                       <a href="<@ofbizUrl>product?product_id=${orderItem.productId}</@ofbizUrl>" class="buttontext">${orderItem.productId} - ${orderItem.itemDescription}</a>
-                    <#else>                                                    
+                    <#else>
                       <b>${itemType?if_exists.description?if_exists}</b> : ${orderItem.itemDescription?if_exists}
                     </#if>
                   </div>
-                  
+
                 </td>
                 <td align="right" valign="top">
                   <div nowrap>${orderItem.quantity?string.number}</div>
@@ -66,9 +66,9 @@ under the License.
                 </td>
                 <td align="right" valign="top" nowrap>
                   <div><@ofbizCurrency amount=localOrderReadHelper.getOrderItemSubTotal(orderItem) isoCode=currencyUomId/></div>
-                </td>                    
+                </td>
                 <#if maySelectItems?default(false)>
-                  <td>                                 
+                  <td>
                     <input name="item_id" value="${orderItem.orderItemSeqId}" type="checkbox">
                   </td>
                 </#if>
@@ -131,22 +131,22 @@ under the License.
           <tr>
             <td align="right" colspan="4"><div><b>${uiLabelMap.OrderSubTotal}</b></div></td>
             <td align="right" nowrap><div>&nbsp;<#if orderSubTotal?exists><@ofbizCurrency amount=orderSubTotal isoCode=currencyUomId/></#if></div></td>
-          </tr>              
+          </tr>
           <#list headerAdjustmentsToShow?if_exists as orderHeaderAdjustment>
             <tr>
               <td align="right" colspan="4"><div><b>${localOrderReadHelper.getAdjustmentType(orderHeaderAdjustment)}</b></div></td>
               <td align="right" nowrap><div><@ofbizCurrency amount=localOrderReadHelper.getOrderAdjustmentTotal(orderHeaderAdjustment) isoCode=currencyUomId/></div></td>
             </tr>
-          </#list>                 
+          </#list>
           <tr>
             <td align="right" colspan="4"><div><b>${uiLabelMap.FacilityShippingAndHandling}</b></div></td>
             <td align="right" nowrap><div><#if orderShippingTotal?exists><@ofbizCurrency amount=orderShippingTotal isoCode=currencyUomId/></#if></div></td>
-          </tr>              
+          </tr>
           <tr>
             <td align="right" colspan="4"><div><b>${uiLabelMap.OrderSalesTax}</b></div></td>
             <td align="right" nowrap><div><#if orderTaxTotal?exists><@ofbizCurrency amount=orderTaxTotal isoCode=currencyUomId/></#if></div></td>
           </tr>
-          
+
           <tr><td colspan=2></td><td colspan="8"><hr/></td></tr>
           <tr>
             <td align="right" colspan="4"><div><b>${uiLabelMap.OrderGrandTotal}</b></div></td>

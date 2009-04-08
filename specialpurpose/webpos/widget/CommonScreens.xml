@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
-    
+
     <screen name="main-decorator">
         <section>
             <actions>
@@ -32,27 +32,27 @@ under the License.
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                
+
                 <set field="MainColumnStyle" value="center" global="true"/>
-                
+
                 <!-- The default (global) shortcut icon -->
                 <set field="layoutSettings.shortcutIcon" value="/images/favicon.ico" global="true"/>
-                
+
                 <!-- The default (main) java scripts -->
                 <!-- NOTE: this should be included on each screen that uses it to avoid including it in all screens: -->
                 <set field="layoutSettings.javaScripts[+0]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/selectall.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/calendar1.js" global="true"/>
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/prototype.js" global="true"/>
-                
+
                 <script location="component://webpos/widget/WebPosSetup.groovy"/>
-                
+
                 <!-- The default (main) stylesheets -->
                 <set field="layoutSettings.styleSheets[+0]" value="/webpos/images/webpos.css" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="${productStore.styleSheet}" default-value="/images/ecommain.css" global="true"/>
                 <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
                 <set field="layoutSettings.styleSheets[]" value="/content/images/contentForum.css" global="true"/>
-                
+
                 <set field="activeApp" value="webpos" global="true"/>
             </actions>
             <widgets>
@@ -74,7 +74,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="rightbar">
         <section>
             <widgets>
@@ -85,7 +85,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="rightbar_manager">
         <section>
             <widgets>
@@ -96,7 +96,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="rightbar_payment">
         <section>
             <widgets>
@@ -107,7 +107,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="rightbar_promo">
         <section>
             <widgets>
@@ -118,7 +118,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="leftbar">
         <section>
             <widgets>
@@ -127,7 +127,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="Header">
         <section>
             <widgets>
@@ -135,7 +135,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <!-- Column Included Screens -->
     <screen name="Language">
         <section>
@@ -144,7 +144,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <!-- Top Level Screens -->
     <screen name="Main">
         <section>
@@ -162,7 +162,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="Login">
         <section>
             <actions>

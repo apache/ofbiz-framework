@@ -18,10 +18,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
 
-<!-- these SECAs are for automatically creating accounting transactions based on business transactions.  
+<!-- these SECAs are for automatically creating accounting transactions based on business transactions.
      They should normally be "sync" SECAs so that they happen as soon
      as the business transactions are ready, and so that if the accounting transactions can't be created,
      the user will get an error.  This is to avoid cases where business transactions are created but in limbo
@@ -40,5 +40,5 @@ under the License.
         <condition field-name="oldStatusId" operator="not-equals" value="PMNT_SENT"/>
         <action service="checkPaymentInvoices" mode="sync"/>
      </eca>
-   
+
 </service-eca>

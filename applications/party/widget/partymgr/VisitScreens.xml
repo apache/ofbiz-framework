@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="showvisits">
@@ -27,8 +27,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleVisitList"/>
                 <set field="headerItem" value="visits"/>
                 <set field="tabButtonItem" value="showvisits"/>
-                
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/visit/ShowVisits.groovy"/>                
+
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/visit/ShowVisits.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -58,8 +58,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleVisitDetail"/>
                 <set field="headerItem" value="visits"/>
                 <set field="tabButtonItem" value="visitdetail"/>
-                
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/visit/VisitDetails.groovy"/>                
+
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/visit/VisitDetails.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -84,4 +84,4 @@ under the License.
         </section>
     </screen>
 </screens>
-    
+

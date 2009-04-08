@@ -97,7 +97,7 @@ under the License.
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "CONTENT">
             <#if answer.contentId?has_content>
               <#assign content = answer.getRelatedOne("Content")>
-              <a href="/content/control/img?imgId=${content.dataResourceId}" class="buttontext">${answer.contentId}</a>&nbsp;-&nbsp;${content.contentName?if_exists}                         
+              <a href="/content/control/img?imgId=${content.dataResourceId}" class="buttontext">${answer.contentId}</a>&nbsp;-&nbsp;${content.contentName?if_exists}
             </#if>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "OPTION">
             <#assign options = surveyQuestionAndAppl.getRelated("SurveyQuestionOption", sequenceSort)?if_exists>

@@ -17,9 +17,9 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-tree.xsd">
-    <tree name="CompDocTemplateTree" root-node-name="node-root" 
+    <tree name="CompDocTemplateTree" root-node-name="node-root"
         default-render-style="simple" default-wrap-style="treeWrapper">
         <node name="node-root" wrap-style="treeWrapper">
             <entity-one entity-name="Content" use-cache="false">
@@ -38,8 +38,8 @@ under the License.
                             <condition-expr field-name="thruDate" operator="equals" value=""/>
                             <condition-expr field-name="thruDate" operator="greater" from-field="nowTimestamp"/>
                         </condition-list>
-                   </condition-list> 
-                  
+                   </condition-list>
+
                    <select-field field-name="rootRevisionContentId"/>
                    <select-field field-name="itemContentId"/>
                    <select-field field-name="maxRevisionSeqId"/>
@@ -48,7 +48,7 @@ under the License.
                    <select-field field-name="contentAssocTypeId"/>
                    <select-field field-name="fromDate"/>
                    <select-field field-name="sequenceNum"/>
-                   
+
                    <order-by field-name="sequenceNum"/>
                 </entity-condition>
             </sub-node>
@@ -70,8 +70,8 @@ under the License.
                             <condition-expr field-name="thruDate" operator="equals" value=""/>
                             <condition-expr field-name="thruDate" operator="greater" from-field="nowTimestamp"/>
                         </condition-list>
-                   </condition-list> 
-                   
+                   </condition-list>
+
                    <select-field field-name="rootRevisionContentId"/>
                    <select-field field-name="itemContentId"/>
                    <select-field field-name="maxRevisionSeqId"/>
@@ -86,8 +86,8 @@ under the License.
            </sub-node>
         </node>
     </tree>
-    
-    <tree name="CompDocInstanceTree" root-node-name="node-root" 
+
+    <tree name="CompDocInstanceTree" root-node-name="node-root"
         default-render-style="simple" default-wrap-style="treeWrapper">
         <node name="node-root">
             <entity-one entity-name="Content" use-cache="false">
@@ -106,8 +106,8 @@ under the License.
                             <condition-expr field-name="thruDate" operator="equals" value=""/>
                             <condition-expr field-name="thruDate" operator="greater" from-field="nowTimestamp"/>
                         </condition-list>
-                   </condition-list> 
-                  
+                   </condition-list>
+
                    <select-field field-name="rootRevisionContentId"/>
                    <select-field field-name="itemContentId"/>
                    <select-field field-name="maxRevisionSeqId"/>
@@ -116,7 +116,7 @@ under the License.
                    <select-field field-name="contentAssocTypeId"/>
                    <select-field field-name="fromDate"/>
                    <select-field field-name="sequenceNum"/>
-                   
+
                    <order-by field-name="sequenceNum"/>
                 </entity-condition>
             </sub-node>
@@ -138,8 +138,8 @@ under the License.
                             <condition-expr field-name="thruDate" operator="equals" value=""/>
                             <condition-expr field-name="thruDate" operator="greater" from-field="nowTimestamp"/>
                         </condition-list>
-                   </condition-list> 
-                   
+                   </condition-list>
+
                    <select-field field-name="rootRevisionContentId"/>
                    <select-field field-name="itemContentId"/>
                    <select-field field-name="maxRevisionSeqId"/>

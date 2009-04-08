@@ -20,7 +20,7 @@ under the License.
 
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
-    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
     <description>Facility Manager Module Site Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
@@ -383,7 +383,7 @@ under the License.
         <response name="success" type="view" value="EditFacilityParties"/>
         <response name="error" type="view" value="EditFacilityParties"/>
     </request-map>
-    
+
     <!-- ================ Inventory Item Labels Requests ================= -->
     <request-map uri="EditInventoryItemLabelTypes">
         <security https="true" auth="true"/>
@@ -516,7 +516,7 @@ under the License.
         <response name="success" type="view" value="FindFacilityPhysicalInventory"/>
     </request-map>
 
-    
+
     <!-- ================ Inventory Transfer Requests ================= -->
     <request-map uri="TransferInventoryItem">
         <security https="true" auth="true"/>
@@ -726,7 +726,7 @@ under the License.
     <request-map uri="PackingSlip.pdf">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PackingSlip.pdf"/>
-    </request-map>    
+    </request-map>
     <request-map uri="ShipmentBarCode.pdf">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ShipmentBarCode.pdf"/>
@@ -734,7 +734,7 @@ under the License.
     <request-map uri="ShipmentManifest.pdf">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ShipmentManifest.pdf"/>
-    </request-map>    
+    </request-map>
 
     <!-- ================ Shipment Scheduling Requests ================= -->
     <request-map uri="Scheduling">
@@ -797,14 +797,14 @@ under the License.
         <response name="success" type="view" value="EditShipment"/>
         <response name="error" type="view" value="EditShipment"/>
     </request-map>
-    
+
     <request-map uri="createShipmentAndItemsForVendorReturn">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createShipmentAndItemsForVendorReturn"/>
         <response name="success" type="view" value="EditShipment"/>
         <response name="error" type="view" value="EditShipment"/>
     </request-map>
-    
+
     <request-map uri="setShipmentSettingsFromPrimaryOrder">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="setShipmentSettingsFromPrimaryOrder"/>
@@ -1097,7 +1097,7 @@ under the License.
         <event type="service" path="" invoke="issueInventoryItemToShipment"/>
         <response name="success" type="view" value="AddItemsFromInventory"/>
         <response name="error" type="view" value="AddItemsFromInventory"/>
-    </request-map>        
+    </request-map>
     <!-- ================ Shipment Items From Order Requests ================= -->
     <request-map uri="EditShipmentPlan">
         <security https="true" auth="true"/>
@@ -1122,7 +1122,7 @@ under the License.
         <response name="error" type="view" value="EditShipmentItems"/>
     </request-map>
     -->
-    
+
     <!-- ================ Inventory Reports Requests ================= -->
     <request-map uri="InventoryReports">
         <security https="true" auth="true"/>
@@ -1151,7 +1151,7 @@ under the License.
         <response name="success" type="view" value="FacilityLocationGeoLocation"/>
         <response name="error" type="view" value="EditFacility"/>
     </request-map>
-    
+
 
     <!-- ================ Lookup Requests ================= -->
     <request-map uri="LookupOrderHeaderAndShipInfo"><security https="true" auth="true"/><response name="success" type="view" value="LookupOrderHeaderAndShipInfo"/></request-map>
@@ -1196,7 +1196,7 @@ under the License.
     <view-map name="ReceiveReturn" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ReceiveReturn"/>
 
     <view-map name="FindFacilityPhysicalInventory" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FindFacilityPhysicalInventory"/>
-    
+
     <view-map name="PicklistOptions" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PicklistOptions"/>
     <view-map name="PicklistManage" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PicklistManage"/>
     <view-map name="PickMoveStock" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PickMoveStock"/>
@@ -1218,7 +1218,7 @@ under the License.
     <view-map name="PackingSlip.pdf" type="screenfop" page="component://product/widget/facility/ShipmentScreens.xml#PackingSlip.fo" content-type="application/pdf" encoding="none"/>
     <view-map name="ShipmentBarCode.pdf" type="screenfop" page="component://product/widget/facility/ShipmentScreens.xml#ShipmentBarCode.fo" content-type="application/pdf" encoding="none"/>
     <view-map name="ShipmentManifest.pdf" type="screenfop" page="component://product/widget/facility/ShipmentScreens.xml#ShipmentManifest.fo" content-type="application/pdf" encoding="none"/>
-    
+
     <view-map name="VerifyPick" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#VerifyPick"/>
 
     <view-map name="ScheduleShipmentRouteSegment" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ScheduleShipmentRouteSegment"/>
@@ -1236,16 +1236,16 @@ under the License.
     <view-map name="AddItemsFromInventory" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#AddItemsFromInventory"/>
     <view-map name="ReceiveInventoryAgainstPurchaseOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#ReceiveInventoryAgainstPurchaseOrder"/>
     <view-map name="QuickShipOrder" type="screen" page="component://product/widget/facility/ShipmentScreens.xml#QuickShipOrder"/>
-    
+
     <view-map name="InventoryReports" type="screen" page="component://product/widget/facility/ReportScreens.xml#InventoryReports"/>
     <view-map name="InventoryItemTotals" type="screen" page="component://product/widget/facility/FacilityScreens.xml#InventoryItemTotals"/>
     <view-map name="InventoryItemGrandTotals" type="screen" page="component://product/widget/facility/FacilityScreens.xml#InventoryItemGrandTotals"/>
     <view-map name="InventoryAverageCosts" type="screen" page="component://product/widget/facility/FacilityScreens.xml#InventoryAverageCosts"/>
-    
+
     <view-map name="InventoryItemTotalsExport" type="screentext" page="component://product/widget/facility/FacilityScreens.xml#InventoryItemTotalsExport" content-type="text/csv" encoding="none"/>
 
     <view-map name="FacilityLocationGeoLocation" type="screen" page="component://product/widget/facility/FacilityScreens.xml#FacilityLocationGeoLocation"/>
-    
+
     <view-map name="LookupOrderHeaderAndShipInfo" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeaderAndShipInfo"/>
     <view-map name="LookupPurchaseOrderHeaderAndShipInfo" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupPurchaseOrderHeaderAndShipInfo"/>
     <view-map name="LookupOrderHeader" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupOrderHeader"/>

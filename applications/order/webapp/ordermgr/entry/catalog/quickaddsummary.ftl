@@ -38,23 +38,23 @@ under the License.
   <td align="right" valign="middle" width="5%">
       <#if totalPrice?exists>
         <div>${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></div>
-      <#else> 
+      <#else>
         <div class="<#if price.isSale?exists && price.isSale>salePrice<#else>normalPrice</#if>">
           <b><@ofbizCurrency amount=price.price isoCode=price.currencyUsed/></b>
         </div>
       </#if>
-  </td>                                 
+  </td>
   <td align="right" valign="middle">
     <#-- check to see if introductionDate hasn't passed yet -->
     <#if product.introductionDate?exists && nowTimestamp.before(product.introductionDate)>
       <div style="color: red;">${uiLabelMap.ProductNotYetAvailable}</div>
     <#-- check to see if salesDiscontinuationDate has passed -->
     <#elseif product.salesDiscontinuationDate?exists && nowTimestamp.before(product.salesDiscontinuationDate)>
-      <div style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</div>          
+      <div style="color: red;">${uiLabelMap.ProductNoLongerAvailable}</div>
     <#-- check to see if the product is a virtual product -->
     <#elseif product.isVirtual?default("N") == "Y">
       <a href="<@ofbizUrl>product?<#if categoryId?exists>category_id=${categoryId}&</#if>product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderChooseVariations}...</a>
-    <#else>                                  
+    <#else>
       <input type="text" size="5" name="quantity_${product.productId}" value="">
     </#if>
   </td>

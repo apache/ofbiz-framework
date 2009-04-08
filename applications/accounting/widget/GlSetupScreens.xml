@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="CommonAdminDecorator">
@@ -81,7 +81,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListCompanies" location="component://accounting/widget/GlSetupForms.xml"/>
                                     </widgets>
                                 </section>
@@ -150,7 +150,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListOpenTimePeriods" location="component://accounting/widget/GlSetupForms.xml"/>
                                     </widgets>
                                 </section>
@@ -164,7 +164,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="ListClosedTimePeriods" location="component://accounting/widget/GlSetupForms.xml"/>
                                     </widgets>
                                 </section>
@@ -178,7 +178,7 @@ under the License.
                             </container>
                             <container style="screenlet-body">
                                 <section>
-                                    <widgets>    
+                                    <widgets>
                                         <include-form name="CreateTimePeriod" location="component://accounting/widget/GlSetupForms.xml"/>
                                     </widgets>
                                 </section>
@@ -189,7 +189,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="PartyAcctgPreference">
         <section>
             <actions>
@@ -215,7 +215,7 @@ under the License.
                                     <label text="${uiLabelMap.AccountingPreference}"/>
                                 </container>
                             </container>
-                            <container style="screenlet-body">  
+                            <container style="screenlet-body">
                                 <include-form name="PartyAcctgPreference" location="component://accounting/widget/GlSetupForms.xml"/>
                             </container>
                         </container>
@@ -233,7 +233,7 @@ under the License.
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingFX}"/>
                 <set field="tabButtonItem" value="ViewFXConversions"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId" global="true"/>
-                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>                                
+                <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <!-- TODO: If UomConversionDated is ever used for another type of conversion besides currencies or if some currencies are
                     stored in UomConversion, we need to change the logic here -->
                 <entity-condition entity-name="UomConversionDated" list="conversions">
@@ -276,7 +276,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="GlAccountTypeDefaults">
         <section>
             <actions>
@@ -388,13 +388,13 @@ under the License.
     <screen name="EditProductGlAccounts">
         <section>
             <actions>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>                
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingProductGlAccount"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingProductGlAccount}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="ProductGlAccounts"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                
+
                 <entity-condition entity-name="ProductGlAccount" list="productGlAccounts">
                     <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
                     <order-by field-name="glAccountTypeId"/>
@@ -412,17 +412,17 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditFinAccountTypeGlAccounts">
         <section>
             <actions>
-                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>                
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingFinAccountTypeGlAccount"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingFinAccountTypeGlAccount}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="FinAccountTypeGlAccounts"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                
+
                  <entity-condition entity-name="FinAccountTypeGlAccount" list="finAccountTypeGlAccounts">
                     <condition-expr field-name="organizationPartyId" operator="equals" from-field="organizationPartyId"/>
                     <order-by field-name="finAccountTypeId"/>
@@ -443,18 +443,18 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditProductCategoryGlAccounts">
         <section>
             <actions>
                 <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
-                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>                
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="AccountingProductCategoryGlAccount"/>
                 <set field="labelTitleProperty" value="${uiLabelMap.AccountingProductCategoryGlAccount}"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="ProductCategoryGlAccounts"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                
+
                 <entity-condition entity-name="ProductCategoryGlAccount" list="productCategoryGlAccounts">
                     <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
                     <order-by field-name="glAccountTypeId"/>
@@ -472,7 +472,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditVarianceReasonGlAccounts">
         <section>
             <actions>
@@ -480,9 +480,9 @@ under the License.
                 <set field="titleProperty" value="AccountingVarianceReasonGlAccounts"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="VarianceReasonGlAccounts"/>
-                <set field="labelTitleProperty" value="${uiLabelMap.AccountingVarianceReasonGlAccounts}"/>                
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingVarianceReasonGlAccounts}"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                
+
                 <entity-condition entity-name="VarianceReasonGlAccount" list="varianceReasonGlAccounts">
                     <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
                     <order-by field-name="glAccountId"/>
@@ -496,11 +496,11 @@ under the License.
                         </screenlet>
                         <include-form name="ListVarianceReasonGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
                     </decorator-section>
-                </decorator-screen>        
-            </widgets>    
+                </decorator-screen>
+            </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditCreditCardTypeGlAccounts">
         <section>
             <actions>
@@ -526,7 +526,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-   
+
     <screen name="EditOrganizationTaxAuthorityGlAccounts">
         <section>
             <actions>
@@ -534,7 +534,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditTaxAuthorityGlAccounts"/>
                 <set field="tabButtonItem" value="GlAccountAssignment"/>
                 <set field="tabButtonItem2" value="TaxAuthorityGlAccounts"/>
-                <set field="labelTitleProperty" value="${uiLabelMap.PageTitleEditTaxAuthorityGlAccounts}"/>                
+                <set field="labelTitleProperty" value="${uiLabelMap.PageTitleEditTaxAuthorityGlAccounts}"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <entity-condition entity-name="TaxAuthorityGlAccount" list="taxAuthorityGlAccounts">
                     <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
@@ -551,8 +551,8 @@ under the License.
                         </screenlet>
                         <include-form name="ListTaxAuthorityGlAccounts" location="component://accounting/widget/GlSetupForms.xml"/>
                     </decorator-section>
-                </decorator-screen>        
-            </widgets>    
+                </decorator-screen>
+            </widgets>
         </section>
     </screen>
 

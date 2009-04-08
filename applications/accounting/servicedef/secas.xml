@@ -18,26 +18,26 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
     <eca service="createInvoiceForOrder" event="return">
         <condition field-name="invoiceId" operator="is-not-empty"/>
         <condition field-name="invoiceTypeId" operator="equals" value="SALES_INVOICE"/>
         <action service="capturePaymentsByInvoice" mode="sync"/>
-    </eca>        
+    </eca>
     <eca service="createPaymentApplication" event="commit">
         <condition field-name="invoiceId" operator="is-not-empty"/>
         <action service="checkInvoicePaymentApplications" mode="sync"/>
         <action service="createCommissionInvoices" mode="sync" run-as-user="system"/>
     </eca>
-    
-    <!--  Uncomment this if you want commission invoices to be set to READY automatically, which means they are official 
+
+    <!--  Uncomment this if you want commission invoices to be set to READY automatically, which means they are official
     <eca service="createCommissionInvoices" event="commit">
         <condition field-name="invoicesCreated" operator="is-not-empty"/>
         <action service="readyInvoices" mode="sync"/>
     </eca>
     -->
-    
+
     <eca service="createPartyPostalAddress" event="commit">
         <condition field-name="paymentMethodId" operator="is-not-empty"/>
         <action service="setPaymentMethodAddress" mode="sync"/>
@@ -57,7 +57,7 @@ under the License.
         <condition field-name="partyId" operator="is-not-empty"/>
         <action service="ensurePartyRole" mode="sync"/>
     </eca>
-    
+
     <eca service="createCreditCard" event="in-validate">
         <condition field-name="expMonth" operator="is-not-empty"/>
         <condition field-name="expYear" operator="is-not-empty"/>
@@ -113,7 +113,7 @@ under the License.
     <eca service="createFinAccountRole" event="invoke">
         <action service="ensurePartyRole" mode="sync" run-as-user="system"/>
     </eca>
-    
+
     <!-- financial account transaction ecas -->
     <eca service="finAccountWithdraw" event="return" run-on-error="true">
         <condition field-name="productStoreId" operator="is-not-empty"/>
@@ -133,7 +133,7 @@ under the License.
         <condition field-name="replenishPaymentId" operator="is-not-empty"/>
         <action service="finAccountReplenish" mode="sync" run-as-user="system"/>
     </eca>
-     
+
     <!--
     <eca service="createFinAccountTrans" event="commit">
         <action service="postFinAccountTransToGl" mode="sync"/>
@@ -151,8 +151,8 @@ under the License.
         <action service="sampleInvoiceAffiliateCommission" mode="sync"/>
     </eca>
     -->
-    
-    <!--  automatically create a fixed asset when a 'asset usage' type product 
+
+    <!--  automatically create a fixed asset when a 'asset usage' type product
           is created and create the link between them -->
     <eca service="createProduct" event="commit">
         <condition field-name="productTypeId" operator="equals" value="ASSET_USAGE"/>

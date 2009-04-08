@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Party Component Services</description>
     <vendor>OFBiz</vendor>
@@ -53,7 +53,7 @@ under the License.
         <attribute name="serialNumber" type="String" mode="IN" optional="true"/> <!-- does a LIKE compare on this -->
         <attribute name="softIdentifier" type="String" mode="IN" optional="true"/> <!-- does a LIKE compare on this -->
         <attribute name="partyRelationshipTypeId" type="String" mode="IN" optional="true"/>
-        
+
         <attribute name="roleTypes" type="List" mode="OUT" optional="false"/>
         <attribute name="partyTypes" type="List" mode="OUT" optional="false"/>
         <attribute name="currentRole" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
@@ -67,7 +67,7 @@ under the License.
         <attribute name="highIndex" type="Integer" mode="OUT" optional="false"/>
         <attribute name="lowIndex" type="Integer" mode="OUT" optional="false"/>
     </service>
-    
+
     <service name="getPartyContactMechValueMaps" engine="java"
             transaction-timeout="7200"
             location="org.ofbiz.party.contact.ContactMechServices" invoke="getPartyContactMechValueMaps" auth="true">

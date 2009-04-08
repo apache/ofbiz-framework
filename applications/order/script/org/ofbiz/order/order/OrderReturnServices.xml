@@ -62,9 +62,9 @@ under the License.
                 </entity-one>
                 <if-empty field="partyRole">
                     <add-error><fail-message message="Error: a return must be to a party in the role of supplier"/></add-error>
-                </if-empty>            
-            </else>                    
-            </if-compare>    
+                </if-empty>
+            </else>
+            </if-compare>
          </else>
         </if-empty>
         <check-errors/>
@@ -81,7 +81,7 @@ under the License.
         <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="parameters.toPartyId"/>
         <set field="systemMap.userLoginId" value="system"/>
         <find-by-primary-key  entity-name="UserLogin" map="systemMap" value-field="systemLogin"/>
-        <set field="partyAccountingPreferencesCallMap.userLogin" from-field="systemLogin"/> 
+        <set field="partyAccountingPreferencesCallMap.userLogin" from-field="systemLogin"/>
         <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
              <result-to-field result-name="partyAccountingPreference" field="partyAcctgPreference"/>
         </call-service>
@@ -106,8 +106,8 @@ under the License.
                     <set field="newEntity.statusId" value="RETURN_REQUESTED"/>
                 <else>
                     <set field="newEntity.statusId" value="SUP_RETURN_REQUESTED"/>
-                </else>    
-                </if-compare>              
+                </else>
+                </if-compare>
                 <set from-field="nowTimestamp" field="newEntity.entryDate"/>
             </then>
         </if>
@@ -121,8 +121,8 @@ under the License.
                 <set field="newEntity.statusId" value="RETURN_REQUESTED"/>
             <else>
                 <set field="newEntity.statusId" value="SUP_RETURN_REQUESTED"/>
-            </else>    
-            </if-compare>     
+            </else>
+            </if-compare>
         </if-empty>
         <set field="newEntity.createdBy" from-field="userLogin.userLoginId"/>
 
@@ -142,7 +142,7 @@ under the License.
             <entity-condition entity-name="ReturnItem" list="returnItems" distinct="true">
                 <condition-expr field-name="returnId" from-field="returnHeader.returnId"/>
             </entity-condition>
-            
+
             <!-- this block is for debugging and can be removed later -->
             <!--
             <log level="verbose" message="Items and adjustments for return ${returnHeader.returnId}"/>
@@ -347,8 +347,8 @@ under the License.
                 </if-compare-field>
             </if-not-empty>
             <if-compare-field field="parameters.returnPrice" to-field="returnablePrice" operator="greater" type="BigDecimal">
-                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnPriceCannotExceedThePurchasePrice"/></add-error>                
-            </if-compare-field>            
+                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderReturnPriceCannotExceedThePurchasePrice"/></add-error>
+            </if-compare-field>
             <check-errors/>
 
             <else>
@@ -451,7 +451,7 @@ under the License.
     <simple-method method-name="removeReturnItem" short-description="Remove Return Item">
         <check-permission permission="ORDERMGR" action="_DELETE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteItem"/></check-permission>
         <check-errors/>
-        
+
         <entity-one entity-name="ReturnHeader" value-field="returnHeader"/>
         <if-compare field="returnHeader.returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
             <if-compare field="returnHeader.statusId" operator="not-equals" type="String" value="RETURN_REQUESTED">
@@ -460,11 +460,11 @@ under the License.
         <else>
             <if-compare field="returnHeader.statusId" operator="not-equals" type="String" value="SUP_RETURN_REQUESTED">
                 <add-error><fail-property resource="OrderErrorUiLabels" property="OrderCannotRemoveItemsOnceReturnIsApproved"/></add-error>
-            </if-compare>        
-        </else>    
+            </if-compare>
+        </else>
         </if-compare>
         <check-errors/>
-        
+
         <set from-field="parameters.returnId" field="lookupPKMap.returnId"/>
         <set from-field="parameters.returnItemSeqId" field="lookupPKMap.returnItemSeqId"/>
         <find-by-primary-key entity-name="ReturnItem" map="lookupPKMap" value-field="returnItem"/>
@@ -520,38 +520,38 @@ under the License.
         <iterate list="shipmentReceipts" entry="receipt">
             <if-empty field="totalsMap.receipt.returnItemSeqId">
                 <set field="totalsMap.receipt.returnItemSeqId" value="0"  type="BigDecimal"/>
-            </if-empty> 
+            </if-empty>
             <set field="totalsMap.receipt.returnItemSeqId" value="${receipt.quantityAccepted + receipt.quantityRejected}" default-value="0" type="BigDecimal"/>
-            
+
             <entity-one entity-name="ReturnItem" value-field="returnItem">
                 <field-map field-name="returnId" from-field="receipt.returnId"/>
                 <field-map field-name="returnItemSeqId" from-field="receipt.returnItemSeqId"/>
             </entity-one>
             <set field="returnItem.receivedQuantity" from-field="${totalsMap.receipt.returnItemSeqId}" type="BigDecimal"/>
-            
+
             <if-compare-field field="totalsMap.receipt.returnItemSeqId" to-field="returnItem.returnQuantity" operator="greater-equals" type="BigDecimal">
                 <!-- update the status for the item -->
                 <set field="returnItem.statusId" value="RETURN_RECEIVED"/>
                 <store-value value-field="returnItem"/>
-                
+
                 <!-- create status change history -->
                 <!-- TODO: this should be done with a createReturnStatus service call -->
                 <make-value entity-name="ReturnStatus" value-field="newReturnStatus"/>
                 <sequenced-id sequence-name="ReturnStatus" field="newReturnStatus.returnStatusId"/>
-                
+
                 <set field="newReturnStatus.returnId" from-field="returnItem.returnItemSeqId"/>
                 <set field="newReturnStatus.returnId" from-field="returnItem.returnId"/>
                 <set field="newReturnStatus.statusId" from-field="returnItem.statusId"/>
-                
+
                 <now-timestamp field="newReturnStatus.statusDatetime"/>
-                
+
                 <create-value value-field="newReturnStatus"/>
             </if-compare-field>
 
             <!-- update the returnItem with at least receivedQuantity, and also statusId if applicable -->
             <store-value value-field="returnItem"/>
         </iterate>
-        
+
         <!-- check to see if all items have been received -->
         <set field="allReceived" value="true"/>
         <find-by-and entity-name="ReturnItem" map="lookupPKMap" list="allReturnItems"/>
@@ -563,10 +563,10 @@ under the License.
                 </if-not-empty>
             </if-compare>
         </iterate>
-        
+
         <!-- if the items are all received, then update the return header, store the status history change, and set the shipment to received -->
         <if-compare field="allReceived" operator="equals" value="true">
-            
+
             <!--  Go through all the items yet again and set their shipment status to PURCH_SHIP_RECEIVED (if it isn't already)
                 This activates SECAS such as creating return invoices. This MUST be done before updating the return header so that
                 the ReturnItemBillings are created and then whatever SECA binds to the return header update will have them. . -->
@@ -580,7 +580,7 @@ under the License.
                     </if-compare>
                 </if-not-empty>
             </iterate>
-            
+
             <!-- update the return header -->
             <set field="returnHeaderCtx.statusId" value="RETURN_RECEIVED"/>
             <set from-field="returnHeader.returnId" field="returnHeaderCtx.returnId"/>
@@ -588,15 +588,15 @@ under the License.
             <!-- create the status history -->
             <make-value entity-name="ReturnStatus" value-field="newValue"/>
             <sequenced-id sequence-name="ReturnStatus" field="newValue.returnStatusId"/>
-            
+
             <set field="newValue.returnId" from-field="returnHeader.returnId"/>
             <set field="newValue.statusId" value="RETURN_RECEIVED"/>
-            
+
             <now-timestamp field="newValue.statusDatetime"/>
-            
+
             <create-value value-field="newValue"/>
         </if-compare>
-        
+
         <!-- return the current return header status -->
         <field-to-result field="returnHeader.statusId" result-name="returnHeaderStatus"/>
     </simple-method>
@@ -621,7 +621,7 @@ under the License.
             </then>
         </if>
         <check-errors/>
-        
+
         <!-- get primary information from the order header -->
         <entity-one entity-name="OrderHeader" value-field="orderHeader">
             <field-map from-field="parameters.orderId" field-name="orderId"/>
@@ -631,9 +631,9 @@ under the License.
             <set field="roleTypeId" value="BILL_TO_CUSTOMER"/>
         <else>
             <set field="roleTypeId" value="BILL_FROM_VENDOR"/>
-        </else>    
+        </else>
         </if-compare>
-        
+
         <!-- find the bill to customer; for return's fromPartyId -->
         <entity-condition entity-name="OrderRole" list="orderRoles">
             <condition-list combine="and">
@@ -646,7 +646,7 @@ under the License.
         <set from-field="orderHeader.originFacilityId" field="createHeaderCtx.destinationFacilityId"/>
         <set value="Y" field="updateHeaderCtx.needsInventoryReceive"/>
         <set from-field="returnHeaderTypeId" field="createHeaderCtx.returnHeaderTypeId"/>
-        
+
         <!-- get the return to party for customer return and return from party for vendor return from the product store -->
         <get-related-one relation-name="ProductStore" value-field="orderHeader" to-value-field="productStore"/>
         <if-compare field="returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
@@ -658,7 +658,7 @@ under the License.
         <else>
             <set field="createHeaderCtx.fromPartyId" from-field="productStore.payToPartyId"/>
             <set field="createHeaderCtx.toPartyId" from-field="orderRole.partyId"/>
-        </else>    
+        </else>
         </if-compare>
         <!-- copy over the currency of the order to the currency of the return -->
         <set from-field="orderHeader.currencyUom" field="createHeaderCtx.currencyUomId"/>
@@ -796,8 +796,8 @@ under the License.
             <set field="updateHeaderCtx.statusId" value="RETURN_ACCEPTED"/>
         <else>
             <set field="updateHeaderCtx.statusId" value="SUP_RETURN_ACCEPTED"/>
-        </else>    
-        </if-compare>    
+        </else>
+        </if-compare>
         <set from-field="returnId" field="updateHeaderCtx.returnId"/>
         <call-service service-name="updateReturnHeader" in-map-name="updateHeaderCtx" include-user-login="true"/>
 
@@ -907,7 +907,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>
-    
+
     <simple-method method-name="getStatusItemsForReturn" short-description="Get the return status associated with customer vs. vendor return">
         <if-compare field="parameters.returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
             <entity-and entity-name="StatusItem" list="statusItems">
@@ -921,5 +921,5 @@ under the License.
             <field-to-result field="statusItems"/>
         </else>
         </if-compare>
-    </simple-method>    
+    </simple-method>
 </simple-methods>

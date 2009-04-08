@@ -25,14 +25,14 @@ under the License.
     <classpath type="dir" location="script"/>
     <classpath type="dir" location="config"/>
     <classpath type="jar" location="build/lib/*"/>
-    
+
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoPosData.xml"/>
-    
+
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_manager.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_payment.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_promo.xml"/>
-    
+
     <webapp name="webpos"
         title="Web Pos"
         server="default-server"

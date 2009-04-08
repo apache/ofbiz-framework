@@ -28,17 +28,17 @@ under the License.
         </fo:simple-page-master>
     </fo:layout-master-set>
     <#if hasPermission>
-        <#if records?has_content>                
+        <#if records?has_content>
             <fo:page-sequence master-reference="main">
                 <fo:static-content flow-name="xsl-region-after">
                     <fo:block text-align="right" line-height="12pt" font-size="10pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
                         ${uiLabelMap.CommonPage} <fo:page-number/>
                     </fo:block>
-                </fo:static-content>                
-                <fo:flow flow-name="xsl-region-body" font-family="Helvetica">                                    
+                </fo:static-content>
+                <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
                     <fo:block><fo:leader/></fo:block>
                     <fo:block font-size="14pt">${uiLabelMap.ManufacturingComponentsOfShipmentPlan}</fo:block>
-                    <fo:block><fo:leader/></fo:block>              
+                    <fo:block><fo:leader/></fo:block>
                     <fo:block space-after.optimum="10pt" font-size="10pt"/>
                     <fo:table>
                         <fo:table-column column-width="200pt"/>
@@ -48,47 +48,47 @@ under the License.
                             <fo:table-row font-weight="bold">
                                 <fo:table-cell padding="2pt">
                                     <fo:block>${uiLabelMap.ManufacturingShipmentId}: ${shipmentIdPar}</fo:block>
-                                </fo:table-cell>                            
+                                </fo:table-cell>
                                 <fo:table-cell padding="2pt">
                                     <fo:block>${uiLabelMap.ManufacturingEstimatedCompletionDate}: <#if estimatedReadyDatePar?has_content>${estimatedReadyDatePar}</#if></fo:block>
                                 </fo:table-cell>
-                                <fo:table-cell padding="2pt">                                     
+                                <fo:table-cell padding="2pt">
                                     <fo:block>${uiLabelMap.ManufacturingEstimatedShipDate}: <#if estimatedShipDatePar?has_content>${estimatedShipDatePar}</#if></fo:block>
-                                </fo:table-cell>                                    
+                                </fo:table-cell>
                             </fo:table-row>
-                        </fo:table-header>                          
-                        <fo:table-body/>    
-                    </fo:table>                                        
+                        </fo:table-header>
+                        <fo:table-body/>
+                    </fo:table>
                     <fo:block space-after.optimum="10pt" font-size="10pt"/>
                     <fo:table>
                         <fo:table-column column-width="120pt"/>
                         <fo:table-column column-width="120pt"/>
                         <fo:table-column column-width="120pt"/>
                         <fo:table-column column-width="120pt"/>
-                        <fo:table-column column-width="120pt"/>                    
+                        <fo:table-column column-width="120pt"/>
                         <fo:table-header>
                             <fo:table-row font-weight="bold">
                                 <fo:table-cell padding="2pt" background-color="#D4D0C8">
                                     <fo:block>${uiLabelMap.OrderOrderId}</fo:block>
                                 </fo:table-cell>
-                                <fo:table-cell padding="2pt" background-color="#D4D0C8">                                     
+                                <fo:table-cell padding="2pt" background-color="#D4D0C8">
                                     <fo:block>${uiLabelMap.ManufacturingProductsComponents}</fo:block>
-                                </fo:table-cell>                                    
-                                <fo:table-cell padding="2pt" background-color="#D4D0C8">                                     
+                                </fo:table-cell>
+                                <fo:table-cell padding="2pt" background-color="#D4D0C8">
                                     <fo:block>${uiLabelMap.CommonDescription}</fo:block>
-                                </fo:table-cell>    
-                                <fo:table-cell padding="2pt" background-color="#D4D0C8">                                     
+                                </fo:table-cell>
+                                <fo:table-cell padding="2pt" background-color="#D4D0C8">
                                     <fo:block>${uiLabelMap.ManufacturingNeedQuantity}</fo:block>
-                                </fo:table-cell>                             
-                                <fo:table-cell padding="2pt" background-color="#D4D0C8">                                     
+                                </fo:table-cell>
+                                <fo:table-cell padding="2pt" background-color="#D4D0C8">
                                     <fo:block>${uiLabelMap.ManufacturingOnHandQuantity}</fo:block>
-                                </fo:table-cell>    
+                                </fo:table-cell>
                             </fo:table-row>
-                        </fo:table-header>   
+                        </fo:table-header>
                         <fo:table-body/>
-                    </fo:table>   
+                    </fo:table>
                     <#list records as record>
-                        <fo:table>                        
+                        <fo:table>
                             <fo:table-column column-width="120pt"/>
                             <fo:table-column column-width="120pt"/>
                             <fo:table-column column-width="120pt"/>
@@ -101,57 +101,57 @@ under the License.
                                         <fo:block>
                                             ${record.get("ORDER_ID")}/${record.get("ORDER_ITEM_SEQ_ID")}
                                         </fo:block>
-                                    </fo:table-cell>                                        
+                                    </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block text-align="left">
                                             ${record.get("PRODUCT_ID")}
                                         </fo:block>
-                                    </fo:table-cell>         
+                                    </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block text-align="left">
                                             ${record.get("PRODUCT_NAME")}
                                         </fo:block>
-                                    </fo:table-cell>   
+                                    </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block text-align="center">
                                             ${record.get("QUANTITY")}
                                         </fo:block>
-                                    </fo:table-cell>  
+                                    </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block space-after.optimum="10pt" font-size="10pt"/>
-                                    </fo:table-cell>  
+                                    </fo:table-cell>
                                 </fo:table-row>
-                                <fo:table-row>      
+                                <fo:table-row>
                                     <fo:table-cell padding="2pt">
                                         <fo:block space-after.optimum="10pt" font-size="10pt"/>
-                                    </fo:table-cell>  
+                                    </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block text-align="left">
                                             ${record.get("componentId")}
                                         </fo:block>
-                                    </fo:table-cell>         
+                                    </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block text-align="left">
                                             ${record.get("componentName")}
                                         </fo:block>
-                                    </fo:table-cell>  
+                                    </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block text-align="center">
                                             ${record.get("componentQuantity")}
                                         </fo:block>
-                                    </fo:table-cell>    
+                                    </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block text-align="center">
                                             ${record.get("componentOnHand")}
                                         </fo:block>
-                                    </fo:table-cell>  
+                                    </fo:table-cell>
                                 </fo:table-row>
-                            </fo:table-body>                                                                    
-                        </fo:table>                                                                  
-                    </#list>                               
+                            </fo:table-body>
+                        </fo:table>
+                    </#list>
                 </fo:flow>
-            </fo:page-sequence>        
-        <#else>        
+            </fo:page-sequence>
+        <#else>
             <fo:page-sequence master-reference="main">
                 <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
                     <fo:block font-size="14pt">

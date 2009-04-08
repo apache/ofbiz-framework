@@ -19,8 +19,8 @@ under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-    
-    
+
+
     <form name="AddForumMessage" type="single" target="createForumMessage">
         <field name="VIEW_INDEX"><hidden value="${parameters.VIEW_INDEX}"/></field>
         <field name="threadView"><hidden value="${parameters.threadView}"/></field>

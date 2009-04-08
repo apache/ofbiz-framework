@@ -32,7 +32,7 @@ under the License.
     <title>${layoutSettings.companyName}: <#if (page.titleProperty)?has_content>${uiLabelMap[page.titleProperty]}<#else>${(page.title)?if_exists}</#if></title>
     <#if layoutSettings.shortcutIcon?has_content>
       <#assign shortcutIcon = layoutSettings.shortcutIcon/>
-    <#elseif layoutSettings.VT_SHORTCUT_ICON?has_content>    
+    <#elseif layoutSettings.VT_SHORTCUT_ICON?has_content>
       <#assign shortcutIcon = layoutSettings.VT_SHORTCUT_ICON.get(0)/>
     </#if>
     <#if shortcutIcon?has_content>
@@ -135,7 +135,7 @@ under the License.
         <li class="control-area">
           <ul id="preferences-menu">
             <#if userLogin?exists>
-              <li class="user"><a href="/partymgr/control/viewprofile?partyId=${userLogin.partyId}">${userName}</a></li>            
+              <li class="user"><a href="/partymgr/control/viewprofile?partyId=${userLogin.partyId}">${userName}</a></li>
               <li class="org">${orgName}</li>
             </#if>
             <li class="first"><a href="<@ofbizUrl>LookupLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle} : ${locale.getDisplayName(locale)}</a></li>

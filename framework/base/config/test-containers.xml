@@ -30,7 +30,7 @@ under the License.
     <container name="naming-container" class="org.ofbiz.base.container.NamingServiceContainer">
         <property name="port" value="1099"/>
     </container>
-    
+
     <!-- RMI Service Dispatcher -->
     <container name="rmi-dispatcher" class="org.ofbiz.service.rmi.RmiServiceContainer">
         <property name="bound-name" value="RMIDispatcher"/>

@@ -33,8 +33,8 @@ dojo.charting.Axis.count = 0;
 dojo.extend(dojo.charting.Axis, {
 	//	TODO: implement log scaling.
 	getCoord: function(
-		/* float */val, 
-		/* dojo.charting.PlotArea */plotArea, 
+		/* float */val,
+		/* dojo.charting.PlotArea */plotArea,
 		/* dojo.charting.Plot */plot
 	){
 		//	summary
@@ -63,11 +63,11 @@ dojo.extend(dojo.charting.Axis, {
 	initializeOrigin: function(drawAgainst, plane){
 		//	figure out the origin value.
 		if(isNaN(this.origin)){
-			if(this.origin.toLowerCase() == "max"){ 
-				this.origin = drawAgainst.range[(plane=="y")?"upper":"lower"]; 
+			if(this.origin.toLowerCase() == "max"){
+				this.origin = drawAgainst.range[(plane=="y")?"upper":"lower"];
 			}
-			else if (this.origin.toLowerCase() == "min"){ 
-				this.origin = drawAgainst.range[(plane=="y")?"lower":"upper"]; 
+			else if (this.origin.toLowerCase() == "min"){
+				this.origin = drawAgainst.range[(plane=="y")?"lower":"upper"];
 			}
 			else { this.origin=0; }
 		}

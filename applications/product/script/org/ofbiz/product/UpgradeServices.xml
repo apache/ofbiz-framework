@@ -18,9 +18,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    
+
     <simple-method method-name="migrateFacilityRole" short-description="Migrate Data From OldFacilityRole To FacilityParty">
         <entity-condition entity-name="OldFacilityRole" list="oldFacilityRoles"/>
         <now-timestamp field="fromDate"/>
@@ -44,5 +44,5 @@ under the License.
             <create-value value-field="facilityParty"/>
         </iterate>
     </simple-method>
-    
+
 </simple-methods>

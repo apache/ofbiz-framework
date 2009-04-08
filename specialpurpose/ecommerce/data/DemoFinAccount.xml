@@ -83,5 +83,5 @@
     <Content contentId="FA_ACTIVATION" serviceName="createPartyFinAccountFromPurchase"/>
 
     <!-- associate the fulfillment service with the products -->
-    <ProductContent productId="FA-001" contentId="FA_ACTIVATION" productContentTypeId="FULFILLMENT_EXTASYNC" fromDate="2000-01-01 00:00:00"/>    
+    <ProductContent productId="FA-001" contentId="FA_ACTIVATION" productContentTypeId="FULFILLMENT_EXTASYNC" fromDate="2000-01-01 00:00:00"/>
 </entity-engine-xml>

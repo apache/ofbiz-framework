@@ -17,15 +17,15 @@ dojo.require("dojo.lang.extras");
 dojo.require("dojo.lang.func");
 dojo.require("dojo.lfx.toggle");
 
-dojo.declare("dojo.widget.HtmlWidget", dojo.widget.DomWidget, {								 
+dojo.declare("dojo.widget.HtmlWidget", dojo.widget.DomWidget, {
 	// summary
 	//	Base class for all browser based widgets, or at least "html" widgets.
 	//	The meaning of "html" has become unclear; in practice, all widgets derive from this class.
-	
+
 	// templateCssPath: String
 	//	Path to CSS file for this widget
 	templateCssPath: null,
-	
+
 	// templatePath: String
 	//	Path to template (HTML file) for this widget
 	templatePath: null,
@@ -78,7 +78,7 @@ dojo.declare("dojo.widget.HtmlWidget", dojo.widget.DomWidget, {
 	/////////////////////////////////////////////////////////
 	isShowing: function(){
 		// summary
-		//	Tests whether widget is set to show-mode or hide-mode (see show() and 
+		//	Tests whether widget is set to show-mode or hide-mode (see show() and
 		//	hide() methods)
 		//
 		//	This function is poorly named.  Even if widget is in show-mode,
@@ -166,7 +166,7 @@ dojo.declare("dojo.widget.HtmlWidget", dojo.widget.DomWidget, {
 	resizeTo: function(w, h){
 		// summary: explicitly set this widget's size (in pixels).
 		dojo.html.setMarginBox(this.domNode, { width: w, height: h });
-		
+
 		// can't do sizing if widget is hidden because referencing node.offsetWidth/node.offsetHeight returns 0.
 		// do sizing on show() instead.
 		if(this.isShowing()){

@@ -25,8 +25,8 @@ under the License.
 
     <service name="createSalesForecast" engine="simple" auth="true" default-entity-name="SalesForecast"
             location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesForecast">
-       <description>Creates a Sales Forecast for the userLogin. Requires ORDERMGR_4C_CREATE permission. 
-            This will save the forecast into the history as well. Note that this service does not compute 
+       <description>Creates a Sales Forecast for the userLogin. Requires ORDERMGR_4C_CREATE permission.
+            This will save the forecast into the history as well. Note that this service does not compute
             the forecast. That must be done in a higher level service.</description>
         <required-permissions join-type="AND">
             <check-permission permission="ORDERMGR" action="_4C_CREATE"/>
@@ -47,7 +47,7 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="changeNote" type="String" mode="IN" optional="true"/>
     </service>
-    
+
      <!-- Sales Forecast Detail -->
     <service name="createSalesForecastDetail" engine="simple" auth="true" default-entity-name="SalesForecastDetail"
             location="component://order/script/org/ofbiz/order/opportunity/OpportunityServices.xml" invoke="createSalesForecastDetail">

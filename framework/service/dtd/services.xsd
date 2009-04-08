@@ -46,7 +46,7 @@ under the License.
                 <xs:choice maxOccurs="1" minOccurs="0">
                     <xs:choice minOccurs="0" maxOccurs="unbounded">
                         <xs:element ref="auto-attributes"/>
-                        <xs:element ref="attribute"/>                        
+                        <xs:element ref="attribute"/>
                     </xs:choice>
                     <xs:element ref="group"/>
                 </xs:choice>
@@ -134,11 +134,11 @@ under the License.
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="success"/>
                     <xs:enumeration value="error"/>
-                    <xs:enumeration value="fail"/>                    
+                    <xs:enumeration value="fail"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="group" type="xs:string" use="required"/>        
+        <xs:attribute name="group" type="xs:string" use="required"/>
     </xs:attributeGroup>
     <xs:element name="permission-service">
         <xs:complexType>
@@ -165,7 +165,7 @@ under the License.
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="check-permission"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="check-role-member"/>                
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="check-role-member"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.required-permissions"/>
         </xs:complexType>
