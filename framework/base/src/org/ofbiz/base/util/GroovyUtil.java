@@ -47,7 +47,7 @@ public class GroovyUtil {
 
     public static GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
 
-    private static Binding getBinding(Map<String, Object> context) {
+    public static Binding getBinding(Map<String, ? extends Object> context) {
         Binding binding = new Binding();
         if (context != null) {
             Set<String> keySet = context.keySet();
