@@ -261,7 +261,7 @@
             </hyperlink>
         </field>
         <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}">
-            <hyperlink target="updateTaskAssigment" description="${uiLabelMap.CommonStatustoComplete">
+            <hyperlink target="updateTaskAssigment" description="${uiLabelMap.CommonStatustoComplete}">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="partyId"/>
                 <parameter param-name="roleTypeId"/>
