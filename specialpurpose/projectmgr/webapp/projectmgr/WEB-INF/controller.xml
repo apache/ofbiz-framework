@@ -505,13 +505,13 @@
     <request-map uri="createrequest">
         <security https="true" auth="true"/>
         <event type="simple" invoke="CreateCustRequestAndAssignTaskToPerson" path="org/ofbiz/project/ProjectSimpleEvents.xml"/>
-        <response name="success" type="view-home" value="requestlist"/>
+        <response name="success" type="view-home" value="RequestList"/>
         <response name="error" type="view" value="EditRequest"/>
     </request-map>
     <request-map uri="updaterequest">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateCustRequest"/>
-        <response name="success" type="request-redirect-noparam" value="requestlist"/>
+        <response name="success" type="view-home" value="RequestList"/>
         <response name="error" type="view" value="EditRequest"/>
     </request-map>
     <request-map uri="listResourcesTask">

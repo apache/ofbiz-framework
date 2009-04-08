@@ -22,14 +22,6 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
     <description>Project Manager service definitions.</description>
 
-    <service name="sendEmailToCustomer" engine="simple"  auth="true" default-entity-name="CustRequest"
-        location="component://myportal/script/org/ofbiz/myportal/MyPortalServices.xml" invoke="sendEmailToCustomer">
-        <description>Send email to customer when customer request is Completed or Created. </description>
-        <attribute name="custRequestId" type="String" mode="IN"/>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes include="nonpk" mode="OUT" optional="true"/>
-    </service>       
-    
     <!-- check access in permission service -->
     <service name="portalPermissionIsEmployee" engine="simple"
         location="component://myportal/script/org/ofbiz/myportal/MyPortalServices.xml" invoke="portalPermissionIsEmployee">

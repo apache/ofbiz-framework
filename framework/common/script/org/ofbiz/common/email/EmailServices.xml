@@ -21,21 +21,35 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="sendMailFromTemplateSetting" short-description="Send Mail from Email Template Setting">
+        
+        <if-not-empty field="parameters.partyId">
+            <if-empty field="parameters.sendTo">
+                <set-service-fields service-name="getPartyEmail" map="parameters" to-map="getEmail"/>
+                <call-service service-name="getPartyEmail" in-map-name="getEmail">
+                    <result-to-field result-name="emailAddress" field="parameters.sendTo"/>
+                </call-service>
+            </if-empty>
+        </if-not-empty>
+        
         <entity-one entity-name="EmailTemplateSetting" value-field="emailTemplateSetting"/>
-        
-        <set field="emailParams.bodyScreenUri" from-field="emailTemplateSetting.bodyScreenLocation"/>
-        <set field="emailParams.xslfoAttachScreenLocation" from-field="emailTemplateSetting.xslfoAttachScreenLocation"/>
-        <set field="emailParams.sendFrom" from-field="emailTemplateSetting.fromAddress"/>
-        <set field="emailParams.sendCc" from-field="emailTemplateSetting.ccAddress"/>
-        <set field="emailParams.sendBcc" from-field="emailTemplateSetting.bccAddress"/>
-        <set field="emailParams.subject" from-field="emailTemplateSetting.subject"/>
-        <set field="emailParams.contentType" from-field="emailTemplateSetting.contentType" default-value="text/html"/>
-
-        <!-- copy the incoming parameter fields AFTER setting the ones from EmailTemplateSetting so they can override things like subject, sendFrom, etc -->
-        <set-service-fields service-name="sendMailFromScreen" map="parameters" to-map="emailParams"/>
-        
-        <call-service service-name="sendMailFromScreen" in-map-name="emailParams">
-            <result-to-result result-name="body"/>
-        </call-service>
+        <if-not-empty field="emailTemplateSetting">
+            <set field="emailParams.bodyScreenUri" from-field="emailTemplateSetting.bodyScreenLocation"/>
+            <set field="emailParams.xslfoAttachScreenLocation" from-field="emailTemplateSetting.xslfoAttachScreenLocation"/>
+            <set field="emailParams.sendFrom" from-field="emailTemplateSetting.fromAddress"/>
+            <set field="emailParams.sendCc" from-field="emailTemplateSetting.ccAddress"/>
+            <set field="emailParams.sendBcc" from-field="emailTemplateSetting.bccAddress"/>
+            <set field="emailParams.subject" from-field="emailTemplateSetting.subject"/>
+            <set field="emailParams.contentType" from-field="emailTemplateSetting.contentType" default-value="text/html"/>
+            
+            <!-- copy the incoming parameter fields AFTER setting the ones from EmailTemplateSetting so they can override things like subject, sendFrom, etc -->
+            <set-service-fields service-name="sendMailFromScreen" map="parameters" to-map="emailParams"/>
+            
+            <call-service service-name="sendMailFromScreen" in-map-name="emailParams">
+                <result-to-result result-name="body"/>
+            </call-service>
+            <else>
+                <log level="error" message="sendMailFromTemplateSetting service could not find the emailTemplateSettingId: ${parameters.emailTemplateSettingId}"></log>
+            </else>
+        </if-not-empty>
     </simple-method>
 </simple-methods>

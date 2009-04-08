@@ -372,7 +372,9 @@ under the License.
         <section>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="component://order/widget/ordermgr/CommonScreens.xml">
-                    <decorator-section name="body"/>
+                    <decorator-section name="body">
+                        <decorator-section-include name="body"/>
+                    </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>

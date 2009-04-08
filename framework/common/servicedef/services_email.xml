@@ -30,7 +30,7 @@ under the License.
         <attribute name="sendTo" type="String" mode="IN" optional="true"/>
         <attribute name="sendCc" type="String" mode="IN" optional="true"/>
         <attribute name="sendBcc" type="String" mode="IN" optional="true"/>
-        <attribute name="sendFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="sendFrom" type="String" mode="IN" optional="true"/>
         <attribute name="authUser" type="String" mode="IN" optional="true"/>
         <attribute name="authPass" type="String" mode="IN" optional="true"/>
         <attribute name="sendVia" type="String" mode="IN" optional="true"/>
@@ -89,7 +89,7 @@ under the License.
         <attribute name="attachmentName" type="String" mode="IN" optional="true"/>
         <attribute name="bodyParameters" type="Map" mode="IN" optional="true"/>
         <attribute name="webSiteId" type="String" mode="IN" optional="true"/>
-        <attribute name="body" type="String" mode="OUT" optional="false"/>
+        <attribute name="body" type="String" mode="OUT" optional="true"/>
     </service>
     
     <service name="prepareNotificationInterface" engine="interface"

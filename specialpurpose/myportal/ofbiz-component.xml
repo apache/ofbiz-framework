@@ -30,7 +30,6 @@
     <entity-resource type="data" reader-name="demo" loader="main" location="data/MyPortalDemoData.xml"/>
     
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
-    <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
     
     <webapp name="myportal"
         title="MyPortal"

@@ -59,16 +59,6 @@ under the License.
     <UserLoginSecurityGroup groupId="MYPORTAL_EMPLOYEE" userLoginId="admin" fromDate="2000-01-01 00:00:00.0"/>
     <UserLoginSecurityGroup groupId="MYPORTAL_EMPLOYEE" userLoginId="demoadmin" fromDate="2000-01-01 00:00:00.0"/>
     
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_CUST_CONFIRM" bodyScreenLocation="component://myportal/widget/MyPortalScreens.xml#CompletedCustRequestNotification" subject="OFBiz - Your Request Is Complete[${custRequestId}]" fromAddress="ofbiztest@yahoo.com"/>
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_CUST_CREATED" bodyScreenLocation="component://myportal/widget/MyPortalScreens.xml#CreateCustRequestNotification" subject="OFBiz - Your Request Is Created[${custRequestId}]" fromAddress="ofbiztest@yahoo.com"/>
-
-    <ProductStore productStoreId="MYPORTAL" storeName="Myportal" manualAuthIsCapture="N" prorateShipping="Y" prorateTaxes="Y" viewCartOnAdd="N" autoSaveCart="N" autoApproveReviews="N" isDemoStore="Y" isImmediatelyFulfilled="N" oneInventoryFacility="Y" checkInventory="Y" reserveInventory="Y" 
-        requireInventory="N" balanceResOnOrderCreation="N" defaultCurrencyUomId="USD" allowPassword="Y" explodeOrderItems="N" checkGcBalance="N" retryFailedAuths="Y" headerApprovedStatus="ORDER_APPROVED" itemApprovedStatus="ITEM_APPROVED" digitalItemApprovedStatus="ITEM_APPROVED" 
-        headerDeclinedStatus="ORDER_REJECTED" itemDeclinedStatus="ITEM_REJECTED" headerCancelStatus="ORDER_CANCELLED" itemCancelStatus="ITEM_CANCELLED" usePrimaryEmailUsername="N" requireCustomerRole="N" autoInvoiceDigitalItems="Y" reqShipAddrForDigItems="Y" showCheckoutGiftOptions="Y" 
-        selectPaymentTypePerItem="N" showPricesWithVatTax="N" showTaxIsExempt="Y" enableAutoSuggestionList="N" enableDigProdUpload="N" prodSearchExcludeVariants="Y" autoOrderCcTryExp="Y" autoOrderCcTryOtherCards="Y" autoOrderCcTryLaterNsf="Y" autoApproveInvoice="Y" autoApproveOrder="Y" 
-        shipIfCaptureFails="Y" addToCartRemoveIncompat="Y" addToCartReplaceUpsell="Y" splitPayPrefPerShpGrp="Y"/>
+    <EmailTemplateSetting emailTemplateSettingId="PARTY_REGISTER" bodyScreenLocation="component://myportal/widget/MyPortalScreens.xml#CreateUserNotification" subject="New Account Created" bccAddress="ofbiztest@yahoo.com" fromAddress="ofbiztest@yahoo.com"/>
     
-    <ProductStoreEmailSetting productStoreId="MYPORTAL" emailType="PRDS_CUST_REGISTER" bodyScreenLocation="component://myportal/widget/MyPortalScreens.xml#CreateUserNotification" subject="New Account Created" bccAddress="ofbiztest@yahoo.com" fromAddress="ofbiztest@yahoo.com"/>
-    
-    <WebSite webSiteId="MYPORTAL" siteName="Myportal website" productStoreId="MYPORTAL" allowProductStoreChange="Y"/>    
 </entity-engine-xml>
