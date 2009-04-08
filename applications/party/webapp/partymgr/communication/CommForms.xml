@@ -321,7 +321,7 @@ under the License.
     </form>
 
     <form name="ListCommEvents" type="list" paginate="true" list-name="commEvents"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <set field="subject" from-field="subject" default-value="${uiLabelMap.PartyNoSubject}"/>
         </row-actions>
