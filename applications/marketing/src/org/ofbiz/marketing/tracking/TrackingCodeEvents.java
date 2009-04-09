@@ -243,7 +243,7 @@ public class TrackingCodeEvents {
             response.addCookie(billableCookie);
         }
 
-        // if site id exist in cookies then not req to create it if exist with diffrent site then create it
+        // if site id exist in cookies then it is not required to create it, if exist with different site then create it
         int siteIdCookieAge = (60 * 60 * 24 * 365); // should this be configurable?
         String siteId = request.getParameter("siteId");
         if (siteId != null && siteId.length() > 0) {
