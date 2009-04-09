@@ -19,7 +19,13 @@
                </#if>
                </td>
               <td class="button-col" width="20%">
-                <a href="<@ofbizUrl>removeAttachFile/EditCommunicationEvent?partyId=${partyId}&communicationEventTypeId=EMAIL_COMMUNICATION&communicationEventId=${commContent.communicationEventId}&contentId=${commContent.contentId}&fromDate=${fromDate}</@ofbizUrl>">${uiLabelMap.CommonRemove}</a>
+              <form name="contentRemoveAttachFile" method="post" action="<@ofbizUrl>removeAttachFile/EditCommunicationEvent</@ofbizUrl>">
+                <input type="hidden" name="contentId" value="${commContent.contentId}">
+                <input type="hidden" name="communicationEventId" value="${commContent.communicationEventId}">
+                <input type="hidden" name="fromDate" value="${commContent.fromDate}">
+                <input type="hidden" name="partyId" value="${partyId}">
+                <input type="submit" value='${uiLabelMap.CommonDelete}'>
+              </form>
               </td>
               <td  width="20%">${commContent.fromDate?if_exists}</td>
               <td  width="30%">&nbsp;</td>

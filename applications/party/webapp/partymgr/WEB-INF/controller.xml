@@ -806,8 +806,8 @@ under the License.
     <request-map uri="allocateMsgToParty">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="allocateMsgToParty"/>
-        <response name="success" type="view-last" save-last-view="true"/>
-        <response name="error" type="view-last" save-last-view="true"/>
+        <response name="success" type="view-home"/>
+        <response name="error" type="view" value="ViewCommunicationEvent"/>
     </request-map>
 
     <request-map uri="createCommContentDataResource">
