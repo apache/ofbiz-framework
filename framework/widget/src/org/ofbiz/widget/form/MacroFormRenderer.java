@@ -1093,7 +1093,9 @@ public class MacroFormRenderer implements FormStringRenderer {
 
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatListWrapperOpen ");
-        sr.append(" style=\"");
+        sr.append(" formName=\"");
+        sr.append(modelForm.getName());
+        sr.append("\" style=\"");
         sr.append(modelForm.getDefaultTableStyle());
         sr.append("\" columnStyles=[");
         sr.append(columnStyleListString);
@@ -1104,7 +1106,10 @@ public class MacroFormRenderer implements FormStringRenderer {
 
     public void renderFormatListWrapperClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatListWrapperClose />");
+        sr.append("<@renderFormatListWrapperClose");
+        sr.append(" formName=\"");
+        sr.append(modelForm.getName());
+        sr.append("\" />");
         executeMacro(writer, sr.toString());
         if (this.renderPagination) {
             this.renderNextPrev(writer, context, modelForm);
@@ -1189,7 +1194,9 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatItemRowOpen ");
-        sr.append(" itemIndex=");
+        sr.append(" formName=\"");
+        sr.append(modelForm.getName());
+        sr.append("\" itemIndex=");
         sr.append(Integer.toString(itemIndex));
         sr.append(" altRowStyles=\"");
         sr.append(altRowStyles);
@@ -1203,7 +1210,10 @@ public class MacroFormRenderer implements FormStringRenderer {
 
     public void renderFormatItemRowClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatItemRowClose />");
+        sr.append("<@renderFormatItemRowClose ");
+        sr.append(" formName=\"");
+        sr.append(modelForm.getName());
+        sr.append("\"/>");
         executeMacro(writer, sr.toString());
     }
 
@@ -1211,7 +1221,9 @@ public class MacroFormRenderer implements FormStringRenderer {
         String areaStyle = modelFormField.getTitleAreaStyle();
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatItemRowCellOpen ");
-        sr.append(" style=\"");
+        sr.append(" fieldName=\"");
+        sr.append(modelFormField.getName());
+        sr.append("\" style=\"");
         sr.append(areaStyle);
         sr.append("\" positionSpan=");
         sr.append(Integer.toString(positionSpan));
@@ -1221,7 +1233,10 @@ public class MacroFormRenderer implements FormStringRenderer {
 
     public void renderFormatItemRowCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField) throws IOException {
         StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatItemRowCellClose />");
+        sr.append("<@renderFormatItemRowCellClose");
+        sr.append(" fieldName=\"");
+        sr.append(modelFormField.getName());
+        sr.append("\"/>");
         executeMacro(writer, sr.toString());
     }
 
@@ -1245,7 +1260,9 @@ public class MacroFormRenderer implements FormStringRenderer {
         String style = modelForm.getDefaultTableStyle();
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatSingleWrapperOpen ");
-        sr.append(" style=\"");
+        sr.append(" formName=\"");
+        sr.append(modelForm.getName());
+        sr.append("\" style=\"");
         sr.append(style);
         sr.append("\" />");
         executeMacro(writer, sr.toString());
@@ -1253,7 +1270,10 @@ public class MacroFormRenderer implements FormStringRenderer {
 
     public void renderFormatSingleWrapperClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
-        sr.append("<@renderFormatSingleWrapperClose />");
+        sr.append("<@renderFormatSingleWrapperClose");
+        sr.append(" formName=\"");
+        sr.append(modelForm.getName());
+        sr.append("\"/>");
         executeMacro(writer, sr.toString());
     }
 
