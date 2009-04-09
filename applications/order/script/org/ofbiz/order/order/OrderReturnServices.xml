@@ -368,15 +368,13 @@ under the License.
         <string-to-list string="-returnItemSeqId" list="orderBy"/>
         <find-by-and entity-name="ReturnItem" list="currentItems" map="lookupMap" order-by-list="orderBy"></find-by-and>
         <if-empty field="currentItems">
-            <set value="1" field="newEntity.returnItemSeqId"/>
+            <set field="newEntity.returnItemSeqId" value="1"/>
         <else>
             <first-from-list entry="newestItem" list="currentItems"/>
-            <set field="newestItem.returnItemSeqId" value="${newestItem.returnItemSeqId + 1}" type="Integer"/>
+            <set field="newEntity.returnItemSeqId" value="${newestItem.returnItemSeqId + 1}" type="Integer"/>
         </else>
         </if-empty>
-        <to-string field="newestItem.returnItemSeqId" numeric-padding="5"/>
-        <set field="newEntity.returnItemSeqId" from-field="newestItem.returnItemSeqId" type="PlainString"/>
-
+        <to-string field="newEntity.returnItemSeqId" numeric-padding="5"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.statusId" value="RETURN_REQUESTED"/>  <!-- default status for new return items -->
         <field-to-result field="newEntity.returnItemSeqId" result-name="returnItemSeqId"/>
