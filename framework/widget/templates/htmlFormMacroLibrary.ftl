@@ -156,8 +156,8 @@ ${item.description}</div>
 <#macro renderFormClose focusFieldName formName></form><#if focusFieldName?has_content><script language="JavaScript" type="text/javascript">document.${formName}.${focusFieldName}.focus();</script></#if></#macro>
 <#macro renderMultiFormClose></#macro>
 
-<#macro renderFormatListWrapperOpen style columnStyles>  <table cellspacing="0" class="<#if style?has_content>${style}<#else>basic-table form-widget-table dark-grid</#if>" > </#macro>
-<#macro renderFormatListWrapperClose> </table></#macro>
+<#macro renderFormatListWrapperOpen formName style columnStyles>  <table cellspacing="0" class="<#if style?has_content>${style}<#else>basic-table form-widget-table dark-grid</#if>" > </#macro>
+<#macro renderFormatListWrapperClose formName> </table></#macro>
 
 <#macro renderFormatHeaderRowOpen style>  <tr class="<#if style?has_content>${style}<#else>header-row</#if>"></#macro>
 <#macro renderFormatHeaderRowClose>  </tr></#macro>
@@ -168,15 +168,15 @@ ${item.description}</div>
 <#macro renderFormatHeaderRowFormCellClose></td></#macro>
 <#macro renderFormatHeaderRowFormCellTitleSeparator style isLast><#if style?has_content><sapn class="${style}"></#if> - <#if style?has_content></span></#if></#macro>
 
-<#macro renderFormatItemRowOpen itemIndex altRowStyles evenRowStyle oddRowStyle> <tr <#if itemIndex?has_content><#if itemIndex%2==0><#if evenRowStyle?has_content>class="${evenRowStyle}<#if altRowStyles?has_content> ${altRowStyles}</#if>"<#elseif altRowStyles?has_content>class="${altRowStyles}"</#if><#else><#if oddRowStyle?has_content>class="${oddRowStyle}<#if altRowStyles?has_content> ${altRowStyles}</#if>"<#elseif altRowStyles?has_content>class="${altRowStyles}"</#if></#if></#if> ></#macro>
-<#macro renderFormatItemRowClose>  </tr></#macro>
-<#macro renderFormatItemRowCellOpen style positionSpan>  <td <#if positionSpan?has_content && positionSpan gt 1>colspan="${positionSpan}"</#if><#if style?has_content>class="${style}"</#if>></#macro>
-<#macro renderFormatItemRowCellClose>  </td></#macro>
+<#macro renderFormatItemRowOpen formName itemIndex altRowStyles evenRowStyle oddRowStyle> <tr <#if itemIndex?has_content><#if itemIndex%2==0><#if evenRowStyle?has_content>class="${evenRowStyle}<#if altRowStyles?has_content> ${altRowStyles}</#if>"<#elseif altRowStyles?has_content>class="${altRowStyles}"</#if><#else><#if oddRowStyle?has_content>class="${oddRowStyle}<#if altRowStyles?has_content> ${altRowStyles}</#if>"<#elseif altRowStyles?has_content>class="${altRowStyles}"</#if></#if></#if> ></#macro>
+<#macro renderFormatItemRowClose formName>  </tr></#macro>
+<#macro renderFormatItemRowCellOpen fieldName style positionSpan>  <td <#if positionSpan?has_content && positionSpan gt 1>colspan="${positionSpan}"</#if><#if style?has_content>class="${style}"</#if>></#macro>
+<#macro renderFormatItemRowCellClose fieldName>  </td></#macro>
 <#macro renderFormatItemRowFormCellOpen style>   <td<#if style?has_content> class="${style}"</#if>></#macro>
 <#macro renderFormatItemRowFormCellClose></td></#macro>
 
-<#macro renderFormatSingleWrapperOpen style> <table cellspacing="0" <#if style?has_content>class="${style}"</#if> ></#macro>
-<#macro renderFormatSingleWrapperClose> </table></#macro>
+<#macro renderFormatSingleWrapperOpen formName style> <table cellspacing="0" <#if style?has_content>class="${style}"</#if> ></#macro>
+<#macro renderFormatSingleWrapperClose formName> </table></#macro>
 
 <#macro renderFormatFieldRowOpen>  <tr></#macro>
 <#macro renderFormatFieldRowClose>  </tr></#macro>

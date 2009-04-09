@@ -72,8 +72,8 @@ under the License.
 <#macro renderFormClose focusFieldName formName></#macro>
 <#macro renderMultiFormClose></#macro>
     
-<#macro renderFormatListWrapperOpen style columnStyles><fo:table border="solid black"><#list columnStyles as columnStyle><fo:table-column<#if columnStyle?has_content> <@getFoStyle columnStyle/></#if>/></#list></#macro>
-<#macro renderFormatListWrapperClose></fo:table-body></fo:table></#macro>
+<#macro renderFormatListWrapperOpen formName style columnStyles><fo:table border="solid black"><#list columnStyles as columnStyle><fo:table-column<#if columnStyle?has_content> <@getFoStyle columnStyle/></#if>/></#list></#macro>
+<#macro renderFormatListWrapperClose formName></fo:table-body></fo:table></#macro>
 
 <#macro renderFormatHeaderRowOpen style><fo:table-header><fo:table-row></#macro>
 <#macro renderFormatHeaderRowClose></fo:table-row></fo:table-header><fo:table-body>
@@ -87,16 +87,16 @@ under the License.
 <#macro renderFormatHeaderRowFormCellClose></fo:table-cell></#macro>
 <#macro renderFormatHeaderRowFormCellTitleSeparator style isLast></#macro>
     
-<#macro renderFormatItemRowOpen itemIndex altRowStyles evenRowStyle oddRowStyle><fo:table-row></#macro>
-<#macro renderFormatItemRowClose></fo:table-row></#macro>
-<#macro renderFormatItemRowCellOpen style positionSpan><fo:table-cell <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if><#if style?has_content><@getFoStyle style/><#else><@getFoStyle "tabletext"/></#if>></#macro>
-<#macro renderFormatItemRowCellClose></fo:table-cell></#macro>
+<#macro renderFormatItemRowOpen formName itemIndex altRowStyles evenRowStyle oddRowStyle><fo:table-row></#macro>
+<#macro renderFormatItemRowClose formName></fo:table-row></#macro>
+<#macro renderFormatItemRowCellOpen fieldName style positionSpan><fo:table-cell <#if positionSpan?has_content && positionSpan gt 1 >number-columns-spanned="${positionSpan}"</#if><#if style?has_content><@getFoStyle style/><#else><@getFoStyle "tabletext"/></#if>></#macro>
+<#macro renderFormatItemRowCellClose fieldName></fo:table-cell></#macro>
 <#macro renderFormatItemRowFormCellOpen style><fo:table-cell></#macro>
 <#macro renderFormatItemRowFormCellClose></fo:table-cell></#macro>
 
 <#-- TODO: multi columns (position attribute) in single forms are still not implemented -->
-<#macro renderFormatSingleWrapperOpen style><fo:table><fo:table-column column-width="2in"/><fo:table-column/><fo:table-body></#macro>
-<#macro renderFormatSingleWrapperClose></fo:table-body></fo:table></#macro>
+<#macro renderFormatSingleWrapperOpen formName style><fo:table><fo:table-column column-width="2in"/><fo:table-column/><fo:table-body></#macro>
+<#macro renderFormatSingleWrapperClose formName></fo:table-body></fo:table></#macro>
 
 <#macro renderFormatFieldRowOpen><fo:table-row></#macro>
 <#macro renderFormatFieldRowClose></fo:table-row></#macro>
@@ -114,7 +114,7 @@ under the License.
 
 <#macro renderRangeFindField className alert name value size maxlength autocomplete titleStyle defaultOptionFrom opEquals opGreaterThan opGreaterThanEquals value2 defaultOptionThru><@makeBlock className value /></#macro>
 
-<#macro renderLookupField className alert name value size maxlength autocomplete descriptionFieldName formName lookupFieldFormName targetParameterIter imgSrc><<@makeBlock className value /></#macro>
+<#macro renderLookupField className alert name value size maxlength autocomplete descriptionFieldName formName lookupFieldFormName targetParameterIter imgSrc><@makeBlock className value /></#macro>
 <#macro renderNextPrev paginateStyle paginateFirstStyle viewIndex highIndex listSize viewSize ajaxEnabled javaScriptEnabled ajaxFirstUrl firstUrl paginateFirstLabel paginatePreviousStyle ajaxPreviousUrl previousUrl paginatePreviousLabel pageLabel ajaxSelectUrl selectUrl commonDisplaying paginateNextStyle ajaxNextUrl nextUrl paginateNextLabel paginateLastStyle ajaxLastUrl lastUrl paginateLastLabel></#macro>
 <#macro renderFileField className alert name value size maxlength autocomplete><@makeBlock className value /></#macro>
 <#macro renderPasswordField className alert name value size maxlength id autocomplete><@makeBlock className "" /></#macro>
