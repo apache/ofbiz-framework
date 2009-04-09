@@ -97,6 +97,9 @@ under the License.
     </screen>
     <screen name="CommonTaskDecorator">
         <section>
+            <actions>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
