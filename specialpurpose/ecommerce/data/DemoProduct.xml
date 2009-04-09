@@ -105,7 +105,6 @@ under the License.
 
     <WebSite webSiteId="WebStore" siteName="eCommerce Web Site" productStoreId="9000" visualThemeSetId="ECOMMERCE"/>
     <WebSite webSiteId="WebStoreClone" siteName="Cloned eCommerce Web Site" productStoreId="9000" visualThemeSetId="ECOMMERCE"/>
-    <WebSite webSiteId="OrderEntry" siteName="Order Entry Web Site" productStoreId="9000"/>
 
     <ProdCatalog prodCatalogId="DemoCatalog" catalogName="Demo Catalog" useQuickAdd="Y"/>
     <ProdCatalog prodCatalogId="TestCatalog" catalogName="Test Catalog" useQuickAdd="N"/>

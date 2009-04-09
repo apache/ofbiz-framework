@@ -50,4 +50,6 @@ under the License.
     <Enumeration description="Customer" enumCode="CUSTOMER" enumId="EXFTSRC_CUSTOMER" sequenceId="01" enumTypeId="EXMPL_FEAT_SOURCE"/>
     <Enumeration description="Partner" enumCode="PARTNER" enumId="EXFTSRC_PARTNER" sequenceId="02" enumTypeId="EXMPL_FEAT_SOURCE"/>
     <Enumeration description="Employee" enumCode="EMPLOYEE" enumId="EXFTSRC_EMPLOYEE" sequenceId="03" enumTypeId="EXMPL_FEAT_SOURCE"/>
+
+    <WebSite webSiteId="EXAMPLE" siteName="Example Application" visualThemeSetId="BACKOFFICE"/>
 </entity-engine-xml>
