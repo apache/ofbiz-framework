@@ -405,7 +405,49 @@ under the License.
         <event type="service" invoke="manualForcedCcTransaction"/>
         <response name="success" type="view" value="ManualTransaction"/>
     </request-map>
-
+    
+    <!-- Payment Gateway Configurations --> 
+    <request-map uri="FindGatewayConfigurations">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindGatewayConfigurations"/>
+    </request-map>
+    <request-map uri="ViewGatewayConfiguration">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewGatewayConfiguration"/>
+    </request-map>
+    <request-map uri="UpdateGatewayConfiguration">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateGatewayConfiguration"/>
+        <response name="success" type="view" value="ViewGatewayConfiguration"/>
+        <response name="error" type="view" value="ViewGatewayConfiguration"/>
+    </request-map>
+    <request-map uri="UpdateGatewayConfigurationPayflowPro">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateGatewayConfigurationPayflowPro"/>
+        <response name="success" type="view" value="ViewGatewayConfiguration"/>
+        <response name="error" type="view" value="ViewGatewayConfiguration"/>
+    </request-map>
+    <request-map uri="UpdateGatewayConfigurationClearCommerce">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateGatewayConfigurationClearCommerce"/>
+        <response name="success" type="view" value="ViewGatewayConfiguration"/>
+        <response name="error" type="view" value="ViewGatewayConfiguration"/>
+    </request-map>
+    <request-map uri="FindGatewayConfigurationTypes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindGatewayConfigurationTypes"/>
+    </request-map>
+    <request-map uri="ViewGatewayConfigurationType">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewGatewayConfigurationType"/>
+    </request-map>
+    <request-map uri="UpdateGatewayConfigurationType">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateGatewayConfigurationType"/>
+        <response name="success" type="view" value="ViewGatewayConfigurationType"/>
+        <response name="error" type="view" value="ViewGatewayConfigurationType"/>
+    </request-map>
+    
     <!-- TO BE REMOVED
     <request-map uri="TransactionReports">
         <security https="true" auth="true"/>
@@ -2108,6 +2150,12 @@ under the License.
     <view-map name="AuthorizeTransaction" page="component://accounting/widget/TransactionScreens.xml#AuthorizeTransaction" type="screen"/>
     <view-map name="CaptureTransaction" page="component://accounting/widget/TransactionScreens.xml#CaptureTransaction" type="screen"/>
 
+    <!-- Payment Gateway Configurations -->
+    <view-map name="FindGatewayConfigurations" page="component://accounting/widget/PaymentGatewayConfigurationsScreens.xml#FindGatewayConfigurations" type="screen"/>
+    <view-map name="ViewGatewayConfiguration" page="component://accounting/widget/PaymentGatewayConfigurationsScreens.xml#ViewGatewayConfiguration" type="screen"/>
+    <view-map name="FindGatewayConfigurationTypes" page="component://accounting/widget/PaymentGatewayConfigurationsScreens.xml#FindGatewayConfigurationTypes" type="screen"/>
+    <view-map name="ViewGatewayConfigurationType" page="component://accounting/widget/PaymentGatewayConfigurationsScreens.xml#ViewGatewayConfigurationType" type="screen"/>
+    
     <!-- TO BE REMOVED
     <view-map name="TransactionReports" page="component://accounting/widget/TransactionScreens.xml#TransactionReports" type="screen"/>
     -->

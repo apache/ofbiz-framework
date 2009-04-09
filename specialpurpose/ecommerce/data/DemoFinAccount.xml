@@ -31,11 +31,11 @@
     <ProductStoreFinActSetting productStoreId="9000" finAccountTypeId="REPLENISH_ACCOUNT" requirePinCode="N" validateGCFinAcct="Y" allowAuthToNegative="Y" replenishThreshold="0.0"
         purchaseSurveyId="1100" purchSurveySendTo="recipientEmail" purchSurveyCopyMe="copyMe" accountCodeLength="12" pinCodeLength="4" accountValidDays="365" authValidDays="5"/>
 
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="FIN_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="ofbFaAuthorize"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="FIN_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="ofbFaRelease"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="FIN_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="ofbFaCapture"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="FIN_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentService="ofbFaAuthorize"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="FIN_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="ofbFaRefund"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="FIN_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="ofbFaAuthorize" paymentCustomMethodId="FIN_AUTH_OFBIZ"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="FIN_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="ofbFaRelease" paymentCustomMethodId="FIN_RELEASE_OFBIZ"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="FIN_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="ofbFaCapture" paymentCustomMethodId="FIN_CAPTURE_OFBIZ"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="FIN_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentService="ofbFaAuthorize" paymentCustomMethodId="FIN_AUTH_OFBIZ"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="FIN_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="ofbFaRefund" paymentCustomMethodId="FIN_REFUND_OFBIZ"/>
 
     <!-- product / category -->
     <ProductCategory productCategoryId="FA-100" description="Account Activation" productCategoryTypeId="CATALOG_CATEGORY"/>

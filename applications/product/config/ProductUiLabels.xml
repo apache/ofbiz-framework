@@ -8785,6 +8785,10 @@
         <value xml:lang="th">ลุกค้า</value>
         <value xml:lang="zh">客户</value>
     </property>
+    <property key="ProductCustomMethod">
+        <value xml:lang="en">Custom Method</value>
+        <value xml:lang="it">Metodo personalizzato pagamento</value>
+    </property>
     <property key="ProductCustomerRating">
         <value xml:lang="de">Kundenbewertung</value>
         <value xml:lang="en">Customer Rating</value>

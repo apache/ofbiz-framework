@@ -122,6 +122,8 @@ under the License.
             location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStorePaymentSetting" auth="true">
         <description>Create ProductStorePaymentSetting</description>
         <auto-attributes include="all" mode="IN" optional="false"/>
+        <override name="paymentCustomMethodId" optional="true"/>
+        <override name="paymentGatewayConfigId" optional="true"/>
         <override name="paymentPropertiesPath" optional="true"/>
         <override name="paymentService" optional="true"/>
     </service>
@@ -129,6 +131,8 @@ under the License.
             location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStorePaymentSetting" auth="true">
         <description>Update ProductStorePaymentSetting</description>
         <auto-attributes include="all" mode="IN" optional="false"/>
+        <override name="paymentCustomMethodId" optional="true"/>
+        <override name="paymentGatewayConfigId" optional="true"/>
         <override name="paymentPropertiesPath" optional="true"/>
         <override name="paymentService" optional="true"/>
     </service>

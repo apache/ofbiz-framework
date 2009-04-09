@@ -449,7 +449,8 @@ under the License.
                 <set field="paymentMethodTypeId" from-field="parameters.paymentMethodTypeId"/>
                 <set field="paymentServiceTypeEnumId" from-field="parameters.paymentServiceTypeEnumId"/>
                 <entity-one entity-name="ProductStorePaymentSetting" value-field="productStorePaymentSetting" auto-field-map="true"/>
-
+                
+                <script location="component://product/webapp/catalog/WEB-INF/actions/store/EditProductStorePaySetup.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProductStoreDecorator" location="${parameters.mainDecoratorLocation}">

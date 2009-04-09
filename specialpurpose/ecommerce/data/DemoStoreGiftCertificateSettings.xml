@@ -33,11 +33,11 @@ under the License.
 
     <!-- payment settings for gift certificates.  the idea is that you re-configure this store's GIFT_CARD settings to use the gift certificate services,
         rather than the gift card services. -->
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="ofbGcAuthorize"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="ofbGcRelease"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="ofbGcProcessor"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentService="ofbGcAuthorize"/>
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="ofbGcRefund"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="ofbGcAuthorize" paymentCustomMethodId="GIFT_AUTH_OFBIZ"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="ofbGcRelease" paymentCustomMethodId="GIFT_RELEASE_OFBIZ"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="ofbGcProcessor" paymentCustomMethodId="GIFT_CAPTURE_OFBIZ"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentService="ofbGcAuthorize" paymentCustomMethodId="GIFT_AUTH_OFBIZ"/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="ofbGcRefund" paymentCustomMethodId="GIFT_REFUND_OFBIZ"/>
 
 
 </entity-engine-xml>

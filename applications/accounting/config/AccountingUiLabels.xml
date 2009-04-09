@@ -5474,6 +5474,30 @@
         <value xml:lang="th">รายการสถานะกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员角色列表</value>
     </property>
+    <property key="AccountingPayflowProLoggingOff">
+        <value xml:lang="en">Logging Off</value>
+        <value xml:lang="it">Log disabilitato</value>
+    </property>
+    <property key="AccountingPayflowProLoggingSeverityFatal">
+        <value xml:lang="en">Logging Severity Fatal</value>
+        <value xml:lang="it">Log severità fatale</value>
+    </property>
+    <property key="AccountingPayflowProLoggingSeverityError">
+        <value xml:lang="en">Logging Severity Error</value>
+        <value xml:lang="it">Log severità errore</value>
+    </property>
+    <property key="AccountingPayflowProLoggingSeverityWarn">
+        <value xml:lang="en">Logging Severity Warn</value>
+        <value xml:lang="it">Log severità avvertimento</value>
+    </property>
+    <property key="AccountingPayflowProLoggingSeverityInfo">
+        <value xml:lang="en">Logging Severity Info</value>
+        <value xml:lang="it">Log severità info</value>
+    </property>
+    <property key="AccountingPayflowProLoggingSeverityDebug">
+        <value xml:lang="en">Logging Severity Debug</value>
+        <value xml:lang="it">Log severità debug</value>
+    </property>
     <property key="AccountingPayOnlyWithBillingAccount">
         <value xml:lang="de">Bezahlung nur mit Rechnungskonto</value>
         <value xml:lang="en">Pay only with Billing Account</value>
@@ -5688,6 +5712,46 @@
         <value xml:lang="ru">Дата платежа</value>
         <value xml:lang="th">วันที่ชำระเงิน</value>
         <value xml:lang="zh">支付日</value>
+    </property>
+    <property key="AccountingPaymentGatewayApprove">
+        <value xml:lang="en">Approve</value>
+        <value xml:lang="it">Approva</value>
+    </property>
+    <property key="AccountingPaymentGatewayConfigId">
+        <value xml:lang="en">Payment Gateway Config Id</value>
+        <value xml:lang="it">Codice configurazione gateway pagamenti</value>
+    </property>
+    <property key="AccountingPaymentGatewayConfigDescription">
+        <value xml:lang="en">Payment Gateway Config Description</value>
+        <value xml:lang="it">Descrizione configurazione gateway pagamenti</value>
+    </property>
+    <property key="AccountingPaymentGatewayConfigTypeDescription">
+        <value xml:lang="en">Payment Gateway Config Type Description</value>
+        <value xml:lang="it">Descrizione tipo configurazione gateway pagamenti</value>
+    </property>
+    <property key="AccountingPaymentGatewayConfigTypeId">
+        <value xml:lang="en">Payment Gateway Config Type Id</value>
+        <value xml:lang="it">Tipo configurazione gateway pagamenti</value>
+    </property>
+    <property key="AccountingPaymentGatewayConfigurations">
+        <value xml:lang="en">Payment Gateway Configurations</value>
+        <value xml:lang="it">Configurazioni gateway pagamenti</value>
+    </property>
+    <property key="AccountingPaymentGatewayConfigurationTypes">
+        <value xml:lang="en">Payment Gateway Configuration Types</value>
+        <value xml:lang="it">Tipi configurazione gateway pagamenti</value>
+    </property>
+    <property key="AccountingPaymentGatewayDecline">
+        <value xml:lang="en">Decline</value>
+        <value xml:lang="it">Rifiutare</value>
+    </property>
+    <property key="AccountingPaymentGatewayProduction">
+        <value xml:lang="en">Production</value>
+        <value xml:lang="it">Produzione</value>
+    </property>
+    <property key="AccountingPaymentGatewayRandom">
+        <value xml:lang="en">Random</value>
+        <value xml:lang="it">Casuale</value>
     </property>
     <property key="AccountingPaymentGatewayResponseId">
         <value xml:lang="de">Bilanzierung der Zahlungsportalantworten</value>
@@ -7883,6 +7947,18 @@
         <value xml:lang="fr">Type de carte</value>
         <value xml:lang="it">Tipo Carta di Credito</value>
     </property>
+    <property key="FormFieldTitle_certsPath">
+        <value xml:lang="en">Certs Path</value>
+        <value xml:lang="it">Path certificati</value>
+    </property>
+    <property key="FormFieldTitle_checkAvs">
+        <value xml:lang="en">Check Avs</value>
+        <value xml:lang="it">Controlla Avs</value>
+    </property>
+    <property key="FormFieldTitle_checkCvv2">
+        <value xml:lang="en">Check Cvv2</value>
+        <value xml:lang="it">Controlla Cvv2</value>
+    </property>
     <property key="FormFieldTitle_classEnumId">
         <value xml:lang="de">Kategorieaufzählungs-ID</value>
         <value xml:lang="en">Class Enum Id</value>
@@ -7894,6 +7970,10 @@
         <value xml:lang="ru">Класс</value>
         <value xml:lang="th">Class Enum Id</value>
         <value xml:lang="zh">类枚举标识</value>
+    </property>
+    <property key="FormFieldTitle_clientId">
+        <value xml:lang="en">Client Id</value>
+        <value xml:lang="it">Id client</value>
     </property>
     <property key="FormFieldTitle_cogsMethodId">
         <value xml:lang="en">Cost Of Goods Sold (COGS) Method</value>
@@ -8079,6 +8159,10 @@
         <value xml:lang="th">ถึงกำหนดวันที่</value>
         <value xml:lang="zh">支付日</value>
     </property>
+    <property key="FormFieldTitle_effectiveAlias">
+        <value xml:lang="en">effective Alias</value>
+        <value xml:lang="it">Alias effettivo</value>
+    </property>
     <property key="FormFieldTitle_emailAddressCc">
         <value xml:lang="ar">نسخ عنوان البريد الإلكتروني</value>
         <value xml:lang="en">Copy Emailadress</value>
@@ -8120,6 +8204,14 @@
         <value xml:lang="fr">Réf. de type de position employé</value>
         <value xml:lang="it">Tipo posizione impiegato</value>
         <value xml:lang="th">รหัสประเภทตำแหน่งพนักงาน</value>
+    </property>
+    <property key="FormFieldTitle_enableCVM">
+        <value xml:lang="en">enableCVM</value>
+        <value xml:lang="it">Abilita CVM</value>
+    </property>
+    <property key="FormFieldTitle_enableTransmit">
+        <value xml:lang="en">Enable Transmit</value>
+        <value xml:lang="it">Abilita trasmissione</value>
     </property>
     <property key="FormFieldTitle_errorGlJournalId">
         <value xml:lang="en">Error Gl Journal Id</value>
@@ -8424,10 +8516,22 @@
         <value xml:lang="th">Gl Xbrl Class Id</value>
         <value xml:lang="zh">总账可扩展商业报告语言类标识</value>
     </property>
+    <property key="FormFieldTitle_groupId">
+        <value xml:lang="en">Group Id</value>
+        <value xml:lang="it">Id gruppo</value>
+    </property>
     <property key="FormFieldTitle_groupStatusId">
         <value xml:lang="en">Group Status Id</value>
         <value xml:lang="fr">Réf. de groupe de statuts</value>
         <value xml:lang="it">Stato Gruppo</value>
+    </property>
+    <property key="FormFieldTitle_hostAddress">
+        <value xml:lang="en">Host Address</value>
+        <value xml:lang="it">Indirizzo host</value>
+    </property>
+    <property key="FormFieldTitle_hostPort">
+        <value xml:lang="en">Host Port</value>
+        <value xml:lang="it">Porta host</value>
     </property>
     <property key="FormFieldTitle_includeTaxInPrice">
         <value xml:lang="ar">ضم الضريبة إلى السعر</value>
@@ -8692,6 +8796,14 @@
         <value xml:lang="th">Located At Location Seq Id</value>
         <value xml:lang="zh">位于地点顺序编号</value>
     </property>
+    <property key="FormFieldTitle_logFileName">
+        <value xml:lang="en">Log File Name</value>
+        <value xml:lang="it">Nome del file di log</value>
+    </property>
+    <property key="FormFieldTitle_loggingLevel">
+        <value xml:lang="en">Logging Level</value>
+        <value xml:lang="it">Livello dei log</value>
+    </property>
     <property key="FormFieldTitle_maintHistSeqId">
         <value xml:lang="en">Maint Hist Seq Id</value>
         <value xml:lang="es">Id Sec Hist Mant</value>
@@ -8709,6 +8821,10 @@
         <value xml:lang="it">Importo Massimo</value>
         <value xml:lang="nl">Maximum bedrag</value>
         <value xml:lang="th">จำนวนมากที่สุด</value>
+    </property>
+    <property key="FormFieldTitle_maxLogFileSize">
+        <value xml:lang="en">Max Log File Size</value>
+        <value xml:lang="it">Ampiezza massima file di log</value>
     </property>
     <property key="FormFieldTitle_maxQuantity">
         <value xml:lang="en">Max Quantity </value>
@@ -8918,6 +9034,10 @@
         <value xml:lang="fr">Réf. de période parente</value>
         <value xml:lang="it">Periodo Fiscale Padre</value>
     </property>
+    <property key="FormFieldTitle_partner">
+        <value xml:lang="en">Partner</value>
+        <value xml:lang="it">Partner</value>
+    </property>
     <property key="FormFieldTitle_paymentApplied">
         <value xml:lang="en">Already Applied</value>
         <value xml:lang="es">Ya aplicado</value>
@@ -9120,6 +9240,14 @@
         <value xml:lang="nl">Datum boeking</value>
         <value xml:lang="th">โพสต์เมื่อวันที่</value>
     </property>
+    <property key="FormFieldTitle_preAuth">
+        <value xml:lang="en">Pre Auth</value>
+        <value xml:lang="it">Pre-autorizzazione</value>
+    </property>
+    <property key="FormFieldTitle_processMode">
+        <value xml:lang="en">processMode</value>
+        <value xml:lang="it">Modo esecuzione</value>
+    </property>
     <property key="FormFieldTitle_productMaintSeqId">
         <value xml:lang="de">Produktverwaltung</value>
         <value xml:lang="en">Product Maintenance</value>
@@ -9167,6 +9295,22 @@
         <value xml:lang="th">รหัสสินค้า</value>
         <value xml:lang="zh">产品编号</value>
     </property>
+    <property key="FormFieldTitle_proxyAddress">
+        <value xml:lang="en">Proxy Address</value>
+        <value xml:lang="it">Indirizzo proxy</value>
+    </property>
+    <property key="FormFieldTitle_proxyLogon">
+        <value xml:lang="en">Proxy Logon</value>
+        <value xml:lang="it">Logon proxy</value>
+    </property>
+    <property key="FormFieldTitle_proxyPassword">
+        <value xml:lang="en">Proxy Password</value>
+        <value xml:lang="it">Password proxy</value>
+    </property>
+    <property key="FormFieldTitle_proxyPort">
+        <value xml:lang="en">Proxy Port</value>
+        <value xml:lang="it">Porta proxy</value>
+    </property>
     <property key="FormFieldTitle_purchaseCost">
         <value xml:lang="en">Purchase Cost</value>
         <value xml:lang="fr">Coût d'achat</value>
@@ -9188,6 +9332,10 @@
         <value xml:lang="ru">Код закупочного заказа</value>
         <value xml:lang="th">รหัสรายการสั่งซื้อ</value>
         <value xml:lang="zh">购买定单编号</value>
+    </property>
+    <property key="FormFieldTitle_pwd">
+        <value xml:lang="en">Pwd</value>
+        <value xml:lang="it">Password</value>
     </property>
     <property key="FormFieldTitle_quoteIdPrefix">
         <value xml:lang="en">Quote Id Prefix</value>
@@ -9395,6 +9543,10 @@
         <value xml:lang="th">รหัสตารางเวลาการทำงาน</value>
         <value xml:lang="zh">编排人工服务标识</value>
     </property>
+    <property key="FormFieldTitle_serverURL">
+        <value xml:lang="en">serverURL</value>
+        <value xml:lang="it">URL server</value>
+    </property>
     <property key="FormFieldTitle_settlementTermId">
         <value xml:lang="en">Settlement</value>
         <value xml:lang="es">Liquidación</value>
@@ -9417,6 +9569,14 @@
         <value xml:lang="ru">Код поставки</value>
         <value xml:lang="th">รหัสการขนส่งสินค้า</value>
         <value xml:lang="zh">运输标识</value>
+    </property>
+    <property key="FormFieldTitle_sourceId">
+        <value xml:lang="en">Source Id</value>
+        <value xml:lang="it">Id sorgente</value>
+    </property>
+    <property key="FormFieldTitle_stackTraceOn">
+        <value xml:lang="en">Stack Trace On</value>
+        <value xml:lang="it">Tracciare lo stack trace</value>
     </property>
     <property key="FormFieldTitle_statusDate">
         <value xml:lang="en">Status Date</value>
@@ -9574,6 +9734,10 @@
         <value xml:lang="nl">ID tijdregistratie</value>
         <value xml:lang="th">รหัสตารางการทำงาน</value>
     </property>
+    <property key="FormFieldTitle_timeout">
+        <value xml:lang="en">Timeout</value>
+        <value xml:lang="it">Timeout</value>
+    </property>
     <property key="FormFieldTitle_timesheetPartyId">
         <value xml:lang="en">Timesheet Party Id</value>
         <value xml:lang="fr">Réf de feuille d'activité d'un acteur</value>
@@ -9676,6 +9840,22 @@
         <value xml:lang="ru">Использовать для возвратов номер накладной</value>
         <value xml:lang="th">Use Invoice Id For Returns</value>
         <value xml:lang="zh">用于退货的发票编号</value>
+    </property>
+    <property key="FormFieldTitle_userAlias">
+        <value xml:lang="en">userAlias</value>
+        <value xml:lang="it">Alias utente</value>
+    </property>
+    <property key="FormFieldTitle_userId">
+        <value xml:lang="en">User Id</value>
+        <value xml:lang="it">Id utente</value>
+    </property>
+    <property key="FormFieldTitle_username">
+        <value xml:lang="en">username</value>
+        <value xml:lang="it">Nome utente</value>
+    </property>
+    <property key="FormFieldTitle_vendor">
+        <value xml:lang="en">Vendor</value>
+        <value xml:lang="it">Fornitore</value>
     </property>
     <property key="FormFieldTitle_voucherDate">
         <value xml:lang="en">Voucher Date</value>
@@ -10223,6 +10403,14 @@
         <value xml:lang="ru">Поиск финансовых счетов</value>
         <value xml:lang="th">ค้นหางบกำไรสะสมและงบแสดงการเปลี่ยนแปลงฐานะการเงิน</value>
     </property>
+    <property key="PageTitleFindPaymentGatewayConfigurations">
+        <value xml:lang="en">Find Payment Gateway Configurations</value>
+        <value xml:lang="it">Ricerca configurazioni gateway pagamenti</value>
+    </property>
+    <property key="PageTitleFindPaymentGatewayConfigurationTypes">
+        <value xml:lang="en">Find Payment Gateway Configuration Types</value>
+        <value xml:lang="it">Ricerca tipi configurazioni gateway pagamenti</value>
+    </property>
     <property key="PageTitleFindGatewayResponses">
         <value xml:lang="de">Schnittstellen-Antwort finden</value>
         <value xml:lang="en">Find Gateway Responses</value>
@@ -10665,6 +10853,22 @@
         <value xml:lang="ru">Отмененные бухгалтерские проводки</value>
         <value xml:lang="th">Un-posted Accounting Transactions</value>
         <value xml:lang="zh">未过户财务交易</value>
+    </property>
+    <property key="PageTitleUpdatePaymentGatewayConfiguration">
+        <value xml:lang="en">Update Payment Gateway Configuration</value>
+        <value xml:lang="it">Aggiorna configurazione gateway pagamento</value>
+    </property>
+    <property key="PageTitleUpdatePaymentGatewayConfigurationType">
+        <value xml:lang="en">Update Payment Gateway Configuration Type</value>
+        <value xml:lang="it">Aggiorna tipo configurazione gateway pagamento</value>
+    </property>
+    <property key="PageTitleUpdatePaymentGatewayConfigurationClearCommerce">
+        <value xml:lang="en">Update Payment Gateway Configuration Clear Commerce</value>
+        <value xml:lang="it">Aggiorna configurazione gateway pagamento Clear Commerce</value>
+    </property>
+    <property key="PageTitleUpdatePaymentGatewayConfigurationPayflowPro">
+        <value xml:lang="en">Update Payment Gateway Configuration Payflow Pro</value>
+        <value xml:lang="it">Aggiorna configurazione gateway pagamento Payflow Pro</value>
     </property>
     <property key="PageTitleViewAccountingTransaction">
         <value xml:lang="en">View Accounting Transaction</value>
