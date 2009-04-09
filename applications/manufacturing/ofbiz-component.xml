@@ -49,7 +49,7 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_formula.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
 
-    <!-- web applications; will be mounted when using the embedded Jetty container -->
+    <!-- web applications; will be mounted when using the embedded container -->
     <webapp name="manufacturing"
         title="Manufacturing"
         server="default-server"
