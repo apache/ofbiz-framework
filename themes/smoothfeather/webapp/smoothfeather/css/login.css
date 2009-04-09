@@ -1,0 +1,100 @@
+/***************************************************** 
+ OFBiz Admin Login Style
+ 
+ author: Ryan Foster
+ company: Hotwax Media
+ url:
+ date: 02/26/200
+  
+*****************************************************/
+
+@import url("base.css");
+@import url("tables.css");
+@import url("forms.css");
+@import url("views.css");
+
+
+html, body, #wrapper {
+    margin:0;
+    padding:0;
+}
+
+body > #wrapper {
+    padding:0;
+    margin:0;
+}
+
+body {
+    background: url(../images/logo.gif) 50% 30px no-repeat;
+    background-color:#222;
+    text-align:center;
+    font: normal 0.75em/ 145% Arial, Tahoma, sans-serif;
+    color: #33393c;
+    text-align: center;    
+}
+
+#wrapper {
+    
+}
+    
+#main {
+    
+    padding:0;
+    margin:0;
+}
+
+#header {
+    display:none;
+}
+
+#footer {
+    display:none;
+}
+
+#app-navigation {
+    display:none;
+}
+
+.contentarea{
+    background:#fff;
+    border:3px solid #111;
+    margin:100px auto 0px auto;
+    padding:5px;
+    width:350px;
+    height:175px;
+    text-align:left;
+}
+
+.screenlet {
+    float:left;
+}
+
+.screenlet-title-bar {
+    display:none;
+}
+
+input[type="submit"], input[type="button"], input[type="reset"] {
+    background: url(../images/page_login.jpg) no-repeat scroll 0 0;
+    border:none;
+    color:#444444;
+    display:inline;
+    font-weight:bold;
+    line-height:1.8em;
+    margin:5px 5px 2px 75px;
+    padding:5px 4px;
+    text-transform:uppercase;
+    text-align:left;
+    text-indent:-9999px;
+    width:56px;
+    float:left;
+}
+
+input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
+    background-position:0 -26px;
+}
+
+a {
+    color:#666;
+}
+
+
