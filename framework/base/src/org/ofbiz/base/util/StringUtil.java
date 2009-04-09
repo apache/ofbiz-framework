@@ -190,7 +190,7 @@ public class StringUtil {
 
         list = FastList.newInstance();
         for (String str: tmpList) {
-            str = "'" + str + "''";
+            str = "'" + str + "'";
             list.add(str);
         }
         return list;
@@ -460,10 +460,9 @@ public class StringUtil {
      * @return the new value
      */
     public static String addToNumberString(String numberString, long addAmount) {
-    if (numberString == null) return null;
-
-    int origLength = numberString.length();
-    long number = Long.parseLong(numberString);
+        if (numberString == null) return null;
+        int origLength = numberString.length();
+        long number = Long.parseLong(numberString);
         return padNumberString(Long.toString(number + addAmount), origLength);
     }
 
