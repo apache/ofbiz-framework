@@ -245,11 +245,32 @@ under the License.
     <ProdConfItemContentType description="Description - Long" hasTable="N" parentTypeId="" confItemContentTypeId="LONG_DESCRIPTION"/>
     <ProdConfItemContentType description="Instructions" hasTable="N" parentTypeId="" confItemContentTypeId="INSTRUCTIONS"/>
 
-    <ProductFeatureApplType description="Optional" hasTable="N" parentTypeId="" productFeatureApplTypeId="OPTIONAL_FEATURE"/>
-    <ProductFeatureApplType description="Required" hasTable="N" parentTypeId="" productFeatureApplTypeId="REQUIRED_FEATURE"/>
-    <ProductFeatureApplType description="Selectable" hasTable="N" parentTypeId="" productFeatureApplTypeId="SELECTABLE_FEATURE"/>
-    <ProductFeatureApplType description="Standard" hasTable="N" parentTypeId="" productFeatureApplTypeId="STANDARD_FEATURE"/>
-    <ProductFeatureApplType description="Distinguishing" hasTable="N" parentTypeId="" productFeatureApplTypeId="DISTINGUISHING_FEAT"/>
+    <ProductFeatureApplType description="Optional" hasTable="N" parentTypeId="" productFeatureApplTypeId="OPTIONAL_FEATURE">
+        <!-- Used for add-on features to a product that often add an additional cost. There are alternatives to accessorize products that are generally more flexible, but this is a simple option for optional add-ons. -->
+    </ProductFeatureApplType>
+    <ProductFeatureApplType description="Required" hasTable="N" parentTypeId="" productFeatureApplTypeId="REQUIRED_FEATURE">
+        <!-- A variation of the Optional feature application type where it represents some sort of an add-on, but is not optional. There is only limited support for this currently in OFBiz. -->
+    </ProductFeatureApplType>
+    <ProductFeatureApplType description="Selectable" hasTable="N" parentTypeId="" productFeatureApplTypeId="SELECTABLE_FEATURE">
+        <!-- 
+            Use this to associate selectable features with a virtual product. These features are organized by the feature type and there may be a variant of the virtual product for each combination of features, one feature for each feature type.
+            Each variant of the virtual product should have one feature (selected from the set of selectable features on the virtual product) for each feature type, associated with it as a standard or distinguishing feature. 
+        -->
+    </ProductFeatureApplType>
+    <ProductFeatureApplType description="Standard" hasTable="N" parentTypeId="" productFeatureApplTypeId="STANDARD_FEATURE">
+        <!-- 
+            Standard features are inherent features that describe the nature of a product. These can be used for product comparison, parametric searching, and to describe variants of virtual products. 
+            For more information about the virtual/variant pattern please see the descriptions of the Selectable and Distinguishing Feature Application Types. 
+            Note that in OFBiz parametric searching by default considers all applications types and not just standard features, but that may be an option more desirable for certain organizations. 
+        -->
+    </ProductFeatureApplType>
+    <ProductFeatureApplType description="Distinguishing" hasTable="N" parentTypeId="" productFeatureApplTypeId="DISTINGUISHING_FEAT">
+        <!--
+            Used only for variant products. Features applied to products this way distinguish one variant from another. 
+            For the virtual/variant structure the features attached to variants can be applied as Standard or Distinguishing features. 
+            Use distinguishing instead of standard feature application when you want the feature to be used ONLY for virtual/variant distinction and not for other things standard features are used for like product comparisons and such.
+        --> 
+    </ProductFeatureApplType>
 
     <ProductFeatureIactnType description="Dependencies" hasTable="N" parentTypeId="" productFeatureIactnTypeId="FEATURE_IACTN_DEPEND"/>
     <ProductFeatureIactnType description="Incompatibility" hasTable="N" parentTypeId="" productFeatureIactnTypeId="FEATURE_IACTN_INCOMP"/>
