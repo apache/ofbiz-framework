@@ -91,10 +91,10 @@ under the License.
                     <set value="-expireDate" field="orderByString"/>
                 <else>
                     <if-compare value="INVRO_LIFO_REC" operator="equals" field="parameters.reserveOrderEnumId">
-                        <set value="+datetimeReceived" field="orderByString"/>
+                        <set value="-datetimeReceived" field="orderByString"/>
                     <else>
                         <!-- the default reserveOrderEnumId is INVRO_FIFO_REC, ie FIFO based on date received -->
-                        <set value="-datetimeReceived" field="orderByString"/>
+                        <set value="+datetimeReceived" field="orderByString"/>
                         <set value="INVRO_FIFO_REC" field="parameters.reserveOrderEnumId"/>
                     </else>
                     </if-compare>
