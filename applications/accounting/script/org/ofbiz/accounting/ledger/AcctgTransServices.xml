@@ -226,7 +226,7 @@ under the License.
         <!-- check the scheduled posting date, but only if it's set -->
         <if-not-empty field="acctgTrans.scheduledPostingDate">
             <set field="scheduledPostingDate" from-field="acctgTrans.scheduledPostingDate"/>
-            <set field="beforeScheduled" value="${bsh: org.ofbiz.base.util.UtilDateTime.nowTimestamp().before(scheduledPostingDate)}"/>
+            <set field="beforeScheduled" value="${groovy: org.ofbiz.base.util.UtilDateTime.nowTimestamp().before(scheduledPostingDate)}"/>
             <if-compare field="beforeScheduled" operator="equals" value="true" type="Boolean">
                 <add-error><fail-message message="Not posting GL Accounting Transaction with ID [${parameters.acctgTransId}] because it's not scheduled to be posted yet.  The scheduled posting date is [${acctgTrans.scheduledPostingDate}]"/></add-error>
             </if-compare>
