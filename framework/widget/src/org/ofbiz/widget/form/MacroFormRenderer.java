@@ -52,6 +52,7 @@ import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.WidgetWorker;
+import org.ofbiz.widget.fo.FoScreenRenderer;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.form.ModelFormField;
@@ -76,6 +77,8 @@ import org.ofbiz.widget.form.ModelFormField.TextField;
 import org.ofbiz.widget.form.ModelFormField.TextFindField;
 import org.ofbiz.widget.form.ModelFormField.TextareaField;
 import org.ofbiz.widget.screen.ModelScreenWidget;
+
+import javolution.util.FastList;
 
 import freemarker.core.Environment;
 import freemarker.template.Template;
@@ -1072,11 +1075,29 @@ public class MacroFormRenderer implements FormStringRenderer {
         if (this.renderPagination) {
             this.renderNextPrev(writer, context, modelForm);
         }
+        List<ModelFormField> childFieldList = modelForm.getFieldList();
+        List<String> columnStyleList = FastList.newInstance();
+        for (ModelFormField childField : childFieldList) {
+            int childFieldType = childField.getFieldInfo().getFieldType();
+            if (childFieldType == ModelFormField.FieldInfo.HIDDEN || childFieldType == ModelFormField.FieldInfo.IGNORED) {
+                continue;
+            }
+            String areaStyle = childField.getTitleAreaStyle();
+            if (UtilValidate.isEmpty(areaStyle)) {
+                areaStyle = "";
+            }
+            columnStyleList.add(areaStyle);
+        }
+        columnStyleList = StringUtil.quoteStrList(columnStyleList);
+        String columnStyleListString = StringUtil.join(columnStyleList, ", ");
+
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatListWrapperOpen ");
         sr.append(" style=\"");
         sr.append(modelForm.getDefaultTableStyle());
-        sr.append("\" />");
+        sr.append("\" columnStyles=[");
+        sr.append(columnStyleListString);
+        sr.append("] />");
         executeMacro(writer, sr.toString());
 
     }
@@ -1639,6 +1660,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String formName = modelFormField.getModelForm().getCurrentFormName(context);
         StringBuilder targetParameterIter = new StringBuilder();
         StringBuilder imgSrc = new StringBuilder();
+        // FIXME: refactor using the StringUtils methods
         List<String> targetParameterList = lookupField.getTargetParameterList();
         targetParameterIter.append("[");
         for (String targetParameter: targetParameterList) {

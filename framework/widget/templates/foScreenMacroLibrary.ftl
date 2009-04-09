@@ -16,23 +16,26 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<#assign foStyles = {
-    "tabletext":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\"",
-    "tabletextright":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\" text-align=\"right\"",
-    "tableheadverysmall":"column-width=\"0.3in\"",
-    "tableheadsmall":"column-width=\"0.5in\"",
-    "tableheadmedium":"column-width=\"1.5in\"",
-    "tableheadwide":"column-width=\"3in\"",
-    "head1":"font-size=\"12\" font-weight=\"bold\"",
-    "head2":"font-weight=\"bold\"",
-    "head3":"font-weight=\"bold\" font-style=\"italic\"",
-    "error":"color=\"red\""}/>
+<#macro getFoStyle style>
+    <#assign foStyles = {
+        "tabletext":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\"",
+        "tabletextright":"border-left=\"solid black\" border-right=\"solid black\" padding-left=\"2pt\" padding-top=\"2pt\" text-align=\"right\"",
+        "tableheadverysmall":"column-width=\"0.3in\"",
+        "tableheadsmall":"column-width=\"0.5in\"",
+        "tableheadmedium":"column-width=\"1.5in\"",
+        "tableheadwide":"column-width=\"3in\"",
+        "head1":"font-size=\"12\" font-weight=\"bold\"",
+        "head2":"font-weight=\"bold\"",
+        "head3":"font-weight=\"bold\" font-style=\"italic\"",
+        "error":"color=\"red\""}/>
+    <#assign foStyle = foStyles[style]?default("")/>
+    ${foStyle?default("")}
+</#macro>
 
 <#macro renderSectionBegin></#macro>
 <#macro renderSectionEnd>
 </#macro>
-<#macro renderContainerBegin containerId style autoUpdateLink autoUpdateInterval><fo:block <#if style?has_content>${foStyles[style]}</#if>></#macro>
+<#macro renderContainerBegin id style autoUpdateLink autoUpdateInterval><fo:block <#if style?has_content><@getFoStyle style/></#if>></#macro>
 <#macro renderContainerEnd></fo:block></#macro>
 <#macro renderContentBegin></#macro>
 <#macro renderContentBody></#macro>
@@ -42,7 +45,7 @@ under the License.
 <#macro renderSubContentEnd></#macro>
 
 <#macro renderHorizontalSeparator id style><fo:block><fo:leader leader-length="100%" leader-pattern="rule" rule-style="solid" rule-thickness="0.1mm" color="black"/></fo:block></#macro>
-<#macro renderLabel text id style><#if text?exists>${text}</#if></#macro>
+<#macro renderLabel text id style><#if text?exists><#if style?has_content><fo:inline <@getFoStyle style/>></#if>${text}<#if style?has_content></fo:inline></#if></#if></#macro>
 <#macro renderLink></#macro>
 <#macro renderImage></#macro>
 

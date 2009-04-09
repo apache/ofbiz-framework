@@ -54,7 +54,7 @@ under the License.
 <#macro renderFormClose focusFieldName formName></#macro>
 <#macro renderMultiFormClose></#macro>
 
-<#macro renderFormatListWrapperOpen style></#macro>
+<#macro renderFormatListWrapperOpen style columnStyles></#macro>
 <#macro renderFormatListWrapperClose></#macro>
 
 <#macro renderFormatHeaderRowOpen style></#macro>

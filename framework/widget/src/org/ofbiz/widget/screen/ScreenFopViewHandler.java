@@ -29,12 +29,16 @@ import org.apache.fop.apps.Fop;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ApacheFopWorker;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.widget.fo.FoFormRenderer;
 import org.ofbiz.widget.fo.FoScreenRenderer;
-import org.ofbiz.widget.html.HtmlScreenRenderer;;
+import org.ofbiz.widget.form.FormStringRenderer;
+import org.ofbiz.widget.form.MacroFormRenderer;
+import org.ofbiz.widget.html.HtmlScreenRenderer;
 
 /**
  * Uses XSL-FO formatted templates to generate PDF, PCL, POSTSCRIPT etc.  views
@@ -45,7 +49,6 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
     protected static final String DEFAULT_ERROR_TEMPLATE = "component://common/widget/CommonScreens.xml#FoError";
 
     protected ServletContext servletContext = null;
-    protected FoScreenRenderer foScreenRenderer = new FoScreenRenderer();
 
     /**
      * @see org.ofbiz.webapp.view.ViewHandler#init(javax.servlet.ServletContext)
@@ -62,12 +65,17 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
         // render and obtain the XSL-FO
         Writer writer = new StringWriter();
         try {
-            ScreenRenderer screens = new ScreenRenderer(writer, null, foScreenRenderer);
+            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(UtilProperties.getPropertyValue("widget", getName() + ".name"), UtilProperties.getPropertyValue("widget", getName() + ".screenrenderer"), writer);
+            FormStringRenderer formStringRenderer = new MacroFormRenderer(UtilProperties.getPropertyValue("widget", getName() + ".formrenderer"), writer, request, response);
+            // TODO: uncomment these lines when the renderers are implemented
+            //TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(UtilProperties.getPropertyValue("widget", getName() + ".treerenderer"), writer);
+            //MenuStringRenderer menuStringRenderer = new MacroMenuRenderer(UtilProperties.getPropertyValue("widget", getName() + ".menurenderer"), writer);
+            ScreenRenderer screens = new ScreenRenderer(writer, null, screenStringRenderer);
             screens.populateContextForRequest(request, response, servletContext);
 
             // this is the object used to render forms from their definitions
-            screens.getContext().put("formStringRenderer", new FoFormRenderer(request, response));
-            screens.getContext().put("simpleEncoder", StringUtil.xmlEncoder);
+            screens.getContext().put("formStringRenderer", formStringRenderer);
+            screens.getContext().put("simpleEncoder", StringUtil.getEncoder(UtilProperties.getPropertyValue("widget", getName() + ".encoder")));
             screens.render(page);
         } catch (Exception e) {
             renderError("Problems with the response writer/output stream", e, request, response);
@@ -81,6 +89,9 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
         }
         if (Debug.verboseOn()) Debug.logVerbose("XSL:FO Screen Output: " + screenOutString, module);
 
+        if (UtilValidate.isEmpty(contentType)) {
+            contentType = UtilProperties.getPropertyValue("widget", getName() + ".default.contenttype");
+        }
         Reader reader = new StringReader(screenOutString);
         StreamSource src = new StreamSource(reader);
         ByteArrayOutputStream out = new ByteArrayOutputStream();

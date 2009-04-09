@@ -27,6 +27,7 @@ import org.ofbiz.base.util.GeneralException;
  * Widget Library - Screen String Renderer interface.
  */
 public interface ScreenStringRenderer {
+    public String getRendererName();
     public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException;
     public void renderSectionEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException;
     public void renderContainerBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException;

@@ -47,6 +47,7 @@ import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.GenericDelegator;
@@ -73,12 +74,14 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     public static final String module = MacroScreenRenderer.class.getName();
     private Template macroLibrary;
     private Environment environment;
+    private String rendererName;
     private int elementId = 999;
 
-    public MacroScreenRenderer(String macroLibraryPath, Appendable writer) throws TemplateException, IOException {
+    public MacroScreenRenderer(String name, String macroLibraryPath, Appendable writer) throws TemplateException, IOException {
         macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
         Map<String, Object> input = UtilMisc.toMap("key", null);
         environment = FreeMarkerWorker.renderTemplate(macroLibrary, input, writer);
+        rendererName = name; 
     }
 
     private String getNextElementId() {
@@ -98,6 +101,10 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         } catch (IOException e) {
             Debug.logError(e, "Error rendering screen thru ftl", module);
         }
+    }
+
+    public String getRendererName() {
+        return rendererName;
     }
 
     public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
