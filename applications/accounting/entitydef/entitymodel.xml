@@ -2965,6 +2965,80 @@ under the License.
         <key-map field-name="glAccountTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="PaymentGatewayConfigType"
+        package-name="org.ofbiz.accounting.payment"
+        title="Payment Gateway Configuration Type">
+      <field name="paymentGatewayConfigTypeId" type="id-ne"></field>
+      <field name="parentTypeId" type="id"></field>
+      <field name="hasTable" type="indicator"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="paymentGatewayConfigTypeId"/>
+      <relation type="one" fk-name="PGCT_PAR" title="Parent" rel-entity-name="PaymentGatewayConfigType">
+        <key-map field-name="parentTypeId" rel-field-name="paymentGatewayConfigTypeId"/>
+      </relation>
+      <relation type="many" title="Sibling" rel-entity-name="PaymentGatewayConfigType">
+        <key-map field-name="parentTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PaymentGatewayConfig"
+        package-name="org.ofbiz.accounting.payment"
+        title="Payment Gateway Configuration">
+      <field name="paymentGatewayConfigId" type="id-ne"></field>
+      <field name="paymentGatewayConfigTypeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="paymentGatewayConfigId"/>
+      <relation type="one" fk-name="PGC_PGCT" rel-entity-name="PaymentGatewayConfigType">
+        <key-map field-name="paymentGatewayConfigTypeId" rel-field-name="paymentGatewayConfigTypeId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PaymentGatewayPayflowPro"
+        package-name="org.ofbiz.accounting.payment"
+        title="Payflow Pro Payment Gateway Configuration">
+      <field name="paymentGatewayConfigId" type="id-ne"></field>
+      <field name="certsPath" type="value"><description>Path the the VeriSign Certificate</description></field>
+      <field name="hostAddress" type="value"><description>Address of the payment processor</description></field>
+      <field name="hostPort" type="numeric"><description>Port of the payment processor</description></field>
+      <field name="timeout" type="numeric"><description>Timeout</description></field>
+      <field name="proxyAddress" type="value"><description>Proxy Address</description></field>
+      <field name="proxyPort" type="numeric"><description>Proxy Port</description></field>
+      <field name="proxyLogon" type="value"><description>Proxy Logon</description></field>
+      <field name="proxyPassword" type="value"><description>Proxy Password</description></field>
+      <field name="vendor" type="short-varchar"><description>Vendor of account information</description></field>
+      <field name="userId" type="short-varchar"><description>PayFlow UserID of account information</description></field>
+      <field name="pwd" type="short-varchar"><description>PayFlow Password of account information</description></field>
+      <field name="partner" type="short-varchar"><description>PayFlow Partner of account information</description></field>
+      <field name="checkAvs" type="indicator"><description>Use Address Verification</description></field>
+      <field name="checkCvv2" type="indicator"><description>Require CVV2 Verification</description></field>
+      <field name="preAuth" type="indicator"><description>Pre-Authorize Payments (if set to N will auto-capture)</description></field>
+      <field name="enableTransmit" type="value"><description>Set to false to not transmit anything</description></field>
+      <field name="logFileName" type="value"><description>Log file name</description></field>
+      <field name="loggingLevel" type="numeric"><description>Logging level</description></field>
+      <field name="maxLogFileSize" type="numeric"><description>Max log file size</description></field>
+      <field name="stackTraceOn" type="indicator"><description>Stack trace on/off</description></field>
+      <prim-key field="paymentGatewayConfigId"/>
+      <relation type="one" fk-name="PGPF_PGC" rel-entity-name="PaymentGatewayConfig">
+        <key-map field-name="paymentGatewayConfigId"/>
+      </relation>
+    </entity>
+    <entity entity-name="PaymentGatewayClearCommerce"
+        package-name="org.ofbiz.accounting.payment"
+        title="Clear Commerce Payment Gateway Configuration">
+      <field name="paymentGatewayConfigId" type="id-ne"></field>
+      <field name="sourceId" type="short-varchar"><description>Useful for tagging transactions</description></field>
+      <field name="groupId" type="short-varchar"><description>Useful for grouping transactions</description></field>
+      <field name="clientId" type="short-varchar"><description>Client Id of account information</description></field>
+      <field name="username" type="short-varchar"><description>User name of account informatio</description></field>
+      <field name="pwd" type="short-varchar"><description>Password of account informatio</description></field>
+      <field name="userAlias" type="short-varchar"><description>Alias of account informatio</description></field>
+      <field name="effectiveAlias" type="short-varchar"><description>Effective Alias of account information</description></field>
+      <field name="processMode" type="indicator"><description>Process mode (Y: approve / N: decline / R: random / P: production)</description></field>
+      <field name="serverURL" type="value"><description>Server URL of the payment processor</description></field>
+      <field name="enableCVM" type="indicator"><description>Enable Card Verification Methods (CID, CVC, CVV2)</description></field>
+      <prim-key field="paymentGatewayConfigId"/>
+      <relation type="one" fk-name="PGCC_PGC" rel-entity-name="PaymentGatewayConfig">
+        <key-map field-name="paymentGatewayConfigId"/>
+      </relation>
+    </entity>
     <entity entity-name="PaymentGatewayRespMsg"
             package-name="org.ofbiz.accounting.payment"
             title="Payment Gateway Response Message">

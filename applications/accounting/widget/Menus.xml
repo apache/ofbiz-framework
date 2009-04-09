@@ -30,6 +30,7 @@ under the License.
             </condition>
             <link target="FindGatewayResponses"/>
         </menu-item>
+        <menu-item name="PaymentGateways" title="${uiLabelMap.AccountingPaymentGatewayConfigurations}"><link target="FindGatewayConfigurations"/></menu-item>
         <menu-item name="billingaccount" title="${uiLabelMap.AccountingBillingMenu}"><link target="FindBillingAccount"/></menu-item>
         <menu-item name="FindFinAccount" title="${uiLabelMap.AccountingFinAccount}"><link target="FindFinAccount"/></menu-item>
         <menu-item name="TaxAuthorities" title="${uiLabelMap.AccountingTaxAuthorities}"><link target="FindTaxAuthority"/></menu-item>
@@ -944,6 +945,15 @@ under the License.
         </menu-item>
         <menu-item name="manualtransactiontab" title="${uiLabelMap.AccountingManualTransaction}">
             <link target="ManualTransaction"/>
+        </menu-item>
+    </menu>
+    
+    <menu name="PaymentGatewayTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="paymentGatewayConfigurationsTab" title="${uiLabelMap.AccountingPaymentGatewayConfigurations}">
+            <link target="FindGatewayConfigurations"/>
+        </menu-item>
+        <menu-item name="paymentGatewayConfigurationTypesTab" title="${uiLabelMap.AccountingPaymentGatewayConfigurationTypes}">
+            <link target="FindGatewayConfigurationTypes"/>
         </menu-item>
     </menu>
 </menus>

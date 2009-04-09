@@ -59,13 +59,13 @@
 styleSheet=""
 -->
 
-    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveWithCaptureCCProcessor"/>
-    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testCCRelease"/>
-    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="testCCCapture"/>
-    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentService="alwaysApproveCCProcessor"/>
-    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="testCCRefund"/>
-    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="EFT_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveEFTProcessor"/>
-    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService=""/>
+    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveWithCaptureCCProcessor" paymentCustomMethodId="CC_AUTH_CAPTURE_ALWA"/>
+    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testCCRelease" paymentCustomMethodId="CC_RELEASE_TEST"/>
+    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_CAPTURE" paymentService="testCCCapture" paymentCustomMethodId="CC_CAPTURE_TEST"/>
+    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REAUTH" paymentService="alwaysApproveCCProcessor" paymentCustomMethodId="CC_AUTH_ALWAYSAPPROV"/>
+    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_REFUND" paymentService="testCCRefund" paymentCustomMethodId="CC_REFUND_TEST"/>
+    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="EFT_ACCOUNT" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveEFTProcessor" paymentCustomMethodId="EFT_AUTH_ALWAYSAPPRO"/>
+    <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId=""/>
 
     <ProductStoreFacility productStoreId="9100" facilityId="MyRetailStore" fromDate="2001-05-13 12:00:00.0"/>
     <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="9100" fromDate="2001-05-13 12:00:00.0"/>

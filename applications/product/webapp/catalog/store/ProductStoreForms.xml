@@ -1034,6 +1034,12 @@
             <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
         </field>
         <field name="paymentService" title="${uiLabelMap.ProductServiceName}"><display/></field>
+        <field name="paymentCustomMethodId" title="${uiLabelMap.ProductCustomMethod}">
+            <display-entity entity-name="CustomMethod" key-field-name="customMethodId" description="${description} (${customMethodName})"/>
+        </field>
+        <field name="paymentGatewayConfigId" title="${uiLabelMap.AccountingPaymentGatewayConfigId}">
+            <display-entity entity-name="PaymentGatewayConfig" key-field-name="paymentGatewayConfigId"  description="${description}"/>
+        </field>
         <field name="paymentPropertiesPath" title="${uiLabelMap.ProductPaymentProps}"><display/></field>
         <field name="applyToAllProducts" title="${uiLabelMap.ProductApplyToAll}"><display/></field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" use-when="${bsh:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_UPDATE&quot;, session);}" widget-style="buttontext">
@@ -1084,6 +1090,18 @@
             </drop-down>
         </field>
         <field name="paymentService" title="${uiLabelMap.ProductServiceName}"><text/></field>
+        <field name="paymentCustomMethodId" title="${uiLabelMap.ProductCustomMethod}">
+            <drop-down allow-empty="true">
+                <list-options key-name="customMethodId" description="${description} (${customMethodName})" list-name="paymentCustomMethods"/>
+            </drop-down>
+        </field>
+        <field name="paymentGatewayConfigId" title="${uiLabelMap.AccountingPaymentGatewayConfigId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PaymentGatewayConfig" key-field-name="paymentGatewayConfigId" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="paymentPropertiesPath" title="${uiLabelMap.ProductPaymentProps}"><text/></field>
         <field name="applyToAllProducts" title="${uiLabelMap.ProductApplyToAll} ${uiLabelMap.ProductProducts}">
             <drop-down>

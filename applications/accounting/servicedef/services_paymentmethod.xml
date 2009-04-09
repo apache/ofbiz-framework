@@ -450,6 +450,7 @@ under the License.
         <attribute name="captureMessage" type="String" mode="OUT" optional="true"/>
         <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
         <attribute name="customerRespMsgs" type="List" mode="OUT" optional="true"/>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="paymentReleaseInterface" engine="interface" location="" invoke="">
@@ -466,6 +467,7 @@ under the License.
         <attribute name="releaseFlag" type="String" mode="OUT" optional="true"/>
         <attribute name="releaseMessage" type="String" mode="OUT" optional="true"/>
         <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="paymentCreditInterface" engine="interface" location="" invoke="">
@@ -485,6 +487,7 @@ under the License.
         <attribute name="creditFlag" type="String" mode="OUT" optional="true"/>
         <attribute name="creditMessage" type="String" mode="OUT" optional="true"/>
         <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="paymentRefundInterface" engine="interface" location="" invoke="">
@@ -500,6 +503,7 @@ under the License.
         <attribute name="refundFlag" type="String" mode="OUT" optional="true"/>
         <attribute name="refundMessage" type="String" mode="OUT" optional="true"/>
         <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- Credit Card Interfaces -->
@@ -524,6 +528,7 @@ under the License.
         <attribute name="captureFlag" type="String" mode="OUT" optional="true"/>
         <attribute name="captureMessage" type="String" mode="OUT" optional="true"/>
         <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="ccCreditInterface" engine="interface" location="" invoke="">

@@ -3903,6 +3903,8 @@ under the License.
       <field name="paymentMethodTypeId" type="id-ne"></field>
       <field name="paymentServiceTypeEnumId" type="id-ne"></field>
       <field name="paymentService" type="value"></field>
+      <field name="paymentCustomMethodId" type="id"></field>
+      <field name="paymentGatewayConfigId" type="id"></field>
       <field name="paymentPropertiesPath" type="value"></field>
       <field name="applyToAllProducts" type="indicator"></field>
       <prim-key field="productStoreId"/>
@@ -3916,6 +3918,12 @@ under the License.
       </relation>
       <relation type="one" fk-name="PRDS_PS_ENUM" rel-entity-name="Enumeration">
         <key-map field-name="paymentServiceTypeEnumId" rel-field-name="enumId"/>
+      </relation>
+      <relation type="one" fk-name="PRDS_PS_PGC" rel-entity-name="PaymentGatewayConfig">
+        <key-map field-name="paymentGatewayConfigId"/>
+      </relation>
+      <relation type="one" fk-name="PRDS_PS_CUS_MET" rel-entity-name="CustomMethod">
+        <key-map field-name="paymentCustomMethodId" rel-field-name="customMethodId"/>
       </relation>
     </entity>
     <view-entity entity-name="ProductStorePromoAndAppl"
