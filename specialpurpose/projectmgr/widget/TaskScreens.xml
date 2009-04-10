@@ -199,7 +199,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleEditTaskList"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffort" value-field="task"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.bsh"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
