@@ -337,5 +337,5 @@ under the License.
     <!-- Content Types -->
     <OrderContentType description="Image" hasTable="N" parentTypeId="" orderContentTypeId="IMAGE_URL"/>
 
-    <WebSite webSiteId="OrderEntry" siteName="Order Entry Web Site" productStoreId="9000" visualThemeSetId="BACKOFFICE"/>
+    <WebSite webSiteId="OrderEntry" siteName="Order Entry Web Site" visualThemeSetId="BACKOFFICE"/>
 </entity-engine-xml>
