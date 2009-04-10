@@ -26,39 +26,16 @@ under the License.
     ${listShipmentPlanForm.renderFormString(context)}
     <#if workInProgress>
         <br/>
-        <div>
-          <form name= "shipmentWorkEffortTasks" method= "post" action= "<@ofbizUrl>ShipmentWorkEffortTasks.pdf</@ofbizUrl>" >
-            <input type= "hidden" name= "shipmentId" value= "${shipmentId}">
-            <a href="javascript:document.shipmentWorkEffortTasks.submit()" class="buttontext" target="_report">${uiLabelMap.ManufacturingTasksReport}</a>
-          </form>
-        </div>
-        <div>
-          <form name= "cuttingListReport" method= "post" action= "<@ofbizUrl>CuttingListReport.pdf</@ofbizUrl>" >
-            <input type= "hidden" name= "shipmentId" value= "${shipmentId}">
-            <a href="javascript:document.cuttingListReport.submit()" target="_report" class="buttontext">${uiLabelMap.ManufacturingCuttingListReport}</a>
-          </form>
-        </div>
+        <div><a href="<@ofbizUrl>ShipmentWorkEffortTasks.pdf?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingTasksReport}</a></div>
+        <div><a href="<@ofbizUrl>CuttingListReport.pdf?shipmentId=${shipmentId}</@ofbizUrl>" target="_report" class="buttontext">${uiLabelMap.ManufacturingCuttingListReport}</a></div>
     <#else>
-        <div>
-          <form name= "createProductionRunsForShipment" method= "post" action= "<@ofbizUrl>createProductionRunsForShipment</@ofbizUrl>">
-            <input type= "hidden" name= "shipmentId" value= "${shipmentId}">
-            <a href="javascript:document.createProductionRunsForShipment.submit()" class="buttontext">${uiLabelMap.ManufacturingCreateProductionRun}</a>
-          </form>
-        </div>
+        <div><a href="<@ofbizUrl>createProductionRunsForShipment?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ManufacturingCreateProductionRun}</a></div>
         <br/>
-        <div>
-          <form name= "shipmentPlanStockReport" method= "post" action= "<@ofbizUrl>ShipmentPlanStockReport.pdf</@ofbizUrl>">
-            <input type= "hidden" name= "shipmentId" value= "${shipmentId}">
-            <a href="javascript:document.shipmentPlanStockReport.submit()" target="_report" class="buttontext">${uiLabelMap.ManufacturingShipmentPlanStockReport}</a></div>
-          </form>
-        </div>
+        <div><a href="<@ofbizUrl>ShipmentPlanStockReport.pdf?shipmentId=${shipmentId}</@ofbizUrl>" target="_report" class="buttontext">${uiLabelMap.ManufacturingShipmentPlanStockReport}</a></div>
     </#if>
-        <div>
-          <form name= "shipmentLabel" method= "post" action= "<@ofbizUrl>ShipmentLabel.pdf</@ofbizUrl>">
-            <input type= "hidden" name= "shipmentId" value= "${shipmentId}">
-            <a href="javascript:document.shipmentLabel.submit()" class="buttontext" target="_report">${uiLabelMap.ManufacturingPackageLabelsReport}</a></div>
-          </form>
-        </div>
+
+    <div><a href="<@ofbizUrl>ShipmentLabel.pdf?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext" target="_report">${uiLabelMap.ManufacturingPackageLabelsReport}</a></div>
+  </div>
 </div>
 <#else>
 <div class="screenlet">

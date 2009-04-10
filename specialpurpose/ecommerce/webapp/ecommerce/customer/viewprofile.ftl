@@ -38,10 +38,7 @@ under the License.
       <#if showOld>
         <a href="<@ofbizUrl>viewprofile</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyHideOld}</a>&nbsp;&nbsp;
       <#else>
-        <form name= "viewProfile" method= "post" action= "<@ofbizUrl>viewprofile</@ofbizUrl>">
-          <input type= "hidden" name= "SHOW_OLD" value= "true">
-          <a href="javascript:document.viewProfile.submit()" class="buttontext">${uiLabelMap.PartyShowOld}</a>&nbsp;&nbsp;
-        </form>
+        <a href="<@ofbizUrl>viewprofile?SHOW_OLD=true</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyShowOld}</a>&nbsp;&nbsp;
       </#if>
       <#if (productStore.enableDigProdUpload)?if_exists == "Y">
       &nbsp;<a href="<@ofbizUrl>digitalproductlist</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceDigitalProductUpload}</a>
@@ -147,12 +144,7 @@ under the License.
                         <#if contactMechPurposeType.contactMechPurposeTypeId == "SHIPPING_LOCATION" && (profiledefs.defaultShipAddr)?default("") == contactMech.contactMechId>
                           <span class="buttontextdisabled">${uiLabelMap.EcommerceIsDefault}</span>
                         <#elseif contactMechPurposeType.contactMechPurposeTypeId == "SHIPPING_LOCATION">
-                          <form name= "setProfileDefault" method= "post" action= "<@ofbizUrl>setprofiledefault/viewprofile</@ofbizUrl>">
-                            <input type= "hidden" name= "productStoreId" value= "${productStoreId}">
-                            <input type= "hidden" name= "defaultShipAddr" value= "${contactMech.contactMechId}">
-                            <input type= "hidden" name= "partyId" value= "${party.partyId}">
-                            <a href="javascript:document.setProfileDefault.submit()" class="buttontext">${uiLabelMap.EcommerceSetDefault}</a>
-                          </form>
+                          <a href="<@ofbizUrl>setprofiledefault/viewprofile?productStoreId=${productStoreId}&defaultShipAddr=${contactMech.contactMechId}&partyId=${party.partyId}</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceSetDefault}</a>
                         </#if>
                       <#else>
                         <b>${uiLabelMap.PartyPurposeTypeNotFound}: "${partyContactMechPurpose.contactMechPurposeTypeId}"</b>
@@ -218,20 +210,12 @@ under the License.
             <td align="center" valign="top" nowrap width="1%"><div class="tabletext"><b>(${partyContactMech.allowSolicitation?if_exists})</b></div></td>
             <td width="5">&nbsp;</td>
             <td align="right" valign="top" nowrap width="1%" nowrap>
-              <div>
-                <form name= "editContactMech" method= "post" action= "<@ofbizUrl>editcontactmech</@ofbizUrl>">
-                  <input type= "hidden" name= "contactMechId" value= "${contactMech.contactMechId}">
-                  <a href="javascript:document.editContactMech.submit()" class="buttontext">${uiLabelMap.CommonUpdate}</a>&nbsp;
-                </form>
-              </div>
+              <div><a href="<@ofbizUrl>editcontactmech?contactMechId=${contactMech.contactMechId}</@ofbizUrl>" class="buttontext">
+              ${uiLabelMap.CommonUpdate}</a>&nbsp;</div>
             </td>
             <td align="right" valign="top" width="1%" nowrap>
-              <div>
-                <form name= "deleteContactMech" method= "post" action= "<@ofbizUrl>deleteContactMech/viewprofile</@ofbizUrl>">
-                  <input type= "hidden" name= "contactMechId" value= "${contactMech.contactMechId}">
-                  <a href= "javascript:document.deleteContactMech.submit()"class="buttontext"> ${uiLabelMap.CommonExpire}</a>&nbsp;&nbsp;
-                </form>
-              </div>
+              <div><a href="<@ofbizUrl>deleteContactMech/viewprofile?contactMechId=${contactMech.contactMechId}</@ofbizUrl>" class="buttontext">
+              ${uiLabelMap.CommonExpire}</a>&nbsp;&nbsp;</div>
             </td>
           </tr>
       </#list>
@@ -282,12 +266,8 @@ under the License.
                           </td>
                           <td width="5">&nbsp;</td>
                           <td align="right" valign="top" width="1%" nowrap>
-                            <div>
-                              <form name= "editCreditCard" method= "post" action= "<@ofbizUrl>editcreditcard</@ofbizUrl>">
-                                <input type= "hidden" name= "paymentMethodId" value= "${paymentMethod.paymentMethodId}">
-                                <a href="javascript:document.editCreditCard.submit()" class="buttontext">${uiLabelMap.CommonUpdate}</a>
-                              </form>
-                            </div>
+                            <div><a href="<@ofbizUrl>editcreditcard?paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>" class="buttontext">
+                            ${uiLabelMap.CommonUpdate}</a></div>
                           </td>
                       <#elseif paymentMethod.paymentMethodTypeId?if_exists == "GIFT_CARD">
                           <#if giftCard?has_content && giftCard.cardNumber?has_content>
@@ -316,11 +296,8 @@ under the License.
                           </td>
                           <td width="5">&nbsp;</td>
                           <td align="right" valign="top" width="1%" nowrap>
-                            <div>
-                            <form name= "editGiftCard" method= "post" action= "<@ofbizUrl>editgiftcard</@ofbizUrl>">
-                              <input type= "hidden" name= "paymentMethodId" value= "${paymentMethod.paymentMethodId}">
-                              <a href="javascript:document.editGiftCard.submit()" class="buttontext">${uiLabelMap.CommonUpdate}</a>
-                            </div>
+                            <div><a href="<@ofbizUrl>editgiftcard?paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>" class="buttontext">
+                            ${uiLabelMap.CommonUpdate}</a></div>
                           </td>
                       <#elseif paymentMethod.paymentMethodTypeId?if_exists == "EFT_ACCOUNT">
                           <td width="80%" valign="top">
@@ -333,34 +310,20 @@ under the License.
                           </td>
                           <td width="5">&nbsp;</td>
                           <td align="right" valign="top" width="1%" nowrap>
-                            <div>
-                              <form name= "editEftAccount" method= "post" action= "<@ofbizUrl>editeftaccount</@ofbizUrl>">
-                                <input type= "hidden" name= "paymentMethodId" value= "${paymentMethod.paymentMethodId}">
-                                <a href="javascript:document.editEftAccount.submit()" class="buttontext">${uiLabelMap.CommonUpdate}</a>
-                              </form>
-                            </div>
+                            <div><a href="<@ofbizUrl>editeftaccount?paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>" class="buttontext">
+                            ${uiLabelMap.CommonUpdate}</a></div>
                           </td>
                       </#if>
                       <td align="right" valign="top" width="1%" nowrap>
-                        <div>
-                          <form name= "deletePaymentMethod" method= "post" action= "<@ofbizUrl>deletePaymentMethod/viewprofile</@ofbizUrl>">
-                            <input type= "hidden" name= "paymentMethodId" value= "${paymentMethod.paymentMethodId}">
-                            <a href="javascript:document.deletePaymentMethod.submit()" class="buttontext">${uiLabelMap.CommonExpire}</a>
-                          </form>
-                        </div>
+                        <div><a href="<@ofbizUrl>deletePaymentMethod/viewprofile?paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>" class="buttontext">
+                        ${uiLabelMap.CommonExpire}</a></div>
                       </td>
                       <td align="right" valign="top" width="1%" nowrap>
                         <#if (profiledefs.defaultPayMeth)?default("") == paymentMethod.paymentMethodId>
                           <span class="buttontextdisabled">${uiLabelMap.EcommerceIsDefault}</span>
                         <#else>
-                          <div>
-                            <form name= "setProfileDefault" method= "post" action= "<@ofbizUrl>setprofiledefault/viewprofile</@ofbizUrl>">
-                              <input type= "hidden" name= "productStoreId" value= "${productStoreId}">
-                              <input type= "hidden" name= "defaultPayMeth" value= "${paymentMethod.paymentMethodId}">
-                              <input type= "hidden" name= "partyId" value= "${party.partyId}">
-                              <a href="javascript:document.setProfileDefault.submit()" class="buttontext"> ${uiLabelMap.EcommerceSetDefault}</a>
-                            </form>
-                          </div>
+                          <div><a href="<@ofbizUrl>setprofiledefault/viewprofile?productStoreId=${productStoreId}&defaultPayMeth=${paymentMethod.paymentMethodId}&partyId=${party.partyId}</@ofbizUrl>" class="buttontext">
+                          ${uiLabelMap.EcommerceSetDefault}</a></div>
                         </#if>
                       </td>
                     </tr>
@@ -453,27 +416,15 @@ under the License.
               <#assign mimeType = content.getRelatedOneCache("MimeType")?if_exists>
               <#assign status = content.getRelatedOneCache("StatusItem")>
               <tr>
-                <td>
-                <form name= "img" method= "post" action= "<@ofbizUrl>img/${content.contentName?if_exists}</@ofbizUrl>">
-                  <input type= "hidden" name= "imgId" value= "${content.dataResourceId?if_exists}">
-                  <a href="javascript:document.img.submit()" class="buttontext">${content.contentId}</a>
-                </form>
+                <td><a href="<@ofbizUrl>img/${content.contentName?if_exists}?imgId=${content.dataResourceId?if_exists}</@ofbizUrl>" class="buttontext">${content.contentId}</a>
                 <td><div class="tabletext">${content.contentName?if_exists}</div></td>
                 <td><div class="tabletext">${(contentType.get("description",locale))?if_exists}</div></td>
                 <td><div class="tabletext">${mimeType?if_exists.description?if_exists}</div></td>
                 <td><div class="tabletext">${(status.get("description",locale))?if_exists}</div></td>
                 <td><div class="tabletext">${contentRole.fromDate?if_exists}</div></td>
                 <td align="right">
-                  <form name= "imgForm" method= "post" action= "<@ofbizUrl>img/${content.contentName?if_exists}</@ofbizUrl>">
-                    <input type= "hidden" name= "imgId" value= "${content.dataResourceId?if_exists}">
-                    <a href="javascript:document.imgForm.submit()" class="buttontext">${uiLabelMap.CommonView}</a>
-                  </form>
-                  <form name= "removePartyAsset" method= "post" action= "<@ofbizUrl>removePartyAsset></@ofbizUrl>">
-                    <input type= "hidden" name= "contentId" value= "${contentRole.contentId}">
-                    <input type= "hidden" name= "partyId" value= "${contentRole.partyId}">
-                    <input type= "hidden" name= "roleTypeId" value= "${contentRole.roleTypeId}">
-                    <a href="javascript:document.removePartyAsset.submit()"class="buttontext">${uiLabelMap.CommonRemove}</a>
-                  </form>
+                  <a href="<@ofbizUrl>img/${content.contentName?if_exists}?imgId=${content.dataResourceId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonView}</a>
+                  <a href="<@ofbizUrl>removePartyAsset?contentId=${contentRole.contentId}&partyId=${contentRole.partyId}&roleTypeId=${contentRole.roleTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
                 </td>
               </tr>
             </#list>
@@ -542,13 +493,7 @@ under the License.
               <td width="5">&nbsp;</td>
               <td width="20%" nowrap>
               <#if (contactListParty.statusId?if_exists == "CLPT_ACCEPTED")>
-                <form method="post" action="<@ofbizUrl>updateContactListParty</@ofbizUrl>" name="clistReject">
-                  <input type="hidden" name="partyId" value="${party.partyId}"/>
-                  <input type="hidden" name="contactListId" value="${contactListParty.contactListId}"/>
-                  <input type="hidden" name="fromDate" value="${contactListParty.fromDate}"/>
-                  <input type="hidden" name="statusId" value="CLPT_REJECTED"/>
-                  <a href="javascript:document.clistReject.submit()" class="buttontext">${uiLabelMap.EcommerceUnsubscribe}</a>
-                </form>
+                <a href="<@ofbizUrl>updateContactListParty?partyId=${party.partyId}&amp;contactListId=${contactListParty.contactListId}&amp;fromDate=${contactListParty.fromDate}&amp;statusId=CLPT_REJECTED</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceUnsubscribe}</a>
               <#elseif (contactListParty.statusId?if_exists == "CLPT_PENDING")>
                 <form method="post" action="<@ofbizUrl>updateContactListParty</@ofbizUrl>" name="clistAcceptForm${contactListParty_index}">
                   <input type="hidden" name="partyId" value="${party.partyId}"/>
@@ -559,13 +504,7 @@ under the License.
                   <input type="submit" value="${uiLabelMap.EcommerceVerifySubscription}" class="smallSubmit"/>
                 </form>
               <#elseif (contactListParty.statusId?if_exists == "CLPT_REJECTED")>
-                <form method="post" action="<@ofbizUrl>updateContactListParty</@ofbizUrl>" name="clistPending">
-                  <input type="hidden" name="partyId" value="${party.partyId}"/>
-                  <input type="hidden" name="contactListId" value="${contactListParty.contactListId}"/>
-                  <input type="hidden" name="fromDate" value="${contactListParty.fromDate}"/>
-                  <input type="hidden" name="statusId" value="CLPT_PENDING"/>
-                  <a href="javascript:document.clistPending.submit()" class="buttontext">${uiLabelMap.EcommerceSubscribe}</a>
-                </form>
+                <a href="<@ofbizUrl>updateContactListParty?partyId=${party.partyId}&amp;contactListId=${contactListParty.contactListId}&amp;fromDate=${contactListParty.fromDate}&amp;statusId=CLPT_PENDING</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceSubscribe}</a>
               </#if>
               </td>
             </tr>
@@ -622,12 +561,7 @@ under the License.
                 <#if (responses > 0 && survey.allowUpdate?default("N") == "Y")>
                   <#assign surveyLabel = uiLabelMap.EcommerceUpdateSurvey>
                 </#if>
-                <td align="right" width="10%" nowrap>
-                  <form name= "takeSurvey" method= "post" action= "<@ofbizUrl>takesurvey</@ofbizUrl>">
-                    <input type= "hidden" name= "productStoreSurveyId" value= "${surveyAppl.productStoreSurveyId}">
-                    <a href="javascript:document.takeSurvey.submit()" class="buttontext">${surveyLabel}</a>
-                  </form>
-                </td>
+                <td align="right" width="10%" nowrap><a href="<@ofbizUrl>takesurvey?productStoreSurveyId=${surveyAppl.productStoreSurveyId}</@ofbizUrl>" class="buttontext">${surveyLabel}</a></td>
               <#else>
                 &nbsp;
               </#if>

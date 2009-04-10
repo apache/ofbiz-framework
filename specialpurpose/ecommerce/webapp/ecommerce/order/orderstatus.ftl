@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if orderHeader?has_content>
-  <form name="addCommonToCartForm" action="<@ofbizUrl>addordertocart/orderstatus</@ofbizUrl>" method="post">
+  <form name="addCommonToCartForm" action="<@ofbizUrl>addordertocart/orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" method="GET">
     <input type="hidden" name="add_all" value="false">
     <input type="hidden" name="orderId" value="${orderHeader.orderId}">
     ${screens.render("component://ecommerce/widget/OrderScreens.xml#orderheader")}
