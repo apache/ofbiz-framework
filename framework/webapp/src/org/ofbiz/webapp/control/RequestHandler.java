@@ -183,7 +183,27 @@ public class RequestHandler {
                     Locale locale = UtilHttp.getLocale(request);
                     String errMsg = UtilProperties.getMessage("WebappUiLabels", "requestHandler.InsecureFormPostToSecureRequest", locale);
                     Debug.logError("Got a insecure (non-https) form POST to a secure (http) request [" + requestMap.uri + "], returning error", module);
-                    throw new RequestHandlerException(errMsg);
+
+                    // see if HTTPS is enabled, if not then log a warning instead of throwing an exception
+                    Boolean enableHttps = null;
+                    String webSiteId = WebSiteWorker.getWebSiteId(request);
+                    if (webSiteId != null) {
+                        try {
+                            GenericValue webSite = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId));
+                            if (webSite != null) enableHttps = webSite.getBoolean("enableHttps");
+                        } catch (GenericEntityException e) {
+                            Debug.logWarning(e, "Problems with WebSite entity; using global defaults", module);
+                        }
+                    }
+                    if (enableHttps == null) {
+                        enableHttps = UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y");
+                    }
+
+                    if (Boolean.FALSE.equals(enableHttps)) {
+                        Debug.logWarning("HTTPS is disabled for this site, so we can't tell if this was encrypted or not which means if a form was POSTed and it was not over HTTPS we don't know, but it would be vulnerable to an XSRF and other attacks: " + errMsg, module);
+                    } else {
+                        throw new RequestHandlerException(errMsg);
+                    }
                 } else {
                     StringBuilder urlBuf = new StringBuilder();
                     urlBuf.append(request.getPathInfo());
