@@ -293,10 +293,7 @@ under the License.
                     <td colspan="6">
                       <div>
                         <span class="label">${uiLabelMap.OrderLinkedToRequirement}</span>&nbsp;
-                        <form name= "orderView" method= "post" action= "<@ofbizUrl>EditRequirement</@ofbizUrl>">
-                          <input type= "hidden" name= "requirementId" value= "${linkedRequirement.requirementId}">
-                          <a href="javascript:document.orderView.submit()" class="buttontext">${linkedRequirement.requirementId}</a>&nbsp;
-                        </form>
+                        <a href="<@ofbizUrl>EditRequirement?requirementId=${linkedRequirement.requirementId}</@ofbizUrl>" class="buttontext">${linkedRequirement.requirementId}</a>&nbsp;
                       </div>
                     </td>
                   </tr>

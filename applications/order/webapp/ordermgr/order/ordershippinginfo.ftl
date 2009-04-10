@@ -373,7 +373,8 @@ under the License.
                <#assign facilities = facilitiesForShipGroup.get(shipGroup.shipGroupSeqId)>
                <#if facilities?has_content>
                    <div>
-                   <form action="/facility/control/createShipment" method="GET">
+                    <a href="javascript:document.createShipment2.submit()" class="buttontext">${uiLabelMap.OrderNewShipmentForShipGroup}</a>
+                    <form name="createShipment2" method="post" action="/facility/control/createShipment">
                        <input type="hidden" name="primaryOrderId" value="${orderId}"/>
                        <input type="hidden" name="primaryShipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
                        <input type="hidden" name="shipmentTypeId" value="PURCHASE_SHIPMENT"/>
@@ -387,8 +388,8 @@ under the License.
                          </#list>
                        </select>
                        <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderNewShipmentForShipGroup} [${shipGroup.shipGroupSeqId}]"/>
-                   </form>
-                   </div>
+                    </form>
+                    </div>
                <#else>
                    <a href="<@ofbizUrl>quickDropShipOrder?orderId=${orderId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;externalLoginKey=${externalLoginKey}</@ofbizUrl>" class="buttontext" target="_blank">${uiLabelMap.ProductShipmentQuickComplete}</a>
                    <a href="/facility/control/createShipment?primaryOrderId=${orderId}&amp;primaryShipGroupSeqId=${shipGroup.shipGroupSeqId}&amp;shipmentTypeId=DROP_SHIPMENT&amp;statusId=PURCH_SHIP_CREATED&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${uiLabelMap.OrderNewDropShipmentForShipGroup} [${shipGroup.shipGroupSeqId}]</a>
