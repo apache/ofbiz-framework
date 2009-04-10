@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.FileNameMap;
 import java.net.URLConnection;
+import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -395,13 +396,23 @@ public class UtilHttp {
                 if (suffix != null && suffix.length() > 0) {
                     if (parameterName.endsWith(suffix)) {
                         String key = parameterName.substring(prefix.length(), parameterName.length() - (suffix.length()));
-                        String value = (String)entry.getValue();
-                        paramMap.put(key, value);
+                        if (entry.getValue() instanceof ByteBuffer) {
+                            ByteBuffer value = (ByteBuffer) entry.getValue();
+                            paramMap.put(key, value);
+                        } else {
+                            String value = (String) entry.getValue();
+                            paramMap.put(key, value);
+                        }
                     }
                 } else {
                     String key = parameterName.substring(prefix.length());
-                    String value = (String)entry.getValue();
-                    paramMap.put(key, value);
+                    if (context.get(parameterName) instanceof ByteBuffer) {
+                        ByteBuffer value = (ByteBuffer) entry.getValue();
+                        paramMap.put(key, value);
+                    } else {
+                        String value = (String) entry.getValue();
+                        paramMap.put(key, value);
+                    }
                 }
             }
         }
