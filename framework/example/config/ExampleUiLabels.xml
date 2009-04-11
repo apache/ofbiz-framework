@@ -129,7 +129,7 @@
     </property>
     <property key="ExampleDateField7Tooltip">
         <value xml:lang="en">This is an example of MM/dd/yyyy format</value>
-        <value xml:lang="fr">Example au format MM/dd/yyyy</value>
+        <value xml:lang="fr">Exemple auformat MM/dd/yyyy</value>
         <value xml:lang="it">Questo è un'esempio di formato data MM/gg/aaaa</value>
     </property>
     <property key="ExampleDateField8Title">
@@ -139,7 +139,7 @@
     </property>
     <property key="ExampleDateField8Tooltip">
         <value xml:lang="en">This is an example of MMMM, dd, yyyy format</value>
-        <value xml:lang="fr">Exmaple au format MMMM, dd, yyyy</value>
+        <value xml:lang="fr">Exemple au format MMMM, dd, yyyy</value>
         <value xml:lang="it">Questo è un'esempio di formato data MMMM, gg, aaaa</value>
     </property>
     <property key="ExampleDateField9Title">
