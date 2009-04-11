@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
      <form name="EditMarketingCampaign" type="single" target="updateMarketingCampaign" title="" default-map-name="marketingCampaign"
         header-row-style="header-row" default-table-style="basic-table">

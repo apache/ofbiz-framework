@@ -47,7 +47,7 @@ under the License.
                     <input type="hidden" name="productFeatureId_o_${rowCount}" value="${(productFeatureAndAppl.productFeatureId)?if_exists}">
                     <input type="hidden" name="fromDate_o_${rowCount}" value="${(productFeatureAndAppl.fromDate)?if_exists}">
                     <td><a href="<@ofbizUrl>EditFeature?productFeatureId=${(productFeatureAndAppl.productFeatureId)?if_exists}</@ofbizUrl>" class="buttontext">
-                    	${(productFeatureAndAppl.productFeatureId)?if_exists}</a></td>
+                        ${(productFeatureAndAppl.productFeatureId)?if_exists}</a></td>
                     <td>${(productFeatureAndAppl.get("description",locale))?if_exists}</td>
                     <td>${(curProductFeatureType.get("description",locale))?default((productFeatureAndAppl.productFeatureTypeId)?if_exists)}</td>
                     <td><a href="<@ofbizUrl>EditFeatureCategoryFeatures?productFeatureCategoryId=${(productFeatureAndAppl.productFeatureCategoryId)?if_exists}&productId=${(productFeatureAndAppl.productId)?if_exists}</@ofbizUrl>" class="buttontext">
@@ -77,7 +77,12 @@ under the License.
                         <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'productFeatureId_tableRow_${rowCount}');">
                     </td>
                     <td>
-                        <a href='<@ofbizUrl>RemoveFeatureFromProduct?productId=${(productFeatureAndAppl.productId)?if_exists}&productFeatureId=${(productFeatureAndAppl.productFeatureId)?if_exists}&fromDate=${productFeatureAndAppl.getString("fromDate")}</@ofbizUrl>' class="buttontext">${uiLabelMap.CommonDelete}</a>
+                      <form name= "RemoveFeatureFromProduct_o_${rowCount}" method= "post" action= "<@ofbizUrl>RemoveFeatureFromProduct</@ofbizUrl>">
+                        <input type= "hidden" name= "productId" value= "${(productFeatureAndAppl.productId)?if_exists}">
+                        <input type= "hidden" name= "productFeatureId" value= "${(productFeatureAndAppl.productFeatureId)?if_exists}">
+                        <input type= "hidden" name= "fromDate" value= "${productFeatureAndAppl.getString("fromDate")}">
+                        <a href="javascript:document.RemoveFeatureFromProduct_o_${rowCount}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                      </form>
                     </td>
                 </tr>
                 <#assign rowCount = rowCount + 1>

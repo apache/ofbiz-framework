@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
  xsi:noNamespaceSchemaLocation="../../widget/dtd/widget-form.xsd">
 
     <form name="ListPortalPages" type="list" list-name="portalPages" paginate-target="ManagePortalPages" separate-columns="true"
