@@ -324,7 +324,7 @@ under the License.
                     <td align="right" colspan="2">
                       <div>
                         <span class="label">${uiLabelMap.OrderAdjustment}</span>&nbsp;${adjustmentType.get("description",locale)}
-                        ${orderItemAdjustment.get("description",locale)?if_exists} 
+                        ${orderItemAdjustment.get("description",locale)?if_exists}
                         <#if orderItemAdjustment.comments?has_content>(${orderItemAdjustment.comments?default("")})</#if>
                         <#if orderItemAdjustment.productPromoId?has_content><a href="/catalog/control/EditProductPromo?productPromoId=${orderItemAdjustment.productPromoId}&amp;externalLoginKey=${externalLoginKey}">${orderItemAdjustment.getRelatedOne("ProductPromo").getString("promoName")}</a></#if>
                         <#if orderItemAdjustment.orderAdjustmentTypeId == "SALES_TAX">
@@ -520,7 +520,7 @@ under the License.
                           <span class="label">${uiLabelMap.FacilityInventory}</span>
                           <a href="/facility/control/EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId}&amp;externalLoginKey=${externalLoginKey}" class="buttontext">${itemIssuance.inventoryItemId}</a>
                           <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;${itemIssuance.shipGroupSeqId?if_exists}
-                          <#if (inventoryItem.serialNumber?has_content)><br><span class="label">${uiLabelMap.ProductSerialNumber}</span>&nbsp;${inventoryItem.serialNumber}&nbsp;</#if>                                                      
+                          <#if (inventoryItem.serialNumber?has_content)><br><span class="label">${uiLabelMap.ProductSerialNumber}</span>&nbsp;${inventoryItem.serialNumber}&nbsp;</#if>
                         </#if>
                       </div>
                     </td>
