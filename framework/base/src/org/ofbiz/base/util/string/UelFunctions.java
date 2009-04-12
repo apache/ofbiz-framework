@@ -125,8 +125,10 @@ import org.ofbiz.base.util.UtilDateTime;
  * <tr><td colspan="2"><b><code>util:</code> contains miscellaneous utility functions</b></td></tr>
  * <tr><td><code>util:defaultLocale()</code></td><td>Returns the default <code>Locale</code>.</td></tr>
  * <tr><td><code>util:defaultTimeZone()</code></td><td>Returns the default <code>TimeZone</code>.</td></tr>
+ * <tr><td><code>util:fromIdentifier(String)</code></td><td>If <code>String</code> was converted to a Java identifier using <code>util:toIdentifier(String)</code>, returns the <code>String</code> in its original form.</td></tr>
  * <tr><td><code>util:size(Object)</code></td><td>Returns the size of <code>Maps</code>,
  * <code>Collections</code>, and <code>Strings</code>. Invalid <code>Object</code> types return -1.</td></tr>
+ * <tr><td><code>util:toIdentifier(String)</code></td><td>If <code>String</code> is not a valid Java identifier, returns <code>String</code> converted to a valid Java identifier.</td></tr>
  * <tr><td><code>util:urlExists(String)</code></td><td>Returns <code>true</code> if the specified URL exists.</td></tr>
  * </table>
  */
@@ -134,6 +136,8 @@ public class UelFunctions {
 
     public static final String module = UelFunctions.class.getName();
     protected static final FunctionMapper functionMapper = new Functions();
+    protected static final String IndentifierPrefix = "_id";
+    protected static final int PrefixLength = IndentifierPrefix.length();
 
     /** Returns a <code>FunctionMapper</code> instance.
      * @return <code>FunctionMapper</code> instance
@@ -229,6 +233,8 @@ public class UelFunctions {
                 this.functionMap.put("util:defaultLocale", Locale.class.getMethod("getDefault"));
                 this.functionMap.put("util:defaultTimeZone", TimeZone.class.getMethod("getDefault"));
                 this.functionMap.put("util:urlExists", UelFunctions.class.getMethod("urlExists", String.class));
+                this.functionMap.put("util:toIdentifier", UelFunctions.class.getMethod("toIdentifier", String.class));
+                this.functionMap.put("util:fromIdentifier", UelFunctions.class.getMethod("fromIdentifier", String.class));
             } catch (Exception e) {
                 Debug.logWarning("Error while initializing UelFunctions.Functions instance: " + e, module);
             }
@@ -385,5 +391,19 @@ public class UelFunctions {
             }
         } catch (Exception e) {}
         return result;
+    }
+
+    public static String toIdentifier(String str) {
+        if (str != null && str.length() > 0 && !Character.isJavaIdentifierStart(str.charAt(0))) {
+            return IndentifierPrefix + str;
+        }
+        return str;
+    }
+
+    public static String fromIdentifier(String str) {
+        if (str != null && str.length() > 0 && str.startsWith(IndentifierPrefix)) {
+            return str.substring(PrefixLength);
+        }
+        return str;
     }
 }
