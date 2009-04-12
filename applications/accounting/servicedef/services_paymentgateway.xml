@@ -37,6 +37,12 @@ under the License.
         <auto-attributes entity-name="PaymentGatewayPayflowPro" include="nonpk" mode="IN" optional="true"/>
     </service>
     
+    <service name="updateGatewayConfigurationPayPal" engine="simple" location="org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updateGatewayConfigurationPayPal">
+        <description>Update Payment Gateway Configuration PayPal</description>
+        <auto-attributes entity-name="PaymentGatewayPayPal" include="pk" mode="IN" optional="false"/>
+        <auto-attributes entity-name="PaymentGatewayPayPal" include="nonpk" mode="IN" optional="true"/>
+    </service>
+    
     <service name="updateGatewayConfigurationClearCommerce" engine="simple" location="org/ofbiz/accounting/payment/PaymentGatewayConfigServices.xml" invoke="updateGatewayConfigurationClearCommerce">
         <description>Update Payment Gateway Configuration Clear Commerce</description>
         <auto-attributes entity-name="PaymentGatewayClearCommerce" include="pk" mode="IN" optional="false"/>

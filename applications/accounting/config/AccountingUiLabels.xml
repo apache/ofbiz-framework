@@ -7921,6 +7921,10 @@
         <value xml:lang="th">อีเมล</value>
         <value xml:lang="zh">电子邮件内容</value>
     </property>
+    <property key="FormFieldTitle_businessEmail">
+        <value xml:lang="en">Business Email</value>
+        <value xml:lang="it">Email di business</value>
+    </property>
     <property key="FormFieldTitle_calendarId">
         <value xml:lang="ar">الرزمانة</value>
         <value xml:lang="de">Kalender</value>
@@ -7933,6 +7937,10 @@
         <value xml:lang="ru">Календарь</value>
         <value xml:lang="th">ปฏิทิน</value>
         <value xml:lang="zh">日历</value>
+    </property>
+    <property key="FormFieldTitle_cancelReturnUrl">
+        <value xml:lang="en">Cancel Return URL</value>
+        <value xml:lang="it">URL di ritorno per cancellazione</value>
     </property>
     <property key="FormFieldTitle_capture">
         <value xml:lang="de">erfassen</value>
@@ -7985,6 +7993,14 @@
         <value xml:lang="ru">Метод списания</value>
         <value xml:lang="th">Cost Of Goods Sold (COGS) Method</value>
         <value xml:lang="zh">销货成本(COGS)方法</value>
+    </property>
+    <property key="FormFieldTitle_confirmTemplate">
+        <value xml:lang="en">Confirm Template</value>
+        <value xml:lang="it">Template di conferma</value>
+    </property>
+    <property key="FormFieldTitle_confirmUrl">
+        <value xml:lang="en">Confirm Url</value>
+        <value xml:lang="it">URL di conferma</value>
     </property>
     <property key="FormFieldTitle_conversionFactor">
         <value xml:lang="ar">النسبة</value>
@@ -8881,6 +8897,10 @@
         <value xml:lang="fr">Non alloué</value>
         <value xml:lang="it">Non applicata</value>
     </property>
+    <property key="FormFieldTitle_notifyUrl">
+        <value xml:lang="en">Notify Url</value>
+        <value xml:lang="it">URL di notifica</value>
+    </property>
     <property key="FormFieldTitle_orderIdPrefix">
         <value xml:lang="en">Order Id Prefix</value>
         <value xml:lang="es">Id Prefijo de orden</value>
@@ -9428,6 +9448,10 @@
         <value xml:lang="fr">Date de rapprochement</value>
         <value xml:lang="it">Data Riconcilazione</value>
     </property>
+    <property key="FormFieldTitle_redirectUrl">
+        <value xml:lang="en">Redirect Url</value>
+        <value xml:lang="it">URL di ridirezione</value>
+    </property>
     <property key="FormFieldTitle_referenceNum">
         <value xml:lang="en">Reference Num</value>
         <value xml:lang="es">Número de referencia</value>
@@ -9517,6 +9541,10 @@
         <value xml:lang="nl">Resultaat: onvoldoende saldo</value>
         <value xml:lang="ru">Результат NSF</value>
         <value xml:lang="th">Result Nsf</value>
+    </property>
+    <property key="FormFieldTitle_returnUrl">
+        <value xml:lang="en">Return Url</value>
+        <value xml:lang="it">URL di ritorno</value>
     </property>
     <property key="FormFieldTitle_salesOpportunityId">
         <value xml:lang="en">Sales Opportunity Id</value>
@@ -10869,6 +10897,10 @@
     <property key="PageTitleUpdatePaymentGatewayConfigurationPayflowPro">
         <value xml:lang="en">Update Payment Gateway Configuration Payflow Pro</value>
         <value xml:lang="it">Aggiorna configurazione gateway pagamento Payflow Pro</value>
+    </property>
+    <property key="PageTitleUpdatePaymentGatewayConfigurationPayPal">
+        <value xml:lang="en">Update Payment Gateway Configuration PayPal</value>
+        <value xml:lang="it">Aggiorna configurazione gateway pagamento PayPal</value>
     </property>
     <property key="PageTitleViewAccountingTransaction">
         <value xml:lang="en">View Accounting Transaction</value>

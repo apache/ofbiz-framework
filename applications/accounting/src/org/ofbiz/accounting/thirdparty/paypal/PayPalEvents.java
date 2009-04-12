@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -52,8 +53,8 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.ModelService;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
 
 
 public class PayPalEvents {
@@ -97,7 +98,9 @@ public class PayPalEvents {
         // get the payment properties file
         GenericValue paymentConfig = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStore.getString("productStoreId"), "EXT_PAYPAL", null, true);
         String configString = null;
+        String paymentGatewayConfigId = null;
         if (paymentConfig != null) {
+            paymentGatewayConfigId = paymentConfig.getString("paymentGatewayConfigId");
             configString = paymentConfig.getString("paymentPropertiesPath");
         }
 
@@ -112,25 +115,25 @@ public class PayPalEvents {
         String itemName = UtilProperties.getMessage(resource, "AccountingOrderNr", locale) + orderId + " " +
                                  (company != null ? UtilProperties.getMessage(commonResource, "CommonFrom", locale) + " "+ company : "");
         String itemNumber = "0";
-
+        
         // get the redirect url
-        String redirectUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.redirect");
-
+        String redirectUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "redirectUrl", configString, "payment.paypal.redirect");
+        
         // get the notify url
-        String notifyUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.notify");
-
+        String notifyUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "notifyUrl", configString, "payment.paypal.notify");
+        
         // get the return urls
-        String returnUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.return");
-
+        String returnUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "returnUrl", configString, "payment.paypal.return");
+        
         // get the cancel return urls
-        String cancelReturnUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.cancelReturn");
-
+        String cancelReturnUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "cancelReturnUrl", configString, "payment.paypal.cancelReturn");
+        
         // get the image url
-        String imageUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.image");
-
+        String imageUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "imageUrl", configString, "payment.paypal.image");
+        
         // get the paypal account
-        String payPalAccount = UtilProperties.getPropertyValue(configString, "payment.paypal.business");
-
+        String payPalAccount = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "businessEmail", configString, "payment.paypal.business");
+        
         if (UtilValidate.isEmpty(redirectUrl)
             || UtilValidate.isEmpty(notifyUrl)
             || UtilValidate.isEmpty(returnUrl)
@@ -194,7 +197,9 @@ public class PayPalEvents {
         GenericValue paymentConfig = ProductStoreWorker.getProductStorePaymentSetting(delegator, productStore.getString("productStoreId"), "EXT_PAYPAL", null, true);
 
         String configString = null;
+        String paymentGatewayConfigId = null;
         if (paymentConfig != null) {
+            paymentGatewayConfigId = paymentConfig.getString("paymentGatewayConfigId");
             configString = paymentConfig.getString("paymentPropertiesPath");
         }
 
@@ -203,12 +208,12 @@ public class PayPalEvents {
         }
 
         // get the confirm URL
-        String confirmUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.confirm");
+        String confirmUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "confirmUrl", configString, "payment.paypal.confirm");
 
         // get the redirect URL
-        String redirectUrl = UtilProperties.getPropertyValue(configString, "payment.paypal.redirect");
+        String redirectUrl = getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "redirectUrl", configString, "payment.paypal.redirect");
 
-        if (confirmUrl == null || redirectUrl == null) {
+        if (UtilValidate.isEmpty(confirmUrl) || UtilValidate.isEmpty(redirectUrl)) {
             Debug.logError("Payment properties is not configured properly, no confirm URL defined!", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingMerchantConfiguration", locale));
             return "error";
@@ -238,21 +243,24 @@ public class PayPalEvents {
         } catch (IOException e) {
             Debug.logError(e, "Problems sending verification message", module);
         }
-
-        if (confirmResp.trim().equals("VERIFIED")) {
-            // we passed verification
-            Debug.logInfo("Got verification from PayPal, processing..", module);
-        } else {
-            Debug.logError("###### PayPal did not verify this request, need investigation!", module);
-            Set <String> keySet = parametersMap.keySet();
-            Iterator <String> i = keySet.iterator();
-            while (i.hasNext()) {
-                String name = (String) i.next();
-                String value = request.getParameter(name);
-                Debug.logError("### Param: " + name + " => " + value, module);
+        
+        Debug.logInfo("Got verification from PayPal, processing..", module);
+        boolean verified = false;
+        Set <String> keySet = parametersMap.keySet();
+        Iterator <String> i = keySet.iterator();
+        while (i.hasNext()) {
+            String name = (String) i.next();
+            String value = request.getParameter(name);
+            Debug.logError("### Param: " + name + " => " + value, module);
+            if (UtilValidate.isNotEmpty(name) && "payer_status".equalsIgnoreCase(name) &&
+                UtilValidate.isNotEmpty(value) && "verified".equalsIgnoreCase(value)) {
+                verified = true;
             }
         }
-
+        if (!verified) {
+            Debug.logError("###### PayPal did not verify this request, need investigation!", module);
+        }
+        
         // get the user
         GenericValue userLogin = null;
         String userLoginId = request.getParameter("custom");
@@ -503,5 +511,29 @@ public class PayPalEvents {
         }
 
         return true;
+    }
+    
+    private static String getPaymentGatewayConfigValue(GenericDelegator delegator, String paymentGatewayConfigId, String paymentGatewayConfigParameterName,
+                                                       String resource, String parameterName) {
+        String returnValue = "";
+        if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
+            try {
+                GenericValue payPal = delegator.findOne("PaymentGatewayPayPal", UtilMisc.toMap("paymentGatewayConfigId", paymentGatewayConfigId), false);
+                if (UtilValidate.isNotEmpty(payPal)) {
+                    Object payPalField = payPal.get(paymentGatewayConfigParameterName);
+                    if (payPalField != null) {
+                        returnValue = payPalField.toString().trim();
+                    }
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+        } else {
+            String value = UtilProperties.getPropertyValue(resource, parameterName);
+            if (value != null) {
+                returnValue = value.trim();
+            }
+        }
+        return returnValue;
     }
 }

@@ -88,6 +88,9 @@ under the License.
                 <entity-one entity-name="PaymentGatewayPayflowPro" value-field="paymentGatewayPayflowPro">
                     <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
                 </entity-one>
+                <entity-one entity-name="PaymentGatewayPayPal" value-field="paymentGatewayPayPal">
+                    <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
+                </entity-one>
                 <entity-one entity-name="PaymentGatewayClearCommerce" value-field="paymentGatewayClearCommerce">
                     <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
                 </entity-one>
@@ -124,6 +127,27 @@ under the License.
                                         <section>
                                             <widgets>
                                                 <include-form name="ViewGatewayConfigurationPayflowPro" location="component://accounting/widget/PaymentGatewayConfigurationsForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <not><if-empty field="paymentGatewayPayPal"/></not>
+                            </condition>
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigurationPayPal}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="ViewGatewayConfigurationPayPal" location="component://accounting/widget/PaymentGatewayConfigurationsForms.xml"/>
                                             </widgets>
                                         </section>
                                     </container>
