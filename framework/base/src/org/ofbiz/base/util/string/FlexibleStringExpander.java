@@ -53,11 +53,9 @@ public class FlexibleStringExpander implements Serializable {
     protected int hint = 20;
 
     /**
-     * @deprecated Use getInstance(String original) instead.
      * @param original
      */
-    public FlexibleStringExpander(String original) {
-        // TODO: Change this to protected, remove @deprecated javadoc comment
+    protected FlexibleStringExpander(String original) {
         this.orig = original;
         if (original != null && original.contains(openBracket)) {
             this.strElems = getStrElems(original);
