@@ -18,7 +18,7 @@ ofbiz/trunk/framework/base/lib/avalon-util-exception-1.0.0.jar
 ofbiz/trunk/framework/base/lib/batik-all-1.7.jar
 ofbiz/trunk/framework/base/lib/jakarta-regexp-1.5.jar
 ofbiz/trunk/framework/base/lib/jpim-0.1.jar
-ofbiz/trunk/framework/base/lib/juel-2.1.1-rc1.jar
+ofbiz/trunk/framework/base/lib/juel-2.1.1.jar
 ofbiz/trunk/framework/base/lib/log4j-1.2.15.jar
 ofbiz/trunk/framework/base/lib/mx4j-3.0.1.jar
 ofbiz/trunk/framework/base/lib/mx4j-remote-3.0.1.jar
@@ -1938,7 +1938,7 @@ ofbiz/trunk/framework/base/lib/jdbm-1.0.jar
 =========================================================================
 The following library distributed with Apache OFBiz is licensed under the
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL):
-ofbiz/trunk/framework/base/lib/el-api-1.1.jar
+ofbiz/trunk/framework/base/lib/juel-2.1.1.jar (contains the javax.el package)
 ofbiz/trunk/framework/base/lib/mail.jar
 =========================================================================
 COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0 1.
