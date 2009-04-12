@@ -263,18 +263,7 @@ public class ServiceEventHandler implements EventHandler {
 
                 // check the request parameters
                 if (UtilValidate.isEmpty(value)) {
-                    // special case for security: if this is a request-map defined as secure in controller.xml then only accept body parameters coming in, ie don't allow the insecure URL parameters
-                    // NOTE: the RequestHandler will check the HttpSerletRequest security to make sure it is secure if the request-map -> security -> https=true, but we can't just look at the request.isSecure() method here because it is allowed to send secure requests for request-map with https=false
-                    if (requestMap != null && requestMap.securityHttps) {
-                        if (urlOnlyParameterNames.contains(name)) {
-                            String errMsg = "Found URL parameter [" + name + "] passed to secure (https) request-map with uri [" + requestMap.uri + "] with an event that calls service [" + serviceName + "]; this is not allowed for security reasons! The data should be encrypted by making it part of the request body (a form field) instead of the request URL.";
-                            Debug.logError("=============== " + errMsg + "; In session [" + session.getId() + "]", module);
-                            // NOTE: this forces service call event parameters to be in the body and not in the URL! can be issues with existing links, like Delete links or whatever, and those need to be changed to forms!
-                            throw new EventHandlerException(errMsg);
-                        }
-                        // NOTTODO: may want to allow parameters that map to entity PK fields to be in the URL, but that might be a big security hole since there are certain security sensitive entities that are made of only PK fields, or that only need PK fields to function (like UserLoginSecurityGroup)
-                        // NOTTODO: we could allow URL parameters when it is not a POST (ie when !request.getMethod().equalsIgnoreCase("POST")), but that would open a security hole where sensitive parameters can be passed on the URL in a GET/etc and bypass this security constraint
-                    }
+                    ServiceEventHandler.checkSecureParameter(requestMap, urlOnlyParameterNames, name, session, serviceName);
 
                     // if the service modelParam has allow-html="any" then get this direct from the request instead of in the parameters Map so there will be no canonicalization possibly messing things up
                     if ("any".equals(modelParam.allowHtml)) {
@@ -399,5 +388,26 @@ public class ServiceEventHandler implements EventHandler {
 
         if (Debug.verboseOn()) Debug.logVerbose("[Event Return]: " + responseString, module);
         return responseString;
+    }
+    
+    public static void checkSecureParameter(RequestMap requestMap, Set<String> urlOnlyParameterNames, String name, HttpSession session, String serviceName) throws EventHandlerException {
+        // special case for security: if this is a request-map defined as secure in controller.xml then only accept body parameters coming in, ie don't allow the insecure URL parameters
+        // NOTE: the RequestHandler will check the HttpSerletRequest security to make sure it is secure if the request-map -> security -> https=true, but we can't just look at the request.isSecure() method here because it is allowed to send secure requests for request-map with https=false
+        if (requestMap != null && requestMap.securityHttps) {
+            if (urlOnlyParameterNames.contains(name)) {
+                String errMsg = "Found URL parameter [" + name + "] passed to secure (https) request-map with uri [" + requestMap.uri + "] with an event that calls service [" + serviceName + "]; this is not allowed for security reasons! The data should be encrypted by making it part of the request body (a form field) instead of the request URL.";
+                Debug.logError("=============== " + errMsg + "; In session [" + session.getId() + "]; Note that this can be changed using the service.http.parameters.require.encrypted property in the url.properties file", module);
+                
+                // the default here is true, so anything but N/n is true
+                boolean requireEncryptedServiceWebParameters = !UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "service.http.parameters.require.encrypted", "N");
+                
+                // NOTE: this forces service call event parameters to be in the body and not in the URL! can be issues with existing links, like Delete links or whatever, and those need to be changed to forms!
+                if (requireEncryptedServiceWebParameters) {
+                    throw new EventHandlerException(errMsg);
+                }
+            }
+            // NOTTODO: may want to allow parameters that map to entity PK fields to be in the URL, but that might be a big security hole since there are certain security sensitive entities that are made of only PK fields, or that only need PK fields to function (like UserLoginSecurityGroup)
+            // NOTTODO: we could allow URL parameters when it is not a POST (ie when !request.getMethod().equalsIgnoreCase("POST")), but that would open a security hole where sensitive parameters can be passed on the URL in a GET/etc and bypass this security constraint
+        }
     }
 }
