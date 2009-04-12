@@ -184,4 +184,12 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
+    
+    <form name="ViewGatewayConfigurationPayPal" type="single" target="UpdateGatewayConfigurationPayPal" default-map-name="paymentGatewayPayPal" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="PaymentGatewayPayPal" default-field-type="edit"/>
+        <field name="paymentGatewayConfigId"><hidden/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
 </forms>

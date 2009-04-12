@@ -3020,6 +3020,23 @@ under the License.
         <key-map field-name="paymentGatewayConfigId"/>
       </relation>
     </entity>
+    <entity entity-name="PaymentGatewayPayPal"
+        package-name="org.ofbiz.accounting.payment"
+        title="PayPal Payment Gateway Configuration">
+        <field name="paymentGatewayConfigId" type="id-ne"></field>
+        <field name="businessEmail" type="value"><description>Business e-mail</description></field>
+        <field name="notifyUrl" type="value"><description>Notify URL</description></field>
+        <field name="returnUrl" type="value"><description>Return URL</description></field>
+        <field name="cancelReturnUrl" type="value"><description>Return On Cancel URL</description></field>
+        <field name="imageUrl" type="value"><description>Image URL to use on PayPal</description></field>
+        <field name="confirmTemplate" type="value"><description>Thank-You / Confirm Order Template (rendered via Freemarker)</description></field>
+        <field name="redirectUrl" type="value"><description>PayPal Redirect URL (Sandbox/Production)</description></field>
+        <field name="confirmUrl" type="value"><description>PayPal Confirm URL Sandbox/Production (JSSE must be configured to use SSL)</description></field>
+        <prim-key field="paymentGatewayConfigId"/>
+        <relation type="one" fk-name="PGPP_PGC" rel-entity-name="PaymentGatewayConfig">
+            <key-map field-name="paymentGatewayConfigId"/>
+        </relation>
+    </entity>
     <entity entity-name="PaymentGatewayClearCommerce"
         package-name="org.ofbiz.accounting.payment"
         title="Clear Commerce Payment Gateway Configuration">

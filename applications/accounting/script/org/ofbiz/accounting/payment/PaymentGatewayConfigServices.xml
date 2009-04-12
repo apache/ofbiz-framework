@@ -32,7 +32,13 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     
-     <simple-method method-name="updateGatewayConfigurationClearCommerce" short-description="Update Payment Gateway Configuration Clear Commerce">
+    <simple-method method-name="updateGatewayConfigurationPayPal" short-description="Update Payment Gateway Configuration PayPal">
+        <entity-one entity-name="PaymentGatewayPayPal" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="updateGatewayConfigurationClearCommerce" short-description="Update Payment Gateway Configuration Clear Commerce">
         <entity-one entity-name="PaymentGatewayClearCommerce" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>

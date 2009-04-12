@@ -427,6 +427,12 @@ under the License.
         <response name="success" type="view" value="ViewGatewayConfiguration"/>
         <response name="error" type="view" value="ViewGatewayConfiguration"/>
     </request-map>
+    <request-map uri="UpdateGatewayConfigurationPayPal">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateGatewayConfigurationPayPal"/>
+        <response name="success" type="view" value="ViewGatewayConfiguration"/>
+        <response name="error" type="view" value="ViewGatewayConfiguration"/>
+    </request-map>
     <request-map uri="UpdateGatewayConfigurationClearCommerce">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateGatewayConfigurationClearCommerce"/>

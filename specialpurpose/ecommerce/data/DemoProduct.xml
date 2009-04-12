@@ -69,7 +69,7 @@ under the License.
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveGCProcessor" paymentCustomMethodId="GIFT_AUTH_ALWAYSAPPR"/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="GIFT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testGCRelease" paymentCustomMethodId="GIFT_RELEASE_TEST"/>
 
-    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId=""/>
+    <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_PAYPAL" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId="" paymentGatewayConfigId="PAYPAL_CONFIG"/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_WORLDPAY" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId=""/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_OFFLINE" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId=""/>
     <ProductStorePaymentSetting productStoreId="9000" paymentMethodTypeId="EXT_COD" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService="" paymentCustomMethodId=""/>

@@ -670,6 +670,10 @@ under the License.
     <PaymentGatewayConfig paymentGatewayConfigId="PAYFLOWPRO_CONFIG" paymentGatewayConfigTypeId="PAYFLOWPRO" description="Configuration of Payflow Pro"/>
     <PaymentGatewayPayflowPro paymentGatewayConfigId="PAYFLOWPRO_CONFIG" certsPath="${sys:getProperty('ofbiz.home')}/applications/accounting/pfcerts" hostAddress="test-payflow.verisign.com" hostPort="443" timeout="80" proxyAddress="" proxyPort="80" proxyLogon="" proxyPassword="" vendor="[Vendor]" userId="[PayFlow UserID]" pwd="[PayFlow Password]" partner="[PayFlow Partner]" checkAvs="Y" checkCvv2="Y" preAuth="Y" enableTransmit="true" logFileName="${sys:getProperty('ofbiz.home')}/runtime/logs/payflow_java.log" loggingLevel="6" maxLogFileSize="1000000" stackTraceOn="N"/>
     
+    <PaymentGatewayConfigType paymentGatewayConfigTypeId="PAYPAL" hasTable="N" description="Payment Gateway PayPal"/>
+    <PaymentGatewayConfig paymentGatewayConfigId="PAYPAL_CONFIG" paymentGatewayConfigTypeId="PAYPAL" description="Configuration of PayPal"/>
+    <PaymentGatewayPayPal paymentGatewayConfigId="PAYPAL_CONFIG" businessEmail="" notifyUrl="" returnUrl="" cancelReturnUrl="" imageUrl="" confirmTemplate="/order/emailconfirmation.ftl" redirectUrl="https://www.sandbox.paypal.com/us/cgi-bin/webscr" confirmUrl="https://www.sandbox.paypal.com/us/cgi-bin/webscr"/>
+    
     <PaymentGatewayConfigType paymentGatewayConfigTypeId="CLEARCOMMERCE" hasTable="N" description="Payment Gateway Clear Commerce"/>
     <PaymentGatewayConfig paymentGatewayConfigId="CLEARCOMMERCE_CONFIG" paymentGatewayConfigTypeId="CLEARCOMMERCE" description="Configuration of Clear Commerce"/>
     <PaymentGatewayClearCommerce paymentGatewayConfigId="CLEARCOMMERCE_CONFIG" sourceId="mySource" groupId="myGroup" clientId="[ClearCommerce clientId]" username="[ClearCommerce username]" pwd="[ClearCommerce password]" userAlias="[ClearCommerce alias]" effectiveAlias="" processMode="P" serverURL="https://test5x.clearcommerce.com:11500" enableCVM="N"/>
