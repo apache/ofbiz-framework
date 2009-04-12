@@ -1069,15 +1069,6 @@ public class UtilDateTime {
         return availableTimeZoneList;
     }
 
-    /** Returns the OFBiz default TimeZone object. The default time zone is configured in
-     * the <code>start.properties</code> file (<code>ofbiz.timeZone.default</code>).
-     * @deprecated Okay to use TimeZone.getDefault()
-     * @see java.util.TimeZone
-     */
-    public static TimeZone getDefaultTimeZone() {
-        return TimeZone.getDefault();
-    }
-
     /** Returns a TimeZone object based upon a time zone ID. Method defaults to
      * server's time zone if tzID is null or empty.
      * @see java.util.TimeZone
