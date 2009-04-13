@@ -118,7 +118,12 @@ under the License.
         <li class="control-area">
           <p class="collapsed">
             <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
-            <a href="${setPreferenceMain?if_exists}?userPrefGroupTypeId=GLOBAL_PREFERENCES&userPrefTypeId=COMPACT_HEADER&userPrefValue=N${StringUtil.wrapString(parametersURL?if_exists)}">&nbsp;&nbsp;</a>
+              <a href="javascript:document.commonPreferences.submit()">&nbsp;&nbsp;</a>
+              <form name="commonPreferences" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)">
+                <input name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES" type="hidden"/>
+                <input name="userPrefTypeId" value="COMPACT_HEADER" type="hidden"/>
+                <input name="userPrefValue" value="N${StringUtil.wrapString(parametersURL?if_exists)}" type="hidden"/>
+              </form
           </p>
         </li>
       <#else>
@@ -136,8 +141,13 @@ under the License.
           <#if userLogin?exists>
             <p class="expanded">
               <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
-              <a href="${setPreferenceMain?if_exists}?userPrefGroupTypeId=GLOBAL_PREFERENCES&userPrefTypeId=COMPACT_HEADER&userPrefValue=Y${StringUtil.wrapString(parametersURL?if_exists)}">&nbsp;&nbsp;</a>
-            </p>
+              <a href="javascript:document.commonPreferences.submit()">&nbsp;&nbsp;</a>
+              <form name="commonPreferences" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)">
+                <input name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES" type="hidden"/>
+                <input name="userPrefTypeId" value="COMPACT_HEADER" type="hidden"/>
+                <input name="userPrefValue" value="Y${StringUtil.wrapString(parametersURL?if_exists)}" type="hidden"/>
+              </form
+           </p>
             <#if layoutSettings.topLines?has_content>
               <#list layoutSettings.topLines as topLine>
               <#if topLine.text?exists>
