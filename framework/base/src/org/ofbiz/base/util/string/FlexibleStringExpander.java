@@ -221,19 +221,20 @@ public class FlexibleStringExpander implements Serializable {
                 Debug.logWarning("Found a ${ without a closing } (curly-brace) in the String: " + original, module);
                 break;
             }
-            // check for escaped expression
+            // Check for escaped expression
             boolean escapedExpression = (start - 1 >= 0 && original.charAt(start - 1) == '\\');
             if (start > currentInd) {
-                // append everything from the current index to the start of the var
+                // append everything from the current index to the start of the expression
                 strElems.add(new ConstElem(original.substring(currentInd, escapedExpression ? start -1 : start)));
             }
             if (original.indexOf("bsh:", start + 2) == start + 2 && !escapedExpression) {
-                // checks to see if this starts with a "bsh:", if so treat the rest of the string as a bsh scriptlet
+                // checks to see if this starts with a "bsh:", if so treat the rest of the expression as a bsh scriptlet
                 strElems.add(new BshElem(original.substring(start + 6, end)));
             } else if (original.indexOf("groovy:", start + 2) == start + 2 && !escapedExpression) {
-                // checks to see if this starts with a "groovy:", if so treat the rest of the string as a groovy scriptlet
+                // checks to see if this starts with a "groovy:", if so treat the rest of the expression as a groovy scriptlet
                 strElems.add(new GroovyElem(original.substring(start + 9, end)));
             } else {
+                // Scan for matching closing bracket
                 int ptr = original.indexOf(openBracket, start + 2);
                 while (ptr != -1 && end != -1 && ptr < end) {
                     end = original.indexOf(closeBracket, end + 1);
@@ -254,14 +255,14 @@ public class FlexibleStringExpander implements Serializable {
                     strElems.add(new VarElem(expression));
                 }
             }
-            // reset the current index to after the var, and the start to the beginning of the next var
+            // reset the current index to after the expression, and the start to the beginning of the next expression
             currentInd = end + 1;
             if (currentInd > origLen) {
                 currentInd = origLen;
             }
             start = original.indexOf(openBracket, currentInd);
         }
-        // append the rest of the original string, ie after the last variable
+        // append the rest of the original string, ie after the last expression
         if (currentInd < origLen) {
             strElems.add(new ConstElem(original.substring(currentInd)));
         }
