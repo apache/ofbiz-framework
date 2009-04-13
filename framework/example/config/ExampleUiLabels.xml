@@ -87,6 +87,14 @@
         <value xml:lang="fr">La même chose mais la variable nowTimestamp (toujours disponible dans context) est utilisée pour affecter la valeur par défaut à "maintenant"</value>
         <value xml:lang="it">Lo stesso di sopra, usare la variabile nowTimestamp (sempre disponibile nel contesto della form) per impostare il valore di default ad adesso</value>
     </property>
+    <property key="ExampleDateField11Title">
+        <value xml:lang="en">Field11: date and time selection field with default value</value>
+        <value xml:lang="fr">Champ 11 : sélection de date et temps (valeur par défaut)</value>
+        <value xml:lang="it">Campo11: campo di selezione con valore di default per data e ora</value>
+    </property>
+    <property key="ExampleDateField11Tooltip">
+        <value xml:lang="en">Uses the \${date:dayStart(nowTimestamp, timeZone, locale)} UEL expression to set the default value to the start of today</value>
+    </property>
     <property key="ExampleDateField1Title">
         <value xml:lang="en">Field1: date and time selection field</value>
         <value xml:lang="fr">Champ 1 : sélection de date et temps</value>
@@ -148,9 +156,9 @@
         <value xml:lang="it">Campo9: campo di selezione con valore di default per data e ora</value>
     </property>
     <property key="ExampleDateField9Tooltip">
-        <value xml:lang="en">Same as above, uses the $ {groovy:...} notation to call an util method to get the now timestamp</value>
-        <value xml:lang="fr">La même chose mais utilise la notation $ {groovy:...} pour appeler un méthode utilitaire pour obtenir l'heure du moment</value>
-        <value xml:lang="it">Lo stesso di sopra, usare la notazione $ {groovy:...} per eseguire un metodo di utilità per ottenere un nuovo timestamp</value>
+        <value xml:lang="en">Same as above, uses the \${groovy:...} notation to call an util method to get the now timestamp</value>
+        <value xml:lang="fr">La même chose mais utilise la notation \${groovy:...} pour appeler un méthode utilitaire pour obtenir l'heure du moment</value>
+        <value xml:lang="it">Lo stesso di sopra, usare la notazione \${groovy:...} per eseguire un metodo di utilità per ottenere un nuovo timestamp</value>
     </property>
     <property key="ExampleDateTimeFields">
         <value xml:lang="en">Date/Time fields</value>
