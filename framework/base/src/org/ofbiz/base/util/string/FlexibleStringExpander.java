@@ -221,15 +221,16 @@ public class FlexibleStringExpander implements Serializable {
                 Debug.logWarning("Found a ${ without a closing } (curly-brace) in the String: " + original, module);
                 break;
             }
+            // check for escaped expression
+            boolean escapedExpression = (start - 1 >= 0 && original.charAt(start - 1) == '\\');
             if (start > currentInd) {
                 // append everything from the current index to the start of the var
-                strElems.add(new ConstElem(original.substring(currentInd, start)));
+                strElems.add(new ConstElem(original.substring(currentInd, escapedExpression ? start -1 : start)));
             }
-
-            if (original.indexOf("bsh:", start + 2) == start + 2) {
+            if (original.indexOf("bsh:", start + 2) == start + 2 && !escapedExpression) {
                 // checks to see if this starts with a "bsh:", if so treat the rest of the string as a bsh scriptlet
                 strElems.add(new BshElem(original.substring(start + 6, end)));
-            } else if (original.indexOf("groovy:", start + 2) == start + 2) {
+            } else if (original.indexOf("groovy:", start + 2) == start + 2 && !escapedExpression) {
                 // checks to see if this starts with a "groovy:", if so treat the rest of the string as a groovy scriptlet
                 strElems.add(new GroovyElem(original.substring(start + 9, end)));
             } else {
@@ -243,7 +244,9 @@ public class FlexibleStringExpander implements Serializable {
                 }
                 String expression = original.substring(start + 2, end);
                 // Evaluation sequence is important - do not change it
-                if (expression.contains("?currency(")) {
+                if (escapedExpression) {
+                    strElems.add(new ConstElem(original.substring(start, end + 1)));
+                } else if (expression.contains("?currency(")) {
                     strElems.add(new CurrElem(expression));
                 } else if (expression.contains(openBracket)) {
                     strElems.add(new NestedVarElem(expression));

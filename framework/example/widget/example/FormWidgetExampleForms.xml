@@ -50,6 +50,14 @@ under the License.
             <date-time default-value="${nowTimestamp}"/>
         </field>
         <!-- ***************** -->
+        <!-- ***   field11  *** -->
+        <!-- ***************** -->
+        <field name="field11"
+               title="${uiLabelMap.ExampleDateField11Title}"
+               tooltip="${uiLabelMap.ExampleDateField11Tooltip}">
+            <date-time default-value="${date:dayStart(nowTimestamp, timeZone, locale)}"/>
+        </field>
+        <!-- ***************** -->
         <!-- ***   field2  *** -->
         <!-- ***************** -->
         <field name="field2"
