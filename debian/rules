@@ -99,6 +99,7 @@ binary-indep: debian/copyright
 	dh_installinit -N ofbiz-framework
 	dh_installinit -p ofbiz-framework --name ofbiz -r --no-start
 	dh_installchangelogs
+	dh_installlogrotate
 	dh_installdebconf
 	dh_installdocs
 	dh_installdeb
