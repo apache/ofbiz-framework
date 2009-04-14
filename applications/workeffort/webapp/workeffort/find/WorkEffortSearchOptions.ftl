@@ -47,7 +47,7 @@ under the License.
           <td valign="middle">
             <div>
               <input type="text" name="SEARCH_WORK_EFFORT_ID" size="40" value="${requestParameters.SEARCH_WORK_EFFORT_ID?if_exists}"/>&nbsp;
-              <a href="javascript:call_fieldlookup2(document.advToKeyWordSearchForm.SEARCH_WORK_EFFORT_ID,'LookupWorkEffort');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+              <a href="javascript:call_fieldlookup2(document.advToKeyWordSearchForm.SEARCH_WORK_EFFORT_ID,'LookupWorkEffort');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
             </div>
           </td>
         </tr>
@@ -72,7 +72,7 @@ under the License.
           <td valign="middle">
             <div>
               <input type="text" name="partyId" size="40" value="${requestParameters.partyId?if_exists}"/>&nbsp;
-              <a href="javascript:call_fieldlookup2(document.advToKeyWordSearchForm.partyId,'LookupPartyName');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+              <a href="javascript:call_fieldlookup2(document.advToKeyWordSearchForm.partyId,'LookupPartyName');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
             </div>
           </td>
         </tr>
@@ -94,7 +94,7 @@ under the License.
           <td valign="middle">
             <div>
               <input type="text" name="productId_1" size="40" value="${requestParameters.productId_1?if_exists}"/>&nbsp;
-              <a href="javascript:call_fieldlookup2(document.advToKeyWordSearchForm.productId_1,'LookupProduct');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+              <a href="javascript:call_fieldlookup2(document.advToKeyWordSearchForm.productId_1,'LookupProduct');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
             </div>
           </td>
         </tr>
@@ -103,7 +103,7 @@ under the License.
           <td valign="middle">
             <div>
               <input type="text" name="productId_2" size="40" value="${requestParameters.productId_2?if_exists}"/>&nbsp;
-              <a href="javascript:call_fieldlookup2(document.advToKeyWordSearchForm.productId_2,'LookupProduct');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+              <a href="javascript:call_fieldlookup2(document.advToKeyWordSearchForm.productId_2,'LookupProduct');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
             </div>
           </td>
         </tr>

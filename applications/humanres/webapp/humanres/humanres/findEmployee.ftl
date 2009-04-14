@@ -56,7 +56,7 @@ under the License.
                 <tr><td class='label'>${uiLabelMap.PartyPartyId}</td>
                     <td><input type='text' name='partyId' value='${requestParameters.partyId?if_exists}'/>
                     <a href="javascript:call_fieldlookup2(document.lookupparty.partyId,'LookupPerson');">
-                        <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
+                        <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
                     </a></td>
                 </tr>
                 <tr><td class="label">${uiLabelMap.PartyUserLogin}</td>

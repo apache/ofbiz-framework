@@ -79,7 +79,7 @@ under the License.
                 <td align="right" class="label">${uiLabelMap.ProductProductIdTo}</td>
                 <td>&nbsp;</td>
                 <td><input type="text" name="PRODUCT_ID_TO" size="20" maxlength="40" value="${productIdTo?if_exists}">
-                <a href="javascript:call_fieldlookup2(document.editProductAssocForm.PRODUCT_ID_TO,'LookupProduct');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a></td>
+                <a href="javascript:call_fieldlookup2(document.editProductAssocForm.PRODUCT_ID_TO,'LookupProduct');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a></td>
                 </tr>
                 <tr>
                 <td align="right" class="label">${uiLabelMap.ProductAssociationTypeId}</td>

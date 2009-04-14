@@ -177,7 +177,7 @@ function insertImageName(type,nameValue) {
                     <td>&nbsp;</td>
                     <td width="74%">
                         <input type="text" name="primaryParentCategoryId" size="20" maxlength="20" value="${(productCategory.primaryParentCategoryId)?default('')}"/>
-                        <a href="javascript:call_fieldlookup2(document.productCategoryForm.primaryParentCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+                        <a href="javascript:call_fieldlookup2(document.productCategoryForm.primaryParentCategoryId,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
                     </td>
                 </tr>
                 <tr>

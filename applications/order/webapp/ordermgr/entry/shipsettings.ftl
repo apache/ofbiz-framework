@@ -252,7 +252,7 @@ under the License.
                 <div class='tabletext'>
                   <input type='text' class='inputBox' name='shipToPartyId' value='${thisPartyId?if_exists}'/>
                   <a href="javascript:call_fieldlookup2(document.partyshipform.shipToPartyId,'LookupPartyName');">
-                  <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+                  <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
                   <input type="submit" class="smallSubmit" value="Continue">
                 </div>
               </td>

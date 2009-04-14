@@ -30,7 +30,7 @@ under the License.
         <form method="post" action="<@ofbizUrl>searchRemoveFromCategory</@ofbizUrl>" name="searchRemoveFromCategory">
           <span class="label">${uiLabelMap.ProductRemoveResultsFrom} ${uiLabelMap.ProductCategory}:</span>
           <input type="text" name="SE_SEARCH_CATEGORY_ID" size="20" maxlength="20"/>
-          <a href="javascript:call_fieldlookup2(document.searchRemoveFromCategory.SE_SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+          <a href="javascript:call_fieldlookup2(document.searchRemoveFromCategory.SE_SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
           <input type="hidden" name="clearSearch" value="N">
           <input type="submit" value="${uiLabelMap.CommonRemove}" class="smallSubmit">
           <br/>
@@ -43,7 +43,7 @@ under the License.
         <form method="post" action="<@ofbizUrl>searchExpireFromCategory</@ofbizUrl>" name="searchExpireFromCategory">
           <span class="label">${uiLabelMap.ProductExpireResultsFrom} ${uiLabelMap.ProductCategory}:</span>
           <input type="text" name="SE_SEARCH_CATEGORY_ID" size="20" maxlength="20"/>
-          <a href="javascript:call_fieldlookup2(document.searchExpireFromCategory.SE_SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+          <a href="javascript:call_fieldlookup2(document.searchExpireFromCategory.SE_SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
           <span class="label">${uiLabelMap.CommonThru}</span><input type="text" size="25" name="thruDate"><a href="javascript:call_cal(document.searchExpireFromCategory.thruDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
           <input type="hidden" name="clearSearch" value="N">
           <input type="submit" value="${uiLabelMap.CommonExpire}" class="smallSubmit">
@@ -57,7 +57,7 @@ under the License.
         <form method="post" action="<@ofbizUrl>searchAddToCategory</@ofbizUrl>" name="searchAddToCategory">
           <span class="label">${uiLabelMap.ProductAddResultsTo} ${uiLabelMap.ProductCategory}:</span>
           <input type="text" name="SE_SEARCH_CATEGORY_ID" size="20" maxlength="20"/>
-          <a href="javascript:call_fieldlookup2(document.searchAddToCategory.SE_SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+          <a href="javascript:call_fieldlookup2(document.searchAddToCategory.SE_SEARCH_CATEGORY_ID,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
           <span class="label">${uiLabelMap.CommonFrom}</span><input type="text" size="25" name="fromDate"><a href="javascript:call_cal(document.searchAddToCategory.fromDate, null);"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
           <input type="hidden" name="clearSearch" value="N">
           <input type="submit" value="${uiLabelMap.ProductAddToCategory}" class="smallSubmit">

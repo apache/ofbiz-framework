@@ -144,7 +144,7 @@ under the License.
                 <td width="6%">&nbsp;</td>
                 <td width="74%">
                     <input type="text" name="ownerPartyId" value="" size="20" maxlength="20">
-                    <a href="javascript:call_fieldlookup2(document.selectAllForm.ownerPartyId, 'LookupPartyName');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"/></a>
+                    <a href="javascript:call_fieldlookup2(document.selectAllForm.ownerPartyId, 'LookupPartyName');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
                 </td>
               </tr>
               <tr>
@@ -177,7 +177,7 @@ under the License.
                   <#else>
                     <input type="text" name="locationSeqId" size="20" maxlength="20"/>
                         <a href="javascript:call_fieldlookup2(document.selectAllForm.locationSeqId,'LookupFacilityLocation<#if parameters.facilityId?exists>?facilityId=${facilityId}</#if>');">
-                            <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                            <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
                         </a>
                   </#if>
                 </td>
@@ -375,7 +375,7 @@ under the License.
                             <#else>
                               <input type="text" name="locationSeqId_o_${rowCount}" size="12"/>
                                   <a href="javascript:call_fieldlookup2(document.selectAllForm.locationSeqId_o_${rowCount},'LookupFacilityLocation<#if parameters.facilityId?exists>?facilityId=${facilityId}</#if>');">
-                                      <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                                      <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt=${uiLabelMap.CommonClickHereForFieldLookup}/>
                                   </a>
                             </#if>
                           </td>
@@ -470,7 +470,7 @@ under the License.
                 <td>
                   <input type="text" name="purchaseOrderId" size="20" maxlength="20" value="${requestParameters.purchaseOrderId?if_exists}">
                     <a href="javascript:call_fieldlookup2(document.selectAllForm.purchaseOrderId,'LookupPurchaseOrderHeaderAndShipInfo');">
-                      <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                      <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
                     </a>
                     <span class="tooltip">${uiLabelMap.ProductLeaveSingleProductReceiving}</span>
                 </td>
@@ -480,7 +480,7 @@ under the License.
                 <td>
                   <input type="text" name="productId" size="20" maxlength="20" value="${requestParameters.productId?if_exists}"/>
                     <a href="javascript:call_fieldlookup2(document.selectAllForm.productId,'LookupProduct');">
-                      <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                      <img src="<@ofbizContentUrl>/images/fieldlookup.gif"</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
                     </a>
                     <span class="tooltip">${uiLabelMap.ProductLeaveEntirePoReceiving}</span>
                 </td>

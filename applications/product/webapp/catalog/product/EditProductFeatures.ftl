@@ -170,7 +170,7 @@ under the License.
             <input type="text" size="10" name="productFeatureId" value="">
             <span class='label'>
                 <a href="javascript:call_fieldlookup2(document.addFeatureById.productFeatureId,'LookupProductFeature');">
-                    <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'>
+                    <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}">
                 </a>
             </span>
             <span class="label">${uiLabelMap.ProductFeatureApplicationType}: </span>
