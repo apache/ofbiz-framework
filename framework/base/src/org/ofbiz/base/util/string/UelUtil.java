@@ -313,16 +313,16 @@ public class UelUtil {
 
     /** Evaluates a property <code>Object</code> and returns a new
      * <code>List</code> or <code>Map</code>. If <code>property</code>
-     * evaluates to an integer value, a new <code>List</code> instance
-     * is returned, otherwise a new <code>Map</code> instance is
-     * returned.
+     * is not a String object type and it evaluates to an integer value,
+     * a new <code>List</code> instance is returned, otherwise a new
+     * <code>Map</code> instance is returned.
      * @param property Property <code>Object</code> to be evaluated
      * @return New <code>List</code> or <code>Map</code>
      */
     public static Object autoVivifyListOrMap(Object property) {
         String str = property.toString();
         boolean isList = ("add".equals(str) || str.startsWith("insert@"));
-        if (!isList) {
+        if (!isList && !"java.lang.String".equals(property.getClass().getName())) {
             Integer index = UtilMisc.toIntegerObject(property);
             isList = (index != null);
         }
@@ -350,14 +350,6 @@ public class UelUtil {
             result = base + "['insert@" + property + "']" + end;
         }
         result = result.replace("[]", "['add']");
-        int pos = result.indexOf(".");
-        while (pos != -1) {
-            char c = result.charAt(pos + 1);
-            if (c >= '0' && c <= '9') {
-                result = result.substring(0, pos) + "._" + result.substring(pos + 1);
-            }
-            pos = result.indexOf(".", pos + 1);
-        }
         return result;
     }
 }
