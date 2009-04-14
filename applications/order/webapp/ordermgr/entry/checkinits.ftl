@@ -102,7 +102,7 @@ under the License.
             <div class='tabletext' valign='top'>
               <input type="text" name="userLoginId" value="${parameters.userLogin.userLoginId}"/>
               <a href="javascript:call_fieldlookup2(document.salesentryform.userLoginId,'LookupUserLoginAndPartyDetails');">
-                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
+                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
               </a>
             </div>
           </td>
@@ -115,7 +115,7 @@ under the License.
             <div class='tabletext' valign='top'>
               <input type='text' class='inputBox' name='partyId' value='${thisPartyId?if_exists}'/>
               <a href="javascript:call_fieldlookup2(document.salesentryform.partyId,'LookupCustomerName');">
-                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
+                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
               </a>
             </div>
           </td>
@@ -175,7 +175,7 @@ under the License.
             <div class='tabletext' valign='top'>
               <input type='text' class='inputBox' name='userLoginId' value='${parameters.userLogin.userLoginId}'/>
               <a href="javascript:call_fieldlookup2(document.poentryform.userLoginId,'LookupUserLoginAndPartyDetails');">
-                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/>
+                <img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
               </a>
             </div>
           </td>

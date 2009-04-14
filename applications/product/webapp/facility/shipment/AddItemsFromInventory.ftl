@@ -60,7 +60,7 @@ under the License.
                   <span>
                     <input type="text" size="5" name="inventoryItemId"/>
                     <a href="javascript:call_fieldlookup2(document.issueInventoryItemToShipment.inventoryItemId,'LookupInventoryItem?orderId=${item.orderId}&amp;partyId=${item.partyId}&amp;productId=${item.productId}');">
-                      <img src="/images/fieldlookup.gif" width="15" height="14" border="0" alt="Lookup">
+                      <img src="/images/fieldlookup.gif" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}">
                     </a>
                   </span>
                   <input type="text" size="5" name="quantity"/>

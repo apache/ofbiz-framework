@@ -142,7 +142,7 @@ ${menuWrapper.renderMenuString()}
                       <td valign="middle">
                         <div class="boxhead"><input type="text" name="fieldValue0_o_${rowCount}" value=""/>
                           <a href="javascript:call_fieldlookup3('<@ofbizUrl>LookupFeature</@ofbizUrl>')">
-                            <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup">
+                            <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}">
                           </a>
                         </div>
                       </td>

@@ -26,7 +26,7 @@ under the License.
       <input type="hidden" name="start" value="${start.time?string("#")}"/>
       <span class="label">${uiLabelMap.WorkEffortByPartyId}</span>
       <input type="text" name="partyId" value="${requestParameters.partyId?if_exists}"/>
-      <a href="javascript:call_fieldlookup2(document.partyform.partyId,'<@ofbizUrl>LookupPartyName</@ofbizUrl>');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'></a>
+      <a href="javascript:call_fieldlookup2(document.partyform.partyId,'<@ofbizUrl>LookupPartyName</@ofbizUrl>');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"></a>
       <input type="submit" value="${uiLabelMap.CommonView}"/>
     </form>
     &nbsp;|

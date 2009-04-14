@@ -30,7 +30,7 @@ under the License.
                     <span class='tabletext'>
                       <a href="javascript:quicklookup(document.quickaddform.add_product_id)" class="buttontext">${uiLabelMap.OrderQuickLookup}</a>
                       <a href="javascript:call_fieldlookup2(document.quickaddform.add_product_id,'<@ofbizUrl><#if orderType=="PURCHASE_ORDER">LookupSupplierProduct?partyId=${partyId?if_exists}<#else>LookupProduct</#if></@ofbizUrl>');">
-                        <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                        <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"/>
                       </a>
                     </span>
                   </td>
@@ -109,7 +109,7 @@ under the License.
                 <div>
                     ${uiLabelMap.OrderOrderItemType}:&nbsp;<select name="add_item_type"><option value="BULK_ORDER_ITEM">${uiLabelMap.ProductBulkItem}</option><option value="WORK_ORDER_ITEM">${uiLabelMap.ProductWorkItem}</option></select>
                     <br>${uiLabelMap.ProductProductCategory}:&nbsp;<input type="text" name="add_category_id" size="20" maxlength="20" value="${requestParameters.add_category_id?if_exists}"/>
-                    <a href="javascript:call_fieldlookup2(document.bulkworkaddform.add_category_id,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+                    <a href="javascript:call_fieldlookup2(document.bulkworkaddform.add_category_id,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
                 </div>
                 <div>
                     ${uiLabelMap.CommonDescription}:&nbsp;<input type="text" size="25" name="add_item_description" value=""/>

@@ -133,7 +133,7 @@ under the License.
                     <input type="hidden" name="activeOnly" value="${activeOnly.toString()}">
                     <div>
                         <span class="label">${uiLabelMap.ProductProductId}</span> <input type="text" size="20" name="productId">
-                        <a href="javascript:call_fieldlookup2(document.addProductCategoryMemberForm.productId, 'LookupProduct');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Lookup"></a>
+                        <a href="javascript:call_fieldlookup2(document.addProductCategoryMemberForm.productId, 'LookupProduct');"><img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="${uiLabelMap.CommonClickHereForFieldLookup}"></a>
                         <span class="label">${uiLabelMap.CommonFromDate}</span> <input type="text" size="22" name="fromDate">
                         <a href="javascript:call_cal(document.addProductCategoryMemberForm.fromDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
                           <br/>
@@ -158,7 +158,7 @@ under the License.
                     <div>
                         <span class="label">${uiLabelMap.ProductTargetProductCategory}</span>
                         <input type="text" name="productCategoryIdTo" size="20" maxlength="20"/>
-                        <a href="javascript:call_fieldlookup2(document.copyCategoryProductMembersForm.productCategoryIdTo,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt='Click here For Field Lookup'/></a>
+                        <a href="javascript:call_fieldlookup2(document.copyCategoryProductMembersForm.productCategoryIdTo,'LookupProductCategory');"><img src='/images/fieldlookup.gif' width='15' height='14' border='0' alt="${uiLabelMap.CommonClickHereForFieldLookup}"/></a>
                         <br/>
                         <span class="label">${uiLabelMap.ProductOptionalFilterWithDate}</span> <input type="text" size="20" name="validDate">
                         <a href="javascript:call_cal(document.copyCategoryProductMembersForm.validDate, '${nowTimestamp?string}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"></a>
