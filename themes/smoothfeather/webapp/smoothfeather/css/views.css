@@ -1,3 +1,22 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
 /* SCREENLETS */
 .screenlet-header { 
 	height : auto !important;
@@ -5,7 +24,6 @@
 	padding: 5px;
 	height: auto !important;
 	text-transform:uppercase;
-	
 }
 
 .boxhead {
@@ -25,8 +43,6 @@
 	height: 1%; /* IE fix */
 	min-height: 1.5em;
 	height:20px;
-	
-	
 }
 
 .screenlet-title-bar .h1,
@@ -52,13 +68,15 @@
 	padding: 0.1em 0.5em 0.2em 0.5em;
 }
 
-.screenlet-title-bar ul h1,.screenlet-title-bar ul h2,.screenlet-title-bar ul h3,.screenlet-title-bar ul .h1,.screenlet-title-bar ul .h2,.screenlet-title-bar ul .h3
-	{
+.screenlet-title-bar ul h1,
+.screenlet-title-bar ul h2,
+.screenlet-title-bar ul h3,
+.screenlet-title-bar ul .h1,
+.screenlet-title-bar ul .h2,
+.screenlet-title-bar ul .h3 {
 	border-left: none;
 	float: left;
 }
-
-
 
 .screenlet-title-bar ul a {
 	color: #69a2c8;
@@ -82,27 +100,28 @@
 	color: #CCCCCC;
 }
 
-.screenlet-title-bar ul .collapsed,.screenlet-title-bar ul .collapsed:hover
-	{
+.screenlet-title-bar ul .collapsed,
+.screenlet-title-bar ul .collapsed:hover {
 	background: url(/images/expand.gif) no-repeat center center;
 	min-height: 1.1em;
 	min-width: 1.1em;
 }
 
-.screenlet-title-bar ul .expanded,.screenlet-title-bar ul .expanded:hover
-	{
+.screenlet-title-bar ul .expanded,
+.screenlet-title-bar ul .expanded:hover {
 	background: url(/images/collapse.gif) no-repeat center center;
 	min-height: 1.1em;
 	min-width: 1.1em;
 }
 
-.screenlet-title-bar ul .collapsed a,.screenlet-title-bar ul .expanded a
-	{ /* IE fix */
+.screenlet-title-bar ul .collapsed a,
+.screenlet-title-bar ul .expanded a { /* IE fix */
 	cursor: default;
 }
 
-.screenlet-title-bar ul .h1:hover,.screenlet-title-bar ul .h2:hover,.screenlet-title-bar ul .h3:hover
-	{
+.screenlet-title-bar ul .h1:hover,
+.screenlet-title-bar ul .h2:hover,
+.screenlet-title-bar ul .h3:hover {
 	
 }
 
@@ -117,7 +136,6 @@
 }
 
 /* COLUMNS */
-
 #content-main-section .h1 {
     font-size:22px;
     text-transform:uppercase;
@@ -175,15 +193,15 @@
 	padding: 0.1em 0.5em 0.2em 0.5em;
 }
 
-.fieldgroup-title-bar ul .collapsed,.fieldgroup-title-bar ul .collapsed:hover
-	{
+.fieldgroup-title-bar ul .collapsed,
+.fieldgroup-title-bar ul .collapsed:hover {
 	background: url(/images/expand.gif) no-repeat center center;
 	min-height: 1.1em;
 	min-width: 1.1em;
 }
 
-.fieldgroup-title-bar ul .expanded,.fieldgroup-title-bar ul .expanded:hover
-	{
+.fieldgroup-title-bar ul .expanded,
+.fieldgroup-title-bar ul .expanded:hover {
 	background: url(/images/collapse.gif) no-repeat center center;
 	min-height: 1.1em;
 	min-width: 1.1em;
@@ -218,23 +236,19 @@
 }
 
 .portlet-config-title-bar ul li.move-up {
-	background: url(/images/arrow-single-up-green.png) no-repeat center
-		center;
+	background: url(/images/arrow-single-up-green.png) no-repeat center center;
 }
 
 .portlet-config-title-bar ul li.move-down {
-	background: url(/images/arrow-single-down-green.png) no-repeat center
-		center;
+	background: url(/images/arrow-single-down-green.png) no-repeat center center;
 }
 
 .portlet-config-title-bar ul li.move-left {
-	background: url(/images/arrow-single-left-green.png) no-repeat center
-		center;
+	background: url(/images/arrow-single-left-green.png) no-repeat center center;
 }
 
 .portlet-config-title-bar ul li.move-right {
-	background: url(/images/arrow-single-right-green.png) no-repeat center
-		center;
+	background: url(/images/arrow-single-right-green.png) no-repeat center center;
 }
 
 .portlet-config-title-bar ul li.move-top {
@@ -242,8 +256,7 @@
 }
 
 .portlet-config-title-bar ul li.move-bottom {
-	background: url(/images/arrow-end-down-green.png) no-repeat center
-		center;
+	background: url(/images/arrow-end-down-green.png) no-repeat center center;
 }
 
 .portlet-config-title-bar ul li.remove {
@@ -265,8 +278,9 @@
 	padding: 0.1em 0.5em 0.2em 0.5em;
 }
 
-#manage-portal-toolbar #config-on-off,#manage-portal-toolbar #manage-portal-page,#manage-portal-toolbar #add-portlet
-	{
+#manage-portal-toolbar #config-on-off,
+#manage-portal-toolbar #manage-portal-page,
+#manage-portal-toolbar #add-portlet {
 	float: right;
 }
 

@@ -1,8 +1,26 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 //GLOBAL NAMESPACE
-var HOTWAX = window.HOTWAX || {};
+var OFBIZ = window.OFBIZ || {};
 
 //SUBNAV HEADING
-HOTWAX.buildSubnav = function(){
+OFBIZ.buildSubnav = function(){
 	if($$('.tab-bar')){
 		$$('.tab-bar').each(function(elm) {
 			$(elm).insert( {
@@ -15,28 +33,28 @@ HOTWAX.buildSubnav = function(){
 				bottom :"<div><a href='#' class='close-tab'>close</a></div>"
 			});
 		});
-		//HOTWAX.initExpansion();
+		//OFBIZ.initExpansion();
 	}
 }
 
 /* Round 2 - Sliding Left Bar - Coming Soon
 //QUICK NAV/SEARCH FOR LEFT SCREENLET
-HOTWAX.buildSearch = function(){
+OFBIZ.buildSearch = function(){
 	if($$('.left')){
 		$$('.left').each(function(elm) {
 			$(elm).insert( {
 				before :"<div id='sideBar'>"
 			});
 			$(elm).insert( {
-				after :"<a href='#' id='sideBarTab'><img src='/admin/images/slide-button-left.gif' alt='sideBar' title='sideBar' /></a></div>"
+				after :"<a href='#' id='sideBarTab'><img src='/smoothfeather/images/slide-button-left.gif' alt='sideBar' title='sideBar' /></a></div>"
 			});
 		});
-		//HOTWAX.initExpansion();
+		//OFBIZ.initExpansion();
 	}
 }
 
 var isExtended = 0;
-HOTWAX.slideSideBar = function(){
+OFBIZ.slideSideBar = function(){
 	new Effect.toggle('sideBarContents', 'blind', {scaleX: 'true', scaleY: 'true;', scaleContent: false});
 	if(isExtended==0){
 		$('sideBarTab').childNodes[0].src = $('sideBarTab').childNodes[0].src.replace(/(\.[^.]+)$/, '-active$1');
@@ -50,15 +68,15 @@ HOTWAX.slideSideBar = function(){
 	}
 }
 
-HOTWAX.initSideBar = function(){
-	Event.observe('sideBarTab', 'click', HOTWAX.slideSideBar, true);
+OFBIZ.initSideBar = function(){
+	Event.observe('sideBarTab', 'click', OFBIZ.slideSideBar, true);
 }
 
-Event.observe(window, 'load', HOTWAX.initSideBar, true);
+Event.observe(window, 'load', OFBIZ.initSideBar, true);
 */
 
 //GLOBAL FUNCTION FOR APP DROP-DROWN SECTIONS
-HOTWAX.initExpansion = function() {
+OFBIZ.initExpansion = function() {
 	if($$('.contracted')){
 		$$('.contracted').each(function(elm) {
 			$(elm).next().style.display = 'none';
@@ -73,11 +91,11 @@ HOTWAX.initExpansion = function() {
 						if($(elm).next().visible()) {
 							$(elm).removeClassName('contracted');
 							$(elm).addClassName('expanded');
-							HOTWAX.Cookie.set($(elm).next().id,'expanded',360);
+							OFBIZ.Cookie.set($(elm).next().id,'expanded',360);
 						} else {
 							$(elm).removeClassName('expanded');
 							$(elm).addClassName('contracted');
-							HOTWAX.Cookie.set($(elm).next().id,'contracted',360);
+							OFBIZ.Cookie.set($(elm).next().id,'contracted',360);
 						}
 					}
 				});
@@ -86,7 +104,7 @@ HOTWAX.initExpansion = function() {
 	}
 }
 
-HOTWAX.Cookie = {
+OFBIZ.Cookie = {
 	set: function(name, value, daysToExpire) {
 		var expire = '';
 		if (daysToExpire != undefined) {
@@ -101,20 +119,20 @@ HOTWAX.Cookie = {
 		return (cookie ? unescape(cookie[2]) : null);
 	},
 	erase: function(name) {
-		var cookie = HOTWAX.Cookie.get(name) || true;
-		HOTWAX.Cookie.set(name, '', -1);
+		var cookie = OFBIZ.Cookie.get(name) || true;
+		OFBIZ.Cookie.set(name, '', -1);
 		return cookie;
 	},
 	accept: function() {
 		if (typeof navigator.cookieEnabled == 'boolean') {
 			return navigator.cookieEnabled;
 		}
-		HOTWAX.Cookie.set('_test', '1');
-		return (HOTWAX.Cookie.erase('_test') === '1');
+		OFBIZ.Cookie.set('_test', '1');
+		return (OFBIZ.Cookie.erase('_test') === '1');
 	}
 }
 
-HOTWAX.Effect = Object.extend({}, Effect);
+OFBIZ.Effect = Object.extend({}, Effect);
 Object.extend(Element,{
 	findElement: function(element, tagName) {
 		var element = $(element);
@@ -213,9 +231,9 @@ Event.observe(window, 'load', function() {
 
 //LOAD GLOBAL APP FUNCTIONS
 document.observe('dom:loaded', function(){
-	HOTWAX.initExpansion();
-	HOTWAX.buildSubnav();
-	HOTWAX.buildSearch();
+	OFBIZ.initExpansion();
+	OFBIZ.buildSubnav();
+	OFBIZ.buildSearch();
 	humanMsg.setup();
 });
 
