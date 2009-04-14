@@ -1,0 +1,9 @@
+/var/log/ofbiz/console.log {
+	daily
+	rotate 60
+	compress
+	delaycompress
+	postrotate
+		/etc/init.d/ofbiz restart
+	endscript
+}
