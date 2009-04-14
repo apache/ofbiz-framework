@@ -17,6 +17,16 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<script language="JavaScript" type="text/javascript">
+    function quicklookup(func, locationelement, facilityelement, productelement) {
+        
+        var productId = productelement.value;
+        var facilityId = facilityelement.value;
+        var request = "LookupProductInventoryLocation?productId=" + productId + "&facilityId=" + facilityId;
+        window[func](locationelement, request);
+    }
+</script>
+
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
@@ -132,6 +142,48 @@ under the License.
                 </#list>
             </table>
             <input type="hidden" name="_rowCount" value="${rowCount}">
+        </form>
+    </div>
+    <div class="screenlet-title-bar">
+        <ul>
+            <li class="h3">${uiLabelMap.ProductQuickStockMove}</li>
+        </ul>
+        <br class="clear"/>
+    </div>
+    <div class="screenlet-body">
+        <form method="post" action="<@ofbizUrl>processQuickStockMove</@ofbizUrl>" name='quickStockMove'>
+            <input type="hidden" name="facilityId" value="${facilityId?if_exists}">
+            <table cellspacing="0" class="basic-table hover-bar">
+                <tr class="header-row">
+                    <td>${uiLabelMap.ProductProduct}</td>
+                    <td>${uiLabelMap.ProductFromLocation}</td>
+                    <td>${uiLabelMap.ProductToLocation}</td>
+                    <td>${uiLabelMap.ProductMoveQuantity}</td>
+                    <td>&nbsp</td>
+                </tr>
+                    <td>
+                        <input type="text" size="20" name="productId"  maxlength="20">
+                        <a href="javascript:call_fieldlookup2(document.quickStockMove.productId,'LookupProduct');">
+                            <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                        </a>
+                    </td>
+                    <td>
+                        <input type="text" size="20" name="locationSeqId" id= "locationSeqId" maxlength="20">
+                        <a href="javascript:quicklookup('call_fieldlookup2', document.quickStockMove.locationSeqId, document.quickStockMove.facilityId, document.quickStockMove.productId)">
+                            <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                    <td>
+                        <input type="text" size="20" name="targetLocationSeqId" id= "targetLocationSeqId_o_" maxlength="20">
+                        <a href="javascript:call_fieldlookup2(document.quickStockMove.targetLocationSeqId,'LookupFacilityLocation?facilityId=${facilityId}&locationTypeEnumId=FLT_PICKLOC');">
+                            <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                        </a>
+                    </td> 
+                    <td><input type="text" name="quantityMoved" size="6"></td>
+                <tr>
+                    <td colspan="13" align="right">
+                        <a href="javascript:document.quickStockMove.submit();" class="buttontext">${uiLabelMap.ProductQuickStockMove}</a>
+                    </td>
+                </tr>
+            </table>
         </form>
     </div>
 </div>

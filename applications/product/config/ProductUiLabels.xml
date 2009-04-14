@@ -11919,6 +11919,9 @@
         <value xml:lang="fr">Liste des informations sur les contenus associés</value>
         <value xml:lang="it">Lista informazioni contenuto associato</value>
     </property>
+    <property key="ProductListFacilityLocation">
+        <value xml:lang="en">List Facility Location</value>
+    </property>
     <property key="ProductListFeatureInteractions">
         <value xml:lang="de">Liste Merkmal Interaktionen</value>
         <value xml:lang="en">List Feature Interactions</value>
@@ -16176,6 +16179,9 @@
         <value xml:lang="ru">Упрощенная поставка заказа из</value>
         <value xml:lang="th">จากรายการการขนส่งอย่างรวดเร็ว</value>
         <value xml:lang="zh">快速送货订单来自</value>
+    </property>
+    <property key="ProductQuickStockMove">
+        <value xml:lang="en">Quick Stock Move</value>
     </property>
     <property key="ProductRating">
         <value xml:lang="de">Bewertung</value>

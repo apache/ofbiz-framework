@@ -882,4 +882,12 @@ under the License.
         <attribute name="priority" mode="IN" type="String" optional="true"/>
         <attribute name="orderId" mode="IN" type="String" optional="false"/>
     </service>
+    <service name="findProductInventorylocations" engine="simple"
+                location="component://product/script/org/ofbiz/product/inventory/StockMoveServices.xml" invoke="findProductInventorylocations">
+       <description>Find Product's inventory locations from facility</description>
+       <permission-service service-name="facilityGenericPermission" main-action="VIEW"/>
+       <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+       <attribute name="productId" type="String" mode="IN" optional="false"/>
+       <attribute name="LocationList" type="List" mode="OUT" optional="true"/>
+    </service>
 </services>

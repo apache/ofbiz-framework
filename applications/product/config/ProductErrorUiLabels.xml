@@ -61,6 +61,9 @@
         <value xml:lang="fr">La réf. de type de caractéristique d'article ne doit contenir que des lettres, le tiret bas "_" et des chiffres. Recommencez SVP</value>
         <value xml:lang="it">Il tipo caratteristica prodotto deve contenere solamente lettere, underscore e numeri. Prego reinserire</value>
     </property>
+    <property key="ProductNotInAnyLocation">
+        <value xml:lang="en">This Product is not in any Location</value>
+    </property>
     <property key="ProductRemoveCommunicationEventProductPermissionError">
         <value xml:lang="en">Remove Communication Event Product Permission Error</value>
         <value xml:lang="it">Errore permesso durante la rimozione dell'evento comunicazione prodotto</value>

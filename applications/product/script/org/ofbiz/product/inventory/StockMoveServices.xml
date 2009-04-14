@@ -609,4 +609,14 @@ under the License.
             </if-compare>
         </iterate-map>
     </simple-method>
+    <simple-method method-name="findProductInventorylocations" short-description="Find Product's inventory locations from facility">
+        <entity-condition entity-name="InventoryItemAndLocation" list="LocationList">
+            <condition-list>
+                <condition-expr field-name="facilityId" operator="equals" from-field="parameters.facilityId"/>
+                <condition-expr field-name="productId" operator="equals" from-field="parameters.productId"/>
+                <condition-expr field-name="locationSeqId" operator="not-equals" from-field="nullField"/>
+            </condition-list>
+        </entity-condition>
+        <field-to-result field="LocationList"/>
+    </simple-method>
 </simple-methods>
