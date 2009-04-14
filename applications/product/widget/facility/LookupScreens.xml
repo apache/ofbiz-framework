@@ -109,4 +109,46 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="LookupProductInventoryLocation">
+        <section>
+            <condition>
+                <if-service-permission service-name="facilityGenericPermission" main-action="VIEW"/>
+            </condition>
+            <actions>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductErrorUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.ProductListFacilityLocation}"/>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <set field="productId" from-field="parameters.productId"/>
+                <service service-name="findProductInventorylocations">
+                    <field-map field-name="facilityId"/>
+                    <field-map field-name="productId"/>
+                </service>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not><if-empty field="LocationList"/></not>
+                    </condition>
+                    <widgets>
+                        <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="search-results">
+                                <include-form name="ListProductInventoryLocation" location="component://product/webapp/facility/lookup/FieldLookupForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                    <fail-widgets>
+                        <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="search-results">
+                                <label style="h3" text="${uiLabelMap.ProductNotInAnyLocation}"/>
+                            </decorator-section>
+                        </decorator-screen>
+                    </fail-widgets>
+                </section>
+            </widgets>
+            <fail-widgets>
+                <label style="h3">${uiLabelMap.ProductFacilityViewPermissionError}</label>
+            </fail-widgets>
+        </section>
+    </screen>
 </screens>

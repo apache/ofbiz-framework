@@ -129,4 +129,16 @@ under the License.
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName}[${partyId}]"/></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName}[${partyId}]"/></field>
     </form>
+    <form name="ListProductInventoryLocation" list-name="LocationList" title="" type="list" paginate-target="ListProductInventoryLocation"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" view-size="20">
+        <field name="inventoryItemId"><display/></field>
+        <field name="locationSeqId" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
+            <hyperlink also-hidden="false" target-type="plain" description="${locationSeqId}" target="javascript:set_value('${locationSeqId}')"/>
+        </field> 
+        <field name="locationTypeEnumId">
+            <display-entity entity-name="Enumeration" description="${description}" key-field-name="enumId"/>
+        </field>
+        <field name="quantityOnHandTotal" title="${uiLabelMap.ProductQoh}"><display/></field>
+        <field name="availableToPromiseTotal" title="${uiLabelMap.ProductAtp}"><display/></field>
+    </form>
 </forms>

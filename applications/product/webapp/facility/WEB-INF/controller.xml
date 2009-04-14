@@ -641,6 +641,12 @@ under the License.
         <response name="success" type="view" value="PickMoveStock"/>
         <response name="error" type="view" value="PickMoveStock"/>
     </request-map>
+    <request-map uri="processQuickStockMove">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="processPhysicalStockMove"/>
+        <response name="success" type="view" value="PickMoveStock"/>
+        <response name="error" type="view" value="PickMoveStock"/>
+    </request-map>
 
     <!-- ================ Picking Verify Requests ================= -->
     <request-map uri="VerifyPick">
@@ -1162,6 +1168,7 @@ under the License.
     <request-map uri="LookupProductCategory"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductCategory"/></request-map>
     <request-map uri="LookupFacility"><security https="true" auth="true"/><response name="success" type="view" value="LookupFacility"/></request-map>
     <request-map uri="LookupFacilityLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupFacilityLocation"/></request-map>
+    <request-map uri="LookupProductInventoryLocation"><security auth="true" https="true"/><response name="success" type="view" value="LookupProductInventoryLocation"/></request-map>
     <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupInventoryItem"><security https="true" auth="true"/><response name="success" type="view" value="LookupInventoryItem"/></request-map>
     <!-- end of request mappings -->
@@ -1254,6 +1261,7 @@ under the License.
     <view-map name="LookupProductCategory" type="screen" page="component://product/widget/catalog/LookupScreens.xml#LookupProductCategory"/>
     <view-map name="LookupFacility" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupFacility"/>
     <view-map name="LookupFacilityLocation" page="component://product/widget/facility/LookupScreens.xml#LookupFacilityLocation" type="screen"/>
+    <view-map name="LookupProductInventoryLocation" page="component://product/widget/facility/LookupScreens.xml#LookupProductInventoryLocation" type="screen"/>
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
     <view-map name="LookupInventoryItem" type="screen" page="component://product/widget/facility/LookupScreens.xml#LookupInventoryItem"/>
     <!-- end of view mappings -->
