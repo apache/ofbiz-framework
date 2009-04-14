@@ -16,3 +16,4 @@
 * During install, force seed install, but allow demo or ext to be selected.
 * During reconfigure, allow seed, demo, or ext to be selected.
 * Verify that $MEMIF in the init script only contains -X
+* Prompt for and replace the sequence id prefix in the entity engine.
