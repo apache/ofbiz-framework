@@ -1145,6 +1145,9 @@
         <value xml:lang="zh">点击这里</value>
         <value xml:lang="zh_CN">点击这里</value>
     </property>
+    <property key="CommonClickHereForFieldLookup">
+        <value xml:lang="en">Click here For Field Lookup</value>
+    </property>
     <property key="CommonClose">
         <value xml:lang="ar">غلق</value>
         <value xml:lang="de">Schliessen</value>
