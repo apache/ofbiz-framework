@@ -25,12 +25,12 @@
 # description: OFBiz server
 
 # Source function library
-# this does not exist in Debian/Ubuntu/etc.
+# this does not exist in Debian/Ubuntu/etc. => see  rc.ofbiz.for.debian
 # => comment out and use "echo failure" and "echo success" in place of echo_failure and echo_success (minor anyway)
 . /etc/rc.d/init.d/functions
 
 # Source networking configuration
-# this does not exist in Debian/Ubuntu/etc. => comment out
+# this does not exist in Debian/Ubuntu/etc. => see  rc.ofbiz.for.debian
 . /etc/sysconfig/network
 
 # Paths - Edit for your locations
