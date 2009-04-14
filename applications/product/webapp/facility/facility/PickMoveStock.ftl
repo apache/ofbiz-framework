@@ -162,17 +162,18 @@ under the License.
                     <td>&nbsp</td>
                 </tr>
                     <td>
-                        <input type="text" size="20" name="productId"  maxlength="20">
+                        <input type="text" size="20" name="productId" maxlength="20">
                         <a href="javascript:call_fieldlookup2(document.quickStockMove.productId,'LookupProduct');">
                             <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
                         </a>
                     </td>
                     <td>
-                        <input type="text" size="20" name="locationSeqId" id= "locationSeqId" maxlength="20">
+                        <input type="text" size="20" name="locationSeqId" maxlength="20">
                         <a href="javascript:quicklookup('call_fieldlookup2', document.quickStockMove.locationSeqId, document.quickStockMove.facilityId, document.quickStockMove.productId)">
                             <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
+                        </a>    
                     <td>
-                        <input type="text" size="20" name="targetLocationSeqId" id= "targetLocationSeqId_o_" maxlength="20">
+                        <input type="text" size="20" name="targetLocationSeqId" maxlength="20">
                         <a href="javascript:call_fieldlookup2(document.quickStockMove.targetLocationSeqId,'LookupFacilityLocation?facilityId=${facilityId}&locationTypeEnumId=FLT_PICKLOC');">
                             <img src="<@ofbizContentUrl>/images/fieldlookup.gif</@ofbizContentUrl>" width="15" height="14" border="0" alt="Click here For Field Lookup"/>
                         </a>
