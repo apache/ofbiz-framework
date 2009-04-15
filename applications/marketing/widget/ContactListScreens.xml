@@ -310,10 +310,14 @@ under the License.
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactList"/>
                 <set field="contactListId" from-field="parameters.contactListId"/>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
+                <entity-one entity-name="ContactList" value-field="contactList"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
 
-                <!-- get the current log in user's default email -->
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+                <!-- get the contact list owner's marketing email -->
+                <script location="component://marketing/webapp/marketing/WEB-INF/actions/contact/GetContactListMarketingEmail.groovy"/>
+                <set field="contactMechIdFrom" value="${marketingEmail.contactMechId}"/>
+                <set field="partyIdFrom" value="${contactList.ownerPartyId}"/>
+                <set field="datetimeStarted" value="${groovy:org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">

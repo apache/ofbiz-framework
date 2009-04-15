@@ -73,6 +73,7 @@ under the License.
     <ContactMechPurposeType contactMechPurposeTypeId="PHONE_ASSISTANT" description="Assistant's Phone Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_PHONE" description="Primary Phone Number"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PHONE_QUICK" description="Quick Calls Phone Number"/>
+    <ContactMechPurposeType contactMechPurposeTypeId="MARKETING_EMAIL" description="Primary Marketing Email Address"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PRIMARY_EMAIL" description="Primary Email Address"/>
     <ContactMechPurposeType contactMechPurposeTypeId="BILLING_EMAIL" description="Billing (AP) Email"/>
     <ContactMechPurposeType contactMechPurposeTypeId="PAYMENT_EMAIL" description="Payment (AR) Email"/>
@@ -89,6 +90,7 @@ under the License.
     <ContactMechType contactMechTypeId="WEB_ADDRESS" description="Web URL/Address" hasTable="N" parentTypeId="ELECTRONIC_ADDRESS"/>
 
     <ContactMechTypePurpose contactMechPurposeTypeId="BILLING_EMAIL" contactMechTypeId="EMAIL_ADDRESS"/>
+    <ContactMechTypePurpose contactMechPurposeTypeId="MARKETING_EMAIL" contactMechTypeId="EMAIL_ADDRESS"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="PAYMENT_EMAIL" contactMechTypeId="EMAIL_ADDRESS"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="ORDER_EMAIL" contactMechTypeId="EMAIL_ADDRESS"/>
     <ContactMechTypePurpose contactMechPurposeTypeId="OTHER_EMAIL" contactMechTypeId="EMAIL_ADDRESS"/>
