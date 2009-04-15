@@ -42,14 +42,11 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.service.testtools.OFBizTestCase;
 
-public class CCServicesTest extends TestCase {
+public class CCServicesTest extends OFBizTestCase {
 
     public static final String module = CCServicesTest.class.getName();
-    public static final String DELEGATOR_NAME = "test";
-    public GenericDelegator delegator = null;
-    public static final String DISPATCHER_NAME = "test-dispatcher";
-    public LocalDispatcher dispatcher = null;
 
     // test data
     protected GenericValue emailAddr = null;
@@ -66,9 +63,6 @@ public class CCServicesTest extends TestCase {
     }
 
     protected void setUp() throws Exception {
-        this.delegator = GenericDelegator.getGenericDelegator(DELEGATOR_NAME);
-        this.dispatcher = GenericDispatcher.getLocalDispatcher(DISPATCHER_NAME, delegator);
-
         // populate test data
         configFile = new String("paymentTest.properties");
         creditAmount = new BigDecimal("234.00");
@@ -96,10 +90,6 @@ public class CCServicesTest extends TestCase {
                 "OrderFrequencyCycle", "M",
                 "OrderFrequencyInterval", "3",
                 "TotalNumberPayments", "4");
-    }
-
-    protected void tearDown() throws Exception {
-        dispatcher.deregister();
     }
 
     /*

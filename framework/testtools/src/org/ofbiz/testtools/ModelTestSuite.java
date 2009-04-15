@@ -26,14 +26,18 @@ import javolution.util.FastList;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.testtools.EntityTestCase;
 import org.ofbiz.service.GenericDispatcher;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.testtools.OFBizTestCase;
 import org.w3c.dom.Element;
 
 /**
@@ -44,8 +48,8 @@ public class ModelTestSuite {
     public static final String module = ModelTestSuite.class.getName();
 
     protected String suiteName;
-    protected String delegatorName;
-    protected String dispatcherName;
+    protected String originalDelegatorName;
+    protected String originalDispatcherName;
 
     protected GenericDelegator delegator;
     protected LocalDispatcher dispatcher;
@@ -55,14 +59,16 @@ public class ModelTestSuite {
     public ModelTestSuite(Element mainElement, String testCase) {
         this.suiteName = mainElement.getAttribute("suite-name");
 
-        this.delegatorName = mainElement.getAttribute("delegator-name");
-        if (UtilValidate.isEmpty(this.delegatorName)) this.delegatorName = "test";
+        this.originalDelegatorName = mainElement.getAttribute("delegator-name");
+        if (UtilValidate.isEmpty(this.originalDelegatorName)) this.originalDelegatorName = "test";
 
-        this.dispatcherName = mainElement.getAttribute("dispatcher-name");
-        if (UtilValidate.isEmpty(this.dispatcherName)) this.dispatcherName = "test-dispatcher";
+        this.originalDispatcherName = mainElement.getAttribute("dispatcher-name");
+        if (UtilValidate.isEmpty(this.originalDispatcherName)) this.originalDispatcherName = "test-dispatcher";
+        
+        String uniqueSuffix = "-" + RandomStringUtils.randomAlphanumeric(10);
 
-        this.delegator = GenericDelegator.getGenericDelegator(this.delegatorName);
-        this.dispatcher = GenericDispatcher.getLocalDispatcher(this.dispatcherName, delegator);
+        this.delegator = GenericDelegator.getGenericDelegator(this.originalDelegatorName).makeTestDelegator(this.originalDelegatorName + uniqueSuffix);
+        this.dispatcher = GenericDispatcher.getLocalDispatcher(originalDispatcherName + uniqueSuffix, delegator);
 
         for (Element testCaseElement : UtilXml.childElementList(mainElement, UtilMisc.toSet("test-case", "test-group"))) {
             String caseName = testCaseElement.getAttribute("case-name");
@@ -105,16 +111,16 @@ public class ModelTestSuite {
                 Debug.logError(e, errMsg, module);
             }
         } else if ("service-test".equals(nodeName)) {
-            this.testList.add(new ServiceTest(caseName, this, testElement));
+            this.testList.add(new ServiceTest(caseName, testElement));
         } else if ("simple-method-test".equals(nodeName)) {
-            this.testList.add(new SimpleMethodTest(caseName, this, testElement));
+            this.testList.add(new SimpleMethodTest(caseName, testElement));
         } else if ("entity-xml".equals(nodeName)) {
-            this.testList.add(new EntityXmlAssertTest(caseName, this, testElement));
+            this.testList.add(new EntityXmlAssertTest(caseName, testElement));
         } else if ("entity-xml-assert".equals(nodeName)) {
             // this is the old, deprecated name for the element, changed because it now does assert or load
-            this.testList.add(new EntityXmlAssertTest(caseName, this, testElement));
+            this.testList.add(new EntityXmlAssertTest(caseName, testElement));
         } else if ("jython-test".equals(nodeName)) {
-            this.testList.add(new JythonTest(caseName, this, testElement));
+            this.testList.add(new JythonTest(caseName, testElement));
         }
 
     }
@@ -126,12 +132,35 @@ public class ModelTestSuite {
     GenericDelegator getDelegator() {
         return this.delegator;
     }
-
-    LocalDispatcher getDispatcher() {
-        return this.dispatcher;
-    }
-
+    
     List<Test> getTestList() {
         return testList;
+    }
+    
+    
+    public TestSuite makeTestSuite() {
+        TestSuite suite = new TestSuite();
+        suite.setName(this.getSuiteName());
+        for (Test tst: this.getTestList()) {
+            prepareTest(tst);
+            suite.addTest(tst);
+        }
+
+        return suite;
+    }
+    
+    private void prepareTest(Test test)
+    {
+        if (test instanceof TestSuite) {
+            Enumeration<Test> subTests = ((TestSuite) test).tests();
+            while (subTests.hasMoreElements()) {
+                prepareTest(subTests.nextElement());
+            }
+        } else if (test instanceof EntityTestCase) {
+            ((EntityTestCase)test).setDelegator(delegator);
+            if (test instanceof OFBizTestCase) {
+                ((OFBizTestCase)test).setDispatcher(dispatcher);
+            }
+        }
     }
 }

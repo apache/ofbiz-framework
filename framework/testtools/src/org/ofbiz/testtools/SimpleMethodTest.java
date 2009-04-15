@@ -33,9 +33,10 @@ import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.service.testtools.OFBizTestCase;
 import org.w3c.dom.Element;
 
-public class SimpleMethodTest extends TestCaseBase {
+public class SimpleMethodTest extends OFBizTestCase {
 
     public static final String module = ServiceTest.class.getName();
 
@@ -45,8 +46,8 @@ public class SimpleMethodTest extends TestCaseBase {
     /**
      * @param modelTestSuite
      */
-    public SimpleMethodTest(String caseName, ModelTestSuite modelTestSuite, Element mainElement) {
-        super(caseName, modelTestSuite);
+    public SimpleMethodTest(String caseName, Element mainElement) {
+        super(caseName);
         this.methodLocation = mainElement.getAttribute("location");
         this.methodName = mainElement.getAttribute("name");
     }
@@ -57,8 +58,6 @@ public class SimpleMethodTest extends TestCaseBase {
 
     public void run(TestResult result) {
         result.startTest(this);
-
-        LocalDispatcher dispatcher = modelTestSuite.getDispatcher();
 
         try {
 

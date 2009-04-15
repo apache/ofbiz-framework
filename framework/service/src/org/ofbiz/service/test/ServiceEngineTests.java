@@ -20,27 +20,17 @@ package org.ofbiz.service.test;
 
 import java.util.Map;
 
-import junit.framework.TestCase;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.service.GenericDispatcher;
-import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.service.testtools.OFBizTestCase;
 
-public class ServiceEngineTests extends TestCase {
-
-    public static final String DELEGATOR_NAME = "test";
-    public static final String DISPATCHER_NAME = "test-dispatcher";
-
-    private LocalDispatcher dispatcher = null;
+public class ServiceEngineTests extends OFBizTestCase {
 
     public ServiceEngineTests(String name) {
         super(name);
     }
 
     protected void setUp() throws Exception {
-        GenericDelegator delegator = GenericDelegator.getGenericDelegator(DELEGATOR_NAME);
-        dispatcher = GenericDispatcher.getLocalDispatcher(DISPATCHER_NAME, delegator);
     }
 
     protected void tearDown() throws Exception {

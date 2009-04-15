@@ -26,6 +26,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityDataAssert;
 import org.ofbiz.entity.util.EntitySaxReader;
+import org.ofbiz.service.testtools.OFBizTestCase;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.location.FlexibleLocation;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.net.URL;
 
-public class EntityXmlAssertTest extends TestCaseBase {
+public class EntityXmlAssertTest extends OFBizTestCase {
 
     public static final String module = ServiceTest.class.getName();
 
@@ -47,8 +48,8 @@ public class EntityXmlAssertTest extends TestCaseBase {
     /**
      * @param modelTestSuite
      */
-    public EntityXmlAssertTest(String caseName, ModelTestSuite modelTestSuite, Element mainElement) {
-        super(caseName, modelTestSuite);
+    public EntityXmlAssertTest(String caseName, Element mainElement) {
+        super(caseName);
         this.entityXmlUrlString = mainElement.getAttribute("entity-xml-url");
         this.action = mainElement.getAttribute("action");
         if (UtilValidate.isEmpty(this.action)) this.action = "assert";
@@ -58,7 +59,7 @@ public class EntityXmlAssertTest extends TestCaseBase {
         int testCaseCount = 0;
         try {
             URL entityXmlURL = FlexibleLocation.resolveLocation(entityXmlUrlString);
-            List<GenericValue> checkValueList = modelTestSuite.getDelegator().readXmlDocument(entityXmlURL);
+            List<GenericValue> checkValueList = delegator.readXmlDocument(entityXmlURL);
             testCaseCount = checkValueList.size();
         } catch (Exception e) {
             Debug.logError(e, "Error getting test case count", module);
@@ -71,7 +72,6 @@ public class EntityXmlAssertTest extends TestCaseBase {
 
         try {
             URL entityXmlURL = FlexibleLocation.resolveLocation(entityXmlUrlString);
-            GenericDelegator delegator = modelTestSuite.getDelegator();
             List<Object> errorMessages = FastList.newInstance();
 
             if ("assert".equals(this.action)) {

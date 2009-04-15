@@ -19,25 +19,21 @@
 
 package org.ofbiz.accounting.test;
 
-import junit.framework.TestCase;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.service.GenericDispatcher;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ModelService;
-import org.ofbiz.base.util.UtilMisc;
-
 import java.math.BigDecimal;
 import java.util.Map;
 
 import javolution.util.FastMap;
 
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.service.testtools.OFBizTestCase;
+
 /**
  * FinAccountTests
  */
-public class FinAccountTests extends TestCase {
+public class FinAccountTests extends OFBizTestCase {
 
-    protected LocalDispatcher dispatcher = null;
     protected GenericValue userLogin = null;
 
     public FinAccountTests(String name) {
@@ -45,8 +41,6 @@ public class FinAccountTests extends TestCase {
     }
 
     protected void setUp() throws Exception {
-        GenericDelegator delegator = GenericDelegator.getGenericDelegator("test");
-        dispatcher = GenericDispatcher.getLocalDispatcher("test-dispatcher", delegator);
         userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
     }
 

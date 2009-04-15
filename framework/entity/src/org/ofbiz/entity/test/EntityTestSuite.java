@@ -29,7 +29,6 @@ import junit.framework.TestCase;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
@@ -42,12 +41,11 @@ import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.testtools.EntityTestCase;
 
-public class EntityTestSuite extends TestCase {
+public class EntityTestSuite extends EntityTestCase {
 
     public static final String module = EntityTestSuite.class.getName();
-    public static final String DELEGATOR_NAME = "test";
-    public GenericDelegator delegator = null;
     /*
      * This sets how many values to insert when trying to create a large number of values.  10,000 causes HSQL to crash but is ok
      * with Derby.  Going up to 100,000 causes problems all around because Java List seems to be capped at about 65,000 values.
@@ -61,10 +59,6 @@ public class EntityTestSuite extends TestCase {
     }
 
     final static private int _level1max = 3;   // number of TestingNode entities to create
-
-    protected void setUp() throws Exception {
-        this.delegator = GenericDelegator.getGenericDelegator(DELEGATOR_NAME);
-    }
 
     /*
      * Tests storing values with the delegator's .create, .makeValue, and .storeAll methods

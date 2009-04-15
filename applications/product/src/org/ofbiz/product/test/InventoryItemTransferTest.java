@@ -19,23 +19,18 @@
 
 package org.ofbiz.product.test;
 
-import junit.framework.TestCase;
-
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.service.GenericDispatcher;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilDateTime;
-
 import java.math.BigDecimal;
 import java.util.Map;
+
 import javolution.util.FastMap;
 
-public class InventoryItemTransferTest extends TestCase {
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.entity.GenericValue;
+import org.ofbiz.service.testtools.OFBizTestCase;
 
-    protected LocalDispatcher dispatcher = null;
-    protected GenericDelegator delegator = null;
+public class InventoryItemTransferTest extends OFBizTestCase {
+
     protected GenericValue userLogin = null;
     protected static String inventoryTransferId = null;
     protected BigDecimal transferQty = BigDecimal.ONE;
@@ -45,8 +40,6 @@ public class InventoryItemTransferTest extends TestCase {
     }
 
     protected void setUp() throws Exception {
-        delegator = GenericDelegator.getGenericDelegator("test");
-        dispatcher = GenericDispatcher.getLocalDispatcher("test-dispatcher", delegator);
         userLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
     }
 
