@@ -216,6 +216,7 @@ under the License.
     <form name="EditContactListCommEvent" default-map-name="communicationEvent"  target="updateContactListCommEvent" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target target="createContactListCommEvent" use-when="communicationEvent==null"/>
+
         <field name="communicationEventId" use-when="communicationEvent!=null" title="${uiLabelMap.MarketingContactListCommEventId}"><display/></field>
         <field name="communicationEventTypeId" title="${uiLabelMap.MarketingContactListCommEventTypeId}">
             <drop-down no-current-selected-key="EMAIL_COMMUNICATION">
@@ -302,6 +303,30 @@ under the License.
         <field name="note" title="${uiLabelMap.CommonNote}"><textarea cols="60" rows="3"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/>        </field>
         <field name="cancelLink" title="${uiLabelMap.CommonCancel}" widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+
+        <sort-order>
+            <field-group title="${uiLabelMap.CommonAdvancedFeatures}" collapsible="true" initially-collapsed="true">
+                <sort-field name="communicationEventId"/>
+                <sort-field name="communicationEventTypeId"/>
+                <sort-field name="partyIdFrom"/>
+                <sort-field name="statusId"/>
+                <sort-field name="contactMechTypeId"/>
+                <sort-field name="roleTypeIdFrom"/>
+                <sort-field name="roleTypeIdTo"/>
+                <sort-field name="contactMechIdFrom"/>
+                <sort-field name="contactListId"/>
+                <sort-field name="datetimeStarted"/>
+                <sort-field name="datetimeEnded"/>
+            </field-group>
+            <field-group>
+                <sort-field name="subject"/>
+                <sort-field name="contentMimeTypeId"/>
+                <sort-field name="content"/>
+                <sort-field name="note"/>
+                <sort-field name="submitButton"/>
+                <sort-field name="cancelLink"/>
+            </field-group>
+        </sort-order>
     </form>
     <form name="FindContactListCommEvents" target="ListContactListCommEvents" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">

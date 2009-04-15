@@ -305,6 +305,9 @@
         <value xml:lang="zh">地址</value>
         <value xml:lang="zh_CN">地址</value>
     </property>
+    <property key="CommonAdvancedFeatures">
+        <value xml:lang="en">Advanced Features</value>    
+    </property>
     <property key="CommonAdvancedSearch">
         <value xml:lang="de">Erweiterte Suche</value>
         <value xml:lang="en">Advanced Search</value>
