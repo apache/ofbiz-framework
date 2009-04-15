@@ -75,6 +75,12 @@ under the License.
         <field name="extension" title="${uiLabelMap.PartyContactExt}"><text size="6" maxlength="10"/></field>
         <field name="emailAddressTitle" title="${uiLabelMap.PartyEmailAddress}" title-area-style="group-label"><display/></field>
         <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="50" maxlength="60"/></field>
+        <field name="contactListTitle" title="${uiLabelMap.MarketingContactList}" title-area-style="group-label"><display/></field>
+        <field name="contactListId" title="${uiLabelMap.MarketingContactList}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ContactList" description="${description}" key-field-name="contactListId"/>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="MergeContacts" type="single"  target="MergeContacts">
@@ -107,6 +113,11 @@ under the License.
         <field name="firstName"  title="${uiLabelMap.CommonFirst} ${uiLabelMap.CommonName}*" widget-style="required"><text size="15"/></field>
         <field name="lastName" title="${uiLabelMap.CommonLast} ${uiLabelMap.CommonName}*" widget-style="required"><text size="15"/></field>
         <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="15"/></field>
+        <field name="contactListId" title="${uiLabelMap.MarketingContactList}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ContactList" description="${groovy:description.substring(0,12)}..." key-field-name="contactListId"/>
+            </drop-down>
+        </field>
         <field name="quickAdd"><hidden value="Y"/></field>
         <field name="submitButton"><submit/></field>
     </form>
