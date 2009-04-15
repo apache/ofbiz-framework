@@ -568,7 +568,7 @@ under the License.
                 location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="indexWorkEffortKeywords">
         <description>Index the Keywords for a WorkEffort</description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
-        <attribute name="workEffortInstance" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="workEffortInstance" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
     <service name="createWorkEffortKeyword" default-entity-name="WorkEffortKeyword" engine="simple"
                 location="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml" invoke="createWorkEffortKeyword" auth="true">
