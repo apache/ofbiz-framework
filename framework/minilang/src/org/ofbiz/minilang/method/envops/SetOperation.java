@@ -21,6 +21,9 @@ package org.ofbiz.minilang.method.envops;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
@@ -96,15 +99,21 @@ public class SetOperation extends MethodOperation {
         }
 
         if (UtilValidate.isNotEmpty(this.type)) {
-            try {
-                newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, methodContext.getTimeZone(), methodContext.getLocale(), true);
-            } catch (GeneralException e) {
-                String errMsg = "Could not convert field value for the field: [" + this.field.toString() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                methodContext.setErrorReturn(errMsg, simpleMethod);
-                return false;
+            if ("NewMap".equals(this.type)) {
+                newValue = FastMap.newInstance();
+            } else if ("NewList".equals(this.type)) {
+                newValue = FastList.newInstance();
+            } else {
+                try {
+                    newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, methodContext.getTimeZone(), methodContext.getLocale(), true);
+                } catch (GeneralException e) {
+                    String errMsg = "Could not convert field value for the field: [" + this.field.toString() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    methodContext.setErrorReturn(errMsg, simpleMethod);
+                    return false;
+                }
             }
-        }
+            }
 
         if (Debug.verboseOn()) Debug.logVerbose("In screen setting field [" + this.field.toString() + "] to value: " + newValue, module);
         this.field.put(methodContext, newValue);
