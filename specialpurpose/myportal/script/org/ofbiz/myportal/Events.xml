@@ -158,9 +158,8 @@ under the License.
 
                 <!-- Send e-mail to new create user -->
                 <entity-one entity-name="WebSite" value-field="webSite"/>
-                <set field="storeEmailLookup.productStoreId" from-field="webSite.productStoreId"/>
-                <set field="storeEmailLookup.emailType" value="PRDS_CUST_REGISTER"/>
-                <find-by-primary-key map="storeEmailLookup" entity-name="ProductStoreEmailSetting"  value-field="storeEmail"/>
+                <set field="storeEmailLookup.emailTemplateSettingId" value="PARTY_REGISTER"/>
+                <find-by-primary-key map="storeEmailLookup" entity-name="EmailTemplateSetting"  value-field="storeEmail"/>
                 <get-related-one value-field="createdUserLogin" relation-name="Person" to-value-field="person"/>
                 <set field="bodyParameters.person" from-field="person"/>
                 <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
