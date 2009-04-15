@@ -49,6 +49,7 @@
                 <set field="emailAddressCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
                 <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressCtx">
                     <result-to-field result-name="contactMechId" field="emailContactMechId"/>
+                    <result-to-result result-name="contactMechId" service-result-name="contactMechId"/>
                 </call-service>
             </if-not-empty>
         </else>

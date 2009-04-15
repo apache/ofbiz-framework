@@ -27,4 +27,18 @@ under the License.
     <eca service="updatePartyEmailAddress" event="return">
         <action service="updatePartyEmailContactListParty" mode="sync"/>
     </eca>
+
+    <!-- quick add functions which pass a contactListId as well -->
+    <eca service="createLead" event="commit">
+        <condition field-name="contactListId" operator="is-not-empty"/>
+        <set field-name="statusId" value="CLPT_ACCEPTED"/>
+        <set field-name="preferredContactMechId" env-name="contactMechId"/>
+        <action service="createContactListParty" mode="sync"/>
+    </eca>
+    <eca service="createContact" event="commit">
+        <condition field-name="contactListId" operator="is-not-empty"/>
+        <set field-name="statusId" value="CLPT_ACCEPTED"/>
+        <set field-name="preferredContactMechId" env-name="contactMechId"/>
+        <action service="createContactListParty" mode="sync"/>
+    </eca>
 </service-eca>

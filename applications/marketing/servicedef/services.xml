@@ -398,6 +398,7 @@ under the License.
             <exclude field-name="contactMechId"/>
         </auto-attributes>
         <attribute name="partyId" type="String" mode="OUT"/>
+        <attribute name="contactMechId" type="String" mode="OUT" />
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
         <attribute name="groupName" type="String" mode="IN" optional="true"/>
         <attribute name="title" type="String" mode="IN" optional="true"/>
@@ -408,6 +409,7 @@ under the License.
         <attribute name="roleTypeId" type="String" mode="OUT"/>
         <attribute name="quickAdd" type="String" mode="IN" optional="true"/>
         <attribute name="extension" type="String" mode="IN" optional="true"/>
+        <attribute name="contactListId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createContact" engine="simple"
         location="component://marketing/script/org/ofbiz/sfa/contact/ContactServices.xml" invoke="createContact">
@@ -422,10 +424,12 @@ under the License.
             <exclude field-name="contactMechId"/>
         </auto-attributes>
         <attribute name="partyId" type="String" mode="OUT"/>
+        <attribute name="contactMechId" type="String" mode="OUT" />
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
         <attribute name="quickAdd" type="String" mode="IN" optional="true"/>
         <attribute name="extension" type="String" mode="IN" optional="true"/>
+        <attribute name="contactListId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="mergeContacts" engine="simple"
         location="component://marketing/script/org/ofbiz/sfa/contact/ContactServices.xml" invoke="mergeContacts">
