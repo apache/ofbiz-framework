@@ -181,12 +181,18 @@ public abstract class ModelScreenAction implements Serializable {
             }
 
             if (UtilValidate.isNotEmpty(this.type)) {
-                try {
-                    newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
-                } catch (GeneralException e) {
-                    String errMsg = "Could not convert field value for the field: [" + this.field.getOriginalName() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
-                    Debug.logError(e, errMsg, module);
-                    throw new IllegalArgumentException(errMsg);
+                if ("NewMap".equals(this.type)) {
+                    newValue = FastMap.newInstance();
+                } else if ("NewList".equals(this.type)) {
+                    newValue = FastList.newInstance();
+                } else {
+                    try {
+                        newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
+                    } catch (GeneralException e) {
+                        String errMsg = "Could not convert field value for the field: [" + this.field.getOriginalName() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
+                        Debug.logError(e, errMsg, module);
+                        throw new IllegalArgumentException(errMsg);
+                    }
                 }
             }
 

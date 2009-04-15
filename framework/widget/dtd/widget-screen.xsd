@@ -343,6 +343,8 @@ under the License.
                     <xs:enumeration value="Timestamp"/>
                     <xs:enumeration value="Boolean"/>
                     <xs:enumeration value="Object"/>
+                    <xs:enumeration value="NewList"/>
+                    <xs:enumeration value="NewMap"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>

@@ -1358,7 +1358,7 @@ under the License.
         <xs:attribute name="type">
             <xs:annotation>
                 <xs:documentation>
-                    Type to convert to.
+                    Type to convert to. NewList will create a new List, NewMap will create a new Map.
                 </xs:documentation>
             </xs:annotation>
             <xs:simpleType>
@@ -1376,6 +1376,8 @@ under the License.
                     <xs:enumeration value="Timestamp"/>
                     <xs:enumeration value="Boolean"/>
                     <xs:enumeration value="Object"/>
+                    <xs:enumeration value="NewList"/>
+                    <xs:enumeration value="NewMap"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
