@@ -49,7 +49,7 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
     public void setDelegator(GenericDelegator delegator) {
         this.delegator = delegator;
         this.delegatorName = delegator.getDelegatorName();
-        this.entityEcaReaderName = EntityEcaUtil.getEntityEcaReaderName(this.delegatorName);
+        this.entityEcaReaderName = EntityEcaUtil.getEntityEcaReaderName(delegator.getOriginalDelegatorName());
         this.dctx = EntityServiceFactory.getDispatchContext(delegator);
 
         //preload the cache

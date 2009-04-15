@@ -26,6 +26,7 @@ import org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.entity.GenericDelegator;
 
 import java.io.*;
 import java.util.Enumeration;
@@ -111,7 +112,9 @@ public class TestRunContainer implements Container {
             throw new ContainerException("No tests found (" + component + " / " + suiteName + " / " + testCase + ")");
         }
 
-        for (TestSuite suite: jsWrapper.makeTestSuites()) {
+        for (ModelTestSuite modelSuite: jsWrapper.getModelTestSuites()) {
+            GenericDelegator testDelegator = modelSuite.getDelegator();
+            TestSuite suite = modelSuite.makeTestSuite();
             JUnitTest test = new JUnitTest();
             test.setName(suite.getName());
 
@@ -130,13 +133,14 @@ public class TestRunContainer implements Container {
 
             // add the suite to the xml listener
             xml.startTestSuite(test);
-
             // run the tests
             suite.run(results);
             test.setCounts(results.runCount(), results.failureCount(), results.errorCount());
+            // rollback all entity operations performed by the delegator
+            testDelegator.rollback();
             xml.endTestSuite(test);
 
-            // dispay the results
+            // display the results
             Debug.log("[JUNIT] Pass: " + results.wasSuccessful() + " | # Tests: " + results.runCount() + " | # Failed: " +
                     results.failureCount() + " # Errors: " + results.errorCount(), module);
             if (Debug.importantOn()) {

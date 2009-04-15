@@ -16,35 +16,26 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.testtools;
 
-import org.ofbiz.service.testtools.OFBizTestCase;
-import org.w3c.dom.Element;
+package org.ofbiz.entity.testtools;
 
-import junit.framework.TestResult;
+import junit.framework.TestCase;
 
-public class JythonTest extends OFBizTestCase {
+import org.ofbiz.entity.GenericDelegator;
 
-    public static final String module = JythonTest.class.getName();
+public class EntityTestCase extends TestCase {
 
-    protected String scriptLocation;
+    protected GenericDelegator delegator = null;
 
-    /**
-     * @param modelTestSuite
-     */
-    public JythonTest(String caseName, Element mainElement) {
-        super(caseName);
-        this.scriptLocation = mainElement.getAttribute("script-location");
+    public EntityTestCase(String name) {
+        super(name);
     }
 
-    public int countTestCases() {
-        return 1;
+    public void setDelegator(GenericDelegator delegator) {
+        this.delegator = delegator;
     }
-
-    public void run(TestResult result) {
-        // TODO Auto-generated method stub
-        result.startTest(this);
-
-        result.endTest(this);
+    
+    public GenericDelegator getDelegator() {
+        return delegator;
     }
 }

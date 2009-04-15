@@ -26,6 +26,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.service.testtools.OFBizTestCase;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -34,7 +35,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.Iterator;
 
-public class ServiceTest extends TestCaseBase {
+public class ServiceTest extends OFBizTestCase {
 
     public static final String module = ServiceTest.class.getName();
 
@@ -43,8 +44,8 @@ public class ServiceTest extends TestCaseBase {
     /**
      * @param modelTestSuite
      */
-    public ServiceTest(String caseName, ModelTestSuite modelTestSuite, Element mainElement) {
-        super(caseName, modelTestSuite);
+    public ServiceTest(String caseName, Element mainElement) {
+        super(caseName);
         this.serviceName = mainElement.getAttribute("service-name");
     }
 
@@ -54,8 +55,6 @@ public class ServiceTest extends TestCaseBase {
 
     public void run(TestResult result) {
         result.startTest(this);
-
-        LocalDispatcher dispatcher = modelTestSuite.getDispatcher();
 
         try {
 

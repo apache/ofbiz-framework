@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -113,6 +114,13 @@ public class GenericDelegator implements DelegatorInterface {
     protected static ThreadLocal<List<Object>> userIdentifierStack = new ThreadLocal<List<Object>>();
     /** A ThreadLocal variable to allow other methods to specify a session identifier (usually the visitId, though technically the Entity Engine doesn't know anything about the Visit entity) */
     protected static ThreadLocal<List<Object>> sessionIdentifierStack = new ThreadLocal<List<Object>>();
+
+    private boolean testMode = false;
+    private boolean testRollbackInProgress = false;
+    private List<TestOperation> testOperations = null;
+    private enum OperationType {INSERT, UPDATE, DELETE};
+    
+    private String originalDelegatorName = null;
 
 
     public static GenericDelegator getGenericDelegator(String delegatorName) {
@@ -287,7 +295,7 @@ public class GenericDelegator implements DelegatorInterface {
 
         // NOTE: doing some things before the ECAs and such to make sure it is in place just in case it is used in a service engine startup thing or something
         // put the delegator in the master Map by its name
-        this.delegatorCache.put(delegatorName, this);
+        GenericDelegator.delegatorCache.put(delegatorName, this);
 
         // setup the crypto class
         this.crypto = new EntityCrypto(this);
@@ -320,7 +328,12 @@ public class GenericDelegator implements DelegatorInterface {
         }
 
         // setup the Entity ECA Handler
+        initEntityEcaHandler();
+    }
+
+    public void initEntityEcaHandler() {
         if (getDelegatorInfo().useEntityEca) {
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
             // initialize the entity eca handler
             String entityEcaHandlerClassName = getDelegatorInfo().entityEcaHandlerClassName;
 
@@ -342,11 +355,15 @@ public class GenericDelegator implements DelegatorInterface {
         }
     }
 
+    public String getDelegatorName() {
+        return this.delegatorName;
+    }
+    
     /** Gets the name of the server configuration that corresponds to this delegator
      * @return server configuration name
      */
-    public String getDelegatorName() {
-        return this.delegatorName;
+    public String getOriginalDelegatorName() {
+        return this.originalDelegatorName == null ? this.delegatorName : this.originalDelegatorName;
     }
 
     protected DelegatorInfo getDelegatorInfo() {
@@ -388,7 +405,7 @@ public class GenericDelegator implements DelegatorInterface {
      *@return String with the helper name that corresponds to this delegator and the specified entityName
      */
     public String getEntityGroupName(String entityName) {
-        return getModelGroupReader().getEntityGroupName(entityName, getDelegatorName());
+        return getModelGroupReader().getEntityGroupName(entityName, getOriginalDelegatorName());
     }
 
     /** Gets a Map of entity name & entity model pairs that are in the named group
@@ -710,6 +727,10 @@ public class GenericDelegator implements DelegatorInterface {
 
             try {
                 value = helper.create(value);
+
+                if (testMode) {
+                    storeForTestRollback(new TestOperation(OperationType.INSERT, value));
+                }
             } catch (GenericEntityException e) {
                 // see if this was caused by an existing record before resetting the sequencer and trying again
                 // NOTE: use the helper directly so ECA rules, etc won't be run
@@ -725,6 +746,10 @@ public class GenericDelegator implements DelegatorInterface {
                     value.setNextSeqId();
                     value = helper.create(value);
                     Debug.logInfo("Successfully created new entity record on retry with a sequenced value [" + value.getPrimaryKey() + "], after getting refreshed bank for entity [" + value.getEntityName() + "]", module);
+
+                    if (testMode) {
+                        storeForTestRollback(new TestOperation(OperationType.INSERT, value));
+                    }
                 }
             }
 
@@ -792,6 +817,9 @@ public class GenericDelegator implements DelegatorInterface {
 
             value = helper.create(value);
 
+            if (testMode) {
+                storeForTestRollback(new TestOperation(OperationType.INSERT, value));
+            }
             if (value != null) {
                 value.setDelegator(this);
                 if (value.lockEnabled()) {
@@ -874,7 +902,7 @@ public class GenericDelegator implements DelegatorInterface {
 
     protected void saveEntitySyncRemoveInfo(GenericEntity dummyPK) throws GenericEntityException {
         // don't store remove info on entities where it is disabled
-        if (dummyPK.getModelEntity().getNoAutoStamp()) {
+        if (dummyPK.getModelEntity().getNoAutoStamp() || this.testRollbackInProgress) {
             return;
         }
 
@@ -940,8 +968,16 @@ public class GenericDelegator implements DelegatorInterface {
                 createEntityAuditLogAll(this.findOne(primaryKey.getEntityName(), primaryKey, false), true, true);
             }
 
+            GenericValue removedEntity = null;
+            if (testMode) {
+                removedEntity = this.findOne(primaryKey.entityName, primaryKey, false);
+            }
             int num = helper.removeByPrimaryKey(primaryKey);
             this.saveEntitySyncRemoveInfo(primaryKey);
+
+            if (testMode) {
+                storeForTestRollback(new TestOperation(OperationType.DELETE, removedEntity));
+            }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_REMOVE, primaryKey, false);
 
@@ -1001,7 +1037,17 @@ public class GenericDelegator implements DelegatorInterface {
                 createEntityAuditLogAll(value, true, true);
             }
 
+            GenericValue removedValue = null;
+            if (testMode) {
+                removedValue = this.findOne(value.getEntityName(), value.getPrimaryKey(), false);
+            }
+
             int num = helper.removeByPrimaryKey(value.getPrimaryKey());
+
+            if (testMode) {
+                storeForTestRollback(new TestOperation(OperationType.DELETE, removedValue));
+            }
+
             this.saveEntitySyncRemoveInfo(value.getPrimaryKey());
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_REMOVE, value, false);
@@ -1092,7 +1138,20 @@ public class GenericDelegator implements DelegatorInterface {
             ModelEntity modelEntity = getModelReader().getModelEntity(entityName);
             GenericHelper helper = getEntityHelper(entityName);
 
-            return helper.removeByCondition(modelEntity, condition);
+            List<GenericValue> removedEntities = null;
+            if (testMode) {
+                removedEntities = this.findList(entityName, condition, null, null, null, false);
+            }
+
+            int rowsAffected = helper.removeByCondition(modelEntity, condition);
+
+            if (testMode) {
+                for (GenericValue entity : removedEntities) {
+                    storeForTestRollback(new TestOperation(OperationType.DELETE, entity));
+                }
+            }
+
+            return rowsAffected;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in removeByCondition operation for entity [" + entityName + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
@@ -1209,7 +1268,20 @@ public class GenericDelegator implements DelegatorInterface {
             ModelEntity modelEntity = getModelReader().getModelEntity(entityName);
             GenericHelper helper = getEntityHelper(entityName);
 
-            return helper.storeByCondition(modelEntity, fieldsToSet, condition);
+            List<GenericValue> updatedEntities = null;
+            if (testMode) {
+                updatedEntities = this.findList(entityName, condition, null, null, null, false);
+            }
+
+            int rowsAffected =  helper.storeByCondition(modelEntity, fieldsToSet, condition);
+
+            if (testMode) {
+                for (GenericValue entity : updatedEntities) {
+                    storeForTestRollback(new TestOperation(OperationType.UPDATE, entity));
+                }
+            }
+
+            return rowsAffected;
         } catch (GenericEntityException e) {
             String errMsg = "Failure in storeByCondition operation for entity [" + entityName + "]: " + e.toString() + ". Rolling back transaction.";
             Debug.logError(e, errMsg, module);
@@ -1265,8 +1337,17 @@ public class GenericDelegator implements DelegatorInterface {
                 createEntityAuditLogAll(value, true, false);
             }
 
+            GenericValue updatedEntity = null;
+
+            if (testMode) {
+                updatedEntity = this.findOne(value.entityName, value.getPrimaryKey(), false);
+            }
+
             int retVal = helper.store(value);
 
+            if (testMode) {
+                storeForTestRollback(new TestOperation(OperationType.UPDATE, updatedEntity));
+            }
             // refresh the valueObject to get the new version
             if (value.lockEnabled()) {
                 refresh(value, doCacheClear);
@@ -3003,6 +3084,7 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     protected EntityEcaRuleRunner<?> getEcaRuleRunner(String entityName) {
+        if (this.testRollbackInProgress) return createEntityEcaRuleRunner(null, null);
         return createEntityEcaRuleRunner(this.entityEcaHandler, entityName);
     }
 
@@ -3274,7 +3356,7 @@ public class GenericDelegator implements DelegatorInterface {
     }
 
     protected void createEntityAuditLogSingle(GenericValue value, ModelField mf, boolean isUpdate, boolean isRemove) throws GenericEntityException {
-        if (value == null || mf == null || !mf.getEnableAuditLog()) {
+        if (value == null || mf == null || !mf.getEnableAuditLog() || this.testRollbackInProgress) {
             return;
         }
 
@@ -3345,8 +3427,12 @@ public class GenericDelegator implements DelegatorInterface {
         newDelegator.cache = this.cache;
         newDelegator.andCacheFieldSets = this.andCacheFieldSets;
         newDelegator.distributedCacheClear = this.distributedCacheClear;
+        newDelegator.originalDelegatorName = getOriginalDelegatorName();
         newDelegator.entityEcaHandler = this.entityEcaHandler;
         newDelegator.crypto = this.crypto;
+        // In case this delegator is in testMode give it a reference to
+        // the rollback list
+        newDelegator.testOperations = this.testOperations;
         // not setting the sequencer so that we have unique sequences.
 
         return newDelegator;
@@ -3354,5 +3440,72 @@ public class GenericDelegator implements DelegatorInterface {
 
     public GenericDelegator cloneDelegator() {
         return this.cloneDelegator(this.delegatorName);
+    }
+    
+    public GenericDelegator makeTestDelegator(String delegatorName) {
+        GenericDelegator testDelegator = this.cloneDelegator(delegatorName);
+        testDelegator.initEntityEcaHandler();
+        testDelegator.setTestMode(true);
+        return testDelegator;
+    }
+
+    private void setTestMode(boolean testMode) {
+        this.testMode = testMode;
+        if (testMode) {
+            this.testOperations = FastList.newInstance();
+        } else {
+            this.testOperations.clear();
+        }
+    }
+    
+    private void storeForTestRollback(TestOperation testOperation) {
+        if (!this.testMode || this.testRollbackInProgress) {
+            throw new IllegalStateException("An attempt was made to store a TestOperation during rollback or outside of test mode");
+        }
+        this.testOperations.add(testOperation);
+    }
+
+    public void rollback() {
+        if (!this.testMode) {
+            Debug.logError("Rollback requested outside of testmode", module);
+        }
+        this.testMode = false;
+        this.testRollbackInProgress = true;
+        synchronized (testOperations) {
+            Debug.logInfo("Rolling back " + testOperations.size() + " entity operations", module);
+            ListIterator<TestOperation> iterator = this.testOperations.listIterator(this.testOperations.size());
+            while (iterator.hasPrevious()) {
+                TestOperation testOperation = iterator.previous();
+                try {
+                    if (testOperation.getOperation().equals(OperationType.INSERT)) {
+                        this.removeValue(testOperation.getValue());
+                    } else if (testOperation.getOperation().equals(OperationType.UPDATE)) {
+                        this.store(testOperation.getValue());
+                    } else if (testOperation.getOperation().equals(OperationType.DELETE)) {
+                        this.create(testOperation.getValue());
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logWarning(e.toString(), module);
+                }
+            }
+            this.testOperations.clear();
+        }
+        this.testRollbackInProgress = false;
+        this.testMode = true;
+    }
+
+    public class TestOperation {
+        private final OperationType operation;
+        public OperationType getOperation() {
+            return operation;
+        }
+        public GenericValue getValue() {
+            return value;
+        }
+        private final GenericValue value;
+        public TestOperation(OperationType operation, GenericValue value) {
+            this.operation = operation;
+            this.value = value;
+        }
     }
 }

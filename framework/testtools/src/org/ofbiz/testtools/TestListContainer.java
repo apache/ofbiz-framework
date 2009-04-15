@@ -18,25 +18,20 @@
  *******************************************************************************/
 package org.ofbiz.testtools;
 
-import org.ofbiz.base.component.AlreadyLoadedException;
-import org.ofbiz.base.component.ComponentConfig;
-import org.ofbiz.base.component.ComponentException;
-import org.ofbiz.base.config.GenericConfigException;
-import org.ofbiz.base.config.ResourceHandler;
-import org.ofbiz.base.container.ComponentContainer;
-import org.ofbiz.base.container.Container;
-import org.ofbiz.base.container.ContainerException;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilXml;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.List;
 
 import javolution.util.FastList;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
-import java.util.List;
+import org.ofbiz.base.component.ComponentConfig;
+import org.ofbiz.base.config.GenericConfigException;
+import org.ofbiz.base.config.ResourceHandler;
+import org.ofbiz.base.container.Container;
+import org.ofbiz.base.container.ContainerException;
+import org.ofbiz.base.util.Debug;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

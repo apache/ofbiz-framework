@@ -279,7 +279,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         return modelEntity;
     }
 
-    /** Get the GenericDelegator instance that created this value object and that is repsonsible for it.
+    /** Get the GenericDelegator instance that created this value object and that is responsible for it.
      *@return GenericDelegator object
      */
     public GenericDelegator getDelegator() {
@@ -293,7 +293,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         return internalDelegator;
     }
 
-    /** Set the GenericDelegator instance that created this value object and that is repsonsible for it. */
+    /** Set the GenericDelegator instance that created this value object and that is responsible for it. */
     public void setDelegator(GenericDelegator internalDelegator) {
         if (internalDelegator == null) return;
         this.delegatorName = internalDelegator.getDelegatorName();

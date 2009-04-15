@@ -94,13 +94,17 @@ public class ServiceDispatcher {
             try {
                 this.security = SecurityFactory.getInstance(delegator);
             } catch (SecurityConfigurationException e) {
-                Debug.logError(e, "[ServiceDispatcher.init] : No instance of security imeplemtation found.", module);
+                Debug.logError(e, "[ServiceDispatcher.init] : No instance of security implementation found.", module);
             }
         }
 
         // job manager needs to always be running, but the poller thread does not
         try {
-            this.jm = new JobManager(this.delegator, enableJM);
+            GenericDelegator origDelegator = this.delegator;
+            if (!this.delegator.getOriginalDelegatorName().equals(this.delegator.getDelegatorName())) {
+                origDelegator = GenericDelegator.getGenericDelegator(this.delegator.getOriginalDelegatorName());
+            }
+            this.jm = JobManager.getInstance(origDelegator, enableJM);
         } catch (GeneralRuntimeException e) {
             Debug.logWarning(e.getMessage(), module);
         }
@@ -155,6 +159,7 @@ public class ServiceDispatcher {
                 }
             }
         }
+
         if (name != null && context != null) {
             sd.register(name, context);
         }

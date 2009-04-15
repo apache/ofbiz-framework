@@ -76,19 +76,8 @@ public class JunitSuiteWrapper {
         }
     }
 
-    public List<TestSuite> makeTestSuites() {
-        List<TestSuite> testSuites = FastList.newInstance();
-
-        for (ModelTestSuite modelTestSuite: this.modelTestSuiteList) {
-            TestSuite suite = new TestSuite();
-            suite.setName(modelTestSuite.getSuiteName());
-            for (Test tst: modelTestSuite.getTestList()) {
-                suite.addTest(tst);
-            }
-            testSuites.add(suite);
-        }
-
-        return testSuites;
+    public List<ModelTestSuite> getModelTestSuites() {
+        return this.modelTestSuiteList;
     }
 
     public List<Test> getAllTestList() {

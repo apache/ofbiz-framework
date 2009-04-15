@@ -49,12 +49,12 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
     public static LocalDispatcher getLocalDispatcher(String dispatcherName, GenericDelegator delegator, Collection<URL> readerURLs, ClassLoader loader, ServiceDispatcher serviceDispatcher) {
         if (dispatcherName == null) {
             dispatcherName = "default";
-            Debug.logWarning("Got a getGenericDelegator call with a null dispatcherName, assuming default for the name.", module);
+            Debug.logWarning("Got a getGenericDispatcher call with a null dispatcherName, assuming default for the name.", module);
         }
         LocalDispatcher dispatcher = dispatcherCache.get(dispatcherName);
 
         if (dispatcher == null) {
-            synchronized (GenericDelegator.class) {
+            synchronized (GenericDispatcher.class) {
                 // must check if null again as one of the blocked threads can still enter
                 dispatcher = dispatcherCache.get(dispatcherName);
                 if (dispatcher == null) {
@@ -69,7 +69,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
                         loader = GenericDispatcher.class.getClassLoader();
                     }
 
-                    ServiceDispatcher sd = serviceDispatcher != null? serviceDispatcher : ServiceDispatcher.getInstance(dispatcherName, delegator);
+                    ServiceDispatcher sd = serviceDispatcher != null ? serviceDispatcher : ServiceDispatcher.getInstance(dispatcherName, delegator);
                     LocalDispatcher thisDispatcher = null;
                     if (sd != null) {
                         dispatcher = sd.getLocalDispatcher(dispatcherName);

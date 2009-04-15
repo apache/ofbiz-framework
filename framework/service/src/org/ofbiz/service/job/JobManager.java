@@ -82,6 +82,15 @@ public class JobManager {
         jp = new JobPoller(this, enabled);
         JobManager.registeredManagers.put(delegator.getDelegatorName(), this);
     }
+    
+    public static JobManager getInstance(GenericDelegator delegator, boolean enabled)
+    {
+        JobManager jm = JobManager.registeredManagers.get(delegator.getDelegatorName());
+        if (jm == null) {
+            jm = new JobManager(delegator, enabled);
+        }
+        return jm;
+    }
 
     /** Queues a Job to run now. */
     public void runJob(Job job) throws JobManagerException {

@@ -32,6 +32,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.service.testtools.OFBizTestCase;
 
 
 /**
@@ -39,28 +40,18 @@ import org.ofbiz.service.ModelService;
  *
  * These were created for simple validation only.
  */
-public class UspsServicesTests extends TestCase {
+public class UspsServicesTests extends OFBizTestCase {
 
     public static String module = UspsServicesTests.class.getName();
-
-    public static final String DELEGATOR_NAME = "test";
-    public static final String DISPATCHER_NAME = "test-dispatcher";
-
-    private GenericDelegator delegator = null;
-    private LocalDispatcher dispatcher = null;
-
 
     public UspsServicesTests(String name) {
         super(name);
     }
 
     protected void setUp() throws Exception {
-        delegator = GenericDelegator.getGenericDelegator(DELEGATOR_NAME);
-        dispatcher = GenericDispatcher.getLocalDispatcher(DISPATCHER_NAME, delegator);
     }
 
     protected void tearDown() throws Exception {
-        dispatcher.deregister();
     }
 
     public void testUspsTrackConfirm() throws Exception {

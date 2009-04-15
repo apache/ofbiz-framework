@@ -16,22 +16,25 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.testtools;
 
-import junit.framework.Test;
+package org.ofbiz.service.testtools;
 
-/**
- * Base class for OFBiz Test Tools test case implementations.
- */
-public abstract class TestCaseBase implements Test {
+import org.ofbiz.entity.testtools.EntityTestCase;
+import org.ofbiz.service.LocalDispatcher;
 
-    public static final String module = TestCaseBase.class.getName();
+public class OFBizTestCase extends EntityTestCase {
 
-    protected ModelTestSuite modelTestSuite;
-    protected String caseName;
+    protected LocalDispatcher dispatcher = null;
+    
+    public LocalDispatcher getDispatcher() {
+        return dispatcher;
+    }
 
-    public TestCaseBase(String caseName, ModelTestSuite modelTestSuite) {
-        this.modelTestSuite = modelTestSuite;
-        this.caseName = caseName;
+    public OFBizTestCase(String name) {
+        super(name);
+    }
+
+    public void setDispatcher(LocalDispatcher dispatcher) {
+        this.dispatcher = dispatcher;
     }
 }
