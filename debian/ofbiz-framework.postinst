@@ -159,6 +159,15 @@ start_ofbiz() {
 		fi
 	fi
 }
+stop_ofbiz() {
+	if [ -x "/etc/init.d/ofbiz" ]; then
+		if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+			invoke-rc.d ofbiz stop || exit $?
+		else
+			/etc/init.d/ofbiz stop || exit $?
+		fi
+	fi
+}
 
 . /usr/share/debconf/confmodule
 . /usr/share/dbconfig-common/dpkg/postinst
@@ -174,31 +183,34 @@ else
 fi
 
 if [ "$1" = "triggered" ]; then
-	case "$2" in
-		(ofbiz-daemon)
-			start_ofbiz
-			;;
-		(ofbiz-install|ofbiz-upgrade)
-			ofbiz_reseed=""
-			if [ "$2" = "ofbiz-install" ]; then
-				ofbiz_reseed=1
-				ofbiz_import_readers=1
-			fi
-			get ofbiz_readers ofbiz/readers ofbiz_import_readers ofbiz_reseed
-			if [ "z" = "z$ofbiz_readers" ]; then
-				ofbiz_readers="seed"
-			else
-				ofbiz_readers="seed,$ofbiz_readers"
-			fi
-			ofbiz_readers="$(fix_readers "$ofbiz_readers")"
-			get ofbiz_admin_port ofbiz/admin-port
-			if [ "z" != "z$ofbiz_reseed" ]; then
-				echo "Need to modify ofbiz data." 1>&2
-				configure_ofbiz
-			fi
-			start_ofbiz
-			;;
-	esac
+	for trigger in $2; do
+		case "$trigger" in
+			(ofbiz-start)
+				start_ofbiz
+				;;
+			(ofbiz-install|ofbiz-upgrade)
+				ofbiz_reseed=""
+				if [ "$trigger" = "ofbiz-install" ]; then
+					ofbiz_reseed=1
+					ofbiz_import_readers=1
+				fi
+				get ofbiz_readers ofbiz/readers ofbiz_import_readers ofbiz_reseed
+				if [ "z" = "z$ofbiz_readers" ]; then
+					ofbiz_readers="seed"
+				else
+					ofbiz_readers="seed,$ofbiz_readers"
+				fi
+				ofbiz_readers="$(fix_readers "$ofbiz_readers")"
+				get ofbiz_admin_port ofbiz/admin-port
+				stop_ofbiz
+				if [ "z" != "z$ofbiz_reseed" ]; then
+					echo "Need to modify ofbiz data." 1>&2
+					configure_ofbiz
+				fi
+				dpkg-trigger --no-await ofbiz-start
+				;;
+		esac
+	done
 	db_stop
 	exit 0
 fi
@@ -218,7 +230,6 @@ case "$1" in
 	;;
 esac
 #DEBHELPER#
-start_ofbiz
 db_stop
 exit
 
