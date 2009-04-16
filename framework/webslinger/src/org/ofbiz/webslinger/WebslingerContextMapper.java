@@ -40,6 +40,7 @@ import org.ofbiz.entity.cache.Cache;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.SecurityFactory;
 import org.ofbiz.service.GenericDispatcher;
+import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.webslinger.AbstractMappingWebslingerServletContextFactory;
 import org.webslinger.WebslingerServletContext;
@@ -109,7 +110,11 @@ public class WebslingerContextMapper extends AbstractMappingWebslingerServletCon
             }
         }
         System.err.println(readerURLs);
-        return GenericDispatcher.getLocalDispatcher(name, delegator, readerURLs, null);
+        try {
+            return GenericDispatcher.newInstance(name, delegator, readerURLs, true, true, true);
+        } catch (GenericServiceException e) {
+            throw (IOException) new IOException(e.getMessage()).initCause(e);
+        }
     }
 
     protected Set<String> getSuffixes() throws Exception {
