@@ -2292,7 +2292,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             renderSortField (writer, context, modelFormField, titleText);
         } else if (modelFormField.isRowSubmit()) {
             StringWriter sr = new StringWriter();
-            sr.append("<@renderFieldTitle ");
+            sr.append("<@renderHyperlinkTitle ");
             sr.append(" name=\"");
             sr.append(modelFormField.getModelForm().getName());
             sr.append("\" title=\"");
