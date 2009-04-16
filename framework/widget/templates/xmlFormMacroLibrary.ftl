@@ -55,7 +55,7 @@ under the License.
 <#macro renderCheckField items className alert allChecked currentValue name event action></#macro>
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event action></#macro>
 
-<#macro renderSubmitField buttonType className alert formName title name event action imgSrc></#macro>
+<#macro renderSubmitField buttonType className alert formName title name event action imgSrc containerId ajaxUrl></#macro>
 <#macro renderResetField className alert name title></#macro>
 
 <#macro renderHiddenField name value></#macro>

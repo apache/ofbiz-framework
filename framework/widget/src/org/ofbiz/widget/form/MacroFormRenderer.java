@@ -851,6 +851,24 @@ public class MacroFormRenderer implements FormStringRenderer {
                 alert = "true";
             }
         }
+
+        String formId = modelForm.getContainerId();
+        List<ModelForm.UpdateArea> updateAreas = modelForm.getOnSubmitUpdateAreas();
+        // This is here for backwards compatibility. Use on-event-update-area
+        // elements instead.
+        String backgroundSubmitRefreshTarget = submitField.getBackgroundSubmitRefreshTarget(context);
+        if (UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) {
+            if (updateAreas == null) {
+                updateAreas = FastList.newInstance();
+            }
+            updateAreas.add(new ModelForm.UpdateArea("submit", formId, backgroundSubmitRefreshTarget));
+        }
+
+        boolean ajaxEnabled = (updateAreas != null || UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) && this.javaScriptEnabled;
+        String ajaxUrl = "";
+        if (ajaxEnabled) {
+            ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, null, context);
+        }
         StringWriter sr = new StringWriter();
         sr.append("<@renderSubmitField ");
         sr.append("buttonType=\"");
@@ -875,6 +893,14 @@ public class MacroFormRenderer implements FormStringRenderer {
         }
         sr.append("\" imgSrc=\"");
         sr.append(imgSrc);
+        sr.append("\" containerId=\"");
+        if (ajaxEnabled) {
+            sr.append(formId);
+        }
+        sr.append("\" ajaxUrl=\"");
+        if (ajaxEnabled) {
+            sr.append(ajaxUrl);
+        }
         sr.append("\" />");
         executeMacro(writer, sr.toString());
         this.appendTooltip(writer, context, modelFormField);
