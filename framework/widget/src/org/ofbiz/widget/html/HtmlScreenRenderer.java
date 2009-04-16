@@ -68,7 +68,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
     }
 
     public String getRendererName() {
-        return module;
+        return "html";
     }
 
     public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
