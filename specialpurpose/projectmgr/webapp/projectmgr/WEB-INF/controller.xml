@@ -113,7 +113,7 @@
     </request-map>
     <request-map uri="addResource">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="addProjectMgrResource" path="org/ofbiz/project/ProjectSimpleEvents.xml"/>
+        <event type="simple" invoke="addProjectMgrResource" path="component://project/script/org/ofbiz/project/ProjectSimpleEvents.xml"/>
         <response name="success" type="view" value="FindResource"/>
     </request-map>
     <request-map uri="removeResource">
@@ -149,7 +149,7 @@
     </request-map>
     <request-map uri="setTaskStatusToComplete">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="setTaskStatusToComplete" path="org/ofbiz/project/ProjectSimpleEvents.xml"/>
+        <event type="simple" invoke="setTaskStatusToComplete" path="component://project/script/org/ofbiz/project/ProjectSimpleEvents.xml"/>
         <response name="success" type="view" value="taskView"/>
     </request-map>
     <request-map uri="setTaskStatus">
@@ -250,7 +250,7 @@
 
     <request-map uri="createTaskAndAssoc">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
+        <event type="simple" path="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
         <response name="success" type="view" value="EditProjectTasks"/>
         <response name="error" type="view" value="EditProjectTasks"/>
     </request-map>
@@ -271,7 +271,7 @@
 
     <request-map uri="createTaskListAndAssoc">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
+        <event type="simple" path="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
         <response name="success" type="view" value="Dependencies"/>
         <response name="error" type="view" value="Dependencies"/>
     </request-map>
@@ -288,7 +288,7 @@
     </request-map>
     <request-map uri="createPhaseAndAssoc">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
+        <event type="simple" path="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
         <response name="success" type="view" value="FindPhase"/>
         <response name="error" type="view" value="FindPhase"/>
     </request-map>
@@ -398,7 +398,7 @@
     </request-map>
     <request-map uri="createTaskNote">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortNote"/>
+        <event type="simple" path="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortNote"/>
         <response name="success" type="view" value="EditTaskNotes"/>
         <response name="error" type="view" value="EditTaskNotes"/>
     </request-map>
@@ -430,7 +430,7 @@
     </request-map>
     <request-map uri="createNewNotesForProject">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortNote"/>
+        <event type="simple" path="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortNote"/>
         <response name="success" type="view" value="projectView"/>
         <response name="error" type="view" value="projectView"/>
     </request-map>
@@ -440,7 +440,7 @@
     </request-map>
     <request-map uri="createNewNotesForTask">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortNote"/>
+        <event type="simple" path="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortNote"/>
         <response name="success" type="view" value="taskView"/>
         <response name="error" type="view" value="taskView"/>
     </request-map>
@@ -494,7 +494,7 @@
     </request-map>
     <request-map uri="acceptRequestAndConnectToTask">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="acceptRequestAndConnectToTask" path="org/ofbiz/project/ProjectSimpleEvents.xml"/>
+        <event type="simple" invoke="acceptRequestAndConnectToTask" path="component://project/script/org/ofbiz/project/ProjectSimpleEvents.xml"/>
         <response name="success" type="request" value="taskView"/>
         <response name="error" type="view" value="EditTaskFromRequest"/>
     </request-map>
@@ -504,7 +504,7 @@
     </request-map>
     <request-map uri="createrequest">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="CreateCustRequestAndAssignTaskToPerson" path="org/ofbiz/project/ProjectSimpleEvents.xml"/>
+        <event type="simple" invoke="CreateCustRequestAndAssignTaskToPerson" path="component://project/script/org/ofbiz/project/ProjectSimpleEvents.xml"/>
         <response name="success" type="view-home" value="RequestList"/>
         <response name="error" type="view" value="EditRequest"/>
     </request-map>
@@ -606,12 +606,12 @@
     </request-map>
     <request-map uri="createProjectContent">
         <security auth="true" https="true"/>
-        <event type="simple" path="org/ofbiz/project/ProjectSimpleEvents.xml" invoke="createWorkEffortContent"/>
+        <event type="simple" path="component://project/script/org/ofbiz/project/ProjectSimpleEvents.xml" invoke="createWorkEffortContent"/>
         <response name="success" type="request-redirect" value="EditProjectContents"/>
     </request-map>
     <request-map uri="updateProjectContent">
         <security auth="true" https="true"/>
-        <event type="simple" path="org/ofbiz/project/ProjectSimpleEvents.xml" invoke="updateWorkEffortContent"/>
+        <event type="simple" path="component://project/script/org/ofbiz/project/ProjectSimpleEvents.xml" invoke="updateWorkEffortContent"/>
         <response name="success" type="view" value="EditProjectContents"/>
     </request-map>
     <request-map uri="deleteProjectContent">
@@ -626,12 +626,12 @@
     </request-map>
     <request-map uri="createTaskContent">
         <security auth="true" https="true"/>
-        <event type="simple" path="org/ofbiz/project/ProjectSimpleEvents.xml" invoke="createWorkEffortContent"/>
+        <event type="simple" path="component://project/script/org/ofbiz/project/ProjectSimpleEvents.xml" invoke="createWorkEffortContent"/>
         <response name="success" type="request-redirect" value="EditTaskContents"/>
     </request-map>
     <request-map uri="updateTaskContent">
         <security auth="true" https="true"/>
-        <event type="simple" path="org/ofbiz/project/ProjectSimpleEvents.xml" invoke="updateWorkEffortContent"/>
+        <event type="simple" path="component://project/script/org/ofbiz/project/ProjectSimpleEvents.xml" invoke="updateWorkEffortContent"/>
         <response name="success" type="view" value="EditTaskContents"/>
     </request-map>
     <request-map uri="deleteTaskContent">
