@@ -47,7 +47,7 @@ under the License.
                     </not>
                 </and>
             </condition>
-            <link target="PreviewContactListCommEvent">
+            <link target="PreviewContactListCommEvent" target-window="_blank">
                 <parameter param-name="communicationEventId"/>
                 <parameter param-name="contactListId"/>
             </link>

@@ -486,13 +486,18 @@ under the License.
 
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 <entity-one entity-name="ContactList" value-field="contactList"/>
+                <entity-one entity-name="ContactMech" value-field="contactMech">
+                    <field-map field-name="contactMechId" from-field="communicationEvent.contactMechIdFrom"/>
+                </entity-one>
+
+                <set field="content" value="${groovy:org.ofbiz.base.util.StringUtil.wrapString(communicationEvent.content)}"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <include-form name="PreviewContactListCommEvent" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>                        
-                    </decorator-section>
-                </decorator-screen>
+                <platform-specific>
+                    <html>
+                        <html-template location="component://marketing/webapp/marketing/contact/ContactCommunicationPreview.ftl"/>
+                    </html>
+                </platform-specific>                
             </widgets>
         </section>
     </screen>
