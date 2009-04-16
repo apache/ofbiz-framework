@@ -37,4 +37,34 @@ under the License.
             </link>
         </menu-item>
     </menu>
+
+    <menu name="ContactListCommBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="Preview" title="Preview">
+            <condition>
+                <and>
+                    <not>
+                        <if-empty field="communicationEvent"/>
+                    </not>
+                </and>
+            </condition>
+            <link target="PreviewContactListCommEvent">
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="contactListId"/>
+            </link>
+        </menu-item>
+        <menu-item name="Publish" title="Publish">            
+            <condition>
+                <and>
+                    <not>
+                        <if-empty field="communicationEvent"/>
+                    </not>
+                    <if-compare field="communicationEvent.statusId" operator="equals" value="COM_PENDING"/>
+                </and>
+            </condition>
+            <link target="updateContactListCommEvent" link-type="hidden-form">                
+                <parameter param-name="communicationEventId"/>
+                <parameter param-name="statusId" value="COM_IN_PROGRESS"/>                
+            </link>
+        </menu-item>        
+    </menu>
 </menus>

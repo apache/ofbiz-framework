@@ -236,12 +236,12 @@ under the License.
             </drop-down>
         </field>
         <field name="statusId" use-when="communicationEvent!=null" title="${uiLabelMap.CommonStatus}">
-            <drop-down allow-empty="false" current-description="${uiLabelMap.CommonSelectOne}">
+            <drop-down allow-empty="false" no-current-selected-key="COM_PENDING" current-description="${uiLabelMap.CommonSelectOne}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" value="${communicationEvent.statusId}"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
-            </drop-down>
+            </drop-down>            
         </field>
 
         <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}" use-when="commEventContactMechType!=null&amp;&amp;parentCommEventContactMechType==null">
@@ -301,8 +301,8 @@ under the License.
         </field>
         <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10"/></field>
         <field name="note" title="${uiLabelMap.CommonNote}"><textarea cols="60" rows="3"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/>        </field>
-        <field name="cancelLink" title="${uiLabelMap.CommonCancel}" widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
+        <field name="submitButton" title=" ${uiLabelMap.CommonSave} "><submit button-type="button"/></field>
+        <field name="cancelLink" title=" " widget-style="buttontext"><hyperlink target="${donePage}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
 
         <sort-order>
             <field-group title="${uiLabelMap.CommonAdvancedFeatures}" collapsible="true" initially-collapsed="true">
@@ -485,5 +485,38 @@ under the License.
         </field>
         <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}"><display-entity entity-name="ContactMechType"/></field>
         <field name="cmDetail"><display description="[${infoString}] [${tnCountryCode}-${tnAreaCode}-${tnContactNumber}] [${paAddress1}, ${paAddress2}, ${paCity}, ${paStateProvinceGeoId}, ${paPostalCode}, ${paPostalCodeExt} ${paCountryGeoId}]" also-hidden="false"/></field>
+    </form>
+
+    <form name="ListContactListCommStatuses" type="list"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-and entity-name="ContactListCommStatus" use-cache="true">
+                <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
+            </entity-and>
+        </actions>
+        <field name="communicationEventId"><hidden/></field>
+        <field name="contactListId"><display-entity entity-name="ContactList" description="${decription}"/></field>
+        <field name="partyId" title="${uiLabelMap.PartyPartyId}">
+            <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
+                <sub-hyperlink target="viewprofile" link-style="smallSubmit" description="${partyId}">
+                    <parameter param-name="partyId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="contactMechId"><display-entity entity-name="ContactMech" description="${infoString}"/></field>
+        <field name="lastUpdatedStamp" title="${uiLabelMap.FormFieldTitle_lastModifiedDate}"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+    </form>
+
+    <form name="PreviewContactListCommEvent" target="" title="" type="single" default-map-name="communicationEvent">
+        <field name="subject"><display/></field>
+        <field name="content" title=" "><display type="text"/></field>
+
+        <sort-order>
+            <sort-field name="subject"/>
+            <field-group>
+                <sort-field name="content"/>
+            </field-group>
+        </sort-order>
     </form>
 </forms>

@@ -135,10 +135,22 @@ public class CommunicationEventServices {
                 sendMailParams.put("sendTo", sendTo);
                 sendMailParams.put("partyId", communicationEvent.getString("partyIdTo"));  // who it's going to
 
-                // send it
-                Map<String, Object> tmpResult = dispatcher.runSync("sendMail", sendMailParams);
+                // send it - using a new transaction
+                Map<String, Object> tmpResult = dispatcher.runSync("sendMail", sendMailParams, 360, true);
                 if (ServiceUtil.isError(tmpResult)) {
-                    errorMessages.add(ServiceUtil.getErrorMessage(tmpResult));
+                    if (ServiceUtil.getErrorMessage(tmpResult).startsWith("[ADDRERR]")) {
+                        // address error; mark the communication event as BOUNCED
+                        communicationEvent.set("statusId", "COM_BOUNCED");
+                        try {
+                            communicationEvent.store();
+                        } catch (GenericEntityException e) {
+                            Debug.logError(e, module);
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
+                    } else {
+                        // setup or communication error
+                        errorMessages.add(ServiceUtil.getErrorMessage(tmpResult));
+                    }
                 } else {
                     // set the message ID on this communication event
                     String messageId = (String) tmpResult.get("messageId");
@@ -229,7 +241,7 @@ public class CommunicationEventServices {
             // Send an email to each contact list member
             // TODO: Contact lists for emails really should be written as an EntityListIterator for very large lists!
             List<String> orderBy = UtilMisc.toList("-fromDate");
-            for (GenericValue contactListPartyAndContactMech: sendToEmails) {
+            for (GenericValue contactListPartyAndContactMech : sendToEmails) {
                 // Any exceptions thrown in this inner block will only relate to a single email of the list, so should
                 //  only be logged and not cause the service to return an error
                 try {
@@ -283,16 +295,38 @@ public class CommunicationEventServices {
                         continue;
                     }
 
-                    Map<String, Object> tmpResult = null;
-
                     // Make the attempt to send the email to the address
-                    tmpResult = dispatcher.runSync("sendMail", sendMailParams);
+                    Map<String, Object> tmpResult = dispatcher.runSync("sendMail", sendMailParams, 360, true);
                     if (tmpResult == null || ServiceUtil.isError(tmpResult)) {
-
-                        // If the send attempt fails, just log and skip the email address
-                        Debug.logError(errorCallingSendMailService + ": " + ServiceUtil.getErrorMessage(tmpResult), module);
-                        errorMessages.add(errorCallingSendMailService + ": " + ServiceUtil.getErrorMessage(tmpResult));
-                        continue;
+                        if (ServiceUtil.getErrorMessage(tmpResult).startsWith("[ADDRERR]")) {
+                            // address error; mark the communication event as BOUNCED
+                            communicationEvent.set("statusId", "COM_BOUNCED");
+                            contactListCommStatusRecord.set("statusId", "COM_BOUNCED");
+                            try {
+                                communicationEvent.store();
+                                contactListCommStatusRecord.store();
+                            } catch (GenericEntityException e) {
+                                Debug.logError(e, module);
+                                errorMessages.add(e.getMessage());
+                            }
+                            // deactivate from the contact list
+                            try {
+                                GenericValue contactListParty = contactListPartyAndContactMech.getRelatedOne("ContactListParty");
+                                if (contactListParty != null) {
+                                    contactListParty.set("statusId", "CLPT_INVALID");
+                                    contactListParty.store();
+                                }
+                            } catch (GenericEntityException e) {
+                                Debug.logError(e, module);
+                                errorMessages.add(e.getMessage());
+                            }
+                            continue;
+                        } else {
+                            // If the send attempt fails, just log and skip the email address
+                            Debug.logError(errorCallingSendMailService + ": " + ServiceUtil.getErrorMessage(tmpResult), module);
+                            errorMessages.add(errorCallingSendMailService + ": " + ServiceUtil.getErrorMessage(tmpResult));
+                            continue;
+                        }
                     }
 
                     if ("Y".equals(contactList.get("singleUse"))) {

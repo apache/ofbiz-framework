@@ -229,7 +229,9 @@ under the License.
             </display-entity>
         </field>
         <field name="statusId"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="lastUpdatedStamp" title="${uiLabelMap.FormFieldTitle_lastModifiedDate}"><display/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><display type="date"/></field>
+        <field name="datetimeEnded" title="${uiLabelMap.CommonEndDate}"><display type="date"/></field>
         <field name="subject"><display/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><display/></field>
         <field name="note" title="${uiLabelMap.CommonNote}"><display/></field>

@@ -41,12 +41,14 @@ under the License.
     <StatusItem description="Accepted" sequenceId="02" statusCode="ACCEPTED" statusId="CLPT_ACCEPTED" statusTypeId="CONTACTLST_PARTY"/>
     <StatusItem description="Rejected" sequenceId="03" statusCode="REJECTED" statusId="CLPT_REJECTED" statusTypeId="CONTACTLST_PARTY"/>
     <StatusItem description="In Use" sequenceId="04" statusCode="IN_USE" statusId="CLPT_IN_USE" statusTypeId="CONTACTLST_PARTY"/>
+    <StatusItem description="Invalid" sequenceId="05" statusCode="INVALID" statusId="CLPT_INVALID" statusTypeId="CONTACTLST_PARTY"/>
     <StatusValidChange condition="" statusId="CLPT_PENDING" statusIdTo="CLPT_ACCEPTED" transitionName="Accept"/>
     <StatusValidChange condition="" statusId="CLPT_PENDING" statusIdTo="CLPT_REJECTED" transitionName="Reject"/>
     <StatusValidChange condition="" statusId="CLPT_ACCEPTED" statusIdTo="CLPT_REJECTED" transitionName="Reject"/>
     <StatusValidChange condition="" statusId="CLPT_REJECTED" statusIdTo="CLPT_ACCEPTED" transitionName="Accept"/>
     <StatusValidChange condition="" statusId="CLPT_REJECTED" statusIdTo="CLPT_PENDING" transitionName="Pending Accept"/>
     <StatusValidChange condition="" statusId="CLPT_ACCEPTED" statusIdTo="CLPT_IN_USE" transitionName="Locked - In Use"/>
+    <StatusValidChange condition="" statusId="CLPT_ACCEPTED" statusIdTo="CLPT_INVALID" transitionName="Invalid"/>
 
     <SegmentGroupType segmentGroupTypeId="MARKET_SEGMENT" description="Market Segment"/>
     <SegmentGroupType segmentGroupTypeId="SALES_SEGMENT" description="Sales Segment"/>

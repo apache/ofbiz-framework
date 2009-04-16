@@ -324,6 +324,10 @@ under the License.
     <request-map uri="ListContactListCommEvents"><security https="true" auth="true"/><response name="success" type="view" value="ListContactListCommEvents"/></request-map>
     <request-map uri="EditContactListCommEvent"><security https="true" auth="true"/><response name="success" type="view" value="EditContactListCommEvent"/></request-map>
     <request-map uri="FindContactListCommEvents"><security https="true" auth="true"/><response name="success" type="view" value="FindContactListCommEvents"/></request-map>
+    <request-map uri="PreviewContactListCommEvent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="PreviewContactListCommEvent"/>
+    </request-map>
     <request-map uri="createContactListCommEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCommunicationEvent"/>
@@ -407,6 +411,7 @@ under the License.
     <view-map name="ListContactListCommEvents" type="screen" page="component://marketing/widget/ContactListScreens.xml#ListContactListCommEvents"/>
     <view-map name="EditContactListCommEvent" type="screen" page="component://marketing/widget/ContactListScreens.xml#EditContactListCommEvent"/>
     <view-map name="FindContactListCommEvents" type="screen" page="component://marketing/widget/ContactListScreens.xml#FindContactListCommEvents"/>
+    <view-map name="PreviewContactListCommEvent" type="screen" page="component://marketing/widget/ContactListScreens.xml#PreviewContactListCommEvent"/>
 
     <view-map name="LookupSegmentGroup" type="screen" page="component://marketing/widget/LookupScreens.xml#LookupSegmentGroup"/>
     <view-map name="LookupContactList" type="screen" page="component://marketing/widget/ContactListScreens.xml#LookupContactList"/>
