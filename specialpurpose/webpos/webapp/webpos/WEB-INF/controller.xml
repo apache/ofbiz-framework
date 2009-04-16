@@ -207,7 +207,7 @@
 
     <request-map uri="OpenTerminal">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/webpos/event/ManagerEvents.xml" invoke="openTerminal"/>
+        <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/ManagerEvents.xml" invoke="openTerminal"/>
         <response name="success" type="view" value="Manager"/>
         <response name="error" type="view" value="ManagerOpenTerminal"/>
     </request-map>
@@ -220,7 +220,7 @@
 
     <request-map uri="CloseTerminal">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/webpos/event/ManagerEvents.xml" invoke="closeTerminal"/>
+        <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/ManagerEvents.xml" invoke="closeTerminal"/>
         <response name="success" type="view" value="Manager"/>
         <response name="error" type="view" value="ManagerCloseTerminal"/>
     </request-map>
@@ -233,14 +233,14 @@
 
     <request-map uri="VoidOrder">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/webpos/event/ManagerEvents.xml" invoke="voidOrder"/>
+        <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/ManagerEvents.xml" invoke="voidOrder"/>
         <response name="success" type="view" value="Manager"/>
         <response name="error" type="view" value="ManagerVoidOrder"/>
     </request-map>
 
     <request-map uri="Shutdown">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/webpos/event/ManagerEvents.xml" invoke="shutdown"/>
+        <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/ManagerEvents.xml" invoke="shutdown"/>
         <response name="success" type="request" value="Logout"/>
         <response name="error" type="view" value="Login"/>
     </request-map>
@@ -253,7 +253,7 @@
 
     <request-map uri="PaidOutAndIn">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/webpos/event/ManagerEvents.xml" invoke="paidOutAndIn"/>
+        <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/ManagerEvents.xml" invoke="paidOutAndIn"/>
         <response name="success" type="view" value="Manager"/>
         <response name="error" type="view" value="ManagerPaidOutAndIn"/>
     </request-map>
@@ -266,7 +266,7 @@
 
     <request-map uri="ModifyPrice">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/webpos/event/ManagerEvents.xml" invoke="modifyPrice"/>
+        <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/ManagerEvents.xml" invoke="modifyPrice"/>
         <response name="success" type="view" value="Manager"/>
         <response name="error" type="view" value="ManagerModifyPrice"/>
     </request-map>
@@ -279,7 +279,7 @@
 
     <request-map uri="PayCash">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payCash"/>
+        <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payCash"/>
         <response name="success" type="view" value="Payment"/>
         <response name="error" type="view" value="AddPayCash"/>
     </request-map>
@@ -292,7 +292,7 @@
 
     <request-map uri="PayCheck">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payCheck"/>
+        <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payCheck"/>
         <response name="success" type="view" value="Payment"/>
         <response name="error" type="view" value="AddPayCheck"/>
     </request-map>
@@ -305,7 +305,7 @@
 
     <request-map uri="PayGiftCard">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payGiftCard"/>
+        <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payGiftCard"/>
         <response name="success" type="view" value="Payment"/>
         <response name="error" type="view" value="AddPayGiftCard"/>
     </request-map>
@@ -318,7 +318,7 @@
 
     <request-map uri="PayCreditCard">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payCredit"/>
+        <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="payCredit"/>
         <response name="success" type="view" value="Payment"/>
         <response name="error" type="view" value="AddPayCreditCard"/>
     </request-map>
@@ -337,7 +337,7 @@
 
     <request-map uri="PaySetRef">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/webpos/event/PaymentEvents.xml" invoke="setRefNum"/>
+        <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="setRefNum"/>
         <response name="success" type="view" value="Payment"/>
         <response name="error" type="view" value="AddPaySetRef"/>
     </request-map>
@@ -350,14 +350,14 @@
 
     <request-map uri="ClearPayment">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/webpos/event/PaymentEvents.xml" invoke="clearPayment"/>
+        <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="clearPayment"/>
         <response name="success" type="view" value="Payment"/>
         <response name="error" type="view" value="ClearPayment"/>
     </request-map>
 
     <request-map uri="PayClearAll">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/webpos/event/PaymentEvents.xml" invoke="clearAllPayments"/>
+        <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/PaymentEvents.xml" invoke="clearAllPayments"/>
         <response name="success" type="view" value="Payment"/>
         <response name="error" type="view" value="Payment"/>
     </request-map>
@@ -370,7 +370,7 @@
 
     <request-map uri="PromoCode">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/webpos/event/PromoEvents.xml" invoke="addPromoCode"/>
+        <event type="simple" path="component://webpos/script/org/ofbiz/webpos/event/PromoEvents.xml" invoke="addPromoCode"/>
         <response name="success" type="view" value="Promo"/>
         <response name="error" type="view" value="AddPromoCode"/>
     </request-map>
