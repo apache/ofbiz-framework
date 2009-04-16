@@ -113,11 +113,11 @@ public class ImportProductServices {
                 if (row != null) {
                     // read productId from first column "sheet column index
                     // starts from 0"
-                    HSSFCell cell1 = row.getCell((short) 1);
+                    HSSFCell cell1 = row.getCell((int) 1);
                     cell1.setCellType(HSSFCell.CELL_TYPE_STRING);
-                    String productId = cell1.getStringCellValue();
+                    String productId = cell1.getRichStringCellValue().toString();
                     // read QOH from ninth column
-                    HSSFCell cell8 = row.getCell((short) 8);
+                    HSSFCell cell8 = row.getCell((int) 8);
                     BigDecimal quantityOnHand = BigDecimal.ZERO;
                     if (cell8 != null && cell8.getCellType() == HSSFCell.CELL_TYPE_NUMERIC)
                         quantityOnHand = new BigDecimal(cell8.getNumericCellValue());
