@@ -136,13 +136,13 @@ ${item.description}</div>
 </#list>
 </#macro>
 
-<#macro renderSubmitField buttonType className alert formName title name event action imgSrc>
+<#macro renderSubmitField buttonType className alert formName title name event action imgSrc containerId ajaxUrl>
 <#if buttonType=="text-link">
  <a <@renderClass className alert /> href="javascript:document.${formName}.submit()"><#if title?has_content>${title}</#if> </a>
 <#elseif buttonType=="image">
  <input type="image" src="${imgSrc}" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if title?has_content> alt="${title}"</#if><#if event?has_content> ${event}="${action}"</#if> />
 <#else>
-<input type="submit" <@renderClass className alert /><#if name?exists> name="${name}"</#if><#if title?has_content> value="${title}"</#if><#if event?has_content> ${event}="${action}"</#if> /></#if>
+<input type="<#if containerId?has_content>button<#else>submit</#if>" <@renderClass className alert /><#if name?exists> name="${name}"</#if><#if title?has_content> value="${title}"</#if><#if event?has_content> ${event}="${action}"</#if><#if containerId?has_content> onclick="ajaxSubmitFormUpdateAreas('${containerId}', '${ajaxUrl}')"</#if>/></#if>
 </#macro>
 <#macro renderResetField className alert name title><input type="reset" <@renderClass className alert /> name="${name}"<#if title?has_content> value="${title}"</#if>/></#macro>
 

@@ -59,7 +59,7 @@ under the License.
 <#macro renderCheckField items className alert allChecked currentValue name event action><@makeBlock "" "" /></#macro>
 <#macro renderRadioField items className alert currentValue noCurrentSelectedKey name event ation><@makeBlock "" "" /></#macro>
 
-<#macro renderSubmitField buttonType className alert formName title name event action imgSrc><@makeBlock "" "" /></#macro>
+<#macro renderSubmitField buttonType className alert formName title name event action imgSrc containerId ajaxUrl><@makeBlock "" "" /></#macro>
 <#macro renderResetField className alert name title><@makeBlock "" "" /></#macro>
 
 <#macro renderHiddenField name value></#macro>
