@@ -91,6 +91,10 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
 
     /** special method to obtain a new 'unique' reference with a variation on parameters */
     public static LocalDispatcher newInstance(String name, GenericDelegator delegator, boolean enableJM, boolean enableJMS, boolean enableSvcs) throws GenericServiceException {
+        return newInstance(name, delegator, null, enableJM, enableJMS, enableSvcs);
+    }
+
+    public static LocalDispatcher newInstance(String name, GenericDelegator delegator, Collection<URL> readerURLs, boolean enableJM, boolean enableJMS, boolean enableSvcs) throws GenericServiceException {
         ServiceDispatcher sd = new ServiceDispatcher(delegator, enableJM, enableJMS, enableSvcs);
         ClassLoader loader = null;
         try {
@@ -98,7 +102,7 @@ public class GenericDispatcher extends GenericAbstractDispatcher {
         } catch (SecurityException e) {
             loader = GenericDispatcher.class.getClassLoader();
         }
-        return new GenericDispatcher(name, delegator, null, loader, sd);
+        return new GenericDispatcher(name, delegator, readerURLs, loader, sd);
     }
 
     public static Set<String> getAllDispatcherNames() {
