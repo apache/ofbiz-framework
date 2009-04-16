@@ -55,7 +55,7 @@
 	<classpathentry kind="lib" path="framework/jetty/lib/jasper-compiler-5.5.15.jar"/>
 	<classpathentry kind="lib" path="framework/guiapp/lib/XuiCoreSwing-v3.2rc2b.jar"/>
 	<classpathentry kind="lib" path="framework/guiapp/lib/XuiOptional-v3.2rc2b.jar"/>
-	<classpathentry kind="lib" path="applications/content/lib/poi.jar"/>
+	<classpathentry kind="lib" path="applications/content/lib/poi-3.2-FINAL-20081019.jar"/>
 	<classpathentry kind="lib" path="applications/content/lib/lucene-2.2.0.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-catalina-ha.jar"/>
 	<classpathentry kind="lib" path="framework/catalina/lib/tomcat-6.0.16-catalina-tribes.jar"/>
