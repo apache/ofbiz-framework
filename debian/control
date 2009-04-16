@@ -57,7 +57,7 @@ Description: An Open Source E-Commerce System
 
 Package: ofbiz-specialpurpose
 Architecture: all
-Depends: ofbiz (= ${binary:Version})
+Depends: ofbiz-framework (= ${binary:Version}), ofbiz-applications (= ${binary:Version})
 Description: OFBiz - SpecialPurpose Applications
  The Apache Open For Business Project is an open source enterprise
  automation software providing: ERP, CRM, E-Business / E-Commerce,
