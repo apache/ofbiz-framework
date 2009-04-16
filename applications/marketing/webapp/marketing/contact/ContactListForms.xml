@@ -506,17 +506,5 @@ under the License.
         <field name="contactMechId"><display-entity entity-name="ContactMech" description="${infoString}"/></field>
         <field name="lastUpdatedStamp" title="${uiLabelMap.FormFieldTitle_lastModifiedDate}"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
-    </form>
-
-    <form name="PreviewContactListCommEvent" target="" title="" type="single" default-map-name="communicationEvent">
-        <field name="subject"><display/></field>
-        <field name="content" title=" "><display type="text"/></field>
-
-        <sort-order>
-            <sort-field name="subject"/>
-            <field-group>
-                <sort-field name="content"/>
-            </field-group>
-        </sort-order>
-    </form>
+    </form>    
 </forms>
