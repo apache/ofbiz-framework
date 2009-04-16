@@ -42,6 +42,8 @@ import javax.activation.DataSource;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.MessagingException;
+import javax.mail.SendFailedException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -182,6 +184,8 @@ public class EmailServices {
         }
         results.put("contentType", contentType);
 
+        Session session;
+        MimeMessage mail;
         try {
             Properties props = System.getProperties();
             props.put(sendType, sendVia);
@@ -202,11 +206,11 @@ public class EmailServices {
                 props.put("mail.smtp.auth", "true");
             }
 
-            Session session = Session.getInstance(props);
+            session = Session.getInstance(props);
             boolean debug = UtilProperties.propertyValueEqualsIgnoreCase("general.properties", "mail.debug.on", "Y");
             session.setDebug(debug);
 
-            MimeMessage mail = new MimeMessage(session);
+            mail = new MimeMessage(session);
             if (messageId != null) {
                 mail.setHeader("In-Reply-To", messageId);
                 mail.setHeader("References", messageId);
@@ -263,7 +267,19 @@ public class EmailServices {
                 }
                 mail.saveChanges();
             }
+        } catch (MessagingException e) {
+            String errMsg = "MessagingException when creating message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]";
+            Debug.logError(e, errMsg, module);
+            Debug.logError("Email message that could not be created to [" + sendTo + "] had context: " + context, module);
+            return ServiceUtil.returnError(errMsg);
+        } catch (IOException e) {
+            String errMsg = "IOExcepton when creating message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]";
+            Debug.logError(e, errMsg, module);
+            Debug.logError("Email message that could not be created to [" + sendTo + "] had context: " + context, module);
+            return ServiceUtil.returnError(errMsg);
+        }
 
+        try {
             Transport trans = session.getTransport("smtp");
             if (!useSmtpAuth) {
                 trans.connect();
@@ -273,10 +289,17 @@ public class EmailServices {
             trans.sendMessage(mail, mail.getAllRecipients());
             results.put("messageId", mail.getMessageID());
             trans.close();
-        } catch (Exception e) {
-            String errMsg = "Cannot send email message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]";
+        } catch (SendFailedException e) {
+            // message code prefix may be used by calling services to determine the cause of the failure
+            String errMsg = "[ADDRERR] Address error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]";
             Debug.logError(e, errMsg, module);
-            Debug.logError(e, "Email message that could not be sent to [" + sendTo + "] had context: " + context, module);
+            Debug.logError("Email message that could not be sent to [" + sendTo + "] had context: " + context, module);
+            return ServiceUtil.returnError(errMsg);
+        } catch (MessagingException e) {
+            // message code prefix may be used by calling services to determine the cause of the failure
+            String errMsg = "[CON] Connection error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]";
+            Debug.logError(e, errMsg, module);
+            Debug.logError("Email message that could not be sent to [" + sendTo + "] had context: " + context, module);
             return ServiceUtil.returnError(errMsg);
         }
         return results;
@@ -285,7 +308,7 @@ public class EmailServices {
     /**
      * JavaMail Service that gets body content from a URL
      *@param ctx The DispatchContext that this service is operating in
-     *@param context Map containing the input parameters
+     *@param rcontext Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> sendMailFromUrl(DispatchContext ctx, Map<String, ? extends Object> rcontext) {
@@ -324,7 +347,7 @@ public class EmailServices {
      * JavaMail Service that gets body content from a Screen Widget
      * defined in the product store record and if available as attachment also.
      *@param dctx The DispatchContext that this service is operating in
-     *@param serviceContext Map containing the input parameters
+     *@param rServiceContext Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> sendMailFromScreen(DispatchContext dctx, Map<String, ? extends Object> rServiceContext) {
