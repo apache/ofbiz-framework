@@ -171,7 +171,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleScheduleJob"/>
-                <set field="tabButtonItem" value="ScheduleJob"/>
+                <set field="tabButtonItem" value="scheduleJob"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/ScheduleJob.groovy"/>
             </actions>
             <widgets>
@@ -198,7 +198,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleScheduleJob"/>
                 <set field="headerItem" value="services"/>
-                <set field="tabButtonItem" value="ScheduleJob"/>
+                <set field="tabButtonItem" value="runService"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/ScheduleJob.groovy"/>
             </actions>
             <widgets>
@@ -225,7 +225,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleScheduleJob"/>
                 <set field="headerItem" value="services"/>
-                <set field="tabButtonItem" value="ScheduleJob"/>
+                <set field="tabButtonItem" value="runService"/>
                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/ServiceResult.groovy"/>
             </actions>
             <widgets>
