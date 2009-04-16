@@ -261,6 +261,9 @@
         <value xml:lang="th">รหัสประเภทผลการติดต่อ</value>
         <value xml:lang="zh">沟通事件类型标识</value>
     </property>
+    <property key="MarketingContactListCommStatus">
+        <value xml:lang="en">Contact List Communication Status</value>
+    </property>
     <property key="MarketingContactListContactListId">
         <value xml:lang="en">Contact List Id</value>
         <value xml:lang="es">Código de lista</value>
