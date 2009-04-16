@@ -303,9 +303,9 @@ under the License.
     <screen name="EditContactListCommEvent">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleEditContactList"/>
+                <set field="titleProperty" value="PageTitleEditContactListCommEvent"/>
                 <set field="contactListTabButtonItem" value="ContactListCommEvent"/>
-                <set field="labelTitleProperty" value="PageTitleEditContactList"/>
+                <set field="labelTitleProperty" value="PageTitleEditContactListCommEvent"/>
 
                 <set field="donePage" from-field="parameters.DONE_PAGE" default-value="/marketing/control/ListContactList"/>
                 <set field="contactListId" from-field="parameters.contactListId"/>
@@ -313,11 +313,12 @@ under the License.
                 <entity-one entity-name="ContactList" value-field="contactList"/>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
 
+                <entity-one entity-name="StatusItem" value-field="status"/>                
+
                 <!-- get the contact list owner's marketing email -->
                 <script location="component://marketing/webapp/marketing/WEB-INF/actions/contact/GetContactListMarketingEmail.groovy"/>
                 <set field="contactMechIdFrom" value="${marketingEmail.contactMechId}"/>
-                <set field="partyIdFrom" value="${contactList.ownerPartyId}"/>
-                <set field="datetimeStarted" value="${groovy:org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
+                <set field="partyIdFrom" value="${contactList.ownerPartyId}"/>               
             </actions>
             <widgets>
                 <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
@@ -331,6 +332,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
+                                        <include-menu location="component://marketing/webapp/marketing/contact/ContactListMenus.xml" name="ContactListCommBar"/>
                                         <container>
                                             <link  text="${uiLabelMap.MarketingContactListCommEventCreate}" target="EditContactListCommEvent">
                                                 <parameter param-name="contactListId"/>
@@ -449,6 +451,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+
     <screen name="LookupPreferredContactMech">
         <section>
             <actions>
@@ -465,6 +468,29 @@ under the License.
                 <decorator-screen name="LookupDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="search-results">
                         <include-form name="ListPreferredContactMech" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+   <screen name="PreviewContactListCommEvent">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditContactListCommEvent"/>
+                <set field="contactListTabButtonItem" value="ContactListCommEvent"/>                
+                <set field="labelTitleProperty" value="PageTitleEditContactListCommEvent"/>
+
+                <set field="communicationEventId" from-field="parameters.communicationEventId"/>
+                <set field="contactListId" from-field="parameters.contactListId"/>
+
+                <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
+                <entity-one entity-name="ContactList" value-field="contactList"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonContactListDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="PreviewContactListCommEvent" location="component://marketing/webapp/marketing/contact/ContactListForms.xml"/>                        
                     </decorator-section>
                 </decorator-screen>
             </widgets>

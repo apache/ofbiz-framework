@@ -693,6 +693,7 @@ under the License.
         <auto-attributes entity-name="CommunicationEvent" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CommunicationEvent" include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
+        <override name="content" allow-html="any"/>
     </service>
     <service name="deleteCommunicationEvent" engine="simple"
         location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="deleteCommunicationEvent" auth="true">
