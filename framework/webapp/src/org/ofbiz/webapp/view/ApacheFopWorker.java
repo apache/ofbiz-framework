@@ -146,8 +146,6 @@ public class ApacheFopWorker {
             }
             transformer.setURIResolver(new LocalResolver(transformer.getURIResolver()));
             transformer.transform(src, res);
-            FopFactory fopFactory = getFactoryInstance();
-            fopFactory.getImageFactory().clearCaches();
         } catch (Exception e) {
             throw new FOPException(e);
         }
