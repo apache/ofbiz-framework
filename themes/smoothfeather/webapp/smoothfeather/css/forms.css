@@ -75,7 +75,7 @@ input[type="text"],input[type="password"] {
 input[type="submit"],input[type="button"],input[type="reset"] {
 	background-color: #ffffff;
 	border: #ddd solid 2px;
-	color: #444;
+    color: #444444;
 	font-weight:bold;
 	line-height:1.8em;
 	margin:5px 5px 2px 5px;
