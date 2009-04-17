@@ -45,6 +45,9 @@
 	height:20px;
 }
 
+.screenlet-title-bar h1,
+.screenlet-title-bar h2,
+.screenlet-title-bar h3,
 .screenlet-title-bar .h1,
 .screenlet-title-bar .h2,
 .screenlet-title-bar .h3 {

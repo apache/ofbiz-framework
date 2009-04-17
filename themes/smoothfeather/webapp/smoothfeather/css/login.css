@@ -64,7 +64,8 @@ body {
     display:none;
 }
 
-.contentarea{
+
+.login-screenlet{
     background:#fff;
     border:3px solid #111;
     margin:100px auto 0px auto;
@@ -75,13 +76,15 @@ body {
 }
 
 .screenlet {
-    float:left;
+    /* float:left; */
 }
 
 .screenlet-title-bar {
-    display:none;
+    background:#fff;
+    /* display:none; */
 }
 
+/*
 input[type="submit"], input[type="button"], input[type="reset"] {
     background: url(../images/page_login.jpg) no-repeat scroll 0 0;
     border:none;
@@ -96,7 +99,7 @@ input[type="submit"], input[type="button"], input[type="reset"] {
     text-indent:-9999px;
     width:56px;
     float:left;
-}
+} */
 
 input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover {
     background-position:0 -26px;
