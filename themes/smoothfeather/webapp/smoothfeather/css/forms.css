@@ -75,7 +75,7 @@ input[type="text"],input[type="password"] {
 input[type="submit"],input[type="button"],input[type="reset"] {
 	background-color: #ffffff;
 	border: #ddd solid 2px;
-    color: #444444;
+    color: #444;
 	font-weight:bold;
 	line-height:1.8em;
 	margin:5px 5px 2px 5px;
@@ -106,7 +106,7 @@ input:focus,.contentarea textarea:focus {
 	border: 2px solid #6E2723;
 }
 
-* VALIDATION */
+/* VALIDATION */
 input.disabled {
     border: 1px solid #ccc;
     background-color: #F2F2F2;
