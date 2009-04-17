@@ -67,9 +67,6 @@ public class FopRenderer {
                 // Transform the FOP XML source into a PDF, hopefully...
                 transformer.transform(src, res);
 
-                // We don't want to cache the images that get loaded by the FOP engine
-                fopFactory.getImageFactory().clearCaches();
-
                 return out;
 
             } catch (TransformerException e) {
