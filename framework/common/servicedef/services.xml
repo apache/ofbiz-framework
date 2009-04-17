@@ -253,7 +253,7 @@ under the License.
         <attribute name="orderBy" type="String" mode="IN" optional="true"/>
         <attribute name="filterByDate" type="String" mode="IN" optional="true"/>
         <attribute name="filterByDateValue" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="item" type="GenericValue" mode="OUT" optional="true"/>
+        <attribute name="item" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
         <attribute name="queryString" type="String" mode="OUT" optional="true"/>
         <attribute name="queryStringMap" type="java.util.Map" mode="OUT" optional="true"/>
     </service>

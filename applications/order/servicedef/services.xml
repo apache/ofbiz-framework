@@ -40,7 +40,7 @@ under the License.
         <attribute name="sendTo" type="String" mode="IN" optional="true"/>
         <attribute name="sendCc" type="String" mode="IN" optional="true"/>
         <attribute name="note" type="String" mode="IN" optional="true"/>
-        <attribute name="temporaryAnonymousUserLogin" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="temporaryAnonymousUserLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
     <service name="sendOrderConfirmation" engine="java" require-new-transaction="true" max-retry="3"
             location="org.ofbiz.order.order.OrderServices" invoke="sendOrderConfirmNotification">
@@ -460,7 +460,7 @@ under the License.
    </service>
    <service name="itemFulfillmentInterface" engine="interface" invoke="" location="" auth="false" >
        <auto-attributes entity-name="ProductContent" include="pk" mode="IN" optional="false"/>
-       <attribute name="orderItem" type="GenericValue" mode="IN" optional="false"/>
+       <attribute name="orderItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
    </service>
     <service name="invoiceServiceItems" engine="java"
             location="org.ofbiz.order.order.OrderServices" invoke="invoiceServiceItems" auth="true">
@@ -877,7 +877,7 @@ under the License.
         <attribute name="setDefaultShipping" mode="IN" type="String" optional="true"/>
         <attribute name="keepAddressBook" mode="IN" type="String" optional="true"/>
         <attribute name="partyId" mode="IN" type="String" optional="true"/>
-        <attribute name="userLogin" mode="IN" type="GenericValue" optional="true"/>
+        <attribute name="userLogin" mode="IN" type="org.ofbiz.entity.GenericValue" optional="true"/>
         <attribute name="shipToAttnName" mode="IN" type="String" optional="true"/>
         <attribute name="shipToToName" mode="IN" type="String" optional="true"/>
         <attribute name="shipToAddress1" mode="IN" type="String" optional="false"/>
@@ -899,7 +899,7 @@ under the License.
         <attribute name="keepAddressBook" mode="IN" type="String" optional="true"/>
         <attribute name="useShippingAddressForBilling" mode="IN" type="String" optional="true"/>
         <attribute name="partyId" mode="IN" type="String" optional="true"/>
-        <attribute name="userLogin" mode="IN" type="GenericValue" optional="true"/>
+        <attribute name="userLogin" mode="IN" type="org.ofbiz.entity.GenericValue" optional="true"/>
         <attribute name="billToAttnName" mode="IN" type="String" optional="true"/>
         <attribute name="billToName" mode="IN" type="String" optional="true"/>
         <attribute name="billToAddress1" mode="IN" type="String" optional="false"/>

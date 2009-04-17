@@ -26,7 +26,7 @@ under the License.
 
     <!-- simple generic service to watch and entity through an EECA -->
     <service name="watchEntity" engine="java" location="org.ofbiz.entityext.EntityWatchServices" invoke="watchEntity">
-        <attribute name="newValue" type="GenericValue" mode="IN"/>
+        <attribute name="newValue" type="org.ofbiz.entity.GenericValue" mode="IN"/>
         <attribute name="fieldName" type="String" mode="IN" optional="true"/>
     </service>
 
@@ -45,7 +45,7 @@ under the License.
 
     <service name="distributedClearCacheLineByValue" engine="jms" location="serviceMessenger" invoke="clearCacheLineByValue" auth="true">
         <description>Clear Cache Line by value for all Servers listening to the topic</description>
-        <attribute name="value" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="value" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
     </service>
     <!-- Below uses Group/HTTP engine
     <service name="distributedClearCacheLineByValue" engine="group" location="distributedClearCacheLineByValue" invoke=""/>
@@ -53,7 +53,7 @@ under the License.
     <service name="clearCacheLineByValue" engine="java" export="true"
             location="org.ofbiz.entityext.cache.EntityCacheServices" invoke="clearCacheLine" auth="true">
         <description>Clear Cache Line with a value (GenericValue); this is the preferred method since the all, by primary key and by and caches will be cleared. By default does not distribute.</description>
-        <attribute name="value" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="value" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="distribute" type="Boolean" mode="IN" optional="true"/>
     </service>
 

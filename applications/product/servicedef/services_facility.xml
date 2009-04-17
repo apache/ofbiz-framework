@@ -454,9 +454,9 @@ under the License.
         </description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="false"/>
-        <attribute name="orderHeader" type="GenericValue" mode="IN" optional="true"/>
-        <attribute name="orderItem" type="GenericValue" mode="IN" optional="true"/>
-        <attribute name="productStore" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="orderHeader" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="orderItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="productStore" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
 
     <service name="createProductFacility" default-entity-name="ProductFacility" engine="simple"

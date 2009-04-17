@@ -174,7 +174,7 @@ under the License.
             Note that this skips the normal inventory reservation process.
         </description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
-        <attribute name="inventoryItem" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="inventoryItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="quantityIssued" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="finishedProductId" type="String" mode="OUT" optional="false"/>

@@ -161,6 +161,6 @@ under the License.
     <service name="updateOldInventoryToDetailSingle" engine="simple" require-new-transaction="true"
             location="component://product/script/org/ofbiz/product/inventory/InventoryServices.xml" invoke="updateOldInventoryToDetailSingle" auth="true">
         <description>Update Old Inventory To Detail</description>
-        <attribute name="inventoryItem" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="inventoryItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
     </service>
 </services>

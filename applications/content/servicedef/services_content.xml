@@ -146,7 +146,7 @@
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeTypeId" optional="true" type="String"/>
-        <attribute mode="IN" name="userLogin" optional="true" type="GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="true" type="org.ofbiz.entity.GenericValue"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
     </service>
 
@@ -164,7 +164,7 @@
         <attribute mode="IN" name="contentPurposeString" optional="true" type="String"/>
         <attribute mode="IN" name="roleTypeString" optional="true" type="String"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
-        <attribute mode="IN" name="currentContent" optional="true" type="GenericValue"/>
+        <attribute mode="IN" name="currentContent" optional="true" type="org.ofbiz.entity.GenericValue"/>
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
         <attribute mode="IN" name="thruDate" optional="true" type="String"/>
         <!-- NOTE: entityOperation should be "_VIEW", "_ADMIN", etc. -->
@@ -183,12 +183,12 @@
     <service name="findRelatedContent" default-entity-name="Content" engine="java"
             location="org.ofbiz.content.content.ContentServices" invoke="findRelatedContent" auth="true">
         <description>Create a Content</description>
-        <attribute mode="IN" name="currentContent" optional="false" type="GenericValue"/>
+        <attribute mode="IN" name="currentContent" optional="false" type="org.ofbiz.entity.GenericValue"/>
         <attribute mode="IN" name="toFrom" optional="true" type="String"/>
         <attribute mode="IN" name="fromDate" optional="true" type="String"/>
         <attribute mode="IN" name="thruDate" optional="true" type="String"/>
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
-        <attribute mode="IN" name="userLogin" optional="true" type="GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="true" type="org.ofbiz.entity.GenericValue"/>
         <attribute mode="IN" name="contentAssocTypeList" optional="true" type="List"/>
         <attribute mode="IN" name="contentTypeList" optional="true" type="List"/>
         <attribute mode="IN" name="entityOperation" optional="true" type="String"/>
@@ -225,7 +225,7 @@
         <attribute mode="IN" name="targetOperationList" optional="true" type="List"/>
         <attribute mode="IN" name="contentPurposeList" optional="true" type="List"/>
         <attribute mode="INOUT" name="roleTypeList" optional="true" type="List"/>
-        <attribute mode="IN" name="userLogin" optional="true" type="GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="true" type="org.ofbiz.entity.GenericValue"/>
         <attribute mode="IN" name="contentIdTo" optional="true" type="String"/>
         <attribute mode="IN" name="contentIdFrom" optional="true" type="String"/>
         <attribute mode="IN" name="statusId" optional="true" type="String"/>

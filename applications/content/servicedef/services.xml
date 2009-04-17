@@ -391,7 +391,7 @@
         location="org.ofbiz.content.ContentManagementServices" invoke="getContent" auth="false">
         <description>Get Content of passed contentId</description>
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
-        <attribute mode="OUT" name="view" optional="true" type="GenericValue"/>
+        <attribute mode="OUT" name="view" optional="true" type="org.ofbiz.entity.GenericValue"/>
     </service>
     <service name="getSubContent" engine="java" location="org.ofbiz.content.ContentManagementServices" invoke="getSubContent" auth="false">
         <description>Get subContent of passed contentId/mapKey or subContentId</description>
@@ -402,8 +402,8 @@
         <attribute mode="IN" name="assocTypesString" optional="true" type="String"/>
         <attribute mode="IN" name="contentTypes" optional="true" type="List"/>
         <attribute mode="IN" name="fromDate" optional="true" type="Timestamp"/>
-        <attribute mode="OUT" name="view" optional="true" type="GenericValue"/>
-        <attribute mode="OUT" name="content" optional="true" type="GenericValue"/>
+        <attribute mode="OUT" name="view" optional="true" type="org.ofbiz.entity.GenericValue"/>
+        <attribute mode="OUT" name="content" optional="true" type="org.ofbiz.entity.GenericValue"/>
     </service>
     <!--
     <service name="addMostRecent"
@@ -412,7 +412,7 @@
             invoke="addMostRecent" auth="false">
         <description>Get subContent of passed contentId/mapKey or subContentId</description>
         <attribute mode="IN" name="suffix" optional="true" type="String"/>
-        <attribute mode="IN" name="pk" optional="true" type="GenericValue"/>
+        <attribute mode="IN" name="pk" optional="true" type="org.ofbiz.entity.GenericValue"/>
         <attribute mode="IN" name="session" optional="true" type="javax.servlet.http.HttpSession"/>
     </service>
     -->
@@ -455,7 +455,7 @@
              the service in a request event, so I added new ones without removing lists -->
         <attribute mode="IN" name="targetOperationString" optional="true" type="String"/>
         <attribute mode="IN" name="contentPurposeString" optional="true" type="String"/>
-        <attribute mode="IN" name="userLogin" optional="true" type="GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="true" type="org.ofbiz.entity.GenericValue"/>
         <attribute mode="IN" name="imageData" optional="true" type="java.nio.ByteBuffer"/>
         <attribute mode="IN" name="_imageData_contentType" optional="true" type="String"/>
         <attribute mode="IN" name="_imageData_fileName" optional="true" type="String"/>
@@ -486,7 +486,7 @@
              the service in a request event, so I added new ones without removing lists -->
         <attribute mode="IN" name="targetOperationString" optional="true" type="String"/>
         <attribute mode="IN" name="contentPurposeString" optional="true" type="String"/>
-        <attribute mode="IN" name="userLogin" optional="true" type="GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="true" type="org.ofbiz.entity.GenericValue"/>
         <attribute mode="IN" name="imageData" optional="true" type="java.nio.ByteBuffer"/>
         <attribute mode="IN" name="_imageData_contentType" optional="true" type="String"/>
         <attribute mode="IN" name="_imageData_fileName" optional="true" type="String"/>
@@ -572,7 +572,7 @@
         <attribute mode="IN" name="mimeTypeId" optional="true" type="String"/>
         <attribute mode="IN" name="fromDate" optional="true" type="Timestamp"/>
         <attribute mode="IN" name="subContentDataResourceView" optional="true" type="org.ofbiz.entity.GenericValue"/>
-        <attribute mode="OUT" name="view" optional="true" type="GenericValue"/>
+        <attribute mode="OUT" name="view" optional="true" type="org.ofbiz.entity.GenericValue"/>
         <attribute mode="OUT" name="textData" optional="true" type="String"/>
     </service>
     <service name="renderContentAsText" engine="java"
@@ -678,7 +678,7 @@
         location="org.ofbiz.content.ContentManagementServices" invoke="changeLeafToNode">
         <description>Moves dataResource to separate content associated with current content so that node can have only children, no content of its own</description>
         <attribute mode="IN" name="contentId" optional="false" type="String"/>
-        <attribute mode="IN" name="userLogin" optional="true" type="GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="true" type="org.ofbiz.entity.GenericValue"/>
     </service>
 
     <service name="updatePageType" auth="true" engine="java" validate="true" transaction-timeout="7200"
@@ -786,7 +786,7 @@
     <service name="publishContent" auth="true" engine="java" transaction-timeout="7200"
             location="org.ofbiz.content.content.ContentServices" invoke="publishContent">
         <description>Change statusId to published (CTNT_PUBLISHED)</description>
-        <attribute mode="IN" name="content" optional="false" type="GenericValue"/>
+        <attribute mode="IN" name="content" optional="false" type="org.ofbiz.entity.GenericValue"/>
     </service>
 
     <!-- these three services are for use in screen widget files -->
@@ -1102,7 +1102,7 @@
     <service name="getOwnedOrPublishedBlogEntries" engine="simple" location="component://content/script/org/ofbiz/content/blog/BlogServices.xml" invoke="getOwnedOrPublishedBlogEntries"
          auth="true"  transaction-timeout="7200">
         <attribute type="String" mode="IN" name="contentId" optional="false"/>
-        <attribute mode="IN" name="userLogin" optional="false" type="GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="false" type="org.ofbiz.entity.GenericValue"/>
         <attribute mode="OUT" name="blogList" optional="true" type="List"/>
     </service>
 
