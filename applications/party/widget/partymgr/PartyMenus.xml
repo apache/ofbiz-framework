@@ -385,7 +385,7 @@
                 </and>
             </condition>
             <link target="NewDraftCommunicationEvent">
-                <parameter param-name="communicationEventTypeId" value="communicationEvent.communicationEventTypeId"/>
+                <parameter param-name="communicationEventTypeId" from-field="communicationEvent.communicationEventTypeId"/>
                 <parameter param-name="parentCommEventId" from-field="parameters.communicationEventId"/>
                 <parameter param-name="my" value="My"/>
             </link>
