@@ -21,7 +21,7 @@ under the License.
 <table width="100%">
   <tr>
     <#list portalPageColumns?if_exists as portalPageColumn>
-      <td style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> ${uiLabelMap.CommonWidth}:${portalPageColumn.columnWidthPercentage}%;</#if>">
+      <td style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>">
       <#assign firstInColumn = true/>
       <#list portalPagePortlets as portlet>
         <#if (!portlet.columnSeqId?has_content && portalPageColumn_index == 0) || (portlet.columnSeqId?if_exists == portalPageColumn.columnSeqId)>
