@@ -84,7 +84,7 @@ under the License.
         <attribute name="isResidentialAddress" type="String" mode="IN" optional="true"/>
         <attribute name="shippingCountryCode" type="String" mode="IN" optional="true"/>
         <!-- Allow specifying a from address if different from product store's facility address. -->
-        <attribute name="shipFromAddress" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="shipFromAddress" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
 
     <!-- UPS Address Validation -->

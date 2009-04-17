@@ -130,7 +130,7 @@ under the License.
             location="component://accounting/script/org/ofbiz/accounting/payment/PaymentServices.xml" invoke="getInvoicePaymentInfoList" auth="true">
         <description>Create a list with information on payment due dates and amounts for the invoice; one of invoiceId or invoice must be provided.</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
-        <attribute name="invoice" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="invoice" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="invoicePaymentInfoList" type="List" mode="OUT" optional="false"/>
     </service>
     <service name="getInvoicePaymentInfoListByDueDateOffset" engine="simple"

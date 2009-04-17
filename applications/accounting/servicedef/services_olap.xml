@@ -30,8 +30,8 @@ under the License.
         </description>
         <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceItemSeqId" type="String" mode="IN" optional="true"/>
-        <attribute name="invoice" type="GenericValue" mode="IN" optional="true"/>
-        <attribute name="invoiceItem" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="invoice" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="invoiceItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
     </service>
     <service name="loadSalesInvoiceFact" auth="true" engine="simple"
         location="component://accounting/script/org/ofbiz/accounting/olap/FactServices.xml" invoke="loadSalesInvoiceFact">

@@ -331,7 +331,7 @@ under the License.
     <service name="refundGcPurchase" engine="java" require-new-transaction="true" use-transaction="true"
             location="org.ofbiz.accounting.payment.GiftCertificateServices" invoke="refundGcPurchase" auth="true">
         <description>Creates return for reload on failure</description>
-        <attribute name="orderItem" type="GenericValue" mode="IN" optional="false"/>
+        <attribute name="orderItem" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
     </service>
 

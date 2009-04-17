@@ -54,7 +54,7 @@ under the License.
         <description>Retrieve a single Subscription Entity Record</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="VIEW"/>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
-        <attribute name="subscription" type="GenericValue" mode="OUT" optional="true"/>
+        <attribute name="subscription" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
     </service>
 
     <service name="createSubscriptionResource" default-entity-name="SubscriptionResource" auth="true" engine="simple"

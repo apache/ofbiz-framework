@@ -111,7 +111,7 @@ under the License.
         <attribute name="netAccountBalance" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableBalance" type="BigDecimal" mode="OUT" optional="false"/>
         <attribute name="availableToCapture" type="BigDecimal" mode="OUT" optional="false"/>
-        <attribute name="billingAccount" type="GenericValue" mode="OUT" optional="false"/>
+        <attribute name="billingAccount" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="false"/>
     </service>
     <service name="acctgBillingAcctCheck" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/permissions/PermissionServices.xml" invoke="acctgBillingAcctCheck">

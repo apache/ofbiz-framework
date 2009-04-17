@@ -40,7 +40,7 @@ under the License.
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
         <attribute name="productPricePurposeId" type="String" mode="IN" optional="true"><!-- defaults to PURCHASE --></attribute>
         <attribute name="termUomId" type="String" mode="IN" optional="true"><!-- if specified ProductPrice records will be filtered by this, ensures for purposes like recurring prices that only the recurring term desired is taken into consideration --></attribute>
-        <attribute name="autoUserLogin" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="autoUserLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="checkIncludeVat" type="String" mode="IN" optional="true"><!-- can be Y or N, defaults to N --></attribute>
         <attribute name="findAllQuantityPrices" type="String" mode="IN" optional="true"><!-- can be Y or N, defaults to N; see the allQuantityPrices attribute for more details --></attribute>
         <attribute name="surveyResponseId" type="String" mode="IN" optional="true"/>

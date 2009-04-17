@@ -60,7 +60,7 @@ under the License.
         <attribute name="productStoreGroupId" type="String" mode="IN" optional="true"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="true"/>
         <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
-        <attribute name="autoUserLogin" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="autoUserLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="totalPrice" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 

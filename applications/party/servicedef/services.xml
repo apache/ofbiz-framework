@@ -1138,7 +1138,7 @@ under the License.
         <description>Create and Update a person</description>
         <auto-attributes mode="INOUT" include="pk" optional="true"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <attribute name="userLogin" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <override name="firstName" optional="false"/>
         <override name="lastName" optional="false"/>
     </service>
@@ -1148,7 +1148,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <auto-attributes entity-name="PartyContactMech" include="all" mode="IN" optional="true"/>
         <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
-        <attribute name="userLogin" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
@@ -1157,7 +1157,7 @@ under the License.
         location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createUpdateEmailAddress" auth="false">
         <description>Create and Update email address</description>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="userLogin" type="GenericValue" mode="IN" optional="true"/>
+        <attribute name="userLogin" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
         <attribute name="emailAddress" type="String" mode="INOUT" optional="false"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="true"/>
