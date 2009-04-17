@@ -24,4 +24,4 @@ under the License.
   </div>
 </div>
 
-<#include "component://common/webcommon/includes/footer.ftl" />
+<#include "component://flatgrey/includes/footer.ftl" />
