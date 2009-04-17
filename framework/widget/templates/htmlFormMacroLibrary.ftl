@@ -149,7 +149,7 @@ ${item.description}</div>
 <#macro renderHiddenField name value><input type="hidden" name="${name}"<#if value?has_content> value="${value}"</#if>/></#macro>
 <#macro renderIgnoredField></#macro>
 
-<#macro renderFieldTitle style title><#if style?has_content><span class="${style}></#if>${title}<#if style?has_content></span></#if></#macro>
+<#macro renderFieldTitle style title><#if style?has_content><span class="${style}"></#if>${title}<#if style?has_content></span></#if></#macro>
 <#macro renderSingleFormFieldTitle></#macro>
 
 <#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name useRowSubmit><form method="post" action="${linkUrl}"<#if formType=="upload"> enctype="multipart/form-data"</#if><#if targetWindow?has_content> target="${targetWindow}"</#if><#if containerId?has_content> id="${containerId}"</#if> class=<#if containerStyle?has_content>"${containerStyle}"<#else>"basic-form"</#if> onSubmit="javascript:submitFormDisableSubmits(this)"<#if autocomplete?has_content> autocomplete="${autocomplete}"</#if> name="${name}" ><#if useRowSubmit?has_content && useRowSubmit><input type="hidden" name="_useRowSubmit" value="Y"/></#if></#macro>
