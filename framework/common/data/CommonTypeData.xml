@@ -101,7 +101,7 @@ under the License.
 
     <!-- User preferences seed data -->
     <UserPrefGroupType userPrefGroupTypeId="GLOBAL_PREFERENCES" description="Global preferences"/>
-    <UserPreference userLoginId="_NA_" userPrefTypeId="VISUAL_THEME" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefValue="DEFAULT"/>
+    <UserPreference userLoginId="_NA_" userPrefTypeId="VISUAL_THEME" userPrefGroupTypeId="GLOBAL_PREFERENCES" userPrefValue="SMOOTH_FEATHER"/>
 
     <!-- Visual Themes seed data -->
     <EnumerationType description="Visual Theme Resource Type (stylesheet, javascript file, etc)" enumTypeId="VT_RES_TYPE" hasTable="N"/>
@@ -121,22 +121,10 @@ under the License.
     <VisualThemeSet visualThemeSetId="BACKOFFICE" description="Themes to be used for backoffice applications"/>
     <VisualThemeSet visualThemeSetId="ECOMMERCE"  description="Themes to be used for ECommerce applications"/>
 
-    <VisualTheme visualThemeId="DEFAULT" visualThemeSetId="BACKOFFICE" description="OFBiz Standard Floating Layout"/>
-    <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/images/maincss.css" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_RTL_STYLESHEET" resourceValue="/images/mainrtl.css" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.jpg" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://common/webcommon/includes/header.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://common/webcommon/includes/footer.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://common/webcommon/includes/appbar.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/webcommon/includes/messages.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/images/default-screenshot.gif" sequenceId="01"/>
-
     <WebSite webSiteId="WEBTOOLS" siteName="Web Tools" visualThemeSetId="BACKOFFICE"/>
 
     <!-- Uom Conversion Purposes -->
     <EnumerationType enumTypeId="CONVERSION_PURPOSE" description="Conversion Purpose"/>
     <Enumeration enumId="INTERNAL_CONVERSION" enumTypeId="CONVERSION_PURPOSE" enumCode="INTERNAL" sequenceId="10" description="Internal Conversion"/>
     <Enumeration enumId="EXTERNAL_CONVERSION" enumTypeId="CONVERSION_PURPOSE" enumCode="EXTERNAL" sequenceId="20" description="External Conversion"/>
-
 </entity-engine-xml>

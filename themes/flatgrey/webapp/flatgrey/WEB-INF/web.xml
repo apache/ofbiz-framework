@@ -20,8 +20,8 @@ under the License.
 -->
 
 <web-app>
-    <display-name>Open For Business - Smooth Feather Visual Theme</display-name>
-    <description>Smooth Feather Visual Theme</description>
+    <display-name>Open For Business - Flat Grey Visual Theme</display-name>
+    <description>Flat Grey Visual Theme</description>
     
     <session-config>
         <session-timeout>1</session-timeout>    
