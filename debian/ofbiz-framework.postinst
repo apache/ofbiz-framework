@@ -163,11 +163,11 @@ ofbiz_init_invoke() {
 
 . /usr/share/debconf/confmodule
 . /usr/share/dbconfig-common/dpkg/postinst
-dbc_generate_include=sh:/etc/ofbiz/debconf.cfg
+dbc_generate_include=sh:/etc/ofbiz/dbc-debconf.cfg
 [ "$1" != "triggered" ] && dbc_go ofbiz "$@"
-if [ -e /etc/ofbiz/debconf.cfg ]; then
+if [ -e /etc/ofbiz/dbc-debconf.cfg ]; then
 	ofbiz_admin_key=""
-	. /etc/ofbiz/debconf.cfg
+	. /etc/ofbiz/dbc-debconf.cfg
 else
 	ofbiz_admin_key="$(get_random_chars 32)"
 	ofbiz_readers=""
