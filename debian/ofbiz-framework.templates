@@ -13,20 +13,6 @@ _Description: Admin port for status queries:
  This is the port used to communicate with a running ofbiz instance, to
  see if it is starting, running, or stopping.
 
-Template: ofbiz/readers
-Type: multiselect
-Choices: demo, ext
-_Description: Important additional data?
- OfBiz comes with lots of example data, showing products/categories/users
- etc.  If this is your first time working with ofbiz, you may want to
- import this extra data to see how to better use it.
-
-Template: ofbiz/reimport-data
-Type: boolean
-Default: false
-_Description: Reimport data?
- Whether data should be reimported on upgrade.
-
 Template: ofbiz/fieldtype/postgres
 Type: select
 Choices: exact, text
