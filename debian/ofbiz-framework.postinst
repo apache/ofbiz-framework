@@ -121,7 +121,10 @@ else
 	ofbiz_admin_key="$(get_random_chars 32)"
 	ofbiz_readers=""
 fi
-
+if [ -r "/etc/ofbiz/debconf.cfg" ]; then
+	chown root:ofbiz "/etc/ofbiz/debconf.cfg"
+	eval `sed -n 's/^ofbiz\.admin\.\(port\|key\)=\(.*\)/ofbiz_admin_\1=\2;/p' "/etc/ofbiz/debconf.cfg" `
+fi
 if [ "$1" = "triggered" ]; then
 	run_seed=""
 	for trigger in $2; do

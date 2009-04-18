@@ -63,9 +63,10 @@ USER=ofbiz
 PIDFILE=/var/run/ofbiz.pid
 CLASS=org.ofbiz.base.start.Start
 
-ADMIN_PORT=10523
-ADMIN_KEY=so3du5kasd5dn
-PROPS="-Dofbiz.admin.port=$ADMIN_PORT -Dofbiz.admin.key=$ADMIN_KEY"
+PROPS=""
+if [ -f "/etc/ofbiz/debconf.cfg" ]; then
+	PROPS="$PROPS -Dofbiz.system.props=/etc/ofbiz/debconf.cfg"
+fi
 
 if [ "x$JAVA_HOME" == x ]; then
 	if [ "x$JAVA_HOMES" != x ]; then
