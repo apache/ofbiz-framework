@@ -29,7 +29,7 @@ fi
 
 case "$1" in
 	(purge)
-		rm -f /etc/ofbiz/dbc-debconf.cfg
+		rm -f /etc/ofbiz/debconf.cfg /etc/ofbiz/dbc-debconf.cfg
 		if which ucf >/dev/null; then ucf --purge /etc/ofbiz/dbc-debconf.cfg; fi
 		if which ucfr >/dev/null; then ucfr --purge ofbiz /etc/ofbiz/dbc-debconf.cfg; fi
 		find /var/log/ofbiz -mindepth 1 -maxdepth 1 -print0 | xargs -0 --no-run-if-empty rm -rf
