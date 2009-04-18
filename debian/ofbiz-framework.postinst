@@ -150,21 +150,12 @@ get() {
 		exit 1
 	fi
 }
-start_ofbiz() {
+ofbiz_init_invoke() {
 	if [ -x "/etc/init.d/ofbiz" ]; then
 		if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
-			invoke-rc.d ofbiz start || exit $?
+			invoke-rc.d ofbiz $1 || exit $?
 		else
-			/etc/init.d/ofbiz start || exit $?
-		fi
-	fi
-}
-stop_ofbiz() {
-	if [ -x "/etc/init.d/ofbiz" ]; then
-		if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
-			invoke-rc.d ofbiz stop || exit $?
-		else
-			/etc/init.d/ofbiz stop || exit $?
+			/etc/init.d/ofbiz $1 || exit $?
 		fi
 	fi
 }
@@ -186,7 +177,7 @@ if [ "$1" = "triggered" ]; then
 	for trigger in $2; do
 		case "$trigger" in
 			(ofbiz-start)
-				start_ofbiz
+				ofbiz_init_invoke start
 				;;
 			(ofbiz-install|ofbiz-upgrade)
 				ofbiz_reseed=""
@@ -202,7 +193,7 @@ if [ "$1" = "triggered" ]; then
 				fi
 				ofbiz_readers="$(fix_readers "$ofbiz_readers")"
 				get ofbiz_admin_port ofbiz/admin-port
-				stop_ofbiz
+				ofbiz_init_invoke stop
 				if [ "z" != "z$ofbiz_reseed" ]; then
 					echo "Need to modify ofbiz data." 1>&2
 					configure_ofbiz
