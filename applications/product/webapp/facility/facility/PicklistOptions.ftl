@@ -98,7 +98,7 @@ under the License.
                     <#assign seq = seq + 1>
                     <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                         <td>
-                            <form name= "viewGroupDetail" action ="<@ofbizUrl>PicklistOptions</@ofbizUrl>" method="post">
+                            <form name= "viewGroupDetail_${seq}" action ="<@ofbizUrl>PicklistOptions</@ofbizUrl>" method="post">
                                 <input type ="hidden" name="viewDetail" value= "${groupName?if_exists}"/>
                                 <input type="hidden" name="groupByShippingMethod" value="${requestParameters.groupByShippingMethod?if_exists}"/>
                                 <input type="hidden" name="groupByWarehouseArea" value="${requestParameters.groupByWarehouseArea?if_exists}"/>
@@ -107,13 +107,13 @@ under the License.
                                 <table>
                                     <tr>
                                         <#if groupName1?has_content>
-                                            <td><a id="one" href="javascript:document.viewGroupDetail.submit()" class="buttontext">${groupName1}</a></td>
+                                            <td><a href="javascript:document.viewGroupDetail_${seq}.submit()" class="buttontext">${groupName1}</a></td>
                                         </#if>
                                         <#if groupName2?has_content>
-                                            <td><a id="two" href="javascript:document.viewGroupDetail.submit()" class="buttontext">${groupName2}</a></td>
+                                            <td><a href="javascript:document.viewGroupDetail_${seq}.submit()" class="buttontext">${groupName2}</a></td>
                                         </#if>
                                         <#if groupName3?has_content>
-                                            <td><a id="three" href="javascript:document.viewGroupDetail.submit()" class="buttontext">${groupName3}</a></td>
+                                            <td><a href="javascript:document.viewGroupDetail_${seq}.submit()" class="buttontext">${groupName3}</a></td>
                                         </#if>
                                     </tr>
                                </table>
