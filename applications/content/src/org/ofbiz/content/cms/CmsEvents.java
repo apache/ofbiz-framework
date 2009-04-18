@@ -104,7 +104,6 @@ public class CmsEvents {
             }
         } // if called through the default request, there is no request in pathinfo
 
-        Debug.log("========pathinfo: " + pathInfo);
         // if path info is null; check for a default content
         if (pathInfo == null) {
             List<GenericValue> defaultContents = null;
@@ -182,7 +181,6 @@ public class CmsEvents {
                     contentId = pathInfo;
                 }
             }
-            Debug.log("========contentId: " + contentId);
 
             // verify the request content is associated with the current website
             boolean websiteOk;
