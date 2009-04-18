@@ -104,7 +104,15 @@ configure_ofbiz() {
 				extra="$extra -file=\"$files\""
 			fi
 		fi
+	fi
+	for file in "/var/lib/ofbiz/import/"*.xml; do
+		if [ -e "$file" ]; then
+			extra="$extra -file=\"$file\""
+		fi
+	done
+	if [ "$extra" ]; then
 		eval /etc/init.d/ofbiz install $extra
+		rm -rf "/var/lib/ofbiz/import"
 	fi
 	#rm -f "$tempfile1" "$tempfile2"
 }
@@ -212,6 +220,7 @@ case "$1" in
 		ofbiz_init_invoke stop
 		dpkg-trigger --no-await ofbiz-install
 		if [ -z "$2" ]; then
+			mkdir -p "/var/lib/ofbiz/import/"
 			if ! getent passwd ofbiz 2>/dev/null >/dev/null; then
 				adduser --quiet --group --no-create-home --system --shell /bin/sh --home /var/lib/ofbiz ofbiz
 			fi
