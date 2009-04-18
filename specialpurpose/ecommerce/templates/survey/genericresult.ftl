@@ -17,6 +17,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
+<#assign uiLabelMap = Static["org.ofbiz.base.util.UtilProperties"].getResourceBundleMap("CommonUiLabels", locale)>
+
 <h1>${survey.description?if_exists}</h1>
 <br/>
 

@@ -27,6 +27,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javolution.util.FastList;
@@ -205,6 +206,7 @@ public class SurveyWrapper {
         templateContext.put("additionalFields", passThru);
         templateContext.put("defaultValues", defaultValues);
         templateContext.put("delegator", this.delegator);
+        templateContext.put("locale", Locale.getDefault());
 
         Template template = this.getTemplate(templateUrl);
         try {

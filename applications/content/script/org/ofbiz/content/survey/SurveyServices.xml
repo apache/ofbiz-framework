@@ -438,7 +438,6 @@
                 </if-not-empty>
             </if-not-empty>
         </if-compare>
-
         <!-- make sure we have answers to check -->
         <if-empty field="parameters.answers">
             <add-error><fail-message message="No answers were found"/></add-error>
@@ -721,14 +720,43 @@
                 <set field="responseAnswer.textResponse" from-field="answers[&quot;${currentFieldName}&quot;]"/>
             </if-compare>
             <if-compare field="surveyQuestionAndAppl.surveyQuestionTypeId" operator="equals" value="CONTENT">
-                <!-- <log level="always" message="Found CONTENT type question"/> -->
                 <if-instance-of field="answers[&quot;${currentFieldName}&quot;]" class="java.nio.ByteBuffer">
-                    <set from-field="answers._${surveyQuestionAndAppl.surveyQuestionId}_contentType" field="partyContent._uploadedFile_contentType"/>
+                    <!--set from-field="answers._${surveyQuestionAndAppl.surveyQuestionId}_contentType" field="partyContent._uploadedFile_contentType"/>
                     <set from-field="answers._${surveyQuestionAndAppl.surveyQuestionId}_fileName" field="partyContent._uploadedFile_fileName"/>
                     <set from-field="answers[&quot;${currentFieldName}&quot;]" field="partyContent.uploadedFile"/>
                     <set value="DOCUMENT" field="partyContent.contentTypeId"/>
                     <set value="PERSONAL" field="partyContent.dataCategoryId"/>
-                    <set value="CTNT_PUBLISHED" field="partyContent.statusId"/>
+                    <set value="CTNT_PUBLISHED" field="partyContent.statusId"/-->
+                    
+                    <!--  First create the Content record -->
+                    <make-value entity-name="Content" value-field="content"/>
+                    <sequenced-id field="content.contentId" sequence-name="Content"/>
+                    <set field="content.contentTypeId" value="DOCUMENT"/>
+                    <set field="content.statusId" value="CTNT_PUBLISHED" />
+                    <create-value value-field="content"/>
+                    
+                    <!-- Create the DataResource record -->
+                    <set field="dataResource.dataResourceTypeId" value="IMAGE_OBJECT"/>
+                    <set field="dataResource.mimeTypeId" from-field="answers._${surveyQuestionAndAppl.surveyQuestionId}_contentType"/>
+                    <set field="dataResource.objectInfo" from-field="answers._${surveyQuestionAndAppl.surveyQuestionId}_fileName"/>
+                    
+                    <call-service service-name="createDataResource" in-map-name="dataResource">
+                        <result-to-field result-name="dataResourceId"/>
+                    </call-service>
+                    
+                    <!-- Create the ImageDataResource record -->
+                    <set field="imageDataResource.dataResourceId" from-field="dataResourceId"/>
+                    <set field="imageDataResource.imageData" from-field="answers[&quot;${currentFieldName}&quot;]"/>
+                    <call-service service-name="createImageDataResource" in-map-name="imageDataResource"/>                    
+                    
+                    <!-- Associate the DataResource with the Content record -->
+                    <set field="content.dataResourceId" from-field="dataResourceId"/>
+                    <store-value value-field="content"/>
+                    
+                    <set field="partyContent.partyId" from-field="parameters.partyId"/>
+                    <set field="partyContent.contentId" from-field="content.contentId"/>
+                    <set field="partyContent.partyContentTypeId" value="INTERNAL"/>
+                    <set field="partyContent.fromDate" from-field="nowTimestamp"/>
                     <call-service service-name="createPartyContent" in-map-name="partyContent">
                         <result-to-field result-name="contentId" field="responseAnswer.contentId"/>
                     </call-service>
