@@ -145,6 +145,13 @@ under the License.
                 </sub-hyperlink>
             </lookup>
         </field>
+        <field name="templateDataResourceId">
+            <lookup target-form-name="LookupDataResource">
+                <sub-hyperlink link-style="buttontext" target="EditDataResource" description="${uiLabelMap.ContentGoToDataResource}">
+                    <parameter param-name="dataResourceId" from-field="currentValue.templateDataResourceId"/>
+                </sub-hyperlink>
+            </lookup>
+        </field>
         <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>
         <field name="decoratorContentId">
             <lookup target-form-name="LookupContent">
