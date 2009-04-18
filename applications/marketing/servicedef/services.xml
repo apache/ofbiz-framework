@@ -385,8 +385,7 @@ under the License.
     </service>
 
     <!-- lead services -->
-    <service name="createLead" engine="simple"
-        location="component://marketing/script/org/ofbiz/sfa/lead/LeadServices.xml" invoke="createLead">
+    <service name="createLead" engine="simple" location="component://marketing/script/org/ofbiz/sfa/lead/LeadServices.xml" invoke="createLead">
         <description>Create a Lead Person or Group</description>
         <auto-attributes entity-name="Person" mode="IN" optional="true">
             <exclude field-name="partyId"/>
@@ -398,7 +397,7 @@ under the License.
             <exclude field-name="contactMechId"/>
         </auto-attributes>
         <attribute name="partyId" type="String" mode="OUT"/>
-        <attribute name="contactMechId" type="String" mode="OUT" />
+        <attribute name="contactMechId" type="String" mode="OUT" optional="true"/>
         <attribute name="emailAddress" type="String" mode="IN" optional="true"/>
         <attribute name="groupName" type="String" mode="IN" optional="true"/>
         <attribute name="title" type="String" mode="IN" optional="true"/>
