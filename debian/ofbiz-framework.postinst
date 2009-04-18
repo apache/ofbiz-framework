@@ -58,7 +58,7 @@ munge_conffile() {
 	esac
 }
 configure_ofbiz() {
-	extra=""
+	extra="-readers=seed"
 	: ofbiz_readers "$ofbiz_readers"
 	: ofbiz_import_readers "$ofbiz_import_readers"
 	if [ "$ofbiz_readers" ]; then
@@ -71,21 +71,9 @@ configure_ofbiz() {
 			extra="$extra -file=\"$file\""
 		fi
 	done
-	if [ "$extra" ]; then
-		eval /etc/init.d/ofbiz install $extra
-		rm -rf "/var/lib/ofbiz/import"
-	fi
+	eval /etc/init.d/ofbiz install $extra
+	rm -rf "/var/lib/ofbiz/import"
 	#rm -f "$tempfile1" "$tempfile2"
-}
-fix_readers() {
-	IFS=", " set -- "$@"
-	while [ $# -gt 0 ]; do
-		echo -n "$1"
-		shift
-		if [ $# -gt 0 ]; then
-			echo ','
-		fi
-	done
 }
 get_random_chars() {
 	(
@@ -143,29 +131,23 @@ else
 fi
 
 if [ "$1" = "triggered" ]; then
+	run_seed=""
+	for trigger in $2; do
+		case "$trigger" in
+			(ofbiz-install)
+				run_seed=1
+				;;
+		esac
+	done
+	if [ "z" != "z$run_seed" ]; then
+		ofbiz_init_invoke stop
+		configure_ofbiz
+		dpkg-trigger --no-await ofbiz-start
+	fi
 	for trigger in $2; do
 		case "$trigger" in
 			(ofbiz-start)
 				ofbiz_init_invoke start
-				;;
-			(ofbiz-install)
-				ofbiz_reseed=""
-				if [ "$trigger" = "ofbiz-install" ]; then
-					ofbiz_reseed=1
-					ofbiz_import_readers=1
-				fi
-				get ofbiz_readers ofbiz/readers ofbiz_import_readers ofbiz_reseed
-				if [ "z" = "z$ofbiz_readers" ]; then
-					ofbiz_readers="seed"
-				else
-					ofbiz_readers="seed,$ofbiz_readers"
-				fi
-				ofbiz_readers="$(fix_readers "$ofbiz_readers")"
-				if [ "z" != "z$ofbiz_reseed" ]; then
-					echo "Need to modify ofbiz data." 1>&2
-					configure_ofbiz
-				fi
-				dpkg-trigger --no-await ofbiz-start
 				;;
 		esac
 	done
@@ -173,7 +155,6 @@ if [ "$1" = "triggered" ]; then
 	exit 0
 fi
 
-ofbiz_reseed=""
 case "$1" in
 	(configure|reconfigure)
 		ofbiz_init_invoke stop
