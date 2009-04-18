@@ -180,7 +180,7 @@ if [ "$1" = "triggered" ]; then
 			(ofbiz-start)
 				ofbiz_init_invoke start
 				;;
-			(ofbiz-install|ofbiz-upgrade)
+			(ofbiz-install)
 				ofbiz_reseed=""
 				if [ "$trigger" = "ofbiz-install" ]; then
 					ofbiz_reseed=1
@@ -194,7 +194,6 @@ if [ "$1" = "triggered" ]; then
 				fi
 				ofbiz_readers="$(fix_readers "$ofbiz_readers")"
 				get ofbiz_admin_port ofbiz/admin-port
-				ofbiz_init_invoke stop
 				if [ "z" != "z$ofbiz_reseed" ]; then
 					echo "Need to modify ofbiz data." 1>&2
 					configure_ofbiz
@@ -210,10 +209,9 @@ fi
 ofbiz_reseed=""
 case "$1" in
 	(configure|reconfigure)
-		if [ "$2" ]; then
-			dpkg-trigger --no-await ofbiz-upgrade
-		else
-			dpkg-trigger --no-await ofbiz-install
+		ofbiz_init_invoke stop
+		dpkg-trigger --no-await ofbiz-install
+		if [ -z "$2" ]; then
 			if ! getent passwd ofbiz 2>/dev/null >/dev/null; then
 				adduser --quiet --group --no-create-home --system --shell /bin/sh --home /var/lib/ofbiz ofbiz
 			fi

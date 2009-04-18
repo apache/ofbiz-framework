@@ -1,13 +1,19 @@
 #!/bin/sh
 
 . /usr/share/debconf/confmodule
+ofbiz_init_invoke() {
+	if [ -x "/etc/init.d/ofbiz" ]; then
+		if [ -x "`which invoke-rc.d 2>/dev/null`" ]; then
+			invoke-rc.d ofbiz $1 || exit $?
+		else
+			/etc/init.d/ofbiz $1 || exit $?
+		fi
+	fi
+}
 case "$1" in
 	(configure|reconfigure)
-		if [ "z" = "z$2" ]; then
-			dpkg-trigger --no-await ofbiz-install
-		else
-			dpkg-trigger --no-await ofbiz-upgrade
-		fi
+		ofbiz_init_invoke stop
+		dpkg-trigger --no-await ofbiz-install
 		;;
 esac
 #DEBHELPER#
