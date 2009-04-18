@@ -93,7 +93,7 @@ under the License.
         <set field="partyContentMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
         <set field="partyContentMap.uploadedFile" from-field="byteWrap"/>
         <set field="partyContentMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
-        <call-service service-name="createPartyContent" in-map-name="partyContentMap" break-on-error="false">
+        <call-service service-name="uploadPartyContentFile" in-map-name="partyContentMap" break-on-error="false">
             <result-to-field result-name="contentId" field="contentId"/>
         </call-service>
         <!-- set the partyId in the request -->
