@@ -22,6 +22,7 @@ set -e
 JAVA_HOME=""
 JAVA_HOMES="/usr/lib/jvm/java-6-openjdk"
 OFBIZ_HOME="/usr/share/ofbiz"
+ofbiz_admin_user=admin
 for possible in $JAVA_HOMES; do
 	if [ -e "$possible/bin/java" ]; then
 		JAVA_HOME="$possible"
@@ -221,6 +222,9 @@ case "$1" in
 		dpkg-trigger --no-await ofbiz-install
 		if [ -z "$2" ]; then
 			mkdir -p "/var/lib/ofbiz/import/"
+			out="/var/lib/ofbiz/import/ofbiz-framework.xml"
+			sed "s/@userLoginId@/$ofbiz_admin_user/g" < "$OFBIZ_HOME/framework/resources/templates/AdminUserLoginData.xml" > "$out.new"
+			mv "$out.new" "$out"
 			if ! getent passwd ofbiz 2>/dev/null >/dev/null; then
 				adduser --quiet --group --no-create-home --system --shell /bin/sh --home /var/lib/ofbiz ofbiz
 			fi
