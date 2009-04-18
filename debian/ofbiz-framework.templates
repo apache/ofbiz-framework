@@ -1,3 +1,11 @@
+Template: ofbiz/admin-user
+Type: string
+_Description: Enter the username for ofbiz admin account:
+ If this is the first time installing ofbiz, you can leave this
+ blank, and the default of 'admin' will be choosen.  The initial
+ password will be 'ofbiz', and you will be prompted to change it
+ after you log in the first time.
+
 Template: ofbiz/admin-password
 Type: password
 _Description: Enter the password for ofbiz admin accounts:
