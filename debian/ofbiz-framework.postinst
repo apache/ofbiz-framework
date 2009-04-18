@@ -21,6 +21,7 @@ set -e
 : "$0" "$@"
 JAVA_HOME=""
 JAVA_HOMES="/usr/lib/jvm/java-6-openjdk"
+OFBIZ_HOME="/usr/share/ofbiz"
 for possible in $JAVA_HOMES; do
 	if [ -e "$possible/bin/java" ]; then
 		JAVA_HOME="$possible"
@@ -36,7 +37,7 @@ JAVA="$JAVA_HOME/bin/java"
 
 encrypt_password() {
 	(
-		cd /usr/share/ofbiz
+		cd "$OFBIZ_HOME"
 		"$JAVA" -classpath framework/base/build/lib/ofbiz-base.jar:framework/common/build/lib/ofbiz-common.jar:framework/base/config:framework/entity/build/lib/ofbiz-entity.jar:framework/base/lib/javolution.jar:framework/base/lib/commons/commons-collections.jar:framework/base/lib/jdbm.jar:framework/base/lib/log4j.jar:framework/security/config:support EncryptPassword "$1"
 	)
 }
@@ -47,8 +48,8 @@ munge_conffile() {
 		(framework/entity/config/entityengine.xml)
 			. /etc/dbconfig-common/ofbiz.conf
 			xalan \
-				-xsl "/usr/share/ofbiz/support/entityengine.xslt" \
-				-in "/usr/share/ofbiz/ucf/$source" \
+				-xsl "$OFBIZ_HOME/support/entityengine.xslt" \
+				-in "$OFBIZ_HOME/ucf/$source" \
 				-param dbtype "'$dbc_dbtype'" \
 				-param dbuser "'$dbc_dbuser'" \
 				-param dbpass "'$dbc_dbpass'" \
@@ -84,9 +85,9 @@ configure_ofbiz() {
 						xalan -q \
 						-param reader "'$1'" \
 						-param password "'$ofbiz_password_encrypted'" \
-						-param ofbizhome "'/usr/share/ofbiz'" \
-						-xsl "/usr/share/ofbiz/support/override-data.xslt" \
-						-in "/usr/share/ofbiz/framework/base/config/component-load.xml" \
+						-param ofbizhome "'$OFBIZ_HOME'" \
+						-xsl "$OFBIZ_HOME/support/override-data.xslt" \
+						-in "$OFBIZ_HOME/framework/base/config/component-load.xml" \
 						-out "$tempdir/reader-$1.xml"
 					chown ofbiz:ofbiz "$tempdir/reader-$1.xml"
 					fi
