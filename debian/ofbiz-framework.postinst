@@ -59,13 +59,6 @@ munge_conffile() {
 }
 configure_ofbiz() {
 	extra="-readers=seed"
-	: ofbiz_readers "$ofbiz_readers"
-	: ofbiz_import_readers "$ofbiz_import_readers"
-	if [ "$ofbiz_readers" ]; then
-		if [ "$ofbiz_import_readers" ]; then
-			extra="$extra -readers=\"$ofbiz_readers\""
-		fi
-	fi
 	for file in "/var/lib/ofbiz/import/"*.xml; do
 		if [ -e "$file" ]; then
 			extra="$extra -file=\"$file\""
