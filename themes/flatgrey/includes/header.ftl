@@ -118,11 +118,11 @@ under the License.
         <li class="control-area">
           <p class="collapsed">
             <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
-              <a href="javascript:document.commonPreferences.submit()">&nbsp;&nbsp;</a>
-              <form name="commonPreferences" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)">
+              <a href="javascript:document.setUserPreferenceCompactHeaderN.submit()">&nbsp;&nbsp;</a>
+              <form name="setUserPreferenceCompactHeaderN" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)">
                 <input name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES" type="hidden"/>
                 <input name="userPrefTypeId" value="COMPACT_HEADER" type="hidden"/>
-                <input name="userPrefValue" value="N${StringUtil.wrapString(parametersURL?if_exists)}" type="hidden"/>
+                <input name="userPrefValue" value="N" type="hidden"/>
               </form
           </p>
         </li>
@@ -141,11 +141,11 @@ under the License.
           <#if userLogin?exists>
             <p class="expanded">
               <a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a>&nbsp;&nbsp;
-              <a href="javascript:document.commonPreferences.submit()">&nbsp;&nbsp;</a>
-              <form name="commonPreferences" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)">
+              <a href="javascript:document.setUserPreferenceCompactHeaderY.submit()">&nbsp;&nbsp;</a>
+              <form name="setUserPreferenceCompactHeaderY" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>" onSubmit="javascript:submitFormDisableSubmits(this)">
                 <input name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES" type="hidden"/>
                 <input name="userPrefTypeId" value="COMPACT_HEADER" type="hidden"/>
-                <input name="userPrefValue" value="Y${StringUtil.wrapString(parametersURL?if_exists)}" type="hidden"/>
+                <input name="userPrefValue" value="Y" type="hidden"/>
               </form
            </p>
             <#if layoutSettings.topLines?has_content>
