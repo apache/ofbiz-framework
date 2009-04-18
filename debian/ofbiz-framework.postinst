@@ -216,7 +216,9 @@ case "$1" in
 			if ! getent passwd ofbiz 2>/dev/null >/dev/null; then
 				adduser --quiet --group --no-create-home --system --shell /bin/sh --home /var/lib/ofbiz ofbiz
 			fi
-			dpkg-statoverride --update --add ofbiz ofbiz 755 /var/lib/ofbiz
+			if ! dpkg-statoverride --list "/var/lib/ofbiz" > /dev/null; then
+				dpkg-statoverride --update --add ofbiz ofbiz 755 /var/lib/ofbiz
+			fi
 		fi
 	;;
 esac
