@@ -66,7 +66,6 @@ configure_ofbiz() {
 	done
 	eval /etc/init.d/ofbiz install $extra
 	rm -rf "/var/lib/ofbiz/import"
-	#rm -f "$tempfile1" "$tempfile2"
 }
 get_random_chars() {
 	(
