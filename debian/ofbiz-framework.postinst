@@ -35,12 +35,6 @@ if ! [ "$JAVA_HOME" ]; then
 fi
 JAVA="$JAVA_HOME/bin/java"
 
-encrypt_password() {
-	(
-		cd "$OFBIZ_HOME"
-		"$JAVA" -classpath framework/base/build/lib/ofbiz-base.jar:framework/common/build/lib/ofbiz-common.jar:framework/base/config:framework/entity/build/lib/ofbiz-entity.jar:framework/base/lib/javolution.jar:framework/base/lib/commons/commons-collections.jar:framework/base/lib/jdbm.jar:framework/base/lib/log4j.jar:framework/security/config:support EncryptPassword "$1"
-	)
-}
 munge_conffile() {
 	tmp="$1"
 	source="$2"
@@ -67,42 +61,9 @@ configure_ofbiz() {
 	extra=""
 	: ofbiz_readers "$ofbiz_readers"
 	: ofbiz_import_readers "$ofbiz_import_readers"
-	: ofbiz_override_data "$ofbiz_override_data"
 	if [ "$ofbiz_readers" ]; then
 		if [ "$ofbiz_import_readers" ]; then
 			extra="$extra -readers=\"$ofbiz_readers\""
-		fi
-		if [ "$ofbiz_override_data" ]; then
-			trap 'rm -f "$tempfile1" "$tempfile2"' EXIT
-			tempdir="$(mktemp -d)"
-			chown ofbiz:ofbiz "$tempdir"
-			trap 'rm -rf "$tempdir"' EXIT
-			files=""
-			{
-				IFS="," set -- $ofbiz_readers
-				while [ $# -gt 0 ]; do
-					if true; then
-						xalan -q \
-						-param reader "'$1'" \
-						-param password "'$ofbiz_password_encrypted'" \
-						-param ofbizhome "'$OFBIZ_HOME'" \
-						-xsl "$OFBIZ_HOME/support/override-data.xslt" \
-						-in "$OFBIZ_HOME/framework/base/config/component-load.xml" \
-						-out "$tempdir/reader-$1.xml"
-					chown ofbiz:ofbiz "$tempdir/reader-$1.xml"
-					fi
-					if [ "$files" ]; then
-						files="$files,$tempdir/reader-$1.xml"
-					else
-						files="$tempdir/reader-$1.xml"
-					fi
-					shift
-				done
-			}
-			trap '' EXIT
-			if [ "$files" ]; then
-				extra="$extra -file=\"$files\""
-			fi
 		fi
 	fi
 	for file in "/var/lib/ofbiz/import/"*.xml; do
