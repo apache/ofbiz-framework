@@ -60,6 +60,14 @@ public class Start implements Runnable {
     private static final double REQUIRED_JDK = 1.5;
 
     public void init(String[] args, boolean fullInit) throws IOException {
+        String globalSystemPropsFileName = System.getProperty("ofbiz.system.props");
+        if (globalSystemPropsFileName != null) {
+            try {
+                System.getProperties().load(new FileInputStream(globalSystemPropsFileName));
+            } catch (IOException e) {
+                throw (IOException) new IOException("Couldn't load global system props").initCause(e);
+            }
+        }
         String firstArg = args.length > 0 ? args[0] : "";
         String cfgFile = Start.getConfigFileName(firstArg);
 
@@ -373,14 +381,6 @@ public class Start implements Runnable {
         String firstArg = args.length > 0 ? args[0] : "";
         Start start = new Start();
 
-        String globalSystemPropsFileName = System.getProperty("ofbiz.system.props");
-        if (globalSystemPropsFileName != null) {
-            try {
-                System.getProperties().load(new FileInputStream(globalSystemPropsFileName));
-            } catch (IOException e) {
-                throw (IOException) new IOException("Couldn't load global system props").initCause(e);
-            }
-        }
         if (firstArg.equals("-help") || firstArg.equals("-?")) {
             System.out.println("");
             System.out.println("Usage: java -jar ofbiz.jar [command] [arguments]");
