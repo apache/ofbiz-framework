@@ -38,7 +38,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     </transaction-factory>
     -->
     <!--
-    	It is common to use UserTransaction for the TransactionManager, but if that doesn't work, try this: <transaction-manager-jndi jndi-server-name="default" jndi-name="java:comp/TransactionManager"/>
+      It is common to use UserTransaction for the TransactionManager, but if that doesn't work, try this: <transaction-manager-jndi jndi-server-name="default" jndi-name="java:comp/TransactionManager"/>
         Common UserTransaction locations:
             java:comp/UserTransaction (most servers: Resin, Orion, OC4J, etc)
             UserTransaction (RexIP)
@@ -49,7 +49,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <!-- the connection factory class to use, one is needed for obtaining connections/pools for defined resources -->
     <connection-factory class="org.ofbiz.entity.connection.DBCPConnectionFactory"/>
 
-    <delegator name="default" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" distributed-cache-clear-enabled="false">
+    <delegator name="localderby" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main" distributed-cache-clear-enabled="false">
         <group-map group-name="org.ofbiz" datasource-name="localderby"/>
         <group-map group-name="org.ofbiz.olap" datasource-name="localderbyolap"/>
     </delegator>
@@ -60,11 +60,12 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 
     <!-- be sure that your default delegator (or the one you use) uses the same datasource for test. You must run "ant run-install" before running "ant run-tests" -->
     <delegator name="test" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main">
-        <group-map group-name="org.ofbiz" datasource-name="localderby"/>
+        <group-map group-name="org.ofbiz" datasource-name="localpostgres"/>
         <group-map group-name="org.ofbiz.olap" datasource-name="localderbyolap"/>
     </delegator>
-    <delegator name="other" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main">
+    <delegator name="default" sequenced-id-prefix="OFB" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main">
         <group-map group-name="org.ofbiz" datasource-name="localpostgres"/>
+        <group-map group-name="org.ofbiz.olap" datasource-name="localderbyolap"/>
     </delegator>
 
     <!-- need to at least define a name for each component to use -->
@@ -191,6 +192,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             pool-maxsize="250"/>
         <!-- <jndi-jdbc jndi-server-name="localjndi" jndi-name="java:/DerbyDataSource" isolation-level="ReadCommitted"/> -->
     </datasource>
+
     <datasource name="localderbyolap"
             helper-class="org.ofbiz.entity.datasource.GenericHelperDAO"
             schema-name="OFBIZ"
@@ -338,6 +340,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             use-fk-initially-deferred="false"
             alias-view-columns="false"
             join-style="ansi"
+            result-fetch-size="50"
             use-binary-type-for-blob="true">
             <!-- use this attribute to make the EntityListIterator more effective for pgjdbc 7.5devel and later:
                 result-fetch-size="50"
@@ -348,7 +351,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <read-data reader-name="ext"/>
         <inline-jdbc
                 jdbc-driver="org.postgresql.Driver"
-                jdbc-uri="jdbc:postgresql://127.0.0.1/ofbiz"
+                jdbc-uri="jdbc:postgresql://127.0.0.1:5434/ofbizDev"
                 jdbc-username="ofbiz"
                 jdbc-password="ofbiz"
                 isolation-level="ReadCommitted"
