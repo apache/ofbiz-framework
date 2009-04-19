@@ -874,7 +874,6 @@ under the License.
                             <include-form name="ListMyUnknownPartyEmails" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                         </widgets>
                     </section>
-                    <label text="internalNotesOnly: ${internalNotesOnly}"></label>
                     <label style="h2" text="${uiLabelMap.PartyEmailsFromKnownOrigin}"></label>
                     <include-form name="ListPartyCommEvents" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                     <section>
