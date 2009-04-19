@@ -21,7 +21,7 @@ under the License.
     <PortalPortlet portalPortletId="EXAMPLE_1" portletName="Example 1" description="Example portlet n. 1"
         screenName="ExamplePortlet1" screenLocation="component://example/widget/example/PortletScreens.xml"
         editFormName="ExamplePortlet1Edit" editFormLocation="component://example/widget/example/PortletEditForms.xml"
-        screenshot="/images/ofbiz_logo.jpg"/>
+        screenshot="/images/ofbiz_logo.gif"/>
 
     <PortalPortlet portalPortletId="EXAMPLE_2" portletName="Example 2" description="Example portlet n. 2"
         screenName="ExamplePortlet2" screenLocation="component://example/widget/example/PortletScreens.xml"

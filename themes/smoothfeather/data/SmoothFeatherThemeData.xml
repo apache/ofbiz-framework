@@ -22,8 +22,8 @@ under the License.
     <VisualTheme visualThemeId="SMOOTH_FEATHER" visualThemeSetId="BACKOFFICE" description="New Smooth Feather Interface with new OFBiz branding and styling"/>
     <VisualThemeResource visualThemeId="SMOOTH_FEATHER" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/smoothfeather/css/global.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="SMOOTH_FEATHER" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/smoothfeather/js/global.js" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="SMOOTH_FEATHER" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/smoothfeather/ofbiz.ico" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="SMOOTH_FEATHER" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/smoothfeather/ofbiz_logo.jpg" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="SMOOTH_FEATHER" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="SMOOTH_FEATHER" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.gif" sequenceId="01"/>
     <VisualThemeResource visualThemeId="SMOOTH_FEATHER" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://smoothfeather/includes/header.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="SMOOTH_FEATHER" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://smoothfeather/includes/footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="SMOOTH_FEATHER" resourceTypeEnumId="VT_NAV_TMPLT_LOC" resourceValue="component://smoothfeather/includes/appbar.ftl" sequenceId="01"/>

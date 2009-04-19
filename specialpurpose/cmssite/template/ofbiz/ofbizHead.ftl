@@ -47,7 +47,7 @@ under the License.
 <div class="headerboxoutside">
     <div class="headerboxtop">
         <div class="left">
-            <a href="http://ofbiz.apache.org/"><img src="/ofbiz/images/ofbiz_logo.jpg" border="0" alt="The Open For Business Project"/></a>
+            <a href="http://ofbiz.apache.org/"><img src="/ofbiz/images/ofbiz_logo.gif" border="0" alt="The Open For Business Project"/></a>
         </div>
         <div class="right">
             <a href="http://ofbiz.apache.org/"><img class="main-logo" src="/ofbiz/images/ofbiz_powered.gif" alt="Powered By Apache OFBiz"/></a>

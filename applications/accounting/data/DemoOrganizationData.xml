@@ -20,7 +20,7 @@ under the License.
 <entity-engine-xml>
     <!-- The main Company Internal Organization -->
     <Party partyId="Company" partyTypeId="PARTY_GROUP"/>
-    <PartyGroup partyId="Company" groupName="Your Company Name Here" logoImageUrl="http://ofbiz.apache.org/images/ofbiz_logo.jpg"/>
+    <PartyGroup partyId="Company" groupName="Your Company Name Here" logoImageUrl="http://ofbiz.apache.org/images/ofbiz_logo.gif"/>
     <PartyRole partyId="Company" roleTypeId="BILL_FROM_VENDOR"/>
     <PartyRole partyId="Company" roleTypeId="BILL_TO_CUSTOMER"/>
     <PartyRole partyId="Company" roleTypeId="INTERNAL_ORGANIZATIO"/>
