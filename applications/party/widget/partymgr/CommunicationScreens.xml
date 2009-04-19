@@ -818,6 +818,7 @@ under the License.
         <section>
             <actions>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
+                <set field="internalNotesOnly" from-field="internalNotesOnly" default-value="false"/>
                 <set field="partyId" from-field="parameters.partyId" default-value="${communicationPartyId}"/>
                 <set field="partyId" from-field="partyId" default-value="${userLogin.partyId}"/>
                 <set field="all" from-field="parameters.all"/>
@@ -831,6 +832,8 @@ under the License.
                             value="${partyId}"/>
                         <condition-expr field-name="roleStatusId"
                             operator="not-equals" value="COM_ROLE_COMPLETED" ignore="${all}"/>
+                        <condition-expr field-name="communicationEventTypeId"
+                            operator="equals" value="COMMENT_NOTE" ignore="${internalNotesOnly}" ignore-if-null="true"/>
                     </condition-list>
                     <order-by field-name="-datetimeStarted"/>
                 </entity-condition>
@@ -871,6 +874,7 @@ under the License.
                             <include-form name="ListMyUnknownPartyEmails" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                         </widgets>
                     </section>
+                    <label text="internalNotesOnly: ${internalNotesOnly}"></label>
                     <label style="h2" text="${uiLabelMap.PartyEmailsFromKnownOrigin}"></label>
                     <include-form name="ListPartyCommEvents" location="component://party/webapp/partymgr/communication/CommForms.xml"/>
                     <section>

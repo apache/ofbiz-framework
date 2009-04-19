@@ -774,10 +774,16 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="EditPartyId" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
+    <form name="EditCommPortletParams" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
         <field name="communicationPartyId" entry-name="attributeMap.communicationPartyId">
-            <lookup target-form-name="LookupPartyName"/>
+            <lookup target-form-name="LookupPartyName" default-value="${userLogin.partyId}"/>
         </field>
+        <field name="internalNotesOnly" entry-name="attributeMap.internalNotesOnly">
+            <drop-down>
+                <!-- need to be reversed because we want to ignore the condition statement or not -->
+                <option key="true" description="${uiLabelMap.CommonFalse}"/>
+                <option key="false" description="${uiLabelMap.CommonTrue}"/>
+            </drop-down></field>
         <field name="updateButton"><submit/></field>
     </form>
 

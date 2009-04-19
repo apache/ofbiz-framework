@@ -98,7 +98,7 @@
     <PortalPortlet portalPortletId="MyCommunications" portletName="My Communications"  description="IN and outgoing Communication list of a party"
         screenName="MyCommunicationEvents"
         screenLocation="component://party/widget/partymgr/CommunicationScreens.xml"
-        editFormName="EditPartyId" editFormLocation="component://party/webapp/partymgr/communication/CommForms.xml"/>
+        editFormName="EditCommPortletParams" editFormLocation="component://party/webapp/partymgr/communication/CommForms.xml"/>
     <PortletPortletCategory portalPortletId="MyCommunications" portletCategoryId="COMMUNICATIONS"/>
 
 </entity-engine-xml>
