@@ -27,7 +27,7 @@ margin: 1em;
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${uiLabelMap.CommonVisualThemes}</li>
-      <li><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.CommonCancel}</a></li>
+      <li><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.CommonDone}</a></li>
     </ul>
     <br class="clear"/>
   </div>
