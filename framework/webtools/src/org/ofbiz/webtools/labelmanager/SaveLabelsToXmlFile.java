@@ -88,7 +88,12 @@ public class SaveLabelsToXmlFile {
                         LabelValue labelValue = labelInfo.getLabelValue(localeFound);
 
                         if (UtilValidate.isNotEmpty(labelValue)) {
-                             Element valueElem = UtilXml.addChildElementValue(propertyElem, "value", StringUtil.fromHtmlToSpecialChars(labelValue.getLabelValue(), true, true, false), resourceDocument);
+                            Element valueElem = null;
+                            if ("CommonEmptyHeader#CommonUiLabels.xml".equalsIgnoreCase(labelKey)) {
+                                valueElem = UtilXml.addChildElementValue(propertyElem, "value", "&#160;", resourceDocument); // This is needed to keep the label not "empty"
+                            } else {
+                                valueElem = UtilXml.addChildElementValue(propertyElem, "value", StringUtil.fromHtmlToSpecialChars(labelValue.getLabelValue(), true, true, false), resourceDocument);
+                            }
                             valueElem.setAttribute("xml:lang", localeFound);
 
                             if (UtilValidate.isNotEmpty(labelValue.getLabelComment())) {
