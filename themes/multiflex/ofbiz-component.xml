@@ -25,7 +25,7 @@ under the License.
     <resource-loader name="main" type="component"/>
 
     <!-- entity resources: model(s), eca(s), group, and data definitions -->
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/ThemeData.xml"/>
+    <entity-resource type="data" reader-name="seed" loader="main" location="data/MultiflexThemeData.xml"/>
 
     <!-- web applications; will be mounted when using the embedded Jetty container -->
     <webapp name="multiflex"
