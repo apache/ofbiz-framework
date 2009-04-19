@@ -24,8 +24,8 @@ under the License.
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/multiflex/style.css" sequenceId="02"/>
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/images/prototypejs/popup.css" sequenceId="03"/>
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/content/images/contentForum.css" sequenceId="04"/>
-    <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/multiflex/ofbiz.ico" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/multiflex/ofbiz_logo.jpg" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.gif" sequenceId="01"/>
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://multiflex/includes/header.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://multiflex/includes/footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="MULTIFLEX" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/multiflex/screenshot.jpg" sequenceId="01"/>
