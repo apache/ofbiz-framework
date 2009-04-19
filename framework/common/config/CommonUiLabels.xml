@@ -1854,6 +1854,18 @@
         <value xml:lang="th">ระยะห่าง</value>
         <value xml:lang="zh">距离</value>
     </property>
+    <property key="CommonDone">
+        <value xml:lang="de">Erledigt</value>
+        <value xml:lang="en">Done</value>
+        <value xml:lang="es">Terminar</value>
+        <value xml:lang="fr">Terminer</value>
+        <value xml:lang="nl">Klaar</value>
+        <value xml:lang="pt">Feito</value>
+        <value xml:lang="ro">Executa</value>
+        <value xml:lang="ru">Выполнить</value>
+        <value xml:lang="zh">完成</value>
+        <value xml:lang="zh_CN">完成</value>
+    </property>
     <property key="CommonDuplicate">
         <value xml:lang="ar">مضاعفة</value>
         <value xml:lang="de">Verdoppeln</value>
