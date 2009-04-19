@@ -306,7 +306,8 @@
         <value xml:lang="zh_CN">地址</value>
     </property>
     <property key="CommonAdvancedFeatures">
-        <value xml:lang="en">Advanced Features</value>    
+        <value xml:lang="en">Advanced Features</value>
+        <value xml:lang="fr">Caractéristiques avancées</value>
     </property>
     <property key="CommonAdvancedSearch">
         <value xml:lang="de">Erweiterte Suche</value>
@@ -1150,6 +1151,7 @@
     </property>
     <property key="CommonClickHereForFieldLookup">
         <value xml:lang="en">Click here For Field Lookup</value>
+        <value xml:lang="fr">Cliquez ici pour une recherche sur ce champ</value>
     </property>
     <property key="CommonClose">
         <value xml:lang="ar">غلق</value>
@@ -1983,7 +1985,7 @@
         <value xml:lang="zh_CN">电子邮件</value>
     </property>
     <property key="CommonEmptyHeader">
-        <value xml:lang="en">&#160;</value>
+        <value xml:lang="en">&amp;#160;</value>
     </property>
     <property key="CommonEnabled">
         <value xml:lang="ar">شغال</value>
@@ -4008,10 +4010,6 @@
         <value xml:lang="zh">否</value>
         <value xml:lang="zh_CN">不</value>
     </property>
-    <property key="CommonNormal">
-        <value xml:lang="en">Normal</value>
-        <value xml:lang="fr">Normal</value>
-    </property>
     <property key="CommonNoAccess">
         <value xml:lang="en">No Access to this function, contact your system administrator if you feel this is an error</value>
         <value xml:lang="es">Acceso no autorizado. Póngase en contacto con su administrador de sistemas si piensa que esto es un error.</value>
@@ -4164,6 +4162,10 @@
         <value xml:lang="th">ไม่มี</value>
         <value xml:lang="zh">无</value>
         <value xml:lang="zh_CN">无</value>
+    </property>
+    <property key="CommonNormal">
+        <value xml:lang="en">Normal</value>
+        <value xml:lang="fr">Normal</value>
     </property>
     <property key="CommonNot">
         <value xml:lang="ar">لا</value>
@@ -5598,6 +5600,7 @@
     </property>
     <property key="CommonSecurityGroups">
         <value xml:lang="en">Security Groups</value>
+        <value xml:lang="fr">Groupes de sécurité</value>
     </property>
     <property key="CommonSegmentGroupGeoAbbr">
         <value xml:lang="en">Abbreviation</value>
@@ -7798,6 +7801,11 @@
         <value xml:lang="th">สร้างโดยผู้ลงชื่อเข้าใช้ระบบ</value>
         <value xml:lang="zh">登录用户新建的</value>
     </property>
+    <property key="FormFieldTitle_createdByUserLoginId">
+        <value xml:lang="en">Created By User Login Id</value>
+        <value xml:lang="fr">Créé par l'identifiant de connexion</value>
+        <value xml:lang="it">Creato dall'utente</value>
+    </property>
     <property key="FormFieldTitle_createdDate">
         <value xml:lang="ar">تاريخ الإستحداث</value>
         <value xml:lang="de">Erstellungsdatum</value>
@@ -7815,11 +7823,6 @@
         <value xml:lang="en">Created Tx Stamp</value>
         <value xml:lang="fr">Estampille temporelle de transaction créée</value>
         <value xml:lang="it">Data/ora creazione</value>
-    </property>
-    <property key="FormFieldTitle_createdByUserLoginId">
-        <value xml:lang="en">Created By User Login Id</value>
-        <value xml:lang="fr">Créé par l'identifiant de connexion</value>
-        <value xml:lang="it">Creato dall'utente</value>
     </property>
     <property key="FormFieldTitle_currencyUomId">
         <value xml:lang="ar">العملة</value>
@@ -8035,6 +8038,9 @@
         <value xml:lang="th">ลบ</value>
         <value xml:lang="zh">删除</value>
     </property>
+    <property key="FormFieldTitle_saveButton">
+        <value xml:lang="en">Save</value>
+    </property>
     <property key="FormFieldTitle_searchButton">
         <value xml:lang="ar">البحث</value>
         <value xml:lang="de">Suchen</value>
@@ -8048,9 +8054,6 @@
         <value xml:lang="ru">Искать</value>
         <value xml:lang="th">ค้นหา</value>
         <value xml:lang="zh">搜索</value>
-    </property>
-    <property key="FormFieldTitle_saveButton">
-        <value xml:lang="en">Save</value>
     </property>
     <property key="FormFieldTitle_sendButton">
         <value xml:lang="de">Absenden</value>
@@ -8140,8 +8143,8 @@
         <value xml:lang="ar">مجموع</value>
         <value xml:lang="de">Total</value>
         <value xml:lang="en">Total</value>
-        <value xml:lang="fr">Total</value>
         <value xml:lang="es">Total</value>
+        <value xml:lang="fr">Total</value>
         <value xml:lang="it">Totale</value>
         <value xml:lang="nl">Totaal</value>
         <value xml:lang="pt">Total</value>
