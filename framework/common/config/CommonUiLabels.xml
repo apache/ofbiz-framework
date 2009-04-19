@@ -7243,7 +7243,7 @@
     <property key="CommonVisualThemeSelected">
         <value xml:lang="en">Selected Visual Theme</value>
         <value xml:lang="es">Tema visual seleciconado</value>
-        <value xml:lang="fr">Choisissez une charte graphique</value>
+        <value xml:lang="fr">Charte graphique sélectionnée</value>
         <value xml:lang="it">Tema grafico selezionato</value>
     </property>
     <property key="CommonVisualThemes">
