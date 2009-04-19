@@ -34,7 +34,7 @@ body > #wrapper {
 }
 
 body {
-    background: url(../images/logo.gif) 50% 30px no-repeat;
+    background: url(/images/ofbiz_logo.gif) 50% 30px no-repeat;
     background-color:#222;
     text-align:center;
     font: normal 0.75em/ 145% Arial, Tahoma, sans-serif;

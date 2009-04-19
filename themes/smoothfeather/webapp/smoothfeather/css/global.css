@@ -346,7 +346,7 @@ span#modal-close-btn{
     left:5px;
     width:238px;
     height:43px;
-    background:url(../images/logo.gif) top left no-repeat;
+    background:url(/images/ofbiz_logo.gif) top left no-repeat;
     z-index:8000;
 }
 
