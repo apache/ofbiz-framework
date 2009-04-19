@@ -207,7 +207,7 @@ if (tobrowser) {
             beganTransaction = TransactionUtil.begin(3600);
             try {
                 me = reader.getModelEntity(curEntityName);
-                if (me.getNoAutoStamp()) {
+                if (me.getNoAutoStamp() || me instanceof ModelViewEntity) {
                     values = delegator.find(curEntityName, null, null, null, me.getPkFieldNames(), efo);
                 } else {
                     values = delegator.find(curEntityName, entityDateCond, null, null, UtilMisc.toList("-createdTxStamp"), efo);
@@ -262,7 +262,7 @@ if (tobrowser) {
                         results.add("[$fileNumber] [vvv] $curEntityName skipping view entity");
                         return;
                     }
-                    if (me.getNoAutoStamp()) {
+                    if (me.getNoAutoStamp() || me instanceof ModelViewEntity) {
                         values = delegator.find(curEntityName, null, null, null, me.getPkFieldNames(), efo);
                     } else {
                         values = delegator.find(curEntityName, entityDateCond, null, null, me.getPkFieldNames(), efo);
