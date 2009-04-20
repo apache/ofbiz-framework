@@ -323,6 +323,9 @@ under the License.
                                                 </widgets>
                                             </section>
                                             <section>
+                                                <condition>
+                                                    <not><if-empty field="partyGroupId"/></not>
+                                                </condition>
                                                 <actions>
                                                     <set field="parameters.partyId" from-field="partyGroupId"/>
                                                 </actions>
@@ -330,7 +333,14 @@ under the License.
                                                     <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                                 </widgets>
                                             </section>
-                                            <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <section>
+                                                <actions>
+                                                    <set field="parameters.partyId" from-field="partyId"/>
+                                                </actions>
+                                                <widgets>
+                                                    <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                                </widgets>
+                                            </section>
                                         </container>
                                         <container style="profile-right">
                                             <section>
