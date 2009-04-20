@@ -53,36 +53,6 @@
                     <result-to-result result-name="contactMechId" service-result-name="contactMechId"/>
                 </call-service>
             </if-not-empty>
-            <if-not-empty field="parameters.address1">
-                <call-map-processor in-map-name="parameters" out-map-name="postalAddressCtx">
-                    <simple-map-processor name="postalAddress">
-                        <process field="address1">
-                            <copy/>
-                        </process>
-                        <process field="address2">
-                            <copy/>
-                        </process>
-                        <process field="city">
-                            <copy/>
-                        </process>
-                        <process field="stateProvinceGeoId">
-                            <copy/>
-                        </process>
-                        <process field="countryGeoId">
-                            <copy/>
-                        </process>
-                        <process field="postalCode">
-                            <copy/>
-                        </process>
-                    </simple-map-processor>
-                </call-map-processor>
-                <check-errors/>
-                <set field="postalAddressCtx.partyId" from-field="partyId"/>
-                <set field="postalAddressCtx.contactMechPurposeTypeId" value="PRIMARY_LOCATION"/>
-                <call-service service-name="createPartyPostalAddress" in-map-name="postalAddressCtx">
-                    <result-to-field result-name="contactMechId" field="postalContactMechId"/>
-                </call-service>
-            </if-not-empty>
         </else>
         </if-compare>
 
