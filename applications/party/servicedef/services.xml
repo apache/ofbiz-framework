@@ -672,7 +672,9 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
+        <override name="headerString" allow-html="any"/>
         <override name="content" allow-html="any"/>
+        <override name="messageId" allow-html="any"/>
     </service>
     <service name="createCommunicationEvent" engine="simple"
             location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventWithPermission" auth="true">
