@@ -78,7 +78,9 @@ under the License.
             <#if thisNodeTrailCsv?has_content>
                 <#local thisNodeTrailCsv = thisNodeTrailCsv + ","/>
             </#if>
-            <#local thisNodeTrailCsv = thisNodeTrailCsv + nodeTrail[idx]>
+            <#if nodeTrail[idx]?exists>
+              <#local thisNodeTrailCsv = thisNodeTrailCsv + nodeTrail[idx]>
+            </#if>
         </#list>
 
         <!-- in showcontenttree, contentIdx: ${contentIdx} -->
