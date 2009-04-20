@@ -25,12 +25,12 @@ under the License.
     <load-component component-location="catalina"/>
     <!-- <load-component component-location="jetty"/> -->
     <load-component component-location="security"/>
-    <!--load-component component-location="datafile"/-->
+    <load-component component-location="datafile"/>
     <load-component component-location="minilang"/>
     <load-component component-location="common"/>
     <load-component component-location="service"/>
     <load-component component-location="entityext"/>
-    <!--load-component component-location="bi"/-->
+    <load-component component-location="bi"/>
     <load-component component-location="webapp"/>
     <load-component component-location="guiapp"/>
     <load-component component-location="widget"/>
@@ -39,6 +39,6 @@ under the License.
     <load-component component-location="webtools"/>
     <load-component component-location="webslinger"/>
     <load-component component-location="images"/>
-    <!--load-component component-location="example"/>
-    <load-component component-location="exampleext"/-->
+    <load-component component-location="example"/>
+    <load-component component-location="exampleext"/>
 </component-loader>
