@@ -222,7 +222,6 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>
 
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/SetRoleVars.groovy"/>
                 <set field="parameters.partyId" from-field="partyId"/>
                 <set field="parameters.partyGroupId" from-field="partyGroupId"/>
