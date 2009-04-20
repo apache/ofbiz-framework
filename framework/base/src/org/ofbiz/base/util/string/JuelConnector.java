@@ -163,7 +163,6 @@ public class JuelConnector {
             } catch (ScanException e) {
                 throw new ELException(LocalMessages.get("error.build", expression, e.getMessage()));
             } catch (ParseException e) {
-                Debug.logInfo(e, "UEL exception", module);
                 throw new ELException(LocalMessages.get("error.build", expression, e.getMessage()));
             }
         }
