@@ -20,17 +20,17 @@ under the License.
 
 <component-loader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/component-loader.xsd">
-    <!--load-component component-location="ecommerce"/>
+    <load-component component-location="ecommerce"/>
     <load-component component-location="pos"/>
     <load-component component-location="hhfacility"/>
     <load-component component-location="assetmaint"/>
-    <load-component component-location="cmssite"/-->
+    <load-component component-location="cmssite"/>
     <load-component component-location="projectmgr"/>
-    <!--load-component component-location="oagis"/>
+    <load-component component-location="oagis"/>
     <load-component component-location="googlebase"/>
-    <load-component component-location="ebay"/-->
+    <load-component component-location="ebay"/>
     <load-component component-location="myportal"/>
-    <!--load-component component-location="webpos"/-->
+    <load-component component-location="webpos"/>
     <!-- <load-component component-location="workflow"/> -->
     <!-- <load-component component-location="shark"/> -->
 </component-loader>
