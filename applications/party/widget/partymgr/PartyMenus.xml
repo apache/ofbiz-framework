@@ -388,6 +388,7 @@
                 <parameter param-name="communicationEventTypeId" from-field="communicationEvent.communicationEventTypeId"/>
                 <parameter param-name="parentCommEventId" from-field="parameters.communicationEventId"/>
                 <parameter param-name="my" value="My"/>
+                <parameter param-name="statusId" value="COM_PENDING"/>
             </link>
         </menu-item>
         <menu-item name="forward" title="${uiLabelMap.PartyForward}">
@@ -403,6 +404,7 @@
                 <parameter param-name="communicationEventTypeId" value="communicationEvent.communicationEventTypeId"/>
                 <parameter param-name="originalCommEventId" from-field="parameters.communicationEventId"/>
                 <parameter param-name="my" value="My"/>
+                <parameter param-name="statusId" value="COM_PENDING"/>
             </link>
         </menu-item>
         <menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
