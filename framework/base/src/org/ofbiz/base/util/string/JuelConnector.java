@@ -18,6 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.base.util.string;
 
+import static de.odysseus.el.tree.impl.Scanner.Symbol.END_EVAL;
+import static de.odysseus.el.tree.impl.Scanner.Symbol.FLOAT;
+import static de.odysseus.el.tree.impl.Scanner.Symbol.START_EVAL_DEFERRED;
+import static de.odysseus.el.tree.impl.Scanner.Symbol.START_EVAL_DYNAMIC;
+
 import javax.el.*;
 
 import de.odysseus.el.misc.LocalMessages;
@@ -116,6 +121,31 @@ public class JuelConnector {
         public ExtendedParser(Builder context, String input) {
             super(context, input);
         }
+        protected AstEval eval(boolean required, boolean deferred) throws ScanException, ParseException {
+            AstEval v = null;
+            Symbol start_eval = deferred ? START_EVAL_DEFERRED : START_EVAL_DYNAMIC;
+            if (this.getToken().getSymbol() == start_eval) {
+                consumeToken();
+                AstNode node = expr(true); 
+                try {
+                    consumeToken(END_EVAL);
+                } catch (ParseException e) {
+                    if (this.getToken().getSymbol() == FLOAT && node instanceof AstIdentifier) {
+                        // Handle ${someMap.${someId}}
+                        String mapKey = this.getToken().getImage().replace(".", "");
+                        node = createAstDot(node, mapKey, true);
+                        consumeToken();
+                        consumeToken(END_EVAL);
+                    } else {
+                        throw e;
+                    }
+                }
+                v = new AstEval(node, deferred);
+            } else if (required) {
+                fail(start_eval);
+            }
+            return v;
+        }
         protected AstBracket createAstBracket(AstNode base, AstNode property, boolean lvalue, boolean strict) {
             return new ExtendedAstBracket(base, property, lvalue, strict);
         }
@@ -133,6 +163,7 @@ public class JuelConnector {
             } catch (ScanException e) {
                 throw new ELException(LocalMessages.get("error.build", expression, e.getMessage()));
             } catch (ParseException e) {
+                Debug.logInfo(e, "UEL exception", module);
                 throw new ELException(LocalMessages.get("error.build", expression, e.getMessage()));
             }
         }
