@@ -818,7 +818,7 @@ under the License.
         <section>
             <actions>
                 <script location="component://common/webcommon/WEB-INF/actions/includes/retrievePortletAttributes.groovy"/>
-                <set field="internalNotesOnly" from-field="internalNotesOnly" default-value="false"/>
+                <set field="internalNotesOnly" from-field="internalNotesOnly" default-value="true"/>
                 <set field="partyId" from-field="parameters.partyId" default-value="${communicationPartyId}"/>
                 <set field="partyId" from-field="partyId" default-value="${userLogin.partyId}"/>
                 <set field="all" from-field="parameters.all"/>
@@ -833,7 +833,7 @@ under the License.
                         <condition-expr field-name="roleStatusId"
                             operator="not-equals" value="COM_ROLE_COMPLETED" ignore="${all}"/>
                         <condition-expr field-name="communicationEventTypeId"
-                            operator="equals" value="COMMENT_NOTE" ignore="${internalNotesOnly}" ignore-if-null="true"/>
+                            operator="equals" value="COMMENT_NOTE" ignore="${internalNotesOnly}"/>
                     </condition-list>
                     <order-by field-name="-datetimeStarted"/>
                 </entity-condition>
