@@ -338,10 +338,8 @@ under the License.
                                                     <set field="parameters.partyId" from-field="partyId"/>
                                                 </actions>
                                                 <widgets>
-                                                    <include-screen name="Content"
-                                                        location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                                    <include-screen name="Notes"
-                                                        location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                                    <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                                    <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                                 </widgets>
                                             </section>
                                         </container>
