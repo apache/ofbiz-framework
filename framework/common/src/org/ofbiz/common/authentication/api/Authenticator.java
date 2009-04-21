@@ -56,6 +56,7 @@ public interface Authenticator {
 
     /**
      * Reads user information and syncs it to OFBiz (i.e. UserLogin, Person, etc)
+     * Note: when creating a UserLogin object, be sure to set 'externalAuthId'
      * @param username User's username
      * @throws AuthenticatorException user synchronization fails
      */
