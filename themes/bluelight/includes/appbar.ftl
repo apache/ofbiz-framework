@@ -26,9 +26,9 @@ under the License.
   <div class="breadcrumbs">
     <div class="breadcrumbs-start">
       <div id="main-navigation">
+        <h2>${uiLabelMap.CommonHome}</h2>
         <ul>
           <li>
-            <h2>${uiLabelMap.CommonHome}</h2>
             <ul>
             <#list displayApps as display>
               <#assign thisApp = display.getContextRoot()>

@@ -1069,8 +1069,8 @@ padding-bottom: 1em;
     font-size: 130%;
 }
 
-#main-navigation ul li h2,
-#app-navigation ul li h2 {
+#main-navigation h2,
+#app-navigation h2 {
     color: #FFFFFF;
     font-size: 1.2em;
     font-weight: bold;
