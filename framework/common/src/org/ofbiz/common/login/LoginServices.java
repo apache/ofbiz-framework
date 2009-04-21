@@ -23,6 +23,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.io.Serializable;
 
 import javax.transaction.Transaction;
 
@@ -47,10 +48,13 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.security.Security;
+import org.ofbiz.common.authentication.api.AuthenticatorException;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.LoginWorker;
+import org.ofbiz.common.authentication.AuthHelper;
 
 /**
  * <b>Title:</b> Login Services
@@ -64,9 +68,16 @@ public class LoginServices {
      * @return Map of results including (userLogin) GenericValue object
      */
     public static Map<String, Object> userLogin(DispatchContext ctx, Map<String, ?> context) {
+        LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
 
+        // load the external auth modules -- note: this will only run once and cache the objects
+        if (!AuthHelper.authenticatorsLoaded()) {
+            AuthHelper.loadAuthenticators(dispatcher);
+        }
+
         // Authenticate to LDAP if configured to do so
+        // TODO: this should be moved to using the NEW Authenticator API
         if ("true".equals(UtilProperties.getPropertyValue("security", "security.ldap.enable"))) {
             if (!LdapAuthenticationServices.userLogin(ctx, context)) {
                 String errMsg = UtilProperties.getMessage(resource, "loginservices.ldap_authentication_failed", locale);
@@ -116,6 +127,23 @@ public class LoginServices {
                     userLogin = delegator.findOne("UserLogin", isServiceAuth, "userLoginId", username);
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, "", module);
+                }
+
+
+                // see if any external auth modules want to sync the user info
+                if (userLogin == null) {
+                    try {
+                        AuthHelper.syncUser(username);
+                    } catch (AuthenticatorException e) {
+                        Debug.logWarning(e, module);
+                    }
+
+                    // check the user login object again
+                    try {
+                        userLogin = delegator.findOne("UserLogin", isServiceAuth, "userLoginId", username);
+                    } catch (GenericEntityException e) {
+                        Debug.logWarning(e, "", module);
+                    }
                 }
 
                 if (userLogin != null) {
@@ -170,9 +198,21 @@ public class LoginServices {
                             userLogin.set("enabled", "Y");
                         }
 
+                        // attempt to authenticate with Authenticator class(es)
+                        boolean authFatalError = false;
+                        boolean externalAuth = false;
+                        try {
+                            externalAuth = AuthHelper.authenticate(username, password, isServiceAuth);
+                        } catch (AuthenticatorException e) {
+                            // fatal error -- or single authenticator found -- fail now
+                            Debug.logWarning(e, module);
+                            authFatalError = true;
+
+                        }
                         // if the password.accept.encrypted.and.plain property in security is set to true allow plain or encrypted passwords
                         // if this is a system account don't bother checking the passwords
-                        if ((userLogin.get("currentPassword") != null &&
+                        // if externalAuth passed; this is run as well
+                        if ((!authFatalError && externalAuth) || (userLogin.get("currentPassword") != null &&
                             (HashCrypt.removeHashTypePrefix(encodedPassword).equals(HashCrypt.removeHashTypePrefix(currentPassword)) ||
                                     HashCrypt.removeHashTypePrefix(encodedPasswordOldFunnyHexEncode).equals(HashCrypt.removeHashTypePrefix(currentPassword)) ||
                                     HashCrypt.removeHashTypePrefix(encodedPasswordUsingDbHashType).equals(HashCrypt.removeHashTypePrefix(currentPassword)) ||
@@ -213,7 +253,8 @@ public class LoginServices {
 
                             // password is incorrect, but this may be the result of a stale cache entry,
                             // so lets clear the cache and try again if this is the first pass
-                            if (isServiceAuth && passNumber <= 1) {
+                            // but only if authFatalError is not true; this would mean the single authenticator failed
+                            if (!authFatalError && isServiceAuth && passNumber <= 1) {
                                 delegator.clearCacheLine("UserLogin", UtilMisc.toMap("userLoginId", username));
                                 repeat = true;
                                 continue;
@@ -357,9 +398,29 @@ public class LoginServices {
                         }
                     }
                 } else {
-                    // userLogin record not found, user does not exist
-                    errMsg = UtilProperties.getMessage(resource, "loginservices.user_not_found", locale);
-                    Debug.logInfo("[LoginServices.userLogin] : Invalid User : " + errMsg, module);
+                    // no userLogin object; there may be a non-syncing authenticator
+                    boolean externalAuth = false;
+                    try {
+                        externalAuth = AuthHelper.authenticate(username, password, isServiceAuth);
+                    } catch (AuthenticatorException e) {
+                        errMsg = e.getMessage();
+                        Debug.logError(e, "External Authenticator had fatal exception : " + e.getMessage(), module);
+                    }
+                    if (externalAuth) {
+                        // external auth passed - create a placeholder object for session
+                        userLogin = delegator.makeValue("UserLogin");
+                        userLogin.set("userLoginId", username);
+                        userLogin.set("enabled", "Y");
+                        userLogin.set("hasLoggedOut", "N");
+                        result.put("userLogin", userLogin);
+                        result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+                        //TODO: more than this is needed to support 100% external authentication
+                        //TODO: party + security information is needed; Userlogin will need to be stored
+                    } else {
+                        // userLogin record not found, user does not exist
+                        errMsg = UtilProperties.getMessage(resource, "loginservices.user_not_found", locale);
+                        Debug.logInfo("[LoginServices.userLogin] : Invalid User : " + errMsg, module);
+                    }
                 }
             }
         }
@@ -433,6 +494,7 @@ public class LoginServices {
         String enabled = (String) context.get("enabled");
         String passwordHint = (String) context.get("passwordHint");
         String requirePasswordChange = (String) context.get("requirePasswordChange");
+        String externalAuthId = (String) context.get("externalAuthId");
         String errMsg = null;
 
         // security: don't create a user login if the specified partyId (if not empty) already exists
@@ -466,6 +528,7 @@ public class LoginServices {
         checkNewPassword(null, null, currentPassword, currentPasswordVerify, passwordHint, errorMessageList, true, locale);
 
         GenericValue userLoginToCreate = delegator.makeValue("UserLogin", UtilMisc.toMap("userLoginId", userLoginId));
+        userLoginToCreate.set("externalAuthId", externalAuthId);
         userLoginToCreate.set("passwordHint", passwordHint);
         userLoginToCreate.set("enabled", enabled);
         userLoginToCreate.set("requirePasswordChange", requirePasswordChange);
@@ -516,6 +579,11 @@ public class LoginServices {
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 
+        // load the external auth modules -- note: this will only run once and cache the objects
+        if (!AuthHelper.authenticatorsLoaded()) {
+            AuthHelper.loadAuthenticators(ctx.getDispatcher());
+        }
+
         boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
         boolean adminUser = false;
 
@@ -538,6 +606,11 @@ public class LoginServices {
             adminUser = true;
         }
 
+        String currentPassword = (String) context.get("currentPassword");
+        String newPassword = (String) context.get("newPassword");
+        String newPasswordVerify = (String) context.get("newPasswordVerify");
+        String passwordHint = (String) context.get("passwordHint");
+
         GenericValue userLoginToUpdate = null;
 
         try {
@@ -549,15 +622,34 @@ public class LoginServices {
         }
 
         if (userLoginToUpdate == null) {
-            Map<String, String> messageMap = UtilMisc.toMap("userLoginId", userLoginId);
-            errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_userlogin_with_id_not_exist", messageMap, locale);
-            return ServiceUtil.returnError(errMsg);
-        }
+            // this may be a full external authenticator; first try authenticating
+            boolean authenticated = false;
+            try {
+                authenticated = AuthHelper.authenticate(userLoginId, currentPassword, true);
+            } catch (AuthenticatorException e) {
+                // safe to ingore this; but we'll log it just in case
+                Debug.logWarning(e, e.getMessage(), module);
+            }
 
-        String currentPassword = (String) context.get("currentPassword");
-        String newPassword = (String) context.get("newPassword");
-        String newPasswordVerify = (String) context.get("newPasswordVerify");
-        String passwordHint = (String) context.get("passwordHint");
+            // call update password if auth passed
+            if (authenticated) {
+                try {
+                    AuthHelper.updatePassword(userLoginId, currentPassword, newPassword);
+                } catch (AuthenticatorException e) {
+                    Debug.logError(e, e.getMessage(), module);
+                    Map<String, String> messageMap = UtilMisc.toMap("userLoginId", userLoginId);
+                    errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_userlogin_with_id_not_exist", messageMap, locale);
+                    return ServiceUtil.returnError(errMsg);
+                }
+                result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+                result.put("updatedUserLogin", userLoginToUpdate);
+                return result;
+            } else {
+                Map<String, String> messageMap = UtilMisc.toMap("userLoginId", userLoginId);
+                errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_userlogin_with_id_not_exist", messageMap, locale);
+                return ServiceUtil.returnError(errMsg);
+            }
+        }
 
         if ("true".equals(UtilProperties.getPropertyValue("security.properties", "password.lowercase"))) {
             currentPassword = currentPassword.toLowerCase();
@@ -575,17 +667,30 @@ public class LoginServices {
             return ServiceUtil.returnError(errorMessageList);
         }
 
-        userLoginToUpdate.set("currentPassword", useEncryption ? HashCrypt.getDigestHash(newPassword, getHashType()) : newPassword, false);
-        userLoginToUpdate.set("passwordHint", passwordHint, false);
-        userLoginToUpdate.set("requirePasswordChange", "N");
+        String externalAuthId = userLoginToUpdate.getString("externalAuthId");
+        if (UtilValidate.isNotEmpty(externalAuthId)) {
+            // external auth is set; don't update the database record
+            try {
+                AuthHelper.updatePassword(externalAuthId, currentPassword, newPassword);
+            } catch (AuthenticatorException e) {
+                Debug.logError(e, e.getMessage(), module);
+                Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
+                errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_write_failure", messageMap, locale);
+                return ServiceUtil.returnError(errMsg);
+            }
+        } else {
+            userLoginToUpdate.set("currentPassword", useEncryption ? HashCrypt.getDigestHash(newPassword, getHashType()) : newPassword, false);
+            userLoginToUpdate.set("passwordHint", passwordHint, false);
+            userLoginToUpdate.set("requirePasswordChange", "N");
 
-        try {
-            userLoginToUpdate.store();
-            createUserLoginPasswordHistory(delegator,userLoginId, newPassword);
-        } catch (GenericEntityException e) {
-            Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_write_failure", messageMap, locale);
-            return ServiceUtil.returnError(errMsg);
+            try {
+                userLoginToUpdate.store();
+                createUserLoginPasswordHistory(delegator,userLoginId, newPassword);
+            } catch (GenericEntityException e) {
+                Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
+                errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_write_failure", messageMap, locale);
+                return ServiceUtil.returnError(errMsg);
+            }
         }
 
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
@@ -757,6 +862,9 @@ public class LoginServices {
         }
         if (context.containsKey("successiveFailedLogins")) {
             userLoginToUpdate.set("successiveFailedLogins", context.get("successiveFailedLogins"), true);
+        }
+        if (context.containsKey("externalAuthId")) {
+            userLoginToUpdate.set("externalAuthId", context.get("externalAuthId"), true);
         }
         if (context.containsKey("userLdapDn")) {
             userLoginToUpdate.set("userLdapDn", context.get("userLdapDn"), true);
