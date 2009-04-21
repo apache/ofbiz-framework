@@ -72,8 +72,13 @@ under the License.
                     </form>
                 </td>
                 <td align="center">
-                <a href="<@ofbizUrl>category_removeProductCategoryFromProdCatalog?prodCatalogId=${(prodCatalogCategory.prodCatalogId)?if_exists}&productCategoryId=${(prodCatalogCategory.productCategoryId)?if_exists}&prodCatalogCategoryTypeId=${(prodCatalogCategory.prodCatalogCategoryTypeId)?if_exists}&fromDate=${prodCatalogCategory.getString("fromDate")}</@ofbizUrl>" class="buttontext">
-                ${uiLabelMap.CommonDelete}</a>
+                  <form method="post" action="<@ofbizUrl>category_removeProductCategoryFromProdCatalog</@ofbizUrl>" name="removeProductCategoryFromProdCatalogForm">
+                    <input type="hidden" name="prodCatalogId" value="${(prodCatalogCategory.prodCatalogId)?if_exists}"/>
+                    <input type="hidden" name="productCategoryId" value="${(prodCatalogCategory.productCategoryId)?if_exists}"/>
+                    <input type="hidden" name="prodCatalogCategoryTypeId" value="${prodCatalogCategory.prodCatalogCategoryTypeId}"/>
+                    <input type="hidden" name="fromDate" value="${(prodCatalogCategory.fromDate)?if_exists}"/>
+                    <input type="submit" value="${uiLabelMap.CommonDelete}"/>
+                  </form>
                 </td>
             </tr>
             <#-- toggle the row color -->
