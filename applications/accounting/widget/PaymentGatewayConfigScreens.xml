@@ -21,10 +21,10 @@ under the License.
 <screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
-    <screen name="GenericPaymentGatewayDecorator">
+    <screen name="GenericPaymentGatewayConfigDecorator">
         <section>
             <actions>
-                <set field="headerItem" value="paymentGatewayConfigurations"/> 
+                <set field="headerItem" value="paymentGatewayConfig"/> 
             </actions>
             <widgets>
                 <!-- main defines the regions of the HTML page -->
@@ -33,7 +33,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <include-menu name="PaymentGatewayTabBar" location="component://accounting/widget/Menus.xml"/>
+                                <include-menu name="PaymentGatewayConfigTabBar" location="component://accounting/widget/Menus.xml"/>
                                 <container>
                                     <label style="h1">${uiLabelMap[labelTitleProperty]}</label>
                                 </container>
@@ -48,25 +48,25 @@ under the License.
         </section>
     </screen>
     
-    <screen name="FindGatewayConfigurations">
+    <screen name="FindPaymentGatewayConfig">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleFindPaymentGatewayConfigurations"/>
-                <set field="tabButtonItem" value="paymentGatewayConfigurationsTab"/> 
+                <set field="titleProperty" value="PageTitleFindPaymentGatewayConfig"/>
+                <set field="tabButtonItem" value="paymentGatewayConfigTab"/> 
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
             </actions>
             <widgets>
-                <decorator-screen name="GenericPaymentGatewayDecorator">
+                <decorator-screen name="GenericPaymentGatewayConfigDecorator">
                     <decorator-section name="body">
                         <section>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
-                                        <include-form name="FindGatewayConfigurations" location="component://accounting/widget/PaymentGatewayConfigurationsForms.xml"/>
+                                        <include-form name="FindPaymentGatewayConfig" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListGatewayConfigurations" location="component://accounting/widget/PaymentGatewayConfigurationsForms.xml"/>
+                                        <include-form name="ListPaymentGatewayConfig" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -77,11 +77,11 @@ under the License.
         </section>
     </screen>
     
-    <screen name="ViewGatewayConfiguration">
+    <screen name="EditPaymentGatewayConfig">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleUpdatePaymentGatewayConfiguration"/>
-                <set field="tabButtonItem" value="paymentGatewayConfigurationsTab"/> 
+                <set field="titleProperty" value="PageTitleUpdatePaymentGatewayConfig"/>
+                <set field="tabButtonItem" value="paymentGatewayConfigTab"/> 
                 
                 <set field="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
                 <entity-one entity-name="PaymentGatewayConfig" value-field="paymentGatewayConfig"/>
@@ -96,18 +96,18 @@ under the License.
                 </entity-one>
             </actions>
             <widgets>
-                <decorator-screen name="GenericPaymentGatewayDecorator">
+                <decorator-screen name="GenericPaymentGatewayConfigDecorator">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfiguration}"/>
+                                    <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfig}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="ViewGatewayConfiguration" location="component://accounting/widget/PaymentGatewayConfigurationsForms.xml"/>
+                                        <include-form name="EditPaymentGatewayConfig" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -120,13 +120,13 @@ under the License.
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
                                         <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigurationPayflowPro}"/>
+                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigPayflowPro}"/>
                                         </container>
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
                                             <widgets>
-                                                <include-form name="ViewGatewayConfigurationPayflowPro" location="component://accounting/widget/PaymentGatewayConfigurationsForms.xml"/>
+                                                <include-form name="EditPaymentGatewayConfigPayflowPro" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
                                             </widgets>
                                         </section>
                                     </container>
@@ -141,13 +141,13 @@ under the License.
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
                                         <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigurationPayPal}"/>
+                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigPayPal}"/>
                                         </container>
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
                                             <widgets>
-                                                <include-form name="ViewGatewayConfigurationPayPal" location="component://accounting/widget/PaymentGatewayConfigurationsForms.xml"/>
+                                                <include-form name="EditPaymentGatewayConfigPayPal" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
                                             </widgets>
                                         </section>
                                     </container>
@@ -162,13 +162,13 @@ under the License.
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
                                         <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigurationClearCommerce}"/>
+                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigClearCommerce}"/>
                                         </container>
                                     </container>
                                     <container style="screenlet-body">
                                         <section>
                                             <widgets>
-                                                <include-form name="ViewGatewayConfigurationClearCommerce" location="component://accounting/widget/PaymentGatewayConfigurationsForms.xml"/>
+                                                <include-form name="EditPaymentGatewayConfigClearCommerce" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
                                             </widgets>
                                         </section>
                                     </container>
@@ -181,25 +181,25 @@ under the License.
         </section>
     </screen>
     
-    <screen name="FindGatewayConfigurationTypes">
+    <screen name="FindPaymentGatewayConfigTypes">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleFindPaymentGatewayConfigurationTypes"/>
-                <set field="tabButtonItem" value="paymentGatewayConfigurationTypesTab"/> 
+                <set field="titleProperty" value="PageTitleFindPaymentGatewayConfigTypes"/>
+                <set field="tabButtonItem" value="paymentGatewayConfigTypesTab"/> 
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="50"/>
             </actions>
             <widgets>
-                <decorator-screen name="GenericPaymentGatewayDecorator">
+                <decorator-screen name="GenericPaymentGatewayConfigDecorator">
                     <decorator-section name="body">
                         <section>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                                     <decorator-section name="search-options">
-                                        <include-form name="FindGatewayConfigurationTypes" location="component://accounting/widget/PaymentGatewayConfigurationsForms.xml"/>
+                                        <include-form name="FindPaymentGatewayConfigTypes" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListGatewayConfigurationTypes" location="component://accounting/widget/PaymentGatewayConfigurationsForms.xml"/>
+                                        <include-form name="ListPaymentGatewayConfigTypes" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -210,28 +210,28 @@ under the License.
         </section>
     </screen>
     
-    <screen name="ViewGatewayConfigurationType">
+    <screen name="EditPaymentGatewayConfigType">
         <section>
             <actions>
-                <set field="titleProperty" value="PageTitleUpdatePaymentGatewayConfigurationType"/>
-                <set field="tabButtonItem" value="paymentGatewayConfigurationTypesTab"/> 
+                <set field="titleProperty" value="PageTitleUpdatePaymentGatewayConfigType"/>
+                <set field="tabButtonItem" value="paymentGatewayConfigTypesTab"/> 
                 
                 <set field="paymentGatewayConfigTypeId" from-field="parameters.paymentGatewayConfigTypeId"/>
                 <entity-one entity-name="PaymentGatewayConfigType" value-field="paymentGatewayConfigType"/>
             </actions>
             <widgets>
-                <decorator-screen name="GenericPaymentGatewayDecorator">
+                <decorator-screen name="GenericPaymentGatewayConfigDecorator">
                     <decorator-section name="body">
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigurationType}"/>
+                                    <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigType}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="ViewGatewayConfigurationType" location="component://accounting/widget/PaymentGatewayConfigurationsForms.xml"/>
+                                        <include-form name="EditPaymentGatewayConfigType" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>

@@ -2967,7 +2967,7 @@ under the License.
     </entity>
     <entity entity-name="PaymentGatewayConfigType"
         package-name="org.ofbiz.accounting.payment"
-        title="Payment Gateway Configuration Type">
+        title="Payment Gateway Config Type">
       <field name="paymentGatewayConfigTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -2982,7 +2982,7 @@ under the License.
     </entity>
     <entity entity-name="PaymentGatewayConfig"
         package-name="org.ofbiz.accounting.payment"
-        title="Payment Gateway Configuration">
+        title="Payment Gateway Config">
       <field name="paymentGatewayConfigId" type="id-ne"></field>
       <field name="paymentGatewayConfigTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
@@ -2993,7 +2993,7 @@ under the License.
     </entity>
     <entity entity-name="PaymentGatewayPayflowPro"
         package-name="org.ofbiz.accounting.payment"
-        title="Payflow Pro Payment Gateway Configuration">
+        title="Payflow Pro Payment Gateway Config">
       <field name="paymentGatewayConfigId" type="id-ne"></field>
       <field name="certsPath" type="value"><description>Path the the VeriSign Certificate</description></field>
       <field name="hostAddress" type="value"><description>Address of the payment processor</description></field>
@@ -3002,10 +3002,10 @@ under the License.
       <field name="proxyAddress" type="value"><description>Proxy Address</description></field>
       <field name="proxyPort" type="numeric"><description>Proxy Port</description></field>
       <field name="proxyLogon" type="value"><description>Proxy Logon</description></field>
-      <field name="proxyPassword" type="value"><description>Proxy Password</description></field>
+      <field name="proxyPassword" type="value" encrypt="true"><description>Proxy Password</description></field>
       <field name="vendor" type="short-varchar"><description>Vendor of account information</description></field>
       <field name="userId" type="short-varchar"><description>PayFlow UserID of account information</description></field>
-      <field name="pwd" type="short-varchar"><description>PayFlow Password of account information</description></field>
+      <field name="pwd" type="value" encrypt="true"><description>PayFlow Password of account information</description></field>
       <field name="partner" type="short-varchar"><description>PayFlow Partner of account information</description></field>
       <field name="checkAvs" type="indicator"><description>Use Address Verification</description></field>
       <field name="checkCvv2" type="indicator"><description>Require CVV2 Verification</description></field>
@@ -3022,7 +3022,7 @@ under the License.
     </entity>
     <entity entity-name="PaymentGatewayPayPal"
         package-name="org.ofbiz.accounting.payment"
-        title="PayPal Payment Gateway Configuration">
+        title="PayPal Payment Gateway Config">
         <field name="paymentGatewayConfigId" type="id-ne"></field>
         <field name="businessEmail" type="value"><description>Business e-mail</description></field>
         <field name="notifyUrl" type="value"><description>Notify URL</description></field>
@@ -3039,13 +3039,13 @@ under the License.
     </entity>
     <entity entity-name="PaymentGatewayClearCommerce"
         package-name="org.ofbiz.accounting.payment"
-        title="Clear Commerce Payment Gateway Configuration">
+        title="Clear Commerce Payment Gateway Config">
       <field name="paymentGatewayConfigId" type="id-ne"></field>
       <field name="sourceId" type="short-varchar"><description>Useful for tagging transactions</description></field>
       <field name="groupId" type="short-varchar"><description>Useful for grouping transactions</description></field>
       <field name="clientId" type="short-varchar"><description>Client Id of account information</description></field>
       <field name="username" type="short-varchar"><description>User name of account informatio</description></field>
-      <field name="pwd" type="short-varchar"><description>Password of account informatio</description></field>
+      <field name="pwd" type="value" encrypt="true"><description>Password of account informatio</description></field>
       <field name="userAlias" type="short-varchar"><description>Alias of account informatio</description></field>
       <field name="effectiveAlias" type="short-varchar"><description>Effective Alias of account information</description></field>
       <field name="processMode" type="indicator"><description>Process mode (Y: approve / N: decline / R: random / P: production)</description></field>

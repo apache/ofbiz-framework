@@ -406,52 +406,52 @@ under the License.
         <response name="success" type="view" value="ManualTransaction"/>
     </request-map>
     
-    <!-- Payment Gateway Configurations --> 
-    <request-map uri="FindGatewayConfigurations">
+    <!-- Payment Gateway Config --> 
+    <request-map uri="FindPaymentGatewayConfig">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindGatewayConfigurations"/>
+        <response name="success" type="view" value="FindPaymentGatewayConfig"/>
     </request-map>
-    <request-map uri="ViewGatewayConfiguration">
+    <request-map uri="EditPaymentGatewayConfig">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="ViewGatewayConfiguration"/>
+        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
     </request-map>
-    <request-map uri="UpdateGatewayConfiguration">
+    <request-map uri="UpdatePaymentGatewayConfig">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateGatewayConfiguration"/>
-        <response name="success" type="view" value="ViewGatewayConfiguration"/>
-        <response name="error" type="view" value="ViewGatewayConfiguration"/>
+        <event type="service" invoke="updatePaymentGatewayConfig"/>
+        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
+        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
     </request-map>
-    <request-map uri="UpdateGatewayConfigurationPayflowPro">
+    <request-map uri="UpdatePaymentGatewayConfigPayflowPro">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateGatewayConfigurationPayflowPro"/>
-        <response name="success" type="view" value="ViewGatewayConfiguration"/>
-        <response name="error" type="view" value="ViewGatewayConfiguration"/>
+        <event type="service" invoke="updatePaymentGatewayConfigPayflowPro"/>
+        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
+        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
     </request-map>
-    <request-map uri="UpdateGatewayConfigurationPayPal">
+    <request-map uri="UpdatePaymentGatewayConfigPayPal">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateGatewayConfigurationPayPal"/>
-        <response name="success" type="view" value="ViewGatewayConfiguration"/>
-        <response name="error" type="view" value="ViewGatewayConfiguration"/>
+        <event type="service" invoke="updatePaymentGatewayConfigPayPal"/>
+        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
+        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
     </request-map>
-    <request-map uri="UpdateGatewayConfigurationClearCommerce">
+    <request-map uri="UpdatePaymentGatewayConfigClearCommerce">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateGatewayConfigurationClearCommerce"/>
-        <response name="success" type="view" value="ViewGatewayConfiguration"/>
-        <response name="error" type="view" value="ViewGatewayConfiguration"/>
+        <event type="service" invoke="updatePaymentGatewayConfigClearCommerce"/>
+        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
+        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
     </request-map>
-    <request-map uri="FindGatewayConfigurationTypes">
+    <request-map uri="FindPaymentGatewayConfigTypes">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindGatewayConfigurationTypes"/>
+        <response name="success" type="view" value="FindPaymentGatewayConfigTypes"/>
     </request-map>
-    <request-map uri="ViewGatewayConfigurationType">
+    <request-map uri="EditPaymentGatewayConfigType">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="ViewGatewayConfigurationType"/>
+        <response name="success" type="view" value="EditPaymentGatewayConfigType"/>
     </request-map>
-    <request-map uri="UpdateGatewayConfigurationType">
+    <request-map uri="UpdatePaymentGatewayConfigType">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateGatewayConfigurationType"/>
-        <response name="success" type="view" value="ViewGatewayConfigurationType"/>
-        <response name="error" type="view" value="ViewGatewayConfigurationType"/>
+        <event type="service" invoke="updatePaymentGatewayConfigType"/>
+        <response name="success" type="view" value="EditPaymentGatewayConfigType"/>
+        <response name="error" type="view" value="EditPaymentGatewayConfigType"/>
     </request-map>
     
     <!-- TO BE REMOVED
@@ -2156,11 +2156,11 @@ under the License.
     <view-map name="AuthorizeTransaction" page="component://accounting/widget/TransactionScreens.xml#AuthorizeTransaction" type="screen"/>
     <view-map name="CaptureTransaction" page="component://accounting/widget/TransactionScreens.xml#CaptureTransaction" type="screen"/>
 
-    <!-- Payment Gateway Configurations -->
-    <view-map name="FindGatewayConfigurations" page="component://accounting/widget/PaymentGatewayConfigurationsScreens.xml#FindGatewayConfigurations" type="screen"/>
-    <view-map name="ViewGatewayConfiguration" page="component://accounting/widget/PaymentGatewayConfigurationsScreens.xml#ViewGatewayConfiguration" type="screen"/>
-    <view-map name="FindGatewayConfigurationTypes" page="component://accounting/widget/PaymentGatewayConfigurationsScreens.xml#FindGatewayConfigurationTypes" type="screen"/>
-    <view-map name="ViewGatewayConfigurationType" page="component://accounting/widget/PaymentGatewayConfigurationsScreens.xml#ViewGatewayConfigurationType" type="screen"/>
+    <!-- Payment Gateway Config -->
+    <view-map name="FindPaymentGatewayConfig" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#FindPaymentGatewayConfig" type="screen"/>
+    <view-map name="EditPaymentGatewayConfig" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#EditPaymentGatewayConfig" type="screen"/>
+    <view-map name="FindPaymentGatewayConfigTypes" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#FindPaymentGatewayConfigTypes" type="screen"/>
+    <view-map name="EditPaymentGatewayConfigType" page="component://accounting/widget/PaymentGatewayConfigScreens.xml#EditPaymentGatewayConfigType" type="screen"/>
     
     <!-- TO BE REMOVED
     <view-map name="TransactionReports" page="component://accounting/widget/TransactionScreens.xml#TransactionReports" type="screen"/>
