@@ -239,17 +239,16 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         }
         writer.append(">");
         appendWhitespace(writer);
+        String menuTitle = modelMenu.getTitle(context);
+        if (UtilValidate.isNotEmpty(menuTitle)) {
+            writer.append("<h2>" + menuTitle + "</h2>");
+            appendWhitespace(writer);
+        }
         writer.append("<ul>");
         appendWhitespace(writer);
         writer.append("<li>");
-        String menuTitle = modelMenu.getTitle(context);
-        if (UtilValidate.isNotEmpty(menuTitle)) {
-            appendWhitespace(writer);
-            writer.append(" <h2>" + menuTitle + "</h2>");
-        }
         appendWhitespace(writer);
         writer.append(" <ul>");
-
         appendWhitespace(writer);
     }
 
@@ -264,11 +263,11 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         //String menuContainerStyle = modelMenu.getMenuContainerStyle(context);
         writer.append(" </ul>");
         appendWhitespace(writer);
-        writer.append(" <br class=\"clear\"/>");
-        appendWhitespace(writer);
         writer.append("</li>");
         appendWhitespace(writer);
         writer.append("</ul>");
+        appendWhitespace(writer);
+        writer.append(" <br class=\"clear\"/>");
         appendWhitespace(writer);
         writer.append("</div>");
         appendWhitespace(writer);
