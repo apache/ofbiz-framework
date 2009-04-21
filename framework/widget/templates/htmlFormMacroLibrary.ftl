@@ -17,36 +17,61 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#macro renderField text><#if text?exists>${text}</#if></#macro>
+<#macro renderField text>
+    <#if text?exists>
+        ${text}<#lt/>
+    </#if>
+</#macro>
 
 <#macro renderDisplayField idName description class alert>
-<#if class?has_content || alert=="true"><span <@renderClass className alert />><#rt/></#if>
-<#if description?has_content>${description}<#else>&nbsp;</#if><#if class?has_content || alert=="true"></span></#if>
+    <#if class?has_content || alert=="true">
+        <span <@renderClass className alert />><#t/>
+    </#if>
+    <#if description?has_content>
+        ${description}<#t/>
+    <#else>
+        &nbsp;<#t/>
+    </#if>
+    <#if class?has_content || alert=="true">
+        </span><#lt/>
+    </#if>
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
 <#macro renderTextField name className alert value textSize maxlength id event action clientAutocomplete ajaxUrl ajaxEnabled>
-<input type="text" name="${name?default("")?html}"<#rt/>
-<@renderClass className alert />
-<#if value?has_content> value="${value}"</#if><#if textSize?has_content> size="${textSize}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#rt/>
-<#if id?has_content> id="${id}"</#if><#if event?has_content && action?has_content>${event}="${action}"</#if><#if clientAutocomplete?has_content && clientAutocomplete=="false"> autocomplete="off"</#if>/><#rt/>
-<#if ajaxEnabled?has_content && ajaxEnabled>
-<script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}');</script>
-</#if>
+    <input type="text" name="${name?default("")?html}"<#t/>
+    <@renderClass className alert />
+    <#if value?has_content> value="${value}"</#if><#rt/>
+    <#if textSize?has_content> size="${textSize}"</#if><#rt/>
+    <#if maxlength?has_content> maxlength="${maxlength}"</#if><#rt/>
+    <#if id?has_content> id="${id}"</#if><#rt/>
+    <#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/>
+    <#if clientAutocomplete?has_content && clientAutocomplete=="false"> autocomplete="off"</#if><#rt/>
+    /><#t/>
+    <#if ajaxEnabled?has_content && ajaxEnabled>
+        <script language="JavaScript" type="text/javascript">ajaxAutoCompleter('${ajaxUrl}');</script><#lt/>
+    </#if>
 </#macro>
 
 <#macro renderTextareaField name className alert cols rows id readonly value visualEdtiorEnalble buttons>
-<textarea name="${name}" <@renderClass className alert /><#if cols?has_content> cols="${cols}"</#if><#if rows?has_content> rows="${rows}"</#if><#if id?has_content> id="${id}"</#if><#if readonly?has_content> ${readonly}</#if>><#rt/>
-<#if value?has_content> ${value}</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if></textarea><#rt/>
-<#if visualEdtiorEnalble?has_content>
- <script language="javascript" src="/images/htmledit/whizzywig.js" type="text/javascript"></script><#rt/>
- <script language="javascript" type="text/javascript"> buttonPath = "/images/htmledit/"; cssFile="/images/htmledit/simple.css";makeWhizzyWig("<#rt/>
-<#if id?has_content> "${id}"</#if>","<#if buttons?has_content> "${buttons}"</#if>")</script>
-</#if>
+    <textarea name="${name}"<#t/>
+    <@renderClass className alert />
+    <#if cols?has_content> cols="${cols}"</#if><#rt/>
+    <#if rows?has_content> rows="${rows}"</#if><#rt/>
+    <#if id?has_content> id="${id}"</#if><#rt/>
+    <#if readonly?has_content> ${readonly}</#if><#rt/>
+    <#if maxlength?has_content> maxlength="${maxlength}"</#if><#rt/>
+    ><#t/>
+    <#if value?has_content>${value}</#if><#t/>
+    </textarea><#rt/>
+    <#if visualEdtiorEnalble?has_content>
+        <script language="javascript" src="/images/htmledit/whizzywig.js" type="text/javascript"></script><#rt/>
+        <script language="javascript" type="text/javascript"> buttonPath = "/images/htmledit/"; cssFile="/images/htmledit/simple.css"; makeWhizzyWig("${id?default("")}", "${buttons?default("")}")</script>
+    </#if>
 </#macro>
 
 <#macro renderDateTimeField name className alert title value size maxlength id dateType shortDateInput timeDropdownParamName defaultDateTimeString calGif localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName>
-<input type="text" name="${name}" <@renderClass className alert /><#rt/>
+    <input type="text" name="${name}" <@renderClass className alert /><#rt/>
 <#if title?has_content> title="${title}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#rt/>
 <#if maxlength?has_content>  maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if>/><#rt/>
 <#if dateType!="time" >
@@ -144,47 +169,119 @@ ${item.description}</div>
 <#else>
 <input type="<#if containerId?has_content>button<#else>submit</#if>" <@renderClass className alert /><#if name?exists> name="${name}"</#if><#if title?has_content> value="${title}"</#if><#if event?has_content> ${event}="${action}"</#if><#if containerId?has_content> onclick="ajaxSubmitFormUpdateAreas('${containerId}', '${ajaxUrl}')"</#if>/></#if>
 </#macro>
-<#macro renderResetField className alert name title><input type="reset" <@renderClass className alert /> name="${name}"<#if title?has_content> value="${title}"</#if>/></#macro>
+<#macro renderResetField className alert name title>
+    <input type="reset" <@renderClass className alert /> name="${name}"<#if title?has_content> value="${title}"</#if>/>
+</#macro>
 
-<#macro renderHiddenField name value><input type="hidden" name="${name}"<#if value?has_content> value="${value}"</#if>/></#macro>
+<#macro renderHiddenField name value>
+    <input type="hidden" name="${name}"<#if value?has_content> value="${value}"</#if>/>
+</#macro>
+
 <#macro renderIgnoredField></#macro>
 
-<#macro renderFieldTitle style title><#if style?has_content><span class="${style}"></#if>${title}<#if style?has_content></span></#if></#macro>
+<#macro renderFieldTitle style title>
+    <#if style?has_content>
+        <span class="${style}"><#t/>
+    </#if>
+    ${title}<#t/>
+    <#if style?has_content>
+        </span><#lt/>
+    </#if>
+</#macro>
+
 <#macro renderSingleFormFieldTitle></#macro>
 
-<#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name useRowSubmit><form method="post" action="${linkUrl}"<#if formType=="upload"> enctype="multipart/form-data"</#if><#if targetWindow?has_content> target="${targetWindow}"</#if><#if containerId?has_content> id="${containerId}"</#if> class=<#if containerStyle?has_content>"${containerStyle}"<#else>"basic-form"</#if> onSubmit="javascript:submitFormDisableSubmits(this)"<#if autocomplete?has_content> autocomplete="${autocomplete}"</#if> name="${name}" ><#if useRowSubmit?has_content && useRowSubmit><input type="hidden" name="_useRowSubmit" value="Y"/></#if></#macro>
-<#macro renderFormClose focusFieldName formName></form><#if focusFieldName?has_content><script language="JavaScript" type="text/javascript">document.${formName}.${focusFieldName}.focus();</script></#if></#macro>
+<#macro renderFormOpen linkUrl formType targetWindow containerId containerStyle autocomplete name useRowSubmit>
+
+    <form method="post" action="${linkUrl}"<#if formType=="upload"> enctype="multipart/form-data"</#if><#if targetWindow?has_content> target="${targetWindow}"</#if><#if containerId?has_content> id="${containerId}"</#if> class=<#if containerStyle?has_content>"${containerStyle}"<#else>"basic-form"</#if> onSubmit="javascript:submitFormDisableSubmits(this)"<#if autocomplete?has_content> autocomplete="${autocomplete}"</#if> name="${name}"><#lt/>
+    <#if useRowSubmit?has_content && useRowSubmit>
+        <input type="hidden" name="_useRowSubmit" value="Y"/>
+    </#if>
+</#macro>
+<#macro renderFormClose focusFieldName formName>
+    </form><#lt/>
+    <#if focusFieldName?has_content>
+        <script language="JavaScript" type="text/javascript">document.${formName}.${focusFieldName}.focus();</script><#lt/>
+    </#if>
+</#macro>
 <#macro renderMultiFormClose></#macro>
 
-<#macro renderFormatListWrapperOpen formName style columnStyles>  <table cellspacing="0" class="<#if style?has_content>${style}<#else>basic-table form-widget-table dark-grid</#if>" > </#macro>
-<#macro renderFormatListWrapperClose formName> </table></#macro>
+<#macro renderFormatListWrapperOpen formName style columnStyles>
+    <table cellspacing="0" class="<#if style?has_content>${style}<#else>basic-table form-widget-table dark-grid</#if>"><#lt/>
+</#macro>
 
-<#macro renderFormatHeaderRowOpen style>  <tr class="<#if style?has_content>${style}<#else>header-row</#if>"></#macro>
-<#macro renderFormatHeaderRowClose>  </tr></#macro>
-<#macro renderFormatHeaderRowCellOpen style positionSpan>  <td <#if positionSpan?has_content && positionSpan gt 1 >colspan="${positionSpan}"</#if><#if style?has_content>class="${style}"</#if>></#macro>
-<#macro renderFormatHeaderRowCellClose></td></#macro>
+<#macro renderFormatListWrapperClose formName>
+    </table><#lt/>
+</#macro>
 
-<#macro renderFormatHeaderRowFormCellOpen style>   <td <#if style?has_content>class="${style}"</#if>></#macro>
-<#macro renderFormatHeaderRowFormCellClose></td></#macro>
-<#macro renderFormatHeaderRowFormCellTitleSeparator style isLast><#if style?has_content><sapn class="${style}"></#if> - <#if style?has_content></span></#if></#macro>
+<#macro renderFormatHeaderRowOpen style>
+    <tr class="<#if style?has_content>${style}<#else>header-row</#if>">
+</#macro>
+<#macro renderFormatHeaderRowClose>
+    </tr>
+</#macro>
+<#macro renderFormatHeaderRowCellOpen style positionSpan>
+    <td <#if positionSpan?has_content && positionSpan gt 1 >colspan="${positionSpan}"</#if><#if style?has_content>class="${style}"</#if>>
+</#macro>
+<#macro renderFormatHeaderRowCellClose>
+    </td>
+</#macro>
 
-<#macro renderFormatItemRowOpen formName itemIndex altRowStyles evenRowStyle oddRowStyle> <tr <#if itemIndex?has_content><#if itemIndex%2==0><#if evenRowStyle?has_content>class="${evenRowStyle}<#if altRowStyles?has_content> ${altRowStyles}</#if>"<#elseif altRowStyles?has_content>class="${altRowStyles}"</#if><#else><#if oddRowStyle?has_content>class="${oddRowStyle}<#if altRowStyles?has_content> ${altRowStyles}</#if>"<#elseif altRowStyles?has_content>class="${altRowStyles}"</#if></#if></#if> ></#macro>
-<#macro renderFormatItemRowClose formName>  </tr></#macro>
-<#macro renderFormatItemRowCellOpen fieldName style positionSpan>  <td <#if positionSpan?has_content && positionSpan gt 1>colspan="${positionSpan}"</#if><#if style?has_content>class="${style}"</#if>></#macro>
-<#macro renderFormatItemRowCellClose fieldName>  </td></#macro>
-<#macro renderFormatItemRowFormCellOpen style>   <td<#if style?has_content> class="${style}"</#if>></#macro>
-<#macro renderFormatItemRowFormCellClose></td></#macro>
+<#macro renderFormatHeaderRowFormCellOpen style>
+    <td <#if style?has_content>class="${style}"</#if>>
+</#macro>
+<#macro renderFormatHeaderRowFormCellClose>
+    </td>
+</#macro>
+<#macro renderFormatHeaderRowFormCellTitleSeparator style isLast>
+<#if style?has_content><sapn class="${style}"></#if> - <#if style?has_content></span></#if>
+</#macro>
 
-<#macro renderFormatSingleWrapperOpen formName style> <table cellspacing="0" <#if style?has_content>class="${style}"</#if> ></#macro>
-<#macro renderFormatSingleWrapperClose formName> </table></#macro>
+<#macro renderFormatItemRowOpen formName itemIndex altRowStyles evenRowStyle oddRowStyle>
+    <tr <#if itemIndex?has_content><#if itemIndex%2==0><#if evenRowStyle?has_content>class="${evenRowStyle}<#if altRowStyles?has_content> ${altRowStyles}</#if>"<#elseif altRowStyles?has_content>class="${altRowStyles}"</#if><#else><#if oddRowStyle?has_content>class="${oddRowStyle}<#if altRowStyles?has_content> ${altRowStyles}</#if>"<#elseif altRowStyles?has_content>class="${altRowStyles}"</#if></#if></#if> >
+</#macro>
+<#macro renderFormatItemRowClose formName>
+    </tr>
+</#macro>
+<#macro renderFormatItemRowCellOpen fieldName style positionSpan>
+    <td <#if positionSpan?has_content && positionSpan gt 1>colspan="${positionSpan}"</#if><#if style?has_content>class="${style}"</#if>>
+</#macro>
+<#macro renderFormatItemRowCellClose fieldName>
+    </td>
+</#macro>
+<#macro renderFormatItemRowFormCellOpen style>
+    <td<#if style?has_content> class="${style}"</#if>>
+</#macro>
+<#macro renderFormatItemRowFormCellClose>
+    </td>
+</#macro>
 
-<#macro renderFormatFieldRowOpen>  <tr></#macro>
-<#macro renderFormatFieldRowClose>  </tr></#macro>
-<#macro renderFormatFieldRowTitleCellOpen style>   <td class="<#if style?has_content>${style}<#else>label</#if>"></#macro>
-<#macro renderFormatFieldRowTitleCellClose></td></#macro>
+<#macro renderFormatSingleWrapperOpen formName style>
+    <table cellspacing="0" <#if style?has_content>class="${style}"</#if>>
+</#macro>
+<#macro renderFormatSingleWrapperClose formName>
+    </table>
+</#macro>
+
+<#macro renderFormatFieldRowOpen>
+    <tr>
+</#macro>
+<#macro renderFormatFieldRowClose>
+    </tr>
+</#macro>
+<#macro renderFormatFieldRowTitleCellOpen style>
+    <td class="<#if style?has_content>${style}<#else>label</#if>">
+</#macro>
+<#macro renderFormatFieldRowTitleCellClose>
+    </td>
+</#macro>
 <#macro renderFormatFieldRowSpacerCell></#macro>
-<#macro renderFormatFieldRowWidgetCellOpen positionSpan style>   <td<#if positionSpan?has_content && positionSpan gt 0> colspan="${1+positionSpan*3}"</#if><#if style?has_content> class="${style}"</#if>></#macro>
-<#macro renderFormatFieldRowWidgetCellClose></td></#macro>
+<#macro renderFormatFieldRowWidgetCellOpen positionSpan style>
+    <td<#if positionSpan?has_content && positionSpan gt 0> colspan="${1+positionSpan*3}"</#if><#if style?has_content> class="${style}"</#if>>
+</#macro>
+<#macro renderFormatFieldRowWidgetCellClose>
+    </td>
+</#macro>
 
 <#--
     Initial work to convert table based layout for "single" form to divs.
@@ -355,8 +452,12 @@ ${item.description}</div>
 <#macro formatBoundaryComment boundaryType widgetType widgetName><!-- ${boundaryType}  ${widgetType}  ${widgetName} --></#macro>
 
 <#macro renderTooltip tooltip tooltipStyle><#if tooltip?has_content><span class="<#if tooltipStyle?has_content>${tooltipStyle}<#else>tooltip</#if>">${tooltip}</span><#rt/></#if></#macro>
-<#macro renderClass className="" alert=""><#if className?has_content>class="${className}<#if alert?has_content> ${alert}</#if>"<#rt/></#if></#macro>
-<#macro renderAsterisks requiredField requiredStyle><#if requiredField=="true"><#if requiredStyle?has_content>*</#if></#if></#macro>
+<#macro renderClass className="" alert="">
+<#if className?has_content> class="${className}<#if alert?has_content> ${alert}</#if>" </#if>
+</#macro>
+<#macro renderAsterisks requiredField requiredStyle>
+<#if requiredField=="true"><#if requiredStyle?has_content>*</#if></#if>
+</#macro>
 <#macro makeHiddenFormLinkForm actionUrl name parameters targetWindow><form method="post" action="${actionUrl}" <#if targetWindow?has_content>target="${targetWindow}"</#if> onSubmit="javascript:submitFormDisableSubmits(this)" name="${name}"><#list parameters as parameter><input name="${parameter.name}" value="${parameter.value}" type="hidden"/></#list></form></#macro>
 <#macro makeHiddenFormLinkAnchor linkStyle hiddenFormName event action imgSrc description><a <#if linkStyle?has_content>class="${linkStyle}"</#if> href="javascript:document.${hiddenFormName}.submit()"<#if action?has_content && event?has_content> ${event}="${action}"</#if>><#if imgSrc?has_content><img src="${imgSrc}"/></#if>${description}</a></#macro>
 <#macro makeHyperlinkString linkStyle hiddenFormName event action imgSrc linkUrl targetWindow description><a <#if linkStyle?has_content>class="${linkStyle}"</#if> href="${linkUrl}"<#if targetWindow?has_content> target="${targetWindow}"</#if><#if action?has_content && event?has_content> ${event}="${action}"</#if>><#if imgSrc?has_content><img src="${imgSrc}"/></#if>${description}</a></#macro>
