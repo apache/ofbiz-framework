@@ -54,7 +54,7 @@ under the License.
                         <input type="hidden" name="prodCatalogCategoryTypeId" value="${prodCatalogCategory.prodCatalogCategoryTypeId}"/>
                         <input type="hidden" name="fromDate" value="${(prodCatalogCategory.fromDate)?if_exists}"/>
                         <input type="text" size="25" name="thruDate" value="${(prodCatalogCategory.thruDate)?if_exists}" style="<#if (hasExpired) >color: red;</#if>"/>
-                        <a href="javascript:call_cal(document.lineForm${line}.thruDate, '${(prodCatalogCategory.thruDate)?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
+                        <a href="javascript:call_cal(document.lineForm_update${line}.thruDate, '${(prodCatalogCategory.thruDate)?default(nowTimestamp?string)}');"><img src="<@ofbizContentUrl>/images/cal.gif</@ofbizContentUrl>" width="16" height="16" border="0" alt="Calendar"/></a>
                         <input type="text" size="5" name="sequenceNum" value="${(prodCatalogCategory.sequenceNum)?if_exists}"/>
                         <#-- the prodCatalogCategoryTypeId field is now part of the PK, so it can't be changed, must be re-created
                         <select name="prodCatalogCategoryTypeId" size="1">
