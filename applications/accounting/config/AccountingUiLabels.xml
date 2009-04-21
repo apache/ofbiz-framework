@@ -5733,12 +5733,12 @@
         <value xml:lang="en">Payment Gateway Config Type Id</value>
         <value xml:lang="it">Tipo configurazione gateway pagamenti</value>
     </property>
-    <property key="AccountingPaymentGatewayConfigurations">
-        <value xml:lang="en">Payment Gateway Configurations</value>
+    <property key="AccountingPaymentGatewayConfig">
+        <value xml:lang="en">Payment Gateway Config</value>
         <value xml:lang="it">Configurazioni gateway pagamenti</value>
     </property>
-    <property key="AccountingPaymentGatewayConfigurationTypes">
-        <value xml:lang="en">Payment Gateway Configuration Types</value>
+    <property key="AccountingPaymentGatewayConfigTypes">
+        <value xml:lang="en">Payment Gateway Config Types</value>
         <value xml:lang="it">Tipi configurazione gateway pagamenti</value>
     </property>
     <property key="AccountingPaymentGatewayDecline">
@@ -10431,12 +10431,12 @@
         <value xml:lang="ru">Поиск финансовых счетов</value>
         <value xml:lang="th">ค้นหางบกำไรสะสมและงบแสดงการเปลี่ยนแปลงฐานะการเงิน</value>
     </property>
-    <property key="PageTitleFindPaymentGatewayConfigurations">
-        <value xml:lang="en">Find Payment Gateway Configurations</value>
+    <property key="PageTitleFindPaymentGatewayConfig">
+        <value xml:lang="en">Find Payment Gateway Config</value>
         <value xml:lang="it">Ricerca configurazioni gateway pagamenti</value>
     </property>
-    <property key="PageTitleFindPaymentGatewayConfigurationTypes">
-        <value xml:lang="en">Find Payment Gateway Configuration Types</value>
+    <property key="PageTitleFindPaymentGatewayConfigTypes">
+        <value xml:lang="en">Find Payment Gateway Config Types</value>
         <value xml:lang="it">Ricerca tipi configurazioni gateway pagamenti</value>
     </property>
     <property key="PageTitleFindGatewayResponses">
@@ -10882,24 +10882,24 @@
         <value xml:lang="th">Un-posted Accounting Transactions</value>
         <value xml:lang="zh">未过户财务交易</value>
     </property>
-    <property key="PageTitleUpdatePaymentGatewayConfiguration">
-        <value xml:lang="en">Update Payment Gateway Configuration</value>
+    <property key="PageTitleUpdatePaymentGatewayConfig">
+        <value xml:lang="en">Update Payment Gateway Config</value>
         <value xml:lang="it">Aggiorna configurazione gateway pagamento</value>
     </property>
-    <property key="PageTitleUpdatePaymentGatewayConfigurationType">
-        <value xml:lang="en">Update Payment Gateway Configuration Type</value>
+    <property key="PageTitleUpdatePaymentGatewayConfigType">
+        <value xml:lang="en">Update Payment Gateway Config Type</value>
         <value xml:lang="it">Aggiorna tipo configurazione gateway pagamento</value>
     </property>
-    <property key="PageTitleUpdatePaymentGatewayConfigurationClearCommerce">
-        <value xml:lang="en">Update Payment Gateway Configuration Clear Commerce</value>
+    <property key="PageTitleUpdatePaymentGatewayConfigClearCommerce">
+        <value xml:lang="en">Update Payment Gateway Config Clear Commerce</value>
         <value xml:lang="it">Aggiorna configurazione gateway pagamento Clear Commerce</value>
     </property>
-    <property key="PageTitleUpdatePaymentGatewayConfigurationPayflowPro">
-        <value xml:lang="en">Update Payment Gateway Configuration Payflow Pro</value>
+    <property key="PageTitleUpdatePaymentGatewayConfigPayflowPro">
+        <value xml:lang="en">Update Payment Gateway Config Payflow Pro</value>
         <value xml:lang="it">Aggiorna configurazione gateway pagamento Payflow Pro</value>
     </property>
-    <property key="PageTitleUpdatePaymentGatewayConfigurationPayPal">
-        <value xml:lang="en">Update Payment Gateway Configuration PayPal</value>
+    <property key="PageTitleUpdatePaymentGatewayConfigPayPal">
+        <value xml:lang="en">Update Payment Gateway Config PayPal</value>
         <value xml:lang="it">Aggiorna configurazione gateway pagamento PayPal</value>
     </property>
     <property key="PageTitleViewAccountingTransaction">

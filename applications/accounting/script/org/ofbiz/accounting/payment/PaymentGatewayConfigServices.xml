@@ -20,31 +20,31 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    <simple-method method-name="updateGatewayConfiguration" short-description="Update Payment Gateway Configuration">
+    <simple-method method-name="updatePaymentGatewayConfig" short-description="Update Payment Gateway Config">
         <entity-one entity-name="PaymentGatewayConfig" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     
-    <simple-method method-name="updateGatewayConfigurationPayflowPro" short-description="Update Payment Gateway Configuration Payflow Pro">
+    <simple-method method-name="updatePaymentGatewayConfigPayflowPro" short-description="Update Payment Gateway Config Payflow Pro">
         <entity-one entity-name="PaymentGatewayPayflowPro" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     
-    <simple-method method-name="updateGatewayConfigurationPayPal" short-description="Update Payment Gateway Configuration PayPal">
+    <simple-method method-name="updatePaymentGatewayConfigPayPal" short-description="Update Payment Gateway Config PayPal">
         <entity-one entity-name="PaymentGatewayPayPal" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     
-    <simple-method method-name="updateGatewayConfigurationClearCommerce" short-description="Update Payment Gateway Configuration Clear Commerce">
+    <simple-method method-name="updatePaymentGatewayConfigClearCommerce" short-description="Update Payment Gateway Config Clear Commerce">
         <entity-one entity-name="PaymentGatewayClearCommerce" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     
-    <simple-method method-name="updateGatewayConfigurationType" short-description="Update Payment Gateway Configuration Type">
+    <simple-method method-name="updatePaymentGatewayConfigType" short-description="Update Payment Gateway Config Type">
         <entity-one entity-name="PaymentGatewayConfigType" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>

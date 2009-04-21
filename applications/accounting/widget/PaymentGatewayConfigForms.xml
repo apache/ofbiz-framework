@@ -19,8 +19,8 @@ under the License.
 -->
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     
-    <!-- form whose input filters the ListFindGatewayConfigurations -->
-    <form name="FindGatewayConfigurations" type="single" target="FindGatewayConfigurations" header-row-style="header-row" default-table-style="basic-table">
+    <!-- form whose input filters the FindPaymentGatewayConfig -->
+    <form name="FindPaymentGatewayConfig" type="single" target="FindPaymentGatewayConfig" header-row-style="header-row" default-table-style="basic-table">
         <field name="paymentGatewayConfigId" title="${uiLabelMap.AccountingPaymentGatewayConfigId}"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigDescription}"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="paymentGatewayConfigTypeId" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeId}">
@@ -37,7 +37,7 @@ under the License.
         </field>
     </form>
     
-    <form name="ListGatewayConfigurations" type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListPaymentGatewayConfig" type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -47,7 +47,7 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="PaymentGatewayConfig" default-field-type="display"/>
         <field name="paymentGatewayConfigId" widget-style="buttontext" title="${uiLabelMap.AccountingPaymentGatewayConfigId}">
-          <hyperlink description="${paymentGatewayConfigId}" target="ViewGatewayConfiguration?paymentGatewayConfigId=${paymentGatewayConfigId}"/>
+          <hyperlink description="${paymentGatewayConfigId}" target="EditPaymentGatewayConfig?paymentGatewayConfigId=${paymentGatewayConfigId}"/>
         </field>
         <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigDescription}"/>
         <field name="paymentGatewayConfigTypeId" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeId}">
@@ -55,7 +55,7 @@ under the License.
         </field>
     </form>
     
-    <form name="ViewGatewayConfiguration" type="single" target="UpdateGatewayConfiguration" default-map-name="paymentGatewayConfig" header-row-style="header-row" default-table-style="basic-table">
+    <form name="EditPaymentGatewayConfig" type="single" target="UpdatePaymentGatewayConfig" default-map-name="paymentGatewayConfig" header-row-style="header-row" default-table-style="basic-table">
         <field name="paymentGatewayConfigId"><hidden/></field>
         <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigDescription}"><text size="60" maxlength="60"/></field>
         <field name="paymentGatewayConfigTypeId" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeId}">
@@ -66,7 +66,7 @@ under the License.
         </field>
     </form>
     
-    <form name="ViewGatewayConfigurationPayflowPro" type="single" target="UpdateGatewayConfigurationPayflowPro" default-map-name="paymentGatewayPayflowPro" header-row-style="header-row" default-table-style="basic-table">
+    <form name="EditPaymentGatewayConfigPayflowPro" type="single" target="UpdatePaymentGatewayConfigPayflowPro" default-map-name="paymentGatewayPayflowPro" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="PaymentGatewayPayflowPro" default-field-type="edit"/>
         <field name="certsPath"><text size="80" maxlength="80"/></field>
         <field name="paymentGatewayConfigId"><hidden/></field>
@@ -116,7 +116,7 @@ under the License.
         </field>
     </form>
     
-    <form name="ViewGatewayConfigurationClearCommerce" type="single" target="UpdateGatewayConfigurationClearCommerce" default-map-name="paymentGatewayClearCommerce" header-row-style="header-row" default-table-style="basic-table">
+    <form name="EditPaymentGatewayConfigClearCommerce" type="single" target="UpdatePaymentGatewayConfigClearCommerce" default-map-name="paymentGatewayClearCommerce" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="PaymentGatewayClearCommerce" default-field-type="edit"/>
         <field name="paymentGatewayConfigId"><hidden/></field>
         <field name="enableCVM">
@@ -138,7 +138,7 @@ under the License.
         </field>
     </form>
     
-    <form name="FindGatewayConfigurationTypes" type="single" target="FindGatewayConfigurationTypes" header-row-style="header-row" default-table-style="basic-table">
+    <form name="FindPaymentGatewayConfigTypes" type="single" target="FindPaymentGatewayConfigTypes" header-row-style="header-row" default-table-style="basic-table">
         <field name="paymentGatewayConfigTypeId" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeId}"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigDescription}"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="performSearch"><hidden value="Y"/></field>
@@ -148,7 +148,7 @@ under the License.
         </field>
     </form>
     
-    <form name="ListGatewayConfigurationTypes" type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListPaymentGatewayConfigTypes" type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
@@ -158,12 +158,12 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="PaymentGatewayConfigType" default-field-type="display"/>
         <field name="paymentGatewayConfigTypeId" widget-style="buttontext" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeId}">
-          <hyperlink description="${paymentGatewayConfigTypeId}" target="ViewGatewayConfigurationType?paymentGatewayConfigTypeId=${paymentGatewayConfigTypeId}"/>
+          <hyperlink description="${paymentGatewayConfigTypeId}" target="EditPaymentGatewayConfigType?paymentGatewayConfigTypeId=${paymentGatewayConfigTypeId}"/>
         </field>
         <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeDescription}"/>
     </form>
     
-    <form name="ViewGatewayConfigurationType" type="single" target="UpdateGatewayConfigurationType" default-map-name="paymentGatewayConfigType" header-row-style="header-row" default-table-style="basic-table">
+    <form name="EditPaymentGatewayConfigType" type="single" target="UpdatePaymentGatewayConfigType" default-map-name="paymentGatewayConfigType" header-row-style="header-row" default-table-style="basic-table">
         <field name="paymentGatewayConfigTypeId"><hidden/></field>
         <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeDescription}"><text size="60" maxlength="60"/></field>
         <field name="parentTypeId">
@@ -185,7 +185,7 @@ under the License.
         </field>
     </form>
     
-    <form name="ViewGatewayConfigurationPayPal" type="single" target="UpdateGatewayConfigurationPayPal" default-map-name="paymentGatewayPayPal" header-row-style="header-row" default-table-style="basic-table">
+    <form name="EditPaymentGatewayConfigPayPal" type="single" target="UpdatePaymentGatewayConfigPayPal" default-map-name="paymentGatewayPayPal" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="PaymentGatewayPayPal" default-field-type="edit"/>
         <field name="paymentGatewayConfigId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
