@@ -86,6 +86,7 @@ under the License.
         <description>Create a Person and UserLogin</description>
         <implements service="createUserLogin"/>
         <auto-attributes entity-name="Person" mode="IN" include="nonpk" optional="true"/>
+        <auto-attributes entity-name="Party" mode="IN" include="nonpk" optional="true"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true" entity-name="Person"/>
         <attribute name="newUserLogin" type="Map" mode="OUT" optional="false"/>
     </service>
