@@ -274,7 +274,6 @@ under the License.
     <request-map uri="updateCreditCard">
         <security https="true" auth="true"/>
         <event type="simple" path="component://accounting/script/org/ofbiz/accounting/payment/PaymentMethodEvents.xml" invoke="updateCreditCard"/>
-
         <response name="success" type="view" value="editcreditcard"/>
         <response name="error" type="view" value="editcreditcard"/>
     </request-map>
