@@ -75,6 +75,9 @@ under the License.
       <field name="lastTimeZone" type="id-long"></field>
       <field name="disabledDateTime" type="date-time"></field>
       <field name="successiveFailedLogins" type="numeric"></field>
+      <field name="externalAuthId" type="id-vlong-ne">
+          <description>For use with external authentication; the userLdapDn should be replaced with this</description>
+      </field>
       <field name="userLdapDn" type="id-vlong-ne">
           <description>The user's LDAP Distinguished Name - used for LDAP authentication</description>
       </field>
