@@ -362,10 +362,10 @@ under the License.
                 </call-class-method>
                 <if-compare field="isDouble" operator="equals" value="true">
                     <set from-field="parameters.sku" field="sku" type="String"/>
-                    <set from-field="parameters.price" field="price" type="Double"/>
+                    <set from-field="parameters.price" field="price" type="BigDecimal"/>
                     <call-object-method obj-field="webPosTransaction" method-name="modifyPrice">
                         <field field="sku" type="String"/>
-                        <field field="price" type="double"/>
+                        <field field="price" type="BigDecimal"/>
                     </call-object-method>
                     <check-errors/>
                     <call-object-method obj-field="webPosTransaction" method-name="calcTax"/>

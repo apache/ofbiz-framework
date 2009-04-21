@@ -36,10 +36,10 @@ if (webPosSession) {
     shoppingCart = null;
 }
 
-context.cashAmount = 0;
-context.checkAmount = 0;
-context.giftAmount = 0;
-context.creditAmount = 0;
+context.cashAmount = BigDecimal.ZERO;
+context.checkAmount = BigDecimal.ZERO;
+context.giftAmount = BigDecimal.ZERO;
+context.creditAmount = BigDecimal.ZERO;
 
 // Get the Cart and Prepare Size
 if (shoppingCart) {
@@ -48,21 +48,21 @@ if (shoppingCart) {
     for (i = 0; i < payments; i++) {
         paymentInfo = shoppingCart.getPaymentInfo(i);
         if (paymentInfo.amount != null) {
-            amount = paymentInfo.amount.doubleValue();
+            amount = paymentInfo.amount;
             if (paymentInfo.paymentMethodTypeId != null) {
                 if ("CASH".equals(paymentInfo.paymentMethodTypeId)) {
-                    context.cashAmount =  (context.cashAmount) ? context.cashAmount + amount : amount;
+                    context.cashAmount = new BigDecimal((context.cashAmount).add(amount));
                 }
                 else if ("PERSONAL_CHECK".equals(paymentInfo.paymentMethodTypeId)) {
-                    context.checkAmount = (context.checkAmount) ? context.checkAmount + amount : amount;
+                    context.checkAmount = new BigDecimal((context.checkAmount).add(amount));
                     requestParameters.refNumCheck = paymentInfo.refNum[0];
                 }
                 else if ("GIFT_CARD".equals(paymentInfo.paymentMethodTypeId)) {
-                    context.giftAmount = (context.giftAmount) ? context.giftAmount + amount : amount;
+                    context.giftAmount = new BigDecimal((context.giftAmount).add(amount));
                     requestParameters.refNumGift = paymentInfo.refNum[0];
                 }
                 else if ("CREDIT_CARD".equals(paymentInfo.paymentMethodTypeId)) {
-                    context.creditAmount = (context.creditAmount) ? context.creditAmount + amount : amount;
+                    context.creditAmount = new BigDecimal((context.creditAmount).add(amount));
                     requestParameters.refNumCredit = paymentInfo.refNum[0];
                     print("paymentInfo "+paymentInfo);
                 }

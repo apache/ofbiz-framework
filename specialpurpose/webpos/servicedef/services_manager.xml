@@ -25,17 +25,17 @@ under the License.
     <service name="openTerminal" engine="simple" auth="false"
              location="component://webpos/script/org/ofbiz/webpos/event/ManagerEvents.xml" invoke="openTerminal">
         <description>Open Terminal</description>
-        <attribute name="startingDrawerAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="startingDrawerAmount" type="BigDecimal" mode="IN" optional="false"/>
     </service>
 
     <service name="closeTerminal" engine="simple" auth="false"
              location="component://webpos/script/org/ofbiz/webpos/event/ManagerEvents.xml" invoke="closeTerminal">
         <description>Close Terminal</description>
-        <attribute name="endingDrawerCashAmount"  type="Double" mode="IN" optional="false"/>
-        <attribute name="endingDrawerCheckAmount" type="Double" mode="IN" optional="false"/>
-        <attribute name="endingDrawerCcAmount"    type="Double" mode="IN" optional="false"/>
-        <attribute name="endingDrawerGcAmount"    type="Double" mode="IN" optional="false"/>
-        <attribute name="endingDrawerOtherAmount" type="Double" mode="IN" optional="false"/>
+        <attribute name="endingDrawerCashAmount"  type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="endingDrawerCheckAmount" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="endingDrawerCcAmount"    type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="endingDrawerGcAmount"    type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="endingDrawerOtherAmount" type="BigDecimal" mode="IN" optional="false"/>
     </service>
 
     <service name="voidOrder" engine="simple" auth="false"
@@ -53,7 +53,7 @@ under the License.
              location="component://webpos/script/org/ofbiz/webpos/event/ManagerEvents.xml" invoke="paidOutAndIn">
         <description>Paid Out and In</description>
         <attribute name="type"         type="String" mode="IN" optional="false"/>
-        <attribute name="amountInOut"  type="Double" mode="IN" optional="false"/>
+        <attribute name="amountInOut"  type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="reasonInOut"  type="String" mode="IN" optional="false"/>
         <attribute name="reasonCommentInOut" type="String" mode="IN" optional="false"/>
     </service>
@@ -62,6 +62,6 @@ under the License.
              location="component://webpos/script/org/ofbiz/webpos/event/ManagerEvents.xml" invoke="modifyPrice">
         <description>Modify Price</description>
         <attribute name="sku"   type="String" mode="IN" optional="false"/>
-        <attribute name="price" type="Double" mode="IN" optional="false"/>
+        <attribute name="price" type="BigDecimal" mode="IN" optional="false"/>
     </service>
 </services>
