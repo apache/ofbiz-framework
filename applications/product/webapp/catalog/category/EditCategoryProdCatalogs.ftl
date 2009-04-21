@@ -72,7 +72,7 @@ under the License.
                     </form>
                 </td>
                 <td align="center">
-                  <form method="post" action="<@ofbizUrl>category_removeProductCategoryFromProdCatalog</@ofbizUrl>" name="lineForm_cancel${line}">
+                  <form method="post" action="<@ofbizUrl>category_removeProductCategoryFromProdCatalog</@ofbizUrl>" name="lineForm_delete${line}">
                     <input type="hidden" name="prodCatalogId" value="${(prodCatalogCategory.prodCatalogId)?if_exists}"/>
                     <input type="hidden" name="productCategoryId" value="${(prodCatalogCategory.productCategoryId)?if_exists}"/>
                     <input type="hidden" name="prodCatalogCategoryTypeId" value="${prodCatalogCategory.prodCatalogCategoryTypeId}"/>
