@@ -30,7 +30,7 @@ under the License.
     </request-map>
     <request-map uri="ManagePortalPages">
         <security https="true" auth="true"/>
-        <event  type="simple" invoke="copyIfRequiredSystemPage" path="org/ofbiz/common/PortalPageMethods.xml"/>
+        <event  type="simple" invoke="copyIfRequiredSystemPage" path="component://common/script/org/ofbiz/common/PortalPageMethods.xml"/>
         <response name="success" type="view" value="ManagePortalPages"/>
     </request-map>
     <request-map uri="AddPortlet">
@@ -91,7 +91,7 @@ under the License.
     </request-map>
     <request-map uri="setPortalPortletAttributes">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="setPortalPortletAttributes" path="org/ofbiz/common/PortalPageMethods.xml"/>
+        <event type="simple" invoke="setPortalPortletAttributes" path="component://common/script/org/ofbiz/common/PortalPageMethods.xml"/>
         <response name="success" type="request" value="ManagePortalPages"/>
         <response name="error" type="request" value="ManagePortalPages"/>
     </request-map>
