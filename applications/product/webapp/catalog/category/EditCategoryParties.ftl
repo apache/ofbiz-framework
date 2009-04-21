@@ -43,7 +43,7 @@ under the License.
             <#if (productCategoryRole.getTimestamp("fromDate"))?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().before(productCategoryRole.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
             <td <#if hasntStarted> style="color: red;"</#if>>${(productCategoryRole.fromDate)?if_exists}</td>
             <td align="center">
-                <FORM method="post" action="<@ofbizUrl>updatePartyToCategory</@ofbizUrl>" name="lineForm${line}">
+                <FORM method="post" action="<@ofbizUrl>updatePartyToCategory</@ofbizUrl>" name="lineForm_update${line}">
                     <#assign hasExpired = false>
                     <#if (productCategoryRole.getTimestamp("thruDate"))?exists && (Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(productCategoryRole.getTimestamp("thruDate")))> <#assign hasExpired = true></#if>
                     <input type="hidden" name="productCategoryId" value="${(productCategoryRole.productCategoryId)?if_exists}">
@@ -56,7 +56,14 @@ under the License.
                 </FORM>
             </td>
             <td align="center">
-                <a href="<@ofbizUrl>removePartyFromCategory?productCategoryId=${(productCategoryRole.productCategoryId)?if_exists}&partyId=${(productCategoryRole.partyId)?if_exists}&roleTypeId=${(productCategoryRole.roleTypeId)?if_exists}&fromDate=${productCategoryRole.getString("fromDate")}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
+                <FORM method="post" action="<@ofbizUrl>removePartyFromCategory</@ofbizUrl>" name="lineForm_delete${line}">
+                    <#assign hasExpired = false>
+                    <input type="hidden" name="productCategoryId" value="${(productCategoryRole.productCategoryId)?if_exists}">
+                    <input type="hidden" name="partyId" value="${(productCategoryRole.partyId)?if_exists}">
+                    <input type="hidden" name="roleTypeId" value="${(productCategoryRole.roleTypeId)?if_exists}">
+                    <input type="hidden" name="fromDate" value="${(productCategoryRole.getTimestamp("fromDate"))?if_exists}">
+                    <INPUT type="submit" value="${uiLabelMap.CommonDelete}" style="font-size: x-small;">
+                </FORM>
             </td>
             </tr>
             <#-- toggle the row color -->
