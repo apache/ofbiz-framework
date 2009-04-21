@@ -41,7 +41,7 @@ under the License.
             <#assign shipmentPackageContents = shipmentPackageData.shipmentPackageContents?if_exists>
             <#assign shipmentPackageRouteSegs = shipmentPackageData.shipmentPackageRouteSegs?if_exists>
             <#assign weightUom = shipmentPackageData.weightUom?if_exists>
-            <form action="<@ofbizUrl>updateShipmentPackage</@ofbizUrl>" name="updateShipmentPackageForm${shipmentPackageData_index}">
+            <form method="post" action="<@ofbizUrl>updateShipmentPackage</@ofbizUrl>" name="updateShipmentPackageForm${shipmentPackageData_index}">
             <input type="hidden" name="shipmentId" value="${shipmentId}"/>
             <input type="hidden" name="shipmentPackageSeqId" value="${shipmentPackage.shipmentPackageSeqId}"/>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
