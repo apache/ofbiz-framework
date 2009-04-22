@@ -403,7 +403,7 @@ public class ServiceEventHandler implements EventHandler {
                     + "\n(check before if a sub-task for this error does not exist)."
                     + "\nIf you are not sure how to create a Jira issue "
                     + "please have a look before at http://docs.ofbiz.org/x/r."
-                    + "\nThank you in advance for your help.";
+                    + "\n\nThank you in advance for your help.";
                 Debug.logError("=============== " + errMsg + "; In session [" + session.getId() + "]; Note that this can be changed using the service.http.parameters.require.encrypted property in the url.properties file", module);
 
                 // the default here is true, so anything but N/n is true
