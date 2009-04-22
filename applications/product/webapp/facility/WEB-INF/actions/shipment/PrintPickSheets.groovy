@@ -64,7 +64,7 @@ if (toPrintOrders) {
                     shippingAddress = delegator.findOne("PostalAddress", [contactMechId : shippingContactMechId], false);
                     orderItemShipGroups.each { orderItemShipGroup ->
                         if (orderItemShipGroup.orderId == orderId) {
-                            orderMap.shipmentMethodTypeId = orderItemShipGroup.shipmentMethodTypeId;
+                            orderMap.shipmentMethodType = EntityUtil.getFirst(orderItemShipGroup.getRelated("ShipmentMethodType")).description;
                             orderMap.carrierPartyId = orderItemShipGroup.carrierPartyId;
                             orderMap.shipGroupSeqId = orderItemShipGroup.shipGroupSeqId;
                             orderMap.carrierPartyId = orderItemShipGroup.carrierPartyId;

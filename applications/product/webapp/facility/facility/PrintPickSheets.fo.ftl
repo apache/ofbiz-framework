@@ -39,7 +39,7 @@ under the License.
                             <#assign orderDate = orderDetail.orderDate>
                             <#assign billAddress = orderDetail.billingAddress>
                             <#assign shipAddress = orderDetail.shippingAddress>
-                            <#assign shipmentMethodTypeId = orderDetail.shipmentMethodTypeId>
+                            <#assign shipmentMethodType = orderDetail.shipmentMethodType>
                             <#assign carrierPartyId = orderDetail.carrierPartyId>
                             <#assign shipGroupSeqId = orderDetail.shipGroupSeqId>
 
@@ -76,7 +76,6 @@ under the License.
                                                              <fo:block> ${shipAddress.city?if_exists}</fo:block>
                                                              <fo:block> ${shipAddress.countryGeoId?if_exists}</fo:block>
                                                              <fo:block> ${shipAddress.postalCode?if_exists}</fo:block>
-                                                             <fo:block> ${shipAddress.postalCodeGeoId?if_exists}</fo:block>
                                                              <fo:block> ${shipAddress.stateProvinceGeoId?if_exists}</fo:block>
                                                          </fo:table-cell>
                                                          <fo:table-cell>
@@ -91,7 +90,6 @@ under the License.
                                                                              <fo:block> ${billAddress.city?if_exists}</fo:block>
                                                                              <fo:block> ${billAddress.countryGeoId?if_exists}</fo:block>
                                                                              <fo:block> ${billAddress.postalCode?if_exists}</fo:block>
-                                                                             <fo:block> ${billAddress.postalCodeGeoId?if_exists}</fo:block>
                                                                              <fo:block> ${billAddress.stateProvinceGeoId?if_exists}</fo:block>
                                                                          </fo:table-cell>
                                                                      </fo:table-row>
@@ -123,7 +121,7 @@ under the License.
                                                                   <fo:block>${uiLabelMap.ProductShipmentMethod}:</fo:block>
                                                              </fo:table-cell>
                                                              <fo:table-cell>
-                                                                 <fo:block font-weight="bold">${carrierPartyId?if_exists}-${shipmentMethodTypeId?if_exists}</fo:block>
+                                                                 <fo:block font-weight="bold">${carrierPartyId?if_exists}-${shipmentMethodType?if_exists}</fo:block>
                                                              </fo:table-cell>
                                                          </fo:table-row>
                                                      </fo:table-body>
@@ -178,7 +176,7 @@ under the License.
                                                 <#assign quantity = Static["java.lang.Integer"].parseInt("${orderItemShipGrpInvRes.quantity}")/>
                                                 <#assign totalQty = totalQty + quantity>
                                                 <fo:table-cell><fo:block font-size="10pt">${orderItemShipGrpInvRes.quantity?if_exists} </fo:block></fo:table-cell>
-                                                <fo:table-cell><fo:block font-size="10pt">${inventoryItem.unitCost?if_exists} </fo:block></fo:table-cell>
+                                                <fo:table-cell><fo:block font-size="10pt"><@ofbizCurrency amount=inventoryItem.unitCost isoCode=currencyUomId/></fo:block></fo:table-cell>
                                             </fo:table-row>
                                          </#list>
                                      </#if>
