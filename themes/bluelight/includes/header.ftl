@@ -153,19 +153,21 @@ under the License.
 
             <#if userLogin?exists>
               <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
-                <li class="collapsed"><a href="javascript:document.setUserPreferenceCompactHeaderN.submit()">&nbsp;&nbsp;</a></li>
+                <li class="collapsed"><a href="javascript:document.setUserPreferenceCompactHeaderN.submit()">&nbsp;&nbsp;</a>
                 <form name="setUserPreferenceCompactHeaderN" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>">
                     <input type="hidden" name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES">
                     <input type="hidden" name="userPrefTypeId" value="COMPACT_HEADER">
                     <input type="hidden" name="userPrefValue" value="N">
                 </form>
+                </li>
               <#else>
-                <li class="expanded"><a href="javascript:document.setUserPreferenceCompactHeaderY.submit()">&nbsp;&nbsp;</a></li>
+                <li class="expanded"><a href="javascript:document.setUserPreferenceCompactHeaderY.submit()">&nbsp;&nbsp;</a>
                 <form name="setUserPreferenceCompactHeaderY" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>">
                     <input type="hidden" name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES">
                     <input type="hidden" name="userPrefTypeId" value="COMPACT_HEADER">
                     <input type="hidden" name="userPrefValue" value="Y">
                 </form>
+                </li>
               </#if>
             </#if>
           </ul>
