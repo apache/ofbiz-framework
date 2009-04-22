@@ -125,12 +125,21 @@ public class MacroFormRenderer implements FormStringRenderer {
             // FIXME: I am using a Date as an hack to provide a unique name for the template...
             Template template = new Template((new java.util.Date()).toString(), templateReader, FreeMarkerWorker.getDefaultOfbizConfig());
             templateReader.close();
-            environment.include(template);
+            if (writer != null) {
+                Map<String, Object> input = UtilMisc.toMap("key", null);
+                Environment tmpEnvironment = FreeMarkerWorker.renderTemplate(macroLibrary, input, writer);
+                tmpEnvironment.include(template);
+            } else {
+                environment.include(template);
+            }
         } catch (TemplateException e) {
             Debug.logError(e, "Error rendering screen thru ftl", module);
         } catch (IOException e) {
             Debug.logError(e, "Error rendering screen thru ftl", module);
         }
+    }
+    private void executeMacro(String macro) throws IOException {
+        executeMacro(null, macro);
     }
 
     private void appendWhitespace(Appendable writer) throws IOException {
@@ -151,7 +160,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(labelText);
         sr.append("\"");
         sr.append(" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderDisplayField(Appendable writer, Map<String, Object> context, DisplayField displayField) throws IOException {
@@ -176,7 +185,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" alert=\"");
         sr.append(modelFormField.shouldBeRed(context)? "true": "false");
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
         if (displayField instanceof DisplayEntityField) {
             makeHyperlinkString(writer,((DisplayEntityField) displayField).getSubHyperlink(),context);
         }
@@ -256,7 +265,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" ajaxEnabled=");
         sr.append(Boolean.toString(ajaxEnabled));
         sr.append(" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
 
         ModelFormField.SubHyperlink subHyperlink = textField.getSubHyperlink();
         if (subHyperlink != null && subHyperlink.shouldUse(context)) {
@@ -325,7 +334,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" buttons=\"");
         sr.append(buttons);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
         this.addAsterisks(writer, context, modelFormField);
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -514,7 +523,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" formName=\"");
         sr.append(formName);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
         this.addAsterisks(writer, context, modelFormField);
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -704,7 +713,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" fullSearch=\"");
         sr.append(fullSearch);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
         ModelFormField.SubHyperlink subHyperlink = dropDownField
                 .getSubHyperlink();
         if (subHyperlink != null && subHyperlink.shouldUse(context)) {
@@ -768,7 +777,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append(action);
         }
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
 
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -828,7 +837,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append(action);
         }
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
 
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -902,7 +911,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append(ajaxUrl);
         }
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
         this.appendTooltip(writer, context, modelFormField);
     }
 
@@ -930,7 +939,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" title=\"");
         sr.append(title);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
 
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -950,7 +959,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" value=\"");
         sr.append(value);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderIgnoredField(Appendable writer, Map<String, Object> context, IgnoredField ignoredField) {
@@ -983,7 +992,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" title=\"");
         sr.append(sb.toString());
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderSingleFormFieldTitle(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
@@ -1028,7 +1037,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" useRowSubmit=");
         sr.append(Boolean.toString(useRowSubmit));
         sr.append(" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
@@ -1041,7 +1050,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" formName=\"");
         sr.append(formName);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
         renderEndingBoundaryComment(writer, "Form Widget - Form Element", modelForm);
     }
 
@@ -1126,7 +1135,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" columnStyles=[");
         sr.append(columnStyleListString);
         sr.append("] />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
 
     }
 
@@ -1136,7 +1145,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" formName=\"");
         sr.append(modelForm.getName());
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
         if (this.renderPagination) {
             this.renderNextPrev(writer, context, modelForm);
         }
@@ -1150,13 +1159,13 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" style=\"");
         sr.append(headerStyle);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatHeaderRowClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatHeaderRowClose />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatHeaderRowCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) throws IOException {
@@ -1168,13 +1177,13 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" positionSpan=");
         sr.append(Integer.toString(positionSpan));
         sr.append(" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatHeaderRowCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatHeaderRowCellClose />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatHeaderRowFormCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
@@ -1184,13 +1193,13 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" style=\"");
         sr.append(areaStyle);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatHeaderRowFormCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatHeaderRowFormCellClose />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatHeaderRowFormCellTitleSeparator(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, boolean isLast) throws IOException {
@@ -1202,7 +1211,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" isLast=");
         sr.append(Boolean.toString(isLast));
         sr.append(" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatItemRowOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
@@ -1231,7 +1240,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" oddRowStyle=\"");
         sr.append(oddRowStyle);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatItemRowClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
@@ -1240,7 +1249,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" formName=\"");
         sr.append(modelForm.getName());
         sr.append("\"/>");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatItemRowCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField, int positionSpan) throws IOException {
@@ -1254,7 +1263,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" positionSpan=");
         sr.append(Integer.toString(positionSpan));
         sr.append(" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatItemRowCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm, ModelFormField modelFormField) throws IOException {
@@ -1263,7 +1272,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" fieldName=\"");
         sr.append(modelFormField.getName());
         sr.append("\"/>");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatItemRowFormCellOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
@@ -1273,13 +1282,13 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" style=\"");
         sr.append(areaStyle);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatItemRowFormCellClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatItemRowFormCellClose />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatSingleWrapperOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
@@ -1291,7 +1300,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" style=\"");
         sr.append(style);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatSingleWrapperClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
@@ -1300,19 +1309,19 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" formName=\"");
         sr.append(modelForm.getName());
         sr.append("\"/>");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatFieldRowOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatFieldRowOpen />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatFieldRowClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatFieldRowClose />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatFieldRowTitleCellOpen(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
@@ -1322,13 +1331,13 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" style=\"");
         sr.append(style);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatFieldRowTitleCellClose(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatFieldRowTitleCellClose />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatFieldRowSpacerCell(Appendable writer, Map<String, Object> context, ModelFormField modelFormField) throws IOException {
@@ -1343,20 +1352,20 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" style=\"");
         sr.append(areaStyle);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
 
     }
 
     public void renderFormatFieldRowWidgetCellClose(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, int positions, int positionSpan, Integer nextPositionInRow) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatFieldRowWidgetCellClose />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFormatEmptySpace(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         StringWriter sr = new StringWriter();
         sr.append("<@renderFormatEmptySpace />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderTextFindField(Appendable writer, Map<String, Object> context, TextFindField textFindField) throws IOException {
@@ -1447,7 +1456,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" ignoreCase=\"");
         sr.append(ignoreCase);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
 
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -1529,7 +1538,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" defaultOptionThru=\"");
         sr.append(defaultOptionThru);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
 
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -1664,7 +1673,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" opIsEmpty=\"");
         sr.append(opIsEmpty);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
 
         this.appendTooltip(writer, context, modelFormField);
     }
@@ -1753,7 +1762,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" imgSrc=\"");
         sr.append(imgSrc.toString());
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
 
         this.addAsterisks(writer, context, modelFormField);
 
@@ -1989,7 +1998,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" paginateLastLabel=\"");
         sr.append(paginateLastLabel);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFileField(Appendable writer, Map<String, Object> context, FileField textField) throws IOException {
@@ -2036,7 +2045,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" autocomplete=\"");
         sr.append(autocomplete);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
 
         this.makeHyperlinkString(writer, textField.getSubHyperlink(), context);
 
@@ -2095,7 +2104,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" autocomplete=\"");
         sr.append(autocomplete);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
 
         this.addAsterisks(writer, context, modelFormField);
 
@@ -2146,7 +2155,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" action=\"");
         sr.append(action==null?"":action);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
         this.makeHyperlinkString(writer, imageField.getSubHyperlink(), context);
 
         this.appendTooltip(writer, context, modelFormField);
@@ -2194,7 +2203,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" collapseToolTip=\"");
         sr.append(collapseToolTip);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
@@ -2217,7 +2226,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append(title);
         }
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
     public void renderBanner(Appendable writer, Map<String, Object> context, ModelForm.Banner banner) throws IOException {
@@ -2257,7 +2266,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" rightText=\"");
         sr.append(rightText);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 
 
@@ -2278,7 +2287,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append("\" widgetName=\"");
             sr.append(modelWidget.getBoundaryCommentName());
             sr.append("\" />");
-            executeMacro(writer, sr.toString());
+            executeMacro(sr.toString());
         }
     }
 
@@ -2299,7 +2308,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append("\" widgetName=\"");
             sr.append(modelWidget.getBoundaryCommentName());
             sr.append("\" />");
-            executeMacro(writer, sr.toString());
+            executeMacro(sr.toString());
         }
     }
     public void renderHyperlinkTitle(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText) throws IOException {
@@ -2324,7 +2333,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append("\" title=\"");
             sr.append(titleText);
             sr.append("\" />");
-            executeMacro(writer, sr.toString());
+            executeMacro(sr.toString());
         } else {
              writer.append(titleText);
         }
@@ -2410,7 +2419,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" ajaxEnabled=");
         sr.append(Boolean.toString(ajaxEnabled));
         sr.append(" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
 
     }
     /** Create an ajaxXxxx JavaScript CSV string from a list of UpdateArea objects. See
@@ -2469,7 +2478,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" tooltipStyle=\"");
         sr.append(modelFormField.getTooltipStyle());
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
     public void makeHyperlinkString(Appendable writer, ModelFormField.SubHyperlink subHyperlink, Map<String, Object> context) throws IOException {
         if (subHyperlink == null) {
@@ -2496,7 +2505,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" requiredStyle=\"");
         sr.append(requiredStyle);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
     public void appendContentUrl(Appendable writer, String location) throws IOException {
         StringBuffer buffer = new StringBuffer();
@@ -2572,7 +2581,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append("\" description=\"");
             sr.append(description);
             sr.append("\" />");
-            executeMacro(writer, sr.toString());
+            executeMacro(sr.toString());
         }
     }
 
@@ -2607,7 +2616,7 @@ public class MacroFormRenderer implements FormStringRenderer {
             sr.append("\" description=\"");
             sr.append(description);
             sr.append("\" />");
-            executeMacro(writer, sr.toString());
+            executeMacro(sr.toString());
         }
     }
 
@@ -2641,6 +2650,6 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(" targetWindow=\"");
         sr.append(targetWindow);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());
+        executeMacro(sr.toString());
     }
 }

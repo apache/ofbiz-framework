@@ -85,10 +85,10 @@ ${menuString}
 </#macro>
 <#macro renderScreenletSubWidget></#macro>
 <#macro renderScreenletEnd></div></div></#macro>
-<#macro renderScreenletPaginateMenu>
-<li class="${paginateLastStyle}<#if lastLinkUrl?has_content>"><a href="${lastLinkUrl}">${paginateLastLabel}</a><#else> disabled">${paginateLastLabel}</#if></li><#rt/>
-<li class="${paginateNextStyle}<#if nextLinkUrl?has_content>"><a href="${nextLinkUrl}">${paginateNextLabel}</a><#else> disabled">${paginateNextLabel}</#if></li><#rt/>
-<#if listSize>0>${lowIndex + 1}" - "${lowIndex + actualPageSize}" "${ofLabel}" "${listSize}<#rt/></#if>
-<li class="${paginatePreviousStyle}<#if previousLinkUrl?has_content>"><a href="${previousLinkUrl}">${paginatePreviousLabel}</a><#else> disabled">${paginatePreviousLabel}</#if></li><#rt/>
-<li class="${paginateFirstStyle}<#if firstLinkUrl?has_content>"><a href="${firstLinkUrl}">${paginateFirstLabel}</a><#else> disabled">${paginateFirstLabel}</#if></li>
+<#macro renderScreenletPaginateMenu lowIndex actualPageSize ofLabel listSize paginateLastStyle lastLinkUrl paginateLastLabel paginateNextStyle nextLinkUrl paginateNextLabel paginatePreviousStyle paginatePreviousLabel previousLinkUrl paginateFirstStyle paginateFirstLabel firstLinkUrl>
+    <li class="${paginateLastStyle}<#if !lastLinkUrl?has_content> disabled</#if>"><#if lastLinkUrl?has_content><a href="${lastLinkUrl}">${paginateLastLabel}</a><#else>${paginateLastLabel}</#if></li>
+    <li class="${paginateNextStyle}<#if !nextLinkUrl?has_content> disabled</#if>"><#if nextLinkUrl?has_content><a href="${nextLinkUrl}">${paginateNextLabel}</a><#else>${paginateNextLabel}</#if></li>
+    <#if (listSize?number > 0) ><li>${lowIndex?number + 1} - ${lowIndex?number + actualPageSize?number} ${ofLabel} ${listSize}</li><#rt/></#if>
+    <li class="${paginatePreviousStyle?default("nav-previous")}<#if !previousLinkUrl?has_content> disabled</#if>"><#if previousLinkUrl?has_content><a href="${previousLinkUrl}">${paginatePreviousLabel}</a><#else>${paginatePreviousLabel}</#if></li>
+    <li class="${paginateFirstStyle?default("nav-first")}<#if !firstLinkUrl?has_content> disabled</#if>"><#if firstLinkUrl?has_content><a href="${firstLinkUrl}">${paginateFirstLabel}</a><#else>${paginateFirstLabel}</#if></li>
 </#macro>
