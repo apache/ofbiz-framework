@@ -113,7 +113,7 @@
     </request-map>
     <request-map uri="addResource">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="addProjectMgrResource" path="component://projectmgr/script/org/ofbiz/projectmgr/ProjectSimpleEvents.xml"/>
+        <event type="simple" invoke="addProjectMgrResource" path="component://projectmgr/script/org/ofbiz/project/ProjectSimpleEvents.xml"/>
         <response name="success" type="view" value="FindResource"/>
     </request-map>
     <request-map uri="removeResource">
@@ -149,7 +149,7 @@
     </request-map>
     <request-map uri="setTaskStatusToComplete">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="setTaskStatusToComplete" path="component://projectmgr/script/org/ofbiz/projectmgr/ProjectSimpleEvents.xml"/>
+        <event type="simple" invoke="setTaskStatusToComplete" path="component://projectmgr/script/org/ofbiz/project/ProjectSimpleEvents.xml"/>
         <response name="success" type="view" value="taskView"/>
     </request-map>
     <request-map uri="setTaskStatus">
@@ -494,7 +494,7 @@
     </request-map>
     <request-map uri="acceptRequestAndConnectToTask">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="acceptRequestAndConnectToTask" path="component://projectmgr/script/org/ofbiz/projectmgr/ProjectSimpleEvents.xml"/>
+        <event type="simple" invoke="acceptRequestAndConnectToTask" path="component://projectmgr/script/org/ofbiz/project/ProjectSimpleEvents.xml"/>
         <response name="success" type="request" value="taskView"/>
         <response name="error" type="view" value="EditTaskFromRequest"/>
     </request-map>
@@ -504,7 +504,7 @@
     </request-map>
     <request-map uri="createrequest">
         <security https="true" auth="true"/>
-        <event type="simple" invoke="CreateCustRequestAndAssignTaskToPerson" path="component://projectmgr/script/org/ofbiz/projectmgr/ProjectSimpleEvents.xml"/>
+        <event type="simple" invoke="CreateCustRequestAndAssignTaskToPerson" path="component://projectmgr/script/org/ofbiz/project/ProjectSimpleEvents.xml"/>
         <response name="success" type="view-home" value="RequestList"/>
         <response name="error" type="view" value="EditRequest"/>
     </request-map>
@@ -606,12 +606,12 @@
     </request-map>
     <request-map uri="createProjectContent">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://projectmgr/script/org/ofbiz/projectmgr/ProjectSimpleEvents.xml" invoke="createWorkEffortContent"/>
+        <event type="simple" path="component://projectmgr/script/org/ofbiz/project/ProjectSimpleEvents.xml" invoke="createWorkEffortContent"/>
         <response name="success" type="request-redirect" value="EditProjectContents"/>
     </request-map>
     <request-map uri="updateProjectContent">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://projectmgr/script/org/ofbiz/projectmgr/ProjectSimpleEvents.xml" invoke="updateWorkEffortContent"/>
+        <event type="simple" path="component://projectmgr/script/org/ofbiz/project/ProjectSimpleEvents.xml" invoke="updateWorkEffortContent"/>
         <response name="success" type="view" value="EditProjectContents"/>
     </request-map>
     <request-map uri="deleteProjectContent">
@@ -626,12 +626,12 @@
     </request-map>
     <request-map uri="createTaskContent">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://projectmgr/script/org/ofbiz/projectmgr/ProjectSimpleEvents.xml" invoke="createWorkEffortContent"/>
+        <event type="simple" path="component://projectmgr/script/org/ofbiz/project/ProjectSimpleEvents.xml" invoke="createWorkEffortContent"/>
         <response name="success" type="request-redirect" value="EditTaskContents"/>
     </request-map>
     <request-map uri="updateTaskContent">
         <security auth="true" https="true"/>
-        <event type="simple" path="component://projectmgr/script/org/ofbiz/projectmgr/ProjectSimpleEvents.xml" invoke="updateWorkEffortContent"/>
+        <event type="simple" path="component://projectmgr/script/org/ofbiz/project/ProjectSimpleEvents.xml" invoke="updateWorkEffortContent"/>
         <response name="success" type="view" value="EditTaskContents"/>
     </request-map>
     <request-map uri="deleteTaskContent">
