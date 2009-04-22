@@ -731,4 +731,16 @@
           </field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
+    
+    <form name="AddWorkEffortSurveyAppl" type="single" target="createWorkEffortSurveyAppl"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createWorkEffortSurveyAppl"/>
+        <field name="workEffortId"><hidden/></field>
+        <field name="surveyId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="Survey" description="${surveyName}"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
 </forms>

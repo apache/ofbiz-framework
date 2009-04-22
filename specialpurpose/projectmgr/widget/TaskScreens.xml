@@ -317,6 +317,7 @@ under the License.
                 <set field="tabButtonItem" value="taskView"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <set field="projectId" from-field="parameters.workEffortId"/>
+                <set field="isReadable" value="true"/>
                 <service service-name="getProjectTask" result-map="taskResult">
                     <field-map field-name="taskId" from-field="workEffortId"/>
                 </service>
@@ -338,6 +339,7 @@ under the License.
                             <include-screen name="ListTaskContent"/>
                             <include-screen name="NoteInfo"/>
                             <include-screen name="ListWorkEffortRequests"/>
+                            <include-screen name="ListWorkEffortSurveyAppls"/>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -556,6 +558,43 @@ under the License.
                         </section>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <!-- Survey  -->
+    <screen name="EditWorkEffortSurveyAppls">
+        <section>
+            <actions>
+                <set field="headerItem" value="task"/>
+                <set field="tabButtonItem" value="EditWorkEffortSurveyAppls"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-screen name="ListWorkEffortSurveyAppls"/>
+                        <screenlet title="${uiLabelMap.CommonAdd} ${uiLabelMap.EcommerceSurveys}">
+                            <include-form name="AddWorkEffortSurveyAppl" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                        </screenlet>
+                   </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListWorkEffortSurveyAppls">
+        <section>
+            <actions>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="nowTimeStampString" default-value="${groovy: org.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/>
+                <entity-and entity-name="WorkEffortSurveyAppl" list="workEffortSurveyAppls">
+                    <field-map field-name="workEffortId" from-field="workEffortId"/>
+                    <order-by field-name="workEffortId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <html><html-template location="component://projectmgr/webapp/projectmgr/survey/ListSurveys.ftl"/></html>
+                </platform-specific>
             </widgets>
         </section>
     </screen>
