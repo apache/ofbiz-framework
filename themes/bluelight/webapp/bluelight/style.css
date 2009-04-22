@@ -635,6 +635,7 @@ border: solid 3px #FF0000;
     background-color: #000000;
 }
 
+/*
 .apptitle {
     background-color: #000099;
     color: #FFFFFF;
@@ -643,7 +644,7 @@ border: solid 3px #FF0000;
     font-weight: bold;
     line-height: 2em;
     width: 100%;
-}
+} */
 
 DIV.row {
     background-color: #B4B0AA;
@@ -1069,9 +1070,14 @@ padding-bottom: 1em;
     font-size: 130%;
 }
 
+#app-navigation .clear {
+    clear: none;
+}
+
 #main-navigation h2,
 #app-navigation h2 {
     color: #FFFFFF;
+    cursor: default;
     font-size: 1.2em;
     font-weight: bold;
     margin-right: 1em;
