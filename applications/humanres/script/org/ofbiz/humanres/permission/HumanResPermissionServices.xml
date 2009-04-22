@@ -22,6 +22,6 @@
 
     <simple-method method-name="humanResManagerPermission" short-description="Check user has Humanres Manager permission">
         <set field="primaryPermission" value="HUMANRES"/>
-        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
     </simple-method>
 </simple-methods>

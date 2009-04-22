@@ -22,7 +22,7 @@
 
     <simple-method method-name="genericDataResourcePermission" short-description="Generic Service for DataResource Permissions">
         <set field="primaryPermission" value="CONTENTMGR"/>
-        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
 
         <!-- setting the roleEntity or this service -->
         <set field="roleEntityField" value="dataResourceId"/>
@@ -81,13 +81,13 @@
             <set field="primaryPermission" value="CONTENTMGR"/>
             <set field="mainAction" value="VIEW"/>
             <call-simple-method method-name="genericBasePermissionCheck"
-                                xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                                xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
         </if-empty>
 
         <!-- check role permission -->
         <set field="primaryPermission" value="CONTENTMGR_ROLE"/>
         <call-simple-method method-name="genericBasePermissionCheck"
-                            xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                            xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
     </simple-method>
 
     <!-- DataResource Create Permission -->
@@ -97,13 +97,13 @@
             <set field="primaryPermission" value="CONTENTMGR"/>
             <set field="mainAction" value="CREATE"/>
             <call-simple-method method-name="genericBasePermissionCheck"
-                                xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                                xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
         </if-empty>
 
         <!-- check role permission -->
         <set field="primaryPermission" value="CONTENTMGR_ROLE"/>
         <call-simple-method method-name="genericBasePermissionCheck"
-                            xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                            xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
 
         <!-- this is about the same as the VIEW permission; but left as a unique service for extending purposes -->
     </simple-method>
@@ -115,7 +115,7 @@
             <set field="primaryPermission" value="CONTENTMGR"/>
             <set field="mainAction" value="UPDATE"/>
             <call-simple-method method-name="genericBasePermissionCheck"
-                                xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                                xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
         </if-empty>
 
         <!-- dataResourceId is required for update checking -->
@@ -130,7 +130,7 @@
         <!-- check role permission -->
         <set field="primaryPermission" value="CONTENTMGR_ROLE"/>
         <call-simple-method method-name="genericBasePermissionCheck"
-                            xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                            xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
 
         <!-- must have permission to continue -->
         <if>
@@ -151,7 +151,7 @@
 
                 <!-- check ownership of this record -->
                 <set field="checkId" from-field="dataResourceId"/>
-                <call-simple-method method-name="checkOwnership" xml-resource="org/ofbiz/content/permission/ContentPermissionServices.xml"/>
+                <call-simple-method method-name="checkOwnership" xml-resource="component://content/script/org/ofbiz/content/permission/ContentPermissionServices.xml"/>
             </then>
         </if>
     </simple-method>

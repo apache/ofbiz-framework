@@ -527,7 +527,7 @@
 
     <simple-method method-name="createEmployee" short-description="Create New Employee">
         <set field="parameters.roleTypeId" value="EMPLOYEE"/>
-        <call-simple-method method-name="createPersonRoleAndContactMechs" xml-resource="org/ofbiz/party/party/PartySimpleMethods.xml"/>
+        <call-simple-method method-name="createPersonRoleAndContactMechs" xml-resource="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml"/>
         <if-not-empty field="parameters.partyIdFrom">
             <set field="partyRelationshipCtx.partyId" from-field="partyId"/>
             <set field="partyRelationshipCtx.partyIdFrom" from-field="parameters.partyIdFrom"/>
