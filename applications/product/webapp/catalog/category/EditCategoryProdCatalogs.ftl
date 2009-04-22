@@ -77,7 +77,7 @@ under the License.
                     <input type="hidden" name="productCategoryId" value="${(prodCatalogCategory.productCategoryId)?if_exists}"/>
                     <input type="hidden" name="prodCatalogCategoryTypeId" value="${prodCatalogCategory.prodCatalogCategoryTypeId}"/>
                     <input type="hidden" name="fromDate" value="${(prodCatalogCategory.fromDate)?if_exists}"/>
-                    <input type="submit" value="${uiLabelMap.CommonDelete}"/>
+                    <a href="javascript:document.lineForm_delete${line}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                   </form>
                 </td>
             </tr>

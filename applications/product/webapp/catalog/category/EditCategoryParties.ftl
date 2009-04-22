@@ -62,7 +62,7 @@ under the License.
                     <input type="hidden" name="partyId" value="${(productCategoryRole.partyId)?if_exists}">
                     <input type="hidden" name="roleTypeId" value="${(productCategoryRole.roleTypeId)?if_exists}">
                     <input type="hidden" name="fromDate" value="${(productCategoryRole.getTimestamp("fromDate"))?if_exists}">
-                    <INPUT type="submit" value="${uiLabelMap.CommonDelete}" style="font-size: x-small;">
+                    <a href="javascript:document.lineForm_delete${line}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
                 </FORM>
             </td>
             </tr>
