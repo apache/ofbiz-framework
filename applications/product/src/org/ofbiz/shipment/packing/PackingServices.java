@@ -271,11 +271,16 @@ public class PackingServices {
         PackingSession session = (PackingSession) context.get("packingSession");
 
         // set the instructions -- will clear out previous if now null
+        String orderId = (String) context.get("orderId");
+        String shipmentId = (String) context.get("shipmentId");
+        String invoiceId = (String) context.get("invoiceId");
         String instructions = (String) context.get("handlingInstructions");
         String pickerPartyId = (String) context.get("pickerPartyId");
         BigDecimal additionalShippingCharge = (BigDecimal) context.get("additionalShippingCharge");
         Map<String, String> packageWeights = UtilGenerics.checkMap(context.get("packageWeights"));
         String weightUomId = (String) context.get("weightUomId");
+        session.setShipmentId(shipmentId);
+        session.setInvoiceId(invoiceId);
         session.setHandlingInstructions(instructions);
         session.setPickerPartyId(pickerPartyId);
         session.setAdditionalShippingCharge(additionalShippingCharge);
@@ -287,9 +292,8 @@ public class PackingServices {
             force = Boolean.FALSE;
         }
 
-        String shipmentId = null;
         try {
-            shipmentId = session.complete(force);
+            shipmentId = session.complete(force, orderId);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage(), e.getMessageList());

@@ -60,6 +60,7 @@ public class PackingSession implements java.io.Serializable {
     protected String shipmentId = null;
     protected String instructions = null;
     protected String weightUomId = null;
+    protected String invoiceId = null;
     protected BigDecimal additionalShippingCharge = null;
     protected Map<Integer, BigDecimal> packageWeights = null;
     protected List<PackingEvent> packEvents = null;
@@ -367,6 +368,18 @@ public class PackingSession implements java.io.Serializable {
         return this.shipmentId;
     }
 
+    public void setShipmentId(String shipmentId) {
+        this.shipmentId = shipmentId;
+    }
+
+    public String getInvoiceId() {
+        return this.invoiceId;
+    }
+
+    public void setInvoiceId(String invoiceId) {
+        this.invoiceId = invoiceId;
+    }
+
     public List<PackingSessionLine> getLines() {
         return this.packLines;
     }
@@ -613,7 +626,7 @@ public class PackingSession implements java.io.Serializable {
         this.runEvents(PackingEvent.EVENT_CODE_CLEAR);
     }
 
-    public String complete(boolean force) throws GeneralException {
+    public String complete(boolean force, String orderId) throws GeneralException {
         // clear out empty lines
         // this.checkEmptyLines(); // removing, this seems to be causeing issues -  mja
 
@@ -622,12 +635,16 @@ public class PackingSession implements java.io.Serializable {
             return "EMPTY";
         }
 
+        this.checkPackedQty(orderId);
         // check for errors
         this.checkReservations(force);
         // set the status to 0
         this.status = 0;
         // create the shipment
-        this.createShipment();
+        String shipmentId = this.getShipmentId();
+        if (UtilValidate.isEmpty(shipmentId)) {
+            this.createShipment();
+        }
         // create the packages
         this.createPackages();
         // issue the items
@@ -644,6 +661,27 @@ public class PackingSession implements java.io.Serializable {
         this.runEvents(PackingEvent.EVENT_CODE_COMPLETE);
 
         return this.shipmentId;
+    }
+
+    protected void checkPackedQty(String orderId) throws GeneralException {
+        int counter = 0;
+        List<GenericValue> orderItems = null;
+        for (PackingSessionLine line : this.getLines()) {
+            orderItems = this.getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
+            for (GenericValue orderItem : orderItems) {
+                if (orderId.equals(line.getOrderId())) {
+                    if ((orderItem.get("orderItemSeqId")).equals(line.getOrderItemSeqId())) {
+                        BigDecimal packedQty = this.getPackedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId(), line.getProductId());
+                        if ((packedQty.compareTo(orderItem.getBigDecimal("quantity"))) == 0 ) {
+                            counter++;
+                        }
+                    }
+                }
+            }
+        }
+        if (((this.getLines().size()) != (orderItems.size())) || (counter != (orderItems.size()))) {
+            throw new GeneralException("All order items are not packed");
+        }
     }
 
     protected void checkReservations(boolean ignore) throws GeneralException {

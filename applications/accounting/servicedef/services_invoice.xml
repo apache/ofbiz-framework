@@ -152,7 +152,7 @@ under the License.
         </description>
         <attribute name="orderId" type="String" mode="IN" optional="false"/>
         <attribute name="billItems" type="List" mode="IN" optional="false"/>
-        <attribute name="invoiceId" type="String" mode="OUT" optional="true"/>
+        <attribute name="invoiceId" type="String" mode="INOUT" optional="true"/>
         <attribute name="invoiceTypeId" type="String" mode="OUT" optional="true"/>
     </service>
     <service name="createInvoiceFromReturn" engine="java"

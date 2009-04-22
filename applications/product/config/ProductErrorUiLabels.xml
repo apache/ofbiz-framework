@@ -55,6 +55,9 @@
         <value xml:lang="en">Error Inventory Item Label Id Not Found</value>
         <value xml:lang="it">Errore riga etichetta inventario non trovata</value>
     </property>
+    <property key="ProductErrorNoShipGroupSequenceIdFoundCannotProcess">
+        <value xml:lang="en">ERROR: No ship group sequence Id found cannot process</value>
+    </property>
     <property key="ProductFeatureTypeIdMustContainsLettersAndDigits">
         <value xml:lang="de">Die Produktmerkmal Typ ID darf nur Buchstaben, Zahlen und _ enthalten. Bitte erneut eingeben.</value>
         <value xml:lang="en">The Product Feature TypeId must contains only letters, underscore and digits. Please re-enter</value>

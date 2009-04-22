@@ -17,9 +17,10 @@
  * under the License.
  */
 
-import org.ofbiz.order.order.OrderReadHelper;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.shipment.verify.VerifyPickSession;
 
 verifyPickSession = session.getAttribute("verifyPickSession");
@@ -42,6 +43,7 @@ if (shipmentId) {
         invoiceIds = EntityUtil.getFieldListFromEntityList(shipmentItemBillingList, "invoiceId", true);
         if (invoiceIds) {
             context.invoiceIds = invoiceIds;
+            parameters.orderId = null;
         }
     }
 }
@@ -90,14 +92,18 @@ if (orderId) {
             if (shipGroupSeqId) {
                 productStoreId = orh.getProductStoreId();
                 context.productStoreId = productStoreId;
+                shipments = delegator.findByAnd("Shipment", [primaryOrderId : orderId, statusId : "SHIPMENT_PICKED"]);
+                if (shipments) {
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorAllItemsOfOrderAreAlreadyVerified", [orderId : orderId], locale));
+                }
             } else {
-                request.setAttribute("errorMessageList", ['No ship group sequence ID. Cannot process.']);
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoShipGroupSequenceIdFoundCannotProcess", locale));
             }
         } else {
-            request.setAttribute("errorMessageList", ["Order #" + orderId + " is not approved for picking."]);
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderNotApprovedForPicking", [orderId : orderId], locale));
         }
     } else {
-        request.setAttribute("errorMessageList", ["Order #" + orderId + " cannot be found."]);
+        request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderIdNotFound", [orderId : orderId], locale));
     }
 }
 context.verifyPickSession = verifyPickSession;

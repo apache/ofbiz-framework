@@ -334,6 +334,9 @@
         <value xml:lang="th">ERROR : ข้อผิดพลาด !</value>
         <value xml:lang="zh">错误：</value>
     </property>
+    <property key="OrderErrorAllItemsOfOrderAreAlreadyVerified">
+        <value xml:lang="en">ERROR: All items of order #${orderId} are already verified</value>
+    </property>
     <property key="OrderErrorCallingCountProductQuantityOrderedService">
         <value xml:lang="en">Error calling countProductQuantityOrdered service : </value>
         <value xml:lang="es">Error al llamar al servicio countProductQuantityOrdered:</value>
@@ -685,6 +688,12 @@
         <value xml:lang="ru">ОШИБКА: Позиция заказа с кодом [${orderId}] и orderItemSeqId [${orderItemSeqId}] не найдены</value>
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! รายการสั่งซื้อด้วยรหัส [${orderId}] และรหัสรายการสั่งซื้อ[${orderItemSeqId}] ไม่พบ</value>
     </property>
+    <property key="OrderErrorOrderNotApprovedForPacking">
+        <value xml:lang="en">ERROR: Order #${orderId} is not approved for packing</value>
+    </property>
+    <property key="OrderErrorOrderNotApprovedForPicking">
+        <value xml:lang="en">ERROR: Order #${orderId} is not approved for picking</value>
+    </property>
     <property key="OrderErrorOrderNotPurchaseOrder">
         <value xml:lang="en">Order ${orderId} is not a Purchase Order</value>
         <value xml:lang="es">El pedido ${orderId} no es un pedido de compra</value>
@@ -692,6 +701,9 @@
         <value xml:lang="it">Ordine ${orderId} non è un'ordine di acquisto</value>
         <value xml:lang="ru">Заказ ${orderId} не является закупочным заказом</value>
         <value xml:lang="th">ใบสั่งซื้อสินค้า ${orderId} ไม่เป็นรายการสั่งซื้อ</value>
+    </property>
+    <property key="OrderErrorOrderNotVerifiedForPacking">
+        <value xml:lang="en">ERROR: Order #${orderId} is not verified for packing</value>
     </property>
     <property key="OrderErrorOrderTypeLookupFailed">
         <value xml:lang="en">ERROR : OrderType lookup failed : </value>
