@@ -1304,7 +1304,9 @@ public class ShoppingCartEvents {
         session.setAttribute("productStoreId", cart.getProductStoreId());
         session.setAttribute("orderMode", cart.getOrderType());
         session.setAttribute("orderPartyId", cart.getOrderPartyId());
-
+        
+        // Since we only need the cart items, so set the order id as null
+        cart.setOrderId(null); 
         return "success";
     }
 
