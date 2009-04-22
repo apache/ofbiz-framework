@@ -835,7 +835,7 @@ under the License.
                         <condition-expr field-name="communicationEventTypeId"
                             operator="equals" value="COMMENT_NOTE" ignore="${internalNotesOnly}"/>
                     </condition-list>
-                    <order-by field-name="-datetimeStarted"/>
+                    <order-by field-name="-entryDate"/>
                 </entity-condition>
                 <entity-condition entity-name="CommunicationEventAndRole" list="commEventsUnknown">
                     <condition-list combine="and">
@@ -846,7 +846,7 @@ under the License.
                         <condition-expr field-name="partyId" operator="equals"
                             value="${partyId}"/>
                     </condition-list>
-                    <order-by field-name="-datetimeStarted"/>
+                    <order-by field-name="-entryDate"/>
                 </entity-condition>
                 <entity-condition entity-name="CommunicationEventAndRole" list="commEventDraft">
                     <condition-list combine="and">
@@ -855,7 +855,7 @@ under the License.
                         <condition-expr field-name="partyId" operator="equals"
                             value="${partyId}"/>
                     </condition-list>
-                    <order-by field-name="-datetimeStarted"/>
+                    <order-by field-name="-entryDate"/>
                 </entity-condition>
                 <entity-one entity-name="PartyNameView" value-field="partyName">
                     <field-map field-name="partyId" from-field="partyId"/>

@@ -682,11 +682,13 @@ under the License.
         <description>Create a Communication Event with permission check</description>
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
         <implements service="createCommunicationEventInterface"/>
+        <override name="content" allow-html="any"/>
     </service>
     <service name="createCommunicationEventWithoutPermission" engine="simple"
             location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventWithoutPermission" auth="true">
         <description>Create a Communication Event without permission check</description>
         <implements service="createCommunicationEventInterface"/>
+        <override name="content" allow-html="any"/>
     </service>
 
     <service name="updateCommunicationEvent" engine="simple"
