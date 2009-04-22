@@ -389,18 +389,26 @@ public class ServiceEventHandler implements EventHandler {
         if (Debug.verboseOn()) Debug.logVerbose("[Event Return]: " + responseString, module);
         return responseString;
     }
-    
+
     public static void checkSecureParameter(RequestMap requestMap, Set<String> urlOnlyParameterNames, String name, HttpSession session, String serviceName) throws EventHandlerException {
         // special case for security: if this is a request-map defined as secure in controller.xml then only accept body parameters coming in, ie don't allow the insecure URL parameters
         // NOTE: the RequestHandler will check the HttpSerletRequest security to make sure it is secure if the request-map -> security -> https=true, but we can't just look at the request.isSecure() method here because it is allowed to send secure requests for request-map with https=false
         if (requestMap != null && requestMap.securityHttps) {
             if (urlOnlyParameterNames.contains(name)) {
-                String errMsg = "Found URL parameter [" + name + "] passed to secure (https) request-map with uri [" + requestMap.uri + "] with an event that calls service [" + serviceName + "]; this is not allowed for security reasons! The data should be encrypted by making it part of the request body (a form field) instead of the request URL.";
+                String errMsg = "Found URL parameter [" + name + "] passed to secure (https) request-map with uri ["
+                    + requestMap.uri + "] with an event that calls service ["
+                    + serviceName + "]; this is not allowed for security reasons! The data should be encrypted by making it part of the request body "
+                    + "(a form field) instead of the request URL."
+                    + "\n\nMoreover it would be kind if you could create a Jira sub-task of https://issues.apache.org/jira/browse/OFBIZ-2330 "
+                    + "\n(check before if a sub-task for this error does not exist)."
+                    + "\nIf you are not sure how to create a Jira issue "
+                    + "please have a look before at http://docs.ofbiz.org/x/r."
+                    + "\nThank you in advance for your help.";
                 Debug.logError("=============== " + errMsg + "; In session [" + session.getId() + "]; Note that this can be changed using the service.http.parameters.require.encrypted property in the url.properties file", module);
-                
+
                 // the default here is true, so anything but N/n is true
                 boolean requireEncryptedServiceWebParameters = !UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "service.http.parameters.require.encrypted", "N");
-                
+
                 // NOTE: this forces service call event parameters to be in the body and not in the URL! can be issues with existing links, like Delete links or whatever, and those need to be changed to forms!
                 if (requireEncryptedServiceWebParameters) {
                     throw new EventHandlerException(errMsg);
