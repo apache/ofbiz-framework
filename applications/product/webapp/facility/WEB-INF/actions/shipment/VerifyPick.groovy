@@ -76,6 +76,7 @@ if (picklistBinId) {
 context.orderId = orderId;
 context.shipGroupSeqId = shipGroupSeqId;
 context.picklistBinId = picklistBinId;
+context.isOrderStatusApproved = false;
 
 if (orderId) {
     orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
@@ -89,6 +90,7 @@ if (orderId) {
         orderItems = orh.getOrderItems();
         context.orderItems = orderItems;
         if ("ORDER_APPROVED".equals(orderHeader.statusId)) {
+            context.isOrderStatusApproved = true;
             if (shipGroupSeqId) {
                 productStoreId = orh.getProductStoreId();
                 context.productStoreId = productStoreId;
@@ -100,6 +102,7 @@ if (orderId) {
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("ProductErrorUiLabels", "ProductErrorNoShipGroupSequenceIdFoundCannotProcess", locale));
             }
         } else {
+            context.isOrderStatusApproved = false;
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderNotApprovedForPicking", [orderId : orderId], locale));
         }
     } else {

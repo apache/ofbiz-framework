@@ -26,7 +26,7 @@ under the License.
       </ul>
       <br class="clear"/>
     </div>
-    <#if shipmentId?has_content>
+    <#if (shipmentId?has_content) || (isOrderStatusApproved == false)>
       <#assign showInput = "N">
     </#if>
     <#if shipmentId?has_content>
