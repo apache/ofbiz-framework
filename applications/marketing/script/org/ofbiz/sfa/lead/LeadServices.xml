@@ -24,10 +24,10 @@
     <simple-method method-name="createLead"  short-description="create Lead Person or Lead Group">
         <set field="parameters.roleTypeId" value="LEAD"/>
         <if-compare field="parameters.quickAdd" operator="not-equals" value="Y">
-            <call-simple-method method-name="createPersonRoleAndContactMechs" xml-resource="org/ofbiz/party/party/PartySimpleMethods.xml"/>
+            <call-simple-method method-name="createPersonRoleAndContactMechs" xml-resource="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml"/>
         <else>
             <call-map-processor processor-name="person" in-map-name="parameters" out-map-name="personCtx"
-                xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"/>
+                xml-resource="component://party/script/org/ofbiz/party/party/PartyMapProcs.xml"/>
             <call-service service-name="createPerson" in-map-name="personCtx">
                 <result-to-field result-name="partyId" field="partyId"/>
                 <result-to-result result-name="partyId" service-result-name="partyId"/>
@@ -77,7 +77,7 @@
         <if-not-empty field="parameters.groupName">
             <set field="parameters.partyTypeId" value="PARTY_GROUP"/>
             <call-map-processor processor-name="partyGroup" in-map-name="parameters" out-map-name="partyGroupCtx"
-                xml-resource="org/ofbiz/party/party/PartyMapProcs.xml"/>
+                xml-resource="component://party/script/org/ofbiz/party/party/PartyMapProcs.xml"/>
             <call-service service-name="createPartyGroup" in-map-name="partyGroupCtx">
                 <result-to-field result-name="partyId" field="partyGroupPartyId"/>
             </call-service>

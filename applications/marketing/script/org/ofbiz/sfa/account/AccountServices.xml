@@ -28,7 +28,7 @@
         </if-not-empty>
         <set field="parameters.roleTypeId" value="ACCOUNT"/>
         <if-compare field="accountType" operator="equals" value="GROUP">
-            <call-simple-method method-name="createPartyGroupRoleAndContactMechs" xml-resource="org/ofbiz/party/party/PartySimpleMethods.xml"/>
+            <call-simple-method method-name="createPartyGroupRoleAndContactMechs" xml-resource="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml"/>
         </if-compare>
         <field-to-result field="partyId"/>
     </simple-method>

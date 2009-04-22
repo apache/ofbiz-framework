@@ -24,7 +24,7 @@ under the License.
     <simple-method method-name="createProductConfig" short-description="Create a ProductConfig">
         <set field="callingMethodName" value="createProductConfig"/>
         <set field="checkAction" value="CREATE"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
+        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/script/org/ofbiz/product/product/ProductServices.xml"/>
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
@@ -44,7 +44,7 @@ under the License.
     <simple-method method-name="updateProductConfig" short-description="Update an ProductConfig">
         <set field="callingMethodName" value="updateProductConfig"/>
         <set field="checkAction" value="UPDATE"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
+        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/script/org/ofbiz/product/product/ProductServices.xml"/>
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
@@ -59,7 +59,7 @@ under the License.
     <simple-method method-name="deleteProductConfig" short-description="Delete an ProductConfig">
         <set field="callingMethodName" value="deleteProductConfig"/>
         <set field="checkAction" value="DELETE"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
+        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/script/org/ofbiz/product/product/ProductServices.xml"/>
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 

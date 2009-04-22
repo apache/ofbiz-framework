@@ -89,7 +89,7 @@ under the License.
         <set field="callingMethodName" from-field="resourceDescription"/>
         <set field="checkAction" from-field="mainAction"/>
         <set field="alternatePermissionRoot" value="FACILITY"/>
-        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
+        <call-simple-method method-name="checkProductRelatedPermission" xml-resource="component://product/script/org/ofbiz/product/product/ProductServices.xml"/>
         <if-empty field="error_list">
             <set field="hasPermission" type="Boolean" value="true"/>
             <field-to-result field="hasPermission"/>

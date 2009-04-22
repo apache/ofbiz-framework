@@ -23,12 +23,12 @@ under the License.
 
     <simple-method method-name="workEffortManagerPermission" short-description="Check user has WorkEffort Manager permission">
         <set field="primaryPermission" value="WORKEFFORTMGR"/>
-        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
     </simple-method>
 
     <simple-method method-name="workEffortGenericPermission" short-description="">
         <set field="primaryPermission" value="WORKEFFORTMGR"/>
-        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
         <if>
             <condition>
                 <not>
@@ -39,7 +39,7 @@ under the License.
                 <!-- The user does not have WORKEFFORTMGR permission -->
                 <log level="info" message="The user does not have WORKEFFORTMGR permission"/>
                 <set field="primaryPermission" value="WORKEFFORTMGR_ROLE"/>
-                <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
                 <if>
                     <condition>
                         <if-compare field="hasPermission" value="true" operator="equals"/>

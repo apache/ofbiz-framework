@@ -22,17 +22,17 @@
 
     <simple-method method-name="contentManagerPermission" short-description="Check user has Content Manager permission">
         <set field="primaryPermission" value="CONTENTMGR"/>
-        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
     </simple-method>
     <simple-method method-name="contentManagerRolePermission" short-description="Check user has Content Manager permission">
         <set field="primaryPermission" value="CONTENTMGR"/>
         <set field="altPermission" value="CONTENTMGR_ROLE"/>
-        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
     </simple-method>
 
     <simple-method method-name="genericContentPermission" short-description="Generic Service for Content Permissions">
         <set field="primaryPermission" value="CONTENTMGR"/>
-        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+        <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
 
         <!-- setting the roleEntity or this service -->
         <set field="roleEntityField" value="contentId"/>
@@ -112,13 +112,13 @@
             <set field="primaryPermission" value="CONTENTMGR"/>
             <set field="mainAction" value="VIEW"/>
             <call-simple-method method-name="genericBasePermissionCheck"
-                                xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                                xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
         </if-empty>
 
         <!-- check content role permission -->
         <set field="primaryPermission" value="CONTENTMGR_ROLE"/>
         <call-simple-method method-name="genericBasePermissionCheck"
-                            xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                            xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
 
         <!-- must have the security permission to continue -->
         <if>
@@ -160,7 +160,7 @@
             <set field="primaryPermission" value="CONTENTMGR"/>
             <set field="mainAction" value="CREATE"/>
             <call-simple-method method-name="genericBasePermissionCheck"
-                                xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                                xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
         </if-empty>
 
         <!-- ownerContentId can be set from a calling method -->
@@ -181,7 +181,7 @@
         <!-- check role permission? -->
         <set field="primaryPermission" value="CONTENTMGR_ROLE"/>
         <call-simple-method method-name="genericBasePermissionCheck"
-                            xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                            xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
 
         <!-- must have the security permission to continue -->
         <if>
@@ -282,7 +282,7 @@
             <set field="primaryPermission" value="CONTENTMGR"/>
             <set field="mainAction" value="UPDATE"/>
             <call-simple-method method-name="genericBasePermissionCheck"
-                                xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                                xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
         </if-empty>
 
         <!-- contentId is required for update checking -->
@@ -307,7 +307,7 @@
         <!-- check role permission -->
         <set field="primaryPermission" value="CONTENTMGR_ROLE"/>
         <call-simple-method method-name="genericBasePermissionCheck"
-                            xml-resource="org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                            xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
 
         <!-- must have permission to continue -->
         <if>
