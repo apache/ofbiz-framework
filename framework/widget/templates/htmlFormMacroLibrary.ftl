@@ -370,7 +370,7 @@ ${item.description}</div>
 </#if>
 </#macro>
 
-<#macro renderRangeFindField className alert name value size maxlength autocomplete titleStyle defaultOptionFrom opEquals opGreaterThan opGreaterThanEquals value2 defaultOptionThru>
+<#macro renderRangeFindField className alert name value size maxlength autocomplete titleStyle defaultOptionFrom opEquals opGreaterThan opGreaterThanEquals opLessThan opLessThanEquals value2 defaultOptionThru>
 <input type="text" <@renderClass className alert /> <#if name?has_content>name="${name}_fld0_value"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/><#rt/>
 <#if titleStyle?has_content>
  <span class="${titleStyle}" ><#rt/>
@@ -389,8 +389,8 @@ ${item.description}</div>
  <span class="${titleStyle}" ><#rt/>
 </#if>
 <select name=<#if name?has_content>"${name}_fld1_op"</#if> class="selectBox"><#rt/>
-<option value="lessThan"<#if defaultOptionThru=="lessThan"> selected</#if>>${rp.opLessThan?html}</option><#rt/>
-<option value="lessThanEqualTo"<#if defaultOptionThru=="lessThanEqualTo"> selected</#if>>${rp.opLessThanEquals?html}</option><#rt/>
+<option value="lessThan"<#if defaultOptionThru=="lessThan"> selected</#if>>${opLessThan?html}</option><#rt/>
+<option value="lessThanEqualTo"<#if defaultOptionThru=="lessThanEqualTo"> selected</#if>>${opLessThanEquals?html}</option><#rt/>
 </select><#rt/>
 <#if titleStyle?has_content>
  </span>
