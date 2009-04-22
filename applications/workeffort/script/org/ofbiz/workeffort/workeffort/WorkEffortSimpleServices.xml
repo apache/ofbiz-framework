@@ -1448,5 +1448,24 @@ under the License.
             </iterate>
         </if-not-empty>
     </simple-method>
+    
+    <!-- Work Effort Survey Services -->
+    <simple-method method-name="createWorkEffortSurveyAppl" short-description="Create WorkEffortSurvey">
+        <make-value entity-name="WorkEffortSurveyAppl" value-field="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <create-value value-field="newEntity"/>
+    </simple-method>
+    <simple-method method-name="updateWorkEffortSurveyAppl" short-description="Update WorkEffortSurvey">
+        <entity-one entity-name="WorkEffortSurveyAppl" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    <simple-method method-name="deleteWorkEffortSurveyAppl" short-description="Delete Work Effort Survey">
+        <entity-one entity-name="WorkEffortSurveyAppl" value-field="lookedUpValue"/>
+        <now-timestamp field="nowTimestamp"/>
+        <set field="lookedUpValue.thruDate" from-field="nowTimestamp"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
 
 </simple-methods>

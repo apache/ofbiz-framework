@@ -51,7 +51,8 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProductI18nData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoProductCategoriesI18nData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoTreeContent.xml"/>
-
+    <entity-resource type="data" reader-name="demo" loader="main" location="data/DemoTestSurveyData.xml"/>
+    
     <webapp name="ecommerce"
         title="eCommerce"
         server="default-server"

@@ -639,6 +639,43 @@
         <event type="service" invoke="deleteWorkEffortContent"/>
         <response name="success" type="view" value="EditTaskContents"/>
     </request-map>
+
+    <!-- Survey Requests -->
+    <request-map uri="testWorkEffortSurvey">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="testWorkEffortSurvey"/>
+        <response name="error" type="view" value="testWorkEffortSurvey"/>
+    </request-map>
+    <request-map uri="testWorkEffortSurveyResponse">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createSurveyResponse"/>
+        <response name="success" type="view" value="testWorkEffortSurveyResponse"/>
+        <response name="error" type="view" value="testWorkEffortSurvey"/>
+    </request-map>
+    <request-map uri="EditWorkEffortSurveyAppls">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="EditWorkEffortSurveyAppls"/>
+        <response name="error" type="view" value="EditWorkEffortSurveyAppls"/>
+    </request-map>
+    <request-map uri="createWorkEffortSurveyAppl">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="createWorkEffortSurveyAppl"/>
+        <response name="success" type="view" value="EditWorkEffortSurveyAppls"/>
+        <response name="error" type="view" value="EditWorkEffortSurveyAppls"/>
+    </request-map>
+    <request-map uri="updateWorkEffortSurveyAppl">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="updateWorkEffortSurveyAppl"/>
+        <response name="success" type="view" value="EditWorkEffortSurveyAppls"/>
+        <response name="error" type="view" value="EditWorkEffortSurveyAppls"/>
+    </request-map>
+    <request-map uri="deleteWorkEffortSurveyAppl">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="deleteWorkEffortSurveyAppl"/>
+        <response name="success" type="view" value="EditWorkEffortSurveyAppls"/>
+        <response name="error" type="view" value="EditWorkEffortSurveyAppls"/>
+    </request-map>
+    
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -688,5 +725,8 @@
     <view-map name="ViewRequest" type="screen" page="component://projectmgr/widget/RequestScreens.xml#ViewRequest"/>
     <view-map name="EditProjectContents" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectContents"/>
     <view-map name="EditTaskContents" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskContents"/>
+    <view-map name="testWorkEffortSurvey" type="screen" page="component://projectmgr/widget/SurveyScreens.xml#TestWorkEffortSurvey"/>
+    <view-map name="testWorkEffortSurveyResponse" type="screen" page="component://projectmgr/widget/SurveyScreens.xml#TestWorkEffortSurveyResponse"/>
+    <view-map name="EditWorkEffortSurveyAppls" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditWorkEffortSurveyAppls"/>
     <!-- end of view mappings -->
 </site-conf>

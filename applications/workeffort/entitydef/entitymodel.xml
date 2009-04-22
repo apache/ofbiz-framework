@@ -851,4 +851,24 @@ under the License.
         <key-map field-name="workEffortTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="WorkEffortSurveyAppl"
+            package-name="org.ofbiz.workeffort.workeffort"
+            title="Work Effort Survey Appl Entity">
+      <field name="workEffortId" type="id-ne"/>
+      <field name="surveyId" type="id-ne"/>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="workEffortId"/>
+      <prim-key field="surveyId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" rel-entity-name="Survey">
+        <key-map field-name="surveyId"/>
+      </relation>
+      <relation type="one" rel-entity-name="WorkEffort">
+        <key-map field-name="workEffortId"/>
+      </relation>
+      <relation type="one" rel-entity-name="ProductStoreSurveyAppl">
+        <key-map field-name="surveyId"/>
+      </relation>
+    </entity>
 </entitymodel>
