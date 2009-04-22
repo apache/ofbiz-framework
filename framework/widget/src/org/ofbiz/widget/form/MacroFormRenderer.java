@@ -589,6 +589,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         options.append("[");
         Iterator<ModelFormField.OptionValue> optionValueIter = allOptionValues.iterator();
         int count = 0;
+        StringUtil.SimpleEncoder encoder = (StringUtil.SimpleEncoder)context.get("simpleEncoder");
         while (optionValueIter.hasNext()) {
             ModelFormField.OptionValue optionValue = (ModelFormField.OptionValue) optionValueIter
                     .next();
@@ -599,7 +600,11 @@ public class MacroFormRenderer implements FormStringRenderer {
             options.append(optionValue.getKey());
             options.append("'");
             options.append(",'description':'");
-            options.append(optionValue.getDescription());
+            if (encoder != null) {
+                options.append(encoder.encode(optionValue.getDescription()));
+            } else {
+                options.append(optionValue.getDescription());
+            }
             options.append("'}");
             if (ajaxEnabled) {
                 count++;
@@ -1533,6 +1538,10 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append(opGreaterThan);
         sr.append("\" opGreaterThanEquals=\"");
         sr.append(opGreaterThanEquals);
+        sr.append("\" opLessThan=\"");
+        sr.append(opLessThan);
+        sr.append("\" opLessThanEquals=\"");
+        sr.append(opLessThanEquals);
         sr.append("\" value2=\"");
         sr.append(value2);
         sr.append("\" defaultOptionThru=\"");
