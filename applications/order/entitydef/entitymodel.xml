@@ -339,6 +339,7 @@ under the License.
       <field name="orderDate" type="date-time"></field>
       <field name="priority" type="indicator"><description>Sets priority for Inventory Reservation</description></field>
       <field name="entryDate" type="date-time"></field>
+      <field name="pickSheetPrintedDate" type="date-time"><description>This will be set to a date when pick sheet of the order is printed</description></field>
       <field name="visitId" type="id"></field>
       <field name="statusId" type="id"></field>
       <field name="createdBy" type="id-vlong"></field>

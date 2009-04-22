@@ -55,6 +55,8 @@ under the License.
                 <td>${uiLabelMap.ProductReadyToPick}</td>
                 <td>${uiLabelMap.ProductNeedStockMove}</td>
                 <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
             </tr>
             <#if rushOrderInfo?has_content>
                 <#assign orderReadyToPickInfoList = rushOrderInfo.orderReadyToPickInfoList?if_exists>
@@ -141,6 +143,22 @@ under the License.
                                 &nbsp;
                             </#if>
                         </td>
+                        <td>
+                            <#if orderReadyToPickInfoList?has_content>
+                                <form method="post" action="<@ofbizUrl>PrintPickSheets</@ofbizUrl>">
+                                    <input type="hidden" name="printGroupName" value="${groupName?if_exists}"/>
+                                    <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
+                                    <input type="hidden" name="groupByShippingMethod" value="${requestParameters.groupByShippingMethod?if_exists}"/>
+                                    <input type="hidden" name="groupByWarehouseArea" value="${requestParameters.groupByWarehouseArea?if_exists}"/>
+                                    <input type="hidden" name="groupByNoOfOrderItems" value="${requestParameters.groupByNoOfOrderItems?if_exists}"/>
+                                    <span class="label">${uiLabelMap.FormFieldTitle_printPickSheetFirst}</span>
+                                    <input type="text" size="4" name="maxNumberOfOrdersToPrint" value="20"/>
+                                    <input type="submit" value="${uiLabelMap.FormFieldTitle_printPickSheet}"/>
+                                </form>
+                            <#else>
+                                &nbsp;
+                            </#if>
+                        </td>
                     </tr>
                     <#-- toggle the row color -->
                     <#assign alt_row = !alt_row>
@@ -156,6 +174,18 @@ under the License.
                             <span class="label">${uiLabelMap.ProductPickFirst}</span>
                             <input type="text" size="4" name="maxNumberOfOrders" value="20"/>
                             <input type="submit" value="${uiLabelMap.ProductCreatePicklist}"/>
+                        </form>
+                      <#else>
+                        &nbsp;
+                      </#if>
+                    </td>
+                    <td>
+                      <#if (orderReadyToPickInfoListSizeTotal > 0)>
+                        <form method="post" action="<@ofbizUrl>PrintPickSheets</@ofbizUrl>">
+                            <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
+                            <span class="label">${uiLabelMap.FormFieldTitle_printPickSheetFirst}</span>
+                            <input type="text" size="4" name="maxNumberOfOrdersToPrint" value="20"/>
+                            <input type="submit" value="${uiLabelMap.FormFieldTitle_printPickSheet}"/>
                         </form>
                       <#else>
                         &nbsp;
