@@ -6390,6 +6390,9 @@
         <value xml:lang="th">ปัญหามีผลต่อโปรแกรมประยุกต์ใช้การชำระเงินสำหรับรหัสการชำระเงิน [${invoiceId}]</value>
         <value xml:lang="zh">为发票编号[${invoiceId}]获得支付应用时出错</value>
     </property>
+    <property key="AccountingProblemGettingShipmentItemBilling">
+        <value xml:lang="en">Problem getting ShipmentItemBilling records</value>
+    </property>
     <property key="AccountingProblemLookingUpOrderItemBilling">
         <value xml:lang="en">Problem looking up OrderItemBilling records for ${billFields}</value>
         <value xml:lang="es">Problema buscando Elemento de orden de facturación para ${billFields}</value>

@@ -21,7 +21,7 @@ under the License.
     <#assign showInput = requestParameters.showInput?default("Y")>
     <#assign hideGrid = requestParameters.hideGrid?default("N")>
 
-    <#if (requestParameters.forceComplete?has_content && !shipmentId?has_content)>
+    <#if (requestParameters.forceComplete?has_content && !invoiceIds?has_content)>
         <#assign forceComplete = "true">
         <#assign showInput = "Y">
     </#if>
@@ -33,12 +33,11 @@ under the License.
             <br class="clear"/>
         </div>
         <div class="screenlet-body">
-            <#if shipmentId?has_content>
+            <#if shipmentId?has_content && invoiceIds?exists && invoiceIds?has_content>
                 <div>
                 ${uiLabelMap.CommonView} <a href="<@ofbizUrl>/PackingSlip.pdf?shipmentId=${shipmentId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductPackingSlip}</a> ${uiLabelMap.CommonOr}
                 ${uiLabelMap.CommonView} <a href="<@ofbizUrl>/ShipmentBarCode.pdf?shipmentId=${shipmentId}</@ofbizUrl>" target="_blank" class="buttontext">${uiLabelMap.ProductBarcode}</a> ${uiLabelMap.CommonFor} ${uiLabelMap.ProductShipmentId} <a href="<@ofbizUrl>/ViewShipment?shipmentId=${shipmentId}</@ofbizUrl>" class="buttontext">${shipmentId}</a>
                 </div>
-                <#if invoiceIds?exists && invoiceIds?has_content>
                 <div>
                     <p>${uiLabelMap.AccountingInvoices}:</p>
                     <ul>
@@ -50,7 +49,6 @@ under the License.
                     </#list>
                     </ul>
                 </div>
-                </#if>
             </#if>
             <br/>
 
@@ -115,6 +113,7 @@ under the License.
         </div>
     </div>
 
+    <#if ((shipment?has_content) && (shipment.shipmentId)?exists)>
     <#if showInput != "N" && ((orderHeader?exists && orderHeader?has_content))>
     <div class="screenlet">
         <div class="screenlet-title-bar">
@@ -329,6 +328,8 @@ under the License.
                   <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
                   <input type="hidden" name="forceComplete" value="${forceComplete?default('false')}"/>
                   <input type="hidden" name="weightUomId" value="${defaultWeightUomId}"/>
+                  <input type="hidden" name="shipmentId" value="${(shipment.shipmentId)?default("")}"/>
+                  <input type="hidden" name="invoiceId" value="${(invoice.invoiceId)?default("")}"/>
                   <input type="hidden" name="showInput" value="N"/>
                   <hr>
                   <table class="basic-table" cellpadding="2" cellspacing='0'>
@@ -490,6 +491,7 @@ under the License.
   </#if>
   </div>
   </div>
+  </#if>
 <#else>
   <h3>${uiLabelMap.ProductFacilityViewPermissionError}</h3>
 </#if>

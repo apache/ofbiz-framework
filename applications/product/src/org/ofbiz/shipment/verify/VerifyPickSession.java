@@ -140,14 +140,11 @@ public class VerifyPickSession implements Serializable {
     }
 
     public String complete(String orderId) throws GeneralException {
-        String shipmentId = null;
         String shipmentItemSeqId = null;
         String invoiceId = null;
         String invoiceItemSeqId = null;
-        for (VerifyPickSessionRow line: this.getPickRows(orderId)) {
-            shipmentId = this.createShipment(line);
-            break;
-        }
+        this.checkVerifiedQty(orderId);
+        String shipmentId = this.createShipment((this.getPickRows(orderId)).get(0));
         for (VerifyPickSessionRow line: this.getPickRows(orderId)) {
             shipmentItemSeqId = this.createShipmentItem(line,shipmentId);
             line.setShipmentItemSeqId(shipmentItemSeqId);
@@ -158,6 +155,24 @@ public class VerifyPickSession implements Serializable {
             line.setInvoiceItemSeqId(invoiceItemSeqId);
         }
         return shipmentId;
+    }
+
+    protected void checkVerifiedQty(String orderId) throws GeneralException {
+        int counter = 0;
+        List<GenericValue> orderItems = null;
+        for (VerifyPickSessionRow line : this.getPickRows(orderId)) {
+            orderItems = this.getDelegator().findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId));
+            for (GenericValue orderItem : orderItems) {
+                if ((orderItem.get("orderItemSeqId")).equals(line.getOrderSeqId())) {
+                    if (((line.getReadyToVerifyQty()).compareTo(orderItem.getBigDecimal("quantity"))) == 0 ) {
+                        counter++;
+                    }
+                }
+            }
+        }
+        if (counter != (orderItems.size())) {
+            throw new GeneralException("All order items are not verified");
+        }
     }
 
     protected String createShipment(VerifyPickSessionRow line) throws GeneralException {
@@ -202,11 +217,17 @@ public class VerifyPickSession implements Serializable {
     }
 
     protected String createInvoice(String orderId) throws GeneralException {
+        GenericDelegator delegator = this.getDelegator();
         Map createInvoiceContext = FastMap.newInstance();
-        createInvoiceContext.put("partyId", (EntityUtil.getFirst(this.getDelegator().findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER")))).getString("partyId"));
-        createInvoiceContext.put("partyIdFrom", (EntityUtil.getFirst(this.getDelegator().findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "BILL_FROM_VENDOR")))).getString("partyId"));
+        GenericValue orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+        GenericValue billingAccount = orderHeader.getRelatedOne("BillingAccount");
+        String billingAccountId = billingAccount != null ? billingAccount.getString("billingAccountId") : null;
+        createInvoiceContext.put("partyId", (EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER")))).getString("partyId"));
+        createInvoiceContext.put("partyIdFrom", (EntityUtil.getFirst(delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "BILL_FROM_VENDOR")))).getString("partyId"));
+        createInvoiceContext.put("billingAccountId", billingAccountId);
         createInvoiceContext.put("invoiceTypeId", "SALES_INVOICE");
         createInvoiceContext.put("statusId", "INVOICE_IN_PROCESS");
+        createInvoiceContext.put("currencyUomId", orderHeader.getString("currencyUom"));
         createInvoiceContext.put("userLogin", this.getUserLogin());
         Map createInvoiceResult = this.getDispatcher().runSync("createInvoice", createInvoiceContext);
         if (ServiceUtil.isError(createInvoiceResult)) {

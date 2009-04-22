@@ -562,6 +562,9 @@ under the License.
             location="org.ofbiz.shipment.packing.PackingServices" invoke="completePack" auth="true">
         <description>Complete the packging set the shipment to PACKED</description>
         <attribute name="packingSession" type="org.ofbiz.shipment.packing.PackingSession" mode="IN" optional="false"/>
+        <attribute name="orderId" type="String" mode="IN" optional="true"/>
+        <attribute name="invoiceId" type="String" mode="IN" optional="true"/>
+        <attribute name="shipmentId" type="String" mode="IN" optional="true"/>
         <attribute name="handlingInstructions" type="String" mode="IN" optional="true"/>
         <attribute name="pickerPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="additionalShippingCharge" type="BigDecimal" mode="IN" optional="true"/>
