@@ -40,11 +40,11 @@ under the License.
   <div class="content-messages errorMessage">
     <p>${uiLabelMap.CommonFollowingErrorsOccurred}:</p>
     <#if errorMessage?has_content>
-      <p>${errorMessage}</p>
+      <p>${StringUtil.wrapString(errorMessage)}</p>
     </#if>
     <#if errorMessageList?has_content>
       <#list errorMessageList as errorMsg>
-        <p>${errorMsg}</p>
+        <p>${StringUtil.wrapString(errorMsg)}</p>
       </#list>
     </#if>
   </div>
@@ -55,11 +55,11 @@ under the License.
   <div class="content-messages eventMessage">
     <p>${uiLabelMap.CommonFollowingOccurred}:</p>
     <#if eventMessage?has_content>
-      <p>${eventMessage}</p>
+      <p>${StringUtil.wrapString(eventMessage)}</p>
     </#if>
     <#if eventMessageList?has_content>
       <#list eventMessageList as eventMsg>
-        <p>${eventMsg}</p>
+        <p>${StringUtil.wrapString(eventMsg)}</p>
       </#list>
     </#if>
   </div>
