@@ -161,7 +161,7 @@ under the License.
         <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time/></field>
         <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10" default-value="${parameters.content}"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}" encode-output="false"><textarea cols="72" rows="15" default-value="${parameters.content}"/></field>
         <field name="send" title="&amp;nbsp;" position="1" use-when="communicationEvent!=null">
             <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSend}" target="javascript:(document.EditEmail.submit())"/>
         </field>
