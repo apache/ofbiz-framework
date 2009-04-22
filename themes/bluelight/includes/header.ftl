@@ -135,7 +135,11 @@ under the License.
         <li class="control-area">
           <ul id="preferences-menu">
             <#if userLogin?exists>
-              <li class="user"><a href="/partymgr/control/viewprofile?partyId=${userLogin.partyId}">${userName}</a></li>
+              <#if userLogin.partyId?exists>
+                <li class="user"><a href="/partymgr/control/viewprofile?partyId=${userLogin.partyId}">${userName}</a></li>
+              <#else>
+                <li class="user">${userName}</li>
+              </#if>
               <li class="org">${orgName}</li>
             </#if>
             <li class="first"><a href="<@ofbizUrl>LookupLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle} : ${locale.getDisplayName(locale)}</a></li>
