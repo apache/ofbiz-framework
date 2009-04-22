@@ -2413,6 +2413,12 @@
         <value xml:lang="th">ประเภทรายการสร้างสินค้า</value>
         <value xml:lang="zh">产品配置明细类型</value>
     </property>
+    <property key="FormFieldTitle_printPickSheet">
+        <value xml:lang="en">Print Pick Sheet</value>
+    </property>
+    <property key="FormFieldTitle_printPickSheetFirst">
+        <value xml:lang="en">Print First</value>
+    </property>
     <property key="FormFieldTitle_productContentTypeId">
         <value xml:lang="de">Produkt Inhalt Typ ID</value>
         <value xml:lang="en">Product Content Type Id</value>

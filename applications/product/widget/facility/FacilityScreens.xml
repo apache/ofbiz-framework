@@ -1204,6 +1204,23 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="PrintPickSheets.fo">
+        <section>
+            <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="facilityId" from-field="parameters.facilityId"/>
+                <service service-name="printPickSheets"/>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/PrintPickSheets.groovy"/>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/CompanyHeader.groovy"/>
+            </actions>
+            <widgets>
+                <platform-specific>
+                    <xsl-fo><html-template location="component://product/webapp/facility/facility/PrintPickSheets.fo.ftl"/></xsl-fo>
+                </platform-specific>
+            </widgets>
+        </section>
+    </screen>
     <screen name="PicklistManage">
         <section>
             <actions>

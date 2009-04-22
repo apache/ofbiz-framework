@@ -672,7 +672,50 @@ under the License.
         </if-not-empty>
     </simple-method>
 
-    <!-- Picklist -->
+    <!-- print pick sheet -->
+    <simple-method method-name="printPickSheets" short-description="Print pick sheets for orders">
+        <now-timestamp field="nowTimestamp"/>
+        <set-service-fields service-name="findOrdersToPickMove" map="parameters" to-map="findOrdersToPickMoveMap"/>
+
+        <call-service service-name="findOrdersToPickMove" in-map-name="findOrdersToPickMoveMap">
+            <result-to-field result-name="pickMoveInfoList"/>
+        </call-service>
+
+        <if-not-empty field="parameters.printGroupName">
+            <set field="printGroupName" from-field="parameters.printGroupName"/>
+            <iterate list="pickMoveInfoList" entry="pickMoveInfo">
+                <set field="groupName" from-field="pickMoveInfo.groupName"/>
+                <if-compare-field field="groupName" operator="equals" to-field="printGroupName">
+                    <list-to-list list="pickMoveInfo.orderReadyToPickInfoList" to-list="toPrintList"/>
+                </if-compare-field>
+            </iterate>
+        <else>
+            <iterate list="pickMoveInfoList" entry="pickMoveInfo">
+                <list-to-list list="pickMoveInfo.orderReadyToPickInfoList" to-list="toPrintList"/>
+            </iterate>
+        </else>
+        </if-not-empty>
+        <set field="printListCounter" value="0" type="Long"/>
+        <iterate list="toPrintList" entry="toPrint">
+            <if>
+                <condition>
+                    <or>
+                        <if-empty field="parameters.maxNumberOfOrdersToPrint"/>
+                        <if-compare-field field="printListCounter" operator="less" to-field="parameters.maxNumberOfOrdersToPrint" type="Long"/>
+                    </or>
+                </condition>
+                <then>
+                    <set field="orderHeaderMap.orderId" from-field="toPrint.orderHeader.orderId"/>
+                    <set field="orderHeaderMap.pickSheetPrintedDate" from-field="nowTimestamp"/>
+                    <call-service service-name="updateOrderHeader" in-map-name="orderHeaderMap"/>
+                    <set field="printListCounter" value="${printListCounter + 1}" type="Long"/>
+                </then>
+            </if>
+        </iterate>
+        <field-to-result field="pickMoveInfoList" result-name="pickMoveInfoList"/>
+    </simple-method>
+
+       <!-- Picklist -->
     <simple-method method-name="createPicklist" short-description="Create Picklist">
         <check-permission permission="FACILITY" action="_CREATE">
             <fail-message message="Security Error: to run createPicklist you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/>

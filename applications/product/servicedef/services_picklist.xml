@@ -60,6 +60,19 @@ under the License.
         <attribute name="picklistId" type="String" mode="OUT" optional="false"/>
     </service>
 
+    <service name="printPickSheets" engine="simple"
+            location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="printPickSheets">
+        <description>Print pick sheets for orders</description>
+        <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
+        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="maxNumberOfOrdersToPrint" type="Long" mode="IN" optional="true"/>
+        <attribute name="printGroupName" type="String" mode="IN" optional="true"/>
+        <attribute name="groupByNoOfOrderItems" type="String" mode="IN" optional="true"/>
+        <attribute name="groupByWarehouseArea" type="String" mode="IN" optional="true"/>
+        <attribute name="groupByShippingMethod" type="String" mode="IN" optional="true"/>
+        <attribute name="pickMoveInfoList" type="List" mode="OUT" optional="false"/>
+    </service>
+
     <service name="getPicklistDisplayInfo" engine="simple"
             location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="getPicklistDisplayInfo">
         <description>Create Picklist From Orders</description>

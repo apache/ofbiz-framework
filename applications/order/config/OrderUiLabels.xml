@@ -6173,6 +6173,9 @@
         <value xml:lang="th">การคัดสรรรายการสังซื้อ</value>
         <value xml:lang="zh">分拣订单</value>
     </property>
+    <property key="OrderPickedBy">
+        <value xml:lang="en">Picked By</value>
+    </property>
     <property key="OrderPieces">
         <value xml:lang="cs">ks</value>
         <value xml:lang="de">Stücke</value>
@@ -9115,6 +9118,9 @@
         <value xml:lang="th">ผลรวมการปรับเปลี่ยนรายการสั่งซื้อสินค้าอื่น ๆ </value>
         <value xml:lang="zh">其它订单调整合计</value>
         <value xml:lang="zh_CN">其他调整总计</value>
+    </property>
+    <property key="OrderTotalNoOfItems">
+        <value xml:lang="en">Total No. Of Items</value>
     </property>
     <property key="OrderTotalQty">
         <value xml:lang="de">Total Menge</value>
