@@ -768,7 +768,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         sr.append("\" alert=\"");
         sr.append(alert);
         sr.append("\" allChecked=");
-        sr.append(Boolean.toString(allChecked));
+        sr.append((allChecked != null? Boolean.toString(allChecked): "\"\""));
         sr.append(" currentValue=\"");
         sr.append(currentValue);
         sr.append("\" name=\"");
