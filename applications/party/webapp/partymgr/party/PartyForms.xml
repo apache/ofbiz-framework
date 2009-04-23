@@ -1000,7 +1000,7 @@ under the License.
         <field name="partyId"><hidden/></field>
         <field name="userPrefValue" title="${uiLabelMap.CommonValue}" use-when="enumId.equals(&quot;ORGANIZATION_PARTY&quot;)" parameter-name="userPrefValue" >
             <drop-down current="selected" no-current-selected-key="defaultOrganizationPartyId">
-                <entity-options entity-name="PartyAcctgPrefAndGroup" description="${groupName}"/>
+                <entity-options entity-name="PartyAcctgPrefAndGroup" description="${groupName}" key-field-name="partyId"/>
             </drop-down>
         </field>
         <field name="userPrefValue" title="${uiLabelMap.CommonValue}" use-when="enumId.equals(&quot;VISUAL_THEME&quot;)" parameter-name="userPrefValue">
