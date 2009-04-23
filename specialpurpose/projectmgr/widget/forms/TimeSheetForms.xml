@@ -82,7 +82,7 @@
         <field name="hours"><display/></field>
         <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
         <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
-            <hyperlink target="${my}TimeSheetStatusToComplete" description="${statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}" also-hidden="false">
+            <hyperlink target="TimeSheetStatusToComplete" description="${groovy:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}" also-hidden="false">
                 <parameter param-name="timesheetId"/>
                 <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
             </hyperlink>
