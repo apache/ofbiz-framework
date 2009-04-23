@@ -66,7 +66,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="CreateContact">
+    <screen name="NewContact">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCreateContact"/>
@@ -83,7 +83,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form name="CreateContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
+                                        <include-form name="NewContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
@@ -141,7 +141,7 @@ under the License.
          </section>
     </screen>
 
-    <screen name="CreateContactFromVCard">
+    <screen name="NewContactFromVCard">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleCreateContactFromVCard"/>
@@ -158,7 +158,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>
-                                        <include-form  name="CreateContactFromVCard" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
+                                        <include-form  name="NewContactFromVCard" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>

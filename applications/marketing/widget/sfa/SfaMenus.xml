@@ -52,7 +52,7 @@ under the License.
     <menu name="AccountSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           menu-container-style="button-bar button-style-2 no-clear">
         <menu-item name="NewAccounts" title="${uiLabelMap.PageTitleCreateAccount}">
-            <link target="NewAccounts"/>
+            <link target="NewAccount"/>
         </menu-item>
     </menu>
 
@@ -85,11 +85,11 @@ under the License.
 
     <menu name="LeadSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           menu-container-style="button-bar button-style-2 no-clear">
-        <menu-item name="CreateLead" title="${uiLabelMap.CommonCreateNew}">
-            <link target="CreateLead"/>
+        <menu-item name="NewLead" title="${uiLabelMap.CommonCreateNew}">
+            <link target="NewLead"/>
         </menu-item>
-        <menu-item name="CreateLeadFromVCard" title="${uiLabelMap.SfaImportLead}">
-            <link target="CreateLeadFromVCard"/>
+        <menu-item name="NewLeadFromVCard" title="${uiLabelMap.PageTitleCreateLeadFromVCard}">
+            <link target="NewLeadFromVCard"/>
         </menu-item>
     </menu>
 
@@ -105,11 +105,11 @@ under the License.
     </menu>
     <menu name="ContactSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           menu-container-style="button-bar button-style-2 no-clear">
-        <menu-item name="CreateContact" title="${uiLabelMap.CommonCreateNew}">
-            <link target="CreateContact"/>
+        <menu-item name="NewContact" title="${uiLabelMap.CommonCreateNew}">
+            <link target="NewContact"/>
         </menu-item>
-        <menu-item name="CreateContactFromVCard" title="${uiLabelMap.SfaCreateContactFromVCard}">
-            <link target="CreateContactFromVCard"/>
+        <menu-item name="NewContactFromVCard" title="${uiLabelMap.SfaCreateContactFromVCard}">
+            <link target="NewContactFromVCard"/>
         </menu-item>
     </menu>
     <menu name="SalesForecastTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">

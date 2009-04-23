@@ -43,7 +43,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
-    <form name="CreateContact" type="single" target="createContact" header-row-style="header-row" default-table-style="basic-table">
+    <form name="NewContact" type="single" target="createContact" header-row-style="header-row" default-table-style="basic-table">
         <field name="firstName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="lastName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="suffix"><text/></field>
@@ -103,7 +103,7 @@ under the License.
         <field name="submitButton" position="3" title="${uiLabelMap.SfaMergeContacts}" widget-style="buttontext" tooltip-style="button-text"><submit button-type="text-link"/></field>
     </form>
 
-    <form name="CreateContactFromVCard" type="upload" target="createContactFromVCard" header-row-style="header-row" default-table-style="basic-table">
+    <form name="NewContactFromVCard" type="upload" target="createContactFromVCard" header-row-style="header-row" default-table-style="basic-table">
         <field name="infile" title="${uiLabelMap.SfaUploadVCard}"><file/></field>
         <field name="serviceName"><hidden value="createContact"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit"><submit button-type="button"/></field>

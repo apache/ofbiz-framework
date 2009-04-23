@@ -126,7 +126,7 @@ under the License.
         <field name="submitButton" position="3" title="${uiLabelMap.SfaMergeLeads}" widget-style="buttontext" tooltip-style="button-text"><submit button-type="text-link"/></field>
     </form>
 
-    <form name="CreateLeadFromVCard" type="upload" target="createLeadFromVCard" header-row-style="header-row" default-table-style="basic-table">
+    <form name="NewLeadFromVCard" type="upload" target="createLeadFromVCard" header-row-style="header-row" default-table-style="basic-table">
         <field name="infile" title="${uiLabelMap.SfaUploadVCard}"><file/></field>
         <field name="serviceName"><hidden value="createLead"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpload}" widget-style="smallSubmit"><submit button-type="button"/></field>
