@@ -39,6 +39,12 @@ public class TextScreenRenderer implements ScreenStringRenderer {
         return "text";
     }
 
+    public void renderScreenBegin(Appendable writer, Map<String, Object> context) throws IOException {
+    }
+
+    public void renderScreenEnd(Appendable writer, Map<String, Object> context) throws IOException {
+    }
+
     public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
         // do nothing, this is just a place holder container for HTML
     }

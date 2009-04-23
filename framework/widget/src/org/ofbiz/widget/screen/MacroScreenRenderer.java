@@ -116,11 +116,35 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         return rendererName;
     }
 
+    public void renderScreenBegin(Appendable writer, Map<String, Object> context) throws IOException {
+        executeMacro("<@renderScreenBegin/>");
+    }
+
+    public void renderScreenEnd(Appendable writer, Map<String, Object> context) throws IOException {
+        executeMacro("<@renderScreenEnd/>");
+    }
+
     public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
-        // TODO: not implemented FIXME
+        if (section.boundaryCommentsEnabled()) {
+            StringWriter sr = new StringWriter();
+            sr.append("<@renderSectionBegin ");
+            sr.append("boundaryComment=\"Begin ");
+            sr.append(section.isMainSection ? "Screen " : "Section Widget ");
+            sr.append(section.getBoundaryCommentName());
+            sr.append("\"/>");
+            executeMacro(sr.toString());
+        }
     }
     public void renderSectionEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
-        // TODO: not implemented FIXME
+        if (section.boundaryCommentsEnabled()) {
+            StringWriter sr = new StringWriter();
+            sr.append("<@renderSectionEnd ");
+            sr.append("boundaryComment=\"End ");
+            sr.append(section.isMainSection ? "Screen " : "Section Widget ");
+            sr.append(section.getBoundaryCommentName());
+            sr.append("\"/>");
+            executeMacro(sr.toString());
+        }
     }
 
     public void renderContainerBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {

@@ -71,6 +71,14 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         return "html";
     }
 
+    public void renderScreenBegin(Appendable writer, Map<String, Object> context) throws IOException {
+        writer.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+        appendWhitespace(writer);
+    }
+
+    public void renderScreenEnd(Appendable writer, Map<String, Object> context) throws IOException {
+    }
+
     public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
         renderBeginningBoundaryComment(writer, section.isMainSection?"Screen":"Section Widget", section);
     }

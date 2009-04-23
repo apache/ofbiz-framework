@@ -118,7 +118,9 @@ public class ScreenRenderer {
             GenericWidgetOutput gwo = screenCache.get(screenCombinedName, wcck);
             if (gwo == null) {
                 Writer sw = new StringWriter();
+                screenStringRenderer.renderScreenBegin(writer, context);
                 modelScreen.renderScreenString(sw, context, screenStringRenderer);
+                screenStringRenderer.renderScreenEnd(writer, context);
                 gwo = new GenericWidgetOutput(sw.toString());
                 screenCache.put(screenCombinedName, wcck, gwo);
                 writer.append(gwo.toString());
@@ -126,7 +128,9 @@ public class ScreenRenderer {
                 writer.append(gwo.toString());
             }
         } else {
+            screenStringRenderer.renderScreenBegin(writer, context);
             modelScreen.renderScreenString(writer, context, screenStringRenderer);
+            screenStringRenderer.renderScreenEnd(writer, context);
         }
         return "";
     }
