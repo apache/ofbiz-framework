@@ -17,9 +17,25 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#macro renderSectionBegin></#macro>
-<#macro renderSectionEnd>
+<#macro renderScreenBegin>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 </#macro>
+
+<#macro renderScreenEnd>
+</#macro>
+
+<#macro renderSectionBegin boundaryComment>
+<#if boundaryComment?has_content>
+<!-- ${boundaryComment} -->
+</#if>
+</#macro>
+
+<#macro renderSectionEnd boundaryComment>
+<#if boundaryComment?has_content>
+<!-- ${boundaryComment} -->
+</#if>
+</#macro>
+
 <#macro renderContainerBegin id style autoUpdateLink autoUpdateInterval>
 <#if autoUpdateLink?has_content>
 <script type="text/javascript">ajaxUpdateAreaPeriodic('${id}', '${autoUpdateLink}', '', '${autoUpdateInterval}');</script>

@@ -50,6 +50,13 @@ public class FoScreenRenderer extends HtmlWidgetRenderer implements ScreenString
         return "xsl-fo";
     }
 
+    public void renderScreenBegin(Appendable writer, Map<String, Object> context) throws IOException {
+    }
+
+    public void renderScreenEnd(Appendable writer, Map<String, Object> context) throws IOException {
+        
+    }
+
     public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
         renderBeginningBoundaryComment(writer, section.isMainSection?"Screen":"Section Widget", section);
     }
