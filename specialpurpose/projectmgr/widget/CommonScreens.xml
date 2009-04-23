@@ -101,6 +101,7 @@ under the License.
         <section>
             <actions>
                 <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getProjectId.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
