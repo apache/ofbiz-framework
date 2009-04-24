@@ -818,9 +818,9 @@ public class ProductWorker {
         return false;
     }
 
-    public static String getProductTypeId(GenericDelegator delegator, String productI) {
+    public static String getProductTypeId(GenericDelegator delegator, String productId) {
         try {
-            GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productI));
+            GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
             if (product != null) {
                 return product.getString("productTypeId");
             }
