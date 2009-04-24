@@ -82,12 +82,7 @@ under the License.
     <screen name="printExampleFOPFonts">
         <section>
             <widgets>
-                <platform-specific>
-                    <html>
-                        <html-template
-                            location="component://example/webapp/example/reports/fonts.fo.ftl"/>
-                    </html>
-                </platform-specific>
+                <platform-specific><xsl-fo><html-template location="component://example/webapp/example/reports/fonts.fo.ftl"/></xsl-fo></platform-specific>
             </widgets>
         </section>
     </screen>
