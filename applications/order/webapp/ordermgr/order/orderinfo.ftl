@@ -59,6 +59,17 @@ under the License.
                 <input type="hidden" name="fromDate" value="${fromDate?if_exists}"/>
               </form>
             </#if>
+            <#if currentStatus.statusId != "ORDER_COMPLETED" && currentStatus.statusId != "ORDER_CANCELLED">
+              <li><a href="javascript:document.OrderCancel.submit()">${uiLabelMap.OrderCancelOrder}</a></li>
+              <form name="OrderCancel" method="post" action="<@ofbizUrl>changeOrderStatus/orderview</@ofbizUrl>">
+                <input type="hidden" name="statusId" value="ORDER_CANCELLED"/>
+                <input type="hidden" name="workEffortId" value="${workEffortId?if_exists}"/>
+                <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
+                <input type="hidden" name="partyId" value="${assignPartyId?if_exists}"/>
+                <input type="hidden" name="roleTypeId" value="${assignRoleTypeId?if_exists}"/>
+                <input type="hidden" name="fromDate" value="${fromDate?if_exists}"/>
+              </form>
+            </#if>             
             <#if setOrderCompleteOption>
               <li><a href="javascript:document.OrderCompleteOrder.submit()">${uiLabelMap.OrderCompleteOrder}</a></li>
               <form name="OrderCompleteOrder" method="post" action="<@ofbizUrl>changeOrderStatus</@ofbizUrl>">
