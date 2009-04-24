@@ -598,6 +598,7 @@ public class StringUtil {
         if (insertBR) {
             html = StringUtil.replaceString(html, "<br>", "\n");
         }
+        html = html.replace("&nbsp;", " ");
         return html;
     }
 
