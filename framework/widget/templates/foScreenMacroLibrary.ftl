@@ -32,8 +32,17 @@ under the License.
     ${foStyle?default("")}
 </#macro>
 
-<#macro renderSectionBegin></#macro>
-<#macro renderSectionEnd>
+<#macro renderScreenBegin>
+<?xml version="1.0" encoding="UTF-8"?>
+</#macro>
+
+<#macro renderScreenEnd>
+</#macro>
+
+<#macro renderSectionBegin boundaryComment>
+</#macro>
+
+<#macro renderSectionEnd boundaryComment>
 </#macro>
 <#macro renderContainerBegin id style autoUpdateLink autoUpdateInterval><fo:block <#if style?has_content><@getFoStyle style/></#if>></#macro>
 <#macro renderContainerEnd></fo:block></#macro>

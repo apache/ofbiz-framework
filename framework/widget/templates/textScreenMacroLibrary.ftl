@@ -17,9 +17,18 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#macro renderSectionBegin></#macro>
-<#macro renderSectionEnd>
+<#macro renderScreenBegin>
 </#macro>
+
+<#macro renderScreenEnd>
+</#macro>
+
+<#macro renderSectionBegin boundaryComment>
+</#macro>
+
+<#macro renderSectionEnd boundaryComment>
+</#macro>
+
 <#macro renderContainerBegin containerId style autoUpdateLink autoUpdateInterval></#macro>
 <#macro renderContainerEnd></#macro>
 <#macro renderContentBegin></#macro>
