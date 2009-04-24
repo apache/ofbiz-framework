@@ -82,11 +82,11 @@ under the License.
                     &nbsp;</div></td>
                   <td bgcolor='white'>
                     <div>
-                      <form name= "deletePartyContactMechPurpose_${partyContactMechPurpose.contactMechPurposeTypeId}" method= "post" action= "<@ofbizUrl>deletePartyContactMechPurpose</@ofbizUrl>">
-                        <input type= "hidden" name= "contactMechId" value= "${contactMechId}"/>
-                        <input type= "hidden" name= "contactMechPurposeTypeId" value= "${partyContactMechPurpose.contactMechPurposeTypeId}"/>
-                        <input type= "hidden" name= "fromDate" value= "${partyContactMechPurpose.fromDate}"/>
-                        <input type= "hidden" name= "useValues" value= "true"/>
+                      <form name="deletePartyContactMechPurpose_${partyContactMechPurpose.contactMechPurposeTypeId}" method="post" action="<@ofbizUrl>deletePartyContactMechPurpose</@ofbizUrl>">
+                        <input type="hidden" name="contactMechId" value=${contactMechId}"/>
+                        <input type="hidden" name="contactMechPurposeTypeId" value="${partyContactMechPurpose.contactMechPurposeTypeId}"/>
+                        <input type="hidden" name="fromDate" value="${partyContactMechPurpose.fromDate}"/>
+                        <input type="hidden" name="useValues" value="true"/>
                         <a href='javascript:document.deletePartyContactMechPurpose_${partyContactMechPurpose.contactMechPurposeTypeId}.submit()' class='buttontext'>&nbsp;${uiLabelMap.CommonDelete}&nbsp;</a>
                       </form> 
                     </div>
@@ -96,8 +96,8 @@ under the License.
               <#if purposeTypes?has_content>
               <tr>
                 <form method="post" action='<@ofbizUrl>createPartyContactMechPurpose</@ofbizUrl>' name='newpurposeform'>
-                  <input type= "hidden" name= "contactMechId" value= "${contactMechId}"/>
-                  <input type= "hidden" name= "useValues" value= "true"/>
+                  <input type="hidden" name="contactMechId" value="${contactMechId}"/>
+                  <input type="hidden" name="useValues" value="true"/>
                   <td bgcolor='white'>
                     <select name='contactMechPurposeTypeId' class='selectBox'>
                       <option></option>
