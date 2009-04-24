@@ -26,6 +26,7 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.model.ModelUtil;
 
 import java.util.Map;
+import javolution.util.FastMap;
 
 /**
  * ServiceEcaSetField
@@ -59,12 +60,35 @@ public class ServiceEcaSetField {
                     Debug.log("Expanded String: " + s, module);
                 }
             }
+            // TODO: rewrite using the ContextAccessor.java see hack below to be able to use maps for email notifications
+            // check if target is a map
+            String mapName = null;
+    		Map<String, Object> map = null;
+            if (UtilValidate.isNotEmpty(fieldName) && fieldName.indexOf('.') != -1) {
+        		mapName = fieldName.substring(0, fieldName.indexOf('.'));
+        		fieldName = fieldName.substring(fieldName.indexOf('.') +1);
+        		if (context.containsKey(mapName)) {
+        			map = (Map<String, Object>) context.get(mapName);
+        		} else {
+        			map = FastMap.newInstance();
+        		}
+        	}
 
             // process the context changes
+            String newValue = null;
             if (UtilValidate.isNotEmpty(value)) {
-                context.put(fieldName, this.format(value, context));
+                newValue = (String) this.format(value, context);
             } else if (UtilValidate.isNotEmpty(envName) && context.get(envName) != null) {
-                context.put(fieldName, this.format((String) context.get(envName), context));
+                newValue = (String) this.format((String) context.get(envName), context);
+            }
+            
+            if (newValue != null) {
+            	if (map != null) {
+            		map.put(fieldName, newValue);
+            		context.put(mapName, map);
+            	} else {
+            		context.put(fieldName, newValue);
+            	}
             }
         }
     }

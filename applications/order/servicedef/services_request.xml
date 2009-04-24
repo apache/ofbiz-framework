@@ -154,10 +154,9 @@ under the License.
     <service name="setCustRequestStatus" engine="simple"
             location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="setCustRequestStatus" auth="true">
         <description>Set the Customer Request  Status</description>
-        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
+        <attribute name="custRequestId" type="String" mode="INOUT" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
-        <attribute name="fromPartyId" type="String" mode="OUT"/><!-- for notification -->
     </service>
     <service name="createCustRequestFromCommEvent" engine="simple" default-entity-name="CommunicationEvent"
             location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestFromCommEvent" auth="true">

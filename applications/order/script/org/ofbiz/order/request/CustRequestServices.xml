@@ -62,9 +62,8 @@ under the License.
             <set field="newEntity.custRequestDate" from-field="nowTimestamp"/>
         </if-empty>
 
-        <if-empty field="parameters.statusId">
-            <set value="CRQ_SUBMITTED" field="newEntity.statusId"/>
-        </if-empty>
+        <!-- always start with submitted -->
+        <set value="CRQ_SUBMITTED" field="newEntity.statusId"/>
 
         <if-not-empty field="parameters.custRequestId">
             <set field="newEntity.custRequestId" from-field="parameters.custRequestId"/>
@@ -77,12 +76,10 @@ under the License.
         <field-to-result field="newEntity.custRequestId" result-name="custRequestId"/>
 
         <!-- set status fields and history -->
-        <if-empty field="parameters.statusId">
-            <set field="parameters.statusId" value="CRQ_SUBMITTED"/>
-        </if-empty>
         <set field="parameters.custRequestId" from-field="newEntity.custRequestId"/>
         <set-service-fields service-name="setCustRequestStatus" map="parameters" to-map="setStat"/>
         <call-service service-name="setCustRequestStatus" in-map-name="setStat"/>
+        
 
         <!-- create also the item if key fields are provided -->
         <if>
@@ -363,8 +360,9 @@ under the License.
 
     <simple-method method-name="setCustRequestStatus" short-description="change the customer request Status">
         <entity-one entity-name="CustRequest" value-field="custRequest"/>
-        <if-not-empty field="custRequest.statusId">
+        <if-not-empty field="custRequest">
             <field-to-result field="custRequest.statusId" result-name="oldStatusId"/>
+            <field-to-result field="custRequest.custRequestId"  result-name="custRequestId"/>
             <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
                 <entity-one entity-name="StatusValidChange" value-field="statusChange">
                     <field-map field-name="statusId" from-field="custRequest.statusId"/>
@@ -381,7 +379,6 @@ under the License.
         <set field="custRequest.statusId" from-field="parameters.statusId"/>
         <store-value value-field="custRequest"/>
         <call-simple-method method-name="createCustRequestStatus"/>
-        <field-to-result field="custRequest.fromPartyId" result-name="fromPartyId"/><!-- for notification -->
     </simple-method>
 
     <simple-method method-name="createCustRequestFromCommEvent" short-description="Create a Customer request from a commEvent(email)">

@@ -22,9 +22,11 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="sendMailFromTemplateSetting" short-description="Send Mail from Email Template Setting">
 
-        <if-not-empty field="parameters.partyId">
+        <!-- if partyIdTo provided but no emailAddress, get it from the partyContactMech -->
+        <if-not-empty field="parameters.partyIdTo">
             <if-empty field="parameters.sendTo">
                 <set-service-fields service-name="getPartyEmail" map="parameters" to-map="getEmail"/>
+                <set field="getMail.partyId" from-field="parameters.partyIdTo"/>
                 <call-service service-name="getPartyEmail" in-map-name="getEmail">
                     <result-to-field result-name="emailAddress" field="parameters.sendTo"/>
                 </call-service>
