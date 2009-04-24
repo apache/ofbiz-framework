@@ -86,16 +86,17 @@ public class SaveLabelsToXmlFile {
 
                     for (String localeFound : localesFound) {
                         LabelValue labelValue = labelInfo.getLabelValue(localeFound);
-
-                        if (UtilValidate.isNotEmpty(labelValue)) {
-                            Element valueElem = null;
-                            if ("CommonEmptyHeader#CommonUiLabels.xml".equalsIgnoreCase(labelKey)) {
-                                valueElem = UtilXml.addChildElementValue(propertyElem, "value", "&#160;", resourceDocument); // This is needed to keep the label not "empty"
-                            } else {
-                                valueElem = UtilXml.addChildElementValue(propertyElem, "value", StringUtil.fromHtmlToSpecialChars(labelValue.getLabelValue(), true, true, false), resourceDocument);
-                            }
+                        String valueString = null;
+                        if (labelValue != null) {
+                            valueString = labelValue.getLabelValue();
+                        }
+                        if (UtilValidate.isNotEmpty(valueString)) {
+                            valueString = StringUtil.fromHtmlToSpecialChars(valueString, true, true, true);
+                            Element valueElem = UtilXml.addChildElementValue(propertyElem, "value", valueString, resourceDocument);;
                             valueElem.setAttribute("xml:lang", localeFound);
-
+                            if (valueString.trim().length() == 0) {
+                                valueElem.setAttribute("xml:space", "preserve");
+                            }
                             if (UtilValidate.isNotEmpty(labelValue.getLabelComment())) {
                                 Comment labelComment = resourceDocument.createComment(StringUtil.fromHtmlToSpecialChars(labelValue.getLabelComment(), true, true, false));
                                 Node parent = valueElem.getParentNode();
@@ -105,7 +106,7 @@ public class SaveLabelsToXmlFile {
                     }
                 }
 
-                if (UtilValidate.isNotEmpty(resourceElem) && UtilValidate.isNotEmpty(uri)) {
+                if (UtilValidate.isNotEmpty(uri)) {
                     File outFile = new File(new URI(uri));
                     FileOutputStream fos = new FileOutputStream(outFile);
                     OutputFormat format = new OutputFormat(resourceDocument.getDocumentElement().getOwnerDocument(), "UTF-8", true);
