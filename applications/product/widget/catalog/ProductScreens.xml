@@ -1734,7 +1734,7 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html><html-template location="component://product/webapp/catalog/product/ProductBarCode.fo.ftl"/></html>
+                    <xsl-fo><html-template location="component://product/webapp/catalog/product/ProductBarCode.fo.ftl"/></xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
