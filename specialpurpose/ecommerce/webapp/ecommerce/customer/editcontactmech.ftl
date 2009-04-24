@@ -80,12 +80,24 @@ under the License.
                       (${uiLabelMap.CommonSince}:${partyContactMechPurpose.fromDate.toString()})
                       <#if partyContactMechPurpose.thruDate?exists>(${uiLabelMap.CommonExpires}:${partyContactMechPurpose.thruDate.toString()})</#if>
                     &nbsp;</div></td>
-                  <td bgcolor='white'><div><a href='<@ofbizUrl>deletePartyContactMechPurpose?contactMechId=${contactMechId}&contactMechPurposeTypeId=${partyContactMechPurpose.contactMechPurposeTypeId}&fromDate=${partyContactMechPurpose.fromDate}&useValues=true</@ofbizUrl>' class='buttontext'>&nbsp;${uiLabelMap.CommonDelete}&nbsp;</a></div></td>
+                  <td bgcolor='white'>
+                    <div>
+                      <form name= "deletePartyContactMechPurpose_${partyContactMechPurpose.contactMechPurposeTypeId}" method= "post" action= "<@ofbizUrl>deletePartyContactMechPurpose</@ofbizUrl>">
+                        <input type= "hidden" name= "contactMechId" value= "${contactMechId}"/>
+                        <input type= "hidden" name= "contactMechPurposeTypeId" value= "${partyContactMechPurpose.contactMechPurposeTypeId}"/>
+                        <input type= "hidden" name= "fromDate" value= "${partyContactMechPurpose.fromDate}"/>
+                        <input type= "hidden" name= "useValues" value= "true"/>
+                        <a href='javascript:document.deletePartyContactMechPurpose_${partyContactMechPurpose.contactMechPurposeTypeId}.submit()' class='buttontext'>&nbsp;${uiLabelMap.CommonDelete}&nbsp;</a>
+                      </form> 
+                    </div>
+                  </td>
                 </tr>
               </#list>
               <#if purposeTypes?has_content>
               <tr>
-                <form method="post" action='<@ofbizUrl>createPartyContactMechPurpose?contactMechId=${contactMechId}&useValues=true</@ofbizUrl>' name='newpurposeform'>
+                <form method="post" action='<@ofbizUrl>createPartyContactMechPurpose</@ofbizUrl>' name='newpurposeform'>
+                  <input type= "hidden" name= "contactMechId" value= "${contactMechId}"/>
+                  <input type= "hidden" name= "useValues" value= "true"/>
                   <td bgcolor='white'>
                     <select name='contactMechPurposeTypeId' class='selectBox'>
                       <option></option>
