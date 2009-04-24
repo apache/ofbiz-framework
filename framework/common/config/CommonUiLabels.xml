@@ -1997,7 +1997,7 @@
         <value xml:lang="zh_CN">电子邮件</value>
     </property>
     <property key="CommonEmptyHeader">
-        <value xml:lang="en"> </value>
+        <value xml:lang="en" xml:space="preserve"> </value>
     </property>
     <property key="CommonEnabled">
         <value xml:lang="ar">شغال</value>
@@ -8035,7 +8035,7 @@
     <property key="FormFieldTitle_rejectButton">
         <value xml:lang="ar">إضافة</value>
         <value xml:lang="en">Reject</value>
-        <value xml:lang="fr">Rejeter</value>
+        <value xml:lang="fr">Refuser</value>
     </property>
     <property key="FormFieldTitle_removeButton">
         <value xml:lang="ar">نزع</value>
