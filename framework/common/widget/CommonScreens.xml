@@ -293,7 +293,7 @@ under the License.
                 <platform-specific>
                     <html><html-template location="component://common/webcommon/includes/simple.ftl"/></html>
                     <xsl-fo><html-template location="component://common/webcommon/includes/simple.fo.ftl"/></xsl-fo>
-                    <xml><html-template location="component://common/webcommon/includes/simple.xml.ftl"/></xml>
+                    <xml><html-template location="component://common/webcommon/includes/minimal-decorator.ftl"/></xml>
                 </platform-specific>
             </widgets>
         </section>
