@@ -467,7 +467,7 @@
         </row-actions>
         <field name="projectId"><hidden/></field>
         <field name="partyName" title="${uiLabelMap.CommonName}">
-            <hyperlink target="viewprofile"  description="${lastName}, ${firstName ${middleName} ${groupName} [${partyId}]">
+            <hyperlink target="viewprofile"  description="${lastName}, ${firstName} ${middleName} ${groupName} [${partyId}]">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -479,7 +479,7 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="projectId"><hidden/></field>
         <field name="partyName" title="${uiLabelMap.CommonName}">
-            <hyperlink target="viewprofile"  description="${lastName}, ${firstName ${middleName} ${groupName} [${partyId}]">
+            <hyperlink target="viewprofile"  description="${lastName}, ${firstName} ${middleName} ${groupName} [${partyId}]">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
@@ -513,7 +513,7 @@
         <field name="workEffortId"><hidden/></field>
         <field name="projectId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
-            <hyperlink target="viewprofile"  description="${firstName ${middleName} ${lastName} ${groupName}">
+            <hyperlink target="viewprofile"  description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
