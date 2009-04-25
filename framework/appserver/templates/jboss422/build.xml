@@ -27,7 +27,7 @@
         Create the ear file to run OfBiz in Jboss
     </description>
 
-    <property name="DERBY_VERSION" value="10.4.1.3"/>
+    <property name="DERBY_VERSION" value="10.4.2.0"/>
     <property name="ofbizHome" location="${ofbizHome}/"/>
 
 
