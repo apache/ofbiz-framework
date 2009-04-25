@@ -25,10 +25,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.xml.serialize.OutputFormat;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
-import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -76,10 +76,10 @@ public class SaveLabelsToXmlFile {
                     }
 
                     Element propertyElem = UtilXml.addChildElement(resourceElem, "property", resourceDocument);
-                    propertyElem.setAttribute("key", StringUtil.fromHtmlToSpecialChars(labelInfo.getLabelKey(), true, true, false));
+                    propertyElem.setAttribute("key", StringEscapeUtils.unescapeHtml(labelInfo.getLabelKey()));
 
                     if (UtilValidate.isNotEmpty(labelInfo.getLabelKeyComment())) {
-                        Comment labelKeyComment = resourceDocument.createComment(StringUtil.fromHtmlToSpecialChars(labelInfo.getLabelKeyComment(), true, true, false));
+                        Comment labelKeyComment = resourceDocument.createComment(StringEscapeUtils.unescapeHtml(labelInfo.getLabelKeyComment()));
                         Node parent = propertyElem.getParentNode();
                         parent.insertBefore(labelKeyComment, propertyElem);
                     }
@@ -91,14 +91,14 @@ public class SaveLabelsToXmlFile {
                             valueString = labelValue.getLabelValue();
                         }
                         if (UtilValidate.isNotEmpty(valueString)) {
-                            valueString = StringUtil.fromHtmlToSpecialChars(valueString, true, true, true);
+                            valueString = StringEscapeUtils.unescapeHtml(valueString);
                             Element valueElem = UtilXml.addChildElementValue(propertyElem, "value", valueString, resourceDocument);;
                             valueElem.setAttribute("xml:lang", localeFound);
                             if (valueString.trim().length() == 0) {
                                 valueElem.setAttribute("xml:space", "preserve");
                             }
                             if (UtilValidate.isNotEmpty(labelValue.getLabelComment())) {
-                                Comment labelComment = resourceDocument.createComment(StringUtil.fromHtmlToSpecialChars(labelValue.getLabelComment(), true, true, false));
+                                Comment labelComment = resourceDocument.createComment(StringEscapeUtils.unescapeHtml(labelValue.getLabelComment()));
                                 Node parent = valueElem.getParentNode();
                                 parent.insertBefore(labelComment, valueElem);
                             }
