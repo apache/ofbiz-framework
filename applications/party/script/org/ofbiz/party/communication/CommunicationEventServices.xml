@@ -78,15 +78,14 @@ under the License.
                 return(resultLine);
                 }"/>
 
+            <!-- set rolestatus from original email to completed if logged-on userId can be found -->
             <entity-and list="roles" entity-name="CommunicationEventRole">
                 <field-map field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
-                <field-map field-name="partyId" from-field="parameters.partyIdFrom"/>
+                <field-map field-name="partyId" from-field="userLogin.partyId"/>
             </entity-and>
             <if-not-empty field="roles">
                 <first-from-list list="roles" entry="role"/>
-                <set field="newStat.communicationEventId" from-field="parameters.parentCommEventId"/>
-                <set field="newStat.partyId" from-field="parameters.partyIdFrom"/>
-                <set field="newStat.roleTypeId" from-field="role.roleTypeId"/>
+                <set-service-fields service-name="setCommunicationEventRoleStatus" map="role" to-map="newStat"/>
                 <set field="newStat.statusId" value="COM_ROLE_COMPLETED"/>
                 <call-service service-name="setCommunicationEventRoleStatus" in-map-name="newStat"/>
             </if-not-empty>
