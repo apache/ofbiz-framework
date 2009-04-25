@@ -19,7 +19,7 @@
 #####################################################################
 
 # Properties
-HM='-Dderby.system.home=data/derby'
+HM='-Dderby.system.home=runtime/data/derby'
 PR='-Dij.protocol=jdbc:derby:'
 DB='-Dij.database=ofbiz;create=true'
 EE='framework/entity/lib/jdbc'
