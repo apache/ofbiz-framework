@@ -156,10 +156,10 @@
 
         <!-- create new relationship -->
         <set field="partyRelationshipCtx.partyIdFrom" from-field="partyGroupId"/>
-        <set field="partyRelationshipCtx.roleTypeIdFrom" from-field="ACCOUNT"/>
+        <set field="partyRelationshipCtx.roleTypeIdFrom" value="ACCOUNT"/>
         <set field="partyRelationshipCtx.partyIdTo" from-field="parameters.partyId"/>
-        <set field="partyRelationshipCtx.roleTypeIdTo" from-field="CONTACT"/>
-        <set field="partyRelationshipCtx.partyRelationshipTypeId" from-field="EMPLOYMENT"/>
+        <set field="partyRelationshipCtx.roleTypeIdTo" value="CONTACT"/>
+        <set field="partyRelationshipCtx.partyRelationshipTypeId" value="EMPLOYMENT"/>
         <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
 
         <set field="updatePartyCtx.partyId" from-field="parameters.partyId"/>
