@@ -92,7 +92,6 @@ under the License.
                 <#-- PicklistBin -->
                 <#list picklistInfo.picklistBinInfoList?if_exists as picklistBinInfo>
                     <#assign isBinComplete = Static["org.ofbiz.shipment.picklist.PickListServices"].isBinComplete(delegator, picklistBinInfo.picklistBin.picklistBinId)/>
-                    <#assign count = 0>
                     <#if (!isBinComplete)>
                         <div style="margin-left: 15px;">
                             <span class="label">${uiLabelMap.ProductBinNum}</span> ${picklistBinInfo.picklistBin.binLocationNumber}&nbsp;(${picklistBinInfo.picklistBin.picklistBinId})
@@ -144,15 +143,14 @@ under the License.
                                         <td>${picklistItem.quantity}</td>
                                         <#if !picklistItemInfo.itemIssuanceList?has_content>
                                             <td>
-                                                <#assign count = count+1>
-                                                <form name="deletePicklistItem_${picklist.picklistId}_${picklistItem.orderId}_${count}" method="post" action="<@ofbizUrl>deletePicklistItem</@ofbizUrl>">
+                                                <form name="deletePicklistItem_${picklist.picklistId}_${picklistItem.orderId}_${picklistItemInfo_index}" method="post" action="<@ofbizUrl>deletePicklistItem</@ofbizUrl>">
                                                     <input type="hidden" name="picklistBinId" value="${picklistItemInfo.picklistItem.picklistBinId}"/>
                                                     <input type="hidden" name="orderId" value= "${picklistItemInfo.picklistItem.orderId}"/>
                                                     <input type="hidden" name="orderItemSeqId" value="${picklistItemInfo.picklistItem.orderItemSeqId}"/>
                                                     <input type="hidden" name="shipGroupSeqId" value="${picklistItemInfo.picklistItem.shipGroupSeqId}"/>
                                                     <input type="hidden" name="inventoryItemId" value="${picklistItemInfo.picklistItem.inventoryItemId}"/>
                                                     <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
-                                                    <a href='javascript:document.deletePicklistItem_${picklist.picklistId}_${picklistItem.orderId}_${count}.submit()' class='buttontext'>&nbsp;${uiLabelMap.CommonDelete}&nbsp;</a>
+                                                    <a href='javascript:document.deletePicklistItem_${picklist.picklistId}_${picklistItem.orderId}_${picklistItemInfo_index}.submit()' class='buttontext'>&nbsp;${uiLabelMap.CommonDelete}&nbsp;</a>
                                                 </form>
                                             </td>
                                         </#if>
