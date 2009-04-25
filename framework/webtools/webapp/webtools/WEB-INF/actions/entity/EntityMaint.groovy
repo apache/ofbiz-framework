@@ -31,6 +31,9 @@ entityGroups = mgr.getGroupNames(delegator.getDelegatorName()).iterator();
 filterByGroupName = parameters.filterByGroupName;
 context.filterByGroupName = filterByGroupName;
 
+filterByEntityName = parameters.filterByEntityName;
+context.filterByEntityName = filterByEntityName;
+
 reader = delegator.getModelReader();
 entities = new TreeSet(reader.getEntityNames());
 
@@ -41,6 +44,9 @@ entities.each { entityName ->
     entity = reader.getModelEntity(entityName);
 
     if (filterByGroupName && !filterByGroupName.equals(delegator.getEntityGroupName(entity.getEntityName()))) {
+        return;
+    }
+    if (filterByEntityName && !((String)entity.getEntityName()).toUpperCase().contains(filterByEntityName.toUpperCase())) {
         return;
     }
 
