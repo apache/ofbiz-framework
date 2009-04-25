@@ -1521,7 +1521,7 @@
     </property>
     <property key="ContentUploadedFile">
         <value xml:lang="en">Uploaded File</value>
-        <value xml:lang="fr">Fichier téléchargé vers le serveur</value>
+        <value xml:lang="fr">Fichier téléversé</value>
         <value xml:lang="it">File caricato</value>
     </property>
     <property key="ContentUrl">
