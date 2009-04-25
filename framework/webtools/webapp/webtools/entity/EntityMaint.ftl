@@ -33,6 +33,8 @@ under the License.
                 <option value="${group}" <#if filterByGroupName?exists><#if group = filterByGroupName>selected</#if></#if>>${group}</option>
              </#list>
           </select>
+          <b>${uiLabelMap.WebtoolsEntityName}:</b>
+          <input type= "text" name= "filterByEntityName" value="${parameters.filterByEntityName?if_exists}">
           <input type="submit"/>
        </form>
     </p>
