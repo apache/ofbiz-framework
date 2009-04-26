@@ -39,13 +39,10 @@ under the License.
     <handler name="rome" type="request" class="org.ofbiz.webapp.event.RomeEventHandler"/>
 
     <!-- view handlers -->
-    <handler name="screen" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
-    <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
-    <handler name="screentext" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
-    <!--handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
-    <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.ScreenXmlViewHandler"/>
-    <handler name="screentext" type="view" class="org.ofbiz.widget.screen.ScreenTextViewHandler"/-->
+    <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
     <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopViewHandler"/>
+    <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.ScreenXmlViewHandler"/>
+    <handler name="screentext" type="view" class="org.ofbiz.widget.screen.ScreenTextViewHandler"/>
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
     <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
@@ -141,6 +138,16 @@ under the License.
 
     <request-map uri="geoLocation">
         <response name="success" type="view" value="geoLocation"/>
+    </request-map>
+
+    <!-- home/last/current mappings -->
+    <request-map uri="backHome">
+        <security https="true" auth="true"/>
+        <response name="success" type="view-home"/>
+    </request-map>
+    <request-map uri="backLast">
+        <security https="true" auth="true"/>
+        <response name="success" type="view-last"/>
     </request-map>
 
     <!-- View Mappings -->
