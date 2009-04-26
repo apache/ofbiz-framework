@@ -31,6 +31,7 @@ import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
+import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
 import org.ofbiz.widget.tree.ModelTree;
@@ -224,10 +225,8 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             HttpServletRequest req = (HttpServletRequest) context.get("request");
             if (urlMode != null && urlMode.equalsIgnoreCase("intra-app")) {
                 if (req != null && res != null) {
-                    ServletContext ctx = (ServletContext) req.getAttribute("servletContext");
-                    RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
-                    String urlString = rh.makeLink(req, res, target, fullPath, secure, encode);
-                    writer.append(urlString);
+                    WidgetWorker.buildHyperlinkUrl(writer, target, link.getUrlMode(), link.getParameterList(), link.getPrefix(context),
+                        link.getFullPath(), link.getSecure(), link.getEncode(), req, res, context);
                 } else if (prefix != null) {
                     writer.append(prefix + target);
                 } else {
