@@ -351,8 +351,8 @@
     <request-map uri="updateMyTimesheet">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="updateTimeEntryByWorkeffort"/>
-        <response name="success" type="view" value="MyTimesheet"/>
-        <response name="error" type="view" value="MyTimesheet"/>
+        <response name="success" type="view-home" value="MyTimesheet"/>
+        <response name="error" type="view-home" value="MyTimesheet"/>
     </request-map>
     <request-map uri="updateTimesheet">
         <security https="true" auth="true"/>

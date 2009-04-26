@@ -39,7 +39,7 @@
                     <entity-order-by field-name="phaseName"/>
                     <entity-order-by field-name="workEffortName"/>
                 </entity-options>
-                <sub-hyperlink target="taskView" description="${workEffortId!=void&amp;&amp;!&quot;Totals&quot;.equals(workEffortId)?workEffortId:&quot;&quot;}">
+                <sub-hyperlink target="taskView" description="${bsh:workEffortId!=void&amp;&amp;!&quot;Totals&quot;.equals(workEffortId)?workEffortId:&quot;&quot;}">
                     <parameter param-name="workEffortId"/>
                     <parameter param-name="my"/>
                 </sub-hyperlink>
@@ -58,8 +58,8 @@
         <field name="d4" parameter-name="hoursDay4" title="${uiLabelMap.ProjectMgrThu}"><text size="5"/></field>
         <field name="d5" parameter-name="hoursDay5" title="${uiLabelMap.ProjectMgrFri}"><text size="5"/></field>
         <field name="d6" parameter-name="hoursDay6" title="${uiLabelMap.ProjectMgrSat}"><text size="5"/></field>
-        <field name="total" title="${uiLabelMap.ProjectMgrActualTotal}"><display/></field>
-        <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
+        <field name="total" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
+        <field name="actualHours" title="${uiLabelMap.ProjectMgrActualTotal}"><display/></field>
         <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlanHours}"><display/></field>
         <field name="updateButton"><submit button-type="button"/></field>
         <field name="_rowSubmit" title="${uiLabelMap.ProjectMgrRowSubmit}"><hidden value="Y"/></field>
@@ -125,8 +125,8 @@
             <set field="complete" value="${uiLabelMap.ProjectMgrToComplete}"/>
         </actions>
         <row-actions>
-            <set field="actualHours" value="${org.ofbiz.project.Various.calculateActualHours(delegator, timesheetId)}"/>
-            <set field="completeLink" value="${&quot;TIMESHEET_IN_PROCESS&quot;.equals(statusId)?complete:&quot;&quot;}"/>
+            <set field="actualHours" value="${bsh:org.ofbiz.project.Various.calculateActualHours(delegator, timesheetId)}"/>
+            <set field="completeLink" value="${bsh:&quot;TIMESHEET_IN_PROCESS&quot;.equals(statusId)?complete:&quot;&quot;}"/>
         </row-actions>
         <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${timesheetId}" target="Timesheet">
@@ -140,7 +140,7 @@
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <!--field name="comments" title="${uiLabelMap.CommonComments}"><display/></field-->
         <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
-            <hyperlink target="TimeSheetStatusToComplete" description="${completeLink}">
+            <hyperlink target="TimeSheetStatusToComplete" description="${groovy:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}">
                 <parameter param-name="timesheetId"/>
                 <parameter param-name="statusId" value="TIMESHEET_COMPLETED"/>
             </hyperlink>
@@ -297,7 +297,8 @@
         <field name="d4" parameter-name="hoursDay4" title="${uiLabelMap.ProjectMgrThu}"><display/></field>
         <field name="d5" parameter-name="hoursDay5" title="${uiLabelMap.ProjectMgrFri}"><display/></field>
         <field name="d6" parameter-name="hoursDay6" title="${uiLabelMap.ProjectMgrSat}"><display/></field>
-        <field name="total" title="${uiLabelMap.ProjectMgrActualTotal}"><display/></field>
+        <field name="total" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
+        <field name="actualHours" title="${uiLabelMap.ProjectMgrActualTotal}"><display/></field>
         <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlanHours}"><display/></field>
     </form>
 </forms>
