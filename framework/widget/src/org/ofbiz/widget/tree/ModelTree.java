@@ -41,6 +41,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.screen.ModelScreen;
 import org.ofbiz.widget.screen.ScreenFactory;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
@@ -796,6 +797,8 @@ public class ModelTree extends ModelWidget {
             protected boolean fullPath = false;
             protected boolean secure = false;
             protected boolean encode = false;
+            protected String linkType;
+            protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
 
             public Link() {
                 setText(null);
@@ -830,7 +833,11 @@ public class ModelTree extends ModelWidget {
                 if (imageElement != null) {
                     this.image = new Image(imageElement);
                 }
-
+                this.linkType = linkElement.getAttribute("link-type");
+                List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
+                for (Element parameterElement: parameterElementList) {
+                    this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
+                }
             }
 
             public void renderLinkString(Appendable writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
@@ -907,6 +914,14 @@ public class ModelTree extends ModelWidget {
 
             public Image getImage() {
                 return this.image;
+            }
+
+            public String getLinkType() {
+                return this.linkType;
+            }
+
+            public List<WidgetWorker.Parameter> getParameterList() {
+                return this.parameterList;
             }
 
             public void setText(String val) {
