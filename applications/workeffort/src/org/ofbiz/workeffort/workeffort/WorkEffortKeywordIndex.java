@@ -113,8 +113,10 @@ public class WorkEffortKeywordIndex {
 
         List<GenericValue> toBeStored = FastList.newInstance();
         for (Map.Entry<String, Long> entry: keywords.entrySet()) {
-            GenericValue workEffortKeyword = delegator.makeValue("WorkEffortKeyword", UtilMisc.toMap("workEffortId", workEffort.getString("workEffortId"), "keyword", entry.getKey(), "relevancyWeight", entry.getValue()));
-            toBeStored.add(workEffortKeyword);
+        	if (entry.getKey().length() < 60) { // ignore very long strings, cannot be stored anyway
+        		GenericValue workEffortKeyword = delegator.makeValue("WorkEffortKeyword", UtilMisc.toMap("workEffortId", workEffort.getString("workEffortId"), "keyword", entry.getKey(), "relevancyWeight", entry.getValue()));
+                toBeStored.add(workEffortKeyword);
+        	}
         }
         if (toBeStored.size() > 0) {
             if (Debug.verboseOn()) Debug.logVerbose("WorkEffortKeywordIndex indexKeywords Storing " + toBeStored.size() + " keywords for workEffortId " + workEffort.getString("workEffortId"), module);

@@ -564,7 +564,7 @@ under the License.
                 <entity-options description="${description}" entity-name="ContentType"/>
             </drop-down>
         </field>
-        <field name="statusId" use-when="content==null">
+        <field name="statusId" use-when="contentId==void">
             <drop-down allow-empty="false" no-current-selected-key="CTNT_AVAILABLE">
                 <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
@@ -572,7 +572,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="statusId" use-when="content!=null">
+        <field name="statusId" use-when="contentId!=void">
             <drop-down allow-empty="false" current-description="${currentStatus.description}" no-current-selected-key="CTNT_AVAILABLE">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" value="${content.statusId}"/>
@@ -580,11 +580,11 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="mimeTypeId" >
+        <!--field name="mimeTypeId" >
             <drop-down allow-empty="false">
                 <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId"/>
             </drop-down>
-        </field>
+        </field-->
         <field name="dataResourceName" title="${uiLabelMap.CommonUpload}*"><file/></field>
         <field name="dataCategoryId" use-when="dataResource==null">
             <drop-down allow-empty="false">
@@ -602,7 +602,7 @@ under the License.
         </field>
         <field name="createButton"><submit button-type="button"/></field>
     </form>
-    <form name="ListCustRequestContent" type="list" list-name="custRequstAndContents"
+    <form name="ListCustRequestContent" type="list" list-name="custRequestAndContents"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="EditCustRequestContent">
         <field name="custRequestId"><hidden/></field>
         <field name="contentId">
