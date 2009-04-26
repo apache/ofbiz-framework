@@ -95,20 +95,20 @@ public class UtilTimer {
         // time this call to avoid it interfering with the main timer
         long tsStart = System.currentTimeMillis();
 
-        String retString = "[[" + message + "- total:" + secondsSinceStart();
+        StringBuilder retBuf = new StringBuilder();
+        retBuf.append("[[").append(message).append("- total:").append(secondsSinceStart());
         if (lastMessage != null) {
-            retString += ",since last(" + ((lastMessage.length() > 20) ? (lastMessage.substring(0, 17) + "...") : lastMessage) + "):" +
-                    secondsSinceLast() + "]]";
-        } else {
-            retString += "]]";
+            retBuf.append(",since last(").append(((lastMessage.length() > 20) ? (lastMessage.substring(0, 17) + "...") : lastMessage)).append("):").append(secondsSinceLast());
         }
+        retBuf.append("]]");
 
         // append the timer name
         if (UtilValidate.isNotEmpty(timerName)) {
-            retString = retString + " - '" + timerName + "'";
+            retBuf.append(" - '").append(timerName).append("'");
         }
 
         lastMessage = message;
+        String retString = retBuf.toString();
         if (log) Debug.log(Debug.TIMING, null, retString, module, "org.ofbiz.base.util.UtilTimer");
 
         // have lastMessageTime come as late as possible to just time what happens between calls
