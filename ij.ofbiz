@@ -18,12 +18,12 @@
 # under the License.
 #####################################################################
 
-# Properties
+# Properties (derby may need editing if the version has not been updated)
 HM='-Dderby.system.home=runtime/data/derby'
 PR='-Dij.protocol=jdbc:derby:'
 DB='-Dij.database=ofbiz;create=true'
 EE='framework/entity/lib/jdbc'
-CP="-cp $EE/derby.jar:$EE/derbytools.jar"
+CP="-cp $EE/derby-10.4.2.0.jar:$EE/derbytools-10.4.2.0.jar"
 
 # Command
 OPTIONS="$CP $HM $PR $DB"
