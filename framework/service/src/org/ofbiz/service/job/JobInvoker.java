@@ -20,11 +20,12 @@ package org.ofbiz.service.job;
 
 import java.util.Date;
 
-import org.ofbiz.service.config.ServiceConfigUtil;
+import org.apache.commons.lang.math.NumberUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.transaction.GenericTransactionException;
+import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.service.config.ServiceConfigUtil;
 
 /**
  * JobInvoker
@@ -281,7 +282,7 @@ public class JobInvoker implements Runnable {
         long ttl = THREAD_TTL;
 
         try {
-            ttl = Long.parseLong(ServiceConfigUtil.getElementAttr("thread-pool", "ttl"));
+            ttl = NumberUtils.toLong(ServiceConfigUtil.getElementAttr("thread-pool", "ttl"));
         } catch (NumberFormatException nfe) {
             Debug.logError("Problems reading value from attribute [ttl] of element [thread-pool] in serviceengine.xml file [" + nfe.toString() + "]. Using default (" + THREAD_TTL + ").", module);
         }
