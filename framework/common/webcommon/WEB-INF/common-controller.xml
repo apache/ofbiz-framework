@@ -39,10 +39,13 @@ under the License.
     <handler name="rome" type="request" class="org.ofbiz.webapp.event.RomeEventHandler"/>
 
     <!-- view handlers -->
-    <handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
-    <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopViewHandler"/>
+    <handler name="screen" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
+    <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
+    <handler name="screentext" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
+    <!--handler name="screen" type="view" class="org.ofbiz.widget.screen.ScreenWidgetViewHandler"/>
     <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.ScreenXmlViewHandler"/>
-    <handler name="screentext" type="view" class="org.ofbiz.widget.screen.ScreenTextViewHandler"/>
+    <handler name="screentext" type="view" class="org.ofbiz.widget.screen.ScreenTextViewHandler"/-->
+    <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopViewHandler"/>
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
     <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
