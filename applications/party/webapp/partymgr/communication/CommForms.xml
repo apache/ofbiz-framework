@@ -190,7 +190,9 @@ under the License.
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10" default-value="${parameters.content}"/></field>
         <field name="send" title="&amp;nbsp;" position="1" use-when="communicationEvent!=null">
-            <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSend}" target="javascript:(document.EditInternalNote.statusId.value='COM_COMPLETED'),(document.EditInternalNote.submit())"/>
+            <hyperlink also-hidden="true" 
+                target-type="plain" description="${uiLabelMap.CommonSend}" 
+                target="javascript:(document.EditInternalNote.statusId.value='COM_COMPLETE'),(document.EditInternalNote.submit())"/>
         </field>
         <field name="save" title="&amp;nbsp;" position="2" use-when="communicationEvent!=null">
             <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.EditInternalNote.submit())"/>

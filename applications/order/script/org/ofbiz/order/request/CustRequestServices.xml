@@ -430,6 +430,7 @@ under the License.
         <call-service service-name="setCommunicationEventStatus" in-map-name="updStat"/>
 
         <field-to-result field="parameters.custRequestId" result-name="custRequestId"/>
+        <string-to-list string="Customer request ${parameters.custRequestId} created" list="successMessageList"/>
     </simple-method>
 
     <!-- Create/Delete  CustRequest Content -->

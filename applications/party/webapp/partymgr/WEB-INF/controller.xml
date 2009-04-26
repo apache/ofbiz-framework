@@ -799,7 +799,7 @@ under the License.
     <request-map uri="createRequestFromCommEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="createCustRequestFromCommEvent"/>
-        <response name="success" type="view-last"/>
+        <response name="success" type="view-home"/>
         <response name="error" type="view-last"/>
     </request-map>
 
@@ -855,8 +855,8 @@ under the License.
     <request-map uri="RemoveCommunicationEventRole">
         <security https="true" auth="true"/>
         <event type="service" invoke="removeCommunicationEventRole"/>
-        <response name="success" type="view-last"/>
-        <response name="error" type="view-last"/>
+        <response name="success" type="view-home"/>
+        <response name="error" type="view-home"/>
     </request-map>
     <request-map uri="ListPartyCommEvents"><security https="true" auth="true"/><response name="success" type="view" value="ListPartyCommEvents"/></request-map>
 
