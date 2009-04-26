@@ -439,7 +439,7 @@
             </drop-down>
         </field>
 
-        <field name="spacer" title="&amp;nbsp;"><display/></field>
+        <field name="spacer" title=" "><display/></field>
         <field name="submit" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
     </form>
 

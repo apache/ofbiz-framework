@@ -131,7 +131,7 @@ under the License.
         <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}"><display-entity entity-name="ContactMechType"/></field>
         <field name="marketingCampaignId" title="${uiLabelMap.MarketingCampaignId}"><display-entity entity-name="MarketingCampaign" description="${campaignName}"/></field>
         <!-- deleting contact lists is a bit more complicated than this... don't like have a link like this for top level entities
-        <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeContactList" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="contactListId"/>
             </hyperlink>
@@ -204,7 +204,7 @@ under the License.
         <field name="preferredContactMechId" title="${uiLabelMap.MarketingContactListPreferredContactMech}">
             <display-entity entity-name="ContactMechDetail" key-field-name="contactMechId" description="[${contactMechId}]: [${infoString}] [${tnCountryCode}-${tnAreaCode}-${tnContactNumber}] [${paAddress1}, ${paAddress1}, ${paCity}, ${paStateProvinceGeoId}, ${paPostalCode}, ${paPostalCodeExt} ${paCountryGeoId}]"/>
         </field>
-        <field name="editLink" title="&amp;nbsp;" widget-style="buttontext">
+        <field name="editLink" title=" " widget-style="buttontext">
             <hyperlink target="EditContactListParty" description="${uiLabelMap.CommonEdit}" also-hidden="false">
                 <parameter param-name="contactListId"/>
                 <parameter param-name="partyId"/>

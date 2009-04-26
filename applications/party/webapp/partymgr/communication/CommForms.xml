@@ -162,10 +162,10 @@ under the License.
         <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
         <field name="content" title="${uiLabelMap.CommonContent}" encode-output="false"><textarea cols="72" rows="15" default-value="${parameters.content}"/></field>
-        <field name="send" title="&amp;nbsp;" position="1" use-when="communicationEvent!=null">
+        <field name="send" title=" " position="1" use-when="communicationEvent!=null">
             <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSend}" target="javascript:(document.EditEmail.submit())"/>
         </field>
-        <field name="save" title="&amp;nbsp;" position="2" use-when="communicationEvent!=null">
+        <field name="save" title=" " position="2" use-when="communicationEvent!=null">
             <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.EditEmail.statusId.value='COM_PENDING'),(document.EditEmail.submit())"/>
         </field>
         <field name="createButton" use-when="communicationEvent==null"><submit/></field>
@@ -189,12 +189,12 @@ under the License.
         <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10" default-value="${parameters.content}"/></field>
-        <field name="send" title="&amp;nbsp;" position="1" use-when="communicationEvent!=null">
-            <hyperlink also-hidden="true" 
-                target-type="plain" description="${uiLabelMap.CommonSend}" 
+        <field name="send" title=" " position="1" use-when="communicationEvent!=null">
+            <hyperlink also-hidden="true"
+                target-type="plain" description="${uiLabelMap.CommonSend}"
                 target="javascript:(document.EditInternalNote.statusId.value='COM_COMPLETE'),(document.EditInternalNote.submit())"/>
         </field>
-        <field name="save" title="&amp;nbsp;" position="2" use-when="communicationEvent!=null">
+        <field name="save" title=" " position="2" use-when="communicationEvent!=null">
             <hyperlink also-hidden="true" target-type="plain" description="${uiLabelMap.CommonSave}" target="javascript:(document.EditInternalNote.submit())"/>
         </field>
         <field name="createButton" use-when="communicationEvent==null"><submit/></field>
@@ -356,7 +356,7 @@ under the License.
         <field name="createdStamp" title="${uiLabelMap.CommonCreated}"><display type="date"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSend}"><display type="date"/></field>
     </form>
-    <form name="ListPartyCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" 
+    <form name="ListPartyCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml"
         type="list" target="RemoveCommunicationEventRole" header-row-style="header-row-2">
         <row-actions>
             <set field="toComplete" value="${bsh:&quot;COM_ROLE_READ&quot;.equals(roleStatusId)?&quot;PartyToComplete&quot;:&quot;&quot;}"/>

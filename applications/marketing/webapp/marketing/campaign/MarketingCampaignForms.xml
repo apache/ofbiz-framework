@@ -18,7 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
      <form name="EditMarketingCampaign" type="single" target="updateMarketingCampaign" title="" default-map-name="marketingCampaign"
         header-row-style="header-row" default-table-style="basic-table">
@@ -80,7 +80,7 @@ under the License.
         <field name="parentCampaignId" title="${uiLabelMap.MarketingParentCampaignId}">
             <display/>
         </field>
-        <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeMarketingCampaign" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="marketingCampaignId"/>
             </hyperlink>
@@ -120,14 +120,14 @@ under the License.
                 </sub-hyperlink>
             </display-entity>-->
         </field>
-        <field name="editLink" title="&amp;nbsp;" widget-style="buttontext">
+        <field name="editLink" title=" " widget-style="buttontext">
             <hyperlink target="EditMarketingCampaignRoles" description="${uiLabelMap.CommonEdit}" also-hidden="false">
                 <parameter param-name="marketingCampaignId"/>
                 <parameter param-name="roleTypeId"/>
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" title="&amp;nbsp;" widget-style="buttontext">
+        <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removeMarketingCampaignRole" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="marketingCampaignId"/>
                 <parameter param-name="roleTypeId"/>
