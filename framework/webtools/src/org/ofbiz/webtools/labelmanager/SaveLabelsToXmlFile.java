@@ -20,13 +20,13 @@ package org.ofbiz.webtools.labelmanager;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringEscapeUtils;
-import org.apache.xml.serialize.OutputFormat;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilProperties;
@@ -50,40 +50,38 @@ public class SaveLabelsToXmlFile {
     public static Map<String, Object> saveLabelsToXmlFile(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale)context.get("locale");
         String labelFileName = (String)context.get("labelFileName");
-
+        String apacheLicenseText = null;
+        try {
+            apacheLicenseText = getApacheLicenseText();
+        } catch (IOException e) {
+            Debug.logWarning(e, "Unable to read Apache License text file", module);
+        }
         try {
             LabelManagerFactory.getLabelManagerFactory(dctx.getDelegator().getDelegatorName());
             Map<String, LabelInfo> labels = LabelManagerFactory.getLabels();
             Map<String, String> fileNamesFound = LabelManagerFactory.getFileNamesFound();
             Set<String> labelsList = LabelManagerFactory.getLabelsList();
             Set<String> localesFound = LabelManagerFactory.getLocalesFound();
-
             for (String fileName : fileNamesFound.keySet()) {
                 if (UtilValidate.isNotEmpty(labelFileName) && !(labelFileName.equalsIgnoreCase(fileName))) {
                     continue;
                 }
-
-                String uri = (String)fileNamesFound.get(fileName);
+                String uri = fileNamesFound.get(fileName);
                 Document resourceDocument = UtilXml.makeEmptyXmlDocument("resource");
                 Element resourceElem = resourceDocument.getDocumentElement();
                 resourceElem.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-
                 for (String labelKey : labelsList) {
-                    LabelInfo labelInfo = (LabelInfo)labels.get(labelKey);
-
+                    LabelInfo labelInfo = labels.get(labelKey);
                     if (!(labelInfo.getFileName().equalsIgnoreCase(fileName))) {
                         continue;
                     }
-
                     Element propertyElem = UtilXml.addChildElement(resourceElem, "property", resourceDocument);
                     propertyElem.setAttribute("key", StringEscapeUtils.unescapeHtml(labelInfo.getLabelKey()));
-
                     if (UtilValidate.isNotEmpty(labelInfo.getLabelKeyComment())) {
                         Comment labelKeyComment = resourceDocument.createComment(StringEscapeUtils.unescapeHtml(labelInfo.getLabelKeyComment()));
                         Node parent = propertyElem.getParentNode();
                         parent.insertBefore(labelKeyComment, propertyElem);
                     }
-
                     for (String localeFound : localesFound) {
                         LabelValue labelValue = labelInfo.getLabelValue(localeFound);
                         String valueString = null;
@@ -105,40 +103,18 @@ public class SaveLabelsToXmlFile {
                         }
                     }
                 }
-
                 if (UtilValidate.isNotEmpty(uri)) {
                     File outFile = new File(new URI(uri));
                     FileOutputStream fos = new FileOutputStream(outFile);
-                    OutputFormat format = new OutputFormat(resourceDocument.getDocumentElement().getOwnerDocument(), "UTF-8", true);
-
                     try {
-                        format.setIndent(4);
-                        format.setOmitXMLDeclaration(true);
-                        UtilXml.writeXmlDocument(fos, resourceElem, format);
-                    } finally {
-                        if (UtilValidate.isNotEmpty(fos)) {
-                               fos.close();
-
-                            // workaround to insert the Apache License Header at top of the file
-                            // because the comment on top the xml file has been not written
-                            String outBuffer = FileUtil.readString("UTF-8", outFile);
-                            String basePath = System.getProperty("ofbiz.home");
-
-                            if (UtilValidate.isNotEmpty(basePath)) {
-                                String apacheHeaderFileName = basePath + "/framework/webtools/config/APACHE2_HEADER_FOR_XML";
-                                String apacheHeaderBuffer = "";
-                                File apacheHeaderFile = new File(apacheHeaderFileName);
-
-                                if (UtilValidate.isNotEmpty(apacheHeaderFile)) {
-                                    apacheHeaderBuffer = FileUtil.readString("UTF-8", apacheHeaderFile);
-                                }
-
-                                FileUtil.writeString("UTF-8", apacheHeaderBuffer + outBuffer, outFile);
-
-                                // clear cache to see immediately the new labels and translations in OFBiz
-                                UtilCache.clearCache("properties.UtilPropertiesBundleCache");
-                            }
+                        if (apacheLicenseText != null) {
+                            fos.write(apacheLicenseText.getBytes());
                         }
+                        UtilXml.writeXmlDocument(resourceElem, fos, "UTF-8", true, true, 4);
+                    } finally {
+                        fos.close();
+                        // clear cache to see immediately the new labels and translations in OFBiz
+                        UtilCache.clearCache("properties.UtilPropertiesBundleCache");
                     }
                 }
             }
@@ -147,5 +123,16 @@ public class SaveLabelsToXmlFile {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile", locale));
         }
         return ServiceUtil.returnSuccess();
+    }
+    
+    public static String getApacheLicenseText() throws IOException {
+        String apacheLicenseText = null;
+        String basePath = System.getProperty("ofbiz.home");
+        if (UtilValidate.isNotEmpty(basePath)) {
+            String apacheLicenseFileName = basePath + "/framework/webtools/config/APACHE2_HEADER_FOR_XML";
+            File apacheLicenseFile = new File(apacheLicenseFileName);
+            apacheLicenseText = FileUtil.readString("UTF-8", apacheLicenseFile);
+        }
+        return apacheLicenseText;
     }
 }
