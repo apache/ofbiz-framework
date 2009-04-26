@@ -34,15 +34,26 @@ import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import javolution.util.FastList;
 
 import org.apache.xml.serialize.OutputFormat;
-import org.apache.xml.serialize.XMLSerializer;
+import org.w3c.dom.DOMConfiguration;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.bootstrap.DOMImplementationRegistry;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSOutput;
+import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
@@ -57,6 +68,156 @@ import org.xml.sax.helpers.DefaultHandler;
 public class UtilXml {
 
     public static final String module = UtilXml.class.getName();
+
+    // ----- DOM Level 3 Load and Save Methods -- //
+
+    /** Returns a <code>DOMImplementationLS</code> instance.
+     * @return A <code>DOMImplementationLS</code> instance
+     * @see <a href="http://www.w3.org/TR/2004/REC-DOM-Level-3-LS-20040407/">DOM Level 3 Load and Save Specification</a>
+     * @throws ClassCastException
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+    public static DOMImplementationLS getDomLsImplementation() throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
+        return (DOMImplementationLS)registry.getDOMImplementation("LS");
+    }
+
+    /** Returns a <code>LSOutput</code> instance.
+     * @param impl A <code>DOMImplementationLS</code> instance
+     * @param os Optional <code>OutputStream</code> instance
+     * @param encoding Optional character encoding, default is UTF-8
+     * @return A <code>LSOutput</code> instance
+     * @see <a href="http://www.w3.org/TR/2004/REC-DOM-Level-3-LS-20040407/">DOM Level 3 Load and Save Specification</a>
+     */
+    public static LSOutput createLSOutput(DOMImplementationLS impl, OutputStream os, String encoding) {
+        LSOutput out = impl.createLSOutput();
+        if (os != null) {
+            out.setByteStream(os);
+        }
+        if (encoding != null) {
+            out.setEncoding(encoding);
+        }
+        return out;
+    }
+
+    /** Returns a <code>LSSerializer</code> instance.
+     * @param impl A <code>DOMImplementationLS</code> instance
+     * @param includeXmlDeclaration If set to <code>true</code>,
+     * the xml declaration will be included in the output
+     * @param enablePrettyPrint If set to <code>true</code>, the
+     * output will be formatted in human-readable form. If set to
+     * <code>false</code>, the entire document will consist of a single line.
+     * @return A <code>LSSerializer</code> instance
+     * @see <a href="http://www.w3.org/TR/2004/REC-DOM-Level-3-LS-20040407/">DOM Level 3 Load and Save Specification</a>
+     */
+    public static LSSerializer createLSSerializer(DOMImplementationLS impl, boolean includeXmlDeclaration, boolean enablePrettyPrint) {
+        LSSerializer writer = impl.createLSSerializer();
+        DOMConfiguration domConfig = writer.getDomConfig();
+        domConfig.setParameter("xml-declaration", includeXmlDeclaration);
+        domConfig.setParameter("format-pretty-print", enablePrettyPrint);
+        return writer;
+    }
+
+    /** Serializes a DOM Element to an <code>OutputStream</code> using DOM 3.
+     * @param os The <code>OutputStream</code> instance to write to
+     * @param element The DOM <code>Element</code> object to be serialized
+     * @param encoding Optional character encoding
+     * @param includeXmlDeclaration If set to <code>true</code>,
+     * the xml declaration will be included in the output
+     * @param enablePrettyPrint If set to <code>true</code>, the
+     * output will be formatted in human-readable form. If set to
+     * <code>false</code>, the entire document will consist of a single line.
+     * @see <a href="http://www.w3.org/TR/2004/REC-DOM-Level-3-LS-20040407/">DOM Level 3 Load and Save Specification</a>
+     * @throws ClassCastException
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+    public static void writeXmlDocument(OutputStream os, Element element, String encoding, boolean includeXmlDeclaration, boolean enablePrettyPrint) throws ClassCastException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        DOMImplementationLS impl = getDomLsImplementation();
+        LSOutput out = createLSOutput(impl, os, encoding);
+        LSSerializer writer = createLSSerializer(impl, includeXmlDeclaration, enablePrettyPrint);
+        writer.write(element, out);
+    }
+
+    // ----- TrAX Methods ----------------- //
+
+    /** Creates a JAXP TrAX Transformer suitable for pretty-printing an
+     * XML document. This method is provided as an alternative to the
+     * deprecated <code>org.apache.xml.serialize.OutputFormat</code> class.
+     * @param encoding Optional encoding, defaults to UTF-8
+     * @param omitXmlDeclaration If <code>true</code> the xml declaration
+     * will be omitted from the output
+     * @param indent If <code>true</code>, the output will be indented
+     * @param indentAmount If <code>indent</code> is <code>true</code>,
+     * the number of spaces to indent. Default is 4.
+     * @return A <code>Transformer</code> instance
+     * @see <a href="http://java.sun.com/javase/6/docs/api/javax/xml/transform/package-summary.html">JAXP TrAX</a>
+     * @throws TransformerConfigurationException
+     */
+    public static Transformer createOutputTransformer(String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) throws TransformerConfigurationException {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+        sb.append("<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" xmlns:xalan=\"http://xml.apache.org/xslt\" version=\"1.0\">\n");
+        sb.append("<xsl:output method=\"xml\" encoding=\"");
+        sb.append(encoding == null ? "UTF-8" : encoding);
+        sb.append("\"");
+        if (omitXmlDeclaration) {
+            sb.append(" omit-xml-declaration=\"yes\"");
+        }
+        sb.append(" indent=\"");
+        sb.append(indent ? "yes" : "no");
+        sb.append("\"");
+        if (indent) {
+            sb.append(" xalan:indent-amount=\"");
+            sb.append(indentAmount <= 0 ? 4 : indentAmount);
+            sb.append("\"");
+        }
+        sb.append("/>\n<xsl:strip-space elements=\"*\"/>\n");
+        sb.append("<xsl:template match=\"@*|node()\">\n");
+        sb.append("<xsl:copy><xsl:apply-templates select=\"@*|node()\"/></xsl:copy>\n");
+        sb.append("</xsl:template>\n</xsl:stylesheet>\n");
+        Debug.logInfo("stylesheet = \n" + sb, module);
+        ByteArrayInputStream bis = new ByteArrayInputStream(sb.toString().getBytes());
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        return transformerFactory.newTransformer(new StreamSource(bis));
+    }
+
+    /** Serializes a DOM <code>Element</code> to an <code>OutputStream</code>
+     * using JAXP TrAX.
+     * @param transformer A <code>Transformer</code> instance
+     * @param element The <code>Element</code> to serialize
+     * @param os The <code>OutputStream</code> to serialize to
+     * @see <a href="http://java.sun.com/javase/6/docs/api/javax/xml/transform/package-summary.html">JAXP TrAX</a>
+     * @throws TransformerException
+     */
+    public static void transformDomDocument(Transformer transformer, Element element, OutputStream os) throws TransformerException {
+        DOMSource source = new DOMSource(element);
+        StreamResult result = new StreamResult(os);
+        transformer.transform(source, result);
+    }
+
+    /** Serializes a DOM <code>Element</code> to an <code>OutputStream</code>
+     * using JAXP TrAX.
+     * @param element The <code>Element</code> to serialize
+     * @param os The <code>OutputStream</code> to serialize to
+     * @param encoding Optional encoding, defaults to UTF-8
+     * @param omitXmlDeclaration If <code>true</code> the xml declaration
+     * will be omitted from the output
+     * @param indent If <code>true</code>, the output will be indented
+     * @param indentAmount If <code>indent</code> is <code>true</code>,
+     * the number of spaces to indent. Default is 4.
+     * @see <a href="http://java.sun.com/javase/6/docs/api/javax/xml/transform/package-summary.html">JAXP TrAX</a>
+     * @throws TransformerException
+     */
+    public static void writeXmlDocument(Element element, OutputStream os, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount) throws TransformerException {
+        Transformer transformer = createOutputTransformer(encoding, omitXmlDeclaration, indent, indentAmount);
+        transformDomDocument(transformer, element, os);
+    }
+
+    // ------------------------------------ //
 
     public static String writeXmlDocument(Document document) throws java.io.IOException {
         if (document == null) {
@@ -135,11 +296,16 @@ public class UtilXml {
         }
         writeXmlDocument(os, document.getDocumentElement());
     }
+
+    @SuppressWarnings("deprecation")
     public static void writeXmlDocument(OutputStream os, Element element) throws java.io.IOException {
-        OutputFormat format = new OutputFormat(element.getOwnerDocument());
-        writeXmlDocument(os, element, format);
+        writeXmlDocument(os, element, new OutputFormat());
     }
 
+    /**
+     * @deprecated Use  <a href="#writeXmlDocument(org.w3c.dom.Element,%20java.io.OutputStream,%20java.lang.String,%20boolean,%20boolean,%20int)">writeXmlDocument(Element element, OutputStream os, String encoding, boolean omitXmlDeclaration, boolean indent, int indentAmount)</a>
+     */
+    @SuppressWarnings("deprecation")
     public static void writeXmlDocument(OutputStream os, Element element, OutputFormat format) throws java.io.IOException {
         if (element == null) {
             Debug.logWarning("[UtilXml.writeXmlDocument] Element was null, doing nothing", module);
@@ -149,10 +315,12 @@ public class UtilXml {
             Debug.logWarning("[UtilXml.writeXmlDocument] OutputStream was null, doing nothing", module);
             return;
         }
-
-        XMLSerializer serializer = new XMLSerializer(os, format);
-        serializer.asDOMSerializer();
-        serializer.serialize(element);
+        try {
+            writeXmlDocument(element, os, format.getEncoding(), format.getOmitXMLDeclaration(), format.getIndenting(), format.getIndent());
+        } catch (Exception e) {
+            // Wrapping this exception for backwards compatibility
+            throw new IOException(e.getMessage());
+        }
     }
 
     public static Document readXmlDocument(String content)
