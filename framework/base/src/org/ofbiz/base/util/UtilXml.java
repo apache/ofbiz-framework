@@ -179,7 +179,6 @@ public class UtilXml {
         sb.append("<xsl:template match=\"@*|node()\">\n");
         sb.append("<xsl:copy><xsl:apply-templates select=\"@*|node()\"/></xsl:copy>\n");
         sb.append("</xsl:template>\n</xsl:stylesheet>\n");
-        Debug.logInfo("stylesheet = \n" + sb, module);
         ByteArrayInputStream bis = new ByteArrayInputStream(sb.toString().getBytes());
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         return transformerFactory.newTransformer(new StreamSource(bis));
