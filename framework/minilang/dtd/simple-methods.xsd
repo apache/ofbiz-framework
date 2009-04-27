@@ -578,8 +578,9 @@ under the License.
         <xs:attribute type="xs:string" name="transaction-timeout">
             <xs:annotation>
                 <xs:documentation>
-                    Defines the time out for the transaction, in milliseconds.
-                    None by defaults.
+                    Defines the timeout for the transaction, in seconds.
+                    Defaults to the value set in the service definition which in turn defaults to the setting 
+                    in the TransactionFactory being used (typically 60 seconds).
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>

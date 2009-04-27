@@ -101,7 +101,14 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="transaction-timeout" type="xs:int" default="0"/>
+        <xs:attribute name="transaction-timeout" type="xs:int" default="0">
+            <xs:annotation>
+                <xs:documentation>
+                    Defines the timeout for the transaction, in seconds.
+                    Defaults to the value set in the TransactionFactory being used (typically 60 seconds).
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute name="max-retry" type="xs:int" default="-1"/>
         <xs:attribute name="debug" default="false">
             <xs:simpleType>
