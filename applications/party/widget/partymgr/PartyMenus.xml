@@ -431,9 +431,9 @@
                 </and>
             </condition>
             <link target="setCommunicationEventRoleStatus">
-                <parameter param-name="communicationEventId" from-field="communicationEvent.communicationEventId"/>
+                <parameter param-name="communicationEventId" from-field="myCommunicationEventRole.communicationEventId"/>
                 <parameter param-name="partyId" from-field="myCommunicationEventRole.partyId"/>
-                <parameter param-name="roleType" from-field="myCommunicationEventRole.roleTypeId"/>
+                <parameter param-name="roleTypeId" from-field="myCommunicationEventRole.roleTypeId"/>
                 <parameter param-name="statusId" value="COM_ROLE_COMPLETED"/>
             </link>
         </menu-item>
