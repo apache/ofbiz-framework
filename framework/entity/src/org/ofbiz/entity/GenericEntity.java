@@ -402,7 +402,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
                 } catch (GenericNotImplementedException e) {
                     throw new IllegalArgumentException(e.getMessage());
                 }
-            } else if (value != null) {
+            } else if (value != null && !(value instanceof NULL)) {
                 // make sure the type matches the field Java type
                 if (!ObjectType.instanceOf(value, type.getJavaType())) {
                     String errMsg = "In entity field [" + this.getEntityName() + "." + name + "] set the value passed in [" + value.getClass().getName() + "] is not compatible with the Java type of the field [" + type.getJavaType() + "]";
