@@ -112,7 +112,7 @@
             </drop-down>
         </field>
         <field name="fromDate"><date-find/></field>
-        <field name="${uiLabelMap.CommonFind}" title="${uiLabelMap.CommonFind}"><submit/></field>
+        <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
     <form name="ListFindTimeSheet" type="list" list-name="listIt" paginate-target="FindTimeSheet"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
