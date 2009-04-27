@@ -51,24 +51,24 @@ under the License.
     <!-- ========================================= -->
     <!-- These are generally run manually, but some can be run on a schedule as well. -->
     <service name="discVirtualsWithDiscVariants" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="discVirtualsWithDiscVariants" auth="true" transaction-timeout="36000000" require-new-transaction="true">
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="discVirtualsWithDiscVariants" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>Discontinue Virtuals With Discontinued Variants</description>
     </service>
     <service name="removeCategoryMembersOfDiscProducts" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="removeCategoryMembersOfDiscProducts" auth="true" transaction-timeout="36000000" require-new-transaction="true">
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="removeCategoryMembersOfDiscProducts" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>Remove Category Members Of Discontinued Products</description>
     </service>
     <service name="removeDuplicateOpenEndedCategoryMembers" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="removeDuplicateOpenEndedCategoryMembers" auth="true" transaction-timeout="36000000" require-new-transaction="true">
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="removeDuplicateOpenEndedCategoryMembers" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>Remove Duplicate, excluding fromDate, Category Members that have no thruDate</description>
     </service>
 
     <service name="makeStandAloneFromSingleVariantVirtuals" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="makeStandAloneFromSingleVariantVirtuals" auth="true" transaction-timeout="36000000" require-new-transaction="true">
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="makeStandAloneFromSingleVariantVirtuals" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>Make Stand Alone From Single Variant Virtuals</description>
     </service>
     <service name="mergeVirtualWithSingleVariant" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="mergeVirtualWithSingleVariant" auth="true" transaction-timeout="3600000" require-new-transaction="true">
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="mergeVirtualWithSingleVariant" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>A service to be called by the make stand alone service to do the operation for one product.</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="removeOld" type="Boolean" mode="IN" optional="false"/>
@@ -76,17 +76,17 @@ under the License.
     </service>
 
     <service name="setAllProductImageNames" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="setAllProductImageNames" auth="true" transaction-timeout="36000000" require-new-transaction="true">
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="setAllProductImageNames" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>Set All Product Image Names; pattern example: /images/products/${size}/${productId}.jpg; defaults to values in the catalog.properties file (image.url.prefix + / + image.filename.format)</description>
         <attribute name="pattern" type="String" mode="IN" optional="true"/>
     </service>
     <service name="clearAllVirtualProductImageNames" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="clearAllVirtualProductImageNames" auth="true" transaction-timeout="36000000" require-new-transaction="true">
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="clearAllVirtualProductImageNames" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>Set All Product Image Names</description>
     </service>
 
     <service name="attachProductFeaturesToCategory" engine="java"
-            location="org.ofbiz.product.product.ProductUtilServices" invoke="attachProductFeaturesToCategory" auth="true" transaction-timeout="36000000" require-new-transaction="true">
+            location="org.ofbiz.product.product.ProductUtilServices" invoke="attachProductFeaturesToCategory" auth="true" transaction-timeout="36000" require-new-transaction="true">
         <description>Attach Product Features To Category Through Groups</description>
         <attribute name="productCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="doSubCategories" type="String" mode="IN" optional="true"/>
@@ -94,7 +94,7 @@ under the License.
 
     <!-- Check Urls exists or not related services -->
     <service name="checkImageUrlForAllCategories" engine="simple"
-      location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="checkImageUrlForAllCategories" transaction-timeout="36000000">
+      location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="checkImageUrlForAllCategories" transaction-timeout="36000">
         <description>check For Image Urls exists or not for all categories</description>
         <attribute name="topCategory" type="String" mode="IN" optional="true"/>
         <attribute name="excludeEmpty" type="Boolean" mode="IN" optional="true"/>
