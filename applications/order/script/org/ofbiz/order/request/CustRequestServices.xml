@@ -363,6 +363,7 @@ under the License.
         <if-not-empty field="custRequest">
             <field-to-result field="custRequest.statusId" result-name="oldStatusId"/>
             <field-to-result field="custRequest.custRequestId"  result-name="custRequestId"/>
+            <field-to-result field="custRequest.fromPartyId" result-name="fromPartyId"/><!-- for notification -->
             <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
                 <entity-one entity-name="StatusValidChange" value-field="statusChange">
                     <field-map field-name="statusId" from-field="custRequest.statusId"/>

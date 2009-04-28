@@ -51,6 +51,7 @@ under the License.
         <override name="contentType" mode="INOUT"/>
         <override name="subject" mode="INOUT" optional="false"/>
         <override name="emailType" type="String" mode="INOUT" optional="true"/>
+        <override name="sendTo" optional="false"/><!-- service will give an NPE when not provided -->
     </service>
     <service name="sendMailMultiPart" engine="java"
             location="org.ofbiz.common.email.EmailServices" invoke="sendMail">
@@ -85,6 +86,7 @@ under the License.
         <description>Send Email From Email Template Setting Service</description>
         <implements service="sendMailInterface"/>
         <attribute name="emailTemplateSettingId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdTo" type="String" mode="IN" optional="true"/>
         <attribute name="bodyText" type="String" mode="IN" optional="true" allow-html="any"/>
         <attribute name="attachmentName" type="String" mode="IN" optional="true"/>
         <attribute name="bodyParameters" type="Map" mode="IN" optional="true"/>
