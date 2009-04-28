@@ -26,14 +26,14 @@ under the License.
 </#if>
 
   <tr>
-    <td width="26%" align="right" valign="middle">${uiLabelMap.AccountingCompanyNameCard}</td>
+    <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingCompanyNameCard}</b></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
       <input type="text" size="30" maxlength="60" name="companyNameOnCard" value="${creditCard.companyNameOnCard?if_exists}"/>
     </td>
   </tr>
   <tr>
-    <td width="26%" align="right" valign="middle">${uiLabelMap.AccountingPrefixCard}</td>
+    <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingPrefixCard}</b></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
       <select name="titleOnCard">
@@ -46,28 +46,28 @@ under the License.
     </td>
   </tr>
   <tr>
-    <td width="26%" align="right" valign="middle">${uiLabelMap.AccountingFirstNameCard}</td>
+    <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingFirstNameCard}</b></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
       <input type="text" size="20" maxlength="60" name="firstNameOnCard" value="${(creditCard.firstNameOnCard)?if_exists}"/>
     <#if showToolTip?has_content><span class="tooltip">${uiLabelMap.CommonRequired}</span><#else>*</#if></td>
   </tr>
   <tr>
-    <td width="26%" align="right" valign="middle">${uiLabelMap.AccountingMiddleNameCard}</td>
+    <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingMiddleNameCard}</b></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
       <input type="text" size="15" maxlength="60" name="middleNameOnCard" value="${(creditCard.middleNameOnCard)?if_exists}"/>
     </td>
   </tr>
   <tr>
-    <td width="26%" align="right" valign="middle">${uiLabelMap.AccountingLastNameCard}</td>
+    <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingLastNameCard}</b></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
       <input type="text" size="20" maxlength="60" name="lastNameOnCard" value="${(creditCard.lastNameOnCard)?if_exists}"/>
     <#if showToolTip?has_content><span class="tooltip">${uiLabelMap.CommonRequired}</span><#else>*</#if></td>
   </tr>
   <tr>
-    <td width="26%" align="right" valign="middle">${uiLabelMap.AccountingSuffixCard}</td>
+    <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingSuffixCard}</b></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
       <select name="suffixOnCard">
@@ -84,7 +84,7 @@ under the License.
   </tr>
 
   <tr>
-    <td width="26%" align="right" valign="middle">${uiLabelMap.AccountingCardType}</td>
+    <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingCardType}</b></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
       <select name="cardType">
@@ -97,7 +97,7 @@ under the License.
     <#if showToolTip?has_content><span class="tooltip">${uiLabelMap.CommonRequired}</span><#else>*</#if></td>
   </tr>
   <tr>
-    <td width="26%" align="right" valign="middle">${uiLabelMap.AccountingCardNumber}</td>
+    <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingCardNumber}</b></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
         <#if creditCard?has_content>
@@ -134,7 +134,7 @@ under the License.
     </td>
   </tr>-->
   <tr>
-    <td width="26%" align="right" valign="middle">${uiLabelMap.AccountingExpirationDate}</td>
+    <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingExpirationDate}</b></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
       <#assign expMonth = "">
@@ -171,7 +171,7 @@ under the License.
     <#if showToolTip?has_content><span class="tooltip">${uiLabelMap.CommonRequired}</span><#else>*</#if></td>
   </tr>
   <tr>
-    <td width="26%" align="right" valign="middle">${uiLabelMap.CommonDescription}</td>
+    <td width="26%" align="right" valign="middle"><b>${uiLabelMap.CommonDescription}</b></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
       <input type="text" size="20" maxlength="30" name="description" value="${paymentMethod.description?if_exists}"/>

@@ -18,7 +18,8 @@ under the License.
 -->
 
     <#-- reference number -->
-    <#if txType?default("") == "PRDS_PAY_CREDIT" || txType?default("") == "PRDS_PAY_CAPTURE" || txType?default("") == "PRDS_PAY_RELEASE">
+    <#if txType?default("") == "PRDS_PAY_CREDIT" || txType?default("") == "PRDS_PAY_CAPTURE" || 
+         txType?default("") == "PRDS_PAY_RELEASE" || txType?default("") == "PRDS_PAY_REFUND">
       ${setRequestAttribute("validTx", "true")}
       <#assign validTx = true>
       <tr><td colspan="3"><hr/></td></tr>
@@ -27,11 +28,35 @@ under the License.
         <td width="5">&nbsp;</td>
         <td width="74%">
           <input type="text" size="30" maxlength="60" name="referenceNum">
-        (*)</td>
+          <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+        </td>
+      </tr>
+      <tr>
+        <td width="26%" align="right" valign=middle><b>${uiLabelMap.FormFieldTitle_orderPaymentPreferenceId}</b></td>
+        <td width="5">&nbsp;</td>
+        <td width="74%">
+          <input type="text" size="20" maxlength="20" name="orderPaymentPreferenceId">
+          <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+        </td>
       </tr>
     </#if>
-
     <#-- manual credit card information -->
+    <#if txType?default("") == "PRDS_PAY_RELEASE">
+      ${setRequestAttribute("validTx", "true")}
+      <script language="JavaScript" type="text/javascript">
+      <!-- //
+        document.manualTxForm.action = "<@ofbizUrl>processReleaseTransaction</@ofbizUrl>";
+      // -->
+      </script>
+    </#if>
+    <#if txType?default("") == "PRDS_PAY_REFUND">
+      ${setRequestAttribute("validTx", "true")}
+      <script language="JavaScript" type="text/javascript">
+      <!-- //
+        document.manualTxForm.action = "<@ofbizUrl>processRefundTransaction</@ofbizUrl>";
+      // -->
+      </script>
+    </#if>
     <#if txType?default("") == "PRDS_PAY_CREDIT" || txType?default("") == "PRDS_PAY_AUTH">
       ${setRequestAttribute("validTx", "true")}
       <script language="JavaScript" type="text/javascript">
@@ -45,51 +70,54 @@ under the License.
         <td width="5">&nbsp;</td>
         <td width="74%">
           <input type="text" size="30" maxlength="60" name="firstName" value="${(person.firstName)?if_exists}">
-        *</td>
+          <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+        </td>
       </tr>
       <tr>
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.PartyLastName}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
           <input type="text" size="30" maxlength="60" name="lastName" value="${(person.lastName)?if_exists}">
-        *</td>
+          <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+        </td>
       </tr>
       <tr>
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.PartyEmailAddress}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
           <input type="text" size="30" maxlength="60" name="infoString" value="">
-        *</td>
+          <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+        </td>
       </tr>
       <tr><td colspan="3"><hr></td></tr>
-
+      <#assign showToolTip = "true">
       ${screens.render("component://accounting/widget/CommonScreens.xml#creditCardFields")}
-
       <tr><td colspan="3"><hr></td></tr>
-
       <#-- first / last name -->
       <tr>
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.PartyFirstName}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
           <input type="text" size="30" maxlength="30" name="firstName" value="${(person.firstName)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
-        *</td>
+          <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+        </td>
       </tr>
       <tr>
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.PartyLastName}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
           <input type="text" size="30" maxlength="30" name="lastName" value="${(person.lastName)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
-        *</td>
+          <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+        </td>
       </tr>
-
       <#-- credit card address -->
       <tr>
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.AccountingBillToAddress1}</b></td>
         <td width="5">&nbsp;</td>
         <td width="74%">
           <input type="text" size="30" maxlength="30" name="address1" value="${(postalFields.address1)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
-        *</td>
+          <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+        </td>
       </tr>
       <tr>
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.AccountingBillToAddress2}</b></td>
@@ -103,7 +131,8 @@ under the License.
         <td width="5">&nbsp;</td>
         <td width="74%">
           <input type="text" size="30" maxlength="30" name="city" value="${(postalFields.city)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
-        *</td>
+          <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+        </td>
       </tr>
       <tr>
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.CommonStateProvince}</b></td>
@@ -125,7 +154,8 @@ under the License.
         <td width="5">&nbsp;</td>
         <td width="74%">
           <input type="text" size="12" maxlength="10" name="postalCode" value="${(postalFields.postalCode)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>>
-        *</td>
+          <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+        </td>
       </tr>
       <tr>
         <td width="26%" align="right" valign=middle><b>${uiLabelMap.CommonCountry}</b></td>
@@ -138,6 +168,7 @@ under the License.
             </#if>
             ${screens.render("component://common/widget/CommonScreens.xml#countries")}
           </select>
-        *</td>
+          <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+        </td>
       </tr>
     </#if>

@@ -22,7 +22,7 @@ under the License.
 
 <#if security.hasEntityPermission("MANUAL", "_PAYMENT", session)>
   ${setRequestAttribute("validTx", "false")}
-  <form name="manualTxForm" method="get" action="<@ofbizUrl>manualETx</@ofbizUrl>">
+  <form name="manualTxForm" method="post" action="<@ofbizUrl>manualETx</@ofbizUrl>">
     <#if requestParameters.paymentMethodId?exists>
       <input type="hidden" name="paymentMethodId" value="${requestParameters.paymentMethodId}">
     </#if>
@@ -86,18 +86,15 @@ under the License.
 
      <#if requestAttributes.validTx?default("false") == "true">
         <tr><td colspan="3"><hr></td></tr>
-
         <#-- amount field -->
-        <#if txType != "PRDS_PAY_RELEASE">
-          <tr>
-            <td width="26%" align="right" valign="middle"><b>${uiLabelMap.CommonAmount}</b></td>
-            <td width="5">&nbsp;</td>
-            <td width="74%">
-              <input type="text" size="20" maxlength="30" name="amount">
-            *</td>
-          </tr>
-        </#if>
-
+        <tr>
+          <td width="26%" align="right" valign="middle"><b>${uiLabelMap.CommonAmount}</b></td>
+          <td width="5">&nbsp;</td>
+          <td width="74%">
+            <input type="text" size="20" maxlength="30" name="amount">
+            <span class="tooltip">${uiLabelMap.CommonRequired}</span>
+          </td>
+        </tr>
         <#-- submit button -->
         <tr>
           <td width="26%" align="right" valign=middle>&nbsp;</td>
