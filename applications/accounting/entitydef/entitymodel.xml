@@ -2966,8 +2966,8 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PaymentGatewayConfigType"
-        package-name="org.ofbiz.accounting.payment"
-        title="Payment Gateway Config Type">
+            package-name="org.ofbiz.accounting.payment"
+            title="Payment Gateway Config Type">
       <field name="paymentGatewayConfigTypeId" type="id-ne"></field>
       <field name="parentTypeId" type="id"></field>
       <field name="hasTable" type="indicator"></field>
@@ -2981,8 +2981,8 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PaymentGatewayConfig"
-        package-name="org.ofbiz.accounting.payment"
-        title="Payment Gateway Config">
+            package-name="org.ofbiz.accounting.payment"
+            title="Payment Gateway Config">
       <field name="paymentGatewayConfigId" type="id-ne"></field>
       <field name="paymentGatewayConfigTypeId" type="id-ne"></field>
       <field name="description" type="description"></field>
@@ -2991,9 +2991,35 @@ under the License.
         <key-map field-name="paymentGatewayConfigTypeId" rel-field-name="paymentGatewayConfigTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="PaymentGatewayCyberSource"
+            package-name="org.ofbiz.accounting.payment"
+            title="CyberSource Payment Gateway Configuration">
+      <field name="paymentGatewayConfigId" type="id-ne"></field>
+      <field name="merchantId" type="value"><description>You merchant ID</description></field>
+      <field name="apiVersion" type="short-varchar"><description>Target CyberSource API version</description></field>
+      <field name="production" type="short-varchar"><description>Enable production "mode" (true|false)</description></field>
+      <field name="keysDir" type="value"><description>Directory of the keys from CyberSource (Generate using online tools)</description></field>
+      <field name="keysFile" type="value"><description>Name of the keystore (if different then "merchantID".p12)</description></field>
+      <field name="logEnabled" type="short-varchar"><description>Log transaction information (true|false)</description></field>
+      <field name="logDir" type="value"><description>Log directory</description></field>
+      <field name="logFile" type="value"><description>Log file name</description></field>
+      <field name="logSize" type="numeric"><description>Max log size (megabytes)</description></field>
+      <field name="merchantDescr" type="value"><description>Merchant Description - Shown on credit card statement</description></field>
+      <field name="merchantContact" type="value"><description>Merchant Description Contact Information - Shown on credit card statement</description></field>
+      <field name="autoBill" type="short-varchar"><description>Auto-Bill In Authorization (true|false)</description></field>
+      <field name="enableDav" type="indicator"><description>Use DAV In Authorization -- May not be supported any longer</description></field>
+      <field name="fraudScore" type="indicator"><description>Use Fraud Scoring In Authorization -- May not be supported any longer</description></field>
+      <field name="ignoreAvs" type="short-varchar"><description>Ignore AVS results (true|false)</description></field>
+      <field name="disableBillAvs" type="indicator"><description>Disable AVS for Capture -- May not be supported any longer</description></field>
+      <field name="avsDeclineCodes" type="value"><description>AVS Decline Codes -- May not be supported any longer</description></field>
+      <prim-key field="paymentGatewayConfigId"/>
+      <relation type="one" fk-name="PGCS_PGC" rel-entity-name="PaymentGatewayConfig">
+        <key-map field-name="paymentGatewayConfigId"/>
+      </relation>
+    </entity>
     <entity entity-name="PaymentGatewayPayflowPro"
-        package-name="org.ofbiz.accounting.payment"
-        title="Payflow Pro Payment Gateway Config">
+            package-name="org.ofbiz.accounting.payment"
+            title="Payflow Pro Payment Gateway Config">
       <field name="paymentGatewayConfigId" type="id-ne"></field>
       <field name="certsPath" type="value"><description>Path the the VeriSign Certificate</description></field>
       <field name="hostAddress" type="value"><description>Address of the payment processor</description></field>
@@ -3021,8 +3047,8 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PaymentGatewayPayPal"
-        package-name="org.ofbiz.accounting.payment"
-        title="PayPal Payment Gateway Config">
+            package-name="org.ofbiz.accounting.payment"
+            title="PayPal Payment Gateway Config">
         <field name="paymentGatewayConfigId" type="id-ne"></field>
         <field name="businessEmail" type="value"><description>Business e-mail</description></field>
         <field name="notifyUrl" type="value"><description>Notify URL</description></field>
@@ -3038,8 +3064,8 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="PaymentGatewayClearCommerce"
-        package-name="org.ofbiz.accounting.payment"
-        title="Clear Commerce Payment Gateway Config">
+            package-name="org.ofbiz.accounting.payment"
+            title="Clear Commerce Payment Gateway Config">
       <field name="paymentGatewayConfigId" type="id-ne"></field>
       <field name="sourceId" type="short-varchar"><description>Useful for tagging transactions</description></field>
       <field name="groupId" type="short-varchar"><description>Useful for grouping transactions</description></field>

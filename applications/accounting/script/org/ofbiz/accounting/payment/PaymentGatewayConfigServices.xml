@@ -26,6 +26,18 @@ under the License.
         <store-value value-field="lookedUpValue"/>
     </simple-method>
     
+    <simple-method method-name="updatePaymentGatewayConfigClearCommerce" short-description="Update Payment Gateway Config Clear Commerce">
+        <entity-one entity-name="PaymentGatewayClearCommerce" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    
+    <simple-method method-name="updatePaymentGatewayConfigCyberSource" short-description="Update Payment Gateway Config CyberSource">
+        <entity-one entity-name="PaymentGatewayCyberSource" value-field="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
+    </simple-method>
+    
     <simple-method method-name="updatePaymentGatewayConfigPayflowPro" short-description="Update Payment Gateway Config Payflow Pro">
         <entity-one entity-name="PaymentGatewayPayflowPro" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -34,12 +46,6 @@ under the License.
     
     <simple-method method-name="updatePaymentGatewayConfigPayPal" short-description="Update Payment Gateway Config PayPal">
         <entity-one entity-name="PaymentGatewayPayPal" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="updatePaymentGatewayConfigClearCommerce" short-description="Update Payment Gateway Config Clear Commerce">
-        <entity-one entity-name="PaymentGatewayClearCommerce" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>

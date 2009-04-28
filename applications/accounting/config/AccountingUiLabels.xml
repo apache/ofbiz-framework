@@ -2086,6 +2086,70 @@
         <value xml:lang="th">ลูกค้า</value>
         <value xml:lang="zh">客户</value>
     </property>
+    <property key="AccountingCyberSourceApiVersion">
+        <value xml:lang="en">CyberSource API Version</value>
+        <value xml:lang="it">Versione API CyberSource</value>
+    </property>
+    <property key="AccountingCyberSourceAutoBill">
+        <value xml:lang="en">Auto-Bill In Authorization (Capture)</value>
+        <value xml:lang="it">Cattura automaticamente durante autorizzazione</value>
+    </property>
+    <property key="AccountingCyberSourceAvsDeclineCodes">
+        <value xml:lang="en">Avs Decline Codes -- May not be supported any longer</value>
+        <value xml:lang="it">Codici rifiuto AVS -- potrebbe essere non più supportato</value>
+    </property>
+    <property key="AccountingCyberSourceDisableBillAvs">
+        <value xml:lang="en">Disable AVS for Capture -- May not be supported any longer</value>
+        <value xml:lang="it">Disabilita AVS durante la cattura -- potrebbe essere non più supportato</value>
+    </property>
+    <property key="AccountingCyberSourceEnableDav">
+        <value xml:lang="en">Use DAV In Authorization -- May not be supported any longer</value>
+        <value xml:lang="it">Usa DAV durante autorizzazione -- potrebbe essere non più supportato</value>
+    </property>
+    <property key="AccountingCyberSourceFraudScore">
+        <value xml:lang="en">Use Fraud Scoring In Authorization -- May not be supported any longer</value>
+        <value xml:lang="it">Usa punteggio frode in autorizzazione --  potrebbe essere non più supportato</value>
+    </property>
+    <property key="AccountingCyberSourceIgnoreAvs">
+        <value xml:lang="en">Ignore AVS Results</value>
+        <value xml:lang="it">Ignora risultati AVS</value>
+    </property>
+    <property key="AccountingCyberSourceKeysDir">
+        <value xml:lang="en">Directory of the keys from CyberSource (Generate using online tools)</value>
+        <value xml:lang="it">Directory delle chiavi di CyberSource (Generate usado gli strumenti online)</value>
+    </property>
+    <property key="AccountingCyberSourceKeysFile">
+        <value xml:lang="en">Name of the keystore (if different then "merchantID.p12")</value>
+        <value xml:lang="it">Name keystore (se diverso da "merchantID.p12")</value>
+    </property>
+    <property key="AccountingCyberSourceLogDir">
+        <value xml:lang="en">Log directory</value>
+        <value xml:lang="it">Directory log</value>
+    </property>
+    <property key="AccountingCyberSourceLogEnable">
+        <value xml:lang="en">Log transaction information</value>
+        <value xml:lang="it">Abilita log</value>
+    </property>
+    <property key="AccountingCyberSourceLogFile">
+        <value xml:lang="en">Log File Name</value>
+        <value xml:lang="it">Nome file di log</value>
+    </property>
+    <property key="AccountingCyberSourceLogSize">
+        <value xml:lang="en">Max log size (megabytes)</value>
+        <value xml:lang="it">Ampiezza massima log (megabytes)</value>
+    </property>
+    <property key="AccountingCyberSourceMerchantContact">
+        <value xml:lang="en">Merchant Contact</value>
+        <value xml:lang="it">Contatto negoziante</value>
+    </property>
+    <property key="AccountingCyberSourceMerchantDescr">
+        <value xml:lang="en">Merchant Description</value>
+        <value xml:lang="it">Descrizione negoziante</value>
+    </property>
+    <property key="AccountingCyberSourceProduction">
+        <value xml:lang="en">Enable Production Mode</value>
+        <value xml:lang="it">Abilita modalità di produzione</value>
+    </property>
     <property key="AccountingDataExchange">
         <value xml:lang="ar">تبادل المعلومات</value>
         <value xml:lang="de">Datenaustausch</value>
@@ -8853,6 +8917,10 @@
         <value xml:lang="ru">Макс. кол-во</value>
         <value xml:lang="th">จำนวนมากสุด</value>
     </property>
+    <property key="FormFieldTitle_merchantId">
+        <value xml:lang="en">Merchant Id</value>
+        <value xml:lang="it">Codice negoziante</value>
+    </property>
     <property key="FormFieldTitle_minItemPrice">
         <value xml:lang="en">Min Item Price</value>
         <value xml:lang="es">Precio mínimo de elemento</value>
@@ -9575,7 +9643,7 @@
         <value xml:lang="zh">编排人工服务标识</value>
     </property>
     <property key="FormFieldTitle_serverURL">
-        <value xml:lang="en">serverURL</value>
+        <value xml:lang="en">Server URL</value>
         <value xml:lang="it">URL server</value>
     </property>
     <property key="FormFieldTitle_settlementTermId">
@@ -10896,6 +10964,10 @@
     <property key="PageTitleUpdatePaymentGatewayConfigClearCommerce">
         <value xml:lang="en">Update Payment Gateway Config Clear Commerce</value>
         <value xml:lang="it">Aggiorna configurazione gateway pagamento Clear Commerce</value>
+    </property>
+    <property key="PageTitleUpdatePaymentGatewayConfigCyberSource">
+        <value xml:lang="en">Update Payment Gateway Config CyberSource</value>
+        <value xml:lang="it">Aggiorna configurazione gateway pagamento CyberSource</value>
     </property>
     <property key="PageTitleUpdatePaymentGatewayConfigPayflowPro">
         <value xml:lang="en">Update Payment Gateway Config Payflow Pro</value>
