@@ -439,6 +439,9 @@ function removeItem(event) {
     var productId = $(productIdElementId).value;
     var itemIndex = getProductLineItemIndex(event,productId);
     var formValues = "update_" + itemIndex + "= 0";
+    if ($(qtyId).value == '' || isNaN(qtyId.value)) {
+        $(qtyId).value = 0;
+    }
     updateCartData(qtyId, formValues, 0, itemIndex);
 }
 
