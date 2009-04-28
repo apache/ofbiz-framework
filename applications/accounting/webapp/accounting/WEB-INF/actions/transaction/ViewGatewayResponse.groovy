@@ -34,7 +34,7 @@ import org.ofbiz.entity.util.EntityUtil;
 // get this field first, it determines which purpose this script satisfies
 orderPaymentPreferenceId = context.orderPaymentPreferenceId;
 
-// first purpose: retrieve orderId and pamentPreferenceId
+// first purpose: retrieve orderId and paymentPreferenceId
 if (!orderPaymentPreferenceId) {
   paymentGatewayResponse = context.paymentGatewayResponse;
   orderPaymentPreference = paymentGatewayResponse.getRelatedOne("OrderPaymentPreference");
@@ -43,7 +43,7 @@ if (!orderPaymentPreferenceId) {
   return;
 }
 
-// second purpose: grab the latest gateway response of the orderaymentpreferenceId
+// second purpose: grab the latest gateway response of the orderpaymentpreferenceId
 orderPaymentPreference = delegator.findByPrimaryKey("OrderPaymentPreference", [orderPaymentPreferenceId : orderPaymentPreferenceId]);
 gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", ["transactionDate DESC"]);
 EntityUtil.filterByCondition(gatewayResponses, EntityCondition.makeCondition("transCodeEnumId", EntityOperator.EQUALS, "PGT_AUTHORIZE"));

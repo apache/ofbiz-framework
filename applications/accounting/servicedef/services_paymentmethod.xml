@@ -219,10 +219,10 @@ under the License.
         <attribute name="countryGeoId" type="String" mode="IN" optional="false"/>
         <attribute name="amount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="referenceCode" type="String" mode="IN" optional="true"/>
+        <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
         <attribute name="referenceNum" type="String" mode="OUT" optional="false"/>
         <attribute name="tranRespMsgs" type="List" mode="OUT" optional="true"/>
     </service>
-
     <service name="retryFailedAuths" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="retryFailedAuths" auth="true">
         <description>(Batch) Retries failed authorizations due to processor/connection problems</description>
@@ -274,7 +274,13 @@ under the License.
         <description>Releases payment authorization for a single OrderPaymentPreference</description>
         <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
     </service>
-
+    
+    <service name="creditOrderPaymentPreference" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="creditOrderPaymentPreference" auth="true">
+        <description>Credit payment authorization for a single OrderPaymentPreference</description>
+        <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
+    </service>
+    
     <service name="capturePaymentsByInvoice" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="capturePaymentsByInvoice" auth="true">
         <description>Captures (settles) pre-authorized order payments by invoice</description>
@@ -319,7 +325,15 @@ under the License.
         <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
         <attribute name="splitAmount" type="BigDecimal" mode="IN" optional="false"/>
     </service>
-
+    
+    <service name="refundOrderPaymentPreference" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="refundOrderPaymentPreference" auth="true">
+        <description>Refund payment authorization for a single OrderPaymentPreference</description>
+        <attribute name="orderPaymentPreferenceId" type="String" mode="IN" optional="false"/>
+        <attribute name="amount" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
+    </service>
+    
     <service name="refundPayment" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="refundPayment" auth="true">
         <description>Refunds A Payment</description>
@@ -327,7 +341,7 @@ under the License.
         <attribute name="refundAmount" type="BigDecimal" mode="IN" optional="false"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="false"/>
     </service>
-
+    
     <service name="processAuthResult" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processAuthResult" auth="true">
         <description>Process the payment authorization result(s)</description>
@@ -364,8 +378,8 @@ under the License.
         <attribute name="captureMessage" type="String" mode="IN" optional="true"/>
         <attribute name="internalRespMsgs" type="List" mode="IN" optional="true"/>
     </service>
-
-   <service name="processReleaseResult" engine="java"
+    
+    <service name="processReleaseResult" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processReleaseResult" auth="true">
         <description>Process the payment release result(s)</description>
         <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
@@ -379,7 +393,22 @@ under the License.
         <attribute name="releaseMessage" type="String" mode="IN" optional="true"/>
         <attribute name="internalRespMsgs" type="List" mode="IN" optional="true"/>
     </service>
-
+    
+    <service name="processCreditResult" engine="java"
+            location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processCreditResult" auth="true">
+        <description>Process the payment credit result(s)</description>
+        <attribute name="orderPaymentPreference" type="org.ofbiz.entity.GenericValue" mode="IN" optional="false"/>
+        <attribute name="creditAmount" type="BigDecimal" mode="IN" optional="false"/>
+        <attribute name="currencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="creditResult" type="Boolean" mode="IN" optional="false"/>
+        <attribute name="creditAltRefNum" type="String" mode="IN" optional="true"/>
+        <attribute name="creditRefNum" type="String" mode="IN" optional="false"/>
+        <attribute name="creditCode" type="String" mode="IN" optional="true"/>
+        <attribute name="creditFlag" type="String" mode="IN" optional="true"/>
+        <attribute name="creditMessage" type="String" mode="IN" optional="true"/>
+        <attribute name="internalRespMsgs" type="List" mode="IN" optional="true"/>
+    </service>
+    
     <service name="processRefundResult" engine="java"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="processRefundResult" auth="true">
         <description>Process the payment refund result(s)</description>
@@ -399,7 +428,7 @@ under the License.
         <attribute name="internalRespMsgs" type="List" mode="IN" optional="true"/>
         <attribute name="paymentId" type="String" mode="OUT" optional="true"/>
     </service>
-
+    
     <service name="processPaymentServiceError" engine="java" require-new-transaction="true" max-retry="5"
             location="org.ofbiz.accounting.payment.PaymentGatewayServices" invoke="storePaymentErrorMessage" auth="true">
         <description>Process (store) error messages from payment service failures</description>
@@ -429,6 +458,7 @@ under the License.
         <attribute name="customerIpAddress" type="String" mode="IN" optional="true"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
         <attribute name="authResult" type="Boolean" mode="OUT" optional="true"/>
         <attribute name="captureResult" type="Boolean" mode="OUT" optional="true"/>
         <attribute name="resultDeclined" type="Boolean" mode="OUT" optional="true"/>
@@ -450,7 +480,6 @@ under the License.
         <attribute name="captureMessage" type="String" mode="OUT" optional="true"/>
         <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
         <attribute name="customerRespMsgs" type="List" mode="OUT" optional="true"/>
-        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="paymentReleaseInterface" engine="interface" location="" invoke="">
@@ -460,6 +489,7 @@ under the License.
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
         <attribute name="authTrans" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
         <attribute name="releaseResult" type="Boolean" mode="OUT" optional="true"/>
         <attribute name="releaseAltRefNum" type="String" mode="OUT" optional="true"/>
         <attribute name="releaseRefNum" type="String" mode="OUT" optional="false"/>
@@ -467,7 +497,6 @@ under the License.
         <attribute name="releaseFlag" type="String" mode="OUT" optional="true"/>
         <attribute name="releaseMessage" type="String" mode="OUT" optional="true"/>
         <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
-        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="paymentCreditInterface" engine="interface" location="" invoke="">
@@ -480,6 +509,7 @@ under the License.
         <attribute name="billingAddress" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
         <attribute name="creditResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="creditAltRefNum" type="String" mode="OUT" optional="true"/>
         <attribute name="creditRefNum" type="String" mode="OUT" optional="false"/>
@@ -487,7 +517,6 @@ under the License.
         <attribute name="creditFlag" type="String" mode="OUT" optional="true"/>
         <attribute name="creditMessage" type="String" mode="OUT" optional="true"/>
         <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
-        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="paymentRefundInterface" engine="interface" location="" invoke="">
@@ -496,6 +525,7 @@ under the License.
         <attribute name="refundAmount" type="BigDecimal" mode="INOUT" optional="false"/>
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
         <attribute name="refundResult" type="Boolean" mode="OUT" optional="false"/>
         <attribute name="refundAltRefNum" type="String" mode="OUT" optional="true"/>
         <attribute name="refundRefNum" type="String" mode="OUT" optional="false"/>
@@ -503,7 +533,6 @@ under the License.
         <attribute name="refundFlag" type="String" mode="OUT" optional="true"/>
         <attribute name="refundMessage" type="String" mode="OUT" optional="true"/>
         <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
-        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- Credit Card Interfaces -->
@@ -521,6 +550,7 @@ under the License.
         <attribute name="currency" type="String" mode="IN" optional="true"/>
         <attribute name="paymentConfig" type="String" mode="IN" optional="true"/>
         <attribute name="authTrans" type="org.ofbiz.entity.GenericValue" mode="IN" optional="true"/>
+        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
         <attribute name="captureResult" type="Boolean" mode="OUT" optional="true"/>
         <attribute name="captureAltRefNum" type="String" mode="OUT" optional="true"/>
         <attribute name="captureRefNum" type="String" mode="OUT" optional="false"/>
@@ -528,7 +558,6 @@ under the License.
         <attribute name="captureFlag" type="String" mode="OUT" optional="true"/>
         <attribute name="captureMessage" type="String" mode="OUT" optional="true"/>
         <attribute name="internalRespMsgs" type="List" mode="OUT" optional="true"/>
-        <attribute name="paymentGatewayConfigId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="ccCreditInterface" engine="interface" location="" invoke="">

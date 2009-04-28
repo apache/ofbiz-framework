@@ -86,3 +86,5 @@ if (paymentMethodTypeId) {
     context.paymentMethodType = paymentMethodType;
     context.paymentMethodTypeId = paymentMethodTypeId;
 }
+
+context.showToolTip = "true";

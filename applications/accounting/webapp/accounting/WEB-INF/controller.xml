@@ -421,6 +421,18 @@ under the License.
         <response name="success" type="view" value="EditPaymentGatewayConfig"/>
         <response name="error" type="view" value="EditPaymentGatewayConfig"/>
     </request-map>
+    <request-map uri="UpdatePaymentGatewayConfigClearCommerce">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePaymentGatewayConfigClearCommerce"/>
+        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
+        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
+    </request-map>
+    <request-map uri="UpdatePaymentGatewayConfigCyberSource">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePaymentGatewayConfigCyberSource"/>
+        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
+        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
+    </request-map>
     <request-map uri="UpdatePaymentGatewayConfigPayflowPro">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePaymentGatewayConfigPayflowPro"/>
@@ -430,12 +442,6 @@ under the License.
     <request-map uri="UpdatePaymentGatewayConfigPayPal">
         <security https="true" auth="true"/>
         <event type="service" invoke="updatePaymentGatewayConfigPayPal"/>
-        <response name="success" type="view" value="EditPaymentGatewayConfig"/>
-        <response name="error" type="view" value="EditPaymentGatewayConfig"/>
-    </request-map>
-    <request-map uri="UpdatePaymentGatewayConfigClearCommerce">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePaymentGatewayConfigClearCommerce"/>
         <response name="success" type="view" value="EditPaymentGatewayConfig"/>
         <response name="error" type="view" value="EditPaymentGatewayConfig"/>
     </request-map>
@@ -474,7 +480,19 @@ under the License.
         <response name="success" type="view" value="ViewGatewayResponse"/>
         <response name="error" type="view" value="CaptureTransaction"/>
     </request-map>
-
+    <request-map uri="processReleaseTransaction">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="releaseOrderPaymentPreference"/>
+        <response name="success" type="view" value="ManualTransaction"/>
+        <response name="error" type="view" value="ManualTransaction"/>
+    </request-map>
+    <request-map uri="processRefundTransaction">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="refundOrderPaymentPreference"/>
+        <response name="success" type="view" value="ManualTransaction"/>
+        <response name="error" type="view" value="ManualTransaction"/>
+    </request-map>
+    
     <!-- Party Accounts requests -->
     <request-map uri="PartyAccountsSummary">
         <security https="true" auth="true"/>

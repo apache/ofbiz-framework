@@ -24,6 +24,7 @@ under the License.
     <screen name="GenericTransactionDecorator">
         <section>
             <actions>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="headerItem" value="transaction"/>
             </actions>
             <widgets>

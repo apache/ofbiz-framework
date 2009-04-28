@@ -390,6 +390,7 @@ under the License.
                 <set field="headerItem" value="transaction"/>
                 <set field="tabButtonItem" value="manualtransactiontab"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/ManualTx.groovy"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="GenericTransactionDecorator" location="component://accounting/widget/TransactionScreens.xml">
@@ -416,7 +417,7 @@ under the License.
         </section>
     </screen>
     <screen name="manualCCTx">
-        <section>
+         <section>
             <widgets>
                 <platform-specific>
                     <html><html-template location="component://accounting/webapp/accounting/payment/manualCCTx.ftl"/></html>
