@@ -37,7 +37,6 @@ public class ServiceEcaSetField {
 
     protected String fieldName = null;
     protected String mapName = null;
-    protected Map<String, Object> map = null;
     protected String envName = null;
     protected String value = null;
     protected String format = null;
@@ -68,10 +67,11 @@ public class ServiceEcaSetField {
             }
             // TODO: rewrite using the ContextAccessor.java see hack below to be able to use maps for email notifications
             // check if target is a map and create/get from contaxt
+            Map<String, Object> valueMap = null;
             if (UtilValidate.isNotEmpty(this.mapName) && context.containsKey(this.mapName)) {
-                map = (Map<String, Object>) context.get(mapName);
+                valueMap = (Map<String, Object>) context.get(mapName);
             } else {
-                map = FastMap.newInstance();
+                valueMap = FastMap.newInstance();
             }
             // process the context changes
             String newValue = null;
@@ -83,8 +83,8 @@ public class ServiceEcaSetField {
             
             if (newValue != null) {
                 if (UtilValidate.isNotEmpty(this.mapName)) {
-                    this.map.put(this.fieldName, newValue);
-                    context.put(this.mapName, this.map);
+                    valueMap.put(this.fieldName, newValue);
+                    context.put(this.mapName, valueMap);
                 } else {
                     context.put(this.fieldName, newValue);
                 }
