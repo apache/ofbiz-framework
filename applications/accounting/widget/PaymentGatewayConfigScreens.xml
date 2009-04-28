@@ -85,6 +85,9 @@ under the License.
                 
                 <set field="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
                 <entity-one entity-name="PaymentGatewayConfig" value-field="paymentGatewayConfig"/>
+                <entity-one entity-name="PaymentGatewayCyberSource" value-field="paymentGatewayCyberSource">
+                    <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
+                </entity-one>
                 <entity-one entity-name="PaymentGatewayPayflowPro" value-field="paymentGatewayPayflowPro">
                     <field-map field-name="paymentGatewayConfigId" from-field="parameters.paymentGatewayConfigId"/>
                 </entity-one>
@@ -112,6 +115,27 @@ under the License.
                                 </section>
                             </container>
                         </container>
+                        <section>
+                            <condition>
+                                <not><if-empty field="paymentGatewayCyberSource"/></not>
+                            </condition>
+                            <widgets>
+                                <container style="screenlet">
+                                    <container style="screenlet-title-bar">
+                                        <container style="h3">
+                                            <label text="${uiLabelMap.PageTitleUpdatePaymentGatewayConfigCyberSource}"/>
+                                        </container>
+                                    </container>
+                                    <container style="screenlet-body">
+                                        <section>
+                                            <widgets>
+                                                <include-form name="EditPaymentGatewayConfigCyberSource" location="component://accounting/widget/PaymentGatewayConfigForms.xml"/>
+                                            </widgets>
+                                        </section>
+                                    </container>
+                                </container>
+                            </widgets>
+                        </section>
                         <section>
                             <condition>
                                 <not><if-empty field="paymentGatewayPayflowPro"/></not>

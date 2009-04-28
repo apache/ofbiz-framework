@@ -27,27 +27,27 @@ under the License.
     <!-- CyberSource Implementations -->
     <service name="cyberSourceCCAuth" engine="java"
             location="org.ofbiz.accounting.thirdparty.cybersource.IcsPaymentServices" invoke="ccAuth">
-        <description>Credit Card Processing</description>
+        <description>CyberSource Credit Card Authorization</description>
         <implements service="ccAuthInterface"/>
     </service>
     <service name="cyberSourceCCCapture" engine="java"
             location="org.ofbiz.accounting.thirdparty.cybersource.IcsPaymentServices" invoke="ccCapture">
-        <description>Credit Card Processing</description>
+        <description>CyberSource Credit Card Capture</description>
         <implements service="ccCaptureInterface"/>
     </service>
     <service name="cyberSourceCCRelease" engine="java"
             location="org.ofbiz.accounting.thirdparty.cybersource.IcsPaymentServices" invoke="ccRelease">
-        <description>Credit Card Processing</description>
+        <description>CyberSource Credit Card Credit</description>
         <implements service="paymentReleaseInterface"/>
     </service>
     <service name="cyberSourceCCRefund" engine="java"
             location="org.ofbiz.accounting.thirdparty.cybersource.IcsPaymentServices" invoke="ccRefund">
-        <description>Credit Card Processing</description>
+        <description>CyberSource Credit Card Refund</description>
         <implements service="paymentRefundInterface"/>
     </service>
     <service name="cyberSourceCCCredit" engine="java"
             location="org.ofbiz.accounting.thirdparty.cybersource.IcsPaymentServices" invoke="ccCredit">
-        <description>Credit Card Processing</description>
+        <description>CyberSource Credit Card Credit</description>
         <implements service="ccCreditInterface"/>
     </service>
 </services>

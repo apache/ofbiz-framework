@@ -66,6 +66,67 @@ under the License.
         </field>
     </form>
     
+    <form name="EditPaymentGatewayConfigCyberSource" type="single" target="UpdatePaymentGatewayConfigCyberSource" default-map-name="paymentGatewayCyberSource" header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-entity entity-name="PaymentGatewayCyberSource" default-field-type="edit"/>
+        <field name="paymentGatewayConfigId"><hidden/></field>
+        <field name="apiVersion" title="${uiLabelMap.AccountingCyberSourceApiVersion}">
+            <text size="10" maxlength="10"/>
+        </field>
+        <field name="production" title="${uiLabelMap.AccountingCyberSourceProduction}">
+            <drop-down>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="keysDir" title="${uiLabelMap.AccountingCyberSourceKeysDir}"><text size="80" maxlength="80"/></field>
+        <field name="keysFile" title="${uiLabelMap.AccountingCyberSourceKeysFile}"><text size="80" maxlength="80"/></field>
+        <field name="logEnabled" title="${uiLabelMap.AccountingCyberSourceLogEnable}">
+            <drop-down>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="logDir" title="${uiLabelMap.AccountingCyberSourceLogDir}"><text size="80" maxlength="80"/></field>
+        <field name="logFile" title="${uiLabelMap.AccountingCyberSourceLogFile}"><text size="80" maxlength="80"/></field>
+        <field name="logSize" title="${uiLabelMap.AccountingCyberSourceLogSize}"><text size="20" maxlength="20"/></field>
+        <field name="merchantDescr" title="${uiLabelMap.AccountingCyberSourceMerchantDescr}"><text size="80" maxlength="80"/></field>
+        <field name="merchantContact" title="${uiLabelMap.AccountingCyberSourceMerchantContact}"><text size="80" maxlength="80"/></field>
+        <field name="autoBill" title="${uiLabelMap.AccountingCyberSourceAutoBill}">
+            <drop-down>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="ignoreAvs" title="${uiLabelMap.AccountingCyberSourceIgnoreAvs}">
+            <drop-down>
+                <option key="true" description="${uiLabelMap.CommonTrue}"/>
+                <option key="false" description="${uiLabelMap.CommonFalse}"/>
+            </drop-down>
+        </field>
+        <field name="enableDav" title="${uiLabelMap.AccountingCyberSourceEnableDav}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+            </drop-down>
+        </field>
+        <field name="fraudScore" title="${uiLabelMap.AccountingCyberSourceFraudScore}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+            </drop-down>
+        </field>
+        <field name="disableBillAvs" title="${uiLabelMap.AccountingCyberSourceDisableBillAvs}">
+            <drop-down>
+                <option key="Y" description="${uiLabelMap.CommonYes}"/>
+                <option key="N" description="${uiLabelMap.CommonNo}"/>
+            </drop-down>
+        </field>
+        <field name="avsDeclineCodes" title="${uiLabelMap.AccountingCyberSourceAvsDeclineCodes}"><text size="20" maxlength="20"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
     <form name="EditPaymentGatewayConfigPayflowPro" type="single" target="UpdatePaymentGatewayConfigPayflowPro" default-map-name="paymentGatewayPayflowPro" header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="PaymentGatewayPayflowPro" default-field-type="edit"/>
         <field name="certsPath"><text size="80" maxlength="80"/></field>
