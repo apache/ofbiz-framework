@@ -30,10 +30,8 @@ import org.ofbiz.base.util.cache.UtilCache;
 import groovy.lang.Binding;
 import groovy.lang.GroovyClassLoader;
 import groovy.lang.GroovyShell;
-import groovy.lang.Script;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.runtime.InvokerHelper;
-import bsh.EvalError;
 
 /**
  * GroovyUtil - Groovy Utilities
@@ -43,6 +41,7 @@ public class GroovyUtil {
 
     public static final String module = GroovyUtil.class.getName();
 
+    @SuppressWarnings("unchecked")
     public static UtilCache<String, Class> parsedScripts = new UtilCache<String, Class>("script.GroovyLocationParsedCache", 0, 0, false);
 
     public static GroovyClassLoader groovyClassLoader = new GroovyClassLoader();
@@ -69,6 +68,7 @@ public class GroovyUtil {
      * @return Object The result of the evaluation
      * @throws CompilationFailedException
      */
+    @SuppressWarnings("unchecked")
     public static Object eval(String expression, Map<String, Object> context) throws CompilationFailedException {
         Object o;
         if (expression == null || expression.equals("")) {
@@ -100,6 +100,27 @@ public class GroovyUtil {
         return o;
     }
 
+    @SuppressWarnings("unchecked")
+    public static Object runScriptFromClasspath(String script, Map<String,Object> context) throws GeneralException {
+        try {
+            Class scriptClass = parsedScripts.get(script);
+            if (scriptClass == null) {
+                scriptClass = groovyClassLoader.loadClass(script);
+                if (Debug.verboseOn()) Debug.logVerbose("Caching Groovy script: " + script, module);
+                parsedScripts.put(script, scriptClass);
+            }
+            
+            return InvokerHelper.createScript(scriptClass, getBinding(context)).run();
+        } catch (CompilationFailedException e) {
+            String errMsg = "Error loading Groovy script [" + script + "]: " + e.toString();
+            throw new GeneralException(errMsg, e);
+        } catch (ClassNotFoundException e) {
+            String errMsg = "Error loading Groovy script [" + script + "]: " + e.toString();
+            throw new GeneralException(errMsg, e);
+        }
+    }
+    
+    @SuppressWarnings("unchecked")
     public static Object runScriptAtLocation(String location, Map<String, Object> context) throws GeneralException {
         try {
             Class scriptClass = parsedScripts.get(location);
