@@ -36,12 +36,18 @@ public class ServiceEcaSetField {
     public static final String module = ServiceEcaSetField.class.getName();
 
     protected String fieldName = null;
+    protected String mapName = null;
+    protected Map<String, Object> map = null;
     protected String envName = null;
     protected String value = null;
     protected String format = null;
 
     public ServiceEcaSetField(Element set) {
         this.fieldName = set.getAttribute("field-name");
+        if (UtilValidate.isNotEmpty(this.fieldName) && this.fieldName.indexOf('.') != -1) {
+            this.mapName = fieldName.substring(0, this.fieldName.indexOf('.'));
+            this.fieldName = this.fieldName.substring(this.fieldName.indexOf('.') +1);
+        }
         this.envName = set.getAttribute("env-name");
         this.value = set.getAttribute("value");
         this.format = set.getAttribute("format");
@@ -61,34 +67,27 @@ public class ServiceEcaSetField {
                 }
             }
             // TODO: rewrite using the ContextAccessor.java see hack below to be able to use maps for email notifications
-            // check if target is a map
-            String mapName = null;
-    		Map<String, Object> map = null;
-            if (UtilValidate.isNotEmpty(fieldName) && fieldName.indexOf('.') != -1) {
-        		mapName = fieldName.substring(0, fieldName.indexOf('.'));
-        		fieldName = fieldName.substring(fieldName.indexOf('.') +1);
-        		if (context.containsKey(mapName)) {
-        			map = (Map<String, Object>) context.get(mapName);
-        		} else {
-        			map = FastMap.newInstance();
-        		}
-        	}
-
+            // check if target is a map and create/get from contaxt
+            if (UtilValidate.isNotEmpty(this.mapName) && context.containsKey(this.mapName)) {
+                map = (Map<String, Object>) context.get(mapName);
+            } else {
+                map = FastMap.newInstance();
+            }
             // process the context changes
             String newValue = null;
-            if (UtilValidate.isNotEmpty(value)) {
-                newValue = (String) this.format(value, context);
-            } else if (UtilValidate.isNotEmpty(envName) && context.get(envName) != null) {
-                newValue = (String) this.format((String) context.get(envName), context);
+            if (UtilValidate.isNotEmpty(this.value)) {
+                newValue = (String) this.format(this.value, context);
+            } else if (UtilValidate.isNotEmpty(envName) && context.get(this.envName) != null) {
+                newValue = (String) this.format((String) context.get(this.envName), context);
             }
             
             if (newValue != null) {
-            	if (map != null) {
-            		map.put(fieldName, newValue);
-            		context.put(mapName, map);
-            	} else {
-            		context.put(fieldName, newValue);
-            	}
+                if (UtilValidate.isNotEmpty(this.mapName)) {
+                    this.map.put(this.fieldName, newValue);
+                    context.put(this.mapName, this.map);
+                } else {
+                    context.put(this.fieldName, newValue);
+                }
             }
         }
     }
