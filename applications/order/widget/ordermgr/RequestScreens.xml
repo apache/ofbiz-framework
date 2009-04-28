@@ -660,6 +660,7 @@ under the License.
     </screen>
     <screen name="CreateCustRequestNotification">
         <section>
+            <condition><not><if-empty field="custRequestId"/></not></condition>
             <actions>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <entity-one entity-name="PartyNameView" value-field="person">
@@ -670,10 +671,14 @@ under the License.
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/request/CreateCustRequestNotification.ftl"/></html></platform-specific>
             </widgets>
+            <fail-widgets>
+                <label text="Customer requestId is required: ${parameters.custRequestId} value: ${custRequestId}"></label>
+            </fail-widgets>
         </section>
     </screen>
     <screen name="CompletedCustRequestNotification">
         <section>
+            <condition><not><if-empty field="custRequestId"/></not></condition>
             <actions>
                 <entity-one entity-name="CustRequest" value-field="custRequest"/>
                 <entity-one entity-name="PartyNameView" value-field="person">
@@ -684,6 +689,9 @@ under the License.
             <widgets>
                 <platform-specific><html><html-template location="component://order/webapp/ordermgr/request/CompletedCustRequestNotification.ftl"/></html></platform-specific>
             </widgets>
+            <fail-widgets>
+                <label text="Customer requestId is required: ${parameters.custRequestId} value: ${custRequestId}"></label>
+            </fail-widgets>
         </section>
     </screen>
 

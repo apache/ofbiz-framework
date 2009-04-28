@@ -327,13 +327,15 @@ under the License.
         <condition field-name="oldStatusId" operator="not-equals" value="CRQ_ACCEPTED"/>
         <condition field-name="statusId" operator="equals" value="CRQ_ACCEPTED"/>
         <set field-name="bodyParameters.custRequestId" env-name="custRequestId"/>
+        <set field-name="partyIdTo" env-name="fromPartyId"/>
         <set field-name="emailTemplateSettingId" value="CUST_REQ_ACCEPTED"/>
-        <action service="sendMailFromTemplateSetting" mode="sync"/>
+        <action service="sendMailFromTemplateSetting" mode="sync" />
     </eca>
     <eca service="setCustRequestStatus" event="commit">
         <condition field-name="oldStatusId" operator="not-equals" value="CRQ_COMPLETED"/>
         <condition field-name="statusId" operator="equals" value="CRQ_COMPLETED"/>
         <set field-name="bodyParameters.custRequestId" env-name="custRequestId"/>
+        <set field-name="partyIdTo" env-name="fromPartyId"/>
         <set field-name="emailTemplateSettingId" value="CUST_REQ_COMPLETED"/>
         <action service="sendMailFromTemplateSetting" mode="sync"/>
     </eca>
