@@ -54,6 +54,8 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.SecurityFactory;
+import org.ofbiz.security.authz.Authorization;
+import org.ofbiz.security.authz.AuthorizationFactory;
 import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 
@@ -100,6 +102,8 @@ public class ContextFilter implements Filter {
         getServerId();
         // initialize the delegator
         getDelegator();
+        // initialize authorizer
+        getAuthz();
         // initialize security
         getSecurity();
         // initialize the services dispatcher
@@ -330,6 +334,27 @@ public class ContextFilter implements Filter {
         return delegator;
     }
 
+    protected Authorization getAuthz() {
+        Authorization authz = (Authorization) config.getServletContext().getAttribute("authorization");        
+        if (authz == null) {
+            GenericDelegator delegator = (GenericDelegator) config.getServletContext().getAttribute("delegator");
+
+            if (delegator != null) {
+                try {
+                    authz = AuthorizationFactory.getInstance(delegator);                    
+                } catch (SecurityConfigurationException e) {
+                    Debug.logError(e, "[ServiceDispatcher.init] : No instance of authorization implementation found.", module);
+                }
+            }
+            config.getServletContext().setAttribute("authz", authz);            
+            if (authz == null) {
+                Debug.logError("[ContextFilter.init] ERROR: authorization create failed.", module);
+            }            
+        }
+        return authz;
+    }
+    
+    @Deprecated
     protected Security getSecurity() {
         Security security = (Security) config.getServletContext().getAttribute("security");
         if (security == null) {

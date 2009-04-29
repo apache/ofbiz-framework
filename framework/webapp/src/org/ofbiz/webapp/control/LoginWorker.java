@@ -60,6 +60,7 @@ import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.security.Security;
+import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
@@ -850,6 +851,7 @@ public class LoginWorker {
 
     protected static boolean hasBasePermission(GenericValue userLogin, HttpServletRequest request) {
         ServletContext context = (ServletContext) request.getAttribute("servletContext");
+        Authorization authz = (Authorization) request.getAttribute("authz");
         Security security = (Security) request.getAttribute("security");
 
         String serverId = (String) context.getAttribute("_serverId");
@@ -859,7 +861,8 @@ public class LoginWorker {
         if (security != null) {
             if (info != null) {
                 for (String permission: info.getBasePermission()) {
-                    if (!"NONE".equals(permission) && !security.hasEntityPermission(permission, "_VIEW", userLogin)) {
+                    if (!"NONE".equals(permission) && !security.hasEntityPermission(permission, "_VIEW", userLogin) && 
+                            !authz.hasPermission(userLogin.getString("userLoginId"), permission, null, true)) {
                         return false;
                     }
                 }
