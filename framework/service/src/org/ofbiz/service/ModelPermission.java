@@ -29,6 +29,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
+import org.ofbiz.security.authz.Authorization;
 
 /**
  * Service Permission Model Class
@@ -49,6 +50,7 @@ public class ModelPermission implements Serializable {
 
     public boolean evalPermission(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
+        Authorization authz = dctx.getAuthorization();
         Security security = dctx.getSecurity();
         if (userLogin == null) {
             Debug.logInfo("Secure service requested with no userLogin object", module);
@@ -56,7 +58,7 @@ public class ModelPermission implements Serializable {
         }
         switch (permissionType) {
             case PERMISSION:
-                return evalSimplePermission(security, userLogin);
+                return evalAuthzPermission(authz, userLogin, context);
             case ENTITY_PERMISSION:
                 return evalEntityPermission(security, userLogin);
             case ROLE_MEMBER:
@@ -67,12 +69,12 @@ public class ModelPermission implements Serializable {
         }
     }
 
-    private boolean evalSimplePermission(Security security, GenericValue userLogin) {
+    private boolean evalAuthzPermission(Authorization authz, GenericValue userLogin, Map<String, ? extends Object> context) {
         if (nameOrRole == null) {
             Debug.logWarning("Null permission name passed for evaluation", module);
             return false;
         }
-        return security.hasPermission(nameOrRole, userLogin);
+        return authz.hasPermission(userLogin.getString("userLoginId"), nameOrRole, context, false);
     }
 
     private boolean evalEntityPermission(Security security, GenericValue userLogin) {
@@ -93,11 +95,13 @@ public class ModelPermission implements Serializable {
         }
         GenericDelegator delegator = userLogin.getDelegator();
         List<GenericValue> partyRoles = null;
+        /** (jaz) THIS IS NOT SECURE AT ALL
         try {
             partyRoles = delegator.findByAnd("PartyRole", "roleTypeId", nameOrRole, "partyId", userLogin.get("partyId"));
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to lookup PartyRole records", module);
         }
+        **/
 
         if (UtilValidate.isNotEmpty(partyRoles)) {
             partyRoles = EntityUtil.filterByDate(partyRoles);

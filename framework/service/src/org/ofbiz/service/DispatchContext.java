@@ -39,6 +39,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.security.Security;
+import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.service.eca.ServiceEcaUtil;
 
@@ -247,9 +248,18 @@ public class DispatchContext implements Serializable {
     }
 
     /**
+     * Gets the Authorization object associated with this dispatcher
+     * @return Authorization object associated with this dispatcher
+     */
+    public Authorization getAuthorization() {
+        return dispatcher.getAuthorization();
+    }
+    
+    /**
      * Gets the Security object associated with this dispatcher
      * @return Security object associated with this dispatcher
      */
+    @Deprecated
     public Security getSecurity() {
         return dispatcher.getSecurity();
     }
