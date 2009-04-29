@@ -34,7 +34,7 @@ under the License.
       <#assign selected = false>
       <#assign permissions = display.getBasePermission()>
       <#list permissions as perm>
-        <#if perm != "NONE" && !security.hasEntityPermission(perm, "_VIEW", session)>
+        <#if (perm != "NONE" && !security.hasEntityPermission(perm, "_VIEW", session) && !authz.hasPermission(session, perm, requestParameters, false))>
           <#-- User must have ALL permissions in the base-permission list -->
           <#assign permission = false>
         </#if>
