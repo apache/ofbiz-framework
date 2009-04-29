@@ -492,6 +492,7 @@
         <attribute mode="IN" name="_imageData_fileName" optional="true" type="String"/>
         <attribute mode="IN" name="forceElectronicText" optional="true" type="String"/>
         <attribute mode="IN" name="displayFailCond" optional="true" type="Boolean"/>
+        <override name="textData" allow-html="any"/>
     </service>
 
     <service name="persistCompDocContent" engine="simple"
