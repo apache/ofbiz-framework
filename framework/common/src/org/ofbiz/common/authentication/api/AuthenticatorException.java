@@ -27,6 +27,8 @@ import org.ofbiz.base.util.GeneralException;
  * AuthenticatorException
  */
 public class AuthenticatorException extends GeneralException {
+    
+    private static final long serialVersionUID = 2836939874682240962L;
 
     /**
      * Creates new <code>GeneralException</code> without detail message.
@@ -78,7 +80,7 @@ public class AuthenticatorException extends GeneralException {
      *
      * @param msg      the detail message.
      * @param messages error message list.
-     * @param nested   the nexted exception
+     * @param nested   the nested exception
      */
     public AuthenticatorException(String msg, List<String> messages, Throwable nested) {
         super(msg, messages, nested);
