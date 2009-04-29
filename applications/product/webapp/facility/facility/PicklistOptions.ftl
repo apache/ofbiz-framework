@@ -49,6 +49,9 @@ under the License.
         <br class="clear"/>
     </div>
     <div class="screenlet-body">
+        <div align ='right'>
+            <a class="buttontext" align='right' href="<@ofbizUrl>ReviewOrdersNotPickedOrPacked?facilityId=${facilityId}</@ofbizUrl>">${uiLabelMap.FormFieldTitle_reviewOrdersNotPickedOrPacked}</a>
+        </div>
         <table cellspacing="0" class="basic-table">
             <tr class="header-row">
                 <td>${uiLabelMap.FacilityGroupName}</td>

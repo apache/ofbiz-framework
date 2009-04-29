@@ -1221,6 +1221,22 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ReviewOrdersNotPickedOrPacked">
+        <section>
+            <actions>
+                <script location="component://product/webapp/facility/WEB-INF/actions/shipment/ReviewOrdersNotPickedOrPacked.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://product/webapp/facility/facility/ReviewOrdersNotPickedOrPacked.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
     <screen name="PicklistManage">
         <section>
             <actions>

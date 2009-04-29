@@ -2142,6 +2142,9 @@
         <value xml:lang="th">การเพิ่มจำนวนรายการสั่งซื้อ</value>
         <value xml:lang="zh">订单数量增加</value>
     </property>
+    <property key="FormFieldTitle_orderPickSheetPrintedDate">
+        <value xml:lang="en">Pick Sheet Printed Date</value>
+    </property>
     <property key="FormFieldTitle_originatedFromPartyId">
         <value xml:lang="de">Herkunft von Akteur ID</value>
         <value xml:lang="en">Originated From Party Id</value>
@@ -3060,6 +3063,9 @@
         <value xml:lang="fr">Réf. séq. de retour d'article</value>
         <value xml:lang="it">Numero Riga Reso</value>
         <value xml:lang="th">รหัสรายการหัวข้อผลตอบแทน</value>
+    </property>
+    <property key="FormFieldTitle_reviewOrdersNotPickedOrPacked">
+        <value xml:lang="en">Review Orders Not Picked-Packed</value>
     </property>
     <property key="FormFieldTitle_scrapFactor">
         <value xml:lang="de">Altmaterial Faktor</value>

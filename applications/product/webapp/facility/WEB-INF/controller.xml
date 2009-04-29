@@ -651,6 +651,10 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PrintPickSheets.pdf"/>
     </request-map>
+    <request-map uri="ReviewOrdersNotPickedOrPacked">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ReviewOrdersNotPickedOrPacked"/>
+    </request-map>
 
     <!-- ================ Picking Verify Requests ================= -->
     <request-map uri="VerifyPick">
@@ -1214,6 +1218,7 @@ under the License.
     <view-map name="PickMoveStockSimple" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PickMoveStockSimple"/>
     <view-map name="PicklistReport.pdf" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#PicklistReport.fo" content-type="application/pdf" encoding="none"/>
     <view-map name="PrintPickSheets.pdf" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#PrintPickSheets.fo" content-type="application/pdf" encoding="none"/>
+    <view-map name="ReviewOrdersNotPickedOrPacked" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ReviewOrdersNotPickedOrPacked"/>
 
     <view-map name="FindFacilityGroup" type="screen" page="component://product/widget/facility/FacilityGroupScreens.xml#FindFacilityGroup"/>
     <view-map name="EditFacilityGroup" type="screen" page="component://product/widget/facility/FacilityGroupScreens.xml#EditFacilityGroup"/>
