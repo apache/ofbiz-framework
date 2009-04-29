@@ -212,7 +212,10 @@ under the License.
               <div class="form-row">
                 <span>
                   <a id="update_${contactMech.contactMechId}" href="javascript:void(0)" class="buttontext popup_link" onclick="showState('${contactMech.contactMechId}')">${uiLabelMap.CommonEdit}</a>&nbsp;
-                  <a href="<@ofbizUrl>deletePostalAddress?contactMechId=${contactMech.contactMechId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>&nbsp;&nbsp;
+                  <form name= "deletePostalAddress_${contactMech.contactMechId}" method= "post" action= "<@ofbizUrl>deletePostalAddress</@ofbizUrl>">
+                    <input type= "hidden" name= "contactMechId" value= "${contactMech.contactMechId}"/>
+                    <a href='javascript:document.deletePostalAddress_${contactMech.contactMechId}.submit()' class='buttontext'>&nbsp;${uiLabelMap.CommonDelete}&nbsp;</a>
+                  </form> 
                 </span>
               </div>
               <script type="text/javascript">
