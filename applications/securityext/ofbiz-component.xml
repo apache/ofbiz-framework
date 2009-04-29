@@ -29,4 +29,5 @@ under the License.
     <!-- NOTE: comment this line out to ensure no resetting of passwords -->
     <entity-resource type="data" reader-name="demo" loader="main" location="data/PasswordSecurityData.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
+    <test-suite loader="main" location="testdef/securitytests.xml"/>
 </ofbiz-component>
