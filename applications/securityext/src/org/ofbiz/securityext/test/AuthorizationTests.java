@@ -60,4 +60,9 @@ public class AuthorizationTests extends OFBizTestCase {
         Debug.logInfo("Running testAutoGrantCleanup()", module);
         assertFalse("User was auto-granted an unexpected permission", security.hasPermission("user", "test:autogranted", null, true));
     }
+    
+    public void testDynamicAccessRecursion() throws Exception {
+        Debug.logInfo("Running testDynamicAccessRecursion()", module);
+        assertFalse("User was granted an unexpected permission", security.hasPermission("user", "test:recursion", null, true));
+    }
 }

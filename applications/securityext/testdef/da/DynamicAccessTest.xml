@@ -32,4 +32,12 @@ under the License.
         </if-compare>
         <field-to-result field="permissionGranted"/>
     </simple-method>
+    
+    <simple-method method-name="testDaRecursion" short-description="Test recusion" login-required="false">
+        <set field="permissionGranted" value="false" type="Boolean"/>
+        <if-has-permission permission="test:recursion">
+            <set field="permissionGranted" value="true" type="Boolean"/>
+        </if-has-permission>
+        <field-to-result field="permissionGranted"/>
+    </simple-method>
 </simple-methods>        
