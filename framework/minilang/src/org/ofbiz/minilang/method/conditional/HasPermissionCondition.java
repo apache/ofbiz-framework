@@ -23,6 +23,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.security.Security;
+import org.ofbiz.security.authz.Authorization;
 import org.w3c.dom.Element;
 
 /**
@@ -62,6 +63,7 @@ public class HasPermissionCondition implements Conditional {
             String permission = methodContext.expandString(this.permission);
             String action = methodContext.expandString(this.action);
 
+            Authorization authz = methodContext.getAuthz();
             Security security = methodContext.getSecurity();
             if (action != null && action.length() > 0) {
                 // run hasEntityPermission
@@ -70,7 +72,7 @@ public class HasPermissionCondition implements Conditional {
                 }
             } else {
                 // run hasPermission
-                if (security.hasPermission(permission, userLogin)) {
+                if (authz.hasPermission(userLogin.getString("userLoginId"), permission, methodContext.getEnvMap(), true)) {                
                     runSubOps = true;
                 }
             }

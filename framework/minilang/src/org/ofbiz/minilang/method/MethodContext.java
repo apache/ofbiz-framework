@@ -21,7 +21,6 @@ package org.ofbiz.minilang.method;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map;
 import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +36,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.security.Security;
+import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 
@@ -57,6 +57,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
     protected ClassLoader loader;
     protected LocalDispatcher dispatcher;
     protected GenericDelegator delegator;
+    protected Authorization authz;
     protected Security security;
     protected GenericValue userLogin;
 
@@ -76,6 +77,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
         this.timeZone = UtilHttp.getTimeZone(request);
         this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         this.delegator = (GenericDelegator) request.getAttribute("delegator");
+        this.authz = (Authorization) request.getAttribute("authz");
         this.security = (Security) request.getAttribute("security");
         this.userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
 
@@ -96,6 +98,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
         this.timeZone = (TimeZone) context.get("timeZone");
         this.dispatcher = ctx.getDispatcher();
         this.delegator = ctx.getDelegator();
+        this.authz = ctx.getAuthorization();
         this.security = ctx.getSecurity();
         this.results = FastMap.newInstance();
         this.userLogin = (GenericValue) context.get("userLogin");
@@ -111,7 +114,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
 
     /**
      * This is a very simple constructor which assumes the needed objects (dispatcher,
-     * delegator, security, request, response, etc) are in the context.
+     * delegator, authz, security, request, response, etc) are in the context.
      * Will result in calling method as a service or event, as specified.
      */
     public MethodContext(Map<String, ? extends Object> context, ClassLoader loader, int methodType) {
@@ -122,6 +125,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
         this.timeZone = (TimeZone) context.get("timeZone");
         this.dispatcher = (LocalDispatcher) context.get("dispatcher");
         this.delegator = (GenericDelegator) context.get("delegator");
+        this.authz = (Authorization) context.get("authz");
         this.security = (Security) context.get("security");
         this.userLogin = (GenericValue) context.get("userLogin");
 
@@ -137,6 +141,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
             if (this.request != null) {
                 if (this.dispatcher == null) this.dispatcher = (LocalDispatcher) this.request.getAttribute("dispatcher");
                 if (this.delegator == null) this.delegator = (GenericDelegator) this.request.getAttribute("delegator");
+                if (this.authz == null) this.authz = (Authorization) this.request.getAttribute("authz");
                 if (this.security == null) this.security = (Security) this.request.getAttribute("security");
                 if (this.userLogin == null) this.userLogin = (GenericValue) this.request.getSession().getAttribute("userLogin");
             }
@@ -272,6 +277,10 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
         return this.delegator;
     }
 
+    public Authorization getAuthz() {
+        return this.authz;
+    }
+    
     public Security getSecurity() {
         return this.security;
     }

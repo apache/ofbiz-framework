@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.ifops;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -33,10 +32,11 @@ import org.ofbiz.minilang.method.ContextAccessor;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.security.Security;
+import org.ofbiz.security.authz.Authorization;
 import org.w3c.dom.Element;
 
 /**
- * Iff the user does not have the specified permission the fail-message
+ * If the user does not have the specified permission the fail-message
  * or fail-property sub-elements are used to add a message to the error-list.
  */
 public class CheckPermission extends MethodOperation {
@@ -103,15 +103,16 @@ public class CheckPermission extends MethodOperation {
         // if no user is logged in, treat as if the user does not have permission: do not run subops
         GenericValue userLogin = methodContext.getUserLogin();
         if (userLogin != null) {
+            Authorization authz = methodContext.getAuthz();            
             Security security = methodContext.getSecurity();
-            if (this.permissionInfo.hasPermission(methodContext, userLogin, security)) {
+            if (this.permissionInfo.hasPermission(methodContext, userLogin, authz, security)) {
                 hasPermission = true;
             }
 
             // if failed, check alternate permissions
             if (!hasPermission && altPermissions != null) {
                 for (PermissionInfo altPermInfo: altPermissions) {
-                    if (altPermInfo.hasPermission(methodContext, userLogin, security)) {
+                    if (altPermInfo.hasPermission(methodContext, userLogin, authz, security)) {
                         hasPermission = true;
                         break;
                     }
@@ -172,7 +173,7 @@ public class CheckPermission extends MethodOperation {
             this.action = altPermissionElement.getAttribute("action");
         }
 
-        public boolean hasPermission(MethodContext methodContext, GenericValue userLogin, Security security) {
+        public boolean hasPermission(MethodContext methodContext, GenericValue userLogin, Authorization authz, Security security) {
             String permission = methodContext.expandString(this.permission);
             String action = methodContext.expandString(this.action);
 
@@ -181,7 +182,7 @@ public class CheckPermission extends MethodOperation {
                 return security.hasEntityPermission(permission, action, userLogin);
             } else {
                 // run hasPermission
-                return security.hasPermission(permission, userLogin);
+                return authz.hasPermission(userLogin.getString("userLoginId"), permission, methodContext.getEnvMap(), true);                
             }
         }
     }
