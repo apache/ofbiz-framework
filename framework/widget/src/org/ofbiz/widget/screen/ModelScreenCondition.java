@@ -45,6 +45,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entityext.permission.EntityPermissionChecker;
 import org.ofbiz.minilang.operation.BaseCompare;
 import org.ofbiz.security.Security;
+import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -304,15 +305,17 @@ public class ModelScreenCondition implements Serializable {
                 String permission = permissionExdr.expandString(context);
                 String action = actionExdr.expandString(context);
 
+                Authorization authz = (Authorization) context.get("authz");
                 Security security = (Security) context.get("security");
                 if (action != null && action.length() > 0) {
+                    //Debug.logWarning("Deprecated method hasEntityPermission() was called; the action field should no longer be used", module);
                     // run hasEntityPermission
                     if (security.hasEntityPermission(permission, action, userLogin)) {
                         return true;
                     }
                 } else {
                     // run hasPermission
-                    if (security.hasPermission(permission, userLogin)) {
+                    if (authz.hasPermission(userLogin.getString("userLoginId"), permission, context, true)) {
                         return true;
                     }
                 }

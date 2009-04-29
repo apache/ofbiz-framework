@@ -336,7 +336,7 @@ public class ModelScreen extends ModelWidget implements Serializable {
      *    - autoUserLogin (if a user is automatically logged in, ie no password has been entered)
      *    - formStringRenderer
      *    - request, response, session, application (special case, only in HTML contexts, etc)
-     *    - delegator, dispatcher, security
+     *    - delegator, dispatcher, authz, security
      *    - null (represents a null field value for entity operations)
      *    - sections (used for decorators to reference the sections to be decorated and render them)
      * @param screenStringRenderer An implementation of the ScreenStringRenderer
