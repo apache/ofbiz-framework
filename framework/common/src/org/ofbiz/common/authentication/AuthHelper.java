@@ -84,6 +84,7 @@ public class AuthHelper {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private synchronized static void loadAuthenticators_internal(LocalDispatcher dispatcher) {
         if (!authenticatorsLoaded) {
             AuthInterfaceResolver resolver = new AuthInterfaceResolver();

@@ -101,14 +101,14 @@ public class TestFailAuthenticator implements Authenticator {
     /**
      * Weight of this authenticator (lower weights are run first)
      *
-     * @return the weight of this Authenicator
+     * @return the weight of this Authenticator
      */
     public float getWeight() {
         return 1;
     }
 
     /**
-     * Is the user synchronzied back to OFBiz
+     * Is the user synchronized back to OFBiz
      *
      * @return true if the user record is copied to the OFB database
      */
