@@ -17,6 +17,7 @@ public abstract class AbtractAuthorization implements Authorization {
 	 * Used to manage Auto-Grant permissions for the current "request"
 	 */
 	private static ThreadLocal<List<String>> autoGrant = new ThreadLocal<List<String>>();
+	private static ThreadLocal<String> origPermission = new ThreadLocal<String>();
 	private static ThreadLocal<String> uid = new ThreadLocal<String>();
 	
 	/**
@@ -69,18 +70,26 @@ public abstract class AbtractAuthorization implements Authorization {
 		
 		// verify the ThreadLocal data; make sure it isn't stale (from a thread pool)
         String threadUid = uid.get();
-        if (!userId.equals(threadUid)) {
+        if (threadUid != null && !userId.equals(threadUid)) {
+            origPermission.remove();
             autoGrant.remove();
             uid.remove();
+            threadUid = null;
         }
-		
+        
+        // set the tracking values on thread local
+        if (UtilValidate.isEmpty(threadUid)) {
+            origPermission.set(permission);
+            uid.set(userId);
+        }
+                       	
 		// split the permission string; so we can walk up the levels
 		String[] permSplit = expandedPermission.split(":");
 		StringBuffer joined = new StringBuffer();
 		int index = 1;
 		
 		if (permSplit != null && permSplit.length > 1) {
-		    if (Debug.verboseOn()) Debug.logVerbose("Security 2.0 schema found -- walking tree : " + expandedPermission, module);
+		    if (Debug.infoOn()) Debug.logInfo("Security 2.0 schema found -- walking tree : " + expandedPermission, module);
     		// start walking
     		for (String perm : permSplit) {
     		    if (permSplit.length >= index) {
@@ -112,10 +121,15 @@ public abstract class AbtractAuthorization implements Authorization {
     		}
     		
     		// finally check dynamic permission (outside the loop)
-    		if (hasDynamicPermission(userId, expandedPermission, context)) {
-    		    // permission granted
-    		    handleAutoGrantPermissions(userId, expandedPermission, context);
-    		    return true;
+    		String threadPerm = origPermission.get();
+    		if (!permission.equals(threadPerm)) {
+        		if (hasDynamicPermission(userId, expandedPermission, context)) {
+        		    // permission granted
+        		    handleAutoGrantPermissions(userId, expandedPermission, context);
+        		    return true;
+        		}
+    		} else {
+    		    Debug.logWarning("Recursive permission check detected; do not call hasPermission() from a dynamic access implementation!", module);
     		}
 		} else {
 		    // legacy mode; only call static permission check; no auto grants
@@ -140,8 +154,7 @@ public abstract class AbtractAuthorization implements Authorization {
                     alreadyGranted.add(FlexibleStringExpander.expandString(toGrant, context)); 
                 }
             }
-            autoGrant.set(granted);
-            uid.set(userId);
+            autoGrant.set(granted);            
         }
 	}
 }

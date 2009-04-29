@@ -138,4 +138,8 @@ under the License.
                 location="component://securityext/testdef/da/DynamicAccessTest.xml" invoke="testDa">
         <implements service="dynamicAccessInterface"/>
     </service>
+    <service name="dynamicAccessRecursiveTest" engine="simple" auth="false"
+                location="component://securityext/testdef/da/DynamicAccessTest.xml" invoke="testDaRecursion">
+        <implements service="dynamicAccessInterface"/>
+    </service>
 </services>
