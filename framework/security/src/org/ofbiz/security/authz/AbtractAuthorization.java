@@ -1,0 +1,147 @@
+package org.ofbiz.security.authz;
+
+import java.util.List;
+import java.util.Map;
+
+import javolution.util.FastList;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
+
+public abstract class AbtractAuthorization implements Authorization {
+	
+    private static final String module = AbtractAuthorization.class.getName();
+    
+	/**
+	 * Used to manage Auto-Grant permissions for the current "request"
+	 */
+	private static ThreadLocal<List<String>> autoGrant = new ThreadLocal<List<String>>();
+	private static ThreadLocal<String> uid = new ThreadLocal<String>();
+	
+	/**
+	 * Checks to see if the user has a static permission
+	 * 
+	 * @param userId the user's userId
+	 * @param permission the expanded permission string
+	 * @param context name/value pairs used for permission lookup
+	 * @return true if the user has permission
+	 */
+	public abstract boolean hasStaticPermission(String userId, String permission, Map<String, ? extends Object> context);
+	
+	/**
+	 * Locates the Dynamic Access implementation for the permissions and invokes it
+	 * 
+	 * @param userId the user's userId
+	 * @param permission the expanded permission string
+	 * @param context name/value pairs used for permission lookup
+	 * @return true if the user has permission
+	 */
+	public abstract boolean hasDynamicPermission(String userId, String permission, Map<String, ? extends Object> context);
+	
+	/**
+	 * Obtains a list of permissions auto-granted by the given permission
+	 * 
+	 * @param userId the user's userId
+	 * @param permission the expanded permission string
+	 * @param context name/value pairs used for permission lookup
+	 * @return a List of permission strings to auto-grant the user
+	 */
+	public abstract List<String> getAutoGrantPermissions(String userId, String permission, Map<String, ? extends Object> context);
+	
+	/**
+	 * Test to see if the specified user has permission
+	 * 
+	 * @param userId the user's userId
+	 * @param permission the raw permission string
+	 * @param context name/value pairs used for permission lookup
+	 * @param expanded true if the permission string is already expanded, false if it will contain ${} context values
+	 * @return true if the user has permission
+	 */
+	public boolean hasPermission(String userId, String permission, Map<String, ? extends Object> context, boolean expanded) {
+	    // expand the permission string
+		String expandedPermission;
+		if (!expanded) {
+			expandedPermission = FlexibleStringExpander.expandString(permission, context);
+		} else {
+			expandedPermission = permission;
+		}
+		
+		// verify the ThreadLocal data; make sure it isn't stale (from a thread pool)
+        String threadUid = uid.get();
+        if (!userId.equals(threadUid)) {
+            autoGrant.remove();
+            uid.remove();
+        }
+		
+		// split the permission string; so we can walk up the levels
+		String[] permSplit = expandedPermission.split(":");
+		StringBuffer joined = new StringBuffer();
+		int index = 1;
+		
+		if (permSplit != null && permSplit.length > 1) {
+		    if (Debug.verboseOn()) Debug.logVerbose("Security 2.0 schema found -- walking tree : " + expandedPermission, module);
+    		// start walking
+    		for (String perm : permSplit) {
+    		    if (permSplit.length >= index) {
+        			if (joined.length() > 0) {
+        				joined.append(":");
+        			}
+        			joined.append(perm);
+        			
+        			// first check auto-granted permissions
+        			List<String> grantedPerms = autoGrant.get();
+        			if (grantedPerms != null && grantedPerms.size() > 0) {
+        				for (String granted : grantedPerms) {
+        					if (joined.toString().equals(granted)) {
+        					    // permission granted
+        					    handleAutoGrantPermissions(userId, expandedPermission, context);
+        						return true;
+        					}
+        				}
+        			}
+        			
+        			// next check static permission
+        			if (hasStaticPermission(userId, joined.toString(), context)) {
+        				// permission granted
+        				handleAutoGrantPermissions(userId, expandedPermission, context);
+        				return true;
+        			}
+    		    }
+    			index++;
+    		}
+    		
+    		// finally check dynamic permission (outside the loop)
+    		if (hasDynamicPermission(userId, expandedPermission, context)) {
+    		    // permission granted
+    		    handleAutoGrantPermissions(userId, expandedPermission, context);
+    		    return true;
+    		}
+		} else {
+		    // legacy mode; only call static permission check; no auto grants
+		    Debug.logVerbose("Legacy permission detected; falling back to static permission check", module);
+		    return hasStaticPermission(userId, expandedPermission, context);
+		}
+		return false;
+	}
+	
+	protected void handleAutoGrantPermissions(String userId, String expandedPermission, Map<String, ? extends Object> context) {	    	    
+	    List<String> granted = getAutoGrantPermissions(userId, expandedPermission, context);
+	    if (granted != null && granted.size() > 0) {
+            List<String> alreadyGranted = autoGrant.get();
+            if (alreadyGranted == null) {
+                alreadyGranted = FastList.newInstance();
+            }
+            
+            // expand the auto-grant permissions
+            for (String toGrant : granted) {
+                if (UtilValidate.isNotEmpty(toGrant)) {
+                    if (Debug.verboseOn()) Debug.logVerbose("Adding auto-grant permission -- " + toGrant, module);
+                    alreadyGranted.add(FlexibleStringExpander.expandString(toGrant, context)); 
+                }
+            }
+            autoGrant.set(granted);
+            uid.set(userId);
+        }
+	}
+}
