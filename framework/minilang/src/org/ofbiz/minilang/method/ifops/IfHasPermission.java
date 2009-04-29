@@ -29,6 +29,7 @@ import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.minilang.method.MethodOperation;
 import org.ofbiz.security.Security;
+import org.ofbiz.security.authz.Authorization;
 import org.w3c.dom.Element;
 
 /**
@@ -80,6 +81,7 @@ public class IfHasPermission extends MethodOperation {
             String permission = methodContext.expandString(permissionExdr);
             String action = methodContext.expandString(actionExdr);
 
+            Authorization authz = methodContext.getAuthz();
             Security security = methodContext.getSecurity();
             if (action != null && action.length() > 0) {
                 // run hasEntityPermission
@@ -88,7 +90,7 @@ public class IfHasPermission extends MethodOperation {
                 }
             } else {
                 // run hasPermission
-                if (security.hasPermission(permission, userLogin)) {
+                if (authz.hasPermission(userLogin.getString("userLoginId"), permission, methodContext.getEnvMap(), true)) {                
                     runSubOps = true;
                 }
             }
