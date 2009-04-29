@@ -41,6 +41,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.security.Security;
+import org.ofbiz.security.authz.Authorization;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.stats.ServerHitBin;
 import org.ofbiz.webapp.stats.VisitHandler;
@@ -166,6 +167,15 @@ public class ControlServlet extends HttpServlet {
         }
         request.setAttribute("dispatcher", dispatcher);
 
+        Authorization authz = (Authorization) session.getAttribute("authz");
+        if (authz == null) {
+            authz = (Authorization) getServletContext().getAttribute("authz");
+        }                
+        if (authz == null) {
+            Debug.logError("[ControlServlet] ERROR: authorization not found in ServletContext", module);
+        }
+        request.setAttribute("authz", authz); // maybe we should also add the value to 'security'
+        
         Security security = (Security) session.getAttribute("security");
         if (security == null) {
             security = (Security) getServletContext().getAttribute("security");
