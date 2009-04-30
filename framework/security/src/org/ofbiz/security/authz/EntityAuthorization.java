@@ -137,10 +137,18 @@ public class EntityAuthorization extends AbtractAuthorization {
         return false;
 	}
 	
-	public boolean hasPermission(HttpSession session, String permission, Map<String, ? extends Object> context, boolean expanded) {
+	/**
+     * Test to see if the specified user has permission
+     * 
+     * @param session HttpSession used to obtain the userId
+     * @param permission the raw permission string
+     * @param context name/value pairs used for permission lookup     
+     * @return true if the user has permission
+     */
+	public boolean hasPermission(HttpSession session, String permission, Map<String, ? extends Object> context) {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         if (userLogin != null) {
-            return hasPermission(userLogin.getString("userLoginId"), permission, context, expanded);
+            return hasPermission(userLogin.getString("userLoginId"), permission, context);
         }
         return false;
     }

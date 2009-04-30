@@ -90,7 +90,7 @@ public class IfHasPermission extends MethodOperation {
                 }
             } else {
                 // run hasPermission
-                if (authz.hasPermission(userLogin.getString("userLoginId"), permission, methodContext.getEnvMap(), true)) {                
+                if (authz.hasPermission(userLogin.getString("userLoginId"), permission, methodContext.getEnvMap())) {                
                     runSubOps = true;
                 }
             }

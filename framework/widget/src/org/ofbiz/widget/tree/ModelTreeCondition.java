@@ -220,7 +220,7 @@ public class ModelTreeCondition {
                     }
                 } else {
                     // run hasPermission
-                    if (authz.hasPermission(userLogin.getString("userLoginId"), permission, context, true)) {
+                    if (authz.hasPermission(userLogin.getString("userLoginId"), permission, context)) {
                         return true;
                     }
                 }

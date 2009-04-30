@@ -74,7 +74,7 @@ public class ModelPermission implements Serializable {
             Debug.logWarning("Null permission name passed for evaluation", module);
             return false;
         }
-        return authz.hasPermission(userLogin.getString("userLoginId"), nameOrRole, context, false);
+        return authz.hasPermission(userLogin.getString("userLoginId"), nameOrRole, context);
     }
 
     private boolean evalEntityPermission(Security security, GenericValue userLogin) {

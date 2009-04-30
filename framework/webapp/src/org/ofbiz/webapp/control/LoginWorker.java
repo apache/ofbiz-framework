@@ -862,7 +862,7 @@ public class LoginWorker {
             if (info != null) {
                 for (String permission: info.getBasePermission()) {
                     if (!"NONE".equals(permission) && !security.hasEntityPermission(permission, "_VIEW", userLogin) && 
-                            !authz.hasPermission(userLogin.getString("userLoginId"), permission, null, true)) {
+                            !authz.hasPermission(userLogin.getString("userLoginId"), permission, null)) {
                         return false;
                     }
                 }
