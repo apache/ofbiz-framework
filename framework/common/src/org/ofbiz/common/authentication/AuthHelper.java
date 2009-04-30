@@ -19,9 +19,13 @@
 
 package org.ofbiz.common.authentication;
 
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Iterator;
+import javax.imageio.spi.ServiceRegistry;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.common.authentication.api.Authenticator;
@@ -87,20 +91,14 @@ public class AuthHelper {
     @SuppressWarnings("unchecked")
     private synchronized static void loadAuthenticators_internal(LocalDispatcher dispatcher) {
         if (!authenticatorsLoaded) {
-            AuthInterfaceResolver resolver = new AuthInterfaceResolver();
-            List<Class> implementations = resolver.getImplementations();
-
-            for (Class c : implementations) {
+            Iterator<Authenticator> it = ServiceRegistry.lookupProviders(Authenticator.class, getContextClassLoader());
+            while (it.hasNext()) {
                 try {
-                    Authenticator auth = (Authenticator) c.newInstance();
+                    Authenticator auth = it.next();
                     if (auth.isEnabled()) {
                         auth.initialize(dispatcher);                    
                         authenticators.add(auth);
                     }
-                } catch (InstantiationException e) {
-                    Debug.logError(e, module);
-                } catch (IllegalAccessException e) {
-                    Debug.logError(e, module);
                 } catch (ClassCastException e) {
                     Debug.logError(e, module);
                 }
@@ -109,5 +107,24 @@ public class AuthHelper {
             Collections.sort(authenticators, new AuthenticationComparator());
             authenticatorsLoaded = true;
         }
+    }
+
+    /* Do not move this into a shared global util class; doing so
+     * would mean the method would have to be public, and then it
+     * could be called by any other non-secure source.
+     */
+    private static ClassLoader getContextClassLoader() {
+        return AccessController.doPrivileged(
+                new PrivilegedAction<ClassLoader>() {
+                    public ClassLoader run() {
+                        ClassLoader cl = null;
+                        try {
+                            cl = Thread.currentThread().getContextClassLoader();
+                        } catch (SecurityException e) {
+                            Debug.logError(e, e.getMessage(), module);
+                        }
+                        return cl;
+                    }
+                });
     }
 }
