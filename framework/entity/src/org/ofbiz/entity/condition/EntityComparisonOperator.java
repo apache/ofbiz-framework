@@ -127,7 +127,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         }
     }
 
-    public boolean compare(Comparable lhs, Object rhs) {
+    public <T> boolean compare(Comparable<T> lhs, T rhs) {
         throw new UnsupportedOperationException(codeString);
     }
 
@@ -197,7 +197,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return true;
     }
 
-    public static final boolean compareGreaterThan(Comparable lhs, Object rhs) {
+    public static final <T> boolean compareGreaterThan(Comparable<T> lhs, T rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
@@ -208,7 +208,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return true;
     }
 
-    public static final boolean compareGreaterThanEqualTo(Comparable lhs, Object rhs) {
+    public static final <T> boolean compareGreaterThanEqualTo(Comparable<T> lhs, T rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
@@ -219,7 +219,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return true;
     }
 
-    public static final boolean compareLessThan(Comparable lhs, Object rhs) {
+    public static final <T> boolean compareLessThan(Comparable<T> lhs, T rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
@@ -230,7 +230,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return true;
     }
 
-    public static final boolean compareLessThanEqualTo(Comparable lhs, Object rhs) {
+    public static final <T> boolean compareLessThanEqualTo(Comparable<T> lhs, T rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;

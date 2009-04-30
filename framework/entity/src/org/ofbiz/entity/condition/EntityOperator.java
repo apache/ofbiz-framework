@@ -104,36 +104,36 @@ public abstract class EntityOperator<T> extends EntityConditionBase {
     static { register( "not-equals", NOT_EQUAL ); }
     static { register( "notEqual", NOT_EQUAL ); }
     public static final EntityComparisonOperator LESS_THAN = new EntityComparisonOperator(ID_LESS_THAN, "<") {
-        public boolean compare(Comparable lhs, Object rhs) { return EntityComparisonOperator.compareLessThan(lhs, rhs); }
+        public <T> boolean compare(Comparable<T> lhs, T rhs) { return EntityComparisonOperator.compareLessThan(lhs, rhs); }
     };
     static { register( "less", LESS_THAN ); }
     static { register( "less-than", LESS_THAN ); }
     static { register( "lessThan", LESS_THAN ); }
     public static final EntityComparisonOperator GREATER_THAN = new EntityComparisonOperator(ID_GREATER_THAN, ">") {
-        public boolean compare(Comparable lhs, Object rhs) { return EntityComparisonOperator.compareGreaterThan(lhs, rhs); }
+        public <T> boolean compare(Comparable<T> lhs, T rhs) { return EntityComparisonOperator.compareGreaterThan(lhs, rhs); }
     };
     static { register( "greater", GREATER_THAN ); }
     static { register( "greater-than", GREATER_THAN ); }
     static { register( "greaterThan", GREATER_THAN ); }
     public static final EntityComparisonOperator LESS_THAN_EQUAL_TO = new EntityComparisonOperator(ID_LESS_THAN_EQUAL_TO, "<=") {
-        public boolean compare(Comparable lhs, Object rhs) { return EntityComparisonOperator.compareLessThanEqualTo(lhs, rhs); }
+        public <T> boolean compare(Comparable<T> lhs, T rhs) { return EntityComparisonOperator.compareLessThanEqualTo(lhs, rhs); }
     };
     static { register( "less-equals", LESS_THAN_EQUAL_TO ); }
     static { register( "less-than-equal-to", LESS_THAN_EQUAL_TO ); }
     static { register( "lessThanEqualTo", LESS_THAN_EQUAL_TO ); }
     public static final EntityComparisonOperator GREATER_THAN_EQUAL_TO = new EntityComparisonOperator(ID_GREATER_THAN_EQUAL_TO, ">=") {
-        public boolean compare(Comparable lhs, Object rhs) { return EntityComparisonOperator.compareGreaterThanEqualTo(lhs, rhs); }
+        public <T> boolean compare(Comparable<T> lhs, T rhs) { return EntityComparisonOperator.compareGreaterThanEqualTo(lhs, rhs); }
     };
     static { register( "greater-equals", GREATER_THAN_EQUAL_TO ); }
     static { register( "greater-than-equal-to", GREATER_THAN_EQUAL_TO ); }
     static { register( "greaterThanEqualTo", GREATER_THAN_EQUAL_TO ); }
     public static final EntityComparisonOperator IN = new EntityComparisonOperator(ID_IN, "IN") {
-        public boolean compare(Comparable lhs, Object rhs) { return EntityComparisonOperator.compareIn(lhs, rhs); }
+        public <T> boolean compare(Comparable<T> lhs, T rhs) { return EntityComparisonOperator.compareIn(lhs, rhs); }
         protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) { appendRHSList(entityConditionParams, sb, field, rhs); }
     };
     static { register( "in", IN ); }
     public static final EntityComparisonOperator BETWEEN = new EntityComparisonOperator(ID_BETWEEN, "BETWEEN") {
-        public boolean compare(Comparable lhs, Object rhs) { return EntityComparisonOperator.compareIn(lhs, rhs); }
+        public <T> boolean compare(Comparable<T> lhs, T rhs) { return EntityComparisonOperator.compareIn(lhs, rhs); }
         protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) { appendRHSBetweenList(entityConditionParams, sb, field, rhs); }
     };
     static { register( "between", BETWEEN ); }
@@ -148,11 +148,11 @@ public abstract class EntityOperator<T> extends EntityConditionBase {
     };
     static { register( "like", LIKE ); }
     public static final EntityComparisonOperator NOT_LIKE = new EntityComparisonOperator(ID_NOT_LIKE, "NOT LIKE") {
-        public boolean compare(Comparable lhs, Object rhs) { return !EntityComparisonOperator.compareLike(lhs, rhs); }
+        public <T> boolean compare(Comparable<T> lhs, T rhs) { return !EntityComparisonOperator.compareLike(lhs, rhs); }
     };
     static { register( "not-like", NOT_LIKE); }
     public static final EntityComparisonOperator NOT_IN = new EntityComparisonOperator(ID_NOT_IN, "NOT IN") {
-        public boolean compare(Comparable lhs, Object rhs) { return !EntityComparisonOperator.compareIn(lhs, rhs); }
+        public <T> boolean compare(Comparable<T> lhs, T rhs) { return !EntityComparisonOperator.compareIn(lhs, rhs); }
         protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) { appendRHSList(entityConditionParams, sb, field, rhs); }
     };
     static { register( "not-in", NOT_IN ); }
