@@ -1,13 +1,11 @@
 package org.ofbiz.security.authz.da;
 
-import java.util.List;
 import java.util.Set;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.imageio.spi.ServiceRegistry;
 
-import javolution.util.FastList;
-
-import org.ofbiz.base.util.AbstractResolver;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -20,7 +18,6 @@ public class DynamicAccessFactory {
      */
     private static UtilCache<String,DynamicAccessHandler> dynamicAccessHandlerCache = new UtilCache<String,DynamicAccessHandler>("security.DynamicAccessHandlerCache");
     private static final String module = DynamicAccessFactory.class.getName();
-    private static AccessHandlerResolver resolver = new AccessHandlerResolver();
     
     public static DynamicAccessHandler getDynamicAccessHandler(GenericDelegator delegator, String accessString) {
         if (dynamicAccessHandlerCache.size() == 0) { // should always be at least 1
@@ -44,8 +41,9 @@ public class DynamicAccessFactory {
     }
     
     private static void loadAccessHandlers(GenericDelegator delegator) {
-        List<DynamicAccessHandler> handlers = resolver.getHandlers();
-        for (DynamicAccessHandler handler : handlers) {
+        Iterator<DynamicAccessHandler> it = ServiceRegistry.lookupProviders(DynamicAccessHandler.class, DynamicAccessFactory.class.getClassLoader());
+        while (it.hasNext()) {
+            DynamicAccessHandler handler = it.next();
             handler.setDelegator(delegator);
             dynamicAccessHandlerCache.put(handler.getPattern(), handler);
         }
@@ -79,55 +77,5 @@ public class DynamicAccessFactory {
         }
         
         return da;
-    }
-    
-    static class AccessHandlerResolver extends AbstractResolver {
-        
-        protected List<DynamicAccessHandler> handlers;
-                
-        protected List<DynamicAccessHandler> getHandlers() {
-            handlers = FastList.newInstance();
-            find("org.ofbiz");
-            return handlers;
-        }
-        
-        @SuppressWarnings("unchecked")
-        @Override
-        public void resolveClass(Class clazz) {
-            Class theClass = clazz;
-            boolean checking = true;
-            boolean found = false;
-            
-            while (checking) {
-                Class[] ifaces = theClass.getInterfaces();
-                for (Class iface : ifaces) {
-                    if (DynamicAccessHandler.class.equals(iface)) {
-                        loadHandler(theClass);
-                        found = true;
-                    }
-                }
-                
-                if (!found) {
-                    theClass = theClass.getSuperclass();
-                    if (theClass == null) {
-                        checking = false;
-                    }
-                } else {
-                    checking = false;
-                }
-            }   
-        }
-            
-        private void loadHandler(Class<DynamicAccessHandler> clazz) {
-            DynamicAccessHandler handler = null;
-            try {
-                handler = clazz.newInstance();
-                handlers.add(handler);
-            } catch (InstantiationException e) {
-                Debug.logError(e, module);       
-            } catch (IllegalAccessException e) {
-                Debug.logError(e, module);
-            }
-        }
     }
 }
