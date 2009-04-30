@@ -245,7 +245,7 @@ under the License.
             <check-errors/>
         </if-compare>
 
-        <field-to-result field="returnHeader.statusId" result-name="currentStatusId"/>
+        <field-to-result field="returnHeader.statusId" result-name="oldStatusId"/>
         <set-nonpk-fields map="parameters" value-field="returnHeader"/>
         <store-value value-field="returnHeader"/>
     </simple-method>
@@ -414,7 +414,7 @@ under the License.
         <find-by-primary-key entity-name="ReturnItem" map="lookupPKMap" value-field="returnItem"/>
         <set field="originalReturnPrice" from-field="returnItem.returnPrice"/>
         <set field="originalReturnQuantity" from-field="returnItem.returnQuantity"/>
-        <field-to-result field="returnItem.statusId" result-name="currentStatusId"/>
+        <field-to-result field="returnItem.statusId" result-name="oldStatusId"/>
 
         <set-nonpk-fields map="parameters" value-field="returnItem"/>
         <store-value value-field="returnItem"/>
