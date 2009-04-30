@@ -47,7 +47,7 @@ under the License.
         <description>Update a ReturnHeader</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="currentStatusId" type="String" mode="OUT" optional="false"/>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="createReturnItemBilling" engine="simple" default-entity-name="ReturnItemBilling"
             location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="createReturnItemBilling">
@@ -78,7 +78,7 @@ under the License.
         <description>Update a ReturnItem and related adjustments</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="currentStatusId" type="String" mode="OUT" optional="false"/>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="updateReturnItemsStatus" engine="simple"
             location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="updateReturnItemsStatus">
@@ -163,7 +163,7 @@ under the License.
         <description>update Return Item or Adjustment based on the parameters passed in</description>
         <auto-attributes mode="IN" include="all" entity-name="ReturnAdjustment" optional="true"/>
         <auto-attributes mode="IN" include="all" entity-name="ReturnItem" optional="true"/>
-        <attribute name="currentStatusId" type="String" mode="OUT" optional="true"/>
+        <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
     </service>
 
     <!-- services to verify that returns refunds aren't issued more than once -->
