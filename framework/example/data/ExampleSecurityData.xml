@@ -19,16 +19,30 @@ under the License.
 -->
 <entity-engine-xml>
     <!-- Example security -->
-    <SecurityPermission description="View operations in the Example Management Screens." permissionId="EXAMPLE_VIEW"/>
-    <SecurityPermission description="Create operations in the Example Management Screens." permissionId="EXAMPLE_CREATE"/>
-    <SecurityPermission description="Update operations in the Example Management Screens." permissionId="EXAMPLE_UPDATE"/>
-    <SecurityPermission description="Delete operations in the Example Management Screens." permissionId="EXAMPLE_DELETE"/>
-    <SecurityPermission description="ALL operations in the Example Management Screens." permissionId="EXAMPLE_ADMIN"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="EXAMPLE_ADMIN"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="EXAMPLE_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="EXAMPLE_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="EXAMPLE_UPDATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="EXAMPLE_VIEW"/>
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="EXAMPLE_VIEW"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="EXAMPLE_ADMIN"/>
+    <SecurityPermission description="ACCESS the Example Application" permissionId="access:example"/>
+    <SecurityPermission description="CREATE operations in the Example Application" permissionId="create:example" dynamicAccess="component://example/security/CreateExample.groovy"/>
+    <SecurityPermission description="READ operations in the Example Application" permissionId="read:example"/>    
+    <SecurityPermission description="UPDATE operations in the Example Application" permissionId="update:example" dynamicAccess="component://example/security/UpdateExample.groovy"/>
+    <SecurityPermission description="DELETE operations in the Example Application" permissionId="delete:example"/>
+    
+    <SecurityPermission description="CREATE STATUS operations in the Example Application" permissionId="create:example:status"/>
+    <SecurityPermission description="READ STATUS operations in the Example Application" permissionId="read:example:status"/>    
+    <SecurityPermission description="UPDATE STATUS operations in the Example Application" permissionId="update:example:status"/>
+    <SecurityPermission description="DELETE STATUS operations in the Example Application" permissionId="delete:example:status"/> 
+    
+    <SecurityPermission description="CREATE ITEM operations in the Example Application" permissionId="create:example:item"/>
+    <SecurityPermission description="READ ITEM operations in the Example Application" permissionId="read:example:item"/>    
+    <SecurityPermission description="UPDATE ITEM operations in the Example Application" permissionId="update:example:item"/>
+    <SecurityPermission description="DELETE ITEM operations in the Example Application" permissionId="delete:example:item"/>    
+    
+    <SecurityPermission description="CREATE FEATURE operations in the Example Application" permissionId="create:example:feature"/>
+    <SecurityPermission description="READ ITEM operations in the Example Application" permissionId="read:example:feature"/>    
+    <SecurityPermission description="UPDATE ITEM operations in the Example Application" permissionId="update:example:feature"/>
+    <SecurityPermission description="DELETE ITEM operations in the Example Application" permissionId="delete:example:feature"/>    
+                      
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="access:example"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="create:example"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="read:example"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="update:example"/>
+    <SecurityGroupPermission groupId="BIZADMIN" permissionId="delete:example"/>
 </entity-engine-xml>

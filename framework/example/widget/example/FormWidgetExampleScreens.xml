@@ -31,7 +31,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                                <if-has-permission permission="access:example"/>
                             </condition>
                             <widgets>
                                 <container style="h1"><label>${uiLabelMap.PageTitleFormWidgetExamples}</label></container>

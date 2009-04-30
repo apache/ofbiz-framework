@@ -466,13 +466,13 @@
         <value xml:lang="it">DA FARE</value>
     </property>
     <property key="ExampleViewPermissionError">
-        <value xml:lang="en">You do not have permission to view this page. ("EXAMPLE_VIEW" or "EXAMPLE_ADMIN" needed)</value>
-        <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page ("EXAMPLE_VIEW" ou "EXAMPLE_ADMIN" nécessaire)</value>
-        <value xml:lang="it">Tu non sei autorizzare a vedere questa pagina. (Permesso "EXAMPLE_VIEW" o "EXAMPLE_ADMIN" necessario)</value>
-        <value xml:lang="ro">Nu esti autorizat sa vezi aceasta pagina. (Este necesar Permisul "EXAMPLE_VIEW" sau "EXAMPLE_ADMIN")</value>
-        <value xml:lang="ru">У вас нет прав для просмотра этой страницы. (необходимы права "EXAMPLE_VIEW" или "EXAMPLE_ADMIN")</value>
-        <value xml:lang="th">คุณไม่ได้รับอนุญาตให้เข้าดูหน้านี้ได้ (หน้า "EXAMPLE_VIEW" หรือ "EXAMPLE_ADMIN" ที่ต้องการ)</value>
-        <value xml:lang="zh">你没有浏览这个页面的权限。(需要"EXAMPLE_VIEW"或"EXAMPLE_ADMIN")</value>
+        <value xml:lang="en">You do not have permission to view this page. ("access:example" needed)</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page ("access:example" nécessaire)</value>
+        <value xml:lang="it">Tu non sei autorizzare a vedere questa pagina. (Permesso "access:example" necessario)</value>
+        <value xml:lang="ro">Nu esti autorizat sa vezi aceasta pagina. (Este necesar Permisul "access:example")</value>
+        <value xml:lang="ru">У вас нет прав для просмотра этой страницы. (необходимы права "access:example")</value>
+        <value xml:lang="th">คุณไม่ได้รับอนุญาตให้เข้าดูหน้านี้ได้ (หน้า "access:example" ที่ต้องการ)</value>
+        <value xml:lang="zh">你没有浏览这个页面的权限。(需要"access:example")</value>
     </property>
     <property key="ExampleWelcome">
         <value xml:lang="en">Welcome to the Example application!</value>

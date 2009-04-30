@@ -54,6 +54,6 @@ under the License.
         menu-name="secondary"
         server="default-server"
         location="webapp/example"
-        base-permission="OFBTOOLS,EXAMPLE"
+        base-permission="access:example"
         mount-point="/example"/>
 </ofbiz-component>

@@ -27,29 +27,37 @@ under the License.
     <!-- Example & Related Services -->
     <service name="createExample" default-entity-name="Example" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Example</description>
-        <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="create:example"/>
+        </required-permissions>        
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="exampleTypeId" optional="false"/>
         <override name="statusId" optional="false"/>
-        <override name="exampleName" optional="false"/>
+        <override name="exampleName" optional="false"/>        
     </service>
     <service name="updateExample" default-entity-name="Example" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Example</description>
-        <permission-service service-name="exampleGenericPermission" main-action="UPDATE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="update:example:${exampleId}"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="deleteExample" default-entity-name="Example" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Example</description>
-        <permission-service service-name="exampleGenericPermission" main-action="DELETE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="delete:example:${exampleId}"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createExampleStatus" default-entity-name="ExampleStatus" engine="simple"
             location="component://example/script/org/ofbiz/example/example/ExampleServices.xml" invoke="createExampleStatus" auth="true">
         <description>Create a ExampleStatus</description>
-        <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="update:example:status:${exampleId}"/>
+        </required-permissions>
         <auto-attributes include="all" mode="IN" optional="false">
             <exclude field-name="statusDate"/>
             <exclude field-name="statusEndDate"/>
@@ -58,7 +66,9 @@ under the License.
 
     <service name="createExampleItem" default-entity-name="ExampleItem" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ExampleItem</description>
-        <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="create:example:item:${exampleId}"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="exampleItemSeqId" mode="OUT"/> <!-- make this OUT rather than IN, we will automatically generate the next sub-sequence ID -->
@@ -66,60 +76,78 @@ under the License.
     </service>
     <service name="updateExampleItem" default-entity-name="ExampleItem" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ExampleItem</description>
-        <permission-service service-name="exampleGenericPermission" main-action="UPDATE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="update:example:item:${exampleId}"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteExampleItem" default-entity-name="ExampleItem" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ExampleItem</description>
-        <permission-service service-name="exampleGenericPermission" main-action="DELETE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="delete:example:item:${exampleId}"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- ExampleFeature Services -->
     <service name="createExampleFeature" default-entity-name="ExampleFeature" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ExampleFeature</description>
-        <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="create:example:feature"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="description" optional="false"/>
     </service>
     <service name="updateExampleFeature" default-entity-name="ExampleFeature" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ExampleFeature</description>
-        <permission-service service-name="exampleGenericPermission" main-action="UPDATE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="update:example:feature"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteExampleFeature" default-entity-name="ExampleFeature" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ExampleFeature</description>
-        <permission-service service-name="exampleGenericPermission" main-action="DELETE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="delete:example:feature"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="createExampleFeatureAppl" default-entity-name="ExampleFeatureAppl" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ExampleFeatureAppl</description>
-        <permission-service service-name="exampleGenericPermission" main-action="CREATE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="create:example:feature:${exampleFeatureId}"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
     <service name="updateExampleFeatureAppl" default-entity-name="ExampleFeatureAppl" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ExampleFeatureAppl</description>
-        <permission-service service-name="exampleGenericPermission" main-action="UPDATE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="update:example:feature:${exampleFeatureId}"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteExampleFeatureAppl" default-entity-name="ExampleFeatureAppl" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ExampleFeatureAppl</description>
-        <permission-service service-name="exampleGenericPermission" main-action="DELETE"/>
+        <required-permissions join-type="AND">
+            <check-permission permission="delete:example:feature:${exampleFeatureId}"/>
+        </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Permission Services -->
+    <!--  @deprecated
     <service name="exampleGenericPermission" engine="simple"
              location="component://example/script/org/ofbiz/example/ExamplePermissionServices.xml" invoke="exampleGenericPermission">
         <implements service="permissionInterface"/>
     </service>
+    -->
 
     <!-- Example ServiceTest Service -->
     <service name="testCreateExampleService" engine="simple"
