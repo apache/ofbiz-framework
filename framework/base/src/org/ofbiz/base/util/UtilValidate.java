@@ -53,7 +53,7 @@ import org.apache.commons.validator.EmailValidator;
  * <br/> ==============================================================================
  * <br/> NOTE: This code was adapted from the Netscape JavaScript form validation code,
  * <br/> usually found in "FormChek.js". Credit card verification functions Originally
- * <br< included as Starter Application 1.0.0 in LivePayment.
+ * <br/> included as Starter Application 1.0.0 in LivePayment.
  * <br/> ==============================================================================
  */
 public class UtilValidate {
