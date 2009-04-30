@@ -67,6 +67,7 @@ public class EntityAuthorization extends AbtractAuthorization {
 	    String checkString = permission;
 	    
 	    while (checking) {
+	        if (Debug.verboseOn()) Debug.logVerbose("Looking for auto-grant permissions for : " + checkString, module);
 	        List<String> autoGrant = getPermissionAutoGrant(checkString);
 	        if (autoGrant != null && autoGrant.size() > 0) {
 	            return autoGrant;
@@ -83,7 +84,7 @@ public class EntityAuthorization extends AbtractAuthorization {
 	@Override
 	public boolean hasDynamicPermission(String userId, String permission, Map<String, ? extends Object> context) {
 	    if (Debug.verboseOn()) Debug.logVerbose("Running hasDynamicPermission()", module);	    
-		String permissionId = permission.substring(0, permission.lastIndexOf(":"));
+		String permissionId = permission;
 		boolean checking = true;
 		
 		// find the dynamic access implementation
