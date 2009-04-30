@@ -37,7 +37,9 @@ under the License.
 
 <#macro renderField text><#if text?exists>${text}</#if></#macro>
 
-<#macro renderDisplayField idName description class alert><@makeBlock class description /></#macro>
+<#macro renderDisplayField idName description class alert inPlaceEditorId="" inPlaceEditorUrl="" inPlaceEditorParams="">
+<@makeBlock class description />
+</#macro>
 <#macro renderHyperlinkField></#macro>
 
 <#macro renderTextField name className alert value textSize maxlength id event action clientAutocomplete ajaxUrl ajaxEnabled><@makeBlock className value /></#macro>

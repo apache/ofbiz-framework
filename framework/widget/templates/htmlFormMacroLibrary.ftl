@@ -23,9 +23,9 @@ under the License.
     </#if>
 </#macro>
 
-<#macro renderDisplayField idName description class alert>
+<#macro renderDisplayField idName description class alert inPlaceEditorId="" inPlaceEditorUrl="" inPlaceEditorParams="">
     <#if class?has_content || alert=="true">
-        <span <@renderClass className alert />><#t/>
+        <span <#if idName?has_content>id="${idName}"</#if> <@renderClass class alert />><#t/>
     </#if>
     <#if description?has_content>
         ${description}<#t/>
@@ -34,6 +34,11 @@ under the License.
     </#if>
     <#if class?has_content || alert=="true">
         </span><#lt/>
+    </#if>
+    <#if inPlaceEditorId?has_content>
+        <script language="JavaScript" type="text/javascript"><#lt/>
+        ajaxInPlaceEditDisplayField('${inPlaceEditorId}', '${inPlaceEditorUrl}', ${inPlaceEditorParams});<#lt/>
+        </script><#lt/>
     </#if>
 </#macro>
 <#macro renderHyperlinkField></#macro>
@@ -169,6 +174,7 @@ ${item.description}</div>
 <#else>
 <input type="<#if containerId?has_content>button<#else>submit</#if>" <@renderClass className alert /><#if name?exists> name="${name}"</#if><#if title?has_content> value="${title}"</#if><#if event?has_content> ${event}="${action}"</#if><#if containerId?has_content> onclick="ajaxSubmitFormUpdateAreas('${containerId}', '${ajaxUrl}')"</#if>/></#if>
 </#macro>
+
 <#macro renderResetField className alert name title>
     <input type="reset" <@renderClass className alert /> name="${name}"<#if title?has_content> value="${title}"</#if>/>
 </#macro>
