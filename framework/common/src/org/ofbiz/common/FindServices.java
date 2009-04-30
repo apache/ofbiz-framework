@@ -33,6 +33,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import static org.ofbiz.base.util.UtilGenerics.checkList;
 import static org.ofbiz.base.util.UtilGenerics.checkMap;
@@ -543,10 +544,10 @@ public class FindServices {
         List<String> orderByList = checkList(context.get("orderByList"), String.class);
         boolean noConditionFind = "Y".equals((String) context.get("noConditionFind"));
         boolean distinct = "Y".equals((String) context.get("distinct"));
-        List fieldList =  (List) context.get("fieldList");
-        Set fieldSet = null;
+        List<String> fieldList =  UtilGenerics.checkList(context.get("fieldList"));
+        Set<String> fieldSet = null;
         if (fieldList != null) {
-            fieldSet = new HashSet(fieldList);
+            fieldSet = UtilMisc.makeSetWritable(fieldList);
         }
         GenericDelegator delegator = dctx.getDelegator();
         // Retrieve entities  - an iterator over all the values

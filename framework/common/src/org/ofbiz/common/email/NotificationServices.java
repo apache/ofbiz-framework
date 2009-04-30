@@ -29,6 +29,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
@@ -118,7 +119,7 @@ public class NotificationServices {
      */
     public static Map<String, Object> sendNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
-        Map result = null;
+        Map<String, Object> result = null;
 
         try {
             // see whether the optional 'body' attribute was specified or needs to be processed
@@ -142,7 +143,7 @@ public class NotificationServices {
             // make sure we have a valid body before sending
             if (body != null) {
                 // retain only the required attributes for the sendMail service
-                Map emailContext = FastMap.newInstance();
+                Map<String, Object> emailContext = FastMap.newInstance();
                 emailContext.put("sendTo", context.get("sendTo"));
                 emailContext.put("body", body);
                 emailContext.put("sendCc", context.get("sendCc"));
@@ -185,10 +186,10 @@ public class NotificationServices {
     public static Map<String, Object> prepareNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = ctx.getDelegator();
         String templateName = (String) context.get("templateName");
-        Map templateData = (Map) context.get("templateData");
+        Map<String, Object> templateData = UtilGenerics.checkMap(context.get("templateData"));
         String webSiteId = (String) context.get("webSiteId");
 
-        Map result = null;
+        Map<String, Object> result = null;
         if (templateData == null) {
             templateData = FastMap.newInstance();
         }
@@ -248,7 +249,7 @@ public class NotificationServices {
      * @param context   The context to check and, if necessary, set the
      * <code>baseUrl</code>.
      */
-    public static void setBaseUrl(GenericDelegator delegator, String webSiteId, Map context) {
+    public static void setBaseUrl(GenericDelegator delegator, String webSiteId, Map<String, Object> context) {
         // If the baseUrl was not specified we can do a best effort instead
         if (!context.containsKey("baseUrl")) {
             StringBuilder httpBase = null;
