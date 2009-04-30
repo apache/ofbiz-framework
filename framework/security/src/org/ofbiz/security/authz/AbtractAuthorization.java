@@ -107,7 +107,7 @@ public abstract class AbtractAuthorization implements Authorization {
 		int index = 1;
 		
 		if (permSplit != null && permSplit.length > 1) {
-		    if (Debug.infoOn()) Debug.logInfo("Security 2.0 schema found -- walking tree : " + expandedPermission, module);
+		    if (Debug.verboseOn()) Debug.logVerbose("Security 2.0 schema found -- walking tree : " + expandedPermission, module);
     		// start walking
     		for (String perm : permSplit) {
     		    if (permSplit.length >= index) {
@@ -119,7 +119,9 @@ public abstract class AbtractAuthorization implements Authorization {
         			// first check auto-granted permissions
         			List<String> grantedPerms = autoGrant.get();
         			if (grantedPerms != null && grantedPerms.size() > 0) {
+        			    Debug.logVerbose("Auto-Grant permissions found; looking for a match", module);
         				for (String granted : grantedPerms) {
+        				    if (Debug.verboseOn()) Debug.logVerbose("Testing - " + granted + " - with - " + joined.toString(), module);
         					if (joined.toString().equals(granted)) {
         					    // permission granted
         					    handleAutoGrantPermissions(userId, expandedPermission, context);
@@ -167,9 +169,10 @@ public abstract class AbtractAuthorization implements Authorization {
             
             // expand the auto-grant permissions
             for (String toGrant : granted) {
-                if (UtilValidate.isNotEmpty(toGrant)) {
-                    if (Debug.verboseOn()) Debug.logVerbose("Adding auto-grant permission -- " + toGrant, module);
-                    alreadyGranted.add(FlexibleStringExpander.expandString(toGrant, context)); 
+                if (UtilValidate.isNotEmpty(toGrant)) {                    
+                    String grantExpanded = FlexibleStringExpander.expandString(toGrant, context);
+                    if (Debug.verboseOn()) Debug.logVerbose("Adding auto-grant permission -- " + grantExpanded, module);
+                    alreadyGranted.add(grantExpanded); 
                 }
             }
             autoGrant.set(granted);            
