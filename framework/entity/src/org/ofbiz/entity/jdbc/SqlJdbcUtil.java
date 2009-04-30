@@ -236,7 +236,7 @@ public class SqlJdbcUtil {
             return "";
         }
 
-        StringBuffer returnString = new StringBuffer("");
+        StringBuilder returnString = new StringBuilder();
         Iterator iter = modelFields.iterator();
         while (iter.hasNext()) {
             Object item = iter.next();

@@ -44,7 +44,7 @@ public class Captcha {
 
     public static String getCodeCaptcha(HttpServletRequest request,HttpServletResponse response) {
         if (CAPTCHA_FILE_PATH != null) deleteFile();
-        StringBuffer finalString = new StringBuffer();
+        StringBuilder finalString = new StringBuilder();
         String elegibleChars = "ABCDEFGHJKLMPQRSTUVWXYabcdefhjkmnpqrstuvwxy23456789";
         int charsToPrint = 6;
         char[] chars = elegibleChars.toCharArray();

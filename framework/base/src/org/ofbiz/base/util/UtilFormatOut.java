@@ -501,17 +501,17 @@ public class UtilFormatOut {
         if (diff < 0) {
             return str.substring(0, setLen);
         } else {
-            String newString = new String();
+            StringBuilder newString = new StringBuilder();
             if (padEnd) {
-                newString = newString + str;
+                newString.append(str);
             }
             for (int i = 0; i < diff; i++) {
-                newString = newString + padChar;
+                newString.append(padChar);
             }
             if (!padEnd) {
-                newString = newString + str;
+                newString.append(str);
             }
-            return newString;
+            return newString.toString();
         }
     }
     public static String makeSqlSafe(String unsafeString) {
@@ -522,7 +522,7 @@ public class UtilFormatOut {
         if (original == null) return null;
         if (original.length() <= 4) return original;
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         for(int i=0; i < original.length()-4 ; i++) {
             buffer.append('*');
         }

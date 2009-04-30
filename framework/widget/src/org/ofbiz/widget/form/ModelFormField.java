@@ -1008,7 +1008,7 @@ public class ModelFormField {
             }
 
             // create a title from the name of this field; expecting a Java method/field style name, ie productName or productCategoryId
-            StringBuffer autoTitlewriter = new StringBuffer();
+            StringBuilder autoTitlewriter = new StringBuilder();
 
             // always use upper case first letter...
             autoTitlewriter.append(Character.toUpperCase(this.name.charAt(0)));

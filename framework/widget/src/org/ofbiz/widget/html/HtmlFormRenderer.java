@@ -162,7 +162,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         ModelFormField modelFormField = displayField.getModelFormField();
         ModelForm modelForm = modelFormField.getModelForm();
 
-        StringBuffer str = new StringBuffer();
+        StringBuilder str = new StringBuilder();
 
         String idName = modelFormField.getIdName();
         if (UtilValidate.isNotEmpty(idName) && ("list".equals(modelForm.getType()) || "multi".equals(modelForm.getType()))) {
@@ -2858,7 +2858,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
      */
     public void renderHyperlinkTitle(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText) throws IOException {
         if (UtilValidate.isNotEmpty(modelFormField.getHeaderLink())) {
-            StringBuffer targetBuffer = new StringBuffer();
+            StringBuilder targetBuffer = new StringBuilder();
             FlexibleStringExpander target = FlexibleStringExpander.getInstance(modelFormField.getHeaderLink());
             String fullTarget = target.expandString(context);
             targetBuffer.append(fullTarget);
