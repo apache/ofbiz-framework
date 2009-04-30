@@ -20,11 +20,11 @@
 import org.ofbiz.base.util.Debug;
 
 exampleId = permissionContext.get("exampleId");
-Debug.logInfo("Groovy DA Context : " + permissionContext, "groovy");
-Debug.logInfo("Calling UpdateExample.groovy - " + exampleId, "groovy");
+//Debug.logInfo("Groovy DA Context : " + permissionContext, "groovy");
+//Debug.logInfo("Calling UpdateExample.groovy - " + exampleId, "groovy");
 if (exampleId != null) {
     example = delegator.findOne("Example", [exampleId : exampleId], true);
-    Debug.logInfo("Example : " + example, "groovy");
+    //Debug.logInfo("Example : " + example, "groovy");
     
     if (example.createdByUser == null || userId.equals(example.createdByUser)) {
         return true;
