@@ -1739,7 +1739,20 @@ public class OrderReturnServices {
 
                 // since there is no payments required; order is ready for processing/shipment
                 if (createdOrderId != null) {
-                    OrderChangeHelper.approveOrder(dispatcher, userLogin, createdOrderId);
+                    if ("RETURN_ACCEPTED".equals(returnHeader.get("statusId")) && "RTN_WAIT_REPLACE_RES".equals(returnTypeId)) {
+                        Map serviceResult = null;
+                        try {
+                            serviceResult = dispatcher.runSync("changeOrderStatus", UtilMisc.toMap("orderId", createdOrderId, "statusId", "ORDER_HOLD", "userLogin", userLogin));
+                        } catch (GenericServiceException e) {
+                            Debug.logError(e, "Service invocation error, status changes were not updated for order #" + createdOrderId, module);
+                            return ServiceUtil.returnError(e.getMessage());
+                        }
+                        if (ServiceUtil.isError(serviceResult)) {
+                            return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
+                        }                        
+                    } else {
+                        OrderChangeHelper.approveOrder(dispatcher, userLogin, createdOrderId);
+                    }
 
                     // create a ReturnItemResponse and attach to each ReturnItem
                     Map itemResponse = FastMap.newInstance();

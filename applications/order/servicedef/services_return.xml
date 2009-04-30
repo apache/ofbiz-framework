@@ -233,6 +233,11 @@ under the License.
         <description>Process the replacements in a wait return</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
     </service>
+    <service name="processWaitReplacementReservedReturn" engine="simple" auth="true"
+            location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="processWaitReplacementReservedReturn">
+        <description>Process the replacements in a wait reserved return when the return is accepted and then received</description>
+        <attribute name="returnId" type="String" mode="IN" optional="false"/>
+    </service>
     <service name="processCrossShipReplacementReturn" engine="simple" auth="true"
             location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="processCrossShipReplacementReturn">
         <description>Process the replacements in a cross-ship return</description>
