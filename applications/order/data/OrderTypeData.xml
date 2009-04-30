@@ -327,6 +327,7 @@ under the License.
     <ReturnType sequenceId="03" returnTypeId="RTN_REPLACE" description="Wait Replacement"/>
     <ReturnType sequenceId="04" returnTypeId="RTN_CSREPLACE" description="Cross-Ship Replacement"/>
     <ReturnType sequenceId="05" returnTypeId="RTN_REPAIR_REPLACE" description="Repair Replacement"/>
+    <ReturnType sequenceId="06" returnTypeId="RTN_WAIT_REPLACE_RES" description="Wait Replacement Reserved"/>
 
     <WorkReqFulfType description="Implements" workReqFulfTypeId="WRF_IMPLEMENTS"/>
     <WorkReqFulfType description="Fixes" workReqFulfTypeId="WRF_FIXES"/>
