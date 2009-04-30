@@ -453,27 +453,27 @@ under the License.
                         <iterate entry="orderItemShipGrpInvRes" list="perItemResList">
                             <set from-field="orderItemShipGrpInvRes.inventoryItemId" field="inventoryItemId"/>
                             <!-- update reserved quantity per inventoryItem, keep track of orderItems this came from -->
-                            <set from-field="inventoryItems.${inventoryItemId}" field="inventoryItem"/>
+                            <set from-field="inventoryItems[inventoryItemId]" field="inventoryItem"/>
                             <if-empty field="inventoryItem">
                                 <entity-one entity-name="InventoryItem" value-field="inventoryItem"></entity-one>
-                                <set field="inventoryItems.${inventoryItemId}" from-field="inventoryItem"/>
+                                <set field="inventoryItems[inventoryItemId]" from-field="inventoryItem"/>
                             </if-empty>
 
                             <if-compare-field field="inventoryItem.facilityId" to-field="parameters.facilityId" operator="equals">
                                 <set field="perItemResListValid[]" from-field="orderItemShipGrpInvRes"/>
 
-                                <set field="inventoryItemOrderItemList" from-field="inventoryItemOrderItems.${inventoryItemId}"/>
+                                <set field="inventoryItemOrderItemList" from-field="inventoryItemOrderItems[inventoryItemId]"/>
                                 <set field="inventoryItemOrderItemList[]" from-field="orderItemAndShipGroupAssoc"/>
-                                <set field="inventoryItemOrderItems.${orderItemShipGrpInvRes.inventoryItemId}" from-field="inventoryItemOrderItemList"/>
+                                <set field="inventoryItemOrderItems[orderItemShipGrpInvRes.inventoryItemId]" from-field="inventoryItemOrderItemList"/>
                                 <clear-field field="inventoryItemOrderItemList"/>
-                                <if-not-empty field="inventoryItemQuantities.${inventoryItemId}">
-                                    <calculate field="inventoryItemQuantities.${inventoryItemId}">
-                                        <calcop field="inventoryItemQuantities.${inventoryItemId}" operator="add">
+                                <if-not-empty field="inventoryItemQuantities[inventoryItemId]">
+                                    <calculate field="inventoryItemQuantities[inventoryItemId]">
+                                        <calcop field="inventoryItemQuantities[inventoryItemId]" operator="add">
                                             <calcop field="orderItemShipGrpInvRes.quantity" operator="get"/>
                                         </calcop>
                                     </calculate>
                                 <else>
-                                    <set from-field="orderItemShipGrpInvRes.quantity" field="inventoryItemQuantities.${inventoryItemId}"/>
+                                    <set from-field="orderItemShipGrpInvRes.quantity" field="inventoryItemQuantities[inventoryItemId]"/>
                                 </else>
                                 </if-not-empty>
                             </if-compare-field>
@@ -536,7 +536,7 @@ under the License.
 
         <!-- warn if insufficient QOH for reserved amount -->
         <iterate-map map="inventoryItemQuantities" key="inventoryItemId" value="quantityNeeded">
-            <set from-field="inventoryItems.${inventoryItemId}" field="inventoryItem"/>
+            <set from-field="inventoryItems[inventoryItemId]" field="inventoryItem"/>
             <if>
                 <condition>
                     <and>
@@ -992,7 +992,7 @@ under the License.
 
         <!-- Assemble the information per facility location for the pick sheet -->
         <iterate entry="picklistBinInfo" list="picklistInfo.picklistBinInfoList">
-            <set from-field="picklistBinInfo.picklistBin" field="picklistBinByIdMap.${picklistBinInfo.picklistBin.picklistBinId}"/>
+            <set from-field="picklistBinInfo.picklistBin" field="picklistBinByIdMap[picklistBinInfo.picklistBin.picklistBinId]"/>
 
             <iterate entry="picklistItemInfo" list="picklistBinInfo.picklistItemInfoList">
                 <!--
@@ -1007,12 +1007,12 @@ under the License.
                 -->
                 <if-not-empty field="picklistItemInfo.inventoryItemAndLocation.locationSeqId">
                     <make-value value-field="facilityLocation" entity-name="FacilityLocation" map="picklistItemInfo.inventoryItemAndLocation"/>
-                    <set from-field="facilityLocation" field="facilityLocationByLocationSeqIdMap.${facilityLocation.locationSeqId}"/>
+                    <set from-field="facilityLocation" field="facilityLocationByLocationSeqIdMap[facilityLocation.locationSeqId]"/>
 
                     <clear-field field="picklistItemInfoTempList"/>
-                    <set field="picklistItemInfoTempList" from-field="picklistItemInfoListByLocationSeqIdMap.${facilityLocation.locationSeqId}"/>
+                    <set field="picklistItemInfoTempList" from-field="picklistItemInfoListByLocationSeqIdMap[facilityLocation.locationSeqId]"/>
                     <set field="picklistItemInfoTempList[]" from-field="picklistItemInfo"/>
-                    <set field="picklistItemInfoListByLocationSeqIdMap.${facilityLocation.locationSeqId}" from-field="picklistItemInfoTempList"/>
+                    <set field="picklistItemInfoListByLocationSeqIdMap[facilityLocation.locationSeqId]" from-field="picklistItemInfoTempList"/>
                 <else>
                     <!-- handle case where an InventoryItem is not associated with a location -->
                     <if-not-empty field="picklistItemInfo.orderItem.productId">
@@ -1021,7 +1021,7 @@ under the License.
                         <entity-one entity-name="Product" value-field="productValueTemp" use-cache="true">
                             <field-map field-name="productId"/>
                         </entity-one>
-                        <set field="productByProductIdMap.${productId}" from-field="productValueTemp"/>
+                        <set field="productByProductIdMap[productId]" from-field="productValueTemp"/>
 
                         <!--
                         <call-bsh><![CDATA[
@@ -1030,9 +1030,9 @@ under the License.
                         -->
 
                         <clear-field field="picklistItemInfoTempList"/>
-                        <set field="picklistItemInfoTempList" from-field="picklistItemInfoListByProductIdMap.${productId}"/>
+                        <set field="picklistItemInfoTempList" from-field="picklistItemInfoListByProductIdMap[productId]"/>
                         <set field="picklistItemInfoTempList[]" from-field="picklistItemInfo"/>
-                        <set field="picklistItemInfoListByProductIdMap.${productId}" from-field="picklistItemInfoTempList"/>
+                        <set field="picklistItemInfoListByProductIdMap[productId]" from-field="picklistItemInfoTempList"/>
 
                         <!--
                         <call-bsh><![CDATA[
@@ -1065,7 +1065,7 @@ under the License.
         <iterate entry="facilityLocation" list="facilityLocationList">
             <clear-field field="facilityLocationInfo"/>
             <set from-field="facilityLocation" field="facilityLocationInfo.facilityLocation"/>
-            <set from-field="picklistItemInfoListByLocationSeqIdMap.${facilityLocation.locationSeqId}" field="facilityLocationInfo.picklistItemInfoList"/>
+            <set from-field="picklistItemInfoListByLocationSeqIdMap[facilityLocation.locationSeqId]" field="facilityLocationInfo.picklistItemInfoList"/>
 
             <!-- make the pickQuantity and quantityByPicklistBinIdMap -->
             <iterate entry="picklistItemInfo" list="facilityLocationInfo.picklistItemInfoList">
@@ -1075,8 +1075,8 @@ under the License.
                     </calcop>
                 </calculate>
 
-                <calculate field="facilityLocationInfo.quantityByPicklistBinIdMap.${picklistItemInfo.picklistBin.picklistBinId}">
-                    <calcop field="facilityLocationInfo.quantityByPicklistBinIdMap.${picklistItemInfo.picklistBin.picklistBinId}" operator="add">
+                <calculate field="facilityLocationInfo.quantityByPicklistBinIdMap[picklistItemInfo.picklistBin.picklistBinId]">
+                    <calcop field="facilityLocationInfo.quantityByPicklistBinIdMap[picklistItemInfo.picklistBin.picklistBinId]" operator="add">
                         <calcop field="picklistItemInfo.picklistItem.quantity" operator="get"/>
                     </calcop>
                 </calculate>
@@ -1097,7 +1097,7 @@ under the License.
             <!-- create the picklistBinInfoList from the quantityByPicklistBinIdMap -->
             <iterate-map key="picklistBinId" value="quantity" map="facilityLocationInfo.quantityByPicklistBinIdMap">
                 <clear-field field="picklistBinInfo"/>
-                <set from-field="picklistBinByIdMap.${picklistBinId}" field="picklistBinInfo.picklistBin"/>
+                <set from-field="picklistBinByIdMap[picklistBinId]" field="picklistBinInfo.picklistBin"/>
                 <set from-field="quantity" field="picklistBinInfo.quantity"/>
                 <set from-field="picklistBinInfo" field="facilityLocationInfo.picklistBinInfoList[]"/>
             </iterate-map>
@@ -1118,7 +1118,7 @@ under the License.
         <iterate entry="product" list="productList">
             <clear-field field="productInfo"/>
             <set from-field="product" field="productInfo.product"/>
-            <set from-field="picklistItemInfoListByProductIdMap.${product.productId}" field="productInfo.picklistItemInfoList"/>
+            <set from-field="picklistItemInfoListByProductIdMap[product.productId]" field="productInfo.picklistItemInfoList"/>
 
             <!-- make the pickQuantity and quantityByPicklistBinIdMap -->
             <iterate entry="picklistItemInfo" list="productInfo.picklistItemInfoList">
@@ -1127,8 +1127,8 @@ under the License.
                     <calcop field="picklistItemInfo.picklistItem.quantity" operator="get"/>
                 </calculate>
 
-                <calculate field="productInfo.quantityByPicklistBinIdMap.${picklistItemInfo.picklistBin.picklistBinId}">
-                    <calcop field="productInfo.quantityByPicklistBinIdMap.${picklistItemInfo.picklistBin.picklistBinId}" operator="add">
+                <calculate field="productInfo.quantityByPicklistBinIdMap[picklistItemInfo.picklistBin.picklistBinId]">
+                    <calcop field="productInfo.quantityByPicklistBinIdMap[picklistItemInfo.picklistBin.picklistBinId]" operator="add">
                         <calcop field="picklistItemInfo.picklistItem.quantity" operator="get"/>
                     </calcop>
                 </calculate>
@@ -1137,7 +1137,7 @@ under the License.
             <!-- create the picklistBinInfoList from the quantityByPicklistBinIdMap -->
             <iterate-map key="picklistBinId" value="quantity" map="productInfo.quantityByPicklistBinIdMap">
                 <clear-field field="picklistBinInfo"/>
-                <set from-field="picklistBinByIdMap.${picklistBinId}" field="picklistBinInfo.picklistBin"/>
+                <set from-field="picklistBinByIdMap[picklistBinId]" field="picklistBinInfo.picklistBin"/>
                 <set from-field="quantity" field="picklistBinInfo.quantity"/>
                 <set from-field="picklistBinInfo" field="productInfo.picklistBinInfoList[]"/>
             </iterate-map>
@@ -1282,18 +1282,18 @@ under the License.
 
         <!-- go through all quantities and get inventoryItem and facilityLocation -->
         <iterate-map key="inventoryItemId" value="quantityNeeded" map="inventoryItemQuantities">
-            <set from-field="inventoryItems.${inventoryItemId}" field="inventoryItem"/>
+            <set from-field="inventoryItems[inventoryItemId]" field="inventoryItem"/>
 
             <!-- create a list of locations, then sort it, will have to create a reverse Map to go from location to inventory item -->
             <clear-field field="facilityLocation"/>
             <get-related-one value-field="inventoryItem" relation-name="FacilityLocation" to-value-field="facilityLocation"/>
             <if-not-empty field="facilityLocation">
-                <set from-field="facilityLocation" field="facilityLocationMap.${facilityLocation.locationSeqId}"/>
+                <set from-field="facilityLocation" field="facilityLocationMap[facilityLocation.locationSeqId]"/>
                 <!-- support multiple invnetoryItemIds per facilityLocation.locationSeqId -->
                 <clear-field field="inventoryItemIdList"/>
-                <set from-field="inventoryItemsByLocation.${facilityLocation.locationSeqId}" field="inventoryItemIdList"/>
+                <set from-field="inventoryItemsByLocation[facilityLocation.locationSeqId]" field="inventoryItemIdList"/>
                 <set from-field="inventoryItemId" field="inventoryItemIdList[]"/>
-                <set from-field="inventoryItemIdList" field="inventoryItemsByLocation.${facilityLocation.locationSeqId}"/>
+                <set from-field="inventoryItemIdList" field="inventoryItemsByLocation[facilityLocation.locationSeqId]"/>
             <else>
                 <set from-field="inventoryItemId" field="noLocationInventoryItemIds[]"/>
             </else>
@@ -1320,13 +1320,13 @@ under the License.
             <set from-field="facilityLocation" field="facilityLocationInfo.facilityLocation"/>
 
             <!-- inventoryItemInfoList: facilityLocation, inventoryItem, orderItems, quantity, product, statusItems -->
-            <set from-field="inventoryItemsByLocation.${facilityLocation.locationSeqId}" field="inventoryItemIdList"/>
+            <set from-field="inventoryItemsByLocation[facilityLocation.locationSeqId]" field="inventoryItemIdList"/>
             <iterate entry="inventoryItemId" list="inventoryItemIdList">
                 <clear-field field="inventoryItemInfo"/>
                 <set from-field="facilityLocation" field="inventoryItemInfo.facilityLocation"/>
-                <set from-field="inventoryItems.${inventoryItemId}" field="inventoryItemInfo.inventoryItem"/>
-                <set from-field="inventoryItemOrderItems.${inventoryItemId}" field="inventoryItemInfo.orderItems"/>
-                <set from-field="inventoryItemQuantities.${inventoryItemId}" field="inventoryItemInfo.quantity"/>
+                <set from-field="inventoryItems[inventoryItemId]" field="inventoryItemInfo.inventoryItem"/>
+                <set from-field="inventoryItemOrderItems[inventoryItemId]" field="inventoryItemInfo.orderItems"/>
+                <set from-field="inventoryItemQuantities[inventoryItemId]" field="inventoryItemInfo.quantity"/>
                 <get-related-one value-field="inventoryItemInfo.inventoryItem" relation-name="Product" to-value-field="inventoryItemInfo.product"/>
                 <get-related-one value-field="inventoryItemInfo.inventoryItem" relation-name="StatusItem" to-value-field="inventoryItemInfo.statusItem"/>
 
@@ -1362,8 +1362,8 @@ under the License.
         <!-- add all noLocationInventoryItemIds to inventoryItemInfoList with all entries except facilityLocation -->
         <iterate entry="inventoryItemId" list="noLocationInventoryItemIds">
             <set from-field="inventoryItems${inventoryItemId}" field="inventoryItemInfo.inventoryItem"/>
-            <set from-field="inventoryItemOrderItems.${inventoryItemId}" field="inventoryItemInfo.orderItems"/>
-            <set from-field="inventoryItemQuantities.${inventoryItemId}" field="inventoryItemInfo.quantity"/>
+            <set from-field="inventoryItemOrderItems[inventoryItemId]" field="inventoryItemInfo.orderItems"/>
+            <set from-field="inventoryItemQuantities[inventoryItemId]" field="inventoryItemInfo.quantity"/>
             <get-related-one value-field="inventoryItemInfo.inventoryItem" relation-name="Product" to-value-field="inventoryItemInfo.product"/>
             <get-related-one value-field="inventoryItemInfo.inventoryItem" relation-name="StatusItem" to-value-field="inventoryItemInfo.statusItem"/>
 

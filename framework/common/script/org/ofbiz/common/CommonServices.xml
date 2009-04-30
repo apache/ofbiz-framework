@@ -218,7 +218,7 @@ under the License.
                 <property-to-field field="warningMsg" property="CommonVisualThemeInvalidRecord" resource="CommonUiLabels"/>
                 <log level="warning" message="${warningMsg}"/>
                 <else>
-                    <set field="themeResources.${resourceTypeEnumId}[]" from-field="resourceValue"/>
+                    <set field="themeResources[resourceTypeEnumId][]" from-field="resourceValue"/>
                 </else>
             </if-empty>
         </iterate>

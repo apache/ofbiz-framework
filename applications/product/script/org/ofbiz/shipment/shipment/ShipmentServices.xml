@@ -706,7 +706,7 @@ under the License.
         </entity-and>
 
         <iterate entry="supplierAgentOrderRole" list="supplierAgentOrderRoles">
-            <set from-field="supplierAgentOrderRole.partyId" field="sendToPartyIdMap.${supplierAgentOrderRole.partyId}"/>
+            <set from-field="supplierAgentOrderRole.partyId" field="sendToPartyIdMap[supplierAgentOrderRole.partyId]"/>
         </iterate>
 
         <!-- go through all send to parties and get email addresses -->
@@ -1434,7 +1434,7 @@ under the License.
         <!-- group orderItems (actually OrderItemAndShipGroupAssocs) by shipGroupSeqId in a Map with List values
              This Map is actually used only for sales orders' shipments right now.  -->
         <iterate list="orderItemAndShipGroupAssocList" entry="orderItemAndShipGroupAssoc">
-            <field-to-list field="orderItemAndShipGroupAssoc" list="orderItemListByShGrpMap.${orderItemAndShipGroupAssoc.shipGroupSeqId}"/>
+            <field-to-list field="orderItemAndShipGroupAssoc" list="orderItemListByShGrpMap[orderItemAndShipGroupAssoc.shipGroupSeqId]"/>
         </iterate>
     </simple-method>
 
@@ -1449,7 +1449,7 @@ under the License.
                 <field-map field-name="statusId" value="ITEM_APPROVED"/>
             </entity-and>
 
-            <set from-field="orderItemListByShGrpMap.${orderItemShipGroup.shipGroupSeqId}" field="perShipGroupItemList"/>
+            <set from-field="orderItemListByShGrpMap[orderItemShipGroup.shipGroupSeqId]" field="perShipGroupItemList"/>
 
             <!-- make sure we have something to ship -->
             <if-empty field="perShipGroupItemList">

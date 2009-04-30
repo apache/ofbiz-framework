@@ -954,18 +954,18 @@ under the License.
                 <calcop field="totalNetIncome" operator="add"><calcop field="amount" operator="get"/></calcop>
             </calculate>
             <if-compare field="isExpenseAccount" operator="equals" value="true" type="Boolean">
-                <if-empty field="glAccountTotalsExpenseMap.${glAccount.glAccountId}">
-                    <set field="glAccountTotalsExpenseMap.${glAccount.glAccountId}" value="0.0" type="BigDecimal"/>
+                <if-empty field="glAccountTotalsExpenseMap[glAccount.glAccountId]">
+                    <set field="glAccountTotalsExpenseMap[glAccount.glAccountId]" value="0.0" type="BigDecimal"/>
                 </if-empty>
-                <calculate field="glAccountTotalsExpenseMap.${glAccount.glAccountId}">
-                    <calcop field="glAccountTotalsExpenseMap.${glAccount.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
+                <calculate field="glAccountTotalsExpenseMap[glAccount.glAccountId]">
+                    <calcop field="glAccountTotalsExpenseMap[glAccount.glAccountId]" operator="add"><calcop field="amount" operator="get"/></calcop>
                 </calculate>
             <else>
-                <if-empty field="glAccountTotalsProfitMap.${glAccount.glAccountId}">
-                    <set field="glAccountTotalsProfitMap.${glAccount.glAccountId}" value="0.0" type="BigDecimal"/>
+                <if-empty field="glAccountTotalsProfitMap[glAccount.glAccountId]">
+                    <set field="glAccountTotalsProfitMap[glAccount.glAccountId]" value="0.0" type="BigDecimal"/>
                 </if-empty>
-                <calculate field="glAccountTotalsProfitMap.${glAccount.glAccountId}">
-                    <calcop field="glAccountTotalsProfitMap.${glAccount.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
+                <calculate field="glAccountTotalsProfitMap[glAccount.glAccountId]">
+                    <calcop field="glAccountTotalsProfitMap[glAccount.glAccountId]" operator="add"><calcop field="amount" operator="get"/></calcop>
                 </calculate>
             </else>
             </if-compare>
@@ -1029,7 +1029,7 @@ under the License.
                 <order-by field-name="glAccountId"/>
             </entity-condition>
             <iterate list="glAccountAndHistories" entry="glAccountAndHistory">
-                <set field="glAccountTotalsAssetMap.${glAccountAndHistory.glAccountId}" from-field="glAccountAndHistory.endingBalance"/>
+                <set field="glAccountTotalsAssetMap[glAccountAndHistory.glAccountId]" from-field="glAccountAndHistory.endingBalance"/>
             </iterate>
             <entity-condition entity-name="GlAccountAndHistory" list="glAccountAndHistories">
                 <condition-list combine="and">
@@ -1040,7 +1040,7 @@ under the License.
                 <order-by field-name="glAccountId"/>
             </entity-condition>
             <iterate list="glAccountAndHistories" entry="glAccountAndHistory">
-                <set field="glAccountTotalsLiabilityMap.${glAccountAndHistory.glAccountId}" from-field="glAccountAndHistory.endingBalance"/>
+                <set field="glAccountTotalsLiabilityMap[glAccountAndHistory.glAccountId]" from-field="glAccountAndHistory.endingBalance"/>
             </iterate>
             <entity-condition entity-name="GlAccountAndHistory" list="glAccountAndHistories">
                 <condition-list combine="and">
@@ -1051,7 +1051,7 @@ under the License.
                 <order-by field-name="glAccountId"/>
             </entity-condition>
             <iterate list="glAccountAndHistories" entry="glAccountAndHistory">
-                <set field="glAccountTotalsEquityMap.${glAccountAndHistory.glAccountId}" from-field="glAccountAndHistory.endingBalance"/>
+                <set field="glAccountTotalsEquityMap[glAccountAndHistory.glAccountId]" from-field="glAccountAndHistory.endingBalance"/>
             </iterate>
         </if-not-empty>
 
@@ -1075,11 +1075,11 @@ under the License.
                     <calcop field="amount" operator="negative"/>
                 </calculate>
             </if-compare>
-            <if-empty field="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}">
-                <set field="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}" value="0.0" type="BigDecimal"/>
+            <if-empty field="glAccountTotalsAssetMap[acctgTransAndEntry.glAccountId]">
+                <set field="glAccountTotalsAssetMap[acctgTransAndEntry.glAccountId]" value="0.0" type="BigDecimal"/>
             </if-empty>
-            <calculate field="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}">
-                <calcop field="glAccountTotalsAssetMap.${acctgTransAndEntry.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
+            <calculate field="glAccountTotalsAssetMap[acctgTransAndEntry.glAccountId]">
+                <calcop field="glAccountTotalsAssetMap[acctgTransAndEntry.glAccountId]" operator="add"><calcop field="amount" operator="get"/></calcop>
             </calculate>
         </iterate>
         <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries">
@@ -1102,11 +1102,11 @@ under the License.
                     <calcop field="amount" operator="negative"/>
                 </calculate>
             </if-compare>
-            <if-empty field="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}">
-                <set field="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}" value="0.0" type="BigDecimal"/>
+            <if-empty field="glAccountTotalsLiabilityMap[acctgTransAndEntry.glAccountId]">
+                <set field="glAccountTotalsLiabilityMap[acctgTransAndEntry.glAccountId]" value="0.0" type="BigDecimal"/>
             </if-empty>
-            <calculate field="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}">
-                <calcop field="glAccountTotalsLiabilityMap.${acctgTransAndEntry.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
+            <calculate field="glAccountTotalsLiabilityMap[acctgTransAndEntry.glAccountId]">
+                <calcop field="glAccountTotalsLiabilityMap[acctgTransAndEntry.glAccountId]" operator="add"><calcop field="amount" operator="get"/></calcop>
             </calculate>
         </iterate>
         <entity-condition entity-name="AcctgTransAndEntries" list="acctgTransAndEntries">
@@ -1129,11 +1129,11 @@ under the License.
                     <calcop field="amount" operator="negative"/>
                 </calculate>
             </if-compare>
-            <if-empty field="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}">
-                <set field="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}" value="0.0" type="BigDecimal"/>
+            <if-empty field="glAccountTotalsEquityMap[acctgTransAndEntry.glAccountId]">
+                <set field="glAccountTotalsEquityMap[acctgTransAndEntry.glAccountId]" value="0.0" type="BigDecimal"/>
             </if-empty>
-            <calculate field="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}">
-                <calcop field="glAccountTotalsEquityMap.${acctgTransAndEntry.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
+            <calculate field="glAccountTotalsEquityMap[acctgTransAndEntry.glAccountId]">
+                <calcop field="glAccountTotalsEquityMap[acctgTransAndEntry.glAccountId]" operator="add"><calcop field="amount" operator="get"/></calcop>
             </calculate>
         </iterate>
 
@@ -1151,11 +1151,11 @@ under the License.
             <field-map field-name="glAccountTypeId" value="RETAINED_EARNINGS"/>
         </entity-one>
         <if-not-empty field="retainedEarningsAccount">
-            <if-empty field="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}">
-                <set field="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}" value="0.0" type="BigDecimal"/>
+            <if-empty field="glAccountTotalsEquityMap[retainedEarningsAccount.glAccountId]">
+                <set field="glAccountTotalsEquityMap[retainedEarningsAccount.glAccountId]" value="0.0" type="BigDecimal"/>
             </if-empty>
-            <calculate field="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}">
-                <calcop field="glAccountTotalsEquityMap.${retainedEarningsAccount.glAccountId}" operator="add"><calcop field="totalNetIncome" operator="get"/></calcop>
+            <calculate field="glAccountTotalsEquityMap[retainedEarningsAccount.glAccountId]">
+                <calcop field="glAccountTotalsEquityMap[retainedEarningsAccount.glAccountId]" operator="add"><calcop field="totalNetIncome" operator="get"/></calcop>
             </calculate>
         </if-not-empty>
 
@@ -1201,50 +1201,50 @@ under the License.
         </call-service>
 
         <iterate list="period2AssetBalancesList" entry="period2AssetBalance">
-            <set field="assetBalancesMap.${period2AssetBalance.glAccountId}" from-field="period2AssetBalance.totalAmount"/>
+            <set field="assetBalancesMap[period2AssetBalance.glAccountId]" from-field="period2AssetBalance.totalAmount"/>
         </iterate>
         <iterate list="period1AssetBalancesList" entry="period1AssetBalance">
             <set field="amount" from-field="period1AssetBalance.totalAmount"/>
             <calculate field="amount">
                 <calcop field="amount" operator="negative"/>
             </calculate>
-            <if-empty field="assetBalancesMap.${period1AssetBalance.glAccountId}">
-                <set field="assetBalancesMap.${period1AssetBalance.glAccountId}" value="0.0" type="BigDecimal"/>
+            <if-empty field="assetBalancesMap[period1AssetBalance.glAccountId]">
+                <set field="assetBalancesMap[period1AssetBalance.glAccountId]" value="0.0" type="BigDecimal"/>
             </if-empty>
-            <calculate field="assetBalancesMap.${period1AssetBalance.glAccountId}">
-                <calcop field="assetBalancesMap.${period1AssetBalance.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
+            <calculate field="assetBalancesMap[period1AssetBalance.glAccountId]">
+                <calcop field="assetBalancesMap[period1AssetBalance.glAccountId]" operator="add"><calcop field="amount" operator="get"/></calcop>
             </calculate>
         </iterate>
 
         <iterate list="period2LiabilityBalancesList" entry="period2LiabilityBalance">
-            <set field="liabilityBalancesMap.${period2LiabilityBalance.glAccountId}" from-field="period2LiabilityBalance.totalAmount"/>
+            <set field="liabilityBalancesMap[period2LiabilityBalance.glAccountId]" from-field="period2LiabilityBalance.totalAmount"/>
         </iterate>
         <iterate list="period1LiabilityBalancesList" entry="period1LiabilityBalance">
             <set field="amount" from-field="period1LiabilityBalance.totalAmount"/>
             <calculate field="amount">
                 <calcop field="amount" operator="negative"/>
             </calculate>
-            <if-empty field="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}">
-                <set field="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}" value="0.0" type="BigDecimal"/>
+            <if-empty field="liabilityBalancesMap[period1LiabilityBalance.glAccountId]">
+                <set field="liabilityBalancesMap[period1LiabilityBalance.glAccountId]" value="0.0" type="BigDecimal"/>
             </if-empty>
-            <calculate field="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}">
-                <calcop field="liabilityBalancesMap.${period1LiabilityBalance.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
+            <calculate field="liabilityBalancesMap[period1LiabilityBalance.glAccountId]">
+                <calcop field="liabilityBalancesMap[period1LiabilityBalance.glAccountId]" operator="add"><calcop field="amount" operator="get"/></calcop>
             </calculate>
         </iterate>
 
         <iterate list="period2EquityBalancesList" entry="period2EquityBalance">
-            <set field="equityBalancesMap.${period2EquityBalance.glAccountId}" from-field="period2EquityBalance.totalAmount"/>
+            <set field="equityBalancesMap[period2EquityBalance.glAccountId]" from-field="period2EquityBalance.totalAmount"/>
         </iterate>
         <iterate list="period1EquityBalancesList" entry="period1EquityBalance">
             <set field="amount" from-field="period1EquityBalance.totalAmount"/>
             <calculate field="amount">
                 <calcop field="amount" operator="negative"/>
             </calculate>
-            <if-empty field="equityBalancesMap.${period1EquityBalance.glAccountId}">
-                <set field="equityBalancesMap.${period1EquityBalance.glAccountId}" value="0.0" type="BigDecimal"/>
+            <if-empty field="equityBalancesMap[period1EquityBalance.glAccountId]">
+                <set field="equityBalancesMap[period1EquityBalance.glAccountId]" value="0.0" type="BigDecimal"/>
             </if-empty>
-            <calculate field="equityBalancesMap.${period1EquityBalance.glAccountId}">
-                <calcop field="equityBalancesMap.${period1EquityBalance.glAccountId}" operator="add"><calcop field="amount" operator="get"/></calcop>
+            <calculate field="equityBalancesMap[period1EquityBalance.glAccountId]">
+                <calcop field="equityBalancesMap[period1EquityBalance.glAccountId]" operator="add"><calcop field="amount" operator="get"/></calcop>
             </calculate>
         </iterate>
 
