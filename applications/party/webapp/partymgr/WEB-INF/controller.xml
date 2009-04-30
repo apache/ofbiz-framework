@@ -771,7 +771,7 @@ under the License.
     <request-map uri="deleteCommunicationEvent">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteCommunicationEvent"/>
-        <response name="success" type="view-home" value="MyCommunicationEvents"/>
+        <response name="success" type="view-home"/>
         <response name="error" type="view-last"/>
     </request-map>
     <request-map uri="deleteUnknownCommunicationEvent">
@@ -782,15 +782,13 @@ under the License.
     </request-map>
     <request-map uri="deleteCommunicationEvents">
         <security https="true" auth="true"/>
-        <event type="service-multi" invoke="deleteCommunicationEventWorkEffort"/>
-        <response name="success" type="view"
-            value="ListUnknownPartyComms"/>
-        <response name="error" type="view"
-            value="ListUnknownPartyComms"/>
+        <event type="service-multi" invoke="deleteCommunicationEvent"/>
+        <response name="success" type="view-home"/>
+        <response name="error" type="view-home"/>
     </request-map>
     <request-map uri="listUnknownPartyComms">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListUnknownPartyComms"/>
+        <response name="success" type="view" value="ListUnknownPartyComms" save-home-view="true"/>
     </request-map>
     <request-map uri="editRequestFromCommEvent">
         <security https="true" auth="true"/>
