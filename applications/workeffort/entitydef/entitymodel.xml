@@ -868,7 +868,7 @@ under the License.
         <key-map field-name="workEffortId"/>
       </relation>
       <relation type="one" rel-entity-name="ProductStoreSurveyAppl">
-        <key-map field-name="surveyId"/>
+        <key-map field-name="surveyId" rel-field-name="productStoreSurveyId"/>
       </relation>
     </entity>
 </entitymodel>
