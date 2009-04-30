@@ -113,7 +113,7 @@ under the License.
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
             </hyperlink>
         </field>
-        <field name="description" title="${uiLabelMap.CommonDescription}" field-name="${description}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" field-name="description"><display/></field>
     </form>
 
 </forms>
