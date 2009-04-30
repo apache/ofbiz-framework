@@ -85,7 +85,6 @@ under the License.
         <description>Update ReturnItem(s) Status</description>
         <attribute name="returnId" type="String" mode="IN" optional="false"/>
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
-        <attribute name="currentStatusId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="removeReturnItem" engine="simple"
             location="component://order/script/org/ofbiz/order/order/OrderReturnServices.xml" invoke="removeReturnItem">
