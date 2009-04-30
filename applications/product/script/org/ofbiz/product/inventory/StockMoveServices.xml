@@ -54,7 +54,7 @@ under the License.
         -->
         <!-- start by making a Map where the locationSeqId is the key and the value is a List of orderItemShipGrpInvResAndItemLocation -->
         <iterate entry="orderItemShipGrpInvResAndItemLocation" list="orderItemShipGrpInvResAndItemLocationList">
-            <field-to-list field="orderItemShipGrpInvResAndItemLocation" list="oiirailByLocMap.${orderItemShipGrpInvResAndItemLocation.locationSeqId}"/>
+            <field-to-list field="orderItemShipGrpInvResAndItemLocation" list="oiirailByLocMap[orderItemShipGrpInvResAndItemLocation.locationSeqId]"/>
         </iterate>
 
         <!-- now get all info for each origin location -->
@@ -147,34 +147,34 @@ under the License.
                             ProductFacilityLocation, move the restock quantity from ProductFacilityLocation
                         -->
                         <if-compare-field field="targetTotalAvailableToPromise" to-field="moveInfo.targetProductFacilityLocation.minimumStock" operator="less" type="BigDecimal">
-                            <if-empty field="targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId}">
+                            <if-empty field="targetLocationSimpleMoveQuantity[moveInfo.targetProductFacilityLocation.locationSeqId]">
                                 <!-- if targetTotalAvailableToPromise is less than productFacilityLocation.minimumStock, move over the moveInfo.targetProductFacilityLocation.moveQuantity -->
 
-                                <!-- if trying to move more from the location than is there, find the difference and put it in targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId} -->
+                                <!-- if trying to move more from the location than is there, find the difference and put it in targetLocationSimpleMoveQuantity[moveInfo.targetProductFacilityLocation.locationSeqId] -->
                                 <calculate field="moveInfo.totalQuantity">
                                     <calcop field="moveInfo.totalQuantity" operator="add"><calcop field="moveInfo.targetProductFacilityLocation.moveQuantity" operator="get"/></calcop>
                                 </calculate>
                             <else>
                                 <!--
                                     see if there is enough left for the full amount in
-                                    targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId},
+                                    targetLocationSimpleMoveQuantity[moveInfo.targetProductFacilityLocation.locationSeqId],
                                     if not do whatever is available and put difference back in
-                                    targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId}
+                                    targetLocationSimpleMoveQuantity[moveInfo.targetProductFacilityLocation.locationSeqId]
                                 -->
                                 <calculate field="moveInfo.totalQuantity">
-                                    <calcop field="moveInfo.totalQuantity" operator="add"><calcop field="targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId}" operator="get"/></calcop>
+                                    <calcop field="moveInfo.totalQuantity" operator="add"><calcop field="targetLocationSimpleMoveQuantity[moveInfo.targetProductFacilityLocation.locationSeqId]" operator="get"/></calcop>
                                 </calculate>
                             </else>
                             </if-empty>
                             <if-compare-field field="totalQuantityOnHand" to-field="moveInfo.totalQuantity" operator="less" type="BigDecimal">
-                                <calculate field="targetLocationSimpleMoveQuantity.${moveInfo.targetProductFacilityLocation.locationSeqId}">
+                                <calculate field="targetLocationSimpleMoveQuantity[moveInfo.targetProductFacilityLocation.locationSeqId]">
                                     <calcop field="moveInfo.totalQuantity" operator="subtract"><calcop field="totalQuantityOnHand" operator="get"/></calcop>
                                 </calculate>
                                 <set from-field="totalQuantityOnHand" field="moveInfo.totalQuantity"/>
                             </if-compare-field>
 
                             <!-- add it to the stockMoveHandled Map to keep track of minimumStock based transfers already done so they are not duplicated below -->
-                            <set value="Y" field="stockMoveHandled.${moveInfo.targetProductFacilityLocation.locationSeqId}"/>
+                            <set value="Y" field="stockMoveHandled[moveInfo.targetProductFacilityLocation.locationSeqId]"/>
                         </if-compare-field>
                     </else>
                     </if-compare-field>
@@ -247,8 +247,8 @@ under the License.
                     <if>
                         <condition>
                             <or>
-                                <if-empty field="stockMoveHandled.${productFacilityLocationQuantityTest.locationSeqId}"/>
-                                <if-compare field="stockMoveHandled.${productFacilityLocationQuantityTest.locationSeqId}" operator="not-equals" value="Y"/>
+                                <if-empty field="stockMoveHandled[productFacilityLocationQuantityTest.locationSeqId]"/>
+                                <if-compare field="stockMoveHandled[productFacilityLocationQuantityTest.locationSeqId]" operator="not-equals" value="Y"/>
                             </or>
                         </condition>
                         <then>
@@ -272,12 +272,12 @@ under the License.
                                 <!-- start by making a Map where the locationSeqId is the key and the value is a List of InventoryItemAndLocation -->
                                 <clear-field field="InventoryItemAndLocationByLocMap"/>
                                 <iterate entry="InventoryItemAndLocation" list="inventoryItemAndLocationList">
-                                    <field-to-list field="InventoryItemAndLocation" list="InventoryItemAndLocationByLocMap.${InventoryItemAndLocation.locationSeqId}"/>
+                                    <field-to-list field="InventoryItemAndLocation" list="InventoryItemAndLocationByLocMap[InventoryItemAndLocation.locationSeqId]"/>
                                 </iterate>
                                 <clear-field field="locationSeqId"/>
                                 <clear-field field="perLocationInventoryItemAndLocList"/>
                                 <iterate-map key="locationSeqId" value="perLocationInventoryItemAndLocList" map="InventoryItemAndLocationByLocMap">
-                                    <if-empty field="fromLocationTotalAvailableToPromise.${locationSeqId}">
+                                    <if-empty field="fromLocationTotalAvailableToPromise[locationSeqId]">
                                         <calculate field="totalQuantityOnHand"><number value="0"/></calculate>
                                         <calculate field="totalAvailableToPromise"><number value="0"/></calculate>
                                         <iterate entry="inventoryItem" list="perLocationInventoryItemAndLocList">
@@ -289,7 +289,7 @@ under the License.
                                             </calculate>
                                         </iterate>
                                     <else>
-                                        <set from-field="fromLocationTotalAvailableToPromise.${locationSeqId}" field="totalAvailableToPromise"/>
+                                        <set from-field="fromLocationTotalAvailableToPromise[locationSeqId]" field="totalAvailableToPromise"/>
                                     </else>
                                     </if-empty>
 
@@ -319,10 +319,10 @@ under the License.
                                                 <calcop field="targetLocationMoveQuantity" operator="subtract"><calcop field="totalAvailableToPromise" operator="get"/></calcop>
                                             </calculate>
                                             <set from-field="totalAvailableToPromise" field="moveInfo.totalQuantity"/>
-                                            <calculate field="fromLocationTotalAvailableToPromise.${locationSeqId}"><number value="0"/></calculate>
+                                            <calculate field="fromLocationTotalAvailableToPromise[locationSeqId]"><number value="0"/></calculate>
                                         <else>
                                             <set from-field="targetLocationMoveQuantity" field="moveInfo.totalQuantity"/>
-                                            <calculate field="fromLocationTotalAvailableToPromise.${locationSeqId}">
+                                            <calculate field="fromLocationTotalAvailableToPromise[locationSeqId]">
                                                 <calcop field="totalAvailableToPromise" operator="subtract"><calcop field="targetLocationMoveQuantity" operator="get"/></calcop>
                                             </calculate>
                                             <calculate field="targetLocationMoveQuantity"><number value="0"/></calculate>
@@ -443,7 +443,7 @@ under the License.
         <clear-field field="oiirailByInvItemMap"/>
         <log level="info" message="In processOisgirMoveByStatusInline orderItemShipGrpInvResAndItemLocationList=${orderItemShipGrpInvResAndItemLocationList}"/>
         <iterate entry="orderItemShipGrpInvResAndItemLocation" list="orderItemShipGrpInvResAndItemLocationList">
-            <field-to-list field="orderItemShipGrpInvResAndItemLocation" list="oiirailByInvItemMap.${orderItemShipGrpInvResAndItemLocation.inventoryItemId}"/>
+            <field-to-list field="orderItemShipGrpInvResAndItemLocation" list="oiirailByInvItemMap[orderItemShipGrpInvResAndItemLocation.inventoryItemId]"/>
         </iterate>
 
         <iterate-map key="inventoryItemId" value="orderItemShipGrpInvResAndItemLocationList" map="oiirailByInvItemMap">

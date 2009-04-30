@@ -197,7 +197,7 @@ under the License.
                     <result-to-field result-name="fileNotExists" field="fileStatusMap.fileNotExists"/>
                 </call-service>
                 <set field="categoryId" from-field="category.productCategoryId"/>
-                <set field="categoriesMap.${categoryId}" from-field="fileStatusMap"/>
+                <set field="categoriesMap[categoryId]" from-field="fileStatusMap"/>
             </iterate>
             <field-to-result field="categoriesMap" result-name="categoriesMap"/>
         </if-not-empty>

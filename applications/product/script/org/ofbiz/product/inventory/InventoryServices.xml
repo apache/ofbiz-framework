@@ -762,7 +762,7 @@ under the License.
             <!-- maintain a Set (in a Map) of orderIds that we have reallocated for, but only if they had some quantityNotReserved -->
             <if-not-empty field="oisgir.quantityNotAvailable">
                 <if-compare field="oisgir.quantityNotAvailable" operator="greater" value="0" type="BigDecimal">
-                    <set field="touchedOrderIdMap.${oisgir.orderId}" value="Y"/>
+                    <set field="touchedOrderIdMap[oisgir.orderId]" value="Y"/>
                     <log level="verbose" message="Adding ${oisgir.orderId} to touchedOrderIdMap"/>
                 </if-compare>
             </if-not-empty>
@@ -789,7 +789,7 @@ under the License.
             </call-service>
 
             <if-compare field="isBackOrder" operator="equals" value="false" type="Boolean">
-                <set field="noLongerOnBackOrderIdMap.${touchedOrderId}" value="Y"/>
+                <set field="noLongerOnBackOrderIdMap[touchedOrderId]" value="Y"/>
             </if-compare>
         </iterate-map>
         <if-not-empty field="noLongerOnBackOrderIdMap">
@@ -872,7 +872,7 @@ under the License.
             <!-- maintain a Set (in a Map) of orderIds that we have reallocated for, but only if they had some quantityNotReserved -->
             <if-not-empty field="oisgir.quantityNotAvailable">
                 <if-compare field="oisgir.quantityNotAvailable" operator="greater" value="0" type="BigDecimal">
-                    <set field="touchedOrderIdMap.${oisgir.orderId}" value="Y"/>
+                    <set field="touchedOrderIdMap[oisgir.orderId]" value="Y"/>
                     <log level="verbose" message="Adding ${oisgir.orderId} to touchedOrderIdMap"/>
                 </if-compare>
             </if-not-empty>
@@ -905,7 +905,7 @@ under the License.
             </call-service>
 
             <if-compare field="isBackOrder" operator="equals" value="false" type="Boolean">
-                <set field="noLongerOnBackOrderIdMap.${touchedOrderId}" value="Y"/>
+                <set field="noLongerOnBackOrderIdMap[touchedOrderId]" value="Y"/>
             </if-compare>
         </iterate-map>
         <if-not-empty field="noLongerOnBackOrderIdMap">
@@ -927,7 +927,7 @@ under the License.
                 </condition-list>
             </entity-condition>
             <iterate list="oisgirais" entry="oisgir">
-                <set field="orderItems.${oisgir.orderItemSeqId}" from-field="oisgir"/>
+                <set field="orderItems[oisgir.orderItemSeqId]" from-field="oisgir"/>
             </iterate>
             <now-timestamp field="nowTimestamp"/>
             <iterate-map key="orderItemSeqId" value="oisgir" map="orderItems">

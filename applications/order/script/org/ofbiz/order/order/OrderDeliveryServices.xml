@@ -94,7 +94,7 @@ under the License.
         <set value="SHIPMENT_CLERK" field="shipmentClerkFindMap.roleTypeId"/>
         <find-by-and entity-name="PartyRole" map="shipmentClerkFindMap" list="shipmentClerkRoles"/>
         <iterate entry="shipmentClerkRole" list="shipmentClerkRoles">
-            <set field="sendToPartyIdMap.${shipmentClerkRole.partyId}" from-field="shipmentClerkRole.partyId"/>
+            <set field="sendToPartyIdMap[shipmentClerkRole.partyId]" from-field="shipmentClerkRole.partyId"/>
         </iterate>
 
         <!-- go through all send to parties and get email addresses -->

@@ -532,7 +532,7 @@ under the License.
             <log level="info" message="Applying feature [${productFeatureId}] of type [${productFeatureTypeId}] to product [${productId}]"/>
             <set field="createPfaMap.productId" from-field="productId"/>
             <set field="createPfaMap.productFeatureId" from-field="productFeatureId"/>
-            <if-compare field="parameters.productFeatureSelectableByType.${productFeatureTypeId}" operator="equals" value="Y">
+            <if-compare field="parameters.productFeatureSelectableByType[productFeatureTypeId]" operator="equals" value="Y">
                 <set field="createPfaMap.productFeatureApplTypeId" value="SELECTABLE_FEATURE"/>
                 <set field="hasSelectableFeatures" value="Y"/>
             <else>

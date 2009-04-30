@@ -243,7 +243,7 @@ under the License.
         <!-- also check if the glAccountId, amount, currencyUomId fields are all set -->
         <iterate entry="acctgTransEntry" list="acctgTransEntryList">
             <!-- we want to do this for each organizationPartyId, so only do this if we haven't already found the list for the current org -->
-            <if-empty field="customTimePeriodListByOrganizationPartyIdMap.${acctgTransEntry.organizationPartyId}">
+            <if-empty field="customTimePeriodListByOrganizationPartyIdMap[acctgTransEntry.organizationPartyId]">
                 <clear-field field="findCustomTimePeriodCallMap"/>
                 <clear-field field="customTimePeriodList"/>
 
@@ -267,7 +267,7 @@ under the License.
                 </iterate>
 
                 <!-- save this customTimePeriodList for the current entry for later use -->
-                <set from-field="customTimePeriodList" field="customTimePeriodListByOrganizationPartyIdMap.${acctgTransEntry.organizationPartyId}"/>
+                <set from-field="customTimePeriodList" field="customTimePeriodListByOrganizationPartyIdMap[acctgTransEntry.organizationPartyId]"/>
             </if-empty>
             <if-empty field="acctgTransEntry.glAccountId">
                 <add-error><fail-message message="Gl account id is not set for [${acctgTransEntry.acctgTransEntrySeqId}] or mapping not found for account type ${acctgTransEntry.glAccountTypeId}"/></add-error>
@@ -382,7 +382,7 @@ under the License.
                 <call-service service-name="updateGlAccountOrganization" in-map-name="updateGlAccountParams"/>
 
                 <!-- assemble the glAccountHistoryList, we will update all of these -->
-                <set from-field="customTimePeriodListByOrganizationPartyIdMap.${acctgTransEntry.organizationPartyId}" field="customTimePeriodList"/>
+                <set from-field="customTimePeriodListByOrganizationPartyIdMap[acctgTransEntry.organizationPartyId]" field="customTimePeriodList"/>
                 <iterate entry="customTimePeriod" list="customTimePeriodList">
                     <entity-one entity-name="GlAccountHistory" value-field="glAccountHistory">
                         <field-map field-name="glAccountId" from-field="acctgTransEntry.glAccountId"/>
