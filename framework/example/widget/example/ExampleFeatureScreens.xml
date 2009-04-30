@@ -34,7 +34,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                                <if-has-permission permission="access:example"/>
                             </condition>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
@@ -98,7 +98,7 @@ under the License.
     <screen name="LookupExampleFeature">
         <section>
             <condition>
-                <if-has-permission permission="EXAMPLE" action="_VIEW"/>
+                <if-has-permission permission="access:example"/>
             </condition>
             <actions>
                 <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
