@@ -404,14 +404,14 @@ under the License.
     </form>
 
     <form name="ListUnknownPartyEmails" extends="ListCommEvents" type="multi" use-row-submit="true" separate-columns="true"
-           target="deleteCommunicationEvents?communicationEventId=${communicationEventId}&amp;delContentDataResource=Y"
-           header-row-style="header-row-2">
+           target="deleteCommunicationEvents" header-row-style="header-row-2">
         <actions>
             <entity-and  list="commEvents" entity-name="CommunicationEventAndRole">
                 <field-map field-name="statusId" value="COM_UNKNOWN_PARTY"/>
                 <order-by field-name="-entryDate"/>
             </entity-and>
         </actions>
+        <field name="delContentDataResource"><hidden value="Y"/></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonYes}">
             <check/>
         </field>
@@ -703,15 +703,13 @@ under the License.
 
     <form name="ListMyUnknownPartyEmails" type="multi" use-row-submit="true"
         title="Email List unknown parties" list-name="commEventsUnknown"
-        target="deleteCommunicationEvents?donePage=${parameters.donePage}" default-entity-name="CommunicationEvent"
+        target="deleteCommunicationEvents" default-entity-name="CommunicationEvent"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
             <set field="subject" from-field="subject" default-value="${uiLabelMap.PartyNoSubject}"/>
         </row-actions>
         <field name="delContentDataResource"><hidden value="Y"/></field>
-        <field name="communicationEventId">
-            <hidden />
-        </field>
+        <field name="communicationEventId"><hidden/></field>
         <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
             <hyperlink description="${subject}" target="ViewCommunicationEvent">
                 <parameter param-name="communicationEventId"/>
@@ -721,15 +719,9 @@ under the License.
         <field name="entryDate">
             <display description="${date:dateTimeStr(entryDate, timeZone, locale)}"/>
         </field>
-        <field name="note" widget-area-style="fieldWidth200">
-            <display />
-        </field>
-        <field name="_rowSubmit" title="${uiLabelMap.CommonYes}">
-            <check />
-        </field>
-        <field name="deleteSelectedButton" widget-style="smallSubmit">
-            <submit />
-        </field>
+        <field name="note" widget-area-style="fieldWidth200"><display/></field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonYes}"><check/></field>
+        <field name="deleteSelectedButton" widget-style="smallSubmit"><submit/></field>
     </form>
 
     <form name="allocateMsgToPartyForm" type="single" target="allocateMsgToParty" title="create a new party for a unknown incoming email address">
