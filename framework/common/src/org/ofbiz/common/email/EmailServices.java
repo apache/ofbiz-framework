@@ -60,6 +60,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -92,7 +93,7 @@ public class EmailServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> sendMail(DispatchContext ctx, Map<String, ? extends Object> context) {
-        Map results = ServiceUtil.returnSuccess();
+        Map<String, Object> results = ServiceUtil.returnSuccess();
         String subject = (String) context.get("subject");
         String partyId = (String) context.get("partyId");
         String body = (String) context.get("body");
@@ -315,7 +316,7 @@ public class EmailServices {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         // pretty simple, get the content and then call the sendMail method below
         String bodyUrl = (String) context.remove("bodyUrl");
-        Map bodyUrlParameters = (Map) context.remove("bodyUrlParameters");
+        Map<String, Object> bodyUrlParameters = UtilGenerics.checkMap(context.remove("bodyUrlParameters"));
 
         URL url = null;
 
@@ -337,7 +338,7 @@ public class EmailServices {
         }
 
         context.put("body", body);
-        Map result = sendMail(ctx, context);
+        Map<String, Object> result = sendMail(ctx, context);
 
         result.put("body", body);
         return result;
@@ -359,7 +360,7 @@ public class EmailServices {
         String xslfoAttachScreenLocation = (String) serviceContext.remove("xslfoAttachScreenLocation");
         String attachmentName = (String) serviceContext.remove("attachmentName");
         Locale locale = (Locale) serviceContext.get("locale");
-        Map bodyParameters = (Map) serviceContext.remove("bodyParameters");
+        Map<String, Object> bodyParameters = UtilGenerics.checkMap(serviceContext.remove("bodyParameters"));
         if (bodyParameters == null) {
             bodyParameters = MapStack.create();
         }
@@ -379,7 +380,7 @@ public class EmailServices {
         }
         StringWriter bodyWriter = new StringWriter();
 
-        MapStack screenContext = MapStack.create();
+        MapStack<String> screenContext = MapStack.create();
         screenContext.put("locale", locale);
         ScreenRenderer screens = new ScreenRenderer(bodyWriter, screenContext, htmlScreenRenderer);
         screens.populateContextForService(dctx, bodyParameters);
@@ -415,7 +416,7 @@ public class EmailServices {
             // start processing fo pdf attachment
             try {
                 Writer writer = new StringWriter();
-                MapStack screenContextAtt = MapStack.create();
+                MapStack<String> screenContextAtt = MapStack.create();
                 // substitute the freemarker variables...
                 ScreenRenderer screensAtt = new ScreenRenderer(writer, screenContext, foScreenRenderer);
                 screensAtt.populateContextForService(dctx, bodyParameters);
@@ -447,7 +448,7 @@ public class EmailServices {
                 baos.close();
 
                 // store in the list of maps for sendmail....
-                List bodyParts = FastList.newInstance();
+                List<Map<String, ? extends Object>> bodyParts = FastList.newInstance();
                 if (bodyText != null) {
                     bodyText = FlexibleStringExpander.expandString(bodyText, screenContext,  locale);
                     bodyParts.add(UtilMisc.toMap("content", bodyText, "type", "text/html"));
@@ -504,7 +505,7 @@ public class EmailServices {
 
         if (Debug.verboseOn()) Debug.logVerbose("sendMailFromScreen sendMail context: " + serviceContext, module);
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         try {
             if (isMultiPart) {
                 dispatcher.runSync("sendMailMultiPart", serviceContext);
