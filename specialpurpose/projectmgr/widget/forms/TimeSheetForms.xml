@@ -158,8 +158,8 @@
         header-row-style="header-row" default-table-style="basic-table">
         <field name="partyId" title="${uiLabelMap.PartyParty}">
             <drop-down allow-empty="true" no-current-selected-key="${timesheet.partyId}">
-                <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${lastName}">
-                    <entity-constraint name="roleTypeId" value="PROJECT_TEAM"/>
+                <entity-options entity-name="PartyRoleDetailAndPartyDetail" description="${firstName} ${lastName}">
+                    <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
                     <entity-order-by field-name="lastName"/>
                     <entity-order-by field-name="groupName"/>
                 </entity-options>
