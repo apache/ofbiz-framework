@@ -31,23 +31,36 @@ public interface Authorization {
 	 * 
 	 * @param userId the user's userId
 	 * @param permission the raw permission string
-	 * @param context name/value pairs used for permission lookup
-	 * @param expanded true if the permission string is already expanded, false if it will contain ${} context values
+	 * @param context name/value pairs used for permission lookup	
 	 * @return true if the user has permission
 	 */
-	public boolean hasPermission(String userId, String permission, Map<String, ? extends Object> context, boolean expanded);
-	
+	public boolean hasPermission(String userId, String permission, Map<String, ? extends Object> context);
+		       
 	/**
      * Test to see if the specified user has permission
      * 
      * @param session HttpSession used to obtain the userId
      * @param permission the raw permission string
-     * @param context name/value pairs used for permission lookup
-     * @param expanded true if the permission string is already expanded, false if it will contain ${} context values
+     * @param context name/value pairs used for permission lookup     
      * @return true if the user has permission
      */
-    public boolean hasPermission(HttpSession session, String permission, Map<String, ? extends Object> context, boolean expanded);
+    public boolean hasPermission(HttpSession session, String permission, Map<String, ? extends Object> context);
 	
+    /**
+     * Takes a regular expression (permissionRegexp) and evaluates it against base permissions and returns permission
+     * values for each match.
+     * Example 1: ".*:example" will return values for access:example, create:example, read:example, update:example and delete:example
+     * Example 2: "(access|read):example:${exampleId} will return values for access:example:${exampleId} and read:example:${exampleId} 
+     * 
+     * NOTE: the regular expression can only be part of the base permission (before the first colon)
+     * 
+     * @param userId the user's userId
+     * @param permissionRegexp permission string containing regexp in the base position
+     * @param context name/value pairs used for permission lookup    
+     * @return Map containing each permission as the key and a boolean if the permission is granted
+     */
+    public Map<String, Boolean> findMatchingPermission(String userId, String permissionRegexp, Map<String, ? extends Object> context);
+    
     /**
      * Method for injecting the delegator object
      * 

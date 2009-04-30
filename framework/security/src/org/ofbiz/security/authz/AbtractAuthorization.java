@@ -20,8 +20,11 @@ package org.ofbiz.security.authz;
 
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
@@ -37,6 +40,8 @@ public abstract class AbtractAuthorization implements Authorization {
 	private static ThreadLocal<List<String>> autoGrant = new ThreadLocal<List<String>>();
 	private static ThreadLocal<String> origPermission = new ThreadLocal<String>();
 	private static ThreadLocal<String> uid = new ThreadLocal<String>();
+	
+	private static final String[] basePermissions = { "access", "create", "read", "update", "delete" };
 	
 	/**
 	 * Checks to see if the user has a static permission
@@ -69,22 +74,46 @@ public abstract class AbtractAuthorization implements Authorization {
 	public abstract List<String> getAutoGrantPermissions(String userId, String permission, Map<String, ? extends Object> context);
 	
 	/**
+	 * Takes a regular expression (permissionRegexp) and evaluates it against base permissions and returns permission
+	 * values for each match.
+	 * Example 1: ".*:example" will return values for access:example, create:example, read:example, update:example and delete:example
+	 * Example 2: "(access|read):example:${exampleId} will return values for access:example:${exampleId} and read:example:${exampleId} 
+	 *  
+	 * NOTE: the regular expression can only be part of the base permission (before the first colon)
+	 * 
+	 * @param userId the user's userId
+	 * @param permissionRegexp permission string containing regexp in the base position	
+	 * @param expanded  true if the permission string is already expanded, false if it will contain ${} context values
+	 * @return
+	 */
+	public Map<String, Boolean> findMatchingPermission(String userId, String permissionRegexp, Map<String, ? extends Object> context) {
+	    Map<String, Boolean> resultMap = FastMap.newInstance();
+	    
+	    String regexp = permissionRegexp.substring(0, permissionRegexp.indexOf(":"));
+	    String permStr = permissionRegexp.substring(permissionRegexp.indexOf(":"));
+	    
+	    Pattern p = Pattern.compile("^" + regexp + ":.*$");
+	    for (String base : basePermissions) {
+	        Matcher m = p.matcher(base + permStr);
+	        if (m.find()) {
+	            String permission = m.group();
+	            resultMap.put(permission, hasPermission(userId, permission, context));
+	        }
+	    }
+	    return resultMap;
+	}
+	
+	/**
 	 * Test to see if the specified user has permission
 	 * 
 	 * @param userId the user's userId
 	 * @param permission the raw permission string
-	 * @param context name/value pairs used for permission lookup
-	 * @param expanded true if the permission string is already expanded, false if it will contain ${} context values
+	 * @param context name/value pairs used for permission lookup	
 	 * @return true if the user has permission
 	 */
-	public boolean hasPermission(String userId, String permission, Map<String, ? extends Object> context, boolean expanded) {
+	public boolean hasPermission(String userId, String permission, Map<String, ? extends Object> context) {
 	    // expand the permission string
-		String expandedPermission;
-		if (!expanded) {
-			expandedPermission = FlexibleStringExpander.expandString(permission, context);
-		} else {
-			expandedPermission = permission;
-		}
+		String expandedPermission = FlexibleStringExpander.expandString(permission, context);
 		
 		// verify the ThreadLocal data; make sure it isn't stale (from a thread pool)
         String threadUid = uid.get();

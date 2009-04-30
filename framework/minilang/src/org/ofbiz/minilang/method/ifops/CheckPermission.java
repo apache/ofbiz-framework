@@ -182,7 +182,7 @@ public class CheckPermission extends MethodOperation {
                 return security.hasEntityPermission(permission, action, userLogin);
             } else {
                 // run hasPermission
-                return authz.hasPermission(userLogin.getString("userLoginId"), permission, methodContext.getEnvMap(), true);                
+                return authz.hasPermission(userLogin.getString("userLoginId"), permission, methodContext.getEnvMap());                
             }
         }
     }

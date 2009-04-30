@@ -38,7 +38,7 @@ under the License.
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="create"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="read"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="update"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="access"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="delete"/>
     
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="access"/>
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="read"/>
